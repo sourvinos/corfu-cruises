@@ -1,0 +1,11 @@
+[
+    {
+        "feature": "table",
+        "labels": [
+            {
+                "id": "edit",
+                "message": "(DE) Select record"
+            }
+        ]
+    }
+]

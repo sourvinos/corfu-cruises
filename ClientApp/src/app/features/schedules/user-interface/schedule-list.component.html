@@ -1,0 +1,60 @@
+<div id="list">
+
+    <div id="header">
+        <div id="navigation">
+            <button data-cy="goBack" class="goBack" id="goBack" [routerLink]="['/']" mat-mini-fab>
+                <mat-icon>home</mat-icon>
+            </button>
+        </div>
+        <div @slideFromLeft id="title">
+            <h1>{{ onGetLabel('header') }}</h1>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class="summaryBlock">
+            <div class="summaryHeader">
+                {{ onGetLabel('destinations') }}
+            </div>
+            <div class="summaryContent scrollable">
+                <div *ngFor="let item of destinations" [class.active]="item.isSelected" [id]="item.description" (click)="onToggleItem(item.description, 'destinationId', 'destinationDescription',item.id, 'destination')" class="item destination">
+                    <div class="description">{{ item.description }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="summaryBlock">
+            <div class="summaryHeader">
+                {{ onGetLabel('ports') }}
+            </div>
+            <div class="summaryContent scrollable">
+                <div *ngFor="let item of ports" [class.active]="item.isSelected" [id]="item.description" (click)="onToggleItem(item.description, 'portId', 'portDescription', item.id, 'port')" class="item port">
+                    <div class="description">{{ item.description }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="summaryBlock" id="calendar">
+            <div id="calendar-wrapper">
+                <mat-calendar #calendar (monthSelected)="onMarkDaysOnCalendar()"></mat-calendar>
+                <div id="occupancy">
+                    <h3 id="occupancyHeader">Occupancy</h3>
+                    <ul id="occupancyLegend">
+                        <li><img src="/assets/images/occupancy/vessel-green.svg" width="25px">Plenty</li>
+                        <li><img src="/assets/images/occupancy/vessel-light-green.svg" width="25px">Still plenty</li>
+                        <li><img src="/assets/images/occupancy/vessel-yellow.svg" width="25px">Better Hurry</li>
+                        <li><img src="/assets/images/occupancy/vessel-orange.svg" width="25px">Limited</li>
+                        <li><img src="/assets/images/occupancy/vessel-red.svg" width="25px">Extremely limited</li>
+                        <li><img src="/assets/images/occupancy/vessel-dark-red.svg" width="25px">Fully booked</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div @slideFromRight id="buttons">
+            <button mat-flat-button class="secondary" (click)="onLoadSchedule()" id="search">{{ onGetLabel('searchButton') }}</button>
+            <button *ngIf="isConnectedUserAdmin" data-cy="new" mat-flat-button class="primary" id="new" (click)="onNew()">{{ onGetLabel('newButton') }}</button>
+        </div>
+    </div>
+
+</div>

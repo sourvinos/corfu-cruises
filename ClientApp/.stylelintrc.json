@@ -1,0 +1,17 @@
+{
+    "extends": "stylelint-config-standard",
+    "rules": {
+        "at-rule-empty-line-before": [
+            "always",
+            {
+                "except": ["after-same-name"]
+            }
+        ],
+        "color-hex-length": "long",
+        "comment-empty-line-before": "always",
+        "indentation": 4,
+        "selector-combinator-space-after": "always",
+        "selector-combinator-space-before": "always",
+        "selector-list-comma-newline-after": "never-multi-line"
+    }
+}

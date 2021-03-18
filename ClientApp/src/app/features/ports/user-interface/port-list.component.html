@@ -1,0 +1,35 @@
+<div id="list">
+
+    <div id="header">
+        <div id="navigation">
+            <button data-cy="goBack" class="goBack" id="goBack" [routerLink]="['/']" mat-mini-fab>
+                <mat-icon>home</mat-icon>
+            </button>
+        </div>
+        <div @slideFromLeft id="title">
+            <h1>{{ onGetLabel('header') }}</h1>
+        </div>
+        <div id="search-box">
+            <mat-form-field class="no-bottom-margin">
+                <input data-cy="searchTerm" type="text" matInput [placeholder]="onGetLabel('searchLabel')" [(ngModel)]="searchTerm" id="searchTerm" #query (keyup)="onFilter(query.value)" autocomplete="off">
+                <button data-cy="clearFilter" id="clearInput" mat-button *ngIf="searchTerm" matSuffix mat-icon-button (click)="onFilter('')">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div id="table-wrapper">
+        <div data-cy="content" id="content" class="scrollable">
+            <custom-table [highlightFirstRow]="highlightFirstRow" [feature]="feature" [records]="filteredRecords" [headers]="headers" [widths]="widths" [visibility]="visibility" [justify]="justify" [types]="types" [fields]="fields"></custom-table>
+        </div>
+    </div>
+
+    <div lideFromRight id="footer">
+        <div @slideFromRight id="buttons">
+            <button data-cy="new" mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ onGetLabel('newButton') }}</button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,17 @@
+:host {
+    margin-top: auto;
+}
+
+#side-footer {
+    color: var(--color-logo-primary);
+    font-family: var(--font-family-copyright);
+    font-size: var(--font-size-copyright);
+    margin-bottom: 2rem;
+    text-align: center;
+    transition: opacity 0.5s;
+}
+
+#side-footer #copyright {
+    cursor: pointer;
+    outline: 0;
+}

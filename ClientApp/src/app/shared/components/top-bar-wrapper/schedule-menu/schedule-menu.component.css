@@ -1,0 +1,23 @@
+ul {
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+li {
+    position: relative;
+}
+
+button {
+    border: none;
+}
+
+button:hover {
+    background-color: var(--color-main-menu-background-hover) !important;
+    cursor: pointer;
+}
+
+li button img {
+    margin-right: 0.6rem;
+}

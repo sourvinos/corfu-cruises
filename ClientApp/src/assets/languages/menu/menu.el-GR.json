@@ -1,0 +1,51 @@
+[
+    {
+        "feature": "main-menu",
+        "labels": [
+            {
+                "id": "bookings",
+                "description": "Κρατησεις"
+            },
+            {
+                "id": "tables",
+                "description": "Πινακες"
+            },
+            {
+                "id": "users",
+                "description": "Χρηστες"
+            },
+            {
+                "id": "customers",
+                "description": "Πελατες"
+            },
+            {
+                "id": "destinations",
+                "description": "Προορισμοι"
+            },
+            {
+                "id": "drivers",
+                "description": "Οδηγοι"
+            },
+            {
+                "id": "pickupPoints",
+                "description": "Σημεια παραλαβης"
+            },
+            {
+                "id": "ports",
+                "description": "Λιμανια"
+            },
+            {
+                "id": "routes",
+                "description": "Διαδρομες"
+            },
+            {
+                "id": "ships",
+                "description": "Πλοια"
+            },
+            {
+                "id": "schedules",
+                "description": "Προγραμμα"
+            }
+        ]
+    }
+]

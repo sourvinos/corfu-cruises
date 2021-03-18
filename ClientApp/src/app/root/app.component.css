@@ -1,0 +1,49 @@
+#wrapper {
+    background-color: var(--color-background-secondary);
+    display: flex;
+    height: 100vh;
+    transition: background-color 0.7s;
+    width: 100vw;
+}
+
+#main {
+    background-color: var(--color-background-secondary);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 100%;
+}
+
+#content {
+    background-color: var(--color-background-primary);
+    flex: 1;
+    justify-content: center;
+    overflow-y: hidden;
+    padding-left: 0.5rem;
+    transition: background-color 0.7s;
+}
+
+#bottom {
+    background-color: var(--color-background-primary);
+    height: 0.5rem;
+    transition: background-color 0.7s;
+}
+
+#spinner {
+    border: 0.1875rem solid var(--color-spinner-outer);
+    border-top: 0.1875rem solid var(--color-spinner-inner);
+    border-radius: 50%;
+    width: 5rem;
+    height: 5rem;
+    position: absolute;
+    animation: spin 1700ms linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

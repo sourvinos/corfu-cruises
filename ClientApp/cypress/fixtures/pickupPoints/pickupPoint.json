@@ -1,0 +1,24 @@
+{
+    "id": 1700,
+    "description": "KAMINAKI",
+    "exactPoint": "MAIN ROAD",
+    "time": "06:55",
+    "coordinates": "39.792619046820356,19.706992786104887",
+    "isActive": true,
+    "userId": "b6401c3e-7683-49bc-bb7f-8be3b2fd2210",
+    "routeId": 19,
+    "route": {
+        "id": 19,
+        "description": "NISAKI",
+        "fullDescription": "NISAKI - CORFU PORT",
+        "isActive": true,
+        "userId": "b6401c3e-7683-49bc-bb7f-8be3b2fd2210",
+        "portId": 1,
+        "port": {
+            "id": 1,
+            "description": "CORFU PORT",
+            "isActive": true,
+            "userId": "b6401c3e-7683-49bc-bb7f-8be3b2fd2210"
+        }
+    }
+}

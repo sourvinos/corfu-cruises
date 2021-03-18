@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="17.991667mm"
+   height="17.991667mm"
+   viewBox="0 0 17.991667 17.991667"
+   version="1.1"
+   id="svg3417"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   sodipodi:docname="vessel-light-green.svg">
+  <defs
+     id="defs3411" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="12.426471"
+     inkscape:cx="33.999998"
+     inkscape:cy="33.999994"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     showborder="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1272"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3414">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-50.724405,-102.12917)">
+    <g
+       id="g1063"
+       transform="matrix(0.26458333,0,0,0.26458333,12.774953,110.43466)">
+      <circle
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:1.04812"
+         id="circle1028"
+         cx="177.431"
+         cy="2.6091652"
+         r="34" />
+      <g
+         id="g982"
+         transform="translate(3.5324367,-14.745863)">
+        <circle
+           cx="173.89856"
+           cy="17.355028"
+           fill="#4f5d73"
+           r="32"
+           id="circle913"
+           style="fill:#99cc33;fill-opacity:1" />
+        <g
+           id="g970">
+          <g
+             id="g929"
+             transform="translate(140.89851,-15.64498)">
+            <path
+               d="M 56.824,33.433 C 56.637,33.162 56.329,33 56,33 H 48.873 L 44.809,27.412 C 44.621,27.153 44.32,27 44,27 H 39.432 L 36.385,22.444 C 36.2,22.167 35.888,22 35.554,22 H 20.85 c -0.506,0 -0.933,0.378 -0.993,0.881 L 19.362,27 H 16 c -0.483,0 -0.897,0.346 -0.984,0.821 L 14.075,33 H 10 c -0.552,0 -1,0.448 -1,1 0,4.062 1.015,6.963 1.041,7.032 C 11.502,46 14.654,46 16,46 h 26.8 c 9.582,0 13.953,-11.168 14.134,-11.644 0.118,-0.307 0.076,-0.652 -0.11,-0.923 z"
+               fill="#231f20"
+               opacity="0.2"
+               id="path915" />
+            <polygon
+               fill="#e0e0d1"
+               points="39.938,27.554 20.062,27.554 20.85,21 35.554,21 "
+               stroke="#e0e0d1"
+               stroke-linejoin="round"
+               stroke-miterlimit="10"
+               stroke-width="2"
+               id="polygon917" />
+            <polygon
+               fill="#e0e0d1"
+               points="52,37 14,37 16,26 44,26 "
+               stroke="#e0e0d1"
+               stroke-linejoin="round"
+               stroke-miterlimit="10"
+               stroke-width="2"
+               id="polygon919" />
+            <circle
+               cx="23"
+               cy="30"
+               fill="#77b3d4"
+               r="2"
+               id="circle921" />
+            <circle
+               cx="31"
+               cy="30"
+               fill="#77b3d4"
+               r="2"
+               id="circle923" />
+            <circle
+               cx="39"
+               cy="30"
+               fill="#77b3d4"
+               r="2"
+               id="circle925" />
+            <path
+               d="m 16,43 c 0,0 17.797,0 26.8,0 C 51.803,43 56,32 56,32 H 10 c 0,3.936 1,6.75 1,6.75 C 12.25,43 14.687,43 16,43 Z"
+               fill="#ffffff"
+               stroke="#ffffff"
+               stroke-linejoin="round"
+               stroke-miterlimit="10"
+               stroke-width="2"
+               id="path927" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

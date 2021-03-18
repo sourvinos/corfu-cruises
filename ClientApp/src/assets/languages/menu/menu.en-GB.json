@@ -1,0 +1,51 @@
+[
+    {
+        "feature": "main-menu",
+        "labels": [
+            {
+                "id": "bookings",
+                "description": "Reservations"
+            },
+            {
+                "id": "tables",
+                "description": "Tables"
+            },
+            {
+                "id": "users",
+                "description": "Users"
+            },
+            {
+                "id": "customers",
+                "description": "Customers"
+            },
+            {
+                "id": "destinations",
+                "description": "Destinations"
+            },
+            {
+                "id": "drivers",
+                "description": "Drivers"
+            },
+            {
+                "id": "pickupPoints",
+                "description": "Pickup points"
+            },
+            {
+                "id": "ports",
+                "description": "Ports"
+            },
+            {
+                "id": "routes",
+                "description": "Routes"
+            },
+            {
+                "id": "ships",
+                "description": "Vessels"
+            },
+            {
+                "id": "schedules",
+                "description": "Schedules"
+            }
+        ]
+    }
+]

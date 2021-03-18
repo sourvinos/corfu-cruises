@@ -1,0 +1,24 @@
+<div data-cy="dialog" id="dialog">
+
+    <div id="dialog-header">
+        <div id="navigation">
+            <button data-cy="closeDialog" mat-mini-fab (click)="onCloseDialog()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+        <div id="title">
+            <h1 mat-dialog-title>{{ onGetLabel(title) }}</h1>
+        </div>
+    </div>
+
+    <div id="table-wrapper">
+        <div id="dialog-content" class="scrollable">
+            <custom-table [highlightFirstRow]="highlightFirstRow" [feature]="feature" [records]="records" [headers]="headers" [widths]="widths" [visibility]="visibility" [justify]="justify" [types]="types" [fields]="fields"></custom-table>
+        </div>
+    </div>
+
+    <div id="dialog-footer">
+        <button mat-flat-button class="primary" [mat-dialog-close]="selectedRecord">{{ onGetLabel('selectButton') }}</button>
+    </div>
+
+</div>

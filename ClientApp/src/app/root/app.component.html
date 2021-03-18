@@ -1,0 +1,19 @@
+<div id="wrapper">
+
+    <side-bar></side-bar>
+
+    <div id="main">
+
+        <top-bar></top-bar>
+
+        <div id="content">
+            <router-outlet></router-outlet>
+        </div>
+
+        <div [class.hidden]="!showLoadingIndication" id="spinner"></div>
+
+        <div id="bottom"></div>
+
+    </div>
+
+</div>

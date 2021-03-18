@@ -1,0 +1,34 @@
+<div id="form-wrapper">
+
+    <div id="header">
+        <div @slideFromLeft id="title">
+            <h1>{{ onGetLabel('header') }}</h1>
+        </div>
+    </div>
+
+    <div id="content">
+        <form id="form" [formGroup]="form" autocomplete="off">
+            <mat-form-field>
+                <input data-cy="username" type="text" matInput [placeholder]="onGetLabel('usernameLabel')" formControlName="username" data-tabindex="1" id="username" [inputTabStop]="input">
+                <mat-error *ngIf="username.hasError('required')">{{ onGetHint('required') }}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input data-cy="password" [type]="hidePassword ? 'password' : 'text'" matInput [placeholder]="onGetLabel('passwordLabel')" formControlName="password" data-tabindex="2" id="password" [inputTabStop]="input">
+                <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+                    <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                <mat-error *ngIf="password.hasError('required')">{{ onGetHint('required') }}</mat-error>
+            </mat-form-field>
+            <mat-slide-toggle data-cy="isHuman" id="isHuman" formControlName="isHuman">{{ onGetLabel('noRobotCheckbox') }}</mat-slide-toggle>
+        </form>
+        <p class="instructions" [class.hidden]=environment>{{ form.value | json }} {{ form.valid }}</p>
+    </div>
+
+    <div id="footer">
+        <div @slideFromRight id="buttons">
+            <button data-cy="forgotPassword" mat-flat-button class="transparent" id="forgotPassword" (click)="onForgotPassword()">{{ onGetLabel('forgotPasswordButton') }}</button>
+            <button data-cy="login" mat-flat-button class="primary" id="login" [disabled]="!form.valid" (click)="onLogin()">{{ onGetLabel('loginButton') }}</button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,5 @@
+<div id="schedule-menu" *ngIf="loginStatus | async">
+    <ul>
+        <li><button mat-menu-item [routerLink]="['/schedules']"><img src="/assets/images/navigation/calendar.svg" width="25px">Schedule</button></li>
+    </ul>
+</div>

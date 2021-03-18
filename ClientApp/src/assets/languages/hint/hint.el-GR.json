@@ -1,0 +1,32 @@
+{
+    "labels": [
+        {
+            "id": "required",
+            "description": "Το πεδιο ειναι υποχρεωτικο"
+        },
+        {
+            "id": "minLength",
+            "description": "Το πεδιο πρεπει να εχει μηκος τουλαχιστον xx χαρακτηρες"
+        },
+        {
+            "id": "maxLength",
+            "description": "Το πεδιο μπορει να εχει μηκος μεχρι xx χαρακτηρες"
+        },
+        {
+            "id": "invalid",
+            "description": "Το πεδιο ειναι λαθος"
+        },
+        {
+            "id": "passwordsNoMatch",
+            "description": "Ο κωδικος και η επιβεβαιωση κωδικου πρεπει να συμφωνουν"
+        },
+        {
+            "id": "spacesNotAllowed",
+            "description": "Τα κενα απαγορευονται"
+        },
+        {
+            "id": "otherErrors",
+            "description": "Το πεδίο εχει λαθη"
+        }
+    ]
+}

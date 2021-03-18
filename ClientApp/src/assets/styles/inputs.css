@@ -1,0 +1,183 @@
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    display: none;
+}
+
+input.center {
+    text-align: center !important;
+}
+
+input::selection {
+    background-color: var(--color-text-selected);
+}
+
+input[type=text], input[type=email], input[type=number], input[type=password] {
+    caret-color: var(--color-text-secondary);
+    cursor: text !important;
+    font-size: var(--font-size-input) !important;
+    outline: none;
+}
+
+input[type=number] {
+    text-align: right;
+    -moz-appearance: textfield;
+}
+
+input:disabled {
+    cursor: not-allowed !important;
+    pointer-events: all !important;
+}
+
+.mat-form-field {
+    width: 100% !important;
+}
+
+.mat-form-field-infix {
+    font-size: var(--font-size-input-height) !important;
+    padding-top: 4px !important;
+}
+
+.mat-form-field-infix span {
+    font-variant-caps: petite-caps !important;
+}
+
+.mat-form-field-type .mat-input .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+    padding-bottom: 10px !important;
+}
+
+.mat-form-field-wrapper {
+    margin-bottom: 0.625rem !important;
+}
+
+.mat-form-field-label {
+    font-family: var(--font-family-label) !important;
+    font-size: var(--font-size-label) !important;
+}
+
+.mat-hint, .mat-error {
+    font-size: var(--font-size-input-hint) !important;
+    font-variant-caps: petite-caps !important;
+    margin-top: 0.1875rem !important;
+}
+
+.mat-icon {
+    color: var(--color-background-secondary) !important;
+}
+
+#search-box .mat-form-field {
+    flex: auto;
+}
+
+.mat-date-range-input-separator {
+    color: var(--color-text-primary) !important;
+}
+
+input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:active, input:-webkit-autofill:hover {
+    font-size: var(--font-size-input) !important;
+}
+
+
+/* Not focused - Not error */
+
+.mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
+    color: var(--color-text-primary);
+}
+
+.mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label span {
+    color: var(--color-text-primary);
+}
+
+.mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
+    color: var(--color-text-primary);
+}
+
+.mat-form-field-wrapper .mat-form-field-underline {
+    background-color: var(--color-text-primary) !important;
+}
+
+.mat-form-field-wrapper .mat-form-field-subscript-wrapper div .mat-hint {
+    color: var(--color-text-primary);
+}
+
+.mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
+    color: var(--color-text-primary) !important;
+}
+
+
+/* Focused not error */
+
+.mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
+    color: var(--color-text-secondary);
+}
+
+.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label span {
+    color: var(--color-text-secondary);
+    font-weight: bold;
+}
+
+.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
+    color: var(--color-text-secondary);
+}
+
+.mat-focused .mat-form-field-wrapper .mat-form-field-underline .mat-form-field-ripple {
+    background-color: var(--color-text-secondary) !important;
+}
+
+.mat-focused .mat-form-field-wrapper .mat-form-field-subscript-wrapper div .mat-hint {
+    color: var(--color-text-secondary);
+    font-weight: bold;
+}
+
+.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
+    color: var(--color-text-secondary) !important;
+}
+
+
+/* Error */
+
+.mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label {
+    color: var(--color-button-delete) !important;
+    font-weight: bold;
+}
+
+.mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label span {
+    color: var(--color-button-delete);
+    font-weight: bold;
+}
+
+.mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
+    color: var(--color-button-delete);
+}
+
+.mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-underline .mat-form-field-ripple {
+    background-color: var(--color-button-delete) !important;
+}
+
+.mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-subscript-wrapper div .mat-error {
+    color: var(--color-button-delete);
+    font-weight: bold;
+}
+
+.mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
+    color: var(--color-button-delete) !important;
+}
+
+@media only screen and (max-width: 1366px) {
+    .mat-form-field-infix {
+        padding-top: 8px !important;
+    }
+    .mat-form-field-subscript-wrapper {
+        margin-top: 0 !important;
+    }
+}
+
+.mat-date-range-input {
+    margin-top: 0.9rem !important;
+}
+
+.mat-form-field-type-mat-date-range-input .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+    font-size: unset !important;
+}
+
+.no-bottom-margin div {
+    margin-bottom: 0 !important;
+}

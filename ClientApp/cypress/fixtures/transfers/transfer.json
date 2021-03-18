@@ -1,0 +1,38 @@
+{
+    "id": 1,
+    "dateIn": "10/07/2020",
+    "adults": 2,
+    "kids": 0,
+    "free": 0,
+    "totalPersons": 2,
+    "remarks": "",
+    "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+    "customer": {
+        "id": 155,
+        "description": "AKVILA TRAVEL"
+    },
+    "destination": {
+        "id": 2,
+        "abbreviation": "P",
+        "description": "PAXOS - ANTIPAXOS"
+    },
+    "pickupPoint": {
+        "id": 1100,
+        "description": "SANDY BEACH",
+        "exactPoint": "HOTEL",
+        "time": "09:30",
+        "route": {
+            "id": 20,
+            "abbreviation": "SOUTH",
+            "description": "TOWN - ΠΕΡΑΜΑ - ΜΕΣΣΟΓΓΗ - ΛΕΥΚΙΜΜΗ",
+            "port": {
+                "id": 2,
+                "description": "LEFKIMMI PORT"
+            }
+        }
+    },
+    "driver": {
+        "id": 1,
+        "description": "STAMATIS 6972 771 185"
+    }
+}

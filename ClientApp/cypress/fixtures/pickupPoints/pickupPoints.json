@@ -1,0 +1,232 @@
+[
+    {
+        "id": 1196,
+        "description": "SAN ANTONIO = ADONIS KALAMI",
+        "exactPoint": "MAIN ROAD",
+        "time": "06:45",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+        "routeId": 19,
+        "route": {
+            "id": 19,
+            "description": "NISAKI",
+            "fullDescription": "NISAKI - CORFU PORT",
+            "isActive": true,
+            "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+            "portId": 1,
+            "port": {
+                "id": 1,
+                "description": "CORFU PORT",
+                "isActive": true,
+                "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+            }
+        }
+    },
+    {
+        "id": 1700,
+        "description": "KAMINAKI BEACH",
+        "exactPoint": "MAIN ROAD",
+        "time": "06:55",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+        "routeId": 19,
+        "route": {
+            "id": 19,
+            "description": "NISAKI",
+            "fullDescription": "NISAKI - CORFU PORT",
+            "isActive": true,
+            "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+            "portId": 1,
+            "port": {
+                "id": 1,
+                "description": "CORFU PORT",
+                "isActive": true,
+                "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+            }
+        }
+    },
+    {
+        "id": 1160,
+        "description": "NISSAKI BEACH",
+        "exactPoint": "HOTEL",
+        "time": "07:05",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+        "routeId": 19,
+        "route": {
+            "id": 19,
+            "description": "NISAKI",
+            "fullDescription": "NISAKI - CORFU PORT",
+            "isActive": true,
+            "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+            "portId": 1,
+            "port": {
+                "id": 1,
+                "description": "CORFU PORT",
+                "isActive": true,
+                "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+            }
+        }
+    },
+    {
+        "id": 883,
+        "description": "NISSAKI KATERINA'S S/M",
+        "exactPoint": "MAIN ROAD",
+        "time": "07:05",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+        "routeId": 19,
+        "route": {
+            "id": 19,
+            "description": "NISAKI",
+            "fullDescription": "NISAKI - CORFU PORT",
+            "isActive": true,
+            "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+            "portId": 1,
+            "port": {
+                "id": 1,
+                "description": "CORFU PORT",
+                "isActive": true,
+                "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+            }
+        }
+    },
+    {
+        "id": 1161,
+        "description": "SUNSHINE",
+        "exactPoint": "M.ROAD",
+        "time": "07:05",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+        "routeId": 19,
+        "route": {
+            "id": 19,
+            "description": "NISAKI",
+            "fullDescription": "NISAKI - CORFU PORT",
+            "isActive": true,
+            "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+            "portId": 1,
+            "port": {
+                "id": 1,
+                "description": "CORFU PORT",
+                "isActive": true,
+                "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+            }
+        }
+    },
+    {
+        "id": 908,
+        "description": "CORFU RESIDENSE",
+        "exactPoint": "M.ROAD",
+        "time": "07:06",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+        "routeId": 19,
+        "route": {
+            "id": 19,
+            "description": "NISAKI",
+            "fullDescription": "NISAKI - CORFU PORT",
+            "isActive": true,
+            "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+            "portId": 1,
+            "port": {
+                "id": 1,
+                "description": "CORFU PORT",
+                "isActive": true,
+                "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+            }
+        }
+    },
+    {
+        "id": 1232,
+        "description": "GLYFA TAVERNA",
+        "exactPoint": "MAIN ROAD",
+        "time": "07:10",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+        "routeId": 19,
+        "route": {
+            "id": 19,
+            "description": "NISAKI",
+            "fullDescription": "NISAKI - CORFU PORT",
+            "isActive": true,
+            "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+            "portId": 1,
+            "port": {
+                "id": 1,
+                "description": "CORFU PORT",
+                "isActive": true,
+                "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+            }
+        }
+    },
+    {
+        "id": 1614,
+        "description": "GOLDEN MARE BARBATI",
+        "exactPoint": "M.ROAD",
+        "time": "07:11",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+        "routeId": 19,
+        "route": {
+            "id": 19,
+            "description": "NISAKI",
+            "fullDescription": "NISAKI - CORFU PORT",
+            "isActive": true,
+            "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+            "portId": 1,
+            "port": {
+                "id": 1,
+                "description": "CORFU PORT",
+                "isActive": true,
+                "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+            }
+        }
+    },
+    {
+        "id": 1047,
+        "description": "LA RIVIERA",
+        "exactPoint": "M.ROAD",
+        "time": "07:14",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+        "routeId": 19,
+        "route": {
+            "id": 19,
+            "description": "NISAKI",
+            "fullDescription": "NISAKI - CORFU PORT",
+            "isActive": true,
+            "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+            "portId": 1,
+            "port": {
+                "id": 1,
+                "description": "CORFU PORT",
+                "isActive": true,
+                "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+            }
+        }
+    },
+    {
+        "id": 1087,
+        "description": "PANTOKRATOR HTL",
+        "exactPoint": "M.ROAD",
+        "time": "07:14",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+        "routeId": 19,
+        "route": {
+            "id": 19,
+            "description": "NISAKI",
+            "fullDescription": "NISAKI - CORFU PORT",
+            "isActive": true,
+            "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
+            "portId": 1,
+            "port": {
+                "id": 1,
+                "description": "CORFU PORT",
+                "isActive": true,
+                "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+            }
+        }
+    }
+]

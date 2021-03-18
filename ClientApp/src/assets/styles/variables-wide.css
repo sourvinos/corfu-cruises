@@ -1,0 +1,38 @@
+@media only screen and (min-width: 1367px) {
+    * {
+        /* Font sizes */
+        --font-size-button: 1.25rem;
+        --font-size-checkbox: 1.2rem;
+        --font-size-copyright: 0.6rem;
+        --font-size-datepicker-header-month: 2.2vw;
+        --font-size-datepicker-days: 0.9vw;
+        --font-size-dialog-content: 1.5rem;
+        --font-size-dialog-header: 2.5rem;
+        --font-size-header: 2.5rem;
+        --font-size-input-height: 1.5rem;
+        --font-size-input-hint: 0.8rem;
+        --font-size-input: 1rem;
+        --font-size-label: 1.8rem;
+        --font-size-logo-home-page-first-child: 25rem;
+        --font-size-logo-home-page-second-child: 10rem;
+        --font-size-logo-side-bar-first-child: 6rem;
+        --font-size-logo-side-bar-second-child: 3.5rem;
+        --font-size-mat-error: 0.75rem;
+        --font-size-menu-list-item: 1.8rem;
+        --font-size-panel-buttons: 1.375rem;
+        --font-size-paragraph: 0.7rem;
+        --font-size-snackbar: 1.3rem;
+        --font-size-sum-persons: 1.25rem;
+        --font-size-sum: 1.5rem;
+        --font-size-summary-block-header: 1.6rem;
+        --font-size-summary-block-item: 0.95rem;
+        --font-size-tab-label: 1.8rem;
+        --font-size-table-header: 1rem;
+        --font-size-table-row: 0.8rem;
+        --font-size-overview-total-header: 1.2rem;
+        --font-size-total-persons-overview: 2.7rem;
+        --font-size-user-greeting: 1.25rem;
+        --font-size-charts-xAxis: 18;
+        --font-size-charts-yAxis: 18;
+    }
+}

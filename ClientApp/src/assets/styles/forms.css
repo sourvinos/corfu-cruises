@@ -1,0 +1,68 @@
+#form-wrapper {
+    background-color: var(--color-background-secondary);
+    background-image: url("../images/background/background.svg");
+    background-size: cover;
+    border-radius: 20px 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+#header {
+    display: flex;
+    margin: 2rem;
+}
+
+#header #navigation {
+    align-items: center;
+    display: flex;
+    margin-right: 1rem;
+}
+
+#header #navigation .mat-icon {
+    color: var(--color-text-button) !important;
+}
+
+#header #title {
+    align-items: center;
+    display: flex;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    margin: 0 auto;
+    width: 80%;
+}
+
+#content form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+#content #instructions {
+    margin-top: auto;
+}
+
+#footer {
+    margin: 2rem;
+}
+
+#footer #buttons {
+    align-items: flex-end;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#group-field {
+    display: flex;
+}
+
+#group-field .mat-form-field:first-child {
+    margin-right: 1rem;
+}

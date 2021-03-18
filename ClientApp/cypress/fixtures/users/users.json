@@ -1,0 +1,20 @@
+[
+    {
+        "id": "8d204972-9982-491e-aeec-7ce2dcbd56c5",
+        "userName": "gatopoulidis",
+        "displayName": "Gatopoulidis",
+        "email": "gatopoulidis@gmail.com"
+    },
+    {
+        "id": "68e54144-6ab2-4d20-933e-8178b5ff4230",
+        "userName": "sourvinos",
+        "displayName": "John",
+        "email": "johnsourvinos@hotmail.com"
+    },
+    {
+        "id": "59946fa8-51a4-4ad7-b505-94e9a62142b9",
+        "userName": "user",
+        "displayName": "User",
+        "email": "gatopoulidis-1@gmail.com"
+    }
+]

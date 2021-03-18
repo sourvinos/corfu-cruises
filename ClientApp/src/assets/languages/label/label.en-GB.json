@@ -1,0 +1,1218 @@
+[
+    {
+        "feature": "loginForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Login"
+            },
+            {
+                "id": "usernameLabel",
+                "description": "Username"
+            },
+            {
+                "id": "passwordLabel",
+                "description": "Password"
+            },
+            {
+                "id": "noRobotCheckbox",
+                "description": "I am not a robot"
+            },
+            {
+                "id": "forgotPasswordButton",
+                "description": "I forgot my password"
+            },
+            {
+                "id": "loginButton",
+                "description": "Login"
+            }
+        ]
+    },
+    {
+        "feature": "customerList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Customers"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "Search by name"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
+            },
+            {
+                "id": "headerName",
+                "description": "Name"
+            },
+            {
+                "id": "headerPhones",
+                "description": "Phones"
+            },
+            {
+                "id": "headerEmail",
+                "description": "Email"
+            }
+        ]
+    },
+    {
+        "feature": "customerForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Customer"
+            },
+            {
+                "id": "description",
+                "description": "Name"
+            },
+            {
+                "id": "profession",
+                "description": "Profession"
+            },
+            {
+                "id": "address",
+                "description": "Address"
+            },
+            {
+                "id": "phones",
+                "description": "Phones"
+            },
+            {
+                "id": "personInCharge",
+                "description": "Person in charge"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "isActive",
+                "description": "Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
+    },
+    {
+        "feature": "destinationList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Destinations"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "Search by description"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
+            },
+            {
+                "id": "headerAbbreviation",
+                "description": "Abbr."
+            },
+            {
+                "id": "headerDescription",
+                "description": "Description"
+            }
+        ]
+    },
+    {
+        "feature": "destinationForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Destination"
+            },
+            {
+                "id": "abbreviation",
+                "description": "Abbr."
+            },
+            {
+                "id": "description",
+                "description": "Description"
+            },
+            {
+                "id": "isActive",
+                "description": "Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
+    },
+    {
+        "feature": "driverList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Drivers"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "Search by name"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
+            },
+            {
+                "id": "headerName",
+                "description": "Name"
+            },
+            {
+                "id": "headerPhones",
+                "description": "Phones"
+            }
+        ]
+    },
+    {
+        "feature": "driverForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Driver"
+            },
+            {
+                "id": "description",
+                "description": "Name"
+            },
+            {
+                "id": "phones",
+                "description": "Phones"
+            },
+            {
+                "id": "isActive",
+                "description": "Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
+    },
+    {
+        "feature": "pickupPointWrapper",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Pickup points"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Routes"
+            },
+            {
+                "id": "searchHint",
+                "description": "Select from the list"
+            }
+        ]
+    },
+    {
+        "feature": "pickupPointList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Pickup points for route: "
+            },
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "Search by description"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Description"
+            },
+            {
+                "id": "headerExactPoint",
+                "description": "Exact point"
+            },
+            {
+                "id": "headerCoordinates",
+                "description": "GPS Coordinates"
+            },
+            {
+                "id": "headerTime",
+                "description": "Time"
+            }
+        ]
+    },
+    {
+        "feature": "pickupPointForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Pickup point"
+            },
+            {
+                "id": "route",
+                "description": "Route"
+            },
+            {
+                "id": "description",
+                "description": "Description"
+            },
+            {
+                "id": "exactPoint",
+                "description": "Exact point"
+            },
+            {
+                "id": "time",
+                "description": "Time"
+            },
+            {
+                "id": "coordinates",
+                "description": "GPS Coordinates"
+            },
+            {
+                "id": "isActive",
+                "description": "Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            },
+            {
+                "id": "formTab",
+                "description": "Form"
+            },
+            {
+                "id": "mapTab",
+                "description": "Map"
+            }
+        ]
+    },
+    {
+        "feature": "portList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Ports"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "Search by description"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Description"
+            }
+        ]
+    },
+    {
+        "feature": "portForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Port"
+            },
+            {
+                "id": "description",
+                "description": "Description"
+            },
+            {
+                "id": "isActive",
+                "description": "Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
+    },
+    {
+        "feature": "routeList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Routes"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "Search by description"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
+            },
+            {
+                "id": "headerAbbreviation",
+                "description": "Abbr."
+            },
+            {
+                "id": "headerDescription",
+                "description": "Description"
+            }
+        ]
+    },
+    {
+        "feature": "routeForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Route"
+            },
+            {
+                "id": "abbreviation",
+                "description": "Abbr."
+            },
+            {
+                "id": "description",
+                "description": "Description"
+            },
+            {
+                "id": "port",
+                "description": "Port"
+            },
+            {
+                "id": "isActive",
+                "description": "Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            },
+            {
+                "id": "formTab",
+                "description": "Form"
+            },
+            {
+                "id": "mapTab",
+                "description": "Map"
+            }
+        ]
+    },
+    {
+        "feature": "bookingWrapper",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Reservations"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Date"
+            },
+            {
+                "id": "searchHint",
+                "description": "Select or enter date"
+            },
+            {
+                "id": "searchButton",
+                "description": "Search"
+            }
+        ]
+    },
+    {
+        "feature": "userList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Users"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "Search by username"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
+            },
+            {
+                "id": "headerUsername",
+                "description": "Username"
+            },
+            {
+                "id": "headerDisplayname",
+                "description": "Displayed name"
+            },
+            {
+                "id": "headerEmail",
+                "description": "Email"
+            }
+        ]
+    },
+    {
+        "feature": "editUserForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "User"
+            },
+            {
+                "id": "userName",
+                "description": "Username"
+            },
+            {
+                "id": "displayName",
+                "description": "Displayed name"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "isAdmin",
+                "description": "Admin"
+            },
+            {
+                "id": "isActive",
+                "description": "Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Delete"
+            },
+            {
+                "id": "changePasswordButton",
+                "description": "Change password"
+            },
+            {
+                "id": "sendEmailToUser",
+                "description": "Send email"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
+    },
+    {
+        "feature": "registerUserForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "User"
+            },
+            {
+                "id": "userName",
+                "description": "Username"
+            },
+            {
+                "id": "displayName",
+                "description": "Displayed name"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "password",
+                "description": "Password"
+            },
+            {
+                "id": "confirmPassword",
+                "description": "Confirm password"
+            },
+            {
+                "id": "isAdmin",
+                "description": "Admin"
+            },
+            {
+                "id": "isActive",
+                "description": "Active"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
+    },
+    {
+        "feature": "changePasswordForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Change password"
+            },
+            {
+                "id": "currentPassword",
+                "description": "Current password"
+            },
+            {
+                "id": "newPassword",
+                "description": "New password"
+            },
+            {
+                "id": "confirmPassword",
+                "description": "Confirm new password"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
+    },
+    {
+        "feature": "bookingList",
+        "labels": [
+            {
+                "id": "summaryTab",
+                "description": "Summary"
+            },
+            {
+                "id": "listTab",
+                "description": "Records"
+            },
+            {
+                "id": "summaryHeaderDestinations",
+                "description": "Destinations"
+            },
+            {
+                "id": "summaryHeaderCustomers",
+                "description": "Customers"
+            },
+            {
+                "id": "summaryHeaderRoutes",
+                "description": "Routes"
+            },
+            {
+                "id": "summaryHeaderDrivers",
+                "description": "Drivers"
+            },
+            {
+                "id": "summaryHeaderPorts",
+                "description": "Ports"
+            },
+            {
+                "id": "assignDriverButton",
+                "description": "Assign to driver"
+            },
+            {
+                "id": "createPdfButton",
+                "description": "Create PDF"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
+            },
+            {
+                "id": "total",
+                "description": "All"
+            },
+            {
+                "id": "displayed",
+                "description": "Displayed"
+            },
+            {
+                "id": "selected",
+                "description": "Selected"
+            },
+            {
+                "id": "headerDestination",
+                "description": "Destination"
+            },
+            {
+                "id": "headerRoute",
+                "description": "Route"
+            },
+            {
+                "id": "headerCustomer",
+                "description": "Customer"
+            },
+            {
+                "id": "headerPickupPoint",
+                "description": "Pickup point"
+            },
+            {
+                "id": "headerTime",
+                "description": "Time"
+            },
+            {
+                "id": "headerAdults",
+                "description": "A"
+            },
+            {
+                "id": "headerKids",
+                "description": "K"
+            },
+            {
+                "id": "headerFree",
+                "description": "F"
+            },
+            {
+                "id": "headerTotal",
+                "description": "T"
+            },
+            {
+                "id": "headerDriver",
+                "description": "Driver"
+            },
+            {
+                "id": "headerPort",
+                "description": "Port"
+            }
+        ]
+    },
+    {
+        "feature": "bookingForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Reservation"
+            },
+            {
+                "id": "destination",
+                "description": "Destination"
+            },
+            {
+                "id": "customer",
+                "description": "Customer"
+            },
+            {
+                "id": "pickupPoint",
+                "description": "Pickup point"
+            },
+            {
+                "id": "adults",
+                "description": "Adults"
+            },
+            {
+                "id": "kids",
+                "description": "Kids"
+            },
+            {
+                "id": "free",
+                "description": "Free"
+            },
+            {
+                "id": "totalPersons",
+                "description": "Total"
+            },
+            {
+                "id": "driver",
+                "description": "Driver"
+            },
+            {
+                "id": "port",
+                "description": "Port"
+            },
+            {
+                "id": "ship",
+                "description": "Vessel"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "phones",
+                "description": "Phones"
+            },
+            {
+                "id": "remarks",
+                "description": "Remarks"
+            },
+            {
+                "id": "abortButton",
+                "description": "Cancel"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Delete"
+            },
+            {
+                "id": "sendVoucherButton",
+                "description": "Send to email"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
+    },
+    {
+        "feature": "forgotPasswordForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Forgot password"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "submitButton",
+                "description": "Submit"
+            },
+            {
+                "id": "weNeedYourEmail",
+                "description": "Give us your email and we'll send you instructions on how to reset your password"
+            }
+        ]
+    },
+    {
+        "feature": "resetPasswordForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Reset password"
+            },
+            {
+                "id": "password",
+                "description": "Password"
+            },
+            {
+                "id": "confirmPassword",
+                "description": "Confirm password"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
+    },
+    {
+        "feature": "dialog",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Warning!"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "noButton",
+                "description": "Cancel"
+            }
+        ]
+    },
+    {
+        "feature": "themeColor",
+        "labels": [
+            {
+                "id": "red",
+                "description": "Red"
+            }
+        ]
+    },
+    {
+        "feature": "assignDriver",
+        "labels": [
+            {
+                "id": "searchHint",
+                "description": "Select from the list"
+            },
+            {
+                "id": "header",
+                "description": "Assign to driver"
+            },
+            {
+                "id": "driver",
+                "description": "Driver"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "noButton",
+                "description": "Cancel"
+            }
+        ]
+    },
+    {
+        "feature": "index",
+        "labels": [
+            {
+                "id": "ports",
+                "description": "Ports"
+            },
+            {
+                "id": "portId",
+                "description": "Id"
+            },
+            {
+                "id": "portDescription",
+                "description": "Description"
+            },
+            {
+                "id": "destinations",
+                "description": "Destinations"
+            },
+            {
+                "id": "destinationId",
+                "description": "Id"
+            },
+            {
+                "id": "destinationDescription",
+                "description": "Description"
+            },
+            {
+                "id": "customers",
+                "description": "Customers"
+            },
+            {
+                "id": "customerId",
+                "description": "Id"
+            },
+            {
+                "id": "customerDescription",
+                "description": "Name"
+            },
+            {
+                "id": "pickupPoints",
+                "description": "Pickup points"
+            },
+            {
+                "id": "pickupPointId",
+                "description": "Id"
+            },
+            {
+                "id": "pickupPointDescription",
+                "description": "Description"
+            },
+            {
+                "id": "exactPoint",
+                "description": "Exact point"
+            },
+            {
+                "id": "time",
+                "description": "Time"
+            },
+            {
+                "id": "selectButton",
+                "description": "Select"
+            }
+        ]
+    },
+    {
+        "feature": "user-menu",
+        "labels": [
+            {
+                "id": "myAccount",
+                "description": "My account"
+            },
+            {
+                "id": "logout",
+                "description": "Logout"
+            }
+        ]
+    },
+    {
+        "feature": "theme-menu",
+        "labels": [
+            {
+                "id": "blue",
+                "description": "Blue"
+            },
+            {
+                "id": "green",
+                "description": "Green"
+            },
+            {
+                "id": "red",
+                "description": "Red"
+            },
+            {
+                "id": "peach",
+                "description": "Peach"
+            },
+            {
+                "id": "gray",
+                "description": "Gray"
+            }
+        ]
+    },
+    {
+        "feature": "credits",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Resources"
+            },
+            {
+                "id": "closeButton",
+                "description": "Close"
+            }
+        ]
+    },
+    {
+        "feature": "shipList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Vessels"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "Search by name"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
+            },
+            {
+                "id": "headerName",
+                "description": "Name"
+            },
+            {
+                "id": "headerMaxPersons",
+                "description": "Max persons"
+            }
+        ]
+    },
+    {
+        "feature": "shipForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Vessel"
+            },
+            {
+                "id": "description",
+                "description": "Name"
+            },
+            {
+                "id": "imo",
+                "description": "ΙΜΟ"
+            },
+            {
+                "id": "flag",
+                "description": "Flag"
+            },
+            {
+                "id": "registryNo",
+                "description": "Registry no"
+            },
+            {
+                "id": "maxPersons",
+                "description": "Passenger capacity"
+            },
+            {
+                "id": "isActive",
+                "description": "Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
+    },
+    {
+        "feature": "scheduleList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Schedule"
+            },
+            {
+                "id": "destinations",
+                "description": "Destinations"
+            },
+            {
+                "id": "ports",
+                "description": "Ports"
+            },
+            {
+                "id": "searchButton",
+                "description": "Search"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
+            },
+            {
+                "id": "headerDate",
+                "description": "Date"
+            },
+            {
+                "id": "headerMaxPersons",
+                "description": "Max Capacity"
+            }
+        ]
+    },
+    {
+        "feature": "scheduleCreateForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "New Schedule"
+            },
+            {
+                "id": "destination",
+                "description": "Destination"
+            },
+            {
+                "id": "port",
+                "description": "Port"
+            },
+            {
+                "id": "dateRange",
+                "description": "Period"
+            },
+            {
+                "id": "maxPersons",
+                "description": "Max capacity"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
+    },
+    {
+        "feature": "passengerList",
+        "labels": [
+            {
+                "id": "headerLastname",
+                "description": "Last name"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "First name"
+            },
+            {
+                "id": "headerNationality",
+                "description": "Nationality"
+            },
+            {
+                "id": "headerEmail",
+                "description": "Email"
+            },
+            {
+                "id": "headerPhones",
+                "description": "Phones"
+            },
+            {
+                "id": "headerSpecialCare",
+                "description": "Special care"
+            },
+            {
+                "id": "headerRemarks",
+                "description": "Remarks"
+            },
+            {
+                "id": "headerIsCheckedIn",
+                "description": "Checked In"
+            }
+        ]
+    },
+    {
+        "feature": "bookingNewForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Passenger"
+            },
+            {
+                "id": "lastname",
+                "description": "Lastname"
+            },
+            {
+                "id": "firstname",
+                "description": "Firstname"
+            },
+            {
+                "id": "nationality",
+                "description": "Nationality"
+            },
+            {
+                "id": "dob",
+                "description": "DoB"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "phones",
+                "description": "Phones"
+            },
+            {
+                "id": "specialCare",
+                "description": "Special care"
+            },
+            {
+                "id": "remarks",
+                "description": "Remarks"
+            },
+            {
+                "id": "isCheckedIn",
+                "description": "Checked In"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
+    }
+]

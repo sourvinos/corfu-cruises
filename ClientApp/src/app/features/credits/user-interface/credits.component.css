@@ -1,0 +1,42 @@
+#content-wrapper {
+    overflow: hidden;
+    text-align: center;
+}
+
+#content {
+    align-items: center;
+}
+
+.item {
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: var(--font-family-header);
+    font-weight: 300;
+    margin-right: 1rem;
+    padding: 1rem;
+    transition: background-color 0.2s ease;
+    width: 80%;
+}
+
+.item:hover {
+    background-color: var(--color-hover);
+}
+
+.title {
+    color: var(--color-title);
+    font-size: 1.6rem;
+}
+
+.url {
+    color: var(--color-url);
+    font-size: 1rem;
+}
+
+.about {
+    color: var(--color-about);
+    font-size: 1rem;
+}
+
+.content.scrollable::-webkit-scrollbar-thumb, #content.scrollable::-webkit-scrollbar-thumb {
+    border-top: 0 solid var(--color-background-secondary) !important;
+}

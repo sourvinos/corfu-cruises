@@ -1,0 +1,18 @@
+<div id="main-menu" *ngIf="loginStatus | async">
+    <ul>
+        <li><button mat-menu-item [routerLink]="['/bookings']">{{ onGetLabel('bookings') }}</button></li>
+        <li *ngIf="isConnectedUserAdmin"><button mat-menu-item>{{ onGetLabel('tables') }}<img class="dropdown-arrow" src="/assets/images/navigation/dropdown-arrow.svg"></button>
+            <ul class="sub-menu" (click)="onHideMenu()">
+                <button data-cy="customersMenu" mat-menu-item [routerLink]="['/customers']">{{ onGetLabel('customers') }}</button>
+                <button data-cy="destinationsMenu" mat-menu-item [routerLink]="['/destinations']">{{ onGetLabel('destinations') }}</button>
+                <button data-cy="driversMenu" mat-menu-item [routerLink]="['/drivers']">{{ onGetLabel('drivers') }}</button>
+                <button data-cy="pickupPointsMenu" mat-menu-item [routerLink]="['/pickupPoints']">{{ onGetLabel('pickupPoints') }}</button>
+                <button data-cy="portsMenu" mat-menu-item [routerLink]="['/ports']">{{ onGetLabel('ports') }}</button>
+                <button data-cy="routesMenu" mat-menu-item [routerLink]="['/routes']">{{ onGetLabel('routes') }}</button>
+                <button data-cy="shipsMenu" mat-menu-item [routerLink]="['/ships']">{{ onGetLabel('ships') }}</button>
+                <button data-cy="shipsMenu" mat-menu-item [routerLink]="['/schedules']">{{ onGetLabel('schedules') }}</button>
+            </ul>
+        </li>
+        <li *ngIf="isConnectedUserAdmin"><button mat-menu-item [routerLink]="['/users']">{{ onGetLabel('users') }}</button></li>
+    </ul>
+</div>

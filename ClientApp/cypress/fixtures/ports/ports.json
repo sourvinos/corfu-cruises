@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "description": "CORFU PORT",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    },
+    {
+        "id": 2,
+        "description": "LEFKIMMI PORT",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    }
+]

@@ -1,0 +1,25 @@
+<div id="list">
+
+    <div id="header">
+        <div id="navigation">
+            <button data-cy="goBack" class="goBack" id="goBack" [routerLink]="['/']" mat-mini-fab>
+                <mat-icon>home</mat-icon>
+            </button>
+        </div>
+        <div @slideFromLeft id="title">
+            <h1>{{ onGetLabel('header') }}</h1>
+        </div>
+        <div id="search-box">
+            <mat-form-field class="no-bottom-margin">
+                <mat-label>{{ onGetLabel('searchLabel') }}</mat-label>
+                <mat-select data-cy="routeSelect" [(value)]="id" (selectionChange)="onLoadPickupPoints()">
+                    <mat-option data-cy="routeElement" *ngFor="let route of routes" [value]="route.id">
+                        {{ route.abbreviation }}
+                    </mat-option>
+                </mat-select>
+                <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
+            </mat-form-field>
+        </div>
+    </div>
+    
+</div>

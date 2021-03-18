@@ -1,0 +1,69 @@
+:root {
+    /* Common */
+    --color-background-secondary: #F0EBD8;
+    --color-button-delete: #F28482;
+    --color-logo-primary: #FE9F36;
+    --color-logo-secondary: #FFE85C;
+    --color-snackbar-error: #920402;
+    --color-snackbar-info: #76A28D;
+    --color-text-button: #EDEDED;
+    --color-text-secondary: #AA767C;
+    --color-text-selected: #dcafb480;
+    /* Sidebar, Topbar, Menu, Scrollbar, Select border */
+    --color-background-primary: #3E5C76;
+    /* Buttons */
+    --color-button-primary: #3E5C76;
+    --color-button-secondary: #748CAB;
+    /* Selected tab */
+    --color-ink-bar: #748CAB;
+    /* Sliders */
+    --color-slider-bar-active: #7C9BA1;
+    --color-slider-bar-inactive: #9ca2ab;
+    /* Percents */
+    --color-text-percent-negative: #ff4040;
+    --color-text-percent-positive: #2f773b;
+    --color-text-percent-zero: #1084a9;
+    /* Summary */
+    --color-background-summary: #46122008;
+    --color-summary-header: #e6ba8a;
+    /* Text */
+    --color-text-primary: #3E5C76;
+    /* Charts */
+    --color-chart-bar: #3E5C76b9;
+    --color-chart-bar-lastYear: #748CABb9;
+    --color-chart-gridLines: #d6d0bb;
+    --color-chart-labels: #3E5C76;
+    /* Maps */
+    --color-map-tooltip-background: #EBE5CD;
+    --color-map-tooltip-color: #3E5C76;
+    --color-map-buttons-background: #748CAB;
+    --color-map-buttons: #EBE5CD;
+    /* Spinner */
+    --color-spinner-outer: #3E5C76;
+    --color-spinner-inner: #748CAB;
+    /* Credits */
+    --color-title: #3E5C76;
+    --color-url: #748CAB;
+    --color-about: #920402;
+    --color-hover: #EBE5CD;
+    /* Tables */
+    --color-table-header: #ebe5cd;
+    --color-table-row-highlight: #ebe5cd;
+    /* Scroll bars */
+    --color-scrollbar: #3E5C76;
+    /* Badge */
+    --color-badge: #3E5C76;
+    --color-badge-background: #FE9F36;
+    /* Main menu */
+    --color-main-menu-background: #3E5C76;
+    --color-main-menu-background-hover: #576a7a;
+    /* Border of clickable items */
+    --color-border-active: #F2D492;
+    --color-border-inactive: #F0EBD8;
+    /* Border of clickable items */
+    --color-border-active: #3E5C76;
+    --color-border-inactive: #dcd8cb;
+    /* Datepicker and calendar */
+    --color-background-primary: #3E5C76;
+    --color-month: #FFE85C;
+}

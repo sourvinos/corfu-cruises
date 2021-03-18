@@ -1,0 +1,10 @@
+<div id="user-menu" *ngIf="loginStatus | async">
+    <ul>
+        <li><button mat-menu-item><img src="/assets/images/navigation/user.svg" width="25px">{{ displayName | async }}<img class="dropdown-arrow" src="/assets/images/navigation/dropdown-arrow.svg"></button>
+            <ul class="sub-menu" (click)="onHideMenu()">
+                <button mat-menu-item (click)="onEditUser()"><img src="/assets/images/navigation/settings.svg">{{ onGetLabel('myAccount') }}</button>
+                <button mat-menu-item (click)="onLogout()"><img src="/assets/images/navigation/logout.svg">{{ onGetLabel('logout') }}</button>
+            </ul>
+        </li>
+    </ul>
+</div>

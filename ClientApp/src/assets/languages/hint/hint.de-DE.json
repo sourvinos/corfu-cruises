@@ -1,0 +1,32 @@
+{
+    "labels": [
+        {
+            "id": "required",
+            "description": "(DE) This field is required"
+        },
+        {
+            "id": "minLength",
+            "description": "(DE) This field must be at least xx characters long"
+        },
+        {
+            "id": "maxLength",
+            "description": "(DE) This field can be up to xx characters long"
+        },
+        {
+            "id": "invalid",
+            "description": "(DE) This field is invalid"
+        },
+        {
+            "id": "passwordsNoMatch",
+            "description": "(DE) Password and confirm password do not match"
+        },
+        {
+            "id": "spacesNotAllowed",
+            "description": "(DE) Spaces are not allowed"
+        },
+        {
+            "id": "otherErrors",
+            "description": "(DE) This field has errors"
+        }
+    ]
+}

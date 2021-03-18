@@ -1,0 +1,25 @@
+#side-logo {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family-logo);
+    margin-top: 5rem;
+    outline: 0;
+    transition: opacity 0.5s;
+}
+
+#side-logo span:nth-child(1) {
+    color: var(--color-logo-primary) !important;
+    font-size: var(--font-size-logo-side-bar-first-child) !important;
+}
+
+#side-logo span:nth-child(2) {
+    display: none;
+}
+
+#side-logo span:nth-child(3) {
+    color: var(--color-logo-secondary) !important;
+    font-size: var(--font-size-logo-side-bar-second-child) !important;
+    margin-top: -1rem;
+}

@@ -1,0 +1,30 @@
+<div id="list">
+
+    <div id="header">
+        <div id="navigation">
+            <button data-cy="goBack" class="goBack" id="goBack" (click)="onClose()" mat-mini-fab>
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+        <div @slideFromLeft id="title">
+            <h1>{{ onGetLabel('header') }}</h1>
+        </div>
+    </div>
+
+    <div id="content-wrapper">
+        <div [@fancyAnimation]="credits.length" id="content" class="scrollable">
+            <div class="item" *ngFor="let item of credits" (click)="onGotoExternalLink(item.url)">
+                <div class="title">{{ item.title }}</div>
+                <div class="url">{{ item.url }}</div>
+                <div class="about">{{ item.about }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div @slideFromRight id="buttons">
+            <button mat-flat-button class="primary" (click)="onClose()">{{ onGetLabel('closeButton') }}</button>
+        </div>
+    </div>
+
+</div>

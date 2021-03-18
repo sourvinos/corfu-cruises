@@ -1,0 +1,84 @@
+:host {
+    display: flex;
+    width: 100%;
+}
+
+table {
+    border-spacing: 0;
+    flex: 1;
+    table-layout: fixed;
+    transition: background-color 0.7s;
+}
+
+th {
+    background-color: var(--color-table-header);
+    border-right: 0.125rem solid var(--color-background-secondary);
+    color: var(--color-text-primary);
+    font-family: var(--font-family-table-header);
+    font-size: var(--font-size-table-header);
+    font-variant-caps: petite-caps;
+    font-weight: var(--font-weight-table-header);
+    padding: 0.625rem 0 0.5625rem 0;
+    position: sticky;
+    text-align: center;
+    top: 0;
+    transition: background-color 0.7s;
+    z-index: 1;
+}
+
+th:hover {
+    background-color: var(--color-background-secondary);
+    cursor: pointer;
+}
+
+tr:hover {
+    background-color: var(--color-background-secondary);
+}
+
+tr:hover td {
+    background-color: var(--color-table-row-highlight);
+    cursor: default;
+}
+
+tr:hover td:last-child>div>.button-row-menu {
+    visibility: visible;
+}
+
+tr.selected {
+    background-color: var(--color-table-row-highlight) !important;
+}
+
+tr.selected td {
+    color: var(--color-text-primary);
+}
+
+td {
+    color: var(--color-text-primary);
+    font-family: var(--font-family-table-body);
+    font-size: var(--font-size-table-row);
+    max-width: 0;
+    overflow: hidden;
+    padding: 5px 8px 4px 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mat-checkbox {
+    padding: 0;
+}
+
+.button-row-menu {
+    height: 30px;
+    line-height: 30px;
+    margin-left: 0 !important;
+    visibility: hidden;
+    width: 30px;
+}
+
+.button-row-menu .mat-icon {
+    color: var(--color-text-primary) !important;
+}
+
+span {
+    font-variant-caps: petite-caps;
+}

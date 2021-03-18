@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "description": "STAMATIS 6972 771 185",
+        "phones": "1",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    },
+    {
+        "id": 2,
+        "description": "SELLAS ALEKOS 6906 624 374",
+        "phones": "1",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    },
+    {
+        "id": 3,
+        "description": "SCHERIA FOTIS MARK. 6944 869 230",
+        "phones": "1",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    }
+]

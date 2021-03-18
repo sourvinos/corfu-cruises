@@ -1,0 +1,26 @@
+<div id="dialog">
+
+    <div @slideFromLeft id="dialog-header">
+        <h1 mat-dialog-title>{{ onGetLabel('header') }}</h1>
+    </div>
+
+    <div id="dialog-content">
+        <mat-form-field>
+            <mat-label>{{ onGetLabel('driver') }}</mat-label>
+            <mat-select data-cy="driverSelect" [(value)]="id">
+                <mat-option data-cy="driverElement" *ngFor="let driver of drivers" [value]="driver.id">
+                    {{ driver.description }}
+                </mat-option>
+            </mat-select>
+            <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
+        </mat-form-field>
+    </div>
+
+    <div @slideFromRight id="dialog-footer">
+        <mat-dialog-actions>
+            <button mat-flat-button class="secondary" id="abort" tabindex="-1" (click)="onClose()">{{ onGetLabel('noButton') }}</button>
+            <button data-cy="continue" mat-flat-button class="primary" id="ok" tabindex="-1" [disabled]="!id" [mat-dialog-close]="id">{{ onGetLabel('okButton') }}</button>
+        </mat-dialog-actions>
+    </div>
+
+</div>

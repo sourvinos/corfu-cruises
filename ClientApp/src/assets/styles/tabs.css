@@ -1,0 +1,24 @@
+.mat-tab-label {
+    background-color: var(--color-background-secondary);
+    color: var(--color-text-primary);
+    font-family: var(--font-family-header);
+    font-size: var(--font-size-tab-label);
+    font-variant-caps: petite-caps;
+    font-weight: var(--font-weight-header);
+}
+
+.mat-ink-bar {
+    background-color: var(--color-ink-bar) !important;
+    height: 2px !important;
+}
+
+.mat-tab-body-content {
+    align-items: center !important;
+    display: flex !important;
+    height: 100% !important;
+    padding: 0;
+}
+
+.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
+    background-color: var(--color-background-secondary) !important;
+}

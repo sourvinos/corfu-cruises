@@ -1,0 +1,16 @@
+#header #search-box {
+    margin-right: 1rem;
+    width: auto;
+}
+
+#header #search-box .mat-form-field {
+    width: 12rem !important;
+}
+
+#content {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    margin: 0rem;
+    overflow: hidden;
+}

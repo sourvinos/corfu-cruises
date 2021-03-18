@@ -1,0 +1,30 @@
+[
+    {
+        "id": 2,
+        "abbreviation": "PA",
+        "description": "PAXOS - ANTIPAXOS",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    },
+    {
+        "id": 3,
+        "abbreviation": "BL",
+        "description": "BLUE LAGOON",
+        "isActive": true,
+        "userId": "b6401c3e-7683-49bc-bb7f-8be3b2fd2210"
+    },
+    {
+        "id": 5,
+        "abbreviation": "",
+        "description": "AQUALAND",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    },
+    {
+        "id": 9,
+        "abbreviation": "",
+        "description": "SAFARI CRUISE",
+        "isActive": true,
+        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    }
+]

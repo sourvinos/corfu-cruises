@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box !important;
+}
+
+.mat-dialog-container {
+    background-color: var(--color-background-secondary) !important;
+    padding: 2rem !important;
+}
+
+#dialog {
+    background-color: var(--color-background-secondary) !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0;
+}
+
+#dialog-header {
+    align-items: center;
+    display: flex;
+    padding-bottom: 2rem;
+}
+
+#dialog-header #navigation {
+    margin: 0 1rem 0 1rem;
+}
+
+#dialog-header h1 {
+    font-family: var(--font-family-dialog-header) !important;
+    font-size: var(--font-size-dialog-header) !important;
+    font-weight: var(--font-weight-header) !important;
+    margin: 0 !important;
+}
+
+#dialog-content {
+    color: var(--color-text-primary);
+    flex: 1;
+    font-family: var(--font-family-dialog-content) !important;
+    font-size: var(--font-size-dialog-content) !important;
+    font-weight: var(--font-weight-dialog-content) !important;
+    line-height: 2rem;
+}
+
+#dialog-footer {
+    padding-top: 2rem;
+    text-align: end;
+}
+
+.mat-dialog-actions {
+    justify-content: flex-end;
+    margin: 0;
+    min-height: 0;
+    padding: 0;
+}

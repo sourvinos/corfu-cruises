@@ -1,0 +1,28 @@
+[{
+    "feature": "snackbarMessages",
+    "labels": [
+        { "error": 400, "id": "invalidModel", "message": "(DE) Something went very wrong." },
+        { "error": 401, "id": "authenticationFailed", "message": "(DE) Authentication failed." },
+        { "error": 403, "id": "authorizationFailed", "message": "(DE) This action requires higher authorization level." },
+        { "error": 404, "id": "recordNotFound", "message": "(DE) This record can not be found." },
+        { "error": 409, "id": "defaultDriverExists", "message": "(DE) There is already a default driver." },
+        { "error": 490, "id": "unableToSaveRecord", "message": "(DE) This record could not be saved." },
+        { "error": 491, "id": "recordInUse", "message": "(DE) This record is in use and can not be deleted." },
+        { "error": 492, "id": "unableToRegisterUser", "message": "(DE) A user with these details can not be created." },
+        { "error": 494, "id": "unableToChangePassword", "message": "(DE) The password can not be changed." },
+        { "error": 495, "id": "accountNotConfirmed", "message": "(DE) This account is pending email confirmation." },
+        { "error": 496, "id": "emailNotSent", "message": "(DE) The email was not sent." },
+        { "error": 499, "id": "redAlert", "message":"(DE) Something very bad happened. Logout immediately." },
+        { "id": "askConfirmationToAbortEditing", "message": "(DE) If you continue, all changes will be lost." },
+        { "id": "askConfirmationToDelete", "message": "(DE) If you continue, this record will be lost for ever." },
+        { "id": "emailSent", "message": "(DE) An email was sent with instructions." },
+        { "id": "formIsDirty", "message": "(DE) Before you continue, all changes must be saved." },
+        { "id": "noRecordsSelected", "message": "(DE) You have not selected any records." },
+        { "id": "passwordChanged", "message": "(DE) The password was changed, you must login again." },
+        { "id": "recordCreated", "message": "(DE) A record was created." },
+        { "id": "recordDeleted", "message": "(DE) This record was deleted." },
+        { "id": "recordUpdated", "message": "(DE) This record was updated." },
+        { "id": "selectedRecordsHaveBeenProcessed", "message": "(DE) All selected records have been updated." },
+        { "id": "unableToResetPassword", "message": "(DE) The password can not be reset." }
+    ]
+}]

@@ -1,0 +1,36 @@
+* {
+    /* Font names */
+    --font-family-button: "Ubuntu Condensed";
+    --font-family-checkbox: "Ubuntu Condensed";
+    --font-family-copyright: "Noto Sans";
+    --font-family-dialog-content: "PF Handbook Pro";
+    --font-family-dialog-header: "PF Handbook Pro";
+    --font-family-header: "PF Handbook Pro";
+    --font-family-label: "Ubuntu";
+    --font-family-leaflet-tooltip: "PF Handbook Pro";
+    --font-family-logo: "Yanone Kaffeesatz";
+    --font-family-menu-list-item: "PF Handbook Pro";
+    --font-family-overview-percent: "Yanone Kaffeesatz";
+    --font-family-paragraph: "Ubuntu";
+    --font-family-snackbar: "PF Handbook Pro";
+    --font-family-summary-block: "Noto Sans";
+    --font-family-summary-header: "Ubuntu Condensed";
+    --font-family-table-body: "Noto Sans";
+    --font-family-table-header: "Noto Sans";
+    --font-family-totals: "PF Handbook Pro";
+    --font-family-user-greeting: "Ubuntu Condensed";
+    /* Font weights */
+    --font-weight-button: 100 !important;
+    --font-weight-checkbox: 400 !important;
+    --font-weight-dialog-content: 300 !important;
+    --font-weight-header: 300 !important;
+    --font-weight-label: 300 !important;
+    --font-weight-menu-active-item: 300;
+    --font-weight-menu-list-item: 300;
+    --font-weight-snackbar: 300;
+    --font-weight-sum-persons: 300;
+    --font-weight-summary-header: 300;
+    --font-weight-table-header: 300 !important;
+    --font-weight-table-row-hover: 900 !important;  
+    --font-weight-user-greeting: 300;
+}
