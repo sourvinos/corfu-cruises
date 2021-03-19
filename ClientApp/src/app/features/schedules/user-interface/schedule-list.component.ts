@@ -72,6 +72,7 @@ export class ScheduleListComponent {
         this.updateVariables()
         this.setSidebarVisibility('hidden')
         this.setTopLogoVisibility('visible')
+        this.setCalendarOpacity('0')
     }
 
     ngAfterViewInit(): void {
@@ -94,7 +95,7 @@ export class ScheduleListComponent {
     }
 
     public onLoadSchedule(): void {
-        document.getElementById('calendar-wrapper').style.opacity = '1'
+        this.setCalendarOpacity('1')
         this.scheduleService.getForDestinationAndPort(this.destinationId, this.portId).then(result => {
             this.populateScheduleDays(result)
             this.onMarkDaysOnCalendar()
@@ -140,7 +141,7 @@ export class ScheduleListComponent {
         this.toggleActiveItem(description, lookupArray)
         this[objectKey] = idValue
         this[objectValue] = description
-        document.getElementById('calendar-wrapper').style.opacity = '0'
+        this.setCalendarOpacity('0')
     }
 
     //#endregion
@@ -307,6 +308,10 @@ export class ScheduleListComponent {
         } else {
             document.getElementById('top-logo').style.display = 'none'
         }
+    }
+
+    private setCalendarOpacity(opacity: string): void {
+        document.getElementById('calendar-wrapper').style.opacity = opacity
     }
 
 }

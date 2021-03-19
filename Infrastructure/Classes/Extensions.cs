@@ -69,6 +69,7 @@ namespace CorfuCruises {
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IDestinationRepository, DestinationRepository>();
             services.AddTransient<IDriverRepository, DriverRepository>();
+            services.AddTransient<IGenderRepository, GenderRepository>();
             services.AddTransient<INationalityRepository, NationalityRepository>();
             services.AddTransient<IOccupantRepository, OccupantRepository>();
             services.AddTransient<IPickupPointRepository, PickupPointRepository>();
@@ -97,6 +98,7 @@ namespace CorfuCruises {
             services.AddTransient<IValidator<Customer>, CustomerValidator>();
             services.AddTransient<IValidator<Destination>, DestinationValidator>();
             services.AddTransient<IValidator<Driver>, DriverValidator>();
+            services.AddTransient<IValidator<Gender>, GenderValidator>();
             services.AddTransient<IValidator<Nationality>, NationalityValidator>();
             services.AddTransient<IValidator<Occupant>, OccupantValidator>();
             services.AddTransient<IValidator<PickupPoint>, PickupPointValidator>();

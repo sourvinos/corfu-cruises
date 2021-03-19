@@ -988,6 +988,15 @@
         ]
     },
     {
+        "feature": "schedule-menu",
+        "labels": [
+            {
+                "id": "schedule",
+                "description": "(DE) Schedule"
+            }
+        ]
+    },
+    {
         "feature": "user-menu",
         "labels": [
             {
@@ -1136,8 +1145,36 @@
                 "description": "(DE) Date"
             },
             {
+                "id": "occupancy",
+                "description": "(DE) Occupancy"
+            },
+            {
                 "id": "headerMaxPersons",
                 "description": "(DE) Max Capacity"
+            },
+            {
+                "id": "plenty",
+                "description": "(DE) Plenty"
+            },
+            {
+                "id": "still-plenty",
+                "description": "(DE) Still plenty"
+            },
+            {
+                "id": "hurry-up",
+                "description": "(DE) Better hurry!"
+            },
+            {
+                "id": "limited",
+                "description": "(DE) Limited"
+            },
+            {
+                "id": "extremely-limited",
+                "description": "(DE) Extremely limited"
+            },
+            {
+                "id": "full",
+                "description": "(DE) Fully booked"
             }
         ]
     },

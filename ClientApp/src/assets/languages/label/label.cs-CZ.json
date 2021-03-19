@@ -988,6 +988,15 @@
         ]
     },
     {
+        "feature": "schedule-menu",
+        "labels": [
+            {
+                "id": "schedule",
+                "description": "(CZ) Schedule"
+            }
+        ]
+    },
+    {
         "feature": "user-menu",
         "labels": [
             {
@@ -1138,6 +1147,34 @@
             {
                 "id": "headerMaxPersons",
                 "description": "(CZ) Max Capacity"
+            },
+            {
+                "id": "occupancy",
+                "description": "(CZ) Occupancy"
+            },
+            {
+                "id": "plenty",
+                "description": "(CZ) Plenty"
+            },
+            {
+                "id": "still-plenty",
+                "description": "(CZ) Still plenty"
+            },
+            {
+                "id": "hurry-up",
+                "description": "(CZ) Better hurry!"
+            },
+            {
+                "id": "limited",
+                "description": "(CZ) Limited"
+            },
+            {
+                "id": "extremely-limited",
+                "description": "(CZ) Extremely limited"
+            },
+            {
+                "id": "full",
+                "description": "(CZ) Fully booked"
             }
         ]
     },

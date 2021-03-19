@@ -988,6 +988,15 @@
         ]
     },
     {
+        "feature": "schedule-menu",
+        "labels": [
+            {
+                "id": "schedule",
+                "description": "Προγραμμα"
+            }
+        ]
+    },
+    {
         "feature": "user-menu",
         "labels": [
             {
@@ -1138,6 +1147,34 @@
             {
                 "id": "headerMaxPersons",
                 "description": "Χωρητικοτητα"
+            },
+            {
+                "id": "occupancy",
+                "description": "Διαθεσιμοτητα"
+            },
+            {
+                "id": "plenty",
+                "description": "Αφθονη"
+            },
+            {
+                "id": "still-plenty",
+                "description": "Αρκετες θεσεις"
+            },
+            {
+                "id": "hurry-up",
+                "description": "Μη χανετε χρονο!"
+            },
+            {
+                "id": "limited",
+                "description": "Περιορισμενη"
+            },
+            {
+                "id": "extremely-limited",
+                "description": "Εξαιρετικα περιορισμενη"
+            },
+            {
+                "id": "full",
+                "description": "Καμμια θεση"
             }
         ]
     },

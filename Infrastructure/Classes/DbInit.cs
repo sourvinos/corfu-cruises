@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +16,8 @@ namespace CorfuCruises {
                 if (!context.Bookings.Any()) {
                     context.Bookings.AddRange(CreateBooking(context));
                     context.SaveChanges();
+                    context.BookingDetails.AddRange(CreateBookingDetails(context));
+                    context.SaveChanges();
                 }
             }
         }
@@ -26,7 +29,7 @@ namespace CorfuCruises {
                 var portId = context.PickupPoints.Include(x => x.Route).ThenInclude(x => x.Port).Where(x => x.Id == pickupPointId).Select(x => x.Route.Port.Id).SingleOrDefault();
                 bookings[i] = new Booking {
                     Date = RandomDate(),
-                    Adults = RandomNumber(1, 20),
+                    Adults = RandomNumber(1, 10),
                     Kids = RandomNumber(1, 5),
                     Free = RandomNumber(1, 3),
                     TicketNo = RandomString(5),
@@ -45,7 +48,37 @@ namespace CorfuCruises {
             return bookings;
         }
 
+        private static List<BookingDetail> CreateBookingDetails(DbContext context) {
+            int passengerCount = 0;
+            List<BookingDetail> bookingDetails = new List<BookingDetail>();
+            for (int i = 1; i < 1000; i++) {
+                var passengersPerReservation = RandomNumber(1, 5);
+                for (int passenger = 1; passenger < passengersPerReservation; passenger++) {
+                    bookingDetails.Add(new BookingDetail {
+                        BookingId = i,
+                        OccupantId = 2,
+                        NationalityId = RandomNumber(2, 4),
+                        GenderId = RandomNumber(1, 3),
+                        Lastname = RandomString(25),
+                        Firstname = RandomString(20),
+                        DOB = RandomDOB(),
+                        Email = RandomEmail(10),
+                        Phones = "",
+                        SpecialCare = "",
+                        Remarks = "",
+                        IsCheckedIn = false
+                    });
+                    passengerCount++;
+                }
+            }
+            return bookingDetails;
+        }
+
         private static DateTime RandomDate() {
+            return DateTime.UtcNow.AddDays(new Random().Next(30));
+        }
+
+        private static DateTime RandomDOB() {
             return DateTime.UtcNow.AddDays(new Random().Next(30));
         }
 

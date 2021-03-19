@@ -36,14 +36,14 @@
             <div id="calendar-wrapper">
                 <mat-calendar #calendar (monthSelected)="onMarkDaysOnCalendar()"></mat-calendar>
                 <div id="occupancy">
-                    <h3 id="occupancyHeader">Occupancy</h3>
+                    <h3 id="occupancyHeader">{{ onGetLabel('occupancy')}}</h3>
                     <ul id="occupancyLegend">
-                        <li><img src="/assets/images/occupancy/vessel-green.svg" width="25px">Plenty</li>
-                        <li><img src="/assets/images/occupancy/vessel-light-green.svg" width="25px">Still plenty</li>
-                        <li><img src="/assets/images/occupancy/vessel-yellow.svg" width="25px">Better Hurry</li>
-                        <li><img src="/assets/images/occupancy/vessel-orange.svg" width="25px">Limited</li>
-                        <li><img src="/assets/images/occupancy/vessel-red.svg" width="25px">Extremely limited</li>
-                        <li><img src="/assets/images/occupancy/vessel-dark-red.svg" width="25px">Fully booked</li>
+                        <li><img src="/assets/images/occupancy/vessel-green.svg" width="25px">{{ onGetLabel('plenty') }}</li>
+                        <li><img src="/assets/images/occupancy/vessel-light-green.svg" width="25px">{{ onGetLabel('still-plenty') }}</li>
+                        <li><img src="/assets/images/occupancy/vessel-yellow.svg" width="25px">{{ onGetLabel('hurry-up') }}</li>
+                        <li><img src="/assets/images/occupancy/vessel-orange.svg" width="25px">{{ onGetLabel('limited') }}</li>
+                        <li><img src="/assets/images/occupancy/vessel-red.svg" width="25px">{{ onGetLabel('extremely-limited') }}</li>
+                        <li><img src="/assets/images/occupancy/vessel-dark-red.svg" width="25px">{{ onGetLabel('full') }}</li>
                     </ul>
                 </div>
             </div>
