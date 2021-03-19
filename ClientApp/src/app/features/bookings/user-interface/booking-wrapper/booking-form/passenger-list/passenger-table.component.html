@@ -25,7 +25,7 @@
                         {{ record[field] | date : "yyyy-MM-dd"}}
                     </ng-template>
                     <ng-template [ngIf]="types[i] == 'trash'">
-                        <span><img src="/assets/images/tables/trash.svg" width="25px" (click)="onDeleteRow(record)"></span>
+                        <span id="image" (click)="onDeleteRow(record)"></span>
                     </ng-template>
                     <ng-template [ngIf]="types[i] == 'percent'" [ngIfElse]="text">
                         <span *ngIf="record[field] < 0" class='red'>{{ record[field] | formatNumber:2:true }}</span>

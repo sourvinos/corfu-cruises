@@ -29,6 +29,7 @@ namespace CorfuCruises {
                     Adults = RandomNumber(1, 20),
                     Kids = RandomNumber(1, 5),
                     Free = RandomNumber(1, 3),
+                    TicketNo = RandomString(5),
                     Email = RandomEmail(20),
                     Phones = RandomPhone(10),
                     CustomerId = RandomNumber(1, 146),
@@ -64,16 +65,16 @@ namespace CorfuCruises {
             return builder.ToString();
         }
 
-        private static string RandomEmail(int size, bool lowerCase = true) {
-            var builder = new StringBuilder(size);
+        private static string RandomEmail(int length, bool lowerCase = true) {
+            var builder = new StringBuilder(length);
             char offset = lowerCase ? 'a' : 'A';
             const int lettersOffset = 26;
-            for (var i = 0; i < size / 2; i++) {
+            for (var i = 0; i < length / 2; i++) {
                 var @char = (char)new Random().Next(offset, offset + lettersOffset);
                 builder.Append(@char);
             }
             builder.Append("@");
-            for (var i = 0; i < size / 3; i++) {
+            for (var i = 0; i < length / 3; i++) {
                 var @char = (char)new Random().Next(offset, offset + lettersOffset);
                 builder.Append(@char);
             }
@@ -83,6 +84,17 @@ namespace CorfuCruises {
                 builder.Append(@char);
             }
             return lowerCase ? builder.ToString().ToLower() : builder.ToString();
+        }
+
+        private static string RandomString(int length) {
+            var builder = new StringBuilder(length);
+            char offset = 'A';
+            const int lettersOffset = 26;
+            for (var i = 0; i < length; i++) {
+                var @char = (char)new Random().Next(offset, offset + lettersOffset);
+                builder.Append(@char);
+            }
+            return builder.ToString();
         }
 
     }

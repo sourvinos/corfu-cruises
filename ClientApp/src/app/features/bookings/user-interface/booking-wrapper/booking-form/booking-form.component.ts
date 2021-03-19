@@ -329,6 +329,7 @@ export class BookingFormComponent {
             driverId: [1, Validators.required], driverDescription: [{ value: '', disabled: true }, Validators.required],
             portId: [1, Validators.required], portDescription: [{ value: '', disabled: true }, Validators.required],
             shipId: [1, Validators.required], shipDescription: [{ value: '', disabled: true }, Validators.required],
+            ticketNo: ['', Validators.maxLength(128)],
             email: ['', Validators.maxLength(128)],
             phones: ['', Validators.maxLength(128)],
             remarks: ['', Validators.maxLength(128)],
@@ -384,6 +385,7 @@ export class BookingFormComponent {
             driverId: result.driver.id, driverDescription: result.driver.description,
             portId: result.pickupPoint.route.port.id, portDescription: result.pickupPoint.route.port.description,
             shipId: result.ship.id, shipDescription: result.ship.description,
+            ticketNo: result.ticketNo,
             email: result.email,
             phones: result.phones,
             remarks: result.remarks,
@@ -517,6 +519,10 @@ export class BookingFormComponent {
 
     get pickupPointDescription(): AbstractControl {
         return this.form.get('pickupPointDescription')
+    }
+
+    get ticketNo(): AbstractControl {
+        return this.form.get('ticketNo')
     }
 
     get adults(): AbstractControl {

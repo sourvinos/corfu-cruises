@@ -642,8 +642,16 @@
                 "description": "(CZ) Ports"
             },
             {
-                "id": "assignDriverButton",
-                "description": "(CZ) Assign to driver"
+                "id": "summaryHeaderShips",
+                "description": "(CZ) Vessels"
+            },
+            {
+                "id": "assignToDriverButton",
+                "description": "(CZ) Assign passengers to driver"
+            },
+            {
+                "id": "assignToShipButton",
+                "description": "(CZ) Assign passengers to ship"
             },
             {
                 "id": "createPdfButton",
@@ -672,6 +680,10 @@
             {
                 "id": "headerRoute",
                 "description": "(CZ) Route"
+            },
+            {
+                "id": "headerShip",
+                "description": "(CZ) Vessel"
             },
             {
                 "id": "headerCustomer",
@@ -731,6 +743,10 @@
                 "description": "(CZ) Pickup point"
             },
             {
+                "id": "ticketNo",
+                "description": "(CZ) Ticket no"
+            },
+            {
                 "id": "adults",
                 "description": "(CZ) Adults"
             },
@@ -756,7 +772,7 @@
             },
             {
                 "id": "ship",
-                "description": "(CZ) Ship"
+                "description": "(CZ) Vessel"
             },
             {
                 "id": "email",
@@ -857,7 +873,7 @@
         ]
     },
     {
-        "feature": "assignDriver",
+        "feature": "assignToDriver",
         "labels": [
             {
                 "id": "searchHint",
@@ -870,6 +886,31 @@
             {
                 "id": "driver",
                 "description": "(CZ) Driver"
+            },
+            {
+                "id": "okButton",
+                "description": "(CZ) OK"
+            },
+            {
+                "id": "noButton",
+                "description": "(CZ) Cancel"
+            }
+        ]
+    },
+    {
+        "feature": "assignToShip",
+        "labels": [
+            {
+                "id": "searchHint",
+                "description": "(CZ) Select from the list"
+            },
+            {
+                "id": "header",
+                "description": "(CZ) Assign to vessel"
+            },
+            {
+                "id": "ship",
+                "description": "(CZ) Vessel"
             },
             {
                 "id": "okButton",
@@ -1002,7 +1043,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Ships"
+                "description": "(CZ) Vessels"
             },
             {
                 "id": "searchLabel",

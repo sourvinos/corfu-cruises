@@ -1,4 +1,5 @@
 export class BookingFlat {
+
     id: number
     destination: string
     destinationAbbreviation: string
@@ -12,6 +13,8 @@ export class BookingFlat {
     totalPersons: number
     port: string
     driver: string
+    ship: string
     dateIn: string
     remarks: string
+    
 }

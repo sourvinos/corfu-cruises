@@ -9,7 +9,8 @@ namespace CorfuCruises {
         IEnumerable<BookingPerDestinationAndPort> GetForDestinationAndPort(int destinationId, int portId);
         new Task<Booking> GetById(int id);
         void UpdateWithDetails(int id, Booking updatedRecord);
-        void AssignDriver(int driverId, int[] ids);
+        void AssignToDriver(int driverId, int[] ids);
+        void AssignToShip(int shipId, int[] ids);
 
     }
 

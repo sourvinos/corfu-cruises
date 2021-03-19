@@ -14,6 +14,7 @@ namespace CorfuCruises {
         public int Kids { get; set; }
         public int Free { get; set; }
         public int TotalPersons { get; set; }
+        public string TicketNo { get; set; }
         public string Email { get; set; }
         public string Phones { get; set; }
         public string Remarks { get; set; }

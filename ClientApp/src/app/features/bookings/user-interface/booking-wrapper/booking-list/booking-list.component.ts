@@ -18,7 +18,9 @@ import { BookingViewModel } from '../../../classes/booking-view-model'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { BookingAssignDriverComponent } from '../../assign-driver/assign-driver-form.component'
+import { BookingAssignToDriverComponent } from '../../assign-driver/assign-driver-form.component'
+import { ShipService } from 'src/app/features/ships/classes/ship.service'
+import { BookingAssignToShipComponent } from '../../assign-ship/assign-ship-form.component'
 
 @Component({
     selector: 'booking-list',
@@ -49,39 +51,60 @@ export class BookingListComponent {
     private mustRefresh = true
     private queryResultClone = new BookingViewModel()
     public activePanel: string
+    public bookingsFlat: BookingFlat[] = []
     public checkedCustomers = true
     public checkedDestinations = true
     public checkedDrivers = true
     public checkedPorts = true
     public checkedRoutes = true
+    public checkedShips = true
     public indeterminateCustomers: boolean
     public indeterminateDestinations: boolean
     public indeterminateDrivers: boolean
     public indeterminatePorts: boolean
     public indeterminateRoutes: boolean
+    public indeterminateShips: boolean
     public queryResult = new BookingViewModel()
     public selectedCustomers: string[] = []
     public selectedDestinations: string[] = []
     public selectedDrivers: string[] = []
     public selectedPorts: string[] = []
     public selectedRoutes: string[] = []
+    public selectedShips: string[] = []
     public totals: any[] = []
-    public bookingsFlat: BookingFlat[] = []
 
     //#endregion
 
     //#region table
 
-    headers = ['', 'Id', 'headerDestination', 'headerDestinationAbbreviation', 'headerRoute', 'headerCustomer', 'headerPickupPoint', 'headerTime', 'headerAdults', 'headerKids', 'headerFree', 'headerTotal', 'headerDriver', 'headerPort', '']
-    widths = ['40px', '100px', '180px', '0px', '120px', '180px', '180px', '50px', '40px', '40px', '40px', '40px', '150px', '100px', '45px']
+    headers = ['', 'Id', 'headerDestination', 'headerDestinationAbbreviation', 'headerRoute', 'headerCustomer', 'headerPickupPoint', 'headerTime', 'headerAdults', 'headerKids', 'headerFree', 'headerTotal', 'headerDriver', 'headerPort', 'headerShip', '']
+    widths = ['40px', '100px', '180px', '0px', '120px', '180px', '180px', '50px', '40px', '40px', '40px', '40px', '100px', '100px', '100px', '45px']
     visibility = ['', 'none', '', 'none']
-    justify = ['center', 'center', 'left', 'left', 'left', 'left', 'left', 'center', 'right', 'right', 'right', 'right', 'left', 'left', 'center']
-    types = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
-    fields = ['', 'id', 'destination', 'destinationAbbreviation', 'route', 'customer', 'pickupPoint', 'time', 'adults', 'kids', 'free', 'totalPersons', 'driver', 'port', '']
+    justify = ['center', 'center', 'left', 'left', 'left', 'left', 'left', 'center', 'right', 'right', 'right', 'right', 'left', 'left', 'left', 'center']
+    types = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+    fields = ['', 'id', 'destination', 'destinationAbbreviation', 'route', 'customer', 'pickupPoint', 'time', 'adults', 'kids', 'free', 'totalPersons', 'driver', 'port', 'ship', '']
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private driverService: DriverService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: BookingPdfService, private router: Router, private service: BookingService, private snackbarService: SnackbarService, private titleService: Title, private bookingService: BookingService, public dialog: MatDialog) {
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private buttonClickService: ButtonClickService,
+        private driverService: DriverService,
+        private shipService: ShipService,
+        private helperService: HelperService,
+        private interactionService: InteractionService,
+        private keyboardShortcutsService: KeyboardShortcuts,
+        private location: Location,
+        private messageLabelService: MessageLabelService,
+        private messageSnackbarService: MessageSnackbarService,
+        private pdfService: BookingPdfService,
+        private router: Router,
+        private service: BookingService,
+        private snackbarService: SnackbarService,
+        private titleService: Title,
+        private bookingService: BookingService,
+        public dialog: MatDialog
+    ) {
         this.activatedRoute.params.subscribe((params: Params) => this.dateIn = params['dateIn'])
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd && this.dateIn !== '' && this.router.url.split('/').length === 4) {
@@ -142,9 +165,9 @@ export class BookingListComponent {
 
     //#region public methods
 
-    public onAssignDriver(): void {
+    public onAssignToDriver(): void {
         if (this.isAnyRowSelected()) {
-            const dialogRef = this.dialog.open(BookingAssignDriverComponent, {
+            const dialogRef = this.dialog.open(BookingAssignToDriverComponent, {
                 height: '350px',
                 width: '550px',
                 data: {
@@ -155,7 +178,30 @@ export class BookingListComponent {
             })
             dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
-                    this.bookingService.assignDriver(result, this.records).subscribe(() => {
+                    this.bookingService.assignToDriver(result, this.records).subscribe(() => {
+                        this.removeSelectedIdsFromLocalStorage()
+                        this.navigateToList()
+                        this.showSnackbar(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'info')
+                    })
+                }
+            })
+        }
+    }
+
+    public onAssignToShip(): void {
+        if (this.isAnyRowSelected()) {
+            const dialogRef = this.dialog.open(BookingAssignToShipComponent, {
+                height: '350px',
+                width: '550px',
+                data: {
+                    ships: this.shipService.getAllActive(),
+                    actions: ['abort', 'ok']
+                },
+                panelClass: 'dialog'
+            })
+            dialogRef.afterClosed().subscribe(result => {
+                if (result !== undefined) {
+                    this.bookingService.assignToShip(result, this.records).subscribe(() => {
                         this.removeSelectedIdsFromLocalStorage()
                         this.navigateToList()
                         this.showSnackbar(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'info')
@@ -237,6 +283,7 @@ export class BookingListComponent {
             this.addActiveClassToElements('.item.route', this.selectedRoutes)
             this.addActiveClassToElements('.item.driver', this.selectedDrivers)
             this.addActiveClassToElements('.item.port', this.selectedPorts)
+            this.addActiveClassToElements('.item.ship', this.selectedShips)
         }, 100)
     }
 
@@ -248,7 +295,7 @@ export class BookingListComponent {
                 }
             },
             'Alt.A': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'assignDriver')
+                this.buttonClickService.clickOnButton(event, 'assignToDriver')
             },
             'Alt.C': (event: KeyboardEvent) => {
                 this.buttonClickService.clickOnButton(event, 'createPdf')
@@ -276,6 +323,7 @@ export class BookingListComponent {
             .filter((route: { pickupPoint: { route: { abbreviation: string } } }) => this.selectedRoutes.indexOf(route.pickupPoint.route.abbreviation) !== -1)
             .filter((driver: { driver: { description: string } }) => this.selectedDrivers.indexOf(driver.driver.description) !== -1)
             .filter((port: { pickupPoint: { route: { port: { description: string } } } }) => this.selectedPorts.indexOf(port.pickupPoint.route.port.description) !== -1)
+            .filter((ship: { ship: { description: string } }) => this.selectedShips.indexOf(ship.ship.description) !== -1)
     }
 
     private flattenResults(): void {
@@ -290,10 +338,11 @@ export class BookingListComponent {
             totalPersons: h,
             pickupPoint: { description: i, time: j, route: { abbreviation: k, port: { description: l } } },
             driver: { description: m },
-            date: n,
-            remarks: o
+            ship: { description: n },
+            date: o,
+            remarks: p
         } of this.queryResultClone.bookings) {
-            this.bookingsFlat.push({ id: a, destination: b, destinationAbbreviation: c, customer: d, adults: e, kids: f, free: g, totalPersons: h, pickupPoint: i, time: j, route: k, port: l, driver: m, dateIn: n, remarks: o })
+            this.bookingsFlat.push({ id: a, destination: b, destinationAbbreviation: c, customer: d, adults: e, kids: f, free: g, totalPersons: h, pickupPoint: i, time: j, route: k, port: l, driver: m, ship: n, dateIn: o, remarks: p })
         }
     }
 
@@ -365,6 +414,7 @@ export class BookingListComponent {
             'routes': JSON.stringify(this.selectedRoutes),
             'drivers': JSON.stringify(this.selectedDrivers),
             'ports': JSON.stringify(this.selectedPorts),
+            'ships': JSON.stringify(this.selectedShips),
         }
         this.helperService.saveItem('bookings', JSON.stringify(summaryItems))
         localStorage.removeItem('selectedIds')
@@ -416,7 +466,6 @@ export class BookingListComponent {
 
     private subscribeToInteractionService(): void {
         this.interactionService.record.pipe(takeUntil(this.ngUnsubscribe)).subscribe(response => {
-            console.log('From service in list', response)
             this.editRecord(response['id'])
         })
         this.interactionService.refreshList.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
@@ -455,6 +504,7 @@ export class BookingListComponent {
         this.queryResult.personsPerRoute.forEach((element: { description: string }) => { this.selectedRoutes.push(element.description) })
         this.queryResult.personsPerDriver.forEach((element: { description: string }) => { this.selectedDrivers.push(element.description) })
         this.queryResult.personsPerPort.forEach((element: { description: string }) => { this.selectedPorts.push(element.description) })
+        this.queryResult.personsPerShip.forEach((element: { description: string }) => { this.selectedShips.push(element.description) })
     }
 
     private updateSelectedArraysFromLocalStorage(): void {
@@ -464,6 +514,7 @@ export class BookingListComponent {
         this.selectedRoutes = JSON.parse(localStorageData.routes)
         this.selectedDrivers = JSON.parse(localStorageData.drivers)
         this.selectedPorts = JSON.parse(localStorageData.ports)
+        this.selectedShips = JSON.parse(localStorageData.ships)
     }
 
     private updateTotals(): void {
@@ -481,6 +532,7 @@ export class BookingListComponent {
             this.updateParentCheckBox('route', 'indeterminateRoutes', 'checkedRoutes')
             this.updateParentCheckBox('driver', 'indeterminateDrivers', 'checkedDrivers')
             this.updateParentCheckBox('port', 'indeterminatePorts', 'checkedPorts')
+            this.updateParentCheckBox('ship', 'indeterminateShips', 'checkedShips')
         }, 100)
     }
 

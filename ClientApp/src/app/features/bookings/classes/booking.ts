@@ -9,6 +9,7 @@ export class Booking {
     kids: number
     free: number
     totalPersons: number
+    ticketNo: string
     email: string
     phones: string
     remarks: string

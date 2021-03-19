@@ -642,8 +642,16 @@
                 "description": "Ports"
             },
             {
-                "id": "assignDriverButton",
-                "description": "Assign to driver"
+                "id": "summaryHeaderShips",
+                "description": "Vessels"
+            },
+            {
+                "id": "assignToDriverButton",
+                "description": "Assign passengers to driver"
+            },
+            {
+                "id": "assignToShipButton",
+                "description": "Assign passengers to ship"
             },
             {
                 "id": "createPdfButton",
@@ -672,6 +680,10 @@
             {
                 "id": "headerRoute",
                 "description": "Route"
+            },
+            {
+                "id": "headerShip",
+                "description": "Vessel"
             },
             {
                 "id": "headerCustomer",
@@ -729,6 +741,10 @@
             {
                 "id": "pickupPoint",
                 "description": "Pickup point"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Ticket no"
             },
             {
                 "id": "adults",
@@ -857,7 +873,7 @@
         ]
     },
     {
-        "feature": "assignDriver",
+        "feature": "assignToDriver",
         "labels": [
             {
                 "id": "searchHint",
@@ -870,6 +886,31 @@
             {
                 "id": "driver",
                 "description": "Driver"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "noButton",
+                "description": "Cancel"
+            }
+        ]
+    },
+    {
+        "feature": "assignToShip",
+        "labels": [
+            {
+                "id": "searchHint",
+                "description": "Select from the list"
+            },
+            {
+                "id": "header",
+                "description": "Assign to ship"
+            },
+            {
+                "id": "ship",
+                "description": "Ship"
             },
             {
                 "id": "okButton",

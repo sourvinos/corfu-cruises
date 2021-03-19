@@ -40,8 +40,8 @@ context('Transfers', () => {
             cy.server()
             cy.route('GET', Cypress.config().baseUrl + '/api/drivers/getActive', 'fixture:drivers/drivers.json').as('getDrivers')
             cy.route('GET', Cypress.config().baseUrl + '/api/transfers/date/2020-07-10', 'fixture:transfers/transfers.json').as('getTransfers')
-            cy.route('PATCH', Cypress.config().baseUrl + '/api/transfers/assignDriver?driverId=1&id=6&id=7', 'fixture:transfers/transfers-assign-driver.json').as('assignDriver')
-            cy.get('[data-cy=assignDriver]').click()
+            cy.route('PATCH', Cypress.config().baseUrl + '/api/transfers/assignToDriver?driverId=1&id=6&id=7', 'fixture:transfers/transfers-assign-driver.json').as('assignToDriver')
+            cy.get('[data-cy=assignToDriver]').click()
             cy.get('[data-cy=driverSelect]').click()
             cy.get('[data-cy=driverElement]').contains('STAMATIS').click();
             cy.get('[data-cy=continue]').click()

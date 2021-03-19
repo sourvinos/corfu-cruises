@@ -21,16 +21,25 @@ export class BookingService extends DataService {
         return this.http.get<BookingByDate>('/api/bookings/destinationId/' + destinationId + '/portId/' + portId).toPromise()
     }
 
-    assignDriver(driverId: string, ids: string[]): Observable<any> {
+    assignToDriver(driverId: string, ids: string[]): Observable<any> {
         let params = new HttpParams().set('driverId', driverId).set('id', ids[0])
         ids.forEach((element, index) => {
             if (index > 0) {
                 params = params.append('id', element)
             }
         })
-        return this.http.patch(this.url + '/assignDriver?', null, { params: params })
+        return this.http.patch(this.url + '/assignToDriver?', null, { params: params })
     }
 
+    assignToShip(shipId: string, ids: string[]): Observable<any> {
+        let params = new HttpParams().set('shipId', shipId).set('id', ids[0])
+        ids.forEach((element, index) => {
+            if (index > 0) {
+                params = params.append('id', element)
+            }
+        })
+        return this.http.patch(this.url + '/assignToShip?', null, { params: params })
+    }
 
     sendVoucher(formData: any): any {
         return this.http.post<any>('/api/bookings/sendVoucher', formData)

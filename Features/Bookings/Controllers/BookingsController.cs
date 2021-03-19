@@ -115,13 +115,26 @@ namespace CorfuCruises {
             }
         }
 
-        [HttpPatch("assignDriver")]
-        public IActionResult AssignDriver(int driverId, [FromQuery(Name = "id")] int[] ids) {
+        [HttpPatch("assignToDriver")]
+        public IActionResult AssignToDriver(int driverId, [FromQuery(Name = "id")] int[] ids) {
             try {
-                repo.AssignDriver(driverId, ids);
+                repo.AssignToDriver(driverId, ids);
                 return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
             } catch (DbUpdateException exception) {
                 LoggerExtensions.LogException(driverId, logger, ControllerContext, null, exception);
+                return StatusCode(490, new {
+                    response = ApiMessages.RecordNotSaved()
+                });
+            }
+        }
+
+       [HttpPatch("assignToShip")]
+       public IActionResult AssignToShip(int shipId, [FromQuery(Name = "id")] int[] ids) {
+            try {
+                repo.AssignToShip(shipId, ids);
+                return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
+            } catch (DbUpdateException exception) {
+                LoggerExtensions.LogException(shipId, logger, ControllerContext, null, exception);
                 return StatusCode(490, new {
                     response = ApiMessages.RecordNotSaved()
                 });

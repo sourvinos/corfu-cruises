@@ -642,8 +642,16 @@
                 "description": "Λιμανια"
             },
             {
-                "id": "assignDriverButton",
-                "description": "Αναθεση σε οδηγο"
+                "id": "summaryHeaderShips",
+                "description": "Πλοια"
+            },
+            {
+                "id": "assignToDriverButton",
+                "description": "Αναθεση επιβατων σε οδηγο"
+            },
+            {
+                "id": "assignToShipButton",
+                "description": "Αναθεση επιβατων σε πλοιο"
             },
             {
                 "id": "createPdfButton",
@@ -672,6 +680,10 @@
             {
                 "id": "headerRoute",
                 "description": "Διαδρομη"
+            },
+            {
+                "id": "headerShip",
+                "description": "Πλοιο"
             },
             {
                 "id": "headerCustomer",
@@ -729,6 +741,10 @@
             {
                 "id": "pickupPoint",
                 "description": "Σημειο παραλαβης"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Νο εισιτηριου"
             },
             {
                 "id": "adults",
@@ -857,7 +873,7 @@
         ]
     },
     {
-        "feature": "assignDriver",
+        "feature": "assignToDriver",
         "labels": [
             {
                 "id": "searchHint",
@@ -870,6 +886,31 @@
             {
                 "id": "driver",
                 "description": "Οδηγος"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "noButton",
+                "description": "Ακυρο"
+            }
+        ]
+    },
+    {
+        "feature": "assignToShip",
+        "labels": [
+            {
+                "id": "searchHint",
+                "description": "Επιλεξτε απο τη λιστα"
+            },
+            {
+                "id": "header",
+                "description": "Αναθεση σε πλοιο"
+            },
+            {
+                "id": "ship",
+                "description": "Πλοιο"
             },
             {
                 "id": "okButton",

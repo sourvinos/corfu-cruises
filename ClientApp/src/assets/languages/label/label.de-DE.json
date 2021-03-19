@@ -642,8 +642,16 @@
                 "description": "(DE) Ports"
             },
             {
-                "id": "assignDriverButton",
-                "description": "(DE) Assign to driver"
+                "id": "summaryHeaderShips",
+                "description": "(DE) Vessels"
+            },
+            {
+                "id": "assignToDriverButton",
+                "description": "(DE) Assign passengers to driver"
+            },
+            {
+                "id": "assignToShipButton",
+                "description": "(DE) Assign passengers to ship"
             },
             {
                 "id": "createPdfButton",
@@ -672,6 +680,10 @@
             {
                 "id": "headerRoute",
                 "description": "(DE) Route"
+            },
+            {
+                "id": "headerShip",
+                "description": "(DE) Vessel"
             },
             {
                 "id": "headerCustomer",
@@ -731,6 +743,10 @@
                 "description": "(DE) Pickup point"
             },
             {
+                "id": "ticketNo",
+                "description": "(DE) Ticket no"
+            },
+            {
                 "id": "adults",
                 "description": "(DE) Adults"
             },
@@ -756,7 +772,7 @@
             },
             {
                 "id": "ship",
-                "description": "(DE) Ship"
+                "description": "(DE) Vessel"
             },
             {
                 "id": "email",
@@ -857,7 +873,7 @@
         ]
     },
     {
-        "feature": "assignDriver",
+        "feature": "assignToDriver",
         "labels": [
             {
                 "id": "searchHint",
@@ -870,6 +886,31 @@
             {
                 "id": "driver",
                 "description": "(DE) Driver"
+            },
+            {
+                "id": "okButton",
+                "description": "(DE) OK"
+            },
+            {
+                "id": "noButton",
+                "description": "(DE) Cancel"
+            }
+        ]
+    },
+    {
+        "feature": "assignToShip",
+        "labels": [
+            {
+                "id": "searchHint",
+                "description": "(DE) Select from the list"
+            },
+            {
+                "id": "header",
+                "description": "(DE) Assign to vessel"
+            },
+            {
+                "id": "ship",
+                "description": "(DE) Vessel"
             },
             {
                 "id": "okButton",
@@ -1002,7 +1043,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Ships"
+                "description": "(DE) Vessels"
             },
             {
                 "id": "searchLabel",
@@ -1166,7 +1207,7 @@
             }
         ]
     },
-{
+    {
         "feature": "bookingNewForm",
         "labels": [
             {

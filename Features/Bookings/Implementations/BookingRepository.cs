@@ -69,9 +69,15 @@ namespace CorfuCruises {
             }
         }
 
-        public void AssignDriver(int driverId, int[] ids) {
+        public void AssignToDriver(int driverId, int[] ids) {
             var bookings = context.Bookings.Where(x => ids.Contains(x.BookingId)).ToList();
-            // bookings.ForEach(a => a.DriverId = driverId);
+            bookings.ForEach(a => a.DriverId = driverId);
+            context.SaveChanges();
+        }
+
+        public void AssignToShip(int shipId, int[] ids) {
+            var bookings = context.Bookings.Where(x => ids.Contains(x.BookingId)).ToList();
+            bookings.ForEach(a => a.ShipId = shipId);
             context.SaveChanges();
         }
 

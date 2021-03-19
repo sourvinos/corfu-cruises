@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 
-import { BookingAssignDriverComponent } from '../user-interface/assign-driver/assign-driver-form.component'
+import { BookingAssignToDriverComponent } from '../user-interface/assign-driver/assign-driver-form.component'
+import { BookingAssignToShipComponent } from '../user-interface/assign-ship/assign-ship-form.component'
 import { BookingFormComponent } from '../user-interface/booking-wrapper/booking-form/booking-form.component'
 import { BookingListComponent } from '../user-interface/booking-wrapper/booking-list/booking-list.component'
 import { BookingRoutingModule } from './booking.routing.module'
@@ -13,7 +14,8 @@ import { SharedModule } from '../../../shared/modules/shared.module'
 
 @NgModule({
     declarations: [
-        BookingAssignDriverComponent,
+        BookingAssignToDriverComponent,
+        BookingAssignToShipComponent,
         BookingFormComponent,
         BookingListComponent,
         BookingWrapperComponent,
@@ -27,7 +29,8 @@ import { SharedModule } from '../../../shared/modules/shared.module'
         BookingRoutingModule
     ],
     entryComponents: [
-        BookingAssignDriverComponent
+        BookingAssignToDriverComponent,
+        BookingAssignToShipComponent
     ]
 })
 

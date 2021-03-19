@@ -9,5 +9,6 @@ export class BookingViewModel {
     personsPerRoute: any[]
     personsPerDriver: any[]
     personsPerPort: any[]
+    personsPerShip: any[]
 
 }
