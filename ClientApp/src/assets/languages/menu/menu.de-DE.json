@@ -1,51 +1,25 @@
-[
-    {
-        "feature": "main-menu",
-        "labels": [
-            {
-                "id": "bookings",
-                "description": "Reservierung"
-            },
-            {
-                "id": "tables",
-                "description": "Tabellen"
-            },
-            {
-                "id": "users",
-                "description": "Benutzer"
-            },
-            {
-                "id": "customers",
-                "description": "Kunden"
-            },
-            {
-                "id": "destinations",
-                "description": "Reiseziele"
-            },
-            {
-                "id": "drivers",
-                "description": "Fahrer"
-            },
-            {
-                "id": "pickupPoints",
-                "description": "Aufenthalte"
-            },
-            {
-                "id": "ports",
-                "description": "Häfen"
-            },
-            {
-                "id": "routes",
-                "description": "Routen"
-            },
-            {
-                "id": "ships",
-                "description": "Schiffe"
-            },
-            {
-                "id": "schedules",
-                "description": "(DE) Schedules"
-            }
-         ]
-    }
-]
+[{
+    "feature": "main-menu",
+    "labels": [{
+            "id": "bookings",
+            "description": "Reservierung"
+        },
+        {
+            "id": "tables",
+            "description": "Tabellen"
+        },
+        {
+            "id": "users",
+            "description": "Benutzer"
+        },
+        { "id": "customers", "description": "Kunden" },
+        { "id": "destinations", "description": "Reiseziele" },
+        { "id": "drivers", "description": "Fahrer" },
+        { "id": "genders", "description": "(DE) Genders" },
+        { "id": "pickupPoints", "description": "Aufenthalte" },
+        { "id": "ports", "description": "Häfen" },
+        { "id": "routes", "description": "Routen" },
+        { "id": "schedules", "description": "(DE) Schedules" },
+        { "id": "ships", "description": "Schiffe" }
+    ]
+}]

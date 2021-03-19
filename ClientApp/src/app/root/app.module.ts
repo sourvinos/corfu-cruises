@@ -13,6 +13,7 @@ import { BookingModule } from '../features/bookings/classes/booking.module'
 import { CustomerModule } from '../features/customers/classes/customer.module'
 import { DestinationModule } from '../features/destinations/classes/destination.module'
 import { DriverModule } from '../features/drivers/classes/driver.module'
+import { GenderModule } from '../features/genders/classes/gender.module'
 import { LoginModule } from '../features/login/classes/login.module'
 import { MaterialModule } from '../shared/modules/material.module'
 import { PickupPointModule } from '../features/pickupPoints/classes/pickupPoint.module'
@@ -73,6 +74,7 @@ import { ScheduleMenuComponent } from '../shared/components/top-bar-wrapper/sche
         DestinationModule,
         DriverModule,
         FormsModule,
+        GenderModule,
         HttpClientModule,
         LoginModule,
         MaterialModule,

@@ -1,8 +1,6 @@
-[
-    {
+[{
         "feature": "loginForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Σύνδεση"
             },
@@ -30,8 +28,7 @@
     },
     {
         "feature": "customerList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Πελάτες"
             },
@@ -63,8 +60,7 @@
     },
     {
         "feature": "customerForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Πελάτης"
             },
@@ -108,8 +104,7 @@
     },
     {
         "feature": "destinationList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Προορισμοι"
             },
@@ -137,8 +132,7 @@
     },
     {
         "feature": "destinationForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Προορισμός"
             },
@@ -166,8 +160,7 @@
     },
     {
         "feature": "driverList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Οδηγοι"
             },
@@ -195,8 +188,7 @@
     },
     {
         "feature": "driverForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Οδηγός"
             },
@@ -224,8 +216,7 @@
     },
     {
         "feature": "pickupPointWrapper",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Σημεια παραλαβης"
             },
@@ -241,8 +232,7 @@
     },
     {
         "feature": "pickupPointList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Σημεια παραλαβης διαδρομης: "
             },
@@ -278,8 +268,7 @@
     },
     {
         "feature": "pickupPointForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Σημειο παραλαβης"
             },
@@ -327,8 +316,7 @@
     },
     {
         "feature": "portList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Λιμάνια"
             },
@@ -352,8 +340,7 @@
     },
     {
         "feature": "portForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Λιμάνι"
             },
@@ -377,8 +364,7 @@
     },
     {
         "feature": "routeList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Διαδρομές"
             },
@@ -406,8 +392,7 @@
     },
     {
         "feature": "routeForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Διαδρομή"
             },
@@ -447,8 +432,7 @@
     },
     {
         "feature": "bookingWrapper",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Κρατήσεις"
             },
@@ -468,8 +452,7 @@
     },
     {
         "feature": "userList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Χρήστες"
             },
@@ -501,8 +484,7 @@
     },
     {
         "feature": "editUserForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Χρήστης"
             },
@@ -546,8 +528,7 @@
     },
     {
         "feature": "registerUserForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Χρήστης"
             },
@@ -587,8 +568,7 @@
     },
     {
         "feature": "changePasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Αλλαγή κωδικού"
             },
@@ -612,8 +592,7 @@
     },
     {
         "feature": "bookingList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "summaryTab",
                 "description": "Συνοπτικα"
             },
@@ -725,8 +704,7 @@
     },
     {
         "feature": "bookingForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Κράτηση"
             },
@@ -806,8 +784,7 @@
     },
     {
         "feature": "forgotPasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Απώλεια κωδικού"
             },
@@ -827,8 +804,7 @@
     },
     {
         "feature": "resetPasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Επαναφορά κωδικού"
             },
@@ -848,8 +824,7 @@
     },
     {
         "feature": "dialog",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Προσοχή!"
             },
@@ -865,17 +840,14 @@
     },
     {
         "feature": "themeColor",
-        "labels": [
-            {
-                "id": "red",
-                "description": "Κοκκινο"
-            }
-        ]
+        "labels": [{
+            "id": "red",
+            "description": "Κοκκινο"
+        }]
     },
     {
         "feature": "assignToDriver",
-        "labels": [
-            {
+        "labels": [{
                 "id": "searchHint",
                 "description": "Επιλεξτε απο τη λιστα"
             },
@@ -899,8 +871,7 @@
     },
     {
         "feature": "assignToShip",
-        "labels": [
-            {
+        "labels": [{
                 "id": "searchHint",
                 "description": "Επιλεξτε απο τη λιστα"
             },
@@ -924,8 +895,7 @@
     },
     {
         "feature": "index",
-        "labels": [
-            {
+        "labels": [{
                 "id": "ports",
                 "description": "Λιμάνια"
             },
@@ -989,17 +959,14 @@
     },
     {
         "feature": "schedule-menu",
-        "labels": [
-            {
-                "id": "schedule",
-                "description": "Προγραμμα"
-            }
-        ]
+        "labels": [{
+            "id": "schedule",
+            "description": "Προγραμμα"
+        }]
     },
     {
         "feature": "user-menu",
-        "labels": [
-            {
+        "labels": [{
                 "id": "myAccount",
                 "description": "Ο λογαριασμος μου"
             },
@@ -1011,8 +978,7 @@
     },
     {
         "feature": "theme-menu",
-        "labels": [
-            {
+        "labels": [{
                 "id": "blue",
                 "description": "Μπλε"
             },
@@ -1036,8 +1002,7 @@
     },
     {
         "feature": "credits",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Πόροι"
             },
@@ -1049,8 +1014,7 @@
     },
     {
         "feature": "shipList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Πλοία"
             },
@@ -1078,8 +1042,7 @@
     },
     {
         "feature": "shipForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Πλοίο"
             },
@@ -1119,8 +1082,7 @@
     },
     {
         "feature": "scheduleList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Πρόγραμμα"
             },
@@ -1180,8 +1142,7 @@
     },
     {
         "feature": "scheduleCreateForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Νεο πρόγραμμα"
             },
@@ -1209,8 +1170,7 @@
     },
     {
         "feature": "passengerList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "headerLastname",
                 "description": "Επωνυμο"
             },
@@ -1246,8 +1206,7 @@
     },
     {
         "feature": "bookingNewForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Επιβάτης"
             },
@@ -1286,6 +1245,54 @@
             {
                 "id": "isCheckedIn",
                 "description": "Εχει επιβιβαστει"
+            },
+            {
+                "id": "saveButton",
+                "description": "Αποθηκευση"
+            }
+        ]
+    },
+    {
+        "feature": "genderList",
+        "labels": [{
+                "id": "header",
+                "description": "Φύλα"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Αναζήτηση"
+            },
+            {
+                "id": "searchHint",
+                "description": "Με βαση την περιγραφη"
+            },
+            {
+                "id": "newButton",
+                "description": "Νεο"
+            },
+            {
+                "id": "headerName",
+                "description": "Περιγραφη"
+            }
+        ]
+    },
+    {
+        "feature": "genderForm",
+        "labels": [{
+                "id": "header",
+                "description": "Φύλο"
+            },
+            {
+                "id": "description",
+                "description": "Περιγραφη"
+            },
+            {
+                "id": "isActive",
+                "description": "Ενεργο"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Διαγραφη"
             },
             {
                 "id": "saveButton",

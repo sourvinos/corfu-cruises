@@ -1,8 +1,6 @@
-[
-    {
+[{
         "feature": "loginForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Login"
             },
@@ -30,8 +28,7 @@
     },
     {
         "feature": "customerList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Customers"
             },
@@ -63,8 +60,7 @@
     },
     {
         "feature": "customerForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Customer"
             },
@@ -108,8 +104,7 @@
     },
     {
         "feature": "destinationList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Destinations"
             },
@@ -137,8 +132,7 @@
     },
     {
         "feature": "destinationForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Destination"
             },
@@ -166,8 +160,7 @@
     },
     {
         "feature": "driverList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Drivers"
             },
@@ -195,8 +188,7 @@
     },
     {
         "feature": "driverForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Driver"
             },
@@ -224,8 +216,7 @@
     },
     {
         "feature": "pickupPointWrapper",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Pickup points"
             },
@@ -241,8 +232,7 @@
     },
     {
         "feature": "pickupPointList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Pickup points for route: "
             },
@@ -278,8 +268,7 @@
     },
     {
         "feature": "pickupPointForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Pickup point"
             },
@@ -327,8 +316,7 @@
     },
     {
         "feature": "portList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Ports"
             },
@@ -352,8 +340,7 @@
     },
     {
         "feature": "portForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Port"
             },
@@ -377,8 +364,7 @@
     },
     {
         "feature": "routeList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Routes"
             },
@@ -406,8 +392,7 @@
     },
     {
         "feature": "routeForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Route"
             },
@@ -447,8 +432,7 @@
     },
     {
         "feature": "bookingWrapper",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Reservations"
             },
@@ -468,8 +452,7 @@
     },
     {
         "feature": "userList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Users"
             },
@@ -501,8 +484,7 @@
     },
     {
         "feature": "editUserForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) User"
             },
@@ -546,8 +528,7 @@
     },
     {
         "feature": "registerUserForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) User"
             },
@@ -587,8 +568,7 @@
     },
     {
         "feature": "changePasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Change password"
             },
@@ -612,8 +592,7 @@
     },
     {
         "feature": "bookingList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "summaryTab",
                 "description": "(CZ) Summary"
             },
@@ -725,8 +704,7 @@
     },
     {
         "feature": "bookingForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Reservation"
             },
@@ -806,8 +784,7 @@
     },
     {
         "feature": "forgotPasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Forgot password"
             },
@@ -827,8 +804,7 @@
     },
     {
         "feature": "resetPasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Reset password"
             },
@@ -848,8 +824,7 @@
     },
     {
         "feature": "dialog",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Warning!"
             },
@@ -865,17 +840,14 @@
     },
     {
         "feature": "themeColor",
-        "labels": [
-            {
-                "id": "red",
-                "description": "(CZ) Red"
-            }
-        ]
+        "labels": [{
+            "id": "red",
+            "description": "(CZ) Red"
+        }]
     },
     {
         "feature": "assignToDriver",
-        "labels": [
-            {
+        "labels": [{
                 "id": "searchHint",
                 "description": "(CZ) Select from the list"
             },
@@ -899,8 +871,7 @@
     },
     {
         "feature": "assignToShip",
-        "labels": [
-            {
+        "labels": [{
                 "id": "searchHint",
                 "description": "(CZ) Select from the list"
             },
@@ -924,8 +895,7 @@
     },
     {
         "feature": "index",
-        "labels": [
-            {
+        "labels": [{
                 "id": "ports",
                 "description": "(CZ) Ports"
             },
@@ -989,17 +959,14 @@
     },
     {
         "feature": "schedule-menu",
-        "labels": [
-            {
-                "id": "schedule",
-                "description": "(CZ) Schedule"
-            }
-        ]
+        "labels": [{
+            "id": "schedule",
+            "description": "(CZ) Schedule"
+        }]
     },
     {
         "feature": "user-menu",
-        "labels": [
-            {
+        "labels": [{
                 "id": "myAccount",
                 "description": "(CZ) My account"
             },
@@ -1011,8 +978,7 @@
     },
     {
         "feature": "theme-menu",
-        "labels": [
-            {
+        "labels": [{
                 "id": "blue",
                 "description": "Modrý"
             },
@@ -1036,8 +1002,7 @@
     },
     {
         "feature": "credits",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Zdroje"
             },
@@ -1049,8 +1014,7 @@
     },
     {
         "feature": "shipList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Vessels"
             },
@@ -1078,8 +1042,7 @@
     },
     {
         "feature": "shipForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Vessel"
             },
@@ -1119,8 +1082,7 @@
     },
     {
         "feature": "scheduleList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Schedule"
             },
@@ -1180,8 +1142,7 @@
     },
     {
         "feature": "scheduleCreateForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) New Schedule"
             },
@@ -1209,8 +1170,7 @@
     },
     {
         "feature": "passengerList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "headerLastname",
                 "description": "(CZ) Last name"
             },
@@ -1246,8 +1206,7 @@
     },
     {
         "feature": "bookingNewForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Passenger"
             },
@@ -1286,6 +1245,54 @@
             {
                 "id": "isCheckedIn",
                 "description": "(CZ) Checked In"
+            },
+            {
+                "id": "saveButton",
+                "description": "(CZ) Save"
+            }
+        ]
+    },
+    {
+        "feature": "genderList",
+        "labels": [{
+                "id": "header",
+                "description": "(CZ) Genders"
+            },
+            {
+                "id": "searchLabel",
+                "description": "(CZ) Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "(CZ) Search by description"
+            },
+            {
+                "id": "newButton",
+                "description": "(CZ) New"
+            },
+            {
+                "id": "headerName",
+                "description": "(CZ) Description"
+            }
+        ]
+    },
+    {
+        "feature": "genderForm",
+        "labels": [{
+                "id": "header",
+                "description": "(CZ) Gender"
+            },
+            {
+                "id": "description",
+                "description": "(CZ) Description"
+            },
+            {
+                "id": "isActive",
+                "description": "(CZ) Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "(CZ) Delete"
             },
             {
                 "id": "saveButton",

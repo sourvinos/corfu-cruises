@@ -9,8 +9,9 @@
                 <button data-cy="pickupPointsMenu" mat-menu-item [routerLink]="['/pickupPoints']">{{ onGetLabel('pickupPoints') }}</button>
                 <button data-cy="portsMenu" mat-menu-item [routerLink]="['/ports']">{{ onGetLabel('ports') }}</button>
                 <button data-cy="routesMenu" mat-menu-item [routerLink]="['/routes']">{{ onGetLabel('routes') }}</button>
-                <button data-cy="shipsMenu" mat-menu-item [routerLink]="['/ships']">{{ onGetLabel('ships') }}</button>
+                <button data-cy="shipsMenu" mat-menu-item [routerLink]="['/genders']">{{ onGetLabel('genders') }}</button>
                 <button data-cy="shipsMenu" mat-menu-item [routerLink]="['/schedules']">{{ onGetLabel('schedules') }}</button>
+                <button data-cy="shipsMenu" mat-menu-item [routerLink]="['/ships']">{{ onGetLabel('ships') }}</button>
             </ul>
         </li>
         <li *ngIf="isConnectedUserAdmin"><button mat-menu-item [routerLink]="['/users']">{{ onGetLabel('users') }}</button></li>

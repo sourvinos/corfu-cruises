@@ -192,19 +192,19 @@ export class ScheduleListComponent {
             case (percentFull <= 60):
                 element.classList.add('green')
                 break
-            case (percentFull >= 61 && percentFull <= 70):
+            case (percentFull > 61 && percentFull <= 70):
                 element.classList.add('light-green')
                 break
-            case (percentFull >= 71 && percentFull <= 80):
+            case (percentFull > 70 && percentFull <= 80):
                 element.classList.add('yellow')
                 break
-            case (percentFull >= 81 && percentFull <= 90):
+            case (percentFull > 80 && percentFull <= 90):
                 element.classList.add('orange')
                 break
-            case (percentFull >= 91 && percentFull <= 95):
+            case (percentFull > 90 && percentFull <= 95):
                 element.classList.add('red')
                 break
-            case (percentFull >= 96):
+            case (percentFull > 95):
                 element.classList.add('dark-red')
                 break
             default:

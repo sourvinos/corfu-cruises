@@ -119,3 +119,7 @@
 #occupancyLegend li img {
     margin-right: 0.5rem;
 }
+
+td:hover {
+    background-color: aqua;
+}

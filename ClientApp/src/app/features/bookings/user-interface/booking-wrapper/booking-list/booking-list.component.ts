@@ -434,7 +434,7 @@ export class BookingListComponent {
     }
 
     private setSidebarVisibility(visibility?: string): void {
-        if (screen.width < 1599 && visibility) {
+        if (screen.width < 1681 && visibility) {
             document.getElementById('side-logo').style.opacity = '0'
             document.getElementById('side-image').style.opacity = '0'
             document.getElementById('side-footer').style.opacity = '0'
@@ -449,7 +449,7 @@ export class BookingListComponent {
     }
 
     private setTopLogoVisibility(visibility?: string): void {
-        if (screen.width < 1599 && visibility) {
+        if (screen.width < 1681 && visibility) {
             document.getElementById('top-logo').style.display = 'flex'
         } else {
             document.getElementById('top-logo').style.display = 'none'

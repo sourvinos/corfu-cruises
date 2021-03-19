@@ -1,51 +1,25 @@
-[
-    {
-        "feature": "main-menu",
-        "labels": [
-            {
-                "id": "bookings",
-                "description": "Rezervace"
-            },
-            {
-                "id": "tables",
-                "description": "Tabulky"
-            },
-            {
-                "id": "users",
-                "description": "Uživatelé"
-            },
-            {
-                "id": "customers",
-                "description": "Zákazníci"
-            },
-            {
-                "id": "destinations",
-                "description": "Destinace"
-            },
-            {
-                "id": "drivers",
-                "description": "Řidiči"
-            },
-            {
-                "id": "pickupPoints",
-                "description": "Body vyzvednutí"
-            },
-            {
-                "id": "ports",
-                "description": "Přístavy"
-            },
-            {
-                "id": "routes",
-                "description": "Trasy"
-            },
-            {
-                "id": "ships",
-                "description": "Plavidla"
-            },
-            {
-                "id": "schedules",
-                "description": "(CZ) Schedules"
-            }
-        ]
-    }
-]
+[{
+    "feature": "main-menu",
+    "labels": [{
+            "id": "bookings",
+            "description": "Rezervace"
+        },
+        {
+            "id": "tables",
+            "description": "Tabulky"
+        },
+        {
+            "id": "users",
+            "description": "Uživatelé"
+        },
+        { "id": "customers", "description": "Zákazníci" },
+        { "id": "destinations", "description": "Destinace" },
+        { "id": "drivers", "description": "Řidiči" },
+        { "id": "genders", "description": "(CZ) Genders" },
+        { "id": "pickupPoints", "description": "Body vyzvednutí" },
+        { "id": "ports", "description": "Přístavy" },
+        { "id": "routes", "description": "Trasy" },
+        { "id": "schedules", "description": "(CZ) Schedules" },
+        { "id": "ships", "description": "Plavidla" }
+    ]
+}]

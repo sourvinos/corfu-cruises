@@ -19,11 +19,12 @@ const appRoutes: Routes = [
     { path: 'customers', loadChildren: (): any => import('../features/customers/classes/customer.module').then(m => m.CustomerModule) },
     { path: 'destinations', loadChildren: (): any => import('../features/destinations/classes/destination.module').then(m => m.DestinationModule) },
     { path: 'drivers', loadChildren: (): any => import('../features/drivers/classes/driver.module').then(m => m.DriverModule) },
+    { path: 'genders', loadChildren: (): any => import('../features/genders/classes/gender.module').then(m => m.GenderModule) },
     { path: 'pickupPoints', loadChildren: (): any => import('../features/pickupPoints/classes/pickupPoint.module').then(m => m.PickupPointModule) },
     { path: 'ports', loadChildren: (): any => import('../features/ports/classes/port.module').then(m => m.PortModule) },
     { path: 'routes', loadChildren: (): any => import('../features/routes/classes/route.module').then(m => m.RouteModule) },
-    { path: 'ships', loadChildren: (): any => import('../features/ships/classes/ship.module').then(m => m.ShipModule) },
     { path: 'schedules', loadChildren: (): any => import('../features/schedules/classes/schedule.module').then(m => m.ScheduleModule) },
+    { path: 'ships', loadChildren: (): any => import('../features/ships/classes/ship.module').then(m => m.ShipModule) },
     { path: 'users', loadChildren: (): any => import('../features/users/classes/user.module').then(m => m.UserModule) },
     { path: 'credits', component: CreditsComponent },
     { path: '**', component: EmptyPageComponent }
