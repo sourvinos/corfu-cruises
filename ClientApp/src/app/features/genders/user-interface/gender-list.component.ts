@@ -44,12 +44,12 @@ export class GenderListComponent {
 
     //#region table
 
-    headers = ['', 'Id', 'headerName', 'headerPhones', '']
-    widths = ['40px', '0px', '50%', '', '56px']
+    headers = ['', 'Id', 'headerName', '']
+    widths = ['40px', '0px', '95%', '56px']
     visibility = ['none', 'none']
-    justify = ['center', 'center', 'left', 'left', 'center']
-    types = ['', '', '', '', '']
-    fields = ['', 'id', 'description', 'phones', '']
+    justify = ['center', 'center', 'left', 'center']
+    types = ['', '', '', '']
+    fields = ['', 'id', 'description', '']
 
     //#endregion
 

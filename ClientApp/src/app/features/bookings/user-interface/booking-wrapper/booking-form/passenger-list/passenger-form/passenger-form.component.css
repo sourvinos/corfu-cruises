@@ -1,43 +1,13 @@
 #form-wrapper {
-    background-color: var(--color-background-secondary);
+    background-image: none;
     border-radius: 20px;
-    display: grid;
-    grid-template-columns: minmax(400px, 1fr);
-    padding: 2rem;
     width: 800px;
-    z-index: 1;
 }
 
 #header {
-    margin: 0 0 1.5rem 1rem;
-}
-
-#goBack {
-    background-color: var(--color-button-primary) !important;
-}
-
-#group-field {
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
-}
-
-#group-field .mat-form-field:not(:last-child) {
-    margin-right: 1rem;
+    margin: 0 1rem 2rem 1rem;
 }
 
 #footer {
-    margin: 0;
-}
-
-#footer #buttons {
-    align-items: flex-end;
-    display: flex;
-    justify-content: flex-end;
-    margin: 0 1rem;
-}
-
-#qrCode {
-    width: 100px;
-    height: 100px;
+    margin: 2rem 1rem 0 1rem;
 }

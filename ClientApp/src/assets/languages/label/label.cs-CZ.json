@@ -1,624 +1,645 @@
-[{
+[
+    {
         "feature": "loginForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Login"
+                "description": "Přihlásit se"
             },
             {
                 "id": "usernameLabel",
-                "description": "(CZ) Username"
+                "description": " Uživatelské jméno"
             },
             {
                 "id": "passwordLabel",
-                "description": "(CZ) Password"
+                "description": "Heslo"
             },
             {
                 "id": "noRobotCheckbox",
-                "description": "(CZ) I am not a robot"
+                "description": "Nejsem robot"
             },
             {
                 "id": "forgotPasswordButton",
-                "description": "(CZ) I forgot my password"
+                "description": "Zapomněl jsem heslo."
             },
             {
                 "id": "loginButton",
-                "description": "(CZ) Login"
+                "description": "Přihlásit se"
             }
         ]
     },
     {
         "feature": "customerList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Customers"
+                "description": "Zákazníci"
             },
             {
                 "id": "searchLabel",
-                "description": "(CZ) Search"
+                "description": "Vyhledat"
             },
             {
                 "id": "searchHint",
-                "description": "(CZ) Search by name"
+                "description": "Vyhledat podle názvu"
             },
             {
                 "id": "newButton",
-                "description": "(CZ) New"
+                "description": "Nový"
             },
             {
                 "id": "headerName",
-                "description": "(CZ) Name"
+                "description": "Název"
             },
             {
                 "id": "headerPhones",
-                "description": "(CZ) Phones"
+                "description": "Telefonní čísla"
             },
             {
                 "id": "headerEmail",
-                "description": "(CZ) Email"
+                "description": "E-mail"
             }
         ]
     },
     {
         "feature": "customerForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Customer"
+                "description": "Zákazník"
             },
             {
                 "id": "description",
-                "description": "(CZ) Name"
+                "description": "Název"
             },
             {
                 "id": "profession",
-                "description": "(CZ) Profession"
+                "description": "Aktivita"
             },
             {
                 "id": "address",
-                "description": "(CZ) Address"
+                "description": "Adresa"
             },
             {
                 "id": "phones",
-                "description": "(CZ) Phones"
+                "description": "Telefonní čísla"
             },
             {
                 "id": "personInCharge",
-                "description": "(CZ) Person in charge"
+                "description": "Odpovědná osoba"
             },
             {
                 "id": "email",
-                "description": "(CZ) Email"
+                "description": "Email"
             },
             {
                 "id": "isActive",
-                "description": "(CZ) Active"
+                "description": "Aktivní"
             },
             {
                 "id": "deleteButton",
-                "description": "(CZ) Delete"
+                "description": "Vymazat"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Uložit"
             }
         ]
     },
     {
         "feature": "destinationList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Destinations"
+                "description": "Destinace"
             },
             {
                 "id": "searchLabel",
-                "description": "(CZ) Search"
+                "description": "Vyhledat"
             },
             {
                 "id": "searchHint",
-                "description": "(CZ) Search by description"
+                "description": "Vyhledat podle popisu"
             },
             {
                 "id": "newButton",
-                "description": "(CZ) New"
+                "description": "Nový"
             },
             {
                 "id": "headerAbbreviation",
-                "description": "(CZ) Abbr"
+                "description": "Zkratka"
             },
             {
                 "id": "headerDescription",
-                "description": "(CZ) Description"
+                "description": "Popis"
             }
         ]
     },
     {
         "feature": "destinationForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Destination"
+                "description": "Destinace"
             },
             {
                 "id": "abbreviation",
-                "description": "(CZ) Abbr"
+                "description": "Zkratka"
             },
             {
                 "id": "description",
-                "description": "(CZ) Description"
+                "description": "Popis"
             },
             {
                 "id": "isActive",
-                "description": "(CZ) Active"
+                "description": "Aktivní"
             },
             {
                 "id": "deleteButton",
-                "description": "(CZ) Delete"
+                "description": "Vymazat"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Uložit"
             }
         ]
     },
     {
         "feature": "driverList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Drivers"
+                "description": "Řidiči"
             },
             {
                 "id": "searchLabel",
-                "description": "(CZ) Search"
+                "description": "Vyhledat"
             },
             {
                 "id": "searchHint",
-                "description": "(CZ) Search by name"
+                "description": "Vyhledat podle jména"
             },
             {
                 "id": "newButton",
-                "description": "(CZ) New"
+                "description": "Nový"
             },
             {
                 "id": "headerName",
-                "description": "(CZ) Name"
+                "description": "Jméno"
             },
             {
                 "id": "headerPhones",
-                "description": "(CZ) Phones"
+                "description": "Telefonní čísla"
             }
         ]
     },
     {
         "feature": "driverForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Driver"
+                "description": "Řidič"
             },
             {
                 "id": "description",
-                "description": "(CZ) Name"
+                "description": "Jméno"
             },
             {
                 "id": "phones",
-                "description": "(CZ) Phones"
+                "description": "Telefonní čísla"
             },
             {
                 "id": "isActive",
-                "description": "(CZ) Active"
+                "description": "Aktivní"
             },
             {
                 "id": "deleteButton",
-                "description": "(CZ) Delete"
+                "description": "Vymazat"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Uložit"
             }
         ]
     },
     {
         "feature": "pickupPointWrapper",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Pickup points"
+                "description": "Nástupní místa"
             },
             {
                 "id": "searchLabel",
-                "description": "(CZ) Routes"
+                "description": "Trasy"
             },
             {
                 "id": "searchHint",
-                "description": "(CZ) Select from the list"
+                "description": "Vybrat ze seznamu"
             }
         ]
     },
     {
         "feature": "pickupPointList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Pickup points for route: "
+                "description": "Nástupní místa pro trasu:"
             },
             {
                 "id": "searchLabel",
-                "description": "(CZ) Search"
+                "description": "Vyhledat"
             },
             {
                 "id": "searchHint",
-                "description": "(CZ) Search by description"
+                "description": "Vyhledat podle popisu"
             },
             {
                 "id": "newButton",
-                "description": "(CZ) New"
+                "description": "Nový"
             },
             {
                 "id": "headerDescription",
-                "description": "(CZ) Description"
+                "description": "Popis"
             },
             {
                 "id": "headerExactPoint",
-                "description": "(CZ) Exact point"
+                "description": "Přesné místo"
             },
             {
                 "id": "headerCoordinates",
-                "description": "(CZ) GPS Coordinates"
+                "description": "Souřadnice GPS"
             },
             {
                 "id": "headerTime",
-                "description": "(CZ) Time"
+                "description": "Čas"
             }
         ]
     },
     {
         "feature": "pickupPointForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Pickup point"
+                "description": "Nástupní místo"
             },
             {
                 "id": "route",
-                "description": "(CZ) Route"
+                "description": "Trasa"
             },
             {
                 "id": "description",
-                "description": "(CZ) Description"
+                "description": "Popis"
             },
             {
                 "id": "exactPoint",
-                "description": "(CZ) Exact point"
+                "description": "Přesné místo"
             },
             {
                 "id": "time",
-                "description": "(CZ) Time"
+                "description": "Čas"
             },
             {
                 "id": "coordinates",
-                "description": "(CZ) GPS Coordinates"
+                "description": "Souřadnice GPS"
             },
             {
                 "id": "isActive",
-                "description": "(CZ) Active"
+                "description": "Aktivní"
             },
             {
                 "id": "deleteButton",
-                "description": "(CZ) Delete"
+                "description": "Vymazat"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Uložit"
             },
             {
                 "id": "formTab",
-                "description": "(CZ) Form"
+                "description": "Formulář"
             },
             {
                 "id": "mapTab",
-                "description": "(CZ) Map"
+                "description": "Mapa"
             }
         ]
     },
     {
         "feature": "portList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Ports"
+                "description": "Přístavy"
             },
             {
                 "id": "searchLabel",
-                "description": "(CZ) Search"
+                "description": "Vyhledat"
             },
             {
                 "id": "searchHint",
-                "description": "(CZ) Search by description"
+                "description": "Vyhledat podle popisu"
             },
             {
                 "id": "newButton",
-                "description": "(CZ) New"
+                "description": "Nový"
             },
             {
                 "id": "headerDescription",
-                "description": "(CZ) Description"
+                "description": "Popis"
             }
         ]
     },
     {
         "feature": "portForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Port"
+                "description": "Přístavt"
             },
             {
                 "id": "description",
-                "description": "(CZ) Description"
+                "description": "Popis"
             },
             {
                 "id": "isActive",
-                "description": "(CZ) Active"
+                "description": "Aktivní"
             },
             {
                 "id": "deleteButton",
-                "description": "(CZ) Delete"
+                "description": "Vymazat"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Uložit"
             }
         ]
     },
     {
         "feature": "routeList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Routes"
+                "description": "Trasy"
             },
             {
                 "id": "searchLabel",
-                "description": "(CZ) Search"
+                "description": "Vyhledat"
             },
             {
                 "id": "searchHint",
-                "description": "(CZ) Search by description"
+                "description": "Vyhledat podle popisu"
             },
             {
                 "id": "newButton",
-                "description": "(CZ) New"
+                "description": "Nový"
             },
             {
                 "id": "headerAbbreviation",
-                "description": "(CZ) Abbr."
+                "description": "Zkratka"
             },
             {
                 "id": "headerDescription",
-                "description": "(CZ) Description"
+                "description": "Popis"
             }
         ]
     },
     {
         "feature": "routeForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Route"
+                "description": "Trasa"
             },
             {
                 "id": "abbreviation",
-                "description": "(CZ) Abbr."
+                "description": "Zkratka"
             },
             {
                 "id": "description",
-                "description": "(CZ) description"
+                "description": "Popis"
             },
             {
                 "id": "port",
-                "description": "(CZ) Port"
+                "description": "Přístav"
             },
             {
                 "id": "isActive",
-                "description": "(CZ) Active"
+                "description": "Aktivní"
             },
             {
                 "id": "deleteButton",
-                "description": "(CZ) Delete"
+                "description": "Vymazat"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Uložit"
             },
             {
                 "id": "formTab",
-                "description": "(CZ) Form"
+                "description": "Formulář"
             },
             {
                 "id": "mapTab",
-                "description": "(CZ) Map"
+                "description": "Mapa"
             }
         ]
     },
     {
         "feature": "bookingWrapper",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Reservations"
+                "description": "Transfery"
             },
             {
                 "id": "searchLabel",
-                "description": "(CZ) Date"
+                "description": "Datum"
             },
             {
                 "id": "searchHint",
-                "description": "(CZ) Select or enter date"
+                "description": "Vyplňte nebo vyberte datum"
             },
             {
                 "id": "searchButton",
-                "description": "(CZ) Search"
+                "description": "Vyhledat"
             }
         ]
     },
     {
         "feature": "userList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Users"
+                "description": "Uživatelé"
             },
             {
                 "id": "searchLabel",
-                "description": "(CZ) Search"
+                "description": "Vyhledat"
             },
             {
                 "id": "searchHint",
-                "description": "(CZ) Search by username"
+                "description": "Vyhledat podle uživatelského jména"
             },
             {
                 "id": "newButton",
-                "description": "(CZ) New"
+                "description": "Nový"
             },
             {
                 "id": "headerUsername",
-                "description": "(CZ) Username"
+                "description": "Uživatelské jméno"
             },
             {
                 "id": "headerDisplayname",
-                "description": "(CZ) Display name"
+                "description": "Zobrazené jméno"
             },
             {
                 "id": "headerEmail",
-                "description": "(CZ) Email"
+                "description": "E-mail"
             }
         ]
     },
     {
         "feature": "editUserForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) User"
+                "description": "Uživatel"
             },
             {
                 "id": "userName",
-                "description": "(CZ) Username"
+                "description": "Uživatelské jméno"
             },
             {
                 "id": "displayName",
-                "description": "(CZ) Displayed name"
+                "description": "Zobrazené jméno"
             },
             {
                 "id": "email",
-                "description": "(CZ) Email"
+                "description": "e-mail"
             },
             {
                 "id": "isAdmin",
-                "description": "(CZ) Admin"
+                "description": "Admin"
             },
             {
                 "id": "isActive",
-                "description": "(CZ) Active"
+                "description": "Aktivní"
             },
             {
                 "id": "deleteButton",
-                "description": "(CZ) Delete"
+                "description": "Vymazat"
             },
             {
                 "id": "changePasswordButton",
-                "description": "(CZ) Change password"
+                "description": "Změnit heslo"
             },
             {
                 "id": "sendEmailToUser",
-                "description": "(CZ) Send email"
+                "description": "Poslat e-mail"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Uložit"
             }
         ]
     },
     {
         "feature": "registerUserForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) User"
+                "description": "Uživatel"
             },
             {
                 "id": "userName",
-                "description": "(CZ) Username"
+                "description": "Uživatelské jméno"
             },
             {
                 "id": "displayName",
-                "description": "(CZ) Displayed name"
+                "description": "Zobrazené jméno"
             },
             {
                 "id": "email",
-                "description": "(CZ) Email"
+                "description": "e-mail"
             },
             {
                 "id": "password",
-                "description": "(CZ) Password"
+                "description": "Heslo"
             },
             {
                 "id": "confirmPassword",
-                "description": "(CZ) Confirm password"
+                "description": "Potvrďte heslo"
             },
             {
                 "id": "isAdmin",
-                "description": "(CZ) Admin"
+                "description": "Admin"
             },
             {
                 "id": "isActive",
-                "description": "(CZ) Active"
+                "description": "Aktivní"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Uložit"
             }
         ]
     },
     {
         "feature": "changePasswordForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Change password"
+                "description": "Změnit heslo"
             },
             {
                 "id": "currentPassword",
-                "description": "(CZ) Current password"
+                "description": "Současné heslo"
             },
             {
                 "id": "newPassword",
-                "description": "(CZ) New password"
+                "description": "Nové heslo"
             },
             {
                 "id": "confirmPassword",
-                "description": "(CZ) Confirm new password"
+                "description": "Potvrďte nové heslo"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Uložit"
             }
         ]
     },
     {
         "feature": "bookingList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "summaryTab",
-                "description": "(CZ) Summary"
+                "description": "Souhrn"
             },
             {
                 "id": "listTab",
-                "description": "(CZ) Records"
+                "description": "Záznamy"
             },
             {
                 "id": "summaryHeaderDestinations",
-                "description": "(CZ) Destinations"
+                "description": "Destinace"
             },
             {
                 "id": "summaryHeaderCustomers",
-                "description": "(CZ) Customers"
+                "description": "Zákazníci"
             },
             {
                 "id": "summaryHeaderRoutes",
-                "description": "(CZ) Routes"
+                "description": "Trasy"
             },
             {
                 "id": "summaryHeaderDrivers",
-                "description": "(CZ) Drivers"
+                "description": "Řidiči"
             },
             {
                 "id": "summaryHeaderPorts",
-                "description": "(CZ) Ports"
+                "description": "Přístavy"
             },
             {
                 "id": "summaryHeaderShips",
@@ -626,7 +647,7 @@
             },
             {
                 "id": "assignToDriverButton",
-                "description": "(CZ) Assign passengers to driver"
+                "description": "Přiřadit řidiči"
             },
             {
                 "id": "assignToShipButton",
@@ -634,31 +655,31 @@
             },
             {
                 "id": "createPdfButton",
-                "description": "(CZ) Create PDF"
+                "description": "Vytvořit PDF"
             },
             {
                 "id": "newButton",
-                "description": "(CZ) New"
+                "description": "Nový"
             },
             {
                 "id": "total",
-                "description": "(CZ) All"
+                "description": "Celkem"
             },
             {
                 "id": "displayed",
-                "description": "(CZ) Displayed"
+                "description": "Zobrazené"
             },
             {
                 "id": "selected",
-                "description": "(CZ) Selected"
+                "description": "Vybrané"
             },
             {
                 "id": "headerDestination",
-                "description": "(CZ) Destination"
+                "description": "Destinace"
             },
             {
                 "id": "headerRoute",
-                "description": "(CZ) Route"
+                "description": "Trasa"
             },
             {
                 "id": "headerShip",
@@ -666,59 +687,72 @@
             },
             {
                 "id": "headerCustomer",
-                "description": "(CZ) Customer"
+                "description": "Zákazník"
             },
             {
                 "id": "headerPickupPoint",
-                "description": "(CZ) Pickup point"
+                "description": "Nástupní zastávka"
             },
             {
                 "id": "headerTime",
-                "description": "(CZ) Time"
+                "description": "Čas"
             },
             {
                 "id": "headerAdults",
-                "description": "(CZ) A"
+                "description": "Do"
             },
             {
                 "id": "headerKids",
-                "description": "(CZ) K"
+                "description": "Dí"
             },
             {
                 "id": "headerFree",
-                "description": "(CZ) F"
+                "description": "Z"
             },
             {
                 "id": "headerTotal",
-                "description": "(CZ) T"
+                "description": "C"
             },
             {
                 "id": "headerDriver",
-                "description": "(CZ) Driver"
+                "description": "Řidič"
             },
             {
                 "id": "headerPort",
-                "description": "(CZ) Port"
+                "description": "Přístav"
             }
         ]
     },
     {
         "feature": "bookingForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Reservation"
+                "description": "Rezervace"
+            },
+            {
+                "id": "tabGeneral",
+                "description": "(CZ) General"
+            },
+            {
+                "id": "tabPassengers",
+                "description": "(CZ) Passengers"
+            },
+            {
+                "id": "tabMoreInfo",
+                "description": "(CZ) More"
             },
             {
                 "id": "destination",
-                "description": "(CZ) Destination"
+                "description": "Destinace"
             },
             {
                 "id": "customer",
-                "description": "(CZ) Customer"
+                "description": "Zákazník"
             },
             {
                 "id": "pickupPoint",
-                "description": "(CZ) Pickup point"
+                "description": "Nástupní místo"
             },
             {
                 "id": "ticketNo",
@@ -726,27 +760,27 @@
             },
             {
                 "id": "adults",
-                "description": "(CZ) Adults"
+                "description": "Dospělí"
             },
             {
                 "id": "kids",
-                "description": "(CZ) Kids"
+                "description": "Děti"
             },
             {
                 "id": "free",
-                "description": "(CZ) Free"
+                "description": "Zdarma"
             },
             {
                 "id": "totalPersons",
-                "description": "(CZ) Total"
+                "description": "Celkem"
             },
             {
                 "id": "driver",
-                "description": "(CZ) Driver"
+                "description": "Řidič"
             },
             {
                 "id": "port",
-                "description": "(CZ) Port"
+                "description": "Přístav"
             },
             {
                 "id": "ship",
@@ -754,7 +788,7 @@
             },
             {
                 "id": "email",
-                "description": "(CZ) Email"
+                "description": "E-mail"
             },
             {
                 "id": "phones",
@@ -762,15 +796,15 @@
             },
             {
                 "id": "remarks",
-                "description": "(CZ) Remarks"
+                "description": "Poznámky"
             },
             {
                 "id": "abortButton",
-                "description": "(CZ) Cancel"
+                "description": "Zrušit"
             },
             {
                 "id": "deleteButton",
-                "description": "(CZ) Delete"
+                "description": "Vymazat"
             },
             {
                 "id": "sendVoucherButton",
@@ -778,100 +812,98 @@
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Uložit"
             }
         ]
     },
     {
         "feature": "forgotPasswordForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Forgot password"
+                "description": "Zapomněl jsem heslo"
             },
             {
                 "id": "email",
-                "description": "(CZ) Email"
+                "description": "e-mail"
             },
             {
                 "id": "submitButton",
-                "description": "(CZ) Submit"
+                "description": "Potvrdit"
             },
             {
                 "id": "weNeedYourEmail",
-                "description": "(CZ) Give us your email and we'll send you instructions on how to reset your password"
+                "description": "Dejte nám svoji e-mailovou adresu a my vám pošleme postup jak obnovit vaše heslo."
             }
         ]
     },
     {
         "feature": "resetPasswordForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Reset password"
+                "description": "Obnovit heslo"
             },
             {
                 "id": "password",
-                "description": "(CZ) Password"
+                "description": "Heslo"
             },
             {
                 "id": "confirmPassword",
-                "description": "(CZ) Confirm password"
+                "description": "Potvrdit heslo"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Uložit"
             }
         ]
     },
     {
         "feature": "dialog",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Warning!"
+                "description": "Pozor!"
             },
             {
                 "id": "okButton",
-                "description": "(CZ) OK"
+                "description": "Potvrdit"
             },
             {
                 "id": "noButton",
-                "description": "(CZ) Cancel"
+                "description": "Zrušit"
             }
         ]
     },
     {
-        "feature": "themeColor",
-        "labels": [{
-            "id": "red",
-            "description": "(CZ) Red"
-        }]
-    },
-    {
         "feature": "assignToDriver",
-        "labels": [{
+        "labels": [
+            {
                 "id": "searchHint",
-                "description": "(CZ) Select from the list"
+                "description": "Vyberte ze seznamu"
             },
             {
                 "id": "header",
-                "description": "(CZ) Assign to driver"
+                "description": "Přiřadit řidiči"
             },
             {
                 "id": "driver",
-                "description": "(CZ) Driver"
+                "description": "Řidič"
             },
             {
                 "id": "okButton",
-                "description": "(CZ) OK"
+                "description": "Potvrdit"
             },
             {
                 "id": "noButton",
-                "description": "(CZ) Cancel"
+                "description": "Zrušit"
             }
         ]
     },
     {
         "feature": "assignToShip",
-        "labels": [{
+        "labels": [
+            {
                 "id": "searchHint",
                 "description": "(CZ) Select from the list"
             },
@@ -895,92 +927,105 @@
     },
     {
         "feature": "index",
-        "labels": [{
+        "labels": [
+            {
                 "id": "ports",
-                "description": "(CZ) Ports"
+                "description": "Přístavy"
             },
             {
                 "id": "portId",
-                "description": "(CZ) Id"
+                "description": "Id"
             },
             {
                 "id": "portDescription",
-                "description": "(CZ) Description"
+                "description": "Popisy"
             },
             {
                 "id": "destinations",
-                "description": "(CZ) Destinations"
+                "description": "Destinace"
             },
             {
                 "id": "destinationId",
-                "description": "(CZ) Id"
+                "description": "Id"
             },
             {
                 "id": "destinationDescription",
-                "description": "(CZ) Description"
+                "description": "Popisy"
             },
             {
                 "id": "customers",
-                "description": "(CZ) Customers"
+                "description": "Zákazníci"
             },
             {
                 "id": "customerId",
-                "description": "(CZ) Id"
+                "description": "Id"
             },
             {
                 "id": "customerDescription",
-                "description": "(CZ) Name"
+                "description": "Název"
             },
             {
                 "id": "pickupPoints",
-                "description": "(CZ) Pickup points"
+                "description": "Nástupní místa"
             },
             {
                 "id": "pickupPointId",
-                "description": "(CZ) Id"
+                "description": "Id"
             },
             {
                 "id": "pickupPointDescription",
-                "description": "(CZ) Description"
+                "description": "Popis"
             },
             {
                 "id": "exactPoint",
-                "description": "(CZ) Exact point"
+                "description": "Přesné místo"
             },
             {
                 "id": "time",
-                "description": "(CZ) Time"
+                "description": "Čas"
             },
             {
                 "id": "selectButton",
-                "description": "(CZ) Select"
+                "description": "Vybrat"
+            },
+            {
+                "id": "nationalityDescription",
+                "description": "(CZ) Nationality"
+            },
+            {
+                "id": "genderDescription",
+                "description": "(CZ) Gender"
             }
         ]
     },
     {
         "feature": "schedule-menu",
-        "labels": [{
-            "id": "schedule",
-            "description": "(CZ) Schedule"
-        }]
+        "labels": [
+            {
+                "id": "schedule",
+                "description": "(CZ) Schedule"
+            }
+        ]
     },
     {
         "feature": "user-menu",
-        "labels": [{
+        "labels": [
+            {
                 "id": "myAccount",
-                "description": "(CZ) My account"
+                "description": "Můj účet"
             },
             {
                 "id": "logout",
-                "description": "(CZ) Logout"
+                "description": "Odhlásit set"
             }
         ]
     },
     {
         "feature": "theme-menu",
-        "labels": [{
+        "labels": [
+            {
                 "id": "blue",
-                "description": "Modrý"
+                "description": "Modrá"
             },
             {
                 "id": "green",
@@ -988,11 +1033,11 @@
             },
             {
                 "id": "red",
-                "description": "Červené"
+                "description": "Červená"
             },
             {
                 "id": "peach",
-                "description": "Broskev"
+                "description": "Broskvová"
             },
             {
                 "id": "gray",
@@ -1002,7 +1047,8 @@
     },
     {
         "feature": "credits",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Zdroje"
             },
@@ -1014,35 +1060,37 @@
     },
     {
         "feature": "shipList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
-                "description": "(CZ) Vessels"
+                "description": "Lodě"
             },
             {
                 "id": "searchLabel",
-                "description": "(CZ) Search"
+                "description": "Vyhledat"
             },
             {
                 "id": "searchHint",
-                "description": "(CZ) Search by name"
+                "description": "Vyhledat podle názvu"
             },
             {
                 "id": "newButton",
-                "description": "(CZ) New"
+                "description": "Nový"
             },
             {
                 "id": "headerName",
-                "description": "(CZ) Name"
+                "description": "Název"
             },
             {
                 "id": "headerMaxPersons",
-                "description": "(CZ) Max persons"
+                "description": "Kapacita"
             }
         ]
     },
     {
         "feature": "shipForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "(CZ) Vessel"
             },
@@ -1082,7 +1130,8 @@
     },
     {
         "feature": "scheduleList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "(CZ) Schedule"
             },
@@ -1142,7 +1191,8 @@
     },
     {
         "feature": "scheduleCreateForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "(CZ) New Schedule"
             },
@@ -1170,7 +1220,8 @@
     },
     {
         "feature": "passengerList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "headerLastname",
                 "description": "(CZ) Last name"
             },
@@ -1183,12 +1234,8 @@
                 "description": "(CZ) Nationality"
             },
             {
-                "id": "headerEmail",
-                "description": "(CZ) Email"
-            },
-            {
-                "id": "headerPhones",
-                "description": "(CZ) Phones"
+                "id": "headerDoB",
+                "description": "(CZ) Date of Birth"
             },
             {
                 "id": "headerSpecialCare",
@@ -1205,8 +1252,9 @@
         ]
     },
     {
-        "feature": "bookingNewForm",
-        "labels": [{
+        "feature": "passengerForm",
+        "labels": [
+            {
                 "id": "header",
                 "description": "(CZ) Passenger"
             },
@@ -1227,12 +1275,8 @@
                 "description": "(CZ) DOB"
             },
             {
-                "id": "email",
-                "description": "(CZ) Email"
-            },
-            {
-                "id": "phones",
-                "description": "(CZ) Phones"
+                "id": "gender",
+                "description": "(CZ) Gender"
             },
             {
                 "id": "specialCare",
@@ -1254,7 +1298,8 @@
     },
     {
         "feature": "genderList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "(CZ) Genders"
             },
@@ -1278,7 +1323,8 @@
     },
     {
         "feature": "genderForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "(CZ) Gender"
             },

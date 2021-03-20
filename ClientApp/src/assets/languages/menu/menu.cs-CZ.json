@@ -1,25 +1,55 @@
-[{
-    "feature": "main-menu",
-    "labels": [{
-            "id": "bookings",
-            "description": "Rezervace"
-        },
-        {
-            "id": "tables",
-            "description": "Tabulky"
-        },
-        {
-            "id": "users",
-            "description": "Uživatelé"
-        },
-        { "id": "customers", "description": "Zákazníci" },
-        { "id": "destinations", "description": "Destinace" },
-        { "id": "drivers", "description": "Řidiči" },
-        { "id": "genders", "description": "(CZ) Genders" },
-        { "id": "pickupPoints", "description": "Body vyzvednutí" },
-        { "id": "ports", "description": "Přístavy" },
-        { "id": "routes", "description": "Trasy" },
-        { "id": "schedules", "description": "(CZ) Schedules" },
-        { "id": "ships", "description": "Plavidla" }
-    ]
-}]
+[
+    {
+        "feature": "main-menu",
+        "labels": [
+            {
+                "id": "bookings",
+                "description": "Rezervace"
+            },
+            {
+                "id": "tables",
+                "description": "Tabulky"
+            },
+            {
+                "id": "users",
+                "description": "Uživatelé"
+            },
+            {
+                "id": "customers",
+                "description": "Zákazníci"
+            },
+            {
+                "id": "destinations",
+                "description": "Destinace"
+            },
+            {
+                "id": "drivers",
+                "description": "Řidiči"
+            },
+            {
+                "id": "genders",
+                "description": "(CZ) Genders"
+            },
+            {
+                "id": "pickupPoints",
+                "description": "Nástupní místa"
+            },
+            {
+                "id": "ports",
+                "description": "Přístavy"
+            },
+            {
+                "id": "routes",
+                "description": "Trasy"
+            },
+            {
+                "id": "schedules",
+                "description": "(CZ) Schedules"
+            },
+            {
+                "id": "ships",
+                "description": "Lodě"
+            }
+        ]
+    }
+]

@@ -954,6 +954,14 @@
             {
                 "id": "selectButton",
                 "description": "(DE) Select"
+            },
+            {
+                "id": "nationalityDescription",
+                "description": "(DE) Natinality"
+            },
+            {
+                "id": "genderDescription",
+                "description": "(DE) Gender"
             }
         ]
     },
@@ -1205,7 +1213,7 @@
         ]
     },
     {
-        "feature": "bookingNewForm",
+        "feature": "passengerForm",
         "labels": [{
                 "id": "header",
                 "description": "(DE) Passenger"

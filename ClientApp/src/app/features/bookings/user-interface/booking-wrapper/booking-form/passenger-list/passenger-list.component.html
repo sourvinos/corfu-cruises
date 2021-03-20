@@ -1,11 +1,15 @@
-<div *ngIf="bookingDetails" id="table-wrapper">
-    <div class="scrollable">
-        <passenger-table [highlightFirstRow]="highlightFirstRow" [feature]="feature" [records]="bookingDetails" [headers]="headers" [widths]="widths" [visibility]="visibility" [justify]="justify" [types]="types" [fields]="fields"></passenger-table>
-    </div>
-</div>
+<div id="passenger-list">
 
-<div id="footer">
-    <div id="buttons">
-        <button mat-flat-button class="primary" id="new" (click)="onNew()">New passenger</button>
+    <div *ngIf="bookingDetails" id="table-wrapper">
+        <div class="scrollable">
+            <passenger-table [highlightFirstRow]="highlightFirstRow" [feature]="feature" [records]="bookingDetails" [headers]="headers" [widths]="widths" [visibility]="visibility" [justify]="justify" [types]="types" [fields]="fields"></passenger-table>
+        </div>
     </div>
+
+    <div id="footer">
+        <div id="buttons">
+            <button mat-flat-button class="primary" id="new" (click)="onNew()">New passenger</button>
+        </div>
+    </div>
+    
 </div>

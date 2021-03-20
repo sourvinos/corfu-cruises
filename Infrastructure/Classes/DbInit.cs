@@ -62,8 +62,6 @@ namespace CorfuCruises {
                         Lastname = RandomString(25),
                         Firstname = RandomString(20),
                         DOB = RandomDOB(),
-                        Email = RandomEmail(10),
-                        Phones = "",
                         SpecialCare = "",
                         Remarks = "",
                         IsCheckedIn = false

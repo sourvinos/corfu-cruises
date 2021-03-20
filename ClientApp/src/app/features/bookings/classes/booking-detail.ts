@@ -10,11 +10,13 @@ export class BookingDetail {
         id: number
         description: string
     }
+    gender: {
+        id: number
+        description: string
+    }
     lastname: string
     firstname: string
     dob: string
-    email: string
-    phones: string
     specialCare: string
     remarks: string
     isCheckedIn: boolean

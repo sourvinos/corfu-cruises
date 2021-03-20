@@ -240,7 +240,6 @@ export class ScheduleListComponent {
     private populateScheduleDays(result: any[]): void {
         this.schedules = []
         this.schedules = result
-        console.log(this.schedules)
     }
 
     private populateReservations(result: any): void {
@@ -248,7 +247,6 @@ export class ScheduleListComponent {
         result.forEach((element: any) => {
             this.reservations.push(element)
         })
-        console.log(this.reservations)
     }
 
     private setWindowTitle(): void {

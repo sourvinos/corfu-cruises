@@ -18,8 +18,7 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { BookingDetail } from '../../../../../classes/booking-detail'
 import { NationalityService } from 'src/app/features/nationalities/classes/nationality.service'
-import { MatDatepickerInputEvent } from '@angular/material/datepicker'
-import moment from 'moment'
+import { GenderService } from 'src/app/features/genders/classes/gender.service'
 
 @Component({
     selector: 'passenger-form',
@@ -32,10 +31,9 @@ export class PassengerFormComponent {
 
     //#region variables
 
-    private feature = 'bookingNewForm'
+    private feature = 'passengerForm'
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '../../'
     private windowTitle = 'New Passenger'
     public environment = environment.production
     public form: FormGroup
@@ -45,50 +43,34 @@ export class PassengerFormComponent {
 
     //#region particular variables
 
-    public bookingDetail = new BookingDetail()
-
-    public nationalities: any
     private dobISO = ''
+    public bookingDetail = new BookingDetail()
+    public genders: any
+    public nationalities: any
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<PassengerFormComponent>, private nationalityService: NationalityService, private snackbarService: SnackbarService, private titleService: Title, private formBuilder: FormBuilder, private helperService: HelperService, private buttonClickService: ButtonClickService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageHintService: MessageHintService, private bookingService: BookingService, private dialogService: DialogService, private messageSnackbarService: MessageSnackbarService, public dialog: MatDialog, private ngZone: NgZone) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private bookingService: BookingService, private buttonClickService: ButtonClickService, private dialogRef: MatDialogRef<PassengerFormComponent>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        // this.setWindowTitle()
+        this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
         this.populateDropDowns()
         this.populateFields(this.data)
-        console.log('Init')
     }
 
     ngAfterViewInit(): void {
-        console.log('AfterViewInit')
+        this.focus('lastname')
     }
 
+
     ngOnDestroy(): void {
-        console.log('Unsubscribing passenger form')
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
         this.unlisten()
-    }
-
-    canDeactivate(): boolean {
-        if (this.form.dirty) {
-            this.dialogService.open('warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
-                if (response) {
-                    this.resetForm()
-                    this.onGoBack()
-                    return true
-                }
-            })
-        } else {
-            this.hideModalForm()
-            return true
-        }
     }
 
     //#endregion
@@ -175,26 +157,6 @@ export class PassengerFormComponent {
         })
     }
 
-    public onCheckValidDate(): boolean {
-        const date = (<HTMLInputElement>document.getElementById('dob')).value
-        if (moment(moment(date, 'DD/MM/YYYY')).isValid()) {
-            this.dobISO = moment(date, 'DD/MM/YYYY').toISOString(true)
-            this.dobISO = moment(this.dobISO).format('YYYY-MM-DD')
-            return true
-        } else {
-            this.dobISO = ''
-            return false
-        }
-    }
-
-    public addEvent(type: string, element: any, event: MatDatepickerInputEvent<Date>): void {
-        const date = moment.parseZone(event.value.valueOf())
-        const a = date.format('YYYY-MM-DD')
-        // console.log(date.format('YYYY-MM-DD'))
-        this.form.patchValue({ 'dob': a })
-        // this.form.patchValue({ element: event.parseZone().value.toISOString().substr(0, 10) })
-    }
-
     //#endregion
 
     //#region private methods
@@ -234,10 +196,6 @@ export class PassengerFormComponent {
         this.helperService.setFocus(field)
     }
 
-    private hideModalForm(): void {
-        document.getElementById('bookingFormModal').style.visibility = "hidden"
-    }
-
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: this.data.id,
@@ -247,8 +205,7 @@ export class PassengerFormComponent {
             lastname: ['', [Validators.required, Validators.maxLength(128)]],
             firstname: ['', [Validators.required, Validators.maxLength(128)]],
             dob: ['1985-12-14', [Validators.required, Validators.maxLength(10)]],
-            email: ['', [Validators.required, Validators.email, Validators.maxLength(128)]],
-            phones: ['', Validators.maxLength(128)],
+            genderId: [0, Validators.required], genderDescription: ['', Validators.required],
             specialCare: ['', Validators.maxLength(128)],
             remarks: ['', Validators.maxLength(128)],
             isCheckedIn: false,
@@ -270,9 +227,11 @@ export class PassengerFormComponent {
     private populateDropDowns(): Subscription {
         const sources = []
         sources.push(this.nationalityService.getAllActive())
+        sources.push(this.genderService.getAllActive())
         return forkJoin(sources).subscribe(
             result => {
                 this.nationalities = result[0]
+                this.genders = result[1]
                 this.renameObjects()
             })
     }
@@ -284,11 +243,11 @@ export class PassengerFormComponent {
             occupantId: result.occupantId,
             nationalityId: result.nationalityId,
             nationalityDescription: result.nationalityDescription,
+            genderId: result.genderId,
+            genderDescription: result.genderDescription,
             lastname: result.lastname,
             firstname: result.firstname,
             dob: result.dob,
-            email: result.email,
-            phones: result.phones,
             specialCare: result.specialCare,
             remarks: result.remarks,
             isCheckedIn: result.isCheckedIn
@@ -308,6 +267,12 @@ export class PassengerFormComponent {
             this.renameKey(obj, 'description', 'nationalityDescription')
             this.renameKey(obj, 'isActive', 'nationalityIsActive')
             this.renameKey(obj, 'userId', 'nationalityUserId')
+        })
+        this.genders.forEach((obj: any) => {
+            this.renameKey(obj, 'id', 'genderId')
+            this.renameKey(obj, 'description', 'genderDescription')
+            this.renameKey(obj, 'isActive', 'genderIsActive')
+            this.renameKey(obj, 'userId', 'genderUserId')
         })
     }
 
@@ -367,12 +332,12 @@ export class PassengerFormComponent {
         return this.form.get('dob')
     }
 
-    get email(): AbstractControl {
-        return this.form.get('email')
+    get genderId(): AbstractControl {
+        return this.form.get('genderId')
     }
 
-    get phones(): AbstractControl {
-        return this.form.get('phones')
+    get genderDescription(): AbstractControl {
+        return this.form.get('genderDescription')
     }
 
     get specialCare(): AbstractControl {

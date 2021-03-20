@@ -75,12 +75,8 @@ export class PassengerTableComponent {
     }
 
     public onDeleteRow(record): void {
-        console.log('Record', record)
         const index = this.records.indexOf(record)
-        console.log('Index', index)
-        console.log('Records', this.records)
         this.records.splice(index, 1)
-        console.log('Records after', this.records)
     }
 
     public onGetLabel(id: string): string {
@@ -118,7 +114,6 @@ export class PassengerTableComponent {
 
     public onGotoRow(key: any): void {
         if (!isNaN(key)) {
-            console.log('Going to row')
             this.unselectAllRows().then(() => {
                 this.selectRow(this.table, key)
                 this.sendRowToIndexService()

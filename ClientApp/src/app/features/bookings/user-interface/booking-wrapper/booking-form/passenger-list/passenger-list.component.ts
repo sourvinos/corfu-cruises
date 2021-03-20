@@ -26,12 +26,12 @@ export class PassengerListComponent {
 
     //#region table
 
-    headers = ['', 'bookingId', 'Id', 'headerLastname', 'headerFirstname', 'headerNationalityId', 'headerNationality', 'headerDoB', 'headerIsCheckedIn', '', '']
-    widths = ['40px', '60px', '60px', '10%', '10%', '50px', '100px', '20%', '10%', '56px', '56px']
-    visibility = ['', '', '', '', '', '', '', '', '', '', '']
-    justify = ['center', 'center', 'center', 'left', 'center', 'left', 'left', 'center', 'left', 'center', 'center']
-    types = ['', '', '', '', '', '', '', 'date', '', 'trash', '']
-    fields = ['', 'bookingId', 'id', 'lastname', 'firstname', 'nationalityId', 'nationalityDescription', 'dob', 'isCheckedIn', '', '']
+    headers = ['', 'bookingId', 'Id', 'headerLastname', 'headerFirstname', 'headerNationalityId', 'headerNationalityDescription', 'headerGenderId', 'headerGenderDescription', 'headerDoB', 'headerIsCheckedIn', '', '']
+    widths = ['0px', '0px', '0px', '0px', '40%', '0px', '0px', '0px', '0px', '0px', '0px', '50px', '50px']
+    visibility = ['none', 'none', 'none', '', '', 'none', 'none', 'none', 'none', 'none', 'none', '', '']
+    justify = ['center', 'center', 'center', 'left', 'left', 'left', 'left', 'left', 'left', 'center', 'center', 'center', 'center']
+    types = ['', '', '', '', '', '', '', '', '', 'date', '', 'trash', '']
+    fields = ['', 'bookingId', 'id', 'lastname', 'firstname', 'nationalityId', 'nationalityDescription', 'genderId', 'genderDescription', 'dob', 'isCheckedIn', '', '']
 
     //#endregion
 
@@ -49,7 +49,6 @@ export class PassengerListComponent {
 
 
     ngOnDestroy(): void {
-        console.log('Unsubscribing passenger list')
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
         this.unlisten()
@@ -85,7 +84,6 @@ export class PassengerListComponent {
 
     private subscribeToInteractionService(): void {
         this.interactionService.booking.pipe(takeUntil(this.ngUnsubscribe)).subscribe(response => {
-            console.log('From service in passenger list', response)
             this.editRecord(response)
         })
     }
@@ -100,9 +98,8 @@ export class PassengerListComponent {
                     firstname: '',
                     occupantId: 2,
                     nationalityId: 1, nationalityDescription: '',
+                    genderId: 1, genderDescription: '',
                     dob: '',
-                    email: '',
-                    phones: '',
                     specialCare: '',
                     remarks: '',
                     isCheckedIn: false
@@ -110,11 +107,7 @@ export class PassengerListComponent {
             })
             dialog.afterClosed().subscribe((result: any) => {
                 if (result) {
-                    // console.log('New passenger', result)
-                    // console.log('Current passengers', this.bookingDetails)
                     this.bookingDetails.push(result)
-                    // console.log('Updated passengers', this.bookingDetails)
-                    // this.interactionService.sendPassengerToPassengerList(this.bookingDetails)
                 }
             })
         }
@@ -129,8 +122,8 @@ export class PassengerListComponent {
                     nationalityDescription: bookingDetail.nationalityDescription,
                     occupantId: bookingDetail.occupantId,
                     dob: bookingDetail.dob,
-                    email: bookingDetail.email,
-                    phones: bookingDetail.phones,
+                    genderId: bookingDetail.genderId,
+                    genderDescription: bookingDetail.genderDescription,
                     remarks: bookingDetail.remarks,
                     specialCare: bookingDetail.specialCare,
                     isCheckedIn: bookingDetail.isCheckedIn
@@ -144,8 +137,8 @@ export class PassengerListComponent {
                     bookingDetail.nationalityId = result.nationalityId
                     bookingDetail.nationalityDescription = result.nationalityDescription
                     bookingDetail.dob = result.dob
-                    bookingDetail.email = result.email
-                    bookingDetail.phones = result.phones
+                    bookingDetail.genderId = result.genderId
+                    bookingDetail.genderDescription = result.genderDescription
                     bookingDetail.specialCare = result.specialCare
                     bookingDetail.remarks = result.remarks
                     bookingDetail.isCheckedIn = result.isCheckedIn

@@ -53,6 +53,7 @@ namespace CorfuCruises {
                 .Include(x => x.Ship)
                 .Include(x => x.Details).ThenInclude(x => x.Nationality)
                 .Include(x => x.Details).ThenInclude(x => x.Occupant)
+                .Include(x => x.Details).ThenInclude(x => x.Gender)
                 .SingleOrDefaultAsync(x => x.BookingId == id);
         }
 

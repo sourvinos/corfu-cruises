@@ -179,7 +179,6 @@ export class BookingFormComponent {
     }
 
     public onSave(): void {
-        console.log(this.form.value)
         if (this.form.value.bookingId === 0 || this.form.value.bookingId === null) {
             this.bookingService.add(this.form.value).subscribe(() => {
                 this.initForm()
@@ -238,6 +237,9 @@ export class BookingFormComponent {
                 if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
                     this.buttonClickService.clickOnButton(event, 'ok')
                 }
+            },
+            'Ctrl.Right': (event: KeyboardEvent) => {
+                this.buttonClickService.clickOnButton(event, 'mat-tab-label-0-1')
             }
         }, {
             priority: 3,
@@ -252,6 +254,7 @@ export class BookingFormComponent {
 
     private flattenDetails(details: BookingDetail[]): any {
         const detailsFlat = []
+        console.log('details', details)
         details.forEach(detail => {
             const detailFlat = {
                 "id": detail.id,
@@ -262,12 +265,13 @@ export class BookingFormComponent {
                 "lastname": detail.lastname,
                 "firstname": detail.firstname,
                 "dob": detail.dob.substr(0, 10),
-                "email": detail.email,
-                "phones": detail.phones,
+                "genderId": detail.gender.id,
+                "genderDescription": detail.gender.description,
                 "specialCare": detail.specialCare,
                 "remarks": detail.remarks,
                 "isCheckedIn": detail.isCheckedIn
             }
+            console.log('detailFlat', detailFlat)
             detailsFlat.push(detailFlat)
         })
         return detailsFlat
@@ -293,6 +297,7 @@ export class BookingFormComponent {
 
     private getRecord(id: number): void {
         this.bookingService.getSingle(id).subscribe(result => {
+            console.log('result', result)
             this.showModalForm()
             this.populateFields(result)
             this.focus('destinationDescription')

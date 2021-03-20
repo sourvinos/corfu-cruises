@@ -1,5 +1,6 @@
 :root {
     /* Common */
+    --color-background-passenger-form: #505a5f;
     --color-background-secondary: #4c565a;
     --color-button-delete: #F28482;
     --color-logo-primary: #FE9F36;
@@ -62,5 +63,5 @@
     --color-border-inactive: #636a6d;
     /* Datepicker and calendar */
     --color-background-primary: #072d31;
-    --color-month:#FFE85C;
+    --color-month: #FFE85C;
 }

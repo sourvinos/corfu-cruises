@@ -159,7 +159,6 @@ export class RouteFormComponent {
     }
 
     public onSave(): void {
-        // console.log(this.form.value)
         if (this.form.value.id === 0) {
             this.routeService.add(this.form.value).subscribe(() => {
                 this.resetForm()

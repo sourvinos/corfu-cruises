@@ -13,12 +13,39 @@
 }
 
 .mat-tab-body-content {
-    align-items: center !important;
     display: flex !important;
-    height: 100% !important;
+    height: 367px !important;
     padding: 0;
+    width: 100%;
+}
+
+.mat-tab-nav-bar, .mat-tab-header {
+    border-bottom: 0 !important;
 }
 
 .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
     background-color: var(--color-background-secondary) !important;
+}
+
+.mat-tab-header {
+    margin-bottom: 2rem !important;
+}
+
+.mat-tab-label-content {
+    color: var(--color-text-primary) !important;
+    font-family: var(--font-family-button) !important;
+    font-size: var(--font-size-button) !important;
+    font-weight: var(--font-weight-button) !important;
+}
+
+.mat-tab {
+    min-width: 50px !important;
+}
+
+.mat-tab-label {
+    min-width: 50px !important;
+}
+
+.mat-tab-group {
+    height: 100% !important;
 }
