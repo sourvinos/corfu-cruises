@@ -674,6 +674,10 @@
                 "description": "Επιλεγμενες"
             },
             {
+                "id": "filtered",
+                "description": "Φιλτραρισμενες"
+            },
+            {
                 "id": "headerDestination",
                 "description": "Προορισμος"
             },

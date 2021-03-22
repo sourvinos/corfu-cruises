@@ -372,7 +372,8 @@ export class BookingListComponent {
         this.totals.push(
             { description: 'total', sum: 0 },
             { description: 'displayed', sum: 0 },
-            { description: 'selected', sum: 0 }
+            { description: 'selected', sum: 0 },
+            { description: 'filtered', sum: 0 }
         )
     }
 

@@ -6,9 +6,11 @@
         <div [class.hidden]="activePanel=='list'" class="selection">
             <div class="label">{{ onGetLabel(totals[0].description) }}</div>
             <div class="sum">{{ totals[0].sum }}</div>
+            <div class="label">{{ onGetLabel(totals[3].description) }}</div>
+            <div class="sum">{{ totals[1].sum }}</div>
         </div>
         <div [class.hidden]="activePanel=='summary'" id="totals">
-            <div *ngFor="let item of totals">
+            <div *ngFor="let item of totals | slice:0:3">
                 <div class="selection">
                     <div class="label">{{ onGetLabel(item.description) }}</div>
                     <div data-cy="totalsSum" class="sum">{{ item.sum }}</div>

@@ -674,6 +674,10 @@
                 "description": "Selected"
             },
             {
+                "id": "filtered",
+                "description": "Filtered"
+            },
+            {
                 "id": "headerDestination",
                 "description": "Destination"
             },
