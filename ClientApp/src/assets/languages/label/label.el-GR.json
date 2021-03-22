@@ -169,7 +169,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Οδηγοι"
+                "description": "Οδηγοί"
             },
             {
                 "id": "searchLabel",
@@ -227,7 +227,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Σημεια παραλαβης"
+                "description": "Σημεία παραλαβής"
             },
             {
                 "id": "searchLabel",
@@ -244,7 +244,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Σημεια παραλαβης διαδρομης: "
+                "description": "Σημεία παραλαβής διαδρομής: "
             },
             {
                 "id": "searchLabel",
@@ -281,7 +281,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Σημειο παραλαβης"
+                "description": "Σημείο παραλαβής"
             },
             {
                 "id": "route",
@@ -922,7 +922,7 @@
             },
             {
                 "id": "header",
-                "description": "Αναθεση σε πλοιο"
+                "description": "Ανάθεση σε πλοίο"
             },
             {
                 "id": "ship",
@@ -1207,7 +1207,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Νεο πρόγραμμα"
+                "description": "Νέο πρόγραμμα"
             },
             {
                 "id": "destination",

@@ -210,3 +210,10 @@ p.instructions {
     margin-right: 0.2rem !important;
 }
 
+.mat-expansion-panel-header.mat-expanded {
+    height: 48px;
+}
+
+.mat-expansion-panel-body {
+    padding: 0 !important;
+}

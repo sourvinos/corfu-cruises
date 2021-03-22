@@ -1358,5 +1358,42 @@
                 "description": "Save"
             }
         ]
+    },
+    {
+        "feature": "boardingWrapper",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Boarding"
+            },
+            {
+                "id": "date",
+                "description": "Date"
+            },
+            {
+                "id": "destination",
+                "description": "Destination"
+            },
+            {
+                "id": "port",
+                "description": "Port"
+            },
+            {
+                "id": "ship",
+                "description": "Vessel"
+            },
+            {
+                "id": "searchDateHint",
+                "description": "Select or enter date"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "Select from the list"
+            },
+            {
+                "id": "searchButton",
+                "description": "Search"
+            }
+        ]
     }
 ]

@@ -6,7 +6,7 @@
     --font-family-dialog-content: "PF Handbook Pro";
     --font-family-dialog-header: "PF Handbook Pro";
     --font-family-header: "PF Handbook Pro";
-    --font-family-label: "Ubuntu";
+    --font-family-label: "Ubuntu Condensed";
     --font-family-leaflet-tooltip: "PF Handbook Pro";
     --font-family-logo: "Yanone Kaffeesatz";
     --font-family-menu-list-item: "PF Handbook Pro";
@@ -31,6 +31,6 @@
     --font-weight-sum-persons: 300;
     --font-weight-summary-header: 300;
     --font-weight-table-header: 300 !important;
-    --font-weight-table-row-hover: 900 !important;  
+    --font-weight-table-row-hover: 900 !important;
     --font-weight-user-greeting: 300;
 }

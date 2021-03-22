@@ -10,6 +10,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling'
 // Modules
 import { AccountModule } from '../features/account/classes/account.module'
 import { BookingModule } from '../features/bookings/classes/booking.module'
+import { BoardingModule } from '../features/boardings/classes/boarding.module'
 import { CustomerModule } from '../features/customers/classes/customer.module'
 import { DestinationModule } from '../features/destinations/classes/destination.module'
 import { DriverModule } from '../features/drivers/classes/driver.module'
@@ -68,6 +69,7 @@ import { ScheduleMenuComponent } from '../shared/components/top-bar-wrapper/sche
         AccountModule,
         AppRoutingModule,
         BookingModule,
+        BoardingModule,
         BrowserAnimationsModule,
         BrowserModule,
         CustomerModule,

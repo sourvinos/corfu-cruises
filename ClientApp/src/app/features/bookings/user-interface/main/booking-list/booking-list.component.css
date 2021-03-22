@@ -65,7 +65,7 @@
 }
 
 #bookingList .scrollable::-webkit-scrollbar-thumb {
-    border-top: 34px solid var(--color-background-secondary) !important;
+    border-top: 41px solid var(--color-background-secondary) !important;
 }
 
 #panelButtons button {

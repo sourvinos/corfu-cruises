@@ -1,5 +1,6 @@
 <div id="main-menu" *ngIf="loginStatus | async">
     <ul>
+        <li><button mat-menu-item [routerLink]="['/boarding']">{{ onGetLabel('boarding') }}</button></li>
         <li><button mat-menu-item [routerLink]="['/bookings']">{{ onGetLabel('bookings') }}</button></li>
         <li *ngIf="isConnectedUserAdmin"><button mat-menu-item>{{ onGetLabel('tables') }}<img class="dropdown-arrow" src="/assets/images/navigation/dropdown-arrow.svg"></button>
             <ul class="sub-menu" (click)="onHideMenu()">

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CorfuCruises {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class BoardingsController : ControllerBase {
@@ -28,7 +28,7 @@ namespace CorfuCruises {
             return await this.repo.Get(date, destinationId, portId, shipId);
         }
 
-        [HttpPatch("{id}")]
+        [HttpPatch("doBoarding")]
         public IActionResult DoBoarding(int id) {
             try {
                 if (this.repo.DoBoarding(id)) {

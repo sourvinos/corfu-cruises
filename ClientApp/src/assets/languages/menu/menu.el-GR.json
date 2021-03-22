@@ -1,52 +1,59 @@
-[{
-    "feature": "main-menu",
-    "labels": [{
-            "id": "bookings",
-            "description": "Κρατησεις"
-        },
-        {
-            "id": "tables",
-            "description": "Πινακες"
-        },
-        {
-            "id": "users",
-            "description": "Χρηστες"
-        },
-        {
-            "id": "customers",
-            "description": "Πελατες"
-        },
-        {
-            "id": "destinations",
-            "description": "Προορισμοι"
-        },
-        {
-            "id": "drivers",
-            "description": "Οδηγοι"
-        },
-        {
-            "id": "genders",
-            "description": "Φυλα"
-        },
-        {
-            "id": "pickupPoints",
-            "description": "Σημεια παραλαβης"
-        },
-        {
-            "id": "ports",
-            "description": "Λιμανια"
-        },
-        {
-            "id": "routes",
-            "description": "Διαδρομες"
-        },
-        {
-            "id": "schedules",
-            "description": "Προγραμμα"
-        },
-        {
-            "id": "ships",
-            "description": "Πλοια"
-        }
-    ]
-}]
+[
+    {
+        "feature": "main-menu",
+        "labels": [
+            {
+                "id": "bookings",
+                "description": "Κρατησεις"
+            },
+            {
+                "id": "boarding",
+                "description": "Επιβιβασεις"
+            },
+            {
+                "id": "tables",
+                "description": "Πινακες"
+            },
+            {
+                "id": "users",
+                "description": "Χρηστες"
+            },
+            {
+                "id": "customers",
+                "description": "Πελατες"
+            },
+            {
+                "id": "destinations",
+                "description": "Προορισμοι"
+            },
+            {
+                "id": "drivers",
+                "description": "Οδηγοι"
+            },
+            {
+                "id": "genders",
+                "description": "Φυλα"
+            },
+            {
+                "id": "pickupPoints",
+                "description": "Σημεια παραλαβης"
+            },
+            {
+                "id": "ports",
+                "description": "Λιμανια"
+            },
+            {
+                "id": "routes",
+                "description": "Διαδρομες"
+            },
+            {
+                "id": "schedules",
+                "description": "Προγραμμα"
+            },
+            {
+                "id": "ships",
+                "description": "Πλοια"
+            }
+        ]
+    }
+]
