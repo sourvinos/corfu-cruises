@@ -5,9 +5,9 @@ import { AuthGuardService } from 'src/app/shared/services/auth-guard.service'
 import { CanDeactivateGuard } from 'src/app/shared/services/can-deactivate-guard.service'
 import { BookingFormResolver } from './booking-form.resolver'
 import { BookingListResolver } from './booking-list.resolver'
-import { BookingWrapperComponent } from '../user-interface/booking-wrapper/booking-wrapper.component'
-import { BookingListComponent } from '../user-interface/booking-wrapper/booking-list/booking-list.component'
-import { BookingFormComponent } from '../user-interface/booking-wrapper/booking-form/booking-form.component'
+import { BookingWrapperComponent } from '../user-interface/main/booking-wrapper.component'
+import { BookingListComponent } from '../user-interface/main/booking-list/booking-list.component'
+import { BookingFormComponent } from '../user-interface/main/booking-form/booking-form.component'
 
 const routes: Routes = [
     {

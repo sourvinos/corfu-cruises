@@ -1,4 +1,4 @@
-import { BookingDetail } from './../../../../classes/booking-detail'
+import { BookingDetail } from '../../../../classes/booking-detail'
 import { Component, Input } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
