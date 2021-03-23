@@ -1,0 +1,71 @@
+<div id="wrapper">
+
+    <div id="filter">
+        <div class="selection">
+            <div class="label">Συνολο</div>
+            <div class="sum">195</div>
+            <div class="label">Εχουν επιβιβαστει</div>
+            <div class="sum">170</div>
+            <div class="label">Απομενουν</div>
+            <div class="sum">25</div>
+        </div>
+        <mat-form-field>
+            <mat-label>Persons</mat-label>
+            <mat-select [(value)]="destinationId">
+                <mat-option>All</mat-option>
+                <mat-option>Boarded</mat-option>
+                <mat-option>Remaining</mat-option>
+            </mat-select>
+            <mat-hint>Select from the list to filter</mat-hint>
+        </mat-form-field>
+        <mat-form-field id="search">
+            <input type="text" matInput placeholder="Αναζητηση" id="searchTerm" #query autocomplete="off">
+            <button id="clearInput" mat-button matSuffix mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-hint>Με βαση το επωνυμο</mat-hint>
+        </mat-form-field>
+    </div>
+
+    <div id="results" class="scrollable">
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel *ngFor="let boarding of boardings" hideToggle [expanded]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Ticket number: {{ boarding.ticketNo }}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="detail" *ngFor="let detail of boarding.details">
+                    <div class="field">
+                        <div class="field-label">
+                            Last name
+                        </div>
+                        <div class="field-value">
+                            {{ detail.lastname }}
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">
+                            First name
+                        </div>
+                        <div class="field-value">
+                            {{ detail.firstname }}
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">
+                            Boarded
+                        </div>
+                        <div class="field-value">
+                            {{ detail.isCheckedIn }}
+                        </div>
+                    </div>
+                    <div class="button">
+                        <button mat-flat-button class="primary" (click)="onDoBoarding(detail.id)">Board</button>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+</div>

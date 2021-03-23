@@ -1,0 +1,28 @@
+#list {
+    flex-direction: row;
+    gap: 2rem;
+}
+
+#left-panel {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+#left-panel #search-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#left-panel #search-box button#search {
+    margin: auto 0 0 0 !important;
+}
+
+#right-panel {
+    width: 100%;
+}
+
+.mat-form-field {
+    margin-bottom: 1rem !important;
+}

@@ -1,17 +1,16 @@
 <div id="list">
 
-    <div id="header">
-        <div id="navigation">
-            <button data-cy="goBack" class="goBack" id="goBack" [routerLink]="['/']" mat-mini-fab>
-                <mat-icon>home</mat-icon>
-            </button>
+    <div id="left-panel">
+        <div id="header">
+            <div id="navigation">
+                <button data-cy="goBack" class="goBack" id="goBack" [routerLink]="['/']" mat-mini-fab>
+                    <mat-icon>home</mat-icon>
+                </button>
+            </div>
+            <div @slideFromLeft id="title">
+                <h1>{{ onGetLabel('header')}}</h1>
+            </div>
         </div>
-        <div @slideFromLeft id="title">
-            <h1>{{ onGetLabel('header')}}</h1>
-        </div>
-    </div>
-
-    <div id="content">
         <div id="search-box">
             <form id="form" [formGroup]="form" autocomplete="off">
                 <mat-form-field>
@@ -51,38 +50,10 @@
             </form>
             <button mat-flat-button id="search" class="primary" (click)="onLoadBoardings()">{{ onGetLabel("searchButton") }}</button>
         </div>
-        <div id="results" class="scrollable">
-            <mat-accordion class="example-headers-align" multi>
-                <mat-expansion-panel *ngFor="let boarding of boardings">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Ticket number: {{ boarding.ticketNo }}
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <div class="detail" *ngFor="let detail of boarding.details">
-                        <div class="field">
-                            <div class="field-label">
-                                Lastname
-                            </div>
-                            <div class="field-value">
-                                {{ detail.lastname }}
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="field-label">
-                                First name
-                            </div>
-                            <div class="field-value">
-                                {{ detail.firstname }}
-                            </div>
-                        </div>
-                        <div class="button">
-                            <button mat-flat-button class="primary" (click)="onDoBoarding(detail.id)">Board</button>
-                        </div>
-                    </div>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </div>
+    </div>
+
+    <div id="right-panel">
+        <router-outlet></router-outlet>
     </div>
 
 </div>

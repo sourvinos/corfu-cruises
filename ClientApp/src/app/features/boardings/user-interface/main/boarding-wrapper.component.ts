@@ -1,6 +1,3 @@
-import { BoardingService } from '../classes/boarding.service'
-import { MessageSnackbarService } from '../../../shared/services/messages-snackbar.service'
-import { PortService } from '../../ports/classes/port.service'
 import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
 import { Component } from '@angular/core'
 import { Title } from '@angular/platform-browser'
@@ -19,23 +16,24 @@ import { Port } from 'src/app/features/ports/classes/port'
 import { Ship } from 'src/app/features/ships/classes/ship'
 import { ShipService } from 'src/app/features/ships/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { Boarding } from '../classes/boarding'
 import moment from 'moment'
+import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { PortService } from 'src/app/features/ports/classes/port.service'
+import { BoardingService } from '../../classes/boarding.service'
 
 @Component({
-    selector: 'boarding-list',
-    templateUrl: './boarding-list.component.html',
-    styleUrls: ['../../../../assets/styles/lists.css', './boarding-list.component.css'],
+    selector: 'boarding-wrapper',
+    templateUrl: './boarding-wrapper.component.html',
+    styleUrls: ['../../../../../assets/styles/lists.css', './boarding-wrapper.component.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
-export class BoardingListComponent {
+export class BoardingWrapperComponent {
 
     //#region variables
 
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private resolver = 'boardingList'
     private windowTitle = 'Boarding'
     public feature = 'boardingWrapper'
 
@@ -43,36 +41,20 @@ export class BoardingListComponent {
 
     //#region particular variables
 
-    private dateISO = '2021-03-30'
-    public form: FormGroup
-    public boardings: Boarding
+    private dateInISO = '2021-03-30'
+    public dateIn = ''
     public destinationId = 1
     public portId = 2
     public shipId = 2
+    public form: FormGroup
+    public records: string[] = []
     public destinations: Destination[] = []
     public ports: Port[] = []
     public ships: Ship[] = []
 
     //#endregion
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private buttonClickService: ButtonClickService,
-        private dateAdapter: DateAdapter<any>,
-        private destinationService: DestinationService,
-        private formBuilder: FormBuilder,
-        private helperService: HelperService,
-        private keyboardShortcutsService: KeyboardShortcuts,
-        private messageHintService: MessageHintService,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageSnackbarService,
-        private portService: PortService,
-        private router: Router,
-        private shipService: ShipService,
-        private snackbarService: SnackbarService,
-        private boardingService: BoardingService,
-        private titleService: Title
-    ) { }
+    constructor(private activatedRoute: ActivatedRoute, private boardingService: BoardingService, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -92,19 +74,11 @@ export class BoardingListComponent {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
         this.unlisten()
-        this.removeSelectedIdsFromLocalStorage()
     }
 
     //#endregion
 
     //#region public methods
-
-    public onDoBoarding(id: string): void {
-        this.boardingService.boardPassenger(id).subscribe(() => {
-            this.showSnackbar(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'info')
-        })
-
-    }
 
     public onGetHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
@@ -119,12 +93,18 @@ export class BoardingListComponent {
     }
 
     public onLoadBoardings(): void {
-        if (this.onCheckValidDate()) {
-            this.boardingService.get(this.dateISO, this.destinationId, this.portId, this.shipId).subscribe(result => {
-                this.boardings = result
-            })
+        if (this.checkValidDate()) {
+            this.navigateToList()
         }
     }
+
+    // public onLoadBoardings(): void {
+    //     if (this.onCheckValidDate()) {
+    //         this.boardingService.get(this.dateISO, this.destinationId, this.portId, this.shipId).subscribe(result => {
+    //             this.boardings = result
+    //         })
+    //     }
+    // }
 
     //#endregion
 
@@ -146,14 +126,14 @@ export class BoardingListComponent {
         })
     }
 
-    private onCheckValidDate(): boolean {
+    private checkValidDate(): boolean {
         const date = (<HTMLInputElement>document.getElementById('date')).value
         if (moment(moment(date, 'DD/MM/YYYY')).isValid()) {
-            this.dateISO = moment(date, 'DD/MM/YYYY').toISOString(true)
-            this.dateISO = moment(this.dateISO).format('YYYY-MM-DD')
+            this.dateInISO = moment(date, 'DD/MM/YYYY').toISOString(true)
+            this.dateInISO = moment(this.dateInISO).format('YYYY-MM-DD')
             return true
         } else {
-            this.dateISO = ''
+            this.dateInISO = ''
             return false
         }
     }
@@ -172,6 +152,10 @@ export class BoardingListComponent {
         })
     }
 
+    private navigateToList(): void {
+        this.router.navigate([this.dateInISO, this.destinationId, this.portId, this.shipId], { relativeTo: this.activatedRoute })
+    }
+
     private populateDropDowns(): void {
         this.destinationService.getAllActive().subscribe((result: any) => {
             this.destinations = result.sort((a: { description: number; }, b: { description: number; }) => (a.description > b.description) ? 1 : -1)
@@ -184,16 +168,8 @@ export class BoardingListComponent {
         })
     }
 
-    private removeSelectedIdsFromLocalStorage(): void {
-        localStorage.removeItem('selectedIds')
-    }
-
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     //#endregion

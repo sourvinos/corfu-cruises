@@ -67,18 +67,6 @@ export class BookingWrapperComponent {
 
     //#region public methods
 
-    private onCheckValidDate(): boolean {
-        const date = (<HTMLInputElement>document.getElementById('dateIn')).value
-        if (moment(moment(date, 'DD/MM/YYYY')).isValid()) {
-            this.dateInISO = moment(date, 'DD/MM/YYYY').toISOString(true)
-            this.dateInISO = moment(this.dateInISO).format('YYYY-MM-DD')
-            return true
-        } else {
-            this.dateInISO = ''
-            return false
-        }
-    }
-
     public onGetHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
     }
@@ -93,7 +81,7 @@ export class BookingWrapperComponent {
 
     public onLoadBookings(): void {
         this.clearSelectedArraysFromLocalStorage()
-        if (this.onCheckValidDate()) {
+        if (this.checkValidDate()) {
             this.updateLocalStorageWithDate()
             this.navigateToList()
         }
@@ -117,6 +105,18 @@ export class BookingWrapperComponent {
             priority: 1,
             inputs: true
         })
+    }
+
+    private checkValidDate(): boolean {
+        const date = (<HTMLInputElement>document.getElementById('dateIn')).value
+        if (moment(moment(date, 'DD/MM/YYYY')).isValid()) {
+            this.dateInISO = moment(date, 'DD/MM/YYYY').toISOString(true)
+            this.dateInISO = moment(this.dateInISO).format('YYYY-MM-DD')
+            return true
+        } else {
+            this.dateInISO = ''
+            return false
+        }
     }
 
     private clearSelectedArraysFromLocalStorage(): void {

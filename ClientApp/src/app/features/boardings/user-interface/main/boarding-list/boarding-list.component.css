@@ -1,40 +1,44 @@
-#header {
-    margin-right: 1rem;
-    width: auto;
-}
-
-#content {
-    display: flex;
-    flex: 1;
-    gap: 2rem;
-    height: 100%;
-    margin: 0rem;
-    margin: 1rem 1rem;
-    overflow: hidden;
-}
-
-#content #search-box {
-    background-color: var(--color-background-summary) !important;
+#wrapper {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    height: auto;
-    padding: 2rem;
-    transition: background-color 0.7s;
-    width: 300px;
+    height: 100%;
 }
 
-#content #search-box .mat-form-field {
-    padding-bottom: 1rem !important;
+#filter {
+    align-items: baseline;
+    display: flex;
+    flex-direction: row;
 }
 
-#content #search-box button#search {
-    margin: auto 0 0 0 !important;
+.selection {
+    align-items: baseline;
+    display: flex;
+    font-family: var(--font-family-totals);
+    font-size: var(--font-size-table-row);
+    margin-left: 1rem;
+    text-align: right;
+}
+
+.selection .label {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-sum-persons);
+    font-variant-caps: petite-caps;
+    font-weight: var(--font-weight-sum-persons);
+    margin: 0 0.5rem 0 0.5rem;
+}
+
+.selection .sum {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sum);
+    font-weight: var(--font-weight-sum-persons);
+}
+
+#search {
+    width: 300px i !important;
 }
 
 #results {
     padding-right: 1rem;
-    width: 100%;
 }
 
 .mat-expansion-panel {

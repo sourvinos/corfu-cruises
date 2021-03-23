@@ -86,25 +86,7 @@ export class BookingListComponent {
 
     //#endregion
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private buttonClickService: ButtonClickService,
-        private driverService: DriverService,
-        private shipService: ShipService,
-        private helperService: HelperService,
-        private interactionService: InteractionService,
-        private keyboardShortcutsService: KeyboardShortcuts,
-        private location: Location,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageSnackbarService,
-        private pdfService: BookingPdfService,
-        private router: Router,
-        private service: BookingService,
-        private snackbarService: SnackbarService,
-        private titleService: Title,
-        private bookingService: BookingService,
-        public dialog: MatDialog
-    ) {
+    constructor(private activatedRoute: ActivatedRoute, private bookingService: BookingService, private buttonClickService: ButtonClickService, private driverService: DriverService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: BookingPdfService, private router: Router, private service: BookingService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
         this.activatedRoute.params.subscribe((params: Params) => this.dateIn = params['dateIn'])
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd && this.dateIn !== '' && this.router.url.split('/').length === 4) {

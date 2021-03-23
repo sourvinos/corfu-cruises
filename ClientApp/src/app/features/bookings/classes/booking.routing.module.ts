@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-
 import { AuthGuardService } from 'src/app/shared/services/auth-guard.service'
-import { CanDeactivateGuard } from 'src/app/shared/services/can-deactivate-guard.service'
+import { BookingFormComponent } from '../user-interface/main/booking-form/booking-form.component'
 import { BookingFormResolver } from './booking-form.resolver'
+import { BookingListComponent } from '../user-interface/main/booking-list/booking-list.component'
 import { BookingListResolver } from './booking-list.resolver'
 import { BookingWrapperComponent } from '../user-interface/main/booking-wrapper.component'
-import { BookingListComponent } from '../user-interface/main/booking-list/booking-list.component'
-import { BookingFormComponent } from '../user-interface/main/booking-form/booking-form.component'
+import { CanDeactivateGuard } from 'src/app/shared/services/can-deactivate-guard.service'
 
 const routes: Routes = [
     {
