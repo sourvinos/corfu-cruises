@@ -254,7 +254,6 @@ export class BookingFormComponent {
 
     private flattenDetails(details: BookingDetail[]): any {
         const detailsFlat = []
-        console.log('details', details)
         details.forEach(detail => {
             const detailFlat = {
                 "id": detail.id,
@@ -271,7 +270,6 @@ export class BookingFormComponent {
                 "remarks": detail.remarks,
                 "isCheckedIn": detail.isCheckedIn
             }
-            console.log('detailFlat', detailFlat)
             detailsFlat.push(detailFlat)
         })
         return detailsFlat
@@ -297,7 +295,6 @@ export class BookingFormComponent {
 
     private getRecord(id: number): void {
         this.bookingService.getSingle(id).subscribe(result => {
-            console.log('result', result)
             this.showModalForm()
             this.populateFields(result)
             this.focus('destinationDescription')

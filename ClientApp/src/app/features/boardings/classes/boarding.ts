@@ -6,6 +6,10 @@ export class Boarding {
 
     ticketNo: string
 
+    allPersons: number
+    boardedPersons: number
+    remainingPersons: number
+
     details: BoardingDetail[]
 
 }

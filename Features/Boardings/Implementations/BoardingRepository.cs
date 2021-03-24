@@ -15,13 +15,28 @@ namespace CorfuCruises {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<BoardingResource>> Get(string date, int destinationId, int portId, int shipId) {
+        public async Task<BoardingGroup> Get(string date, int destinationId, int portId, int shipId) {
             DateTime _date = Convert.ToDateTime(date);
             var boardings = await context.Bookings
                 .Include(x => x.Details)
                 .Where(x => x.Date == _date && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId)
                 .ToListAsync();
-            return mapper.Map<List<Booking>, List<BoardingResource>>(boardings);
+            int count = boardings.SelectMany(c => c.Details).Count();
+            int countBoarded = boardings.SelectMany(c => c.Details).Where(x => x.IsCheckedIn).Count();
+            int countRemain = count - countBoarded;
+            var groupResult = new BoardingGroup {
+                AllPersons = count,
+                BoardedPersons = countBoarded,
+                RemainingPersons = countRemain,
+                Boardings = boardings.ToList()
+            };
+
+            // Working
+            // int count = context.Bookings.Include(x => x.Details)
+            //                     .SelectMany(c => c.Details)
+            //                     .Where(x => x.IsCheckedIn)
+            //                     .Count();
+            return groupResult;
         }
 
         public bool DoBoarding(int id) {

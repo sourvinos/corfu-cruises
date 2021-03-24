@@ -5,7 +5,7 @@ namespace CorfuCruises {
 
     public interface IBoardingRepository : IRepository<Booking> {
 
-        Task<IEnumerable<BoardingResource>> Get(string date, int destinationId, int portId, int shipId);
+        Task<BoardingGroup> Get(string date, int destinationId, int portId, int shipId);
         bool DoBoarding(int id);
 
     }

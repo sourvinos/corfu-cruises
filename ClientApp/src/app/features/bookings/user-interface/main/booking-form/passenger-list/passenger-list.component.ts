@@ -142,7 +142,6 @@ export class PassengerListComponent {
                     bookingDetail.specialCare = result.specialCare
                     bookingDetail.remarks = result.remarks
                     bookingDetail.isCheckedIn = result.isCheckedIn
-                    console.log(bookingDetail)
                 }
             })
 

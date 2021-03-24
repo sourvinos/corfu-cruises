@@ -19,8 +19,7 @@ import { Port } from 'src/app/features/ports/classes/port'
 import { Ship } from 'src/app/features/ships/classes/ship'
 import { ShipService } from 'src/app/features/ships/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { Boarding } from '../../../classes/boarding'
-import moment from 'moment'
+import { BoardingGroup } from '../../../classes/boarding-flat'
 
 @Component({
     selector: 'boarding-list',
@@ -45,7 +44,7 @@ export class BoardingListComponent {
 
     private dateISO = '2021-03-29'
     public form: FormGroup
-    public boardings: Boarding
+    public boardings: BoardingGroup
     public destinationId = 2
     public portId = 2
     public shipId = 4
@@ -81,7 +80,6 @@ export class BoardingListComponent {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
         this.unlisten()
-        this.removeSelectedIdsFromLocalStorage()
     }
 
     //#endregion
@@ -119,7 +117,7 @@ export class BoardingListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.boardings = listResolved.result
-            console.log(this.boardings)
+            console.log('All', this.boardings)
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -146,18 +144,6 @@ export class BoardingListComponent {
         })
     }
 
-    private onCheckValidDate(): boolean {
-        const date = (<HTMLInputElement>document.getElementById('date')).value
-        if (moment(moment(date, 'DD/MM/YYYY')).isValid()) {
-            this.dateISO = moment(date, 'DD/MM/YYYY').toISOString(true)
-            this.dateISO = moment(this.dateISO).format('YYYY-MM-DD')
-            return true
-        } else {
-            this.dateISO = ''
-            return false
-        }
-    }
-
     private focus(field: string): void {
         this.helperService.setFocus(field)
     }
@@ -182,10 +168,6 @@ export class BoardingListComponent {
         this.shipService.getAllActive().subscribe((result: any) => {
             this.ships = result.sort((a: { description: number; }, b: { description: number; }) => (a.description > b.description) ? 1 : -1)
         })
-    }
-
-    private removeSelectedIdsFromLocalStorage(): void {
-        localStorage.removeItem('selectedIds')
     }
 
     private setWindowTitle(): void {

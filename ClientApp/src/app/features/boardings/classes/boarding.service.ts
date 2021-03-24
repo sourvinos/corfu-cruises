@@ -13,7 +13,7 @@ export class BoardingService extends DataService {
     }
 
     get(date: string, destinationId: number, portId: number, shipId: number): Observable<Boarding> {
-        const result = this.http.get<Boarding>('/api/boardings/' + date + '/' + destinationId + '/' + portId + '/' + shipId)
+        const result = this.http.get<any>('/api/boardings/' + date + '/' + destinationId + '/' + portId + '/' + shipId)
         return result
     }
 

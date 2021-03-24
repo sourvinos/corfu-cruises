@@ -6,6 +6,7 @@ namespace CorfuCruises {
 
         public int BookingId { get; set; }
         public string TicketNo { get; set; }
+
         public List<BookingDetailResource> Details { get; set; }
 
     }

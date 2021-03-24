@@ -3,11 +3,11 @@
     <div id="filter">
         <div class="selection">
             <div class="label">Συνολο</div>
-            <div class="sum">195</div>
+            <div class="sum"> {{ boardings.allPersons }}</div>
             <div class="label">Εχουν επιβιβαστει</div>
-            <div class="sum">170</div>
+            <div class="sum"> {{ boardings.boardedPersons }}</div>
             <div class="label">Απομενουν</div>
-            <div class="sum">25</div>
+            <div class="sum"> {{ boardings.remainingPersons}} </div>
         </div>
         <mat-form-field>
             <mat-label>Persons</mat-label>
@@ -29,7 +29,7 @@
 
     <div id="results" class="scrollable">
         <mat-accordion class="example-headers-align" multi>
-            <mat-expansion-panel *ngFor="let boarding of boardings" hideToggle [expanded]="true">
+            <mat-expansion-panel *ngFor="let boarding of boardings.boardings" hideToggle [expanded]="true">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Ticket number: {{ boarding.ticketNo }}

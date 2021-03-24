@@ -7,6 +7,7 @@ namespace CorfuCruises {
 
         // Joined Key
         public int BookingId { get; set; }
+        public string TicketNo { get; set; }
 
         // Fields
         public string Lastname { get; set; }
