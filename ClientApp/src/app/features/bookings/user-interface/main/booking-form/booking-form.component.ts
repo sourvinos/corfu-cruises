@@ -416,7 +416,7 @@ export class BookingFormComponent {
     }
 
     private refreshSummary(): void {
-        this.interactionService.mustRefreshList()
+        this.interactionService.mustRefreshBookingList()
     }
 
     private renameKey(obj: any, oldKey: string, newKey: string): void {

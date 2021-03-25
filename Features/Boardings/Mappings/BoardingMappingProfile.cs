@@ -1,17 +1,19 @@
-using System.Linq;
 using AutoMapper;
+using System.Linq;
 
 namespace CorfuCruises {
 
     public class BoardingsMappingProfile : Profile {
 
         public BoardingsMappingProfile() {
-            // Read
-            CreateMap<BoardingGroup, BoardingGroupResource>()
-                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.Boardings.Select(detail => new BookingDetailResource {
-                    Id = detail.BookingId,
-                    BookingId = detail.BookingId,
-                    TicketNo = detail.TicketNo
+            CreateMap<Booking, BoardingResource>()
+                .ForMember(x => x.TicketNo, x => x.MapFrom(x => x.TicketNo))
+                .ForMember(x => x.Remarks, x => x.MapFrom(x => x.Remarks))
+                .ForMember(x => x.Details, x => x.MapFrom(x => x.Details.Select(detail => new BoardingDetailResource {
+                    Id = detail.Id,
+                    Lastname = detail.Lastname,
+                    Firstname = detail.Firstname,
+                    IsCheckedIn = detail.IsCheckedIn
                 })));
         }
 

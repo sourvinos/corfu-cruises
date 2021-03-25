@@ -1360,7 +1360,7 @@
         ]
     },
     {
-        "feature": "boardingWrapper",
+        "feature": "boardingList",
         "labels": [
             {
                 "id": "header",
@@ -1393,6 +1393,74 @@
             {
                 "id": "searchButton",
                 "description": "Search"
+            },
+            {
+                "id": "totalPersons",
+                "description": "Total"
+            },
+            {
+                "id": "boardedPersons",
+                "description": "Boarded"
+            },
+            {
+                "id": "pandingPersons",
+                "description": "Pending"
+            },
+            {
+                "id": "personsFilter",
+                "description": "Filter persons"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "Select from the list"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "Search by last name"
+            },
+            {
+                "id": "personsFilterAll",
+                "description": "ALL"
+            },
+            {
+                "id": "personsFilterBoarded",
+                "description": "BOARDED"
+            },
+            {
+                "id": "personsFilterPending",
+                "description": "PENDING"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Ticket no:"
+            },
+            {
+                "id": "lastname",
+                "description": "Last Name"
+            },
+            {
+                "id": "firstname",
+                "description": "First Name"
+            },
+            {
+                "id": "isBoarded",
+                "description": "Boarded"
+            },
+            {
+                "id": "board",
+                "description": "Board"
+            },
+            {
+                "id": "boardingStatusOK",
+                "description": "OK"
+            },
+            {
+                "id": "boardingStatusPending",
+                "description": "PENDING"
             }
         ]
     }

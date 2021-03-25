@@ -48,7 +48,7 @@ export class BookingListComponent {
     //#region particular variables
 
     private dateIn: string
-    private mustRefresh = true
+    private mustRefreshBookingList = true
     private queryResultClone = new BookingViewModel()
     public activePanel: string
     public bookingsFlat: BookingFlat[] = []
@@ -90,7 +90,7 @@ export class BookingListComponent {
         this.activatedRoute.params.subscribe((params: Params) => this.dateIn = params['dateIn'])
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd && this.dateIn !== '' && this.router.url.split('/').length === 4) {
-                this.mustRefresh = true
+                this.mustRefreshBookingList = true
                 this.loadRecords()
                 this.onFocusSummaryPanel()
             }
@@ -129,8 +129,8 @@ export class BookingListComponent {
     }
 
     ngDoCheck(): void {
-        if (this.mustRefresh) {
-            this.mustRefresh = false
+        if (this.mustRefreshBookingList) {
+            this.mustRefreshBookingList = false
             this.ngAfterViewInit()
         }
     }
@@ -451,7 +451,7 @@ export class BookingListComponent {
         this.interactionService.record.pipe(takeUntil(this.ngUnsubscribe)).subscribe(response => {
             this.editRecord(response['id'])
         })
-        this.interactionService.refreshList.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
+        this.interactionService.refreshBookingList.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
             this.service.get(this.dateIn).subscribe(result => {
                 this.queryResult = result
                 this.ngAfterViewInit()

@@ -6,13 +6,18 @@
 #left-panel {
     display: flex;
     flex-direction: column;
+    margin-top: 1rem;
     width: 300px;
 }
 
 #left-panel #search-box {
+    background-color: var(--color-background-summary) !important;
     display: flex;
     flex-direction: column;
+    flex: 1;
     height: 100%;
+    padding: 2rem;
+    transition: background-color 0.7s;
 }
 
 #left-panel #search-box button#search {
@@ -25,4 +30,8 @@
 
 .mat-form-field {
     margin-bottom: 1rem !important;
+}
+
+#header {
+    margin: 0 1rem 3rem 1rem;
 }

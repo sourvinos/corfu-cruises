@@ -4,10 +4,10 @@ namespace CorfuCruises {
 
     public class BoardingResource {
 
-        public int BookingId { get; set; }
         public string TicketNo { get; set; }
+        public string Remarks { get; set; }
 
-        public List<BookingDetailResource> Details { get; set; }
+        public List<BoardingDetailResource> Details { get; set; }
 
     }
 

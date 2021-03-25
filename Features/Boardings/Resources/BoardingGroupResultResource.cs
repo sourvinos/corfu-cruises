@@ -2,13 +2,13 @@ using System.Collections.Generic;
 
 namespace CorfuCruises {
 
-    public class BoardingGroupResult<T> {
+    public class BoardingGroupResultResource<T> {
 
         public int AllPersons { get; set; }
         public int BoardedPersons { get; set; }
         public int RemainingPersons { get; set; }
 
-        public List<Booking> Boardings { get; set; }
+        public IEnumerable<BoardingResource> Boardings { get; set; }
 
     }
 

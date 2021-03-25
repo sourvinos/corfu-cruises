@@ -15,33 +15,33 @@ import { Destination } from 'src/app/features/destinations/classes/destination'
 import { Port } from 'src/app/features/ports/classes/port'
 import { Ship } from 'src/app/features/ships/classes/ship'
 import { ShipService } from 'src/app/features/ships/classes/ship.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import moment from 'moment'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { PortService } from 'src/app/features/ports/classes/port.service'
-import { BoardingService } from '../../classes/boarding.service'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { takeUntil } from 'rxjs/operators'
 
 @Component({
     selector: 'boarding-wrapper',
     templateUrl: './boarding-wrapper.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './boarding-wrapper.component.css'],
+    styleUrls: ['../../../../assets/styles/lists.css', './boarding-wrapper.component.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
-export class BoardingWrapperComponent {
+export class boardingListComponent {
 
     //#region variables
 
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
     private windowTitle = 'Boarding'
-    public feature = 'boardingWrapper'
+    public feature = 'boardingList'
 
     //#endregion
 
     //#region particular variables
 
-    private dateInISO = '2021-03-30'
+    private dateInISO = '2021-03-30';
+    private mustRefreshBoardingList = true
     public dateIn = ''
     public destinationId = 1
     public portId = 2
@@ -54,7 +54,7 @@ export class BoardingWrapperComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private boardingService: BoardingService, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private portService: PortService, private router: Router, private shipService: ShipService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -64,6 +64,7 @@ export class BoardingWrapperComponent {
         this.addShortcuts()
         this.getLocale()
         this.populateDropDowns()
+        this.subscribeToInteractionService()
     }
 
     ngAfterViewInit(): void {
@@ -170,6 +171,12 @@ export class BoardingWrapperComponent {
 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshBoardingList.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
+            this.onLoadBoardings()
+        })
     }
 
     //#endregion

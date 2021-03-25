@@ -1,6 +1,7 @@
 .mat-content {
     align-items: center;
     flex: 0 0 auto !important;
+    width: 100%;
 }
 
 .mat-checkbox-inner-container {

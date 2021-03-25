@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core'
 import { Subject } from 'rxjs'
-import { Booking } from 'src/app/features/bookings/classes/booking'
 
 @Injectable({ providedIn: 'root' })
 
@@ -11,14 +10,16 @@ export class InteractionService {
     private _record = new Subject<string[]>()
     private _booking = new Subject<string[]>()
     private _checked = new Subject<number>()
-    private _refreshList = new Subject<any>()
+    private _refreshBookingList = new Subject<any>()
+    private _refreshBoardingList = new Subject<any>()
     private _tableRow = new Subject()
     private _passengerNames = new Subject<any>()
 
     public record = this._record.asObservable()
     public booking = this._booking.asObservable()
     public checked = this._checked.asObservable()
-    public refreshList = this._refreshList.asObservable()
+    public refreshBookingList = this._refreshBookingList.asObservable()
+    public refreshBoardingList = this._refreshBoardingList.asObservable()
     public tableRow = this._tableRow.asObservable()
     public passengerNames = this._passengerNames.asObservable()
 
@@ -36,8 +37,8 @@ export class InteractionService {
      * Description:
      *  The form tells the list to refresh when a record is saved
      */
-    public mustRefreshList(): void {
-        this._refreshList.next()
+    public mustRefreshBookingList(): void {
+        this._refreshBookingList.next()
     }
 
     /** 
@@ -107,19 +108,9 @@ export class InteractionService {
         this._tableRow.next(rowIndex)
     }
 
-    /**
-     * 
-     * Caller(s)
-     *  booking-detail-form.ts
-     * 
-     * Subscriber(s)
-     *  booking-form.component.ts
-     * 
-     * Description
-     *  The caller(s) send the new passenger details to the subscriber(s) to show in the table
-     */
-    public sendPassengerToPassengerList(names: Booking[]): void {
-        this._passengerNames.next(names)
+
+    public mustRefreshBoardingList(): void {
+        this._refreshBoardingList.next()
     }
 
     //#endregion

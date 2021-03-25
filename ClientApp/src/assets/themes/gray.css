@@ -66,6 +66,6 @@
     --color-month: #FFE85C;
     /* Boarding list */
     --color-expansion-header: #EFEFEF;
-    --color-field-label:#EFEFEF;
-    --color-field-value:#EFEFEF;
+    --color-field-label:#ded2b9;
+    --color-field-value: #EFEFEF;
 }

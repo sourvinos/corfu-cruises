@@ -1358,5 +1358,110 @@
                 "description": "Αποθηκευση"
             }
         ]
+    },
+    {
+        "feature": "boardingList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Επιβίβαση"
+            },
+            {
+                "id": "date",
+                "description": "Ημερομηνια"
+            },
+            {
+                "id": "destination",
+                "description": "Προορισμος"
+            },
+            {
+                "id": "port",
+                "description": "Λιμανι"
+            },
+            {
+                "id": "ship",
+                "description": "Πλοιο"
+            },
+            {
+                "id": "searchDateHint",
+                "description": "Επιλεξτε 'η δωστε ημερομηνια"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "Επιλεξτε απο τη λιστα"
+            },
+            {
+                "id": "searchButton",
+                "description": "Αναζητηση"
+            },
+            {
+                "id": "totalPersons",
+                "description": "Συνολο"
+            },
+            {
+                "id": "boardedPersons",
+                "description": "Εχουν επιβιβαστει"
+            },
+            {
+                "id": "pandingPersons",
+                "description": "Σε εκκρεμοτητα"
+            },
+            {
+                "id": "personsFilter",
+                "description": "Ατομα"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "Επιλεξτε απο τη λιστα"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Αναζητηση"
+            },
+            {
+                "id": "searchHint",
+                "description": "Με βαση το επωνυμο"
+            },
+            {
+                "id": "personsFilterAll",
+                "description": "ΟΛΟΙ"
+            },
+            {
+                "id": "personsFilterBoarded",
+                "description": "ΕΧΟΥΝ ΕΠΙΒΙΒΑΣΤΕΙ"
+            },
+            {
+                "id": "personsFilterPending",
+                "description": "ΣΕ ΕΚΚΡΕΜΟΤΗΤΑ"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Νο Εισιτηριου:"
+            },
+            {
+                "id": "lastname",
+                "description": "Επωνυμο"
+            },
+            {
+                "id": "firstname",
+                "description": "Ονομα"
+            },
+            {
+                "id": "isBoarded",
+                "description": "Επιβιβαση"
+            },
+            {
+                "id": "board",
+                "description": "Επιβιβαση"
+            },
+            {
+                "id": "boardingStatusOK",
+                "description": "OK"
+            },
+            {
+                "id": "boardingStatusPending",
+                "description": "ΕΚΚΡΕΜΕΙ"
+            }
+        ]
     }
 ]

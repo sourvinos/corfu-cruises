@@ -34,10 +34,11 @@ export class BookingWrapperComponent {
     //#region particular variables
 
     private dateInISO = ''
+    private mustRefreshBookingList = true
+    public bookingsFlat: BookingFlat[] = []
     public dateIn = ''
     public form: FormGroup
     public records: string[] = []
-    public bookingsFlat: BookingFlat[] = []
 
     //#endregion
 
@@ -54,6 +55,13 @@ export class BookingWrapperComponent {
 
     ngAfterViewInit(): void {
         this.focus('dateIn')
+    }
+
+    ngDoCheck(): void {
+        if (this.mustRefreshBookingList) {
+            this.mustRefreshBookingList = false
+            this.ngAfterViewInit()
+        }
     }
 
     ngOnDestroy(): void {

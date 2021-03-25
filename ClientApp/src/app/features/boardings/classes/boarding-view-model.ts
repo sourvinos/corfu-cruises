@@ -1,6 +1,6 @@
 import { Boarding } from "./boarding"
 
-export class BoardingGroup {
+export class BoardingViewModel {
 
     allPersons: number
     boardedPersons: number
