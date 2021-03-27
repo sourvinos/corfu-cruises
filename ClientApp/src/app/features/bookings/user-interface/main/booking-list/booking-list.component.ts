@@ -98,8 +98,7 @@ export class BookingListComponent {
     }
 
     @HostListener('window:resize', ['$event']) onResize(): any {
-        this.setSidebarVisibility('hidden')
-        this.setTopLogoVisibility('visible')
+        this.setElementVisibility('')
     }
 
     //#region lifecycle hooks
@@ -110,8 +109,7 @@ export class BookingListComponent {
         this.initPersonsSumArray()
         this.subscribeToInteractionService()
         this.onFocusSummaryPanel()
-        this.setSidebarVisibility('hidden')
-        this.setTopLogoVisibility('visible')
+        this.setElementVisibility('hide')
     }
 
     ngAfterViewInit(): void {
@@ -138,8 +136,7 @@ export class BookingListComponent {
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
-        this.setSidebarVisibility()
-        this.setTopLogoVisibility()
+        this.setElementVisibility('show')
         this.unlisten()
     }
 
@@ -333,19 +330,6 @@ export class BookingListComponent {
         return JSON.parse(localStorageData.drivers)
     }
 
-    private getSortObjectFromStorage(): boolean {
-        try {
-            const sortObject = JSON.parse(this.helperService.readItem(this.feature))
-            if (sortObject) {
-                this.sortColumn = sortObject.column
-                this.sortOrder = sortObject.order
-                return true
-            }
-        } catch {
-            return false
-        }
-    }
-
     private initCheckedPersons(): void {
         this.interactionService.setCheckedTotalPersons(0)
     }
@@ -416,31 +400,12 @@ export class BookingListComponent {
         }
     }
 
-    private setSidebarVisibility(visibility?: string): void {
-        if (screen.width < 1681 && visibility) {
-            document.getElementById('side-logo').style.opacity = '0'
-            document.getElementById('side-image').style.opacity = '0'
-            document.getElementById('side-footer').style.opacity = '0'
-            document.getElementById('side-bar').style.width = '0'
-            document.getElementById('side-bar').style.overflow = 'hidden'
-        } else {
-            document.getElementById('side-logo').style.opacity = '1'
-            document.getElementById('side-image').style.opacity = '1'
-            document.getElementById('side-footer').style.opacity = '1'
-            document.getElementById('side-bar').style.width = '16.5rem'
-        }
-    }
-
-    private setTopLogoVisibility(visibility?: string): void {
-        if (screen.width < 1681 && visibility) {
-            document.getElementById('top-logo').style.display = 'flex'
-        } else {
-            document.getElementById('top-logo').style.display = 'none'
-        }
-    }
-
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+    }
+
+    private setElementVisibility(action: string): void {
+        this.interactionService.setSidebarAndTopLogoVisibility(action)
     }
 
     private showSnackbar(message: string, type: string): void {

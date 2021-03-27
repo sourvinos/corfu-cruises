@@ -1407,8 +1407,8 @@
                 "description": "Σε εκκρεμοτητα"
             },
             {
-                "id": "personsFilter",
-                "description": "Ατομα"
+                "id": "boardingStatusFilter",
+                "description": "Κατασταση επιβιβασης"
             },
             {
                 "id": "searchDropdownHint",
@@ -1423,15 +1423,15 @@
                 "description": "Με βαση το επωνυμο"
             },
             {
-                "id": "personsFilterAll",
+                "id": "boardingStatusAll",
                 "description": "ΟΛΟΙ"
             },
             {
-                "id": "personsFilterBoarded",
+                "id": "boardingStatusBoarded",
                 "description": "ΕΧΟΥΝ ΕΠΙΒΙΒΑΣΤΕΙ"
             },
             {
-                "id": "personsFilterPending",
+                "id": "boardingStatusPending",
                 "description": "ΣΕ ΕΚΚΡΕΜΟΤΗΤΑ"
             },
             {
@@ -1453,14 +1453,6 @@
             {
                 "id": "board",
                 "description": "Επιβιβαση"
-            },
-            {
-                "id": "boardingStatusOK",
-                "description": "OK"
-            },
-            {
-                "id": "boardingStatusPending",
-                "description": "ΕΚΚΡΕΜΕΙ"
             }
         ]
     }

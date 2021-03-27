@@ -4,13 +4,6 @@
         height: 100%;
     }
     
-    #header {
-        align-items: center;
-        display: flex;
-        flex-direction: row;
-        margin: 0 2rem 1.2rem 0;
-    }
-    
     #filters {
         align-items: baseline;
         display: flex;
@@ -42,12 +35,8 @@
         font-weight: var(--font-weight-sum-persons);
     }
     
-    .filter {
-        width: 300px !important;
-    }
-    
     #results {
-        padding-right: 1rem;
+        width: 100%;
     }
     
     .mat-expansion-panel {
@@ -92,20 +81,19 @@
     
     .detail .field {
         margin-right: 1rem;
-        width: 300px;
+    }
+    
+    .detail .field#lastname {
+        width: 30%;
+    }
+    
+    .detail .field#firstname {
+        width: 20%;
     }
     
     .detail .field.isBoarded {
         text-align: center;
         width: 100px;
-    }
-    
-    .ok {
-        color: chartreuse;
-    }
-    
-    .pending {
-        color: #F8754B;
     }
     
     .detail .button {

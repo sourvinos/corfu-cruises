@@ -13,7 +13,7 @@ export class InteractionService {
     private _refreshBookingList = new Subject<any>()
     private _refreshBoardingList = new Subject<any>()
     private _tableRow = new Subject()
-    private _passengerNames = new Subject<any>()
+    private _sidebarAndTopMenuVisibility = new Subject<any>()
 
     public record = this._record.asObservable()
     public booking = this._booking.asObservable()
@@ -21,7 +21,7 @@ export class InteractionService {
     public refreshBookingList = this._refreshBookingList.asObservable()
     public refreshBoardingList = this._refreshBoardingList.asObservable()
     public tableRow = this._tableRow.asObservable()
-    public passengerNames = this._passengerNames.asObservable()
+    public sidebarAndTopMenuVisibility = this._sidebarAndTopMenuVisibility.asObservable()
 
     //#endregion
 
@@ -109,8 +109,22 @@ export class InteractionService {
     }
 
 
+    /**
+     * Caller(s):
+     *  boarding-list.component.ts
+     * 
+     * Subscriber(s):
+     *  boarding-wrapper.component.ts
+     * 
+     * Description:
+     *  The caller tells the subscriber to refresh the passenger totals after each boarding is saved
+     */
     public mustRefreshBoardingList(): void {
         this._refreshBoardingList.next()
+    }
+
+    public setSidebarAndTopLogoVisibility(action): void {
+        this._sidebarAndTopMenuVisibility.next(action)
     }
 
     //#endregion

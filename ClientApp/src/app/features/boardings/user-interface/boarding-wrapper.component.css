@@ -16,6 +16,7 @@
     flex-direction: column;
     flex: 1;
     height: 100%;
+    overflow-y: hidden;
     padding: 2rem;
     transition: background-color 0.7s;
 }

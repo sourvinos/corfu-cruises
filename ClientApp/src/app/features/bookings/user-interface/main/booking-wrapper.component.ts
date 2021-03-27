@@ -141,7 +141,7 @@ export class BookingWrapperComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            dateIn: ['2021-05-19', [Validators.required]]
+            dateIn: ['2021-03-30', [Validators.required]]
         })
     }
 

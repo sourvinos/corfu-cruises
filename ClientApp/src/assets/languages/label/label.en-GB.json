@@ -1407,8 +1407,8 @@
                 "description": "Pending"
             },
             {
-                "id": "personsFilter",
-                "description": "Filter persons"
+                "id": "boardingStatusFilter",
+                "description": "Boarding status"
             },
             {
                 "id": "searchDropdownHint",
@@ -1423,15 +1423,15 @@
                 "description": "Search by last name"
             },
             {
-                "id": "personsFilterAll",
+                "id": "boardingStatusAll",
                 "description": "ALL"
             },
             {
-                "id": "personsFilterBoarded",
+                "id": "boardingStatusBoarded",
                 "description": "BOARDED"
             },
             {
-                "id": "personsFilterPending",
+                "id": "boardingStatusPending",
                 "description": "PENDING"
             },
             {
@@ -1453,14 +1453,6 @@
             {
                 "id": "board",
                 "description": "Board"
-            },
-            {
-                "id": "boardingStatusOK",
-                "description": "OK"
-            },
-            {
-                "id": "boardingStatusPending",
-                "description": "PENDING"
             }
         ]
     }
