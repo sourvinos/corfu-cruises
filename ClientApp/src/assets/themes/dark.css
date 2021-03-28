@@ -1,0 +1,66 @@
+:root {
+    /* Common */
+    --color-background-primary: #072d31;
+    --color-background-secondary: #4c565a;
+    /* Logo */
+    --color-logo-primary: #FE9F36;
+    --color-logo-secondary: #FFE85C;
+    /* Snackbars */
+    --color-snackbar-error: #920402;
+    --color-snackbar-info: #76A28D;
+    /* Checkboxes */
+    --color-checkbox-checked: #55828B;
+    --color-checkbox-indeterminate: #185258;
+    /* Buttons */
+    --color-button-delete: #F28482;
+    --color-button-primary: #55828B;
+    --color-button-secondary: #426176;
+    --color-button-text: #EDEDED;
+    /* Selected tabs */
+    --color-selected-tab: #FFE85C;
+    /* Sliders */
+    --color-slider-bar-active: #6d7273;
+    --color-slider-bar-inactive: #a2a6a7;
+    --color-slider-thumb-active: #6a7f82;
+    --color-slider-thumb-inactive: #a2a6a7;
+    /* Summaries */
+    --color-summary-background: #97aaaf21;
+    --color-summary-header: #e6ba8a;
+    --color-summary-total: #e6ba8a;
+    /* Text */
+    --color-text-primary: #EFEFEF;
+    --color-text-secondary: #F2D492;
+    --color-text-selected: #f2d49266;
+    /* Maps */
+    --color-map-buttons-background: #426176;
+    --color-map-buttons: #EBE5CD;
+    --color-map-tooltip-background: #22333B;
+    --color-map-tooltip-color: #EFEFEF;
+    /* Spinner */
+    --color-spinner-outer: #FE9F36;
+    --color-spinner-inner: #FFE85C;
+    /* Credits */
+    --color-credit-title: #FE9F36;
+    --color-credit-url: #FFE85C;
+    --color-credit-about: #EFEFEF;
+    --color-credit-hover: #545454;
+    /* Tables */
+    --color-table-header: #4f5c61;
+    --color-table-row-highlight: #4f5c61;
+    /* Scroll bars */
+    --color-scrollbar: #FE9F36;
+    /* Main menu */
+    --color-main-menu-background: #072d31;
+    --color-main-menu-background-hover: #696969;
+    /* Border of clickable items */
+    --color-border-active: #F2D492;
+    --color-border-inactive: #576971;
+    /* Datepicker and calendar */
+    --color-datepicker-month: #FFE85C;
+    --color-occupancy-label: #EDEDED;
+    --color-datepicker-days: #EDEDED;
+    /* Boarding list */
+    --color-expansion-header: #EFEFEF;
+    --color-expansion-list-label: #ded2b9;
+    --color-expansion-list-value: #EFEFEF;
+}

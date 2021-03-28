@@ -21,7 +21,7 @@
 }
 
 #header #navigation .mat-icon {
-    color: var(--color-text-button) !important;
+    color: var(--color-button-text) !important;
 }
 
 #header #title {

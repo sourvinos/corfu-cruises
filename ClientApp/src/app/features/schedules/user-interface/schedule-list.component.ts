@@ -17,11 +17,12 @@ import moment from 'moment'
 import { DateAdapter } from '@angular/material/core'
 import { AccountService } from 'src/app/shared/services/account.service'
 import { BookingService } from '../../bookings/classes/booking.service'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 
 @Component({
     selector: 'schedule-list',
     templateUrl: './schedule-list.component.html',
-    styleUrls: ['../../../../assets/styles/lists.css', './schedule-list-component.css'],
+    styleUrls: ['../../../../assets/styles/lists.css', '../../../../assets/styles/summaries.css', './schedule-list-component.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
@@ -52,13 +53,12 @@ export class ScheduleListComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private bookingService: BookingService, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private portService: PortService, private renderer: Renderer2, private scheduleService: ScheduleService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private accountService: AccountService, private bookingService: BookingService, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private portService: PortService, private renderer: Renderer2, private scheduleService: ScheduleService, private titleService: Title, public dialog: MatDialog) {
         this.dateAdapter.setLocale(this.helperService.readItem("language"))
     }
 
     @HostListener('window:resize', ['$event']) onResize(): any {
-        this.setSidebarVisibility('hidden')
-        this.setTopLogoVisibility('visible')
+        this.setElementVisibility('')
         this.adjustCalendarSize()
     }
 
@@ -70,8 +70,7 @@ export class ScheduleListComponent {
         this.loadPorts()
         this.addShortcuts()
         this.updateVariables()
-        this.setSidebarVisibility('hidden')
-        this.setTopLogoVisibility('visible')
+        this.setElementVisibility('hide')
         this.setCalendarOpacity('0')
     }
 
@@ -83,6 +82,7 @@ export class ScheduleListComponent {
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
+        this.setElementVisibility('show')
         this.unlisten()
     }
 
@@ -249,6 +249,10 @@ export class ScheduleListComponent {
         })
     }
 
+    private setElementVisibility(action: string): void {
+        this.interactionService.setSidebarAndTopLogoVisibility(action)
+    }
+
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
@@ -284,29 +288,6 @@ export class ScheduleListComponent {
     }
 
     //#endregion
-
-    private setSidebarVisibility(visibility?: string): void {
-        if (screen.width < 1599 && visibility) {
-            document.getElementById('side-logo').style.opacity = '0'
-            document.getElementById('side-image').style.opacity = '0'
-            document.getElementById('side-footer').style.opacity = '0'
-            document.getElementById('side-bar').style.width = '0'
-            document.getElementById('side-bar').style.overflow = 'hidden'
-        } else {
-            document.getElementById('side-logo').style.opacity = '1'
-            document.getElementById('side-image').style.opacity = '1'
-            document.getElementById('side-footer').style.opacity = '1'
-            document.getElementById('side-bar').style.width = '16.5rem'
-        }
-    }
-
-    private setTopLogoVisibility(visibility?: string): void {
-        if (screen.width < 1599 && visibility) {
-            document.getElementById('top-logo').style.display = 'flex'
-        } else {
-            document.getElementById('top-logo').style.display = 'none'
-        }
-    }
 
     private setCalendarOpacity(opacity: string): void {
         document.getElementById('calendar-wrapper').style.opacity = opacity

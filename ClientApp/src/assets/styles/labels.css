@@ -1,5 +1,7 @@
 label {
     color: var(--color-text-primary) !important;
+    font-family: var(--font-family-label) !important;
     font-size: var(--font-size-label) !important;
+    font-variant-caps: petite-caps;
     font-weight: var(--font-weight-label) !important;
 }

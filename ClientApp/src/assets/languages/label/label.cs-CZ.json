@@ -1028,24 +1028,12 @@
         "feature": "theme-menu",
         "labels": [
             {
-                "id": "blue",
-                "description": "Modrá"
+                "id": "light",
+                "description": "Světlo"
             },
             {
-                "id": "green",
-                "description": "Zelená"
-            },
-            {
-                "id": "red",
-                "description": "Červená"
-            },
-            {
-                "id": "peach",
-                "description": "Broskvová"
-            },
-            {
-                "id": "gray",
-                "description": "Šedá"
+                "id": "dark",
+                "description": "Temný"
             }
         ]
     },
@@ -1347,6 +1335,103 @@
             {
                 "id": "saveButton",
                 "description": "(CZ) Save"
+            }
+        ]
+    },
+    {
+        "feature": "boardingList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(CZ) Boarding"
+            },
+            {
+                "id": "date",
+                "description": "(CZ) Date"
+            },
+            {
+                "id": "destination",
+                "description": "(CZ) Destination"
+            },
+            {
+                "id": "port",
+                "description": "(CZ) Port"
+            },
+            {
+                "id": "ship",
+                "description": "(CZ) Vessel"
+            },
+            {
+                "id": "searchDateHint",
+                "description": "(CZ) Select or enter date"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "(CZ) Select from the list"
+            },
+            {
+                "id": "searchButton",
+                "description": "(CZ) Search"
+            },
+            {
+                "id": "totalPersons",
+                "description": "(CZ) Total"
+            },
+            {
+                "id": "boardedPersons",
+                "description": "(CZ) Boarded"
+            },
+            {
+                "id": "pandingPersons",
+                "description": "(CZ) Pending"
+            },
+            {
+                "id": "boardingStatusFilter",
+                "description": "(CZ) Boarding status"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "(CZ) Select from the list"
+            },
+            {
+                "id": "searchLabel",
+                "description": "(CZ) Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "(CZ) Search by last name"
+            },
+            {
+                "id": "boardingStatusAll",
+                "description": "(CZ) ALL"
+            },
+            {
+                "id": "boardingStatusBoarded",
+                "description": "(CZ) BOARDED"
+            },
+            {
+                "id": "boardingStatusPending",
+                "description": "(CZ) PENDING"
+            },
+            {
+                "id": "ticketNo",
+                "description": "(CZ) Ticket no:"
+            },
+            {
+                "id": "lastname",
+                "description": "(CZ) Last Name"
+            },
+            {
+                "id": "firstname",
+                "description": "(CZ) First Name"
+            },
+            {
+                "id": "isBoarded",
+                "description": "(CZ) Boarded"
+            },
+            {
+                "id": "board",
+                "description": "(CZ) Board"
             }
         ]
     }

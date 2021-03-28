@@ -14,7 +14,7 @@ export class ThemeMenuComponent {
     //#region variables
 
     private feature = 'theme-menu'
-    public defaultTheme = 'gray'
+    public defaultTheme = 'dark'
 
     //#endregion
 

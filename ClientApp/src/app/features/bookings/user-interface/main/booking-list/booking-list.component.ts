@@ -25,7 +25,7 @@ import { BookingAssignToShipComponent } from '../../assign-ship/assign-ship-form
 @Component({
     selector: 'booking-list',
     templateUrl: './booking-list.component.html',
-    styleUrls: ['./booking-list.component.css'],
+    styleUrls: ['./booking-list.component.css', '../../../../../../assets/styles/summaries.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 

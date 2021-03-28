@@ -880,15 +880,6 @@
         ]
     },
     {
-        "feature": "themeColor",
-        "labels": [
-            {
-                "id": "red",
-                "description": "Κοκκινο"
-            }
-        ]
-    },
-    {
         "feature": "assignToDriver",
         "labels": [
             {
@@ -1037,24 +1028,12 @@
         "feature": "theme-menu",
         "labels": [
             {
-                "id": "blue",
-                "description": "Μπλε"
+                "id": "light",
+                "description": "Ανοιχτο"
             },
             {
-                "id": "green",
-                "description": "Πρασινο"
-            },
-            {
-                "id": "red",
-                "description": "Κοκκινο"
-            },
-            {
-                "id": "peach",
-                "description": "Ροδακινι"
-            },
-            {
-                "id": "gray",
-                "description": "Γκρι"
+                "id": "dark",
+                "description": "Σκουρο"
             }
         ]
     },

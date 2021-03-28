@@ -19,21 +19,21 @@
 }
 
 .item:hover {
-    background-color: var(--color-hover);
+    background-color: var(--color-credit-hover);
 }
 
 .title {
-    color: var(--color-title);
+    color: var(--color-credit-title);
     font-size: 1.6rem;
 }
 
 .url {
-    color: var(--color-url);
+    color: var(--color-credit-url);
     font-size: 1rem;
 }
 
 .about {
-    color: var(--color-about);
+    color: var(--color-credit-about);
     font-size: 1rem;
 }
 

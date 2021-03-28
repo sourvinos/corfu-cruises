@@ -732,79 +732,91 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Reservation"
+                "description": "Reservation"
+            },
+            {
+                "id": "tabGeneral",
+                "description": "General"
+            },
+            {
+                "id": "tabPassengers",
+                "description": "Passengers"
+            },
+            {
+                "id": "tabMoreInfo",
+                "description": "More"
             },
             {
                 "id": "destination",
-                "description": "(DE) Destination"
+                "description": "Destination"
             },
             {
                 "id": "customer",
-                "description": "(DE) Customer"
+                "description": "Customer"
             },
             {
                 "id": "pickupPoint",
-                "description": "(DE) Pickup point"
+                "description": "Pickup point"
             },
             {
                 "id": "ticketNo",
-                "description": "(DE) Ticket no"
+                "description": "Ticket no"
             },
             {
                 "id": "adults",
-                "description": "(DE) Adults"
+                "description": "Adults"
             },
             {
                 "id": "kids",
-                "description": "(DE) Kids"
+                "description": "Kids"
             },
             {
                 "id": "free",
-                "description": "(DE) Free"
+                "description": "Free"
             },
             {
                 "id": "totalPersons",
-                "description": "(DE) Total"
+                "description": "Total"
             },
             {
                 "id": "driver",
-                "description": "(DE) Driver"
+                "description": "Driver"
             },
             {
                 "id": "port",
-                "description": "(DE) Port"
+                "description": "Port"
             },
             {
                 "id": "ship",
-                "description": "(DE) Vessel"
+                "description": "Vessel"
             },
             {
                 "id": "email",
-                "description": "(DE) Email"
+                "description": "Email"
             },
             {
                 "id": "phones",
-                "description": "(DE) Phones"
+                "description": "Phones"
             },
             {
                 "id": "remarks",
-                "description": "(DE) Remarks"
+                "description": "Remarks"
             },
             {
                 "id": "abortButton",
-                "description": "(DE) Cancel"
+                "description": "Cancel"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Delete"
             },
             {
                 "id": "sendVoucherButton",
-                "description": "(DE) Send to email"
+                "description": "Send to email"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Save"
             }
         ]
     },
@@ -864,15 +876,6 @@
             {
                 "id": "noButton",
                 "description": "(DE) Cancel"
-            }
-        ]
-    },
-    {
-        "feature": "themeColor",
-        "labels": [
-            {
-                "id": "red",
-                "description": "(DE) Red"
             }
         ]
     },
@@ -1025,24 +1028,12 @@
         "feature": "theme-menu",
         "labels": [
             {
-                "id": "blue",
-                "description": "Blau"
+                "id": "light",
+                "description": "Licht"
             },
             {
-                "id": "green",
-                "description": "Grün"
-            },
-            {
-                "id": "red",
-                "description": "Rot"
-            },
-            {
-                "id": "peach",
-                "description": "Pfirsich"
-            },
-            {
-                "id": "gray",
-                "description": "Grau"
+                "id": "dark",
+                "description": "Dunkel"
             }
         ]
     },
@@ -1157,12 +1148,12 @@
                 "description": "(DE) Date"
             },
             {
-                "id": "occupancy",
-                "description": "(DE) Occupancy"
-            },
-            {
                 "id": "headerMaxPersons",
                 "description": "(DE) Max Capacity"
+            },
+            {
+                "id": "occupancy",
+                "description": "(DE) Occupancy"
             },
             {
                 "id": "plenty",
@@ -1235,20 +1226,16 @@
                 "description": "(DE) Nationality"
             },
             {
-                "id": "headerEmail",
-                "description": "(DE) Email"
-            },
-            {
-                "id": "headerPhones",
-                "description": "(DE) Phones"
+                "id": "headerDoB",
+                "description": "Date of Birth"
             },
             {
                 "id": "headerSpecialCare",
-                "description": "(DE) Special care"
+                "description": "Special care"
             },
             {
                 "id": "headerRemarks",
-                "description": "(DE) Remarks"
+                "description": "Remarks"
             },
             {
                 "id": "headerIsCheckedIn",
@@ -1261,47 +1248,43 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Passenger"
+                "description": "Passenger"
             },
             {
                 "id": "lastname",
-                "description": "(DE) Lastname"
+                "description": "Lastname"
             },
             {
                 "id": "firstname",
-                "description": "(DE) Firstname"
+                "description": "Firstname"
             },
             {
                 "id": "nationality",
-                "description": "(DE) Nationality"
+                "description": "Nationality"
             },
             {
                 "id": "dob",
-                "description": "(DE) DOB"
+                "description": "DoB"
             },
             {
-                "id": "email",
-                "description": "(DE) Email"
-            },
-            {
-                "id": "phones",
-                "description": "(DE) Phones"
+                "id": "gender",
+                "description": "Gender"
             },
             {
                 "id": "specialCare",
-                "description": "(DE) Special care"
+                "description": "Special care"
             },
             {
                 "id": "remarks",
-                "description": "(DE) Remarks"
+                "description": "Remarks"
             },
             {
                 "id": "isCheckedIn",
-                "description": "(DE) Checked In"
+                "description": "Checked In"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "OK"
             }
         ]
     },
@@ -1352,6 +1335,103 @@
             {
                 "id": "saveButton",
                 "description": "(DE) Save"
+            }
+        ]
+    },
+    {
+        "feature": "boardingList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Boarding"
+            },
+            {
+                "id": "date",
+                "description": "Date"
+            },
+            {
+                "id": "destination",
+                "description": "Destination"
+            },
+            {
+                "id": "port",
+                "description": "Port"
+            },
+            {
+                "id": "ship",
+                "description": "Vessel"
+            },
+            {
+                "id": "searchDateHint",
+                "description": "Select or enter date"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "Select from the list"
+            },
+            {
+                "id": "searchButton",
+                "description": "Search"
+            },
+            {
+                "id": "totalPersons",
+                "description": "Total"
+            },
+            {
+                "id": "boardedPersons",
+                "description": "Boarded"
+            },
+            {
+                "id": "pandingPersons",
+                "description": "Pending"
+            },
+            {
+                "id": "boardingStatusFilter",
+                "description": "Boarding status"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "Select from the list"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "Search by last name"
+            },
+            {
+                "id": "boardingStatusAll",
+                "description": "ALL"
+            },
+            {
+                "id": "boardingStatusBoarded",
+                "description": "BOARDED"
+            },
+            {
+                "id": "boardingStatusPending",
+                "description": "PENDING"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Ticket no:"
+            },
+            {
+                "id": "lastname",
+                "description": "Last Name"
+            },
+            {
+                "id": "firstname",
+                "description": "First Name"
+            },
+            {
+                "id": "isBoarded",
+                "description": "Boarded"
+            },
+            {
+                "id": "board",
+                "description": "Board"
             }
         ]
     }

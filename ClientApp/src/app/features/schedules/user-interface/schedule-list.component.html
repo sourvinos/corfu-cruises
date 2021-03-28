@@ -14,7 +14,9 @@
     <div id="content">
         <div class="summaryBlock">
             <div class="summaryHeader">
-                {{ onGetLabel('destinations') }}
+                <label>
+                    {{ onGetLabel('destinations') }}
+                </label>
             </div>
             <div class="summaryContent scrollable">
                 <div *ngFor="let item of destinations" [class.active]="item.isSelected" [id]="item.description" (click)="onToggleItem(item.description, 'destinationId', 'destinationDescription',item.id, 'destination')" class="item destination">
@@ -24,7 +26,9 @@
         </div>
         <div class="summaryBlock">
             <div class="summaryHeader">
-                {{ onGetLabel('ports') }}
+                <label>
+                    {{ onGetLabel('ports') }}
+                </label>
             </div>
             <div class="summaryContent scrollable">
                 <div *ngFor="let item of ports" [class.active]="item.isSelected" [id]="item.description" (click)="onToggleItem(item.description, 'portId', 'portDescription', item.id, 'port')" class="item port">

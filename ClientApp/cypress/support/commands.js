@@ -17,7 +17,7 @@ Cypress.Commands.add('login', () => {
         cy.setLocalStorage('userId', response.userId)
         cy.setLocalStorage('displayName', response.displayName)
         cy.setLocalStorage('language', 'el-GR')
-        cy.setLocalStorage('theme', 'blue')
+        cy.setLocalStorage('theme', 'light')
         cy.setLocalStorage('userRole', 'Admin')
         cy.setLocalStorage('loginStatus', '1')
     })

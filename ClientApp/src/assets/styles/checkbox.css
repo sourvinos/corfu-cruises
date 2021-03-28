@@ -14,7 +14,6 @@
 }
 
 .mat-checkbox {
-    padding: 1rem;
     margin-top: -0.0625rem;
 }
 
@@ -23,26 +22,26 @@
 }
 
 .mat-checkbox-frame {
-    border-color: var(--color-button-primary) !important;
+    border-color: var(--color-checkbox-checked) !important;
 }
 
 
 /* Checkbox checked background */
 
 .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    background-color: var(--color-button-primary) !important;
+    background-color: var(--color-checkbox-checked) !important;
 }
 
 
 /* Checkbox indeterminate background */
 
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-    background-color: var(--color-button-secondary) !important;
+    background-color: var(--color-checkbox-indeterminate) !important;
 }
 
 
 /* Ripple */
 
 .mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element, .mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
-    background-color: var(--color-button-primary) !important;
+    background-color: var(--color-checkbox-checked) !important;
 }

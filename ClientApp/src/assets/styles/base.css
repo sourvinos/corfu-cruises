@@ -13,6 +13,7 @@
 @import "scrollable.css";
 @import "select.css";
 @import "slider.css";
+@import "summaries.css";
 @import "table-wrapper.css";
 @import "tabs.css";
 @import "variables-narrow.css";
@@ -62,7 +63,7 @@ p.instructions {
 }
 
 .mat-menu-item {
-    color: var(--color-text-button) !important;
+    color: var(--color-button-text) !important;
     display: flex !important;
     font-variant-caps: petite-caps !important;
     height: 3rem;
@@ -80,7 +81,7 @@ p.instructions {
 }
 
 .mat-checkbox-label {
-    color: var(--color-text-primary) !important;
+    color: var(--color-summary-header) !important;
     margin-left: 0.5rem !important;
 }
 
@@ -100,18 +101,6 @@ p.instructions {
 
 .mat-date-range-input-start-wrapper {
     width: 100% !important;
-}
-
-.green {
-    color: var(--color-text-percent-positive) !important;
-}
-
-.red {
-    color: var(--color-text-percent-negative) !important;
-}
-
-.blue {
-    color: var(--color-text-percent-zero) !important;
 }
 
 .leaflet-tooltip {
@@ -158,11 +147,6 @@ p.instructions {
 
 .mat-tab-body.mat-tab-body-active {
     height: 100% !important;
-}
-
-.mat-badge-small.mat-badge-above .mat-badge-content {
-    background-color: var(--color-badge);
-    top: 0 !important;
 }
 
 .mat-calendar-body-cell-content .mat-date-range-input-separator {

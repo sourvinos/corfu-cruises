@@ -880,15 +880,6 @@
         ]
     },
     {
-        "feature": "themeColor",
-        "labels": [
-            {
-                "id": "red",
-                "description": "Red"
-            }
-        ]
-    },
-    {
         "feature": "assignToDriver",
         "labels": [
             {
@@ -1037,24 +1028,12 @@
         "feature": "theme-menu",
         "labels": [
             {
-                "id": "blue",
-                "description": "Blue"
+                "id": "light",
+                "description": "Light"
             },
             {
-                "id": "green",
-                "description": "Green"
-            },
-            {
-                "id": "red",
-                "description": "Red"
-            },
-            {
-                "id": "peach",
-                "description": "Peach"
-            },
-            {
-                "id": "gray",
-                "description": "Gray"
+                "id": "dark",
+                "description": "Dark"
             }
         ]
     },

@@ -11,7 +11,7 @@
 }
 
 #left-panel #search-box {
-    background-color: var(--color-background-summary) !important;
+    background-color: var(--color-summary-background) !important;
     display: flex;
     flex-direction: column;
     flex: 1;

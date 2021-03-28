@@ -7,11 +7,11 @@
 }
 
 .mat-calendar-table-header {
-    color: var(--color-text-button);
+    color: var(--color-datepicker-days);
 }
 
 .mat-calendar-controls .mat-button .mat-button-wrapper {
-    color: var(--color-month);
+    color: var(--color-datepicker-month);
     font-family: var(--font-family-header);
     font-size: var(--font-size-datepicker-header-month);
 }
@@ -25,7 +25,7 @@
 }
 
 .mat-calendar-arrow {
-    border-top-color: var(--color-text-button);
+    border-top-color: var(--color-button-text);
 }
 
 .mat-calendar-table-header-divider::after {
@@ -37,7 +37,7 @@
 }
 
 .mat-calendar-previous-button, .mat-calendar-next-button {
-    color: var(--color-text-button) !important
+    color: var(--color-button-text) !important
 }
 
 .mat-calendar-body-label {
@@ -45,7 +45,7 @@
 }
 
 .mat-calendar-body-cell-content {
-    color: var(--color-text-button);
+    color: var(--color-button-text);
 }
 
 .mat-calendar-body-today {
@@ -54,7 +54,7 @@
 
 .mat-calendar-body-selected {
     background-color: var(--color-button-secondary);
-    color: var(--color-text-button);
+    color: var(--color-button-text);
 }
 
 .mat-calendar-body-in-range:not(.mat-calendar-body-range-start):not(.mat-calendar-body-range-end) {

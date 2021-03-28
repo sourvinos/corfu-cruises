@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core'
 
 import { MAT_DATE_LOCALE } from '@angular/material/core'
-import { MatBadgeModule } from '@angular/material/badge'
 import { MatButtonModule } from '@angular/material/button'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { MatCheckboxModule } from '@angular/material/checkbox'
@@ -30,7 +29,6 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 
 @NgModule({
     exports: [
-        MatBadgeModule,
         MatButtonModule,
         MatButtonToggleModule,
         MatCheckboxModule,

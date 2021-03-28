@@ -40,7 +40,7 @@
     }
     
     .mat-expansion-panel {
-        background-color: var(--color-background-summary) !important;
+        background-color: var(--color-summary-background) !important;
         box-shadow: none !important;
     }
     
@@ -62,7 +62,7 @@
     }
     
     .field-label {
-        color: var(--color-field-label);
+        color: var(--color-expansion-list-label);
         font-family: var(--font-family-label);
         font-size: 1.5rem;
         font-variant-caps: petite-caps;
@@ -70,7 +70,7 @@
     }
     
     .field-value {
-        color: var(--color-field-value);
+        color: var(--color-expansion-list-value);
     }
     
     .detail {

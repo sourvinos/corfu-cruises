@@ -11,23 +11,23 @@
 }
 
 
-/* Slider ON */
+/* Slider On */
 
 .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
     background-color: var(--color-slider-bar-active) !important;
 }
 
 .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
-    background-color: var(--color-button-primary) !important;
+    background-color: var(--color-slider-thumb-active) !important;
 }
 
 
-/* Slider OFF */
+/* Slider Off */
 
 .mat-slide-toggle-bar {
     background-color: var(--color-slider-bar-inactive) !important;
 }
 
 .mat-slide-toggle-thumb {
-    background-color: var(--color-button-secondary) !important;
+    background-color: var(--color-slider-thumb-inactive) !important;
 }

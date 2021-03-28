@@ -11,7 +11,7 @@
    id="Layer_1"
    viewBox="0 0 24.167853 24.167853"
    version="1.1"
-   sodipodi:docname="peach.svg"
+   sodipodi:docname="dark.svg"
    width="24.167852"
    height="24.167852"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
@@ -23,7 +23,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -47,18 +47,12 @@
      inkscape:zoom="34.219012"
      inkscape:cx="12.083926"
      inkscape:cy="12.083926"
-     inkscape:window-x="1358"
+     inkscape:window-x="1272"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="Layer_1"
      showborder="false"
-     inkscape:document-rotation="0">
-    <inkscape:grid
-       type="xygrid"
-       id="grid849"
-       originx="27.999993"
-       originy="-2.7220462e-06" />
-  </sodipodi:namedview>
+     inkscape:document-rotation="0" />
   <defs
      id="defs4">
     <style
@@ -66,13 +60,13 @@
   </defs>
   <circle
      style="fill:#f5f5f5;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="circle845"
+     id="path839"
      cx="12.083926"
      cy="12.083926"
      r="12.083925" />
   <circle
-     style="fill:#ffcdb2;fill-opacity:1;fill-rule:evenodd;stroke:#9e414b;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="circle847"
+     style="fill:#565656;fill-opacity:1;fill-rule:evenodd;stroke:#9e414b;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="circle996"
      cx="12.083926"
      cy="12.083926"
      r="10.273732" />

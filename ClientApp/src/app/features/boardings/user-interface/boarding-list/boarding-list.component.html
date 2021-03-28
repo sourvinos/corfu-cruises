@@ -13,6 +13,13 @@
         </div>
         <div id="filters">
             <mat-form-field class="no-bottom-margin">
+                <input type="text" matInput placeholder="{{ onGetLabel('searchLabel') }}" [(ngModel)]="searchTerm" #query (keyup)="onFilterByLastname(query.value)" autocomplete="off">
+                <button id="clearInput" mat-button *ngIf="searchTerm" matSuffix mat-icon-button (click)="onFilterByLastname('')">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="no-bottom-margin">
                 <mat-label>{{ onGetLabel('boardingStatusFilter') }}</mat-label>
                 <mat-select [(value)]="boardingStatus" (selectionChange)="onFilterByBoardingStatus()">
                     <mat-option value=2>{{ onGetLabel('boardingStatusAll') }}</mat-option>
@@ -20,13 +27,6 @@
                     <mat-option value=0>{{ onGetLabel('boardingStatusPending') }}</mat-option>
                 </mat-select>
                 <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
-            </mat-form-field>
-            <mat-form-field class="no-bottom-margin">
-                <input type="text" matInput placeholder="{{ onGetLabel('searchLabel') }}" [(ngModel)]="searchTerm" #query (keyup)="onFilterByLastname(query.value)" autocomplete="off">
-                <button id="clearInput" mat-button *ngIf="searchTerm" matSuffix mat-icon-button (click)="onFilterByLastname('')">
-                    <mat-icon>close</mat-icon>
-                </button>
-                <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
             </mat-form-field>
         </div>
     </div>
