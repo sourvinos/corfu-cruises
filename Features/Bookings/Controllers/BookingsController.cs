@@ -128,8 +128,8 @@ namespace CorfuCruises {
             }
         }
 
-       [HttpPatch("assignToShip")]
-       public IActionResult AssignToShip(int shipId, [FromQuery(Name = "id")] int[] ids) {
+        [HttpPatch("assignToShip")]
+        public IActionResult AssignToShip(int shipId, [FromQuery(Name = "id")] int[] ids) {
             try {
                 repo.AssignToShip(shipId, ids);
                 return StatusCode(200, new { response = ApiMessages.RecordUpdated() });

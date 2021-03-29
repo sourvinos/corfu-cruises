@@ -67,10 +67,8 @@
                             <mat-error *ngIf="remarks.hasError('maxlength')">{{ onGetHint('maxLength', remarks.errors.maxlength.requiredLength) }}</mat-error>
                         </mat-form-field>
                     </div>
-                    <!-- <qrCode [qrCodeValue]="qrCodeValue" [errorCorrectionLevel]="errorCorrectionLevel" [margin]="margin" [width]="width"></qrCode> -->
                 </form>
             </ng-template>
-            <p class="instructions" [class.hidden]=environment>{{ form.value.details | json }} {{ form.valid }}</p>
         </mat-tab>
         <mat-tab label="{{ onGetLabel('tabPassengers') }}">
             <ng-template matTabContent>
@@ -93,6 +91,10 @@
             </ng-template>
         </mat-tab>
     </mat-tab-group>
+
+    <qrCode [qrCodeValue]="qrCodeValue" [errorCorrectionLevel]="errorCorrectionLevel" [margin]="margin" [width]="width"></qrCode>
+
+    <p class="instructions" [class.hidden]=false>{{ form.value.details | json }} {{ form.valid }}</p>
 
     <div id="footer">
         <div id="buttons">

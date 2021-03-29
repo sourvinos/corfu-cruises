@@ -102,15 +102,15 @@ namespace CorfuCruises {
 
             var mimeMessage = new MimeMessage();
             var bodyBuilder = new MimeKit.BodyBuilder { HtmlBody = "" };
-            var embeddedImage = bodyBuilder.LinkedResources.Add(@"Dump\qrcode.png");
+            // var embeddedImage = bodyBuilder.LinkedResources.Add(@"Dump\qrcode.png");
 
             mimeMessage.From.Add(new MailboxAddress("", "bestofcorfucruises@gmail.com"));
             mimeMessage.To.Add(new MailboxAddress("You", model.Email));
             mimeMessage.Subject = "Reservation";
             bodyBuilder.TextBody = "Date: xx/xx/xxxx Destination: xxx PersonA, PersonB, PersonC";
 
-            embeddedImage.ContentId = MimeUtils.GenerateMessageId();
-            bodyBuilder.HtmlBody = bodyBuilder.TextBody + bodyBuilder.HtmlBody + @"<img src=""cid:" + embeddedImage.ContentId + @""" />";
+            // embeddedImage.ContentId = MimeUtils.GenerateMessageId();
+            bodyBuilder.HtmlBody = bodyBuilder.TextBody + bodyBuilder.HtmlBody + @"<img src=" + model.ImageUri + " />";
             mimeMessage.Body = bodyBuilder.ToMessageBody();
 
             using (var client = new MailKit.Net.Smtp.SmtpClient()) {

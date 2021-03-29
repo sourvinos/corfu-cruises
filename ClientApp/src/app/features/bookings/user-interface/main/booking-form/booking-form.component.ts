@@ -201,11 +201,11 @@ export class BookingFormComponent {
     }
 
     public onSendVoucher(): void {
-        this.bookingService.sendVoucher(this.form.value).subscribe(() => {
-            this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
-        }, () => {
-            this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
-        })
+        // this.bookingService.sendVoucher(this.form.value).subscribe(() => {
+        //     this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
+        // }, () => {
+        //     this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
+        // })
     }
 
     //#endregion
@@ -336,6 +336,7 @@ export class BookingFormComponent {
             phones: ['', Validators.maxLength(128)],
             remarks: ['', Validators.maxLength(128)],
             userId: this.helperService.readItem('userId'),
+            imageUri: '',
             details: []
         })
     }
