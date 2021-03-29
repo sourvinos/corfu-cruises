@@ -336,7 +336,7 @@ export class BookingFormComponent {
             phones: ['', Validators.maxLength(128)],
             remarks: ['', Validators.maxLength(128)],
             userId: this.helperService.readItem('userId'),
-            imageUri: '',
+            imageUrl: '',
             details: []
         })
     }

@@ -27,7 +27,6 @@ namespace CorfuCruises {
         public int PortId { get; set; }
         public int ShipId { get; set; }
         public string UserId { get; set; }
-        public string ImageUri { get; set; }
 
         // Navigation
         public Customer Customer { get; set; }

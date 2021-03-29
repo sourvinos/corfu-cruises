@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CorfuCruises {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class BookingsController : ControllerBase {
@@ -142,7 +142,7 @@ namespace CorfuCruises {
         }
 
         [HttpPost("[action]")]
-        public IActionResult SendVoucher([FromBody] Booking record) {
+        public IActionResult SendVoucher([FromBody] Voucher record) {
             if (ModelState.IsValid) {
                 emailSender.SendVoucher(record);
                 return StatusCode(200, new { response = ApiMessages.EmailInstructions() });

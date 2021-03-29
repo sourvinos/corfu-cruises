@@ -62,7 +62,7 @@ namespace CorfuCruises {
             app.UseHttpsRedirection();
             app.UseStatusCodePages();
             app.UseHttpsRedirection();
-            DbInit.Seed(app);
+            // DbInit.Seed(app);
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
             });

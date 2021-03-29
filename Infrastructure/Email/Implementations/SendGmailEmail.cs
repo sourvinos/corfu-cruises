@@ -1,7 +1,6 @@
 using System;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using MimeKit.Utils;
 
 namespace CorfuCruises {
 
@@ -98,19 +97,31 @@ namespace CorfuCruises {
 
         }
 
-        public SendEmailResponse SendVoucher(Booking model) {
+        public SendEmailResponse SendVoucher(Voucher model) {
 
             var mimeMessage = new MimeMessage();
             var bodyBuilder = new MimeKit.BodyBuilder { HtmlBody = "" };
-            // var embeddedImage = bodyBuilder.LinkedResources.Add(@"Dump\qrcode.png");
 
             mimeMessage.From.Add(new MailboxAddress("", "bestofcorfucruises@gmail.com"));
             mimeMessage.To.Add(new MailboxAddress("You", model.Email));
-            mimeMessage.Subject = "Reservation";
-            bodyBuilder.TextBody = "Date: xx/xx/xxxx Destination: xxx PersonA, PersonB, PersonC";
+            mimeMessage.Subject = "Your Reservation for " + model.Destination + " is ready!";
+            bodyBuilder.TextBody = "Date: " + model.Date;
+            bodyBuilder.TextBody += "Destination: " + model.Destination;
+            bodyBuilder.TextBody += "Pickup point ";
+            bodyBuilder.TextBody += "Description: " + model.PickupPoint.Description;
+            bodyBuilder.TextBody += "Exact point: " + model.PickupPoint.ExactPoint;
+            bodyBuilder.TextBody += "Time: " + model.PickupPoint.Time;
+            bodyBuilder.TextBody += "Phones: " + model.Phones;
+            bodyBuilder.TextBody += "Special care: " + model.SpecialCare;
+            bodyBuilder.TextBody += "Remarks: " + model.Remarks;
 
-            // embeddedImage.ContentId = MimeUtils.GenerateMessageId();
-            bodyBuilder.HtmlBody = bodyBuilder.TextBody + bodyBuilder.HtmlBody + @"<img src=" + model.ImageUri + " />";
+            bodyBuilder.TextBody += "People travelling with you: ";
+
+            foreach (var passenger in model.Details) {
+                bodyBuilder.TextBody += passenger.Lastname + " " + passenger.Firstname + " " + passenger.DoB;
+            }
+
+            bodyBuilder.HtmlBody += bodyBuilder.TextBody + bodyBuilder.HtmlBody + @"<img src=" + model.QRCode + " />";
             mimeMessage.Body = bodyBuilder.ToMessageBody();
 
             using (var client = new MailKit.Net.Smtp.SmtpClient()) {
