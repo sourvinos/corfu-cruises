@@ -194,6 +194,7 @@ export class NationalityFormComponent {
             description: result.description,
             code: result.code,
             flagUrl: result.flagUrl,
+            isActive: result.isActive,
             userId: this.helperService.readItem('userId')
         })
     }
