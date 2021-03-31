@@ -1,11 +1,12 @@
-import { BoardingViewModel } from './../../classes/boarding-view-model'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
+
 import { BoardingService } from '../../classes/boarding.service'
+import { BoardingViewModel } from './../../classes/boarding-view-model'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
@@ -92,7 +93,7 @@ export class BoardingListComponent {
     public onFilterByBoardingStatus(): void {
         this.filteredRecords.boardings = []
         this.records.boardings.forEach((record) => {
-            const detail = record.details
+            const detail = record.passengers
             detail.forEach((element) => {
                 if (!this.filteredRecords.boardings.find(({ ticketNo }) => ticketNo === record.ticketNo)) {
                     if (this.determineBoardingStatus(element.isCheckedIn) == this.boardingStatus || this.boardingStatus == '2') {
@@ -108,7 +109,7 @@ export class BoardingListComponent {
         this.searchTerm = query
         this.filteredRecords.boardings = []
         this.records.boardings.forEach((record) => {
-            const detail = record.details
+            const detail = record.passengers
             detail.forEach((element: { lastname: string }) => {
                 if (!this.filteredRecords.boardings.find(({ ticketNo }) => ticketNo === record.ticketNo)) {
                     if (element.lastname.toLowerCase().includes(query)) {
@@ -173,6 +174,7 @@ export class BoardingListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
+            console.log('Filtered records', this.filteredRecords)
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

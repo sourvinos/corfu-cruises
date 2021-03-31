@@ -9,8 +9,6 @@ namespace CorfuCruises {
 
         public DbContext(DbContextOptions<DbContext> options) : base(options) { }
 
-        public DbSet<Booking> Bookings { get; set; }
-        public DbSet<BookingDetail> BookingDetails { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Destination> Destinations { get; set; }
         public DbSet<Driver> Drivers { get; set; }
@@ -20,13 +18,15 @@ namespace CorfuCruises {
         public DbSet<PickupPoint> PickupPoints { get; set; }
         public DbSet<Port> Ports { get; set; }
         public DbSet<Route> Routes { get; set; }
+        public DbSet<Rsv> Rsvs { get; set; }
+        public DbSet<RsvPassenger> RsvsPassengers { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Ship> Ships { get; set; }
         public DbSet<Token> Tokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Booking>().Property(p => p.TotalPersons).ValueGeneratedOnAddOrUpdate();
+            modelBuilder.Entity<Rsv>().Property(p => p.TotalPersons).ValueGeneratedOnAddOrUpdate();
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
         }
 

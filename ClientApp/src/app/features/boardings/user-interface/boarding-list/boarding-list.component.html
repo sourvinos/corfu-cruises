@@ -46,24 +46,24 @@
                         </div>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <div class="detail" *ngFor="let detail of record.details">
+                <div class="detail" *ngFor="let passenger of record.passengers">
                     <div class="field" id="lastname">
                         <div class="field-label">{{ onGetLabel('lastname') }}</div>
-                        <div class="field-value">{{ detail.lastname }}</div>
+                        <div class="field-value">{{ passenger.lastname }}</div>
                     </div>
                     <div class="field" id="firstname">
                         <div class="field-label">{{ onGetLabel('firstname') }}</div>
-                        <div class="field-value">{{ detail.firstname }}</div>
+                        <div class="field-value">{{ passenger.firstname }}</div>
                     </div>
                     <div class="field isBoarded">
                         <div class="field-label">{{ onGetLabel('isBoarded') }}</div>
                         <div class="field-value">
-                            <img *ngIf="detail.isCheckedIn" src="/assets/images/navigation/isBoarded.svg" width="20px">
-                            <img *ngIf="!detail.isCheckedIn" src="/assets/images/navigation/isNotBoarded.svg" width="20px">
+                            <img *ngIf="passenger.isCheckedIn" src="/assets/images/navigation/isBoarded.svg" width="20px">
+                            <img *ngIf="!passenger.isCheckedIn" src="/assets/images/navigation/isNotBoarded.svg" width="20px">
                         </div>
                     </div>
                     <div class="button">
-                        <button mat-flat-button class="primary" (click)="onDoBoarding(detail.id)">{{ onGetLabel('board') }}</button>
+                        <button mat-flat-button class="primary" (click)="onDoBoarding(passenger.id)">{{ onGetLabel('board') }}</button>
                     </div>
                 </div>
             </mat-expansion-panel>

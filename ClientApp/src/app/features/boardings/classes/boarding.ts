@@ -2,10 +2,10 @@ import { BoardingDetail } from "./boarding-detail"
 
 export class Boarding {
 
-    bookingId: number
+    rsvId: number
     ticketNo: string
     remarks: string
 
-    details: BoardingDetail[]
+    passengers: BoardingDetail[]
 
 }

@@ -16,8 +16,8 @@ import { ScheduleCreateFormComponent } from './schedule-create-form.component'
 import moment from 'moment'
 import { DateAdapter } from '@angular/material/core'
 import { AccountService } from 'src/app/shared/services/account.service'
-import { BookingService } from '../../bookings/classes/booking.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { BookingService } from '../../rsvs/classes/booking.service'
 
 @Component({
     selector: 'schedule-list',

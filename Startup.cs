@@ -1,6 +1,5 @@
 using AutoMapper;
 using FluentValidation.AspNetCore;
-using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -36,7 +35,6 @@ namespace CorfuCruises {
             services.AddDbContext<DbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection"), new MySqlServerVersion(new Version(8, 0, 19))));
             services.AddControllersWithViews().AddFluentValidation();
             services.AddDbContext<DbContext>();
-            services.AddTransient<IValidator<Customer>, CustomerValidator>();
             services.AddEmailSenders();
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             services.Configure<CookiePolicyOptions>(options => { options.CheckConsentNeeded = context => true; options.MinimumSameSitePolicy = SameSiteMode.None; });
@@ -62,7 +60,7 @@ namespace CorfuCruises {
             app.UseHttpsRedirection();
             app.UseStatusCodePages();
             app.UseHttpsRedirection();
-            // DbInit.Seed(app);
+            DbInit.Seed(app);
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
             });

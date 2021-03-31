@@ -7,7 +7,7 @@ namespace CorfuCruises {
 
         public MappingProfile() {
             // Read
-            CreateMap<Booking, BookingResource>()
+            CreateMap<Rsv, RsvResource>()
                 .ForMember(tr => tr.Destination, opt => opt.MapFrom(v => new DestinationResource { Id = v.Destination.Id, Abbreviation = v.Destination.Abbreviation, Description = v.Destination.Description }))
                 .ForMember(tr => tr.Driver, opt => opt.MapFrom(v => new DriverResource { Id = v.Driver.Id, Description = v.Driver.Description }))
                 .ForMember(tr => tr.PickupPoint, opt => opt.MapFrom(v => new PickupPointResource {

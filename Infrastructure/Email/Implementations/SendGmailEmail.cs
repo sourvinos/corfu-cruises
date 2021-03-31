@@ -99,35 +99,44 @@ namespace CorfuCruises {
 
         public SendEmailResponse SendVoucher(Voucher model) {
 
-            var mimeMessage = new MimeMessage();
-            var bodyBuilder = new MimeKit.BodyBuilder { HtmlBody = "" };
+            var message = new MimeMessage();
+            var passengers = "";
+            var pickupPointCoords = "https://www.google.gr/maps/place/Przystanek+autobusowy/@39.6510638,19.8423309,17z/data=!4m5!3m4!1s0x135b5b8d7c6f20b7:0x7852eadb7d4f8c91!8m2!3d39.6514545!4d19.8428187";
+            var portCoords = "https://www.google.gr/maps/place/39%C2%B037'41.8%22N+19%C2%B054'14.3%22E/@39.6282691,19.9017833,890m/data=!3m2!1e3!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d39.6282649!4d19.9039718";
 
-            mimeMessage.From.Add(new MailboxAddress("", "bestofcorfucruises@gmail.com"));
-            mimeMessage.To.Add(new MailboxAddress("You", model.Email));
-            mimeMessage.Subject = "Your Reservation for " + model.Destination + " is ready!";
-            bodyBuilder.TextBody = "Date: " + model.Date;
-            bodyBuilder.TextBody += "Destination: " + model.Destination;
-            bodyBuilder.TextBody += "Pickup point ";
-            bodyBuilder.TextBody += "Description: " + model.PickupPoint.Description;
-            bodyBuilder.TextBody += "Exact point: " + model.PickupPoint.ExactPoint;
-            bodyBuilder.TextBody += "Time: " + model.PickupPoint.Time;
-            bodyBuilder.TextBody += "Phones: " + model.Phones;
-            bodyBuilder.TextBody += "Special care: " + model.SpecialCare;
-            bodyBuilder.TextBody += "Remarks: " + model.Remarks;
+            message.From.Add(new MailboxAddress("", "bestofMappings@gmail.com"));
+            message.To.Add(new MailboxAddress("You", model.Email));
 
-            bodyBuilder.TextBody += "People travelling with you: ";
-
-            foreach (var passenger in model.Details) {
-                bodyBuilder.TextBody += passenger.Lastname + " " + passenger.Firstname + " " + passenger.DoB;
+            foreach (var passenger in model.Passengers) {
+                passengers += passenger.Lastname + " " + passenger.Firstname + " " + passenger.DoB.ToString("d MMMM yyyy") + "<br />";
             }
 
-            bodyBuilder.HtmlBody += bodyBuilder.TextBody + bodyBuilder.HtmlBody + @"<img src=" + model.QRCode + " />";
-            mimeMessage.Body = bodyBuilder.ToMessageBody();
+            message.Subject = "Your Reservation With Corfu Cruises Is Ready!";
+
+            message.Body = new TextPart("Html") {
+                Text =
+                    "Date: " + model.Date.ToString("dddd, d MMMM yyyy") + "<br />" +
+                    "Destination: " + model.DestinationDescription + "<br />" +
+                    "Pickup point" + "<br />" +
+                        "Description: " + model.PickupPointDescription + "<br />" +
+                        "Exact point: " + model.PickupPointExactPoint + "<br />" +
+                        "Time: " + model.PickupPointTime + "<br />" +
+                    "<a href=" + pickupPointCoords + ">" + "Show pickup point on the map" + "</a>" + "<br />" +
+                    "Phones: " + model.Phones + "<br />" +
+                    "Special care: " + model.SpecialCare + "<br />" +
+                    "Remarks: " + model.Remarks + "<br />" +
+                    "<br />" +
+                    "Passengers " + "<br />" + passengers +
+                    "<div style='align-items: center; display: flex; height: 200px; justify-content: center; margin-bottom: 1rem; margin-top: 1rem; width: 200px;'>" +
+                        "<img src=" + model.URI + " />" + "<br />" +
+                    "</div>" +
+                     "In case you are going to the port on your own, click" + "<a href=" + portCoords + ">" + " here " + "</a>" + "to see the port on the map"
+            };
 
             using (var client = new MailKit.Net.Smtp.SmtpClient()) {
                 client.Connect(settings.SmtpClient, settings.Port, false);
                 client.Authenticate(settings.Username, settings.Password);
-                client.Send(mimeMessage);
+                client.Send(message);
                 client.Disconnect(true);
             }
 

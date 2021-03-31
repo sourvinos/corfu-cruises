@@ -13,21 +13,21 @@ namespace CorfuCruises {
         public static void Seed(IApplicationBuilder applicationBuilder) {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope()) {
                 var context = serviceScope.ServiceProvider.GetService<DbContext>();
-                if (!context.Bookings.Any()) {
-                    context.Bookings.AddRange(CreateBooking(context));
+                if (!context.Rsvs.Any()) {
+                    context.Rsvs.AddRange(CreateRsv(context));
                     context.SaveChanges();
-                    context.BookingDetails.AddRange(CreateBookingDetails(context));
+                    context.RsvsPassengers.AddRange(CreateRsvPassengers(context));
                     context.SaveChanges();
                 }
             }
         }
 
-        private static Booking[] CreateBooking(DbContext context) {
-            var bookings = new Booking[1000];
-            for (int i = 0; i < bookings.Length; i++) {
+        private static Rsv[] CreateRsv(DbContext context) {
+            var records = new Rsv[1000];
+            for (int i = 0; i < records.Length; i++) {
                 var pickupPointId = RandomNumber(1, 336);
                 var portId = context.PickupPoints.Include(x => x.Route).ThenInclude(x => x.Port).Where(x => x.Id == pickupPointId).Select(x => x.Route.Port.Id).SingleOrDefault();
-                bookings[i] = new Booking {
+                records[i] = new Rsv {
                     Date = RandomDate(),
                     Adults = RandomNumber(1, 10),
                     Kids = RandomNumber(1, 5),
@@ -42,20 +42,21 @@ namespace CorfuCruises {
                     PortId = portId,
                     ShipId = RandomNumber(1, 3),
                     Remarks = "",
+                    Guid = RandomString(8),
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da"
                 };
             }
-            return bookings;
+            return records;
         }
 
-        private static List<BookingDetail> CreateBookingDetails(DbContext context) {
+        private static List<RsvPassenger> CreateRsvPassengers(DbContext context) {
             int passengerCount = 0;
-            List<BookingDetail> bookingDetails = new List<BookingDetail>();
+            List<RsvPassenger> passengers = new List<RsvPassenger>();
             for (int i = 1; i < 1000; i++) {
                 var passengersPerReservation = RandomNumber(1, 5);
                 for (int passenger = 1; passenger < passengersPerReservation; passenger++) {
-                    bookingDetails.Add(new BookingDetail {
-                        BookingId = i,
+                    passengers.Add(new RsvPassenger {
+                        RsvId = i,
                         OccupantId = 2,
                         NationalityId = RandomNumber(2, 4),
                         GenderId = RandomNumber(1, 3),
@@ -69,7 +70,7 @@ namespace CorfuCruises {
                     passengerCount++;
                 }
             }
-            return bookingDetails;
+            return passengers;
         }
 
         private static DateTime RandomDate() {

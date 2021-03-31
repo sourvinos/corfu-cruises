@@ -15,7 +15,7 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuardService], pathMatch: 'full' },
     { path: 'login', component: LoginFormComponent },
     { path: 'account', loadChildren: (): any => import('../features/account/classes/account.module').then(m => m.AccountModule) },
-    { path: 'bookings', loadChildren: (): any => import('../features/bookings/classes/booking.module').then(m => m.BookingModule) },
+    { path: 'bookings', loadChildren: (): any => import('../features/rsvs/classes/booking.module').then(m => m.BookingModule) },
     { path: 'boarding', loadChildren: (): any => import('../features/boardings/classes/boarding.module').then(m => m.BoardingModule) },
     { path: 'customers', loadChildren: (): any => import('../features/customers/classes/customer.module').then(m => m.CustomerModule) },
     { path: 'destinations', loadChildren: (): any => import('../features/destinations/classes/destination.module').then(m => m.DestinationModule) },

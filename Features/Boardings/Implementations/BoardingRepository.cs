@@ -7,7 +7,7 @@ using System;
 
 namespace CorfuCruises {
 
-    public class BoardingRepository : Repository<Booking>, IBoardingRepository {
+    public class BoardingRepository : Repository<Rsv>, IBoardingRepository {
 
         private readonly IMapper mapper;
 
@@ -17,26 +17,26 @@ namespace CorfuCruises {
 
         public async Task<BoardingGroupResultResource<BoardingResource>> Get(string date, int destinationId, int portId, int shipId) {
             DateTime _date = Convert.ToDateTime(date);
-            var details = await context.Bookings
-                .Include(x => x.Details)
+            var details = await context.Rsvs
+                .Include(x => x.Passengers)
                 .Where(x => x.Date == _date && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId)
                 .ToListAsync();
-            int count = details.SelectMany(c => c.Details).Count();
-            int countBoarded = details.SelectMany(c => c.Details).Where(x => x.IsCheckedIn).Count();
+            int count = details.SelectMany(c => c.Passengers).Count();
+            int countBoarded = details.SelectMany(c => c.Passengers).Where(x => x.IsCheckedIn).Count();
             int countRemain = count - countBoarded;
-            var groupResult = new BoardingGroupResult<Booking> {
+            var groupResult = new BoardingGroupResult<Rsv> {
                 AllPersons = count,
                 BoardedPersons = countBoarded,
                 RemainingPersons = countRemain,
                 Boardings = details.ToList()
             };
-            return mapper.Map<BoardingGroupResult<Booking>, BoardingGroupResultResource<BoardingResource>>(groupResult);
+            return mapper.Map<BoardingGroupResult<Rsv>, BoardingGroupResultResource<BoardingResource>>(groupResult);
         }
 
         public bool DoBoarding(int id) {
-            BookingDetail bookingDetail = context.BookingDetails.Where(x => x.Id == id).FirstOrDefault();
-            if (bookingDetail != null) {
-                bookingDetail.IsCheckedIn = true;
+            RsvPassenger passenger = context.RsvsPassengers.Where(x => x.Id == id).FirstOrDefault();
+            if (passenger != null) {
+                passenger.IsCheckedIn = true;
                 context.SaveChanges();
                 return true;
             } else {
