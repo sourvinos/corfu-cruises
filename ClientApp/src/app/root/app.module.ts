@@ -32,6 +32,7 @@ import { EmptyPageComponent } from '../shared/components/empty-page/empty-page.c
 import { HomeComponent } from '../features/home/home.component'
 import { LanguageMenuComponent } from '../shared/components/top-bar-wrapper/language-menu/language-menu.component'
 import { MainMenuComponent } from '../shared/components/top-bar-wrapper/main-menu/main-menu.component'
+import { NationalityModule } from '../features/nationalities/classes/nationality.module'
 import { ScheduleMenuComponent } from '../shared/components/top-bar-wrapper/schedule-menu/schedule-menu.component'
 import { SideBarComponent } from '../shared/components/side-bar-wrapper/side-bar/side-bar.component'
 import { SideFooterComponent } from './../shared/components/side-bar-wrapper/side-footer/side-footer.component'
@@ -74,6 +75,7 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         BrowserModule,
         CustomerModule,
         DestinationModule,
+        NationalityModule,
         DriverModule,
         FormsModule,
         GenderModule,

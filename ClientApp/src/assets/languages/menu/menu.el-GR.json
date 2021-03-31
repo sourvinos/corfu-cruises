@@ -53,6 +53,10 @@
             {
                 "id": "ships",
                 "description": "Πλοια"
+            },
+            {
+                "id": "nationalities",
+                "description": "Εθνικοτητες"
             }
         ]
     }

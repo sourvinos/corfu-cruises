@@ -57,6 +57,10 @@
             {
                 "id": "ships",
                 "description": "Vessels"
+            },
+            {
+                "id": "nationalities",
+                "description": "Nationalities"
             }
         ]
     }

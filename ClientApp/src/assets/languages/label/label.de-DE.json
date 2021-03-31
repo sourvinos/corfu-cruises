@@ -1434,5 +1434,30 @@
                 "description": "Board"
             }
         ]
+    },
+    {
+        "feature": "nationalityList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(DE) Nationalities"
+            },
+            {
+                "id": "searchLabel",
+                "description": "(DE) Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "(DE) Search by description"
+            },
+            {
+                "id": "newButton",
+                "description": "(DE) New"
+            },
+            {
+                "id": "headerDescription",
+                "description": "(DE) Description"
+            }
+        ]
     }
 ]

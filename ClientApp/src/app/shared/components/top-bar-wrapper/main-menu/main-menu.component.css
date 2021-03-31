@@ -88,6 +88,11 @@ li:hover .sub-menu {
     animation-duration: 1.0s;
 }
 
+.sub-menu button:nth-child(10) {
+    animation-delay: 0.8s;
+    animation-duration: 1.1s;
+}
+
 @keyframes enter {
     from {
         opacity: 0;

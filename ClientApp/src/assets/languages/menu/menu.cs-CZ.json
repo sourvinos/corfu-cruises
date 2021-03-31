@@ -53,6 +53,10 @@
             {
                 "id": "ships",
                 "description": "Lodě"
+            },
+            {
+                "id": "nationalities",
+                "description": "(CZ) Nationalities"
             }
         ]
     }

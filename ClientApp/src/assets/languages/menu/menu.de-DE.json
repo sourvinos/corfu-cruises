@@ -53,6 +53,10 @@
             {
                 "id": "ships",
                 "description": "Schiffe"
+            },
+            {
+                "id": "nationalities",
+                "description": "(DE) Nationalities"
             }
         ]
     }
