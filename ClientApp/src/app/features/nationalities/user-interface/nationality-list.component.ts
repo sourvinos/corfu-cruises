@@ -45,12 +45,12 @@ export class NationalityListComponent {
 
     //#region table
 
-    headers = ['', 'Id', 'headerDescription', '']
-    widths = ['40px', '0px', '90%', '56px']
-    visibility = ['none', 'none']
-    justify = ['center', 'center', 'left', 'center']
-    types = ['', '', '', '']
-    fields = ['', 'id', 'description', '']
+    headers = ['', 'Id', 'headerDescription', 'headerFlag', '']
+    widths = ['40px', '0px', '80%', '60px', '56px']
+    visibility = ['none', 'none', '', '', '']
+    justify = ['center', 'center', 'left', 'center', 'center']
+    types = ['', '', '', 'icon', '']
+    fields = ['', 'id', 'description', 'code', '']
 
     //#endregion
 

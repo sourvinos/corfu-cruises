@@ -21,14 +21,17 @@
                     </mat-menu>
                 </div>
                 <ng-template #elseBlock>
-                    <ng-template [ngIf]="types[i] == 'percent'" [ngIfElse]="text">
+                    <ng-container *ngIf="types[i] == 'percent'">
                         <span *ngIf="record[field] < 0" class='red'>{{ record[field] | formatNumber:2:true }}</span>
                         <span *ngIf="record[field] > 0" class='green'>{{ record[field] | formatNumber:2:true }}</span>
                         <span *ngIf="record[field] == 0" class='blue'>{{ record[field] | formatNumber:2:true }}</span>
-                    </ng-template>
-                    <ng-template #text>
+                    </ng-container>
+                    <ng-container *ngIf="types[i] == 'icon'">
+                        <img src="\assets\images\countries\{{ record[field] }}.svg" height="25px" width="30px" alt="Flag not found!">
+                    </ng-container>
+                    <ng-container *ngIf="types[i] == ''">
                         {{ record[field] }}
-                    </ng-template>
+                    </ng-container>
                 </ng-template>
             </td>
         </tr>

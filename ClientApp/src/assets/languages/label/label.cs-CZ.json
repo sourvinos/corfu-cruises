@@ -1,8 +1,6 @@
-[
-    {
+[{
         "feature": "loginForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Přihlásit se"
             },
@@ -30,8 +28,7 @@
     },
     {
         "feature": "customerList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Zákazníci"
             },
@@ -63,8 +60,7 @@
     },
     {
         "feature": "customerForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Zákazník"
             },
@@ -108,8 +104,7 @@
     },
     {
         "feature": "destinationList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Destinace"
             },
@@ -137,8 +132,7 @@
     },
     {
         "feature": "destinationForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Destinace"
             },
@@ -166,8 +160,7 @@
     },
     {
         "feature": "driverList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Řidiči"
             },
@@ -195,8 +188,7 @@
     },
     {
         "feature": "driverForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Řidič"
             },
@@ -224,8 +216,7 @@
     },
     {
         "feature": "pickupPointWrapper",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Nástupní místa"
             },
@@ -241,8 +232,7 @@
     },
     {
         "feature": "pickupPointList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Nástupní místa pro trasu:"
             },
@@ -278,8 +268,7 @@
     },
     {
         "feature": "pickupPointForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Nástupní místo"
             },
@@ -327,8 +316,7 @@
     },
     {
         "feature": "portList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Přístavy"
             },
@@ -352,8 +340,7 @@
     },
     {
         "feature": "portForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Přístavt"
             },
@@ -377,8 +364,7 @@
     },
     {
         "feature": "routeList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Trasy"
             },
@@ -406,8 +392,7 @@
     },
     {
         "feature": "routeForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Trasa"
             },
@@ -447,8 +432,7 @@
     },
     {
         "feature": "bookingWrapper",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Transfery"
             },
@@ -468,8 +452,7 @@
     },
     {
         "feature": "userList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Uživatelé"
             },
@@ -501,8 +484,7 @@
     },
     {
         "feature": "editUserForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Uživatel"
             },
@@ -546,8 +528,7 @@
     },
     {
         "feature": "registerUserForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Uživatel"
             },
@@ -587,8 +568,7 @@
     },
     {
         "feature": "changePasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Změnit heslo"
             },
@@ -612,8 +592,7 @@
     },
     {
         "feature": "bookingList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "summaryTab",
                 "description": "Souhrn"
             },
@@ -729,8 +708,7 @@
     },
     {
         "feature": "bookingForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Rezervace"
             },
@@ -822,8 +800,7 @@
     },
     {
         "feature": "forgotPasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Zapomněl jsem heslo"
             },
@@ -843,8 +820,7 @@
     },
     {
         "feature": "resetPasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Obnovit heslo"
             },
@@ -864,8 +840,7 @@
     },
     {
         "feature": "dialog",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Pozor!"
             },
@@ -881,8 +856,7 @@
     },
     {
         "feature": "assignToDriver",
-        "labels": [
-            {
+        "labels": [{
                 "id": "searchHint",
                 "description": "Vyberte ze seznamu"
             },
@@ -906,8 +880,7 @@
     },
     {
         "feature": "assignToShip",
-        "labels": [
-            {
+        "labels": [{
                 "id": "searchHint",
                 "description": "(CZ) Select from the list"
             },
@@ -931,8 +904,7 @@
     },
     {
         "feature": "index",
-        "labels": [
-            {
+        "labels": [{
                 "id": "ports",
                 "description": "Přístavy"
             },
@@ -1004,17 +976,14 @@
     },
     {
         "feature": "schedule-menu",
-        "labels": [
-            {
-                "id": "schedule",
-                "description": "(CZ) Schedule"
-            }
-        ]
+        "labels": [{
+            "id": "schedule",
+            "description": "(CZ) Schedule"
+        }]
     },
     {
         "feature": "user-menu",
-        "labels": [
-            {
+        "labels": [{
                 "id": "myAccount",
                 "description": "Můj účet"
             },
@@ -1026,8 +995,7 @@
     },
     {
         "feature": "theme-menu",
-        "labels": [
-            {
+        "labels": [{
                 "id": "light",
                 "description": "Světlo"
             },
@@ -1039,8 +1007,7 @@
     },
     {
         "feature": "credits",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Zdroje"
             },
@@ -1052,8 +1019,7 @@
     },
     {
         "feature": "shipList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Lodě"
             },
@@ -1081,8 +1047,7 @@
     },
     {
         "feature": "shipForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Vessel"
             },
@@ -1122,8 +1087,7 @@
     },
     {
         "feature": "scheduleList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Schedule"
             },
@@ -1183,8 +1147,7 @@
     },
     {
         "feature": "scheduleCreateForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) New Schedule"
             },
@@ -1212,8 +1175,7 @@
     },
     {
         "feature": "passengerList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "headerLastname",
                 "description": "(CZ) Last name"
             },
@@ -1245,8 +1207,7 @@
     },
     {
         "feature": "passengerForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Passenger"
             },
@@ -1290,8 +1251,7 @@
     },
     {
         "feature": "genderList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Genders"
             },
@@ -1315,8 +1275,7 @@
     },
     {
         "feature": "genderForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Gender"
             },
@@ -1340,8 +1299,7 @@
     },
     {
         "feature": "boardingList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Boarding"
             },
@@ -1437,8 +1395,7 @@
     },
     {
         "feature": "nationalityList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "(CZ) Nationalities"
             },
@@ -1457,6 +1414,30 @@
             {
                 "id": "headerDescription",
                 "description": "(CZ) Description"
+            }
+        ]
+    },
+    {
+        "feature": "nationalityForm",
+        "labels": [{
+                "id": "header",
+                "description": "(CZ) Nationality"
+            },
+            {
+                "id": "description",
+                "description": "(CZ) Description"
+            },
+            {
+                "id": "isActive",
+                "description": "(CZ) Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "(CZ) Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "(CZ) Save"
             }
         ]
     }

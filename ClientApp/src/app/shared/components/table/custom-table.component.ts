@@ -1,13 +1,14 @@
 import { Component, Input, IterableDiffer, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core'
+import { HelperService } from '../../services/helper.service'
 import { Overlay, OverlayRef } from '@angular/cdk/overlay'
 import { TemplatePortal } from '@angular/cdk/portal'
-import { HelperService } from '../../services/helper.service'
+import { filter, take } from 'rxjs/operators'
+import { fromEvent, Subscription } from 'rxjs'
+
 import { IndexInteractionService } from 'src/app/shared/services/index-interaction.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { MessageLabelService } from './../../services/messages-label.service'
 import { MessageTableService } from '../../services/messages-table.service'
-import { filter, take } from 'rxjs/operators'
-import { fromEvent, Subscription } from 'rxjs'
 
 @Component({
     selector: 'custom-table',

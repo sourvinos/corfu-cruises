@@ -1,18 +1,19 @@
-import { Component } from '@angular/core'
-import { Title } from '@angular/platform-browser'
 import { ActivatedRoute, Router } from '@angular/router'
+import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
+import { Title } from '@angular/platform-browser'
+import { takeUntil } from 'rxjs/operators'
+
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { Customer } from '../classes/customer'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { ListResolved } from '../../../shared/classes/list-resolved'
-import { Customer } from '../classes/customer'
-import { SnackbarService } from '../../../shared/services/snackbar.service'
-import { takeUntil } from 'rxjs/operators'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
-import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ListResolved } from '../../../shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { SnackbarService } from '../../../shared/services/snackbar.service'
+import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'customer-list',
@@ -49,7 +50,7 @@ export class CustomerListComponent {
     visibility = ['none', 'none', '', '', '', '']
     justify = ['center', 'center', 'left', 'left', 'left', 'center']
     types = ['', '', '', '', '', '']
-    fields = ['', 'id', 'lastname', 'firstname', '']
+    fields = ['', 'id', 'description', 'phones', 'email', '']
 
     //#endregion
 
