@@ -13,21 +13,21 @@ namespace CorfuCruises {
         public static void Seed(IApplicationBuilder applicationBuilder) {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope()) {
                 var context = serviceScope.ServiceProvider.GetService<DbContext>();
-                if (!context.Rsvs.Any()) {
-                    context.Rsvs.AddRange(CreateRsv(context));
+                if (!context.Reservations.Any()) {
+                    context.Reservations.AddRange(CreateReservation(context));
                     context.SaveChanges();
-                    context.RsvsPassengers.AddRange(CreateRsvPassengers(context));
+                    context.Passengers.AddRange(CreateReservationPassengers(context));
                     context.SaveChanges();
                 }
             }
         }
 
-        private static Rsv[] CreateRsv(DbContext context) {
-            var records = new Rsv[1000];
+        private static Reservation[] CreateReservation(DbContext context) {
+            var records = new Reservation[1000];
             for (int i = 0; i < records.Length; i++) {
                 var pickupPointId = RandomNumber(1, 336);
                 var portId = context.PickupPoints.Include(x => x.Route).ThenInclude(x => x.Port).Where(x => x.Id == pickupPointId).Select(x => x.Route.Port.Id).SingleOrDefault();
-                records[i] = new Rsv {
+                records[i] = new Reservation {
                     Date = RandomDate(),
                     Adults = RandomNumber(1, 10),
                     Kids = RandomNumber(1, 5),
@@ -49,14 +49,14 @@ namespace CorfuCruises {
             return records;
         }
 
-        private static List<RsvPassenger> CreateRsvPassengers(DbContext context) {
+        private static List<Passenger> CreateReservationPassengers(DbContext context) {
             int passengerCount = 0;
-            List<RsvPassenger> passengers = new List<RsvPassenger>();
+            List<Passenger> passengers = new List<Passenger>();
             for (int i = 1; i < 1000; i++) {
                 var passengersPerReservation = RandomNumber(1, 5);
                 for (int passenger = 1; passenger < passengersPerReservation; passenger++) {
-                    passengers.Add(new RsvPassenger {
-                        RsvId = i,
+                    passengers.Add(new Passenger {
+                        ReservationId = i,
                         OccupantId = 2,
                         NationalityId = RandomNumber(2, 4),
                         GenderId = RandomNumber(1, 3),

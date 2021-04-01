@@ -8,17 +8,17 @@ export class InteractionService {
     //#region variables
 
     private _record = new Subject<string[]>()
-    private _booking = new Subject<string[]>()
+    private _reservation = new Subject<string[]>()
     private _checked = new Subject<number>()
-    private _refreshBookingList = new Subject<any>()
+    private _refreshReservationList = new Subject<any>()
     private _refreshBoardingList = new Subject<any>()
     private _tableRow = new Subject()
     private _sidebarAndTopMenuVisibility = new Subject<any>()
 
     public record = this._record.asObservable()
-    public booking = this._booking.asObservable()
+    public reservation = this._reservation.asObservable()
     public checked = this._checked.asObservable()
-    public refreshBookingList = this._refreshBookingList.asObservable()
+    public refreshReservationList = this._refreshReservationList.asObservable()
     public refreshBoardingList = this._refreshBoardingList.asObservable()
     public tableRow = this._tableRow.asObservable()
     public sidebarAndTopMenuVisibility = this._sidebarAndTopMenuVisibility.asObservable()
@@ -29,16 +29,16 @@ export class InteractionService {
 
     /**
      * Caller(s):
-     *  booking-form.ts
+     *  reservation-form.ts
      *
      * Subscribers(s):
-     *  booking-list.ts
+     *  reservation-list.ts
      *
      * Description:
      *  The form tells the list to refresh when a record is saved
      */
-    public mustRefreshBookingList(): void {
-        this._refreshBookingList.next()
+    public mustRefreshReservationList(): void {
+        this._refreshReservationList.next()
     }
 
     /** 
@@ -73,17 +73,17 @@ export class InteractionService {
      *  The caller(s) send the selected item so that the subscribers call the edit method
      *
     */
-    public sendBooking(record: any): void {
-        this._booking.next(record)
+    public sendReservation(record: any): void {
+        this._reservation.next(record)
     }
 
     /**
      * Caller(s):
-     *  booking-list.ts
+     *  reservation-list.ts
      *  custom-table.ts
      *
      * Subscriber(s):
-     *  booking-list.ts
+     *  reservation-list.ts
      *
      * Description:
      *  The callers send the sum of checked persons so that the subscriber can display it
@@ -96,10 +96,10 @@ export class InteractionService {
 
     /**
      * Caller(s):
-     *  booking-form.component.ts
+     *  reservation-form.component.ts
      * 
      * Subscriber(s):
-     *  booking-list.component.ts
+     *  reservation-list.component.ts
      * 
      * Description:
      *  The caller(s) send the id of the deleted record so that the subscriber(s) can find the table row and remove it

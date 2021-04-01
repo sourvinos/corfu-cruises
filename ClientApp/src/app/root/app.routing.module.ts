@@ -16,7 +16,7 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginFormComponent },
     { path: 'account', loadChildren: (): any => import('../features/account/classes/account.module').then(m => m.AccountModule) },
     { path: 'boarding', loadChildren: (): any => import('../features/boardings/classes/boarding.module').then(m => m.BoardingModule) },
-    { path: 'bookings', loadChildren: (): any => import('../features/rsvs/classes/booking.module').then(m => m.BookingModule) },
+    { path: 'reservations', loadChildren: (): any => import('../features/reservations/classes/modules/reservation.module').then(m => m.ReservationModule) },
     { path: 'customers', loadChildren: (): any => import('../features/customers/classes/customer.module').then(m => m.CustomerModule) },
     { path: 'destinations', loadChildren: (): any => import('../features/destinations/classes/destination.module').then(m => m.DestinationModule) },
     { path: 'drivers', loadChildren: (): any => import('../features/drivers/classes/driver.module').then(m => m.DriverModule) },

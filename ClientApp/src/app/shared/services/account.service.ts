@@ -103,7 +103,7 @@ export class AccountService {
             'searchTermRoute',
             'searchTermUser',
             'selectedIds',
-            'bookings',
+            'reservations',
             'loginStatus',
             'userRole'
         ])

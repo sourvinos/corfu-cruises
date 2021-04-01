@@ -17,7 +17,7 @@ import moment from 'moment'
 import { DateAdapter } from '@angular/material/core'
 import { AccountService } from 'src/app/shared/services/account.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { BookingService } from '../../rsvs/classes/booking.service'
+import { ReservationService } from '../../reservations/classes/services/reservation.service'
 
 @Component({
     selector: 'schedule-list',
@@ -53,7 +53,7 @@ export class ScheduleListComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private bookingService: BookingService, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private portService: PortService, private renderer: Renderer2, private scheduleService: ScheduleService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private accountService: AccountService, private ReservationService: ReservationService, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private portService: PortService, private renderer: Renderer2, private scheduleService: ScheduleService, private titleService: Title, public dialog: MatDialog) {
         this.dateAdapter.setLocale(this.helperService.readItem("language"))
     }
 
@@ -101,7 +101,7 @@ export class ScheduleListComponent {
             this.onMarkDaysOnCalendar()
             this.showCalendar()
         })
-        this.bookingService.getByDate(this.destinationId, this.portId).then(result => {
+        this.ReservationService.getByDate(this.destinationId, this.portId).then(result => {
             this.populateReservations(result)
         })
     }

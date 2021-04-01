@@ -3,7 +3,7 @@
         "feature": "main-menu",
         "labels": [
             {
-                "id": "bookings",
+                "id": "reservations",
                 "description": "Κρατησεις"
             },
             {

@@ -431,7 +431,7 @@
         ]
     },
     {
-        "feature": "bookingWrapper",
+        "feature": "reservationWrapper",
         "labels": [{
                 "id": "header",
                 "description": "Reservations"
@@ -591,7 +591,7 @@
         ]
     },
     {
-        "feature": "bookingList",
+        "feature": "reservationList",
         "labels": [{
                 "id": "summaryTab",
                 "description": "Summary"
@@ -707,7 +707,7 @@
         ]
     },
     {
-        "feature": "bookingForm",
+        "feature": "reservationForm",
         "labels": [{
                 "id": "header",
                 "description": "Reservation"

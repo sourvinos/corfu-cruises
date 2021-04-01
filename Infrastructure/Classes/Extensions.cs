@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,6 +5,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System;
 
 namespace CorfuCruises {
 
@@ -66,7 +66,7 @@ namespace CorfuCruises {
         public static void AddInterfaces(IServiceCollection services) {
             services.AddScoped<Token>();
             services.AddTransient<IBoardingRepository, BoardingRepository>();
-            services.AddTransient<IRsvRepository, RsvRepository>();
+            services.AddTransient<IReservationRepository, ReservationRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IDestinationRepository, DestinationRepository>();
             services.AddTransient<IDriverRepository, DriverRepository>();
@@ -103,8 +103,9 @@ namespace CorfuCruises {
             services.AddTransient<IValidator<Gender>, GenderValidator>();
             services.AddTransient<IValidator<Nationality>, NationalityValidator>();
             services.AddTransient<IValidator<Occupant>, OccupantValidator>();
-            services.AddTransient<IValidator<PickupPoint>, PickupPointValidator>();
+             services.AddTransient<IValidator<PickupPoint>, PickupPointValidator>();
             services.AddTransient<IValidator<Port>, PortValidator>();
+            services.AddTransient<IValidator<Reservation>, ReservationValidator>();
             services.AddTransient<IValidator<Route>, RouteValidator>();
             services.AddTransient<IValidator<Schedule>, ScheduleValidator>();
         }

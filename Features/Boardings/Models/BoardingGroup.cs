@@ -8,7 +8,7 @@ namespace CorfuCruises {
         public int BoardedPersons { get; set; }
         public int RemainingPersons { get; set; }
 
-        public List<Rsv> Boardings { get; set; }
+        public List<Reservation> Boardings { get; set; }
 
     }
 

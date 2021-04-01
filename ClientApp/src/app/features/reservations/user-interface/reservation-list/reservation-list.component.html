@@ -1,0 +1,125 @@
+<div id="wrapper">
+
+    <div id="panelButtons">
+        <button data-cy="summaryTab" mat-flat-button class="tab" id="summaryTab" [disabled]="activePanel=='summary'" (click)="onFocusSummaryPanel()">{{ onGetLabel('summaryTab') }}</button>
+        <button data-cy="listTab" mat-flat-button class="tab" id="listTab" [disabled]="activePanel=='list'" (click)="onFocusListPanel()">{{ onGetLabel('listTab') }}</button>
+        <div [class.hidden]="activePanel=='list'" class="selection">
+            <div class="label">{{ onGetLabel(totals[0].description) }}</div>
+            <div class="sum">{{ totals[0].sum }}</div>
+            <div class="label">{{ onGetLabel(totals[3].description) }}</div>
+            <div class="sum">{{ totals[1].sum }}</div>
+        </div>
+        <div [class.hidden]="activePanel=='summary'" id="totals">
+            <div *ngFor="let item of totals | slice:0:3">
+                <div class="selection">
+                    <div class="label">{{ onGetLabel(item.description) }}</div>
+                    <div data-cy="totalsSum" class="sum">{{ item.sum }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="summary" [class.hidden]="activePanel=='list'" class="scrollable">
+        <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="summaryHeader">
+                <mat-checkbox data-cy="destinationsCheckbox" class="checkbox destination" [(ngModel)]="checkedDestinations" [(indeterminate)]="indeterminateDestinations" (click)="onToggleParentCheckbox('destination', this.selectedDestinations, this.checkedDestinations)">
+                    {{ onGetLabel('summaryHeaderDestinations') }}
+                </mat-checkbox>
+            </div>
+            <div class="summaryContent scrollable">
+                <div *ngFor="let item of queryResult.personsPerDestination" (click)="onToggleItem(item, this.selectedDestinations, 'checkedDestinations', 'indeterminateDestinations', 'destination')" class="item destination" [class.active]="item.isSelected" [id]="item.description">
+                    <div class="description">{{ item.description }}</div>
+                    <div class="total">{{ item.persons }}</div>
+                </div>
+            </div>
+        </div>
+        <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="summaryHeader">
+                <mat-checkbox data-cy="customersCheckbox" class="checkbox customer" [(ngModel)]="checkedCustomers" [(indeterminate)]="indeterminateCustomers" (click)="onToggleParentCheckbox('customer', this.selectedCustomers, this.checkedCustomers)">
+                    {{ onGetLabel('summaryHeaderCustomers') }}
+                </mat-checkbox>
+            </div>
+            <div class="summaryContent scrollable">
+                <div *ngFor="let item of queryResult.personsPerCustomer" (click)="onToggleItem(item, this.selectedCustomers, 'checkedCustomers', 'indeterminateCustomers', 'customer')" class="item customer" [class.active]="item.isSelected" [id]="item.description">
+                    <div class="description">{{ item.description }}</div>
+                    <div class="total">{{ item.persons }}</div>
+                </div>
+            </div>
+        </div>
+        <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="summaryHeader">
+                <mat-checkbox data-cy="routesCheckbox" class="checkbox route" [(ngModel)]="checkedRoutes" [(indeterminate)]="indeterminateRoutes" (click)="onToggleParentCheckbox('route', this.selectedRoutes, this.checkedRoutes)">
+                    {{ onGetLabel('summaryHeaderRoutes') }}
+                </mat-checkbox>
+            </div>
+            <div class="summaryContent scrollable">
+                <div *ngFor="let item of queryResult.personsPerRoute" (click)="onToggleItem(item, this.selectedRoutes, 'checkedRoutes', 'indeterminateRoutes', 'route')" class="item route" [class.activeItem]="item.isSelected" [id]="item.description">
+                    <div class="description">{{ item.description }}</div>
+                    <div class="total">{{ item.persons }}</div>
+                </div>
+            </div>
+        </div>
+        <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="summaryHeader">
+                <mat-checkbox data-cy="driversCheckbox" class="checkbox driver" [(ngModel)]="checkedDrivers" [(indeterminate)]="indeterminateDrivers" (click)="onToggleParentCheckbox('driver', this.selectedDrivers, this.checkedDrivers)">
+                    {{ onGetLabel('summaryHeaderDrivers') }}
+                </mat-checkbox>
+            </div>
+            <div class="summaryContent scrollable">
+                <div *ngFor="let item of queryResult.personsPerDriver" (click)="onToggleItem(item, this.selectedDrivers, 'checkedDrivers', 'indeterminateDrivers', 'driver')" class="item driver" [class.active]="item.isSelected" [id]="item.description">
+                    <div class="description">{{ item.description }}</div>
+                    <div class="total">{{ item.persons }}</div>
+                </div>
+            </div>
+        </div>
+        <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="summaryHeader">
+                <mat-checkbox data-cy="portsCheckbox" class="checkbox port" [(ngModel)]="checkedPorts" [(indeterminate)]="indeterminatePorts" (click)="onToggleParentCheckbox('port', this.selectedPorts, this.checkedPorts)">
+                    {{ onGetLabel('summaryHeaderPorts') }}
+                </mat-checkbox>
+            </div>
+            <div class="summaryContent scrollable">
+                <div data-cy="port" *ngFor="let item of queryResult.personsPerPort" (click)="onToggleItem(item, this.selectedPorts, 'checkedPorts', 'indeterminatePorts', 'port')" class="item port" [class.active]="item.isSelected" [id]="item.description">
+                    <div class="description">{{ item.description }}</div>
+                    <div class="total">{{ item.persons }}</div>
+                </div>
+            </div>
+        </div>
+        <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="summaryHeader">
+                <mat-checkbox data-cy="shipsCheckbox" class="checkbox ship" [(ngModel)]="checkedShips" [(indeterminate)]="indeterminateShips" (click)="onToggleParentCheckbox('ship', this.selectedShips, this.checkedShips)">
+                    {{ onGetLabel('summaryHeaderShips') }}
+                </mat-checkbox>
+            </div>
+            <div class="summaryContent scrollable">
+                <div data-cy="ship" *ngFor="let item of queryResult.personsPerShip" (click)="onToggleItem(item, this.selectedShips, 'checkedShips', 'indeterminateShips', 'ship')" class="item ship" [class.active]="item.isSelected" [id]="item.description">
+                    <div class="description">{{ item.description }}</div>
+                    <div class="total">{{ item.persons }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="table-wrapper">
+        <div id="listFormCombo" [class.hidden]="activePanel=='summary'">
+            <div id="reservationList">
+                <div class="scrollable" id="table">
+                    <custom-table [highlightFirstRow]="highlightFirstRow" [feature]="feature" [records]="reservationsFlat" [headers]="headers" [widths]="widths" [visibility]="visibility" [justify]="justify" [types]="types" [fields]="fields"></custom-table>
+                </div>
+            </div>
+            <div id="reservationFormModal">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div @slideFromRight id="buttons">
+            <button data-cy="assignToDriver" mat-flat-button class="secondary" id="assignToDriver" [class.hidden]="queryResult.persons == 0 || this.activePanel=='summary'" (click)="onAssignToDriver()">{{ onGetLabel('assignToDriverButton') }}</button>
+            <button data-cy="assignToShip" mat-flat-button class="secondary" id="assignToShip" [class.hidden]="queryResult.persons == 0 || this.activePanel=='summary'" (click)="onAssignToShip()">{{ onGetLabel('assignToShipButton') }}</button>
+            <button data-cy="createPdf" mat-flat-button class="secondary" id="createPdf" [class.hidden]="queryResult.persons == 0 || this.activePanel=='summary'" (click)="onCreatePdf()">{{ onGetLabel('createPdfButton') }}</button>
+            <button data-cy="new" mat-flat-button class="primary" id="new" (click)="onNew()">{{ onGetLabel('newButton') }}</button>
+        </div>
+    </div>
+
+</div>

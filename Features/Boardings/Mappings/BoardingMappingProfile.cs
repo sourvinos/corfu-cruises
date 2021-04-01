@@ -6,14 +6,14 @@ namespace CorfuCruises {
     public class BoardingsMappingProfile : Profile {
 
         public BoardingsMappingProfile() {
-            CreateMap<Rsv, BoardingResource>()
+            CreateMap<Reservation, BoardingResource>()
                 .ForMember(x => x.TicketNo, x => x.MapFrom(x => x.TicketNo))
                 .ForMember(x => x.Remarks, x => x.MapFrom(x => x.Remarks))
-                .ForMember(x => x.Passengers, x => x.MapFrom(x => x.Passengers.Select(detail => new BoardingPassengerResource {
-                    Id = detail.Id,
-                    Lastname = detail.Lastname,
-                    Firstname = detail.Firstname,
-                    IsCheckedIn = detail.IsCheckedIn
+                .ForMember(x => x.Passengers, x => x.MapFrom(x => x.Passengers.Select(passenger => new BoardingPassengerResource {
+                    Id = passenger.Id,
+                    Lastname = passenger.Lastname,
+                    Firstname = passenger.Firstname,
+                    IsCheckedIn = passenger.IsCheckedIn
                 })));
         }
 

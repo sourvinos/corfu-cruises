@@ -18,15 +18,15 @@ namespace CorfuCruises {
         public DbSet<PickupPoint> PickupPoints { get; set; }
         public DbSet<Port> Ports { get; set; }
         public DbSet<Route> Routes { get; set; }
-        public DbSet<Rsv> Rsvs { get; set; }
-        public DbSet<RsvPassenger> RsvsPassengers { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Passenger> Passengers { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Ship> Ships { get; set; }
         public DbSet<Token> Tokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Rsv>().Property(p => p.TotalPersons).ValueGeneratedOnAddOrUpdate();
+            modelBuilder.Entity<Reservation>().Property(p => p.TotalPersons).ValueGeneratedOnAddOrUpdate();
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
         }
 
