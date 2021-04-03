@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System;
+using AutoMapper;
 
 namespace CorfuCruises {
 
@@ -86,7 +87,7 @@ namespace CorfuCruises {
             db.SaveChanges();
             db.Set<T>().AddRange(newItems.Except(currentItems, getKey));
             db.SaveChanges();
-         }
+        }
 
         public static IEnumerable<T> Except<T, TKey>(this IEnumerable<T> items, IEnumerable<T> other, Func<T, TKey> getKeyFunc) {
             return items
@@ -96,20 +97,20 @@ namespace CorfuCruises {
                 .Select(t => t.t.item);
         }
 
-        public static void AddValidation(IServiceCollection services){
+        public static void AddValidation(IServiceCollection services) {
             services.AddTransient<IValidator<Customer>, CustomerValidator>();
             services.AddTransient<IValidator<Destination>, DestinationValidator>();
             services.AddTransient<IValidator<Driver>, DriverValidator>();
             services.AddTransient<IValidator<Gender>, GenderValidator>();
             services.AddTransient<IValidator<Nationality>, NationalityValidator>();
             services.AddTransient<IValidator<Occupant>, OccupantValidator>();
-             services.AddTransient<IValidator<PickupPoint>, PickupPointValidator>();
+            services.AddTransient<IValidator<PickupPoint>, PickupPointValidator>();
             services.AddTransient<IValidator<Port>, PortValidator>();
             services.AddTransient<IValidator<Reservation>, ReservationValidator>();
             services.AddTransient<IValidator<Route>, RouteValidator>();
             services.AddTransient<IValidator<Schedule>, ScheduleValidator>();
         }
-
+ 
     }
 
 }

@@ -62,11 +62,11 @@ namespace CorfuCruises {
             try {
                 context.Entry(updatedRecord).State = EntityState.Modified;
                 context.SaveChanges();
-                this.RemovePassengers(GetReservationById(id));
+                RemovePassengers(GetReservationById(id));
                 this.AddPassengers(updatedRecord);
                 transaction.Commit();
-            } catch (System.Exception) {
-                throw;
+            } catch (Exception ex) {
+                throw ex;
             }
         }
 

@@ -47,14 +47,14 @@ namespace CorfuCruises {
                     response = ApiMessages.RecordNotFound()
                 });
             };
-            return StatusCode(200, record);
+            return StatusCode(200, mapper.Map<Reservation, ReservationReadResource>(record));
         }
 
         [HttpPost]
-        public IActionResult PostReservation([FromBody] Reservation record) {
+        public IActionResult PostReservation([FromBody] ReservationWriteResource record) {
             if (ModelState.IsValid) {
                 try {
-                    repo.Create(record);
+                    repo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordCreated()
                     });
@@ -72,21 +72,21 @@ namespace CorfuCruises {
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutReservation([FromRoute] int id, [FromBody] Reservation updatedRecord) {
-            if (id == updatedRecord.ReservationId && ModelState.IsValid) {
+        public IActionResult PutReservation([FromRoute] int id, [FromBody] ReservationWriteResource record) {
+            if (id == record.ReservationId && ModelState.IsValid) {
                 try {
-                    repo.Update(id, updatedRecord);
+                    repo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });
                 } catch (DbUpdateException exception) {
-                    LoggerExtensions.LogException(0, logger, ControllerContext, updatedRecord, exception);
+                    LoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
                     return StatusCode(490, new {
                         response = ApiMessages.RecordNotSaved()
                     });
                 }
             }
-            LoggerExtensions.LogException(0, logger, ControllerContext, updatedRecord, null);
+            LoggerExtensions.LogException(0, logger, ControllerContext, record, null);
             return StatusCode(400, new {
                 response = ApiMessages.InvalidModel()
             });

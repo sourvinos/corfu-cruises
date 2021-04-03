@@ -21,8 +21,9 @@ namespace CorfuCruises {
         // FK
         public int NationalityId { get; set; }
         public int OccupantId { get; set; }
-        public int GenderId{get;set;}
+        public int GenderId { get; set; }
 
+        // Navigation
         public Nationality Nationality { get; set; }
         public Occupant Occupant { get; set; }
         public Gender Gender { get; set; }
