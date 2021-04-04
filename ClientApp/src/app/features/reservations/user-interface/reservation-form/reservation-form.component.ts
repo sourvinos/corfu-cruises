@@ -25,10 +25,12 @@ import { PickupPointService } from 'src/app/features/pickupPoints/classes/pickup
 import { PortService } from 'src/app/features/ports/classes/port.service'
 import { Reservation } from '../../classes/models/reservation'
 import { ReservationService } from '../../classes/services/reservation.service'
+import { ReservationWriteResource } from './../../classes/resources/reservation-write-resource'
 import { ShipService } from 'src/app/features/ships/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import moment from 'moment'
 
 @Component({
     selector: 'reservation-form',
@@ -68,7 +70,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private ReservationService: ReservationService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private reservationService: ReservationService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
                 this.getRecord(p.id)
@@ -136,7 +138,7 @@ export class ReservationFormComponent {
     public onDelete(): void {
         this.dialogService.open('warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.ReservationService.delete(this.form.value.reservationId).subscribe(() => {
+                this.reservationService.delete(this.form.value.reservationId).subscribe(() => {
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
                     this.onGoBack()
                     this.interactionService.removeTableRow(this.getRowIndex(this.form.value.reservationId))
@@ -181,10 +183,10 @@ export class ReservationFormComponent {
     }
 
     public onSave(): void {
-        if (this.form.value.reservationId === 0 || this.form.value.reservationId === null) {
-            this.ReservationService.add(this.form.value).subscribe(() => {
+        const reservation: ReservationWriteResource = this.mapObject()
+        if (reservation.reservationId.toString() == '' || reservation.reservationId === null) {
+            this.reservationService.add(reservation).subscribe(() => {
                 this.initForm()
-                // this.populateFormWithDefaultValues()
                 this.refreshSummary()
                 this.focus('destinationDescription')
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -192,7 +194,7 @@ export class ReservationFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
             })
         } else {
-            this.ReservationService.update(this.form.value.reservationId, this.form.value).subscribe(() => {
+            this.reservationService.update(this.form.value.reservationId, reservation).subscribe(() => {
                 this.resetForm()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
                 this.onGoBack()
@@ -203,7 +205,7 @@ export class ReservationFormComponent {
     }
 
     public onSendVoucher(): void {
-        this.ReservationService.sendVoucher(this.form.value).subscribe(() => {
+        this.reservationService.sendVoucher(this.form.value).subscribe(() => {
             this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
         }, () => {
             this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
@@ -313,8 +315,14 @@ export class ReservationFormComponent {
         this.helperService.setFocus(field)
     }
 
+    private formatDate(date: any): string {
+        const value = moment(date)
+        return value.format('YYYY-MM-DD')
+    }
+
     private getRecord(id: number): void {
-        this.ReservationService.getSingle(id).subscribe(result => {
+        this.reservationService.getSingle(id).subscribe(result => {
+            console.log(result)
             this.showModalForm().then(() => {
                 this.populateFields(result)
                 this.focus('destinationDescription')
@@ -345,7 +353,7 @@ export class ReservationFormComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            reservationId: 0,
+            reservationId: '',
             date: '',
             destinationId: [0, Validators.required], destinationDescription: ['', Validators.required],
             customerId: [0, Validators.required], customerDescription: ['', Validators.required],
@@ -366,6 +374,51 @@ export class ReservationFormComponent {
             uri: '',
             passengers: []
         })
+    }
+
+    private mapObject(): any {
+        const form = this.form.value
+        const reservation = {
+            'reservationId': form.reservationId,
+            'date': this.formatDate(form.date),
+            'destinationId': form.destinationId,
+            'customerId': form.customerId,
+            'pickupPointId': form.pickupPointId,
+            'portId': form.portId,
+            'driverId': form.driverId,
+            'shipId': form.shipId,
+            'ticketNo': form.ticketNo,
+            'email': form.email,
+            'phones': form.phones,
+            'adults': form.adults,
+            'kids': form.kids,
+            'free': form.free,
+            'remarks': form.remarks,
+            'guid': form.guid,
+            'userId': form.userId,
+            'passengers': this.mapPassengers()
+        }
+        return reservation
+    }
+
+    private mapPassengers(): any {
+        const passengers = []
+        this.form.value.passengers.forEach((element: any) => {
+            const passenger = {
+                'reservationId': element.reservationId,
+                'occupantId': element.occupantId,
+                'nationalityId': element.nationalityId,
+                'genderId': element.genderId,
+                'lastname': element.lastname,
+                'firstname': element.firstname,
+                'dob': this.formatDate(element.dob),
+                'specialCare': element.specialCare,
+                'remarks': element.remarks,
+                'isCheckedIn': element.isCheckedIn
+            }
+            passengers.push(passenger)
+        })
+        return passengers
     }
 
     private patchFields(result: any, fields: any[]): void {
@@ -428,7 +481,7 @@ export class ReservationFormComponent {
 
     private populateFormWithDefaultValues(): void {
         this.form.patchValue({
-            reservationId: 0,
+            reservationId: '',
             date: this.helperService.readItem('date'),
             destinationId: 0, destinationDescription: '',
             customerId: 0, customerDescription: '',

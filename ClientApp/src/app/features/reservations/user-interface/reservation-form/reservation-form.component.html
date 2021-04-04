@@ -97,7 +97,7 @@
             </ng-template>
         </mat-tab>
     </mat-tab-group>
-    
+
     <qrCode hidden [qrCodeValue]="qrCodeValue" [errorCorrectionLevel]="errorCorrectionLevel" [margin]="margin" [width]="width"></qrCode>
 
     <p class="instructions" [class.hidden]=environment>{{ form.value | json }} {{ form.valid }}</p>

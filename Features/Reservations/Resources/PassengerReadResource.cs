@@ -2,7 +2,7 @@ using System;
 
 namespace CorfuCruises {
 
-    public class Passenger {
+    public class PassengerReadResource {
 
         public int Id { get; set; }
 

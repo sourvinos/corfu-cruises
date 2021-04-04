@@ -1,8 +1,11 @@
+using System;
+using System.Collections.Generic;
+
 namespace CorfuCruises {
 
     public class ReservationReadResource {
 
-        public int ReservationId { get; set; }
+        public Guid ReservationId { get; set; }
         public string Date { get; set; }
         public int Adults { get; set; }
         public int Kids { get; set; }
@@ -14,6 +17,8 @@ namespace CorfuCruises {
         public string Remarks { get; set; }
         public string Guid { get; set; }
         public string UserId { get; set; }
+
+        public List<PassengerReadResource> Passengers { get; set; }
 
         public CustomerResource Customer { get; set; }
         public DestinationResource Destination { get; set; }

@@ -1,8 +1,9 @@
+import { Guid } from "guid-typescript"
 import { Passenger } from "./passenger"
 
 export class Reservation {
 
-    reservationId: number
+    reservationId: Guid
 
     date: string
     adults: number

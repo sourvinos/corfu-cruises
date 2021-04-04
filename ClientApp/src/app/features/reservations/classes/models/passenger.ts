@@ -1,7 +1,9 @@
+import { Guid } from "guid-typescript"
+
 export class Passenger {
 
     id: number
-    reservationId: number
+    reservationId: Guid
     occupant: {
         id: number
         description: string

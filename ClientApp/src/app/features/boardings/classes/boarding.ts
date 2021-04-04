@@ -1,8 +1,9 @@
+import { Guid } from "guid-typescript"
 import { BoardingDetail } from "./boarding-detail"
 
 export class Boarding {
 
-    reservationId: number
+    reservationId: Guid
     ticketNo: string
     remarks: string
 

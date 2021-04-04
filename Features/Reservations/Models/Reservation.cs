@@ -5,11 +5,9 @@ namespace CorfuCruises {
 
     public class Reservation {
 
-        // PK
-        public int ReservationId { get; set; }
+        public Guid ReservationId { get; set; }
 
-        // Fields
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public int Adults { get; set; }
         public int Kids { get; set; }
         public int Free { get; set; }
@@ -20,7 +18,6 @@ namespace CorfuCruises {
         public string Remarks { get; set; }
         public string Guid { get; set; }
 
-        // FK
         public int DestinationId { get; set; }
         public int CustomerId { get; set; }
         public int DriverId { get; set; }
@@ -29,7 +26,6 @@ namespace CorfuCruises {
         public int ShipId { get; set; }
         public string UserId { get; set; }
 
-        // Navigation
         public Customer Customer { get; set; }
         public Destination Destination { get; set; }
         public Driver Driver { get; set; }
@@ -37,7 +33,6 @@ namespace CorfuCruises {
         public Port Port { get; set; }
         public Ship Ship { get; set; }
 
-        // Passengers
         public List<Passenger> Passengers { get; set; }
 
     }

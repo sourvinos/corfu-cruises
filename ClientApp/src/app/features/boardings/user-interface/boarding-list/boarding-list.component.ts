@@ -174,7 +174,6 @@ export class BoardingListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
-            console.log('Filtered records', this.filteredRecords)
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

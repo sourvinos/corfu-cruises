@@ -16,10 +16,10 @@ namespace CorfuCruises {
         }
 
         public async Task<BoardingGroupResultResource<BoardingResource>> Get(string date, int destinationId, int portId, int shipId) {
-            DateTime _date = Convert.ToDateTime(date);
+            // DateTime _date = Convert.ToDateTime(date);
             var reservations = await context.Reservations
                 .Include(x => x.Passengers)
-                .Where(x => x.Date == _date && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId)
+                .Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId)
                 .ToListAsync();
             int count = reservations.SelectMany(c => c.Passengers).Count();
             int countBoarded = reservations.SelectMany(c => c.Passengers).Where(x => x.IsCheckedIn).Count();

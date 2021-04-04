@@ -2,7 +2,7 @@
         "feature": "loginForm",
         "labels": [{
                 "id": "header",
-                "description": "Σύνδεση"
+                "description": "Είσοδος"
             },
             {
                 "id": "usernameLabel",

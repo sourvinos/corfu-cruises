@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
+import { Guid } from 'guid-typescript'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
@@ -36,7 +37,7 @@ export class PassengerListComponent {
 
     //#endregion
 
-    @Input() reservationId: number
+    @Input() reservationId: Guid
     @Input() passengers: Passenger[] = []
 
     constructor(public dialog: MatDialog, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts) { }

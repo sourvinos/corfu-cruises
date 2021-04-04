@@ -39,7 +39,7 @@ namespace CorfuCruises {
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetReservation(int id) {
+        public async Task<IActionResult> GetReservation(string id) {
             var record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
@@ -72,13 +72,18 @@ namespace CorfuCruises {
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutReservation([FromRoute] int id, [FromBody] ReservationWriteResource record) {
-            if (id == record.ReservationId && ModelState.IsValid) {
+        public IActionResult PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
+            if (id == record.ReservationId.ToString() && ModelState.IsValid) {
                 try {
-                    repo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
-                    return StatusCode(200, new {
-                        response = ApiMessages.RecordUpdated()
-                    });
+                    if (repo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record))) {
+                        return StatusCode(200, new {
+                            response = ApiMessages.RecordUpdated()
+                        });
+                    } else {
+                        return StatusCode(490, new {
+                            response = ApiMessages.RecordNotSaved()
+                        });
+                    }
                 } catch (DbUpdateException exception) {
                     LoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
                     return StatusCode(490, new {
@@ -93,7 +98,7 @@ namespace CorfuCruises {
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteReservation([FromRoute] int id) {
+        public async Task<IActionResult> DeleteReservation([FromRoute] string id) {
             Reservation record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
@@ -115,7 +120,7 @@ namespace CorfuCruises {
         }
 
         [HttpPatch("assignToDriver")]
-        public IActionResult AssignToDriver(int driverId, [FromQuery(Name = "id")] int[] ids) {
+        public IActionResult AssignToDriver(int driverId, [FromQuery(Name = "id")] string[] ids) {
             try {
                 repo.AssignToDriver(driverId, ids);
                 return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
@@ -128,7 +133,7 @@ namespace CorfuCruises {
         }
 
         [HttpPatch("assignToShip")]
-        public IActionResult AssignToShip(int shipId, [FromQuery(Name = "id")] int[] ids) {
+        public IActionResult AssignToShip(int shipId, [FromQuery(Name = "id")] string[] ids) {
             try {
                 repo.AssignToShip(shipId, ids);
                 return StatusCode(200, new { response = ApiMessages.RecordUpdated() });

@@ -1,6 +1,8 @@
+import { Guid } from "guid-typescript"
+
 export class ReservationFlat {
 
-    id: number
+    id: Guid
     destination: string
     destinationAbbreviation: string
     customer: string
@@ -16,5 +18,5 @@ export class ReservationFlat {
     ship: string
     dateIn: string
     remarks: string
-    
+
 }

@@ -16,7 +16,7 @@ namespace CorfuCruises {
                 if (!context.Reservations.Any()) {
                     context.Reservations.AddRange(CreateReservation(context));
                     context.SaveChanges();
-                    context.Passengers.AddRange(CreateReservationPassengers(context));
+                    context.Passengers.AddRange(CreatePassenger(context));
                     context.SaveChanges();
                 }
             }
@@ -28,7 +28,8 @@ namespace CorfuCruises {
                 var pickupPointId = RandomNumber(1, 336);
                 var portId = context.PickupPoints.Include(x => x.Route).ThenInclude(x => x.Port).Where(x => x.Id == pickupPointId).Select(x => x.Route.Port.Id).SingleOrDefault();
                 records[i] = new Reservation {
-                    Date = RandomDate(),
+                    ReservationId = new Guid(),
+                    // Date = RandomDate(),
                     Adults = RandomNumber(1, 10),
                     Kids = RandomNumber(1, 5),
                     Free = RandomNumber(1, 3),
@@ -49,25 +50,26 @@ namespace CorfuCruises {
             return records;
         }
 
-        private static List<Passenger> CreateReservationPassengers(DbContext context) {
-            int passengerCount = 0;
+        private static List<Passenger> CreatePassenger(DbContext context) {
+
             List<Passenger> passengers = new List<Passenger>();
-            for (int i = 1; i < 1000; i++) {
-                var passengersPerReservation = RandomNumber(1, 5);
-                for (int passenger = 1; passenger < passengersPerReservation; passenger++) {
-                    passengers.Add(new Passenger {
-                        ReservationId = i,
-                        OccupantId = 2,
-                        NationalityId = RandomNumber(2, 4),
-                        GenderId = RandomNumber(1, 3),
-                        Lastname = RandomString(25),
-                        Firstname = RandomString(20),
-                        DOB = RandomDOB(),
-                        SpecialCare = "",
-                        Remarks = "",
-                        IsCheckedIn = false
-                    });
-                    passengerCount++;
+            foreach (var reservation in context.Reservations) {
+                for (int i = 1; i <= 1; i++) {
+                    var passengersPerReservation = RandomNumber(1, 5);
+                    for (int passenger = 1; passenger < passengersPerReservation; passenger++) {
+                        passengers.Add(new Passenger {
+                            ReservationId = reservation.ReservationId,
+                            OccupantId = 2,
+                            NationalityId = RandomNumber(2, 4),
+                            GenderId = RandomNumber(1, 3),
+                            Lastname = RandomString(25),
+                            Firstname = RandomString(20),
+                            // DOB = RandomDOB(),
+                            SpecialCare = "",
+                            Remarks = "",
+                            IsCheckedIn = false
+                        });
+                    }
                 }
             }
             return passengers;

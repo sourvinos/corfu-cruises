@@ -26,8 +26,10 @@ export class DataService {
     }
 
     public update(id: string | number, formData: any): Observable<any> {
-        if (id != undefined)
+        if (id != undefined) {
+            console.log('Service', formData)
             return this.http.put<any>(this.url + '/' + id, formData)
+        }
     }
 
     //#endregion
