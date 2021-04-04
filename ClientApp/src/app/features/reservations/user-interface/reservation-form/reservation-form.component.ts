@@ -322,7 +322,6 @@ export class ReservationFormComponent {
 
     private getRecord(id: number): void {
         this.reservationService.getSingle(id).subscribe(result => {
-            console.log(result)
             this.showModalForm().then(() => {
                 this.populateFields(result)
                 this.focus('destinationDescription')

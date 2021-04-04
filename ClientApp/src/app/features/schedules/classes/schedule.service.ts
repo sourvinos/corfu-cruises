@@ -18,8 +18,8 @@ export class ScheduleService extends DataService {
         return this.http.get<Schedule[]>('/api/schedules/getActive')
     }
 
-    public getForDestinationAndPort(destinationId: number, portId: number): Promise<Schedule[]> {
-        return this.http.get<Schedule[]>('/api/schedules/getForDestinationAndPort/destinationId/' + destinationId + '/portId/' + portId).toPromise()
+    public getForDestination(destinationId: number): Promise<Schedule[]> {
+        return this.http.get<Schedule[]>('/api/schedules/getForDestination/destinationId/' + destinationId).toPromise()
     }
 
     public addRange(formData: any[]): Observable<any[]> {

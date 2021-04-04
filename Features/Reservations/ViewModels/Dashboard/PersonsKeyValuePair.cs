@@ -1,6 +1,6 @@
 namespace CorfuCruises {
 
-    public class TotalPersonsKeyValuePair {
+    public class PersonsKeyValuePair {
 
         public string Description { get; set; }
         public int Persons { get; set; }

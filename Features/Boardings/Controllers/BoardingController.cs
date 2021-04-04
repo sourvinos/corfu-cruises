@@ -24,7 +24,7 @@ namespace CorfuCruises {
         }
 
         [HttpGet("{date}/{destinationId}/{portId}/{shipId}")]
-        public async Task<BoardingGroupResultResource<BoardingResource>> Get(string date, int destinationId, int portId, int shipId) {
+        public async Task<BoardingMainResultResource<BoardingResource>> Get(string date, int destinationId, int portId, int shipId) {
             return await this.repo.Get(date, destinationId, portId, shipId);
         }
 

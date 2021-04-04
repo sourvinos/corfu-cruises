@@ -2,10 +2,10 @@ using System.Collections.Generic;
 
 namespace CorfuCruises {
 
-    public class ReservationGroupReadResource<T> {
+    public class MainResult<T> {
 
         public int Persons { get; set; }
-        public IEnumerable<ReservationReadResource> Reservations { get; set; }
+        public IEnumerable<Reservation> Reservations { get; set; }
         public IEnumerable<PersonsPerCustomer> PersonsPerCustomer { get; set; }
         public IEnumerable<PersonsPerDestination> PersonsPerDestination { get; set; }
         public IEnumerable<PersonsPerRoute> PersonsPerRoute { get; set; }

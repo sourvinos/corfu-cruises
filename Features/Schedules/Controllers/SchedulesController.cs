@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CorfuCruises {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class SchedulesController : ControllerBase {
@@ -31,9 +31,9 @@ namespace CorfuCruises {
             return await repo.GetActive(x => x.IsActive);
         }
 
-        [HttpGet("[action]/destinationId/{destinationId}/portId/{portId}")]
-        public async Task<IEnumerable<Schedule>> GetForDestinationAndPort(int destinationId, int portId) {
-            return await repo.GetForDestinationAndPort(destinationId, portId);
+        [HttpGet("[action]/destinationId/{destinationId}")]
+        public async Task<IEnumerable<Schedule>> GetForDestination(int destinationId) {
+            return await repo.GetForDestination(destinationId);
         }
 
         [HttpGet("{id}")]

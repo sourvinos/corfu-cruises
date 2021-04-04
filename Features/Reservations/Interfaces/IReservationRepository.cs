@@ -6,7 +6,7 @@ namespace CorfuCruises {
     public interface IReservationRepository : IRepository<Reservation> {
 
         Task<ReservationGroupReadResource<ReservationReadResource>> Get(string dateIn);
-        IEnumerable<TotalPersonsPerDestinationAndPort> GetForDestinationAndPort(int destinationId, int portId);
+        IEnumerable<MainResult> GetForDestinationAndPort(int destinationId);
         Task<Reservation> GetById(string id);
         bool Update(string id, Reservation updatedRecord);
         void AssignToDriver(int driverId, string[] ids);

@@ -17,8 +17,8 @@ export class ReservationService extends DataService {
         return this.http.get<ReservationViewModel>(this.url + '/date/' + date)
     }
 
-    getByDate(destinationId: number, portId: number): Promise<any> {
-        return this.http.get<ReservationByDate>(this.url + '/destinationId/' + destinationId + '/portId/' + portId).toPromise()
+    getByDate(destinationId: number): Promise<any> {
+        return this.http.get<ReservationByDate>(this.url + '/getForDestination' + '/destinationId/' + destinationId).toPromise()
     }
 
     assignToDriver(driverId: string, ids: string[]): Observable<any> {

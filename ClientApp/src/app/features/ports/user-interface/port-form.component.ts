@@ -1,20 +1,21 @@
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Title } from '@angular/platform-browser'
-import { ActivatedRoute, Router } from '@angular/router'
 import { Subject } from 'rxjs'
-import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
+import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { PortService } from '../classes/port.service'
+import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 
 @Component({
     selector: 'port-form',
@@ -177,6 +178,7 @@ export class PortFormComponent {
         this.form = this.formBuilder.group({
             id: 0,
             description: ['', [Validators.required, Validators.maxLength(128)]],
+            isPrimary: false,
             isActive: true,
             userId: this.helperService.readItem('userId')
         })
@@ -186,6 +188,7 @@ export class PortFormComponent {
         this.form.setValue({
             id: result.id,
             description: result.description,
+            isPrimary: result.isPrimary,
             isActive: result.isActive,
             userId: this.helperService.readItem('userId')
         })

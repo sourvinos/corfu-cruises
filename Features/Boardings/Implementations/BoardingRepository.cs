@@ -15,7 +15,7 @@ namespace CorfuCruises {
             this.mapper = mapper;
         }
 
-        public async Task<BoardingGroupResultResource<BoardingResource>> Get(string date, int destinationId, int portId, int shipId) {
+        public async Task<BoardingMainResultResource<BoardingResource>> Get(string date, int destinationId, int portId, int shipId) {
             // DateTime _date = Convert.ToDateTime(date);
             var reservations = await context.Reservations
                 .Include(x => x.Passengers)
@@ -24,13 +24,13 @@ namespace CorfuCruises {
             int count = reservations.SelectMany(c => c.Passengers).Count();
             int countBoarded = reservations.SelectMany(c => c.Passengers).Where(x => x.IsCheckedIn).Count();
             int countRemain = count - countBoarded;
-            var groupResult = new BoardingGroupResult<Reservation> {
+            var MainResult = new BoardingMainResult<Reservation> {
                 AllPersons = count,
                 BoardedPersons = countBoarded,
                 RemainingPersons = countRemain,
                 Boardings = reservations.ToList()
             };
-            return mapper.Map<BoardingGroupResult<Reservation>, BoardingGroupResultResource<BoardingResource>>(groupResult);
+            return mapper.Map<BoardingMainResult<Reservation>, BoardingMainResultResource<BoardingResource>>(MainResult);
         }
 
         public bool DoBoarding(int id) {

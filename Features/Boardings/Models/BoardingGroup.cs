@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace CorfuCruises {
 
-    public class BoardingGroupResult<T> {
+    public class BoardingMainResult<T> {
 
         public int AllPersons { get; set; }
         public int BoardedPersons { get; set; }

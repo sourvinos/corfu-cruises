@@ -1,23 +1,24 @@
-import { ScheduleService } from './../classes/schedule.service'
-import { DestinationService } from './../../destinations/classes/destination.service'
 import { Component, HostListener, Renderer2 } from '@angular/core'
-import { Title } from '@angular/platform-browser'
+import { DateAdapter } from '@angular/material/core'
+import { MatDialog } from '@angular/material/dialog'
 import { Observable, Subject } from 'rxjs'
+import { Title } from '@angular/platform-browser'
+import moment from 'moment'
+
+import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { Destination } from '../../destinations/classes/destination'
+import { DestinationService } from './../../destinations/classes/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { Port } from '../../ports/classes/port'
-import { Destination } from '../../destinations/classes/destination'
 import { PortService } from '../../ports/classes/port.service'
-import { MatDialog } from '@angular/material/dialog'
-import { ScheduleCreateFormComponent } from './schedule-create-form.component'
-import moment from 'moment'
-import { DateAdapter } from '@angular/material/core'
-import { AccountService } from 'src/app/shared/services/account.service'
-import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ReservationService } from '../../reservations/classes/services/reservation.service'
+import { ScheduleCreateFormComponent } from './schedule-create-form.component'
+import { ScheduleService } from './../classes/schedule.service'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'schedule-list',
@@ -53,7 +54,7 @@ export class ScheduleListComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private ReservationService: ReservationService, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private portService: PortService, private renderer: Renderer2, private scheduleService: ScheduleService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private portService: PortService, private renderer: Renderer2, private reservationService: ReservationService, private scheduleService: ScheduleService, private titleService: Title, public dialog: MatDialog) {
         this.dateAdapter.setLocale(this.helperService.readItem("language"))
     }
 
@@ -96,13 +97,13 @@ export class ScheduleListComponent {
 
     public onLoadSchedule(): void {
         this.setCalendarOpacity('1')
-        this.scheduleService.getForDestinationAndPort(this.destinationId, this.portId).then(result => {
+        this.scheduleService.getForDestination(this.destinationId).then(result => {
             this.populateScheduleDays(result)
-            this.onMarkDaysOnCalendar()
-            this.showCalendar()
-        })
-        this.ReservationService.getByDate(this.destinationId, this.portId).then(result => {
-            this.populateReservations(result)
+            this.reservationService.getByDate(this.destinationId).then(result => {
+                this.populateReservations(result)
+                this.onMarkDaysOnCalendar()
+                this.showCalendar()
+            })
         })
     }
 
@@ -121,11 +122,12 @@ export class ScheduleListComponent {
             this.schedules.forEach(schedule => {
                 this.daysISO.forEach(day => {
                     if (schedule.date == day) {
-                        const me = parseInt(schedule.date.substring(8, 10)).toString()
-                        for (let i = 0; i < dayElements.length; i++) {
-                            if (dayElements[i].textContent.trim() == me) {
-                                this.colorizeDays(dayElements[i], day, schedule)
-                            }
+                        const reservations = this.reservations.filter(x => x.date == '2021-04-30')
+                        // const secondaryPortReservations = reservations[0].portPersons.filter(x => x.PortId == 3)
+                        console.log(reservations[0].portPersons)
+                        if (schedule.port.isPrimary == false) {
+                            const secondaryPortReservations = reservations[0].portPersons.filter(x => x.portId == 3)
+                            console.log('Max persons', schedule.maxPersons + ' Reservations', secondaryPortReservations[0].persons)
                         }
                     }
                 })
@@ -249,6 +251,10 @@ export class ScheduleListComponent {
         })
     }
 
+    private setCalendarOpacity(opacity: string): void {
+        document.getElementById('calendar-wrapper').style.opacity = opacity
+    }
+
     private setElementVisibility(action: string): void {
         this.interactionService.setSidebarAndTopLogoVisibility(action)
     }
@@ -288,9 +294,5 @@ export class ScheduleListComponent {
     }
 
     //#endregion
-
-    private setCalendarOpacity(opacity: string): void {
-        document.getElementById('calendar-wrapper').style.opacity = opacity
-    }
 
 }

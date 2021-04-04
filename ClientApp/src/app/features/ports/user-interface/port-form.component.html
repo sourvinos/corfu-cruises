@@ -18,6 +18,7 @@
                 <mat-error *ngIf="description.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-error *ngIf="description.hasError('maxlength')">{{ onGetHint('maxLength', description.errors.maxlength.requiredLength) }}</mat-error>
             </mat-form-field>
+            <mat-slide-toggle formControlName="isPrimary">{{ onGetLabel('isPrimary') }}</mat-slide-toggle>
             <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
         </form>
         <p class="instructions" [class.hidden]=environment>{{ form.value | json }} {{ form.valid }}</p>

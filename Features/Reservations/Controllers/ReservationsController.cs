@@ -32,9 +32,9 @@ namespace CorfuCruises {
             return await this.repo.Get(date);
         }
 
-        [HttpGet("destinationId/{destinationId}/portId/{portId}")]
-        public IEnumerable<TotalPersonsPerDestinationAndPort> GetForDestinationAndPort(int destinationId, int portId) {
-            var records = repo.GetForDestinationAndPort(destinationId, portId);
+        [HttpGet("[action]/destinationId/{destinationId}")]
+        public IEnumerable<MainResult> GetForDestination(int destinationId) {
+            var records = repo.GetForDestinationAndPort(destinationId);
             return records;
         }
 
