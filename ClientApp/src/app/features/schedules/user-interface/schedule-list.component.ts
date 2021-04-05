@@ -119,7 +119,7 @@ export class ScheduleListComponent {
                 this.daysISO.push(dayTextISO)
                 dayElement.classList.remove('green', 'light-green', 'yellow', 'orange', 'red', 'dark-red')
             })
-            // Loop through the schedule - Not all days have a schedule
+            // Loop through the schedule 
             this.schedules.forEach(schedule => {
                 // Loop through the days on the calendar
                 this.daysISO.forEach(day => {
@@ -153,7 +153,7 @@ export class ScheduleListComponent {
                             // If we selected the secondary port
                             if (schedule.portId == 3) {
                                 // Find the max persons for the primary port 
-                                const maxPersonsForPrimaryPort = this.schedules.filter(schedule => { return schedule.date == day && schedule.portId == 2 })
+                                const maxPersonsForPrimaryPort = this.schedules.filter(schedule => { return schedule.date == day && schedule.portId == 3 })
                                 // Find the max persons for the secondary port of this day
                                 const maxPersonsForSecondaryPort = this.schedules.filter(schedule => { return schedule.date == day && schedule.portId == 3 })
                                 // Calculate the max persons for both ports of this day
@@ -296,7 +296,7 @@ export class ScheduleListComponent {
 
     private populateScheduleDays(result: any[]): void {
         this.schedules = []
-        this.schedules = result
+        this.schedules = result.filter(x => x.port.id = 2)
     }
 
     private populateReservations(result: any): void {

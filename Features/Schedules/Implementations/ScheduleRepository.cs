@@ -1,32 +1,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace CorfuCruises {
 
     public class ScheduleRepository : Repository<Schedule>, IScheduleRepository {
 
-        public ScheduleRepository(DbContext context) : base(context) { }
+        private readonly IMapper mapper;
 
-        async Task<IList<Schedule>> IScheduleRepository.Get() {
+        public ScheduleRepository(DbContext context, IMapper mapper) : base(context) {
+            this.mapper = mapper;
+        }
+
+        public async Task<IList<Schedule>> Get() {
             return await context.Schedules.Include(p => p.Port).Include(p => p.Destination).ToListAsync();
         }
 
-        async Task<IList<Schedule>> IScheduleRepository.GetForDestination(int destinationId) {
+        public async Task<IList<ScheduleReadResource>> GetForDestination(int destinationId) {
             var schedules = await context.Schedules
-                .Where(x => x.DestinationId == destinationId)
-                .Include(x => x.Port)
-                .OrderBy(p => p.Date).ThenBy(p => p.PortId)
-                .ToListAsync();
-            return schedules;
+               .Where(x => x.DestinationId == destinationId)
+               .OrderBy(p => p.Date).ThenBy(p => p.PortId)
+               .ToListAsync();
+            return mapper.Map<IList<Schedule>, IList<ScheduleReadResource>>(schedules);
         }
 
         public new async Task<Schedule> GetById(int ScheduleId) {
             return await context.Schedules.Include(p => p.Port).Include(p => p.Destination).SingleOrDefaultAsync(m => m.Id == ScheduleId);
         }
 
-        List<Schedule> IScheduleRepository.Create(List<Schedule> entity) {
+        public List<Schedule> Create(List<Schedule> entity) {
             context.AddRange(entity);
             context.SaveChanges();
             return entity;

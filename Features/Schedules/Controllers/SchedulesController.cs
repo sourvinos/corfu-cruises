@@ -32,7 +32,7 @@ namespace CorfuCruises {
         }
 
         [HttpGet("[action]/destinationId/{destinationId}")]
-        public async Task<IEnumerable<Schedule>> GetForDestination(int destinationId) {
+        public async Task<IEnumerable<ScheduleReadResource>> GetForDestination(int destinationId) {
             return await repo.GetForDestination(destinationId);
         }
 

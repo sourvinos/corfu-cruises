@@ -30,7 +30,7 @@ namespace CorfuCruises {
             var PersonsPerDriver = context.Reservations.Include(x => x.Driver).Where(x => x.Date == date).OrderBy(o => o.Driver.Description).GroupBy(x => new { x.Driver.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
             var PersonsPerPort = context.Reservations.Include(x => x.PickupPoint.Route.Port).Where(x => x.Date == date).OrderBy(o => o.PickupPoint.Route.Port.Description).GroupBy(x => new { x.PickupPoint.Route.Port.Description }).Select(x => new PersonsPerPort { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
             var totalPersonsPerShip = context.Reservations.Include(x => x.Ship).Where(x => x.Date == date).OrderBy(o => o.Ship.Description).GroupBy(x => new { x.Ship.Description }).Select(x => new PersonsPerShip { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var MainResult = new MainResult<Reservation> {
+            var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
                 Reservations = reservations.ToList(),
                 PersonsPerCustomer = PersonsPerCustomer.ToList(),
@@ -40,7 +40,7 @@ namespace CorfuCruises {
                 PersonsPerPort = PersonsPerPort.ToList(),
                 PersonsPerShip = totalPersonsPerShip.ToList()
             };
-            return mapper.Map<MainResult<Reservation>, ReservationGroupReadResource<ReservationReadResource>>(MainResult);
+            return mapper.Map<MainResult<Reservation>, ReservationGroupReadResource<ReservationReadResource>>(mainResult);
         }
 
         public IEnumerable<MainResult> GetForDestination(int destinationId) {
