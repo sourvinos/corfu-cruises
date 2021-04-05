@@ -43,7 +43,7 @@ namespace CorfuCruises {
             return mapper.Map<MainResult<Reservation>, ReservationGroupReadResource<ReservationReadResource>>(MainResult);
         }
 
-        public IEnumerable<MainResult> GetForDestinationAndPort(int destinationId) {
+        public IEnumerable<MainResult> GetForDestination(int destinationId) {
             var totalReservationsPerDestination = context.Reservations
                 .Where(x => x.DestinationId == destinationId)
                 .AsEnumerable()
@@ -54,8 +54,8 @@ namespace CorfuCruises {
                     PortPersons = x.GroupBy(z => z.PortId).Select(z => new PortPersons {
                         PortId = z.Key,
                         Persons = z.Sum(x => x.TotalPersons)
-                    })
-                });
+                    }).OrderBy(x => x.PortId)
+                }).OrderBy(x => x.Date);
             return totalReservationsPerDestination;
         }
 

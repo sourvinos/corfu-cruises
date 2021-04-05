@@ -14,11 +14,12 @@ namespace CorfuCruises {
         }
 
         async Task<IList<Schedule>> IScheduleRepository.GetForDestination(int destinationId) {
-            return await context.Schedules
+            var schedules = await context.Schedules
                 .Where(x => x.DestinationId == destinationId)
                 .Include(x => x.Port)
-                .OrderBy(p => p.Date)
+                .OrderBy(p => p.Date).ThenBy(p => p.PortId)
                 .ToListAsync();
+            return schedules;
         }
 
         public new async Task<Schedule> GetById(int ScheduleId) {

@@ -34,7 +34,7 @@ namespace CorfuCruises {
 
         [HttpGet("[action]/destinationId/{destinationId}")]
         public IEnumerable<MainResult> GetForDestination(int destinationId) {
-            var records = repo.GetForDestinationAndPort(destinationId);
+            var records = repo.GetForDestination(destinationId);
             return records;
         }
 
