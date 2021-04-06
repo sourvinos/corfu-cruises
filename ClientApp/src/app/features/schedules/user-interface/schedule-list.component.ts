@@ -49,6 +49,7 @@ export class ScheduleListComponent {
     public isCalendarVisible = false
     private daysISO = []
     private schedules = []
+    private filteredSchedules = []
     private reservations = []
     private userRole: Observable<string>
 
@@ -107,7 +108,7 @@ export class ScheduleListComponent {
         })
     }
 
-    public onMarkDaysOnCalendar(): void {
+    public async onMarkDaysOnCalendar(): Promise<void> {
         setTimeout(() => {
             const dayElements = Array.from(document.querySelectorAll<HTMLDivElement>('.mat-calendar .mat-calendar-body-cell-content'))
             const monthAndYear = document.getElementsByClassName('mat-focus-indicator mat-calendar-period-button mat-button mat-button-base')[0].textContent.trim()
@@ -120,7 +121,7 @@ export class ScheduleListComponent {
                 dayElement.classList.remove('green', 'light-green', 'yellow', 'orange', 'red', 'dark-red')
             })
             // Loop through the schedule 
-            this.schedules.forEach(schedule => {
+            this.filteredSchedules.forEach(schedule => {
                 // Loop through the days on the calendar
                 this.daysISO.forEach(day => {
                     // If the days match
@@ -130,15 +131,15 @@ export class ScheduleListComponent {
                         // If there are any reservations
                         if (reservations.length > 0) {
                             // If we selected the primary port
-                            if (schedule.portId == 2) {
+                            if (this.portId == 2) {
                                 // Find the reservations for the primary port
-                                const primaryPortReservations = reservations[0].portPersons.filter(x => x.portId == 2)
+                                const primaryPortReservations = this.findReservation(reservations[0], day, 2)
                                 // Find the reservations for the secondary port
-                                const secondaryPortReservations = reservations[0].portPersons.filter(x => x.portId == 3)
+                                const secondaryPortReservations = this.findReservation(reservations[0], day, 3)
                                 // Find the max persons for the primary port 
-                                const maxPersonsForPrimaryPort = this.schedules.filter(schedule => { return schedule.date == day && schedule.portId == 2 })
+                                const maxPersonsForPrimaryPort = this.findSchedule(day, 2)
                                 // Find the max persons for the secondary port
-                                const maxPersonsForSecondaryPort = this.schedules.filter(schedule => { return schedule.date == day && schedule.portId == 3 })
+                                const maxPersonsForSecondaryPort = this.findSchedule(day, 3)
                                 // If the reservations for the secondary port exceed the max persons for this port, add the excess reservations to the primary port
                                 if (secondaryPortReservations.length > 0) {
                                     if (secondaryPortReservations[0].persons > maxPersonsForSecondaryPort[0].maxPersons) {
@@ -148,20 +149,21 @@ export class ScheduleListComponent {
                                 // Calculate available for primary port
                                 const availableForPrimaryPort = maxPersonsForPrimaryPort[0].maxPersons - primaryPortReservations[0].persons
                                 // Show
-                                console.log(day, 'Primary:', 'Max', schedule.maxPersons, 'Reservations', primaryPortReservations[0].persons, 'Available', availableForPrimaryPort)
+                                // console.log(day, 'Primary:', 'Max', schedule.maxPersons, 'Reservations', primaryPortReservations[0].persons, 'Available', availableForPrimaryPort) OK
+                                console.log(day, 'Primary:', 'Max', maxPersonsForPrimaryPort[0].maxPersons, 'Reservations', primaryPortReservations[0].persons, 'Available', availableForPrimaryPort)
                             }
                             // If we selected the secondary port
-                            if (schedule.portId == 3) {
+                            if (this.portId == 3) {
                                 // Find the max persons for the primary port 
-                                const maxPersonsForPrimaryPort = this.schedules.filter(schedule => { return schedule.date == day && schedule.portId == 3 })
-                                // Find the max persons for the secondary port of this day
-                                const maxPersonsForSecondaryPort = this.schedules.filter(schedule => { return schedule.date == day && schedule.portId == 3 })
-                                // Calculate the max persons for both ports of this day
+                                const maxPersonsForPrimaryPort = this.findSchedule(day, 2)
+                                // Find the max persons for the secondary port 
+                                const maxPersonsForSecondaryPort = this.findSchedule(day, 3)
+                                // Calculate the max persons for both ports
                                 const maxPersonsForBothPorts = this.calculateMaxPersonsForPrimaryPort(maxPersonsForPrimaryPort[0]) + this.calculateMaxPersonsForSecondaryPort(maxPersonsForSecondaryPort[0])
                                 // Find the reservations for the primary port
-                                const primaryPortReservations = this.calculateReservationsForPrimaryPort(reservations[0])
+                                const primaryPortReservations = this.findReservation(reservations[0], day, 2)
                                 // Find the reservations for the secondary port
-                                const secondaryPortReservations = this.calculateReservationsForSecondaryPort(reservations[0], maxPersonsForPrimaryPort[0])
+                                const secondaryPortReservations = this.findReservation(reservations[0], day, 3)
                                 // Calculate reservations from both ports
                                 const reservationsForBothPort = primaryPortReservations + secondaryPortReservations
                                 // Calculate remaining seats for secondary port
@@ -172,15 +174,17 @@ export class ScheduleListComponent {
                         } else {
                             // No reservations
                             // Find the max persons for the primary port of this day
-                            const maxPersonsForPrimaryPort = this.schedules.filter(schedule => { return schedule.date == day && schedule.portId == 2 })
+                            // const maxPersonsForPrimaryPort = this.schedules.filter(schedule => { return schedule.date == day && schedule.portId == 2 })
+                            const maxPersonsForPrimaryPort = this.findSchedule(day, 2)
                             // Find the max persons for the secondary port of this day
-                            const maxPersonsForSecondaryPort = this.schedules.filter(schedule => { return schedule.date == day && schedule.portId == 3 })
+                            const maxPersonsForSecondaryPort = this.findSchedule(day, 3)
+                            // const maxPersonsForSecondaryPort = this.schedules.filter(schedule => { return schedule.date == day && schedule.portId == 3 })
                             // Calculate the max persons for both ports of this day
                             const maxPersonsForBothPorts = this.calculateMaxPersonsForPrimaryPort(maxPersonsForPrimaryPort[0]) + this.calculateMaxPersonsForSecondaryPort(maxPersonsForSecondaryPort[0])
-                            if (schedule.portId == 2) {
+                            if (this.portId == 2) {
                                 console.log(day, 'Primary:', 'Max', maxPersonsForPrimaryPort[0].maxPersons, 'Reservations', 0, 'Available', maxPersonsForPrimaryPort[0].maxPersons)
                             }
-                            if (schedule.portId == 3) {
+                            if (this.portId == 3) {
                                 console.log(day, 'Secondary:', 'Max', maxPersonsForBothPorts, 'Reservations both', 0, 'Available', maxPersonsForBothPorts)
                             }
                         }
@@ -205,7 +209,7 @@ export class ScheduleListComponent {
 
     //#region private methods
 
-    private addClickEventToMonthArrows(): void {
+    private async addClickEventToMonthArrows(): Promise<void> {
         const buttons = document.querySelectorAll('.mat-calendar-previous-button, .mat-calendar-next-button')
         if (buttons) {
             Array.from(buttons).forEach(button => {
@@ -296,7 +300,9 @@ export class ScheduleListComponent {
 
     private populateScheduleDays(result: any[]): void {
         this.schedules = []
-        this.schedules = result.filter(x => x.port.id = 2)
+        // this.schedules = result
+        this.schedules = result
+        this.filteredSchedules = result.filter(schedule => { return schedule.portId == this.portId })
     }
 
     private populateReservations(result: any): void {
@@ -374,7 +380,7 @@ export class ScheduleListComponent {
         return 0
     }
 
-    private calculateReservationsForSecondaryPort(reservation, schedule): any {
+    private calculateReservationsForSecondaryPort(reservation): any {
         const reservations = reservation.portPersons.filter(x => x.portId == 3)
         if (reservations.length > 0) {
             return reservations[0].persons
@@ -382,5 +388,48 @@ export class ScheduleListComponent {
         return 0
     }
 
+    private findSchedule(day: any, portId): any {
+        const result = this.schedules.filter(schedule => { return schedule.date == day && schedule.portId == portId })
+        if (result.length > 0) {
+            return result
+        } else {
+            const schedule = {
+                'date': day,
+                'portId': portId,
+                'maxPersons': 0
+            }
+            this.schedules.push(schedule)
+            for (let index = 0; index < 1000; index++) {
+                // console.log(index)
+            }
+            const value = this.schedules.filter(schedule => { return schedule.date == day && schedule.portId == portId })
+            return value
+        }
+    }
+
+    private findReservation(reservation: any, day: any, portId: any): any {
+        const result = reservation.portPersons.filter(x => x.portId == portId)
+        if (result.length > 0) {
+            return result
+        } else {
+            const reservationHasData = this.reservations.filter(reservation => { return reservation.date == day })
+            if (reservationHasData.length > 0) {
+                const portPersons = {
+                    'portId': portId,
+                    'isPrimary': false,
+                    'persons': 0
+                }
+                reservationHasData[0].portPersons.push(portPersons)
+                // const result = reservation.portPersons.filter(x => x.portId == portId)
+                for (let index = 0; index < 1000; index++) {
+                    // console.log(index)
+                }
+                const value = reservation.portPersons.filter(x => x.portId == portId)
+                // const what = reservationHasData[0].portPersons[1]
+                return value
+            }
+        }
+
+    }
 
 }
