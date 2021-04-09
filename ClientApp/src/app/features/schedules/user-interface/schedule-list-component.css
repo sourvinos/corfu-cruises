@@ -1,3 +1,13 @@
+:host {
+    display: flex;
+    width: 100%;
+}
+
+#list {
+    width: 100%;
+    height: 100%;
+}
+
 #content {
     column-gap: 0.5rem;
     display: grid;

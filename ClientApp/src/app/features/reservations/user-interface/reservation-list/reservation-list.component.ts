@@ -427,7 +427,6 @@ export class ReservationListComponent {
             this.reservationsFlat.splice(Number(result), 1)
             this.updateTotals()
         })
-
     }
 
     private toggleActiveItem(item: { description: string }, lookupArray: string[]): void {

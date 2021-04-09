@@ -4,15 +4,16 @@ import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-
 import moment from 'moment'
+
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { ReservationFlat } from '../../classes/view-models/reservation-flat'
+import { environment } from 'src/environments/environment'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'reservation-wrapper',
@@ -40,6 +41,7 @@ export class ReservationWrapperComponent {
     public dateIn = ''
     public form: FormGroup
     public records: string[] = []
+    public environment = environment.production
 
     //#endregion
 

@@ -1,0 +1,41 @@
+<div id="list">
+
+    <div id="header">
+        <div id="navigation">
+            <button data-cy="goBack" class="goBack" id="goBack" [routerLink]="['/']" mat-mini-fab>
+                <mat-icon>home</mat-icon>
+            </button>
+        </div>
+        <div @slideFromLeft id="title">
+            <h1>{{ onGetLabel('header') }}</h1>
+        </div>
+    </div>
+
+    <div id="content">
+        <div id="search-box">
+            <div class="summaryBlock">
+                <div class="summaryHeader">
+                    <label>{{ onGetLabel('destinations') }}</label>
+                </div>
+                <div class="summaryContent scrollable">
+                    <div *ngFor="let item of destinations" [id]="item.description" (click)="onToggleItem(item.description, 'destinationId', 'destinationDescription',item.id, 'destination')" class="item destination">
+                        <div class="description">{{ item.description }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="summaryBlock">
+                <div class="summaryHeader">
+                    <label>{{ onGetLabel('ports') }}</label>
+                </div>
+                <div class="summaryContent scrollable">
+                    <div *ngFor="let item of ports" [id]="item.description" (click)="onToggleItem(item.description, 'portId', 'portDescription', item.id, 'port')" class="item port">
+                        <div class="description">{{ item.description }}</div>
+                    </div>
+                </div>
+            </div>
+            <button mat-flat-button id="search" class="primary" (click)="onLoadSchedules()">{{ onGetLabel('searchButton') }}</button>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+
+</div>

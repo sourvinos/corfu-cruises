@@ -18,8 +18,9 @@
                     <mat-error *ngIf="date.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
                 </mat-form-field>
+                <button mat-flat-button id="search" class="primary" (click)="onLoadReservations()">{{ onGetLabel('searchButton') }}</button>
             </form>
-            <button mat-flat-button id="search" class="primary" (click)="onLoadReservations()">{{ onGetLabel('searchButton') }}</button>
+            <p class="instructions" [class.hidden]=environment>{{ form.value | json }} {{ form.valid }}</p>
         </div>
     </div>
 

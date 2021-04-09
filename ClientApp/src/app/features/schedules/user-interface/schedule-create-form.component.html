@@ -37,7 +37,7 @@
                 <mat-error *ngIf="!maxPersons.hasError('required') && maxPersons.hasError('min') || maxPersons.hasError('max')">{{ onGetHint('invalid') }}</mat-error>
             </mat-form-field>
             <div id="weekdays">
-                <div *ngFor="let weekDay of weekDays" [id]="weekDay" class="selectable" [class.active]="weekDay.isSelected" (click)="onToggleItem(weekDay, selectedWeekDays)">
+                <div *ngFor="let weekDay of weekDays" [id]="weekDay" class="selectable" (click)="onToggleItem(weekDay, selectedWeekDays)">
                     <div class="description">{{ weekDay }}</div>
                 </div>
             </div>

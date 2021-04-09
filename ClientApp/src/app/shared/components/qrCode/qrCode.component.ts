@@ -9,8 +9,8 @@ import { Component, Input } from '@angular/core'
 export class QRCodeComponent {
 
     @Input() qrCodeValue: string
-    @Input() errorCorrectionLevel: string
-    @Input() margin: string
-    @Input() width: string
+    @Input() errorCorrectionLevel: 'M'
+    @Input() margin: number
+    @Input() width: number
 
 }

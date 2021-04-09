@@ -83,7 +83,7 @@ export class BoardingListComponent {
         return remarks.length > 0 ? true : false
     }
 
-    public onDoBoarding(id: string): void {
+    public onDoBoarding(id: number): void {
         this.boardingService.boardPassenger(id).subscribe(() => {
             this.refreshSummary()
             this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

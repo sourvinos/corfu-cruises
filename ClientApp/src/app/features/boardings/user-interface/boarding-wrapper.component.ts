@@ -99,14 +99,6 @@ export class boardingListComponent {
         }
     }
 
-    // public onLoadBoardings(): void {
-    //     if (this.onCheckValidDate()) {
-    //         this.boardingService.get(this.dateISO, this.destinationId, this.portId, this.shipId).subscribe(result => {
-    //             this.boardings = result
-    //         })
-    //     }
-    // }
-
     //#endregion
 
     //#region private methods

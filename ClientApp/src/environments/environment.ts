@@ -1,5 +1,5 @@
 export const environment = {
-    production: true,
+    production: false,
     login: {
         username: 'sourvinos',
         email: 'johnsourvinos@hotmail.com',

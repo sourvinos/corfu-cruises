@@ -64,9 +64,9 @@ export class ReservationFormComponent {
     public destinations: any
     public pickupPointsFlat: PickupPointFlat[]
     public qrCodeValue = "0"
-    public errorCorrectionLevel = "H"
+    public errorCorrectionLevel : "M"
     public margin = 4
-    public width = "128"
+    public width = 128
 
     //#endregion
 
@@ -162,7 +162,7 @@ export class ReservationFormComponent {
         this.router.navigate([this.url], { relativeTo: this.activatedRoute })
     }
 
-    public onLookupIndex(lookupArray: any[], title: string, formFields: any[], fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[], value: { target: { value: any } }): void {
+    public onLookupIndex(lookupArray: any[], title: string, formFields: any[], fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[], value): void {
         const filteredArray = []
         lookupArray.filter(x => {
             const key = fields[1]

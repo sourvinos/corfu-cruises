@@ -17,8 +17,8 @@ export class BoardingService extends DataService {
         return result
     }
 
-    boardPassenger(id: string): Observable<any> {
-        const params = new HttpParams().set('id', id)
+    boardPassenger(id: number): Observable<any> {
+        const params = new HttpParams().set('id', id.toString())
         return this.http.patch(this.url + '/doBoarding?', null, { params: params })
     }
 
