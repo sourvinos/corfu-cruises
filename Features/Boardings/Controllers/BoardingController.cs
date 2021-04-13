@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CorfuCruises {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class BoardingsController : ControllerBase {
