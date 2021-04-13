@@ -71,6 +71,9 @@ export class HelperService {
         }
     }
 
+    public deviceDetector(): string {
+        return 'mobile'
+    }
 
     //#endregion
 

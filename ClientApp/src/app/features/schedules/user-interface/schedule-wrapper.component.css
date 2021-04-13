@@ -1,17 +1,16 @@
-#header #search-box {
+.mat-form-field:first-child {
     margin-right: 1rem;
-    width: auto;
 }
 
-#header #search-box .mat-form-field {
-    width: 15rem !important;
+#search {
+    width: 100% !important;
 }
 
-#content {
+#calendar-content {
     display: flex;
-    flex: 1;
-    gap: 1rem;
+    flex-direction: column;
     height: 100%;
+    justify-content: flex-start;
     margin: 0;
-    overflow: hidden;
+    overflow-y: hidden;
 }

@@ -1,5 +1,6 @@
+import { HelperService } from 'src/app/shared/services/helper.service';
 import { Component } from '@angular/core'
-import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { DeviceDetectorService } from 'ngx-device-detector'
 
 @Component({
     selector: 'side-bar',
@@ -9,29 +10,27 @@ import { InteractionService } from 'src/app/shared/services/interaction.service'
 
 export class SideBarComponent {
 
-    constructor(private interactionService: InteractionService) { }
+    constructor(private deviceDetectorService: DeviceDetectorService, private helperService: HelperService) { }
+
+    //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.interactionService.sidebarAndTopMenuVisibility.subscribe((action: string) => {
-            if (action == 'hide') {
-                if (screen.width < 1681) {
-                    document.getElementById('side-logo').style.opacity = document.getElementById('side-logo').style.opacity == '0' ? '1' : '0'
-                    document.getElementById('side-image').style.opacity = document.getElementById('side-image').style.opacity == '0' ? '1' : '0'
-                    document.getElementById('side-footer').style.opacity = document.getElementById('side-footer').style.opacity == '0' ? '1' : '0'
-                    document.getElementById('side-bar').style.width = document.getElementById('side-bar').style.width == '0' ? '16.5' : '0'
-                    document.getElementById('side-bar').style.overflow = document.getElementById('side-bar').style.width == '0' ? 'hidden' : 'visible'
-                    document.getElementById('top-logo').style.display = document.getElementById('top-logo').style.display == 'flex' ? 'none' : 'flex'
-                }
-            } else {
-                document.getElementById('side-logo').style.opacity = '1'
-                document.getElementById('side-image').style.opacity = '1'
-                document.getElementById('side-footer').style.opacity = '1'
-                document.getElementById('side-bar').style.width = '16.5rem'
-                document.getElementById('side-bar').style.overflow = 'hidden'
-                document.getElementById('top-logo').style.display = 'none'
-            }
-        })
-
+        this.isDesktop()
     }
+
+    //#endregion
+
+    //#region public methods
+
+
+    public isFakeDesktop(): boolean {
+        return this.helperService.deviceDetector() == 'desktop'
+    }
+
+    public isDesktop(): boolean {
+        return this.deviceDetectorService.getDeviceInfo().deviceType == 'desktop'
+    }
+
+    //#endregion
 
 }

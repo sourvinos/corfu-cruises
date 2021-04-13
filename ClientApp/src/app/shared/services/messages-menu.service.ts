@@ -18,17 +18,19 @@ export class MessageMenuService {
     //#region public methods
 
     public getDescription(feature: string, id: string): string {
-        let description = ''
-        this.messages.filter((f: { feature: string; labels: any[] }) => {
-            if (f.feature === feature) {
-                f.labels.filter(l => {
-                    if (l.id == id) {
-                        description = l.description
-                    }
-                })
-            }
-        })
-        return description
+        let returnValue = ''
+        if (this.messages.length > 0) {
+            this.messages.filter((f: { feature: string; labels: any[] }) => {
+                if (f.feature === feature) {
+                    f.labels.filter(l => {
+                        if (l.id == id) {
+                            returnValue = l.description
+                        }
+                    })
+                }
+            })
+        }
+        return returnValue
     }
 
     public getMessages(): Promise<any> {

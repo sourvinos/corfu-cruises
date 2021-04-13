@@ -1146,6 +1146,10 @@
             {
                 "id": "searchButton",
                 "description": "Search"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
             }
         ]
     },
@@ -1153,44 +1157,20 @@
         "feature": "scheduleList",
         "labels": [
             {
-                "id": "header",
-                "description": "Schedule"
-            },
-            {
-                "id": "destinations",
-                "description": "Destinations"
-            },
-            {
-                "id": "ports",
-                "description": "Ports"
-            },
-            {
                 "id": "newButton",
                 "description": "New"
             },
             {
-                "id": "headerDate",
-                "description": "Date"
+                "id": "availabilityHeader",
+                "description": "Availability"
             },
             {
-                "id": "headerMaxPersons",
-                "description": "Max Capacity"
+                "id": "high",
+                "description": "High"
             },
             {
-                "id": "occupancy",
-                "description": "Occupancy"
-            },
-            {
-                "id": "plenty",
-                "description": "Plenty"
-            },
-            {
-                "id": "still-plenty",
-                "description": "Still plenty"
-            },
-            {
-                "id": "hurry-up",
-                "description": "Better hurry!"
+                "id": "average",
+                "description": "Average"
             },
             {
                 "id": "limited",
@@ -1201,8 +1181,8 @@
                 "description": "Extremely limited"
             },
             {
-                "id": "full",
-                "description": "Fully booked"
+                "id": "none",
+                "description": "None"
             }
         ]
     },

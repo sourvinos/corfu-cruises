@@ -9,32 +9,30 @@
         <div @slideFromLeft id="title">
             <h1>{{ onGetLabel('header') }}</h1>
         </div>
-    </div>
-
-    <div id="content">
         <div id="search-box">
-            <div class="summaryBlock">
-                <div class="summaryHeader">
-                    <label>{{ onGetLabel('destinations') }}</label>
-                </div>
-                <div class="summaryContent scrollable">
-                    <div *ngFor="let item of destinations" [id]="item.description" (click)="onToggleItem(item.description, 'destinationId', 'destinationDescription',item.id, 'destination')" class="item destination">
-                        <div class="description">{{ item.description }}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="summaryBlock">
-                <div class="summaryHeader">
-                    <label>{{ onGetLabel('ports') }}</label>
-                </div>
-                <div class="summaryContent scrollable">
-                    <div *ngFor="let item of ports" [id]="item.description" (click)="onToggleItem(item.description, 'portId', 'portDescription', item.id, 'port')" class="item port">
-                        <div class="description">{{ item.description }}</div>
-                    </div>
-                </div>
-            </div>
+            <mat-form-field>
+                <mat-label>{{ onGetLabel('searchLabelDestination') }}</mat-label>
+                <mat-select [(value)]="destinationId" (selectionChange)="gotoWrapperUrl()">
+                    <mat-option *ngFor="let destination of destinations" [value]="destination.id">
+                        {{ destination.description }}
+                    </mat-option>
+                </mat-select>
+                <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ onGetLabel('searchLabelPort') }}</mat-label>
+                <mat-select [(value)]="portId" (selectionChange)="gotoWrapperUrl()">
+                    <mat-option *ngFor="let port of ports" [value]="port.id">
+                        {{ port.description }}
+                    </mat-option>
+                </mat-select>
+                <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
+            </mat-form-field>
             <button mat-flat-button id="search" class="primary" (click)="onLoadSchedules()">{{ onGetLabel('searchButton') }}</button>
         </div>
+    </div>
+
+    <div id="calendar-content">
         <router-outlet></router-outlet>
     </div>
 

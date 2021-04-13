@@ -4,7 +4,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Είσοδος"
+                "description": "Εισοδος"
             },
             {
                 "id": "usernameLabel",
@@ -33,7 +33,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πελάτες"
+                "description": "Πελατες"
             },
             {
                 "id": "searchLabel",
@@ -66,7 +66,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πελάτης"
+                "description": "Πελατης"
             },
             {
                 "id": "description",
@@ -140,7 +140,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Προορισμός"
+                "description": "Προορισμος"
             },
             {
                 "id": "abbreviation",
@@ -169,7 +169,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Οδηγοί"
+                "description": "Οδηγοι"
             },
             {
                 "id": "searchLabel",
@@ -198,7 +198,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Οδηγός"
+                "description": "Οδηγος"
             },
             {
                 "id": "description",
@@ -227,7 +227,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Σημεία παραλαβής"
+                "description": "Σημεια παραλαβης"
             },
             {
                 "id": "searchLabel",
@@ -244,7 +244,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Σημεία παραλαβής διαδρομής: "
+                "description": "Σημεια παραλαβης διαδρομης: "
             },
             {
                 "id": "searchLabel",
@@ -281,7 +281,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Σημείο παραλαβής"
+                "description": "Σημειο παραλαβης"
             },
             {
                 "id": "route",
@@ -330,7 +330,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Λιμάνια"
+                "description": "Λιμανια"
             },
             {
                 "id": "searchLabel",
@@ -355,7 +355,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Λιμάνι"
+                "description": "Λιμανι"
             },
             {
                 "id": "description",
@@ -363,7 +363,7 @@
             },
             {
                 "id": "isPrimary",
-                "description": "Πρωτεύον"
+                "description": "Πρωτευον"
             },
             {
                 "id": "isActive",
@@ -384,7 +384,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Διαδρομές"
+                "description": "Διαδρομες"
             },
             {
                 "id": "searchLabel",
@@ -413,7 +413,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Διαδρομή"
+                "description": "Διαδρομη"
             },
             {
                 "id": "abbreviation",
@@ -454,7 +454,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Κρατήσεις"
+                "description": "Κρατησεις"
             },
             {
                 "id": "searchLabel",
@@ -475,7 +475,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Χρήστες"
+                "description": "Χρηστες"
             },
             {
                 "id": "searchLabel",
@@ -508,7 +508,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Χρήστης"
+                "description": "Χρηστης"
             },
             {
                 "id": "userName",
@@ -553,7 +553,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Χρήστης"
+                "description": "Χρηστης"
             },
             {
                 "id": "userName",
@@ -581,7 +581,7 @@
             },
             {
                 "id": "isActive",
-                "description": "Ενεργός"
+                "description": "Ενεργος"
             },
             {
                 "id": "saveButton",
@@ -594,7 +594,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Αλλαγή κωδικού"
+                "description": "Αλλαγη κωδικου"
             },
             {
                 "id": "currentPassword",
@@ -736,7 +736,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Κράτηση"
+                "description": "Κρατηση"
             },
             {
                 "id": "tabGeneral",
@@ -829,7 +829,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Απώλεια κωδικού"
+                "description": "Απωλεια κωδικου"
             },
             {
                 "id": "email",
@@ -850,7 +850,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Επαναφορά κωδικού"
+                "description": "Επαναφορα κωδικου"
             },
             {
                 "id": "password",
@@ -871,7 +871,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Προσοχή!"
+                "description": "Προσοχη!"
             },
             {
                 "id": "okButton",
@@ -892,7 +892,7 @@
             },
             {
                 "id": "header",
-                "description": "Ανάθεση σε οδηγό"
+                "description": "Αναθεση σε οδηγο"
             },
             {
                 "id": "driver",
@@ -917,7 +917,7 @@
             },
             {
                 "id": "header",
-                "description": "Ανάθεση σε πλοίο"
+                "description": "Αναθεση σε πλοιο"
             },
             {
                 "id": "ship",
@@ -938,7 +938,7 @@
         "labels": [
             {
                 "id": "ports",
-                "description": "Λιμάνια"
+                "description": "Λιμανια"
             },
             {
                 "id": "portId",
@@ -950,7 +950,7 @@
             },
             {
                 "id": "destinations",
-                "description": "Προορισμοί"
+                "description": "Προορισμοι"
             },
             {
                 "id": "destinationId",
@@ -962,7 +962,7 @@
             },
             {
                 "id": "customers",
-                "description": "Πελάτες"
+                "description": "Πελατες"
             },
             {
                 "id": "customerId",
@@ -974,7 +974,7 @@
             },
             {
                 "id": "pickupPoints",
-                "description": "Σημεία παραλαβής"
+                "description": "Σημεια παραλαβης"
             },
             {
                 "id": "pickupPointId",
@@ -1046,7 +1046,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πόροι"
+                "description": "Πηγες"
             },
             {
                 "id": "closeButton",
@@ -1059,7 +1059,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πλοία"
+                "description": "Πλοια"
             },
             {
                 "id": "searchLabel",
@@ -1088,7 +1088,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πλοίο"
+                "description": "Πλοιο"
             },
             {
                 "id": "description",
@@ -1129,15 +1129,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πρόγραμμα"
+                "description": "Προγραμμα"
             },
             {
-                "id": "destinations",
-                "description": "Προορισμοι"
+                "id": "searchLabelDestination",
+                "description": "Προορισμος"
             },
             {
-                "id": "ports",
-                "description": "Λιμανια"
+                "id": "searchLabelPort",
+                "description": "Λιμανι"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "Επιλεξτε απο τη λιστα"
             },
             {
                 "id": "searchButton",
@@ -1153,32 +1157,20 @@
         "feature": "scheduleList",
         "labels": [
             {
-                "id": "header",
-                "description": "Πρόγραμμα"
+                "id": "newButton",
+                "description": "Νεο"
             },
             {
-                "id": "headerDate",
-                "description": "Ημερομηνια"
-            },
-            {
-                "id": "headerMaxPersons",
-                "description": "Χωρητικοτητα"
-            },
-            {
-                "id": "occupancy",
+                "id": "availabilityHeader",
                 "description": "Διαθεσιμοτητα"
             },
             {
-                "id": "plenty",
-                "description": "Αφθονη"
+                "id": "high",
+                "description": "Υψηλη"
             },
             {
-                "id": "still-plenty",
-                "description": "Αρκετες θεσεις"
-            },
-            {
-                "id": "hurry-up",
-                "description": "Μη χανετε χρονο!"
+                "id": "average",
+                "description": "Μετρια"
             },
             {
                 "id": "limited",
@@ -1189,8 +1181,8 @@
                 "description": "Εξαιρετικα περιορισμενη"
             },
             {
-                "id": "full",
-                "description": "Καμμια θεση"
+                "id": "none",
+                "description": "Μηδενικη"
             }
         ]
     },
@@ -1199,7 +1191,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Νέο πρόγραμμα"
+                "description": "Νεο προγραμμα"
             },
             {
                 "id": "destination",
@@ -1261,7 +1253,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Επιβάτης"
+                "description": "Επιβατης"
             },
             {
                 "id": "lastname",
@@ -1306,11 +1298,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Φύλα"
+                "description": "Φυλα"
             },
             {
                 "id": "searchLabel",
-                "description": "Αναζήτηση"
+                "description": "Αναζητηση"
             },
             {
                 "id": "searchHint",
@@ -1331,7 +1323,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Φύλο"
+                "description": "Φυλο"
             },
             {
                 "id": "description",
@@ -1356,7 +1348,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Επιβίβαση"
+                "description": "Επιβιβαση"
             },
             {
                 "id": "date",
@@ -1453,7 +1445,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Εθνικότητες"
+                "description": "Εθνικοτητες"
             },
             {
                 "id": "searchLabel",
@@ -1478,7 +1470,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Εθνικότητα"
+                "description": "Εθνικοτητα"
             },
             {
                 "id": "description",

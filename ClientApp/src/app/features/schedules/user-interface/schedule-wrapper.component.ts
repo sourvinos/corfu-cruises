@@ -14,6 +14,7 @@ import { Port } from '../../ports/classes/port'
 import { PortService } from '../../ports/classes/port.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { DateAdapter } from '@angular/material/core'
 
 @Component({
     selector: 'schedule-wrapper',
@@ -49,6 +50,7 @@ export class ScheduleWrapperComponent {
         private activatedRoute: ActivatedRoute,
         private buttonClickService: ButtonClickService,
         private destinationService: DestinationService,
+        private dateAdapter: DateAdapter<any>,
         private helperService: HelperService,
         private keyboardShortcutsService: KeyboardShortcuts,
         private messageLabelService: MessageLabelService,
@@ -63,6 +65,7 @@ export class ScheduleWrapperComponent {
         this.setWindowTitle()
         this.addShortcuts()
         this.populateDropDowns()
+        this.getLocale()
     }
 
     ngOnDestroy(): void {
@@ -83,11 +86,8 @@ export class ScheduleWrapperComponent {
         this.navigateToList()
     }
 
-    public onToggleItem(description: string, objectKey: string, objectValue: string, idValue: number, lookupArray: string): void {
+    public gotoWrapperUrl(): void {
         this.router.navigate([this.baseUrl])
-        this.toggleActiveItem(description, lookupArray)
-        this[objectKey] = idValue
-        this[objectValue] = description
     }
 
     //#endregion
@@ -134,6 +134,11 @@ export class ScheduleWrapperComponent {
         element.classList.add('activeItem')
     }
 
+    private getLocale(): void {
+        this.dateAdapter.setLocale(this.helperService.readItem("language"))
+    }
+
     //#endregion
 
 }
+

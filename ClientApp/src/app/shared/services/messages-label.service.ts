@@ -19,15 +19,17 @@ export class MessageLabelService {
 
     public getDescription(feature: string, id: string): string {
         let returnValue = ''
-        this.messages.filter((f: { feature: string; labels: any[] }) => {
-            if (f.feature === feature) {
-                f.labels.filter(l => {
-                    if (l.id == id) {
-                        returnValue = l.description
-                    }
-                })
-            }
-        })
+        if (this.messages.length > 0) {
+            this.messages.filter((f: { feature: string; labels: any[] }) => {
+                if (f.feature === feature) {
+                    f.labels.filter(l => {
+                        if (l.id == id) {
+                            returnValue = l.description
+                        }
+                    })
+                }
+            })
+        }
         return returnValue
     }
 

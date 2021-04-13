@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz&display=swap');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import "~leaflet/dist/leaflet.css";
 @import "buttons.css";
 @import "checkbox.css";
@@ -27,10 +27,13 @@
 html, body {
     background-color: #000000;
     display: flex;
-    height: 100vh;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
 }
 
-body, h1, h2, h3, h4, p {
+h1, h2, h3, h4, p {
     margin: 0 !important;
     padding: 0 !important;
 }
@@ -191,10 +194,35 @@ p.instructions {
     margin-right: 0.2rem !important;
 }
 
+.mat-expansion-panel {
+    background-color: var(--color-summary-background);
+}
+
+.mat-expansion-panel-header {
+    padding: 0 2rem;
+}
+
+.mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+    color: var(--color-text-primary) !important;
+    font-family: var(--font-family-label) !important;
+    font-size: var(--font-size-expansion-panel-header) !important;
+    font-variant-caps: petite-caps;
+    font-weight: var(--font-weight-label) !important;
+}
+
 .mat-expansion-panel-header.mat-expanded {
-    height: 48px;
+    height: 3rem;
 }
 
 .mat-expansion-panel-body {
     padding: 0 !important;
 }
+
+.mat-expansion-panel-header-description, .mat-expansion-indicator::after {
+    color: var(--color-text-primary) !important;
+}
+
+
+/* .mat-expansion-panel-content {
+    padding: 2rem !important;
+} */

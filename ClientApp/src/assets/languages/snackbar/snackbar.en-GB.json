@@ -1,11 +1,10 @@
 [{
     "feature": "snackbarMessages",
     "labels": [
-        { "error": 400, "id": "invalidModel", "message": "Something went very wrong." },
+        { "error": 400, "id": "invalidModel", "message": "Something went not so well." },
         { "error": 401, "id": "authenticationFailed", "message": "Authentication failed." },
         { "error": 403, "id": "authorizationFailed", "message": "This action requires higher authorization level." },
         { "error": 404, "id": "recordNotFound", "message": "This record can not be found." },
-        { "error": 409, "id": "defaultDriverExists", "message": "There is already a default driver." },
         { "error": 490, "id": "unableToSaveRecord", "message": "This record could not be saved." },
         { "error": 491, "id": "recordInUse", "message": "This record is in use and can not be deleted." },
         { "error": 492, "id": "unableToRegisterUser", "message": "A user with these details can not be created." },

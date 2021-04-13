@@ -1129,7 +1129,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Schedule"
+                "description": "Schedule"
+            },
+            {
+                "id": "searchLabelDestination",
+                "description": "Destination"
+            },
+            {
+                "id": "searchLabelPort",
+                "description": "Port"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "Select from the list"
+            },
+            {
+                "id": "searchButton",
+                "description": "Search"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
             }
         ]
     },
@@ -1137,48 +1157,20 @@
         "feature": "scheduleList",
         "labels": [
             {
-                "id": "header",
-                "description": "(DE) Schedule"
-            },
-            {
-                "id": "destinations",
-                "description": "(DE) Destinations"
-            },
-            {
-                "id": "ports",
-                "description": "(DE) Ports"
-            },
-            {
-                "id": "searchButton",
-                "description": "(DE) Search"
-            },
-            {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "New"
             },
             {
-                "id": "headerDate",
-                "description": "(DE) Date"
+                "id": "availabilityHeader",
+                "description": "(DE) Availability"
             },
             {
-                "id": "headerMaxPersons",
-                "description": "(DE) Max Capacity"
+                "id": "high",
+                "description": "(DE) High"
             },
             {
-                "id": "occupancy",
-                "description": "(DE) Occupancy"
-            },
-            {
-                "id": "plenty",
-                "description": "(DE) Plenty"
-            },
-            {
-                "id": "still-plenty",
-                "description": "(DE) Still plenty"
-            },
-            {
-                "id": "hurry-up",
-                "description": "(DE) Better hurry!"
+                "id": "average",
+                "description": "(DE) Average"
             },
             {
                 "id": "limited",
@@ -1189,8 +1181,8 @@
                 "description": "(DE) Extremely limited"
             },
             {
-                "id": "full",
-                "description": "(DE) Fully booked"
+                "id": "none",
+                "description": "(DE) None"
             }
         ]
     },
@@ -1356,95 +1348,95 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Boarding"
+                "description": "(DE) Boarding"
             },
             {
                 "id": "date",
-                "description": "Date"
+                "description": "(DE) Date"
             },
             {
                 "id": "destination",
-                "description": "Destination"
+                "description": "(DE) Destination"
             },
             {
                 "id": "port",
-                "description": "Port"
+                "description": "(DE) Port"
             },
             {
                 "id": "ship",
-                "description": "Vessel"
+                "description": "(DE) Vessel"
             },
             {
                 "id": "searchDateHint",
-                "description": "Select or enter date"
+                "description": "(DE) Select or enter date"
             },
             {
                 "id": "searchDropdownHint",
-                "description": "Select from the list"
+                "description": "(DE) Select from the list"
             },
             {
                 "id": "searchButton",
-                "description": "Search"
+                "description": "(DE) Search"
             },
             {
                 "id": "totalPersons",
-                "description": "Total"
+                "description": "(DE) Total"
             },
             {
                 "id": "boardedPersons",
-                "description": "Boarded"
+                "description": "(DE) Boarded"
             },
             {
                 "id": "pandingPersons",
-                "description": "Pending"
+                "description": "(DE) Pending"
             },
             {
                 "id": "boardingStatusFilter",
-                "description": "Boarding status"
+                "description": "(DE) Boarding status"
             },
             {
                 "id": "searchDropdownHint",
-                "description": "Select from the list"
+                "description": "(DE) Select from the list"
             },
             {
                 "id": "searchLabel",
-                "description": "Search"
+                "description": "(DE) Search"
             },
             {
                 "id": "searchHint",
-                "description": "Search by last name"
+                "description": "(DE) Search by last name"
             },
             {
                 "id": "boardingStatusAll",
-                "description": "ALL"
+                "description": "(DE) ALL"
             },
             {
                 "id": "boardingStatusBoarded",
-                "description": "BOARDED"
+                "description": "(DE) BOARDED"
             },
             {
                 "id": "boardingStatusPending",
-                "description": "PENDING"
+                "description": "(DE) PENDING"
             },
             {
                 "id": "ticketNo",
-                "description": "Ticket no:"
+                "description": "(DE) Ticket no:"
             },
             {
                 "id": "lastname",
-                "description": "Last Name"
+                "description": "(DE) Last Name"
             },
             {
                 "id": "firstname",
-                "description": "First Name"
+                "description": "(DE) First Name"
             },
             {
                 "id": "isBoarded",
-                "description": "Boarded"
+                "description": "(DE) Boarded"
             },
             {
                 "id": "board",
-                "description": "Board"
+                "description": "(DE) Board"
             }
         ]
     },

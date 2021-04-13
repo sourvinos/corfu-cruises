@@ -18,7 +18,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/material/tooltip'
-import {MatExpansionModule} from '@angular/material/expansion'
+import { MatExpansionModule } from '@angular/material/expansion'
+import { MatSidenavModule } from '@angular/material/sidenav'
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
     showDelay: 0,
@@ -43,6 +44,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         MatMomentDateModule,
         MatProgressBarModule,
         MatSelectModule,
+        MatSidenavModule,
         MatSlideToggleModule,
         MatSnackBarModule,
         MatTabsModule,

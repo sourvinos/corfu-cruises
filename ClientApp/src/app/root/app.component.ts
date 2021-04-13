@@ -1,5 +1,7 @@
+// Base
 import { Component, HostListener } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router'
+// Custom
 import { AccountService } from '../shared/services/account.service'
 
 @Component({
@@ -38,7 +40,7 @@ export class AppComponent {
     //#region lifecycle hooks
 
     ngAfterViewInit(): void {
-        this.positionSpinner()
+        // this.positionSpinner()
     }
 
     //#endregion

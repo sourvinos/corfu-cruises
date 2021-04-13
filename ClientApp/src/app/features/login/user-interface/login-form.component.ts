@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
@@ -15,6 +15,7 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
+import { DeviceDetectorService } from 'ngx-device-detector'
 
 @Component({
     selector: 'login-form',
@@ -44,7 +45,11 @@ export class LoginFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userIdleService: UserIdleService) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private deviceDetectorService: DeviceDetectorService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userIdleService: UserIdleService) { }
+
+    @HostListener('window:resize', ['$event']) onResize(): any {
+        this.positionImage()
+    }
 
     //#region lifecycle hooks
 
@@ -55,6 +60,7 @@ export class LoginFormComponent {
     }
 
     ngAfterViewInit(): void {
+        this.positionImage()
         this.focus('username')
     }
 
@@ -67,6 +73,14 @@ export class LoginFormComponent {
     //#endregion
 
     //#region public methods
+
+    public isFakeMobile(): boolean {
+        return this.helperService.deviceDetector() == 'mobile'
+    }
+
+    public isMobile(): boolean {
+        return this.deviceDetectorService.getDeviceInfo().deviceType == 'mobile'
+    }
 
     public onForgotPassword(): void {
         this.router.navigate(['/account/forgotPassword'])
@@ -122,6 +136,24 @@ export class LoginFormComponent {
             password: [environment.login.password, Validators.required],
             isHuman: [environment.login.isHuman, Validators.requiredTrue]
         })
+    }
+
+    private isSidebarVisible(dimension: string): number {
+        if (document.getElementById('side-bar') != null) {
+            if (dimension == 'width') {
+                return document.getElementById('side-bar').clientWidth
+            } else {
+                return document.getElementById('side-bar').clientHeight
+            }
+        }
+        return 0
+    }
+
+    private positionImage(): void {
+        const width = this.isSidebarVisible('width') + (document.getElementById('content').clientWidth / 2) - 8
+        const height = (document.getElementById('content').clientHeight / 2) + (document.getElementById('top-bar').clientHeight) - document.getElementById('bottom').clientHeight
+        document.getElementById('image').style.left = width - 150 + 'px'
+        document.getElementById('image').style.top = height - 150 + 'px'
     }
 
     private setWindowTitle(): void {

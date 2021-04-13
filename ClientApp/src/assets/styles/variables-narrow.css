@@ -2,7 +2,7 @@
     * {
         /* Font sizes */
         --font-size-button: 1.1rem;
-        --font-size-calendar-date: 2rem;
+        --font-size-calendar-date: 1.5rem;
         --font-size-charts-xAxis: 10;
         --font-size-charts-yAxis: 14;
         --font-size-checkbox: 1rem;
@@ -11,6 +11,7 @@
         --font-size-datepicker-header-month: 2.2vw;
         --font-size-dialog-content: 1.3rem;
         --font-size-dialog-header: 2.4rem;
+        --font-size-expansion-panel-header: 1.25rem;
         --font-size-header: 2rem;
         --font-size-input-height: 1rem;
         --font-size-input-hint: 0.7rem;
@@ -29,10 +30,10 @@
         --font-size-sum-persons: 1.25rem;
         --font-size-sum: 1.5rem;
         --font-size-summary-block-header: 1.4rem;
-        --font-size-summary-block-item: 0.85rem;
+        --font-size-summary-block-item: 1rem;
         --font-size-tab-label: 1.5rem;
-        --font-size-table-header: 1rem;
-        --font-size-table-row: 0.8rem;
+        --font-size-table-header: 1.4375rem;
+        --font-size-table-row: 0.9375rem;
         --font-size-total-persons-overview: 2.7rem;
         --font-size-user-greeting: 1.1rem;
     }

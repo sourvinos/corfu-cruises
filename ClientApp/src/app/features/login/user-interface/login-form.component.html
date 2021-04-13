@@ -1,5 +1,9 @@
 <div id="form-wrapper">
 
+    <div *ngIf="isFakeMobile()" id="image">
+        <img src="../../../../assets/images/logos/wheel.png" alt="">
+    </div>
+
     <div id="header">
         <div @slideFromLeft id="title">
             <h1>{{ onGetLabel('header') }}</h1>
@@ -21,7 +25,7 @@
             </mat-form-field>
             <mat-slide-toggle data-cy="isHuman" id="isHuman" formControlName="isHuman">{{ onGetLabel('noRobotCheckbox') }}</mat-slide-toggle>
         </form>
-        <p class="instructions" [class.hidden]=environment>{{ form.value | json }} {{ form.valid }}</p>
+        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
     </div>
 
     <div id="footer">

@@ -1,3 +1,4 @@
+import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector'
 import { fancyAnimation } from '../../../shared/animations/animations'
 import { Location } from '@angular/common'
 import { Component } from "@angular/core"
@@ -10,6 +11,7 @@ import { HelperService } from "src/app/shared/services/helper.service"
 import { KeyboardShortcuts, Unlisten } from "src/app/shared/services/keyboard-shortcuts.service"
 import { MessageLabelService } from "src/app/shared/services/messages-label.service"
 import creditsJson from '../../../../assets/credits/credits.json'
+import { DialogService } from 'src/app/shared/services/dialog.service'
 
 @Component({
     selector: 'credits',
@@ -28,10 +30,11 @@ export class CreditsComponent {
     private url = '/credits'
     private windowTitle = 'Credits'
     public credits = creditsJson
+    public deviceInfo: DeviceInfo
 
     //#endregion
 
-    constructor(private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private router: Router, private titleService: Title) { }
+    constructor(private buttonClickService: ButtonClickService, private deviceDetectorService: DeviceDetectorService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private dialogService: DialogService, private location: Location, private messageLabelService: MessageLabelService, private router: Router, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -63,6 +66,10 @@ export class CreditsComponent {
 
     public onGotoExternalLink(url: string): void {
         window.open(url, "_blank")
+    }
+
+    public onShowDeviceInfo(): void {
+        this.dialogService.open('warningColor', JSON.stringify(this.deviceDetectorService.getDeviceInfo()), ['ok'])
     }
 
     //#endregion
@@ -112,3 +119,4 @@ export class CreditsComponent {
     //#endregion
 
 }
+

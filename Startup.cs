@@ -40,9 +40,6 @@ namespace CorfuCruises {
             services.Configure<CookiePolicyOptions>(options => { options.CheckConsentNeeded = context => true; options.MinimumSameSitePolicy = SameSiteMode.None; });
             services.Configure<GmailSettings>(options => Configuration.GetSection("GmailSettings").Bind(options));
             services.Configure<TokenSettings>(options => Configuration.GetSection("TokenSettings").Bind(options));
-            services.AddSpaStaticFiles(configuration => {
-                configuration.RootPath = "ClientApp/dist";
-            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {

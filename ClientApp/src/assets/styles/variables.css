@@ -1,25 +1,24 @@
 * {
     /* Font names */
-    --font-family-button: "Ubuntu Condensed";
+    --font-family-button: "Open Sans Condensed";
     --font-family-calendar-date: "Fira Mono";
-    --font-family-checkbox: "Ubuntu Condensed";
-    --font-family-copyright: "Noto Sans";
-    --font-family-dialog-content: "PF Handbook Pro";
-    --font-family-dialog-header: "PF Handbook Pro";
-    --font-family-header: "PF Handbook Pro";
-    --font-family-label: "Ubuntu Condensed";
-    --font-family-leaflet-tooltip: "PF Handbook Pro";
+    --font-family-checkbox: "Open Sans Condensed";
+    --font-family-copyright: "Yanone Kaffeesatz";
+    --font-family-dialog-content: "Open Sans Condensed";
+    --font-family-dialog-header: "Open Sans Condensed";
+    --font-family-header: "Open Sans Condensed";
+    --font-family-label: "Open Sans Condensed";
+    --font-family-leaflet-tooltip: "Open Sans Condensed";
     --font-family-logo: "Yanone Kaffeesatz";
-    --font-family-menu-list-item: "PF Handbook Pro";
+    --font-family-menu-list-item: "Open Sans Condensed";
     --font-family-overview-percent: "Yanone Kaffeesatz";
-    --font-family-paragraph: "Ubuntu";
-    --font-family-snackbar: "PF Handbook Pro";
-    --font-family-summary-block: "Noto Sans";
-    --font-family-summary-header: "Ubuntu Condensed";
-    --font-family-table-body: "Noto Sans";
-    --font-family-table-header: "Noto Sans";
-    --font-family-totals: "Ubuntu Condensed";
-    --font-family-user-greeting: "Ubuntu Condensed";
+    --font-family-paragraph: "Open Sans Condensed";
+    --font-family-snackbar: "Open Sans Condensed";
+    --font-family-summary-block: "Open Sans Condensed";
+    --font-family-summary-header: "Open Sans Condensed";
+    --font-family-table-body: "Open Sans Condensed";
+    --font-family-table-header: "Open Sans Condensed";
+    --font-family-totals: "Open Sans Condensed";
     /* Font weights */
     --font-weight-button: 100 !important;
     --font-weight-checkbox: 400 !important;

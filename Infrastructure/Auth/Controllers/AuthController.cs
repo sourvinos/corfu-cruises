@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace CorfuCruises {
 
     [Route("api/[controller]")]
+
     public class AuthController : ControllerBase {
 
         private readonly DbContext db;

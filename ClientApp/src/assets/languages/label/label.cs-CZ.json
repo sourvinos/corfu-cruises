@@ -1130,23 +1130,18 @@
             {
                 "id": "header",
                 "description": "(CZ) Schedule"
-            }
-        ]
-    },
-    {
-        "feature": "scheduleList",
-        "labels": [
-            {
-                "id": "header",
-                "description": "(CZ) Schedule"
             },
             {
-                "id": "destinations",
-                "description": "(CZ) Destinations"
+                "id": "searchLabelDestination",
+                "description": "(CZ) Destination"
             },
             {
-                "id": "ports",
-                "description": "(CZ) Ports"
+                "id": "searchLabelPort",
+                "description": "(CZ) Port"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "(CZ) Select from the list"
             },
             {
                 "id": "searchButton",
@@ -1155,30 +1150,27 @@
             {
                 "id": "newButton",
                 "description": "(CZ) New"
+            }
+        ]
+    },
+    {
+        "feature": "scheduleList",
+        "labels": [
+            {
+                "id": "newButton",
+                "description": "(CZ) New"
             },
             {
-                "id": "headerDate",
-                "description": "(CZ) Date"
+                "id": "availabilityHeader",
+                "description": "(CZ) Availability"
             },
             {
-                "id": "headerMaxPersons",
-                "description": "(CZ) Max Capacity"
+                "id": "high",
+                "description": "(CZ) High"
             },
             {
-                "id": "occupancy",
-                "description": "(CZ) Occupancy"
-            },
-            {
-                "id": "plenty",
-                "description": "(CZ) Plenty"
-            },
-            {
-                "id": "still-plenty",
-                "description": "(CZ) Still plenty"
-            },
-            {
-                "id": "hurry-up",
-                "description": "(CZ) Better hurry!"
+                "id": "average",
+                "description": "(CZ) Average"
             },
             {
                 "id": "limited",
@@ -1189,8 +1181,8 @@
                 "description": "(CZ) Extremely limited"
             },
             {
-                "id": "full",
-                "description": "(CZ) Fully booked"
+                "id": "none",
+                "description": "(CZ) None"
             }
         ]
     },
@@ -1199,27 +1191,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) New Schedule"
+                "description": "New Schedule"
             },
             {
                 "id": "destination",
-                "description": "(CZ) Destination"
+                "description": "Destination"
             },
             {
                 "id": "port",
-                "description": "(CZ) Port"
+                "description": "Port"
             },
             {
                 "id": "dateRange",
-                "description": "(CZ) Period"
+                "description": "Period"
             },
             {
                 "id": "maxPersons",
-                "description": "(CZ) Max Capacity"
+                "description": "Max capacity"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Save"
             }
         ]
     },

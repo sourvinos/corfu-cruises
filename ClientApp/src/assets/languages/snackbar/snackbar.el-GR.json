@@ -5,7 +5,6 @@
         { "error": 401, "id": "authenticationFailed", "message": "Ο συνδυασμός χρήστης / κωδικός είναι λάθος." },
         { "error": 403, "id": "authorizationFailed", "message": "Αυτή η επιλογή απαιτεί εξουσιοδότηση υψηλότερου επιπέδου." },
         { "error": 404, "id": "recordNotFound", "message": "Η εγγραφή δεν βρέθηκε." },
-        { "error": 409, "id": "defaultDriverExists", "message": "Υπάρχει ήδη ένας προεπιλεγμένος οδηγός." },
         { "error": 490, "id": "unableToSaveRecord", "message": "Η εγγραφή δεν αποθηκεύτηκε." },
         { "error": 491, "id": "recordInUse", "message": "Η εγγραφή χρησιμοποιείται και δεν μπορεί να διαγραφεί." },
         { "error": 492, "id": "unableToRegisterUser", "message": "Ο χρήστης με αυτά τα στοιχεία δεν μπορεί να δημιουργηθεί." },

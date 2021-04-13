@@ -1,16 +1,6 @@
 <div id="wrapper">
 
     <div id="header">
-        <div id="totals">
-            <div class="selection">
-                <div class="label">{{ onGetLabel('totalPersons') }}</div>
-                <div class="sum"> {{ records.allPersons }}</div>
-                <div class="label">{{ onGetLabel('boardedPersons') }}</div>
-                <div class="sum"> {{ records.boardedPersons }}</div>
-                <div class="label">{{ onGetLabel('pandingPersons') }}</div>
-                <div class="sum"> {{ records.remainingPersons}} </div>
-            </div>
-        </div>
         <div id="filters">
             <mat-form-field class="no-bottom-margin">
                 <input type="text" matInput placeholder="{{ onGetLabel('searchLabel') }}" [(ngModel)]="searchTerm" #query (keyup)="onFilterByLastname(query.value)" autocomplete="off">
@@ -48,15 +38,15 @@
                 </mat-expansion-panel-header>
                 <div class="detail" *ngFor="let passenger of record.passengers">
                     <div class="field" id="lastname">
-                        <div class="field-label">{{ onGetLabel('lastname') }}</div>
+                        <!-- <div class="field-label">{{ onGetLabel('lastname') }}</div> -->
                         <div class="field-value">{{ passenger.lastname }}</div>
                     </div>
                     <div class="field" id="firstname">
-                        <div class="field-label">{{ onGetLabel('firstname') }}</div>
+                        <!-- <div class="field-label">{{ onGetLabel('firstname') }}</div> -->
                         <div class="field-value">{{ passenger.firstname }}</div>
                     </div>
                     <div class="field isBoarded">
-                        <div class="field-label">{{ onGetLabel('isBoarded') }}</div>
+                        <!-- <div class="field-label">{{ onGetLabel('isBoarded') }}</div> -->
                         <div class="field-value">
                             <img *ngIf="passenger.isCheckedIn" src="/assets/images/navigation/isBoarded.svg" width="20px">
                             <img *ngIf="!passenger.isCheckedIn" src="/assets/images/navigation/isNotBoarded.svg" width="20px">
@@ -68,6 +58,19 @@
                 </div>
             </mat-expansion-panel>
         </mat-accordion>
+    </div>
+
+    <div id="footer">
+        <div id="totals">
+            <div class="selection">
+                <div class="label">{{ onGetLabel('totalPersons') }}</div>
+                <div class="sum"> {{ records.allPersons }}</div>
+                <div class="label">{{ onGetLabel('boardedPersons') }}</div>
+                <div class="sum"> {{ records.boardedPersons }}</div>
+                <div class="label">{{ onGetLabel('pandingPersons') }}</div>
+                <div class="sum"> {{ records.remainingPersons}} </div>
+            </div>
+        </div>
     </div>
 
 </div>

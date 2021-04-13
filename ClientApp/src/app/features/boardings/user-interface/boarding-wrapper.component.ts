@@ -41,9 +41,9 @@ export class boardingListComponent {
     //#region particular variables
 
     private dateInISO = '2021-03-30';
-    private mustRefreshBoardingList = true
+    public isCriteriaExpanded = false
     public dateIn = ''
-    public destinationId = 1
+    // public destinationId = 0
     public portId = 2
     public shipId = 2
     public form: FormGroup
@@ -81,6 +81,9 @@ export class boardingListComponent {
 
     //#region public methods
 
+    public onCollapseCriteria(): void {
+        this.isCriteriaExpanded = false
+    }
     public onGetHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
     }
@@ -94,6 +97,7 @@ export class boardingListComponent {
     }
 
     public onLoadBoardings(): void {
+        this.isCriteriaExpanded = false
         if (this.checkValidDate()) {
             this.navigateToList()
         }
@@ -141,12 +145,15 @@ export class boardingListComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            date: ['2021-03-30', [Validators.required]]
+            date: ['', [Validators.required]],
+            destinationId: ['', [Validators.required]],
+            portId: ['', [Validators.required]],
+            shipId: ['', [Validators.required]]
         })
     }
 
     private navigateToList(): void {
-        this.router.navigate([this.dateInISO, this.destinationId, this.portId, this.shipId], { relativeTo: this.activatedRoute })
+        this.router.navigate([this.dateInISO, this.form.value.destinationId, this.portId, this.shipId], { relativeTo: this.activatedRoute })
     }
 
     private populateDropDowns(): void {

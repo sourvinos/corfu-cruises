@@ -6,6 +6,10 @@
     background-color: var(--color-background-primary);
 }
 
+.mat-calendar {
+    height: max-content;
+}
+
 .mat-calendar-table-header {
     color: var(--color-datepicker-days);
 }
@@ -72,13 +76,12 @@
 }
 
 .mat-calendar-body-today {
-    background-color: var(--color-button-primary) !important;
     border: 0.125rem solid !important;
 }
 
 .dateWithSchedule {
     font-size: var(--font-size-calendar-date);
- }
+}
 
 .availableSeats {
     font-size: 0.8rem;

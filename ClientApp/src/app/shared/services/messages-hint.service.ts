@@ -18,13 +18,15 @@ export class MessageHintService {
     //#region public methods
 
     public getDescription(id: string, stringLength = 0): string {
-        let description = ''
-        this.messages.labels.filter((l: { id: string; description: string }) => {
-            if (l.id == id) {
-                description = l.description.replace('xx', stringLength.toString())
-            }
-        })
-        return description
+        let returnValue = ''
+        if (this.messages.labels.length > 0) {
+            this.messages.labels.filter((l: { id: string; description: string }) => {
+                if (l.id == id) {
+                    returnValue = l.description.replace('xx', stringLength.toString())
+                }
+            })
+        }
+        return returnValue
     }
 
     public getMessages(): Promise<any> {

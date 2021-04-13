@@ -1,9 +1,8 @@
 #top-logo {
     cursor: pointer;
-    display: none;
     font-family: var(--font-family-logo);
     outline: 0;
-    padding: 0.25rem 1rem 0 0;
+    padding: 0.5625rem 1rem 0 22px;
 }
 
 span:nth-child(1) {
