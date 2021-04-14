@@ -64,7 +64,7 @@ export class ReservationFormComponent {
     public destinations: any
     public pickupPointsFlat: PickupPointFlat[]
     public qrCodeValue = "0"
-    public errorCorrectionLevel : "M"
+    public errorCorrectionLevel: "M"
     public margin = 4
     public width = 128
 
@@ -184,9 +184,15 @@ export class ReservationFormComponent {
 
     public onSave(): void {
         const reservation: ReservationWriteResource = this.mapObject()
-        if (reservation.reservationId.toString() == '' || reservation.reservationId === null) {
+        if (reservation.reservationId == null) {
             this.reservationService.add(reservation).subscribe(() => {
                 this.initForm()
+                this.populateFormWithDefaultValues()
+                this.updateQRCodeFromGuid().then(() => {
+                    this.convertQRCodeToString().then((result) => {
+                        this.form.patchValue({ uri: result })
+                    })
+                })
                 this.refreshSummary()
                 this.focus('destinationDescription')
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -375,10 +381,14 @@ export class ReservationFormComponent {
         })
     }
 
+    private isGuid(reservationId: string): any {
+        return reservationId == '' ? null : reservationId
+    }
+
     private mapObject(): any {
         const form = this.form.value
         const reservation = {
-            'reservationId': form.reservationId,
+            'reservationId': this.isGuid(form.reservationId),
             'date': this.formatDate(form.date),
             'destinationId': form.destinationId,
             'customerId': form.customerId,
@@ -404,7 +414,7 @@ export class ReservationFormComponent {
         const passengers = []
         this.form.value.passengers.forEach((element: any) => {
             const passenger = {
-                'reservationId': element.reservationId,
+                'reservationId': this.isGuid(element.reservationId),
                 'occupantId': element.occupantId,
                 'nationalityId': element.nationalityId,
                 'genderId': element.genderId,

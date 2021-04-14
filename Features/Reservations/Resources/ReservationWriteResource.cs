@@ -5,7 +5,7 @@ namespace CorfuCruises {
 
     public class ReservationWriteResource {
 
-        public Guid ReservationId { get; set; }
+        public Guid? ReservationId { get; set; }
         public string Date { get; set; }
         public int DestinationId { get; set; }
         public int CustomerId { get; set; }
