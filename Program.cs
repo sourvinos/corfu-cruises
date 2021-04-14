@@ -14,11 +14,11 @@ namespace CorfuCruises {
 
         public static IWebHost BuildWebHost(string[] args) {
             return WebHost.CreateDefaultBuilder()
-                 .UseKestrel(options => {
-                     options.ListenLocalhost(5010, listenOptions => {
-                         listenOptions.UseHttps("localhost.pfx", "Ncc74656");
-                     });
-                 })
+                //  .UseKestrel(options => {
+                //      options.ListenLocalhost(5010, listenOptions => {
+                //          listenOptions.UseHttps("localhost.pfx", "Ncc74656");
+                //      });
+                //  })
                 .ConfigureLogging((context, logging) => {
                     logging.FileLogger(options => {
                         context.Configuration.GetSection("Logging").GetSection("File").GetSection("Options").Bind(options);
