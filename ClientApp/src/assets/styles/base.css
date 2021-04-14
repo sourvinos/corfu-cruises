@@ -47,7 +47,6 @@ p.instructions {
     font-family: var(--font-family-paragraph);
     font-size: var(--font-size-paragraph);
     overflow: hidden;
-    width: 800px;
 }
 
 .mat-icon, .item {

@@ -3,7 +3,6 @@
     border-radius: 20px;
     display: grid;
     grid-template-columns: minmax(400px, 1fr);
-    /* height: 653px; */
     padding: 2rem;
     width: 800px;
     z-index: 1;

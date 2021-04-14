@@ -20,7 +20,7 @@
                 </mat-form-field>
                 <button mat-flat-button id="search" class="primary" (click)="onLoadReservations()">{{ onGetLabel('searchButton') }}</button>
             </form>
-            <p class="instructions" [class.hidden]=environment>{{ form.value | json }} {{ form.valid }}</p>
+            <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
         </div>
     </div>
 

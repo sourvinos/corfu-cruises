@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators'
 
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { Passenger } from '../../classes/models/passenger'
 import { PassengerFormComponent } from '../passenger-form/passenger-form.component'
 
@@ -19,10 +20,12 @@ export class PassengerListComponent {
 
     //#region variables
 
-    public feature = 'passengerList'
-    public highlightFirstRow = false
+    @Input() passengers: Passenger[] = []
+    @Input() reservationId: Guid
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
+    public feature = 'passengerList'
+    public highlightFirstRow = false
 
     //#endregion
 
@@ -30,17 +33,14 @@ export class PassengerListComponent {
 
     headers = ['', 'reservationId', 'Id', 'headerLastname', 'headerFirstname', 'headerNationalityId', 'headerNationalityDescription', 'headerGenderId', 'headerGenderDescription', 'headerDoB', 'headerIsCheckedIn', '', '']
     widths = ['0px', '60px', '60px', '0px', '40%', '0px', '0px', '0px', '0px', '0px', '0px', '50px', '50px']
-    visibility = ['none', '', '', '', '', 'none', 'none', 'none', 'none', 'none', 'none', '', '']
+    visibility = ['none', 'none', 'none', '', '', 'none', 'none', 'none', 'none', 'none', 'none', '', '']
     justify = ['center', 'center', 'center', 'left', 'left', 'left', 'left', 'left', 'left', 'center', 'center', 'center', 'center']
     types = ['', '', '', '', '', '', '', '', '', 'date', '', 'trash', '']
     fields = ['', 'reservationId', 'id', 'lastname', 'firstname', 'nationalityId', 'nationalityDescription', 'genderId', 'genderDescription', 'dob', 'isCheckedIn', '', '']
 
     //#endregion
 
-    @Input() reservationId: Guid
-    @Input() passengers: Passenger[] = []
-
-    constructor(public dialog: MatDialog, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts) { }
+    constructor(public dialog: MatDialog, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService) { }
 
     //#region lifecycle hooks
 
@@ -58,6 +58,10 @@ export class PassengerListComponent {
     //#endregion
 
     //#region public methods
+
+    public onGetLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
+    }
 
     public onNew(): void {
         this.showPassengerForm()

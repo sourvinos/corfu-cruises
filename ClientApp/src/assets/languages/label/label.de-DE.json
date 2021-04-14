@@ -736,91 +736,91 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Reservation"
+                "description": "(DE) Reservation"
             },
             {
                 "id": "tabGeneral",
-                "description": "General"
+                "description": "(DE) General"
             },
             {
                 "id": "tabPassengers",
-                "description": "Passengers"
+                "description": "(DE) Passengers"
             },
             {
                 "id": "tabMoreInfo",
-                "description": "More"
+                "description": "(DE) More"
             },
             {
                 "id": "destination",
-                "description": "Destination"
+                "description": "(DE) Destination"
             },
             {
                 "id": "customer",
-                "description": "Customer"
+                "description": "(DE) Customer"
             },
             {
                 "id": "pickupPoint",
-                "description": "Pickup point"
+                "description": "(DE) Pickup point"
             },
             {
                 "id": "ticketNo",
-                "description": "Ticket no"
+                "description": "(DE) Ticket no"
             },
             {
                 "id": "adults",
-                "description": "Adults"
+                "description": "(DE) Adults"
             },
             {
                 "id": "kids",
-                "description": "Kids"
+                "description": "(DE) Kids"
             },
             {
                 "id": "free",
-                "description": "Free"
+                "description": "(DE) Free"
             },
             {
                 "id": "totalPersons",
-                "description": "Total"
+                "description": "(DE) Total"
             },
             {
                 "id": "driver",
-                "description": "Driver"
+                "description": "(DE) Driver"
             },
             {
                 "id": "port",
-                "description": "Port"
+                "description": "(DE) Port"
             },
             {
                 "id": "ship",
-                "description": "Vessel"
+                "description": "(DE) Vessel"
             },
             {
                 "id": "email",
-                "description": "Email"
+                "description": "(DE) Email"
             },
             {
                 "id": "phones",
-                "description": "Phones"
+                "description": "(DE) Phones"
             },
             {
                 "id": "remarks",
-                "description": "Remarks"
+                "description": "(DE) Remarks"
             },
             {
                 "id": "abortButton",
-                "description": "Cancel"
+                "description": "(DE) Cancel"
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "(DE) Delete"
             },
             {
                 "id": "sendVoucherButton",
-                "description": "Send to email"
+                "description": "(DE) Send to email"
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "(DE) Save"
             }
         ]
     },
@@ -871,7 +871,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Warning!"
+                "description": "(DE) Warning:"
             },
             {
                 "id": "okButton",
@@ -1245,6 +1245,10 @@
             {
                 "id": "headerIsCheckedIn",
                 "description": "(DE) Checked In"
+            },
+            {
+                "id": "newPassengerButton",
+                "description": "(DE) New passenger"
             }
         ]
     },

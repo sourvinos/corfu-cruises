@@ -33,6 +33,8 @@
 #header #search-box {
     align-items: center;
     display: flex;
+    display: flex;
+    flex-direction: column;
     margin-left: auto;
     margin-right: 1rem;
     width: auto;

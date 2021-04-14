@@ -80,7 +80,7 @@ export class ReservationListComponent {
 
     headers = ['', 'Id', 'headerDestination', 'headerDestinationAbbreviation', 'headerRoute', 'headerCustomer', 'headerPickupPoint', 'headerTime', 'headerAdults', 'headerKids', 'headerFree', 'headerTotal', 'headerDriver', 'headerPort', 'headerShip', '']
     widths = ['40px', '100px', '180px', '0px', '120px', '180px', '180px', '50px', '40px', '40px', '40px', '40px', '100px', '100px', '100px', '45px']
-    visibility = ['', '', '', 'none']
+    visibility = ['', 'none', '', 'none']
     justify = ['center', 'center', 'left', 'left', 'left', 'left', 'left', 'center', 'right', 'right', 'right', 'right', 'left', 'left', 'left', 'center']
     types = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
     fields = ['', 'id', 'destination', 'destinationAbbreviation', 'route', 'customer', 'pickupPoint', 'time', 'adults', 'kids', 'free', 'totalPersons', 'driver', 'port', 'ship', '']
