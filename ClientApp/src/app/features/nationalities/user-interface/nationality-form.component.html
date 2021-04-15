@@ -18,9 +18,14 @@
                 <mat-error *ngIf="description.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-error *ngIf="description.hasError('maxlength')">{{ onGetHint('maxLength', description.errors.maxlength.requiredLength) }}</mat-error>
             </mat-form-field>
+            <mat-form-field>
+                <input type="text" matInput [placeholder]="onGetLabel('code')" formControlName="code" data-tabindex="2" id="code" [inputTabStop]="input">
+                <mat-error *ngIf="code.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                <mat-error *ngIf="code.hasError('maxlength')">{{ onGetHint('maxLength', code.errors.maxlength.requiredLength) }}</mat-error>
+            </mat-form-field>
             <mat-slide-toggle formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
         </form>
-        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+        <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
     </div>
 
     <div id="footer">

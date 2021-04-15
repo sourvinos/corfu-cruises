@@ -1,9 +1,10 @@
+// Base
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-
+// Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -182,7 +183,6 @@ export class NationalityFormComponent {
             id: 0,
             description: ['', [Validators.required, Validators.maxLength(128)]],
             code: '',
-            flagUrl: '',
             isActive: true,
             userId: this.helperService.readItem('userId')
         })
@@ -193,7 +193,6 @@ export class NationalityFormComponent {
             id: result.id,
             description: result.description,
             code: result.code,
-            flagUrl: result.flagUrl,
             isActive: result.isActive,
             userId: this.helperService.readItem('userId')
         })
@@ -222,6 +221,10 @@ export class NationalityFormComponent {
 
     get description(): AbstractControl {
         return this.form.get('description')
+    }
+
+    get code(): AbstractControl {
+        return this.form.get('code')
     }
 
     get isActive(): AbstractControl {

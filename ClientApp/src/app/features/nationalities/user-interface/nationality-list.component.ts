@@ -1,9 +1,10 @@
+// Base
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import { takeUntil } from 'rxjs/operators'
-
+// Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
@@ -46,7 +47,7 @@ export class NationalityListComponent {
     //#region table
 
     headers = ['', 'Id', 'headerDescription', 'headerFlag', '']
-    widths = ['40px', '0px', '80%', '60px', '56px']
+    widths = ['40px', '0px', '80%', '10%', '56px']
     visibility = ['none', 'none', '', '', '']
     justify = ['center', 'center', 'left', 'center', 'center']
     types = ['', '', '', 'icon', '']

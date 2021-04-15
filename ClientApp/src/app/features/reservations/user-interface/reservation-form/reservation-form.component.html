@@ -102,7 +102,7 @@
 
     <qrCode hidden [qrCodeValue]="qrCodeValue" [errorCorrectionLevel]="errorCorrectionLevel" [margin]="margin" [width]="width"></qrCode>
 
-    <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
+    <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
 
     <div id="footer">
         <div id="buttons">

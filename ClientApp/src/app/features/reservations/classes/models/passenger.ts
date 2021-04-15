@@ -11,7 +11,6 @@ export class Passenger {
     nationality: {
         id: number
         description: string
-        flagUrl: string
     }
     gender: {
         id: number

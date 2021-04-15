@@ -40,7 +40,7 @@ export class AppComponent {
     //#region lifecycle hooks
 
     ngAfterViewInit(): void {
-        // this.positionSpinner()
+        this.positionSpinner()
     }
 
     //#endregion

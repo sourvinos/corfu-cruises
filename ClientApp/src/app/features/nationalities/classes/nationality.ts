@@ -4,7 +4,6 @@ export class Nationality extends KeyValuePair {
 
     description: string
     code: string
-    flagUrl: string
     isActive: boolean
 
 }
