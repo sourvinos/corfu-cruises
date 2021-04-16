@@ -265,7 +265,6 @@ export class ScheduleCreateFormComponent {
     }
 
     private patchFields(): void {
-        console.log(this.data)
         this.form.patchValue({
             destinationId: this.data.destinationId,
             destinationDescription: this.data.destinationDescription,

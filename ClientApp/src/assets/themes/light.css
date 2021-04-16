@@ -37,8 +37,7 @@
     --color-map-tooltip-background: #22333B;
     --color-map-tooltip-color: #EFEFEF;
     /* Spinner */
-    --color-spinner-outer: #FE9F36;
-    --color-spinner-inner: #FFE85C;
+    --color-spinner: #FE9F36;
     /* Credits */
     --color-credit-title: #FE9F36;
     --color-credit-url: #86805f;

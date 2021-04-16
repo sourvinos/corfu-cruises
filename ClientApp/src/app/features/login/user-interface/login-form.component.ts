@@ -134,17 +134,6 @@ export class LoginFormComponent {
         })
     }
 
-    private isSidebarVisible(dimension: string): number {
-        if (document.getElementById('side-bar') != null) {
-            if (dimension == 'width') {
-                return document.getElementById('side-bar').clientWidth
-            } else {
-                return document.getElementById('side-bar').clientHeight
-            }
-        }
-        return 0
-    }
-
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }

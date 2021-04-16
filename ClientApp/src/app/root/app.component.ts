@@ -1,4 +1,3 @@
-// Base
 import { Component, HostListener } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router'
 // Custom
@@ -18,7 +17,7 @@ export class AppComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private router: Router) {
+    constructor(private router: Router, private accountService: AccountService) {
         this.router.events.subscribe((routerEvent) => {
             if (routerEvent instanceof NavigationStart) {
                 this.showLoadingIndication = true
@@ -47,9 +46,16 @@ export class AppComponent {
 
     //#region private methods
 
+    private getSidebarWidth(): number {
+        if (document.body.contains(document.getElementById('side-bar'))) {
+            return document.getElementById('side-bar').clientWidth
+        }
+        return 0
+    }
+
     private positionSpinner(): void {
-        document.getElementById('spinner').style.left = (document.getElementById('main').clientWidth / 2) - (document.getElementById('spinner').clientWidth) + document.getElementById('side-bar').clientWidth + 'px'
-        document.getElementById('spinner').style.top = (document.getElementById('main').clientHeight / 2) - (document.getElementById('spinner').clientHeight / 2) + 'px'
+        document.getElementById('spinner').style.left = this.getSidebarWidth() + 5 + (document.getElementById('content').clientWidth / 2) - (document.getElementById('spinner').clientWidth / 2) + 'px'
+        document.getElementById('spinner').style.top = document.getElementById('top-bar').clientHeight + (document.getElementById('content').clientHeight / 2) - (document.getElementById('spinner').clientHeight / 2) + 'px'
     }
 
     //#endregion

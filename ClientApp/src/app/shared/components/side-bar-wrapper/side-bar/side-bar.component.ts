@@ -1,5 +1,6 @@
-import { HelperService } from 'src/app/shared/services/helper.service';
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { Component } from '@angular/core'
+// Custom
 import { DeviceDetectorService } from 'ngx-device-detector'
 
 @Component({
@@ -21,7 +22,6 @@ export class SideBarComponent {
     //#endregion
 
     //#region public methods
-
 
     public isFakeDesktop(): boolean {
         return this.helperService.deviceDetector() == 'desktop'

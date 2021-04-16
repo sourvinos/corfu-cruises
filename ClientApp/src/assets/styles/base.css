@@ -221,7 +221,6 @@ p.instructions {
     color: var(--color-text-primary) !important;
 }
 
-
-/* .mat-expansion-panel-content {
-    padding: 2rem !important;
-} */
+.mat-progress-spinner circle, .mat-spinner circle {
+    stroke: var(--color-spinner) !important;
+}
