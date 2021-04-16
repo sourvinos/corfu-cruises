@@ -5,7 +5,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Front-End",
-            "url": "https://localhost:5010",
+            "url": "https://localhost:5001",
             "webRoot": "${workspaceFolder}/ClientApp",
             "skipFiles": [
                 "node_modules/**/*.js"

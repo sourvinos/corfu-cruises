@@ -87,7 +87,7 @@ export class ScheduleWrapperComponent {
     }
 
     public gotoWrapperUrl(): void {
-        this.router.navigate([this.baseUrl])
+        // this.router.navigate([this.baseUrl])
     }
 
     //#endregion

@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import moment from 'moment'
-
+// Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
@@ -64,6 +64,8 @@ export class ScheduleListComponent {
             // console.log(params, params['rowid'])
             this.destinationId = params['destinationId']
             this.portId = params['portId']
+            this.readDestination(this.destinationId)
+            this.readPort(this.portId)
             this.loadRecords()
         })
     }
@@ -397,6 +399,18 @@ export class ScheduleListComponent {
 
     private updateVariables(): void {
         this.userRole = this.accountService.currentUserRole
+    }
+
+    private readDestination(destinationId: number):void {
+        this.destinationService.getSingle(destinationId).subscribe(result => {
+            this.destinationDescription = result.description
+        })
+    }
+
+    private readPort(portId: number):void {
+        this.portService.getSingle(portId).subscribe(result => {
+            this.portDescription = result.description
+        })
     }
 
     //#endregion

@@ -1,10 +1,13 @@
 import { Component, Inject } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
+import { DateAdapter } from '@angular/material/core'
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import moment from 'moment'
+// Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -16,7 +19,6 @@ import { ScheduleResource } from '../classes/schedule-resource'
 import { ScheduleService } from '../classes/schedule.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
-import { DateAdapter } from '@angular/material/core'
 
 @Component({
     selector: 'schedule-create-form',
@@ -48,7 +50,22 @@ export class ScheduleCreateFormComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private scheduleService: ScheduleService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog,) { }
+    constructor(
+        @Inject(MAT_DIALOG_DATA) public data: any,
+        private buttonClickService: ButtonClickService,
+        private dateAdapter: DateAdapter<any>,
+        private destinationService: DestinationService,
+        private dialogService: DialogService,
+        private formBuilder: FormBuilder,
+        private helperService: HelperService,
+        private keyboardShortcutsService: KeyboardShortcuts,
+        private messageHintService: MessageHintService,
+        private messageLabelService: MessageLabelService,
+        private messageSnackbarService: MessageSnackbarService,
+        private scheduleService: ScheduleService,
+        private snackbarService: SnackbarService,
+        private titleService: Title,
+        public dialog: MatDialog,) { }
 
     //#region lifecycle hooks
 
@@ -57,10 +74,11 @@ export class ScheduleCreateFormComponent {
         this.initForm()
         this.addShortcuts()
         this.getLocale()
-        this.patchFields()
+
     }
 
     ngAfterViewInit(): void {
+        this.patchFields()
         this.focus('mat-date-range-input-0')
     }
 
@@ -232,8 +250,10 @@ export class ScheduleCreateFormComponent {
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: 0,
-            destinationId: ['', Validators.required], destinationDescription: [{ value: '', disabled: true }, Validators.required],
-            portId: ['', Validators.required], portDescription: [{ value: '', disabled: true }, Validators.required],
+            destinationId: ['', Validators.required],
+            destinationDescription: [{ value: '', disabled: true }],
+            portId: ['', Validators.required],
+            portDescription: [{ value: '', disabled: true }],
             fromDate: ['', Validators.required],
             toDate: ['', Validators.required],
             periodToDelete: [''],
@@ -245,6 +265,7 @@ export class ScheduleCreateFormComponent {
     }
 
     private patchFields(): void {
+        console.log(this.data)
         this.form.patchValue({
             destinationId: this.data.destinationId,
             destinationDescription: this.data.destinationDescription,
@@ -305,4 +326,4 @@ export class ScheduleCreateFormComponent {
 
     //#endregion
 
-}    
+}

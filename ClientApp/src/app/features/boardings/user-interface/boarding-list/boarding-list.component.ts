@@ -196,7 +196,6 @@ export class BoardingListComponent {
 
     public toggleClientFilters(): void {
         this.openedClientFilters = !this.openedClientFilters
-        console.log('Client', this.openedClientFilters)
     }
     //#endregion
 
