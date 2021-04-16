@@ -5,23 +5,23 @@ import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import { takeUntil } from 'rxjs/operators'
-
-import { ReservationToVesselComponent } from '../reservation-to-vessel/reservation-to-vessel-form.component'
-import { ReservationFlat } from '../../classes/view-models/reservation-flat'
-import { DriverPdfService } from '../../classes/services/driver-pdf.service'
-import { ReservationService } from '../../classes/services/reservation.service'
-import { ReservationViewModel } from '../../classes/view-models/reservation-view-model'
+// Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { DriverPdfService } from '../../classes/services/driver-pdf.service'
 import { DriverService } from 'src/app/features/drivers/classes/driver.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ReservationFlat } from '../../classes/view-models/reservation-flat'
+import { ReservationService } from '../../classes/services/reservation.service'
+import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
+import { ReservationToVesselComponent } from '../reservation-to-vessel/reservation-to-vessel-form.component'
+import { ReservationViewModel } from '../../classes/view-models/reservation-view-model'
 import { ShipService } from 'src/app/features/ships/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
 
 @Component({
     selector: 'reservation-list',
@@ -59,12 +59,12 @@ export class ReservationListComponent {
     public checkedPorts = true
     public checkedRoutes = true
     public checkedShips = true
-    public indeterminateCustomers: boolean
-    public indeterminateDestinations: boolean
-    public indeterminateDrivers: boolean
-    public indeterminatePorts: boolean
-    public indeterminateRoutes: boolean
-    public indeterminateShips: boolean
+    public indeterminateCustomers = false
+    public indeterminateDestinations = false
+    public indeterminateDrivers= false
+    public indeterminatePorts= false
+    public indeterminateRoutes= false
+    public indeterminateShips= false
     public queryResult = new ReservationViewModel()
     public selectedCustomers: string[] = []
     public selectedDestinations: string[] = []
