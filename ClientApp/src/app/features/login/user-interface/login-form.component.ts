@@ -1,21 +1,22 @@
-import { Component, HostListener } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
-import { UserIdleService } from 'angular-user-idle'
 import { Subject } from 'rxjs'
-import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
-import { HelperService } from 'src/app/shared/services/helper.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { Title } from '@angular/platform-browser'
+import { UserIdleService } from 'angular-user-idle'
+// Custom
 import { AccountService } from '../../../shared/services/account.service'
-import { SnackbarService } from '../../../shared/services/snackbar.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { DeviceDetectorService } from 'ngx-device-detector'
+import { HelperService } from 'src/app/shared/services/helper.service'
+import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
+import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { SnackbarService } from '../../../shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
-import { DeviceDetectorService } from 'ngx-device-detector'
 
 @Component({
     selector: 'login-form',
@@ -47,10 +48,6 @@ export class LoginFormComponent {
 
     constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private deviceDetectorService: DeviceDetectorService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userIdleService: UserIdleService) { }
 
-    @HostListener('window:resize', ['$event']) onResize(): any {
-        this.positionImage()
-    }
-
     //#region lifecycle hooks
 
     ngOnInit(): void {
@@ -60,7 +57,6 @@ export class LoginFormComponent {
     }
 
     ngAfterViewInit(): void {
-        this.positionImage()
         this.focus('username')
     }
 
@@ -147,13 +143,6 @@ export class LoginFormComponent {
             }
         }
         return 0
-    }
-
-    private positionImage(): void {
-        const width = this.isSidebarVisible('width') + (document.getElementById('content').clientWidth / 2) - 8
-        const height = (document.getElementById('content').clientHeight / 2) + (document.getElementById('top-bar').clientHeight) - document.getElementById('bottom').clientHeight
-        document.getElementById('image').style.left = width - 150 + 'px'
-        document.getElementById('image').style.top = height - 150 + 'px'
     }
 
     private setWindowTitle(): void {

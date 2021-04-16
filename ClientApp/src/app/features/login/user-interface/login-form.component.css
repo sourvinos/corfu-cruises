@@ -1,12 +1,11 @@
 #content {
+    background: url("../../../../assets/images/logos/login.svg") no-repeat center;
+    background-size: cover;
     margin: auto;
 }
 
 #image {
+    display: flex;
     opacity: 0.2;
     position: absolute;
-}
-
-img {
-    width: 300px;
 }
