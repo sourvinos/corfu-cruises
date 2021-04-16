@@ -40,10 +40,9 @@ export class boardingListComponent {
 
     //#region particular variables
 
-    private dateInISO = '2021-03-30';
+    public boardingStatus = '2'
+    private dateInISO = '2021-04-30';
     public isCriteriaExpanded = false
-    public dateIn = ''
-    // public destinationId = 0
     public portId = 2
     public shipId = 2
     public form: FormGroup
@@ -51,6 +50,8 @@ export class boardingListComponent {
     public destinations: Destination[] = []
     public ports: Port[] = []
     public ships: Ship[] = []
+    public openedServerFilters = true
+    public openedClientFilters = false
 
     //#endregion
 
@@ -67,10 +68,6 @@ export class boardingListComponent {
         this.subscribeToInteractionService()
     }
 
-    ngAfterViewInit(): void {
-        this.focus('date')
-    }
-
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
@@ -80,6 +77,10 @@ export class boardingListComponent {
     //#endregion
 
     //#region public methods
+
+    public onCloseSidenav(): void {
+        if (this.openedServerFilters) this.toggleServerFilters()
+    }
 
     public onCollapseCriteria(): void {
         this.isCriteriaExpanded = false
@@ -97,10 +98,10 @@ export class boardingListComponent {
     }
 
     public onLoadBoardings(): void {
-        this.isCriteriaExpanded = false
-        if (this.checkValidDate()) {
-            this.navigateToList()
-        }
+        // if (this.checkValidDate()) {
+        this.navigateToList()
+        this.close()
+        // }
     }
 
     //#endregion
@@ -133,10 +134,6 @@ export class boardingListComponent {
             this.dateInISO = ''
             return false
         }
-    }
-
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
     }
 
     private getLocale(): void {
@@ -176,6 +173,14 @@ export class boardingListComponent {
         this.interactionService.refreshBoardingList.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
             this.onLoadBoardings()
         })
+    }
+
+    public toggleServerFilters(): void {
+        this.openedServerFilters = !this.openedServerFilters
+    }
+
+    public close(): void {
+        if (this.openedServerFilters) this.toggleServerFilters()
     }
 
     //#endregion

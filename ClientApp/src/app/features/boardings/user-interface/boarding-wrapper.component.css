@@ -1,32 +1,44 @@
 #header {
-    align-items: flex-start;
+    align-items: center;
 }
 
-#header #navigation {
-    margin: 0.4375rem 0 0 0;
-}
-
-#header #title {
-    margin-top: 0.0625px;
-}
-
-#criteria {
+#buttons {
     margin-left: auto;
-    width: 18rem;
-}
-
-#criteria #form {
-    margin: 1.5rem
-}
-
-#criteria .mat-expansion-panel-body {
-    padding: 1rem 2rem 2rem !important;
 }
 
 #loadBoardings {
-    margin: 1rem 0 0 0 !important
+    margin-left: 0 !important;
+    width: 100%;
 }
 
 #results {
     overflow-y: auto;
+    height: 100%;
+}
+
+.mat-sidenav-container {
+    height: 100%;
+}
+
+.mat-sidenav, .mat-sidenav-content {
+    padding: 0;
+}
+
+.mat-sidenav {
+    background-color: var(--color-sidenav);
+    padding: 1rem;
+    width: 230px;
+}
+
+.mat-sidenav-content {
+    background-color: var(--color-background-secondary);
+    display: flex;
+    justify-content: flex-start;
+}
+
+#serverFilters {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
 }

@@ -1,76 +1,75 @@
 <div id="wrapper">
 
-    <div id="header">
-        <div id="filters">
-            <mat-form-field class="no-bottom-margin">
-                <input type="text" matInput placeholder="{{ onGetLabel('searchLabel') }}" [(ngModel)]="searchTerm" #query (keyup)="onFilterByLastname(query.value)" autocomplete="off">
-                <button id="clearInput" mat-button *ngIf="searchTerm" matSuffix mat-icon-button (click)="onFilterByLastname('')">
-                    <mat-icon>close</mat-icon>
-                </button>
-                <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
-            </mat-form-field>
-            <mat-form-field class="no-bottom-margin">
-                <mat-label>{{ onGetLabel('boardingStatusFilter') }}</mat-label>
-                <mat-select [(value)]="boardingStatus" (selectionChange)="onFilterByBoardingStatus()">
-                    <mat-option value=2>{{ onGetLabel('boardingStatusAll') }}</mat-option>
-                    <mat-option value=1>{{ onGetLabel('boardingStatusBoarded') }}</mat-option>
-                    <mat-option value=0>{{ onGetLabel('boardingStatusPending') }}</mat-option>
-                </mat-select>
-                <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
-            </mat-form-field>
-        </div>
-    </div>
-
     <div id="results" class="scrollable">
-        <mat-accordion class="example-headers-align" multi>
-            <mat-expansion-panel *ngFor="let record of filteredRecords.boardings" hideToggle [expanded]="true">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <div class="field horizontal">
-                            <div class="field-label">{{ onGetLabel('ticketNo') }}&nbsp;</div>
-                            <div class="field-value">{{ record.ticketNo }}</div>
-                        </div>
-                        <div class="field horizontal" id="remarks" *ngIf="onCheckRemarksLength(record.remarks)">
-                            <div class="field-value">{{ record.remarks }}</div>
-                            <img src="/assets/images/navigation/warning.svg" width="25px">
-                        </div>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="detail" *ngFor="let passenger of record.passengers">
-                    <div class="field" id="lastname">
-                        <!-- <div class="field-label">{{ onGetLabel('lastname') }}</div> -->
-                        <div class="field-value">{{ passenger.lastname }}</div>
-                    </div>
-                    <div class="field" id="firstname">
-                        <!-- <div class="field-label">{{ onGetLabel('firstname') }}</div> -->
-                        <div class="field-value">{{ passenger.firstname }}</div>
-                    </div>
-                    <div class="field isBoarded">
-                        <!-- <div class="field-label">{{ onGetLabel('isBoarded') }}</div> -->
-                        <div class="field-value">
-                            <img *ngIf="passenger.isCheckedIn" src="/assets/images/navigation/isBoarded.svg" width="20px">
-                            <img *ngIf="!passenger.isCheckedIn" src="/assets/images/navigation/isNotBoarded.svg" width="20px">
-                        </div>
-                    </div>
-                    <div class="button">
-                        <button mat-flat-button class="primary" (click)="onDoBoarding(passenger.id)">{{ onGetLabel('board') }}</button>
-                    </div>
+        <mat-sidenav-container [hasBackdrop]="false">
+            <mat-sidenav mode="over" [(opened)]="openedClientFilters" position="end">
+                <div *ngIf="openedClientFilters" id="clientFilters">
+                    <form id="form" [formGroup]="form" autocomplete="off">
+                        <mat-form-field>
+                            <input type="text" matInput placeholder="{{ onGetLabel('searchLabel') }}" autocomplete="off">
+                            <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>{{ onGetLabel('boardingStatusFilter') }}</mat-label>
+                            <mat-select [(value)]="boardingStatus" (selectionChange)="onFilterByBoardingStatus()">
+                                <mat-option value=2>{{ onGetLabel('boardingStatusAll') }}</mat-option>
+                                <mat-option value=1>{{ onGetLabel('boardingStatusBoarded') }}</mat-option>
+                                <mat-option value=0>{{ onGetLabel('boardingStatusPending') }}</mat-option>
+                            </mat-select>
+                            <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
+                        </mat-form-field>
+                    </form>
+                    <button mat-flat-button id="onFilterRecords" class="primary">Search</button>
                 </div>
-            </mat-expansion-panel>
-        </mat-accordion>
+            </mat-sidenav>
+            <mat-sidenav-content class="scrollable">
+                <mat-accordion class=" example-headers-align" multi>
+                    <mat-expansion-panel *ngFor="let record of filteredRecords.boardings" hideToggle [expanded]="true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <div class="field horizontal">
+                                    <div class="field-label">{{ onGetLabel('ticketNo') }}&nbsp;</div>
+                                    <div class="field-value">{{ record.ticketNo }}</div>
+                                </div>
+                                <div class="field horizontal" id="remarks" *ngIf="onCheckRemarksLength(record.remarks)">
+                                    <div class="field-value">{{ record.remarks }}</div>
+                                    <img src="/assets/images/navigation/warning.svg" width="25px">
+                                </div>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="detail" *ngFor="let passenger of record.passengers">
+                            <div class="field" id="lastname">
+                                <div class="field-value">{{ passenger.lastname }}</div>
+                            </div>
+                            <div class="field" id="firstname">
+                                <div class="field-value">{{ passenger.firstname }}</div>
+                            </div>
+                            <div class="field isBoarded">
+                                <div class="field-value">
+                                    <img *ngIf="passenger.isCheckedIn" src="/assets/images/navigation/isBoarded.svg" width="20px">
+                                    <img *ngIf="!passenger.isCheckedIn" src="/assets/images/navigation/isNotBoarded.svg" width="20px">
+                                </div>
+                            </div>
+                            <div class="button">
+                                <button mat-flat-button class="primary" (click)="onDoBoarding(passenger.id)">{{ onGetLabel('board') }}</button>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
     </div>
 
     <div id="footer">
-        <div id="totals">
-            <div class="selection">
-                <div class="label">{{ onGetLabel('totalPersons') }}</div>
-                <div class="sum"> {{ records.allPersons }}</div>
-                <div class="label">{{ onGetLabel('boardedPersons') }}</div>
-                <div class="sum"> {{ records.boardedPersons }}</div>
-                <div class="label">{{ onGetLabel('pandingPersons') }}</div>
-                <div class="sum"> {{ records.remainingPersons}} </div>
-            </div>
+        <div class="selection">
+            <div class="label">{{ onGetLabel('totalPersons') }}</div>
+            <div class="sum"> {{ records.allPersons }}</div>
+            <div class="label">{{ onGetLabel('boardedPersons') }}</div>
+            <div class="sum"> {{ records.boardedPersons }}</div>
+            <div class="label">{{ onGetLabel('pandingPersons') }}</div>
+            <div class="sum"> {{ records.remainingPersons}} </div>
         </div>
+        <button mat-flat-button class="primary" (click)="toggleClientFilters()">Client</button>
     </div>
 
 </div>

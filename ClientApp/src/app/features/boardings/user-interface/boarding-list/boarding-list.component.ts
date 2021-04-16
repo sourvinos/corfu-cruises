@@ -43,6 +43,7 @@ export class BoardingListComponent {
     public form: FormGroup
     public records: BoardingViewModel
     public searchTerm: string
+    public openedClientFilters = false
 
     //#endregion
 
@@ -62,10 +63,6 @@ export class BoardingListComponent {
         this.addShortcuts()
         this.getLocale()
         this.setElementVisibility('hide')
-    }
-
-    ngAfterViewInit(): void {
-        this.focus('date')
     }
 
     ngOnDestroy(): void {
@@ -196,6 +193,11 @@ export class BoardingListComponent {
         this.snackbarService.open(message, type)
     }
 
+
+    public toggleClientFilters(): void {
+        this.openedClientFilters = !this.openedClientFilters
+        console.log('Client', this.openedClientFilters)
+    }
     //#endregion
 
 }
