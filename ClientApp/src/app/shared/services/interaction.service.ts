@@ -14,6 +14,7 @@ export class InteractionService {
     private _refreshBoardingList = new Subject<any>()
     private _tableRow = new Subject()
     private _sidebarAndTopMenuVisibility = new Subject<any>()
+    private _calendarNavigation = new Subject<any>()
 
     public record = this._record.asObservable()
     public reservation = this._reservation.asObservable()
@@ -22,6 +23,8 @@ export class InteractionService {
     public refreshBoardingList = this._refreshBoardingList.asObservable()
     public tableRow = this._tableRow.asObservable()
     public sidebarAndTopMenuVisibility = this._sidebarAndTopMenuVisibility.asObservable()
+    public calendarNavigation = this._calendarNavigation.asObservable()
+
 
     //#endregion
 
@@ -123,8 +126,13 @@ export class InteractionService {
         this._refreshBoardingList.next()
     }
 
-    public setSidebarAndTopLogoVisibility(action): void {
+    public setSidebarAndTopLogoVisibility(action: string): void {
         this._sidebarAndTopMenuVisibility.next(action)
+    }
+
+    public changeCalendarMonth(month: any): void {
+        console.log('Service:', month)
+        this._calendarNavigation.next(month)
     }
 
     //#endregion

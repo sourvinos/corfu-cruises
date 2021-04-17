@@ -1,12 +1,14 @@
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
+import { takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { Destination } from '../../destinations/classes/destination'
 import { DestinationService } from '../../destinations/classes/destination.service'
 import { FormGroup } from '@angular/forms'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { Port } from '../../ports/classes/port'
@@ -49,7 +51,7 @@ export class ScheduleWrapperComponent {
 
     //#endregion
 
-    constructor(private buttonClickService: ButtonClickService, private destinationService: DestinationService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private portService: PortService, private reservationService: ReservationService, private scheduleService: ScheduleService, private titleService: Title) { }
+    constructor(private buttonClickService: ButtonClickService, private destinationService: DestinationService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private portService: PortService, private reservationService: ReservationService, private scheduleService: ScheduleService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -57,6 +59,7 @@ export class ScheduleWrapperComponent {
         this.setWindowTitle()
         this.addShortcuts()
         this.populateDropDowns()
+        this.subscribeToInteractionService()
     }
 
     ngOnDestroy(): void {
@@ -295,6 +298,14 @@ export class ScheduleWrapperComponent {
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.calendarNavigation.pipe(takeUntil(this.ngUnsubscribe)).subscribe((month) => {
+            console.log('Loading...', month)
+            this.onLoadSchedule()
+        })
+    }
+
 
     //#endregion
 

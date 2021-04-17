@@ -1,5 +1,7 @@
 import { Component } from "@angular/core"
 import moment, { utc } from 'moment'
+// Custom
+import { InteractionService } from './../../../shared/services/interaction.service'
 
 @Component({
     selector: 'calendar',
@@ -19,7 +21,12 @@ export class CalendarComponent {
 
     // #endregion 
 
-    //#region  lifecycle hooks
+    /**
+     *
+     */
+    constructor(private interactionService: InteractionService) { }
+
+    //#region lifecycle hooks
 
     ngOnInit(): void {
         this.getDaysFromDate(moment().month() + 1, moment().year())
@@ -33,15 +40,17 @@ export class CalendarComponent {
         if (flag < 0) {
             const prevDate = this.dateSelect.clone().subtract(1, "month")
             this.getDaysFromDate(prevDate.format("MM"), prevDate.format("YYYY"))
+            this.interactionService.changeCalendarMonth('previous')
         } else {
             const nextDate = this.dateSelect.clone().add(1, "month")
             this.getDaysFromDate(nextDate.format("MM"), nextDate.format("YYYY"))
+            this.interactionService.changeCalendarMonth(nextDate.month())
         }
     }
 
     public getISODate(day: string): any {
-        const me = day.toString().length == 2 ? day : '0' + day
-        return moment(this.startDate).format('YYYY-MM-') + me
+        const x = day.toString().length == 2 ? day : '0' + day
+        return moment(this.startDate).format('YYYY-MM-') + x
     }
 
     //#endregion
