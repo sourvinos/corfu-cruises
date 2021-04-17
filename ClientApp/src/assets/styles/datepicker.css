@@ -52,7 +52,7 @@
 .mat-calendar-body-cell-content {
     color: var(--color-button-text);
     flex-direction: column;
-    font-family: var(--font-family-calendar-date);
+    font-family: var(--font-family-datepicker);
     font-size: var(--font-size-calendar-date);
 }
 

@@ -224,3 +224,12 @@ p.instructions {
 .mat-progress-spinner circle, .mat-spinner circle {
     stroke: var(--color-spinner) !important;
 }
+
+.has-data {
+    align-items: center;
+    color: var(--color-text-primary);
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family-calendar-date);
+    justify-content: center;
+}

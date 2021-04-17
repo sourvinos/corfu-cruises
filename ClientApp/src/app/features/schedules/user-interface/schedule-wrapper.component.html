@@ -10,30 +10,34 @@
             <h1>{{ onGetLabel('header') }}</h1>
         </div>
         <div id="search-box">
-            <mat-form-field>
+            <mat-form-field class="no-bottom-margin">
                 <mat-label>{{ onGetLabel('searchLabelDestination') }}</mat-label>
-                <mat-select [(value)]="destinationId" (selectionChange)="gotoWrapperUrl()">
+                <mat-select [(value)]="destinationId">
                     <mat-option *ngFor="let destination of destinations" [value]="destination.id">
                         {{ destination.description }}
                     </mat-option>
                 </mat-select>
                 <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="no-bottom-margin">
                 <mat-label>{{ onGetLabel('searchLabelPort') }}</mat-label>
-                <mat-select [(value)]="portId" (selectionChange)="gotoWrapperUrl()">
+                <mat-select [(value)]="portId">
                     <mat-option *ngFor="let port of ports" [value]="port.id">
                         {{ port.description }}
                     </mat-option>
                 </mat-select>
                 <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
             </mat-form-field>
-            <button mat-flat-button id="search" class="primary" (click)="onLoadSchedules()">{{ onGetLabel('searchButton') }}</button>
+            <button mat-flat-button id="search" class="primary" (click)="onLoadSchedule()">{{ onGetLabel('searchButton') }}</button>
         </div>
     </div>
 
-    <div id="calendar-content">
-        <router-outlet></router-outlet>
+    <calendar></calendar>
+
+    <div id="footer">
+        <div @slideFromRight id="buttons">
+            <button mat-flat-button class="primary" id="new">New</button>
+        </div>
     </div>
 
 </div>

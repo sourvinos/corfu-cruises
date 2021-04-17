@@ -1,3 +1,8 @@
+#header #search-box #form {
+    align-items: center;
+    display: flex;
+}
+
 #header #search-box .mat-form-field {
     width: 12rem !important;
 }

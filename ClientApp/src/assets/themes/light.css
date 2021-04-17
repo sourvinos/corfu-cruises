@@ -54,9 +54,8 @@
     /* Border of clickable items */
     --color-border-active: #426f8a;
     --color-border-inactive: #d5dee2;
-    /* Datepicker and calendar */
+    /* Datepicker */
     --color-datepicker-month: #FFE85C;
-    --color-occupancy-label: #EDEDED;
     --color-datepicker-days: #EDEDED;
     /* Boarding list */
     --color-expansion-header: #EFEFEF;

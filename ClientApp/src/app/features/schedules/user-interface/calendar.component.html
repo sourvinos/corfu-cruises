@@ -1,0 +1,18 @@
+<div id="calendar">
+
+    <div id="header-calendar">
+        <span class="material-icons" (click)="changeMonth(-1)">chevron_left</span>
+        <h2>{{ dateSelect | date:'MMMM yyyy' }}</h2>
+        <span class="material-icons" (click)="changeMonth(1)">chevron_right</span>
+    </div>
+
+    <div id="wrapper-calendar">
+        <ol>
+            <li *ngFor="let day of week" class="day-name">{{day | slice:0:3}}</li>
+            <li class="days" [attr.data-message-id]="getISODate(day?.value)" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'" *ngFor="let day of monthSelect;let first = first">
+                <span>{{day?.value}}</span>
+            </li>
+        </ol>
+    </div>
+
+</div>

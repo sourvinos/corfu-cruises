@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "echo starting... && ng serve",
+        "start": "ng serve",
         "build": "ng build",
         "lint": "eslint ./",
         "e2e": "cypress open"
