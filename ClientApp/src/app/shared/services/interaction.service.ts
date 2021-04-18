@@ -131,7 +131,7 @@ export class InteractionService {
     }
 
     public changeCalendarMonth(month: any): void {
-        console.log('Service:', month)
+        // console.log('Service:', month)
         this._calendarNavigation.next(month)
     }
 

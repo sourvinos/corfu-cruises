@@ -14,22 +14,19 @@ export class CalendarComponent {
     // #region variables
 
     public dateSelect: any
-    public dateValue: any
     public monthSelect: any[]
     public startDate: any
     public week: any = ["ΔΕΥ", "ΤΡΙ", "ΤΕΤ", "ΠΕΜ", "ΠΑΡ", "ΣΑΒ", "ΚΥΡ"]
 
     // #endregion 
 
-    /**
-     *
-     */
     constructor(private interactionService: InteractionService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.getDaysFromDate(moment().month() + 1, moment().year())
+        this.interactionService.changeCalendarMonth(moment().month() + 1)
     }
 
     //#endregion 
@@ -37,21 +34,12 @@ export class CalendarComponent {
     //#region public methods
 
     public changeMonth(flag: number): void {
-        if (flag < 0) {
-            const prevDate = this.dateSelect.clone().subtract(1, "month")
-            this.getDaysFromDate(prevDate.format("MM"), prevDate.format("YYYY"))
-            this.interactionService.changeCalendarMonth('previous')
-        } else {
-            const nextDate = this.dateSelect.clone().add(1, "month")
-            this.getDaysFromDate(nextDate.format("MM"), nextDate.format("YYYY"))
-            this.interactionService.changeCalendarMonth(nextDate.month())
-        }
+        this.navigateToMonth(flag)
     }
 
-    public getISODate(day: string): any {
-        const x = day.toString().length == 2 ? day : '0' + day
-        return moment(this.startDate).format('YYYY-MM-') + x
-    }
+    // public getISODate(day: string): any {
+    //     return moment(this.startDate).format('YYYY-MM-') + (day.toString().length == 2 ? day : '0' + day)
+    // }
 
     //#endregion
 
@@ -73,6 +61,18 @@ export class CalendarComponent {
             }
         })
         this.monthSelect = arrayDays
+    }
+
+    private navigateToMonth(flag: number): void {
+        if (flag < 0) {
+            const prevDate = this.dateSelect.clone().subtract(1, "month")
+            this.getDaysFromDate(prevDate.format("MM"), prevDate.format("YYYY"))
+            this.interactionService.changeCalendarMonth(prevDate.month() + 1)
+        } else {
+            const nextDate = this.dateSelect.clone().add(1, "month")
+            this.getDaysFromDate(nextDate.format("MM"), nextDate.format("YYYY"))
+            this.interactionService.changeCalendarMonth(nextDate.month() + 1)
+        }
     }
 
     //#endregion

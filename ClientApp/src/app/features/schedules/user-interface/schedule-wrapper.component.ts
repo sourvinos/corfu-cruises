@@ -17,6 +17,7 @@ import { ReservationService } from './../../reservations/classes/services/reserv
 import { ScheduleService } from './../classes/schedule.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import moment from 'moment'
 
 @Component({
     selector: 'schedule-wrapper',
@@ -48,6 +49,7 @@ export class ScheduleWrapperComponent {
     public form: FormGroup
     public portId = ''
     public ports: Port[] = []
+    public displayedMonth = ''
 
     //#endregion
 
@@ -76,22 +78,16 @@ export class ScheduleWrapperComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onLoadSchedule(): void {
+    public onLoadSchedule(month: string): void {
         this.scheduleService.getForDestination(parseInt(this.destinationId)).then(result => {
-            console.log('Schedule', result)
             this.populateScheduleDays(result)
             this.reservationService.getByDate(parseInt(this.destinationId)).then(result => {
-                console.log('Reservations', result)
                 this.populateReservations(result)
-                this.onCreateCalendar()
+                this.createCalendar(month)
                 this.markDaysOnCalendar()
             })
         })
 
-    }
-
-    public gotoWrapperUrl(): void {
-        // this.router.navigate([this.baseUrl])
     }
 
     //#endregion
@@ -127,6 +123,62 @@ export class ScheduleWrapperComponent {
         }
     }
 
+    private calculateMonth(month: string): string {
+        let x = month
+        if (x == undefined) {
+            alert('x is undefined')
+            x = '0' + (moment().month() + 1).toString()
+            if (x.length == 2) {
+                return x
+            } else {
+                return x.substring(1, x.length)
+            }
+        } else {
+            x = '0' + month
+            if (x.length == 2) {
+                return x
+            } else {
+                return x.substring(1, x.length)
+            }
+        }
+    }
+
+    private clearCalendarData(): void {
+        const elements = document.getElementsByClassName('has-data')
+        while (elements.length > 0) {
+            elements[0].parentNode.removeChild(elements[0])
+        }
+    }
+
+    private async createCalendar(month: string): Promise<void> {
+        this.daysISO = []
+        this.calendarData = []
+        this.clearCalendarData()
+        const domElements = Array.from(document.querySelectorAll<HTMLDivElement>('.days'))
+        domElements.forEach(dayElement => {
+            const dayText = dayElement.innerText.length == 2 ? dayElement.innerText : '0' + dayElement.innerText
+            const dayTextISO = moment().year() + '-' + this.calculateMonth(month) + '-' + dayText
+            this.daysISO.push(dayTextISO)
+            dayElement.parentElement.classList.remove('green', 'yellow', 'orange', 'red', 'dark-red')
+        })
+        let isDayProcessed = false
+        this.schedules.forEach(schedule => {
+            isDayProcessed = false
+            this.daysISO.forEach(day => {
+                if (schedule.date == day && schedule.portId == this.portId && !isDayProcessed) {
+                    isDayProcessed = true
+                    const reservations = this.reservations.filter(x => x.date == day)
+                    if (reservations.length > 0) {
+                        if (this.portId == '2') { this.doPrimaryPortJobs(reservations[0], day) }
+                        if (this.portId == '3') { this.doSecondaryPortJobs(reservations[0], day) }
+                    } else {
+                        this.doNoReservationJobs(day)
+                    }
+                }
+            })
+        })
+    }
+
     private doPrimaryPortJobs(reservation: any, day: any): void {
         const primaryPortReservations = this.findReservation(reservation, day, 2) // Find the reservations for the primary port
         const secondaryPortReservations = this.findReservation(reservation, day, 3) // Find the reservations for the secondary port
@@ -143,7 +195,6 @@ export class ScheduleWrapperComponent {
             'maxPersons': maxPersonsForPrimaryPort[0].maxPersons,
             'available': availableForPrimaryPort
         })
-        console.log(day, 'Primary:', 'Max', maxPersonsForPrimaryPort[0].maxPersons, 'Reservations', primaryPortReservations[0].persons, 'Available', availableForPrimaryPort)
     }
 
     private doSecondaryPortJobs(reservation: any, day: any): void {
@@ -159,7 +210,6 @@ export class ScheduleWrapperComponent {
             'maxPersons': maxPersonsForBothPorts,
             'available': availableSeatsForSecondaryPort
         })
-        console.log(day, 'Secondary:', 'Max', maxPersonsForBothPorts, 'Reservations', secondaryPortReservations[0].persons, 'Reservations both', reservationsForBothPort, 'Available', availableSeatsForSecondaryPort)
     }
 
     private doNoReservationJobs(day: any): void {
@@ -172,7 +222,6 @@ export class ScheduleWrapperComponent {
                 'maxPersons': maxPersonsForPrimaryPort[0].maxPersons,
                 'available': maxPersonsForPrimaryPort[0].maxPersons
             })
-            console.log(day, 'Primary:', 'Max', maxPersonsForPrimaryPort[0].maxPersons, 'Reservations', 0, 'Available', maxPersonsForPrimaryPort[0].maxPersons)
         }
         if (this.portId == '3') {
             this.calendarData.push({
@@ -180,7 +229,6 @@ export class ScheduleWrapperComponent {
                 'maxPersons': maxPersonsForBothPorts,
                 'available': maxPersonsForBothPorts
             })
-            console.log(day, 'Secondary:', 'Max', maxPersonsForBothPorts, 'Reservations both', 0, 'Available', maxPersonsForBothPorts)
         }
 
     }
@@ -234,41 +282,13 @@ export class ScheduleWrapperComponent {
                 if (available.date == day) {
                     const me = parseInt(available.date.substring(8, 10)).toString()
                     for (let i = 0; i < domElements.length; i++) {
-                        if (domElements[i].textContent.trim() == me) {
-                            const customContent = document.createElement("li")
+                        if (domElements[i].childNodes[0].textContent.trim() == me) {
+                            const customContent = document.createElement("span")
                             customContent.classList.add('has-data')
                             customContent.innerHTML = '<div class="dateWithSchedule">' + me + '</div>' + '<div class="availableSeats">' + available.available + '</div>'
-                            domElements[i].parentNode.replaceChild(customContent, domElements[i])
-                            // customContent.classList.add(this.colorizeDays(available))
+                            domElements[i].childNodes[0].parentNode.appendChild(customContent)
                             break
                         }
-                    }
-                }
-            })
-        })
-    }
-
-    public async onCreateCalendar(): Promise<void> {
-        const domElement = Array.from(document.querySelectorAll<HTMLDivElement>('.days'))
-        domElement.forEach(dayElement => {
-            const dayText = dayElement.innerText.length == 2 ? dayElement.innerText : '0' + dayElement.innerText
-            const dayTextISO = '2021-04-' + dayText
-            this.daysISO.push(dayTextISO)
-            dayElement.parentElement.classList.remove('green', 'yellow', 'orange', 'red', 'dark-red')
-        })
-        console.log('ISO dates', this.daysISO)
-        let isDayProcessed = false
-        this.schedules.forEach(schedule => {
-            isDayProcessed = false
-            this.daysISO.forEach(day => {
-                if (schedule.date == day && schedule.portId == this.portId && !isDayProcessed) {
-                    isDayProcessed = true
-                    const reservations = this.reservations.filter(x => x.date == day)
-                    if (reservations.length > 0) {
-                        if (this.portId == '2') { this.doPrimaryPortJobs(reservations[0], day) }
-                        if (this.portId == '3') { this.doSecondaryPortJobs(reservations[0], day) }
-                    } else {
-                        this.doNoReservationJobs(day)
                     }
                 }
             })
@@ -301,11 +321,10 @@ export class ScheduleWrapperComponent {
 
     private subscribeToInteractionService(): void {
         this.interactionService.calendarNavigation.pipe(takeUntil(this.ngUnsubscribe)).subscribe((month) => {
-            console.log('Loading...', month)
-            this.onLoadSchedule()
+            this.displayedMonth = month
+            this.onLoadSchedule(month)
         })
     }
-
 
     //#endregion
 
