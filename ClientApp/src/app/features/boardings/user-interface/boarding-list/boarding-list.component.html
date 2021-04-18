@@ -4,22 +4,30 @@
         <mat-sidenav-container [hasBackdrop]="false">
             <mat-sidenav mode="over" [(opened)]="openedClientFilters" position="end">
                 <div *ngIf="openedClientFilters" id="clientFilters">
-                    <form id="form" [formGroup]="form" autocomplete="off">
-                        <mat-form-field>
-                            <input type="text" matInput placeholder="{{ onGetLabel('searchLabel') }}" [(ngModel)]="searchTerm" #query (keyup)="onFilterByLastname(query.value)" autocomplete="off">
-                            <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>{{ onGetLabel('boardingStatusFilter') }}</mat-label>
-                            <mat-select [(value)]="boardingStatus" (selectionChange)="onFilterByBoardingStatus()">
-                                <mat-option value=2>{{ onGetLabel('boardingStatusAll') }}</mat-option>
-                                <mat-option value=1>{{ onGetLabel('boardingStatusBoarded') }}</mat-option>
-                                <mat-option value=0>{{ onGetLabel('boardingStatusPending') }}</mat-option>
-                            </mat-select>
-                            <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
-                        </mat-form-field>
-                    </form>
-                    <button mat-flat-button id="onFilterRecords" class="primary">Search</button>
+                    <mat-form-field>
+                        <input type="text" matInput placeholder="{{ onGetLabel('searchLabel') }}" [(ngModel)]="searchTerm" #query (keyup)="onFilterByLastname(query.value)" autocomplete="off">
+                        <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
+                    </mat-form-field>
+                    <div>
+                        <mat-label>{{ onGetLabel('boardingStatusFilter') }}</mat-label>
+                        <mat-select [(value)]="boardingStatus">
+                            <mat-option value=2>{{ onGetLabel('boardingStatusAll') }}</mat-option>
+                            <mat-option value=1>{{ onGetLabel('boardingStatusBoarded') }}</mat-option>
+                            <mat-option value=0>{{ onGetLabel('boardingStatusPending') }}</mat-option>
+                        </mat-select>
+                        <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
+                    </div>
+                    <div>
+                        <div class="summaryHeader">
+                            {{ onGetLabel('driverFilter') }}
+                        </div>
+                        <div class="summaryContent scrollable">
+                            <div *ngFor="let driver of records.drivers">
+                                <div class="description">{{ driver.description }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button mat-flat-button id="onFilterRecords" class="primary" (click)="onFilter()">Search</button>
                 </div>
             </mat-sidenav>
             <mat-sidenav-content class="scrollable">
@@ -30,6 +38,10 @@
                                 <div class="field horizontal">
                                     <div class="field-label">{{ onGetLabel('ticketNo') }}&nbsp;</div>
                                     <div class="field-value">{{ record.ticketNo }}</div>
+                                </div>
+                                <div class="field horizontal">
+                                    <div class="field-label">{{ onGetLabel('driver') }}&nbsp;</div>
+                                    <div class="field-value">{{ record.driver }}</div>
                                 </div>
                                 <div class="field horizontal" id="remarks" *ngIf="onCheckRemarksLength(record.remarks)">
                                     <div class="field-value">{{ record.remarks }}</div>

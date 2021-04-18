@@ -16,21 +16,23 @@ namespace CorfuCruises {
         }
 
         public async Task<BoardingMainResultResource<BoardingResource>> Get(string date, int destinationId, int portId, int shipId) {
-            // DateTime _date = Convert.ToDateTime(date);
             var reservations = await context.Reservations
+                .Include(x => x.Driver)
                 .Include(x => x.Passengers)
                 .Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId)
                 .ToListAsync();
             int count = reservations.SelectMany(c => c.Passengers).Count();
             int countBoarded = reservations.SelectMany(c => c.Passengers).Where(x => x.IsCheckedIn).Count();
             int countRemain = count - countBoarded;
-            var MainResult = new BoardingMainResult<Reservation> {
+            var groupPerDriver = context.Reservations.Include(x => x.Driver).Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId).GroupBy(x => new { x.Driver.Description }).Select(x => new Driver { Description = x.Key.Description }).OrderBy(o => o.Description);
+            var mainResult = new BoardingMainResult<Reservation> {
                 AllPersons = count,
                 BoardedPersons = countBoarded,
                 RemainingPersons = countRemain,
+                Drivers = groupPerDriver.ToList(),
                 Boardings = reservations.ToList()
             };
-            return mapper.Map<BoardingMainResult<Reservation>, BoardingMainResultResource<BoardingResource>>(MainResult);
+            return mapper.Map<BoardingMainResult<Reservation>, BoardingMainResultResource<BoardingResource>>(mainResult);
         }
 
         public bool DoBoarding(int id) {

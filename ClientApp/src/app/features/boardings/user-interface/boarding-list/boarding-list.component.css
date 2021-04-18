@@ -61,6 +61,11 @@
     flex-direction: row;
 }
 
+.horizontal:not(:last-child) {
+    margin-right: 1rem;
+    width: 10rem;
+}
+
 .horizontal .field-label {
     margin-bottom: 0;
 }

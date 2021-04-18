@@ -38,6 +38,7 @@ export class BoardingListComponent {
 
     //#region particular variables
 
+    private lookupDriver = 'STAMATIS'
     public boardingStatus = '2'
     public filteredRecords: BoardingViewModel
     public form: FormGroup
@@ -87,18 +88,14 @@ export class BoardingListComponent {
         })
     }
 
-    public onFilterByBoardingStatus(): void {
+    public onFilter(): void {
         this.filteredRecords.boardings = []
-        this.records.boardings.forEach((record) => {
-            const detail = record.passengers
-            detail.forEach((element) => {
-                if (!this.filteredRecords.boardings.find(({ ticketNo }) => ticketNo === record.ticketNo)) {
-                    if (this.determineBoardingStatus(element.isCheckedIn) == this.boardingStatus || this.boardingStatus == '2') {
-                        this.filteredRecords.boardings.push(record)
-                    }
-                }
-            })
-        })
+        // this.records.boardings.forEach((record) => {
+        if (this.records.boardings.find(({ driver }) => driver === this.lookupDriver)) {
+            // this.filteredRecords.boardings.push(this.records.boardings)
+            console.log(this.lookupDriver)
+        }
+        // })
     }
 
     public onFilterByLastname(query: string): void {
@@ -170,6 +167,7 @@ export class BoardingListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
+            console.log(this.records)
             this.filteredRecords = Object.assign([], this.records)
         } else {
             this.onGoBack()
