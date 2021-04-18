@@ -25,10 +25,12 @@
 }
 
 .activeItem {
+    border: 0 !important;
     border-bottom: 5px solid var(--color-border-active) !important;
 }
 
 .selectable {
+    border: 0;
     border-bottom: 5px solid var(--color-border-inactive);
     color: var(--color-text-primary);
     display: flex;

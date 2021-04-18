@@ -37,10 +37,6 @@ export class CalendarComponent {
         this.navigateToMonth(flag)
     }
 
-    // public getISODate(day: string): any {
-    //     return moment(this.startDate).format('YYYY-MM-') + (day.toString().length == 2 ? day : '0' + day)
-    // }
-
     //#endregion
 
     //#region private methods

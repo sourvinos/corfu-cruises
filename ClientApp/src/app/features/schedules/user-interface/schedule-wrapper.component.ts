@@ -18,6 +18,8 @@ import { ScheduleService } from './../classes/schedule.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import moment from 'moment'
+import { MatDialog } from '@angular/material/dialog'
+import { ScheduleCreateFormComponent } from './schedule-create-form.component'
 
 @Component({
     selector: 'schedule-wrapper',
@@ -43,17 +45,17 @@ export class ScheduleWrapperComponent {
     private daysISO = []
     private reservations = []
     private schedules = []
-    public destinationId = ''
+    public destinationId = 0
     public destinations: Destination[] = []
+    public displayedMonth = ''
     public environment = environment.production
     public form: FormGroup
-    public portId = ''
+    public portId = 0
     public ports: Port[] = []
-    public displayedMonth = ''
 
     //#endregion
 
-    constructor(private buttonClickService: ButtonClickService, private destinationService: DestinationService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private portService: PortService, private reservationService: ReservationService, private scheduleService: ScheduleService, private titleService: Title) { }
+    constructor(private buttonClickService: ButtonClickService, private destinationService: DestinationService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private portService: PortService, private reservationService: ReservationService, private scheduleService: ScheduleService, private titleService: Title, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
@@ -79,15 +81,20 @@ export class ScheduleWrapperComponent {
     }
 
     public onLoadSchedule(month: string): void {
-        this.scheduleService.getForDestination(parseInt(this.destinationId)).then(result => {
+        this.scheduleService.getForDestination(this.destinationId).then(result => {
             this.populateScheduleDays(result)
-            this.reservationService.getByDate(parseInt(this.destinationId)).then(result => {
+            this.reservationService.getByDate(this.destinationId).then(result => {
                 this.populateReservations(result)
                 this.createCalendar(month)
                 this.markDaysOnCalendar()
+                this.hideDaysWithData()
             })
         })
 
+    }
+
+    public onNew(): void {
+        this.openDialog()
     }
 
     //#endregion
@@ -150,16 +157,34 @@ export class ScheduleWrapperComponent {
         }
     }
 
+    private colorizeDays(data: { available: number; maxPersons: number }): string {
+        const percentEmpty = (100 * data.available / data.maxPersons)
+        switch (true) {
+            case (percentEmpty) == 0:
+                return 'dark-red'
+            case (percentEmpty <= 10):
+                return 'red'
+            case (percentEmpty > 10 && percentEmpty <= 40):
+                return 'orange'
+            case (percentEmpty > 40 && percentEmpty <= 50):
+                return 'yellow'
+            case (percentEmpty > 50):
+                return 'green'
+            default:
+                return 'none'
+        }
+    }
     private async createCalendar(month: string): Promise<void> {
         this.daysISO = []
         this.calendarData = []
+        this.showDaysWithData()
         this.clearCalendarData()
         const domElements = Array.from(document.querySelectorAll<HTMLDivElement>('.days'))
         domElements.forEach(dayElement => {
             const dayText = dayElement.innerText.length == 2 ? dayElement.innerText : '0' + dayElement.innerText
             const dayTextISO = moment().year() + '-' + this.calculateMonth(month) + '-' + dayText
             this.daysISO.push(dayTextISO)
-            dayElement.parentElement.classList.remove('green', 'yellow', 'orange', 'red', 'dark-red')
+            dayElement.classList.remove('green', 'yellow', 'orange', 'red', 'dark-red')
         })
         let isDayProcessed = false
         this.schedules.forEach(schedule => {
@@ -169,8 +194,8 @@ export class ScheduleWrapperComponent {
                     isDayProcessed = true
                     const reservations = this.reservations.filter(x => x.date == day)
                     if (reservations.length > 0) {
-                        if (this.portId == '2') { this.doPrimaryPortJobs(reservations[0], day) }
-                        if (this.portId == '3') { this.doSecondaryPortJobs(reservations[0], day) }
+                        if (this.portId == 2) { this.doPrimaryPortJobs(reservations[0], day) }
+                        if (this.portId == 3) { this.doSecondaryPortJobs(reservations[0], day) }
                     } else {
                         this.doNoReservationJobs(day)
                     }
@@ -216,14 +241,14 @@ export class ScheduleWrapperComponent {
         const maxPersonsForPrimaryPort = this.findSchedule(day, 2) // Find the max persons for the primary port
         const maxPersonsForSecondaryPort = this.findSchedule(day, 3) // Find the max persons for the secondary port
         const maxPersonsForBothPorts = maxPersonsForPrimaryPort[0].maxPersons + maxPersonsForSecondaryPort[0].maxPersons // Calculate the max persons for both ports
-        if (this.portId == '2') {
+        if (this.portId == 2) {
             this.calendarData.push({
                 'date': day,
                 'maxPersons': maxPersonsForPrimaryPort[0].maxPersons,
                 'available': maxPersonsForPrimaryPort[0].maxPersons
             })
         }
-        if (this.portId == '3') {
+        if (this.portId == 3) {
             this.calendarData.push({
                 'date': day,
                 'maxPersons': maxPersonsForBothPorts,
@@ -275,6 +300,21 @@ export class ScheduleWrapperComponent {
         }
     }
 
+    private getAnyDescription(id: number, array: { id: any; description: string }[]): string {
+        let description = ''
+        array.forEach((element: { id: any; description: string }) => {
+            if (element.id == id) { description = element.description }
+        })
+        return description
+    }
+
+    private hideDaysWithData(): void {
+        const domElements = Array.from(document.querySelectorAll<HTMLSpanElement>('.has-data'))
+        domElements.forEach(element => {
+            element.previousElementSibling.setAttribute("style", "display: none;")
+        })
+    }
+
     private markDaysOnCalendar(): void {
         const domElements = Array.from(document.querySelectorAll<HTMLDivElement>('.days'))
         this.calendarData.forEach(available => {
@@ -287,11 +327,24 @@ export class ScheduleWrapperComponent {
                             customContent.classList.add('has-data')
                             customContent.innerHTML = '<div class="dateWithSchedule">' + me + '</div>' + '<div class="availableSeats">' + available.available + '</div>'
                             domElements[i].childNodes[0].parentNode.appendChild(customContent)
+                            domElements[i].classList.add(this.colorizeDays(available))
                             break
                         }
                     }
                 }
             })
+        })
+    }
+
+    private openDialog(): void {
+        this.dialog.open(ScheduleCreateFormComponent, {
+            width: '500px',
+            data: {
+                destinationId: this.destinationId,
+                destinationDescription: this.getAnyDescription(this.destinationId, this.destinations),
+                portId: this.portId,
+                portDescription: this.getAnyDescription(this.portId, this.ports)
+            }
         })
     }
 
@@ -319,6 +372,13 @@ export class ScheduleWrapperComponent {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
 
+    private showDaysWithData(): void {
+        const domElements = Array.from(document.querySelectorAll<HTMLSpanElement>('.has-data'))
+        domElements.forEach(element => {
+            element.previousElementSibling.setAttribute("style", "display: block;")
+        })
+    }
+
     private subscribeToInteractionService(): void {
         this.interactionService.calendarNavigation.pipe(takeUntil(this.ngUnsubscribe)).subscribe((month) => {
             this.displayedMonth = month
@@ -329,4 +389,3 @@ export class ScheduleWrapperComponent {
     //#endregion
 
 }
-

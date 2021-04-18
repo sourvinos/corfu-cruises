@@ -156,24 +156,28 @@ p.instructions {
     color: black !important;
 }
 
+.none {
+    background: none;
+}
+
 .green {
-    background-color: #339900;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(51, 153, 0, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
 }
 
 .yellow {
-    background-color: #bfa126;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(191, 160, 38, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
 }
 
 .orange {
-    background-color: #ff8000;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 128, 0, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
 }
 
 .red {
-    background-color: #cc3300;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(204, 51, 0, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
 }
 
 .dark-red {
-    background-color: #5f2908;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(95, 41, 8, 0.50) 50%, rgba(255, 255, 255, 0) 100%);
 }
 
 .mat-calendar-controls {
@@ -227,9 +231,11 @@ p.instructions {
 
 .has-data {
     align-items: center;
+    border-radius: 50px;
     color: var(--color-text-primary);
     display: flex;
     flex-direction: column;
     font-family: var(--font-family-calendar-date);
     justify-content: center;
+    padding: 1rem;
 }
