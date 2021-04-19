@@ -1,7 +1,7 @@
 <div id="wrapper">
 
     <div id="results" class="scrollable">
-        <mat-sidenav-container [hasBackdrop]="false">
+        <mat-sidenav-container [hasBackdrop]="true">
             <mat-sidenav mode="over" [(opened)]="openedClientFilters" position="end">
                 <div *ngIf="openedClientFilters" id="clientFilters">
                     <!-- Ticket number -->
@@ -51,15 +51,15 @@
                                 <div class="field horizontal">
                                     <div class="field-label">Ατομα:&nbsp;</div>
                                     <div class="field-value">{{ record.totalPersons }}&nbsp;</div>
-                                    <ng-template [ngIf]="personsAreNotMissing(record)">
-                                        <img src="/assets/images/navigation/isBoarded.svg" width="20px">
-                                    </ng-template>
-                                    <ng-template [ngIf]="!personsAreNotMissing(record)">
-                                        <img src="/assets/images/navigation/isNotBoarded.svg" width="20px">
-                                        <div class="field-label">&nbsp;Λειπουν:&nbsp;</div>
-                                        <div class="field-value">{{ record.totalPersons - record.passengers.length }}&nbsp;</div>
-                                    </ng-template>
                                 </div>
+                                <ng-template [ngIf]="personsAreNotMissing(record)">
+                                    <img src="/assets/images/navigation/isBoarded.svg" width="20px">
+                                </ng-template>
+                                <ng-template [ngIf]="!personsAreNotMissing(record)">
+                                    <img src="/assets/images/navigation/danger.svg" width="20px">
+                                    <div class="field-label">&nbsp;Λειπουν:&nbsp;</div>
+                                    <div class="field-value">{{ record.totalPersons - record.passengers.length }}&nbsp;</div>
+                                </ng-template>
                                 <div class="field horizontal" id="remarks" *ngIf="onCheckRemarksLength(record.remarks)">
                                     <div class="field-value">{{ record.remarks }}</div>
                                     <img src="/assets/images/navigation/warning.svg" width="25px">
@@ -67,17 +67,17 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <div class="detail" *ngFor="let passenger of record.passengers">
+                            <div class="field">
+                                <div class="field-value">
+                                    <img *ngIf="passenger.isCheckedIn" src="/assets/images/navigation/isBoarded.svg" width="20px">
+                                    <img *ngIf="!passenger.isCheckedIn" src="/assets/images/navigation/isNotBoarded.svg" width="20px">
+                                </div>
+                            </div>
                             <div class="field" id="lastname">
                                 <div class="field-value">{{ passenger.lastname }}</div>
                             </div>
                             <div class="field" id="firstname">
                                 <div class="field-value">{{ passenger.firstname }}</div>
-                            </div>
-                            <div class="field isBoarded">
-                                <div class="field-value">
-                                    <img *ngIf="passenger.isCheckedIn" src="/assets/images/navigation/isBoarded.svg" width="20px">
-                                    <img *ngIf="!passenger.isCheckedIn" src="/assets/images/navigation/isNotBoarded.svg" width="20px">
-                                </div>
                             </div>
                             <div class="button">
                                 <button mat-flat-button class="primary" (click)="onDoBoarding(passenger.id)">{{ onGetLabel('board') }}</button>

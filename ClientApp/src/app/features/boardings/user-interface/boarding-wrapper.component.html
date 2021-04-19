@@ -10,12 +10,17 @@
             <h1>{{ onGetLabel('header')}}</h1>
         </div>
         <div id="buttons">
-            <button mat-flat-button class="secondary" [disabled]="openedServerFilters" (click)="toggleServerFilters()">Server</button>
+            <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+                
+              </button>
+            <button mat-flat-button class="secondary" [disabled]="openedServerFilters" (click)="toggleServerFilters()">
+                <mat-icon></mat-icon>
+            </button>
         </div>
     </div>
 
     <div id="results">
-        <mat-sidenav-container [hasBackdrop]="false">
+        <mat-sidenav-container [hasBackdrop]="true">
             <mat-sidenav mode="over" [(opened)]="openedServerFilters" position="end">
                 <div *ngIf="openedServerFilters" id="serverFilters">
                     <form id="form" [formGroup]="form" autocomplete="off">

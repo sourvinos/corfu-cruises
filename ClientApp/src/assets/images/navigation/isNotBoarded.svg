@@ -7,29 +7,18 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   data-name="Layer 1"
    id="Layer_1"
-   viewBox="0 0 25 24.999959"
    version="1.1"
+   viewBox="0 0 25.052999 25.053001"
+   xml:space="preserve"
    sodipodi:docname="isNotBoarded.svg"
-   width="25"
-   height="24.99996"
-   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
-  <metadata
-     id="metadata862">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <defs
-     id="defs860" />
-  <sodipodi:namedview
+   width="25.052999"
+   height="25.053001"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"><metadata
+     id="metadata851"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs
+     id="defs849" /><sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1"
@@ -38,37 +27,37 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     id="namedview858"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     id="namedview847"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     showborder="false"
-     inkscape:zoom="8.3477589"
-     inkscape:cx="26.001114"
-     inkscape:cy="25.997133"
-     inkscape:window-x="1912"
+     inkscape:zoom="20.6"
+     inkscape:cx="11.458539"
+     inkscape:cy="12.5265"
+     inkscape:window-x="1672"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="Layer_1" />
-  <path
-     d="M 23.023587,24.999953 H 1.9764124 A 1.9710694,1.9710694 0 0 1 0.21206493,22.139499 L 10.735652,1.0923246 a 1.9710694,1.9710694 0 0 1 3.528695,0 L 24.787935,22.139499 a 1.9710694,1.9710694 0 0 1 -1.764348,2.860454 z M 12.5,1.9240198 a 0.04807486,0.04807486 0 0 0 -0.04808,0.028845 L 1.9235301,23.000039 c 0,0 0,0 0,0.04807 a 0.04326738,0.04326738 0 0 0 0.043267,0.02404 H 23.023587 a 0.04326738,0.04326738 0 0 0 0.04327,-0.02404 c 0,0 0,-0.03846 0,-0.04807 L 12.548075,1.9528647 a 0.04807486,0.04807486 0 0 0 -0.04807,-0.028845 z"
-     id="path851"
-     style="fill:#ff9090;fill-opacity:1;stroke-width:0.480749" />
-  <polygon
-     points="29.16,21.29 28.85,33.55 23.16,33.55 22.84,21.29 "
-     id="polygon853"
-     style="fill:#ff9090;fill-opacity:1"
-     transform="matrix(0.48074863,0,0,0.48074863,5.355348e-4,0.00102522)" />
-  <rect
-     height="3.0383315"
-     rx="1.4422458"
-     width="3.0383315"
-     x="10.980834"
-     y="17.447393"
-     id="rect855"
-     style="fill:#ff9090;fill-opacity:1;stroke-width:0.480749" />
-</svg>
+     inkscape:current-layer="Layer_1"
+     inkscape:document-rotation="0" /><style
+     type="text/css"
+     id="style839">
+	.st0{fill:#134563;}
+</style><g
+     id="g844"
+     transform="matrix(0.54584292,0,0,0.54585153,-4.8860865,-4.9407487)"
+     style="fill:#ff8080;stroke:#000000;stroke-width:0.0970968;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"><g
+       id="Icon-Clock"
+       transform="translate(378,428)"
+       style="fill:#ff8080;stroke:#000000;stroke-width:0.0970968;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"><path
+         class="st0"
+         d="m -346.1,-373.1 c -12.6,0 -22.9,-10.3 -22.9,-22.9 0,-12.6 10.3,-22.9 22.9,-22.9 12.6,0 22.9,10.3 22.9,22.9 0.1,12.6 -10.2,22.9 -22.9,22.9 z m 0,-43.4 c -11.3,0 -20.4,9.2 -20.4,20.4 0,11.2 9.2,20.4 20.4,20.4 11.2,0 20.4,-9.2 20.4,-20.4 0,-11.2 -9.1,-20.4 -20.4,-20.4 z"
+         id="Fill-131"
+         style="fill:#ff8080;stroke:#000000;stroke-width:0.0970968;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1" /><polyline
+         class="st0"
+         id="Fill-132"
+         points="-338.9,-384.3 -347.4,-392.8 -347.4,-408.3 -344.7,-408.3 -344.7,-393.9      -337,-386.2 -338.9,-384.3    "
+         style="fill:#ff8080;stroke:#000000;stroke-width:0.0970968;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1" /></g></g></svg>

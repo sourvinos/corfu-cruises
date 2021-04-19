@@ -40,18 +40,16 @@ export class boardingListComponent {
 
     //#region particular variables
 
+    private dateInISO = '';
     public boardingStatus = '2'
-    private dateInISO = '2021-04-30';
-    public isCriteriaExpanded = false
-    public portId = 2
-    public shipId = 2
-    public form: FormGroup
-    public records: string[] = []
     public destinations: Destination[] = []
-    public ports: Port[] = []
-    public ships: Ship[] = []
-    public openedServerFilters = true
+    public form: FormGroup
+    public isCriteriaExpanded = false
     public openedClientFilters = false
+    public openedServerFilters = true
+    public ports: Port[] = []
+    public records: string[] = []
+    public ships: Ship[] = []
 
     //#endregion
 
@@ -98,10 +96,10 @@ export class boardingListComponent {
     }
 
     public onLoadBoardings(): void {
-        // if (this.checkValidDate()) {
-        this.navigateToList()
-        this.close()
-        // }
+        if (this.checkValidDate()) {
+            this.navigateToList()
+            this.close()
+        }
     }
 
     //#endregion
@@ -125,7 +123,7 @@ export class boardingListComponent {
     }
 
     private checkValidDate(): boolean {
-        const date = (<HTMLInputElement>document.getElementById('date')).value
+        const date = this.form.value.date
         if (moment(moment(date, 'DD/MM/YYYY')).isValid()) {
             this.dateInISO = moment(date, 'DD/MM/YYYY').toISOString(true)
             this.dateInISO = moment(this.dateInISO).format('YYYY-MM-DD')
@@ -142,15 +140,15 @@ export class boardingListComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            date: ['2021-04-30', [Validators.required]],
-            destinationId: [1, [Validators.required]],
-            portId: [2, [Validators.required]],
-            shipId: [2, [Validators.required]]
+            date: ['', [Validators.required]],
+            destinationId: [0, [Validators.required]],
+            portId: [0, [Validators.required]],
+            shipId: [0, [Validators.required]]
         })
     }
 
     private navigateToList(): void {
-        this.router.navigate([this.dateInISO, this.form.value.destinationId, this.portId, this.shipId], { relativeTo: this.activatedRoute })
+        this.router.navigate(['/boarding/', this.dateInISO, this.form.value.destinationId, this.form.value.portId, this.form.value.shipId], { relativeTo: this.activatedRoute })
     }
 
     private populateDropDowns(): void {
