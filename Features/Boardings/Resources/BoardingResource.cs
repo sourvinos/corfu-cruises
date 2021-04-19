@@ -7,6 +7,7 @@ namespace CorfuCruises {
         public string TicketNo { get; set; }
         public string Remarks { get; set; }
         public string Driver { get; set; }
+        public int TotalPersons { get; set; }
 
         public List<BoardingPassengerResource> Passengers { get; set; }
 

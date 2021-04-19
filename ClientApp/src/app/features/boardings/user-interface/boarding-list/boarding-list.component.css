@@ -63,7 +63,7 @@
 
 .horizontal:not(:last-child) {
     margin-right: 1rem;
-    width: 10rem;
+    width: 12rem;
 }
 
 .horizontal .field-label {
@@ -151,4 +151,46 @@
     flex-direction: column;
     height: 100%;
     justify-content: space-between;
+}
+
+.summaryBlock {
+    background-color: var(--color-sidenav) !important;
+    border-radius: 0;
+}
+
+.summaryBlock .item {
+    border-left: 5px solid var(--color-border-inactive);
+    color: var(--color-text-primary);
+    display: flex;
+    font-family: var(--font-family-summary-block);
+    font-size: var(--font-size-summary-block-item);
+    justify-content: space-between;
+    line-height: 1.8rem;
+    margin-bottom: 0.2rem;
+    padding: 0.125rem 0.5rem 0.125rem 1rem;
+}
+
+.activeItem {
+    border-left: 5px solid var(--color-border-active) !important;
+}
+
+.summaryHeader {
+    align-items: center;
+    color: var(--color-text) !important;
+    cursor: pointer;
+    display: flex;
+    font-family: var(--font-family-summary-header) !important;
+    font-size: var(--font-size-summary-block-header) !important;
+    font-variant-caps: petite-caps !important;
+    font-weight: var(--font-weight-summary-header) !important;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.summaryHeader label {
+    padding: 1rem;
+}
+
+.summaryContent .scrollable::-webkit-scrollbar-thumb {
+    border-top: 0 solid var(--color-background-secondary) !important;
 }

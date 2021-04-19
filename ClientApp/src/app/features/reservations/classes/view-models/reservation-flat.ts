@@ -4,6 +4,7 @@ export class ReservationFlat {
 
     id: Guid
     destination: string
+    ticketNo: string
     destinationAbbreviation: string
     customer: string
     route: string

@@ -230,12 +230,10 @@ p.instructions {
 }
 
 .has-data {
-    align-items: center;
+    align-items: baseline;
     border-radius: 50px;
     color: var(--color-text-primary);
     display: flex;
-    flex-direction: column;
-    font-family: var(--font-family-calendar-date);
-    justify-content: center;
-    padding: 1rem;
+    flex-direction: row;
+    padding: 0 1rem;
 }

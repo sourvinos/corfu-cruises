@@ -68,6 +68,10 @@ li {
     justify-content: center;
 }
 
+.days span {
+    font-size: var(--font-size-calendar-date);
+}
+
 .material-icons {
     color: var(--color-text-primary);
     cursor: pointer;

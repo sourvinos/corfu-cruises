@@ -4,7 +4,7 @@ import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-
+// Custom
 import { BoardingService } from '../../classes/boarding.service'
 import { BoardingViewModel } from './../../classes/boarding-view-model'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
@@ -16,6 +16,8 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { Driver } from 'src/app/features/drivers/classes/driver'
+import { DriverService } from 'src/app/features/drivers/classes/driver.service'
 
 @Component({
     selector: 'boarding-list',
@@ -38,17 +40,21 @@ export class BoardingListComponent {
 
     //#region particular variables
 
-    private lookupDriver = 'STAMATIS'
     public boardingStatus = '2'
     public filteredRecords: BoardingViewModel
     public form: FormGroup
+    public openedClientFilters = false
     public records: BoardingViewModel
     public searchTerm: string
-    public openedClientFilters = false
+    public driver: string
+    public selectedBoardingStatus = []
+
+    public drivers: Driver[] = []
+    public selectedDriver = ''
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private boardingService: BoardingService, private titleService: Title) {
+    constructor(private driverService: DriverService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private boardingService: BoardingService, private titleService: Title) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.loadRecords()
@@ -63,6 +69,7 @@ export class BoardingListComponent {
         this.initForm()
         this.addShortcuts()
         this.getLocale()
+        this.populateDropDowns()
         this.setElementVisibility('hide')
     }
 
@@ -88,29 +95,36 @@ export class BoardingListComponent {
         })
     }
 
-    public onFilter(): void {
+    public onFilterByDriver(): void {
         this.filteredRecords.boardings = []
-        // this.records.boardings.forEach((record) => {
-        if (this.records.boardings.find(({ driver }) => driver === this.lookupDriver)) {
-            // this.filteredRecords.boardings.push(this.records.boardings)
-            console.log(this.lookupDriver)
-        }
-        // })
+        this.records.boardings.forEach((record) => {
+            if (record.driver.includes(this.selectedDriver) || this.selectedDriver.trim() == '') {
+                this.filteredRecords.boardings.push(record)
+            }
+        })
     }
 
-    public onFilterByLastname(query: string): void {
-        this.boardingStatus = '2'
-        this.searchTerm = query
+    public onFilterByBoardingStatus(): void {
         this.filteredRecords.boardings = []
         this.records.boardings.forEach((record) => {
             const detail = record.passengers
-            detail.forEach((element: { lastname: string }) => {
+            detail.forEach((element) => {
                 if (!this.filteredRecords.boardings.find(({ ticketNo }) => ticketNo === record.ticketNo)) {
-                    if (element.lastname.toLowerCase().includes(query)) {
+                    if (this.determineBoardingStatus(element.isCheckedIn) == this.boardingStatus || this.boardingStatus == '2') {
                         this.filteredRecords.boardings.push(record)
                     }
                 }
             })
+        })
+    }
+
+    public onFilterByTicketNo(query: string): void {
+        this.searchTerm = query
+        this.filteredRecords.boardings = []
+        this.records.boardings.forEach((record) => {
+            if (record.ticketNo.toLowerCase().includes(query)) {
+                this.filteredRecords.boardings.push(record)
+            }
         })
     }
 
@@ -120,6 +134,10 @@ export class BoardingListComponent {
 
     public onGoBack(): void {
         this.router.navigate(['/'])
+    }
+
+    public onToggleItem(item: any, lookupArray: string[]): void {
+        this.toggleActiveItem(item, lookupArray)
     }
 
     //#endregion
@@ -149,17 +167,14 @@ export class BoardingListComponent {
         }
     }
 
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
-    }
-
     private getLocale(): void {
         this.dateAdapter.setLocale(this.helperService.readItem("language"))
     }
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            date: ['2021-03-30', [Validators.required]]
+            date: ['2021-03-30', [Validators.required]],
+            driverId: 0
         })
     }
 
@@ -191,10 +206,47 @@ export class BoardingListComponent {
         this.snackbarService.open(message, type)
     }
 
-
     public toggleClientFilters(): void {
         this.openedClientFilters = !this.openedClientFilters
     }
+
+    private toggleActiveItem(item: { description: string }, lookupArray: string[]): void {
+        const element = document.getElementById(item.description)
+        if (element.classList.contains('activeItem')) {
+            for (let i = 0; i < lookupArray.length; i++) {
+                if ((lookupArray)[i] === item.description) {
+                    lookupArray.splice(i, 1)
+                    i--
+                    element.classList.remove('activeItem')
+                    break
+                }
+            }
+        } else {
+            element.classList.add('activeItem')
+            lookupArray.push(item.description)
+        }
+    }
+
+    public close(): void {
+        if (this.openedClientFilters) this.toggleClientFilters()
+    }
+
+    private populateDropDowns(): void {
+        this.driverService.getAllActive().subscribe((result: any) => {
+            this.drivers = result.sort((a: { description: number; }, b: { description: number; }) => (a.description > b.description) ? 1 : -1)
+        })
+    }
+
+    public personsAreNotMissing(record: { totalPersons: any; passengers: string | any[] }): boolean {
+        if (record.totalPersons == record.passengers.length) {
+            return true
+        }
+    }
+
     //#endregion
 
 }
+
+
+
+

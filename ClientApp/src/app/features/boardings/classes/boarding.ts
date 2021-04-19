@@ -5,6 +5,7 @@ export class Boarding {
 
     reservationId: Guid
     ticketNo: string
+    totalPersons: number
     driver: string
     remarks: string
 

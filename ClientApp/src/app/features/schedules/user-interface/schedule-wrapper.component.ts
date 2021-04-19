@@ -325,7 +325,7 @@ export class ScheduleWrapperComponent {
                         if (domElements[i].childNodes[0].textContent.trim() == me) {
                             const customContent = document.createElement("span")
                             customContent.classList.add('has-data')
-                            customContent.innerHTML = '<div class="dateWithSchedule">' + me + '</div>' + '<div class="availableSeats">' + available.available + '</div>'
+                            customContent.innerHTML = '<div class="dateWithSchedule">' + me + '</div>' + '<div class="availableSeats">' + '/'+available.available + '</div>'
                             domElements[i].childNodes[0].parentNode.appendChild(customContent)
                             domElements[i].classList.add(this.colorizeDays(available))
                             break

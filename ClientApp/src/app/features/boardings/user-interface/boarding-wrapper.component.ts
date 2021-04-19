@@ -142,10 +142,10 @@ export class boardingListComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            date: ['', [Validators.required]],
-            destinationId: ['', [Validators.required]],
-            portId: ['', [Validators.required]],
-            shipId: ['', [Validators.required]]
+            date: ['2021-04-30', [Validators.required]],
+            destinationId: [1, [Validators.required]],
+            portId: [2, [Validators.required]],
+            shipId: [2, [Validators.required]]
         })
     }
 

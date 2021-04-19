@@ -6,8 +6,9 @@ export class BoardingViewModel {
     allPersons: number
     boardedPersons: number
     remainingPersons: number
-
-    drivers: Driver[] = []
+    totalPersons: number
+    
+    driver: Driver
 
     boardings: Boarding[] = []
 

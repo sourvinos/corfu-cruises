@@ -61,10 +61,10 @@ export class ReservationListComponent {
     public checkedShips = true
     public indeterminateCustomers = false
     public indeterminateDestinations = false
-    public indeterminateDrivers= false
-    public indeterminatePorts= false
-    public indeterminateRoutes= false
-    public indeterminateShips= false
+    public indeterminateDrivers = false
+    public indeterminatePorts = false
+    public indeterminateRoutes = false
+    public indeterminateShips = false
     public queryResult = new ReservationViewModel()
     public selectedCustomers: string[] = []
     public selectedDestinations: string[] = []
@@ -78,12 +78,12 @@ export class ReservationListComponent {
 
     //#region table
 
-    headers = ['', 'Id', 'headerDestination', 'headerDestinationAbbreviation', 'headerRoute', 'headerCustomer', 'headerPickupPoint', 'headerTime', 'headerAdults', 'headerKids', 'headerFree', 'headerTotal', 'headerDriver', 'headerPort', 'headerShip', '']
-    widths = ['40px', '100px', '180px', '0px', '120px', '180px', '180px', '50px', '40px', '40px', '40px', '40px', '100px', '100px', '100px', '45px']
-    visibility = ['', 'none', '', 'none']
-    justify = ['center', 'center', 'left', 'left', 'left', 'left', 'left', 'center', 'right', 'right', 'right', 'right', 'left', 'left', 'left', 'center']
-    types = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
-    fields = ['', 'id', 'destination', 'destinationAbbreviation', 'route', 'customer', 'pickupPoint', 'time', 'adults', 'kids', 'free', 'totalPersons', 'driver', 'port', 'ship', '']
+    headers = ['', 'Id', 'headerTicketNo', 'headerDestination', 'headerDestinationAbbreviation', 'headerRoute', 'headerCustomer', 'headerPickupPoint', 'headerTime', 'headerAdults', 'headerKids', 'headerFree', 'headerTotal', 'headerDriver', 'headerPort', 'headerShip', '']
+    widths = ['40px', '0px', '60px', '180px', '0px', '120px', '180px', '180px', '50px', '40px', '40px', '40px', '40px', '100px', '100px', '100px', '45px']
+    visibility = ['', 'none', '', '', 'none']
+    justify = ['center', 'left', 'center', 'left', 'left', 'left', 'left', 'left', 'center', 'right', 'right', 'right', 'right', 'left', 'left', 'left', 'center']
+    types = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+    fields = ['', 'id', 'ticketNo', 'destination', 'destinationAbbreviation', 'route', 'customer', 'pickupPoint', 'time', 'adults', 'kids', 'free', 'totalPersons', 'driver', 'port', 'ship', '']
 
     //#endregion
 
@@ -312,17 +312,18 @@ export class ReservationListComponent {
             reservationId: a,
             destination: { description: b, abbreviation: c },
             customer: { description: d },
-            adults: e,
-            kids: f,
-            free: g,
-            totalPersons: h,
-            pickupPoint: { description: i, time: j, route: { abbreviation: k, port: { description: l } } },
-            driver: { description: m },
-            ship: { description: n },
-            date: o,
-            remarks: p
+            ticketNo: e,
+            adults: f,
+            kids: g,
+            free: h,
+            totalPersons: i,
+            pickupPoint: { description: j, time: k, route: { abbreviation: l, port: { description: m } } },
+            driver: { description: n },
+            ship: { description: o },
+            date: p,
+            remarks: q
         } of this.queryResultClone.reservations) {
-            this.reservationsFlat.push({ id: a, destination: b, destinationAbbreviation: c, customer: d, adults: e, kids: f, free: g, totalPersons: h, pickupPoint: i, time: j, route: k, port: l, driver: m, ship: n, dateIn: o, remarks: p })
+            this.reservationsFlat.push({ id: a, destination: b, destinationAbbreviation: c, customer: d, ticketNo: e, adults: f, kids: g, free: h, totalPersons: i, pickupPoint: j, time: k, route: l, port: m, driver: n, ship: o, dateIn: p, remarks: q })
         }
     }
 
