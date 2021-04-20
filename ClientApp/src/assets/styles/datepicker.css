@@ -78,11 +78,3 @@
 .mat-calendar-body-today {
     border: 0.125rem solid !important;
 }
-
-.dateWithSchedule {
-    font-size: var(--font-size-calendar-date);
-}
-
-.availableSeats {
-    font-size: 0.8rem;
-}

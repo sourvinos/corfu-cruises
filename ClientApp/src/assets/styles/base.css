@@ -241,3 +241,7 @@ p.instructions {
 .mat-drawer-backdrop.mat-drawer-shown {
     background-color: rgba(255, 255, 255, 0);
 }
+
+.dateWithSchedule {
+    font-size: var(--font-size-calendar-date);
+}
