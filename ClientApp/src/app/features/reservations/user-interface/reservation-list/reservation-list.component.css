@@ -29,9 +29,7 @@
 #summary {
     column-gap: 0.5rem;
     display: grid;
-    grid-template-columns: repeat(6, minmax(250px, 1fr));
-    overflow-x: hidden;
-    overflow-y: scroll;
+    grid-template-columns: repeat(6, minmax(0px, 1fr));
     transition: background-color 0.7s;
 }
 

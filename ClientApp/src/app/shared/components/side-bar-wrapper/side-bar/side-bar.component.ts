@@ -1,7 +1,8 @@
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { Component } from '@angular/core'
 // Custom
 import { DeviceDetectorService } from 'ngx-device-detector'
+import { HelperService } from 'src/app/shared/services/helper.service'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'side-bar',
@@ -29,6 +30,10 @@ export class SideBarComponent {
 
     public isDesktop(): boolean {
         return this.deviceDetectorService.getDeviceInfo().deviceType == 'desktop'
+    }
+
+    public isWideScreen(): boolean {
+        return this.helperService.getElementWidth(document.body) >= environment.isWideScreen
     }
 
     //#endregion

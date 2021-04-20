@@ -1,5 +1,5 @@
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router'
-import { Component, HostListener } from '@angular/core'
+import { Component } from '@angular/core'
 import { Location } from '@angular/common'
 import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
@@ -100,17 +100,12 @@ export class ReservationListComponent {
 
     //#region lifecycle hooks
 
-    @HostListener('window:resize', ['$event']) onResize(): any {
-        this.setElementVisibility('')
-    }
-
     ngOnInit(): void {
         this.setWindowTitle()
         this.addShortcuts()
         this.initPersonsSumArray()
         this.subscribeToInteractionService()
         this.onFocusSummaryPanel()
-        this.setElementVisibility('hide')
     }
 
     ngAfterViewInit(): void {
@@ -137,7 +132,6 @@ export class ReservationListComponent {
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
-        this.setElementVisibility('show')
         this.unlisten()
     }
 
@@ -404,10 +398,6 @@ export class ReservationListComponent {
 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
-    }
-
-    private setElementVisibility(action: string): void {
-        this.interactionService.setSidebarAndTopLogoVisibility(action)
     }
 
     private showSnackbar(message: string, type: string): void {

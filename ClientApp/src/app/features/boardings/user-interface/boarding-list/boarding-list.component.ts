@@ -70,13 +70,11 @@ export class BoardingListComponent {
         this.addShortcuts()
         this.getLocale()
         this.populateDropDowns()
-        this.setElementVisibility('hide')
     }
 
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
-        this.setElementVisibility('show')
         this.unlisten()
     }
 
@@ -182,7 +180,6 @@ export class BoardingListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
-            console.log(this.records)
             this.filteredRecords = Object.assign([], this.records)
         } else {
             this.onGoBack()
@@ -192,10 +189,6 @@ export class BoardingListComponent {
 
     private refreshSummary(): void {
         this.interactionService.mustRefreshBoardingList()
-    }
-
-    private setElementVisibility(action: string): void {
-        this.interactionService.setSidebarAndTopLogoVisibility(action)
     }
 
     private setWindowTitle(): void {

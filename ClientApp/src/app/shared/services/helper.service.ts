@@ -43,7 +43,11 @@ export class HelperService {
     }
 
     public deviceDetector(): string {
-        return 'mobile'
+        return 'desktop'
+    }
+
+    public getElementWidth(element: HTMLElement): any {
+        return element.clientWidth
     }
 
     //#endregion

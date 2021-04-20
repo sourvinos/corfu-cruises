@@ -16,5 +16,6 @@ export const environment = {
     leaflet: {
         token: 'pk.eyJ1Ijoic291cnZpbm9zIiwiYSI6ImNrajEwa3plbDRzY2gzMnFqcXppZzNhaDkifQ.JMR_dEvdaFTpQ2jiapPrhg'
     },
-    appName: 'Corfu Cruises'
+    appName: 'Corfu Cruises',
+    isWideScreen: 1920
 }

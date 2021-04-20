@@ -13,7 +13,6 @@ export class InteractionService {
     private _refreshReservationList = new Subject<any>()
     private _refreshBoardingList = new Subject<any>()
     private _tableRow = new Subject()
-    private _sidebarAndTopMenuVisibility = new Subject<any>()
     private _calendarNavigation = new Subject<any>()
 
     public record = this._record.asObservable()
@@ -22,9 +21,7 @@ export class InteractionService {
     public refreshReservationList = this._refreshReservationList.asObservable()
     public refreshBoardingList = this._refreshBoardingList.asObservable()
     public tableRow = this._tableRow.asObservable()
-    public sidebarAndTopMenuVisibility = this._sidebarAndTopMenuVisibility.asObservable()
     public calendarNavigation = this._calendarNavigation.asObservable()
-
 
     //#endregion
 
@@ -126,9 +123,16 @@ export class InteractionService {
         this._refreshBoardingList.next()
     }
 
-    public setSidebarAndTopLogoVisibility(action: string): void {
-        this._sidebarAndTopMenuVisibility.next(action)
-    }
+    /**
+     * Caller(s):
+     *  calendar.component.ts
+     * 
+     * Subscriber(s):
+     *  schedule-wrapper.component.ts
+     * 
+     * Description:
+     *  The caller tells the subscriber to move to the next or previous month
+     */
 
     public changeCalendarMonth(month: any): void {
         this._calendarNavigation.next(month)
