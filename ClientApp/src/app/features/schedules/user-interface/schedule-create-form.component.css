@@ -21,6 +21,7 @@
 
 #weekdays {
     display: flex;
+    font-variant-caps: petite-caps;
     justify-content: space-between;
 }
 

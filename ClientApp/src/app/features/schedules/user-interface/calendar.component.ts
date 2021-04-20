@@ -2,6 +2,7 @@ import { Component } from "@angular/core"
 import moment, { utc } from 'moment'
 // Custom
 import { InteractionService } from './../../../shared/services/interaction.service'
+import { MessageCalendarService } from "src/app/shared/services/messages-calendar.service"
 
 @Component({
     selector: 'calendar',
@@ -16,11 +17,11 @@ export class CalendarComponent {
     public dateSelect: any
     public monthSelect: any[]
     public startDate: any
-    public week: any = ["ΔΕΥ", "ΤΡΙ", "ΤΕΤ", "ΠΕΜ", "ΠΑΡ", "ΣΑΒ", "ΚΥΡ"]
+    public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
     // #endregion 
 
-    constructor(private interactionService: InteractionService) { }
+    constructor(private messageCalendarService: MessageCalendarService, private interactionService: InteractionService) { }
 
     //#region lifecycle hooks
 
@@ -33,8 +34,16 @@ export class CalendarComponent {
 
     //#region public methods
 
-    public changeMonth(flag: number): void {
+    public onChangeMonth(flag: number): void {
         this.navigateToMonth(flag)
+    }
+
+    public onGetMonthAndYear(): string {
+        return this.messageCalendarService.getDescription('months', this.startDate.month() + 1) + ' ' + this.startDate.year()
+    }
+
+    public onGetWeekday(id: string): string {
+        return this.messageCalendarService.getDescription('weekdays', id)
     }
 
     //#endregion

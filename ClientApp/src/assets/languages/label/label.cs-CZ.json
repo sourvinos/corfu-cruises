@@ -454,7 +454,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Transfery"
+                "description": "Rezervace"
             },
             {
                 "id": "searchLabel",
@@ -680,6 +680,10 @@
             {
                 "id": "filtered",
                 "description": "(CZ) Filtered"
+            },
+            {
+                "id": "headerTicketNo",
+                "description": "(CZ) Ticket No"
             },
             {
                 "id": "headerDestination",
@@ -1191,27 +1195,31 @@
         "labels": [
             {
                 "id": "header",
-                "description": "New Schedule"
+                "description": "(CZ) New Schedule"
             },
             {
                 "id": "destination",
-                "description": "Destination"
+                "description": "(CZ) Destination"
             },
             {
                 "id": "port",
-                "description": "Port"
+                "description": "(CZ) Port"
             },
             {
                 "id": "dateRange",
-                "description": "Period"
+                "description": "(CZ) Period"
             },
             {
                 "id": "maxPersons",
-                "description": "Max capacity"
+                "description": "(CZ) Max capacity"
+            },
+            {
+                "id": "invalid",
+                "description": "(CZ) The period is not valid"
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "(CZ) Save"
             }
         ]
     },
@@ -1348,7 +1356,7 @@
         ]
     },
     {
-        "feature": "boardingList",
+        "feature": "boardingWrapper",
         "labels": [
             {
                 "id": "header",
@@ -1357,6 +1365,10 @@
             {
                 "id": "date",
                 "description": "(CZ) Date"
+            },
+            {
+                "id": "searchDateHint",
+                "description": "(CZ) Select or enter date"
             },
             {
                 "id": "destination",
@@ -1371,20 +1383,65 @@
                 "description": "(CZ) Vessel"
             },
             {
-                "id": "searchDateHint",
-                "description": "(CZ) Select or enter date"
-            },
-            {
                 "id": "searchDropdownHint",
                 "description": "(CZ) Select from the list"
             },
             {
                 "id": "searchButton",
                 "description": "(CZ) Search"
+            }
+        ]
+    },
+    {
+        "feature": "boardingList",
+        "labels": [
+            {
+                "id": "searchLabel",
+                "description": "(CZ) Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "(CZ) Search by ticket no"
+            },
+            {
+                "id": "boardingStatus",
+                "description": "(CZ) Boarding status"
+            },
+            {
+                "id": "driver",
+                "description": "Driver"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "(CZ) Select from the list"
+            },
+            {
+                "id": "closeButton",
+                "description": "(CZ) Close"
+            },
+            {
+                "id": "ticketNo",
+                "description": "(CZ) Ticket No"
+            },
+            {
+                "id": "driver",
+                "description": "(CZ) Driver"
             },
             {
                 "id": "totalPersons",
-                "description": "(CZ) Total"
+                "description": "(CZ) Persons"
+            },
+            {
+                "id": "pendingPersons",
+                "description": "(CZ) Without data"
+            },
+            {
+                "id": "boardButton",
+                "description": "(CZ) Board"
+            },
+            {
+                "id": "totalPersons",
+                "description": "(CZ) Persons"
             },
             {
                 "id": "boardedPersons",
@@ -1393,26 +1450,6 @@
             {
                 "id": "pandingPersons",
                 "description": "(CZ) Pending"
-            },
-            {
-                "id": "boardingStatusFilter",
-                "description": "(CZ) Boarding status"
-            },
-            {
-                "id": "driverFilter",
-                "description": "(CZ) Drivers"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "(CZ) Select from the list"
-            },
-            {
-                "id": "searchLabel",
-                "description": "(CZ) Search"
-            },
-            {
-                "id": "searchHint",
-                "description": "(CZ) Search by ticket no"
             },
             {
                 "id": "boardingStatusAll",
@@ -1427,28 +1464,8 @@
                 "description": "(CZ) PENDING"
             },
             {
-                "id": "ticketNo",
-                "description": "(CZ) Ticket no:"
-            },
-            {
-                "id": "driver",
-                "description": "(CZ) Driver:"
-            },
-            {
-                "id": "lastname",
-                "description": "(CZ) Last Name"
-            },
-            {
-                "id": "firstname",
-                "description": "(CZ) First Name"
-            },
-            {
-                "id": "isBoarded",
-                "description": "(CZ) Boarded"
-            },
-            {
-                "id": "board",
-                "description": "(CZ) Board"
+                "id": "filterButton",
+                "description": "(CZ) Filters"
             }
         ]
     },

@@ -24,7 +24,7 @@
             },
             {
                 "id": "loginButton",
-                "description": "Login"
+                "description": "Continue"
             }
         ]
     },
@@ -682,6 +682,10 @@
                 "description": "Filtered"
             },
             {
+                "id": "headerTicketNo",
+                "description": "Ticket No"
+            },
+            {
                 "id": "headerDestination",
                 "description": "Destination"
             },
@@ -1210,6 +1214,10 @@
                 "description": "Max capacity"
             },
             {
+                "id": "invalidPeriod",
+                "description": "The period is not valid"
+            },
+            {
                 "id": "saveButton",
                 "description": "Save"
             }
@@ -1348,7 +1356,7 @@
         ]
     },
     {
-        "feature": "boardingList",
+        "feature": "boardingWrapper",
         "labels": [
             {
                 "id": "header",
@@ -1357,6 +1365,10 @@
             {
                 "id": "date",
                 "description": "Date"
+            },
+            {
+                "id": "searchDateHint",
+                "description": "Select or enter date"
             },
             {
                 "id": "destination",
@@ -1371,20 +1383,65 @@
                 "description": "Vessel"
             },
             {
-                "id": "searchDateHint",
-                "description": "Select or enter date"
+                "id": "searchButton",
+                "description": "Search"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "Select from the list"
+            }
+        ]
+    },
+    {
+        "feature": "boardingList",
+        "labels": [
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "Search by ticket no"
+            },
+            {
+                "id": "boardingStatus",
+                "description": "Boarding status"
+            },
+            {
+                "id": "driver",
+                "description": "(DE) Driver"
             },
             {
                 "id": "searchDropdownHint",
                 "description": "Select from the list"
             },
             {
-                "id": "searchButton",
-                "description": "Search"
+                "id": "closeButton",
+                "description": "Close"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Ticket No"
+            },
+            {
+                "id": "driver",
+                "description": "Driver"
             },
             {
                 "id": "totalPersons",
-                "description": "Total"
+                "description": "Persons"
+            },
+            {
+                "id": "pendingPersons",
+                "description": "Without data"
+            },
+            {
+                "id": "boardButton",
+                "description": "Board"
+            },
+            {
+                "id": "totalPersons",
+                "description": "Persons"
             },
             {
                 "id": "boardedPersons",
@@ -1393,26 +1450,6 @@
             {
                 "id": "pandingPersons",
                 "description": "Pending"
-            },
-            {
-                "id": "boardingStatusFilter",
-                "description": "Boarding status"
-            },
-            {
-                "id": "driverFilter",
-                "description": "Drivers"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "Select from the list"
-            },
-            {
-                "id": "searchLabel",
-                "description": "Search"
-            },
-            {
-                "id": "searchHint",
-                "description": "Search by ticket no"
             },
             {
                 "id": "boardingStatusAll",
@@ -1427,28 +1464,8 @@
                 "description": "PENDING"
             },
             {
-                "id": "ticketNo",
-                "description": "Ticket no:"
-            },
-            {
-                "id": "driver",
-                "description": "Driver:"
-            },
-            {
-                "id": "lastname",
-                "description": "Last Name"
-            },
-            {
-                "id": "firstname",
-                "description": "First Name"
-            },
-            {
-                "id": "isBoarded",
-                "description": "Boarded"
-            },
-            {
-                "id": "board",
-                "description": "Board"
+                "id": "filterButton",
+                "description": "Filters"
             }
         ]
     },

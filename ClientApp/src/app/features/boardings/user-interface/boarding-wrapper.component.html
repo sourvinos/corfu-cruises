@@ -10,7 +10,7 @@
             <h1>{{ onGetLabel('header')}}</h1>
         </div>
         <div id="buttons">
-            <button mat-flat-button class="secondary" [disabled]="openedServerFilters" (click)="toggleServerFilters()">Αναζητηση</button>
+            <button mat-flat-button class="secondary" [disabled]="openedServerFilters" (click)="toggleServerFilters()">{{ onGetLabel('searchButton') }}</button>
         </div>
     </div>
 
@@ -55,7 +55,7 @@
                             <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
                         </mat-form-field>
                     </form>
-                    <button mat-flat-button id="loadBoardings" class="primary" [disabled]="!form.valid" (click)="onLoadBoardings()">Search</button>
+                    <button mat-flat-button id="loadBoardings" class="primary" [disabled]="!form.valid" (click)="onLoadBoardings()">{{ onGetLabel('searchButton')}}</button>
                     <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
                 </div>
             </mat-sidenav>

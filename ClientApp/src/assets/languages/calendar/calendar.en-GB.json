@@ -1,0 +1,88 @@
+[
+    {
+        "feature": "months",
+        "labels": [
+            {
+                "id": 1,
+                "description": "January"
+            },
+            {
+                "id": 2,
+                "description": "February"
+            },
+            {
+                "id": 3,
+                "description": "March"
+            },
+            {
+                "id": 4,
+                "description": "April"
+            },
+            {
+                "id": 5,
+                "description": "May"
+            },
+            {
+                "id": 6,
+                "description": "June"
+            },
+            {
+                "id": 7,
+                "description": "July"
+            },
+            {
+                "id": 8,
+                "description": "August"
+            },
+            {
+                "id": 9,
+                "description": "September"
+            },
+            {
+                "id": 10,
+                "description": "October"
+            },
+            {
+                "id": 11,
+                "description": "November"
+            },
+            {
+                "id": 12,
+                "description": "December"
+            }
+        ]
+    },
+    {
+        "feature": "weekdays",
+        "labels": [
+            {
+                "id": "Mon",
+                "description": "Mon"
+            },
+            {
+                "id": "Tue",
+                "description": "Tue"
+            },
+            {
+                "id": "Wed",
+                "description": "Wed"
+            },
+            {
+                "id": "Thu",
+                "description": "Thu"
+            },
+            {
+                "id": "Fri",
+                "description": "Fri"
+            },
+            {
+                "id": "Sat",
+                "description": "Sat"
+            },
+            {
+                "id": "Sun",
+                "description": "Sun"
+            }
+        ]
+    }
+]

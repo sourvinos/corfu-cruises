@@ -28,8 +28,7 @@
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
                 <mat-error *ngIf="fromDate.hasError('required') || toDate.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                <mat-error *ngIf="fromDate.hasError('matfromDateInvalid') || toDate.hasError('mattoDateInvalid')">{{ onGetHint('invalid') }}</mat-error>
-                <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
+                <mat-error *ngIf="fromDate.hasError('matStartDateInvalid') || fromDate.hasError('matEndDateInvalid')">{{ onGetHint('invalidPeriod') }}</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input type="number" matInput [placeholder]="onGetLabel('maxPersons')" formControlName="maxPersons" data-tabindex="3" id="maxPersons" [inputTabStop]="input" class="number">
@@ -38,7 +37,7 @@
             </mat-form-field>
             <div id="weekdays">
                 <div *ngFor="let weekDay of weekDays" [id]="weekDay" class="selectable" (click)="onToggleItem(weekDay, selectedWeekDays)">
-                    <div class="description">{{ weekDay }}</div>
+                    <div class="description">{{ onGetWeekday(weekDay) }}</div>
                 </div>
             </div>
         </form>

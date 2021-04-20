@@ -42,35 +42,6 @@ export class HelperService {
         return localStorage.getItem(item) || ''
     }
 
-    public convertMonthStringToNumber(month: string): number {
-        switch (month) {
-            case 'JAN': case 'LED': case 'JAN.': case 'ΙΑΝ':
-                return 1
-            case 'FEB': case 'ÚNO': case 'FEB.': case 'ΦΕΒ':
-                return 2
-            case 'MAR': case 'BŘE': case 'ΜΑΡ': case 'MÄRZ':
-                return 3
-            case 'APR': case 'DUB': case 'APR.': case 'ΑΠΡ':
-                return 4
-            case 'MAY': case 'KVĚ': case 'ΜΑΪ': case 'MAI':
-                return 5
-            case 'JUN': case 'ČVN': case 'JUNI': case 'ΙΟΥΝ':
-                return 6
-            case 'JUL': case 'ČVC': case 'JULI': case 'ΙΟΥΛ':
-                return 7
-            case 'AUG': case 'SRP': case 'AUG.': case 'ΑΥΓ':
-                return 8
-            case 'SEP': case 'ZÁŘ': case 'SEP.': case 'ΣΕΠ':
-                return 9
-            case 'OCT': case 'ŘÍJ': case 'OKT.': case 'OKT':
-                return 10
-            case 'NOV': case 'LIS': case 'NOV.': case 'ΝΟΕ':
-                return 11
-            case 'DEC': case 'PRO': case 'DEZ.': case 'ΔΕΚ':
-                return 12
-        }
-    }
-
     public deviceDetector(): string {
         return 'mobile'
     }

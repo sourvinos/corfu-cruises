@@ -34,7 +34,7 @@ export class boardingListComponent {
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
     private windowTitle = 'Boarding'
-    public feature = 'boardingList'
+    public feature = 'boardingWrapper'
 
     //#endregion
 

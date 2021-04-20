@@ -1,0 +1,88 @@
+[
+    {
+        "feature": "months",
+        "labels": [
+            {
+                "id": 1,
+                "description": "Ιανουαριος"
+            },
+            {
+                "id": 2,
+                "description": "Φεβρουαριος"
+            },
+            {
+                "id": 3,
+                "description": "Μαρτιος"
+            },
+            {
+                "id": 4,
+                "description": "Απριλιος"
+            },
+            {
+                "id": 5,
+                "description": "Μαϊος"
+            },
+            {
+                "id": 6,
+                "description": "Ιούνιος"
+            },
+            {
+                "id": 7,
+                "description": "Ιούλιος"
+            },
+            {
+                "id": 8,
+                "description": "Αυγουστος"
+            },
+            {
+                "id": 9,
+                "description": "Σεπτεμβριος"
+            },
+            {
+                "id": 10,
+                "description": "Οκτωβριος"
+            },
+            {
+                "id": 11,
+                "description": "Νοεμβριος"
+            },
+            {
+                "id": 12,
+                "description": "Δεκέμβριος"
+            }
+        ]
+    },
+    {
+        "feature": "weekdays",
+        "labels": [
+            {
+                "id": "Mon",
+                "description": "Δευ"
+            },
+            {
+                "id": "Tue",
+                "description": "Τρι"
+            },
+            {
+                "id": "Wed",
+                "description": "Τετ"
+            },
+            {
+                "id": "Thu",
+                "description": "Πεμ"
+            },
+            {
+                "id": "Fri",
+                "description": "Παρ"
+            },
+            {
+                "id": "Sat",
+                "description": "Σαβ"
+            },
+            {
+                "id": "Sun",
+                "description": "Κυρ"
+            }
+        ]
+    }
+]

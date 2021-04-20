@@ -682,6 +682,10 @@
                 "description": "Φιλτραρισμενες"
             },
             {
+                "id": "headerTicketNo",
+                "description": "Νο Εισιτηριου"
+            },
+            {
                 "id": "headerDestination",
                 "description": "Προορισμος"
             },
@@ -1210,6 +1214,10 @@
                 "description": "Μεγιστη χωρητικοτητα"
             },
             {
+                "id": "invalidPeriod",
+                "description": "Το διαστημα δεν ειναι σωστο"
+            },
+            {
                 "id": "saveButton",
                 "description": "Αποθηκευση"
             }
@@ -1348,7 +1356,7 @@
         ]
     },
     {
-        "feature": "boardingList",
+        "feature": "boardingWrapper",
         "labels": [
             {
                 "id": "header",
@@ -1357,6 +1365,10 @@
             {
                 "id": "date",
                 "description": "Ημερομηνια"
+            },
+            {
+                "id": "searchDateHint",
+                "description": "Επιλεξτε 'η δωστε ημερομηνια"
             },
             {
                 "id": "destination",
@@ -1371,41 +1383,18 @@
                 "description": "Πλοιο"
             },
             {
-                "id": "searchDateHint",
-                "description": "Επιλεξτε 'η δωστε ημερομηνια"
-            },
-            {
                 "id": "searchDropdownHint",
                 "description": "Επιλεξτε απο τη λιστα"
             },
             {
                 "id": "searchButton",
                 "description": "Αναζητηση"
-            },
-            {
-                "id": "totalPersons",
-                "description": "Συνολο"
-            },
-            {
-                "id": "boardedPersons",
-                "description": "Εχουν επιβιβαστει"
-            },
-            {
-                "id": "pandingPersons",
-                "description": "Σε εκκρεμοτητα"
-            },
-            {
-                "id": "boardingStatusFilter",
-                "description": "Κατασταση επιβιβασης"
-            },
-            {
-                "id": "driverFilter",
-                "description": "Οδηγοι"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "Επιλεξτε απο τη λιστα"
-            },
+            }
+        ]
+    },
+    {
+        "feature": "boardingList",
+        "labels": [
             {
                 "id": "searchLabel",
                 "description": "Αναζητηση"
@@ -1413,6 +1402,54 @@
             {
                 "id": "searchHint",
                 "description": "Με βαση το εισιτηριο"
+            },
+            {
+                "id": "boardingStatus",
+                "description": "Κατασταση επιβιβασης"
+            },
+            {
+                "id": "driver",
+                "description": "Οδηγος"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "Επιλεξτε απο τη λιστα"
+            },
+            {
+                "id": "closeButton",
+                "description": "Κλείσιμο"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Νο Εισιτηριου"
+            },
+            {
+                "id": "driver",
+                "description": "Οδηγος"
+            },
+            {
+                "id": "totalPersons",
+                "description": "Ατομα"
+            },
+            {
+                "id": "pendingPersons",
+                "description": "Χωρις Στοιχεια"
+            },
+            {
+                "id": "boardButton",
+                "description": "Επιβιβαση"
+            },
+            {
+                "id": "totalPersons",
+                "description": "Ατομα"
+            },
+            {
+                "id": "boardedPersons",
+                "description": "Εχουν Επιβιβαστει"
+            },
+            {
+                "id": "pandingPersons",
+                "description": "Απομενουν"
             },
             {
                 "id": "boardingStatusAll",
@@ -1424,31 +1461,11 @@
             },
             {
                 "id": "boardingStatusPending",
-                "description": "ΣΕ ΕΚΚΡΕΜΟΤΗΤΑ"
+                "description": "ΑΠΟΜΕΝΟΥΝ"
             },
             {
-                "id": "ticketNo",
-                "description": "Νο Εισιτηριου:"
-            },
-            {
-                "id": "driver",
-                "description": "Οδηγος:"
-            },
-            {
-                "id": "lastname",
-                "description": "Επωνυμο"
-            },
-            {
-                "id": "firstname",
-                "description": "Ονομα"
-            },
-            {
-                "id": "isBoarded",
-                "description": "Επιβιβαση"
-            },
-            {
-                "id": "board",
-                "description": "Επιβιβαση"
+                "id": "filterButton",
+                "description": "Φίλτρα"
             }
         ]
     },

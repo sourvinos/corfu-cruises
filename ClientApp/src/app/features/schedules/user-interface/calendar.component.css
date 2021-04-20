@@ -45,6 +45,11 @@ li {
     cursor: pointer;
 }
 
+.month {
+    font-family: var(--font-family-table-body);
+    font-variant-caps: petite-caps;
+}
+
 .first-day {
     grid-column-start: var(--first-day-start, 0);
 }
@@ -55,6 +60,7 @@ li {
     color: var(--color-text-primary);
     display: flex;
     font-family: var(--font-family-table-body);
+    font-variant-caps: petite-caps;
     height: fit-content;
     justify-content: center;
     padding: 0.5rem;

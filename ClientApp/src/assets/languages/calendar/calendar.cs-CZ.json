@@ -1,0 +1,88 @@
+[
+    {
+        "feature": "months",
+        "labels": [
+            {
+                "id": 1,
+                "description": "Leden"
+            },
+            {
+                "id": 2,
+                "description": "Únor"
+            },
+            {
+                "id": 3,
+                "description": "Březen"
+            },
+            {
+                "id": 4,
+                "description": "Duben"
+            },
+            {
+                "id": 5,
+                "description": "Smět"
+            },
+            {
+                "id": 6,
+                "description": "Červen"
+            },
+            {
+                "id": 7,
+                "description": "Červenec"
+            },
+            {
+                "id": 8,
+                "description": "Srpen"
+            },
+            {
+                "id": 9,
+                "description": "Září"
+            },
+            {
+                "id": 10,
+                "description": "Říjen"
+            },
+            {
+                "id": 11,
+                "description": "Listopad"
+            },
+            {
+                "id": 12,
+                "description": "Prosinec"
+            }
+        ]
+    },
+    {
+        "feature": "weekdays",
+        "labels": [
+            {
+                "id": "Mon",
+                "description": "Pon"
+            },
+            {
+                "id": "Tue",
+                "description": "Úte"
+            },
+            {
+                "id": "Wed",
+                "description": "Stř"
+            },
+            {
+                "id": "Thu",
+                "description": "Čtv"
+            },
+            {
+                "id": "Fri",
+                "description": "Pát"
+            },
+            {
+                "id": "Sat",
+                "description": "Sob"
+            },
+            {
+                "id": "Sun",
+                "description": "Ned"
+            }
+        ]
+    }
+]

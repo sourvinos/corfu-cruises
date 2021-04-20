@@ -11,6 +11,7 @@ import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -18,7 +19,6 @@ import { ScheduleResource } from '../classes/schedule-resource'
 import { ScheduleService } from '../classes/schedule.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
-import { DestinationService } from '../../destinations/classes/destination.service'
 
 @Component({
     selector: 'schedule-create-form',
@@ -50,7 +50,7 @@ export class ScheduleCreateFormComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private scheduleService: ScheduleService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog,) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private buttonClickService: ButtonClickService, private messageCalendarService: MessageCalendarService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private scheduleService: ScheduleService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog,) { }
 
     //#region lifecycle hooks
 
@@ -58,11 +58,10 @@ export class ScheduleCreateFormComponent {
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
-        // this.getLocale()
+        this.getLocale()
     }
 
     ngAfterViewInit(): void {
-        // this.initForm()
         this.patchFields()
     }
 
@@ -93,6 +92,10 @@ export class ScheduleCreateFormComponent {
 
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public onGetWeekday(id: string): string {
+        return this.messageCalendarService.getDescription('weekdays', id)
     }
 
     public onGoBack(): void {
@@ -200,7 +203,6 @@ export class ScheduleCreateFormComponent {
         this.form.patchValue({
             daysToInsert: this.daysToInsert
         })
-
     }
 
     private createPeriod(from: moment.MomentInput, to: moment.MomentInput): any {
