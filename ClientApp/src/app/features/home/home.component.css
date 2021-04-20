@@ -1,7 +1,6 @@
 #wrapper {
-    align-items: center;
+    background: url("../../../assets/images/background/background.svg") no-repeat center;
     background-color: var(--color-background-secondary);
-    background-image: url("../../../assets/images/background/background.svg");
     background-size: cover;
     border-radius: 20px 0 0 20px;
     display: flex;
