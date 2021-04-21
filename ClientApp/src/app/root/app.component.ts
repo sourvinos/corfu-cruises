@@ -44,6 +44,16 @@ export class AppComponent {
 
     //#endregion
 
+    //#region public methods
+
+    public onHideMenu(): void {
+        const checkbox = (<HTMLInputElement>document.getElementById('menu-btn'))
+        if (checkbox)
+            checkbox.checked = false
+    }
+
+    //#endregion
+
     //#region private methods
 
     private getSidebarWidth(): number {

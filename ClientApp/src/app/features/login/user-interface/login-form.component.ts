@@ -54,6 +54,7 @@ export class LoginFormComponent {
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
+        this.hideMenu()
     }
 
     ngAfterViewInit(): void {
@@ -124,6 +125,11 @@ export class LoginFormComponent {
 
     private goHome(): void {
         this.router.navigate([this.url])
+    }
+
+    private hideMenu(): void {
+        const checkbox = (<HTMLInputElement>document.getElementById('menu-btn'))
+        checkbox.checked = false
     }
 
     private initForm(): void {

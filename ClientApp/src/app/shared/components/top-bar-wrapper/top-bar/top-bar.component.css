@@ -1,7 +1,8 @@
 #top-bar {
     background-color: var(--color-background-primary);
     display: flex;
-    padding: 0.3rem 2.4rem;
+    height: 3.75rem;
+    padding: 0 2.4rem;
     text-align: center;
     transition: background-color 0.7s;
 }
@@ -15,4 +16,67 @@
 #right {
     align-items: center;
     display: flex;
+}
+
+#menu-btn {
+    display: none;
+}
+
+#mobile-menu {
+    line-height: 3.75rem;
+}
+
+@media only screen and (max-width: 3000px) {
+    #mobile-menu {
+        display: flex;
+        align-items: center;
+    }
+    .nav-icon {
+        display: block;
+    }
+    #right {
+        align-items: flex-start;
+        background-color: var(--color-background-primary);
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        right: 0;
+        top: 48px;
+        z-index: 1;
+    }
+}
+
+#menu-btn:checked~#right {
+    display: flex;
+}
+
+.nav-icon {
+    background: #ffffff;
+    display: block;
+    height: 2px;
+    width: 18px;
+    position: relative;
+    transition: background .2s ease-out;
+}
+
+.nav-icon:before {
+    background: #ffffff;
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 5px;
+    width: 100%;
+    transition: all .2s ease-out;
+}
+
+.nav-icon:after {
+    background: #ffffff;
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: -5px;
+    width: 100%;
+    transition: all .2s ease-out;
 }

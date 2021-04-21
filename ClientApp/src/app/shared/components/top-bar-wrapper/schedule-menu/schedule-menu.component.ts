@@ -20,12 +20,11 @@ export class ScheduleMenuComponent {
 
     constructor(private accountService: AccountService, private messageLabelService: MessageLabelService) { }
 
+    //#region lifecycle hooks
+
     ngOnInit(): void {
         this.updateVariables()
     }
-
-    //#region lifecycle hooks
-
 
     //#endregion
 
@@ -34,6 +33,11 @@ export class ScheduleMenuComponent {
 
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public onHideMenu(): void {
+        const checkbox = (<HTMLInputElement>document.getElementById('menu-btn'))
+        checkbox.checked = false
     }
 
     //#endregion

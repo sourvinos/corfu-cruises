@@ -1,3 +1,7 @@
+:host {
+    width: 100%;
+}
+
 ul {
     display: flex;
     list-style: none;
@@ -6,16 +10,18 @@ ul {
 }
 
 li {
+    cursor: pointer;
     position: relative;
+    width: 100%;
+}
+
+li:hover {
+    background-color: var(--color-main-menu-background-hover) !important;
+    cursor: pointer;
 }
 
 button {
     border: none;
-}
-
-button:hover {
-    background-color: var(--color-main-menu-background-hover) !important;
-    cursor: pointer;
 }
 
 li button img {

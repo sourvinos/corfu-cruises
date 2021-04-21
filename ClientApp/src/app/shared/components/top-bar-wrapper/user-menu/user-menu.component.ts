@@ -54,9 +54,8 @@ export class UserMenuComponent {
     }
 
     public onHideMenu(): void {
-        document.querySelectorAll('.sub-menu').forEach((item) => {
-            item.classList.add('hidden')
-        })
+        const checkbox = (<HTMLInputElement>document.getElementById('menu-btn'))
+        checkbox.checked = false
     }
 
     public onLogout(): void {

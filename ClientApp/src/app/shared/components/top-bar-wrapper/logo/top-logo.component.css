@@ -2,7 +2,7 @@
     cursor: pointer;
     font-family: var(--font-family-logo);
     outline: 0;
-    padding: 0.5625rem 1rem 0 22px;
+    padding: 0.5625rem 1rem 0 1.56rem;
 }
 
 span:nth-child(1) {

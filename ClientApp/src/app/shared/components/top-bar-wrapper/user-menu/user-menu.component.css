@@ -1,3 +1,7 @@
+:host {
+    width: 100%;
+}
+
 ul {
     display: flex;
     list-style: none;
@@ -6,16 +10,18 @@ ul {
 }
 
 li {
+    cursor: pointer;
     position: relative;
+    width: 100%;
 }
 
-button {
-    border: none;
-}
-
-button:hover {
+li:hover, li button:hover {
     background-color: var(--color-main-menu-background-hover) !important;
     cursor: pointer;
+}
+
+li button {
+    border: none;
 }
 
 li button img {
@@ -24,10 +30,6 @@ li button img {
 
 li:hover .sub-menu {
     display: flex;
-}
-
-.sub-menu button img {
-    margin-right: 0.5rem;
 }
 
 .sub-menu {
@@ -49,6 +51,10 @@ li:hover .sub-menu {
     padding: 1rem !important;
     transform-origin: bottom;
     width: 100%;
+}
+
+.sub-menu button img {
+    margin-right: 0.5rem;
 }
 
 .sub-menu button:nth-child(1) {
@@ -78,5 +84,12 @@ li:hover .sub-menu {
     }
     to {
         opacity: 1;
+    }
+}
+
+@media only screen and (max-width: 3000px) {
+    .sub-menu {
+        top: 0;
+        left: -118px;
     }
 }
