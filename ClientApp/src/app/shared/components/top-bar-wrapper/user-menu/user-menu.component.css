@@ -87,9 +87,9 @@ li:hover .sub-menu {
     }
 }
 
-@media only screen and (max-width: 3000px) {
+@media only screen and (max-width: 800px) {
     .sub-menu {
         top: 0;
-        left: -118px;
+        margin-left: calc(100%);
     }
 }

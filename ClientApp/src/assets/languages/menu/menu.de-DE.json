@@ -8,7 +8,7 @@
             },
             {
                 "id": "boarding",
-                "description": "(DE) Boarding"
+                "description": "Einsteigen"
             },
             {
                 "id": "tables",
@@ -48,7 +48,7 @@
             },
             {
                 "id": "schedules",
-                "description": "(DE) Schedules"
+                "description": "Zeitplan"
             },
             {
                 "id": "ships",

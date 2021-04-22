@@ -32,8 +32,8 @@ export class LanguageMenuComponent {
     }
 
     public onHideMenu(): void {
-        const checkbox = (<HTMLInputElement>document.getElementById('menu-btn'))
-        checkbox.checked = false
+        const menu = (<HTMLElement>document.getElementById('hamburger-menu')); menu.classList.remove('visible')
+        const nav = (<HTMLElement>document.getElementById('secondary-menu')); nav.classList.remove('visible')
     }
 
     public onSaveLanguage(language: string): string {

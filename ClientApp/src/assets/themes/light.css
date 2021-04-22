@@ -62,4 +62,6 @@
     --color-expansion-list-label: #072d31;
     --color-expansion-list-value: #9e0d0d;
     --color-sidenav: #caebff;
+    /* Mobile menu */
+    --color-hamburger-menu: #c7e1e6;
 }

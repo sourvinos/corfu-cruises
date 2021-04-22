@@ -35,4 +35,7 @@
     --font-weight-table-header: 300 !important;
     --font-weight-table-row-hover: 900 !important;
     --font-weight-user-greeting: 300;
+    /* Screen sizes */
+    --narrow-screen: 800px;
+    --wide-screen: 801px;
 }

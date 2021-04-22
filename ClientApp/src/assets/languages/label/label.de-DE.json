@@ -1015,7 +1015,7 @@
         "labels": [
             {
                 "id": "schedule",
-                "description": "(DE) Schedule"
+                "description": "Zeitplan"
             }
         ]
     },
@@ -1360,7 +1360,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Boarding"
+                "description": "Einsteigen"
             },
             {
                 "id": "date",

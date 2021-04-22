@@ -47,9 +47,8 @@ export class AppComponent {
     //#region public methods
 
     public onHideMenu(): void {
-        const checkbox = (<HTMLInputElement>document.getElementById('menu-btn'))
-        if (checkbox)
-            checkbox.checked = false
+        const menu = (<HTMLElement>document.getElementById('hamburger-menu')); menu.classList.remove('visible')
+        const nav = (<HTMLElement>document.getElementById('secondary-menu')); nav.classList.remove('visible')
     }
 
     //#endregion

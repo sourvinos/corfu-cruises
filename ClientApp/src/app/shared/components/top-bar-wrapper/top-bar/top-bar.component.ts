@@ -6,4 +6,11 @@ import { Component } from '@angular/core'
     styleUrls: ['./top-bar.component.css']
 })
 
-export class TopBarComponent { }
+export class TopBarComponent {
+
+    public onClickMenu(): void {
+        document.getElementById('hamburger-menu').classList.toggle('visible')
+        document.getElementById('secondary-menu').classList.toggle('visible')
+    }
+
+}
