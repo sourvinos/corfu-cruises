@@ -26,6 +26,10 @@ namespace CorfuCruises {
                 }));
             CreateMap<ReservationWriteResource, Reservation>();
             CreateMap<PassengerWriteResource, Passenger>();
+            CreateMap<Reservation, InvoiceReadResource>()
+                .ForMember(rr => rr.Customer, opt => opt.MapFrom(r => new CustomerResource { Id = r.Customer.Id, Description = r.Customer.Description }))
+                .ForMember(rr => rr.Destination, opt => opt.MapFrom(r => new DestinationResource { Id = r.Destination.Id, Description = r.Destination.Description }))
+                .ForMember(rr => rr.Ship, opt => opt.MapFrom(r => new ShipResource { Id = r.Ship.Id, Description = r.Ship.Description }));
         }
 
     }

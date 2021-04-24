@@ -244,7 +244,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Pickup points for route: "
+                "description": "Pickup Points for Route: "
             },
             {
                 "id": "searchLabel",
