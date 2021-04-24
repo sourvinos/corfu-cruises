@@ -5,7 +5,7 @@ namespace CorfuCruises {
 
     public interface IInvoicingRepository {
 
-        List<PersonsPerTransfer> Get(string date);
+        List<Reservation> Get(string date);
 
     }
 

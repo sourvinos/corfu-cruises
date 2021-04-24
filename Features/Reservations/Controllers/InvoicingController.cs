@@ -25,7 +25,7 @@ namespace CorfuCruises {
         }
 
         [HttpGet("date/{date}")]
-        public List<PersonsPerTransfer> Get(string date) {
+        public List<Reservation> Get(string date) {
             return this.repo.Get(date);
         }
 
