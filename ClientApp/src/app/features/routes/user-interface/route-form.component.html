@@ -32,6 +32,7 @@
                     <input data-cy="portDescription" type="text" matInput [placeholder]="onGetLabel('port')" formControlName="portDescription" data-tabindex="3" id="portDescription" [inputTabStop]="input" (change)="onLookupIndex(ports, 'ports', ['portId', 'portDescription', ''], ['portId', 'portDescription', ''], ['portId', 'portDescription', ''], ['1px', '440px', '56px'], ['none'], ['center', 'left', 'center'], ['', '', ''], $event)">
                     <mat-error *ngIf="portDescription.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 </mat-form-field>
+                <mat-slide-toggle data-cy="isTransfer" formControlName="isTransfer">{{ onGetLabel('isTransfer') }}</mat-slide-toggle>
                 <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
             </form>
             <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>

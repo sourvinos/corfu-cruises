@@ -428,6 +428,10 @@
                 "description": "Přístav"
             },
             {
+                "id": "isTransfer",
+                "description": "(CZ) Requires transfer"
+            },
+            {
                 "id": "isActive",
                 "description": "Aktivní"
             },

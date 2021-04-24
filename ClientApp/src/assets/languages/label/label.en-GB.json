@@ -428,6 +428,10 @@
                 "description": "Port"
             },
             {
+                "id": "isTransfer",
+                "description": "Requires transfer"
+            },
+            {
                 "id": "isActive",
                 "description": "Active"
             },

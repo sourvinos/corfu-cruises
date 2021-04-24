@@ -251,6 +251,7 @@ export class RouteFormComponent {
             abbreviation: ['', [Validators.required, Validators.maxLength(10)]],
             description: ['', [Validators.required, Validators.maxLength(128)]],
             portId: ['', Validators.required], portDescription: ['', Validators.required],
+            isTransfer: true,
             isActive: true,
             userId: this.helperService.readItem('userId')
         })
@@ -284,8 +285,9 @@ export class RouteFormComponent {
             id: result.id,
             abbreviation: result.abbreviation,
             description: result.description,
-            portId: result.port.id, 
+            portId: result.port.id,
             portDescription: result.port.description,
+            isTransfer: result.isTransfer,
             isActive: result.isActive,
             userId: this.helperService.readItem('userId')
         })
