@@ -26,8 +26,12 @@
                         <span *ngIf="record[field] > 0" class='green'>{{ record[field] | formatNumber:2:true }}</span>
                         <span *ngIf="record[field] == 0" class='blue'>{{ record[field] | formatNumber:2:true }}</span>
                     </ng-container>
+                    <ng-container *ngIf="types[i] == 'bool'">
+                        <span *ngIf="record[field] == true">Y</span>
+                        <span *ngIf="record[field] == false">N</span>
+                    </ng-container>
                     <ng-container *ngIf="types[i] == 'icon'">
-                        <img src="\assets\images\countries\{{ record[field] }}.png" height="25px" width="30px" alt="Flag not found!">
+                        <img src="\assets\images\countries\{{ record[field] }}.png" height="25px" width="30px" alt="Flag not found">
                     </ng-container>
                     <ng-container *ngIf="types[i] == ''">
                         {{ record[field] }}

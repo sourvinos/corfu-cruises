@@ -1530,5 +1530,75 @@
                 "description": "Save"
             }
         ]
+    },
+    {
+        "feature": "invoicingWrapper",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Invoicing"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Date"
+            },
+            {
+                "id": "searchHint",
+                "description": "Select or enter date"
+            },
+            {
+                "id": "searchButton",
+                "description": "Search"
+            }
+        ]
+    },
+    {
+        "feature": "invoicingList",
+        "labels": [
+            {
+                "id": "headerAdults",
+                "description": "A"
+            },
+            {
+                "id": "headerCustomerDescription",
+                "description": "Customer"
+            },
+            {
+                "id": "headerDestinationDescription",
+                "description": "Destination"
+            },
+            {
+                "id": "headerFree",
+                "description": "F"
+            },
+            {
+                "id": "headerIsTransfer",
+                "description": "Transfer"
+            },
+            {
+                "id": "headerKids",
+                "description": "K"
+            },
+            {
+                "id": "headerRemarks",
+                "description": "Remarks"
+            },
+            {
+                "id": "reservationId",
+                "description": "Id"
+            },
+            {
+                "id": "headerShipDescription",
+                "description": "Vessel"
+            },
+            {
+                "id": "headerTicketNo",
+                "description": "Ticket No"
+            },
+            {
+                "id": "headerTotalPersons",
+                "description": "T"
+            }
+        ]
     }
 ]

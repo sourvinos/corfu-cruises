@@ -7,6 +7,14 @@
                 "description": "Reservations"
             },
             {
+                "id": "dashboard",
+                "description": "Dashboard"
+            },
+            {
+                "id": "invoicing",
+                "description": "Invoicing"
+            },
+            {
                 "id": "boarding",
                 "description": "Boarding"
             },

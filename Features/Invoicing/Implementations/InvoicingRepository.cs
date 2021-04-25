@@ -23,8 +23,9 @@ namespace CorfuCruises {
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route)
                 .Include(x => x.Ship)
                 .Include(x => x.Passengers)
-                .Where(p => p.Passengers.Any(c => c.IsCheckedIn))
-                .OrderBy(x => x.Customer.Description).ToListAsync();
+                .Where(x => x.Date == date && x.Passengers.Any(x => x.IsCheckedIn))
+                .OrderBy(x => x.Customer.Description).ThenBy(x => x.Destination.Description).ThenBy(x => x.PickupPoint.Route.IsTransfer)
+                .ToListAsync();
             return mapper.Map<IEnumerable<InvoicingReadResource>>(reservations);
         }
 

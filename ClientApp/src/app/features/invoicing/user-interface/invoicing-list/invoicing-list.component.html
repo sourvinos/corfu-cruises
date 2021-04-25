@@ -1,0 +1,13 @@
+<div id="wrapper">
+
+    <div id="table-wrapper">
+        <div id="listFormCombo" [class.hidden]="activePanel=='summary'">
+            <div id="reservationList">
+                <div class="scrollable" id="table">
+                    <custom-table [highlightFirstRow]="highlightFirstRow" [feature]="feature" [records]="queryResult" [headers]="headers" [widths]="widths" [visibility]="visibility" [justify]="justify" [types]="types" [fields]="fields"></custom-table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
