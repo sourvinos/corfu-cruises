@@ -687,7 +687,7 @@
             },
             {
                 "id": "headerTicketNo",
-                "description": "Νο Εισιτηριου"
+                "description": "Εισιτηριο"
             },
             {
                 "id": "headerDestination",
@@ -772,7 +772,7 @@
             },
             {
                 "id": "ticketNo",
-                "description": "Νο εισιτηριου"
+                "description": "Εισιτηριο"
             },
             {
                 "id": "adults",
@@ -1425,7 +1425,7 @@
             },
             {
                 "id": "ticketNo",
-                "description": "Νο Εισιτηριου"
+                "description": "Εισιτηριο"
             },
             {
                 "id": "driver",
@@ -1528,6 +1528,76 @@
             {
                 "id": "saveButton",
                 "description": "Αποθηκευση"
+            }
+        ]
+    },
+    {
+        "feature": "invoicingWrapper",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Τιμολογηση"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Ημερομηνια"
+            },
+            {
+                "id": "searchHint",
+                "description": "Επιλεξτε 'η δωστε ημερομηνια"
+            },
+            {
+                "id": "searchButton",
+                "description": "Αναζητηση"
+            }
+        ]
+    },
+    {
+        "feature": "invoicingList",
+        "labels": [
+            {
+                "id": "headerAdults",
+                "description": "Ε"
+            },
+            {
+                "id": "headerCustomerDescription",
+                "description": "Πελατης"
+            },
+            {
+                "id": "headerDestinationDescription",
+                "description": "Προορισμος"
+            },
+            {
+                "id": "headerFree",
+                "description": "Δ"
+            },
+            {
+                "id": "headerIsTransfer",
+                "description": "Μεταφορα"
+            },
+            {
+                "id": "headerKids",
+                "description": "Π"
+            },
+            {
+                "id": "headerRemarks",
+                "description": "Παρατηρησεις"
+            },
+            {
+                "id": "reservationId",
+                "description": "Id"
+            },
+            {
+                "id": "headerShipDescription",
+                "description": "Πλοιο"
+            },
+            {
+                "id": "headerTicketNo",
+                "description": "Εισιτηριο"
+            },
+            {
+                "id": "headerTotalPersons",
+                "description": "Σ"
             }
         ]
     }

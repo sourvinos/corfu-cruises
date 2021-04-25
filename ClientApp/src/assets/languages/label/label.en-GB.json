@@ -687,7 +687,7 @@
             },
             {
                 "id": "headerTicketNo",
-                "description": "Ticket No"
+                "description": "Ticket"
             },
             {
                 "id": "headerDestination",
@@ -772,7 +772,7 @@
             },
             {
                 "id": "ticketNo",
-                "description": "Ticket no"
+                "description": "Ticket"
             },
             {
                 "id": "adults",
@@ -1405,7 +1405,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Search by ticket no"
+                "description": "Search by ticket"
             },
             {
                 "id": "boardingStatus",
@@ -1425,7 +1425,7 @@
             },
             {
                 "id": "ticketNo",
-                "description": "Ticket No"
+                "description": "Ticket"
             },
             {
                 "id": "driver",
@@ -1593,7 +1593,7 @@
             },
             {
                 "id": "headerTicketNo",
-                "description": "Ticket No"
+                "description": "Ticket"
             },
             {
                 "id": "headerTotalPersons",

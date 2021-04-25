@@ -7,6 +7,14 @@
                 "description": "Reservierung"
             },
             {
+                "id": "dashboard",
+                "description": "Control Panel"
+            },
+            {
+                "id": "invoicing",
+                "description": "(DE) Invoicing"
+            },
+            {
                 "id": "boarding",
                 "description": "Einsteigen"
             },

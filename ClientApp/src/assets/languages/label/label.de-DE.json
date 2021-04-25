@@ -687,7 +687,7 @@
             },
             {
                 "id": "headerTicketNo",
-                "description": "(DE) Ticket No"
+                "description": "(DE) Ticket"
             },
             {
                 "id": "headerDestination",
@@ -772,7 +772,7 @@
             },
             {
                 "id": "ticketNo",
-                "description": "(DE) Ticket no"
+                "description": "(DE) Ticket"
             },
             {
                 "id": "adults",
@@ -1405,7 +1405,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by ticket no"
+                "description": "(DE) Search by ticket"
             },
             {
                 "id": "boardingStatus",
@@ -1425,7 +1425,7 @@
             },
             {
                 "id": "ticketNo",
-                "description": "(DE) Ticket No"
+                "description": "(DE) Ticket"
             },
             {
                 "id": "driver",
@@ -1528,6 +1528,76 @@
             {
                 "id": "saveButton",
                 "description": "(DE) Save"
+            }
+        ]
+    },
+    {
+        "feature": "invoicingWrapper",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(DE) Invoicing"
+            },
+            {
+                "id": "searchLabel",
+                "description": "(DE) Date"
+            },
+            {
+                "id": "searchHint",
+                "description": "(DE) Select or enter date"
+            },
+            {
+                "id": "searchButton",
+                "description": "(DE) Search"
+            }
+        ]
+    },
+    {
+        "feature": "invoicingList",
+        "labels": [
+            {
+                "id": "headerAdults",
+                "description": "(DE) A"
+            },
+            {
+                "id": "headerCustomerDescription",
+                "description": "(DE) Customer"
+            },
+            {
+                "id": "headerDestinationDescription",
+                "description": "(DE) Destination"
+            },
+            {
+                "id": "headerFree",
+                "description": "(DE) F"
+            },
+            {
+                "id": "headerIsTransfer",
+                "description": "(DE) Transfer"
+            },
+            {
+                "id": "headerKids",
+                "description": "(DE) K"
+            },
+            {
+                "id": "headerRemarks",
+                "description": "(DE) Remarks"
+            },
+            {
+                "id": "reservationId",
+                "description": "Id"
+            },
+            {
+                "id": "headerShipDescription",
+                "description": "(DE) Vessel"
+            },
+            {
+                "id": "headerTicketNo",
+                "description": "(DE) Ticket"
+            },
+            {
+                "id": "headerTotalPersons",
+                "description": "T"
             }
         ]
     }

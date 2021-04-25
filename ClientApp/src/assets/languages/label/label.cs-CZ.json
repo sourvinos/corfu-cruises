@@ -659,7 +659,7 @@
             },
             {
                 "id": "assignToShipButton",
-                "description": "(CZ) Assign passengers to ship"
+                "description": "(CZ) Assign passengers to vessel"
             },
             {
                 "id": "createPdfButton",
@@ -687,7 +687,7 @@
             },
             {
                 "id": "headerTicketNo",
-                "description": "(CZ) Ticket No"
+                "description": "(CZ) Ticket"
             },
             {
                 "id": "headerDestination",
@@ -772,7 +772,7 @@
             },
             {
                 "id": "ticketNo",
-                "description": "(CZ) Ticket no"
+                "description": "(CZ) Ticket"
             },
             {
                 "id": "adults",
@@ -1405,7 +1405,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "(CZ) Search by ticket no"
+                "description": "(CZ) Search by ticket"
             },
             {
                 "id": "boardingStatus",
@@ -1425,7 +1425,7 @@
             },
             {
                 "id": "ticketNo",
-                "description": "(CZ) Ticket No"
+                "description": "(CZ) Ticket"
             },
             {
                 "id": "driver",
@@ -1528,6 +1528,76 @@
             {
                 "id": "saveButton",
                 "description": "(CZ) Save"
+            }
+        ]
+    },
+    {
+        "feature": "invoicingWrapper",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(CZ) Invoicing"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Datum"
+            },
+            {
+                "id": "searchHint",
+                "description": "Vyplňte nebo vyberte datum"
+            },
+            {
+                "id": "searchButton",
+                "description": "Vyhledat"
+            }
+        ]
+    },
+    {
+        "feature": "invoicingList",
+        "labels": [
+            {
+                "id": "headerAdults",
+                "description": "Do"
+            },
+            {
+                "id": "headerCustomerDescription",
+                "description": "Zákazníci"
+            },
+            {
+                "id": "headerDestinationDescription",
+                "description": "Destinace"
+            },
+            {
+                "id": "headerFree",
+                "description": "Z"
+            },
+            {
+                "id": "headerIsTransfer",
+                "description": "(CZ) Transfer"
+            },
+            {
+                "id": "headerKids",
+                "description": "Dí"
+            },
+            {
+                "id": "headerRemarks",
+                "description": "Poznámky"
+            },
+            {
+                "id": "reservationId",
+                "description": "Id"
+            },
+            {
+                "id": "headerShipDescription",
+                "description": "(CZ) Vessel"
+            },
+            {
+                "id": "headerTicketNo",
+                "description": "(CZ) Ticket"
+            },
+            {
+                "id": "headerTotalPersons",
+                "description": "C"
             }
         ]
     }

@@ -8,7 +8,7 @@
             },
             {
                 "id": "dashboard",
-                "description": "Dashboard"
+                "description": "Control Panel"
             },
             {
                 "id": "invoicing",
@@ -37,10 +37,6 @@
             {
                 "id": "drivers",
                 "description": "Drivers"
-            },
-            {
-                "id": "genders",
-                "description": "Genders"
             },
             {
                 "id": "genders",

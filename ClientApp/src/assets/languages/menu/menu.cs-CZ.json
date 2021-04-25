@@ -7,6 +7,14 @@
                 "description": "Rezervace"
             },
             {
+                "id": "dashboard",
+                "description": "(CZ) Control Panel"
+            },
+            {
+                "id": "invoicing",
+                "description": "(CZ) Invoicing"
+            },
+            {
                 "id": "boarding",
                 "description": "(CZ) Boarding"
             },

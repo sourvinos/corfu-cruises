@@ -7,6 +7,14 @@
                 "description": "Κρατησεις"
             },
             {
+                "id": "dashboard",
+                "description": "Πινακας Ελεγχου"
+            },
+            {
+                "id": "invoicing",
+                "description": "Τιμολογηση"
+            },
+            {
                 "id": "boarding",
                 "description": "Επιβιβαση"
             },
