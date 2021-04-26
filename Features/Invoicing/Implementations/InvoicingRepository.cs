@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,17 +15,26 @@ namespace CorfuCruises {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<InvoicingReadResource>> Get(string date) {
-            var reservations = await context.Reservations
+        public IEnumerable<InvoicingReadResource> Get(string date) {
+            var result = context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
-                .Include(x => x.PickupPoint).ThenInclude(y => y.Route)
                 .Include(x => x.Ship)
+                .Include(x => x.PickupPoint).ThenInclude(y => y.Route)
                 .Include(x => x.Passengers)
                 .Where(x => x.Date == date && x.Passengers.Any(x => x.IsCheckedIn))
-                .OrderBy(x => x.Customer.Description).ThenBy(x => x.Destination.Description).ThenBy(x => x.PickupPoint.Route.IsTransfer)
-                .ToListAsync();
-            return mapper.Map<IEnumerable<InvoicingReadResource>>(reservations);
+                .AsEnumerable()
+                .OrderBy(x => x.Customer.Description)
+                .GroupBy(x => new { x.Customer.Description, x.PickupPoint.Route.IsTransfer })
+                .Select(x => new InvoicingGroup {
+                    Adults = x.Sum(x => x.Adults),
+                    Kids = x.Sum(x => x.Kids),
+                    Free = x.Sum(x => x.Free),
+                    TotalPersons = x.Sum(x => x.TotalPersons),
+                    IsTransfer = x.Key.IsTransfer,
+                    Reservations = x
+                }).ToList();
+            return mapper.Map<IEnumerable<InvoicingGroup>, IEnumerable<InvoicingReadResource>>(result);
         }
 
     }

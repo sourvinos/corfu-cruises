@@ -25,7 +25,7 @@ namespace CorfuCruises {
         }
 
         [HttpGet("date/{date}")]
-        public Task<IEnumerable<InvoicingReadResource>> Get(string date) {
+        public IEnumerable<InvoicingReadResource> Get(string date) {
             return this.repo.Get(date);
         }
 

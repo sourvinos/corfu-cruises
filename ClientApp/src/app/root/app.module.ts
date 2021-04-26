@@ -10,15 +10,16 @@ import { ScrollingModule } from '@angular/cdk/scrolling'
 // Modules
 import { AccountModule } from '../features/account/classes/account.module'
 import { BoardingModule } from '../features/boardings/classes/boarding.module'
-import { ReservationModule } from '../features/reservations/classes/modules/reservation.module'
 import { CustomerModule } from '../features/customers/classes/customer.module'
 import { DestinationModule } from '../features/destinations/classes/destination.module'
 import { DriverModule } from '../features/drivers/classes/driver.module'
 import { GenderModule } from '../features/genders/classes/gender.module'
+import { InvoicingModule } from '../features/invoicing/classes/modules/invoicing.module'
 import { LoginModule } from '../features/login/classes/login.module'
 import { MaterialModule } from '../shared/modules/material.module'
 import { PickupPointModule } from '../features/pickupPoints/classes/pickupPoint.module'
 import { PortModule } from '../features/ports/classes/port.module'
+import { ReservationModule } from '../features/reservations/classes/modules/reservation.module'
 import { RouteModule } from '../features/routes/classes/route.module'
 import { ScheduleModule } from '../features/schedules/classes/schedule.module'
 import { ShipModule } from '../features/ships/classes/ship.module'
@@ -78,6 +79,7 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         FormsModule,
         GenderModule,
         HttpClientModule,
+        InvoicingModule,
         LoginModule,
         MaterialModule,
         NationalityModule,

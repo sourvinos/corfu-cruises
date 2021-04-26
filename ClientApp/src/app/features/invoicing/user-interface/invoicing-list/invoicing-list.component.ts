@@ -116,10 +116,6 @@ export class InvoicingListComponent {
         }
     }
 
-    private navigateToList(): void {
-        this.router.navigate(['reservations/date/', this.helperService.readItem('date')])
-    }
-
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
