@@ -22,7 +22,7 @@
     font-family: var(--font-family-totals);
     font-size: var(--font-size-table-row);
     justify-content: flex-end;
-    text-align: right;
+    margin-left: auto;
 }
 
 .selection .label {
@@ -122,7 +122,6 @@
 #footer {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
     margin-top: 2rem;
 }
 
@@ -191,4 +190,11 @@
 
 #closeButton {
     margin-top: auto;
+}
+
+#video {
+    height: 304px;
+    position: absolute;
+    width: 400px;
+    z-index: 1;
 }

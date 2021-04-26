@@ -1,5 +1,5 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Subject } from 'rxjs'
@@ -18,6 +18,7 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { Driver } from 'src/app/features/drivers/classes/driver'
 import { DriverService } from 'src/app/features/drivers/classes/driver.service'
+import { QrScannerComponent } from 'angular2-qrscanner'
 
 @Component({
     selector: 'boarding-list',
@@ -51,6 +52,11 @@ export class BoardingListComponent {
 
     public drivers: Driver[] = []
     public selectedDriver = ''
+
+    private chosenDevice: any
+    public videoDevices: MediaDeviceInfo[] = []
+
+    @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent
 
     //#endregion
 
@@ -117,10 +123,11 @@ export class BoardingListComponent {
     }
 
     public onFilterByTicketNo(query: string): void {
-        this.searchTerm = query
+        // this.searchTerm = query
         this.filteredRecords.boardings = []
         this.records.boardings.forEach((record) => {
-            if (record.ticketNo.toLowerCase().includes(query)) {
+            console.log(record)
+            if (record.ticketNo.includes(query)) {
                 this.filteredRecords.boardings.push(record)
             }
         })
@@ -132,6 +139,20 @@ export class BoardingListComponent {
 
     public onGoBack(): void {
         this.router.navigate(['/'])
+    }
+
+    public onHideScanner(): void {
+        document.getElementById('video').style.display = 'none'
+        this.qrScannerComponent.stopScanning()
+    }
+
+    public onShowScanner(): void {
+        this.checkForDevices()
+        this.searchTerm = ''
+        setTimeout(() => {
+            document.getElementById('video').style.display = 'block'
+        }, 500)
+        this.qrScannerComponent.startScanning(this.chosenDevice)
     }
 
     public onToggleItem(item: any, lookupArray: string[]): void {
@@ -155,6 +176,36 @@ export class BoardingListComponent {
         }, {
             priority: 1,
             inputs: true
+        })
+    }
+
+    private checkForDevices(): void {
+        this.qrScannerComponent.getMediaDevices().then(devices => {
+            console.log(devices)
+            for (const device of devices) {
+                if (device.kind.toString() === 'videoinput') {
+                    this.videoDevices.push(device)
+                }
+            }
+            if (this.videoDevices.length > 0) {
+                for (const dev of this.videoDevices) {
+                    console.log('Video devices found', dev.label)
+                    if (dev.label.includes('back')) {
+                        this.chosenDevice = dev
+                        break
+                    }
+                }
+                if (this.chosenDevice) {
+                    this.qrScannerComponent.chooseCamera.next(this.chosenDevice)
+                } else {
+                    this.qrScannerComponent.chooseCamera.next(this.videoDevices[0])
+                }
+            }
+        })
+        this.qrScannerComponent.capturedQr.subscribe((result: string) => {
+            this.searchTerm = result
+            this.onHideScanner()
+            this.onFilterByTicketNo(this.searchTerm)
         })
     }
 
@@ -238,8 +289,8 @@ export class BoardingListComponent {
 
     //#endregion
 
+    private focus(element: string): void {
+        this.helperService.setFocus(element)
+    }
+
 }
-
-
-
-

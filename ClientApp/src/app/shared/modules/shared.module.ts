@@ -14,6 +14,7 @@ import { QRCodeModule } from 'angularx-qrcode'
 import { RouterModule } from '@angular/router'
 import { SafeStylePipe } from '../pipes/safeStyle.pipe'
 import { SnackbarComponent } from '../components/snackbar/snackbar.component'
+import { NgQrScannerModule } from 'angular2-qrscanner'
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         CommonModule,
         FormsModule,
         MaterialModule,
-        QRCodeModule,
+        NgQrScannerModule,
+        QRCodeModule
     ],
     exports: [
         CommonModule,
@@ -42,9 +44,10 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         InputFormatDirective,
         InputTabStopDirective,
         MapComponent,
+        NgQrScannerModule,
         QRCodeComponent,
         ReactiveFormsModule,
-        RouterModule,
+        RouterModule
     ],
     entryComponents: [
         DialogAlertComponent,

@@ -60,12 +60,12 @@ namespace CorfuCruises {
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
             });
-            // app.UseSpa(spa => {
-            //     spa.Options.SourcePath = "ClientApp";
-            //     if (env.IsDevelopment()) {
-            //         spa.UseAngularCliServer(npmScript: "start");
-            //     }
-            // });
+            app.UseSpa(spa => {
+                spa.Options.SourcePath = "ClientApp";
+                if (env.IsDevelopment()) {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
         }
     }
 

@@ -22,6 +22,7 @@
         "@angular/router": "10.2.0",
         "ajv": "6.12.2",
         "angular-user-idle": "2.2.4",
+        "angular2-qrscanner": "1.0.7",
         "angularx-qrcode": "10.0.12",
         "aspnet-prerendering": "3.0.1",
         "chart.js": "2.9.4",
