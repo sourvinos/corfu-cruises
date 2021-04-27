@@ -8,17 +8,17 @@ import { Title } from '@angular/platform-browser'
 import { BoardingService } from '../../classes/boarding.service'
 import { BoardingViewModel } from './../../classes/boarding-view-model'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { Driver } from 'src/app/features/drivers/classes/driver'
+import { DriverService } from 'src/app/features/drivers/classes/driver.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
+import { QrScannerComponent } from 'angular2-qrscanner'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { Driver } from 'src/app/features/drivers/classes/driver'
-import { DriverService } from 'src/app/features/drivers/classes/driver.service'
-import { QrScannerComponent } from 'angular2-qrscanner'
 
 @Component({
     selector: 'boarding-list',
@@ -200,6 +200,8 @@ export class BoardingListComponent {
                 } else {
                     this.qrScannerComponent.chooseCamera.next(this.videoDevices[0])
                 }
+            } else {
+                this.showSnackbar(this.messageSnackbarService.noVideoDevicesFound(), 'error')
             }
         })
         this.qrScannerComponent.capturedQr.subscribe((result: string) => {
@@ -288,9 +290,5 @@ export class BoardingListComponent {
     }
 
     //#endregion
-
-    private focus(element: string): void {
-        this.helperService.setFocus(element)
-    }
 
 }

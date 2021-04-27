@@ -46,13 +46,12 @@ export class MessageSnackbarService {
     }
 
     public accountNotConfirmed(): string { return this.getDescription(this.feature, "accountNotConfirmed") }
-    public invalidOneTimePassword(): string { return this.getDescription(this.feature, "invalidOneTimePassword") }
     public askConfirmationToAbortEditing(): string { return this.getDescription(this.feature, "askConfirmationToAbortEditing") }
     public askConfirmationToDelete(): string { return this.getDescription(this.feature, "askConfirmationToDelete") }
     public authenticationFailed(): string { return this.getDescription(this.feature, "authenticationFailed") }
     public emailSent(): string { return this.getDescription(this.feature, "emailSent") }
     public formIsDirty(): string { return this.getDescription(this.feature, "formIsDirty") }
-    public noDefaultDriverFound(): string { return this.getDescription(this.feature, "noDefaultDriverFound") }
+    public noVideoDevicesFound(): string { return this.getDescription(this.feature, "noVideoDevicesFound") }
     public noRecordsSelected(): string { return this.getDescription(this.feature, "noRecordsSelected") }
     public passwordChanged(): string { return this.getDescription(this.feature, "passwordChanged") }
     public recordCreated(): string { return this.getDescription(this.feature, "recordCreated") }

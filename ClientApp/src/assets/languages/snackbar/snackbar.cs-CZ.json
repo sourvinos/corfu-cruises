@@ -10,7 +10,6 @@
         { "error": 492, "id": "unableToRegisterUser", "message": "(CZ) A user with these details can not be created." },
         { "error": 494, "id": "unableToChangePassword", "message": "(CZ) The password can not be changed." },
         { "error": 495, "id": "accountNotConfirmed", "message": "(CZ) This account is pending email confirmation." },
-        { "error": 496, "id": "invalidOneTimePassword", "message": "(CZ) This password is no longer valid." },
         { "error": 499, "id": "redAlert", "message":"(CZ) Something very bad happened. Logout immediately." },
         { "id": "askConfirmationToAbortEditing", "message": "(CZ) If you continue, all changes will be lost." },
         { "id": "askConfirmationToDelete", "message": "(CZ) If you continue, this record will be lost for ever." },
@@ -22,6 +21,7 @@
         { "id": "recordDeleted", "message": "(CZ) This record was deleted." },
         { "id": "recordUpdated", "message": "(CZ) This record was updated." },
         { "id": "selectedRecordsHaveBeenProcessed", "message": "(CZ) All selected records have been updated." },
-        { "id": "unableToResetPassword", "message": "(CZ) The password can not be reset." }
+        { "id": "unableToResetPassword", "message": "(CZ) The password can not be reset." },
+        { "id": "noVideoDevicesFound", "message": "(CZ) There are no cameras on your device." }
     ]
 }]
