@@ -57,6 +57,7 @@ export class ReservationWrapperComponent {
     }
 
     ngAfterViewInit(): void {
+        this.getStoredDate()
         this.focus('dateIn')
     }
 
@@ -93,7 +94,7 @@ export class ReservationWrapperComponent {
     public onLoadReservations(): void {
         this.clearSelectedArraysFromLocalStorage()
         if (this.checkValidDate()) {
-            this.updateLocalStorageWithDate()
+            this.saveDateToStorage()
             this.navigateToList()
         }
     }
@@ -138,13 +139,19 @@ export class ReservationWrapperComponent {
         this.helperService.setFocus(field)
     }
 
+    private getStoredDate(): void {
+        this.form.setValue({
+            dateIn: this.helperService.readItem('date')
+        })
+    }
+
     private getLocale(): void {
         this.dateAdapter.setLocale(this.helperService.readItem("language"))
     }
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            dateIn: ['2021-04-30', [Validators.required]]
+            dateIn: ['', [Validators.required]]
         })
     }
 
@@ -160,7 +167,7 @@ export class ReservationWrapperComponent {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
 
-    private updateLocalStorageWithDate(): void {
+    private saveDateToStorage(): void {
         this.helperService.saveItem('date', this.dateInISO)
     }
 

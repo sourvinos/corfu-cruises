@@ -15,13 +15,14 @@
         { "id": "askConfirmationToDelete", "message": "Αν συνεχίσετε, η εγγραφή θα διαγραφεί για πάντα." },
         { "id": "emailSent", "message": "Στάλθηκε ένα email με οδηγίες." },
         { "id": "formIsDirty", "message": "Πριν συνεχίσετε, οι αλλαγές πρέπει να αποθηκευτούν." },
+        { "id": "newReservationsAreNotAllowed", "message": "Νέες κρατήσεις δεν επιτρέπονται σε αυτήν την ημέρα." },        
         { "id": "noRecordsSelected", "message": "Δεν έχετε επιλέξει εγγραφές." },
+        { "id": "noVideoDevicesFound", "message": "Δεν βρέθηκαν κάμερες στη συσκευή σας." },
         { "id": "passwordChanged", "message": "Ο κωδικός άλλαξε, πρέπει να συνδεθείτε ξανά." },
         { "id": "recordCreated", "message": "Η εγγραφή δημιουργήθηκε." },
         { "id": "recordDeleted", "message": "Η εγγραφή διαγράφηκε." },
         { "id": "recordUpdated", "message": "Η εγγραφή ενημερώθηκε." },
         { "id": "selectedRecordsHaveBeenProcessed", "message": "Ολες οι επιλεγμένες εγγραφές ενημερώθηκαν." },
-        { "id": "unableToResetPassword", "message": "Δεν μπορεί να γίνει επαναφορά κωδικού." },
-        { "id": "noVideoDevicesFound", "message": "Δεν βρέθηκαν κάμερες στη συσκευή σας." }
+        { "id": "unableToResetPassword", "message": "Δεν μπορεί να γίνει επαναφορά κωδικού." }
     ]
 }]

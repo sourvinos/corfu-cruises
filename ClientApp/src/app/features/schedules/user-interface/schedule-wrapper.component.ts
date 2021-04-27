@@ -161,7 +161,7 @@ export class ScheduleWrapperComponent {
         const percentEmpty = (100 * data.available / data.maxPersons)
         switch (true) {
             case (percentEmpty) == 0:
-                return 'dark-red'
+                return 'dark'
             case (percentEmpty <= 10):
                 return 'red'
             case (percentEmpty > 10 && percentEmpty <= 40):
@@ -184,7 +184,7 @@ export class ScheduleWrapperComponent {
             const dayText = dayElement.innerText.length == 2 ? dayElement.innerText : '0' + dayElement.innerText
             const dayTextISO = moment().year() + '-' + this.calculateMonth(month) + '-' + dayText
             this.daysISO.push(dayTextISO)
-            dayElement.classList.remove('green', 'yellow', 'orange', 'red', 'dark-red')
+            dayElement.classList.remove('green', 'yellow', 'orange', 'red', 'dark')
         })
         let isDayProcessed = false
         this.schedules.forEach(schedule => {

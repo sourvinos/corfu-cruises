@@ -15,13 +15,14 @@
         { "id": "askConfirmationToDelete", "message": "(CZ) If you continue, this record will be lost for ever." },
         { "id": "emailSent", "message": "(CZ) An email was sent with instructions." },
         { "id": "formIsDirty", "message": "(CZ) Before you continue, all changes must be saved." },
+        { "id": "newReservationsAreNotAllowed", "message": "(CZ) New reservations are not allowed on this day." },        
         { "id": "noRecordsSelected", "message": "(CZ) You have not selected any records." },
+        { "id": "noVideoDevicesFound", "message": "(CZ) There are no cameras on your device." },
         { "id": "passwordChanged", "message": "(CZ) The password was changed, you must login again." },
         { "id": "recordCreated", "message": "(CZ) A record was created." },
         { "id": "recordDeleted", "message": "(CZ) This record was deleted." },
         { "id": "recordUpdated", "message": "(CZ) This record was updated." },
         { "id": "selectedRecordsHaveBeenProcessed", "message": "(CZ) All selected records have been updated." },
-        { "id": "unableToResetPassword", "message": "(CZ) The password can not be reset." },
-        { "id": "noVideoDevicesFound", "message": "(CZ) There are no cameras on your device." }
+        { "id": "unableToResetPassword", "message": "(CZ) The password can not be reset." }
     ]
 }]

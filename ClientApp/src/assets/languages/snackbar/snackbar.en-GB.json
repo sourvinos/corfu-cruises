@@ -15,13 +15,14 @@
         { "id": "askConfirmationToDelete", "message": "If you continue, this record will be lost for ever." },
         { "id": "emailSent", "message": "An email was sent with instructions." },
         { "id": "formIsDirty", "message": "Before you continue, all changes must be saved." },
+        { "id": "newReservationsAreNotAllowed", "message": "New reservations are not allowed on this day." },        
         { "id": "noRecordsSelected", "message": "You have not selected any records." },
+        { "id": "noVideoDevicesFound", "message": "There are no cameras on your device." },
         { "id": "passwordChanged", "message": "The password was changed, you must login again." }, 
         { "id": "recordCreated", "message": "A record was created." },
         { "id": "recordDeleted", "message": "This record was deleted." },
         { "id": "recordUpdated", "message": "This record was updated." },
         { "id": "selectedRecordsHaveBeenProcessed", "message": "All selected records have been updated." },
-        { "id": "unableToResetPassword", "message": "The password can not be reset." },
-        { "id": "noVideoDevicesFound", "message": "There are no cameras on your device." }
+        { "id": "unableToResetPassword", "message": "The password can not be reset." }
     ]
 }]

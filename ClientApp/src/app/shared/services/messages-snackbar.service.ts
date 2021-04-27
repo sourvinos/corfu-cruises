@@ -56,6 +56,7 @@ export class MessageSnackbarService {
     public passwordChanged(): string { return this.getDescription(this.feature, "passwordChanged") }
     public recordCreated(): string { return this.getDescription(this.feature, "recordCreated") }
     public recordDeleted(): string { return this.getDescription(this.feature, "recordDeleted") }
+    public newReservationsAreNotAllowed(): string { return this.getDescription(this.feature, "newReservationsAreNotAllowed") }
     public recordUpdated(): string { return this.getDescription(this.feature, "recordUpdated") }
     public selectedRecordsHaveBeenProcessed(): string { return this.getDescription(this.feature, "selectedRecordsHaveBeenProcessed") }
     public unableToResetPassword(): string { return this.getDescription(this.feature, "unableToResetPassword") }

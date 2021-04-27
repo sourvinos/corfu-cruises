@@ -1,8 +1,12 @@
+import { SnackbarService } from './../../../shared/services/snackbar.service'
 import { Component } from "@angular/core"
 import moment, { utc } from 'moment'
 // Custom
 import { InteractionService } from './../../../shared/services/interaction.service'
 import { MessageCalendarService } from "src/app/shared/services/messages-calendar.service"
+import { Router } from "@angular/router"
+import { HelperService } from "src/app/shared/services/helper.service"
+import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 
 @Component({
     selector: 'calendar',
@@ -21,7 +25,7 @@ export class CalendarComponent {
 
     // #endregion 
 
-    constructor(private messageCalendarService: MessageCalendarService, private interactionService: InteractionService) { }
+    constructor(private router: Router, private interactionService: InteractionService, private messageCalendarService: MessageCalendarService, private helperService: HelperService, private messageSnackbarService: MessageSnackbarService, private snackbarService: SnackbarService) { }
 
     //#region lifecycle hooks
 
@@ -46,9 +50,28 @@ export class CalendarComponent {
         return this.messageCalendarService.getDescription('weekdays', id)
     }
 
+    public onCreateReservation(event: any, day: { value: any }): void {
+        if (this.newReservationsAreAllowed(event.currentTarget.className)) {
+            const date = this.createISODate(day)
+            this.saveDateToStorage(date)
+            this.router.navigate(['/reservations/date/' + date])
+        } else {
+            this.showSnackbar(this.messageSnackbarService.newReservationsAreNotAllowed(), 'error')
+        }
+    }
+
     //#endregion
 
     //#region private methods
+
+    private createISODate(day: { value: any }): string {
+        return this.startDate.format('YYYY') + '-' + this.startDate.format('MM') + '-' + this.formatDayWithLeadingZero(day.value)
+    }
+
+    private formatDayWithLeadingZero(day: number): string {
+        const formattedDay = day.toString().length == 1 ? '0' + day : day
+        return formattedDay.toString()
+    }
 
     private getDaysFromDate(month: number, year: number): void {
         this.startDate = utc(`${year}/${month}/01`)
@@ -68,6 +91,13 @@ export class CalendarComponent {
         this.monthSelect = arrayDays
     }
 
+    private newReservationsAreAllowed(classList: string | string[]): boolean {
+        if (classList.includes('green') || classList.includes('yellow') || classList.includes('orange') || classList.includes('red')) {
+            return true
+        }
+        return false
+    }
+
     private navigateToMonth(flag: number): void {
         if (flag < 0) {
             const prevDate = this.dateSelect.clone().subtract(1, "month")
@@ -78,6 +108,14 @@ export class CalendarComponent {
             this.getDaysFromDate(nextDate.format("MM"), nextDate.format("YYYY"))
             this.interactionService.changeCalendarMonth(nextDate.month() + 1)
         }
+    }
+
+    private saveDateToStorage(date: string): void {
+        this.helperService.saveItem('date', date)
+    }
+
+    private showSnackbar(message: string, type: string): void {
+        this.snackbarService.open(message, type)
     }
 
     //#endregion
