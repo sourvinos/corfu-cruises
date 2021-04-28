@@ -1416,6 +1416,10 @@
                 "description": "(DE) Driver"
             },
             {
+                "id": "customer",
+                "description": "Customer"
+            },
+            {
                 "id": "searchDropdownHint",
                 "description": "Select from the list"
             },
@@ -1470,6 +1474,14 @@
             {
                 "id": "filterButton",
                 "description": "Filters"
+            },
+            {
+                "id": "scanOpenButton",
+                "description": "Scan"
+            },
+            {
+                "id": "scanCloseButton",
+                "description": "Close"
             }
         ]
     },

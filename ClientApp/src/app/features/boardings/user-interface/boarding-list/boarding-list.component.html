@@ -37,59 +37,58 @@
                 </div>
             </mat-sidenav>
             <mat-sidenav-content class="scrollable">
-                <mat-accordion class=" example-headers-align" multi>
-                    <mat-expansion-panel *ngFor="let record of filteredRecords.boardings" hideToggle [expanded]="true">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <div class="field horizontal">
-                                    <div class="field-label">{{ onGetLabel('ticketNo') }}:&nbsp;</div>
-                                    <div class="field-value">{{ record.ticketNo }}</div>
-                                </div>
-                                <div class="field horizontal">
-                                    <div class="field-label">{{ onGetLabel('driver') }}:&nbsp;</div>
-                                    <div class="field-value">{{ record.driver }}</div>
-                                </div>
-                                <div class="field horizontal">
-                                    <div class="field-label"> {{ onGetLabel('totalPersons') }}:&nbsp;</div>
-                                    <div class="field-value">{{ record.totalPersons }}&nbsp;</div>
-                                </div>
-                                <div class="field horizontal" *ngIf="!personsAreNotMissing(record)">
-                                    <img src="/assets/images/navigation/danger.svg" width="20px">
-                                    <div class="field-label">&nbsp; {{ onGetLabel('pendingPersons') }}:&nbsp;</div>
-                                    <div class="field-value">{{ record.totalPersons - record.passengers.length }}&nbsp;</div>
-                                </div>
-                                <div class="field horizontal" id="remarks" *ngIf="onCheckRemarksLength(record.remarks)">
-                                    <img src="/assets/images/navigation/warning.svg" width="25px">
-                                </div>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div class="detail" *ngFor="let passenger of record.passengers">
+                <div class="record" *ngFor="let record of filteredRecords.boardings">
+                    <div class="reservation">
+                        <div class="field ticket">
+                            <img src="/assets/images/navigation/ticket-{{theme}}.svg" width="20px">
+                            <div class="field-value">{{ record.ticketNo }}</div>
+                        </div>
+                        <div class="field driver">
+                            <img src="/assets/images/navigation/driver-{{theme}}.svg" width="20px">
+                            <div class="field-value">{{ record.driver }}</div>
+                        </div>
+                        <div class="field customer">
+                            <img src="/assets/images/navigation/customer-{{theme}}.svg" width="20px">
+                            <div class="field-value">{{ record.customer }}</div>
+                        </div>
+                        <div class="field total-persons">
+                            <img src="/assets/images/navigation/persons-{{theme}}.svg" width="20px">
+                            <div class="field-value">{{ record.totalPersons }}&nbsp;</div>
+                        </div>
+                        <div class="field pending-persons" *ngIf="!personsAreNotMissing(record)">
+                            <img src="/assets/images/navigation/danger.svg" width="20px">
+                            <div class="field-value">{{ record.totalPersons - record.passengers.length }}&nbsp;</div>
+                        </div>
+                        <div class="field spacer"> </div>
+                        <div class="field remarks" *ngIf="onCheckRemarksLength(record.remarks)" matTooltip="{{ record.remarks }}" matTooltipClass="tooltip-yellow">
+                            <img src="/assets/images/navigation/warning.svg" width="25px">
+                        </div>
+                    </div>
+                    <div class="passengers">
+                        <div class="passenger" *ngFor="let passenger of record.passengers">
                             <div class="field">
-                                <div class="field-value">
-                                    <img *ngIf="passenger.isCheckedIn" src="/assets/images/navigation/isBoarded.svg" width="20px">
-                                    <img *ngIf="!passenger.isCheckedIn" src="/assets/images/navigation/isNotBoarded.svg" width="20px">
-                                </div>
+                                <img *ngIf="passenger.isCheckedIn" src="/assets/images/navigation/isBoarded.svg" width="20px">
+                                <img *ngIf="!passenger.isCheckedIn" src="/assets/images/navigation/isNotBoarded.svg" width="20px">
                             </div>
-                            <div class="field" id="lastname">
+                            <div class="field lastname">
                                 <div class="field-value">{{ passenger.lastname }}</div>
                             </div>
-                            <div class="field" id="firstname">
+                            <div class="field firstname">
                                 <div class="field-value">{{ passenger.firstname }}</div>
                             </div>
-                            <div class="button">
+                            <div class="field board-passenger">
                                 <button mat-flat-button class="primary" (click)="onDoBoarding(passenger.id)">{{ onGetLabel('boardButton') }}</button>
                             </div>
                         </div>
-                    </mat-expansion-panel>
-                </mat-accordion>
+                    </div>
+                </div>
             </mat-sidenav-content>
         </mat-sidenav-container>
     </div>
 
     <div id="footer">
         <div id="action-buttons">
-            <button mat-flat-button class="primary" (click)="onShowScanner()">Scan Me!</button>
-            <button mat-flat-button class="secondary" (click)="onHideScanner()">Stop</button>
+            <button mat-flat-button class="primary" (click)="onShowScanner()">{{ onGetLabel('scanOpenButton') }}</button>
         </div>
         <div class="selection">
             <div class="label">{{ onGetLabel('totalPersons') }}:</div>
@@ -100,12 +99,13 @@
             <div class="sum"> {{ records.remainingPersons}} </div>
         </div>
         <div id="client-filter-buttons">
-            <button mat-flat-button class="primary" (click)="toggleClientFilters()">{{ onGetLabel('filterButton') }}</button>
+            <button mat-flat-button class="secondary" (click)="toggleClientFilters()">{{ onGetLabel('filterButton') }}</button>
         </div>
     </div>
 
     <div id="video">
-        <qr-scanner [debug]="false" [canvasWidth]="400" [canvasHeight]="400" [stopAfterScan]="false" [updateTime]="500"></qr-scanner>
+        <qr-scanner [debug]="false" [canvasWidth]="640" [canvasHeight]="480" [stopAfterScan]="false" [updateTime]="500"></qr-scanner>
+        <button mat-flat-button class="secondary" id="scanCloseButton" (click)="onHideScanner()">{{ onGetLabel('scanCloseButton') }}</button>
     </div>
 
 </div>

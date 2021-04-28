@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
@@ -241,4 +242,14 @@ p.instructions {
 
 .dateWithSchedule {
     font-size: var(--font-size-calendar-date);
+}
+
+.mat-tooltip {
+    font-family: "Open Sans Condensed";
+    font-size: 1rem;
+}
+
+.tooltip-yellow {
+    background: var(--color-tooltip-background);
+    color: var(--color-tooltip);
 }

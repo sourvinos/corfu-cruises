@@ -43,42 +43,37 @@
     width: 100%;
 }
 
-.mat-expansion-panel {
-    background-color: var(--color-summary-background) !important;
-    box-shadow: none !important;
-}
-
-.mat-expansion-panel-header-title {
-    color: var(--color-expansion-header);
-    font-family: var(--font-family-label) !important;
-    font-size: 1.5rem !important;
-    font-variant-caps: petite-caps;
-    margin: 0 !important;
-}
-
 .horizontal {
     display: flex;
     flex-direction: row;
+    width: 16%;
+    align-items: center;
+}
+
+.horizontal div {
+    display: flex;
 }
 
 .horizontal:not(:last-child) {
     margin-right: 1rem;
-    width: 12rem;
+    /* width: 12rem; */
 }
 
 .horizontal .field-label {
     margin-bottom: 0;
 }
 
-.field-label {
-    color: var(--color-expansion-list-label);
-    font-family: var(--font-family-label);
-    font-size: 1.5rem;
-    font-variant-caps: petite-caps;
+.horizontal img {
+    margin-right: 0.5rem;
 }
 
 .field-value {
     color: var(--color-expansion-list-value);
+    font-family: var(--font-family-label);
+    margin-left: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .detail {
@@ -110,15 +105,6 @@
     cursor: pointer;
 }
 
-#remarks {
-    font-variant: all-small-caps;
-    margin-left: auto;
-}
-
-#remarks img {
-    margin-left: 1rem;
-}
-
 #footer {
     display: flex;
     flex-direction: row;
@@ -131,7 +117,7 @@
 
 .mat-drawer-content {
     background-color: var(--color-background-secondary);
-    padding-right: 1rem;
+    padding-right: 0.3125rem;
 }
 
 .mat-sidenav {
@@ -193,8 +179,93 @@
 }
 
 #video {
-    height: 304px;
-    position: absolute;
-    width: 400px;
+    background-color: #000000;
+    display: none;
+    padding: 1rem;
+    position: fixed;
     z-index: 1;
+}
+
+.reservation {
+    align-items: center;
+    background-color: var(--color-summary-background);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.field {
+    display: flex;
+}
+
+.ticket {
+    min-width: 15% !important;
+}
+
+.driver {
+    margin-left: 1rem;
+    min-width: 15% !important;
+}
+
+.customer {
+    margin-left: 1rem;
+    min-width: 20%;
+}
+
+.total-persons {
+    margin-left: 1rem;
+    min-width: 10%;
+}
+
+.pending-persons {
+    margin-left: 1rem;
+    min-width: 10%;
+}
+
+.reservation .spacer {
+    flex-grow: 1;
+    text-align: end;
+}
+
+.passenger {
+    align-items: center;
+    display: flex;
+    margin: 0.4rem 0;
+}
+
+.passenger .remarks img {
+    margin-left: auto;
+}
+
+.lastname {
+    width: 30%;
+}
+
+.firstname {
+    width: 30%;
+}
+
+.board-passenger {
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.record {
+    display: flex;
+    flex-basis: content;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.passengers {
+    margin: 0 1rem;
+}
+
+#scanCloseButton {
+    left: 83.3%;
+    position: absolute;
+    top: 22px;
 }

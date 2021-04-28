@@ -64,4 +64,6 @@
     --color-sidenav: #caebff;
     /* Mobile menu */
     --color-hamburger-menu: #c7e1e6;
+    /* Tooltip */
+    --color-tooltip-background: #426f8a;
 }

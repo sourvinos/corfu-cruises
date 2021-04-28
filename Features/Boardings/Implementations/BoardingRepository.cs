@@ -17,6 +17,7 @@ namespace CorfuCruises {
 
         public async Task<BoardingMainResultResource<BoardingResource>> Get(string date, int destinationId, int portId, int shipId) {
             var reservations = await context.Reservations
+                .Include(x => x.Customer)
                 .Include(x => x.Driver)
                 .Include(x => x.Passengers)
                 .Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId)

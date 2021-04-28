@@ -1416,6 +1416,10 @@
                 "description": "Driver"
             },
             {
+                "id": "customer",
+                "description": "(CZ) Customer"
+            },
+            {
                 "id": "searchDropdownHint",
                 "description": "(CZ) Select from the list"
             },
@@ -1470,6 +1474,14 @@
             {
                 "id": "filterButton",
                 "description": "(CZ) Filters"
+            },
+            {
+                "id": "scanOpenButton",
+                "description": "(CZ) Scan"
+            },
+            {
+                "id": "scanCloseButton",
+                "description": "(CZ) Close"
             }
         ]
     },

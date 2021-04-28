@@ -49,6 +49,7 @@ export class BoardingListComponent {
     public searchTerm: string
     public driver: string
     public selectedBoardingStatus = []
+    public theme = ''
 
     public drivers: Driver[] = []
     public selectedDriver = ''
@@ -75,7 +76,12 @@ export class BoardingListComponent {
         this.initForm()
         this.addShortcuts()
         this.getLocale()
+        this.getTheme()
         this.populateDropDowns()
+    }
+
+    ngDoCheck(): void {
+        this.compareCurrentThemeWithLocalStorage()
     }
 
     ngOnDestroy(): void {
@@ -126,7 +132,6 @@ export class BoardingListComponent {
         // this.searchTerm = query
         this.filteredRecords.boardings = []
         this.records.boardings.forEach((record) => {
-            console.log(record)
             if (record.ticketNo.includes(query)) {
                 this.filteredRecords.boardings.push(record)
             }
@@ -149,9 +154,7 @@ export class BoardingListComponent {
     public onShowScanner(): void {
         this.checkForDevices()
         this.searchTerm = ''
-        setTimeout(() => {
-            document.getElementById('video').style.display = 'block'
-        }, 500)
+        setTimeout(() => { this.positionVideo() }, 1000)
         this.qrScannerComponent.startScanning(this.chosenDevice)
     }
 
@@ -211,6 +214,12 @@ export class BoardingListComponent {
         })
     }
 
+    private compareCurrentThemeWithLocalStorage(): void {
+        if (localStorage.getItem('theme') != this.theme) {
+            this.theme = localStorage.getItem('theme')
+        }
+    }
+
     private determineBoardingStatus(status: boolean): string {
         switch (status) {
             case true: return '1'
@@ -220,6 +229,10 @@ export class BoardingListComponent {
 
     private getLocale(): void {
         this.dateAdapter.setLocale(this.helperService.readItem("language"))
+    }
+
+    private getTheme(): void {
+        this.theme = localStorage.getItem('theme')
     }
 
     private initForm(): void {
@@ -233,11 +246,18 @@ export class BoardingListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
+            console.log(this.records)
             this.filteredRecords = Object.assign([], this.records)
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }
+    }
+
+    private positionVideo(): void {
+        document.getElementById('video').style.left = (window.outerWidth / 2) - 320 + 'px'
+        document.getElementById('video').style.top = (window.outerHeight / 2) - 240 + 'px'
+        document.getElementById('video').style.display = 'flex'
     }
 
     private refreshSummary(): void {
