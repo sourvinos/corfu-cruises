@@ -61,7 +61,7 @@
                         </div>
                         <div class="field spacer"> </div>
                         <div class="field remarks" *ngIf="onCheckRemarksLength(record.remarks)" matTooltip="{{ record.remarks }}" matTooltipClass="tooltip-yellow">
-                            <img src="/assets/images/navigation/warning.svg" width="25px">
+                            <img src="/assets/images/navigation/warning-animated.gif" width="25px">
                         </div>
                     </div>
                     <div class="passengers">
@@ -86,7 +86,7 @@
         </mat-sidenav-container>
     </div>
 
-    <div id="footer">
+    <div id="footer" *ngIf="filteredRecords.boardings.length > 0">
         <div id="action-buttons">
             <button mat-flat-button class="primary" (click)="onShowScanner()">{{ onGetLabel('scanOpenButton') }}</button>
         </div>

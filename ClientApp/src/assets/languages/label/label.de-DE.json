@@ -1482,6 +1482,10 @@
             {
                 "id": "scanCloseButton",
                 "description": "(DE) Close"
+            },
+            {
+                "id": "nothing",
+                "description": "(DE) We Found Nothing!"
             }
         ]
     },

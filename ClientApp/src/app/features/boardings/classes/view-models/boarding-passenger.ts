@@ -1,4 +1,4 @@
-export class BoardingDetail {
+export class BoardingPassenger {
 
     id: number
     lastname: string

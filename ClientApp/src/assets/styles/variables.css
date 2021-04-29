@@ -20,6 +20,7 @@
     --font-family-summary-header: "Open Sans Condensed";
     --font-family-table-body: "Open Sans Condensed";
     --font-family-table-header: "Open Sans Condensed";
+    --font-family-tooltip: "Open Sans Condensed";
     --font-family-totals: "Open Sans Condensed";
     /* Font weights */
     --font-weight-button: 100 !important;
@@ -34,6 +35,7 @@
     --font-weight-summary-header: 300;
     --font-weight-table-header: 300 !important;
     --font-weight-table-row-hover: 900 !important;
+    --font-weight-tooltip: 700;
     --font-weight-user-greeting: 300;
     /* Screen sizes */
     --narrow-screen: 800px;

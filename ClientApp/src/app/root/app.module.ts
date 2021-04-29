@@ -9,7 +9,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling'
 
 // Modules
 import { AccountModule } from '../features/account/classes/account.module'
-import { BoardingModule } from '../features/boardings/classes/boarding.module'
+import { BoardingModule } from '../features/boardings/classes/modules/boarding.module'
 import { CustomerModule } from '../features/customers/classes/customer.module'
 import { DestinationModule } from '../features/destinations/classes/destination.module'
 import { DriverModule } from '../features/drivers/classes/driver.module'

@@ -9,10 +9,10 @@ import { ReservationService } from '../services/reservation.service'
 
 export class ReservationListResolver  {
 
-    constructor(private ReservationService: ReservationService) { }
+    constructor(private reservationService: ReservationService) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<ReservationListResolved> {
-        return this.ReservationService.get(route.params.dateIn)
+        return this.reservationService.get(route.params.dateIn)
             .pipe(
                 map((reservationList) => new ReservationListResolved(reservationList)),
                 catchError((err: any) => of(new ReservationListResolved(null, err)))

@@ -1482,6 +1482,10 @@
             {
                 "id": "scanCloseButton",
                 "description": "Κλεισιμο"
+            },
+            {
+                "id": "nothing",
+                "description": "Δεν Βρηκαμε Τιποτα!"
             }
         ]
     },

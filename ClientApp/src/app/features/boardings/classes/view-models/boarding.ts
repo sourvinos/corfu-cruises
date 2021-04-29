@@ -1,5 +1,5 @@
 import { Guid } from "guid-typescript"
-import { BoardingDetail } from "./boarding-detail"
+import { BoardingPassenger } from "./boarding-passenger"
 
 export class Boarding {
 
@@ -10,6 +10,6 @@ export class Boarding {
     driver: string
     remarks: string
 
-    passengers: BoardingDetail[]
+    passengers: BoardingPassenger[]
 
 }

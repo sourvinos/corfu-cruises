@@ -16,6 +16,7 @@
         { "id": "emailSent", "message": "An email was sent with instructions." },
         { "id": "formIsDirty", "message": "Before you continue, all changes must be saved." },
         { "id": "newReservationsAreNotAllowed", "message": "New reservations are not allowed on this day." },        
+        { "id": "noResults", "message": "We didn't find anything." },
         { "id": "noRecordsSelected", "message": "You have not selected any records." },
         { "id": "noVideoDevicesFound", "message": "There are no cameras on your device." },
         { "id": "passwordChanged", "message": "The password was changed, you must login again." }, 

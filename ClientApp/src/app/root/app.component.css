@@ -30,5 +30,21 @@
 }
 
 #spinner {
+    border: 0.1875rem solid var(--color-spinner-outer);
+    border-top: 0.1875rem solid var(--color-spinner-inner);
+    border-radius: 50%;
+    width: 5rem;
+    height: 5rem;
     position: absolute;
+    animation: spin 1700ms linear infinite;
+    z-index: 2;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

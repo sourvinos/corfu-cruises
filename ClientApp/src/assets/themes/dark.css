@@ -37,6 +37,8 @@
     --color-map-tooltip-background: #22333B;
     --color-map-tooltip-color: #EFEFEF;
     /* Spinner */
+    --color-spinner-outer: #FE9F36;
+    --color-spinner-inner: #FFE85C;
     --color-spinner: #FE9F36;
     /* Credits */
     --color-credit-title: #FE9F36;
@@ -65,6 +67,6 @@
     /* Mobile menu */
     --color-hamburger-menu: #FFE85C;
     /* Tooltip */
-    --color-tooltip: #efefef;
-    --color-tooltip-background: #bfa81a;
+    --color-tooltip: #072d31;
+    --color-tooltip-background: #FE9F36;
 }

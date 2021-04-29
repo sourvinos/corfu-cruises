@@ -16,6 +16,7 @@
         { "id": "emailSent", "message": "Στάλθηκε ένα email με οδηγίες." },
         { "id": "formIsDirty", "message": "Πριν συνεχίσετε, οι αλλαγές πρέπει να αποθηκευτούν." },
         { "id": "newReservationsAreNotAllowed", "message": "Νέες κρατήσεις δεν επιτρέπονται σε αυτήν την ημέρα." },        
+        { "id": "noResults", "message": "Με τα κριτήρια αυτά, δεν βρήκαμε τίποτα." },
         { "id": "noRecordsSelected", "message": "Δεν έχετε επιλέξει εγγραφές." },
         { "id": "noVideoDevicesFound", "message": "Δεν βρέθηκαν κάμερες στη συσκευή σας." },
         { "id": "passwordChanged", "message": "Ο κωδικός άλλαξε, πρέπει να συνδεθείτε ξανά." },

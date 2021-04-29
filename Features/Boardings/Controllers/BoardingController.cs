@@ -22,7 +22,7 @@ namespace CorfuCruises {
             this.mapper = mapper;
         }
 
-        [HttpGet("{date}/{destinationId}/{portId}/{shipId}")]
+        [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/shipId/{shipId}")]
         public async Task<BoardingMainResultResource<BoardingResource>> Get(string date, int destinationId, int portId, int shipId) {
             return await this.repo.Get(date, destinationId, portId, shipId);
         }

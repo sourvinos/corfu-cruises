@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
+// Custom
+import { Boarding } from '../view-models/boarding'
 import { DataService } from 'src/app/shared/services/data.service'
-import { Boarding } from './boarding'
 
 @Injectable({ providedIn: 'root' })
 
@@ -13,7 +14,7 @@ export class BoardingService extends DataService {
     }
 
     get(date: string, destinationId: number, portId: number, shipId: number): Observable<Boarding> {
-        const result = this.http.get<any>('/api/boardings/' + date + '/' + destinationId + '/' + portId + '/' + shipId)
+        const result = this.http.get<any>(this.url + '/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId + '/shipId/' + shipId)
         return result
     }
 

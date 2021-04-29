@@ -245,11 +245,12 @@ p.instructions {
 }
 
 .mat-tooltip {
-    font-family: "Open Sans Condensed";
+    color: var(--color-tooltip) !important;
+    font-family: var(--font-family-tooltip);
     font-size: 1rem;
+    font-weight: var(--font-weight-tooltip);
 }
 
 .tooltip-yellow {
     background: var(--color-tooltip-background);
-    color: var(--color-tooltip);
 }

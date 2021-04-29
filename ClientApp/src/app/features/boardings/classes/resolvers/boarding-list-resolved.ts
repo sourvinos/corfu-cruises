@@ -1,4 +1,4 @@
-import { Boarding } from "./boarding"
+import { Boarding } from "../view-models/boarding"
 
 export class BoardingListResolved {
 

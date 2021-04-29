@@ -12,6 +12,10 @@ export class ValidationService {
         return control.value && (control.value as string).indexOf(' ') !== -1 ? { containsSpace: true } : null
     }
 
+    static isGreaterThanZero(control: AbstractControl): { [key: string]: any } {
+        return control.value == 0 ? { isGreaterThanZero: false } : null
+    }
+
     static isTime(control: AbstractControl): { [key: string]: any } {
         if (control.value) {
             const pattern = /\b([01][0-9]|2[0-3]):([0-5][0-9])\b/g

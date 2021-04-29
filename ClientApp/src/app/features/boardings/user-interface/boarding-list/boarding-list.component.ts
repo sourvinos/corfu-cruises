@@ -5,8 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
-import { BoardingService } from '../../classes/boarding.service'
-import { BoardingViewModel } from './../../classes/boarding-view-model'
+import { BoardingService } from '../../classes/services/boarding.service'
+import { BoardingCompositeViewModel } from '../../classes/view-models/boarding-composite-view-model'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { Driver } from 'src/app/features/drivers/classes/driver'
 import { DriverService } from 'src/app/features/drivers/classes/driver.service'
@@ -42,10 +42,10 @@ export class BoardingListComponent {
     //#region particular variables
 
     public boardingStatus = '2'
-    public filteredRecords: BoardingViewModel
+    public filteredRecords: BoardingCompositeViewModel
     public form: FormGroup
     public openedClientFilters = false
-    public records: BoardingViewModel
+    public records: BoardingCompositeViewModel
     public searchTerm: string
     public driver: string
     public selectedBoardingStatus = []
@@ -143,7 +143,7 @@ export class BoardingListComponent {
     }
 
     public onGoBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate(['/boarding'])
     }
 
     public onHideScanner(): void {
@@ -193,7 +193,7 @@ export class BoardingListComponent {
             if (this.videoDevices.length > 0) {
                 for (const dev of this.videoDevices) {
                     console.log('Video devices found', dev.label)
-                    if (dev.label.includes('back')) {
+                    if (dev.label.includes('Lenovo')) {
                         this.chosenDevice = dev
                         break
                     }
@@ -237,7 +237,7 @@ export class BoardingListComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            date: ['2021-03-30', [Validators.required]],
+            date: ['', [Validators.required]],
             driverId: 0
         })
     }
@@ -246,7 +246,6 @@ export class BoardingListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
-            console.log(this.records)
             this.filteredRecords = Object.assign([], this.records)
         } else {
             this.onGoBack()
@@ -256,7 +255,7 @@ export class BoardingListComponent {
 
     private positionVideo(): void {
         document.getElementById('video').style.left = (window.outerWidth / 2) - 320 + 'px'
-        document.getElementById('video').style.top = (window.outerHeight / 2) - 240 + 'px'
+        document.getElementById('video').style.top = (document.getElementById('wrapper').clientHeight / 2) - 240 + 'px'
         document.getElementById('video').style.display = 'flex'
     }
 

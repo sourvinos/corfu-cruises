@@ -1,9 +1,9 @@
 // Cutom
 import { Boarding } from "./boarding"
-import { Customer } from "../../customers/classes/customer"
-import { Driver } from "../../drivers/classes/driver"
+import { Customer } from "../../../customers/classes/customer"
+import { Driver } from "../../../drivers/classes/driver"
 
-export class BoardingViewModel {
+export class BoardingCompositeViewModel {
 
     allPersons: number
     boardedPersons: number

@@ -63,8 +63,8 @@ export class AppComponent {
     }
 
     private positionSpinner(): void {
-        document.getElementById('spinner').style.left = this.getSidebarWidth() + 5 + (document.getElementById('content').clientWidth / 2) - (document.getElementById('spinner').clientWidth / 2) + 'px'
-        document.getElementById('spinner').style.top = document.getElementById('top-bar').clientHeight + (document.getElementById('content').clientHeight / 2) - (document.getElementById('spinner').clientHeight / 2) + 'px'
+        document.getElementById('spinner').style.left = (window.outerWidth / 2) - 40 + 'px'
+        document.getElementById('spinner').style.top = (document.getElementById('wrapper').clientHeight / 2) - 40 + 'px'
     }
 
     //#endregion
