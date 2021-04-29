@@ -163,7 +163,7 @@ p.instructions {
 }
 
 .yellow {
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(191, 160, 38, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(215, 215, 0, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
 }
 
 .orange {

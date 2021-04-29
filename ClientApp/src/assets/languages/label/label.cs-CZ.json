@@ -1158,6 +1158,10 @@
             {
                 "id": "newButton",
                 "description": "(CZ) New"
+            },
+            {
+                "id": "menu",
+                "description": "(CZ) Colour Legend"
             }
         ]
     },
@@ -1614,6 +1618,43 @@
             {
                 "id": "headerTotalPersons",
                 "description": "C"
+            }
+        ]
+    },
+    {
+        "feature": "calendarLegend",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(CZ) Colour Legend"
+            },
+            {
+                "id": "sub-header",
+                "description": "(CZ) Each Colour Represents the Available Seats"
+            },
+            {
+                "id": "plenty",
+                "description": "(CZ) Plenty"
+            },
+            {
+                "id": "some",
+                "description": "(CZ) Some"
+            },
+            {
+                "id": "limited",
+                "description": "(CZ) Limited"
+            },
+            {
+                "id": "extremely-limited",
+                "description": "(CZ) Extremely Limited"
+            },
+            {
+                "id": "none",
+                "description": "(CZ) None"
+            },
+            {
+                "id": "closeButton",
+                "description": "(CZ) Close"
             }
         ]
     }

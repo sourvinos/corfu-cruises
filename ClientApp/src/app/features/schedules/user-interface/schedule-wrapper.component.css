@@ -3,5 +3,15 @@
 }
 
 #footer {
+    display: flex;
+    justify-content: space-between;
     margin: 2rem 1rem 0 1rem !important;
+}
+
+#utility-buttons {
+    margin-left: -2rem;
+}
+
+.mat-icon {
+    color: var(--color-text-primary) !important;
 }

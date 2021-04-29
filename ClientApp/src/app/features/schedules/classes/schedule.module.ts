@@ -6,12 +6,14 @@ import { ScheduleCreateFormComponent } from '../user-interface/schedule-create-f
 import { ScheduleRoutingModule } from './schedule.routing.module'
 import { ScheduleWrapperComponent } from '../user-interface/schedule-wrapper.component'
 import { SharedModule } from '../../../shared/modules/shared.module'
+import { CalendarLegendComponent } from '../user-interface/calendar-legend.component'
 
 @NgModule({
     declarations: [
         ScheduleWrapperComponent,
         ScheduleCreateFormComponent,
-        CalendarComponent
+        CalendarComponent,
+        CalendarLegendComponent
     ],
     imports: [
         MaterialModule,

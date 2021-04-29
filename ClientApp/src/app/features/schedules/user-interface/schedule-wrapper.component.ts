@@ -1,12 +1,14 @@
 import { Component } from '@angular/core'
+import { FormGroup } from '@angular/forms'
+import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import { takeUntil } from 'rxjs/operators'
+import moment from 'moment'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { Destination } from '../../destinations/classes/destination'
 import { DestinationService } from '../../destinations/classes/destination.service'
-import { FormGroup } from '@angular/forms'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -14,12 +16,11 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { Port } from '../../ports/classes/port'
 import { PortService } from '../../ports/classes/port.service'
 import { ReservationService } from './../../reservations/classes/services/reservation.service'
+import { ScheduleCreateFormComponent } from './schedule-create-form.component'
 import { ScheduleService } from './../classes/schedule.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import moment from 'moment'
-import { MatDialog } from '@angular/material/dialog'
-import { ScheduleCreateFormComponent } from './schedule-create-form.component'
+import { CalendarLegendComponent } from './calendar-legend.component'
 
 @Component({
     selector: 'schedule-wrapper',
@@ -95,6 +96,10 @@ export class ScheduleWrapperComponent {
 
     public onNew(): void {
         this.openDialog()
+    }
+
+    public onShowCalendarLegend(): void {
+        this.dialog.open(CalendarLegendComponent)
     }
 
     //#endregion
@@ -325,7 +330,7 @@ export class ScheduleWrapperComponent {
                         if (domElements[i].childNodes[0].textContent.trim() == me) {
                             const customContent = document.createElement("span")
                             customContent.classList.add('has-data')
-                            customContent.innerHTML = '<div class="dateWithSchedule">' + me + '</div>' + '<div class="availableSeats">' + '/'+available.available + '</div>'
+                            customContent.innerHTML = '<div class="dateWithSchedule">' + me + '</div>' + '<div class="availableSeats">' + '/' + available.available + '</div>'
                             domElements[i].childNodes[0].parentNode.appendChild(customContent)
                             domElements[i].classList.add(this.colorizeDays(available))
                             break

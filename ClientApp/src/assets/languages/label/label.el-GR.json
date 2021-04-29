@@ -1158,6 +1158,10 @@
             {
                 "id": "newButton",
                 "description": "Νεο"
+            },
+            {
+                "id": "menu",
+                "description": "Επεξηγηση Χρωματων"
             }
         ]
     },
@@ -1614,6 +1618,43 @@
             {
                 "id": "headerTotalPersons",
                 "description": "Σ"
+            }
+        ]
+    },
+    {
+        "feature": "calendarLegend",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Επεξηγηση Χρωματων"
+            },
+            {
+                "id": "sub-header",
+                "description": "Καθε χρωμα αντιστοιχει στις ελευθερες θεσεις"
+            },
+            {
+                "id": "plenty",
+                "description": "Αφθονες"
+            },
+            {
+                "id": "some",
+                "description": "Μερικες"
+            },
+            {
+                "id": "limited",
+                "description": "Λιγες"
+            },
+            {
+                "id": "extremely-limited",
+                "description": "Ελαχιστες"
+            },
+            {
+                "id": "none",
+                "description": "Καμμια"
+            },
+            {
+                "id": "closeButton",
+                "description": "Κλεισιμο"
             }
         ]
     }

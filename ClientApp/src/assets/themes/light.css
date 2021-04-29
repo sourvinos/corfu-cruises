@@ -67,5 +67,8 @@
     /* Mobile menu */
     --color-hamburger-menu: #c7e1e6;
     /* Tooltip */
+    --color-tooltip: #efefef;
     --color-tooltip-background: #426f8a;
+    /* Calendar legend */
+    --color-calendar-legend: #efefef;
 }

@@ -69,4 +69,6 @@
     /* Tooltip */
     --color-tooltip: #072d31;
     --color-tooltip-background: #FE9F36;
+    /* Calendar legend */
+    --color-calendar-legend: #efefef;
 }

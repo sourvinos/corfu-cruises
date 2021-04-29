@@ -1,0 +1,16 @@
+<div id="header">
+    <h1 id="legend-header">{{ onGetLabel('header') }}</h1>
+    <h2 id="legend-header">{{ onGetLabel('sub-header') }}</h2>
+</div>
+
+<ul id="legend-items">
+    <li><img src="/assets/images/occupancy/vessel-green.svg" width="35px">{{ onGetLabel('plenty') }}</li>
+    <li><img src="/assets/images/occupancy/vessel-yellow.svg" width="35px">{{ onGetLabel('some') }}</li>
+    <li><img src="/assets/images/occupancy/vessel-orange.svg" width="35px">{{ onGetLabel('limited') }}</li>
+    <li><img src="/assets/images/occupancy/vessel-red.svg" width="35px">{{ onGetLabel('extremely-limited') }}</li>
+    <li><img src="/assets/images/occupancy/vessel-dark-red.svg" width="35px">{{ onGetLabel('none') }}</li>
+</ul>
+
+<div id="footer">
+    <button mat-flat-button class="primary" (click)="onClose()">{{ onGetLabel('closeButton') }}</button>
+</div>

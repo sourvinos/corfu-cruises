@@ -17,7 +17,7 @@
 }
 
 #header #navigation {
-    margin-left: 1rem;
+    margin-left: 0;
 }
 
 #header #navigation .mat-icon {
@@ -62,5 +62,5 @@
     align-items: flex-end;
     display: flex;
     justify-content: flex-end;
-    margin-right: 1rem;
+    margin-right: 0;
 }

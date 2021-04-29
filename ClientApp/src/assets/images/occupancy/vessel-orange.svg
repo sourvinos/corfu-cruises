@@ -23,9 +23,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="12.426471"
-     inkscape:cx="33.999981"
-     inkscape:cy="34"
+     inkscape:zoom="13.125612"
+     inkscape:cx="33.999957"
+     inkscape:cy="34.000001"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -37,7 +37,7 @@
      showborder="false"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
-     inkscape:window-x="1272"
+     inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1" />
   <metadata
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -58,74 +58,72 @@
      id="layer1"
      transform="translate(-163.36131,-204.18274)">
     <g
-       id="g1089"
-       transform="matrix(0.26458333,0,0,0.26458333,118.87554,164.47761)">
+       id="g872">
+      <circle
+         cx="172.35713"
+         cy="213.17857"
+         fill="#4f5d73"
+         r="8.4666662"
+         id="circle877"
+         style="fill:#ff8000;fill-opacity:1;stroke-width:0.1;stroke:#000000;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
       <g
-         id="g1136">
+         id="g893"
+         transform="matrix(0.26458333,0,0,0.26458333,163.62588,204.44732)"
+         style="stroke:#000000;stroke-opacity:1;stroke-width:0.37795276;stroke-miterlimit:4;stroke-dasharray:none">
+        <path
+           d="M 56.824,33.433 C 56.637,33.162 56.329,33 56,33 H 48.873 L 44.809,27.412 C 44.621,27.153 44.32,27 44,27 H 39.432 L 36.385,22.444 C 36.2,22.167 35.888,22 35.554,22 H 20.85 c -0.506,0 -0.933,0.378 -0.993,0.881 L 19.362,27 H 16 c -0.483,0 -0.897,0.346 -0.984,0.821 L 14.075,33 H 10 c -0.552,0 -1,0.448 -1,1 0,4.062 1.015,6.963 1.041,7.032 C 11.502,46 14.654,46 16,46 h 26.8 c 9.582,0 13.953,-11.168 14.134,-11.644 0.118,-0.307 0.076,-0.652 -0.11,-0.923 z"
+           fill="#231f20"
+           opacity="0.2"
+           id="path879"
+           style="stroke:#000000;stroke-opacity:1;stroke-width:0.37795276;stroke-miterlimit:4;stroke-dasharray:none" />
+        <polygon
+           fill="#e0e0d1"
+           points="39.938,27.554 20.062,27.554 20.85,21 35.554,21 "
+           stroke="#e0e0d1"
+           stroke-linejoin="round"
+           stroke-miterlimit="10"
+           stroke-width="2"
+           id="polygon881"
+           style="stroke:#000000;stroke-opacity:1;stroke-width:0.37795276;stroke-miterlimit:4;stroke-dasharray:none" />
+        <polygon
+           fill="#e0e0d1"
+           points="52,37 14,37 16,26 44,26 "
+           stroke="#e0e0d1"
+           stroke-linejoin="round"
+           stroke-miterlimit="10"
+           stroke-width="2"
+           id="polygon883"
+           style="stroke:#000000;stroke-opacity:1;stroke-width:0.37795276;stroke-miterlimit:4;stroke-dasharray:none" />
         <circle
-           style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:1.04812"
-           id="circle1032"
-           cx="202.13518"
-           cy="184.06664"
-           r="34" />
+           cx="23"
+           cy="30"
+           fill="#77b3d4"
+           r="2"
+           id="circle885"
+           style="stroke:#000000;stroke-opacity:1;stroke-width:0.37795276;stroke-miterlimit:4;stroke-dasharray:none" />
         <circle
-           cx="202.13518"
-           cy="184.06665"
-           fill="#4f5d73"
-           r="32"
-           id="circle877"
-           style="fill:#ff8000;fill-opacity:1" />
-        <g
-           id="g893"
-           transform="translate(169.13513,151.06664)">
-          <path
-             d="M 56.824,33.433 C 56.637,33.162 56.329,33 56,33 H 48.873 L 44.809,27.412 C 44.621,27.153 44.32,27 44,27 H 39.432 L 36.385,22.444 C 36.2,22.167 35.888,22 35.554,22 H 20.85 c -0.506,0 -0.933,0.378 -0.993,0.881 L 19.362,27 H 16 c -0.483,0 -0.897,0.346 -0.984,0.821 L 14.075,33 H 10 c -0.552,0 -1,0.448 -1,1 0,4.062 1.015,6.963 1.041,7.032 C 11.502,46 14.654,46 16,46 h 26.8 c 9.582,0 13.953,-11.168 14.134,-11.644 0.118,-0.307 0.076,-0.652 -0.11,-0.923 z"
-             fill="#231f20"
-             opacity="0.2"
-             id="path879" />
-          <polygon
-             fill="#e0e0d1"
-             points="39.938,27.554 20.062,27.554 20.85,21 35.554,21 "
-             stroke="#e0e0d1"
-             stroke-linejoin="round"
-             stroke-miterlimit="10"
-             stroke-width="2"
-             id="polygon881" />
-          <polygon
-             fill="#e0e0d1"
-             points="52,37 14,37 16,26 44,26 "
-             stroke="#e0e0d1"
-             stroke-linejoin="round"
-             stroke-miterlimit="10"
-             stroke-width="2"
-             id="polygon883" />
-          <circle
-             cx="23"
-             cy="30"
-             fill="#77b3d4"
-             r="2"
-             id="circle885" />
-          <circle
-             cx="31"
-             cy="30"
-             fill="#77b3d4"
-             r="2"
-             id="circle887" />
-          <circle
-             cx="39"
-             cy="30"
-             fill="#77b3d4"
-             r="2"
-             id="circle889" />
-          <path
-             d="m 16,43 c 0,0 17.797,0 26.8,0 C 51.803,43 56,32 56,32 H 10 c 0,3.936 1,6.75 1,6.75 C 12.25,43 14.687,43 16,43 Z"
-             fill="#ffffff"
-             stroke="#ffffff"
-             stroke-linejoin="round"
-             stroke-miterlimit="10"
-             stroke-width="2"
-             id="path891" />
-        </g>
+           cx="31"
+           cy="30"
+           fill="#77b3d4"
+           r="2"
+           id="circle887"
+           style="stroke:#000000;stroke-opacity:1;stroke-width:0.37795276;stroke-miterlimit:4;stroke-dasharray:none" />
+        <circle
+           cx="39"
+           cy="30"
+           fill="#77b3d4"
+           r="2"
+           id="circle889"
+           style="stroke:#000000;stroke-opacity:1;stroke-width:0.37795276;stroke-miterlimit:4;stroke-dasharray:none" />
+        <path
+           d="m 16,43 c 0,0 17.797,0 26.8,0 C 51.803,43 56,32 56,32 H 10 c 0,3.936 1,6.75 1,6.75 C 12.25,43 14.687,43 16,43 Z"
+           fill="#ffffff"
+           stroke="#ffffff"
+           stroke-linejoin="round"
+           stroke-miterlimit="10"
+           stroke-width="2"
+           id="path891"
+           style="stroke:#000000;stroke-opacity:1;stroke-width:0.37795276;stroke-miterlimit:4;stroke-dasharray:none" />
       </g>
     </g>
   </g>
