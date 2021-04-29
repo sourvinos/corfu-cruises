@@ -40,14 +40,18 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="onShowCalendarLegend()">
-                    <span>{{ onGetLabel('menu') }}</span>
-                </button>
+                <ng-container *ngTemplateOutlet="contextMenu"></ng-container>
             </mat-menu>
         </div>
         <div @slideFromRight id="buttons">
             <button mat-flat-button class="primary" id="new" (click)="onNew()">{{ onGetLabel('newButton') }}</button>
         </div>
     </div>
+
+    <ng-template #contextMenu>
+        <button mat-menu-item class="primary" (click)="onShowCalendarLegend()">
+            <span>{{ onGetLabel('menu') }}</span>
+        </button>
+    </ng-template>
 
 </div>
