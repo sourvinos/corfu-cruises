@@ -7,7 +7,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr data-cy="row" *ngFor="let record of records, index as rowIndex" (click)="onGotoRow(rowIndex + 1)" id="{{ randomTableId }}-{{ rowIndex + 1 }}" (contextmenu)="onGotoRow(rowIndex + 1); onOpenContextMenu($event, record); $event. preventDefault()">
+        <tr data-cy="row" *ngFor="let record of records, index as rowIndex" (dblclick)="onEditRow()" (click)="onGotoRow(rowIndex + 1)" id="{{ randomTableId }}-{{ rowIndex + 1 }}" (contextmenu)="onGotoRow(rowIndex + 1); onOpenContextMenu($event, record); $event. preventDefault()">
             <td *ngFor="let field of fields, index as i" [style.text-align]="justify[i]" [style.display]="visibility[i]">
                 <div *ngIf="i == 0">
                     <mat-checkbox (click)="onToggleCheckBox(rowIndex + 1)" [checked]="isColumnChecked"></mat-checkbox>

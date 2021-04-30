@@ -75,6 +75,10 @@ export class CustomTableComponent {
         }
     }
 
+    public onEditRow(): void {
+        this.onSendRowToService()
+    }
+
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -179,8 +183,11 @@ export class CustomTableComponent {
 
     private focusOnHiddenInput(): void {
         setTimeout(() => {
-            document.getElementById('custom-table-input-' + this.randomTableId).focus()
-        }, 300)
+            const element = document.getElementById('custom-table-input-' + this.randomTableId)
+            if (typeof (element) != 'undefined' && element != null) {
+                element.focus()
+            }
+        }, 500)
     }
 
     private getSortObject(): boolean {
