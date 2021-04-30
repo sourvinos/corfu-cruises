@@ -15,6 +15,10 @@ export class ScheduleService extends DataService {
 
     //#region public methods
 
+    public getForDate(date: string): Observable<boolean> {
+        return this.http.get<boolean>(this.url + '/getForDate/date/' + date)
+    }
+
     public getAllActive(): Observable<Schedule[]> {
         return this.http.get<Schedule[]>('/api/schedules/getActive')
     }

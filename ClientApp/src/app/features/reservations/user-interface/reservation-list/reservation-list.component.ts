@@ -22,6 +22,7 @@ import { ReservationViewModel } from '../../classes/view-models/reservation-view
 import { ShipService } from 'src/app/features/ships/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
 
 @Component({
     selector: 'reservation-list',
@@ -87,7 +88,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private ReservationService: ReservationService, private buttonClickService: ButtonClickService, private driverService: DriverService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: DriverPdfService, private router: Router, private service: ReservationService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private reservationService: ReservationService, private buttonClickService: ButtonClickService, private driverService: DriverService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: DriverPdfService, private router: Router, private service: ReservationService, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
         this.activatedRoute.params.subscribe((params: Params) => this.dateIn = params['dateIn'])
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd && this.dateIn !== '' && this.router.url.split('/').length === 4) {
@@ -152,7 +153,7 @@ export class ReservationListComponent {
             })
             dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
-                    this.ReservationService.assignToDriver(result, this.records).subscribe(() => {
+                    this.reservationService.assignToDriver(result, this.records).subscribe(() => {
                         this.removeSelectedIdsFromLocalStorage()
                         this.navigateToList()
                         this.showSnackbar(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'info')
@@ -175,7 +176,7 @@ export class ReservationListComponent {
             })
             dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
-                    this.ReservationService.assignToShip(result, this.records).subscribe(() => {
+                    this.reservationService.assignToShip(result, this.records).subscribe(() => {
                         this.removeSelectedIdsFromLocalStorage()
                         this.navigateToList()
                         this.showSnackbar(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'info')
@@ -213,8 +214,12 @@ export class ReservationListComponent {
     }
 
     public onNew(): void {
-        document.getElementById('listTab').click()
-        this.router.navigate([this.location.path() + '/reservation/new'])
+        if (this.isScheduleFound()) {
+            document.getElementById('listTab').click()
+            this.router.navigate([this.location.path() + '/reservation/new'])
+        } else {
+            this.showSnackbar(this.messageSnackbarService.newReservationsAreNotAllowed(), 'error')
+        }
     }
 
     public onToggleItem(item: any, lookupArray: string[], checkedVariable: any, indeterminate: any, className: string): void {
@@ -350,6 +355,16 @@ export class ReservationListComponent {
         }
         this.records = JSON.parse(this.helperService.readItem('selectedIds'))
         return true
+    }
+
+    private isScheduleFound(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.scheduleService.getForDate(this.dateIn).toPromise().then(
+                response => {
+                    resolve(response)
+                })
+        })
+        return promise
     }
 
     private loadRecords(): void {

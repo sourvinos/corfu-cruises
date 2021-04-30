@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,16 +19,27 @@ namespace CorfuCruises {
             return await context.Schedules.Include(p => p.Port).Include(p => p.Destination).ToListAsync();
         }
 
+        public Boolean GetForDate(string date) {
+            var schedule = context.Schedules
+                .Where(x => x.Date == date)
+                .ToList();
+            return schedule.Count() != 0;
+        }
+
         public async Task<IList<ScheduleReadResource>> GetForDestination(int destinationId) {
             var schedules = await context.Schedules
-               .Where(x => x.DestinationId == destinationId)
-               .OrderBy(p => p.Date).ThenBy(p => p.PortId)
-               .ToListAsync();
+                .Where(x => x.DestinationId == destinationId)
+                .OrderBy(p => p.Date)
+                    .ThenBy(p => p.PortId)
+                .ToListAsync();
             return mapper.Map<IList<Schedule>, IList<ScheduleReadResource>>(schedules);
         }
 
         public new async Task<Schedule> GetById(int ScheduleId) {
-            return await context.Schedules.Include(p => p.Port).Include(p => p.Destination).SingleOrDefaultAsync(m => m.Id == ScheduleId);
+            return await context.Schedules
+                .Include(p => p.Port)
+                .Include(p => p.Destination)
+                .SingleOrDefaultAsync(m => m.Id == ScheduleId);
         }
 
         public List<Schedule> Create(List<Schedule> entity) {
@@ -39,7 +51,8 @@ namespace CorfuCruises {
         public void RemoveRange(List<Schedule> schedules) {
             List<Schedule> idsToDelete = new List<Schedule>();
             foreach (var item in schedules) {
-                var idToDelete = context.Schedules.FirstOrDefault(x => x.Date == item.Date && x.DestinationId == item.DestinationId && x.PortId == item.PortId);
+                var idToDelete = context.Schedules
+                    .FirstOrDefault(x => x.Date == item.Date && x.DestinationId == item.DestinationId && x.PortId == item.PortId);
                 if (idToDelete != null) {
                     idsToDelete.Add(idToDelete);
                 }
