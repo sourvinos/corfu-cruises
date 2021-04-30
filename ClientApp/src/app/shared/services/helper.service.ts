@@ -50,6 +50,22 @@ export class HelperService {
         return element.clientWidth
     }
 
+    public pushItemToFilteredArray(x: { [x: string]: string }, key: string | number, value: { target: any }, targetArray: any[]): any[] {
+        if (value.target.value.startsWith('*')) {
+            if (x[key].toUpperCase().includes(this.removeLeadingAsteriskFromString(value.target.value).toUpperCase())) {
+                targetArray.push(x)
+            }
+        }
+        if (x[key].toUpperCase().startsWith(value.target.value.toUpperCase())) {
+            targetArray.push(x)
+        }
+        return targetArray
+    }
+
+    private removeLeadingAsteriskFromString(value: string): string {
+        return value.substr(1, value.length)
+    }
+
     //#endregion
 
 }

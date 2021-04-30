@@ -141,20 +141,20 @@ export class RouteFormComponent {
         this.router.navigate([this.url])
     }
 
-    public onLookupIndex(lookupArray: any[], title: string, formFields: any[], fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[], value): void {
-        const filteredArray = []
+    public onLookupIndex(lookupArray: any[], title: string, formFields: any[], fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[], value: { target: any }): void {
+        let filteredArray = []
         lookupArray.filter(x => {
-            const key = fields[1]
-            if (x[key].toUpperCase().includes(value.target.value.toUpperCase())) {
-                filteredArray.push(x)
-            }
+            filteredArray = this.helperService.pushItemToFilteredArray(x, fields[1], value, filteredArray)
         })
-        if (filteredArray.length > 0) {
-            this.showModalIndex(filteredArray, title, fields, headers, widths, visibility, justify, types)
-        }
         if (filteredArray.length === 0) {
             this.clearFields(null, formFields[0], formFields[1])
-            this.focus(formFields[1])
+        }
+        if (filteredArray.length === 1) {
+            const [...elements] = filteredArray
+            this.patchFields(elements[0], fields)
+        }
+        if (filteredArray.length > 1) {
+            this.showModalIndex(filteredArray, title, fields, headers, widths, visibility, justify, types)
         }
     }
 

@@ -104,13 +104,10 @@ export class PassengerFormComponent {
         })
     }
 
-    public onLookupIndex(lookupArray: any[], title: string, formFields: any[], fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[], value): void {
-        const filteredArray = []
+    public onLookupIndex(lookupArray: any[], title: string, formFields: any[], fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[], value: { target: any }): void {
+        let filteredArray = []
         lookupArray.filter(x => {
-            const key = fields[1]
-            if (x[key].toUpperCase().includes(value.target.value.toUpperCase())) {
-                filteredArray.push(x)
-            }
+            filteredArray = this.helperService.pushItemToFilteredArray(x, fields[1], value, filteredArray)
         })
         if (filteredArray.length === 0) {
             this.clearFields(null, formFields[0], formFields[1])
