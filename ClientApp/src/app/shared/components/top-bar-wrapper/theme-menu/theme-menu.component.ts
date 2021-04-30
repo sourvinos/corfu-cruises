@@ -1,7 +1,7 @@
-import { Component, HostListener, Inject } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
+// Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 
 @Component({
     selector: 'theme-menu',
@@ -13,41 +13,32 @@ export class ThemeMenuComponent {
 
     //#region variables
 
-    private feature = 'theme-menu'
-    public defaultTheme = 'dark'
+    private theme = 'light'
+    public checked: boolean
 
     //#endregion
 
-    constructor(@Inject(DOCUMENT) private document: Document, private helperService: HelperService, private messageLabelService: MessageLabelService) { }
-
-    @HostListener('mouseenter') onMouseEnter(): void {
-        document.querySelectorAll('.sub-menu').forEach((item) => {
-            item.classList.remove('hidden')
-        })
-    }
+    constructor(@Inject(DOCUMENT) private document: Document, private helperService: HelperService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.applyTheme()
+        this.theme = this.readTheme()
+        this.checked = this.theme == 'dark' ? true : false
+        this.toggleNightClass()
+        this.attachStylesheetToHead()
     }
 
     //#endregion
 
     //#region public methods
 
-    public onChangeTheme(theme: string): void {
-        this.changeTheme(theme)
+    public onChangeTheme(): void {
+        this.checked = !this.checked
+        this.theme = this.checked ? 'dark' : 'light'
+        this.toggleNightClass()
         this.attachStylesheetToHead()
-        this.updateLocalStorage()
-    }
-
-    public onGetLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
-    }
-
-    public onGetTheme(): string {
-        return this.helperService.readItem("theme") == '' ? this.onSaveTheme(this.defaultTheme) : this.helperService.readItem("theme")
+        this.saveTheme()
     }
 
     public onHideMenu(): void {
@@ -59,35 +50,29 @@ export class ThemeMenuComponent {
 
     //#region private methods
 
-    private applyTheme(): void {
-        this.updateVariables()
-        this.attachStylesheetToHead()
-        this.updateLocalStorage()
-    }
-
     private attachStylesheetToHead(): void {
         const headElement = this.document.getElementsByTagName('head')[0]
         const newLinkElement = this.document.createElement('link')
         newLinkElement.rel = 'stylesheet'
-        newLinkElement.href = this.defaultTheme + '.css'
+        newLinkElement.href = this.theme + '.css'
         headElement.appendChild(newLinkElement)
     }
 
-    private changeTheme(theme: string): void {
-        this.defaultTheme = theme
+    private readTheme(): string {
+        return this.helperService.readItem("theme") == '' ? this.saveTheme() : this.helperService.readItem("theme")
     }
 
-    private updateLocalStorage(): void {
-        this.helperService.saveItem('theme', this.defaultTheme)
+    private saveTheme(): string {
+        this.helperService.saveItem('theme', this.theme)
+        return this.theme
     }
 
-    private updateVariables(): void {
-        this.defaultTheme = this.helperService.readItem('theme') || this.defaultTheme
-    }
-
-    public onSaveTheme(theme: string): string {
-        this.helperService.saveItem('theme', theme)
-        return theme
+    private toggleNightClass(): void {
+        if (this.checked == true) {
+            document.getElementById('toggle').classList.add('night')
+        } else {
+            document.getElementById('toggle').classList.remove('night')
+        }
     }
 
     //#endregion
