@@ -26,6 +26,7 @@ import { PortService } from 'src/app/features/ports/classes/port.service'
 import { Reservation } from '../../classes/models/reservation'
 import { ReservationService } from '../../classes/services/reservation.service'
 import { ReservationWriteResource } from './../../classes/resources/reservation-write-resource'
+import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
 import { ShipService } from 'src/app/features/ships/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
@@ -70,7 +71,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private reservationService: ReservationService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private reservationService: ReservationService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
                 this.getRecord(p.id)
@@ -179,32 +180,10 @@ export class ReservationFormComponent {
         }
     }
 
-    public onSave(): void {
-        const reservation: ReservationWriteResource = this.mapObject()
-        if (reservation.reservationId == null) {
-            this.reservationService.add(reservation).subscribe(() => {
-                this.initForm()
-                this.populateFormWithDefaultValues()
-                this.updateQRCodeFromGuid().then(() => {
-                    this.convertQRCodeToString().then((result) => {
-                        this.form.patchValue({ uri: result })
-                    })
-                })
-                this.refreshSummary()
-                this.focus('destinationDescription')
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
-            })
-        } else {
-            this.reservationService.update(this.form.value.reservationId, reservation).subscribe(() => {
-                this.resetForm()
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-                this.onGoBack()
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
-            })
-        }
+    public onValidateSchedule(): void {
+        this.scheduleService.getForDateDestinationPort(this.form.value.date, this.form.value.destinationId, this.form.value.portId).then(result => {
+            result ? this.save() : this.showScheduleNotFound()
+        })
     }
 
     public onSendVoucher(): void {
@@ -321,6 +300,11 @@ export class ReservationFormComponent {
     private formatDate(date: any): string {
         const value = moment(date)
         return value.format('YYYY-MM-DD')
+    }
+
+    private getPortDescription(portId: any): string {
+        const response = this.ports.filter((x: { portId: any }) => x.portId == portId)
+        return response[0].portDescription
     }
 
     private getRecord(id: number): void {
@@ -555,8 +539,41 @@ export class ReservationFormComponent {
         this.form.reset()
     }
 
+    private save(): void {
+        const reservation: ReservationWriteResource = this.mapObject()
+        if (reservation.reservationId == null) {
+            this.reservationService.add(reservation).subscribe(() => {
+                this.initForm()
+                this.populateFormWithDefaultValues()
+                this.updateQRCodeFromGuid().then(() => {
+                    this.convertQRCodeToString().then((result) => {
+                        this.form.patchValue({ uri: result })
+                    })
+                })
+                this.refreshSummary()
+                this.focus('destinationDescription')
+                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+            }, errorCode => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            })
+        } else {
+            this.reservationService.update(this.form.value.reservationId, reservation).subscribe(() => {
+                this.resetForm()
+                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                this.onGoBack()
+            }, errorCode => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            })
+        }
+    }
+
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+    }
+
+    private showScheduleNotFound(): void {
+        this.dialogService.open('warningColor', this.messageSnackbarService.noScheduleFoundWithDetails(
+            this.form.value.date, this.form.value.destinationDescription, this.getPortDescription(this.form.value.portId)), ['ok'])
     }
 
     private async showModalForm(): Promise<void> {

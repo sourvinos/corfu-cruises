@@ -35,6 +35,13 @@ namespace CorfuCruises {
             return mapper.Map<IList<Schedule>, IList<ScheduleReadResource>>(schedules);
         }
 
+        public bool GetForDateDestinationPort(string date, int destinationId, int portId) {
+            var schedule = context.Schedules
+                .Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId)
+                .Count();
+            return schedule > 0 ? true : false;
+        }
+
         public new async Task<Schedule> GetById(int ScheduleId) {
             return await context.Schedules
                 .Include(p => p.Port)

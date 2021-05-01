@@ -108,7 +108,7 @@
         <div id="buttons">
             <button mat-flat-button class="secondary" id="sendVoucher" (click)="onSendVoucher()">{{ onGetLabel('sendVoucherButton') }}</button>
             <button mat-flat-button class="delete" id="delete" (click)="onDelete()" *ngIf="form.value.id !== 0">{{ onGetLabel('deleteButton') }}</button>
-            <button mat-flat-button class="primary" id="save" (click)="onSave()" [disabled]="!form.valid">{{ onGetLabel('saveButton') }}</button>
+            <button mat-flat-button class="primary" id="save" (click)="onValidateSchedule()" [disabled]="!form.valid">{{ onGetLabel('saveButton') }}</button>
         </div>
     </div>
 

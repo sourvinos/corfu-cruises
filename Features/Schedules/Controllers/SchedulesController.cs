@@ -33,13 +33,17 @@ namespace CorfuCruises {
 
         [HttpGet("[action]/date/{date}")]
         public Boolean GetForDate(string date) {
-            var isScheduleFound = repo.GetForDate(date);
-            return isScheduleFound;
+            return repo.GetForDate(date);
         }
 
         [HttpGet("[action]/destinationId/{destinationId}")]
         public async Task<IEnumerable<ScheduleReadResource>> GetForDestination(int destinationId) {
             return await repo.GetForDestination(destinationId);
+        }
+
+        [HttpGet("[action]/date/{date}/destinationId/{destinationId}/portId/{portId}")]
+        public bool GetForDateDestinationPort(string date, int destinationId, int portId) {
+            return repo.GetForDateDestinationPort(date, destinationId, portId);
         }
 
         [HttpGet("{id}")]
