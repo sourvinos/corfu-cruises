@@ -214,12 +214,14 @@ export class ReservationListComponent {
     }
 
     public onNew(): void {
-        if (this.isScheduleFound()) {
-            document.getElementById('listTab').click()
-            this.router.navigate([this.location.path() + '/reservation/new'])
-        } else {
-            this.showSnackbar(this.messageSnackbarService.newReservationsAreNotAllowed(), 'error')
-        }
+        this.scheduleService.getForDate(this.dateIn).then(result => {
+            if (result) {
+                document.getElementById('listTab').click()
+                this.router.navigate([this.location.path() + '/reservation/new'])
+            } else {
+                this.showSnackbar(this.messageSnackbarService.noScheduleFound(), 'error')
+            }
+        })
     }
 
     public onToggleItem(item: any, lookupArray: string[], checkedVariable: any, indeterminate: any, className: string): void {
@@ -357,14 +359,11 @@ export class ReservationListComponent {
         return true
     }
 
-    private isScheduleFound(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            this.scheduleService.getForDate(this.dateIn).toPromise().then(
-                response => {
-                    resolve(response)
-                })
+    private async isScheduleFound(): Promise<any> {
+        await this.scheduleService.getForDate(this.dateIn).then(result => {
+            alert('Result to send back: ' + result)
+            return result
         })
-        return promise
     }
 
     private loadRecords(): void {

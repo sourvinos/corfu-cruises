@@ -56,7 +56,7 @@ export class CalendarComponent {
             this.saveDateToStorage(date)
             this.router.navigate(['/reservations/date/' + date])
         } else {
-            this.showSnackbar(this.messageSnackbarService.newReservationsAreNotAllowed(), 'error')
+            this.showSnackbar(this.messageSnackbarService.noScheduleFound(), 'error')
         }
     }
 

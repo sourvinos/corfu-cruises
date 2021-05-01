@@ -15,7 +15,7 @@
         { "id": "askConfirmationToDelete", "message": "(DE) If you continue, this record will be lost for ever." },
         { "id": "emailSent", "message": "(DE) An email was sent with instructions." },
         { "id": "formIsDirty", "message": "(DE) Before you continue, all changes must be saved." },
-        { "id": "newReservationsAreNotAllowed", "message": "(DE) New reservations are not allowed on this day." },        
+        { "id": "noScheduleFound", "message": "(DE) We don't have any scheduled trips for this day." },
         { "id": "noResults", "message": "(DE) We didn't find anything." },
         { "id": "noRecordsSelected", "message": "(DE) You have not selected any records." },
         { "id": "noVideoDevicesFound", "message": "(DE) There are no cameras on your device." },
