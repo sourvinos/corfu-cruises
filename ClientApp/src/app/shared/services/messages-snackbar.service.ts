@@ -57,6 +57,7 @@ export class MessageSnackbarService {
     public recordCreated(): string { return this.getDescription(this.feature, "recordCreated") }
     public recordDeleted(): string { return this.getDescription(this.feature, "recordDeleted") }
     public noScheduleFound(): string { return this.getDescription(this.feature, "noScheduleFound") }
+    public fullyBooked(): string { return this.getDescription(this.feature, "fullyBooked") }
     public noResults(): string { return this.getDescription(this.feature, "noResults") }
     public recordUpdated(): string { return this.getDescription(this.feature, "recordUpdated") }
     public selectedRecordsHaveBeenProcessed(): string { return this.getDescription(this.feature, "selectedRecordsHaveBeenProcessed") }

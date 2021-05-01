@@ -50,14 +50,24 @@ export class CalendarComponent {
         return this.messageCalendarService.getDescription('weekdays', id)
     }
 
-    public onCreateReservation(event: any, day: { value: any }): void {
-        if (this.newReservationsAreAllowed(event.currentTarget.className)) {
-            const date = this.createISODate(day)
-            this.saveDateToStorage(date)
-            this.router.navigate(['/reservations/date/' + date])
-        } else {
-            this.showSnackbar(this.messageSnackbarService.noScheduleFound(), 'error')
+    public onCanProceed(event: any, day: { value: any }): void {
+        const response = this.newReservationsAreAllowed(event.currentTarget.className)
+        switch (response) {
+            case 'ok':
+                this.gotoDashboard(day)
+                break
+            case 'fully-booked':
+                this.showSnackbar(this.messageSnackbarService.fullyBooked(), 'error')
+                break
+            default:
+                this.showSnackbar(this.messageSnackbarService.noScheduleFound(), 'error')
         }
+    }
+
+    private gotoDashboard(day: { value: any }): void {
+        const date = this.createISODate(day)
+        this.saveDateToStorage(date)
+        this.router.navigate(['/reservations/date/' + date])
     }
 
     //#endregion
@@ -91,11 +101,15 @@ export class CalendarComponent {
         this.monthSelect = arrayDays
     }
 
-    private newReservationsAreAllowed(classList: string | string[]): boolean {
-        if (classList.includes('green') || classList.includes('yellow') || classList.includes('orange') || classList.includes('red')) {
-            return true
+    private newReservationsAreAllowed(classList: any): string {
+        switch (true) {
+            case classList.includes('green') || classList.includes('yellow') || classList.includes('orange') || classList.includes('red'):
+                return 'ok'
+            case classList.includes('dark'):
+                return 'fully-booked'
+            default:
+                return 'day-off'
         }
-        return false
     }
 
     private navigateToMonth(flag: number): void {
