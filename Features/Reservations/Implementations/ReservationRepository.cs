@@ -59,6 +59,13 @@ namespace CorfuCruises {
             return totalReservationsPerDestination;
         }
 
+        public int GetForDateDestinationPort(string date, int destinationId, int portId) {
+            int persons = context.Reservations
+                .Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId)
+                .Sum(x => x.TotalPersons);
+            return persons;
+        }
+
         public async Task<Reservation> GetById(string id) {
             return await context.Reservations
                 .Include(x => x.Customer)

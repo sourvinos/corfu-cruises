@@ -42,8 +42,8 @@ namespace CorfuCruises {
         }
 
         [HttpGet("[action]/date/{date}/destinationId/{destinationId}/portId/{portId}")]
-        public bool GetForDateDestinationPort(string date, int destinationId, int portId) {
-            return repo.GetForDateDestinationPort(date, destinationId, portId);
+        public async Task<ScheduleReadResource> GetForDateDestinationPort(string date, int destinationId, int portId) {
+            return await repo.GetForDateDestinationPort(date, destinationId, portId);
         }
 
         [HttpGet("{id}")]

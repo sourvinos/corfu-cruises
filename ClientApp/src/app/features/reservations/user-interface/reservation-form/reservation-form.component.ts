@@ -302,11 +302,6 @@ export class ReservationFormComponent {
         return value.format('YYYY-MM-DD')
     }
 
-    private getPortDescription(portId: any): string {
-        const response = this.ports.filter((x: { portId: any }) => x.portId == portId)
-        return response[0].portDescription
-    }
-
     private getRecord(id: number): void {
         this.reservationService.getSingle(id).subscribe(result => {
             this.showModalForm().then(() => {

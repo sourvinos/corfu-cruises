@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CorfuCruises {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class ReservationsController : ControllerBase {
@@ -36,6 +36,11 @@ namespace CorfuCruises {
         public IEnumerable<MainResult> GetForDestination(int destinationId) {
             var records = repo.GetForDestination(destinationId);
             return records;
+        }
+
+        [HttpGet("[action]/date/{date}/destinationId/{destinationId}/portId/{portId}")]
+        public int GetForDateDestinationPort(string date, int destinationId, int portId) {
+            return repo.GetForDateDestinationPort(date, destinationId, portId);
         }
 
         [HttpGet("{id}")]
