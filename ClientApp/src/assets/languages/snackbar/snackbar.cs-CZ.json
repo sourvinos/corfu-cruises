@@ -19,13 +19,14 @@
         { "id": "noRecordsSelected", "message": "(CZ) You have not selected any records." },
         { "id": "noResults", "message": "(CZ) We didn't find anything." },
         { "id": "noScheduleFound", "message": "(CZ) We don't have any trips for this day." },
-        { "id": "noScheduleFoundWithDetails", "message": "(CZ) We don't have a trip on the selected date to the selected destination." },
+        { "id": "noScheduleFoundWithDetails", "message": "(CZ) We don't have a trip for the selected date and destination." },
         { "id": "noVideoDevicesFound", "message": "(CZ) There are no cameras on your device." },
         { "id": "passwordChanged", "message": "(CZ) The password was changed, you must login again." },
         { "id": "recordCreated", "message": "(CZ) A record was created." },
         { "id": "recordDeleted", "message": "(CZ) This record was deleted." },
         { "id": "recordUpdated", "message": "(CZ) This record was updated." },
         { "id": "selectedRecordsHaveBeenProcessed", "message": "(CZ) All selected records have been updated." },
-        { "id": "unableToResetPassword", "message": "(CZ) The password can not be reset." }
+        { "id": "unableToResetPassword", "message": "(CZ) The password can not be reset." },
+        { "id": "isOverbooking", "message": "(CZ) This reservation will cause overbooking." }
     ]
 }]

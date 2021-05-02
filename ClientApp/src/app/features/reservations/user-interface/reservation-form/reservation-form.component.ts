@@ -5,7 +5,8 @@ import { MatDialog } from '@angular/material/dialog'
 import { Title } from '@angular/platform-browser'
 import { forkJoin, Subject, Subscription } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
-
+import moment from 'moment'
+// Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerService } from 'src/app/features/customers/classes/customer.service'
 import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
@@ -29,9 +30,9 @@ import { ReservationWriteResource } from './../../classes/resources/reservation-
 import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
 import { ShipService } from 'src/app/features/ships/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { ValidationService } from './../../../../shared/services/validation.service'
 import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import moment from 'moment'
 
 @Component({
     selector: 'reservation-form',
@@ -131,9 +132,10 @@ export class ReservationFormComponent {
 
     //#region public methods
 
-    public onCalculateTotalPersons(): void {
+    public onCalculateTotalPersons(): boolean {
         const totalPersons = parseInt(this.form.value.adults, 10) + parseInt(this.form.value.kids, 10) + parseInt(this.form.value.free, 10)
         this.form.patchValue({ totalPersons: Number(totalPersons) ? totalPersons : 0 })
+        return totalPersons > 0 ? true : false
     }
 
     public onDelete(): void {
@@ -180,9 +182,9 @@ export class ReservationFormComponent {
         }
     }
 
-    public onValidateSchedule(): void {
+    public onValidateReservation(): void {
         this.scheduleService.getForDateDestinationPort(this.form.value.date, this.form.value.destinationId, this.form.value.portId).then(result => {
-            result ? this.save() : this.showScheduleNotFound()
+            result ? this.getPersonsForDateDestinationPort(result) : this.showScheduleNotFound()
         })
     }
 
@@ -210,8 +212,8 @@ export class ReservationFormComponent {
             },
             'Alt.S': (event: KeyboardEvent) => {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.onCalculateTotalPersons()
-                    this.buttonClickService.clickOnButton(event, 'save')
+                    if (this.onCalculateTotalPersons())
+                        this.buttonClickService.clickOnButton(event, 'save')
                 }
             },
             'Alt.C': (event: KeyboardEvent) => {
@@ -231,6 +233,14 @@ export class ReservationFormComponent {
             priority: 3,
             inputs: true
         })
+    }
+
+    private isNotOverbooking(schedule: { maxPersons: any }, reservation: { totalPersons: any }, totalPersons: any): boolean {
+        if (reservation.totalPersons + totalPersons > schedule.maxPersons) {
+            this.showSnackbar(this.messageSnackbarService.isOverbooking(), 'error')
+            return false
+        }
+        return true
     }
 
     private clearFields(result: any, id: any, description: any): void {
@@ -319,6 +329,14 @@ export class ReservationFormComponent {
         })
     }
 
+    private getPersonsForDateDestinationPort(schedule: any): void {
+        this.reservationService.getByDateDestinationPort(this.form.value.date, this.form.value.destinationId, this.form.value.portId).then(reservations => {
+            if (this.isNotOverbooking(schedule, reservations, this.form.value.adults + this.form.value.kids + this.form.value.free)) {
+                this.save()
+            }
+        })
+    }
+
     private getRowIndex(recordId: string): number {
         const table = <HTMLTableElement>document.querySelector('table')
         for (let i = 0; i < table.rows.length; i++) {
@@ -342,7 +360,7 @@ export class ReservationFormComponent {
             adults: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             kids: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             free: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
-            totalPersons: [{ value: '0', disabled: true }],
+            totalPersons: ['0', ValidationService.isGreaterThanZero],
             driverId: [1, Validators.required], driverDescription: [{ value: '', disabled: true }, Validators.required],
             portId: [1, Validators.required], portDescription: [{ value: '', disabled: true }, Validators.required],
             shipId: [1, Validators.required], shipDescription: [{ value: '', disabled: true }, Validators.required],

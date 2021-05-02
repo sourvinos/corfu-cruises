@@ -51,7 +51,7 @@
                             <mat-error *ngIf="!free.hasError('required') && free.hasError('min') || free.hasError('max')">{{ onGetHint('invalid') }}</mat-error>
                         </mat-form-field>
                         <mat-form-field>
-                            <input type="number" matInput [placeholder]="onGetLabel('totalPersons')" id="totalPersons" formControlName="totalPersons">
+                            <input type="number" [disabled]="true" matInput [placeholder]="onGetLabel('totalPersons')" id="totalPersons" formControlName="totalPersons">
                         </mat-form-field>
                     </div>
                     <div id="group-field">
@@ -108,7 +108,7 @@
         <div id="buttons">
             <button mat-flat-button class="secondary" id="sendVoucher" (click)="onSendVoucher()">{{ onGetLabel('sendVoucherButton') }}</button>
             <button mat-flat-button class="delete" id="delete" (click)="onDelete()" *ngIf="form.value.id !== 0">{{ onGetLabel('deleteButton') }}</button>
-            <button mat-flat-button class="primary" id="save" (click)="onValidateSchedule()" [disabled]="!form.valid">{{ onGetLabel('saveButton') }}</button>
+            <button mat-flat-button class="primary" id="save" (click)="onValidateReservation()" [disabled]="!form.valid">{{ onGetLabel('saveButton') }}</button>
         </div>
     </div>
 

@@ -19,13 +19,14 @@
         { "id": "noRecordsSelected", "message": "Δεν έχετε επιλέξει εγγραφές." },
         { "id": "noResults", "message": "Με τα κριτήρια αυτά, δεν βρήκαμε τίποτα." },
         { "id": "noScheduleFound", "message": "Δεν έχουμε καμμία εκδρομή για αυτή την ημέρα." },
-        { "id": "noScheduleFoundWithDetails", "message": "Δεν έχουμε καμμία εκδρομή στη επιλεγμένη ημερομηνία για τον επιλεγμένο προορισμό." },
+        { "id": "noScheduleFoundWithDetails", "message": "Δεν έχουμε καμμία εκδρομή για την επιλεγμένη ημερομηνία και προορισμό." },
         { "id": "noVideoDevicesFound", "message": "Δεν βρέθηκαν κάμερες στη συσκευή σας." },
         { "id": "passwordChanged", "message": "Ο κωδικός άλλαξε, πρέπει να συνδεθείτε ξανά." },
         { "id": "recordCreated", "message": "Η εγγραφή δημιουργήθηκε." },
         { "id": "recordDeleted", "message": "Η εγγραφή διαγράφηκε." },
         { "id": "recordUpdated", "message": "Η εγγραφή ενημερώθηκε." },
         { "id": "selectedRecordsHaveBeenProcessed", "message": "Ολες οι επιλεγμένες εγγραφές ενημερώθηκαν." },
-        { "id": "unableToResetPassword", "message": "Δεν μπορεί να γίνει επαναφορά κωδικού." }
+        { "id": "unableToResetPassword", "message": "Δεν μπορεί να γίνει επαναφορά κωδικού." },
+        { "id": "isOverbooking", "message": "Αυτή η κράτηση θα δημιουργήσει υπεράριθμους επιβάτες." }
     ]
 }]

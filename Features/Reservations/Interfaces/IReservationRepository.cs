@@ -7,7 +7,7 @@ namespace CorfuCruises {
 
         Task<ReservationGroupReadResource<ReservationReadResource>> Get(string dateIn);
         IEnumerable<MainResult> GetForDestination(int destinationId);
-        int GetForDateDestinationPort(string date, int destinationId, int portId);
+        ReservationTotalPersons GetForDateDestinationPort(string date, int destinationId, int portId);
         Task<Reservation> GetById(string id);
         bool Update(string id, Reservation updatedRecord);
         void AssignToDriver(int driverId, string[] ids);

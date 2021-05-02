@@ -19,13 +19,14 @@
         { "id": "noRecordsSelected", "message": "You have not selected any records." },
         { "id": "noResults", "message": "We didn't find anything." },
         { "id": "noScheduleFound", "message": "We don't have any trips for this day." },
-        { "id": "noScheduleFoundWithDetails", "message": "We don't have a trip on the selected date to the selected destination." },
+        { "id": "noScheduleFoundWithDetails", "message": "We don't have a trip for the selected date and destination." },
         { "id": "noVideoDevicesFound", "message": "There are no cameras on your device." },
         { "id": "passwordChanged", "message": "The password was changed, you must login again." }, 
         { "id": "recordCreated", "message": "A record was created." },
         { "id": "recordDeleted", "message": "This record was deleted." },
         { "id": "recordUpdated", "message": "This record was updated." },
         { "id": "selectedRecordsHaveBeenProcessed", "message": "All selected records have been updated." },
-        { "id": "unableToResetPassword", "message": "The password can not be reset." }
+        { "id": "unableToResetPassword", "message": "The password can not be reset." },
+        { "id": "isOverbooking", "message": "This reservation will cause overbooking." }
     ]
 }]

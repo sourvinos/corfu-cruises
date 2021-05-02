@@ -64,6 +64,7 @@ export class MessageSnackbarService {
     public unableToResetPassword(): string { return this.getDescription(this.feature, "unableToResetPassword") }
     public invalidModel(): string { return this.getDescription(this.feature, "invalidModel") }
     public noScheduleFoundWithDetails(): string { return this.getDescription(this.feature, "noScheduleFoundWithDetails") }
+    public isOverbooking(): string { return this.getDescription(this.feature, "isOverbooking") }
 
     public filterError(errorCode: number, feature = 'snackbarMessages'): string {
         let returnValue = ''
