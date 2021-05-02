@@ -1,7 +1,7 @@
 .mat-tab-label {
     background-color: var(--color-background-secondary);
     color: var(--color-text-primary);
-    font-family: var(--font-family-header);
+    font-family: var(--font-family-master);
     font-size: var(--font-size-tab-label);
     font-variant-caps: petite-caps;
     font-weight: var(--font-weight-header);
@@ -34,7 +34,7 @@
 
 .mat-tab-label-content {
     color: var(--color-text-primary) !important;
-    font-family: var(--font-family-button) !important;
+    font-family: var(--font-family-master) !important;
     font-size: var(--font-size-button) !important;
     font-weight: var(--font-weight-button) !important;
 }

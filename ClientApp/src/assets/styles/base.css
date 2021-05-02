@@ -1,16 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import "~leaflet/dist/leaflet.css";
+@import "variables.css";
 @import "buttons.css";
 @import "checkbox.css";
 @import "datepicker.css";
 @import "dialogs.css";
 @import "headers.css";
 @import "inputs.css";
-@import "labels.css";
 @import "loader.css";
 @import "scrollable.css";
 @import "select.css";
@@ -18,9 +19,6 @@
 @import "summaries.css";
 @import "table-wrapper.css";
 @import "tabs.css";
-@import "variables-narrow.css";
-@import "variables-wide.css";
-@import "variables.css";
 
 /*  */
 
@@ -49,7 +47,7 @@ h1, h2, h3, h4, p {
 
 p.instructions {
     color: var(--color-text-primary);
-    font-family: var(--font-family-paragraph);
+    font-family: var(--font-family-master);
     font-size: var(--font-size-paragraph);
     overflow: hidden;
 }
@@ -118,7 +116,7 @@ p.instructions {
 
 .leaflet-tooltip span {
     color: var(--color-map-tooltip-color);
-    font-family: var(--font-family-leaflet-tooltip);
+    font-family: var(--font-family-master);
     font-weight: 300;
 }
 
@@ -198,34 +196,6 @@ p.instructions {
     margin-right: 0.2rem !important;
 }
 
-.mat-expansion-panel {
-    background-color: var(--color-summary-background);
-}
-
-.mat-expansion-panel-header {
-    padding: 0 2rem;
-}
-
-.mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
-    color: var(--color-text-primary) !important;
-    font-family: var(--font-family-label) !important;
-    font-size: var(--font-size-expansion-panel-header) !important;
-    font-variant-caps: petite-caps;
-    font-weight: var(--font-weight-label) !important;
-}
-
-.mat-expansion-panel-header.mat-expanded {
-    height: 3rem;
-}
-
-.mat-expansion-panel-body {
-    padding: 0 !important;
-}
-
-.mat-expansion-panel-header-description, .mat-expansion-indicator::after {
-    color: var(--color-text-primary) !important;
-}
-
 .mat-progress-spinner circle, .mat-spinner circle {
     stroke: var(--color-spinner) !important;
 }
@@ -249,7 +219,7 @@ p.instructions {
 
 .mat-tooltip {
     color: var(--color-tooltip) !important;
-    font-family: var(--font-family-tooltip);
+    font-family: var(--font-family-master);
     font-size: 1rem;
     font-weight: var(--font-weight-tooltip);
 }

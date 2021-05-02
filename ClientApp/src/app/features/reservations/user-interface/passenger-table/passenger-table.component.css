@@ -14,7 +14,7 @@ th {
     background-color: var(--color-table-header);
     border-right: 0.125rem solid var(--color-background-secondary);
     color: var(--color-text-primary);
-    font-family: var(--font-family-table-header);
+    font-family: var(--font-family-master);
     font-size: var(--font-size-table-header);
     font-variant-caps: petite-caps;
     font-weight: var(--font-weight-table-header);
@@ -54,7 +54,7 @@ tr.selected td {
 
 td {
     color: var(--color-text-primary);
-    font-family: var(--font-family-table-body);
+    font-family: var(--font-family-master);
     font-size: var(--font-size-table-row);
     max-width: 0;
     overflow: hidden;

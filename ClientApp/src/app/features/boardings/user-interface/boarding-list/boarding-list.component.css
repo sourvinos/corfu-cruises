@@ -12,7 +12,7 @@
 .selection {
     align-items: baseline;
     display: flex;
-    font-family: var(--font-family-totals);
+    font-family: var(--font-family-master);
     font-size: var(--font-size-table-row);
     justify-content: flex-end;
     margin-left: auto;
@@ -38,7 +38,7 @@
 
 .field-value {
     color: var(--color-expansion-list-value);
-    font-family: var(--font-family-label);
+    font-family: var(--font-family-master);
     margin-left: 0.5rem;
     overflow: hidden;
     text-overflow: ellipsis;

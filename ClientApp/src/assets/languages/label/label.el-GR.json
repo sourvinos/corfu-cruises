@@ -879,7 +879,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Προσέξτε"
+                "description": "Σημαντικό:"
             },
             {
                 "id": "okButton",
@@ -1477,7 +1477,7 @@
             },
             {
                 "id": "filterButton",
-                "description": "Φίλτρα"
+                "description": "Φιλτρα"
             },
             {
                 "id": "scanOpenButton",

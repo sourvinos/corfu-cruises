@@ -89,7 +89,7 @@
 
 #totals {
     display: flex;
-    font-family: var(--font-family-totals);
+    font-family: var(--font-family-master);
     font-weight: var(--font-weight-totals);
     justify-content: flex-end;
     margin-left: auto;
@@ -99,7 +99,7 @@
 .selection {
     align-items: baseline;
     display: flex;
-    font-family: var(--font-family-totals);
+    font-family: var(--font-family-master);
     font-size: var(--font-size-table-row);
     margin-left: 1rem;
     text-align: right;

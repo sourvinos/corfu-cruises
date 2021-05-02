@@ -1,6 +1,6 @@
 h1 {
     color: var(--color-text-primary) !important;
-    font-family: var(--font-family-header) !important;
+    font-family: var(--font-family-master) !important;
     font-size: var(--font-size-header) !important;
     font-variant-caps: petite-caps;
     font-weight: var(--font-weight-header) !important;
@@ -8,7 +8,7 @@ h1 {
 
 h2 {
     color: var(--color-text-primary) !important;
-    font-family: var(--font-family-header) !important;
+    font-family: var(--font-family-master) !important;
     font-variant-caps: petite-caps;
     font-weight: var(--font-weight-header) !important;
 }

@@ -31,6 +31,7 @@
 }
 
 .mat-option {
+    font-family: var(--font-family-master) !important;
     height: 2em !important;
 }
 
@@ -52,23 +53,30 @@
 }
 
 .mat-form-field .mat-select-value {
-    color: var(--color-text-primary) !important;
     font-size: var(--font-size-input) !important;
     padding-top: 0 !important;
 }
 
-.mat-form-field.mat-focused .mat-form-field-label {
-    color: var(--color-text-secondary) !important;
-}
-
-.mat-form-field.mat-focused .mat-select-value-text {
-    color: var(--color-text-secondary) !important;
-}
-
-.mat-form-field.mat-focused .mat-select-arrow {
-    color: var(--color-text-secondary) !important;
-}
-
-.mat-form-field .mat-select-arrow {
+.mat-form-field .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-select .mat-select-trigger .mat-select-value {
     color: var(--color-text-primary) !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-select .mat-select-trigger .mat-select-value {
+    color: var(--color-text-secondary) !important;
+}
+
+.mat-form-field .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label {
+    color: var(--color-text-primary) !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label {
+    color: var(--color-text-secondary) !important;
+}
+
+.mat-form-field .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-select .mat-select-trigger .mat-select-arrow-wrapper .mat-select-arrow {
+    color: var(--color-text-primary) !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-select .mat-select-trigger .mat-select-arrow-wrapper .mat-select-arrow {
+    color: var(--color-text-secondary) !important;
 }

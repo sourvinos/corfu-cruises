@@ -19,7 +19,7 @@ export class DialogService {
 
     public open(titleColor: string, message: string, actions: string[]): Observable<boolean> {
         this.response = this.dialog.open(DialogAlertComponent, {
-            height: '300px',
+            height: '250px',
             width: '550px',
             data: {
                 titleColor: titleColor,

@@ -879,7 +879,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Warning"
+                "description": "(DE) Important:"
             },
             {
                 "id": "okButton",

@@ -4,7 +4,7 @@
 
 #side-footer {
     color: var(--color-logo-primary);
-    font-family: var(--font-family-copyright);
+    font-family: var(--font-family-master);
     font-size: var(--font-size-copyright);
     margin-bottom: 2rem;
     text-align: center;

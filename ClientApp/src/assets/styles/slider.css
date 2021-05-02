@@ -4,7 +4,7 @@
 
 .mat-slide-toggle-content {
     color: var(--color-text-primary) !important;
-    font-family: var(--font-family-checkbox) !important;
+    font-family: var(--font-family-master) !important;
     font-size: var(--font-size-checkbox) !important;
     font-variant-caps: petite-caps !important;
     font-weight: var(--font-weight-checkbox) !important;

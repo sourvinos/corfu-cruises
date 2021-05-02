@@ -47,7 +47,7 @@ li {
 }
 
 .month {
-    font-family: var(--font-family-table-body);
+    font-family: var(--font-family-master);
     font-variant-caps: petite-caps;
 }
 
@@ -60,7 +60,7 @@ li {
     background: var(--color-table-header);
     color: var(--color-text-primary);
     display: flex;
-    font-family: var(--font-family-table-body);
+    font-family: var(--font-family-master);
     font-variant-caps: petite-caps;
     height: fit-content;
     justify-content: center;
@@ -71,7 +71,7 @@ li {
     align-items: center;
     color: var(--color-text-primary);
     display: flex;
-    font-family: var(--font-family-table-body);
+    font-family: var(--font-family-master);
     justify-content: center;
 }
 

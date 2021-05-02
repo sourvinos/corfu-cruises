@@ -2,7 +2,7 @@ button {
     align-items: center;
     cursor: default !important;
     display: flex;
-    font-family: var(--font-family-button) !important;
+    font-family: var(--font-family-master) !important;
     font-size: var(--font-size-button) !important;
     font-weight: var(--font-weight-button) !important;
     justify-content: center;

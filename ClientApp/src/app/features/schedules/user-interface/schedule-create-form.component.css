@@ -35,7 +35,7 @@
     border-bottom: 5px solid var(--color-border-inactive);
     color: var(--color-text-primary);
     display: flex;
-    font-family: var(--font-family-summary-block);
+    font-family: var(--font-family-master);
     font-size: var(--font-size-summary-block-item);
     justify-content: space-between;
     line-height: 1.8rem;

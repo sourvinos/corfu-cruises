@@ -16,7 +16,7 @@
 
 .mat-calendar-controls .mat-button .mat-button-wrapper {
     color: var(--color-datepicker-month);
-    font-family: var(--font-family-header);
+    font-family: var(--font-family-datepicker);
     font-size: var(--font-size-datepicker-header-month);
 }
 

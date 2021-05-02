@@ -14,7 +14,7 @@
     align-items: center;
     color: var(--color-calendar-legend);
     display: flex;
-    font-family: var(--font-family-calendar-legend);
+    font-family: var(--font-family-master);
     font-size: var(--font-size-calendar-legend-items);
     font-variant-caps: petite-caps;
     width: max-content;

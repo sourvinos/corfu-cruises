@@ -1,44 +1,43 @@
 * {
     /* Font names */
-    --font-family-button: "Open Sans Condensed";
-    --font-family-calendar-date: "Fira Mono";
-    --font-family-calendar-legend: "Open Sans Condensed";
-    --font-family-checkbox: "Open Sans Condensed";
-    --font-family-copyright: "Yanone Kaffeesatz";
     --font-family-datepicker: "Open Sans Condensed";
-    --font-family-dialog-content: "Open Sans Condensed";
-    --font-family-dialog-header: "Open Sans Condensed";
-    --font-family-header: "Open Sans Condensed";
-    --font-family-label: "Open Sans Condensed";
-    --font-family-leaflet-tooltip: "Open Sans Condensed";
     --font-family-logo: "Yanone Kaffeesatz";
-    --font-family-menu-list-item: "Open Sans Condensed";
-    --font-family-overview-percent: "Yanone Kaffeesatz";
-    --font-family-paragraph: "Open Sans Condensed";
-    --font-family-select: "Open Sans Condensed";
-    --font-family-snackbar: "Open Sans Condensed";
-    --font-family-summary-block: "Open Sans Condensed";
-    --font-family-summary-header: "Open Sans Condensed";
-    --font-family-table-body: "Open Sans Condensed";
-    --font-family-table-header: "Open Sans Condensed";
-    --font-family-tooltip: "Open Sans Condensed";
-    --font-family-totals: "Open Sans Condensed";
+    --font-family-master: "Ubuntu";
     /* Font weights */
     --font-weight-button: 100 !important;
     --font-weight-checkbox: 400 !important;
     --font-weight-dialog-content: 300 !important;
     --font-weight-header: 300 !important;
-    --font-weight-label: 300 !important;
-    --font-weight-menu-active-item: 300;
-    --font-weight-menu-list-item: 300;
     --font-weight-snackbar: 300;
     --font-weight-sum-persons: 300;
     --font-weight-summary-header: 300;
     --font-weight-table-header: 300 !important;
-    --font-weight-table-row-hover: 900 !important;
     --font-weight-tooltip: 700;
-    --font-weight-user-greeting: 300;
-    /* Screen sizes */
-    --narrow-screen: 800px;
-    --wide-screen: 801px;
+    /* Font sizes */
+    --font-size-button: 1.25rem;
+    --font-size-calendar-date: 1.3125rem;
+    --font-size-calendar-legend-items: 1.5rem;
+    --font-size-checkbox: 1.2rem;
+    --font-size-copyright: 0.6rem;
+    --font-size-datepicker-days: 0.9vw;
+    --font-size-datepicker-header-month: 2.2vw;
+    --font-size-dialog-content: 1.125rem;
+    --font-size-dialog-header: 1.875rem;
+    --font-size-header: 2.25rem;
+    --font-size-input-height: 1.5rem;
+    --font-size-input-hint: 0.8rem;
+    --font-size-input: 1rem;
+    --font-size-label: 1.8rem;
+    --font-size-logo-side-bar-first-child: 6rem;
+    --font-size-logo-side-bar-second-child: 3.5rem;
+    --font-size-panel-buttons: 1.375rem;
+    --font-size-paragraph: 0.7rem;
+    --font-size-snackbar: 1.125rem;
+    --font-size-sum-persons: 1.25rem;
+    --font-size-sum: 1.5rem;
+    --font-size-summary-block-header: 1.6rem;
+    --font-size-summary-block-item: 1rem;
+    --font-size-tab-label: 1.8rem;
+    --font-size-table-header: 1.4375rem;
+    --font-size-table-row: 0.9375rem;
 }
