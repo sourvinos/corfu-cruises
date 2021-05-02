@@ -572,8 +572,7 @@ export class ReservationFormComponent {
     }
 
     private showScheduleNotFound(): void {
-        this.dialogService.open('warningColor', this.messageSnackbarService.noScheduleFoundWithDetails(
-            this.form.value.date, this.form.value.destinationDescription, this.getPortDescription(this.form.value.portId)), ['ok'])
+        this.dialogService.open('errorColor', this.messageSnackbarService.noScheduleFoundWithDetails(), ['ok'])
     }
 
     private async showModalForm(): Promise<void> {

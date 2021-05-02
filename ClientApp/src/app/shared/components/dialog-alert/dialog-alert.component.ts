@@ -22,8 +22,8 @@ export class DialogAlertComponent {
             case 'warningColor':
                 this.titleColor = '#fe9f36'
                 break
-            case 'importantColor':
-                this.titleColor = '#0c5e71'
+            case 'errorColor':
+                this.titleColor = '#cc3300'
                 break
             default:
                 break

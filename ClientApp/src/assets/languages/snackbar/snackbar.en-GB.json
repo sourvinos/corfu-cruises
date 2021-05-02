@@ -19,6 +19,7 @@
         { "id": "noRecordsSelected", "message": "You have not selected any records." },
         { "id": "noResults", "message": "We didn't find anything." },
         { "id": "noScheduleFound", "message": "We don't have any trips for this day." },
+        { "id": "noScheduleFoundWithDetails", "message": "We don't have a trip on the selected date to the selected destination." },
         { "id": "noVideoDevicesFound", "message": "There are no cameras on your device." },
         { "id": "passwordChanged", "message": "The password was changed, you must login again." }, 
         { "id": "recordCreated", "message": "A record was created." },

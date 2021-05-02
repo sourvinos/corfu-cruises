@@ -22,28 +22,16 @@ export class HelperService {
         document.body.appendChild(a)
     }
 
-    public getApplicationTitle(): any {
-        return this.appName
-    }
-
-    public setFocus(element: string): void {
-        setTimeout(() => {
-            const input = <HTMLInputElement>document.getElementById(element)
-            input.focus()
-            input.select()
-        }, 500)
-    }
-
-    public saveItem(key: string, value: string): void {
-        localStorage.setItem(key, value)
-    }
-
-    public readItem(item: string): string {
-        return localStorage.getItem(item) || ''
-    }
-
     public deviceDetector(): string {
         return 'desktop'
+    }
+
+    public formatDateToLocale(date: string | number | Date): string {
+        return new Date(date).toLocaleDateString(this.readItem('language'))
+    }
+
+    public getApplicationTitle(): any {
+        return this.appName
     }
 
     public getElementWidth(element: HTMLElement): any {
@@ -61,6 +49,26 @@ export class HelperService {
         }
         return targetArray
     }
+
+    public readItem(item: string): string {
+        return localStorage.getItem(item) || ''
+    }
+
+    public saveItem(key: string, value: string): void {
+        localStorage.setItem(key, value)
+    }
+
+    public setFocus(element: string): void {
+        setTimeout(() => {
+            const input = <HTMLInputElement>document.getElementById(element)
+            input.focus()
+            input.select()
+        }, 500)
+    }
+
+    //#endregion
+
+    //#region private methods
 
     private removeLeadingAsteriskFromString(value: string): string {
         return value.substr(1, value.length)

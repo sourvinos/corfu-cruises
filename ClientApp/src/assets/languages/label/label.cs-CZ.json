@@ -879,7 +879,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Pozor:"
+                "description": "Pozor"
             },
             {
                 "id": "okButton",

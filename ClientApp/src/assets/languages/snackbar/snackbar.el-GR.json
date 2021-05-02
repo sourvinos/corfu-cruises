@@ -19,6 +19,7 @@
         { "id": "noRecordsSelected", "message": "Δεν έχετε επιλέξει εγγραφές." },
         { "id": "noResults", "message": "Με τα κριτήρια αυτά, δεν βρήκαμε τίποτα." },
         { "id": "noScheduleFound", "message": "Δεν έχουμε καμμία εκδρομή για αυτή την ημέρα." },
+        { "id": "noScheduleFoundWithDetails", "message": "Δεν έχουμε καμμία εκδρομή στη επιλεγμένη ημερομηνία για τον επιλεγμένο προορισμό." },
         { "id": "noVideoDevicesFound", "message": "Δεν βρέθηκαν κάμερες στη συσκευή σας." },
         { "id": "passwordChanged", "message": "Ο κωδικός άλλαξε, πρέπει να συνδεθείτε ξανά." },
         { "id": "recordCreated", "message": "Η εγγραφή δημιουργήθηκε." },

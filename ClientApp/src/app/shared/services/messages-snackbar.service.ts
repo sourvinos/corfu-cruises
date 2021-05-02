@@ -63,9 +63,7 @@ export class MessageSnackbarService {
     public selectedRecordsHaveBeenProcessed(): string { return this.getDescription(this.feature, "selectedRecordsHaveBeenProcessed") }
     public unableToResetPassword(): string { return this.getDescription(this.feature, "unableToResetPassword") }
     public invalidModel(): string { return this.getDescription(this.feature, "invalidModel") }
-    public noScheduleFoundWithDetails(date: string, destination: string, port: string): string {
-        return 'There is no trip on ' + date + ' to ' + destination + ' from ' + port
-    }
+    public noScheduleFoundWithDetails(): string { return this.getDescription(this.feature, "noScheduleFoundWithDetails") }
 
     public filterError(errorCode: number, feature = 'snackbarMessages'): string {
         let returnValue = ''
