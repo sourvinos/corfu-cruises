@@ -44,7 +44,7 @@ export class BoardingListComponent {
     public openedClientFilters = true
     public records: BoardingCompositeViewModel
     public searchTerm: string
-    public driver: string
+    public driverFilter: string
     // public selectedBoardingStatus = []
     public theme = ''
 
@@ -175,8 +175,8 @@ export class BoardingListComponent {
 
     private addActiveClassToSummaryItems(): void {
         setTimeout(() => {
-            this.addActiveClassToElements('.item.boardingStatus', this.selectedBoardingStatus)
-            this.addActiveClassToElements('.item.driver', this.selectedDrivers)
+            this.addActiveClassToElements('.item.boardingStatusFilter', this.selectedBoardingStatus)
+            this.addActiveClassToElements('.item.driverFilter', this.selectedDrivers)
         }, 100)
     }
 
@@ -252,6 +252,7 @@ export class BoardingListComponent {
     }
 
     private filterByCriteria(): void {
+        console.log(this.selectedDrivers)
         this.filteredRecords.boardings = this.records.boardings
             .filter((driver) => this.selectedDrivers.indexOf(driver.driver) !== -1)
             .filter((isBoarded) => this.selectedBoardingStatus.indexOf(isBoarded.isBoarded) !== -1 || (isBoarded.isBoarded === 'Mix' && this.selectedBoardingStatus.length > 0))
@@ -286,8 +287,8 @@ export class BoardingListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
-            console.log('records', this.records)
-            console.log('filteredRecords', this.filteredRecords)
+            // console.log('records', this.records)
+            // console.log('filteredRecords', this.filteredRecords)
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -378,8 +379,8 @@ export class BoardingListComponent {
         this.records.boardings.forEach(record => {
             const isBoarded = record.passengers.filter(x => x.isCheckedIn)
             const isNotBoarded = record.passengers.filter(x => !x.isCheckedIn)
-            console.log('isBoarded', isBoarded.length, 'Count', record.passengers.length)
-            console.log('isNotBoarded', isNotBoarded.length)
+            // console.log('isBoarded', isBoarded.length, 'Count', record.passengers.length)
+            // console.log('isNotBoarded', isNotBoarded.length)
             if (isBoarded.length == record.passengers.length) {
                 record.isBoarded = 'Boarded'
             }
@@ -393,7 +394,7 @@ export class BoardingListComponent {
             // console.log('Ticket', record.ticketNo, 'Passenger', passenger)
             // })
         })
-        console.log('After', this.records)
+        // console.log('After', this.records)
     }
 
     //#endregion

@@ -4,28 +4,31 @@
         <mat-sidenav-container [hasBackdrop]="true">
             <mat-sidenav mode="over" [(opened)]="openedClientFilters" (opened)="showMe(true)" (closed)="showMe(false)" position="end">
                 <div *ngIf="openedClientFilters" id="clientFilters">
-                    <!-- Ticket number -->
-                    <mat-form-field>
-                        <input type="text" matInput placeholder="{{ onGetLabel('searchLabel') }}" [(ngModel)]="searchTerm" (keyup)="onFilterByTicketNo(query.value)" #query autocomplete="off">
-                        <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
-                    </mat-form-field>
-                    <!-- Boarding status -->
-                    <form id="form" [formGroup]="form" autocomplete="off">
-                        <mat-label>{{ onGetLabel('boardingStatus') }}</mat-label>
-                        <div class="summaryContent scrollable">
-                            <div *ngFor="let item of boardingStatus" (click)="onToggleItem(item, this.selectedBoardingStatus)" class="item boardingStatus" [class.active]="item.isSelected" [id]="item">
+                    <div class="searchField">
+                        <mat-form-field>
+                            <input type="text" matInput placeholder="{{ onGetLabel('searchLabel') }}" [(ngModel)]="searchTerm" (keyup)="onFilterByTicketNo(query.value)" #query autocomplete="off">
+                            <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="filter">
+                        <mat-label class="label">{{ onGetLabel('boardingStatus') }}</mat-label>
+                        <div class="filterContent">
+                            <div *ngFor="let item of boardingStatus" (click)="onToggleItem(item, this.selectedBoardingStatus)" class="item boardingStatusFilter" [class.active]="item.isSelected" [id]="item">
                                 <div class="description">{{ item }}</div>
                             </div>
                         </div>
-                        <!-- Drivers -->
-                        <mat-label>{{ onGetLabel("driver") }}</mat-label>
-                        <div class="summaryContent scrollable">
-                            <div *ngFor="let item of drivers" (click)="onToggleItem(item, this.selectedDrivers)" class="item driver" [class.active]="item.isSelected" [id]="item">
+                    </div>
+                    <div class="filter">
+                        <mat-label class="label">{{ onGetLabel('driver') }}</mat-label>
+                        <div class="filterContent">
+                            <div *ngFor="let item of drivers" (click)="onToggleItem(item, this.selectedDrivers)" class="item driverFilter" [class.active]="item.isSelected" [id]="item">
                                 <div class="description">{{ item }}</div>
                             </div>
                         </div>
-                    </form>
-                    <button mat-flat-button class="primary" id="closeButton" (click)="close()">{{ onGetLabel('closeButton') }}</button>
+                    </div>
+                    <div class="buttons">
+                        <button mat-flat-button class="primary" id="closeButton" (click)="close()">{{ onGetLabel('closeButton') }}</button>
+                    </div>
                 </div>
             </mat-sidenav>
             <mat-sidenav-content class="scrollable">
@@ -74,8 +77,8 @@
                             </div>
                             <div class="field board-passenger">
                                 <button mat-flat-button class="transparent" (click)="onDoBoarding(passenger.id)">
-                                    <img class="toggleBoardingButton" *ngIf="passenger.isCheckedIn" src="/assets/images/navigation/out.svg" width="25px">
-                                    <img class="toggleBoardingButton"*ngIf="!passenger.isCheckedIn" src="/assets/images/navigation/in.svg" width="25px">
+                                    <img class="toggleBoardingButton" *ngIf="passenger.isCheckedIn" src="/assets/images/navigation/out.svg" width="20px">
+                                    <img class="toggleBoardingButton" *ngIf="!passenger.isCheckedIn" src="/assets/images/navigation/in.svg" width="20px">
                                 </button>
                             </div>
                         </div>
