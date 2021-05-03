@@ -9,6 +9,7 @@ export class Boarding {
     customer: string
     driver: string
     remarks: string
+    isBoarded: string
 
     passengers: BoardingPassenger[]
 

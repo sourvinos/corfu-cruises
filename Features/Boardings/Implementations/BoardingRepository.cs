@@ -40,7 +40,7 @@ namespace CorfuCruises {
         public bool DoBoarding(int id) {
             Passenger passenger = context.Passengers.Where(x => x.Id == id).FirstOrDefault();
             if (passenger != null) {
-                passenger.IsCheckedIn = true;
+                passenger.IsCheckedIn = !passenger.IsCheckedIn;
                 context.SaveChanges();
                 return true;
             } else {

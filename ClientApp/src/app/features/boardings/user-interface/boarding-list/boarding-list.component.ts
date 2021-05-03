@@ -5,15 +5,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
-import { BoardingService } from '../../classes/services/boarding.service'
 import { BoardingCompositeViewModel } from '../../classes/view-models/boarding-composite-view-model'
+import { BoardingService } from '../../classes/services/boarding.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { Driver } from 'src/app/features/drivers/classes/driver'
-import { DriverService } from 'src/app/features/drivers/classes/driver.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { QrScannerComponent } from 'angular2-qrscanner'
@@ -41,18 +38,21 @@ export class BoardingListComponent {
 
     //#region particular variables
 
-    public boardingStatus = '2'
+    // public boardingStatus = '2'
     public filteredRecords: BoardingCompositeViewModel
     public form: FormGroup
-    public openedClientFilters = false
+    public openedClientFilters = true
     public records: BoardingCompositeViewModel
     public searchTerm: string
     public driver: string
-    public selectedBoardingStatus = []
+    // public selectedBoardingStatus = []
     public theme = ''
 
-    public drivers: Driver[] = []
-    public selectedDriver = ''
+    public drivers = []
+    public selectedDrivers = []
+
+    public boardingStatus = []
+    public selectedBoardingStatus = []
 
     private chosenDevice: any
     public videoDevices: MediaDeviceInfo[] = []
@@ -61,10 +61,13 @@ export class BoardingListComponent {
 
     //#endregion
 
-    constructor(private driverService: DriverService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private boardingService: BoardingService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private boardingService: BoardingService, private titleService: Title) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.loadRecords()
+                this.updateWithPassengerStatus()
+                this.getDistinctDrivers()
+                this.getBoardingStatus()
             }
         })
     }
@@ -77,7 +80,10 @@ export class BoardingListComponent {
         this.addShortcuts()
         this.getLocale()
         this.getTheme()
-        this.populateDropDowns()
+    }
+    ngAfterViewInit(): void {
+        this.updateSelectedArraysFromInitialResults()
+        this.saveSelectedItemsToLocalStorage()
     }
 
     ngDoCheck(): void {
@@ -105,34 +111,31 @@ export class BoardingListComponent {
         })
     }
 
-    public onFilterByDriver(): void {
-        this.filteredRecords.boardings = []
-        this.records.boardings.forEach((record) => {
-            if (record.driver.includes(this.selectedDriver) || this.selectedDriver.trim() == '') {
-                this.filteredRecords.boardings.push(record)
-            }
-        })
-    }
+    // public onFilterByDriver(): void {
+    //     this.filteredRecords.boardings = []
+    //     this.records.boardings.forEach((record) => {
+    //         if (record.driver.includes(this.selectedDriver) || this.selectedDriver.trim() == '') {
+    //             this.filteredRecords.boardings.push(record)
+    //         }
+    //     })
+    // }
 
-    public onFilterByBoardingStatus(): void {
-        this.filteredRecords.boardings = []
-        this.records.boardings.forEach((record) => {
-            const detail = record.passengers
-            detail.forEach((element) => {
-                if (!this.filteredRecords.boardings.find(({ ticketNo }) => ticketNo === record.ticketNo)) {
-                    if (this.determineBoardingStatus(element.isCheckedIn) == this.boardingStatus || this.boardingStatus == '2') {
-                        this.filteredRecords.boardings.push(record)
-                    }
-                }
-            })
-        })
-    }
+    // public onFilterByBoardingStatus(): void {
+    //     this.filteredRecords.boardings = []
+    //     this.records.boardings.forEach((record) => {
+    //         const detail = record.passengers
+    //         detail.forEach((element) => {
+    //             if (this.determineBoardingStatus(element.isCheckedIn) == this.boardingStatus || this.boardingStatus == '2') {
+    //                 this.filteredRecords.boardings.push(record)
+    //             }
+    //         })
+    //     })
+    // }
 
     public onFilterByTicketNo(query: string): void {
-        // this.searchTerm = query
         this.filteredRecords.boardings = []
         this.records.boardings.forEach((record) => {
-            if (record.ticketNo.includes(query)) {
+            if (record.ticketNo.toLowerCase().includes(query)) {
                 this.filteredRecords.boardings.push(record)
             }
         })
@@ -160,11 +163,32 @@ export class BoardingListComponent {
 
     public onToggleItem(item: any, lookupArray: string[]): void {
         this.toggleActiveItem(item, lookupArray)
+        this.filterByCriteria()
+        // this.updateTotals()
+        // this.saveSelectedItemsToLocalStorage()
+        // this.updateParentCheckBox(className, indeterminate, checkedVariable)
     }
 
     //#endregion
 
     //#region private methods
+
+    private addActiveClassToSummaryItems(): void {
+        setTimeout(() => {
+            this.addActiveClassToElements('.item.boardingStatus', this.selectedBoardingStatus)
+            this.addActiveClassToElements('.item.driver', this.selectedDrivers)
+        }, 100)
+    }
+
+    private addActiveClassToElements(className: string, lookupArray: string[]): void {
+        const elements = document.querySelectorAll(className)
+        elements.forEach((element) => {
+            const position = lookupArray.indexOf(element.id)
+            if (position >= 0) {
+                element.classList.add('activeItem')
+            }
+        })
+    }
 
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
@@ -227,6 +251,21 @@ export class BoardingListComponent {
         }
     }
 
+    private filterByCriteria(): void {
+        this.filteredRecords.boardings = this.records.boardings
+            .filter((driver) => this.selectedDrivers.indexOf(driver.driver) !== -1)
+            .filter((isBoarded) => this.selectedBoardingStatus.indexOf(isBoarded.isBoarded) !== -1 || (isBoarded.isBoarded === 'Mix' && this.selectedBoardingStatus.length > 0))
+    }
+
+    private getDistinctDrivers(): void {
+        this.drivers = [... new Set(this.records.boardings.map(x => x.driver))]
+        this.selectedDrivers = [... new Set(this.records.boardings.map(x => x.driver))]
+    }
+
+    private getBoardingStatus(): void {
+        this.boardingStatus = ['Boarded', 'Pending']
+    }
+
     private getLocale(): void {
         this.dateAdapter.setLocale(this.helperService.readItem("language"))
     }
@@ -247,6 +286,8 @@ export class BoardingListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
+            console.log('records', this.records)
+            console.log('filteredRecords', this.filteredRecords)
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -275,11 +316,11 @@ export class BoardingListComponent {
         this.openedClientFilters = !this.openedClientFilters
     }
 
-    private toggleActiveItem(item: { description: string }, lookupArray: string[]): void {
-        const element = document.getElementById(item.description)
+    private toggleActiveItem(item, lookupArray: string[]): void {
+        const element = document.getElementById(item)
         if (element.classList.contains('activeItem')) {
             for (let i = 0; i < lookupArray.length; i++) {
-                if ((lookupArray)[i] === item.description) {
+                if ((lookupArray)[i] === item) {
                     lookupArray.splice(i, 1)
                     i--
                     element.classList.remove('activeItem')
@@ -288,7 +329,7 @@ export class BoardingListComponent {
             }
         } else {
             element.classList.add('activeItem')
-            lookupArray.push(item.description)
+            lookupArray.push(item)
         }
     }
 
@@ -296,16 +337,63 @@ export class BoardingListComponent {
         if (this.openedClientFilters) this.toggleClientFilters()
     }
 
-    private populateDropDowns(): void {
-        this.driverService.getAllActive().subscribe((result: any) => {
-            this.drivers = result.sort((a: { description: number; }, b: { description: number; }) => (a.description > b.description) ? 1 : -1)
-        })
-    }
-
     public personsAreNotMissing(record: { totalPersons: any; passengers: string | any[] }): boolean {
         if (record.totalPersons == record.passengers.length) {
             return true
         }
+    }
+
+    private updateSelectedArraysFromInitialResults(): void {
+        this.boardingStatus.forEach(element => {
+            this.selectedBoardingStatus.push(element)
+        })
+    }
+
+    private saveSelectedItemsToLocalStorage(): void {
+        const summaryItems = {
+            'boardingStatus': JSON.stringify(this.selectedBoardingStatus),
+            'drivers': JSON.stringify(this.selectedDrivers)
+        }
+        this.helperService.saveItem('boarding', JSON.stringify(summaryItems))
+    }
+
+    public showMe(isOpen: any): void {
+        if (!isOpen) {
+            this.saveSelectedItemsToLocalStorage()
+        } else {
+            this.getItemsFromLocalStorage()
+            this.addActiveClassToSummaryItems()
+        }
+    }
+
+    private getItemsFromLocalStorage(): void {
+        const localStorageData = JSON.parse(this.helperService.readItem('boarding'))
+        this.selectedDrivers = JSON.parse(localStorageData.drivers)
+        this.selectedBoardingStatus = JSON.parse(localStorageData.boardingStatus)
+        // console.log('from localstorage', this.selectedDrivers)
+        // console.log('from localstorage', this.selectedBoardingStatus)
+    }
+
+    private updateWithPassengerStatus(): void {
+        this.records.boardings.forEach(record => {
+            const isBoarded = record.passengers.filter(x => x.isCheckedIn)
+            const isNotBoarded = record.passengers.filter(x => !x.isCheckedIn)
+            console.log('isBoarded', isBoarded.length, 'Count', record.passengers.length)
+            console.log('isNotBoarded', isNotBoarded.length)
+            if (isBoarded.length == record.passengers.length) {
+                record.isBoarded = 'Boarded'
+            }
+            if (isNotBoarded.length == record.passengers.length) {
+                record.isBoarded = 'Pending'
+            }
+            if (isBoarded.length != record.passengers.length && isNotBoarded.length != record.passengers.length) {
+                record.isBoarded = 'Mix'
+            }
+            // record.passengers.forEach(passenger => {
+            // console.log('Ticket', record.ticketNo, 'Passenger', passenger)
+            // })
+        })
+        console.log('After', this.records)
     }
 
     //#endregion

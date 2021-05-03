@@ -178,3 +178,7 @@
 #no-results img {
     width: 10rem;
 }
+
+img.toggleBoardingButton {
+    padding: 5px 0;
+}

@@ -1,4 +1,4 @@
-// Cutom
+// Custom
 import { Boarding } from "./boarding"
 import { Customer } from "../../../customers/classes/customer"
 import { Driver } from "../../../drivers/classes/driver"
@@ -10,8 +10,8 @@ export class BoardingCompositeViewModel {
     remainingPersons: number
     totalPersons: number
 
-    customer: Customer
-    driver: Driver
+    // customer: Customer
+    // driver: Driver
 
     boardings: Boarding[] = []
 
