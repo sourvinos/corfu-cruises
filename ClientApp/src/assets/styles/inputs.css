@@ -1,5 +1,4 @@
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     display: none;
 }
 
@@ -11,10 +10,7 @@ input::selection {
     background-color: var(--color-text-selected);
 }
 
-input[type=text],
-input[type=email],
-input[type=number],
-input[type=password] {
+input[type=text], input[type=email], input[type=number], input[type=password] {
     caret-color: var(--color-text-secondary);
     cursor: text !important;
     font-size: var(--font-size-input) !important;
@@ -58,8 +54,7 @@ input:disabled {
     font-size: var(--font-size-label) !important;
 } */
 
-.mat-hint,
-.mat-error {
+.mat-hint, .mat-error {
     font-size: var(--font-size-input-hint) !important;
     font-variant-caps: petite-caps !important;
     margin-top: 0.1875rem !important;
@@ -77,10 +72,7 @@ input:disabled {
     color: var(--color-text-primary) !important;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active,
-input:-webkit-autofill:hover {
+input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:active, input:-webkit-autofill:hover {
     font-size: var(--font-size-input) !important;
 }
 
@@ -173,6 +165,10 @@ input:-webkit-autofill:hover {
     .mat-form-field-subscript-wrapper {
         margin-top: 0 !important;
     }
+}
+
+.mat-form-field-label {
+    font-size: var(--font-size-label) !important;
 }
 
 .mat-date-range-input {

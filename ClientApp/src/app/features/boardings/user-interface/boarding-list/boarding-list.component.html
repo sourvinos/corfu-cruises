@@ -2,7 +2,7 @@
 
     <div id="results" class="scrollable">
         <mat-sidenav-container [hasBackdrop]="true">
-            <mat-sidenav mode="over" [(opened)]="openedClientFilters" (opened)="showMe(true)" (closed)="showMe(false)" position="end">
+            <mat-sidenav mode="over" [(opened)]="openedClientFilters" (opened)="onUpdateSelectedItems()" (closed)="onSaveSelectedItems()" position="end">
                 <div *ngIf="openedClientFilters" id="clientFilters">
                     <div class="searchField">
                         <mat-form-field>
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="buttons">
-                        <button mat-flat-button class="primary" id="closeButton" (click)="close()">{{ onGetLabel('closeButton') }}</button>
+                        <button mat-flat-button class="primary" id="closeButton" (click)="onHideClientFilters()">{{ onGetLabel('closeButton') }}</button>
                     </div>
                 </div>
             </mat-sidenav>
@@ -101,7 +101,7 @@
             <div class="sum"> {{ records.remainingPersons}} </div>
         </div>
         <div id="client-filter-buttons">
-            <button mat-flat-button class="secondary" (click)="toggleClientFilters()">{{ onGetLabel('filterButton') }}</button>
+            <button mat-flat-button class="secondary" (click)="onToggleClientFilters()">{{ onGetLabel('filterButton') }}</button>
         </div>
     </div>
 

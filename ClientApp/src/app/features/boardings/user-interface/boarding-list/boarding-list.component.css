@@ -46,6 +46,7 @@
 }
 
 #footer {
+    align-items: center;
     display: flex;
     flex-direction: row;
     margin-top: 2rem;
@@ -187,7 +188,7 @@ img.toggleBoardingButton {
 .label {
     color: var(--color-text-primary);
     font-family: var(--font-family-master);
-    font-size: var(--font-size-label);
+    font-size: 100%;
     font-variant-caps: petite-caps;
 }
 
@@ -204,11 +205,16 @@ img.toggleBoardingButton {
     color: var(--color-text-primary);
     display: flex;
     font-family: var(--font-family-master);
-    font-size: var(--font-size-label);
+    font-size: 100%;
     justify-content: space-between;
     line-height: 1.8rem;
     margin-bottom: 0.2rem;
     padding: 0.125rem 0.5rem 0.125rem 1rem;
+}
+
+.filterContent .item:hover {
+    color: var(--color-text-secondary);
+    cursor: pointer;
 }
 
 .buttons {
