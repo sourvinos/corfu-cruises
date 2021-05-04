@@ -7,9 +7,9 @@
     background-image: linear-gradient(aqua, skyblue);
     border-radius: 50px;
     cursor: pointer;
-    height: 40px;
+    height: 30px;
     position: relative;
-    width: 80px;
+    width: 60px;
 }
 
 #toggle-checkbox {
@@ -28,7 +28,7 @@
 .night .shape.lg {
     height: 7px;
     width: 7px;
-    transform: translate(-10px, 0);
+    transform: translate(-1px, 0);
 }
 
 .night .shape.md {
@@ -40,7 +40,7 @@
 .night .shape.sm {
     height: 2px;
     width: 2px;
-    transform: translate(-40px, 0);
+    transform: translate(-23px, 0);
 }
 
 .night .shape.sm:first-of-type {
@@ -50,18 +50,18 @@
 .night>.notch {
     background: whitesmoke;
     box-shadow: 0 0 5px whitesmoke;
-    transform: translate(38px, 0);
+    transform: translate(30px, 0);
 }
 
 .night>.notch::before {
     background-image: linear-gradient(midnightblue, rebeccapurple);
     border-radius: 50%;
     content: "";
-    height: 27px;
-    left: -5px;
+    height: 21px;
+    left: -8px;
     position: absolute;
-    top: 0px;
-    width: 27px;
+    top: -2px;
+    width: 21px;
     transition: 0.3s ease background-color;
 }
 
@@ -69,11 +69,11 @@
     background: yellow;
     border-radius: 50%;
     box-shadow: 0 0 5px yellow;
-    height: 35px;
+    height: 26px;
     left: 3px;
     position: absolute;
     top: 2px;
-    width: 35px;
+    width: 26px;
     z-index: 1;
     transition: all 0.3s ease;
 }
@@ -89,7 +89,7 @@
     bottom: 20%;
     height: 6px;
     left: 25%;
-    width: 43px;
+    width: 36px;
 }
 
 .shape.md {
