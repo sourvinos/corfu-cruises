@@ -220,7 +220,7 @@ p.instructions {
 .mat-tooltip {
     color: var(--color-tooltip) !important;
     font-family: var(--font-family-master);
-    font-size: 1rem;
+    font-size: var(--font-size-tooltip);
     font-weight: var(--font-weight-tooltip);
 }
 

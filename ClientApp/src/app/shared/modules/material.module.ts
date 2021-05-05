@@ -24,7 +24,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
     showDelay: 0,
-    hideDelay: 1000,
+    hideDelay: 0,
     touchendHideDelay: 50,
     position: 'above'
 }

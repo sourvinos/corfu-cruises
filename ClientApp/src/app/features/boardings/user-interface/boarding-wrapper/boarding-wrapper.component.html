@@ -10,7 +10,9 @@
             <h1>{{ onGetLabel('header')}}</h1>
         </div>
         <div id="buttons">
-            <button mat-flat-button class="secondary" [disabled]="openedServerFilters" (click)="toggleServerFilters()">{{ onGetLabel('searchButton') }}</button>
+            <button mat-flat-button class="primary" (click)="toggleServerFilters()" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('searchButton') }}">
+                <img src="/assets/images/boarding/search.svg" width="20px">
+            </button>
         </div>
     </div>
 

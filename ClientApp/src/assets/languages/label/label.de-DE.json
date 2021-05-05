@@ -1396,7 +1396,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "(DE) Search"
+                "description": "(DE) SEARCH"
             }
         ]
     },
@@ -1453,15 +1453,15 @@
             },
             {
                 "id": "totalPersons",
-                "description": "(DE) Persons"
+                "description": "(DE) TOTAL PASSENGERS"
             },
             {
                 "id": "boardedPersons",
-                "description": "(DE) Boarded"
+                "description": "(DE) BOARDED"
             },
             {
                 "id": "pandingPersons",
-                "description": "(DE) Pending"
+                "description": "(DE) PENDING"
             },
             {
                 "id": "boardingStatusAll",
@@ -1477,11 +1477,11 @@
             },
             {
                 "id": "filterButton",
-                "description": "(DE) Filters"
+                "description": "(DE) FILTERS"
             },
             {
                 "id": "scanOpenButton",
-                "description": "(DE) Scan"
+                "description": "(DE) SCAN TICKET"
             },
             {
                 "id": "scanCloseButton",

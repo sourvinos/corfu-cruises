@@ -35,39 +35,35 @@
                 <div class="record" *ngFor="let record of filteredRecords.boardings">
                     <div class="reservation">
                         <div class="field ticket">
-                            <img src="/assets/images/navigation/ticket-{{theme}}.svg" width="20px">
+                            <img src="/assets/images/boarding/ticket-{{theme}}.svg" width="20px">
                             <div class="field-value">{{ record.ticketNo }}</div>
                         </div>
                         <div class="field driver">
-                            <img src="/assets/images/navigation/driver-{{theme}}.svg" width="20px">
+                            <img src="/assets/images/boarding/driver-{{theme}}.svg" width="20px">
                             <div class="field-value">{{ record.driver }}</div>
                         </div>
                         <div class="field customer">
-                            <img src="/assets/images/navigation/customer-{{theme}}.svg" width="20px">
+                            <img src="/assets/images/boarding/customer-{{theme}}.svg" width="20px">
                             <div class="field-value">{{ record.customer }}</div>
                         </div>
                         <div class="field total-persons">
-                            <img src="/assets/images/navigation/persons-{{theme}}.svg" width="20px">
+                            <img src="/assets/images/boarding/persons-{{theme}}.svg" width="20px">
                             <div class="field-value">{{ record.totalPersons }}&nbsp;</div>
                         </div>
                         <div class="field pending-persons" *ngIf="!personsAreNotMissing(record)">
-                            <img src="/assets/images/navigation/danger.svg" width="20px">
+                            <img src="/assets/images/boarding/danger.svg" width="20px">
                             <div class="field-value">{{ record.totalPersons - record.passengers.length }}&nbsp;</div>
                         </div>
                         <div class="field spacer"> </div>
                         <div class="field remarks" *ngIf="onCheckRemarksLength(record.remarks)" matTooltip="{{ record.remarks }}" matTooltipClass="tooltip-yellow">
-                            <img src="/assets/images/navigation/warning.svg" width="25px">
+                            <img src="/assets/images/boarding/warning.svg" width="25px">
                         </div>
                     </div>
                     <div class="passengers">
                         <div class="passenger" *ngFor="let passenger of record.passengers">
-                            <div class="field">
-                                <img *ngIf="passenger.isCheckedIn" src="/assets/images/navigation/isBoarded.svg" width="20px">
-                                <img *ngIf="!passenger.isCheckedIn" src="/assets/images/navigation/isNotBoarded.svg" width="20px">
-                            </div>
-                            <div class="field">
-                                <div *ngIf="passenger.isCheckedIn" class="field-value">Boarded</div>
-                                <div *ngIf="!passenger.isCheckedIn" class="field-value">Pending</div>
+                            <div class="field isCheckedIn">
+                                <img *ngIf="passenger.isCheckedIn" src="/assets/images/boarding/isBoarded.svg" width="20px">
+                                <img *ngIf="!passenger.isCheckedIn" src="/assets/images/boarding/isNotBoarded.svg" width="20px">
                             </div>
                             <div class="field lastname">
                                 <div class="field-value">{{ passenger.lastname }}</div>
@@ -77,8 +73,8 @@
                             </div>
                             <div class="field board-passenger">
                                 <button mat-flat-button class="transparent" (click)="onDoBoarding(passenger.id)">
-                                    <img class="toggleBoardingButton" *ngIf="passenger.isCheckedIn" src="/assets/images/navigation/out.svg" width="20px">
-                                    <img class="toggleBoardingButton" *ngIf="!passenger.isCheckedIn" src="/assets/images/navigation/in.svg" width="20px">
+                                    <img class="toggleBoardingButton" *ngIf="passenger.isCheckedIn" src="/assets/images/boarding/out.svg" width="20px">
+                                    <img class="toggleBoardingButton" *ngIf="!passenger.isCheckedIn" src="/assets/images/boarding/in.svg" width="20px">
                                 </button>
                             </div>
                         </div>
@@ -90,18 +86,22 @@
 
     <div id="footer" *ngIf="filteredRecords.boardings.length > 0">
         <div id="action-buttons">
-            <button mat-flat-button class="primary" (click)="onShowScanner()">{{ onGetLabel('scanOpenButton') }}</button>
+            <button mat-flat-button class="primary" (click)="onShowScanner()" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('scanOpenButton') }}">
+                <img src="/assets/images/boarding/scan.svg" width="20px">
+            </button>
         </div>
         <div class="selection">
-            <div class="label">{{ onGetLabel('totalPersons') }}:</div>
-            <div class="sum"> {{ records.allPersons }}</div>
-            <div class="label">{{ onGetLabel('boardedPersons') }}:</div>
+            <img src="/assets/images/boarding/persons-{{theme}}.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('totalPersons') }}">
+            <div class="sum">{{ records.allPersons }}</div>
+            <img src="/assets/images/boarding/isBoarded.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('boardedPersons') }}">
             <div class="sum"> {{ records.boardedPersons }}</div>
-            <div class="label">{{ onGetLabel('pandingPersons') }}:</div>
+            <img src="/assets/images/boarding/isNotBoarded.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('pandingPersons') }}">
             <div class="sum"> {{ records.remainingPersons}} </div>
         </div>
         <div id="client-filter-buttons">
-            <button mat-flat-button class="secondary" (click)="onToggleClientFilters()">{{ onGetLabel('filterButton') }}</button>
+            <button mat-flat-button class="primary" (click)="onToggleClientFilters()" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('filterButton') }}">
+                <img src="/assets/images/boarding/filter.svg" width="20px">
+            </button>
         </div>
     </div>
 

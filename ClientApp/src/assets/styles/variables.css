@@ -34,10 +34,11 @@
     --font-size-paragraph: 0.7rem;
     --font-size-snackbar: 1.125rem;
     --font-size-sum-persons: 1.25rem;
-    --font-size-sum: 1.5rem;
+    --font-size-sum: 1.3rem;
     --font-size-summary-block-header: 1.6rem;
     --font-size-summary-block-item: 1rem;
     --font-size-tab-label: 1.8rem;
     --font-size-table-header: 1.4375rem;
     --font-size-table-row: 0.9375rem;
+    --font-size-tooltip: 0.6rem;
 }

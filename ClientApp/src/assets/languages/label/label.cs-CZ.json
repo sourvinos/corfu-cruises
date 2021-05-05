@@ -1396,7 +1396,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "(CZ) Search"
+                "description": "(CZ) SEARCH"
             }
         ]
     },
@@ -1453,15 +1453,15 @@
             },
             {
                 "id": "totalPersons",
-                "description": "(CZ) Persons"
+                "description": "(CZ) TOTAL PASSENGERS"
             },
             {
                 "id": "boardedPersons",
-                "description": "(CZ) Boarded"
+                "description": "(CZ) BOARDED"
             },
             {
                 "id": "pandingPersons",
-                "description": "(CZ) Pending"
+                "description": "(CZ) PENDING"
             },
             {
                 "id": "boardingStatusAll",
@@ -1477,11 +1477,11 @@
             },
             {
                 "id": "filterButton",
-                "description": "(CZ) Filters"
+                "description": "(CZ) FILTERS"
             },
             {
                 "id": "scanOpenButton",
-                "description": "(CZ) Scan"
+                "description": "(CZ) SCAN TICKET"
             },
             {
                 "id": "scanCloseButton",

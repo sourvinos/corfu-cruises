@@ -10,7 +10,7 @@
 }
 
 .selection {
-    align-items: baseline;
+    align-items: center;
     display: flex;
     font-family: var(--font-family-master);
     font-size: var(--font-size-table-row);
@@ -18,12 +18,8 @@
     margin-left: auto;
 }
 
-.selection .label {
-    color: var(--color-text-primary);
-    font-size: var(--font-size-sum-persons);
-    font-variant-caps: petite-caps;
-    font-weight: var(--font-weight-sum-persons);
-    margin: 0 0.5rem 0 0.5rem;
+.selection img {
+    margin: 0.7rem;
 }
 
 .selection .sum {
@@ -124,12 +120,18 @@
     margin-left: auto;
 }
 
+.isCheckedIn {
+    width: 2rem;
+}
+
 .lastname {
-    width: 30%;
+    max-width: 30%;
+    min-width: 30%;
 }
 
 .firstname {
-    width: 30%;
+    max-width: 30%;
+    min-width: 30%;
 }
 
 .board-passenger {
@@ -167,7 +169,7 @@
 }
 
 img.toggleBoardingButton {
-    padding: 5px 0;
+    padding: 0;
 }
 
 .mat-drawer-container {

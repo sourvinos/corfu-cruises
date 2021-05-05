@@ -44,7 +44,7 @@ button.transparent.inverted {
 }
 
 button.transparent:hover {
-    background-color: var(--color-button-secondary) !important;
+    background-color: var(--color-button-primary) !important;
     color: var(--color-button-text) !important;
     transition-duration: 500ms;
 }
@@ -84,6 +84,10 @@ button:disabled {
 
 button:not(:disabled) {
     cursor: pointer !important;
+}
+
+button img {
+    margin: 0.625rem 0;
 }
 
 .mat-mini-fab .mat-button-wrapper {

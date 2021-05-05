@@ -7,15 +7,42 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   height="5.9699998"
-   viewBox="0 0 5.9699998 5.9699998"
-   width="5.9699998"
+   width="2.6458321mm"
+   height="2.645833mm"
+   viewBox="0 0 2.6458321 2.6458331"
    version="1.1"
-   id="svg6"
-   sodipodi:docname="user.svg"
-   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+   id="svg846"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   sodipodi:docname="user.svg">
+  <defs
+     id="defs840" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="82.700007"
+     inkscape:cx="4.9999977"
+     inkscape:cy="4.9999996"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1272"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:showpageshadow="false"
+     showborder="false" />
   <metadata
-     id="metadata12">
+     id="metadata843">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -26,39 +53,14 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <defs
-     id="defs10" />
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     id="namedview8"
-     showgrid="false"
-     showborder="true"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0"
-     inkscape:zoom="35.416667"
-     inkscape:cx="10.0455"
-     inkscape:cy="10.0455"
-     inkscape:window-x="1358"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg6" />
-  <path
-     d="m -1.9545,-1.9545 h 24 v 24 h -24 z"
-     fill="none"
-     id="path2" />
-  <path
-     d="m 2.985,0.0455 c -1.622604,0 -2.9395,1.316896 -2.9395,2.9395 0,1.622604 1.316896,2.9395 2.9395,2.9395 1.622604,0 2.9395,-1.316896 2.9395,-2.9395 0,-1.622604 -1.316896,-2.9395 -2.9395,-2.9395 z m 0,0.88185 c 0.487957,0 0.88185,0.393893 0.88185,0.88185 0,0.487957 -0.393893,0.88185 -0.88185,0.88185 -0.487957,0 -0.88185,-0.393893 -0.88185,-0.88185 0,-0.487957 0.393893,-0.88185 0.88185,-0.88185 z m 0,4.17409 C 2.250125,5.10144 1.6004955,4.725184 1.2213,4.154921 1.23012,3.5699605 2.3971,3.249555 2.985,3.249555 c 0.5849605,0 1.7548815,0.3204055 1.7637,0.905366 C 4.3695045,4.725184 3.719875,5.10144 2.985,5.10144 Z"
-     id="path4"
-     style="fill:#ffffff;stroke:none;stroke-width:0.091;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-334.85188,-13.572124)">
+    <path
+       d="m 336.17481,13.59425 c -0.71805,0 -1.3008,0.582753 -1.3008,1.30079 0,0.718037 0.58275,1.300791 1.3008,1.300791 0.71803,0 1.30078,-0.582754 1.30078,-1.300791 0,-0.718037 -0.58275,-1.30079 -1.30078,-1.30079 z m 0,0.390236 c 0.21592,0 0.39023,0.174306 0.39023,0.390238 0,0.215931 -0.17431,0.390237 -0.39023,0.390237 -0.21595,0 -0.39025,-0.174306 -0.39025,-0.390237 0,-0.215932 0.1743,-0.390238 0.39025,-0.390238 z m 0,1.847124 c -0.3252,0 -0.61268,-0.166491 -0.78048,-0.418854 0.003,-0.258858 0.52032,-0.400644 0.78048,-0.400644 0.25885,0 0.77656,0.141782 0.78045,0.400644 -0.1678,0.252353 -0.45527,0.418854 -0.78045,0.418854 z"
+       id="path4"
+       style="fill:#f2f2f2;fill-opacity:1;stroke:#f2f2f2;stroke-width:0.0442521;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
 </svg>

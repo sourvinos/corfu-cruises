@@ -1391,12 +1391,12 @@
                 "description": "Vessel"
             },
             {
-                "id": "searchButton",
-                "description": "Search"
-            },
-            {
                 "id": "searchDropdownHint",
                 "description": "Select from the list"
+            },
+            {
+                "id": "searchButton",
+                "description": "SEARCH"
             }
         ]
     },
@@ -1417,7 +1417,7 @@
             },
             {
                 "id": "driver",
-                "description": "(DE) Driver"
+                "description": "Driver"
             },
             {
                 "id": "customer",
@@ -1453,15 +1453,15 @@
             },
             {
                 "id": "totalPersons",
-                "description": "Persons"
+                "description": "TOTAL PASSENGERS"
             },
             {
                 "id": "boardedPersons",
-                "description": "Boarded"
+                "description": "BOARDED"
             },
             {
                 "id": "pandingPersons",
-                "description": "Pending"
+                "description": "PENDING"
             },
             {
                 "id": "boardingStatusAll",
@@ -1477,11 +1477,11 @@
             },
             {
                 "id": "filterButton",
-                "description": "Filters"
+                "description": "FILTERS"
             },
             {
                 "id": "scanOpenButton",
-                "description": "Scan"
+                "description": "SCAN TICKET"
             },
             {
                 "id": "scanCloseButton",

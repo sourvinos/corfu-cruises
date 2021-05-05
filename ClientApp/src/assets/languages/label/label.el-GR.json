@@ -1396,7 +1396,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "Αναζητηση"
+                "description": "ΑΝΑΖΗΤΗΣΗ"
             }
         ]
     },
@@ -1453,15 +1453,15 @@
             },
             {
                 "id": "totalPersons",
-                "description": "Ατομα"
+                "description": "ΣΥΝΟΛΟ ΕΠΙΒΑΤΩΝ"
             },
             {
                 "id": "boardedPersons",
-                "description": "Εχουν Επιβιβαστει"
+                "description": "ΕΧΟΥΝ ΕΠΙΒΙΒΑΣΤΕΙ"
             },
             {
                 "id": "pandingPersons",
-                "description": "Απομενουν"
+                "description": "ΑΠΟΜΕΝΟΥΝ"
             },
             {
                 "id": "boardingStatusAll",
@@ -1477,11 +1477,11 @@
             },
             {
                 "id": "filterButton",
-                "description": "Φιλτρα"
+                "description": "ΦΙΛΤΡΑ"
             },
             {
                 "id": "scanOpenButton",
-                "description": "Σκαναρισμα"
+                "description": "ΣΚΑΝΑΡΙΣΜΑ ΕΙΣΙΤΗΡΙΟΥ"
             },
             {
                 "id": "scanCloseButton",
