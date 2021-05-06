@@ -1428,10 +1428,6 @@
                 "description": "(CZ) Select from the list"
             },
             {
-                "id": "closeButton",
-                "description": "(CZ) Close"
-            },
-            {
                 "id": "ticketNo",
                 "description": "(CZ) Ticket"
             },

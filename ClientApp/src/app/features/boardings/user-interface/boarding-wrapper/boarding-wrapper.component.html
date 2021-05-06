@@ -56,8 +56,9 @@
                             <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
                         </mat-form-field>
                     </form>
-                    <button mat-flat-button id="loadBoardings" class="primary" [disabled]="!form.valid" (click)="onLoadBoardings()">{{ onGetLabel('searchButton')}}</button>
-                    <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+                    <button mat-flat-button class="primary" id="loadBoardings" [disabled]="!form.valid" (click)="onLoadBoardings()">
+                        {{ onGetLabel('searchButton')}}
+                    </button>
                 </div>
             </mat-sidenav>
             <mat-sidenav-content>

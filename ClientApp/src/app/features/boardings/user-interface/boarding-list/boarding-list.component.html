@@ -26,9 +26,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="buttons">
-                        <button mat-flat-button class="primary" id="closeButton" (click)="onHideClientFilters()">{{ onGetLabel('closeButton') }}</button>
-                    </div>
                 </div>
             </mat-sidenav>
             <mat-sidenav-content class="scrollable">
@@ -84,13 +81,13 @@
         </mat-sidenav-container>
     </div>
 
-    <div id="footer" *ngIf="filteredRecords.boardings.length > 0">
+    <div id="footer">
         <div id="action-buttons">
             <button mat-flat-button class="primary" (click)="onShowScanner()" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('scanOpenButton') }}">
                 <img src="/assets/images/boarding/scan.svg" width="20px">
             </button>
         </div>
-        <div class="selection">
+        <div class="totals">
             <img src="/assets/images/boarding/persons-{{theme}}.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('totalPersons') }}">
             <div class="sum">{{ records.allPersons }}</div>
             <img src="/assets/images/boarding/isBoarded.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('boardedPersons') }}">
@@ -106,7 +103,9 @@
     </div>
 
     <div id="video">
-        <qr-scanner [debug]="false" [canvasWidth]="640" [canvasHeight]="480" [stopAfterScan]="false" [updateTime]="500"></qr-scanner>
+        <zxing-scanner [enable]="scannerEnabled" (camerasFound)="onCamerasFound($event)" #scanner (scanSuccess)="onScanSuccess($event)"></zxing-scanner>
+        <!-- <button (click)="enableScanner()" *ngIf="!scannerEnabled" type="button" class="btn btn-success">LEEROTRO</button> -->
+        <!-- <qr-scanner [debug]="false" [canvasWidth]="640" [canvasHeight]="480" [stopAfterScan]="false" [updateTime]="500"></qr-scanner> -->
         <button mat-flat-button class="secondary" id="scanCloseButton" (click)="onHideScanner()">{{ onGetLabel('scanCloseButton') }}</button>
     </div>
 

@@ -1,6 +1,6 @@
 * {
     /* Font names */
-    --font-family-datepicker: "Open Sans Condensed";
+    --font-family-table: "Open Sans Condensed";
     --font-family-logo: "Yanone Kaffeesatz";
     --font-family-master: "Ubuntu";
     /* Font weights */
@@ -14,7 +14,6 @@
     --font-weight-table-header: 300 !important;
     --font-weight-tooltip: 700;
     /* Font sizes */
-    --font-size-button: 1.25rem;
     --font-size-calendar-date: 1.3125rem;
     --font-size-calendar-legend-items: 1.5rem;
     --font-size-checkbox: 1.2rem;
@@ -34,7 +33,6 @@
     --font-size-paragraph: 0.7rem;
     --font-size-snackbar: 1.125rem;
     --font-size-sum-persons: 1.25rem;
-    --font-size-sum: 1.3rem;
     --font-size-summary-block-header: 1.6rem;
     --font-size-summary-block-item: 1rem;
     --font-size-tab-label: 1.8rem;

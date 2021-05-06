@@ -38,18 +38,18 @@ export class BoardingListComponent {
     //#region particular variables
 
     public filteredRecords: BoardingCompositeViewModel
-    public openedClientFilters = true
+    public openedClientFilters: boolean
     public records: BoardingCompositeViewModel
     public searchTerm: string
     public theme = ''
 
     public drivers = []
     public selectedDrivers = []
-
     public boardingStatus = []
     public selectedBoardingStatus = []
 
     private chosenDevice: any
+    public scannerEnabled: boolean
     public videoDevices: MediaDeviceInfo[] = []
 
     @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent
@@ -95,6 +95,12 @@ export class BoardingListComponent {
 
     //#region public methods
 
+    public onCamerasFound($event: any): void {
+        $event.forEach((element: any) => {
+            console.log(JSON.stringify(element))
+        })
+    }
+
     public onCheckRemarksLength(remarks: string): boolean {
         return remarks.length > 0 ? true : false
     }
@@ -109,7 +115,7 @@ export class BoardingListComponent {
     public onFilterByTicketNo(query: string): void {
         this.filteredRecords.boardings = []
         this.records.boardings.forEach((record) => {
-            if (record.ticketNo.toLowerCase().includes(query)) {
+            if (record.ticketNo.toLowerCase().startsWith(query.toLowerCase())) {
                 this.filteredRecords.boardings.push(record)
             }
         })
@@ -123,20 +129,24 @@ export class BoardingListComponent {
         this.router.navigate(['/boarding'])
     }
 
-    public onHideClientFilters(): void {
-        this.openedClientFilters = false
-    }
-
     public onHideScanner(): void {
         document.getElementById('video').style.display = 'none'
-        this.qrScannerComponent.stopScanning()
+        this.scannerEnabled = false
+    }
+
+    public onScanSuccess($event: any): void {
+        this.searchTerm = $event
+        this.scannerEnabled = false
+        document.getElementById('video').style.display = 'none'
+        this.onFilterByTicketNo(this.searchTerm)
     }
 
     public onShowScanner(): void {
-        this.checkForDevices()
+        // this.checkForDevices()
         this.searchTerm = ''
+        this.scannerEnabled = true
         setTimeout(() => { this.positionVideo() }, 1000)
-        this.qrScannerComponent.startScanning(this.chosenDevice)
+        // this.qrScannerComponent.startScanning(this.chosenDevice)
     }
 
     public onToggleClientFilters(): void {
@@ -182,38 +192,6 @@ export class BoardingListComponent {
         }, {
             priority: 1,
             inputs: true
-        })
-    }
-
-    private checkForDevices(): void {
-        this.qrScannerComponent.getMediaDevices().then(devices => {
-            console.log(devices)
-            for (const device of devices) {
-                if (device.kind.toString() === 'videoinput') {
-                    this.videoDevices.push(device)
-                }
-            }
-            if (this.videoDevices.length > 0) {
-                for (const dev of this.videoDevices) {
-                    console.log('Video devices found', dev.label)
-                    if (dev.label.includes('Lenovo')) {
-                        this.chosenDevice = dev
-                        break
-                    }
-                }
-                if (this.chosenDevice) {
-                    this.qrScannerComponent.chooseCamera.next(this.chosenDevice)
-                } else {
-                    this.qrScannerComponent.chooseCamera.next(this.videoDevices[0])
-                }
-            } else {
-                this.showSnackbar(this.messageSnackbarService.noVideoDevicesFound(), 'error')
-            }
-        })
-        this.qrScannerComponent.capturedQr.subscribe((result: string) => {
-            this.searchTerm = result
-            this.onHideScanner()
-            this.onFilterByTicketNo(this.searchTerm)
         })
     }
 
