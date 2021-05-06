@@ -14,8 +14,7 @@ export class BoardingService extends DataService {
     }
 
     get(date: string, destinationId: number, portId: number, shipId: number): Observable<Boarding> {
-        const result = this.http.get<any>(this.url + '/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId + '/shipId/' + shipId)
-        return result
+        return this.http.get<any>(this.url + '/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId + '/shipId/' + shipId)
     }
 
     boardPassenger(id: number): Observable<any> {

@@ -62,6 +62,7 @@ export class BoardingListComponent {
                 this.loadRecords()
                 this.updateWithPassengerStatus()
                 this.getDistinctDrivers()
+                this.saveSelectedItems()
             }
         })
     }
@@ -213,7 +214,7 @@ export class BoardingListComponent {
     }
 
     private getBoardingStatus(): void {
-        this.boardingStatus = [this.onGetLabel('boardingStatusBoarded'), this.onGetLabel('boardingStatusPending')]
+        this.boardingStatus = [this.onGetLabel('boardedStatus'), this.onGetLabel('remainingStatus')]
     }
 
     private getLocale(): void {
@@ -270,7 +271,7 @@ export class BoardingListComponent {
         }
     }
 
-    public personsAreNotMissing(record: { totalPersons: any; passengers: string | any[] }): boolean {
+    public personsAreNotMissing(record): boolean {
         if (record.totalPersons == record.passengers.length) {
             return true
         }
@@ -287,7 +288,7 @@ export class BoardingListComponent {
             'boardingStatus': JSON.stringify(this.selectedBoardingStatus),
             'drivers': JSON.stringify(this.selectedDrivers)
         }
-        this.helperService.saveItem('boarding', JSON.stringify(summaryItems))
+        this.helperService.saveItem('boardingFilters', JSON.stringify(summaryItems))
     }
 
     public onSaveSelectedItems(): void {
@@ -300,7 +301,7 @@ export class BoardingListComponent {
     }
 
     private getItemsFromLocalStorage(): void {
-        const localStorageData = JSON.parse(this.helperService.readItem('boarding'))
+        const localStorageData = JSON.parse(this.helperService.readItem('boardingFilters'))
         this.selectedDrivers = JSON.parse(localStorageData.drivers)
         this.selectedBoardingStatus = JSON.parse(localStorageData.boardingStatus)
     }
@@ -310,10 +311,10 @@ export class BoardingListComponent {
             const isBoarded = record.passengers.filter(x => x.isCheckedIn)
             const isNotBoarded = record.passengers.filter(x => !x.isCheckedIn)
             if (isBoarded.length == record.passengers.length) {
-                record.isBoarded = this.onGetLabel('boardingStatusBoarded')
+                record.isBoarded = this.onGetLabel('boardedStatus')
             }
             if (isNotBoarded.length == record.passengers.length) {
-                record.isBoarded = this.onGetLabel('boardingStatusPending')
+                record.isBoarded = this.onGetLabel('remainingStatus')
             }
             if (isBoarded.length != record.passengers.length && isNotBoarded.length != record.passengers.length) {
                 record.isBoarded = 'Mix'

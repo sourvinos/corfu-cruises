@@ -1417,75 +1417,47 @@
             },
             {
                 "id": "driver",
-                "description": "Driver"
-            },
-            {
-                "id": "customer",
-                "description": "(CZ) Customer"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "(CZ) Select from the list"
-            },
-            {
-                "id": "ticketNo",
-                "description": "(CZ) Ticket"
-            },
-            {
-                "id": "driver",
                 "description": "(CZ) Driver"
             },
             {
-                "id": "totalPersons",
-                "description": "(CZ) Persons"
-            },
-            {
-                "id": "pendingPersons",
-                "description": "(CZ) Without data"
-            },
-            {
-                "id": "boardButton",
-                "description": "(CZ) Board"
-            },
-            {
-                "id": "totalPersons",
-                "description": "(CZ) TOTAL PASSENGERS"
-            },
-            {
-                "id": "boardedPersons",
-                "description": "(CZ) BOARDED"
-            },
-            {
-                "id": "pandingPersons",
-                "description": "(CZ) PENDING"
-            },
-            {
-                "id": "boardingStatusAll",
-                "description": "(CZ) ALL"
-            },
-            {
-                "id": "boardingStatusBoarded",
-                "description": "(CZ) BOARDED"
-            },
-            {
-                "id": "boardingStatusPending",
-                "description": "(CZ) PENDING"
-            },
-            {
-                "id": "filterButton",
-                "description": "(CZ) FILTERS"
-            },
-            {
                 "id": "scanOpenButton",
-                "description": "(CZ) SCAN TICKET"
+                "description": "(CZ) SCAN VOUCHER"
             },
             {
                 "id": "scanCloseButton",
                 "description": "(CZ) Close"
             },
             {
-                "id": "nothing",
-                "description": "(CZ) We Found Nothing!"
+                "id": "filters",
+                "description": "(CZ) FILTERS"
+            },
+            {
+                "id": "totalPersons",
+                "description": "(CZ) DECLARED NUMBER OF PERSONS"
+            },
+            {
+                "id": "missingNames",
+                "description": "(CZ) PERSONS WITH MISSING DATA"
+            },
+            {
+                "id": "passengers",
+                "description": "(CZ) EXPECTED PERSONS WITH DATA"
+            },
+            {
+                "id": "boarded",
+                "description": "(CZ) BOARDING COMPLETED"
+            },
+            {
+                "id": "remaining",
+                "description": "(CZ) BOARDING PENDING"
+            },
+            {
+                "id": "boardedStatus",
+                "description": "(CZ) COMPLETED"
+            },
+            {
+                "id": "remainingStatus",
+                "description": "(CZ) PENDING"
             }
         ]
     },

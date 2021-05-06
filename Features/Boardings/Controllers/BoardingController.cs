@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CorfuCruises {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class BoardingsController : ControllerBase {

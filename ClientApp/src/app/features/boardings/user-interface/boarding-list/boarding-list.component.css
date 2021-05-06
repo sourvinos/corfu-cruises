@@ -154,7 +154,9 @@
 /* Passenger */
 
 .passengers {
-    margin: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
 }
 
 .passenger {
@@ -180,7 +182,7 @@
 
 .passenger .board-passenger {
     justify-content: flex-end;
-    width: 40%;
+    width: 100%;
 }
 
 #scanCloseButton {

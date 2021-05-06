@@ -1420,72 +1420,44 @@
                 "description": "Οδηγος"
             },
             {
-                "id": "customer",
-                "description": "Πελατης"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "Επιλεξτε απο τη λιστα"
-            },
-            {
-                "id": "ticketNo",
-                "description": "Εισιτηριο"
-            },
-            {
-                "id": "driver",
-                "description": "Οδηγος"
-            },
-            {
-                "id": "totalPersons",
-                "description": "Ατομα"
-            },
-            {
-                "id": "pendingPersons",
-                "description": "Χωρις Στοιχεια"
-            },
-            {
-                "id": "boardButton",
-                "description": "Επιβιβαση"
-            },
-            {
-                "id": "totalPersons",
-                "description": "ΣΥΝΟΛΟ ΕΠΙΒΑΤΩΝ"
-            },
-            {
-                "id": "boardedPersons",
-                "description": "ΕΧΟΥΝ ΕΠΙΒΙΒΑΣΤΕΙ"
-            },
-            {
-                "id": "pandingPersons",
-                "description": "ΑΠΟΜΕΝΟΥΝ"
-            },
-            {
-                "id": "boardingStatusAll",
-                "description": "ΟΛΟΙ"
-            },
-            {
-                "id": "boardingStatusBoarded",
-                "description": "ΕΧΟΥΝ ΕΠΙΒΙΒΑΣΤΕΙ"
-            },
-            {
-                "id": "boardingStatusPending",
-                "description": "ΑΠΟΜΕΝΟΥΝ"
-            },
-            {
-                "id": "filterButton",
-                "description": "ΦΙΛΤΡΑ"
-            },
-            {
                 "id": "scanOpenButton",
-                "description": "ΣΚΑΝΑΡΙΣΜΑ ΕΙΣΙΤΗΡΙΟΥ"
+                "description": "ΣΚΑΝΑΡΙΣΜΑ ΚΟΥΠΟΝΙΟΥ"
             },
             {
                 "id": "scanCloseButton",
                 "description": "Κλεισιμο"
             },
             {
-                "id": "nothing",
-                "description": "Δεν Βρηκαμε Τιποτα!"
+                "id": "filters",
+                "description": "ΦΙΛΤΡΑ"
+            },
+            {
+                "id": "totalPersons",
+                "description": "ΔΗΛΩΜΕΝΟΣ ΑΡΙΘΜΟΣ ΑΤΟΜΩΝ"
+            },
+            {
+                "id": "missingNames",
+                "description": "ΑΤΟΜΑ ΧΩΡΙΣ ΣΤΟΙΧΕΙΑ"
+            },
+            {
+                "id": "passengers",
+                "description": "ΑΝΑΜΕΝΟΜΕΝΑ ΑΤΟΜΑ ΜΕ ΣΤΟΙΧΕΙΑ"
+            },
+            {
+                "id": "boarded",
+                "description": "ΕΠΙΒΙΒΑΣΗ ΟΛΟΚΛΗΡΩΜΕΝΗ"
+            },
+            {
+                "id": "remaining",
+                "description": "ΕΠΙΒΙΒΑΣΗ ΕΚΚΡΕΜΕΙ"
+            },
+            {
+                "id": "boardedStatus",
+                "description": "ΟΛΟΚΛΗΡΩΜΕΝΗ"
+            },
+            {
+                "id": "remainingStatus",
+                "description": "ΕΚΚΡΕΜΕΙ"
             }
         ]
     },

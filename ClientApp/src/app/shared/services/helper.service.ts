@@ -58,6 +58,10 @@ export class HelperService {
         localStorage.setItem(key, value)
     }
 
+    public removeItem(key: string): void {
+        localStorage.removeItem(key)
+    }
+
     public setFocus(element: string): void {
         setTimeout(() => {
             const input = <HTMLInputElement>document.getElementById(element)

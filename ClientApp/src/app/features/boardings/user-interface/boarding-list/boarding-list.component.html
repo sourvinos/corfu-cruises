@@ -29,35 +29,35 @@
                 </div>
             </mat-sidenav>
             <mat-sidenav-content class="scrollable">
-                <div class="record" *ngFor="let record of filteredRecords.boardings">
+                <div class="record" *ngFor="let boarding of filteredRecords.boardings">
                     <div class="reservation">
                         <div class="field ticket">
                             <img src="/assets/images/boarding/ticket-{{theme}}.svg" width="20px">
-                            <div class="field-value">{{ record.ticketNo }}</div>
+                            <div class="field-value">{{ boarding.ticketNo }}</div>
                         </div>
                         <div class="field driver">
                             <img src="/assets/images/boarding/driver-{{theme}}.svg" width="20px">
-                            <div class="field-value">{{ record.driver }}</div>
+                            <div class="field-value">{{ boarding.driver }}</div>
                         </div>
                         <div class="field customer">
                             <img src="/assets/images/boarding/customer-{{theme}}.svg" width="20px">
-                            <div class="field-value">{{ record.customer }}</div>
+                            <div class="field-value">{{ boarding.customer }}</div>
                         </div>
                         <div class="field total-persons">
                             <img src="/assets/images/boarding/persons-{{theme}}.svg" width="20px">
-                            <div class="field-value">{{ record.totalPersons }}&nbsp;</div>
+                            <div class="field-value">{{ boarding.totalPersons }}</div>
                         </div>
-                        <div class="field pending-persons" *ngIf="!personsAreNotMissing(record)">
+                        <div class="field pending-persons" *ngIf="!personsAreNotMissing(boarding)">
                             <img src="/assets/images/boarding/danger.svg" width="20px">
-                            <div class="field-value">{{ record.totalPersons - record.passengers.length }}&nbsp;</div>
+                            <div class="field-value">{{ boarding.totalPersons - boarding.passengers.length }}</div>
                         </div>
                         <div class="field spacer"> </div>
-                        <div class="field remarks" *ngIf="onCheckRemarksLength(record.remarks)" matTooltip="{{ record.remarks }}" matTooltipClass="tooltip-yellow">
+                        <div class="field remarks" *ngIf="onCheckRemarksLength(boarding.remarks)" matTooltip="{{ boarding.remarks }}" matTooltipClass="tooltip-yellow">
                             <img src="/assets/images/boarding/warning.svg" width="25px">
                         </div>
                     </div>
                     <div class="passengers">
-                        <div class="passenger" *ngFor="let passenger of record.passengers">
+                        <div class="passenger" *ngFor="let passenger of boarding.passengers">
                             <div class="field isCheckedIn">
                                 <img *ngIf="passenger.isCheckedIn" src="/assets/images/boarding/isBoarded.svg" width="20px">
                                 <img *ngIf="!passenger.isCheckedIn" src="/assets/images/boarding/isNotBoarded.svg" width="20px">
@@ -89,14 +89,18 @@
         </div>
         <div class="totals">
             <img src="/assets/images/boarding/persons-{{theme}}.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('totalPersons') }}">
-            <div class="sum">{{ records.allPersons }}</div>
-            <img src="/assets/images/boarding/isBoarded.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('boardedPersons') }}">
-            <div class="sum"> {{ records.boardedPersons }}</div>
-            <img src="/assets/images/boarding/isNotBoarded.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('pandingPersons') }}">
-            <div class="sum"> {{ records.remainingPersons}} </div>
+            <div class="sum">{{ records.totalPersons }}</div>
+            <img src="/assets/images/boarding/danger.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('missingNames') }}">
+            <div class="sum">{{ records.missingNames }}</div>
+            <img src="/assets/images/boarding/persons-{{theme}}.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('passengers') }}">
+            <div class="sum">{{ records.passengers }}</div>
+            <img src="/assets/images/boarding/isBoarded.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('boarded') }}">
+            <div class="sum"> {{ records.boarded }}</div>
+            <img src="/assets/images/boarding/isNotBoarded.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('remaining') }}">
+            <div class="sum"> {{ records.remaining }} </div>
         </div>
         <div id="client-filter-buttons">
-            <button mat-flat-button class="primary" (click)="onToggleClientFilters()" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('filterButton') }}">
+            <button mat-flat-button class="primary" (click)="onToggleClientFilters()" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('filters') }}">
                 <img src="/assets/images/boarding/filter.svg" width="20px">
             </button>
         </div>
@@ -104,8 +108,6 @@
 
     <div id="video">
         <zxing-scanner [enable]="scannerEnabled" (camerasFound)="onCamerasFound($event)" #scanner (scanSuccess)="onScanSuccess($event)"></zxing-scanner>
-        <!-- <button (click)="enableScanner()" *ngIf="!scannerEnabled" type="button" class="btn btn-success">LEEROTRO</button> -->
-        <!-- <qr-scanner [debug]="false" [canvasWidth]="640" [canvasHeight]="480" [stopAfterScan]="false" [updateTime]="500"></qr-scanner> -->
         <button mat-flat-button class="secondary" id="scanCloseButton" (click)="onHideScanner()">{{ onGetLabel('scanCloseButton') }}</button>
     </div>
 

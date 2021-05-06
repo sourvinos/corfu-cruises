@@ -1420,72 +1420,44 @@
                 "description": "Driver"
             },
             {
-                "id": "customer",
-                "description": "Customer"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "Select from the list"
-            },
-            {
-                "id": "ticketNo",
-                "description": "Ticket"
-            },
-            {
-                "id": "driver",
-                "description": "Driver"
-            },
-            {
-                "id": "totalPersons",
-                "description": "Persons"
-            },
-            {
-                "id": "pendingPersons",
-                "description": "Without data"
-            },
-            {
-                "id": "boardButton",
-                "description": "Board"
-            },
-            {
-                "id": "totalPersons",
-                "description": "TOTAL PASSENGERS"
-            },
-            {
-                "id": "boardedPersons",
-                "description": "BOARDED"
-            },
-            {
-                "id": "pandingPersons",
-                "description": "PENDING"
-            },
-            {
-                "id": "boardingStatusAll",
-                "description": "ALL"
-            },
-            {
-                "id": "boardingStatusBoarded",
-                "description": "BOARDED"
-            },
-            {
-                "id": "boardingStatusPending",
-                "description": "PENDING"
-            },
-            {
-                "id": "filterButton",
-                "description": "FILTERS"
-            },
-            {
                 "id": "scanOpenButton",
-                "description": "SCAN TICKET"
+                "description": "SCAN VOUCHER"
             },
             {
                 "id": "scanCloseButton",
                 "description": "Close"
             },
             {
-                "id": "nothing",
-                "description": "We Found Nothing!"
+                "id": "filters",
+                "description": "FILTERS"
+            },
+            {
+                "id": "totalPersons",
+                "description": "DECLARED NUMBER OF PERSONS"
+            },
+            {
+                "id": "missingNames",
+                "description": "PERSONS WITH MISSING DATA"
+            },
+            {
+                "id": "passengers",
+                "description": "EXPECTED PERSONS WITH DATA"
+            },
+            {
+                "id": "boarded",
+                "description": "BOARDING COMPLETED"
+            },
+            {
+                "id": "remaining",
+                "description": "BOARDING PENDING"
+            },
+            {
+                "id": "boardedStatus",
+                "description": "COMPLETED"
+            },
+            {
+                "id": "remainingStatus",
+                "description": "PENDING"
             }
         ]
     },

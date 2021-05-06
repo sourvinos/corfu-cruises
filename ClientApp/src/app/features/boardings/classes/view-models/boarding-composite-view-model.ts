@@ -3,10 +3,11 @@ import { Boarding } from "./boarding"
 
 export class BoardingCompositeViewModel {
 
-    allPersons: number
-    boardedPersons: number
-    remainingPersons: number
+    passengers: number
+    boarded: number
+    remaining: number
     totalPersons: number
+    missingNames: number
 
     boardings: Boarding[] = []
 
