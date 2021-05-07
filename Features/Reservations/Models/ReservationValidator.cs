@@ -10,7 +10,6 @@ namespace CorfuCruises {
             RuleFor(x => x.Email).NotNull().EmailAddress().MaximumLength(128);
             RuleFor(x => x.Phones).MaximumLength(128);
             RuleFor(x => x.Remarks).MaximumLength(128);
-            RuleFor(x => x.Guid).NotEmpty().MaximumLength(36);
             RuleFor(x => x.DestinationId).NotEmpty();
             RuleFor(x => x.CustomerId).NotEmpty();
             RuleFor(x => x.PickupPointId).NotEmpty();

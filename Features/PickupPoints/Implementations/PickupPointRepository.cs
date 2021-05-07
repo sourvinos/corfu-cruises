@@ -21,6 +21,10 @@ namespace CorfuCruises {
         public new async Task<PickupPoint> GetById(int pickupPointId) =>
             await context.PickupPoints.Include(x => x.Route).ThenInclude(y => y.Port).SingleOrDefaultAsync(m => m.Id == pickupPointId);
 
+        public int GetPortId(int pickupPointId) {
+            return context.PickupPoints.Include(x => x.Route).FirstOrDefault(x => x.Id == pickupPointId).Route.PortId;
+        }
+
         public void UpdateCoordinates(int pickupPointId, string coordinates) {
             var pickupPoints = context.PickupPoints.Where(x => x.Id == pickupPointId).ToList();
             pickupPoints.ForEach(a => a.Coordinates = coordinates);

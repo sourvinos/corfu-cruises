@@ -43,7 +43,6 @@ namespace CorfuCruises {
                     PortId = portId,
                     ShipId = RandomNumber(1, 3),
                     Remarks = "",
-                    Guid = RandomString(8),
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da"
                 };
             }

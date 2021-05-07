@@ -16,8 +16,7 @@ namespace CorfuCruises {
         public string Email { get; set; }
         public string Phones { get; set; }
         public string Remarks { get; set; }
-        public string Guid { get; set; }
-
+ 
         public int DestinationId { get; set; }
         public int CustomerId { get; set; }
         public int DriverId { get; set; }
