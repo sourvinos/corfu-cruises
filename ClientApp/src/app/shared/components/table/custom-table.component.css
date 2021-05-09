@@ -31,13 +31,8 @@ th:hover {
     cursor: pointer;
 }
 
-tr:hover {
-    background-color: var(--color-background-secondary);
-}
-
 tr:hover td {
-    background-color: var(--color-table-row-highlight);
-    cursor: default;
+    cursor: pointer;
 }
 
 tr:hover td:last-child>div>.button-row-menu {

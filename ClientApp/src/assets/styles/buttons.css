@@ -3,6 +3,7 @@ button {
     cursor: default !important;
     display: flex;
     font-family: var(--font-family-master) !important;
+    font-size: var(--font-size-button) !important;
     font-weight: var(--font-weight-button) !important;
     justify-content: center;
     min-width: 0 !important;
@@ -49,20 +50,18 @@ button.transparent:hover {
 
 button.tab {
     background-color: var(--color-background-secondary) !important;
-    border-bottom: 4px solid var(--color-background-secondary);
+}
+
+button.tab>span.mat-button-wrapper {
+    border-bottom: 1px solid var(--color-background-secondary);
 }
 
 button.tab:first-child {
     margin-right: 1rem;
 }
 
-button.tab:hover:not(:disabled) {
-    border-bottom: 4px solid var(--color-button-secondary);
-    transition: border-bottom 400ms;
-}
-
-button.tab.active {
-    border-bottom: 4px solid var(--color-selected-tab);
+button.tab.active>span.mat-button-wrapper {
+    border-bottom: 1px solid var(--color-selected-tab);
 }
 
 button.goBack {
