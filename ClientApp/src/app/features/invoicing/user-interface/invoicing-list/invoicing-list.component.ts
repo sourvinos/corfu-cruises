@@ -48,7 +48,7 @@ export class InvoicingListComponent {
     visibility = ['none', 'none']
     justify = ['center', 'left', 'left', 'left', 'left', 'left', 'right', 'right', 'right', 'right', 'center', 'left', 'center']
     types = ['', '', '', '', '', '', '', '', '', '', 'bool', '', '']
-    fields = ['', 'reservationId', 'customerDescription', 'destinationDescription', 'shipDescription', 'ticketNo', 'adults', 'kids', 'free', 'totalPersons', 'isTransfer', 'remarks', '']
+    fields = ['', 'reservationId', 'customer', 'destination', 'ship', 'ticketNo', 'adults', 'kids', 'free', 'totalPersons', 'isTransfer', 'remarks', '']
 
     //#endregion
 
@@ -110,6 +110,7 @@ export class InvoicingListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.queryResult = listResolved.result
+            console.log(this.queryResult)
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

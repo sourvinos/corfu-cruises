@@ -30,7 +30,7 @@ namespace CorfuCruises {
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetReservationWeb(string id) {
+        public async Task<IActionResult> GetWeb(string id) {
             var record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
@@ -42,7 +42,7 @@ namespace CorfuCruises {
         }
 
         [HttpPost]
-        public IActionResult PostReservationWeb([FromBody] WebWriteResource recordResource) {
+        public IActionResult PostWeb([FromBody] WebWriteResource recordResource) {
             if (ModelState.IsValid) {
                 try {
                     var reservation = repo.Create(UpdateReservationWithDefaultFields(recordResource));

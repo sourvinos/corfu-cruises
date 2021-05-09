@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System;
-using AutoMapper;
 
 namespace CorfuCruises {
 
@@ -112,7 +111,7 @@ namespace CorfuCruises {
             services.AddTransient<IValidator<Route>, RouteValidator>();
             services.AddTransient<IValidator<Schedule>, ScheduleValidator>();
         }
- 
+
     }
 
 }

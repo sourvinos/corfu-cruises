@@ -4,7 +4,7 @@ namespace CorfuCruises {
 
     public interface IInvoicingRepository {
 
-        IEnumerable<InvoicingReadResource> Get(string date);
+        IEnumerable<InvoicingReservationViewModel> Get(string date);
 
     }
 

@@ -15,27 +15,25 @@ namespace CorfuCruises {
             this.mapper = mapper;
         }
 
-        public IEnumerable<InvoicingReadResource> Get(string date) {
+        public IEnumerable<InvoicingReservationViewModel> Get(string date) {
             var result = context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Ship)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route)
-                .Include(x => x.Passengers)
-                .Where(x => x.Date == date && x.Passengers.Any(x => x.IsCheckedIn))
-                .AsEnumerable()
-                .OrderBy(x => x.Customer.Description)
-                .GroupBy(x => new { x.Customer.Description, x.PickupPoint.Route.IsTransfer })
-                .Select(x => new InvoicingGroup {
-                    Adults = x.Sum(x => x.Adults),
-                    Kids = x.Sum(x => x.Kids),
-                    Free = x.Sum(x => x.Free),
-                    TotalPersons = x.Sum(x => x.TotalPersons),
-                    IsTransfer = x.Key.IsTransfer,
-                    Reservations = x
-                }).ToList();
-            return mapper.Map<IEnumerable<InvoicingGroup>, IEnumerable<InvoicingReadResource>>(result);
+                .OrderBy(x => x.Customer)
+                .Where(x => x.Date == date)
+                .AsEnumerable();
+            return mapper.Map<IEnumerable<Reservation>, IEnumerable<InvoicingReservationViewModel>>(result);
         }
+
+    }
+
+    public class Group {
+
+        public string Customer { get; set; }
+
+        public IEnumerable<Reservation> Records { get; set; }
 
     }
 
