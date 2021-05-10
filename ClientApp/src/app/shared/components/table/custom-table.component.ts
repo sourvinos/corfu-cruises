@@ -152,7 +152,7 @@ export class CustomTableComponent {
         this.table.rows[row].classList.toggle('checked')
         this.table.querySelectorAll('tr.checked').forEach((element: { childNodes: { innerText: string }[] }) => {
             this.checkedIds.push(element.childNodes[1].innerText.trim())
-            this.totalPersons += parseInt(element.childNodes[12].innerText, 11)
+            this.totalPersons += parseInt(element.childNodes[12].innerText, 10)
         })
         this.helperService.saveItem('selectedIds', JSON.stringify(this.checkedIds))
         this.interactionService.setCheckedTotalPersons(this.totalPersons)
@@ -262,7 +262,7 @@ export class CustomTableComponent {
                 if (this.isColumnChecked) {
                     element.classList.add('checked')
                     this.checkedIds.push(element.childNodes[1].innerText.trim())
-                    this.totalPersons += parseInt(element.childNodes[11].innerText, 10)
+                    this.totalPersons += parseInt(element.childNodes[12].innerText, 10)
                 } else {
                     element.classList.remove('checked')
                 }
