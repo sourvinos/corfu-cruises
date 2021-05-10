@@ -4,13 +4,11 @@ import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-import { takeUntil } from 'rxjs/operators'
 import moment from 'moment'
 // Custom
 import { Destination } from 'src/app/features/destinations/classes/destination'
 import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -22,20 +20,20 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 import { ValidationService } from 'src/app/shared/services/validation.service'
 
 @Component({
-    selector: 'boarding-wrapper',
-    templateUrl: './boarding-wrapper.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './boarding-wrapper.component.css'],
+    selector: 'manifest-wrapper',
+    templateUrl: './manifest-wrapper.component.html',
+    styleUrls: ['../../../../../assets/styles/lists.css', './manifest-wrapper.component.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
-export class BoardingWrapperComponent {
+export class ManifestWrapperComponent {
 
     //#region variables
 
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private windowTitle = 'Boarding'
-    public feature = 'boardingWrapper'
+    private windowTitle = 'Manifest'
+    public feature = 'manifestWrapper'
 
     //#endregion
 
@@ -51,7 +49,7 @@ export class BoardingWrapperComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private portService: PortService, private router: Router, private shipService: ShipService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private portService: PortService, private router: Router, private shipService: ShipService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -61,7 +59,6 @@ export class BoardingWrapperComponent {
         this.addShortcuts()
         this.getLocale()
         this.populateDropDowns()
-        this.subscribeToInteractionService()
     }
 
     ngOnDestroy(): void {
@@ -86,7 +83,7 @@ export class BoardingWrapperComponent {
         this.router.navigate(['/'])
     }
 
-    public onLoadBoardings(): void {
+    public onLoadManifest(): void {
         if (this.checkValidDate()) {
             this.navigateToList()
             this.close()
@@ -153,12 +150,6 @@ export class BoardingWrapperComponent {
 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
-    }
-
-    private subscribeToInteractionService(): void {
-        this.interactionService.refreshBoardingList.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
-            this.onLoadBoardings()
-        })
     }
 
     public toggleServerFilters(): void {

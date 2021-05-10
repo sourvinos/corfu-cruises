@@ -1396,7 +1396,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "ΑΝΑΖΗΤΗΣΗ"
+                "description": "Αναζητηση"
             }
         ]
     },
@@ -1623,6 +1623,43 @@
             {
                 "id": "closeButton",
                 "description": "Κλεισιμο"
+            }
+        ]
+    },
+    {
+        "feature": "manifestWrapper",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Κατασταση Πλοιου"
+            },
+            {
+                "id": "date",
+                "description": "Ημερομηνια"
+            },
+            {
+                "id": "searchDateHint",
+                "description": "Δωστε ημερομηνια"
+            },
+            {
+                "id": "destination",
+                "description": "Προορισμος"
+            },
+            {
+                "id": "port",
+                "description": "Λιμανι"
+            },
+            {
+                "id": "ship",
+                "description": "Πλοιο"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "Επιλεξτε απο τη λιστα"
+            },
+            {
+                "id": "searchButton",
+                "description": "Αναζητηση"
             }
         ]
     }

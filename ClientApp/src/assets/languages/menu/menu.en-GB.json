@@ -3,6 +3,18 @@
         "feature": "main-menu",
         "labels": [
             {
+                "id": "passengers",
+                "description": "Passengers"
+            },
+            {
+                "id": "boarding",
+                "description": "Embarkation"
+            },
+            {
+                "id": "manifest",
+                "description": "Vessel report"
+            },
+            {
                 "id": "reservations",
                 "description": "Reservations"
             },
@@ -13,10 +25,6 @@
             {
                 "id": "invoicing",
                 "description": "Invoicing"
-            },
-            {
-                "id": "boarding",
-                "description": "Boarding"
             },
             {
                 "id": "tables",
@@ -61,10 +69,6 @@
             {
                 "id": "ships",
                 "description": "Vessels"
-            },
-            {
-                "id": "nationalities",
-                "description": "Nationalities"
             }
         ]
     }

@@ -1368,7 +1368,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Boarding"
+                "description": "Embarkation"
             },
             {
                 "id": "date",
@@ -1396,7 +1396,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "SEARCH"
+                "description": "Search"
             }
         ]
     },
@@ -1413,7 +1413,7 @@
             },
             {
                 "id": "boardingStatus",
-                "description": "Boarding status"
+                "description": "Embarkation status"
             },
             {
                 "id": "driver",
@@ -1445,11 +1445,11 @@
             },
             {
                 "id": "boarded",
-                "description": "BOARDING COMPLETED"
+                "description": "EMBARKATION COMPLETED"
             },
             {
                 "id": "remaining",
-                "description": "BOARDING PENDING"
+                "description": "EMBARKATION PENDING"
             },
             {
                 "id": "boardedStatus",
@@ -1623,6 +1623,43 @@
             {
                 "id": "closeButton",
                 "description": "Close"
+            }
+        ]
+    },
+    {
+        "feature": "manifestWrapper",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Manifest"
+            },
+            {
+                "id": "date",
+                "description": "Date"
+            },
+            {
+                "id": "searchDateHint",
+                "description": "Select or enter date"
+            },
+            {
+                "id": "destination",
+                "description": "Destination"
+            },
+            {
+                "id": "port",
+                "description": "Port"
+            },
+            {
+                "id": "ship",
+                "description": "Vessel"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "Select from the list"
+            },
+            {
+                "id": "searchButton",
+                "description": "Search"
             }
         ]
     }

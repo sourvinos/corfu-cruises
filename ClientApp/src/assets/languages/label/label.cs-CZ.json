@@ -1019,7 +1019,7 @@
         "labels": [
             {
                 "id": "schedule",
-                "description": "(CZ) Schedule"
+                "description": "Rozvrhy"
             }
         ]
     },
@@ -1396,7 +1396,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "(CZ) SEARCH"
+                "description": "(CZ) Search"
             }
         ]
     },
@@ -1623,6 +1623,43 @@
             {
                 "id": "closeButton",
                 "description": "(CZ) Close"
+            }
+        ]
+    },
+    {
+        "feature": "manifestWrapper",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(CZ) Manifest"
+            },
+            {
+                "id": "date",
+                "description": "(CZ) Date"
+            },
+            {
+                "id": "searchDateHint",
+                "description": "(CZ) Select or enter date"
+            },
+            {
+                "id": "destination",
+                "description": "(CZ) Destination"
+            },
+            {
+                "id": "port",
+                "description": "(CZ) Port"
+            },
+            {
+                "id": "ship",
+                "description": "(CZ) Vessel"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "(CZ) Select from the list"
+            },
+            {
+                "id": "searchButton",
+                "description": "(CZ) Search"
             }
         ]
     }

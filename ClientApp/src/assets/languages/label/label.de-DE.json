@@ -1396,7 +1396,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "(DE) SEARCH"
+                "description": "(DE) Search"
             }
         ]
     },
@@ -1623,6 +1623,43 @@
             {
                 "id": "closeButton",
                 "description": "(DE) Close"
+            }
+        ]
+    },
+    {
+        "feature": "manifestWrapper",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(DE) Manifest"
+            },
+            {
+                "id": "date",
+                "description": "(DE) Date"
+            },
+            {
+                "id": "searchDateHint",
+                "description": "(DE) Select or enter date"
+            },
+            {
+                "id": "destination",
+                "description": "(DE) Destination"
+            },
+            {
+                "id": "port",
+                "description": "(DE) Port"
+            },
+            {
+                "id": "ship",
+                "description": "(DE) Vessel"
+            },
+            {
+                "id": "searchDropdownHint",
+                "description": "(DE) Select from the list"
+            },
+            {
+                "id": "searchButton",
+                "description": "(DE) Search"
             }
         ]
     }

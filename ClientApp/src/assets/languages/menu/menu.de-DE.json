@@ -3,20 +3,28 @@
         "feature": "main-menu",
         "labels": [
             {
+                "id": "passengers",
+                "description": "Schiffspassagiere"
+            },
+            {
+                "id": "boarding",
+                "description": "Einschiffung"
+            },
+            {
+                "id": "manifest",
+                "description": "Schiffsmanifest"
+            },
+            {
                 "id": "reservations",
                 "description": "Reservierung"
             },
             {
                 "id": "dashboard",
-                "description": "(DE) Main Panel"
+                "description": "Hauptfeld"
             },
             {
                 "id": "invoicing",
-                "description": "(DE) Invoicing"
-            },
-            {
-                "id": "boarding",
-                "description": "Einsteigen"
+                "description": "Fakturierung"
             },
             {
                 "id": "tables",
@@ -40,7 +48,7 @@
             },
             {
                 "id": "genders",
-                "description": "(DE) Genders"
+                "description": "Geschlechter"
             },
             {
                 "id": "pickupPoints",
@@ -61,10 +69,6 @@
             {
                 "id": "ships",
                 "description": "Schiffe"
-            },
-            {
-                "id": "nationalities",
-                "description": "(DE) Nationalities"
             }
         ]
     }

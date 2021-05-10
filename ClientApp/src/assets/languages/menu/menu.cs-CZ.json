@@ -3,20 +3,28 @@
         "feature": "main-menu",
         "labels": [
             {
+                "id": "passengers",
+                "description": "Cestující"
+            },
+            {
+                "id": "boarding",
+                "description": "Nalodění"
+            },
+            {
+                "id": "manifest",
+                "description": "Zpráva o plavidle"
+            },
+            {
                 "id": "reservations",
                 "description": "Rezervace"
             },
             {
                 "id": "dashboard",
-                "description": "(CZ) Main Panel"
+                "description": "Hlavní panel"
             },
             {
                 "id": "invoicing",
-                "description": "(CZ) Invoicing"
-            },
-            {
-                "id": "boarding",
-                "description": "(CZ) Boarding"
+                "description": "Fakturace"
             },
             {
                 "id": "tables",
@@ -40,7 +48,7 @@
             },
             {
                 "id": "genders",
-                "description": "(CZ) Genders"
+                "description": "Pohlaví"
             },
             {
                 "id": "pickupPoints",
@@ -56,15 +64,11 @@
             },
             {
                 "id": "schedules",
-                "description": "(CZ) Schedules"
+                "description": "Rozvrhy"
             },
             {
                 "id": "ships",
                 "description": "Lodě"
-            },
-            {
-                "id": "nationalities",
-                "description": "(CZ) Nationalities"
             }
         ]
     }

@@ -3,6 +3,18 @@
         "feature": "main-menu",
         "labels": [
             {
+                "id": "passengers",
+                "description": "Επιβατες"
+            },
+            {
+                "id": "boarding",
+                "description": "Επιβιβαση"
+            },
+            {
+                "id": "manifest",
+                "description": "Κατασταση πλοιου"
+            },
+            {
                 "id": "reservations",
                 "description": "Κρατησεις"
             },
@@ -13,10 +25,6 @@
             {
                 "id": "invoicing",
                 "description": "Τιμολογηση"
-            },
-            {
-                "id": "boarding",
-                "description": "Επιβιβαση"
             },
             {
                 "id": "tables",
@@ -61,10 +69,6 @@
             {
                 "id": "ships",
                 "description": "Πλοια"
-            },
-            {
-                "id": "nationalities",
-                "description": "Εθνικοτητες"
             }
         ]
     }
