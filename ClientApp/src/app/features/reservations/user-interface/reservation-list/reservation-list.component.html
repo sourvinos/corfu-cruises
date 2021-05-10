@@ -114,12 +114,23 @@
     </div>
 
     <div id="footer">
+        <div @slideFromLeft id="utility-buttons">
+            <button mat-icon-button [matMenuTriggerFor]="menu" [class.hidden]="queryResult.persons == 0 || this.activePanel=='summary'">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="primary">
+                <ng-container *ngTemplateOutlet="contextMenu"></ng-container>
+            </mat-menu>
+        </div>
         <div @slideFromRight id="buttons">
-            <button data-cy="assignToDriver" mat-flat-button class="secondary" id="assignToDriver" [class.hidden]="queryResult.persons == 0 || this.activePanel=='summary'" (click)="onAssignToDriver()">{{ onGetLabel('assignToDriverButton') }}</button>
-            <button data-cy="assignToShip" mat-flat-button class="secondary" id="assignToShip" [class.hidden]="queryResult.persons == 0 || this.activePanel=='summary'" (click)="onAssignToShip()">{{ onGetLabel('assignToShipButton') }}</button>
-            <button data-cy="createPdf" mat-flat-button class="secondary" id="createPdf" [class.hidden]="queryResult.persons == 0 || this.activePanel=='summary'" (click)="onCreatePdf()">{{ onGetLabel('createPdfButton') }}</button>
             <button data-cy="new" mat-flat-button class="primary" id="new" (click)="onNew()">{{ onGetLabel('newButton') }}</button>
         </div>
     </div>
 
 </div>
+
+<ng-template #contextMenu>
+    <button mat-menu-item class="primary" (click)="onAssignToDriver()"><span>{{ onGetLabel('assignToDriverButton') }}</span></button>
+    <button mat-menu-item class="primary" (click)="onAssignToShip()"><span>{{ onGetLabel('assignToShipButton') }}</span></button>
+    <button mat-menu-item class="primary" (click)="onCreatePdf()"><span>{{ onGetLabel('createPdfButton') }}</span></button>
+</ng-template>

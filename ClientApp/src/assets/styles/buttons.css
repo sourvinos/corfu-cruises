@@ -18,6 +18,10 @@ button.primary {
     font-variant-caps: petite-caps;
 }
 
+button.primary:hover {
+    background-color: var(--color-button-primary-hover) !important;
+}
+
 button.secondary {
     background-color: var(--color-button-secondary) !important;
     color: var(--color-button-text) !important;

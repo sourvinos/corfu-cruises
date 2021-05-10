@@ -44,6 +44,8 @@
 }
 
 #footer {
+    display: flex;
+    justify-content: space-between;
     margin-top: 2rem;
 }
 
@@ -118,4 +120,8 @@
     color: var(--color-text-secondary);
     font-size: var(--font-size-sum);
     font-weight: var(--font-weight-sum-persons);
+}
+
+.mat-icon {
+    color: var(--color-text-primary) !important;
 }

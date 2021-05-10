@@ -663,7 +663,7 @@
             },
             {
                 "id": "createPdfButton",
-                "description": "(DE) Create PDF"
+                "description": "(DE) Create PDF for drivers"
             },
             {
                 "id": "newButton",
