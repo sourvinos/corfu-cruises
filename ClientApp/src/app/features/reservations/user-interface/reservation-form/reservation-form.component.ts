@@ -69,6 +69,7 @@ export class ReservationFormComponent {
     public errorCorrectionLevel: "M"
     public margin = 4
     public width = 128
+    private savedTotalPersons = 0
 
     //#endregion
 
@@ -185,7 +186,7 @@ export class ReservationFormComponent {
 
     public onValidateReservation(): void {
         this.scheduleService.getForDateDestinationPort(this.form.value.date, this.form.value.destinationId, this.form.value.portId).then(result => {
-            result ? this.getPersonsForDateDestinationPort(result) : this.showScheduleNotFound()
+            result ? this.checkOverbooking(result) : this.showScheduleNotFound()
         })
     }
 
@@ -308,6 +309,7 @@ export class ReservationFormComponent {
     private getRecord(id: number): void {
         this.reservationService.getSingle(id).subscribe(result => {
             this.showModalForm().then(() => {
+                this.updateTotalPersons(result)
                 this.populateFields(result)
                 this.focus('destinationDescription')
                 this.onDoBarcodeJobs()
@@ -318,7 +320,7 @@ export class ReservationFormComponent {
         })
     }
 
-    private getPersonsForDateDestinationPort(schedule: any): void {
+    private checkOverbooking(schedule: any): void {
         this.reservationService.getByDateDestinationPort(this.form.value.date, this.form.value.destinationId, this.form.value.portId).then(reservations => {
             if (this.isNotOverbooking(schedule, reservations, this.form.value.adults + this.form.value.kids + this.form.value.free)) {
                 this.save()
@@ -368,7 +370,7 @@ export class ReservationFormComponent {
     }
 
     private isNotOverbooking(schedule: { maxPersons: any }, reservation: { totalPersons: any }, totalPersons: any): boolean {
-        if (reservation.totalPersons + totalPersons > schedule.maxPersons) {
+        if (reservation.totalPersons - this.savedTotalPersons + totalPersons > schedule.maxPersons) {
             this.showSnackbar(this.messageSnackbarService.isOverbooking(), 'error')
             return false
         }
@@ -603,6 +605,10 @@ export class ReservationFormComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
+    }
+
+    private updateTotalPersons(result: { totalPersons: number }): void {
+        this.savedTotalPersons = result.totalPersons
     }
 
     //#endregion
