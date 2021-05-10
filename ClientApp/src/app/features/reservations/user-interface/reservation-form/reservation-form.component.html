@@ -31,22 +31,22 @@
                     </div>
                     <div id="group-field">
                         <mat-form-field>
-                            <input type="text" matInput [placeholder]="onGetLabel('ticketNo')" formControlName="ticketNo" data-tabindex="4" id="ticketNo" [inputTabStop]="input">
+                            <input type="text" matInput [placeholder]="onGetLabel('ticketNo')" formControlName="ticketNo" data-tabindex="4" id="ticketNo" [inputTabStop]="input" (keyup)="onDoBarcodeJobs()">
                             <mat-error *ngIf="ticketNo.hasError('required')">{{ onGetHint('required') }}</mat-error>
                             <mat-error *ngIf="ticketNo.hasError('maxlength')">{{ onGetHint('maxLength', ticketNo.errors.maxlength.requiredLength) }}</mat-error>
                         </mat-form-field>
                         <mat-form-field>
-                            <input type="number" matInput [placeholder]="onGetLabel('adults')" formControlName="adults" data-tabindex="5" id="adults" [inputTabStop]="input" class="number" (change)="onCalculateTotalPersons()">
+                            <input type="number" matInput [placeholder]="onGetLabel('adults')" formControlName="adults" data-tabindex="5" id="adults" [inputTabStop]="input" class="number" (keyup)="onCalculateTotalPersons()">
                             <mat-error *ngIf="adults.hasError('required')">{{ onGetHint('required') }}</mat-error>
                             <mat-error *ngIf="!adults.hasError('required') && adults.hasError('min') || adults.hasError('max')">{{ onGetHint('invalid') }}</mat-error>
                         </mat-form-field>
                         <mat-form-field>
-                            <input type="number" matInput [placeholder]="onGetLabel('kids')" formControlName="kids" data-tabindex="6" id="kids" [inputTabStop]="input" class="number" (change)="onCalculateTotalPersons()">
+                            <input type="number" matInput [placeholder]="onGetLabel('kids')" formControlName="kids" data-tabindex="6" id="kids" [inputTabStop]="input" class="number" (keyup)="onCalculateTotalPersons()">
                             <mat-error *ngIf="kids.hasError('required')">{{ onGetHint('required') }}</mat-error>
                             <mat-error *ngIf="!kids.hasError('required') && kids.hasError('min') || kids.hasError('max')">{{ onGetHint('invalid') }}</mat-error>
                         </mat-form-field>
                         <mat-form-field>
-                            <input type="number" matInput [placeholder]="onGetLabel('free')" formControlName="free" data-tabindex="7" id="free" [inputTabStop]="input" class="number" (change)="onCalculateTotalPersons()">
+                            <input type="number" matInput [placeholder]="onGetLabel('free')" formControlName="free" data-tabindex="7" id="free" [inputTabStop]="input" class="number" (keyup)="onCalculateTotalPersons()">
                             <mat-error *ngIf="free.hasError('required')">{{ onGetHint('required') }}</mat-error>
                             <mat-error *ngIf="!free.hasError('required') && free.hasError('min') || free.hasError('max')">{{ onGetHint('invalid') }}</mat-error>
                         </mat-form-field>
@@ -90,9 +90,6 @@
                         <input type="text" matInput [placeholder]="onGetLabel('ship')" formControlName="shipDescription" id="shipDescription">
                     </mat-form-field>
                     <mat-form-field>
-                        <input type="text" matInput placeholder="GUID" formControlName="guid" id="guid">
-                    </mat-form-field>
-                    <mat-form-field>
                         <input type="text" matInput placeholder="URI" formControlName="uri" id="uri">
                     </mat-form-field>
                 </form>
@@ -100,7 +97,7 @@
         </mat-tab>
     </mat-tab-group>
 
-    <qrCode hidden [qrCodeValue]="qrCodeValue" [errorCorrectionLevel]="errorCorrectionLevel" [margin]="margin" [width]="width"></qrCode>
+    <qrCode hidden [qrCodeValue]="barcode" [errorCorrectionLevel]="errorCorrectionLevel" [margin]="margin" [width]="width"></qrCode>
 
     <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
 

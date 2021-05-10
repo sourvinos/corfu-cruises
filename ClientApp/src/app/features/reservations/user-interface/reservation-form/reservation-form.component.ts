@@ -65,7 +65,7 @@ export class ReservationFormComponent {
     public customers: any
     public destinations: any
     public pickupPointsFlat: PickupPointFlat[]
-    public qrCodeValue = "0"
+    public barcode = "0"
     public errorCorrectionLevel: "M"
     public margin = 4
     public width = 128
@@ -77,14 +77,7 @@ export class ReservationFormComponent {
             if (p.id) {
                 this.getRecord(p.id)
             } else {
-                setTimeout(() => {
-                    this.populateFormWithDefaultValues()
-                    this.updateQRCodeFromGuid().then(() => {
-                        this.convertQRCodeToString().then((result) => {
-                            this.form.patchValue({ uri: result })
-                        })
-                    })
-                }, 1000)
+                setTimeout(() => { this.populateFormWithDefaultValues() }, 1000)
                 this.showModalForm().then(() => {
                     this.focus('destinationDescription')
                 })
@@ -136,6 +129,14 @@ export class ReservationFormComponent {
         const totalPersons = parseInt(this.form.value.adults, 10) + parseInt(this.form.value.kids, 10) + parseInt(this.form.value.free, 10)
         this.form.patchValue({ totalPersons: Number(totalPersons) ? totalPersons : 0 })
         return totalPersons > 0 ? true : false
+    }
+
+    public onDoBarcodeJobs(): void {
+        this.createBarcodeFromTicket().then(() => {
+            this.convertBarcodeToString().then((result) => {
+                this.form.patchValue({ uri: result })
+            })
+        })
     }
 
     public onDelete(): void {
@@ -235,20 +236,12 @@ export class ReservationFormComponent {
         })
     }
 
-    private isNotOverbooking(schedule: { maxPersons: any }, reservation: { totalPersons: any }, totalPersons: any): boolean {
-        if (reservation.totalPersons + totalPersons > schedule.maxPersons) {
-            this.showSnackbar(this.messageSnackbarService.isOverbooking(), 'error')
-            return false
-        }
-        return true
-    }
-
     private clearFields(result: any, id: any, description: any): void {
         this.form.patchValue({ [id]: result ? result.id : '' })
         this.form.patchValue({ [description]: result ? result.description : '' })
     }
 
-    private convertQRCodeToString(): Promise<any> {
+    private convertBarcodeToString(): Promise<any> {
         const promise = new Promise((resolve) => {
             setTimeout(() => {
                 const myCanvas = <HTMLCanvasElement>document.getElementsByTagName('canvas')[0]
@@ -259,10 +252,10 @@ export class ReservationFormComponent {
         return promise
     }
 
-    private createGuid(): string {
-        return 'xxxxxxxx'.replace(/[xy]/g, function (c) {
-            const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8)
-            return v.toString(16)
+    private createBarcodeFromTicket(): Promise<any> {
+        return new Promise((resolve) => {
+            this.barcode = this.form.value.ticketNo
+            resolve(this.barcode)
         })
     }
 
@@ -317,11 +310,7 @@ export class ReservationFormComponent {
             this.showModalForm().then(() => {
                 this.populateFields(result)
                 this.focus('destinationDescription')
-                this.updateQRCodeFromGuid().then(() => {
-                    this.convertQRCodeToString().then((result) => {
-                        this.form.patchValue({ uri: result })
-                    })
-                })
+                this.onDoBarcodeJobs()
             })
         }, errorCode => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
@@ -369,7 +358,6 @@ export class ReservationFormComponent {
             phones: ['', Validators.maxLength(128)],
             remarks: ['', Validators.maxLength(128)],
             userId: this.helperService.readItem('userId'),
-            guid: '',
             uri: '',
             passengers: []
         })
@@ -377,6 +365,14 @@ export class ReservationFormComponent {
 
     private isGuid(reservationId: string): any {
         return reservationId == '' ? null : reservationId
+    }
+
+    private isNotOverbooking(schedule: { maxPersons: any }, reservation: { totalPersons: any }, totalPersons: any): boolean {
+        if (reservation.totalPersons + totalPersons > schedule.maxPersons) {
+            this.showSnackbar(this.messageSnackbarService.isOverbooking(), 'error')
+            return false
+        }
+        return true
     }
 
     private mapObject(): any {
@@ -475,7 +471,6 @@ export class ReservationFormComponent {
             email: result.email,
             phones: result.phones,
             remarks: result.remarks,
-            guid: result.guid,
             uri: '',
             userId: this.helperService.readItem('userId'),
             passengers: this.flattenDetails(result.passengers)
@@ -489,6 +484,7 @@ export class ReservationFormComponent {
             destinationId: 0, destinationDescription: '',
             customerId: 0, customerDescription: '',
             pickupPointId: 0, pickupPointDescription: '',
+            ticketNo: '',
             adults: 0,
             kids: 0,
             free: 0,
@@ -497,7 +493,6 @@ export class ReservationFormComponent {
             portId: 1, portDescription: '',
             shipId: 1, shipDescription: '',
             remarks: '',
-            guid: this.createGuid(),
             uri: '',
             userId: this.helperService.readItem('userId'),
             passengers: []
@@ -556,16 +551,10 @@ export class ReservationFormComponent {
         const reservation: ReservationWriteResource = this.mapObject()
         if (reservation.reservationId == null) {
             this.reservationService.add(reservation).subscribe(() => {
-                this.initForm()
-                this.populateFormWithDefaultValues()
-                this.updateQRCodeFromGuid().then(() => {
-                    this.convertQRCodeToString().then((result) => {
-                        this.form.patchValue({ uri: result })
-                    })
-                })
+                this.resetForm()
                 this.refreshSummary()
-                this.focus('destinationDescription')
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                this.onGoBack()
             }, errorCode => {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
             })
@@ -614,13 +603,6 @@ export class ReservationFormComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private updateQRCodeFromGuid(): Promise<any> {
-        return new Promise((resolve) => {
-            this.qrCodeValue = this.form.value.guid
-            resolve(this.qrCodeValue)
-        })
     }
 
     //#endregion
