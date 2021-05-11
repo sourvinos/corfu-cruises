@@ -18,7 +18,7 @@ namespace CorfuCruises {
             RuleForEach(x => x.Passengers).ChildRules(passenger => {
                 passenger.RuleFor(x => x.Lastname).NotEmpty();
                 passenger.RuleFor(x => x.Firstname).NotEmpty();
-                passenger.RuleFor(x => x.DOB).NotEmpty();
+                passenger.RuleFor(x => x.DoB).NotEmpty();
                 passenger.RuleFor(x => x.Remarks).MaximumLength(128);
                 passenger.RuleFor(x => x.SpecialCare).MaximumLength(128);
             });

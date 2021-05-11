@@ -21,7 +21,6 @@ namespace CorfuCruises {
                 .Include(x => x.Driver)
                 .Include(x => x.Passengers)
                 .Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId)
-                .Where(x => x.Date == date)
                 .ToListAsync();
             int totalPersons = reservations.Sum(x => x.TotalPersons);
             int passengers = reservations.SelectMany(c => c.Passengers).Count();

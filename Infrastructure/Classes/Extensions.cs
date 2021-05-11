@@ -72,15 +72,16 @@ namespace CorfuCruises {
             services.AddTransient<IGenderRepository, GenderRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
             services.AddTransient<IInvoicingRepository, InvoicingRepository>();
+            services.AddTransient<IManifestRepository, ManifestRepository>();
             services.AddTransient<INationalityRepository, NationalityRepository>();
             services.AddTransient<IOccupantRepository, OccupantRepository>();
             services.AddTransient<IPickupPointRepository, PickupPointRepository>();
             services.AddTransient<IPortRepository, PortRepository>();
             services.AddTransient<IReservationRepository, ReservationRepository>();
-            services.AddTransient<IWebRepository, WebRepository>();
             services.AddTransient<IRouteRepository, RouteRepository>();
             services.AddTransient<IScheduleRepository, ScheduleRepository>();
             services.AddTransient<IShipRepository, ShipRepository>();
+            services.AddTransient<IWebRepository, WebRepository>();
         }
 
         public static void TryUpdateManyToMany<T, TKey>(this DbContext db, IEnumerable<T> currentItems, IEnumerable<T> newItems, Func<T, TKey> getKey) where T : class {
