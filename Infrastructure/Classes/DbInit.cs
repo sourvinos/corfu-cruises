@@ -29,7 +29,6 @@ namespace CorfuCruises {
                 var portId = context.PickupPoints.Include(x => x.Route).ThenInclude(x => x.Port).Where(x => x.Id == pickupPointId).Select(x => x.Route.Port.Id).SingleOrDefault();
                 records[i] = new Reservation {
                     ReservationId = new Guid(),
-                    // Date = RandomDate(),
                     Adults = RandomNumber(1, 10),
                     Kids = RandomNumber(1, 5),
                     Free = RandomNumber(1, 3),

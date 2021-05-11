@@ -15,7 +15,6 @@ namespace CorfuCruises {
         public string Email { get; set; }
         public string Phones { get; set; }
         public string Remarks { get; set; }
-        public string Guid { get; set; }
         public string UserId { get; set; }
 
         public List<PassengerReadResource> Passengers { get; set; }
