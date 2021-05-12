@@ -5,7 +5,7 @@ namespace CorfuCruises {
 
     public interface IManifestRepository {
 
-        Task<IEnumerable<ManifestResource>> Get(string dateIn);
+        IEnumerable<What> Get(string date);
 
     }
 

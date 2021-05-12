@@ -25,8 +25,8 @@ namespace CorfuCruises {
         }
 
         [HttpGet("date/{date}")]
-        public async Task<IEnumerable<ManifestResource>> Get(string date) {
-            return await this.repo.Get(date);
+        public IEnumerable<What> Get(string date) {
+            return this.repo.Get(date);
         }
 
     }
