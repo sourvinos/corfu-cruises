@@ -12,15 +12,18 @@
     height: 2px !important;
 }
 
+.mat-tab-body-wrapper {
+    flex: 1 !important;
+}
+
 .mat-tab-body-content {
     display: flex !important;
-    height: 367px !important;
+    /* height: 367px !important; */
     padding: 0;
     width: 100%;
 }
 
-.mat-tab-nav-bar,
-.mat-tab-header {
+.mat-tab-nav-bar, .mat-tab-header {
     border-bottom: 0 !important;
 }
 
@@ -50,3 +53,4 @@
 .mat-tab-group {
     height: 100% !important;
 }
+

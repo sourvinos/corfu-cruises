@@ -41,6 +41,11 @@ namespace CorfuCruises {
             return StatusCode(200, mapper.Map<Reservation, ReservationReadResource>(record));
         }
 
+        [HttpGet("[action]/date/{date}/destinationId/{destinationId}/portId/{portId}")]
+        public ReservationTotalPersons GetForDateDestinationPort(string date, int destinationId, int portId) {
+            return repo.GetForDateDestinationPort(date, destinationId, portId);
+        }
+
         [HttpPost]
         public IActionResult PostWeb([FromBody] WebWriteResource recordResource) {
             if (ModelState.IsValid) {

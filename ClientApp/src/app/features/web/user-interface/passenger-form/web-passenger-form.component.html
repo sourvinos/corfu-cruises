@@ -1,0 +1,61 @@
+<div id="form-wrapper">
+
+    <div id="header">
+        <div id="navigation">
+            <button class="goBack" id="goBack" mat-mini-fab (click)="onGoBack()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+        <div id="title">
+            <h1>{{ onGetLabel('header') }}</h1>
+        </div>
+    </div>
+
+    <form id="form" data-cy="form" [formGroup]="form" autocomplete="off">
+
+        <mat-form-field>
+            <input type="text" matInput [placeholder]="onGetLabel('lastname')" formControlName="lastname" data-tabindex="1" id="lastname" autocomplete="off" [inputTabStop]="input">
+            <mat-error *ngIf="lastname.hasError('required')">{{ onGetHint('required') }}</mat-error>
+            <mat-error *ngIf="lastname.hasError('maxlength')">{{ onGetHint('maxLength', lastname.errors.maxlength.requiredLength) }}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput [placeholder]="onGetLabel('firstname')" formControlName="firstname" data-tabindex="2" id="firstname" autocomplete="off" [inputTabStop]="input">
+            <mat-error *ngIf="firstname.hasError('required')">{{ onGetHint('required') }}</mat-error>
+            <mat-error *ngIf="firstname.hasError('maxlength')">{{ onGetHint('maxLength', firstname.errors.maxlength.requiredLength) }}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput [placeholder]="onGetLabel('nationality')" formControlName="nationalityDescription" data-tabindex="3" id="nationalityDescription" autocomplete="off" [inputTabStop]="input" (change)="onLookupIndex(nationalities, 'nationalities', ['nationalityId', 'nationalityDescription', ''], ['nationalityId', 'nationalityDescription', ''], ['nationalityId', 'nationalityDescription', ''], ['1px', '440px', '56px'], ['none'], ['center', 'left', 'center'], ['', '', ''], $event)">
+            <mat-error *ngIf="nationalityDescription.hasError('required')">{{ onGetHint('required') }}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput [placeholder]="onGetLabel('dob')" formControlName="dob" data-tabindex="4" id="dob" autocomplete="off" [inputTabStop]="input" [inputFormat]="'date'" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="dob.hasError('required')">{{ onGetHint('required') }}</mat-error>
+            <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput [placeholder]="onGetLabel('gender')" formControlName="genderDescription" data-tabindex="5" id="genderDescription" autocomplete="off" [inputTabStop]="input" (change)="onLookupIndex(genders, 'genders', ['genderId', 'genderDescription', ''], ['genderId', 'genderDescription', ''], ['genderId', 'genderDescription', ''], ['1px', '440px', '56px'], ['none'], ['center', 'left', 'center'], ['', '', ''], $event)">
+            <mat-error *ngIf="genderDescription.hasError('required')">{{ onGetHint('required') }}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput [placeholder]="onGetLabel('specialCare')" formControlName="specialCare" data-tabindex="6" id="specialCare" autocomplete="off" [inputTabStop]="input">
+            <mat-error *ngIf="specialCare.hasError('required')">{{ onGetHint('required') }}</mat-error>
+            <mat-error *ngIf="specialCare.hasError('maxlength')">{{ onGetHint('maxLength', specialCare.errors.maxlength.requiredLength) }}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput [placeholder]="onGetLabel('remarks')" formControlName="remarks" data-tabindex="7" id="remarks" autocomplete="off" [inputTabStop]="input">
+            <mat-error *ngIf="remarks.hasError('required')">{{ onGetHint('required') }}</mat-error>
+            <mat-error *ngIf="remarks.hasError('maxlength')">{{ onGetHint('maxLength', remarks.errors.maxlength.requiredLength) }}</mat-error>
+        </mat-form-field>
+    </form>
+
+    <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+
+    <div id="footer">
+        <div id="buttons">
+            <button data-cy="save" mat-flat-button class="primary" [disabled]="!form.valid" id="save" (click)="onSave()">{{ onGetLabel('saveButton') }}</button>
+        </div>
+    </div>
+
+</div>

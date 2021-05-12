@@ -1,0 +1,13 @@
+:host {
+    width: 100%;
+}
+
+#passenger-list {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#footer {
+    margin-top: auto !important;
+}

@@ -15,6 +15,19 @@ namespace CorfuCruises {
             this.mapper = mapper;
         }
 
+        public ReservationTotalPersons GetForDateDestinationPort(string date, int destinationId, int portId) {
+            var totalPersons = context.Reservations
+                .Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId)
+                .Sum(x => x.TotalPersons);
+            var reservationTotalPersons = new ReservationTotalPersons {
+                Date = date,
+                DestinationId = destinationId,
+                PortId = portId,
+                TotalPersons = totalPersons
+            };
+            return reservationTotalPersons;
+        }
+
         public async Task<Reservation> GetById(string id) {
             return await context.Reservations
                 .Include(x => x.Customer)

@@ -3,10 +3,9 @@
     border-radius: 20px;
     display: grid;
     grid-template-columns: minmax(400px, 1fr);
-    grid-template-rows: 1fr 78% 1fr;
-    height: 643px;
+    grid-template-rows: 10% 80% 10%;
+    height: 100%;
     padding: 2rem;
-    width: 800px;
     z-index: 1;
 }
 

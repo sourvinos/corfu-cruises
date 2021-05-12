@@ -1,9 +1,14 @@
 <div id="main-menu" *ngIf="loginStatus | async">
     <ul>
+        <li><button mat-menu-item>Web</button>
+            <ul class="sub-menu" (click)="onHideMenu()">
+                <button mat-menu-item [routerLink]="['/web/08d914f5-c90d-4320-88bc-bf677f90bf36']">Edit</button>
+            </ul>
+        </li>
         <li *ngIf="isConnectedUserAdmin"><button mat-menu-item>{{ onGetLabel('passengers') }}<img class="dropdown-arrow" src="/assets/images/shared/dropdown-arrow.svg"></button>
             <ul class="sub-menu" (click)="onHideMenu()">
                 <button mat-menu-item [routerLink]="['/boarding']">{{ onGetLabel('boarding') }}</button>
-                <!-- <button mat-menu-item [routerLink]="['/manifest']">{{ onGetLabel('manifest') }}</button> -->
+                <button mat-menu-item [routerLink]="['/manifest']">{{ onGetLabel('manifest') }}</button>
             </ul>
         </li>
         <li *ngIf="isConnectedUserAdmin"><button mat-menu-item>{{ onGetLabel('reservations') }}<img class="dropdown-arrow" src="/assets/images/shared/dropdown-arrow.svg"></button>

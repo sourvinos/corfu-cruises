@@ -17,7 +17,7 @@ export class SideBarComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.isFakeDesktop()
+        this.isDesktop()
     }
 
     //#endregion

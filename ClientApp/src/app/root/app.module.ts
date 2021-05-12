@@ -1,3 +1,4 @@
+import { WebModule } from './../features/web/classes/modules/web.module';
 // Base
 import { NgModule } from '@angular/core'
 import { AppRoutingModule } from './app.routing.module'
@@ -92,6 +93,7 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         ScrollingModule,
         ShipModule,
         UserModule,
+        WebModule,
         UserIdleModule.forRoot({ idle: 3600, timeout: 60, ping: 60 })
     ],
     providers: [
