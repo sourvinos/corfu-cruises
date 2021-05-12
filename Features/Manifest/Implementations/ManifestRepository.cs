@@ -2,16 +2,8 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CorfuCruises {
-
-    public class What {
-        public string Date { get; set; }
-        public string Ship { get; set; }
-        public string Destination { get; set; }
-        public List<Passenger> Passengers { get; set; }
-    }
 
     public class ManifestRepository : Repository<Reservation>, IManifestRepository {
 
@@ -21,23 +13,24 @@ namespace CorfuCruises {
             this.mapper = mapper;
         }
 
-        IEnumerable<What> IManifestRepository.Get(string date) {
+        public IEnumerable<ManifestViewModel> Get(string date, int shipId, int shipRouteId) {
             var manifest = context.Reservations
                 .Include(x => x.Ship)
-                .Include(x => x.Destination)
+                .Include(x => x.ShipRoute)
                 .Include(x => x.Passengers).ThenInclude(x => x.Gender)
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                 .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
                 .AsEnumerable()
-                .Where(x => x.Date == date && x.Passengers.Any(x => x.IsCheckedIn))
-                .GroupBy(x => new { x.Date, x.Ship, x.Destination })
-                .Select(x => new What {
+                .Where(x => x.Date == date && x.ShipId == shipId && x.ShipRouteId == shipRouteId && x.Passengers.Any(x => x.IsCheckedIn))
+                .GroupBy(x => new { x.Date, x.Ship, x.ShipRoute })
+                .Select(x => new ManifestViewModel {
                     Date = x.Key.Date,
                     Ship = x.Key.Ship.Description,
-                    Destination = x.Key.Destination.Description,
+                    ShipRoute = x.Key.ShipRoute.Description,
                     Passengers = x.SelectMany(x => x.Passengers).ToList()
                 });
             return manifest;
+
         }
 
     }

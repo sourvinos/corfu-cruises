@@ -5,7 +5,7 @@ namespace CorfuCruises {
 
     public interface IManifestRepository {
 
-        IEnumerable<What> Get(string date);
+        IEnumerable<ManifestViewModel> Get(string date, int shipId, int shipRouteId);
 
     }
 
