@@ -1,60 +1,6 @@
 <div id="wrapper">
 
     <div id="results" class="scrollable">
-        <mat-sidenav-container [hasBackdrop]="true">
-            <mat-sidenav mode="over" [(opened)]="openedClientFilters" (opened)="onUpdateSelectedItems()" (closed)="onSaveSelectedItems()" position="end">
-                <div *ngIf="openedClientFilters" id="clientFilters">
-                    <div class="searchField">
-                        <mat-form-field>
-                            <input type="text" matInput placeholder="{{ onGetLabel('searchLabel') }}" [(ngModel)]="searchTerm" (keyup)="onFilterByTicketNo(query.value)" #query autocomplete="off">
-                            <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
-                        </mat-form-field>
-                    </div>
-                    <div class="filter">
-                        <mat-label class="label">{{ onGetLabel('driver') }}</mat-label>
-                        <div class="filterContent">
-                            <div *ngFor="let item of drivers" (click)="onToggleItem(item, this.selectedDrivers)" class="item driverFilter" [class.active]="item.isSelected" [id]="item">
-                                <div class="description">{{ item }}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </mat-sidenav>
-            <mat-sidenav-content class="scrollable">
-                <div class="passengers">
-                </div>
-            </mat-sidenav-content>
-        </mat-sidenav-container>
-    </div>
-
-    <div id="footer">
-        <div id="action-buttons">
-            <button mat-flat-button class="primary" (click)="onShowScanner()" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('scanOpenButton') }}">
-                <img src="/assets/images/boarding/scan.svg" width="20px">
-            </button>
-        </div>
-        <div class="totals">
-            <img src="/assets/images/boarding/persons-{{theme}}.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('totalPersons') }}">
-            <div class="sum">{{ records.totalPersons }}</div>
-            <img src="/assets/images/boarding/danger.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('missingNames') }}">
-            <div class="sum">{{ records.missingNames }}</div>
-            <img src="/assets/images/boarding/persons-{{theme}}.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('passengers') }}">
-            <div class="sum">{{ records.passengers }}</div>
-            <img src="/assets/images/boarding/isBoarded.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('boarded') }}">
-            <div class="sum"> {{ records.boarded }}</div>
-            <img src="/assets/images/boarding/isNotBoarded.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('remaining') }}">
-            <div class="sum"> {{ records.remaining }} </div>
-        </div>
-        <div id="client-filter-buttons">
-            <button mat-flat-button class="primary" (click)="onToggleClientFilters()" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('filters') }}">
-                <img src="/assets/images/boarding/filter.svg" width="20px">
-            </button>
-        </div>
-    </div>
-
-    <div id="video">
-        <zxing-scanner [enable]="scannerEnabled" (camerasFound)="onCamerasFound($event)" #scanner (scanSuccess)="onScanSuccess($event)"></zxing-scanner>
-        <button mat-flat-button class="secondary" id="scanCloseButton" (click)="onHideScanner()">{{ onGetLabel('scanCloseButton') }}</button>
     </div>
 
 </div>

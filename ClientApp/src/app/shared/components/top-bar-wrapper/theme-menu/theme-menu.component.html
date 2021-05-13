@@ -1,15 +1,7 @@
 <div id="theme-menu">
-    <input type="checkbox" id="toggle-checkbox" [checked]=checked (click)="onChangeTheme()">
-    <label for="toggle-checkbox">
-        <div id="toggle">
-            <div class="notch">
-            </div>
-            <div>
-                <div class="shape sm"></div>
-                <div class="shape sm"></div>
-                <div class="shape md"></div>
-                <div class="shape lg"></div>
-            </div>
-        </div>
+    <input type="checkbox" id="switch-button" (click)="onChangeTheme()">
+    <label for="switch-button">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
     </label>
 </div>

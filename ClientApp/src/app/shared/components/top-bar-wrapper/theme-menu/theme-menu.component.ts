@@ -25,7 +25,6 @@ export class ThemeMenuComponent {
     ngOnInit(): void {
         this.theme = this.readTheme()
         this.checked = this.theme == 'dark' ? true : false
-        this.toggleNightClass()
         this.attachStylesheetToHead()
     }
 
@@ -36,7 +35,6 @@ export class ThemeMenuComponent {
     public onChangeTheme(): void {
         this.checked = !this.checked
         this.theme = this.checked ? 'dark' : 'light'
-        this.toggleNightClass()
         this.attachStylesheetToHead()
         this.saveTheme()
     }
@@ -65,14 +63,6 @@ export class ThemeMenuComponent {
     private saveTheme(): string {
         this.helperService.saveItem('theme', this.theme)
         return this.theme
-    }
-
-    private toggleNightClass(): void {
-        if (this.checked == true) {
-            document.getElementById('toggle').classList.add('night')
-        } else {
-            document.getElementById('toggle').classList.remove('night')
-        }
     }
 
     //#endregion

@@ -1,22 +1,22 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-// Custom
+// Common
 import { DataService } from 'src/app/shared/services/data.service'
-import { Customer } from './customer'
+import { ShipRoute } from './shipRoute'
 
 @Injectable({ providedIn: 'root' })
 
-export class CustomerService extends DataService {
+export class ShipRouteService extends DataService {
 
     constructor(httpClient: HttpClient) {
-        super(httpClient, '/api/customers')
+        super(httpClient, '/api/shipRoutes')
     }
 
     //#region public methods
 
-    public getAllActive(): Observable<Customer[]> {
-        return this.http.get<Customer[]>('/api/customers/getActive')
+    public getAllActive(): Observable<ShipRoute[]> {
+        return this.http.get<ShipRoute[]>('/api/shipRoutes/getActive')
     }
 
     //#endregion

@@ -7,17 +7,16 @@ import { Title } from '@angular/platform-browser'
 import moment from 'moment'
 // Custom
 import { Destination } from 'src/app/features/destinations/classes/destination'
-import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { Port } from 'src/app/features/ports/classes/port'
-import { PortService } from 'src/app/features/ports/classes/port.service'
 import { Ship } from 'src/app/features/ships/classes/ship'
+import { ShipRoute } from 'src/app/features/shipRoutes/classes/shipRoute'
+import { ShipRouteService } from 'src/app/features/shipRoutes/classes/shipRoute.service'
 import { ShipService } from 'src/app/features/ships/classes/ship.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { ValidationService } from 'src/app/shared/services/validation.service'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'manifest-wrapper',
@@ -41,15 +40,15 @@ export class ManifestWrapperComponent {
 
     private dateISO = ''
     public destinations: Destination[] = []
-    public ports: Port[] = []
     public ships: Ship[] = []
+    public shipRoutes: ShipRoute[] = []
     public form: FormGroup
     public openedClientFilters = false
     public openedServerFilters = true
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private portService: PortService, private router: Router, private shipService: ShipService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router, private shipRouteService: ShipRouteService, private shipService: ShipService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -126,25 +125,21 @@ export class ManifestWrapperComponent {
     private initForm(): void {
         this.form = this.formBuilder.group({
             date: ['', [Validators.required]],
-            destinationId: [0, [Validators.required, ValidationService.isGreaterThanZero]],
-            portId: [0, [Validators.required, ValidationService.isGreaterThanZero]],
-            shipId: [0, [Validators.required, ValidationService.isGreaterThanZero]]
+            shipId: [0, [Validators.required, ValidationService.isGreaterThanZero]],
+            shipRouteId: [0, [Validators.required, ValidationService.isGreaterThanZero]],
         })
     }
 
     private navigateToList(): void {
-        this.router.navigate(['date', this.dateISO, 'destinationId', this.form.value.destinationId, 'portId', this.form.value.portId, 'shipId', this.form.value.shipId], { relativeTo: this.activatedRoute })
+        this.router.navigate(['date', this.dateISO, 'shipId', this.form.value.shipId, 'shipRouteId', this.form.value.shipRouteId], { relativeTo: this.activatedRoute })
     }
 
     private populateDropDowns(): void {
-        this.destinationService.getAllActive().subscribe((result: any) => {
-            this.destinations = result.sort((a: { description: number; }, b: { description: number; }) => (a.description > b.description) ? 1 : -1)
-        })
-        this.portService.getAllActive().subscribe((result: any) => {
-            this.ports = result.sort((a: { description: number; }, b: { description: number; }) => (a.description > b.description) ? 1 : -1)
-        })
         this.shipService.getAllActive().subscribe((result: any) => {
             this.ships = result.sort((a: { description: number; }, b: { description: number; }) => (a.description > b.description) ? 1 : -1)
+        })
+        this.shipRouteService.getAllActive().subscribe((result: any) => {
+            this.shipRoutes = result.sort((a: { description: number; }, b: { description: number; }) => (a.description > b.description) ? 1 : -1)
         })
     }
 

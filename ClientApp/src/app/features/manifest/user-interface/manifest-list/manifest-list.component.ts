@@ -4,7 +4,6 @@ import { DateAdapter } from '@angular/material/core'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
-import { ManifestCompositeViewModel } from '../../classes/view-models/manifest-composite-view-model'
 import { ManifestService } from '../../classes/services/manifest.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -15,6 +14,7 @@ import { MessageSnackbarService } from '../../../../shared/services/messages-sna
 import { QrScannerComponent } from 'angular2-qrscanner'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { ManifestViewModel } from '../../classes/view-models/manifest-view-model'
 
 @Component({
     selector: 'manifest-list',
@@ -37,9 +37,9 @@ export class ManifestListComponent {
 
     //#region particular variables
 
-    public filteredRecords: ManifestCompositeViewModel
+    public filteredRecords: ManifestViewModel
     public openedClientFilters: boolean
-    public records: ManifestCompositeViewModel
+    public records: ManifestViewModel
     public searchTerm: string
     public theme = ''
 
@@ -60,9 +60,6 @@ export class ManifestListComponent {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.loadRecords()
-                this.updateWithPassengerStatus()
-                this.getDistinctDrivers()
-                this.saveSelectedItems()
             }
         })
     }
@@ -76,14 +73,8 @@ export class ManifestListComponent {
         this.getTheme()
     }
 
-    ngAfterViewInit(): void {
-        this.updateSelectedArraysFromInitialResults()
-        this.saveSelectedItems()
-    }
-
     ngDoCheck(): void {
         this.compareCurrentThemeWithLocalStorage()
-        this.getManifestStatus()
     }
 
     ngOnDestroy(): void {
@@ -112,15 +103,6 @@ export class ManifestListComponent {
         })
     }
 
-    public onFilterByTicketNo(query: string): void {
-        this.filteredRecords.manifests = []
-        this.records.manifests.forEach((record) => {
-            if (record.ticketNo.toLowerCase().startsWith(query.toLowerCase())) {
-                this.filteredRecords.manifests.push(record)
-            }
-        })
-    }
-
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -134,28 +116,8 @@ export class ManifestListComponent {
         this.scannerEnabled = false
     }
 
-    public onScanSuccess($event: any): void {
-        this.searchTerm = $event
-        this.scannerEnabled = false
-        document.getElementById('video').style.display = 'none'
-        this.onFilterByTicketNo(this.searchTerm)
-    }
-
-    public onShowScanner(): void {
-        // this.checkForDevices()
-        this.searchTerm = ''
-        this.scannerEnabled = true
-        setTimeout(() => { this.positionVideo() }, 1000)
-        // this.qrScannerComponent.startScanning(this.chosenDevice)
-    }
-
     public onToggleClientFilters(): void {
         this.openedClientFilters = !this.openedClientFilters
-    }
-
-    public onToggleItem(item: any, lookupArray: string[]): void {
-        this.toggleActiveItem(item, lookupArray)
-        this.filterByCriteria()
     }
 
     //#endregion
@@ -199,21 +161,6 @@ export class ManifestListComponent {
         if (localStorage.getItem('theme') != this.theme) {
             this.theme = localStorage.getItem('theme')
         }
-    }
-
-    private filterByCriteria(): void {
-        this.filteredRecords.manifests = this.records.manifests
-            .filter((driver) => this.selectedDrivers.indexOf(driver.driver) !== -1)
-            .filter((isBoarded) => this.selectedManifestStatus.indexOf(isBoarded.isBoarded) !== -1 || (isBoarded.isBoarded === 'Mix' && this.selectedManifestStatus.length > 0))
-    }
-
-    private getDistinctDrivers(): void {
-        this.drivers = [... new Set(this.records.manifests.map(x => x.driver))]
-        this.selectedDrivers = [... new Set(this.records.manifests.map(x => x.driver))]
-    }
-
-    private getManifestStatus(): void {
-        this.manifestStatus = [this.onGetLabel('boardedStatus'), this.onGetLabel('remainingStatus')]
     }
 
     private getLocale(): void {
@@ -278,18 +225,6 @@ export class ManifestListComponent {
         })
     }
 
-    private saveSelectedItems(): void {
-        const summaryItems = {
-            'manifestStatus': JSON.stringify(this.selectedManifestStatus),
-            'drivers': JSON.stringify(this.selectedDrivers)
-        }
-        this.helperService.saveItem('manifestFilters', JSON.stringify(summaryItems))
-    }
-
-    public onSaveSelectedItems(): void {
-        this.saveSelectedItems()
-    }
-
     public onUpdateSelectedItems(): void {
         this.getItemsFromLocalStorage()
         this.addActiveClassToSummaryItems()
@@ -299,22 +234,6 @@ export class ManifestListComponent {
         const localStorageData = JSON.parse(this.helperService.readItem('manifestFilters'))
         this.selectedDrivers = JSON.parse(localStorageData.drivers)
         this.selectedManifestStatus = JSON.parse(localStorageData.manifestStatus)
-    }
-
-    private updateWithPassengerStatus(): void {
-        this.records.manifests.forEach(record => {
-            const isBoarded = record.passengers.filter(x => x.isCheckedIn)
-            const isNotBoarded = record.passengers.filter(x => !x.isCheckedIn)
-            if (isBoarded.length == record.passengers.length) {
-                record.isBoarded = this.onGetLabel('boardedStatus')
-            }
-            if (isNotBoarded.length == record.passengers.length) {
-                record.isBoarded = this.onGetLabel('remainingStatus')
-            }
-            if (isBoarded.length != record.passengers.length && isNotBoarded.length != record.passengers.length) {
-                record.isBoarded = 'Mix'
-            }
-        })
     }
 
     //#endregion

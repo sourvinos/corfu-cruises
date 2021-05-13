@@ -13,8 +13,8 @@ export class ManifestService extends DataService {
         super(http, '/api/manifests')
     }
 
-    get(date: string, destinationId: number, portId: number, shipId: number): Observable<Manifest> {
-        return this.http.get<any>(this.url + '/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId + '/shipId/' + shipId)
+    get(date: string, shipId: number, shipRouteId: number): Observable<Manifest> {
+        return this.http.get<any>(this.url + '/date/' + date + '/shipId/' + shipId + '/shipRouteId/' + shipRouteId)
     }
 
     boardPassenger(id: number): Observable<any> {

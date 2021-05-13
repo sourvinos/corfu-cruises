@@ -3,106 +3,43 @@
     display: flex;
 }
 
-#toggle {
-    background-image: linear-gradient(aqua, skyblue);
-    border-radius: 50px;
-    cursor: pointer;
-    height: 30px;
-    position: relative;
-    width: 60px;
+#theme-menu {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
 }
 
-#toggle-checkbox {
+#switch-button {
     display: none;
+    padding: 5px;
 }
 
-#toggle.night {
-    background-image: linear-gradient(midnightblue, rebeccapurple);
+label {
+    border-radius: 30px;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+    display: flex;
+    padding: 5px;
 }
 
-.night .shape {
-    background: lightgray;
-    box-shadow: 0 0 10px 2px violet;
+.fa-sun {
+    color: #ffffff;
+    font-size: 25px;
+    transition: .3s;
 }
 
-.night .shape.lg {
-    height: 7px;
-    width: 7px;
-    transform: translate(-1px, 0);
+.fa-moon {
+    color: #ffffff;
+    font-size: 25px;
+    opacity: 0;
+    transition: .3s;
 }
 
-.night .shape.md {
-    height: 5px;
-    width: 5px;
-    transform: translate(10px, 0);
+#switch-button:checked~label>.fa-sun {
+    opacity: 0;
 }
 
-.night .shape.sm {
-    height: 2px;
-    width: 2px;
-    transform: translate(-23px, 0);
-}
-
-.night .shape.sm:first-of-type {
-    transform: translate(-28px, 7px);
-}
-
-.night>.notch {
-    background: whitesmoke;
-    box-shadow: 0 0 5px whitesmoke;
-    transform: translate(30px, 0);
-}
-
-.night>.notch::before {
-    background-image: linear-gradient(midnightblue, rebeccapurple);
-    border-radius: 50%;
-    content: "";
-    height: 21px;
-    left: -8px;
-    position: absolute;
-    top: -2px;
-    width: 21px;
-    transition: 0.3s ease background-color;
-}
-
-.notch {
-    background: yellow;
-    border-radius: 50%;
-    box-shadow: 0 0 5px yellow;
-    height: 26px;
-    left: 3px;
-    position: absolute;
-    top: 2px;
-    width: 26px;
-    z-index: 1;
-    transition: all 0.3s ease;
-}
-
-.shape {
-    background: whitesmoke;
-    border-radius: 50%;
-    position: absolute;
-    transition: all 0.3s ease;
-}
-
-.shape.lg {
-    bottom: 20%;
-    height: 6px;
-    left: 25%;
-    width: 36px;
-}
-
-.shape.md {
-    height: 6px;
-    left: 25%;
-    top: 25%;
-    width: 30px;
-    z-index: 2;
-}
-
-.shape.sm {
-    height: 3px;
-    left: 60%;
-    top: 46%;
-    width: 20px;
+#switch-button:checked~label>.fa-moon {
+    opacity: 1;
 }
