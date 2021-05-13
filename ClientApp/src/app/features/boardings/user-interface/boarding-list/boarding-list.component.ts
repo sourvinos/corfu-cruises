@@ -41,7 +41,6 @@ export class BoardingListComponent {
     public openedClientFilters: boolean
     public records: BoardingCompositeViewModel
     public searchTerm: string
-    public theme = ''
 
     public drivers = []
     public selectedDrivers = []
@@ -73,7 +72,6 @@ export class BoardingListComponent {
         this.setWindowTitle()
         this.addShortcuts()
         this.getLocale()
-        this.getTheme()
     }
 
     ngAfterViewInit(): void {
@@ -82,7 +80,6 @@ export class BoardingListComponent {
     }
 
     ngDoCheck(): void {
-        this.compareCurrentThemeWithLocalStorage()
         this.getBoardingStatus()
     }
 
@@ -196,12 +193,6 @@ export class BoardingListComponent {
         })
     }
 
-    private compareCurrentThemeWithLocalStorage(): void {
-        if (localStorage.getItem('theme') != this.theme) {
-            this.theme = localStorage.getItem('theme')
-        }
-    }
-
     private filterByCriteria(): void {
         this.filteredRecords.boardings = this.records.boardings
             .filter((driver) => this.selectedDrivers.indexOf(driver.driver) !== -1)
@@ -219,10 +210,6 @@ export class BoardingListComponent {
 
     private getLocale(): void {
         this.dateAdapter.setLocale(this.helperService.readItem("language"))
-    }
-
-    private getTheme(): void {
-        this.theme = localStorage.getItem('theme')
     }
 
     private loadRecords(): void {

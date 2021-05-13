@@ -41,7 +41,6 @@ export class ManifestListComponent {
     public openedClientFilters: boolean
     public records: ManifestViewModel
     public searchTerm: string
-    public theme = ''
 
     public drivers = []
     public selectedDrivers = []
@@ -70,11 +69,6 @@ export class ManifestListComponent {
         this.setWindowTitle()
         this.addShortcuts()
         this.getLocale()
-        this.getTheme()
-    }
-
-    ngDoCheck(): void {
-        this.compareCurrentThemeWithLocalStorage()
     }
 
     ngOnDestroy(): void {
@@ -157,18 +151,8 @@ export class ManifestListComponent {
         })
     }
 
-    private compareCurrentThemeWithLocalStorage(): void {
-        if (localStorage.getItem('theme') != this.theme) {
-            this.theme = localStorage.getItem('theme')
-        }
-    }
-
     private getLocale(): void {
         this.dateAdapter.setLocale(this.helperService.readItem("language"))
-    }
-
-    private getTheme(): void {
-        this.theme = localStorage.getItem('theme')
     }
 
     private loadRecords(): void {

@@ -75,7 +75,6 @@
 
 #secondary-menu {
     animation: enter 1s ease forwards;
-    background-color: var(--color-main-menu-background);
     display: none;
     grid-area: right;
     left: 2rem;
@@ -84,7 +83,6 @@
     position: absolute;
     top: 60px;
     transform-origin: top 2px;
-    transition: 1s;
     z-index: 2;
 }
 

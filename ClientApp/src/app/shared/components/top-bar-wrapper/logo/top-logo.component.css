@@ -8,7 +8,7 @@
 
 span:nth-child(1) {
     color: var(--color-logo-primary) !important;
-    font-size: 2.5rem !important;
+    font-size: var(--font-size-top-logo) !important;
     font-weight: bold;
 }
 
@@ -18,6 +18,6 @@ span:nth-child(2) {
 
 span:nth-child(3) {
     color: var(--color-logo-secondary) !important;
-    font-size: 2.5rem !important;
+    font-size: var(--font-size-top-logo) !important;
     font-weight: bold;
 }

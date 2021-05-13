@@ -23,6 +23,12 @@ label {
     padding: 5px;
 }
 
+label:hover {
+    background-color: var(--color-main-menu-background-hover) !important;
+    cursor: pointer;
+    transition: background-color 0.7s;
+}
+
 .fa-sun {
     color: #ffffff;
     font-size: 25px;

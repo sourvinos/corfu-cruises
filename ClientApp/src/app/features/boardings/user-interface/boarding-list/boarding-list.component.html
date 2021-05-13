@@ -32,19 +32,19 @@
                 <div class="record" *ngFor="let boarding of filteredRecords.boardings">
                     <div class="reservation">
                         <div class="field ticket">
-                            <img src="/assets/images/boarding/ticket-{{theme}}.svg" width="20px">
+                            <img src="/assets/images/boarding/ticket.svg" width="20px">
                             <div class="field-value">{{ boarding.ticketNo }}</div>
                         </div>
                         <div class="field driver">
-                            <img src="/assets/images/boarding/driver-{{theme}}.svg" width="20px">
+                            <img src="/assets/images/boarding/driver.svg" width="20px">
                             <div class="field-value">{{ boarding.driver }}</div>
                         </div>
                         <div class="field customer">
-                            <img src="/assets/images/boarding/customer-{{theme}}.svg" width="20px">
+                            <img src="/assets/images/boarding/customer.svg" width="20px">
                             <div class="field-value">{{ boarding.customer }}</div>
                         </div>
                         <div class="field total-persons">
-                            <img src="/assets/images/boarding/persons-{{theme}}.svg" width="20px">
+                            <img src="/assets/images/boarding/persons.svg" width="20px">
                             <div class="field-value">{{ boarding.totalPersons }}</div>
                         </div>
                         <div class="field pending-persons" *ngIf="!personsAreNotMissing(boarding)">
@@ -88,11 +88,11 @@
             </button>
         </div>
         <div class="totals">
-            <img src="/assets/images/boarding/persons-{{theme}}.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('totalPersons') }}">
+            <img src="/assets/images/boarding/persons.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('totalPersons') }}">
             <div class="sum">{{ records.totalPersons }}</div>
             <img src="/assets/images/boarding/danger.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('missingNames') }}">
             <div class="sum">{{ records.missingNames }}</div>
-            <img src="/assets/images/boarding/persons-{{theme}}.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('passengers') }}">
+            <img src="/assets/images/boarding/persons.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('passengers') }}">
             <div class="sum">{{ records.passengers }}</div>
             <img src="/assets/images/boarding/isBoarded.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('boarded') }}">
             <div class="sum"> {{ records.boarded }}</div>

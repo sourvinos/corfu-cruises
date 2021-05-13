@@ -1,7 +1,7 @@
 :root {
     /* Common */
-    --color-background-primary: #426f8a;
-    --color-background-secondary: #e3fef9;
+    --color-background-primary: #627789;
+    --color-background-secondary: #efefef;
     /* Logo */
     --color-logo-primary: #FE9F36;
     --color-logo-secondary: #FFE85C;
@@ -52,7 +52,7 @@
     /* Scroll bars */
     --color-scrollbar: #FE9F36;
     /* Main menu */
-    --color-main-menu-background: #426f8a;
+    --color-main-menu-background: #627789;
     --color-main-menu-background-hover: #6390ab;
     /* Border of clickable items */
     --color-border-active: #426f8a;

@@ -19,7 +19,6 @@
     flex: 1;
     justify-content: center;
     overflow-y: hidden;
-    padding-left: 0.5rem;
     transition: background-color 0.7s;
 }
 
