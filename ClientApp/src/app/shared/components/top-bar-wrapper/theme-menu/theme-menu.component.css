@@ -16,21 +16,20 @@
 }
 
 label {
+    background-color: #77779a;
     border-radius: 30px;
-    border: 1px solid #ffffff;
     cursor: pointer;
     display: flex;
     padding: 5px;
 }
 
 label:hover {
-    background-color: var(--color-main-menu-background-hover) !important;
     cursor: pointer;
     transition: background-color 0.7s;
 }
 
 .fa-sun {
-    color: #ffffff;
+    color: #ffeb6f;
     font-size: 25px;
     transition: .3s;
 }

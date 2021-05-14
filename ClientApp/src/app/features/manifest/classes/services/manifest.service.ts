@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
@@ -10,16 +10,11 @@ import { DataService } from 'src/app/shared/services/data.service'
 export class ManifestService extends DataService {
 
     constructor(http: HttpClient) {
-        super(http, '/api/manifests')
+        super(http, '/api/manifest')
     }
 
-    get(date: string, shipId: number, shipRouteId: number): Observable<Manifest> {
+    get(date: string, shipId: number, shipRouteId: number): Observable<any> {
         return this.http.get<any>(this.url + '/date/' + date + '/shipId/' + shipId + '/shipRouteId/' + shipRouteId)
-    }
-
-    boardPassenger(id: number): Observable<any> {
-        const params = new HttpParams().set('id', id.toString())
-        return this.http.patch(this.url + '/doManifest?', null, { params: params })
     }
 
 }

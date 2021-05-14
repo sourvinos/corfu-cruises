@@ -10,7 +10,7 @@ const routes: Routes = [
     {
         path: '', component: ManifestWrapperComponent, canActivate: [AuthGuardService], children: [
             {
-                path: 'date/:date/destinationId/:destinationId/portId/:portId/shipId/:shipId', component: ManifestListComponent, canActivate: [AuthGuardService], resolve: { manifestList: ManifestListResolver }, runGuardsAndResolvers: 'always'
+                path: 'date/:date/shipId/:shipId/shipRouteId/:shipRouteId', component: ManifestListComponent, canActivate: [AuthGuardService], resolve: { manifestList: ManifestListResolver }, runGuardsAndResolvers: 'always'
             }]
     }
 ]

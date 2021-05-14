@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace CorfuCruises {
+namespace CorfuCruises.Manifest {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class ManifestController : ControllerBase {
@@ -25,7 +24,7 @@ namespace CorfuCruises {
         }
 
         [HttpGet("date/{date}/shipId/{shipId}/shipRouteId/{shipRouteId}")]
-        public IEnumerable<ManifestViewModel> Get(string date, int shipId, int shipRouteId) {
+        public IEnumerable<ManifestResource> Get(string date, int shipId, int shipRouteId) {
             return this.repo.Get(date, shipId, shipRouteId);
         }
 

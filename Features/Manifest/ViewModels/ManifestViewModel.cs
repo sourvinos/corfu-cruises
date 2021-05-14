@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 
-namespace CorfuCruises {
+namespace CorfuCruises.Manifest {
 
     public class ManifestViewModel {
  
         public string Date { get; set; }
         public string Ship { get; set; }
-        public string ShipRoute { get; set; }
+        public string Route { get; set; }
+
         public List<Passenger> Passengers { get; set; }
 
     }

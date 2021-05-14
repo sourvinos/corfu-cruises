@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CorfuCruises {
+namespace CorfuCruises.Manifest {
 
     public class ManifestRepository : Repository<Reservation>, IManifestRepository {
 
@@ -13,7 +13,7 @@ namespace CorfuCruises {
             this.mapper = mapper;
         }
 
-        public IEnumerable<ManifestViewModel> Get(string date, int shipId, int shipRouteId) {
+        public IEnumerable<ManifestResource> Get(string date, int shipId, int shipRouteId) {
             var manifest = context.Reservations
                 .Include(x => x.Ship)
                 .Include(x => x.ShipRoute)
@@ -26,11 +26,10 @@ namespace CorfuCruises {
                 .Select(x => new ManifestViewModel {
                     Date = x.Key.Date,
                     Ship = x.Key.Ship.Description,
-                    ShipRoute = x.Key.ShipRoute.Description,
+                    Route = x.Key.ShipRoute.Description,
                     Passengers = x.SelectMany(x => x.Passengers).ToList()
                 });
-            return manifest;
-
+            return mapper.Map<IEnumerable<ManifestResource>>(manifest);
         }
 
     }

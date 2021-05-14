@@ -1,6 +1,9 @@
 <div id="wrapper">
 
-    <div id="results" class="scrollable">
+    <div id="table-wrapper">
+        <div data-cy="content" id="content" class="scrollable">
+            <custom-table [highlightFirstRow]="highlightFirstRow" [feature]="feature" [records]="records[0].passengers" [headers]="headers" [widths]="widths" [visibility]="visibility" [justify]="justify" [types]="types" [fields]="fields"></custom-table>
+        </div>
     </div>
 
 </div>

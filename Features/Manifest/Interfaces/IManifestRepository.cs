@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace CorfuCruises {
+namespace CorfuCruises.Manifest {
 
     public interface IManifestRepository {
 
-        IEnumerable<ManifestViewModel> Get(string date, int shipId, int shipRouteId);
+        IEnumerable<ManifestResource> Get(string date, int shipId, int shipRouteId);
 
     }
 

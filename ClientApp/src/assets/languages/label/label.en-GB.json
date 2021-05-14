@@ -1662,5 +1662,30 @@
                 "description": "Search"
             }
         ]
+    },
+    {
+        "feature": "manifestList",
+        "labels": [
+            {
+                "id": "headerId",
+                "description": "Id"
+            },
+            {
+                "id": "headerLastname",
+                "description": "Last name"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "First name"
+            },
+            {
+                "id": "headerDob",
+                "description": "DoB"
+            },
+            {
+                "id": "headerIsCheckedIn",
+                "description": "Ε"
+            }
+        ]
     }
 ]
