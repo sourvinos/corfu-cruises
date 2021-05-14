@@ -54,7 +54,6 @@ export class CustomTableComponent {
     //#region lifecycle hooks
 
     ngAfterViewInit(): void {
-        console.log('In', this.records)
         this.initVariables()
         this.getSortObject()
         this.sortTable(this.sortColumn, this.sortOrder)
@@ -271,8 +270,8 @@ export class CustomTableComponent {
             this.helperService.saveItem('selectedIds', JSON.stringify(this.checkedIds))
             this.interactionService.setCheckedTotalPersons(this.totalPersons)
         } else {
-            // this.records.sort(this.compareValues(field, sortOrder))
-            // this.sortOrder = this.sortOrder == 'asc' ? this.sortOrder = 'desc' : this.sortOrder = 'asc'
+            this.records.sort(this.compareValues(field, sortOrder))
+            this.sortOrder = this.sortOrder == 'asc' ? this.sortOrder = 'desc' : this.sortOrder = 'asc'
         }
     }
 

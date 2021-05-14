@@ -6,4 +6,10 @@
         </div>
     </div>
 
+    <div id="footer">
+        <div @slideFromRight id="buttons">
+            <button mat-flat-button class="primary" id="exportToPDF" (click)="onCreatePdf()">{{ onGetLabel('exportToPdfButton') }}</button>
+        </div>
+    </div>
+
 </div>

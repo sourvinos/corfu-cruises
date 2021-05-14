@@ -1631,7 +1631,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Manifest"
+                "description": "Vessel Manifest"
             },
             {
                 "id": "date",
@@ -1667,10 +1667,6 @@
         "feature": "manifestList",
         "labels": [
             {
-                "id": "headerId",
-                "description": "Id"
-            },
-            {
                 "id": "headerLastname",
                 "description": "Last name"
             },
@@ -1679,12 +1675,16 @@
                 "description": "First name"
             },
             {
-                "id": "headerDob",
+                "id": "headerNationality",
+                "description": "Nationality"
+            },
+            {
+                "id": "headerDoB",
                 "description": "DoB"
             },
             {
-                "id": "headerIsCheckedIn",
-                "description": "Ε"
+                "id": "exportToPdfButton",
+                "description": "Export to PDF"
             }
         ]
     }

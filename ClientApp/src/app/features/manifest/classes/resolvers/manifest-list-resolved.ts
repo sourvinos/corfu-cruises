@@ -1,4 +1,4 @@
-import { Manifest } from "../view-models/manifest"
+import { Manifest } from '../view-models/manifest'
 
 export class ManifestListResolved {
 

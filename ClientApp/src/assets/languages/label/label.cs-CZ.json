@@ -1631,7 +1631,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Manifest"
+                "description": "(CZ) Vessel Manifest"
             },
             {
                 "id": "date",
@@ -1660,6 +1660,31 @@
             {
                 "id": "searchButton",
                 "description": "(CZ) Search"
+            }
+        ]
+    },
+    {
+        "feature": "manifestList",
+        "labels": [
+            {
+                "id": "headerLastname",
+                "description": "(CZ) Last name"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "(CZ) First name"
+            },
+            {
+                "id": "headerNationality",
+                "description": "(CZ) Nationality"
+            },
+            {
+                "id": "headerDoB",
+                "description": "(CZ) DoB"
+            },
+            {
+                "id": "exportToPdfButton",
+                "description": "(CZ) Export to PDF"
             }
         ]
     }

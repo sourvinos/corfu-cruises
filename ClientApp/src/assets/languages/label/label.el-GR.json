@@ -1662,5 +1662,30 @@
                 "description": "Αναζητηση"
             }
         ]
+    },
+    {
+        "feature": "manifestList",
+        "labels": [
+            {
+                "id": "headerLastname",
+                "description": "Επωνυμο"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "Ονομα"
+            },
+            {
+                "id": "headerNationality",
+                "description": "Χωρα"
+            },
+            {
+                "id": "headerDoB",
+                "description": "Ημερομηνια Γεννησης"
+            },
+            {
+                "id": "exportToPdfButton",
+                "description": "Εξαγωγη σε PDF"
+            }
+        ]
     }
 ]

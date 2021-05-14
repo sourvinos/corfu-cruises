@@ -14,7 +14,7 @@ export class DriverPdfService {
     public createReport(reservations: any[], drivers: any[], date: string): void {
         const array = this.sort(reservations)
         drivers.forEach(driver => {
-            const filteredArray = array.filter(x => x.driver === driver)
+            const filteredArray = array.filter((x: { driver: any }) => x.driver === driver)
             const dd = {
                 pageMargins: [50, 40, 50, 50],
                 pageOrientation: 'landscape',

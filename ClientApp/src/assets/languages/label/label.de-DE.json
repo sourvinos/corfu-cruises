@@ -1662,5 +1662,30 @@
                 "description": "(DE) Search"
             }
         ]
+    },
+    {
+        "feature": "manifestList",
+        "labels": [
+            {
+                "id": "headerLastname",
+                "description": "(DE) Last name"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "(DE) First name"
+            },
+            {
+                "id": "headerNationality",
+                "description": "(DE) Nationality"
+            },
+            {
+                "id": "headerDoB",
+                "description": "(DE) DoB"
+            },
+            {
+                "id": "exportToPdfButton",
+                "description": "(DE) Export to PDF"
+            }
+        ]
     }
 ]

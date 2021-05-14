@@ -25,7 +25,6 @@ label {
 
 label:hover {
     cursor: pointer;
-    transition: background-color 0.7s;
 }
 
 .fa-sun {
@@ -37,14 +36,21 @@ label:hover {
 .fa-moon {
     color: #ffffff;
     font-size: 25px;
-    opacity: 0;
     transition: .3s;
 }
 
-#switch-button:checked~label>.fa-sun {
+#switch-button:checked~label>.fa-moon {
     opacity: 0;
 }
 
-#switch-button:checked~label>.fa-moon {
+#switch-button:checked~label>.fa-sun {
     opacity: 1;
+}
+
+#switch-button:not(:checked)~label>.fa-moon {
+    opacity: 1;
+}
+
+#switch-button:not(:checked)~label>.fa-sun {
+    opacity: 0;
 }

@@ -10,6 +10,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
 
 @Component({
     selector: 'manifest-list',
@@ -38,16 +39,16 @@ export class ManifestListComponent {
 
     //#region table
 
-    headers = ['', 'headerId', 'headerLastname', 'headerFirstname', 'headerDoB', 'headerIsCheckedIn', '']
+    headers = ['', 'headerId', 'headerLastname', 'headerFirstname', 'headerNationality', 'headerDoB', '']
     widths = ['0px', '0px', '50%', '25%', '10%', '10%', '56px']
     visibility = ['none', 'none', '', '', '', '', '']
-    justify = ['center', 'left', 'left', 'left', 'center', 'center', 'center']
+    justify = ['center', 'left', 'left', 'left', 'left', 'center', 'center']
     types = ['', '', '', '', '', '', '']
-    fields = ['', 'reservationId', 'lastname', 'firstname', 'doB', 'isCheckedIn', '']
+    fields = ['', 'reservationId', 'lastname', 'firstname', 'nationalityDescription', 'dob', '']
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.loadRecords()
@@ -71,6 +72,10 @@ export class ManifestListComponent {
 
     //#region public methods
 
+    public onCreatePdf(): void {
+        this.pdfService.createReport(this.records[0])
+    }
+
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -92,14 +97,12 @@ export class ManifestListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
-            console.log('records', this.records)
-            console.log('passengers', this.records[0].passengers)
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }
     }
-
+ 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
