@@ -1,12 +1,13 @@
 import { Component } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
-import { Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import { takeUntil } from 'rxjs/operators'
 import moment from 'moment'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { CalendarLegendComponent } from './calendar-legend.component'
 import { Destination } from '../../destinations/classes/destination'
 import { DestinationService } from '../../destinations/classes/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -20,7 +21,7 @@ import { ScheduleCreateFormComponent } from './schedule-create-form.component'
 import { ScheduleService } from './../classes/schedule.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { CalendarLegendComponent } from './calendar-legend.component'
+import { AccountService } from 'src/app/shared/services/account.service'
 
 @Component({
     selector: 'schedule-wrapper',
@@ -53,10 +54,11 @@ export class ScheduleWrapperComponent {
     public form: FormGroup
     public portId = 0
     public ports: Port[] = []
+    private userRole: Observable<string>
 
     //#endregion
 
-    constructor(private buttonClickService: ButtonClickService, private destinationService: DestinationService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private portService: PortService, private reservationService: ReservationService, private scheduleService: ScheduleService, private titleService: Title, public dialog: MatDialog) { }
+    constructor(private accountService: AccountService,private buttonClickService: ButtonClickService, private destinationService: DestinationService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private portService: PortService, private reservationService: ReservationService, private scheduleService: ScheduleService, private titleService: Title, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
@@ -65,6 +67,7 @@ export class ScheduleWrapperComponent {
         this.addShortcuts()
         this.populateDropDowns()
         this.subscribeToInteractionService()
+        this.updateVariables()
     }
 
     ngOnDestroy(): void {
@@ -389,6 +392,22 @@ export class ScheduleWrapperComponent {
             this.displayedMonth = month
             this.onLoadSchedule(month)
         })
+    }
+
+    private updateVariables(): void {
+        this.userRole = this.accountService.currentUserRole
+    }
+
+    //#endregion
+
+    //#region getters
+
+    get isConnectedUserAdmin(): boolean {
+        let isAdmin = false
+        this.userRole.subscribe(result => {
+            isAdmin = result == 'Admin' ? true : false
+        })
+        return isAdmin
     }
 
     //#endregion

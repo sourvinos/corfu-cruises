@@ -523,6 +523,10 @@
                 "description": "Zobrazené jméno"
             },
             {
+                "id": "customer",
+                "description": "(CZ) Linked Customer"
+            },
+            {
                 "id": "email",
                 "description": "e-mail"
             },
@@ -577,7 +581,11 @@
             },
             {
                 "id": "confirmPassword",
-                "description": "Potvrďte heslo"
+                "description": "Potvrďte Heslo"
+            },
+            {
+                "id": "customer",
+                "description": "(CZ) Linked Customer"
             },
             {
                 "id": "isAdmin",

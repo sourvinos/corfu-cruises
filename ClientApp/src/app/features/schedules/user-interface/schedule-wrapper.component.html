@@ -44,7 +44,7 @@
             </mat-menu>
         </div>
         <div @slideFromRight id="buttons">
-            <button mat-flat-button class="primary" id="new" (click)="onNew()">{{ onGetLabel('newButton') }}</button>
+            <button *ngIf="isConnectedUserAdmin" mat-flat-button class="primary" id="new" (click)="onNew()">{{ onGetLabel('newButton') }}</button>
         </div>
     </div>
 

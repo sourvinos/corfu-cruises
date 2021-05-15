@@ -19,7 +19,7 @@ export class MessageHintService {
 
     public getDescription(id: string, stringLength = 0): string {
         let returnValue = ''
-        if (this.messages.length > 0) {
+        if (this.messages.labels.length > 0) {
             this.messages.labels.filter((l: { id: string; description: string }) => {
                 if (l.id == id) {
                     returnValue = l.description.replace('xx', stringLength.toString())

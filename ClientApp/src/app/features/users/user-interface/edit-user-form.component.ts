@@ -1,21 +1,26 @@
+import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Title } from '@angular/platform-browser'
-import { ActivatedRoute, Router } from '@angular/router'
-import { Subject } from 'rxjs'
-import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { forkJoin, Subject, Subscription } from 'rxjs'
+// Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { Customer } from '../../customers/classes/customer'
+import { CustomerService } from '../../customers/classes/customer.service'
+import { DialogIndexComponent } from 'src/app/shared/components/dialog-index/dialog-index.component'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from '../../../shared/services/keyboard-shortcuts.service'
-import { UserService } from '../classes/user.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { MatDialog } from '@angular/material/dialog'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { environment } from 'src/environments/environment'
+import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { User } from 'src/app/features/account/classes/user'
+import { UserService } from '../classes/user.service'
+import { environment } from 'src/environments/environment'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'edit-user-form',
@@ -42,11 +47,11 @@ export class EditUserFormComponent {
     //#region particular variables
 
     private isAdmin: boolean
+    public customers: any
 
     //#endregion
 
-    constructor(
-        private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, public dialog: MatDialog) {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
                 this.getRecord(p.id)
@@ -60,6 +65,7 @@ export class EditUserFormComponent {
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
+        this.populateDropDowns()
     }
 
     ngAfterViewInit(): void {
@@ -128,6 +134,23 @@ export class EditUserFormComponent {
         this.router.navigate(this.helperService.readItem('editUserCaller') == 'list' ? [this.url] : ['/'])
     }
 
+    public onLookupIndex(lookupArray: any[], title: string, formFields: any[], fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[], value: { target: any }): void {
+        let filteredArray = []
+        lookupArray.filter(x => {
+            filteredArray = this.helperService.pushItemToFilteredArray(x, fields[1], value, filteredArray)
+        })
+        if (filteredArray.length === 0) {
+            this.clearFields(null, formFields[0], formFields[1])
+        }
+        if (filteredArray.length === 1) {
+            const [...elements] = filteredArray
+            this.patchFields(elements[0], fields)
+        }
+        if (filteredArray.length > 1) {
+            this.showModalIndex(filteredArray, title, fields, headers, widths, visibility, justify, types)
+        }
+    }
+
     public onSave(): void {
         this.userService.update(this.form.value.id, this.form.value).subscribe(() => {
             this.resetForm()
@@ -183,14 +206,25 @@ export class EditUserFormComponent {
         })
     }
 
+    private clearFields(result: any, id: any, description: any): void {
+        this.form.patchValue({ [id]: result ? result.id : '' })
+        this.form.patchValue({ [description]: result ? result.description : '' })
+    }
+
     private focus(field: string): void {
         this.helperService.setFocus(field)
     }
 
+    private getCustomer(id: number): Promise<Customer> {
+        return this.customerService.getSingle(id).toPromise()
+    }
+
     private getRecord(id: string): void {
         this.userService.getSingle(id).subscribe(result => {
-            this.populateFields(result)
-            this.updateUserRole()
+            this.getCustomer(result.customerId).then((customer) => {
+                this.populateFields(result, customer)
+                this.updateUserRole()
+            })
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             this.onGoBack()
@@ -206,6 +240,7 @@ export class EditUserFormComponent {
             id: '',
             userName: ['', [Validators.required, Validators.maxLength(32)]],
             displayName: ['', [Validators.required, Validators.maxLength(32)]],
+            customerId: [''], customerDescription: [''],
             email: ['', [Validators.required, Validators.email, Validators.maxLength(128)]],
             isAdmin: false,
             isActive: true,
@@ -214,16 +249,56 @@ export class EditUserFormComponent {
         })
     }
 
-    private populateFields(result: User): void {
+    private patchFields(result: any, fields: any[]): void {
+        2
+        if (result) {
+            Object.entries(result).forEach(([key, value]) => {
+                this.form.patchValue({ [key]: value })
+            })
+        } else {
+            fields.forEach(field => {
+                this.form.patchValue({ [field]: '' })
+            })
+        }
+    }
+
+    private populateDropDowns(): Subscription {
+        const sources = []
+        sources.push(this.customerService.getAllActive())
+        return forkJoin(sources).subscribe(
+            result => {
+                this.customers = result[0]
+                this.renameObjects()
+            }
+        )
+    }
+
+    private populateFields(result: User, customer: Customer): void {
         this.form.setValue({
             id: result.id,
             userName: result.userName,
             displayName: result.displayName,
+            customerId: result.customerId,
+            customerDescription: customer.description,
             email: result.email,
             isAdmin: result.isAdmin,
             isActive: result.isActive,
             oneTimePassword: result.oneTimePassword,
             language: this.helperService.readItem('language'),
+        })
+    }
+
+    private renameKey(obj: any, oldKey: string, newKey: string): void {
+        if (oldKey !== newKey) {
+            Object.defineProperty(obj, newKey, Object.getOwnPropertyDescriptor(obj, oldKey))
+            delete obj[oldKey]
+        }
+    }
+
+    private renameObjects(): void {
+        this.customers.forEach((obj: any) => {
+            this.renameKey(obj, 'id', 'customerId')
+            this.renameKey(obj, 'description', 'customerDescription')
         })
     }
 
@@ -233,6 +308,26 @@ export class EditUserFormComponent {
 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+    }
+
+    private showModalIndex(elements: any, title: string, fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[]): void {
+        const dialog = this.dialog.open(DialogIndexComponent, {
+            height: '685px',
+            data: {
+                records: elements,
+                title: title,
+                fields: fields,
+                headers: headers,
+                widths: widths,
+                visibility: visibility,
+                justify: justify,
+                types: types,
+                highlightFirstRow: true
+            }
+        })
+        dialog.afterClosed().subscribe((result) => {
+            this.patchFields(result, fields)
+        })
     }
 
     private showSnackbar(message: string, type: string): void {

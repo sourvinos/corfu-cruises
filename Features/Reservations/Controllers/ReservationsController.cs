@@ -27,9 +27,9 @@ namespace CorfuCruises {
             this.mapper = mapper;
         }
 
-        [HttpGet("date/{date}")]
-        public async Task<ReservationGroupReadResource<ReservationReadResource>> Get(string date) {
-            return await this.repo.Get(date);
+        [HttpGet("userId/{userId}/date/{date}")]
+        public async Task<ReservationGroupReadResource<ReservationReadResource>> Get(string userId, string date) {
+            return await this.repo.Get(userId, date);
         }
 
         [HttpGet("[action]/destinationId/{destinationId}")]

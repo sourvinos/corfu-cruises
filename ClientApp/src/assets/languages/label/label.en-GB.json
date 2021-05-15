@@ -523,6 +523,10 @@
                 "description": "Displayed name"
             },
             {
+                "id": "customer",
+                "description": "(CZ) Linked Customer"
+            },
+            {
                 "id": "email",
                 "description": "Email"
             },
@@ -578,6 +582,10 @@
             {
                 "id": "confirmPassword",
                 "description": "Confirm password"
+            },
+            {
+                "id": "customer",
+                "description": "Linked Customer"
             },
             {
                 "id": "isAdmin",

@@ -16,7 +16,7 @@
             },
             {
                 "id": "noRobotCheckbox",
-                "description": "Δεν ειμαι ρομποτ"
+                "description": "Δεν Ειμαι Ρομποτ"
             },
             {
                 "id": "forgotPasswordButton",
@@ -520,7 +520,11 @@
             },
             {
                 "id": "displayName",
-                "description": "Εμφανιζομενο ονομα"
+                "description": "Εμφανιζομενο Ονομα"
+            },
+            {
+                "id": "customer",
+                "description": "Συνδεδεμενος Πελατης"
             },
             {
                 "id": "email",
@@ -577,7 +581,11 @@
             },
             {
                 "id": "confirmPassword",
-                "description": "Επιβεβαιωση κωδικου"
+                "description": "Επιβεβαιωση Κωδικου"
+            },
+            {
+                "id": "customer",
+                "description": "Συνδεδεμενος Πελατης"
             },
             {
                 "id": "isAdmin",

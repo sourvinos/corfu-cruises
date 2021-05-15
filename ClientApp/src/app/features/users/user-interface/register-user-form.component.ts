@@ -2,21 +2,25 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core'
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
-import { Subject } from 'rxjs'
-import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { forkJoin, Subject, Subscription } from 'rxjs'
+// Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { ConfirmValidParentMatcher, ValidationService } from '../../../shared/services/validation.service'
+import { CustomerService } from '../../customers/classes/customer.service'
+import { DialogIndexComponent } from 'src/app/shared/components/dialog-index/dialog-index.component'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { RegisterUser } from '../../account/classes/register-user'
+import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from '../../../shared/services/keyboard-shortcuts.service'
-import { ConfirmValidParentMatcher, ValidationService } from '../../../shared/services/validation.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { MatDialog } from '@angular/material/dialog'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { RegisterUser } from '../../account/classes/register-user'
+import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'register-user-form',
@@ -45,10 +49,11 @@ export class RegisterUserFormComponent implements OnInit, AfterViewInit, OnDestr
     private flatForm: RegisterUser
     public confirmValidParentMatcher = new ConfirmValidParentMatcher();
     public hidePassword = true
+    public customers: any
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
@@ -56,6 +61,7 @@ export class RegisterUserFormComponent implements OnInit, AfterViewInit, OnDestr
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
+        this.populateDropDowns()
     }
 
     ngAfterViewInit(): void {
@@ -96,6 +102,23 @@ export class RegisterUserFormComponent implements OnInit, AfterViewInit, OnDestr
 
     public onGoBack(): void {
         this.router.navigate([this.url])
+    }
+
+    public onLookupIndex(lookupArray: any[], title: string, formFields: any[], fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[], value: { target: any }): void {
+        let filteredArray = []
+        lookupArray.filter(x => {
+            filteredArray = this.helperService.pushItemToFilteredArray(x, fields[1], value, filteredArray)
+        })
+        if (filteredArray.length === 0) {
+            this.clearFields(null, formFields[0], formFields[1])
+        }
+        if (filteredArray.length === 1) {
+            const [...elements] = filteredArray
+            this.patchFields(elements[0], fields)
+        }
+        if (filteredArray.length > 1) {
+            this.showModalIndex(filteredArray, title, fields, headers, widths, visibility, justify, types)
+        }
     }
 
     public onSave(): void {
@@ -144,6 +167,11 @@ export class RegisterUserFormComponent implements OnInit, AfterViewInit, OnDestr
         })
     }
 
+    private clearFields(result: any, id: any, description: any): void {
+        this.form.patchValue({ [id]: result ? result.id : '' })
+        this.form.patchValue({ [description]: result ? result.description : '' })
+    }
+
     private flattenFormFields(): void {
         this.flatForm = {
             userName: this.form.value.userName,
@@ -164,6 +192,7 @@ export class RegisterUserFormComponent implements OnInit, AfterViewInit, OnDestr
         this.form = this.formBuilder.group({
             userName: [environment.newUser.username, [Validators.required, Validators.maxLength(32), ValidationService.containsSpace]],
             displayName: [environment.newUser.displayName, [Validators.required, Validators.maxLength(32)]],
+            customerId: [''], customerDescription: [''],
             email: [environment.newUser.email, [Validators.required, Validators.maxLength(128), Validators.email]],
             passwords: this.formBuilder.group({
                 password: [environment.newUser.password, [Validators.required, Validators.minLength(10), Validators.maxLength(128), ValidationService.containsSpace]],
@@ -174,12 +203,69 @@ export class RegisterUserFormComponent implements OnInit, AfterViewInit, OnDestr
         })
     }
 
+    private patchFields(result: any, fields: any[]): void {
+        if (result) {
+            Object.entries(result).forEach(([key, value]) => {
+                this.form.patchValue({ [key]: value })
+            })
+        } else {
+            fields.forEach(field => {
+                this.form.patchValue({ [field]: '' })
+            })
+        }
+    }
+
+    private populateDropDowns(): Subscription {
+        const sources = []
+        sources.push(this.customerService.getAllActive())
+        return forkJoin(sources).subscribe(
+            result => {
+                this.customers = result[0]
+                this.renameObjects()
+            }
+        )
+    }
+
+    private renameKey(obj: any, oldKey: string, newKey: string): void {
+        if (oldKey !== newKey) {
+            Object.defineProperty(obj, newKey, Object.getOwnPropertyDescriptor(obj, oldKey))
+            delete obj[oldKey]
+        }
+    }
+
+    private renameObjects(): void {
+        this.customers.forEach((obj: any) => {
+            this.renameKey(obj, 'id', 'customerId')
+            this.renameKey(obj, 'description', 'customerDescription')
+        })
+    }
+
     private resetForm(): void {
         this.form.reset()
     }
 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+    }
+
+    private showModalIndex(elements: any, title: string, fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[]): void {
+        const dialog = this.dialog.open(DialogIndexComponent, {
+            height: '685px',
+            data: {
+                records: elements,
+                title: title,
+                fields: fields,
+                headers: headers,
+                widths: widths,
+                visibility: visibility,
+                justify: justify,
+                types: types,
+                highlightFirstRow: true
+            }
+        })
+        dialog.afterClosed().subscribe((result) => {
+            this.patchFields(result, fields)
+        })
     }
 
     private showSnackbar(message: string | string[], type: string): void {

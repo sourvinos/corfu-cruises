@@ -520,7 +520,11 @@
             },
             {
                 "id": "displayName",
-                "description": "(DE) Displayed name"
+                "description": "(DE) Displayed Name"
+            },
+            {
+                "id": "customer",
+                "description": "(DE) Linked Customer"
             },
             {
                 "id": "email",
@@ -578,6 +582,10 @@
             {
                 "id": "confirmPassword",
                 "description": "(DE) Confirm password"
+            },
+            {
+                "id": "customer",
+                "description": "(DE) Linked Customer"
             },
             {
                 "id": "isAdmin",

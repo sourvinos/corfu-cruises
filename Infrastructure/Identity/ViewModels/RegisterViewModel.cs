@@ -16,6 +16,8 @@ namespace CorfuCruises {
         [Required(ErrorMessage = "User name is required")]
         [MaxLength(32, ErrorMessage = "User name can not be longer than 32 characters")]
         public string Username { get; set; }
+        
+        public int LinkedCustomer { get; set; }
 
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Password is required")]
@@ -28,7 +30,7 @@ namespace CorfuCruises {
         public string ConfirmPassword { get; set; }
 
         public bool IsAdmin { get; set; }
-        
+
         public string Language { get; set; }
 
     }

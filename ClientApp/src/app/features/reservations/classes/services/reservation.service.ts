@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { DataService } from 'src/app/shared/services/data.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { ReservationByDate } from '../view-models/reservation-by-date'
 import { ReservationViewModel } from '../view-models/reservation-view-model'
 
@@ -9,12 +10,12 @@ import { ReservationViewModel } from '../view-models/reservation-view-model'
 
 export class ReservationService extends DataService {
 
-    constructor(http: HttpClient) {
+    constructor(http: HttpClient, private helperService: HelperService) {
         super(http, '/api/reservations')
     }
 
     get(date: string): Observable<ReservationViewModel> {
-        return this.http.get<ReservationViewModel>(this.url + '/date/' + date)
+        return this.http.get<ReservationViewModel>(this.url + '/userId/' + this.helperService.readItem('userId') + '/date/' + date)
     }
 
     getByDate(destinationId: number): Promise<any> {

@@ -18,7 +18,7 @@ namespace CorfuCruises {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<AppUser> userManager;
 
-        public UsersController(IEmailSender emailSender, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, ILogger<UsersController> logger) {
+        public UsersController(IEmailSender emailSender, ILogger<UsersController> logger, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager) {
             this.emailSender = emailSender;
             this.logger = logger;
             this.roleManager = roleManager;
@@ -51,6 +51,7 @@ namespace CorfuCruises {
                 Id = record.Id,
                 UserName = record.UserName,
                 DisplayName = record.DisplayName,
+                CustomerId = record.CustomerId,
                 Email = record.Email,
                 IsAdmin = record.IsAdmin,
                 IsActive = record.IsActive,
@@ -122,6 +123,7 @@ namespace CorfuCruises {
             user.Email = vm.Email;
             user.IsAdmin = vm.IsAdmin;
             user.IsActive = vm.IsActive;
+            user.CustomerId = vm.CustomerId;
             return await userManager.UpdateAsync(user);
         }
 

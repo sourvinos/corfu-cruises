@@ -19,10 +19,10 @@ import { ReservationService } from '../../classes/services/reservation.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToVesselComponent } from '../reservation-to-vessel/reservation-to-vessel-form.component'
 import { ReservationViewModel } from '../../classes/view-models/reservation-view-model'
+import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
 import { ShipService } from 'src/app/features/ships/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
 
 @Component({
     selector: 'reservation-list',
@@ -88,7 +88,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private reservationService: ReservationService, private buttonClickService: ButtonClickService, private driverService: DriverService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: DriverPdfService, private router: Router, private service: ReservationService, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private reservationService: ReservationService, private buttonClickService: ButtonClickService, private driverService: DriverService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: DriverPdfService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
         this.activatedRoute.params.subscribe((params: Params) => this.dateIn = params['dateIn'])
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd && this.dateIn !== '' && this.router.url.split('/').length === 4) {
@@ -359,13 +359,6 @@ export class ReservationListComponent {
         return true
     }
 
-    private async isScheduleFound(): Promise<any> {
-        await this.scheduleService.getForDate(this.dateIn).then(result => {
-            alert('Result to send back: ' + result)
-            return result
-        })
-    }
-
     private loadRecords(): void {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
@@ -423,7 +416,7 @@ export class ReservationListComponent {
             this.editRecord(response['id'])
         })
         this.interactionService.refreshReservationList.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
-            this.service.get(this.dateIn).subscribe(result => {
+            this.reservationService.get(this.dateIn).subscribe(result => {
                 this.queryResult = result
                 this.ngAfterViewInit()
             })
