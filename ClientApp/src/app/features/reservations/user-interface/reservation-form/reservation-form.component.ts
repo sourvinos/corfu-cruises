@@ -135,6 +135,10 @@ export class ReservationFormComponent {
         return totalPersons > 0 ? true : false
     }
 
+    public onMustBeAdmin(): boolean {
+        return this.isAdmin()
+    }
+
     public onDoBarcodeJobs(): void {
         this.createBarcodeFromTicket().then(() => {
             this.convertBarcodeToString().then((result) => {
@@ -359,7 +363,7 @@ export class ReservationFormComponent {
             reservationId: '',
             date: '',
             destinationId: [0, Validators.required], destinationDescription: ['', Validators.required],
-            customerId: [0, Validators.required], customerDescription: [{ value: '', disabled: this.isAdmin() }, Validators.required],
+            customerId: [0, Validators.required], customerDescription: [{ value: '', disabled: !this.isAdmin() }, Validators.required],
             pickupPointId: [0, Validators.required], pickupPointDescription: ['', Validators.required], pickupPointExactPoint: '', pickupPointTime: '',
             adults: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             kids: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
@@ -381,7 +385,7 @@ export class ReservationFormComponent {
     private isAdmin(): boolean {
         let isAdmin = false
         this.accountService.currentUserRole.subscribe(result => {
-            isAdmin = result.toLowerCase() != 'admin'
+            isAdmin = result.toLowerCase() == 'admin'
         })
         return isAdmin
     }

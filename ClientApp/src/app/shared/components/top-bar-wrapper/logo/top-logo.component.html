@@ -1,4 +1,4 @@
-<div data-cy="companyLogo" *ngIf="isDesktop()" id="top-logo" [routerLink]="['/']">
+<div data-cy="companyLogo" *ngIf="isDesktop() && isNarrowScreen()" id="top-logo" [routerLink]="['/']">
     <span>{{ companyLogo[0] }}</span>
     <span>--</span>
     <span>{{ companyLogo[1] }}</span>

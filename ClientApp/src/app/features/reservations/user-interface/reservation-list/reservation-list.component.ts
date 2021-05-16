@@ -23,6 +23,7 @@ import { ScheduleService } from 'src/app/features/schedules/classes/schedule.ser
 import { ShipService } from 'src/app/features/ships/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { AccountService } from 'src/app/shared/services/account.service'
 
 @Component({
     selector: 'reservation-list',
@@ -88,7 +89,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private reservationService: ReservationService, private buttonClickService: ButtonClickService, private driverService: DriverService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: DriverPdfService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private reservationService: ReservationService, private buttonClickService: ButtonClickService, private driverService: DriverService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: DriverPdfService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
         this.activatedRoute.params.subscribe((params: Params) => this.dateIn = params['dateIn'])
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd && this.dateIn !== '' && this.router.url.split('/').length === 4) {
@@ -211,6 +212,10 @@ export class ReservationListComponent {
 
     public onGoBack(): void {
         this.router.navigate(['/'])
+    }
+
+    public onMustBeAdmin(): boolean {
+        return this.isAdmin()
     }
 
     public onNew(): void {
@@ -348,6 +353,14 @@ export class ReservationListComponent {
 
     private isDataInLocalStorage(): string {
         return this.helperService.readItem('reservations')
+    }
+
+    private isAdmin(): boolean {
+        let isAdmin = false
+        this.accountService.currentUserRole.subscribe(result => {
+            isAdmin = result.toLowerCase() == 'admin'
+        })
+        return isAdmin
     }
 
     private isAnyRowSelected(): boolean {
