@@ -35,11 +35,10 @@ export class MessageCalendarService {
 
     public getMessages(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.httpClient.get('assets/languages/calendar/calendar.' + localStorage.getItem('language') + '.json').toPromise().then(
-                response => {
-                    this.messages = response
-                    resolve(this.messages)
-                })
+            this.httpClient.get('assets/languages/calendar/calendar.' + localStorage.getItem('language') + '.json').toPromise().then(response => {
+                this.messages = response
+                resolve(this.messages)
+            })
         })
         return promise
     }

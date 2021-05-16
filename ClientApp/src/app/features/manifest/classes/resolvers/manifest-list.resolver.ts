@@ -13,7 +13,7 @@ export class ManifestListResolver {
     constructor(private manifestService: ManifestService) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<ManifestListResolved> {
-        return this.manifestService.get(route.params.date, route.params.shipId, route.params.shipRouteId)
+        return this.manifestService.get(route.params.date, route.params.shipId, route.params.portId)
             .pipe(
                 map((boardingList) => new ManifestListResolved(boardingList)),
                 catchError((err: any) => of(new ManifestListResolved(null, err)))

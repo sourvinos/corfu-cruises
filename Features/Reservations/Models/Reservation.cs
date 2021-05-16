@@ -23,7 +23,6 @@ namespace CorfuCruises {
         public int PickupPointId { get; set; }
         public int PortId { get; set; }
         public int ShipId { get; set; }
-        public int ShipRouteId { get; set; }
         public string UserId { get; set; }
 
         public Customer Customer { get; set; }
@@ -32,7 +31,6 @@ namespace CorfuCruises {
         public PickupPoint PickupPoint { get; set; }
         public Port Port { get; set; }
         public Ship Ship { get; set; }
-        public ShipRoute ShipRoute { get; set; }
 
         public List<Passenger> Passengers { get; set; }
 

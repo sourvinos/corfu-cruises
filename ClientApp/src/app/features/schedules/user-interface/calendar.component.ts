@@ -1,12 +1,12 @@
-import { SnackbarService } from './../../../shared/services/snackbar.service'
 import { Component } from "@angular/core"
+import { SnackbarService } from './../../../shared/services/snackbar.service'
 import moment, { utc } from 'moment'
 // Custom
+import { HelperService } from "src/app/shared/services/helper.service"
 import { InteractionService } from './../../../shared/services/interaction.service'
 import { MessageCalendarService } from "src/app/shared/services/messages-calendar.service"
-import { Router } from "@angular/router"
-import { HelperService } from "src/app/shared/services/helper.service"
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { Router } from "@angular/router"
 
 @Component({
     selector: 'calendar',

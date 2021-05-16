@@ -33,6 +33,8 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
 import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { UserService } from 'src/app/features/users/classes/user.service'
+import { AccountService } from 'src/app/shared/services/account.service'
 
 @Component({
     selector: 'reservation-form',
@@ -73,7 +75,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private reservationService: ReservationService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private reservationService: ReservationService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, public dialog: MatDialog) {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
                 this.getRecord(p.id)
@@ -93,6 +95,7 @@ export class ReservationFormComponent {
         this.initForm()
         this.addShortcuts()
         this.populateDropDowns()
+        this.getCustomer()
     }
 
     ngDoCheck(): void {
@@ -237,6 +240,14 @@ export class ReservationFormComponent {
         })
     }
 
+    private checkOverbooking(schedule: any): void {
+        this.reservationService.getByDateDestinationPort(this.form.value.date, this.form.value.destinationId, this.form.value.portId).then(reservations => {
+            if (this.isNotOverbooking(schedule, reservations, this.form.value.adults + this.form.value.kids + this.form.value.free)) {
+                this.save()
+            }
+        })
+    }
+
     private clearFields(result: any, id: any, description: any): void {
         this.form.patchValue({ [id]: result ? result.id : '' })
         this.form.patchValue({ [description]: result ? result.description : '' })
@@ -306,6 +317,16 @@ export class ReservationFormComponent {
         return value.format('YYYY-MM-DD')
     }
 
+    private getCustomer(): void {
+        const userId = this.helperService.readItem('userId')
+        this.userService.getSingle(userId).subscribe(user => {
+            this.customerService.getSingle(user.customerId).subscribe(customer => {
+                this.form.patchValue({ customerId: customer.id })
+                this.form.patchValue({ customerDescription: customer.description })
+            })
+        })
+    }
+
     private getRecord(id: number): void {
         this.reservationService.getSingle(id).subscribe(result => {
             this.showModalForm().then(() => {
@@ -317,14 +338,6 @@ export class ReservationFormComponent {
         }, errorCode => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
             this.onGoBack()
-        })
-    }
-
-    private checkOverbooking(schedule: any): void {
-        this.reservationService.getByDateDestinationPort(this.form.value.date, this.form.value.destinationId, this.form.value.portId).then(reservations => {
-            if (this.isNotOverbooking(schedule, reservations, this.form.value.adults + this.form.value.kids + this.form.value.free)) {
-                this.save()
-            }
         })
     }
 
@@ -346,7 +359,7 @@ export class ReservationFormComponent {
             reservationId: '',
             date: '',
             destinationId: [0, Validators.required], destinationDescription: ['', Validators.required],
-            customerId: [0, Validators.required], customerDescription: ['', Validators.required],
+            customerId: [0, Validators.required], customerDescription: [{ value: '', disabled: this.isAdmin() }, Validators.required],
             pickupPointId: [0, Validators.required], pickupPointDescription: ['', Validators.required], pickupPointExactPoint: '', pickupPointTime: '',
             adults: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             kids: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
@@ -363,6 +376,14 @@ export class ReservationFormComponent {
             uri: '',
             passengers: []
         })
+    }
+
+    private isAdmin(): boolean {
+        let isAdmin = false
+        this.accountService.currentUserRole.subscribe(result => {
+            isAdmin = result.toLowerCase() != 'admin'
+        })
+        return isAdmin
     }
 
     private isGuid(reservationId: string): any {
@@ -484,7 +505,6 @@ export class ReservationFormComponent {
             reservationId: '',
             date: this.helperService.readItem('date'),
             destinationId: 0, destinationDescription: '',
-            customerId: 0, customerDescription: '',
             pickupPointId: 0, pickupPointDescription: '',
             ticketNo: '',
             adults: 0,

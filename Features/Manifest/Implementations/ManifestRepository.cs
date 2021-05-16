@@ -13,20 +13,20 @@ namespace CorfuCruises.Manifest {
             this.mapper = mapper;
         }
 
-        public IEnumerable<ManifestResource> Get(string date, int shipId, int shipRouteId) {
+        public IEnumerable<ManifestResource> Get(string date, int shipId, int portId) {
             var manifest = context.Reservations
                 .Include(x => x.Ship)
-                .Include(x => x.ShipRoute)
+                .Include(x => x.Port)
                 .Include(x => x.Passengers).ThenInclude(x => x.Gender)
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                 .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
                 .AsEnumerable()
-                .Where(x => x.Date == date && x.ShipId == shipId && x.ShipRouteId == shipRouteId && x.Passengers.Any(x => x.IsCheckedIn))
-                .GroupBy(x => new { x.Date, x.Ship, x.ShipRoute })
+                .Where(x => x.Date == date && x.ShipId == shipId && x.PortId == portId && x.Passengers.Any(x => x.IsCheckedIn))
+                .GroupBy(x => new { x.Date, x.Ship, x.Port })
                 .Select(x => new ManifestViewModel {
                     Date = x.Key.Date,
                     Ship = x.Key.Ship.Description,
-                    Route = x.Key.ShipRoute.Description,
+                    Port = x.Key.Port.Description,
                     Passengers = x.SelectMany(x => x.Passengers).ToList()
                 });
             return mapper.Map<IEnumerable<ManifestResource>>(manifest);

@@ -21,6 +21,7 @@ import { User } from 'src/app/features/account/classes/user'
 import { UserService } from '../classes/user.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { AccountService } from 'src/app/shared/services/account.service'
 
 @Component({
     selector: 'edit-user-form',
@@ -51,7 +52,7 @@ export class EditUserFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, public dialog: MatDialog) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, public dialog: MatDialog) {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
                 this.getRecord(p.id)
@@ -95,6 +96,14 @@ export class EditUserFormComponent {
     //#endregion
 
     //#region public methods
+
+    public onCheckForAdmin(): boolean {
+        let isAdmin = false
+        this.accountService.currentUserRole.subscribe(result => {
+            isAdmin = result.toLowerCase() != 'admin'
+        })
+        return isAdmin
+    }
 
     public onChangePassword(): void {
         if (this.form.dirty) {
@@ -352,15 +361,6 @@ export class EditUserFormComponent {
 
     get isFirstLogin(): boolean {
         return this.form.value.oneTimePassword
-    }
-
-    get isLoggedInUserAdmin(): boolean {
-        if (this.isAdmin == null) {
-            this.userService.getSingle(this.helperService.readItem('userId')).subscribe(result => {
-                this.isAdmin = result.isAdmin
-            })
-        }
-        return this.isAdmin
     }
 
     //#endregion

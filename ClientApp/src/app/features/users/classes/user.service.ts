@@ -1,14 +1,16 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { DataService } from 'src/app/shared/services/data.service'
+// Custom
 import { ChangePassword } from './change-password'
+import { DataService } from 'src/app/shared/services/data.service'
+import { HelperService } from './../../../shared/services/helper.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class UserService extends DataService {
 
-    constructor(httpClient: HttpClient) {
+    constructor(httpClient: HttpClient, private helperService: HelperService) {
         super(httpClient, '/api/users')
     }
 

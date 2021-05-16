@@ -6,6 +6,7 @@ import { Title } from '@angular/platform-browser'
 import { takeUntil } from 'rxjs/operators'
 import moment from 'moment'
 // Custom
+import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CalendarLegendComponent } from './calendar-legend.component'
 import { Destination } from '../../destinations/classes/destination'
@@ -21,7 +22,6 @@ import { ScheduleCreateFormComponent } from './schedule-create-form.component'
 import { ScheduleService } from './../classes/schedule.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { AccountService } from 'src/app/shared/services/account.service'
 
 @Component({
     selector: 'schedule-wrapper',
@@ -58,7 +58,7 @@ export class ScheduleWrapperComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService,private buttonClickService: ButtonClickService, private destinationService: DestinationService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private portService: PortService, private reservationService: ReservationService, private scheduleService: ScheduleService, private titleService: Title, public dialog: MatDialog) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private destinationService: DestinationService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private portService: PortService, private reservationService: ReservationService, private scheduleService: ScheduleService, private titleService: Title, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
@@ -92,6 +92,7 @@ export class ScheduleWrapperComponent {
                 this.createCalendar(month)
                 this.markDaysOnCalendar()
                 this.hideDaysWithData()
+                this.storeFilters()
             })
         })
 
@@ -385,6 +386,10 @@ export class ScheduleWrapperComponent {
         domElements.forEach(element => {
             element.previousElementSibling.setAttribute("style", "display: block;")
         })
+    }
+
+    private storeFilters(): void {
+        this.helperService.saveItem('calendarDestinationId', this.destinationId.toString())
     }
 
     private subscribeToInteractionService(): void {

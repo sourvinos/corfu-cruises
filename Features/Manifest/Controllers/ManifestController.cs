@@ -23,9 +23,9 @@ namespace CorfuCruises.Manifest {
             this.mapper = mapper;
         }
 
-        [HttpGet("date/{date}/shipId/{shipId}/shipRouteId/{shipRouteId}")]
-        public IEnumerable<ManifestResource> Get(string date, int shipId, int shipRouteId) {
-            return this.repo.Get(date, shipId, shipRouteId);
+        [HttpGet("date/{date}/shipId/{shipId}/portId/{portId}")]
+        public IEnumerable<ManifestResource> Get(string date, int shipId, int portId) {
+            return this.repo.Get(date, shipId, portId);
         }
 
     }
