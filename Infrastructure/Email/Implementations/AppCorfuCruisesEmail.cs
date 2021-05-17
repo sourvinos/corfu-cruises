@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
@@ -6,9 +8,11 @@ namespace CorfuCruises {
 
     public class AppCorfuCruisesEmail : IEmailSender {
 
+        private readonly IWebHostEnvironment env;
         private readonly AppCorfuCruisesSettings settings;
 
-        public AppCorfuCruisesEmail(IOptions<AppCorfuCruisesSettings> settings) {
+        public AppCorfuCruisesEmail(IWebHostEnvironment env, IOptions<AppCorfuCruisesSettings> settings) {
+            this.env = env;
             this.settings = settings.Value;
         }
 
@@ -58,33 +62,14 @@ namespace CorfuCruises {
         public SendEmailResponse SendResetPasswordEmail(string displayName, string userEmail, string callbackUrl, string language) {
 
             var message = new MimeMessage();
+            var builder = new BodyBuilder();
 
-            var htmlContent = "";
-            var body = EmailMessages.ResetPassword(language);
+            builder.HtmlBody = this.GetTemplate().Replace("[username]", displayName).Replace("[email]", userEmail).Replace("[callbackUrl]", callbackUrl);
 
-            htmlContent += "<h1 style = 'font-weight: 500;'><span style = 'color: #0078d7;'>Corfu</span><span style = 'color: #5db2ff;'> Cruises</span></h1>";
-            htmlContent += "<p>" + body[0] + displayName + "!" + "</p>";
-            htmlContent += "<p>" + body[1] + "</p>";
-            htmlContent += "<p>" + body[2] + "</p>";
-            htmlContent += "<br>";
-            htmlContent += "<a style = 'font-variant: petite-caps; color: #ffffff; margin: 1rem; background-color: #55828B; padding: 1rem; border-radius: 5px; text-decoration: none;' href=" + callbackUrl + ">" + body[3] + "</a>";
-            htmlContent += "<br>";
-            htmlContent += "<br>";
-            htmlContent += "<p style = 'color: #ff0000;'>" + body[4] + "</p>";
-            htmlContent += "<p style = 'color: #ff0000;'>" + body[5] + "</p>";
-            htmlContent += "<p style = 'color: #ff0000;'>" + body[6] + "</p>";
-            htmlContent += "<br>";
-            htmlContent += "<p>" + body[7] + "</p>";
-            htmlContent += "<br>";
-            htmlContent += "<p>" + body[8] + "</p>";
-            htmlContent += "<p style = 'font-'>Corfu Cruises " + DateTime.Now.ToString("yyyy") + "</p>";
-
+            message.Body = builder.ToMessageBody();
             message.From.Add(new MailboxAddress(settings.From, settings.Username));
             message.To.Add(new MailboxAddress(displayName, userEmail));
-            message.Subject = body[9];
-            message.Body = new TextPart("html") {
-                Text = htmlContent
-            };
+            message.Subject = "HEY!";
 
             using (var client = new MailKit.Net.Smtp.SmtpClient()) {
                 client.Connect(settings.SmtpClient, settings.Port, false);
@@ -141,6 +126,18 @@ namespace CorfuCruises {
             }
 
             return new SendEmailResponse();
+        }
+
+        private string GetTemplate() {
+
+            string FilePath = Directory.GetCurrentDirectory() + "\\Infrastructure\\Email\\Views\\PasswordReset.html";
+            StreamReader streamReader = new StreamReader(FilePath);
+            string mailbody = streamReader.ReadToEnd();
+
+            streamReader.Close();
+
+            return mailbody;
+
         }
 
     }
