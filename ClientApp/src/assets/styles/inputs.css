@@ -48,12 +48,6 @@ input:disabled {
     margin-bottom: 0.625rem !important;
 }
 
-
-/* .mat-form-field-label {
-    font-family: var(--font-family-master) !important;
-    font-size: var(--font-size-label) !important;
-} */
-
 .mat-hint, .mat-error {
     font-size: var(--font-size-input-hint) !important;
     font-variant-caps: petite-caps !important;

@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Title } from '@angular/platform-browser'
-import { forkJoin, Subject, Subscription } from 'rxjs'
+import { forkJoin, Observable, Subject, Subscription } from 'rxjs'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { Customer } from '../../customers/classes/customer'
@@ -48,6 +48,7 @@ export class EditUserFormComponent {
     //#region particular variables
 
     public customers: any
+    private userRole: Observable<string>
 
     //#endregion
 
@@ -66,6 +67,7 @@ export class EditUserFormComponent {
         this.initForm()
         this.addShortcuts()
         this.populateDropDowns()
+        this.updateVariables()
     }
 
     ngAfterViewInit(): void {
@@ -151,10 +153,6 @@ export class EditUserFormComponent {
         }
     }
 
-    public onMustBeAdmin(): boolean {
-        return this.isAdmin()
-    }
-
     public onSave(): void {
         this.userService.update(this.form.value.id, this.form.value).subscribe(() => {
             this.resetForm()
@@ -235,17 +233,13 @@ export class EditUserFormComponent {
         })
     }
 
-    private updateUserRole(): void {
-        this.isAdmin = this.form.value.isAdmin
-    }
-
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: '',
             userName: ['', [Validators.required, Validators.maxLength(32)]],
             displayName: ['', [Validators.required, Validators.maxLength(32)]],
-            customerId: [''], customerDescription: [{ value: '', disabled: !this.isAdmin() }, Validators.required],
-            email: [{ value: '', disabled: !this.isAdmin() }, [Validators.required, Validators.email, Validators.maxLength(128)]],
+            customerId: [''], customerDescription: [{ value: '', disabled: !this.isUserAdmin() }, Validators.required],
+            email: [{ value: '', disabled: !this.isUserAdmin() }, [Validators.required, Validators.email, Validators.maxLength(128)]],
             isAdmin: false,
             isActive: true,
             oneTimePassword: [''],
@@ -253,7 +247,7 @@ export class EditUserFormComponent {
         })
     }
 
-    private isAdmin(): boolean {
+    private isUserAdmin(): boolean {
         let isAdmin = false
         this.accountService.currentUserRole.subscribe(result => {
             isAdmin = result.toLowerCase() == 'admin'
@@ -346,6 +340,14 @@ export class EditUserFormComponent {
         this.snackbarService.open(message, type)
     }
 
+    private updateVariables(): void {
+        this.userRole = this.accountService.currentUserRole
+    }
+
+    private updateUserRole(): void {
+        this.isUserAdmin = this.form.value.isAdmin
+    }
+
     //#endregion
 
     //#region getters
@@ -364,6 +366,14 @@ export class EditUserFormComponent {
 
     get isFirstLogin(): boolean {
         return this.form.value.oneTimePassword
+    }
+
+    get isConnectedUserAdmin(): boolean {
+        let isAdmin = false
+        this.userRole.subscribe(result => {
+            isAdmin = result == 'Admin' ? true : false
+        })
+        return isAdmin
     }
 
     //#endregion

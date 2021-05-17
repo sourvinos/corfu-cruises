@@ -28,11 +28,12 @@ namespace CorfuCruises {
         public async Task<IActionResult> Register([FromBody] RegisterViewModel formData) {
             if (ModelState.IsValid) {
                 var user = new AppUser {
-                    CustomerId = formData.LinkedCustomer,   
-                    Email = formData.Email,
-                    DisplayName = formData.Displayname,
                     UserName = formData.Username,
-                    IsAdmin = formData.IsAdmin, 
+                    DisplayName = formData.Displayname,
+                    CustomerId = formData.CustomerId,
+                    Email = formData.Email,
+                    IsAdmin = formData.IsAdmin,
+                    IsActive = formData.IsActive,
                     EmailConfirmed = true,
                     IsFirstLogin = true,
                     OneTimePassword = formData.Password,

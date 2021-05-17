@@ -110,6 +110,7 @@ namespace CorfuCruises {
             services.AddTransient<IValidator<Occupant>, OccupantValidator>();
             services.AddTransient<IValidator<PickupPoint>, PickupPointValidator>();
             services.AddTransient<IValidator<Port>, PortValidator>();
+            services.AddTransient<IValidator<RegisterViewModel>, RegisterValidator>();
             services.AddTransient<IValidator<Reservation>, ReservationValidator>();
             services.AddTransient<IValidator<Route>, RouteValidator>();
             services.AddTransient<IValidator<Schedule>, ScheduleValidator>();
