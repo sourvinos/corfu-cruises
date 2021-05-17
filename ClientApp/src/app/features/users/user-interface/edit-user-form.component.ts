@@ -47,7 +47,6 @@ export class EditUserFormComponent {
 
     //#region particular variables
 
-    private isAdmin: boolean
     public customers: any
 
     //#endregion
@@ -96,14 +95,6 @@ export class EditUserFormComponent {
     //#endregion
 
     //#region public methods
-
-    public onCheckForAdmin(): boolean {
-        let isAdmin = false
-        this.accountService.currentUserRole.subscribe(result => {
-            isAdmin = result.toLowerCase() != 'admin'
-        })
-        return isAdmin
-    }
 
     public onChangePassword(): void {
         if (this.form.dirty) {
@@ -158,6 +149,10 @@ export class EditUserFormComponent {
         if (filteredArray.length > 1) {
             this.showModalIndex(filteredArray, title, fields, headers, widths, visibility, justify, types)
         }
+    }
+
+    public onMustBeAdmin(): boolean {
+        return this.isAdmin()
     }
 
     public onSave(): void {
@@ -249,13 +244,21 @@ export class EditUserFormComponent {
             id: '',
             userName: ['', [Validators.required, Validators.maxLength(32)]],
             displayName: ['', [Validators.required, Validators.maxLength(32)]],
-            customerId: [''], customerDescription: [''],
-            email: ['', [Validators.required, Validators.email, Validators.maxLength(128)]],
+            customerId: [''], customerDescription: [{ value: '', disabled: !this.isAdmin() }, Validators.required],
+            email: [{ value: '', disabled: !this.isAdmin() }, [Validators.required, Validators.email, Validators.maxLength(128)]],
             isAdmin: false,
             isActive: true,
             oneTimePassword: [''],
             language: [''],
         })
+    }
+
+    private isAdmin(): boolean {
+        let isAdmin = false
+        this.accountService.currentUserRole.subscribe(result => {
+            isAdmin = result.toLowerCase() == 'admin'
+        })
+        return isAdmin
     }
 
     private patchFields(result: any, fields: any[]): void {
