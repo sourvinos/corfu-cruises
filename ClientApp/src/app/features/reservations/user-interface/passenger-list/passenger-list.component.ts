@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core'
-import { MatDialog } from '@angular/material/dialog'
 import { Guid } from 'guid-typescript'
+import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
-
+// Custom
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -48,7 +48,6 @@ export class PassengerListComponent {
         this.addShortcuts()
         this.subscribeToInteractionService()
     }
-
 
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()

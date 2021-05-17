@@ -10,7 +10,7 @@
         { "error": 492, "id": "unableToRegisterUser", "message": "Ο χρηστης με αυτα τα στοιχεια δεν μπορει να δημιουργηθει" },
         { "error": 494, "id": "unableToChangePassword", "message": "Ο κωδικος δεν μπορει να αλλαξει" },
         { "error": 495, "id": "accountNotConfirmed", "message": "Η εγγραφη του χρηστη δεν εχει ακομη επιβεβαιωθει" },
-        { "error": 499, "id": "redAlert", "message":"Κατι πηγε πολυ στραβα! αποσυνδεθειτε αμεσως" },
+        { "error": 499, "id": "redAlert", "message":"Κατι πηγε πολυ στραβα. αποσυνδεθειτε αμεσως" },
         { "id": "askConfirmationToAbortEditing", "message": "Αν συνεχισετε, οι αλλαγες θα χαθουν" },
         { "id": "askConfirmationToDelete", "message": "Αν συνεχισετε, η εγγραφη θα διαγραφει για παντα" },
         { "id": "emailSent", "message": "Σταλθηκε ενα email με οδηγιες" },
@@ -27,6 +27,8 @@
         { "id": "recordUpdated", "message": "Η εγγραφη ενημερωθηκε" },
         { "id": "selectedRecordsHaveBeenProcessed", "message": "Ολες οι επιλεγμενες εγγραφες ενημερωθηκαν" },
         { "id": "unableToResetPassword", "message": "Δεν μπορει να γινει επαναφορα κωδικου" },
-        { "id": "isOverbooking", "message": "Αυτη η κρατηση θα δημιουργησει υπεραριθμους επιβατες" }
+        { "id": "isOverbooking", "message": "Αυτη η κρατηση θα δημιουργησει υπεραριθμους επιβατες" },
+        { "id": "wrongPassengerCount", "message": "Ο αριθμος των επιβατων δεν συμφωνει με το συνολο των ατομων" },
+        { "id": "emptyEmail", "message": "Το email δεν μπορει να ειναι κενο" }
     ]
 }]

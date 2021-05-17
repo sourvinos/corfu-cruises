@@ -99,7 +99,7 @@
 
     <div id="footer">
         <div id="buttons">
-            <button mat-flat-button class="secondary" id="sendVoucher" (click)="onSendVoucher()">{{ onGetLabel('sendVoucherButton') }}</button>
+            <button mat-flat-button class="secondary" id="sendVoucher" (click)="onCheckToSendVoucher()" [disabled]="!email.hasError('maxlength') && email.hasError('email')">{{ onGetLabel('sendVoucherButton') }}</button>
             <button mat-flat-button class="delete" id="delete" (click)="onDelete()" *ngIf="form.value.id !== 0 && onMustBeAdmin()">{{ onGetLabel('deleteButton') }}</button>
             <button mat-flat-button class="primary" id="save" (click)="onValidateReservation()" [disabled]="!form.valid">{{ onGetLabel('saveButton') }}</button>
         </div>

@@ -27,6 +27,8 @@
         { "id": "recordUpdated", "message": "(CZ) This record was updated" },
         { "id": "selectedRecordsHaveBeenProcessed", "message": "(CZ) All selected records have been updated" },
         { "id": "unableToResetPassword", "message": "(CZ) The password can not be reset" },
-        { "id": "isOverbooking", "message": "(CZ) This reservation will cause overbooking" }
+        { "id": "isOverbooking", "message": "(CZ) This reservation will cause overbooking" },
+        { "id": "wrongPassengerCount", "message": "(CZ) The number of passengers must be equal to total persons" },
+        { "id": "emptyEmail", "message": "(CZ) The email can not be empty" }
     ]
 }]

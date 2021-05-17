@@ -139,6 +139,20 @@ export class ReservationFormComponent {
         return this.isAdmin()
     }
 
+    public correctPassengerCount(): boolean {
+        return this.mapPassengers().length == this.form.value.totalPersons && this.form.value.totalPersons > 0
+    }
+
+    public onCheckToSendVoucher(): void {
+        if (this.form.value.email != '')
+            if (this.correctPassengerCount())
+                this.sendVoucher()
+            else
+                this.showSnackbar(this.messageSnackbarService.wrongPassengerCount(), 'error')
+        else
+            this.showSnackbar(this.messageSnackbarService.emptyEmail(), 'error')
+    }
+
     public onDoBarcodeJobs(): void {
         this.createBarcodeFromTicket().then(() => {
             this.convertBarcodeToString().then((result) => {
@@ -197,7 +211,7 @@ export class ReservationFormComponent {
         })
     }
 
-    public onSendVoucher(): void {
+    private sendVoucher(): void {
         this.reservationService.sendVoucher(this.form.value).subscribe(() => {
             this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
         }, () => {
