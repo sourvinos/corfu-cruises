@@ -360,6 +360,10 @@ export class EditUserFormComponent {
         return this.form.get('displayName')
     }
 
+    get customerDescription(): AbstractControl {
+        return this.form.get('customerDescription')
+    }
+
     get email(): AbstractControl {
         return this.form.get('email')
     }

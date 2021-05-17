@@ -3,7 +3,7 @@ export const environment = {
     login: {
         username: 'sourvinos',
         email: 'johnsourvinos@hotmail.com',
-        password: '46929e6c-ee70-447a-ba35-542b4be14744',
+        password: '46929e6c-ee70-447a-ba35-542b4be14741',
         isHuman: true
     },
     newUser: {

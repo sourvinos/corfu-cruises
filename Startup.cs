@@ -32,13 +32,13 @@ namespace CorfuCruises {
             services.Configure<RazorViewEngineOptions>(option => option.ViewLocationExpanders.Add(new FeatureViewLocationExpander()));
             services.AddAntiforgery(options => { options.Cookie.Name = "_af"; options.Cookie.HttpOnly = true; options.Cookie.SecurePolicy = CookieSecurePolicy.Always; options.HeaderName = "X-XSRF-TOKEN"; });
             services.AddAutoMapper(typeof(Startup));
-            services.AddDbContext<DbContext>(options => options.UseMySql(Configuration.GetConnectionString("RemoteConnection"), new MySqlServerVersion(new Version(8, 0, 19))));
+            services.AddDbContext<DbContext>(options => options.UseMySql(Configuration.GetConnectionString("LocalConnection"), new MySqlServerVersion(new Version(8, 0, 19))));
             services.AddControllersWithViews().AddFluentValidation();
             services.AddDbContext<DbContext>();
             services.AddEmailSenders();
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             services.Configure<CookiePolicyOptions>(options => { options.CheckConsentNeeded = context => true; options.MinimumSameSitePolicy = SameSiteMode.None; });
-            services.Configure<GmailSettings>(options => Configuration.GetSection("GmailSettings").Bind(options));
+            services.Configure<AppCorfuCruisesSettings>(options => Configuration.GetSection("AppCorfuCruises").Bind(options));
             services.Configure<WebDefaultSettings>(options => Configuration.GetSection("WebDefaultSettings").Bind(options));
             services.Configure<TokenSettings>(options => Configuration.GetSection("TokenSettings").Bind(options));
         }
