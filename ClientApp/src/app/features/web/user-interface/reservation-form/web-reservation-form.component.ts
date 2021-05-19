@@ -184,7 +184,7 @@ export class WebReservationFormComponent {
     }
 
     public onValidateReservation(): void {
-        this.scheduleService.getForDateDestinationPort(this.form.value.date, this.form.value.destinationId, this.form.value.portId).then(result => {
+        this.scheduleService.getForDateAndDestinationAndPort(this.form.value.date, this.form.value.destinationId, this.form.value.portId).then(result => {
             result ? this.checkOverbooking(result) : this.showScheduleNotFound()
         })
     }

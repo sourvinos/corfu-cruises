@@ -206,8 +206,66 @@ export class ReservationFormComponent {
     }
 
     public onValidateReservation(): void {
-        this.scheduleService.getForDateDestinationPort(this.form.value.date, this.form.value.destinationId, this.form.value.portId).then(result => {
-            result ? this.checkOverbooking(result) : this.showScheduleNotFound()
+        let maxPersons = 0
+        let primaryPortMaxPersons = 0
+        let secondaryPortMaxPersons = 0
+        let reservationsPrimaryPort = 0
+        let reservationsSecondaryPort = 0
+        let overSecondaryPort = 0
+        this.scheduleService.getForDateAndDestination(this.form.value.date, this.form.value.destinationId).then(a => {
+            maxPersons = a.maxPersons
+            console.log('Max Persons', maxPersons)
+            if (maxPersons == 0) {
+                this.showScheduleNotFound()
+            } else {
+                this.scheduleService.getForDateAndDestinationAndPort(this.form.value.date, this.form.value.destinationId, 2).then(b => {
+                    primaryPortMaxPersons = b.maxPersons
+                    console.log('Primary port max persons', primaryPortMaxPersons)
+                    this.scheduleService.getForDateAndDestinationAndPort(this.form.value.date, this.form.value.destinationId, 3).then(c => {
+                        secondaryPortMaxPersons = c.maxPersons
+                        console.log('Secondary port max persons', secondaryPortMaxPersons)
+                        this.reservationService.getByDateDestinationPort(this.form.value.date, this.form.value.destinationId, 2).then(e => {
+                            reservationsPrimaryPort = e.totalPersons
+                            console.log('Primary port reservations', reservationsPrimaryPort)
+                            this.reservationService.getByDateDestinationPort(this.form.value.date, this.form.value.destinationId, 3).then(d => {
+                                reservationsSecondaryPort = d.totalPersons
+                                console.log('Secondary port reservations', reservationsSecondaryPort)
+                                if (reservationsSecondaryPort > secondaryPortMaxPersons) {
+                                    overSecondaryPort = reservationsSecondaryPort - secondaryPortMaxPersons
+                                    reservationsPrimaryPort += overSecondaryPort
+                                    console.log('Secondary has overbooking, transfering to primary', reservationsSecondaryPort - secondaryPortMaxPersons)
+                                    console.log('Primary port reservations', reservationsPrimaryPort)
+                                    if (reservationsPrimaryPort + reservationsSecondaryPort - overSecondaryPort + this.form.value.totalPersons > maxPersons) {
+                                        this.showSnackbar(this.messageSnackbarService.isOverbooking(), 'error')
+                                        console.log('STOP! OVERBOOKING')
+                                    } else {
+                                        console.log('OK. Continue')
+                                        this.save()
+                                    }
+                                } else {
+                                    if (this.form.value.portId == 2) {
+                                        if (reservationsPrimaryPort + this.form.value.totalPersons > primaryPortMaxPersons) {
+                                            this.showSnackbar(this.messageSnackbarService.isOverbooking(), 'error')
+                                            console.log('STOP! OVERBOOKING PRIMARY')
+                                        } else {
+                                            console.log('OK. Continue on primary')
+                                            this.save()
+                                        }
+                                    } else {
+                                        if (reservationsPrimaryPort + reservationsSecondaryPort + this.form.value.totalPersons > maxPersons) {
+                                            this.showSnackbar(this.messageSnackbarService.isOverbooking(), 'error')
+                                            console.log('STOP! OVERBOOKING')
+                                        } else {
+                                            console.log('OK. Continue')
+                                            this.save()
+                                        }
+                                    }
+                                }
+                            })
+                        })
+                    })
+                })
+            }
         })
     }
 
@@ -255,14 +313,6 @@ export class ReservationFormComponent {
         }, {
             priority: 3,
             inputs: true
-        })
-    }
-
-    private checkOverbooking(schedule: any): void {
-        this.reservationService.getByDateDestinationPort(this.form.value.date, this.form.value.destinationId, this.form.value.portId).then(reservations => {
-            if (this.isNotOverbooking(schedule, reservations, this.form.value.adults + this.form.value.kids + this.form.value.free)) {
-                this.save()
-            }
         })
     }
 
@@ -406,14 +456,6 @@ export class ReservationFormComponent {
 
     private isGuid(reservationId: string): any {
         return reservationId == '' ? null : reservationId
-    }
-
-    private isNotOverbooking(schedule: { maxPersons: any }, reservation: { totalPersons: any }, totalPersons: any): boolean {
-        if (reservation.totalPersons - this.savedTotalPersons + totalPersons > schedule.maxPersons) {
-            this.showSnackbar(this.messageSnackbarService.isOverbooking(), 'error')
-            return false
-        }
-        return true
     }
 
     private mapObject(): any {

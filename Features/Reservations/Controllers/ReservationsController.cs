@@ -39,8 +39,8 @@ namespace CorfuCruises {
         }
 
         [HttpGet("[action]/date/{date}/destinationId/{destinationId}/portId/{portId}")]
-        public ReservationTotalPersons GetForDateDestinationPort(string date, int destinationId, int portId) {
-            return repo.GetForDateDestinationPort(date, destinationId, portId);
+        public ReservationTotalPersons GetForDateAndDestinationAndPort(string date, int destinationId, int portId) {
+            return repo.GetForDateAndDestinationAndPort(date, destinationId, portId);
         }
 
         [HttpGet("{id}")]

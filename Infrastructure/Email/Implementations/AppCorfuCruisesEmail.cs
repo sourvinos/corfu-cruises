@@ -86,8 +86,6 @@ namespace CorfuCruises {
 
             var message = new MimeMessage();
             var passengers = "";
-            var pickupPointCoords = "https://www.google.gr/maps/place/Przystanek+autobusowy/@39.6510638,19.8423309,17z/data=!4m5!3m4!1s0x135b5b8d7c6f20b7:0x7852eadb7d4f8c91!8m2!3d39.6514545!4d19.8428187";
-            var portCoords = "https://www.google.gr/maps/place/39%C2%B037'41.8%22N+19%C2%B054'14.3%22E/@39.6282691,19.9017833,890m/data=!3m2!1e3!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d39.6282649!4d19.9039718";
 
             message.From.Add(new MailboxAddress("", "postmaster@appcorfucruises.com"));
             message.To.Add(new MailboxAddress("You", model.Email));
@@ -106,7 +104,6 @@ namespace CorfuCruises {
                         "Description: " + model.PickupPointDescription + "<br />" +
                         "Exact point: " + model.PickupPointExactPoint + "<br />" +
                         "Time: " + model.PickupPointTime + "<br />" +
-                    "<a href=" + pickupPointCoords + ">" + "Show pickup point on the map" + "</a>" + "<br />" +
                     "Phones: " + model.Phones + "<br />" +
                     "Special care: " + model.SpecialCare + "<br />" +
                     "Remarks: " + model.Remarks + "<br />" +
@@ -114,8 +111,7 @@ namespace CorfuCruises {
                     "Passengers " + "<br />" + passengers +
                     "<div style='align-items: center; display: flex; height: 200px; justify-content: center; margin-bottom: 1rem; margin-top: 1rem; width: 200px;'>" +
                         "<img src=" + model.URI + " />" + "<br />" +
-                    "</div>" +
-                     "In case you are going to the port on your own, click" + "<a href=" + portCoords + ">" + " here " + "</a>" + "to see the port on the map"
+                    "</div>"
             };
 
             using (var client = new MailKit.Net.Smtp.SmtpClient()) {
