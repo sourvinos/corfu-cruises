@@ -6,7 +6,7 @@ namespace CorfuCruises {
 
         SendEmailResponse SendResetPasswordEmail(string displayName, string userEmail, string callbackUrl, string language);
 
-        SendEmailResponse SendVoucher(Voucher model);
+        void EmailVoucher(Voucher voucher);
 
     }
 

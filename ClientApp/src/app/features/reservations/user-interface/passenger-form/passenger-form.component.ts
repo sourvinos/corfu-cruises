@@ -127,14 +127,6 @@ export class PassengerFormComponent {
         })
     }
 
-    public onSendVoucher(): void {
-        this.reservationService.sendVoucher(this.form.value).subscribe(() => {
-            this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
-        }, () => {
-            this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
-        })
-    }
-
     //#endregion
 
     //#region private methods

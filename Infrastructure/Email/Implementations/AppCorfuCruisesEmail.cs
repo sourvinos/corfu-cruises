@@ -1,5 +1,8 @@
 using System;
 using System.IO;
+using System.Linq;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using MimeKit;
@@ -10,10 +13,12 @@ namespace CorfuCruises {
 
         private readonly IWebHostEnvironment env;
         private readonly AppCorfuCruisesSettings settings;
+        private readonly IConverter converter;
 
-        public AppCorfuCruisesEmail(IWebHostEnvironment env, IOptions<AppCorfuCruisesSettings> settings) {
+        public AppCorfuCruisesEmail(IWebHostEnvironment env, IOptions<AppCorfuCruisesSettings> settings, IConverter converter) {
             this.env = env;
             this.settings = settings.Value;
+            this.converter = converter;
         }
 
         public SendEmailResponse SendFirstLoginCredentials(FirstLoginCredentialsViewModel model, string loginLink) {
@@ -64,12 +69,12 @@ namespace CorfuCruises {
             var message = new MimeMessage();
             var builder = new BodyBuilder();
 
-            builder.HtmlBody = this.GetTemplate().Replace("[username]", displayName).Replace("[email]", userEmail).Replace("[callbackUrl]", callbackUrl);
+            builder.HtmlBody = this.UpdateResetPasswordWithVariables(displayName, callbackUrl);
 
             message.Body = builder.ToMessageBody();
             message.From.Add(new MailboxAddress(settings.From, settings.Username));
             message.To.Add(new MailboxAddress(displayName, userEmail));
-            message.Subject = "HEY!";
+            message.Subject = "Your request for new password";
 
             using (var client = new MailKit.Net.Smtp.SmtpClient()) {
                 client.Connect(settings.SmtpClient, settings.Port, false);
@@ -82,38 +87,94 @@ namespace CorfuCruises {
 
         }
 
-        public SendEmailResponse SendVoucher(Voucher model) {
+        public void EmailVoucher(Voucher voucher) {
+            this.CreateVoucher(voucher);
+            this.SendVoucherToEmail(voucher);
+        }
 
-            var message = new MimeMessage();
-            var passengers = "";
+        private string updateVoucherWithVariables(string logo, string facebook, string youtube, string instagram, Voucher voucher) {
 
-            message.From.Add(new MailboxAddress("", "postmaster@appcorfucruises.com"));
-            message.To.Add(new MailboxAddress("You", model.Email));
+            var response = VoucherTemplate.GetHtmlString(voucher);
 
-            foreach (var passenger in model.Passengers) {
-                passengers += passenger.Lastname + " " + passenger.Firstname + " " + passenger.DoB.ToString("d MMMM yyyy") + "<br />";
-            }
+            var updatedResponse = response
+                .Replace("[logo]", logo)
+                .Replace("[date]", voucher.Date)
+                .Replace("[destination]", voucher.DestinationDescription)
+                .Replace("[time]", voucher.PickupPointTime)
+                .Replace("[exactPoint]", voucher.PickupPointExactPoint)
+                .Replace("[pickupPointDescription]", voucher.PickupPointDescription)
+                .Replace("[barcode]", voucher.URI)
+                .Replace("[facebook]", facebook)
+                .Replace("[youtube]", youtube)
+                .Replace("[instagram]", instagram);
+            return updatedResponse;
 
-            message.Subject = "Your Reservation With Corfu Cruises Is Ready!";
+        }
 
-            message.Body = new TextPart("Html") {
-                Text =
-                    "Date: " + model.Date.ToString("dddd, d MMMM yyyy") + "<br />" +
-                    "Destination: " + model.DestinationDescription + "<br />" +
-                    "Pickup point" + "<br />" +
-                        "Description: " + model.PickupPointDescription + "<br />" +
-                        "Exact point: " + model.PickupPointExactPoint + "<br />" +
-                        "Time: " + model.PickupPointTime + "<br />" +
-                    "Phones: " + model.Phones + "<br />" +
-                    "Special care: " + model.SpecialCare + "<br />" +
-                    "Remarks: " + model.Remarks + "<br />" +
-                    "<br />" +
-                    "Passengers " + "<br />" + passengers +
-                    "<div style='align-items: center; display: flex; height: 200px; justify-content: center; margin-bottom: 1rem; margin-top: 1rem; width: 200px;'>" +
-                        "<img src=" + model.URI + " />" + "<br />" +
-                    "</div>"
+        private string UpdateResetPasswordWithVariables(string displayName, string callbackUrl) {
+
+            var response = ResetPasswordTemplate.GetHtmlString(displayName, callbackUrl);
+
+            var updatedResponse = response
+                .Replace("[displayName]", displayName)
+                .Replace("[callbackUrl]", callbackUrl);
+            return updatedResponse;
+
+        }
+
+        private void CreateVoucher(Voucher voucher) {
+
+            var globalSettings = new GlobalSettings {
+                ColorMode = ColorMode.Color,
+                Orientation = Orientation.Portrait,
+                PaperSize = PaperKind.A4,
+                Margins = new MarginSettings { Top = 30, Bottom = 30, Left = 30, Right = 30 },
+                Out = "Output\\Voucher.pdf"
             };
 
+            var passengers = "";
+
+            foreach (var passenger in voucher.Passengers) {
+                passengers += passenger.Lastname + " " + passenger.Firstname + "<br />";
+            }
+
+            var cd = Directory.GetCurrentDirectory();
+
+            var objectSettings = new ObjectSettings {
+                HtmlContent = this.updateVoucherWithVariables(Logo.GetLogo(), Facebook.GetLogo(), YouTube.GetLogo(), Instagram.GetLogo(), voucher),
+                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "Voucher.css") }
+            };
+
+            var pdf = new HtmlToPdfDocument {
+                GlobalSettings = globalSettings,
+                Objects = { objectSettings }
+            };
+
+            converter.Convert(pdf);
+
+            var file = converter.Convert(pdf);
+
+        }
+
+        private SendEmailResponse SendVoucherToEmail(Voucher voucher) {
+
+            var attachment = new MimePart("image", "gif") {
+                Content = new MimeContent(File.OpenRead("Output\\Voucher.pdf"), ContentEncoding.Default),
+                ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+                ContentTransferEncoding = ContentEncoding.Base64,
+                FileName = Path.GetFileName("Output\\Voucher.pdf")
+            };
+
+            var message = new MimeMessage();
+
+            message.From.Add(new MailboxAddress("", "postmaster@appcorfucruises.com"));
+            message.To.Add(new MailboxAddress(voucher.Email, voucher.Email));
+            message.Subject = "Your Reservation With Corfu Cruises Is Ready!";
+
+            var multipart = new Multipart("mixed");
+            multipart.Add(attachment);
+            message.Body = multipart;
+
             using (var client = new MailKit.Net.Smtp.SmtpClient()) {
                 client.Connect(settings.SmtpClient, settings.Port, false);
                 client.Authenticate(settings.Username, settings.Password);
@@ -121,18 +182,10 @@ namespace CorfuCruises {
                 client.Disconnect(true);
             }
 
+            foreach (var part in message.BodyParts.OfType<MimePart>())
+                part.Content?.Stream.Dispose();
+
             return new SendEmailResponse();
-        }
-
-        private string GetTemplate() {
-
-            string FilePath = Directory.GetCurrentDirectory() + "\\Infrastructure\\Email\\Views\\PasswordReset.html";
-            StreamReader streamReader = new StreamReader(FilePath);
-            string mailbody = streamReader.ReadToEnd();
-
-            streamReader.Close();
-
-            return mailbody;
 
         }
 

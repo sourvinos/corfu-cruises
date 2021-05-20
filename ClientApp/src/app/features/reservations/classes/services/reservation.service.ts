@@ -14,18 +14,6 @@ export class ReservationService extends DataService {
         super(http, '/api/reservations')
     }
 
-    get(date: string): Observable<ReservationViewModel> {
-        return this.http.get<ReservationViewModel>(this.url + '/userId/' + this.helperService.readItem('userId') + '/date/' + date)
-    }
-
-    getByDate(destinationId: number): Promise<any> {
-        return this.http.get<ReservationByDate>(this.url + '/getForDestination' + '/destinationId/' + destinationId).toPromise()
-    }
-
-    getByDateDestinationPort(date: string, destinationId: number, portId: number): Promise<any> {
-        return this.http.get<any>(this.url + '/getForDateAndDestinationAndPort/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId).toPromise()
-    }
-
     assignToDriver(driverId: string, ids: string[]): Observable<any> {
         let params = new HttpParams().set('driverId', driverId).set('id', ids[0])
         ids.forEach((element, index) => {
@@ -46,8 +34,24 @@ export class ReservationService extends DataService {
         return this.http.patch(this.url + '/assignToShip?', null, { params: params })
     }
 
-    sendVoucher(formData: any): any {
-        return this.http.post<any>(this.url + '/sendVoucher', formData)
+    emailVoucher(formData: any): any {
+        return this.http.post<any>(this.url + '/emailVoucher', formData)
+    }
+
+    get(date: string): Observable<ReservationViewModel> {
+        return this.http.get<ReservationViewModel>(this.url + '/userId/' + this.helperService.readItem('userId') + '/date/' + date)
+    }
+
+    getByDate(destinationId: number): Promise<any> {
+        return this.http.get<ReservationByDate>(this.url + '/getForDestination' + '/destinationId/' + destinationId).toPromise()
+    }
+
+    getByDateDestinationPort(date: string, destinationId: number, portId: number): Promise<any> {
+        return this.http.get<any>(this.url + '/getForDateAndDestinationAndPort/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId).toPromise()
+    }
+
+    printVoucher(formData: any): any {
+        return this.http.get<any>(this.url + '/printVoucher', formData)
     }
 
 }

@@ -143,14 +143,29 @@ export class ReservationFormComponent {
         return this.mapPassengers().length == this.form.value.totalPersons && this.form.value.totalPersons > 0
     }
 
-    public onCheckToSendVoucher(): void {
-        if (this.form.value.email != '')
-            if (this.correctPassengerCount())
-                this.sendVoucher()
-            else
-                this.showSnackbar(this.messageSnackbarService.wrongPassengerCount(), 'error')
-        else
-            this.showSnackbar(this.messageSnackbarService.emptyEmail(), 'error')
+    // public onCheckToSendVoucher(): void {
+    //     if (this.form.value.email != '')
+    //         if (this.correctPassengerCount())
+    //             this.sendVoucher()
+    //         else
+    //             this.showSnackbar(this.messageSnackbarService.wrongPassengerCount(), 'error')
+    //     else
+    //         this.showSnackbar(this.messageSnackbarService.emptyEmail(), 'error')
+    // }
+
+    public onDoVoucherJobs(job: string): void {
+        if (this.correctPassengerCount()) {
+            if (job == 'email') {
+                if (this.form.value.email != '') {
+                    this.sendVoucher()
+                } else
+                    this.showSnackbar(this.messageSnackbarService.emptyEmail(), 'error')
+            }
+            if (job == 'print') {
+                this.printVoucher()
+            }
+        } else
+            this.showSnackbar(this.messageSnackbarService.wrongPassengerCount(), 'error')
     }
 
     public onDoBarcodeJobs(): void {
@@ -270,11 +285,20 @@ export class ReservationFormComponent {
     }
 
     private sendVoucher(): void {
-        this.reservationService.sendVoucher(this.form.value).subscribe(() => {
+        this.reservationService.emailVoucher(this.mapObjectToVoucher()).subscribe(() => {
             this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
         }, () => {
             this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
         })
+    }
+
+    private printVoucher(): void {
+        this.reservationService.printVoucher(this.mapObjectToVoucher()).subscribe(() => {
+            this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
+        }, () => {
+            this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
+        })
+
     }
 
     //#endregion
@@ -483,6 +507,23 @@ export class ReservationFormComponent {
         return reservation
     }
 
+    private mapObjectToVoucher(): any {
+        const form = this.form.value
+        const voucher = {
+            'date': this.formatDate(form.date),
+            'destinationDescription': form.destinationDescription,
+            'pickupPointDescription': form.pickupPointDescription,
+            'pickupPointExactPoint': form.pickupPointExactPoint,
+            'pickupPointTime': form.pickupPointTime,
+            'email': form.email,
+            'phones': form.phones,
+            'remarks': form.remarks,
+            'uri': form.uri,
+            'passengers': this.mapVoucherPassengers()
+        }
+        return voucher
+    }
+
     private mapPassengers(): any {
         const passengers = []
         this.form.value.passengers.forEach((element: any) => {
@@ -502,6 +543,18 @@ export class ReservationFormComponent {
         })
         return passengers
     }
+    private mapVoucherPassengers(): any {
+        const passengers = []
+        this.form.value.passengers.forEach((element: any) => {
+            const passenger = {
+                'lastname': element.lastname,
+                'firstname': element.firstname
+            }
+            passengers.push(passenger)
+        })
+        return passengers
+    }
+
 
     private patchFields(result: any, fields: any[]): void {
         if (result) {
