@@ -524,7 +524,7 @@
             },
             {
                 "id": "customer",
-                "description": "(CZ) Linked Customer"
+                "description": "Linked Customer"
             },
             {
                 "id": "email",
@@ -594,6 +594,10 @@
             {
                 "id": "isActive",
                 "description": "Active"
+            },
+            {
+                "id": "sendLoginCredentials",
+                "description": "Send to email"
             },
             {
                 "id": "saveButton",

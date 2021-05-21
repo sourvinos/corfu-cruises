@@ -33,17 +33,16 @@
                 <mat-error *ngIf="email.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-error *ngIf="email.hasError('email')">{{ onGetHint('invalid') }}</mat-error>
             </mat-form-field>
-            <mat-slide-toggle data-cy="isAdmin" *ngIf="isConnectedUserAdmin" formControlName="isAdmin">{{ onGetLabel('isAdmin') }}</mat-slide-toggle>
-            <mat-slide-toggle data-cy="isActive" *ngIf="isConnectedUserAdmin" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
+            <mat-slide-toggle data-cy="isAdmin" *ngIf="onMustBeAdmin()" formControlName="isAdmin">{{ onGetLabel('isAdmin') }}</mat-slide-toggle>
+            <mat-slide-toggle data-cy="isActive" *ngIf="onMustBeAdmin()" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
         </form>
         <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
     </div>
 
     <div id="footer">
         <div @slideFromRight id="buttons">
-            <button *ngIf="isConnectedUserAdmin" data-cy="delete" mat-flat-button class="delete" id="delete" (click)="onDelete()">{{ onGetLabel('deleteButton') }}</button>
+            <button *ngIf="onMustBeAdmin()" data-cy="delete" mat-flat-button class="delete" id="delete" (click)="onDelete()">{{ onGetLabel('deleteButton') }}</button>
             <button data-cy="changePassword" mat-flat-button class="secondary" id="changePassword" (click)="onChangePassword()">{{ onGetLabel('changePasswordButton') }}</button>
-            <button *ngIf="isConnectedUserAdmin && isFirstLogin" data-cy="sendEmailToUser" mat-flat-button class="secondary" id="sendEmailToUser" (click)="onSendFirstLoginCredentials()">{{ onGetLabel('sendEmailToUser') }}</button>
             <button data-cy="save" mat-flat-button class="primary" id="save" (click)="onSave()" [disabled]="!form.valid">{{ onGetLabel('saveButton') }}</button>
         </div>
     </div>

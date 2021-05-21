@@ -596,6 +596,10 @@
                 "description": "Ενεργος"
             },
             {
+                "id": "sendLoginCredentials",
+                "description": "Αποστολη στο email"
+            },
+            {
                 "id": "saveButton",
                 "description": "Αποθηκευση"
             }

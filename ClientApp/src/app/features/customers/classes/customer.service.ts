@@ -19,6 +19,10 @@ export class CustomerService extends DataService {
         return this.http.get<Customer[]>('/api/customers/getActive')
     }
 
+    public getSelectedFields(): Observable<any> {
+        return this.http.get<any[]>('/api/customers/GetFieldSubset')
+    }
+
     //#endregion
 
 }

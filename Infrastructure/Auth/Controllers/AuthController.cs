@@ -40,16 +40,6 @@ namespace CorfuCruises {
         private async Task<IActionResult> GenerateNewToken(TokenRequest model) {
             var user = await userManager.FindByNameAsync(model.Username);
             if (user != null && user.IsActive && await userManager.CheckPasswordAsync(user, model.Password)) {
-                if (this.IsFirstLogin(user)) {
-                    await this.UpdateFirstLogin(user);
-                } else {
-                    if (IsOneTimePasswordChanged(user) == false) {
-                        return StatusCode(401, new { response = ApiMessages.AuthenticationFailed() });
-                    }
-                }
-                if (!await userManager.IsEmailConfirmedAsync(user)) {
-                    return StatusCode(495, new { response = ApiMessages.AccountNotConfirmed() });
-                }
                 var newRefreshToken = CreateRefreshToken(settings.ClientId, user.Id);
                 var oldRefreshTokens = db.Tokens.Where(rt => rt.UserId == user.Id);
                 if (oldRefreshTokens != null) {
@@ -121,20 +111,6 @@ namespace CorfuCruises {
             } catch {
                 return StatusCode(401, new { response = ApiMessages.AuthenticationFailed() });
             }
-        }
-
-        private Boolean IsFirstLogin(AppUser user) {
-            return user.IsFirstLogin;
-        }
-
-        private bool IsOneTimePasswordChanged(AppUser user) {
-            return user.IsOneTimePasswordChanged;
-        }
-
-        private async Task<IdentityResult> UpdateFirstLogin(AppUser user) {
-            user.IsFirstLogin = false;
-            user.OneTimePassword = "";
-            return await userManager.UpdateAsync(user);
         }
 
     }

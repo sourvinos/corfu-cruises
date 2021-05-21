@@ -2,36 +2,6 @@ namespace CorfuCruises {
 
     public static class EmailMessages {
 
-        public static string AccountActivatedSuccessfully(string language) {
-            switch (language) {
-                case "el-GR":
-                    return "Αυτοσ ο λογαριασμοσ ειναι τωρα ενεργοσ!";
-                case "en-GB":
-                    return "This account is now active!";
-                case "de-DE":
-                    return "Dieses Benutzerkonto ist jetzt aktiv!";
-                case "cs-CZ":
-                    return "Účet je nyní aktivní!";
-                default:
-                    return "";
-            }
-        }
-
-        public static string AccountAlreadyActivatedOrError(string language) {
-            switch (language) {
-                case "el-GR":
-                    return "Αυτοσ ο λογαριασμοσ ειναι ηδη ενεργοσ!";
-                case "en-GB":
-                    return "This account is already active!";
-                case "de-DE":
-                    return "Dieses Benutzerkonto ist bereits aktiv!";
-                case "cs-CZ":
-                    return "Účet je již aktivní!";
-                default:
-                    return "";
-            }
-        }
-
         public static string[] FirstLoginCredentials(string language) {
             switch (language) {
                 case "cs-CZ":
@@ -54,9 +24,6 @@ namespace CorfuCruises {
                         "(DE) Use the following credentials to login:",
                         "(DE) User: " ,
                         "(DE) Password: ",
-                        "(DE) Warning:",
-                        "(DE) This is a one-time password and can be used only once.",
-                        "(DE) You must change it immediately after your first login.",
                         "(DE) Login",
                         "(DE) Thank you for using our online platform.",
                         "(DE) Best regards,",
@@ -68,9 +35,6 @@ namespace CorfuCruises {
                         "Χρησιμοποιηστε τα παρακατω στοιχεια για να συνδεθειτε:",
                         "Χρηστης: " ,
                         "Κωδικος: ",
-                        "Προσοχη:",
-                        "Ο κωδικος ειναι προσωρινος και μπορει να χρησιμοποιηθει μονο μια φορα.",
-                        "Πρεπει να τον αλλαξετε αμεσως μετα την πρωτη συνδεση σας.",
                         "Συνδεση",
                         "Ευχαριστουμε που χρησιμοποιειτε την online πλατφορμα μας.",
                         "Με φιλικους χαιρετισμους,",
@@ -82,9 +46,6 @@ namespace CorfuCruises {
                         "Use the following credentials to login:",
                         "User: " ,
                         "Password: ",
-                        "Warning:",
-                        "This is a one-time password and can be used only once.",
-                        "You must change it immediately after your first login.",
                         "Login",
                         "Thank you for using our online platform.",
                         "Best regards,",
@@ -96,9 +57,6 @@ namespace CorfuCruises {
                         "Use the following credentials to login:",
                         "User: " ,
                         "Password: ",
-                        "Warning:",
-                        "This is a one-time password and can be used only once.",
-                        "You must change it immediately after your first login.",
                         "Login",
                         "Thank you for using our online platform.",
                         "Best regards,",

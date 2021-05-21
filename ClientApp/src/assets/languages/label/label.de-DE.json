@@ -596,6 +596,10 @@
                 "description": "(DE) Active"
             },
             {
+                "id": "sendLoginCredentials",
+                "description": "Send to email"
+            },
+            {
                 "id": "saveButton",
                 "description": "(DE) Save"
             }

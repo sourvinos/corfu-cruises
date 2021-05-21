@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Title } from '@angular/platform-browser'
 import { forkJoin, Observable, Subject, Subscription } from 'rxjs'
 // Custom
+import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { Customer } from '../../customers/classes/customer'
 import { CustomerService } from '../../customers/classes/customer.service'
 import { DialogIndexComponent } from 'src/app/shared/components/dialog-index/dialog-index.component'
 import { DialogService } from 'src/app/shared/services/dialog.service'
@@ -21,7 +21,6 @@ import { User } from 'src/app/features/account/classes/user'
 import { UserService } from '../classes/user.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { AccountService } from 'src/app/shared/services/account.service'
 
 @Component({
     selector: 'edit-user-form',
@@ -120,14 +119,14 @@ export class EditUserFormComponent {
         })
     }
 
-    public onGetHint(id: string, minmax = 0): string {
-        return this.messageHintService.getDescription(id, minmax)
-    }
-
     public onGetEditUserCaller(): string {
         return this.helperService.readItem('editUserCaller')
     }
 
+    public onGetHint(id: string, minmax = 0): string {
+        return this.messageHintService.getDescription(id, minmax)
+    }
+    
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -153,6 +152,10 @@ export class EditUserFormComponent {
         }
     }
 
+    public onMustBeAdmin(): boolean {
+        return this.isAdmin()
+    }
+
     public onSave(): void {
         this.userService.update(this.form.value.id, this.form.value).subscribe(() => {
             this.resetForm()
@@ -163,8 +166,8 @@ export class EditUserFormComponent {
         })
     }
 
-    public onSendFirstLoginCredentials(): void {
-        this.userService.sendFirstLoginCredentials(this.form.value).subscribe(() => {
+    public onSendLoginCredentials(): void {
+        this.userService.sendLoginCredentials(this.form.value).subscribe(() => {
             this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
         }, errorCode => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
@@ -217,16 +220,9 @@ export class EditUserFormComponent {
         this.helperService.setFocus(field)
     }
 
-    private getCustomer(id: number): Promise<Customer> {
-        return this.customerService.getSingle(id).toPromise()
-    }
-
     private getRecord(id: string): void {
         this.userService.getSingle(id).subscribe(result => {
-            this.getCustomer(result.customerId).then((customer) => {
-                this.populateFields(result, customer)
-                this.updateUserRole()
-            })
+            this.populateFields(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             this.onGoBack()
@@ -238,16 +234,23 @@ export class EditUserFormComponent {
             id: '',
             userName: ['', [Validators.required, Validators.maxLength(32)]],
             displayName: ['', [Validators.required, Validators.maxLength(32)]],
-            customerId: [''], customerDescription: [{ value: '', disabled: !this.isUserAdmin() }, Validators.required],
-            email: [{ value: '', disabled: !this.isUserAdmin() }, [Validators.required, Validators.email, Validators.maxLength(128)]],
+            customerId: [0, Validators.required], customerDescription: [{ value: '', disabled: !this.isAdmin() }, Validators.required],
+            email: [{ value: '', disabled: !this.isAdmin() }, [Validators.required, Validators.email, Validators.maxLength(128)]],
             isAdmin: false,
             isActive: true,
-            oneTimePassword: [''],
             language: [''],
         })
     }
 
-    private isUserAdmin(): boolean {
+    private isAdmin(): boolean {
+        let isAdmin = false
+        this.accountService.currentUserRole.subscribe(result => {
+            isAdmin = result.toLowerCase() == 'admin'
+        })
+        return isAdmin
+    }
+
+    public isUserAdmin(): boolean {
         let isAdmin = false
         this.accountService.currentUserRole.subscribe(result => {
             isAdmin = result.toLowerCase() == 'admin'
@@ -270,7 +273,7 @@ export class EditUserFormComponent {
 
     private populateDropDowns(): Subscription {
         const sources = []
-        sources.push(this.customerService.getAllActive())
+        sources.push(this.customerService.getSelectedFields())
         return forkJoin(sources).subscribe(
             result => {
                 this.customers = result[0]
@@ -279,17 +282,16 @@ export class EditUserFormComponent {
         )
     }
 
-    private populateFields(result: User, customer: Customer): void {
+    private populateFields(result: User): void {
         this.form.setValue({
             id: result.id,
             userName: result.userName,
             displayName: result.displayName,
             customerId: result.customerId,
-            customerDescription: customer.description,
+            customerDescription: result.customerDescription,
             email: result.email,
             isAdmin: result.isAdmin,
             isActive: result.isActive,
-            oneTimePassword: result.oneTimePassword,
             language: this.helperService.readItem('language'),
         })
     }
@@ -344,10 +346,6 @@ export class EditUserFormComponent {
         this.userRole = this.accountService.currentUserRole
     }
 
-    private updateUserRole(): void {
-        this.isUserAdmin = this.form.value.isAdmin
-    }
-
     //#endregion
 
     //#region getters
@@ -366,18 +364,6 @@ export class EditUserFormComponent {
 
     get email(): AbstractControl {
         return this.form.get('email')
-    }
-
-    get isFirstLogin(): boolean {
-        return this.form.value.oneTimePassword
-    }
-
-    get isConnectedUserAdmin(): boolean {
-        let isAdmin = false
-        this.userRole.subscribe(result => {
-            isAdmin = result == 'Admin' ? true : false
-        })
-        return isAdmin
     }
 
     //#endregion

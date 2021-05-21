@@ -21,7 +21,7 @@ namespace CorfuCruises {
             this.converter = converter;
         }
 
-        public SendEmailResponse SendFirstLoginCredentials(FirstLoginCredentialsViewModel model, string loginLink) {
+        public SendEmailResponse SendLoginCredentials(LoginCredentialsViewModel model, string loginLink) {
 
             var message = new MimeMessage();
 
@@ -32,7 +32,7 @@ namespace CorfuCruises {
             htmlContent += "<p>" + body[0] + model.DisplayName + "!" + "</p>";
             htmlContent += "<p>" + body[1] + "</p>";
             htmlContent += "<p>" + body[2] + model.UserName + "</p>";
-            htmlContent += "<p>" + body[3] + model.OneTimePassword + "</p>";
+            htmlContent += "<p>" + body[3] + model.Password + "</p>";
             htmlContent += "<br>";
             htmlContent += "<a style = 'font-variant: petite-caps; color: #ffffff; margin: 1rem; background-color: #55828B; padding: 1rem; border-radius: 5px; text-decoration: none;' href=" + loginLink + ">" + body[7] + "</a>";
             htmlContent += "<br>";

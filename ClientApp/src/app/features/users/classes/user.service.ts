@@ -20,8 +20,8 @@ export class UserService extends DataService {
         return this.http.post<any>('/api/account/changePassword/', formData)
     }
 
-    public sendFirstLoginCredentials(formData: any): Observable<any> {
-        return this.http.post<any>('/api/users/sendFirstLoginCredentials/', formData)
+    public sendLoginCredentials(formData: any): Observable<any> {
+        return this.http.post<any>('/api/users/sendLoginCredentials/', formData)
     }
 
     //#endregion

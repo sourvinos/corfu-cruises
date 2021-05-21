@@ -40,7 +40,7 @@ namespace CorfuCruises {
         [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id) {
-            AppUser record = await userManager.FindByIdAsync(id);
+            AppUser record = await userManager.Users.Include(x => x.Customer).Where(x => x.Id == id).SingleOrDefaultAsync();
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -52,10 +52,10 @@ namespace CorfuCruises {
                 UserName = record.UserName,
                 DisplayName = record.DisplayName,
                 CustomerId = record.CustomerId,
+                CustomerDescription = record.Customer.Description,
                 Email = record.Email,
                 IsAdmin = record.IsAdmin,
-                IsActive = record.IsActive,
-                OneTimePassword = record.OneTimePassword
+                IsActive = record.IsActive
             };
             return StatusCode(200, vm);
         }
@@ -107,10 +107,10 @@ namespace CorfuCruises {
 
         [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
-        public IActionResult SendFirstLoginCredentials([FromBody] FirstLoginCredentialsViewModel model) {
+        public IActionResult SendLoginCredentials([FromBody] LoginCredentialsViewModel model) {
             string baseUrl = $"{Request.Scheme}://{Request.Host.Value}{Request.PathBase.Value}";
             string loginLink = Url.Content($"{baseUrl}/login");
-            var result = emailSender.SendFirstLoginCredentials(model, loginLink);
+            var result = emailSender.SendLoginCredentials(model, loginLink);
             if (result.Successful) {
                 return StatusCode(200, new { response = ApiMessages.EmailInstructions() });
             }

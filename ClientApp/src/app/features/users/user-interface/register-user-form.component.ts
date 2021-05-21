@@ -19,6 +19,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { RegisterUser } from '../../account/classes/register-user'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { UserService } from '../classes/user.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -53,7 +54,7 @@ export class RegisterUserFormComponent implements OnInit, AfterViewInit, OnDestr
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
@@ -131,6 +132,15 @@ export class RegisterUserFormComponent implements OnInit, AfterViewInit, OnDestr
             // 200 = Ok
             // 492 = Unable to register user (username and/or email already exist)
             // 500 = Invalid model
+            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+        })
+    }
+
+    public onSendLoginCredentials(): void {
+        this.flattenFormFields()
+        this.userService.sendLoginCredentials(this.flatForm).subscribe(() => {
+            this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+        }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
         })
     }

@@ -596,6 +596,10 @@
                 "description": "Aktivní"
             },
             {
+                "id": "sendLoginCredentials",
+                "description": "(CZ) Send to email"
+            },
+            {
                 "id": "saveButton",
                 "description": "Uložit"
             }

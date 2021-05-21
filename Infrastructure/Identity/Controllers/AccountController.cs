@@ -35,9 +35,6 @@ namespace CorfuCruises {
                     IsAdmin = formData.IsAdmin,
                     IsActive = formData.IsActive,
                     EmailConfirmed = true,
-                    IsFirstLogin = false,
-                    OneTimePassword = "",
-                    IsOneTimePasswordChanged = true,
                     SecurityStamp = Guid.NewGuid().ToString()
                 };
                 var result = await userManager.CreateAsync(user, formData.Password);
@@ -51,20 +48,6 @@ namespace CorfuCruises {
                 }
             }
             return StatusCode(400, new { response = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage) });
-        }
-
-        [AllowAnonymous]
-        [HttpGet("[action]")]
-        public async Task<IActionResult> ConfirmEmail(string userId, string token, string language) {
-            var user = await userManager.FindByIdAsync(userId);
-            if (user == null) { return RedirectToAction("ActivationError", "Notifications"); }
-            if (!user.EmailConfirmed) {
-                var result = await userManager.ConfirmEmailAsync(user, token);
-                if (result.Succeeded) {
-                    return View("ActivationSuccess", new ActivationMessage { description = EmailMessages.AccountActivatedSuccessfully(language) });
-                }
-            }
-            return View("ActivationError", new ActivationMessage { description = EmailMessages.AccountAlreadyActivatedOrError(language) });
         }
 
         [AllowAnonymous]
@@ -104,7 +87,6 @@ namespace CorfuCruises {
                     var result = await userManager.ResetPasswordAsync(user, Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(model.Token)), model.Password);
                     if (result.Succeeded) {
                         await signInManager.RefreshSignInAsync(user);
-                        await this.UpdateIsOneTimePasswordChanged(user);
                         return StatusCode(200, new { response = ApiMessages.PasswordReset() });
                     }
                     return StatusCode(494, new { response = result.Errors.Select(x => x.Description) });
@@ -123,7 +105,6 @@ namespace CorfuCruises {
                     var result = await userManager.ChangePasswordAsync(user, vm.CurrentPassword, vm.Password);
                     if (result.Succeeded) {
                         await signInManager.RefreshSignInAsync(user);
-                        await this.UpdateIsOneTimePasswordChanged(user);
                         return StatusCode(200, new { response = ApiMessages.PasswordChanged() });
                     }
                     return StatusCode(494, new { response = result.Errors.Select(x => x.Description) });
@@ -131,11 +112,6 @@ namespace CorfuCruises {
                 return StatusCode(404, new { response = ApiMessages.RecordNotFound() });
             }
             return StatusCode(400, new { response = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage) });
-        }
-
-        private async Task<IdentityResult> UpdateIsOneTimePasswordChanged(AppUser user) {
-            user.IsOneTimePasswordChanged = true;
-            return await userManager.UpdateAsync(user);
         }
 
     }

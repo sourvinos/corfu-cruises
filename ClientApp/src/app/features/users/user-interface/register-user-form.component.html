@@ -67,6 +67,7 @@
 
     <div id="footer">
         <div @slideFromRight id="buttons">
+            <button data-cy="save" mat-flat-button class="secondary" (click)="onSendLoginCredentials()" [disabled]="!form.valid">{{ onGetLabel('sendLoginCredentials') }}</button>
             <button data-cy="save" mat-flat-button class="primary" (click)="onSave()" [disabled]="!form.valid">{{ onGetLabel('saveButton') }}</button>
         </div>
     </div>

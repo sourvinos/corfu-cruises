@@ -31,6 +31,11 @@ namespace CorfuCruises {
             return await repo.GetActive(x => x.IsActive);
         }
 
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<CustomerResource>> GetFieldSubset() {
+            return await repo.GetFieldSubset();
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomer(int id) {
             Customer record = await repo.GetById(id);
