@@ -176,6 +176,7 @@ export class RegisterUserFormComponent implements OnInit, AfterViewInit, OnDestr
         this.flatForm = {
             userName: this.form.value.userName,
             displayName: this.form.value.displayName,
+            customerId: this.form.value.customerId,
             email: this.form.value.email,
             password: this.form.value.passwords.password,
             confirmPassword: this.form.value.passwords.confirmPassword,
@@ -192,14 +193,14 @@ export class RegisterUserFormComponent implements OnInit, AfterViewInit, OnDestr
         this.form = this.formBuilder.group({
             userName: [environment.newUser.username, [Validators.required, Validators.maxLength(32), ValidationService.containsSpace]],
             displayName: [environment.newUser.displayName, [Validators.required, Validators.maxLength(32)]],
-            customerId: [''], customerDescription: [''],
+            customerId: ['', Validators.required], customerDescription: ['', Validators.required],
             email: [environment.newUser.email, [Validators.required, Validators.maxLength(128), Validators.email]],
             passwords: this.formBuilder.group({
                 password: [environment.newUser.password, [Validators.required, Validators.minLength(10), Validators.maxLength(128), ValidationService.containsSpace]],
                 confirmPassword: [environment.newUser.confirmPassword, [Validators.required, ValidationService.containsSpace]]
             }, { validator: ValidationService.childrenEqual }),
             isAdmin: false,
-            isActive: false
+            isActive: true
         })
     }
 
@@ -217,7 +218,7 @@ export class RegisterUserFormComponent implements OnInit, AfterViewInit, OnDestr
 
     private populateDropDowns(): Subscription {
         const sources = []
-        sources.push(this.customerService.getAllActive())
+        sources.push(this.customerService.getAll())
         return forkJoin(sources).subscribe(
             result => {
                 this.customers = result[0]
@@ -286,6 +287,10 @@ export class RegisterUserFormComponent implements OnInit, AfterViewInit, OnDestr
 
     get userName(): AbstractControl {
         return this.form.get('userName')
+    }
+
+    get customerDescription(): AbstractControl {
+        return this.form.get('customerDescription')
     }
 
     get passwords(): AbstractControl {

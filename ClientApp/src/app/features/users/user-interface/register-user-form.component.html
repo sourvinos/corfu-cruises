@@ -28,6 +28,7 @@
             </div>
             <mat-form-field>
                 <input type="text" matInput [placeholder]="onGetLabel('customer')" formControlName="customerDescription" data-tabindex="3" id="customerDescription" [inputTabStop]="input" (change)="onLookupIndex(customers, 'customers', ['customerId', 'customerDescription', ''], ['customerId', 'customerDescription', ''], ['customerId', 'customerDescription', ''], ['1px', '440px', '56px'], ['none'], ['center', 'left', 'center'], ['', '', ''], $event)">
+                <mat-error *ngIf="customerDescription.hasError('required')">{{ onGetHint('required') }}</mat-error>                
             </mat-form-field>
             <mat-form-field>
                 <input data-cy="email" type="email" matInput [placeholder]="onGetLabel('email')" formControlName="email" data-tabindex="4" id="email" [inputTabStop]="input">

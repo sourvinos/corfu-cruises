@@ -35,9 +35,9 @@ namespace CorfuCruises {
                     IsAdmin = formData.IsAdmin,
                     IsActive = formData.IsActive,
                     EmailConfirmed = true,
-                    IsFirstLogin = true,
-                    OneTimePassword = formData.Password,
-                    IsOneTimePasswordChanged = false,
+                    IsFirstLogin = false,
+                    OneTimePassword = "",
+                    IsOneTimePasswordChanged = true,
                     SecurityStamp = Guid.NewGuid().ToString()
                 };
                 var result = await userManager.CreateAsync(user, formData.Password);

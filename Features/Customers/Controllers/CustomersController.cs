@@ -23,7 +23,7 @@ namespace CorfuCruises {
 
         [HttpGet]
         public async Task<IEnumerable<Customer>> Get() {
-            return await repo.Get(x => x.Id != 1);
+            return await repo.Get(x => x.Id != 0);
         }
 
         [HttpGet("[action]")]
