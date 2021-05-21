@@ -143,16 +143,6 @@ export class ReservationFormComponent {
         return this.mapPassengers().length == this.form.value.totalPersons && this.form.value.totalPersons > 0
     }
 
-    // public onCheckToSendVoucher(): void {
-    //     if (this.form.value.email != '')
-    //         if (this.correctPassengerCount())
-    //             this.sendVoucher()
-    //         else
-    //             this.showSnackbar(this.messageSnackbarService.wrongPassengerCount(), 'error')
-    //     else
-    //         this.showSnackbar(this.messageSnackbarService.emptyEmail(), 'error')
-    // }
-
     public onDoVoucherJobs(job: string): void {
         if (this.correctPassengerCount()) {
             if (job == 'email') {
@@ -412,10 +402,12 @@ export class ReservationFormComponent {
     private getCustomer(): void {
         const userId = this.helperService.readItem('userId')
         this.userService.getSingle(userId).subscribe(user => {
-            this.customerService.getSingle(user.customerId).subscribe(customer => {
-                this.form.patchValue({ customerId: customer.id })
-                this.form.patchValue({ customerDescription: customer.description })
-            })
+            if (user.isAdmin == false) {
+                this.customerService.getSingle(user.customerId).subscribe(customer => {
+                    this.form.patchValue({ customerId: customer.id })
+                    this.form.patchValue({ customerDescription: customer.description })
+                })
+            }
         })
     }
 

@@ -232,3 +232,6 @@ _Pvt_Extensions
 
 # AppSettings
 appsettings.json
+
+#PDF Creator
+**/*libwkhtmltox*.*
