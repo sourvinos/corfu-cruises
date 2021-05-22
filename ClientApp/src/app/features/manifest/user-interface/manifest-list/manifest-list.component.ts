@@ -39,12 +39,12 @@ export class ManifestListComponent {
 
     //#region table
 
-    headers = ['', 'headerId', 'headerLastname', 'headerFirstname', 'headerNationality', 'headerDoB', '']
-    widths = ['0px', '0px', '50%', '25%', '10%', '10%', '56px']
-    visibility = ['none', 'none', '', '', '', '', '']
-    justify = ['center', 'left', 'left', 'left', 'left', 'center', 'center']
-    types = ['', '', '', '', '', '', '']
-    fields = ['', 'reservationId', 'lastname', 'firstname', 'nationalityDescription', 'dob', '']
+    headers = ['', 'headerLineNo', 'headerId', 'headerLastname', 'headerFirstname', 'headerNationality', 'headerDoB', 'headerOccupant', 'headerGender', 'headerRemarks', 'headerSpecialCare', '']
+    widths = ['0px', '3%', '0px', '12%', '12%', '12%', '12%', '12%', '12%', '12%', '12%', '56px']
+    visibility = ['none', '', 'none', '', '', '', '', '', '', '', '', '']
+    justify = ['center', 'center', 'left', 'left', 'left', 'left', 'center', 'center', 'left', 'left', 'left', 'left']
+    types = ['', '', '', '', '', '', '', '', '', '', '', '']
+    fields = ['', '', 'reservationId', 'lastname', 'firstname', 'nationalityDescription', 'dob', 'occupantDescription', 'genderDescription', 'remarks', 'specialCare', '']
 
     //#endregion
 
@@ -102,7 +102,7 @@ export class ManifestListComponent {
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }
     }
- 
+
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }

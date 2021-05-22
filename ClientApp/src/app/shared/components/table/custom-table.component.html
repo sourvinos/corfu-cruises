@@ -12,6 +12,9 @@
                 <div *ngIf="i == 0">
                     <mat-checkbox (click)="onToggleCheckBox(rowIndex + 1)" [checked]="isColumnChecked"></mat-checkbox>
                 </div>
+                <div *ngIf="i == 1">
+                    {{ rowIndex + 1 }}
+                </div>
                 <div *ngIf="i + 1 == fields.length; else elseBlock">
                     <button mat-icon-button [matMenuTriggerFor]="menu" class="button-row-menu">
                         <mat-icon>more_vert</mat-icon>

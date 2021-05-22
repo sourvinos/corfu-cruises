@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import * as pdfMake from 'pdfmake/build/pdfmake.js'
 import * as pdfFonts from 'pdfmake/build/vfs_fonts.js'
-import { ManifestPassenger } from '../view-models/manifest-passenger'
 // Custom
+import { ManifestPassenger } from '../view-models/manifest-passenger'
 import { ManifestViewModel } from './../view-models/manifest-view-model'
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs
@@ -17,10 +17,10 @@ export class ManifestPdfService {
         const dd = {
             pageMargins: [50, 40, 50, 50],
             pageOrientation: 'portrait',
-            defaultStyle: { fontSize: 8 },
+            defaultStyle: { fontSize: 7 },
             header: this.createPageHeader(manifest),
             footer: 'Footer',
-            content: this.table(manifest, ['lastname', 'firstname', 'dob', 'remarks', 'specialCare', 'nationalityDescription', 'occupantDescription', 'genderDescription'], ['left', 'left', 'left', 'left', 'left', 'left', 'left', 'left'])
+            content: this.table(manifest, ['lastname', 'firstname', 'dob', 'nationalityDescription', 'occupantDescription', 'genderDescription', 'specialCare', 'remarks'], ['left', 'left', 'left', 'left', 'left', 'left', 'left', 'left'])
         }
         this.createPdf(dd)
     }
@@ -36,7 +36,7 @@ export class ManifestPdfService {
                 dontBreakRows: true,
                 body: this.buildTableBody(data, columns, align),
                 heights: 10,
-                widths: ['10%', '20%', '20%', '10%', '10%', '10%', '10%', '10%'],
+                widths: ['25%', '20%', '10%', '10%', '10%', '10%', '10%', '10%'],
             },
             layout: {
                 vLineColor: function (i: number, node: { table: { widths: string | any[] } }): any { return (i === 1 || i === node.table.widths.length - 1) ? '#dddddd' : '#dddddd' },
@@ -62,12 +62,12 @@ export class ManifestPdfService {
         return [
             { text: 'Last name', style: 'tableHeader', alignment: 'left', bold: true },
             { text: 'First name', style: 'tableHeader', alignment: 'left', bold: true },
-            { text: 'Nationality', style: 'tableHeader', alignment: 'left', bold: true },
             { text: 'DoB', style: 'tableHeader', alignment: 'left', bold: true },
+            { text: 'Nationality', style: 'tableHeader', alignment: 'left', bold: true },
+            { text: 'Occupant', style: 'tableHeader', alignment: 'left', bold: true },
+            { text: 'Gender', style: 'tableHeader', alignment: 'left', bold: true },
             { text: 'Special care', style: 'tableHeader', alignment: 'left', bold: true },
             { text: 'Remarks', style: 'tableHeader', alignment: 'left', bold: true },
-            { text: 'Occupant', style: 'tableHeader', alignment: 'left', bold: true },
-            { text: 'Gender', style: 'tableHeader', alignment: 'left', bold: true }
         ]
     }
 
