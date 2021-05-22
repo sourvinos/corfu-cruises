@@ -1,6 +1,4 @@
 using AutoMapper;
-using DinkToPdf;
-using DinkToPdf.Contracts;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.IO;
 
 namespace CorfuCruises {
 
@@ -32,13 +29,10 @@ namespace CorfuCruises {
             Extensions.AddInterfaces(services);
             Extensions.AddValidation(services);
             // Base
-            var context = new CustomAssemblyLoadContext();
-            context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll"));
-            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.Configure<RazorViewEngineOptions>(option => option.ViewLocationExpanders.Add(new FeatureViewLocationExpander()));
             services.AddAntiforgery(options => { options.Cookie.Name = "_af"; options.Cookie.HttpOnly = true; options.Cookie.SecurePolicy = CookieSecurePolicy.Always; options.HeaderName = "X-XSRF-TOKEN"; });
             services.AddAutoMapper(typeof(Startup));
-            services.AddDbContext<DbContext>(options => options.UseMySql(Configuration.GetConnectionString("LocalConnection"), new MySqlServerVersion(new Version(8, 0, 19))));
+            services.AddDbContext<DbContext>(options => options.UseMySql(Configuration.GetConnectionString("RemoteConnection"), new MySqlServerVersion(new Version(8, 0, 19))));
             services.AddControllersWithViews().AddFluentValidation();
             services.AddDbContext<DbContext>();
             services.AddEmailSenders();
@@ -53,13 +47,6 @@ namespace CorfuCruises {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             } else {
-                app.Use(async (context, next) => {
-                    await next();
-                    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value)) {
-                        context.Request.Path = "/index.html";
-                        await next();
-                    }
-                });
                 app.UseSpaStaticFiles();
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();

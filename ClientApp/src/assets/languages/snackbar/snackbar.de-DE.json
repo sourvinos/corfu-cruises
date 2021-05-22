@@ -29,6 +29,7 @@
         { "id": "unableToResetPassword", "message": "(DE) The password can not be reset" },
         { "id": "isOverbooking", "message": "(DE) This reservation will cause overbooking" },
         { "id": "wrongPassengerCount", "message": "(DE) The number of passengers must be equal to total persons" },
-        { "id": "emptyEmail", "message": "(DE) The email can not be empty" }
+        { "id": "emptyEmail", "message": "(DE) The email can not be empty" },
+        { "id": "emptyEmail", "message": "(DE) This option is not available" }
       ]
 }]

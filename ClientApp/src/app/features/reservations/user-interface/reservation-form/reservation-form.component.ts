@@ -143,19 +143,8 @@ export class ReservationFormComponent {
         return this.mapPassengers().length == this.form.value.totalPersons && this.form.value.totalPersons > 0
     }
 
-    public onDoVoucherJobs(job: string): void {
-        if (this.correctPassengerCount()) {
-            if (job == 'email') {
-                if (this.form.value.email != '') {
-                    this.sendVoucher()
-                } else
-                    this.showSnackbar(this.messageSnackbarService.emptyEmail(), 'error')
-            }
-            if (job == 'print') {
-                this.printVoucher()
-            }
-        } else
-            this.showSnackbar(this.messageSnackbarService.wrongPassengerCount(), 'error')
+    public onDoVoucherJobs(): void {
+        this.showSnackbar(this.messageSnackbarService.emptyEmail(), 'error')
     }
 
     public onDoBarcodeJobs(): void {

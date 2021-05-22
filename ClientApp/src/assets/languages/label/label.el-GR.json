@@ -835,6 +835,10 @@
                 "description": "Διαγραφη"
             },
             {
+                "id": "printVoucherButton",
+                "description": "Εκτυπωση"
+            },
+            {
                 "id": "sendVoucherButton",
                 "description": "Αποστολη στο email"
             },

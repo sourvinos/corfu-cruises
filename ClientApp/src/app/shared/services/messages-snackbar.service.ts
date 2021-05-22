@@ -67,6 +67,7 @@ export class MessageSnackbarService {
     public isOverbooking(): string { return this.getDescription(this.feature, "isOverbooking") }
     public wrongPassengerCount(): string { return this.getDescription(this.feature, "wrongPassengerCount") }
     public emptyEmail(): string { return this.getDescription(this.feature, "emptyEmail") }
+    public pending(): string { return this.getDescription(this.feature, "pending") }
 
     public filterError(errorCode: number, feature = 'snackbarMessages'): string {
         let returnValue = ''

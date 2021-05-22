@@ -1,8 +1,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using DinkToPdf;
-using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using MimeKit;
@@ -13,12 +11,10 @@ namespace CorfuCruises {
 
         private readonly IWebHostEnvironment env;
         private readonly AppCorfuCruisesSettings settings;
-        private readonly IConverter converter;
 
-        public AppCorfuCruisesEmail(IWebHostEnvironment env, IOptions<AppCorfuCruisesSettings> settings, IConverter converter) {
+        public AppCorfuCruisesEmail(IWebHostEnvironment env, IOptions<AppCorfuCruisesSettings> settings) {
             this.env = env;
             this.settings = settings.Value;
-            this.converter = converter;
         }
 
         public SendEmailResponse SendLoginCredentials(LoginCredentialsViewModel model, string loginLink) {
@@ -92,25 +88,6 @@ namespace CorfuCruises {
             this.SendVoucherToEmail(voucher);
         }
 
-        private string updateVoucherWithVariables(string logo, string facebook, string youtube, string instagram, Voucher voucher) {
-
-            var response = VoucherTemplate.GetHtmlString(voucher);
-
-            var updatedResponse = response
-                .Replace("[logo]", logo)
-                .Replace("[date]", voucher.Date)
-                .Replace("[destination]", voucher.DestinationDescription)
-                .Replace("[time]", voucher.PickupPointTime)
-                .Replace("[exactPoint]", voucher.PickupPointExactPoint)
-                .Replace("[pickupPointDescription]", voucher.PickupPointDescription)
-                .Replace("[barcode]", voucher.URI)
-                .Replace("[facebook]", facebook)
-                .Replace("[youtube]", youtube)
-                .Replace("[instagram]", instagram);
-            return updatedResponse;
-
-        }
-
         private string UpdateResetPasswordWithVariables(string displayName, string callbackUrl) {
 
             var response = ResetPasswordTemplate.GetHtmlString(displayName, callbackUrl);
@@ -122,39 +99,7 @@ namespace CorfuCruises {
 
         }
 
-        private void CreateVoucher(Voucher voucher) {
-
-            var globalSettings = new GlobalSettings {
-                ColorMode = ColorMode.Color,
-                Orientation = Orientation.Portrait,
-                PaperSize = PaperKind.A4,
-                Margins = new MarginSettings { Top = 30, Bottom = 30, Left = 30, Right = 30 },
-                Out = "Output\\Voucher.pdf"
-            };
-
-            var passengers = "";
-
-            foreach (var passenger in voucher.Passengers) {
-                passengers += passenger.Lastname + " " + passenger.Firstname + "<br />";
-            }
-
-            var cd = Directory.GetCurrentDirectory();
-
-            var objectSettings = new ObjectSettings {
-                HtmlContent = this.updateVoucherWithVariables(Logo.GetLogo(), Facebook.GetLogo(), YouTube.GetLogo(), Instagram.GetLogo(), voucher),
-                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "Voucher.css") }
-            };
-
-            var pdf = new HtmlToPdfDocument {
-                GlobalSettings = globalSettings,
-                Objects = { objectSettings }
-            };
-
-            converter.Convert(pdf);
-
-            var file = converter.Convert(pdf);
-
-        }
+        private void CreateVoucher(Voucher voucher) { }
 
         private SendEmailResponse SendVoucherToEmail(Voucher voucher) {
 

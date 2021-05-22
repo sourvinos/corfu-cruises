@@ -835,6 +835,10 @@
                 "description": "Vymazat"
             },
             {
+                "id": "printVoucherButton",
+                "description": "(CZ) Print"
+            },
+            {
                 "id": "sendVoucherButton",
                 "description": "(CZ) Send to email"
             },

@@ -835,6 +835,10 @@
                 "description": "(DE) Delete"
             },
             {
+                "id": "printVoucherButton",
+                "description": "(DE) Print"
+            },
+            {
                 "id": "sendVoucherButton",
                 "description": "(DE) Send to email"
             },

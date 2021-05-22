@@ -29,6 +29,7 @@
         { "id": "unableToResetPassword", "message": "Δεν μπορει να γινει επαναφορα κωδικου" },
         { "id": "isOverbooking", "message": "Αυτη η κρατηση θα δημιουργησει υπεραριθμους επιβατες" },
         { "id": "wrongPassengerCount", "message": "Ο αριθμος των επιβατων δεν συμφωνει με το συνολο των ατομων" },
-        { "id": "emptyEmail", "message": "Το email δεν μπορει να ειναι κενο" }
+        { "id": "emptyEmail", "message": "Το email δεν μπορει να ειναι κενο" },
+        { "id": "emptyEmail", "message": "Η επιλογη δεν ειναι διαθεσιμη" }
     ]
 }]
