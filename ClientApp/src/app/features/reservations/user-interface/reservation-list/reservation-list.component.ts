@@ -81,7 +81,7 @@ export class ReservationListComponent {
     //#region table
 
     headers = ['', 'Id', 'headerTicketNo', 'headerDestination', 'headerDestinationAbbreviation', 'headerRoute', 'headerCustomer', 'headerPickupPoint', 'headerTime', 'headerAdults', 'headerKids', 'headerFree', 'headerTotal', 'headerDriver', 'headerPort', 'headerShip', '']
-    widths = ['40px', '0px', '60px', '180px', '0px', '120px', '180px', '180px', '50px', '40px', '40px', '40px', '40px', '100px', '100px', '100px', '45px']
+    widths = ['40px', '0px', '100px', '180px', '0px', '120px', '180px', '180px', '50px', '40px', '40px', '40px', '40px', '100px', '100px', '100px', '45px']
     visibility = ['', 'none', '', '', 'none']
     justify = ['center', 'left', 'center', 'left', 'left', 'left', 'left', 'left', 'center', 'right', 'right', 'right', 'right', 'left', 'left', 'left', 'center']
     types = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
