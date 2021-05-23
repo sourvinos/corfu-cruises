@@ -298,6 +298,16 @@ export class ReservationListComponent {
         })
     }
 
+    private determinePanelToFocus(): void {
+        console.log('2. focusing')
+        const panelToFocus = this.helperService.readItem('focusOnTheList')
+        if (panelToFocus == 'true') {
+            this.onFocusListPanel()
+        } else {
+            this.onFocusSummaryPanel()
+        }
+    }
+
     private editRecord(id: number): void {
         this.router.navigate(['reservation/', id], { relativeTo: this.activatedRoute })
     }
@@ -373,6 +383,7 @@ export class ReservationListComponent {
     }
 
     private loadRecords(): void {
+        console.log('1. loading')
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.queryResult = listResolved.result

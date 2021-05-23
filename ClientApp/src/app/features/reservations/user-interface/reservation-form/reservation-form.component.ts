@@ -115,6 +115,7 @@ export class ReservationFormComponent {
             this.dialogService.open('warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
+                    this.mustStayOnTheList(true)
                     this.onGoBack()
                     return true
                 }
@@ -160,6 +161,7 @@ export class ReservationFormComponent {
             if (response) {
                 this.reservationService.delete(this.form.value.reservationId).subscribe(() => {
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                    this.mustStayOnTheList(true)
                     this.onGoBack()
                     this.interactionService.removeTableRow(this.getRowIndex(this.form.value.reservationId))
                     this.resetForm()
@@ -288,6 +290,7 @@ export class ReservationFormComponent {
         this.unlisten = this.keyboardShortcutsService.listen({
             'Escape': () => {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
+                    this.mustStayOnTheList(true)
                     this.onGoBack()
                 }
             },
@@ -410,6 +413,7 @@ export class ReservationFormComponent {
             })
         }, errorCode => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            this.mustStayOnTheList(false)
             this.onGoBack()
         })
     }
@@ -670,6 +674,7 @@ export class ReservationFormComponent {
                 this.resetForm()
                 this.refreshSummary()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                this.mustStayOnTheList(true)
                 this.onGoBack()
             }, errorCode => {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
@@ -678,6 +683,7 @@ export class ReservationFormComponent {
             this.reservationService.update(this.form.value.reservationId, reservation).subscribe(() => {
                 this.resetForm()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                this.mustStayOnTheList(true)
                 this.onGoBack()
             }, errorCode => {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
@@ -719,6 +725,10 @@ export class ReservationFormComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
+    }
+
+    private mustStayOnTheList(mustStayOnTheList: boolean): void {
+        this.helperService.saveItem('focusOnTheList', mustStayOnTheList.toString())
     }
 
     private updateTotalPersons(result: { totalPersons: number }): void {
