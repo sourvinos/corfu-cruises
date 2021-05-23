@@ -5,6 +5,7 @@
         { "error": 401, "id": "authenticationFailed", "message": "(DE) Authentication failed" },
         { "error": 403, "id": "authorizationFailed", "message": "(DE) This action requires higher authorization level" },
         { "error": 404, "id": "recordNotFound", "message": "(DE) This record can not be found" },
+        { "error": 409, "id": "duplicateRecord", "message": "(DE) This record in not unique" },
         { "error": 490, "id": "unableToSaveRecord", "message": "(DE) This record could not be saved" },
         { "error": 491, "id": "recordInUse", "message": "(DE) This record is in use and can not be deleted" },
         { "error": 492, "id": "unableToRegisterUser", "message": "(DE) A user with these details can not be created" },

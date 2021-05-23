@@ -27,6 +27,7 @@ namespace CorfuCruises {
         public static string RecordNotSaved() { return "Record not saved."; }
         public static string InvalidModel() { return "The model is invalid"; }
         public static string EmailNotSent() { return "Email not sent"; }
+        public static string DuplicateRecord() { return "Duplicate records are not allowed"; }
 
         #endregion
 

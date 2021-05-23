@@ -27,6 +27,7 @@ namespace CorfuCruises {
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Reservation>().HasAlternateKey(x => new { x.Date, x.TicketNo });
             modelBuilder.Entity<Reservation>().Property(p => p.TotalPersons).ValueGeneratedOnAddOrUpdate();
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
         }

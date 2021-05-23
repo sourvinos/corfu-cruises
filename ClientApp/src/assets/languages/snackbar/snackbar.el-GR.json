@@ -5,6 +5,7 @@
         { "error": 401, "id": "authenticationFailed", "message": "Ο συνδυασμος χρηστης / κωδικος ειναι λαθος" },
         { "error": 403, "id": "authorizationFailed", "message": "Αυτη η επιλογη απαιτει εξουσιοδοτηση υψηλοτερου επιπεδου" },
         { "error": 404, "id": "recordNotFound", "message": "Η εγγραφη δεν βρεθηκε" },
+        { "error": 409, "id": "duplicateRecord", "message": "Η εγγραφη δεν ειναι μοναδικη" },
         { "error": 490, "id": "unableToSaveRecord", "message": "Η εγγραφη δεν αποθηκευτηκε" },
         { "error": 491, "id": "recordInUse", "message": "Η εγγραφη χρησιμοποιειται και δεν μπορει να διαγραφει" },
         { "error": 492, "id": "unableToRegisterUser", "message": "Ο χρηστης με αυτα τα στοιχεια δεν μπορει να δημιουργηθει" },

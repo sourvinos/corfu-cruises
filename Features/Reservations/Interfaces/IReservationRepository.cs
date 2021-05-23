@@ -12,6 +12,7 @@ namespace CorfuCruises {
         bool Update(string id, Reservation updatedRecord);
         void AssignToDriver(int driverId, string[] ids);
         void AssignToShip(int shipId, string[] ids);
+        bool IsKeyUnique(ReservationWriteResource record);
 
     }
 
