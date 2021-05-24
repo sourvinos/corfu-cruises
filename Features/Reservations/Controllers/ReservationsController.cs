@@ -59,7 +59,7 @@ namespace CorfuCruises {
         public IActionResult PostReservation([FromBody] ReservationWriteResource record) {
             if (ModelState.IsValid) {
                 try {
-                    if (repo.IsKeyUnique(record)) {
+                    if (repo.IsKeyUniqueOnAdd(record)) {
                         repo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                         return StatusCode(200, new {
                             response = ApiMessages.RecordCreated()

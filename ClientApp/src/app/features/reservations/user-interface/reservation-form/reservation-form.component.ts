@@ -528,6 +528,7 @@ export class ReservationFormComponent {
         })
         return passengers
     }
+
     private mapVoucherPassengers(): any {
         const passengers = []
         this.form.value.passengers.forEach((element: any) => {
@@ -539,7 +540,6 @@ export class ReservationFormComponent {
         })
         return passengers
     }
-
 
     private patchFields(result: any, fields: any[]): void {
         if (result) {

@@ -147,8 +147,15 @@ namespace CorfuCruises {
             return user;
         }
 
-        public bool IsKeyUnique(ReservationWriteResource record) {
-            if (context.Reservations.Count(x => x.Date == record.Date && x.TicketNo.ToUpper() == record.TicketNo.ToUpper()) == 0) {
+        public bool IsKeyUniqueOnAdd(ReservationWriteResource record) {
+            if (context.Reservations.Count(x => x.Date == record.Date && x.CustomerId == record.CustomerId && x.TicketNo.ToUpper() == record.TicketNo.ToUpper()) == 0) {
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsKeyUniqueOnEdit(ReservationWriteResource record) {
+            if (context.Reservations.Count(x => x.Date == record.Date && x.CustomerId == record.CustomerId && x.TicketNo.ToUpper() == record.TicketNo.ToUpper()) == 1) {
                 return true;
             }
             return false;
