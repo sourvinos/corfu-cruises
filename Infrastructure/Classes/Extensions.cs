@@ -69,6 +69,7 @@ namespace CorfuCruises {
             services.AddTransient<IBoardingRepository, BoardingRepository>();
             services.AddTransient<ICrewRepository, CrewRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IDataEntryPersonRepository, DataEntryPersonRepository>();
             services.AddTransient<IDestinationRepository, DestinationRepository>();
             services.AddTransient<IDriverRepository, DriverRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();

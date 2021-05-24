@@ -11,6 +11,7 @@ namespace CorfuCruises {
 
         public DbSet<Crew> Crews { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<DataEntryPerson> DataEntryPersons { get; set; }
         public DbSet<Destination> Destinations { get; set; }
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<Gender> Genders { get; set; }
