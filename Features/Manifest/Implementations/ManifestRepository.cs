@@ -15,7 +15,7 @@ namespace CorfuCruises.Manifest {
 
         public IEnumerable<ManifestResource> Get(string date, int shipId, int portId) {
             var manifest = context.Reservations
-                .Include(x => x.Ship)
+                .Include(x => x.Ship).ThenInclude(x => x.DataEntryPersons)
                 .Include(x => x.Port)
                 .Include(x => x.Passengers).ThenInclude(x => x.Gender)
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
@@ -25,7 +25,7 @@ namespace CorfuCruises.Manifest {
                 .GroupBy(x => new { x.Date, x.Ship, x.Port })
                 .Select(x => new ManifestViewModel {
                     Date = x.Key.Date,
-                    Ship = x.Key.Ship.Description,
+                    Ship = x.Key.Ship,
                     Port = x.Key.Port.Description,
                     Passengers = x.SelectMany(x => x.Passengers).ToList()
                 });

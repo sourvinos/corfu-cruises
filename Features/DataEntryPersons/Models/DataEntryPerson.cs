@@ -13,7 +13,7 @@ namespace CorfuCruises {
         public bool IsActive { get; set; }
         public string UserId { get; set; }
 
-        public Ship Ship { get; set; }
+        // public Ship Ship { get; set; }
 
     }
 

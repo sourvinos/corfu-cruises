@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace CorfuCruises {
 
     public class Ship {
@@ -10,6 +12,8 @@ namespace CorfuCruises {
         public int MaxPersons { get; set; }
         public bool IsActive { get; set; }
         public string UserId { get; set; }
+
+        public IEnumerable<DataEntryPerson> DataEntryPersons { get; set; }
 
     }
 

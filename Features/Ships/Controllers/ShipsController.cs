@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CorfuCruises {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class ShipsController : ControllerBase {
@@ -44,7 +44,7 @@ namespace CorfuCruises {
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public IActionResult PostShip([FromBody] Ship record) {
             if (ModelState.IsValid) {
                 try {
@@ -66,7 +66,7 @@ namespace CorfuCruises {
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public IActionResult PutShip([FromRoute] int id, [FromBody] Ship record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -88,7 +88,7 @@ namespace CorfuCruises {
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteShip([FromRoute] int id) {
             Ship record = await repo.GetById(id);
             if (record == null) {
