@@ -9,6 +9,7 @@ namespace CorfuCruises {
 
         public DbContext(DbContextOptions<DbContext> options) : base(options) { }
 
+        public DbSet<Crew> Crews { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Destination> Destinations { get; set; }
         public DbSet<Driver> Drivers { get; set; }

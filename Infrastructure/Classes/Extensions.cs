@@ -67,6 +67,7 @@ namespace CorfuCruises {
         public static void AddInterfaces(IServiceCollection services) {
             services.AddScoped<Token>();
             services.AddTransient<IBoardingRepository, BoardingRepository>();
+            services.AddTransient<ICrewRepository, CrewRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IDestinationRepository, DestinationRepository>();
             services.AddTransient<IDriverRepository, DriverRepository>();
@@ -102,6 +103,7 @@ namespace CorfuCruises {
         }
 
         public static void AddValidation(IServiceCollection services) {
+            services.AddTransient<IValidator<Crew>, CrewValidator>();
             services.AddTransient<IValidator<Customer>, CustomerValidator>();
             services.AddTransient<IValidator<Destination>, DestinationValidator>();
             services.AddTransient<IValidator<Driver>, DriverValidator>();
