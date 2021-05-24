@@ -25,7 +25,13 @@ namespace CorfuCruises.Manifest {
                 .GroupBy(x => new { x.Date, x.Ship, x.Port })
                 .Select(x => new ManifestViewModel {
                     Date = x.Key.Date,
-                    Ship = x.Key.Ship,
+                    ShipResource = new ShipResource {
+                        Description = x.Key.Ship.Description,
+                        Manager = x.Key.Ship.Manager,
+                        ManagerInGreece = x.Key.Ship.ManagerInGreece,
+                        Agent = x.Key.Ship.Agent,
+                        DataEntryPersons = x.Key.Ship.DataEntryPersons.OrderByDescending(x => x.IsPrimary).ToList()
+                    },
                     Port = x.Key.Port.Description,
                     Passengers = x.SelectMany(x => x.Passengers).ToList()
                 });

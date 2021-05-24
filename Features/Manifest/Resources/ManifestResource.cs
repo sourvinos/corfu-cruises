@@ -5,9 +5,8 @@ namespace CorfuCruises.Manifest {
     public class ManifestResource {
 
         public string Date { get; set; }
-        public string Route { get; set; }
 
-        public Ship Ship { get; set; }
+        public ShipResource ShipResource { get; set; }
 
         public IEnumerable<PassengerResource> Passengers { get; set; }
 
