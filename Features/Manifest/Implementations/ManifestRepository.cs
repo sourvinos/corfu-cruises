@@ -15,6 +15,7 @@ namespace CorfuCruises.Manifest {
 
         public IEnumerable<ManifestResource> Get(string date, int shipId, int portId) {
             var manifest = context.Reservations
+                .Include(x => x.Ship).ThenInclude(x => x.ShipOwner)
                 .Include(x => x.Ship).ThenInclude(x => x.DataEntryPersons)
                 .Include(x => x.Port)
                 .Include(x => x.Passengers).ThenInclude(x => x.Gender)
@@ -25,17 +26,23 @@ namespace CorfuCruises.Manifest {
                 .GroupBy(x => new { x.Date, x.Ship, x.Port })
                 .Select(x => new ManifestViewModel {
                     Date = x.Key.Date,
-                    ShipResource = new ShipResource {
+                    Ship = new Ship {
+                        Id = x.Key.Ship.Id,
                         Description = x.Key.Ship.Description,
                         Manager = x.Key.Ship.Manager,
                         ManagerInGreece = x.Key.Ship.ManagerInGreece,
                         Agent = x.Key.Ship.Agent,
+                        ShipOwner = x.Key.Ship.ShipOwner,
+                        Flag = x.Key.Ship.Flag,
+                        RegistryNo = x.Key.Ship.RegistryNo,
+                        IMO = x.Key.Ship.IMO,
                         DataEntryPersons = x.Key.Ship.DataEntryPersons.OrderByDescending(x => x.IsPrimary).ToList()
                     },
                     Port = x.Key.Port.Description,
                     Passengers = x.SelectMany(x => x.Passengers).ToList()
                 });
-            return mapper.Map<IEnumerable<ManifestResource>>(manifest);
+            return mapper.Map<IEnumerable<ManifestViewModel>, IEnumerable<ManifestResource>>(manifest);
+            // return manifest;
         }
 
     }

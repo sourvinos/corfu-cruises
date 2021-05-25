@@ -14,13 +14,45 @@ export class ManifestPdfService {
     //#region public methods
 
     public createReport(manifest: ManifestViewModel): void {
+        console.log('Manifest', manifest)
         const dd = {
-            pageMargins: [50, 40, 50, 50],
+            pageMargins: 50,
             pageOrientation: 'portrait',
+            pageSize: 'A4',
             defaultStyle: { fontSize: 7 },
-            header: this.createPageHeader(manifest),
-            footer: 'Footer',
-            content: this.table(manifest, ['lastname', 'firstname', 'dob', 'nationalityDescription', 'occupantDescription', 'genderDescription', 'specialCare', 'remarks'], ['left', 'left', 'left', 'left', 'left', 'left', 'left', 'left'])
+            content:
+                [
+                    {
+                        table: {
+                            body: [
+                                [this.createPageHeader(manifest), this.createTitle(manifest)],
+                                [this.createShipData(manifest), this.createManager(manifest)],
+                                [this.createDataEntryPrimaryPerson(manifest), this.createDataEntrySecondaryPerson(manifest)]
+                            ],
+                            style: 'table',
+                            widths: ['50%', '50%'],
+                        },
+                        layout: 'noBorders'
+                    },
+                    [
+                        this.table(manifest, ['lastname', 'firstname', 'dob', 'nationalityDescription', 'occupantDescription', 'genderDescription', 'specialCare', 'remarks'], ['left', 'left', 'left', 'left', 'left', 'left', 'left', 'left'])
+                    ],
+                    {
+                        table: {
+                            body: [
+                                ['', this.createSignature(manifest)]
+                            ],
+                            widths: ['50%', '50%']
+                        },
+                        layout: 'noBorders'
+                    }
+                ], 
+                styles: {
+                    table: {
+                        fontSize: 7,
+                        bold: false
+                    }
+                }
         }
         this.createPdf(dd)
     }
@@ -29,14 +61,17 @@ export class ManifestPdfService {
 
     //#region private methods
 
-    private table(data: ManifestViewModel, columns: any[], align: any[]): any {
+    private table(data, columns: any[], align: any[]): any {
         return {
             table: {
                 headerRows: 1,
                 dontBreakRows: true,
                 body: this.buildTableBody(data, columns, align),
                 heights: 10,
-                widths: ['25%', '20%', '10%', '10%', '10%', '10%', '10%', '10%'],
+                bold: false,
+                style: 'table',
+                layout: 'noBorders',
+                widths: [80, 50, 50, 40, '10%', '10%', 50, 60],
             },
             layout: {
                 vLineColor: function (i: number, node: { table: { widths: string | any[] } }): any { return (i === 1 || i === node.table.widths.length - 1) ? '#dddddd' : '#dddddd' },
@@ -47,7 +82,7 @@ export class ManifestPdfService {
         }
     }
 
-    private buildTableBody(data: ManifestViewModel, columns: any[], align: any[]): void {
+    private buildTableBody(data, columns: any[], align: any[]): void {
         const body: any = []
         body.push(this.createTableHeaders())
         data.passengers.forEach((row) => {
@@ -60,29 +95,24 @@ export class ManifestPdfService {
 
     private createTableHeaders(): any[] {
         return [
-            { text: 'Last name', style: 'tableHeader', alignment: 'left', bold: true },
-            { text: 'First name', style: 'tableHeader', alignment: 'left', bold: true },
-            { text: 'DoB', style: 'tableHeader', alignment: 'left', bold: true },
-            { text: 'Nationality', style: 'tableHeader', alignment: 'left', bold: true },
-            { text: 'Occupant', style: 'tableHeader', alignment: 'left', bold: true },
-            { text: 'Gender', style: 'tableHeader', alignment: 'left', bold: true },
-            { text: 'Special care', style: 'tableHeader', alignment: 'left', bold: true },
-            { text: 'Remarks', style: 'tableHeader', alignment: 'left', bold: true },
+            { text: 'ΕΠΩΝΥΜΟ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΟΝΟΜΑ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΗΜΕΡΟΜΗΝΙΑ ΓΕΝΝΗΣΗΣ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΙΘΑΓΕΝΕΙΑ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΙΔΙΟΤΗΤΑ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΦΥΛΟ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΕΙΔΙΚΗ ΦΡΟΝΤΙΔΑ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΠΑΡΑΤΗΡΗΣΕΙΣ', style: 'tableHeader', alignment: 'center', bold: true },
         ]
     }
 
-    private createPageHeader(manifest: ManifestViewModel) {
-        return function (): any {
-            return {
-                table: {
-                    widths: '*',
-                    body: [[
-                        { text: 'Ship: ' + manifest.ship, alignment: 'left', bold: true, margin: [50, 20, 50, 60] }
-                    ]]
-                },
-                layout: 'noBorders'
-            }
-        }
+    private createPageHeader(manifest: ManifestViewModel): string {
+        return manifest.shipResource.shipOwner.description + '\n' +
+            manifest.shipResource.shipOwner.profession + '\n' +
+            manifest.shipResource.shipOwner.address + '\n' +
+            manifest.shipResource.shipOwner.city + '\n' +
+            manifest.shipResource.shipOwner.phones + '\n' +
+            manifest.shipResource.shipOwner.taxNo + '\n'
     }
 
     private createPageFooter() {
@@ -123,6 +153,55 @@ export class ManifestPdfService {
             dataRow.push({ text: row[element].toString(), alignment: align[index].toString(), color: '#000000', noWrap: false, })
         })
         return dataRow
+    }
+
+    private createShipData(manifest: ManifestViewModel): string {
+        return '' +
+            'ΣΤΟΙΧΕΙΑ ΠΛΟΙΟΥ' + '\n' +
+            'ΟΝΟΜΑ ' + manifest.shipResource.description + '\n' +
+            'ΣΗΜΑΙΑ ' + manifest.shipResource.flag + '\n' +
+            'ΑΡΙΘΜΟΣ ΝΗΟΛΟΓΙΟΥ ' + manifest.shipResource.registryNo + '\n' +
+            'ΙΜΟ ' + manifest.shipResource.imo + '\n'
+    }
+
+    private createManager(manifest: ManifestViewModel): string {
+        return '' +
+            'ΣΤΟΙΧΕΙΑ ΕΤΑΙΡΙΑΣ' + '\n' +
+            'ΥΠΕΥΘΥΝΟΣ ΔΙΑΧΕΙΡΙΣΤΗΣ ' + manifest.shipResource.manager + '\n' +
+            'ΔΙΑΧΕΙΡΙΣΤΗΣ ΣΤΗΝ ΕΛΛΑΔΑ ' + manifest.shipResource.managerInGreece + '\n' +
+            'ΥΠΕΥΘΥΝΟΙ ΝΑΥΤΙΚΟΙ ΠΡΑΚΤΟΡΕΣ ' + manifest.shipResource.agent + '\n'
+    }
+
+    private createDataEntryPrimaryPerson(manifest: ManifestViewModel): string {
+        return '' +
+            'ΥΠΕΥΘΥΝΟΣ ΚΑΤΑΓΡΑΦΗΣ' + '\n' +
+            'ΟΝΟΜΑΤΕΠΩΝΥΜΟ ' + manifest.shipResource.dataEntryPersons[0].fullname + '\n' +
+            'ΤΗΛΕΦΩΝΑ ' + manifest.shipResource.dataEntryPersons[0].phones + '\n' +
+            'EMAIL ' + manifest.shipResource.dataEntryPersons[0].email + '\n' +
+            'FAX ' + manifest.shipResource.dataEntryPersons[0].fax + '\n'
+    }
+
+    private createDataEntrySecondaryPerson(manifest: ManifestViewModel): string {
+        return '' +
+            'ΑΝΤΙΚΑΤΑΣΤΑΤΗΣ ΥΠΕΥΘΥΝΟΥ ΚΑΤΑΓΡΑΦΗΣ' + '\n' +
+            'ΟΝΟΜΑΤΕΠΩΝΥΜΟ ' + manifest.shipResource.dataEntryPersons[1].fullname + '\n' +
+            'ΤΗΛΕΦΩΝΑ ' + manifest.shipResource.dataEntryPersons[1].phones + '\n' +
+            'EMAIL ' + manifest.shipResource.dataEntryPersons[1].email + '\n' +
+            'FAX ' + manifest.shipResource.dataEntryPersons[1].fax + '\n'
+    }
+
+    private createTitle(manifest: ManifestViewModel): string {
+        return '' +
+            'ΔΡΟΜΟΛΟΓΙΟ ΤΗΣ ' + manifest.date + '\n' +
+            'ΚΑΤΑΣΤΑΣΗ ΕΠΙΒΑΙΝΟΝΤΩΝ'
+    }
+
+    private createSignature(manifest: ManifestViewModel): string {
+        return '' +
+            'ΒΕΒΑΙΩΝΕΤΑΙ Η ΑΚΡΙΒΕΙΑ ΤΩΝ ΩΣ ΑΝΩ ΣΤΟΙΧΕΙΩΝ' + '\n' +
+            'ΚΑΙ ΠΛΗΡΟΦΟΡΙΩΝ ΑΠΟ ΤΟΝ / ΤΗΝ' + '\n' +
+            manifest.shipResource.manager + '\n' +
+            'ΠΟΥ ΕΧΕΙ ΟΡΙΣΤΕΙ ΑΠΟ ΤΗΝ ΕΤΑΙΡΙΑ ΓΙΑ ΤΗ ΔΙΑΒΙΒΑΣΗ ΤΟΥΣ ΣΤΗΝ ΑΡΧΗ'
     }
 
     //#endregion

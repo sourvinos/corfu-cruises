@@ -340,7 +340,7 @@ export class ReservationFormComponent {
 
     private createBarcodeFromTicket(): Promise<any> {
         return new Promise((resolve) => {
-            this.barcode = this.form.value.ticketNo
+            this.barcode = this.form.value.ticketNo == '' ? '9999' : this.form.value.ticketNo
             resolve(this.barcode)
         })
     }

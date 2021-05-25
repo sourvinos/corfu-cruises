@@ -24,6 +24,9 @@ namespace CorfuCruises.Manifest {
         }
 
         [HttpGet("date/{date}/shipId/{shipId}/portId/{portId}")]
+        // public ManifestResource Get(string date, int shipId, int portId) {
+        //     return this.repo.Get(date, shipId, portId);
+        // }
         public IEnumerable<ManifestResource> Get(string date, int shipId, int portId) {
             return this.repo.Get(date, shipId, portId);
         }

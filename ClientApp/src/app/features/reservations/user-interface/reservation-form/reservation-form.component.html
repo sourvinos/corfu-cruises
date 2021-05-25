@@ -90,7 +90,7 @@
                         <input type="text" matInput [placeholder]="onGetLabel('ship')" formControlName="shipDescription" id="shipDescription">
                     </mat-form-field>
                 </form>
-                <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+                <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
             </ng-template>
         </mat-tab>
     </mat-tab-group>

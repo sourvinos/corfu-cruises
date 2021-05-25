@@ -16,6 +16,8 @@ namespace CorfuCruises {
         public bool IsActive { get; set; }
         public string UserId { get; set; }
 
+        public ShipOwner ShipOwner { get; set; }
+
         public IEnumerable<DataEntryPerson> DataEntryPersons { get; set; }
 
     }

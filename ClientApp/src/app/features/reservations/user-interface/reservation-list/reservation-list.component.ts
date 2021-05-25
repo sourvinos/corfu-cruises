@@ -387,6 +387,7 @@ export class ReservationListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.queryResult = listResolved.result
+            console.log(this.queryResult)
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

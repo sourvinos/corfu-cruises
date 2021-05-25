@@ -24,6 +24,7 @@ namespace CorfuCruises {
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Ship> Ships { get; set; }
+        public DbSet<ShipOwner> ShipOwners { get; set; }
         public DbSet<ShipRoute> ShipRoutes { get; set; }
         public DbSet<Token> Tokens { get; set; }
 

@@ -7,7 +7,7 @@ namespace CorfuCruises.Manifest {
         public string Date { get; set; }
         public string Port { get; set; }
 
-        public ShipResource ShipResource { get; set; }
+        public Ship Ship { get; set; }
 
         public List<Passenger> Passengers { get; set; }
 
