@@ -13,7 +13,7 @@ namespace CorfuCruises.Manifest {
             this.mapper = mapper;
         }
 
-        public IEnumerable<ManifestResource> Get(string date, int shipId, int portId) {
+        public ManifestResource Get(string date, int shipId, int portId) {
             var manifest = context.Reservations
                 .Include(x => x.Ship).ThenInclude(x => x.ShipOwner)
                 .Include(x => x.Ship).ThenInclude(x => x.DataEntryPersons)
@@ -21,29 +21,26 @@ namespace CorfuCruises.Manifest {
                 .Include(x => x.Passengers).ThenInclude(x => x.Gender)
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                 .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
-                .AsEnumerable()
                 .Where(x => x.Date == date && x.ShipId == shipId && x.PortId == portId && x.Passengers.Any(x => x.IsCheckedIn))
-                .GroupBy(x => new { x.Date, x.Ship, x.Port })
                 .Select(x => new ManifestViewModel {
-                    Date = x.Key.Date,
+                    Date = x.Date,
                     Ship = new Ship {
-                        Id = x.Key.Ship.Id,
-                        Description = x.Key.Ship.Description,
-                        Manager = x.Key.Ship.Manager,
-                        ManagerInGreece = x.Key.Ship.ManagerInGreece,
-                        Agent = x.Key.Ship.Agent,
-                        ShipOwner = x.Key.Ship.ShipOwner,
-                        Flag = x.Key.Ship.Flag,
-                        RegistryNo = x.Key.Ship.RegistryNo,
-                        IMO = x.Key.Ship.IMO,
-                        DataEntryPersons = x.Key.Ship.DataEntryPersons.OrderByDescending(x => x.IsPrimary).ToList()
+                        Id = x.Ship.Id,
+                        Description = x.Ship.Description,
+                        Manager = x.Ship.Manager,
+                        ManagerInGreece = x.Ship.ManagerInGreece,
+                        Agent = x.Ship.Agent,
+                        ShipOwner = x.Ship.ShipOwner,
+                        Flag = x.Ship.Flag,
+                        RegistryNo = x.Ship.RegistryNo,
+                        IMO = x.Ship.IMO,
+                        DataEntryPersons = x.Ship.DataEntryPersons.OrderBy(x => x.IsPrimary).ToList()
                     },
-                    Port = x.Key.Port.Description,
-                    Passengers = x.SelectMany(x => x.Passengers).ToList()
-                });
-            return mapper.Map<IEnumerable<ManifestViewModel>, IEnumerable<ManifestResource>>(manifest);
-            // return manifest;
-        }
+                    Port = x.Port.Description,
+                    Passengers = x.Passengers.ToList()
+                }).SingleOrDefault();
+             return mapper.Map<ManifestViewModel, ManifestResource>(manifest);
+         }
 
     }
 

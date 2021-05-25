@@ -5,12 +5,14 @@ import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
 import { ManifestViewModel } from '../../classes/view-models/manifest-view-model'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
+import { ShipRoute } from './../../../shipRoutes/classes/shipRoute'
+import { ShipRouteService } from 'src/app/features/shipRoutes/classes/shipRoute.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
 
 @Component({
     selector: 'manifest-list',
@@ -33,6 +35,9 @@ export class ManifestListComponent {
     //#region particular variables
 
     public records: ManifestViewModel
+    public shipRoutes: ShipRoute[] = []
+    public selectedShipRouteId: number
+    public selectedShipRoute: any
     public highlightFirstRow = false
 
     //#endregion
@@ -48,7 +53,7 @@ export class ManifestListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private snackbarService: SnackbarService, private shipRouteService: ShipRouteService, private titleService: Title) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.loadRecords()
@@ -61,6 +66,7 @@ export class ManifestListComponent {
     ngOnInit(): void {
         this.setWindowTitle()
         this.getLocale()
+        this.populateShipRoutes()
     }
 
     ngOnDestroy(): void {
@@ -73,7 +79,8 @@ export class ManifestListComponent {
     //#region public methods
 
     public onCreatePdf(): void {
-        this.pdfService.createReport(this.records[0])
+        this.selectedShipRoute = this.shipRoutes.filter(x => x.id == this.selectedShipRouteId)
+        this.pdfService.createReport(this.selectedShipRoute, this.records)
     }
 
     public onGetLabel(id: string): string {
@@ -82,6 +89,10 @@ export class ManifestListComponent {
 
     public onGoBack(): void {
         this.router.navigate(['/manifest'])
+    }
+
+    public onUpdateShipRoute(): void {
+        this.selectedShipRoute = this.shipRoutes.find(x => x.id == this.selectedShipRouteId)
     }
 
 
@@ -97,11 +108,16 @@ export class ManifestListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
-            console.log(this.records)
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }
+    }
+
+    private populateShipRoutes(): void {
+        this.shipRouteService.getAllActive().subscribe(result => {
+            this.shipRoutes = result
+        })
     }
 
     private setWindowTitle(): void {

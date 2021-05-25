@@ -3,9 +3,12 @@ import { KeyValuePair } from 'src/app/shared/classes/keyValuePair'
 export class ShipRoute extends KeyValuePair {
 
     description: string
-    from: string
-    via: string
-    to: string
+    fromPort: string
+    fromTime: string
+    viaPort: string
+    viaTime: string
+    toPort: string
+    toTime: string
     isActive: boolean
 
 }

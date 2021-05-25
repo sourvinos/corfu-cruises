@@ -2,11 +2,22 @@
 
     <div id="table-wrapper">
         <div data-cy="content" id="content" class="scrollable">
-            <custom-table [highlightFirstRow]="highlightFirstRow" [feature]="feature" [records]="records[0].passengers" [headers]="headers" [widths]="widths" [visibility]="visibility" [justify]="justify" [types]="types" [fields]="fields"></custom-table>
+            <custom-table [highlightFirstRow]="highlightFirstRow" [feature]="feature" [records]="records.passengers" [headers]="headers" [widths]="widths" [visibility]="visibility" [justify]="justify" [types]="types" [fields]="fields"></custom-table>
         </div>
     </div>
 
     <div id="footer">
+        <div id="search-box">
+            <mat-form-field class="no-bottom-margin">
+                <mat-label>{{ onGetLabel('searchLabel') }}</mat-label>
+                <mat-select data-cy="routeSelect" [(value)]="selectedShipRouteId">
+                    <mat-option data-cy="routeElement" *ngFor="let shipRoute of shipRoutes" [value]="shipRoute.id">
+                        {{ shipRoute.description }}
+                    </mat-option>
+                </mat-select>
+                <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
+            </mat-form-field>
+        </div>
         <div @slideFromRight id="buttons">
             <button mat-flat-button class="primary" id="exportToPDF" (click)="onCreatePdf()">{{ onGetLabel('exportToPdfButton') }}</button>
         </div>

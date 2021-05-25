@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import * as pdfMake from 'pdfmake/build/pdfmake.js'
 import * as pdfFonts from 'pdfmake/build/vfs_fonts.js'
+import { ShipRoute } from 'src/app/features/shipRoutes/classes/shipRoute'
 // Custom
 import { ManifestPassenger } from '../view-models/manifest-passenger'
 import { ManifestViewModel } from './../view-models/manifest-view-model'
@@ -11,10 +12,12 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 export class ManifestPdfService {
 
+    ///#region variables
+    private rowCount = 0
+
     //#region public methods
 
-    public createReport(manifest: ManifestViewModel): void {
-        console.log('Manifest', manifest)
+    public createReport(shipRoute: ShipRoute[], manifest: ManifestViewModel): void {
         const dd = {
             pageMargins: 50,
             pageOrientation: 'portrait',
@@ -27,6 +30,7 @@ export class ManifestPdfService {
                             body: [
                                 [this.createPageHeader(manifest), this.createTitle(manifest)],
                                 [this.createShipData(manifest), this.createManager(manifest)],
+                                [this.createShipRoute(shipRoute[0]), ''],
                                 [this.createDataEntryPrimaryPerson(manifest), this.createDataEntrySecondaryPerson(manifest)]
                             ],
                             style: 'table',
@@ -35,7 +39,7 @@ export class ManifestPdfService {
                         layout: 'noBorders'
                     },
                     [
-                        this.table(manifest, ['lastname', 'firstname', 'dob', 'nationalityDescription', 'occupantDescription', 'genderDescription', 'specialCare', 'remarks'], ['left', 'left', 'left', 'left', 'left', 'left', 'left', 'left'])
+                        this.table(manifest, ['', 'lastname', 'firstname', 'dob', 'nationalityDescription', 'occupantDescription', 'genderDescription', 'specialCare', 'remarks'], ['right', 'left', 'left', 'left', 'left', 'left', 'left', 'left', 'left'])
                     ],
                     {
                         table: {
@@ -46,13 +50,13 @@ export class ManifestPdfService {
                         },
                         layout: 'noBorders'
                     }
-                ], 
-                styles: {
-                    table: {
-                        fontSize: 7,
-                        bold: false
-                    }
+                ],
+            styles: {
+                table: {
+                    fontSize: 7,
+                    bold: false
                 }
+            }
         }
         this.createPdf(dd)
     }
@@ -60,27 +64,6 @@ export class ManifestPdfService {
     //#endregion
 
     //#region private methods
-
-    private table(data, columns: any[], align: any[]): any {
-        return {
-            table: {
-                headerRows: 1,
-                dontBreakRows: true,
-                body: this.buildTableBody(data, columns, align),
-                heights: 10,
-                bold: false,
-                style: 'table',
-                layout: 'noBorders',
-                widths: [80, 50, 50, 40, '10%', '10%', 50, 60],
-            },
-            layout: {
-                vLineColor: function (i: number, node: { table: { widths: string | any[] } }): any { return (i === 1 || i === node.table.widths.length - 1) ? '#dddddd' : '#dddddd' },
-                vLineStyle: function (): any { return { dash: { length: 50, space: 0 } } },
-                paddingTop: function (i: number): number { return (i === 0) ? 5 : 5 },
-                paddingBottom: function (): number { return 2 }
-            }
-        }
-    }
 
     private buildTableBody(data, columns: any[], align: any[]): void {
         const body: any = []
@@ -91,68 +74,6 @@ export class ManifestPdfService {
             body.push(dataRow)
         })
         return body
-    }
-
-    private createTableHeaders(): any[] {
-        return [
-            { text: 'ΕΠΩΝΥΜΟ', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΟΝΟΜΑ', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΗΜΕΡΟΜΗΝΙΑ ΓΕΝΝΗΣΗΣ', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΙΘΑΓΕΝΕΙΑ', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΙΔΙΟΤΗΤΑ', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΦΥΛΟ', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΕΙΔΙΚΗ ΦΡΟΝΤΙΔΑ', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΠΑΡΑΤΗΡΗΣΕΙΣ', style: 'tableHeader', alignment: 'center', bold: true },
-        ]
-    }
-
-    private createPageHeader(manifest: ManifestViewModel): string {
-        return manifest.shipResource.shipOwner.description + '\n' +
-            manifest.shipResource.shipOwner.profession + '\n' +
-            manifest.shipResource.shipOwner.address + '\n' +
-            manifest.shipResource.shipOwner.city + '\n' +
-            manifest.shipResource.shipOwner.phones + '\n' +
-            manifest.shipResource.shipOwner.taxNo + '\n'
-    }
-
-    private createPageFooter() {
-        return function (currentPage: any, pageCount: any): any {
-            return {
-                table: {
-                    widths: '*',
-                    body: [[{ text: 'Page ' + currentPage.toString() + ' of ' + pageCount, alignment: 'right', style: 'normalText', margin: [0, 10, 50, 0] }]]
-                },
-                layout: 'noBorders'
-            }
-        }
-    }
-
-    private createBlankLine(): any {
-        const dataRow = []
-        dataRow.push(
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' },
-            { text: '' }
-        )
-        return dataRow
-    }
-
-    private createPdf(document: any): void {
-        pdfMake.createPdf(document).download('Manifest.pdf')
-    }
-
-    private processRow(columns: any[], row: ManifestPassenger, dataRow: any[], align: any[]): any {
-        columns.forEach((element, index) => {
-            if (row[element].toString() === '0') { row[element] = '' }
-            dataRow.push({ text: row[element].toString(), alignment: align[index].toString(), color: '#000000', noWrap: false, })
-        })
-        return dataRow
     }
 
     private createShipData(manifest: ManifestViewModel): string {
@@ -202,6 +123,73 @@ export class ManifestPdfService {
             'ΚΑΙ ΠΛΗΡΟΦΟΡΙΩΝ ΑΠΟ ΤΟΝ / ΤΗΝ' + '\n' +
             manifest.shipResource.manager + '\n' +
             'ΠΟΥ ΕΧΕΙ ΟΡΙΣΤΕΙ ΑΠΟ ΤΗΝ ΕΤΑΙΡΙΑ ΓΙΑ ΤΗ ΔΙΑΒΙΒΑΣΗ ΤΟΥΣ ΣΤΗΝ ΑΡΧΗ'
+    }
+
+    private createShipRoute(shipRoute: ShipRoute): string {
+        return '' +
+            'ΛΙΜΕΝΑΣ ΑΠΟΠΛΟΥ ' + shipRoute.fromPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + '---' + ' ΩΡΑ ' + shipRoute.fromTime + '\n' +
+            'ΕΝΔΙΑΜΕΣΟΙ ΛΙΜΕΝΕΣ ΠΡΟΣΕΓΓΙΣΗΣ ' + shipRoute.viaPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + '---' + ' ΩΡΑ ' + shipRoute.viaTime + '\n' +
+            'ΛΙΜΕΝΑΣ ΚΑΤΑΠΛΟΥ ' + shipRoute.toPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + '---' + ' ΩΡΑ ' + shipRoute.toTime
+    }
+
+    private createTableHeaders(): any[] {
+        return [
+            { text: 'Α/Α', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΕΠΩΝΥΜΟ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΟΝΟΜΑ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΗΜΕΡΟΜΗΝΙΑ ΓΕΝΝΗΣΗΣ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΙΘΑΓΕΝΕΙΑ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΙΔΙΟΤΗΤΑ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΦΥΛΟ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΕΙΔΙΚΗ ΦΡΟΝΤΙΔΑ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'ΠΑΡΑΤΗΡΗΣΕΙΣ', style: 'tableHeader', alignment: 'center', bold: true },
+        ]
+    }
+
+    private createPageHeader(manifest: ManifestViewModel): string {
+        const a = 'Hi'
+        return manifest.shipResource.shipOwner.description + '\n' +
+            manifest.shipResource.shipOwner.profession + '\n' +
+            manifest.shipResource.shipOwner.address + '\n' +
+            manifest.shipResource.shipOwner.city + '\n' +
+            manifest.shipResource.shipOwner.phones + '\n' +
+            manifest.shipResource.shipOwner.taxNo + '\n'
+    }
+
+    private createPdf(document: any): void {
+        pdfMake.createPdf(document).download('Manifest.pdf')
+    }
+
+    private processRow(columns: any[], row: ManifestPassenger, dataRow: any[], align: any[]): any {
+        columns.forEach((element, index) => {
+            if (index == 0) {
+                dataRow.push({ text: ++this.rowCount, alignment: 'right', color: '#000000', noWrap: false })
+            } else {
+                dataRow.push({ text: row[element].toString(), alignment: align[index].toString(), color: '#000000', noWrap: false })
+            }
+        })
+        return dataRow
+    }
+
+    private table(data, columns: any[], align: any[]): any {
+        return {
+            table: {
+                headerRows: 1,
+                dontBreakRows: true,
+                body: this.buildTableBody(data, columns, align),
+                heights: 10,
+                bold: false,
+                style: 'table',
+                layout: 'noBorders',
+                widths: [20, 80, 50, 50, 40, '10%', '10%', 50, 60],
+            },
+            layout: {
+                vLineColor: function (i: number, node: { table: { widths: string | any[] } }): any { return (i === 1 || i === node.table.widths.length - 1) ? '#dddddd' : '#dddddd' },
+                vLineStyle: function (): any { return { dash: { length: 50, space: 0 } } },
+                paddingTop: function (i: number): number { return (i === 0) ? 5 : 5 },
+                paddingBottom: function (): number { return 2 }
+            }
+        }
     }
 
     //#endregion
