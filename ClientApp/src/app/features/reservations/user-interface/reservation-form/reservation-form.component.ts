@@ -136,6 +136,15 @@ export class ReservationFormComponent {
         return totalPersons > 0 ? true : false
     }
 
+    public onEmailVoucher(): void {
+        this.reservationService.createVoucher(this.form.value).subscribe(() => {
+            this.reservationService.emailVoucher()
+            this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
+        }, () => {
+            this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
+        })
+    }
+
     public onMustBeAdmin(): boolean {
         return this.isAdmin()
     }
@@ -265,22 +274,21 @@ export class ReservationFormComponent {
         })
     }
 
-    private sendVoucher(): void {
-        this.reservationService.emailVoucher(this.mapObjectToVoucher()).subscribe(() => {
-            this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
-        }, () => {
-            this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
-        })
-    }
+    // private sendVoucher(): void {
+    //     this.reservationService.emailVoucher(this.mapObjectToVoucher()).subscribe(() => {
+    //         this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
+    //     }, () => {
+    //         this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
+    //     })
+    // }
 
-    private printVoucher(): void {
-        this.reservationService.printVoucher(this.mapObjectToVoucher()).subscribe(() => {
-            this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
-        }, () => {
-            this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
-        })
-
-    }
+    // public onPrintVoucher(): void {
+    //     this.reservationService.printVoucher(this.mapObjectToVoucher()).subscribe(() => {
+    //         this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
+    //     }, () => {
+    //         this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
+    //     })
+    // }
 
     //#endregion
 

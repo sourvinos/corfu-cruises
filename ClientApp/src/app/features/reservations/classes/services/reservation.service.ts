@@ -34,8 +34,12 @@ export class ReservationService extends DataService {
         return this.http.patch(this.url + '/assignToShip?', null, { params: params })
     }
 
-    emailVoucher(formData: any): any {
-        return this.http.post<any>(this.url + '/emailVoucher', formData)
+    createVoucher(formData: any): any {
+        return this.http.get<any>('api/createVoucher/createVoucher', formData)
+    }
+
+    emailVoucher(): any {
+        return this.http.post<any>(this.url + '/emailVoucher', '')
     }
 
     get(date: string): Observable<ReservationViewModel> {
@@ -48,10 +52,6 @@ export class ReservationService extends DataService {
 
     getByDateDestinationPort(date: string, destinationId: number, portId: number): Promise<any> {
         return this.http.get<any>(this.url + '/getForDateAndDestinationAndPort/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId).toPromise()
-    }
-
-    printVoucher(formData: any): any {
-        return this.http.get<any>(this.url + '/printVoucher', formData)
     }
 
 }

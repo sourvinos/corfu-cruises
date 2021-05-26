@@ -7,12 +7,12 @@ using MimeKit;
 
 namespace CorfuCruises {
 
-    public class AppCorfuCruisesEmail : IEmailSender {
+    public class EmailSender : IEmailSender {
 
         private readonly IWebHostEnvironment env;
         private readonly AppCorfuCruisesSettings settings;
 
-        public AppCorfuCruisesEmail(IWebHostEnvironment env, IOptions<AppCorfuCruisesSettings> settings) {
+        public EmailSender(IWebHostEnvironment env, IOptions<AppCorfuCruisesSettings> settings) {
             this.env = env;
             this.settings = settings.Value;
         }
@@ -83,28 +83,10 @@ namespace CorfuCruises {
 
         }
 
-        public void EmailVoucher(Voucher voucher) {
-            this.CreateVoucher(voucher);
-            this.SendVoucherToEmail(voucher);
-        }
-
-        private string UpdateResetPasswordWithVariables(string displayName, string callbackUrl) {
-
-            var response = ResetPasswordTemplate.GetHtmlString(displayName, callbackUrl);
-
-            var updatedResponse = response
-                .Replace("[displayName]", displayName)
-                .Replace("[callbackUrl]", callbackUrl);
-            return updatedResponse;
-
-        }
-
-        private void CreateVoucher(Voucher voucher) { }
-
-        private SendEmailResponse SendVoucherToEmail(Voucher voucher) {
+        public SendEmailResponse EmailVoucher(string email) {
 
             var attachment = new MimePart("image", "gif") {
-                Content = new MimeContent(File.OpenRead("Output\\Voucher.pdf"), ContentEncoding.Default),
+                Content = new MimeContent(File.OpenRead("Voucher.pdf"), ContentEncoding.Default),
                 ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
                 ContentTransferEncoding = ContentEncoding.Base64,
                 FileName = Path.GetFileName("Output\\Voucher.pdf")
@@ -113,7 +95,7 @@ namespace CorfuCruises {
             var message = new MimeMessage();
 
             message.From.Add(new MailboxAddress("", "postmaster@appcorfucruises.com"));
-            message.To.Add(new MailboxAddress(voucher.Email, voucher.Email));
+            message.To.Add(new MailboxAddress("", email));
             message.Subject = "Your Reservation With Corfu Cruises Is Ready!";
 
             var multipart = new Multipart("mixed");
@@ -134,6 +116,17 @@ namespace CorfuCruises {
 
         }
 
+        private string UpdateResetPasswordWithVariables(string displayName, string callbackUrl) {
+
+            var response = ResetPasswordTemplate.GetHtmlString(displayName, callbackUrl);
+
+            var updatedResponse = response
+                .Replace("[displayName]", displayName)
+                .Replace("[callbackUrl]", callbackUrl);
+            return updatedResponse;
+
+        }
+    
     }
 
 }

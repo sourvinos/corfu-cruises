@@ -6,7 +6,7 @@ namespace CorfuCruises {
 
         public static IServiceCollection AddEmailSenders(this IServiceCollection services) {
 
-            services.AddTransient<IEmailSender, AppCorfuCruisesEmail>();
+            services.AddTransient<IEmailSender, EmailSender>();
 
             return services;
 
