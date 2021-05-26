@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CorfuCruises {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class DataEntryPersonsController : ControllerBase {

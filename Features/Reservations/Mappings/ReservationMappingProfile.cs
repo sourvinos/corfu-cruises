@@ -23,7 +23,23 @@ namespace CorfuCruises {
                         }
                     }
                 }));
-            CreateMap<ReservationWriteResource, Reservation>();
+            CreateMap<ReservationWriteResource, Reservation>()
+                .ForMember(r => r.Date, opt => opt.MapFrom(wr => wr.Date))
+                .ForMember(r => r.DestinationId, opt => opt.MapFrom(wr => wr.DestinationId))
+                .ForMember(r => r.CustomerId, opt => opt.MapFrom(wr => wr.CustomerId))
+                .ForMember(r => r.PickupPointId, opt => opt.MapFrom(wr => wr.PickupPointId))
+                .ForMember(r => r.PortId, opt => opt.MapFrom(wr => wr.PortId))
+                .ForMember(r => r.DriverId, opt => opt.MapFrom(wr => wr.DriverId))
+                .ForMember(r => r.ShipId, opt => opt.MapFrom(wr => wr.ShipId))
+                .ForMember(r => r.TicketNo, opt => opt.MapFrom(wr => wr.TicketNo))
+                .ForMember(r => r.Email, opt => opt.MapFrom(wr => wr.Email))
+                .ForMember(r => r.Phones, opt => opt.MapFrom(wr => wr.Phones))
+                .ForMember(r => r.Adults, opt => opt.MapFrom(wr => wr.Adults))
+                .ForMember(r => r.Kids, opt => opt.MapFrom(wr => wr.Kids))
+                .ForMember(r => r.Free, opt => opt.MapFrom(wr => wr.Free))
+                .ForMember(r => r.Remarks, opt => opt.MapFrom(wr => wr.Remarks))
+                .ForMember(r => r.UserId, opt => opt.MapFrom(wr => wr.UserId))
+                .ForMember(r => r.Passengers, opt => opt.MapFrom(wr => wr.Passengers));
             CreateMap<PassengerWriteResource, Passenger>();
         }
 

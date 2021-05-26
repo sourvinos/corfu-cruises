@@ -92,8 +92,7 @@ namespace CorfuCruises {
         public bool Update(string id, Reservation updatedRecord) {
             using var transaction = context.Database.BeginTransaction();
             try {
-                context.Entry(updatedRecord).State = EntityState.Modified;
-                context.SaveChanges();
+                UpdateReservation(updatedRecord);
                 RemovePassengers(GetReservationById(id));
                 AddPassengers(updatedRecord);
                 transaction.Commit();
@@ -124,6 +123,11 @@ namespace CorfuCruises {
             return record;
         }
 
+        private void UpdateReservation(Reservation updatedRecord) {
+            context.Entry(updatedRecord).State = EntityState.Modified;
+            context.SaveChanges();
+        }
+
         private void RemovePassengers(Reservation currentRecord) {
             context.Passengers.RemoveRange(currentRecord.Passengers);
             context.SaveChanges();
@@ -138,27 +142,20 @@ namespace CorfuCruises {
             context.SaveChanges();
         }
 
-        private bool IsUserAdmin(bool isAdmin) {
-            return isAdmin;
-        }
-
         private async Task<AppUser> GetUser(string userId) {
             AppUser user = await userManager.FindByIdAsync(userId);
             return user;
         }
 
-        public bool IsKeyUniqueOnAdd(ReservationWriteResource record) {
-            if (context.Reservations.Count(x => x.Date == record.Date && x.CustomerId == record.CustomerId && x.TicketNo.ToUpper() == record.TicketNo.ToUpper()) == 0) {
+        public bool IsKeyUnique(ReservationWriteResource record) {
+            if (context.Reservations.Count(x => x.Date == record.Date && x.CustomerId == record.CustomerId && x.DestinationId == record.DestinationId && x.TicketNo.ToUpper() == record.TicketNo.ToUpper()) == 0) {
                 return true;
             }
             return false;
         }
 
-        public bool IsKeyUniqueOnEdit(ReservationWriteResource record) {
-            if (context.Reservations.Count(x => x.Date == record.Date && x.CustomerId == record.CustomerId && x.TicketNo.ToUpper() == record.TicketNo.ToUpper()) == 1) {
-                return true;
-            }
-            return false;
+        private bool IsUserAdmin(bool isAdmin) {
+            return isAdmin;
         }
 
     }

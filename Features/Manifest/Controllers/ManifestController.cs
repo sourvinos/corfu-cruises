@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace CorfuCruises.Manifest {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class ManifestController : ControllerBase {
