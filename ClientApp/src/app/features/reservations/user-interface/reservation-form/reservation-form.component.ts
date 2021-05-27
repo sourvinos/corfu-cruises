@@ -165,6 +165,14 @@ export class ReservationFormComponent {
         })
     }
 
+    public onDoVoucherTasks(): void {
+        this.reservationService.createVoucher(this.form.value).subscribe(() => {
+            this.showSnackbar(this.messageSnackbarService.fileCreated(), 'info')
+        }, errorFromInterceptor => {
+            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+        })
+    }
+
     public onDelete(): void {
         this.dialogService.open('warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {

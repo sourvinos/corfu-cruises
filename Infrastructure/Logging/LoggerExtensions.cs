@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,10 @@ namespace CorfuCruises {
             }
             if (exception is DbUpdateException) {
                 LogDatabaseError(record, logger, context, exception);
+                return;
+            }
+            if (exception is IOException) {
+                LogIOError(record, logger, context, exception);
                 return;
             }
         }
@@ -85,6 +90,13 @@ namespace CorfuCruises {
             sb.Append("Error: " + exception.InnerException.Message);
             return sb.ToString();
         }
+        private static String GetIOError(Exception exception) {
+            var sb = new StringBuilder();
+            sb.AppendLine();
+            sb.Append("\t");
+            sb.Append("Error: " + exception.Message);
+            return sb.ToString();
+        }
 
         private static String GetSimpleDescription(String description) {
             var sb = new StringBuilder();
@@ -99,6 +111,12 @@ namespace CorfuCruises {
                 GetControllerAndActionName(context),
                 GetDatabaseError(exception),
                 GetObjectProperties(record));
+        }
+
+        private static void LogIOError(Object record, ILogger logger, ControllerContext context, Exception exception) {
+            logger.LogError("{caller} {error} {record}",
+                GetControllerAndActionName(context),
+                GetIOError(exception), "");
         }
 
         private static void LogInvalidModel(Object record, ILogger logger, ControllerContext context) {

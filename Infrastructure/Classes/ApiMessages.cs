@@ -11,6 +11,7 @@ namespace CorfuCruises {
         public static string PasswordChanged() { return "Password was changed successfully."; }
         public static string PasswordReset() { return "Password was reset successfully."; }
         public static string RecordCreated() { return "Record created."; }
+        public static string FileCreated() { return "File created."; }
         public static string RecordDeleted() { return "Record deleted."; }
         public static string RecordUpdated() { return "Record updated."; }
 
@@ -25,6 +26,7 @@ namespace CorfuCruises {
         public static string DefaultDriverAlreadyExists() { return "There is already a default driver."; }
         public static string DefaultDriverNotFound() { return "Default driver not found."; }
         public static string RecordNotSaved() { return "Record not saved."; }
+        public static string FileNotCreated() { return "File not created."; }
         public static string InvalidModel() { return "The model is invalid"; }
         public static string EmailNotSent() { return "Email not sent"; }
         public static string DuplicateRecord() { return "Duplicate records are not allowed"; }

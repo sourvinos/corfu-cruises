@@ -44,6 +44,8 @@ export class JwtInterceptor {
                                     return throwError(491) // recordInUse
                                 case 492:
                                     return throwError(492) // unableToRegisterUser
+                                case 493:
+                                    return throwError(493) // unableToCreateFile
                                 case 494:
                                     return throwError(494) // unableToChangePassword
                             }

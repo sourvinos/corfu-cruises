@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Extensions.Logging;
 using SelectPdf;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -13,9 +15,11 @@ namespace CorfuCruises {
 
     public class VoucherController : Controller {
 
+        private readonly ILogger<VoucherController> logger;
         protected readonly ICompositeViewEngine compositeViewEngine;
 
-        public VoucherController(ICompositeViewEngine compositeViewEngine) {
+        public VoucherController(ILogger<VoucherController> logger, ICompositeViewEngine compositeViewEngine) {
+            this.logger = logger;
             this.compositeViewEngine = compositeViewEngine;
         }
 
@@ -43,11 +47,15 @@ namespace CorfuCruises {
                     using (var streamWriter = new StreamWriter("Vouchers\\Voucher" + voucher.TicketNo + ".pdf")) {
                         await streamWriter.BaseStream.WriteAsync(pdfBytes, 0, pdfBytes.Length);
                     }
-                    return StatusCode(200);
-                } catch (System.Exception) {
-                    return StatusCode(400);
+                    return StatusCode(200, new {
+                        response = ApiMessages.FileCreated()
+                    });
+                } catch (Exception exception) {
+                    LoggerExtensions.LogException(0, logger, ControllerContext, voucher, exception);
+                    return StatusCode(493, new {
+                        response = ApiMessages.FileNotCreated()
+                    });
                 }
-
 
             }
 
