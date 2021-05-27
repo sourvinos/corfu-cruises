@@ -230,8 +230,7 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
-# AppSettings
+# Custom
 appsettings.json
-
-#PDF Creator
-**/*libwkhtmltox*.*
+/Logs
+/Vouchers

@@ -1,0 +1,146 @@
+@model CorfuCruises.Voucher
+
+<head>
+    <style>
+        #wrapper {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            text-align: center;
+        }
+
+        #logo {
+            margin: 2rem;
+        }
+
+        .text {
+            font-family: Roboto;
+            font-size: 1.5rem;
+        }
+
+        .text.large {
+            font-size: 2rem;
+        }
+
+        .text.small {
+            font-size: 1rem;
+        }
+
+        .text.center {
+            text-align: center;
+        }
+
+        table {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            text-align: center;
+            width: 500px;
+        }
+
+        thead {
+            background-color: white;
+        }
+
+        tr {
+            line-height: 2rem;
+        }
+
+        td {
+            background-color: white;
+            width: 50%;
+        }
+
+        .group {
+            margin: 2rem;
+        }
+
+        #barcode {
+            margin: auto 0 2rem 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div id="logo">
+            <img src="@Model.Logo" width="200px" height="200px" alt="Corfu Cruises Logo">
+        </div>
+
+        <div class="group">
+            <div class="text">Dear guest,</div>
+            <div class="text">Your reservation for</div>
+            <div class="text large">@Model.DestinationDescription</div>
+            <div class="text">is confirmed!</div>
+        </div>
+
+        <div class="group table">
+            <table>
+                <thead>
+                    <td colspan="2" class="text center">Pickup details</td>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text">Date</td>
+                        <td class="text">@Model.Date.ToString("ddd, dd MMM yyyy")</td>
+                    </tr>
+                    <tr>
+                        <td class="text">Pickup point</td>
+                        <td class="text">@Model.PickupPointDescription</td>
+                    </tr>
+                    <tr>
+                        <td class="text">Exact point</td>
+                        <td class="text">@Model.PickupPointExactPoint</td>
+                    </tr>
+                    <tr>
+                        <td class="text">Time</td>
+                        <td class="text">@Model.PickupPointTime</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="group table">
+            <table>
+                <thead>
+                    <td colspan="2" class="text center">Passenger details</td>
+                </thead>
+                <tbody>
+                    @foreach (var passenger in Model.Passengers)
+                    {
+                        <tr>
+                            <td class="text">@passenger.Lastname</td>
+                            <td class="text">@passenger.Firstname</td>
+                        </tr>
+                    }
+                    <tr id="last-row">
+                        <td colspan="2" class="text center">Total passengers: @Model.Passengers.Count()</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="barcode">
+            <img src="@Model.Qrcode" width='200px' height='200px' alt="QR code">
+        </div>
+
+        <div id="social">
+            <img src="@Model.Facebook" width="30px" height="30px" alt="Corfu Cruises Logo">
+            <img src="@Model.YouTube" width="30px" height="30px" alt="Corfu Cruises Logo">
+            <img src="@Model.Instagram" width="30px" height="30px" alt="Corfu Cruises Logo">
+        </div>
+
+        <div class="group">
+            <div class="text small">Problems or questions? Call us at +30 26620 61400</div>
+            <div class="text small">or email at info@corfucruises.com</div>
+            <div class="text small">© Corfu Cruises 2021, Kavos - Corfu - Greece</div>
+            <div class="text small">Do not reply to this email.</div>
+        </div>
+
+    </div>
+
+</body>

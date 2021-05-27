@@ -40,6 +40,7 @@ export class BoardingListComponent {
     public filteredRecords: BoardingCompositeViewModel
     public records: BoardingCompositeViewModel
     public searchTerm: string
+    public openedClientFilters: boolean
 
     public drivers = []
     public selectedDrivers = []
@@ -144,6 +145,10 @@ export class BoardingListComponent {
         this.scannerEnabled = true
         setTimeout(() => { this.positionVideo() }, 1000)
         // this.qrScannerComponent.startScanning(this.chosenDevice)
+    }
+
+    public onToggleClientFilters(): void {
+        this.openedClientFilters = !this.openedClientFilters
     }
 
     public onToggleItem(item: any, lookupArray: string[]): void {
