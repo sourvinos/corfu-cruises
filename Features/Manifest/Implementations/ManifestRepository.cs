@@ -38,7 +38,7 @@ namespace CorfuCruises.Manifest {
                     },
                     Port = x.Port.Description,
                     Passengers = x.Passengers.ToList()
-                }).SingleOrDefault();
+                }).FirstOrDefault();
              return mapper.Map<ManifestViewModel, ManifestResource>(manifest);
          }
 

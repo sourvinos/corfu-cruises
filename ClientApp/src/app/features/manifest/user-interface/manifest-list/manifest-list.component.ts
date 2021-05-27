@@ -36,7 +36,6 @@ export class ManifestListComponent {
 
     public records: ManifestViewModel
     public shipRoutes: ShipRoute[] = []
-    public selectedShipRouteId: number
     public selectedShipRoute: any
     public highlightFirstRow = false
 
@@ -44,12 +43,12 @@ export class ManifestListComponent {
 
     //#region table
 
-    headers = ['', 'headerLineNo', 'headerId', 'headerLastname', 'headerFirstname', 'headerNationality', 'headerDoB', 'headerOccupant', 'headerGender', 'headerRemarks', 'headerSpecialCare', '']
-    widths = ['0px', '3%', '0px', '12%', '12%', '12%', '12%', '12%', '12%', '12%', '12%', '56px']
-    visibility = ['none', '', 'none', '', '', '', '', '', '', '', '', '']
-    justify = ['center', 'center', 'left', 'left', 'left', 'left', 'center', 'center', 'left', 'left', 'left', 'left']
-    types = ['', '', '', '', '', '', '', '', '', '', '', '']
-    fields = ['', '', 'reservationId', 'lastname', 'firstname', 'nationalityDescription', 'dob', 'occupantDescription', 'genderDescription', 'remarks', 'specialCare', '']
+    headers = ['', 'headerId', 'headerLastname', 'headerFirstname', 'headerNationality', 'headerDoB', 'headerOccupant', 'headerGender', 'headerRemarks', 'headerSpecialCare', '']
+    widths = ['0px', '0px', '12%', '12%', '12%', '12%', '12%', '12%', '12%', '12%', '56px']
+    visibility = ['none', 'none', '', '', '', '', '', '', '', '', '']
+    justify = ['center', 'left', 'left', 'left', 'left', 'center', 'center', 'left', 'left', 'left', 'left']
+    types = ['', '', '', '', '', '', '', '', '', '', '']
+    fields = ['', 'reservationId', 'lastname', 'firstname', 'nationalityDescription', 'dob', 'occupantDescription', 'genderDescription', 'remarks', 'specialCare', '']
 
     //#endregion
 
@@ -66,7 +65,7 @@ export class ManifestListComponent {
     ngOnInit(): void {
         this.setWindowTitle()
         this.getLocale()
-        this.populateShipRoutes()
+        this.updateShipRoute()
     }
 
     ngOnDestroy(): void {
@@ -79,7 +78,6 @@ export class ManifestListComponent {
     //#region public methods
 
     public onCreatePdf(): void {
-        this.selectedShipRoute = this.shipRoutes.filter(x => x.id == this.selectedShipRouteId)
         this.pdfService.createReport(this.selectedShipRoute, this.records)
     }
 
@@ -90,11 +88,6 @@ export class ManifestListComponent {
     public onGoBack(): void {
         this.router.navigate(['/manifest'])
     }
-
-    public onUpdateShipRoute(): void {
-        this.selectedShipRoute = this.shipRoutes.find(x => x.id == this.selectedShipRouteId)
-    }
-
 
     //#endregion
 
@@ -114,18 +107,18 @@ export class ManifestListComponent {
         }
     }
 
-    private populateShipRoutes(): void {
-        this.shipRouteService.getAllActive().subscribe(result => {
-            this.shipRoutes = result
-        })
-    }
-
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
+    }
+
+    private updateShipRoute(): void {
+        this.shipRouteService.getSingle(this.helperService.readItem('shipRoute')).subscribe(result => {
+            this.selectedShipRoute = result
+        })
     }
 
     //#endregion

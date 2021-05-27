@@ -12,12 +12,15 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 export class ManifestPdfService {
 
-    ///#region variables
+    //#region variables
+
     private rowCount = 0
+
+    //#endregion
 
     //#region public methods
 
-    public createReport(shipRoute: ShipRoute[], manifest: ManifestViewModel): void {
+    public createReport(shipRoute: ShipRoute, manifest: ManifestViewModel): void {
         const dd = {
             pageMargins: 50,
             pageOrientation: 'portrait',
@@ -30,7 +33,7 @@ export class ManifestPdfService {
                             body: [
                                 [this.createPageHeader(manifest), this.createTitle(manifest)],
                                 [this.createShipData(manifest), this.createManager(manifest)],
-                                [this.createShipRoute(shipRoute[0]), ''],
+                                [this.createShipRoute(shipRoute), ''],
                                 [this.createDataEntryPrimaryPerson(manifest), this.createDataEntrySecondaryPerson(manifest)]
                             ],
                             style: 'table',
@@ -65,7 +68,7 @@ export class ManifestPdfService {
 
     //#region private methods
 
-    private buildTableBody(data, columns: any[], align: any[]): void {
+    private buildTableBody(data: ManifestViewModel, columns: any[], align: any[]): void {
         const body: any = []
         body.push(this.createTableHeaders())
         data.passengers.forEach((row) => {
@@ -147,7 +150,6 @@ export class ManifestPdfService {
     }
 
     private createPageHeader(manifest: ManifestViewModel): string {
-        const a = 'Hi'
         return manifest.shipResource.shipOwner.description + '\n' +
             manifest.shipResource.shipOwner.profession + '\n' +
             manifest.shipResource.shipOwner.address + '\n' +
@@ -171,7 +173,7 @@ export class ManifestPdfService {
         return dataRow
     }
 
-    private table(data, columns: any[], align: any[]): any {
+    private table(data: ManifestViewModel, columns: any[], align: any[]): any {
         return {
             table: {
                 headerRows: 1,

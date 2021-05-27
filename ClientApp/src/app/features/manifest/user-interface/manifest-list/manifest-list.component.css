@@ -9,11 +9,6 @@
     background-color: var(--color-background-secondary);
 }
 
-#footer {
-    display: flex;
-    justify-content: space-between;
-}
-
 .mat-drawer-container {
     height: 100%;
 }

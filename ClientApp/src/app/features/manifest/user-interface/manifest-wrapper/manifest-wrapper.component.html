@@ -38,13 +38,22 @@
                             <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
                         </mat-form-field>
                         <mat-form-field>
-                            <mat-label>Port</mat-label>
+                            <mat-label>{{ onGetLabel("port") }}</mat-label>
                             <mat-select [(value)]="form.value.portId" formControlName="portId">
                                 <mat-option *ngFor="let port of ports" [value]="port.id">
                                     {{ port.description }}
                                 </mat-option>
                             </mat-select>
                             <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>{{ onGetLabel('shipRoute') }}</mat-label>
+                            <mat-select data-cy="routeSelect" [(value)]="selectedShipRouteId">
+                                <mat-option data-cy="routeElement" *ngFor="let shipRoute of shipRoutes" [value]="shipRoute.id" (change)="onUpdateShipRoute()">
+                                    {{ shipRoute.description }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
                         </mat-form-field>
                     </form>
                     <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>

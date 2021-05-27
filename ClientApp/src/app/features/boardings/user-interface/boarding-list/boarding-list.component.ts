@@ -38,7 +38,6 @@ export class BoardingListComponent {
     //#region particular variables
 
     public filteredRecords: BoardingCompositeViewModel
-    public openedClientFilters: boolean
     public records: BoardingCompositeViewModel
     public searchTerm: string
 
@@ -145,10 +144,6 @@ export class BoardingListComponent {
         this.scannerEnabled = true
         setTimeout(() => { this.positionVideo() }, 1000)
         // this.qrScannerComponent.startScanning(this.chosenDevice)
-    }
-
-    public onToggleClientFilters(): void {
-        this.openedClientFilters = !this.openedClientFilters
     }
 
     public onToggleItem(item: any, lookupArray: string[]): void {

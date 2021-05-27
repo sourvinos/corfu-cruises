@@ -46,7 +46,6 @@ export class BoardingWrapperComponent {
     public ports: Port[] = []
     public ships: Ship[] = []
     public form: FormGroup
-    public openedClientFilters = false
     public openedServerFilters = true
 
     //#endregion

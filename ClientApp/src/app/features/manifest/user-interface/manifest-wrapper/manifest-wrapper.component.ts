@@ -17,6 +17,8 @@ import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { Port } from 'src/app/features/ports/classes/port'
 import { PortService } from 'src/app/features/ports/classes/port.service'
+import { ShipRoute } from 'src/app/features/shipRoutes/classes/shipRoute'
+import { ShipRouteService } from 'src/app/features/shipRoutes/classes/shipRoute.service'
 
 @Component({
     selector: 'manifest-wrapper',
@@ -42,13 +44,14 @@ export class ManifestWrapperComponent {
     public destinations: Destination[] = []
     public ships: Ship[] = []
     public ports: Port[] = []
+    public shipRoutes: ShipRoute[] = []
+    public selectedShipRouteId: number
     public form: FormGroup
-    public openedClientFilters = false
     public openedServerFilters = true
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private portService: PortService, private router: Router, private shipService: ShipService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private portService: PortService, private router: Router, private shipRouteService: ShipRouteService, private shipService: ShipService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -89,6 +92,10 @@ export class ManifestWrapperComponent {
         }
     }
 
+    public onUpdateShipRoute(): void {
+        this.helperService.saveItem('shipRoute', this.selectedShipRouteId.toString())
+    }
+
     //#endregion
 
     //#region private methods
@@ -118,6 +125,10 @@ export class ManifestWrapperComponent {
         }
     }
 
+    public close(): void {
+        if (this.openedServerFilters) this.toggleServerFilters()
+    }
+
     private getLocale(): void {
         this.dateAdapter.setLocale(this.helperService.readItem("language"))
     }
@@ -136,10 +147,13 @@ export class ManifestWrapperComponent {
 
     private populateDropDowns(): void {
         this.shipService.getAllActive().subscribe((result: any) => {
-            this.ships = result.sort((a: { description: number; }, b: { description: number; }) => (a.description > b.description) ? 1 : -1)
+            this.ships = result
         })
         this.portService.getAllActive().subscribe((result: any) => {
-            this.ports = result.sort((a: { description: number; }, b: { description: number; }) => (a.description > b.description) ? 1 : -1)
+            this.ports = result
+        })
+        this.shipRouteService.getAllActive().subscribe(result => {
+            this.shipRoutes = result
         })
     }
 
@@ -147,12 +161,12 @@ export class ManifestWrapperComponent {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
 
-    public toggleServerFilters(): void {
-        this.openedServerFilters = !this.openedServerFilters
+    public storeShipRoute(): void {
+        this.helperService.saveItem('shipRoute', this.selectedShipRouteId.toString())
     }
 
-    public close(): void {
-        if (this.openedServerFilters) this.toggleServerFilters()
+    public toggleServerFilters(): void {
+        this.openedServerFilters = !this.openedServerFilters
     }
 
     //#endregion
