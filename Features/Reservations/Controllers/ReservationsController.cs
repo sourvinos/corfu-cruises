@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -16,13 +15,11 @@ namespace CorfuCruises {
     public class ReservationsController : ControllerBase {
 
         private readonly IReservationRepository repo;
-        private readonly IEmailSender emailSender;
         private readonly ILogger<ReservationsController> logger;
         private readonly IMapper mapper;
 
-        public ReservationsController(IReservationRepository repo, IEmailSender emailSender, ILogger<ReservationsController> logger, IMapper mapper) {
+        public ReservationsController(IReservationRepository repo, ILogger<ReservationsController> logger, IMapper mapper) {
             this.repo = repo;
-            this.emailSender = emailSender;
             this.logger = logger;
             this.mapper = mapper;
         }
@@ -156,20 +153,6 @@ namespace CorfuCruises {
             }
         }
 
-        [HttpPost("[action]")]
-        public IActionResult EmailVoucher(string email) {
-            if (ModelState.IsValid) {
-                emailSender.EmailVoucher(email);
-                return StatusCode(200, new { response = ApiMessages.EmailInstructions() });
-            }
-            return StatusCode(400, new { response = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage) });
-        }
-
-        [HttpGet("[action]")]
-        public IActionResult PrintVoucher([FromBody] Voucher voucher) {
-            return Ok();
-        }
-
-    }
+     }
 
 }

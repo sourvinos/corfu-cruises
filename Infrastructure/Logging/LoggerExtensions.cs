@@ -36,6 +36,11 @@ namespace CorfuCruises {
                 LogIOError(record, logger, context, exception);
                 return;
             }
+            if (exception is System.Exception) {
+                LogSystemError(record, logger, context, exception.Message);
+                return;
+            }
+
         }
 
         public static void LogException(string id, ILogger logger, ControllerContext context, Object record, Exception exception) {
@@ -98,6 +103,14 @@ namespace CorfuCruises {
             return sb.ToString();
         }
 
+        private static String GetSystemError(string message) {
+            var sb = new StringBuilder();
+            sb.AppendLine();
+            sb.Append("\t");
+            sb.Append("Error: " + message);
+            return sb.ToString();
+        }
+
         private static String GetSimpleDescription(String description) {
             var sb = new StringBuilder();
             sb.AppendLine();
@@ -117,6 +130,12 @@ namespace CorfuCruises {
             logger.LogError("{caller} {error} {record}",
                 GetControllerAndActionName(context),
                 GetIOError(exception), "");
+        }
+
+        private static void LogSystemError(Object record, ILogger logger, ControllerContext context, string message) {
+            logger.LogError("{caller} {error} {record}",
+                GetControllerAndActionName(context),
+                GetSystemError(message), "");
         }
 
         private static void LogInvalidModel(Object record, ILogger logger, ControllerContext context) {

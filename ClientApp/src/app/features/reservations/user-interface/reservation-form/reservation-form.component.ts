@@ -7,6 +7,7 @@ import { forkJoin, Subject, Subscription } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import moment from 'moment'
 // Custom
+import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerService } from 'src/app/features/customers/classes/customer.service'
 import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
@@ -30,11 +31,11 @@ import { ReservationWriteResource } from './../../classes/resources/reservation-
 import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
 import { ShipService } from 'src/app/features/ships/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { UserService } from 'src/app/features/users/classes/user.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
+import { VoucherService } from '../../classes/services/voucher.service'
 import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import { UserService } from 'src/app/features/users/classes/user.service'
-import { AccountService } from 'src/app/shared/services/account.service'
 
 @Component({
     selector: 'reservation-form',
@@ -75,7 +76,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private reservationService: ReservationService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, public dialog: MatDialog) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, public dialog: MatDialog) {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
                 this.getRecord(p.id)
@@ -137,8 +138,8 @@ export class ReservationFormComponent {
     }
 
     public onEmailVoucher(): void {
-        this.reservationService.createVoucher(this.form.value).subscribe(() => {
-            this.reservationService.emailVoucher()
+        this.voucherService.createVoucher(this.form.value).subscribe(() => {
+            this.voucherService.emailVoucher(this.form.value.email)
             this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
         }, () => {
             this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
@@ -166,8 +167,12 @@ export class ReservationFormComponent {
     }
 
     public onDoVoucherTasks(): void {
-        this.reservationService.createVoucher(this.form.value).subscribe(() => {
-            this.showSnackbar(this.messageSnackbarService.fileCreated(), 'info')
+        this.voucherService.createVoucher(this.form.value).subscribe(() => {
+            this.voucherService.emailVoucher(this.form.value).subscribe(() => {
+                this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
+            }, errorFromInterceptor => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            })
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
         })

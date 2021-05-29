@@ -31,12 +31,15 @@
             text-align: center;
         }
 
+        .bold {
+            font-weight: bold;
+        }
+
         table {
             background-color: white;
             display: flex;
             flex-direction: column;
             margin: 0 auto;
-            text-align: center;
             width: 500px;
         }
 
@@ -74,14 +77,14 @@
         <div class="group">
             <div class="text">Dear guest,</div>
             <div class="text">Your reservation for</div>
-            <div class="text large">@Model.DestinationDescription</div>
+            <div class="text large bold">@Model.DestinationDescription</div>
             <div class="text">is confirmed!</div>
         </div>
 
         <div class="group table">
             <table>
                 <thead>
-                    <td colspan="2" class="text center">Pickup details</td>
+                    <td colspan="2" class="text center bold">Pickup details</td>
                 </thead>
                 <tbody>
                     <tr>
@@ -107,7 +110,7 @@
         <div class="group table">
             <table>
                 <thead>
-                    <td colspan="2" class="text center">Passenger details</td>
+                    <td colspan="2" class="text center bold">Passenger details</td>
                 </thead>
                 <tbody>
                     @foreach (var passenger in Model.Passengers)

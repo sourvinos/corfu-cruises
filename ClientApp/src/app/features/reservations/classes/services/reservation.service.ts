@@ -34,14 +34,6 @@ export class ReservationService extends DataService {
         return this.http.patch(this.url + '/assignToShip?', null, { params: params })
     }
 
-    createVoucher(formData: any): Observable<any> {
-        return this.http.post<any>('api/voucher/create', formData)
-    }
-
-    emailVoucher(): any {
-        return this.http.post<any>(this.url + '/emailVoucher', '')
-    }
-
     get(date: string): Observable<ReservationViewModel> {
         return this.http.get<ReservationViewModel>(this.url + '/userId/' + this.helperService.readItem('userId') + '/date/' + date)
     }

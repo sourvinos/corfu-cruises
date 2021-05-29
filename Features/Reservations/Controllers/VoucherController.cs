@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using SelectPdf;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CorfuCruises {
@@ -15,16 +16,18 @@ namespace CorfuCruises {
 
     public class VoucherController : Controller {
 
+        private readonly ICompositeViewEngine compositeViewEngine;
+        private readonly IEmailSender emailSender;
         private readonly ILogger<VoucherController> logger;
-        protected readonly ICompositeViewEngine compositeViewEngine;
 
-        public VoucherController(ILogger<VoucherController> logger, ICompositeViewEngine compositeViewEngine) {
-            this.logger = logger;
+        public VoucherController(ICompositeViewEngine compositeViewEngine, IEmailSender emailSender, ILogger<VoucherController> logger) {
             this.compositeViewEngine = compositeViewEngine;
+            this.emailSender = emailSender;
+            this.logger = logger;
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> Create([FromBody] Voucher voucher) {
+        public async Task<IActionResult> CreateVoucher([FromBody] Voucher voucher) {
 
             using (var stringWriter = new StringWriter()) {
 
@@ -59,6 +62,31 @@ namespace CorfuCruises {
 
             }
 
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult PrintVoucher([FromBody] Voucher voucher) {
+            return Ok();
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult EmailVoucher([FromBody] Voucher voucher) {
+            if (ModelState.IsValid) {
+                try {
+                    var response = emailSender.SendVoucher(voucher).Message;
+                    if (response == "OK") {
+                        return StatusCode(200, new { response = ApiMessages.EmailInstructions() });
+                    } else {
+                        throw new Exception(response);
+                    }
+                } catch (Exception exception) {
+                    LoggerExtensions.LogException(0, logger, ControllerContext, voucher.Email, exception);
+                    return StatusCode(493, new {
+                        response = ApiMessages.EmailNotSent()
+                    });
+                }
+            }
+            return StatusCode(400, new { response = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage) });
         }
 
     }

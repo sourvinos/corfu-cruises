@@ -95,9 +95,9 @@ namespace CorfuCruises {
         }
 
         [HttpPost("[action]")]
-        public IActionResult SendVoucher([FromBody] string email) {
+        public IActionResult SendVoucher([FromBody] Voucher voucher) {
             if (ModelState.IsValid) {
-                emailSender.EmailVoucher(email);
+                emailSender.SendVoucher(voucher);
                 return StatusCode(200, new { response = ApiMessages.EmailInstructions() });
             }
             return StatusCode(400, new { response = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage) });
