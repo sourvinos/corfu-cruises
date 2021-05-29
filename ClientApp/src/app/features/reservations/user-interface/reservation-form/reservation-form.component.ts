@@ -138,7 +138,7 @@ export class ReservationFormComponent {
     }
 
     public onEmailVoucher(): void {
-        this.voucherService.createVoucher(this.form.value).subscribe(() => {
+        this.voucherService.createVoucherOnServer(this.form.value).subscribe(() => {
             this.voucherService.emailVoucher(this.form.value.email)
             this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
         }, () => {
@@ -154,10 +154,6 @@ export class ReservationFormComponent {
         return this.mapPassengers().length == this.form.value.totalPersons && this.form.value.totalPersons > 0
     }
 
-    public onDoVoucherJobs(): void {
-        this.showSnackbar(this.messageSnackbarService.emptyEmail(), 'error')
-    }
-
     public onDoBarcodeJobs(): void {
         this.createBarcodeFromTicket().then(() => {
             this.convertBarcodeToString().then((result) => {
@@ -166,8 +162,12 @@ export class ReservationFormComponent {
         })
     }
 
-    public onDoVoucherTasks(): void {
-        this.voucherService.createVoucher(this.form.value).subscribe(() => {
+    public onDoVoucherTasksClient(): void {
+        this.voucherService.createVoucherOnClient(this.mapObjectToVoucher())
+    }
+
+    public onDoVoucherTasksServer(): void {
+        this.voucherService.createVoucherOnServer(this.form.value).subscribe(() => {
             this.voucherService.emailVoucher(this.form.value).subscribe(() => {
                 this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
             }, errorFromInterceptor => {
@@ -521,8 +521,6 @@ export class ReservationFormComponent {
             'pickupPointDescription': form.pickupPointDescription,
             'pickupPointExactPoint': form.pickupPointExactPoint,
             'pickupPointTime': form.pickupPointTime,
-            'email': form.email,
-            'phones': form.phones,
             'remarks': form.remarks,
             'uri': form.uri,
             'passengers': this.mapVoucherPassengers()

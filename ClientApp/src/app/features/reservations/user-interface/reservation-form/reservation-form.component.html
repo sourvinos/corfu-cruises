@@ -9,6 +9,17 @@
         <div id="title">
             <h1>{{ onGetLabel('header') }}</h1>
         </div>
+        <div id="headerButtons">
+            <button mat-mini-fab (click)="onDoVoucherTasksClient()">
+                <mat-icon>print</mat-icon>
+            </button>
+            <button mat-mini-fab (click)="onDoVoucherTasksServer()" [disabled]="email.hasError('maxlength') || email.hasError('email') || email.value.length==0">
+                <mat-icon>email</mat-icon>
+            </button>
+            <button mat-mini-fab class="delete-fab" (click)="onDelete()" *ngIf="form.value.id !== 0 && onMustBeAdmin()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
     </div>
 
     <mat-tab-group>
@@ -99,10 +110,7 @@
 
     <div id="footer">
         <div id="buttons">
-            <!-- <button mat-flat-button class="secondary" id="sendVoucher" (click)="onDoVoucherJobs()" [disabled]="!email.hasError('maxlength') && email.hasError('email')">Print</button> -->
-            <button mat-flat-button class="secondary" id="sendVoucher" (click)="onDoVoucherTasks()" [disabled]="!email.hasError('maxlength') && email.hasError('email')">{{ onGetLabel('sendVoucherButton') }}</button>
-            <button mat-flat-button class="delete" id="delete" (click)="onDelete()" *ngIf="form.value.id !== 0 && onMustBeAdmin()">{{ onGetLabel('deleteButton') }}</button>
-            <button mat-flat-button class="primary" id="save" (click)="onValidateReservation()" [disabled]="!form.valid">{{ onGetLabel('saveButton') }}</button>
+            <button mat-flat-button class="primary" (click)="onValidateReservation()" [disabled]="!form.valid">{{ onGetLabel('saveButton') }}</button>
         </div>
     </div>
 

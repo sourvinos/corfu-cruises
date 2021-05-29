@@ -11,7 +11,20 @@
 }
 
 #header {
-    margin: 0 0 1.5rem 1rem;
+    margin: 0 1rem 1.5rem 1rem;
+}
+
+#headerButtons {
+    margin-left: auto;
+}
+
+#headerButtons button {
+    margin-left: 0.5rem !important;
+}
+
+#headerButtons button.delete-fab {
+    background-color: var(--color-button-delete) !important;
+    color: var(--color-button-text) !important;
 }
 
 #goBack {
