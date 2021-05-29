@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core'
-import * as pdfMake from 'pdfmake/build/pdfmake.js'
-import * as pdfFonts from 'pdfmake/build/vfs_fonts.js'
 import { ShipRoute } from 'src/app/features/shipRoutes/classes/shipRoute'
+import pdfMake from 'pdfmake/build/pdfmake'
 // Custom
 import { ManifestPassenger } from '../view-models/manifest-passenger'
 import { ManifestViewModel } from './../view-models/manifest-view-model'
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 @Injectable({ providedIn: 'root' })
 

@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { createPdf } from 'pdfmake/build/pdfmake.js'
+import pdfMake from 'pdfmake/build/pdfmake'
+import pdfFonts from 'pdfmake/build/vfs_fonts'
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs
+
 // Custom
 import { DataService } from 'src/app/shared/services/data.service'
 import { LogoService } from './logo.service'
@@ -14,6 +18,8 @@ export class VoucherService extends DataService {
     constructor(http: HttpClient, private logoService: LogoService) {
         super(http, '/api/voucher')
     }
+
+    //#region public methods
 
     public createVoucherOnClient(voucher: VoucherViewModel): void {
         const rows = []
@@ -94,7 +100,7 @@ export class VoucherService extends DataService {
                             table: {
                                 body: [
                                     [
-                                        { qr: 'text in QR', fit: '120' }
+                                        { image: voucher.qrcode, fit: [120, 120] }
                                     ]
                                 ],
                                 heights: 130
@@ -118,10 +124,12 @@ export class VoucherService extends DataService {
                 },
                 paddingTop: {
                     margin: [0, 15, 0, 0]
+                }, defaultStyle: {
+                    font: 'Roboto'
                 }
             }
         }
-        createPdf(dd).open()
+        this.createPdf(dd)
     }
 
     public createVoucherOnServer(formData: any): Observable<any> {
@@ -131,5 +139,18 @@ export class VoucherService extends DataService {
     public emailVoucher(formData: any): Observable<any> {
         return this.http.post<any>(this.url + '/emailVoucher', formData)
     }
+
+    //#endregion
+
+    //#region private methods   
+
+    private createPdf(document: any): void {
+        pdfMake.fonts = {
+            Roboto: { normal: 'Roboto-Regular.ttf' }
+        }
+        pdfMake.createPdf(document).open()
+    }
+
+    //#endregion
 
 }

@@ -522,9 +522,10 @@ export class ReservationFormComponent {
             'pickupPointExactPoint': form.pickupPointExactPoint,
             'pickupPointTime': form.pickupPointTime,
             'remarks': form.remarks,
-            'uri': form.uri,
+            'qrcode': form.uri,
             'passengers': this.mapVoucherPassengers()
         }
+        console.log('To send', voucher)
         return voucher
     }
 

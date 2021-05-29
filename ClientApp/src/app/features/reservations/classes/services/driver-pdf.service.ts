@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core'
-import * as pdfMake from 'pdfmake/build/pdfmake.js'
-import * as pdfFonts from 'pdfmake/build/vfs_fonts.js'
 import { ReservationFlat } from '../view-models/reservation-flat'
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs
+import pdfMake from 'pdfmake/build/pdfmake'
 
 @Injectable({ providedIn: 'root' })
 
@@ -85,26 +82,26 @@ export class DriverPdfService {
 
     private createTableHeaders(): any[] {
         return [
-            { text: 'TIME', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'PICKUP POINT', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'A', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'K', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'F', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'T', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'CUSTOMER', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'REMARKS', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'D', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'TIME', style: 'tableHeader', alignment: 'center' },
+            { text: 'PICKUP POINT', style: 'tableHeader', alignment: 'center' },
+            { text: 'A', style: 'tableHeader', alignment: 'center' },
+            { text: 'K', style: 'tableHeader', alignment: 'center' },
+            { text: 'F', style: 'tableHeader', alignment: 'center' },
+            { text: 'T', style: 'tableHeader', alignment: 'center' },
+            { text: 'CUSTOMER', style: 'tableHeader', alignment: 'center' },
+            { text: 'REMARKS', style: 'tableHeader', alignment: 'center' },
+            { text: 'D', style: 'tableHeader', alignment: 'center' },
         ]
     }
 
     private createPickupPointTotalLine(pickupPoint: string, total: any[]): any[] {
         return [
             { text: '' },
-            { text: 'TOTAL FROM ' + pickupPoint, bold: true },
-            { text: String(total[0]) === '0' ? '' : String(total[0]), alignment: 'right', fillColor: 'white', bold: true },
-            { text: String(total[1]) === '0' ? '' : String(total[1]), alignment: 'right', fillColor: 'white', bold: true },
-            { text: String(total[2]) === '0' ? '' : String(total[2]), alignment: 'right', fillColor: 'white', bold: true },
-            { text: String(total[3]) === '0' ? '' : String(total[3]), alignment: 'right', fillColor: 'white', bold: true },
+            { text: 'TOTAL FROM ' + pickupPoint },
+            { text: String(total[0]) === '0' ? '' : String(total[0]), alignment: 'right', fillColor: 'white' },
+            { text: String(total[1]) === '0' ? '' : String(total[1]), alignment: 'right', fillColor: 'white' },
+            { text: String(total[2]) === '0' ? '' : String(total[2]), alignment: 'right', fillColor: 'white' },
+            { text: String(total[3]) === '0' ? '' : String(total[3]), alignment: 'right', fillColor: 'white' },
             { text: '' },
             { text: '' },
             { text: '' }
@@ -133,8 +130,8 @@ export class DriverPdfService {
                 table: {
                     widths: '*',
                     body: [[
-                        { text: 'DRIVER: ' + driver, alignment: 'left', bold: true, margin: [50, 20, 50, 60] },
-                        { text: 'DATE: ' + date, alignment: 'right', bold: true, margin: [50, 20, 50, 60] }
+                        { text: 'DRIVER: ' + driver, alignment: 'left', margin: [50, 20, 50, 60] },
+                        { text: 'DATE: ' + date, alignment: 'right', margin: [50, 20, 50, 60] }
                     ]]
                 },
                 layout: 'noBorders'
@@ -182,11 +179,11 @@ export class DriverPdfService {
         const dataRow = []
         dataRow.push(
             { text: '' },
-            { text: 'TOTAL FOR ' + driver, bold: true },
-            { text: String(totals[0]) === '0' ? '' : String(totals[0]), alignment: 'right', fillColor: 'white', bold: true },
-            { text: String(totals[1]) === '0' ? '' : String(totals[1]), alignment: 'right', fillColor: 'white', bold: true },
-            { text: String(totals[2]) === '0' ? '' : String(totals[2]), alignment: 'right', fillColor: 'white', bold: true },
-            { text: String(totals[3]) === '0' ? '' : String(totals[3]), alignment: 'right', fillColor: 'white', bold: true },
+            { text: 'TOTAL FOR ' + driver },
+            { text: String(totals[0]) === '0' ? '' : String(totals[0]), alignment: 'right', fillColor: 'white' },
+            { text: String(totals[1]) === '0' ? '' : String(totals[1]), alignment: 'right', fillColor: 'white' },
+            { text: String(totals[2]) === '0' ? '' : String(totals[2]), alignment: 'right', fillColor: 'white' },
+            { text: String(totals[3]) === '0' ? '' : String(totals[3]), alignment: 'right', fillColor: 'white' },
             { text: '' },
             { text: '' },
             { text: '' }
