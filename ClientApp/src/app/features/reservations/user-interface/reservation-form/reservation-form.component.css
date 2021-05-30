@@ -27,10 +27,6 @@
     color: var(--color-button-text) !important;
 }
 
-#goBack {
-    background-color: var(--color-button-primary) !important;
-}
-
 #form {
     width: 100%;
 }

@@ -54,10 +54,6 @@ input:disabled {
     margin-top: 0.1875rem !important;
 }
 
-.mat-icon {
-    color: var(--color-background-secondary) !important;
-}
-
 #search-box .mat-form-field {
     flex: auto;
 }
