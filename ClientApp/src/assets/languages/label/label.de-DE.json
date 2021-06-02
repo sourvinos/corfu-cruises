@@ -1735,5 +1735,63 @@
                 "description": "(DE) Export to PDF"
             }
         ]
+    },
+    {
+        "feature": "shipOwnerList",
+        "labels": [
+            {
+                "id": "headerName",
+                "description": "(DE) Name"
+            }
+        ]
+    },
+    {
+        "feature": "shipOwnerForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(DE) Ship owner"
+            },
+            {
+                "id": "description",
+                "description": "(DE) Description"
+            },
+            {
+                "id": "profession",
+                "description": "(DE) Profession"
+            },
+            {
+                "id": "address",
+                "description": "(DE) Address"
+            },
+            {
+                "id": "taxNo",
+                "description": "(DE) Tax number"
+            },
+            {
+                "id": "city",
+                "description": "(DE) City"
+            },
+            {
+                "id": "phones",
+                "description": "(DE) Phones"
+            },
+            {
+                "id": "email",
+                "description": "(DE) Email"
+            },
+            {
+                "id": "isActive",
+                "description": "(DE) Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "(DE) Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "(DE) Save"
+            }
+        ]
     }
 ]

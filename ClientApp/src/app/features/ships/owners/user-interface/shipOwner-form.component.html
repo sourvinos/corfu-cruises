@@ -1,0 +1,64 @@
+<div id="form-wrapper">
+
+    <div id="header">
+        <div id="navigation">
+            <button class="goBack" id="goBack" [routerLink]="['/shipOwners']" mat-mini-fab>
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+        <div @slideFromLeft id="title">
+            <h1>{{ onGetLabel('header') }}</h1>
+        </div>
+    </div>
+
+    <div id="content">
+        <form id="form" [formGroup]="form" autocomplete="off">
+            <div id="group-field">
+                <mat-form-field>
+                    <input type="text" matInput [placeholder]="onGetLabel('description')" formControlName="description" data-tabindex="1" id="description" [inputTabStop]="input">
+                    <mat-error *ngIf="description.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                    <mat-error *ngIf="description.hasError('maxlength')">{{ onGetHint('maxLength', description.errors.maxlength.requiredLength) }}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input type="text" matInput [placeholder]="onGetLabel('profession')" formControlName="profession" data-tabindex="2" id="profession" [inputTabStop]="input">
+                    <mat-error *ngIf="profession.hasError('maxlength')">{{ onGetHint('maxLength', profession.errors.maxlength.requiredLength) }}</mat-error>
+                </mat-form-field>
+            </div>
+            <div id="group-field">
+                <mat-form-field>
+                    <input type="text" matInput [placeholder]="onGetLabel('address')" formControlName="address" data-tabindex="3" id="address" [inputTabStop]="input">
+                    <mat-error *ngIf="address.hasError('maxlength')">{{ onGetHint('maxLength', address.errors.maxlength.requiredLength) }}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input type="text" matInput [placeholder]="onGetLabel('taxNo')" formControlName="taxNo" data-tabindex="4" id="taxNo" [inputTabStop]="input">
+                    <mat-error *ngIf="taxNo.hasError('maxlength')">{{ onGetHint('maxLength', taxNo.errors.maxlength.requiredLength) }}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input type="text" matInput [placeholder]="onGetLabel('phones')" formControlName="phones" data-tabindex="5" id="phones" [inputTabStop]="input">
+                    <mat-error *ngIf="phones.hasError('maxlength')">{{ onGetHint('maxLength', phones.errors.maxlength.requiredLength) }}</mat-error>
+                </mat-form-field>
+            </div>
+            <div id="group-field">
+                <mat-form-field>
+                    <input type="text" matInput [placeholder]="onGetLabel('city')" formControlName="city" data-tabindex="6" id="city" [inputTabStop]="input">
+                    <mat-error *ngIf="city.hasError('maxlength')">{{ onGetHint('maxLength', city.errors.maxlength.requiredLength) }}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input type="text" matInput [placeholder]="onGetLabel('email')" formControlName="email" data-tabindex="7" id="email" [inputTabStop]="input">
+                    <mat-error *ngIf="email.hasError('maxlength')">{{ onGetHint('maxLength', email.errors.maxlength.requiredLength) }}</mat-error>
+                    <mat-error *ngIf="!email.hasError('maxlength') && email.hasError('email')">{{ onGetHint('invalid') }}</mat-error>
+                </mat-form-field>
+            </div>
+            <mat-slide-toggle formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
+        </form>
+        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+    </div>
+
+    <div id="footer">
+        <div @slideFromRight id="buttons">
+            <button mat-flat-button class="delete" *ngIf="form.value.id !== 0" id="delete" (click)="onDelete()">{{ onGetLabel('deleteButton') }}</button>
+            <button mat-flat-button class="primary" [disabled]="!form.valid" id="save" (click)="onSave()">{{ onGetLabel('saveButton') }}</button>
+        </div>
+    </div>
+
+</div>

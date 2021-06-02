@@ -5,8 +5,10 @@ export class ShipOwner extends KeyValuePair {
     description: string
     profession: string
     address: string
+    taxNo: string
     city: string
     phones: string
-    taxNo: string
+    email: string
+    isActive: boolean
 
 }

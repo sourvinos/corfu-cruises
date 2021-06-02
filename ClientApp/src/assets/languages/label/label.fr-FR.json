@@ -1735,5 +1735,63 @@
                 "description": "Creer un PDF"
             }
         ]
+    },
+    {
+        "feature": "shipOwnerList",
+        "labels": [
+            {
+                "id": "headerName",
+                "description": "(FR) Name"
+            }
+        ]
+    },
+    {
+        "feature": "shipOwnerForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": ""
+            },
+            {
+                "id": "description",
+                "description": "Nom de compagnie"
+            },
+            {
+                "id": "profession",
+                "description": "Activite"
+            },
+            {
+                "id": "address",
+                "description": "Adresse"
+            },
+            {
+                "id": "taxNo",
+                "description": "Tax number"
+            },
+            {
+                "id": "city",
+                "description": "City"
+            },
+            {
+                "id": "phones",
+                "description": "numeros de telephone"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "isActive",
+                "description": "Actif"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Effacer"
+            },
+            {
+                "id": "saveButton",
+                "description": "Enregistrer"
+            }
+        ]
     }
 ]

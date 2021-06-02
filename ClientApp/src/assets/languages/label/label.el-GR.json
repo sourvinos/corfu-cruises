@@ -1735,5 +1735,63 @@
                 "description": "Δημιουργια PDF"
             }
         ]
+    },
+    {
+        "feature": "shipOwnerList",
+        "labels": [
+            {
+                "id": "headerName",
+                "description": "Επωνυμια"
+            }
+        ]
+    },
+    {
+        "feature": "shipOwnerForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Πλοιοκτητης"
+            },
+            {
+                "id": "description",
+                "description": "Επωνυμια"
+            },
+            {
+                "id": "profession",
+                "description": "Δραστηριοτητα"
+            },
+            {
+                "id": "address",
+                "description": "Διευθυνση"
+            },
+            {
+                "id": "taxNo",
+                "description": "ΑΦΜ"
+            },
+            {
+                "id": "city",
+                "description": "Πολη"
+            },
+            {
+                "id": "phones",
+                "description": "Τηλεφωνα"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "isActive",
+                "description": "Ενεργος"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Διαγραφη"
+            },
+            {
+                "id": "saveButton",
+                "description": "Αποθηκευση"
+            }
+        ]
     }
 ]

@@ -1,6 +1,6 @@
 namespace CorfuCruises {
 
-    public class ShipOwnerResource {
+    public class ShipOwnerListResource {
 
         public int Id { get; set; }
         public string Description { get; set; }
