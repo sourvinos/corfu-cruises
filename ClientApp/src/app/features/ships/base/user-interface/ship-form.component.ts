@@ -10,7 +10,6 @@ import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { Ship } from '../classes/ship'
 import { ShipService } from '../classes/ship.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
@@ -19,6 +18,7 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { DialogIndexComponent } from 'src/app/shared/components/dialog-index/dialog-index.component'
 import { MatDialog } from '@angular/material/dialog'
 import { ShipOwnerService } from '../../owners/classes/ship-owner.service'
+import { ShipReadResource } from '../classes/ship-read-resource'
 
 @Component({
     selector: 'ship-form',
@@ -248,12 +248,12 @@ export class ShipFormComponent {
         )
     }
 
-    private populateFields(result: Ship): void {
+    private populateFields(result: ShipReadResource): void {
         this.form.setValue({
             id: result.id,
             description: result.description,
-            shipOwnerId: result.shipOwner.id,
-            shipOwnerDescription: result.shipOwner.description,
+            shipOwnerId: result.shipOwnerId,
+            shipOwnerDescription: result.shipOwnerDescription,
             imo: result.imo,
             flag: result.flag,
             registryNo: result.registryNo,

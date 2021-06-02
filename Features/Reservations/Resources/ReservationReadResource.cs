@@ -23,7 +23,7 @@ namespace CorfuCruises {
         public DestinationResource Destination { get; set; }
         public PickupPointResource PickupPoint { get; set; }
         public DriverResource Driver { get; set; }
-        public ShipResource Ship { get; set; }
+        public ShipReadResource Ship { get; set; }
 
     }
 

@@ -7,7 +7,7 @@ namespace CorfuCruises.Manifest {
         public ManifestMappingProfile() {
             CreateMap<ManifestViewModel, ManifestResource>()
                 .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Date))
-                .ForMember(dest => dest.ShipResource, opt => opt.MapFrom(src => src.Ship));
+                .ForMember(dest => dest.ShipReadResource, opt => opt.MapFrom(src => src.Ship));
         }
 
     }

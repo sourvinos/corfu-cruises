@@ -1,18 +1,19 @@
-import { Component } from '@angular/core'
-import { Title } from '@angular/platform-browser'
 import { ActivatedRoute, Router } from '@angular/router'
+import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
+import { Title } from '@angular/platform-browser'
 import { takeUntil } from 'rxjs/operators'
-import { ListResolved } from 'src/app/shared/classes/list-resolved'
+// Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { Ship } from '../classes/ship'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ShipListResource } from '../classes/ship-list-resource'
+import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'ship-list',
@@ -28,12 +29,12 @@ export class ShipListComponent {
     private baseUrl = '/ships'
     private localStorageSearchTerm = 'searchTermShip'
     private ngUnsubscribe = new Subject<void>()
-    private records: Ship[] = []
+    private records: ShipListResource[] = []
     private resolver = 'shipList'
     private unlisten: Unlisten
     private windowTitle = 'Ships'
     public feature = 'shipList'
-    public filteredRecords: Ship[] = []
+    public filteredRecords: ShipListResource[] = []
     public highlightFirstRow = false
     public newUrl = this.baseUrl + '/new'
     public searchTerm = ''
@@ -44,12 +45,12 @@ export class ShipListComponent {
 
     //#region table
 
-    headers = ['', 'Id', 'headerName', 'headerPhones', '']
-    widths = ['40px', '0px', '50%', '', '56px']
+    headers = ['', 'Id', 'headerName', '']
+    widths = ['40px', '0px', '', '56px']
     visibility = ['none', 'none']
-    justify = ['center', 'center', 'left', 'left', 'center']
-    types = ['', '', '', '', '']
-    fields = ['', 'id', 'description', 'phones', '']
+    justify = ['center', 'center', 'left', 'center']
+    types = ['', '', '', '']
+    fields = ['', 'id', 'description', '']
 
     //#endregion
 

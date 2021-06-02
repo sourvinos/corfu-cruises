@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-
 namespace CorfuCruises {
 
-    public class ShipResource {
+    public class ShipWriteResource {
 
         public int Id { get; set; }
         public int ShipOwnerId { get; set; }
@@ -15,10 +13,6 @@ namespace CorfuCruises {
         public string Agent { get; set; }
         public bool IsActive { get; set; }
         public string UserId { get; set; }
-
-        public ShipOwner ShipOwner { get; set; }
-
-        public IEnumerable<DataEntryPerson> DataEntryPersons { get; set; }
 
     }
 

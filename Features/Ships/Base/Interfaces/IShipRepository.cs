@@ -6,7 +6,8 @@ namespace CorfuCruises {
     public interface IShipRepository : IRepository<Ship> {
 
         Task<IList<Ship>> Get();
-        new Task<Ship> GetById(int shipId);
+        Task<Ship> GetByIdToDelete(int shipId);
+        new Task<ShipReadResource> GetById(int shipId);
         
     }
 
