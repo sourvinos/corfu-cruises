@@ -1100,10 +1100,6 @@
             {
                 "id": "headerName",
                 "description": "(DE) Name"
-            },
-            {
-                "id": "headerMaxPersons",
-                "description": "(DE) Max persons"
             }
         ]
     },
@@ -1119,6 +1115,10 @@
                 "description": "(DE) Name"
             },
             {
+                "id": "shipOwnerDescription",
+                "description": "(DE) Owner"
+            },
+            {
                 "id": "imo",
                 "description": "(DE) ΙΜΟ"
             },
@@ -1131,8 +1131,16 @@
                 "description": "(DE) Registry no"
             },
             {
-                "id": "maxPersons",
-                "description": "(DE) Passenger capacity"
+                "id": "manager",
+                "description": "(DE) Manager"
+            },
+            {
+                "id": "managerInGreece",
+                "description": "(DE) Manager in Greece"
+            },
+            {
+                "id": "agent",
+                "description": "(DE) Shipping agents"
             },
             {
                 "id": "isActive",

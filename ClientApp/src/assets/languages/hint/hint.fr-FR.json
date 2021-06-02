@@ -1,0 +1,32 @@
+{
+    "labels": [
+        {
+            "id": "required",
+            "description": "Le champ est requis"
+        },
+        {
+            "id": "minLength",
+            "description": "Le champ doit contenir au moins xx caracteres"
+        },
+        {
+            "id": "maxLength",
+            "description": "Le champ doit avoir du longeur xx caracteres"
+        },
+        {
+            "id": "invalid",
+            "description": "Le champ est faux"
+        },
+        {
+            "id": "passwordsNoMatch",
+            "description": "Le mot de passe et la confi"
+        },
+        {
+            "id": "spacesNotAllowed",
+            "description": "Les espaces sont interdits"
+        },
+        {
+            "id": "otherErrors",
+            "description": "Le champ a des fautes"
+        }
+    ]
+}

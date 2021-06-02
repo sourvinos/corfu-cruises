@@ -11,14 +11,14 @@ import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { Ship } from 'src/app/features/ships/classes/ship'
-import { ShipService } from 'src/app/features/ships/classes/ship.service'
+import { Ship } from 'src/app/features/ships/base/classes/ship'
+import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { Port } from 'src/app/features/ports/classes/port'
 import { PortService } from 'src/app/features/ports/classes/port.service'
-import { ShipRoute } from 'src/app/features/shipRoutes/classes/shipRoute'
-import { ShipRouteService } from 'src/app/features/shipRoutes/classes/shipRoute.service'
+import { ShipRoute } from 'src/app/features/ships/routes/classes/shipRoute'
+import { ShipRouteService } from 'src/app/features/ships/routes/classes/shipRoute.service'
 
 @Component({
     selector: 'manifest-wrapper',

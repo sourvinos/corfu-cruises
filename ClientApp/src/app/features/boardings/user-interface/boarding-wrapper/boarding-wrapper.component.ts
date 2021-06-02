@@ -16,8 +16,8 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { Port } from 'src/app/features/ports/classes/port'
 import { PortService } from 'src/app/features/ports/classes/port.service'
-import { Ship } from 'src/app/features/ships/classes/ship'
-import { ShipService } from 'src/app/features/ships/classes/ship.service'
+import { Ship } from 'src/app/features/ships/base/classes/ship'
+import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 

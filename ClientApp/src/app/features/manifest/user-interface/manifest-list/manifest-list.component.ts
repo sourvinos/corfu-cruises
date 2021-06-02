@@ -9,10 +9,10 @@ import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
 import { ManifestViewModel } from '../../classes/view-models/manifest-view-model'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
-import { ShipRoute } from './../../../shipRoutes/classes/shipRoute'
-import { ShipRouteService } from 'src/app/features/shipRoutes/classes/shipRoute.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { ShipRoute } from 'src/app/features/ships/routes/classes/shipRoute'
+import { ShipRouteService } from 'src/app/features/ships/routes/classes/shipRoute.service'
 
 @Component({
     selector: 'manifest-list',

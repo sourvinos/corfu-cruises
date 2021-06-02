@@ -20,7 +20,7 @@ import { ReservationToDriverComponent } from '../reservation-to-driver/reservati
 import { ReservationToVesselComponent } from '../reservation-to-vessel/reservation-to-vessel-form.component'
 import { ReservationViewModel } from '../../classes/view-models/reservation-view-model'
 import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
-import { ShipService } from 'src/app/features/ships/classes/ship.service'
+import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { AccountService } from 'src/app/shared/services/account.service'

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { ShipRoute } from 'src/app/features/shipRoutes/classes/shipRoute'
+import { ShipRoute } from 'src/app/features/ships/routes/classes/shipRoute'
 import pdfMake from 'pdfmake/build/pdfmake'
 // Custom
 import { ManifestPassenger } from '../view-models/manifest-passenger'

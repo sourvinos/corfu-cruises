@@ -15,8 +15,8 @@ namespace CorfuCruises.Manifest {
 
         public ManifestResource Get(string date, int shipId, int portId) {
             var manifest = context.Reservations
-                .Include(x => x.Ship).ThenInclude(x => x.ShipOwner)
-                .Include(x => x.Ship).ThenInclude(x => x.DataEntryPersons)
+                .Include(x => x.Ship)
+                .Include(x => x.Ship)
                 .Include(x => x.Port)
                 .Include(x => x.Passengers).ThenInclude(x => x.Gender)
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
@@ -30,11 +30,9 @@ namespace CorfuCruises.Manifest {
                         Manager = x.Ship.Manager,
                         ManagerInGreece = x.Ship.ManagerInGreece,
                         Agent = x.Ship.Agent,
-                        ShipOwner = x.Ship.ShipOwner,
                         Flag = x.Ship.Flag,
                         RegistryNo = x.Ship.RegistryNo,
-                        IMO = x.Ship.IMO,
-                        DataEntryPersons = x.Ship.DataEntryPersons.OrderBy(x => x.IsPrimary).ToList()
+                        IMO = x.Ship.IMO
                     },
                     Port = x.Port.Description,
                     Passengers = x.Passengers.ToList()

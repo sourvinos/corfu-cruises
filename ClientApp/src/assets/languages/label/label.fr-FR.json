@@ -4,27 +4,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Přihlásit se"
+                "description": "Connexion"
             },
             {
                 "id": "usernameLabel",
-                "description": " Uživatelské jméno"
+                "description": "Utilisateur"
             },
             {
                 "id": "passwordLabel",
-                "description": "Heslo"
+                "description": "Mot de passe"
             },
             {
                 "id": "noRobotCheckbox",
-                "description": "Nejsem robot"
+                "description": "Je ne suis pas robot"
             },
             {
                 "id": "forgotPasswordButton",
-                "description": "Zapomněl jsem heslo"
+                "description": "J'ai oublie mon mot de passe"
             },
             {
                 "id": "loginButton",
-                "description": "Přihlásit se"
+                "description": "Connexion"
             }
         ]
     },
@@ -33,31 +33,31 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Zákazníci"
+                "description": "clients"
             },
             {
                 "id": "searchLabel",
-                "description": "Vyhledat"
+                "description": "Recherche"
             },
             {
                 "id": "searchHint",
-                "description": "Vyhledat podle názvu"
+                "description": "Base sur le nom de compagnie"
             },
             {
                 "id": "newButton",
-                "description": "Nový"
+                "description": "Nouvel utilisateur"
             },
             {
                 "id": "headerName",
-                "description": "Název"
+                "description": "Nom de compagnie"
             },
             {
                 "id": "headerPhones",
-                "description": "Telefonní čísla"
+                "description": "numeros de telephone"
             },
             {
                 "id": "headerEmail",
-                "description": "E-mail"
+                "description": "Email"
             }
         ]
     },
@@ -66,27 +66,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Zákazník"
+                "description": "client"
             },
             {
                 "id": "description",
-                "description": "Název"
+                "description": "Nom de compagnie"
             },
             {
                 "id": "profession",
-                "description": "Aktivita"
+                "description": "Activite"
             },
             {
                 "id": "address",
-                "description": "Adresa"
+                "description": "Adresse"
             },
             {
                 "id": "phones",
-                "description": "Telefonní čísla"
+                "description": "numeros de telephone"
             },
             {
                 "id": "personInCharge",
-                "description": "Odpovědná osoba"
+                "description": "Responable de communication"
             },
             {
                 "id": "email",
@@ -94,15 +94,15 @@
             },
             {
                 "id": "isActive",
-                "description": "Aktivní"
+                "description": "Actif"
             },
             {
                 "id": "deleteButton",
-                "description": "Vymazat"
+                "description": "Effacer"
             },
             {
                 "id": "saveButton",
-                "description": "Uložit"
+                "description": "Enregistrer"
             }
         ]
     },
@@ -111,27 +111,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Destinace"
+                "description": "Destination"
             },
             {
                 "id": "searchLabel",
-                "description": "Vyhledat"
+                "description": "Recherche"
             },
             {
                 "id": "searchHint",
-                "description": "Vyhledat podle popisu"
+                "description": "Base sur la description"
             },
             {
                 "id": "newButton",
-                "description": "Nový"
+                "description": "Nouvel utilisateur"
             },
             {
                 "id": "headerAbbreviation",
-                "description": "Zkratka"
+                "description": "Abbreviation"
             },
             {
                 "id": "headerDescription",
-                "description": "Popis"
+                "description": "Description"
             }
         ]
     },
@@ -140,27 +140,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Destinace"
+                "description": "Destination"
             },
             {
                 "id": "abbreviation",
-                "description": "Zkratka"
+                "description": "Abbreviation."
             },
             {
                 "id": "description",
-                "description": "Popis"
+                "description": "Description"
             },
             {
                 "id": "isActive",
-                "description": "Aktivní"
+                "description": "Actif"
             },
             {
                 "id": "deleteButton",
-                "description": "Vymazat"
+                "description": "Effacer"
             },
             {
                 "id": "saveButton",
-                "description": "Uložit"
+                "description": "Enregistrement"
             }
         ]
     },
@@ -169,27 +169,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Řidiči"
+                "description": "conducteurs"
             },
             {
                 "id": "searchLabel",
-                "description": "Vyhledat"
+                "description": "Recherche"
             },
             {
                 "id": "searchHint",
-                "description": "Vyhledat podle jména"
+                "description": "Sous nom de compagnie"
             },
             {
                 "id": "newButton",
-                "description": "Nový"
+                "description": "Nouvel utilisateur"
             },
             {
                 "id": "headerName",
-                "description": "Jméno"
+                "description": "Prenom"
             },
             {
                 "id": "headerPhones",
-                "description": "Telefonní čísla"
+                "description": "Numeros de telephones"
             }
         ]
     },
@@ -198,27 +198,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Řidič"
+                "description": "Chauffeur"
             },
             {
                 "id": "description",
-                "description": "Jméno"
+                "description": "Prenom"
             },
             {
                 "id": "phones",
-                "description": "Telefonní čísla"
+                "description": "Numeros de telephones"
             },
             {
                 "id": "isActive",
-                "description": "Aktivní"
+                "description": "Actif"
             },
             {
                 "id": "deleteButton",
-                "description": "Vymazat"
+                "description": "Effacer"
             },
             {
                 "id": "saveButton",
-                "description": "Uložit"
+                "description": "Enregistrer"
             }
         ]
     },
@@ -227,15 +227,15 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Nástupní místa"
+                "description": "Points de collecte"
             },
             {
                 "id": "searchLabel",
-                "description": "Trasy"
+                "description": "Itineraires"
             },
             {
                 "id": "searchHint",
-                "description": "Vybrat ze seznamu"
+                "description": "Selectionnez dans la liste"
             }
         ]
     },
@@ -244,35 +244,35 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Nástupní Místa pro Trasu:"
+                "description": "Points de collectes a travers l' itineraire: "
             },
             {
                 "id": "searchLabel",
-                "description": "Vyhledat"
+                "description": "Recherche"
             },
             {
                 "id": "searchHint",
-                "description": "Vyhledat podle popisu"
+                "description": "base sur la Description"
             },
             {
                 "id": "newButton",
-                "description": "Nový"
+                "description": "Nouvel utilisateur"
             },
             {
                 "id": "headerDescription",
-                "description": "Popis"
+                "description": "Description"
             },
             {
                 "id": "headerExactPoint",
-                "description": "Přesné místo"
+                "description": "Point precis"
             },
             {
                 "id": "headerCoordinates",
-                "description": "Souřadnice GPS"
+                "description": "les coordonnees GPS"
             },
             {
                 "id": "headerTime",
-                "description": "Čas"
+                "description": "Heure"
             }
         ]
     },
@@ -281,47 +281,47 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Nástupní místo"
+                "description": "point de collecte"
             },
             {
                 "id": "route",
-                "description": "Trasa"
+                "description": "Itineraire"
             },
             {
                 "id": "description",
-                "description": "Popis"
+                "description": "Description"
             },
             {
                 "id": "exactPoint",
-                "description": "Přesné místo"
+                "description": "Point de rendez-vous precis"
             },
             {
                 "id": "time",
-                "description": "Čas"
+                "description": "Heure"
             },
             {
                 "id": "coordinates",
-                "description": "Souřadnice GPS"
+                "description": "Les coordonnees GPS"
             },
             {
                 "id": "isActive",
-                "description": "Aktivní"
+                "description": "Actif"
             },
             {
                 "id": "deleteButton",
-                "description": "Vymazat"
+                "description": "Effacer"
             },
             {
                 "id": "saveButton",
-                "description": "Uložit"
+                "description": "Enregistrer"
             },
             {
                 "id": "formTab",
-                "description": "Formulář"
+                "description": "Des coordonnees"
             },
             {
                 "id": "mapTab",
-                "description": "Mapa"
+                "description": "Cartes"
             }
         ]
     },
@@ -330,23 +330,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Přístavy"
+                "description": "Des ports"
             },
             {
                 "id": "searchLabel",
-                "description": "Vyhledat"
+                "description": "Recherche"
             },
             {
                 "id": "searchHint",
-                "description": "Vyhledat podle popisu"
+                "description": "Sous la base  Description"
             },
             {
                 "id": "newButton",
-                "description": "Nový"
+                "description": "Nouvel utilisateur"
             },
             {
                 "id": "headerDescription",
-                "description": "Popis"
+                "description": "Description"
             }
         ]
     },
@@ -355,27 +355,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Přístavt"
+                "description": "Port"
             },
             {
                 "id": "description",
-                "description": "Popis"
+                "description": "Description"
             },
             {
                 "id": "isPrimary",
-                "description": "(CZ) Primary"
+                "description": "Primaire"
             },
             {
                 "id": "isActive",
-                "description": "Aktivní"
+                "description": "Actif"
             },
             {
                 "id": "deleteButton",
-                "description": "Vymazat"
+                "description": "Effacer"
             },
             {
                 "id": "saveButton",
-                "description": "Uložit"
+                "description": "Enregistrer"
             }
         ]
     },
@@ -384,27 +384,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Trasy"
+                "description": "Itineraires"
             },
             {
                 "id": "searchLabel",
-                "description": "Vyhledat"
+                "description": "Recherche"
             },
             {
                 "id": "searchHint",
-                "description": "Vyhledat podle popisu"
+                "description": "Sous la base  Description"
             },
             {
                 "id": "newButton",
-                "description": "Nový"
+                "description": "Nouvelle"
             },
             {
                 "id": "headerAbbreviation",
-                "description": "Zkratka"
+                "description": "Abbreviation."
             },
             {
                 "id": "headerDescription",
-                "description": "Popis"
+                "description": "Description"
             }
         ]
     },
@@ -413,43 +413,43 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Trasa"
+                "description": "Itineraire"
             },
             {
                 "id": "abbreviation",
-                "description": "Zkratka"
+                "description": "Abbreviation."
             },
             {
                 "id": "description",
-                "description": "Popis"
+                "description": "Description"
             },
             {
                 "id": "port",
-                "description": "Přístav"
+                "description": "Port"
             },
             {
                 "id": "isTransfer",
-                "description": "(CZ) Requires transfer"
+                "description": "avec du transfer"
             },
             {
                 "id": "isActive",
-                "description": "Aktivní"
+                "description": "Actif"
             },
             {
                 "id": "deleteButton",
-                "description": "Vymazat"
+                "description": "Effacer"
             },
             {
                 "id": "saveButton",
-                "description": "Uložit"
+                "description": "Enregistrer"
             },
             {
                 "id": "formTab",
-                "description": "Formulář"
+                "description": "Des coordonnees"
             },
             {
                 "id": "mapTab",
-                "description": "Mapa"
+                "description": "Cartes"
             }
         ]
     },
@@ -458,19 +458,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Rezervace"
+                "description": "Reservations"
             },
             {
                 "id": "searchLabel",
-                "description": "Datum"
+                "description": "Date"
             },
             {
                 "id": "searchHint",
-                "description": "Vyplňte nebo vyberte datum"
+                "description": "Donnez Date"
             },
             {
                 "id": "searchButton",
-                "description": "Vyhledat"
+                "description": "Recherche"
             }
         ]
     },
@@ -479,31 +479,31 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Uživatelé"
+                "description": "Utilisateurs"
             },
             {
                 "id": "searchLabel",
-                "description": "Vyhledat"
+                "description": "Recherche"
             },
             {
                 "id": "searchHint",
-                "description": "Vyhledat podle uživatelského jména"
+                "description": "Sous base de nom"
             },
             {
                 "id": "newButton",
-                "description": "Nový"
+                "description": "Nouvel utilisateurς"
             },
             {
                 "id": "headerUsername",
-                "description": "Uživatelské jméno"
+                "description": "Nom d'utilisateur"
             },
             {
                 "id": "headerDisplayname",
-                "description": "Zobrazené jméno"
+                "description": "Nom apparu"
             },
             {
                 "id": "headerEmail",
-                "description": "E-mail"
+                "description": "Email"
             }
         ]
     },
@@ -512,47 +512,47 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Uživatel"
+                "description": "Utilisateur"
             },
             {
                 "id": "userName",
-                "description": "Uživatelské jméno"
+                "description": "Nom"
             },
             {
                 "id": "displayName",
-                "description": "Zobrazené jméno"
+                "description": "Nom apparu"
             },
             {
                 "id": "customer",
-                "description": "(CZ) Linked Customer"
+                "description": "Client en connection"
             },
             {
                 "id": "email",
-                "description": "e-mail"
+                "description": "Email"
             },
             {
                 "id": "isAdmin",
-                "description": "Admin"
+                "description": "Administrateur"
             },
             {
                 "id": "isActive",
-                "description": "Aktivní"
+                "description": "Actif"
             },
             {
                 "id": "deleteButton",
-                "description": "Vymazat"
+                "description": "Effacer"
             },
             {
                 "id": "changePasswordButton",
-                "description": "Změnit heslo"
+                "description": "Changer mot de passe"
             },
             {
                 "id": "sendEmailToUser",
-                "description": "Poslat e-mail"
+                "description": "Envoyeremail"
             },
             {
                 "id": "saveButton",
-                "description": "Uložit"
+                "description": "Enregistrer"
             }
         ]
     },
@@ -561,47 +561,47 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Uživatel"
+                "description": "Utilisateur"
             },
             {
                 "id": "userName",
-                "description": "Uživatelské jméno"
+                "description": "Utilisateur"
             },
             {
                 "id": "displayName",
-                "description": "Zobrazené jméno"
+                "description": "Nom apparu"
             },
             {
                 "id": "email",
-                "description": "e-mail"
+                "description": "Email"
             },
             {
                 "id": "password",
-                "description": "Heslo"
+                "description": "Mot de passe"
             },
             {
                 "id": "confirmPassword",
-                "description": "Potvrďte Heslo"
+                "description": "Confirmer le mot de passe"
             },
             {
                 "id": "customer",
-                "description": "(CZ) Linked Customer"
+                "description": "Client en connection"
             },
             {
                 "id": "isAdmin",
-                "description": "Admin"
+                "description": "Administrateur"
             },
             {
                 "id": "isActive",
-                "description": "Aktivní"
+                "description": "Actif"
             },
             {
                 "id": "sendLoginCredentials",
-                "description": "(CZ) Send to email"
+                "description": "Envoyer a l' email"
             },
             {
                 "id": "saveButton",
-                "description": "Uložit"
+                "description": "Enregistrer"
             }
         ]
     },
@@ -610,23 +610,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Změnit heslo"
+                "description": "Changer mot de passe"
             },
             {
                 "id": "currentPassword",
-                "description": "Současné heslo"
+                "description": " Mot de passe actuel"
             },
             {
                 "id": "newPassword",
-                "description": "Nové heslo"
+                "description": "Nouvel utilisateur mot de passe"
             },
             {
                 "id": "confirmPassword",
-                "description": "Potvrďte nové heslo"
+                "description": "Confirmation de mot de passe du Nouvel utilisateur "
             },
             {
                 "id": "saveButton",
-                "description": "Uložit"
+                "description": "Enregistrer"
             }
         ]
     },
@@ -635,119 +635,119 @@
         "labels": [
             {
                 "id": "summaryTab",
-                "description": "Souhrn"
+                "description": "Brievement"
             },
             {
                 "id": "listTab",
-                "description": "Záznamy"
+                "description": "Inscriprtions"
             },
             {
                 "id": "summaryHeaderDestinations",
-                "description": "Destinace"
+                "description": "Destinations"
             },
             {
                 "id": "summaryHeaderCustomers",
-                "description": "Zákazníci"
+                "description": "Clients"
             },
             {
                 "id": "summaryHeaderRoutes",
-                "description": "Trasy"
+                "description": "Itineraires"
             },
             {
                 "id": "summaryHeaderDrivers",
-                "description": "Řidiči"
+                "description": "conducteurs"
             },
             {
                 "id": "summaryHeaderPorts",
-                "description": "Přístavy"
+                "description": "Des ports"
             },
             {
                 "id": "summaryHeaderShips",
-                "description": "(CZ) Vessels"
+                "description": "Bateaux"
             },
             {
                 "id": "assignToDriverButton",
-                "description": "Přiřadit řidiči"
+                "description": "Affectation des passagers a un conducteur"
             },
             {
                 "id": "assignToShipButton",
-                "description": "(CZ) Assign passengers to vessel"
+                "description": "Affectation des passagers a un bateau"
             },
             {
                 "id": "createPdfButton",
-                "description": "Vytvořit PDF"
+                "description": "Creation du fichier PDF des conducteurs"
             },
             {
                 "id": "newButton",
-                "description": "Nový"
+                "description": "Nouvelle"
             },
             {
                 "id": "total",
-                "description": "Celkem"
+                "description": "Ensemble"
             },
             {
                 "id": "displayed",
-                "description": "Zobrazené"
+                "description": "Apparus"
             },
             {
                 "id": "selected",
-                "description": "Vybrané"
+                "description": "Selectionnees"
             },
             {
                 "id": "filtered",
-                "description": "(CZ) Filtered"
+                "description": "Filtrees"
             },
             {
                 "id": "headerTicketNo",
-                "description": "(CZ) Ticket"
+                "description": "Billet"
             },
             {
                 "id": "headerDestination",
-                "description": "Destinace"
+                "description": "Destination"
             },
             {
                 "id": "headerRoute",
-                "description": "Trasa"
+                "description": "Itineraire"
             },
             {
                 "id": "headerShip",
-                "description": "(CZ) Vessel"
+                "description": " bateau"
             },
             {
                 "id": "headerCustomer",
-                "description": "Zákazník"
+                "description": "Client"
             },
             {
                 "id": "headerPickupPoint",
-                "description": "Nástupní zastávka"
+                "description": "point de collecte"
             },
             {
                 "id": "headerTime",
-                "description": "Čas"
+                "description": "Heure"
             },
             {
                 "id": "headerAdults",
-                "description": "Do"
+                "description": "Ε"
             },
             {
                 "id": "headerKids",
-                "description": "Dí"
+                "description": "Π"
             },
             {
                 "id": "headerFree",
-                "description": "Z"
+                "description": "Δ"
             },
             {
                 "id": "headerTotal",
-                "description": "C"
+                "description": "Σ"
             },
             {
                 "id": "headerDriver",
-                "description": "Řidič"
+                "description": "Conducteur"
             },
             {
                 "id": "headerPort",
-                "description": "Přístav"
+                "description": "Port"
             }
         ]
     },
@@ -756,95 +756,95 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Rezervace"
+                "description": "Reservation"
             },
             {
                 "id": "tabGeneral",
-                "description": "(CZ) General"
+                "description": "En general"
             },
             {
                 "id": "tabPassengers",
-                "description": "(CZ) Passengers"
+                "description": "Passagers"
             },
             {
                 "id": "tabMoreInfo",
-                "description": "(CZ) More"
+                "description": "Plus"
             },
             {
                 "id": "destination",
-                "description": "Destinace"
+                "description": "Destination"
             },
             {
                 "id": "customer",
-                "description": "Zákazník"
+                "description": "Client"
             },
             {
                 "id": "pickupPoint",
-                "description": "Nástupní místo"
+                "description": "Point de collecte"
             },
             {
                 "id": "ticketNo",
-                "description": "(CZ) Ticket"
+                "description": "Billet"
             },
             {
                 "id": "adults",
-                "description": "Dospělí"
+                "description": "Adultes"
             },
             {
                 "id": "kids",
-                "description": "Děti"
+                "description": "Enfants"
             },
             {
                 "id": "free",
-                "description": "Zdarma"
+                "description": "Gratuit"
             },
             {
                 "id": "totalPersons",
-                "description": "Celkem"
+                "description": "Ensemble"
             },
             {
                 "id": "driver",
-                "description": "Řidič"
+                "description": "Conducteur"
             },
             {
                 "id": "port",
-                "description": "Přístav"
+                "description": "Port"
             },
             {
                 "id": "ship",
-                "description": "(CZ) Vessel"
+                "description": " bateau"
             },
             {
                 "id": "email",
-                "description": "E-mail"
+                "description": "Email"
             },
             {
                 "id": "phones",
-                "description": "(CZ) Phones"
+                "description": "Numeros de telephones"
             },
             {
                 "id": "remarks",
-                "description": "Poznámky"
+                "description": "Remarques"
             },
             {
                 "id": "abortButton",
-                "description": "Zrušit"
+                "description": "Annuler"
             },
             {
                 "id": "deleteButton",
-                "description": "Vymazat"
+                "description": "Effacer"
             },
             {
                 "id": "printVoucherButton",
-                "description": "(CZ) Print"
+                "description": "Imprimer"
             },
             {
                 "id": "sendVoucherButton",
-                "description": "(CZ) Send to email"
+                "description": "Envoyer a l' email"
             },
             {
                 "id": "saveButton",
-                "description": "Uložit"
+                "description": "Enregistrer"
             }
         ]
     },
@@ -853,19 +853,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Zapomněl jsem heslo"
+                "description": "Perte de mot de passe"
             },
             {
                 "id": "email",
-                "description": "e-mail"
+                "description": "Email"
             },
             {
                 "id": "submitButton",
-                "description": "Potvrdit"
+                "description": "Soumission"
             },
             {
                 "id": "weNeedYourEmail",
-                "description": "Dejte nám svoji e-mailovou adresu a my vám pošleme postup jak obnovit vaše heslo."
+                "description": "Donner l'adresse email et on donnera des instructions pour creer un mot de passe de nouvel utilisateur"
             }
         ]
     },
@@ -874,19 +874,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Obnovit heslo"
+                "description": "Reinitialiser le mot de passe"
             },
             {
                 "id": "password",
-                "description": "Heslo"
+                "description": "Mot de passe"
             },
             {
                 "id": "confirmPassword",
-                "description": "Potvrdit heslo"
+                "description": "Confirmer le mot de passe"
             },
             {
                 "id": "saveButton",
-                "description": "Uložit"
+                "description": "Enregistrer"
             }
         ]
     },
@@ -895,15 +895,15 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Důležité:"
+                "description": "Important:"
             },
             {
                 "id": "okButton",
-                "description": "Potvrdit"
+                "description": "OK"
             },
             {
                 "id": "noButton",
-                "description": "Zrušit"
+                "description": "Annuler"
             }
         ]
     },
@@ -912,23 +912,23 @@
         "labels": [
             {
                 "id": "searchHint",
-                "description": "Vyberte ze seznamu"
+                "description": "Selectionner dans la liste"
             },
             {
                 "id": "header",
-                "description": "Přiřadit řidiči"
+                "description": "Affectation a un conducteur"
             },
             {
                 "id": "driver",
-                "description": "Řidič"
+                "description": "Conducteur"
             },
             {
                 "id": "okButton",
-                "description": "Potvrdit"
+                "description": "OK"
             },
             {
                 "id": "noButton",
-                "description": "Zrušit"
+                "description": "Annuler"
             }
         ]
     },
@@ -937,23 +937,23 @@
         "labels": [
             {
                 "id": "searchHint",
-                "description": "(CZ) Select from the list"
+                "description": "Selectionner dans la liste"
             },
             {
                 "id": "header",
-                "description": "(CZ) Assign to vessel"
+                "description": "Affectation a   bateau"
             },
             {
                 "id": "ship",
-                "description": "(CZ) Vessel"
+                "description": " bateau"
             },
             {
                 "id": "okButton",
-                "description": "(CZ) OK"
+                "description": "OK"
             },
             {
                 "id": "noButton",
-                "description": "(CZ) Cancel"
+                "description": "Annuler"
             }
         ]
     },
@@ -962,7 +962,7 @@
         "labels": [
             {
                 "id": "ports",
-                "description": "Přístavy"
+                "description": "Des ports"
             },
             {
                 "id": "portId",
@@ -970,11 +970,11 @@
             },
             {
                 "id": "portDescription",
-                "description": "Popisy"
+                "description": "Description"
             },
             {
                 "id": "destinations",
-                "description": "Destinace"
+                "description": "Destinations"
             },
             {
                 "id": "destinationId",
@@ -982,11 +982,11 @@
             },
             {
                 "id": "destinationDescription",
-                "description": "Popisy"
+                "description": "Description"
             },
             {
                 "id": "customers",
-                "description": "Zákazníci"
+                "description": "Clients"
             },
             {
                 "id": "customerId",
@@ -994,11 +994,11 @@
             },
             {
                 "id": "customerDescription",
-                "description": "Název"
+                "description": "Nom de compagnie"
             },
             {
                 "id": "pickupPoints",
-                "description": "Nástupní místa"
+                "description": "Points de collecte"
             },
             {
                 "id": "pickupPointId",
@@ -1006,27 +1006,27 @@
             },
             {
                 "id": "pickupPointDescription",
-                "description": "Popis"
+                "description": "Description"
             },
             {
                 "id": "exactPoint",
-                "description": "Přesné místo"
+                "description": "Point de rendez-vous precis"
             },
             {
                 "id": "time",
-                "description": "Čas"
+                "description": "Heure"
             },
             {
                 "id": "selectButton",
-                "description": "Vybrat"
+                "description": "Choix"
             },
             {
                 "id": "nationalityDescription",
-                "description": "(CZ) Nationality"
+                "description": "Nationalite"
             },
             {
                 "id": "genderDescription",
-                "description": "(CZ) Gender"
+                "description": "Sexe"
             }
         ]
     },
@@ -1035,7 +1035,7 @@
         "labels": [
             {
                 "id": "schedule",
-                "description": "Rozvrhy"
+                "description": "Programme"
             }
         ]
     },
@@ -1044,11 +1044,11 @@
         "labels": [
             {
                 "id": "myAccount",
-                "description": "Můj účet"
+                "description": "Mon compte"
             },
             {
                 "id": "logout",
-                "description": "Odhlásit set"
+                "description": "Quitter"
             }
         ]
     },
@@ -1057,11 +1057,11 @@
         "labels": [
             {
                 "id": "light",
-                "description": "Světlo"
+                "description": "Ouvert"
             },
             {
                 "id": "dark",
-                "description": "Temný"
+                "description": "Fonce"
             }
         ]
     },
@@ -1070,11 +1070,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Zdroje"
+                "description": "Sources"
             },
             {
                 "id": "closeButton",
-                "description": "Zavřít"
+                "description": "Cloture"
             }
         ]
     },
@@ -1083,23 +1083,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Lodě"
+                "description": "Bateaux"
             },
             {
                 "id": "searchLabel",
-                "description": "Vyhledat"
+                "description": "Recherche"
             },
             {
                 "id": "searchHint",
-                "description": "Vyhledat podle názvu"
+                "description": "Sous base de nom"
             },
             {
                 "id": "newButton",
-                "description": "Nový"
+                "description": "Nouvel utilisateur"
             },
             {
                 "id": "headerName",
-                "description": "Název"
+                "description": "Nom "
             }
         ]
     },
@@ -1108,51 +1108,51 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Vessel"
+                "description": "Bateau"
             },
             {
                 "id": "description",
-                "description": "(CZ) Name"
+                "description": "Nom"
             },
             {
                 "id": "shipOwnerDescription",
-                "description": "(CZ) Owner"
+                "description": "(FR) Owner"
             },
             {
                 "id": "imo",
-                "description": "(CZ) ΙΜΟ"
+                "description": "ΙΜΟ"
             },
             {
                 "id": "flag",
-                "description": "(CZ) Flag"
+                "description": "Drapeau"
             },
             {
                 "id": "registryNo",
-                "description": "(CZ) Registry no"
+                "description": "Numero d'inscrirtion"
             },
             {
                 "id": "manager",
-                "description": "(CZ) Manager"
+                "description": "(FR) Manager"
             },
             {
                 "id": "managerInGreece",
-                "description": "(CZ) Manager in Greece"
+                "description": "(FR) Manager in Greece"
             },
             {
                 "id": "agent",
-                "description": "(CZ) Shipping agents"
+                "description": "(FR) Shipping agents"
             },
             {
                 "id": "isActive",
-                "description": "(CZ) Active"
+                "description": "Actif"
             },
             {
                 "id": "deleteButton",
-                "description": "(CZ) Delete"
+                "description": "Effacer"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Enregistrer"
             }
         ]
     },
@@ -1161,31 +1161,31 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Schedule"
+                "description": "Programme"
             },
             {
                 "id": "searchLabelDestination",
-                "description": "(CZ) Destination"
+                "description": "Destination"
             },
             {
                 "id": "searchLabelPort",
-                "description": "(CZ) Port"
+                "description": "Portι"
             },
             {
                 "id": "searchDropdownHint",
-                "description": "(CZ) Select from the list"
+                "description": "Selectionner dans la liste"
             },
             {
                 "id": "searchButton",
-                "description": "(CZ) Search"
+                "description": "Continue"
             },
             {
                 "id": "newButton",
-                "description": "(CZ) New"
+                "description": "Nouvel utilisateur"
             },
             {
                 "id": "menu",
-                "description": "(CZ) Colour Legend"
+                "description": "Explication des couleurs"
             }
         ]
     },
@@ -1194,31 +1194,31 @@
         "labels": [
             {
                 "id": "newButton",
-                "description": "(CZ) New"
+                "description": "Nouvel utilisateur"
             },
             {
                 "id": "availabilityHeader",
-                "description": "(CZ) Availability"
+                "description": "Disponibilite"
             },
             {
                 "id": "high",
-                "description": "(CZ) High"
+                "description": "Haute"
             },
             {
                 "id": "average",
-                "description": "(CZ) Average"
+                "description": "Moyenne"
             },
             {
                 "id": "limited",
-                "description": "(CZ) Limited"
+                "description": "Limite"
             },
             {
                 "id": "extremely-limited",
-                "description": "(CZ) Extremely limited"
+                "description": "Tres Limite"
             },
             {
                 "id": "none",
-                "description": "(CZ) None"
+                "description": "Zero"
             }
         ]
     },
@@ -1227,31 +1227,31 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) New Schedule"
+                "description": "Nouvel utilisateur Programme"
             },
             {
                 "id": "destination",
-                "description": "(CZ) Destination"
+                "description": "Destination"
             },
             {
                 "id": "port",
-                "description": "(CZ) Port"
+                "description": "Port"
             },
             {
                 "id": "dateRange",
-                "description": "(CZ) Period"
+                "description": "Espace"
             },
             {
                 "id": "maxPersons",
-                "description": "(CZ) Max capacity"
+                "description": "Haute capacite d'espace"
             },
             {
-                "id": "invalid",
-                "description": "(CZ) The period is not valid"
+                "id": "invalidPeriod",
+                "description": "l' espace n'est pas correcte"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Enregistrer"
             }
         ]
     },
@@ -1260,35 +1260,35 @@
         "labels": [
             {
                 "id": "headerLastname",
-                "description": "(CZ) Last name"
+                "description": "Nom de famille"
             },
             {
                 "id": "headerFirstname",
-                "description": "(CZ) First name"
+                "description": "Nom "
             },
             {
                 "id": "headerNationality",
-                "description": "(CZ) Nationality"
+                "description": "Nationalite"
             },
             {
                 "id": "headerDoB",
-                "description": "(CZ) Date of Birth"
+                "description": "Date de naissance"
             },
             {
                 "id": "headerSpecialCare",
-                "description": "(CZ) Special care"
+                "description": "Traitement special"
             },
             {
                 "id": "headerRemarks",
-                "description": "(CZ) Remarks"
+                "description": "ΠRemarques"
             },
             {
                 "id": "headerIsCheckedIn",
-                "description": "(CZ) Checked In"
+                "description": "Embarque"
             },
             {
                 "id": "newPassengerButton",
-                "description": "(CZ) New passenger"
+                "description": "Nouvel utilisateur"
             }
         ]
     },
@@ -1297,43 +1297,43 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Passenger"
+                "description": "Passager"
             },
             {
                 "id": "lastname",
-                "description": "(CZ) Lastname"
+                "description": "Nom de famille"
             },
             {
                 "id": "firstname",
-                "description": "(CZ) Firstname"
+                "description": "Nom "
             },
             {
                 "id": "nationality",
-                "description": "(CZ) Nationality"
+                "description": "Nationalite"
             },
             {
                 "id": "dob",
-                "description": "(CZ) DOB"
+                "description": "Date de naissance"
             },
             {
                 "id": "gender",
-                "description": "(CZ) Gender"
+                "description": "Sexe"
             },
             {
                 "id": "specialCare",
-                "description": "(CZ) Special care"
+                "description": "Traitement special"
             },
             {
                 "id": "remarks",
-                "description": "(CZ) Remarks"
+                "description": "Remarques"
             },
             {
                 "id": "isCheckedIn",
-                "description": "(CZ) Checked In"
+                "description": "Embarque"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "OK"
             }
         ]
     },
@@ -1342,23 +1342,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Genders"
+                "description": "Genres"
             },
             {
                 "id": "searchLabel",
-                "description": "(CZ) Search"
+                "description": "Recherche"
             },
             {
                 "id": "searchHint",
-                "description": "(CZ) Search by description"
+                "description": "Sous la base de Description"
             },
             {
                 "id": "newButton",
-                "description": "(CZ) New"
+                "description": "Nouvel utilisateur"
             },
             {
                 "id": "headerName",
-                "description": "(CZ) Description"
+                "description": "Description"
             }
         ]
     },
@@ -1367,23 +1367,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Gender"
+                "description": "Sexe"
             },
             {
                 "id": "description",
-                "description": "(CZ) Description"
+                "description": "Description"
             },
             {
                 "id": "isActive",
-                "description": "(CZ) Active"
+                "description": "Actif"
             },
             {
                 "id": "deleteButton",
-                "description": "(CZ) Delete"
+                "description": "Effacer"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Enregistrer"
             }
         ]
     },
@@ -1392,35 +1392,35 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Boarding"
+                "description": "Embarquement"
             },
             {
                 "id": "date",
-                "description": "(CZ) Date"
+                "description": "Date"
             },
             {
                 "id": "searchDateHint",
-                "description": "(CZ) Select or enter date"
+                "description": "Donnez Date"
             },
             {
                 "id": "destination",
-                "description": "(CZ) Destination"
+                "description": "Destination"
             },
             {
                 "id": "port",
-                "description": "(CZ) Port"
+                "description": "Port"
             },
             {
                 "id": "ship",
-                "description": "(CZ) Vessel"
+                "description": " bateau"
             },
             {
                 "id": "searchDropdownHint",
-                "description": "(CZ) Select from the list"
+                "description": "Selectionner dans la liste"
             },
             {
                 "id": "searchButton",
-                "description": "(CZ) Search"
+                "description": "Recherche"
             }
         ]
     },
@@ -1429,59 +1429,59 @@
         "labels": [
             {
                 "id": "searchLabel",
-                "description": "(CZ) Search"
+                "description": "Recherche"
             },
             {
                 "id": "searchHint",
-                "description": "(CZ) Search by ticket"
+                "description": "Sous base de Billet"
             },
             {
                 "id": "boardingStatus",
-                "description": "(CZ) Boarding status"
+                "description": "Status d'embarquement"
             },
             {
                 "id": "driver",
-                "description": "(CZ) Driver"
+                "description": "Conducteur"
             },
             {
                 "id": "scanOpenButton",
-                "description": "(CZ) SCAN VOUCHER"
+                "description": "NUMERISATION DE COUPON"
             },
             {
                 "id": "scanCloseButton",
-                "description": "(CZ) Close"
+                "description": "Cloture"
             },
             {
                 "id": "filters",
-                "description": "(CZ) FILTERS"
+                "description": "Des filtres"
             },
             {
                 "id": "totalPersons",
-                "description": "(CZ) DECLARED NUMBER OF PERSONS"
+                "description": "NOMBRE DE PERSONNES DECLAREES"
             },
             {
                 "id": "missingNames",
-                "description": "(CZ) PERSONS WITH MISSING DATA"
+                "description": "Personnes sans coordonnees"
             },
             {
                 "id": "passengers",
-                "description": "(CZ) EXPECTED PERSONS WITH DATA"
+                "description": "Personnes attendee savec des coordonnees"
             },
             {
                 "id": "boarded",
-                "description": "(CZ) BOARDING COMPLETED"
+                "description": "Embarquement complete"
             },
             {
                 "id": "remaining",
-                "description": "(CZ) BOARDING PENDING"
+                "description": "Embarquement en attedant"
             },
             {
                 "id": "boardedStatus",
-                "description": "(CZ) COMPLETED"
+                "description": "complete"
             },
             {
                 "id": "remainingStatus",
-                "description": "(CZ) PENDING"
+                "description": "en attendant"
             }
         ]
     },
@@ -1490,27 +1490,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Nationalities"
+                "description": "Nationalites"
             },
             {
                 "id": "searchLabel",
-                "description": "(CZ) Search"
+                "description": "Recherche"
             },
             {
                 "id": "searchHint",
-                "description": "(CZ) Search by description"
+                "description": "Sous la base  Description"
             },
             {
                 "id": "newButton",
-                "description": "(CZ) New"
+                "description": "Nouvelle"
             },
             {
                 "id": "headerDescription",
-                "description": "(CZ) Description"
+                "description": "Description"
             },
             {
                 "id": "headerFlag",
-                "description": "(CZ) Flag"
+                "description": "Drapeau"
             }
         ]
     },
@@ -1519,27 +1519,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Nationality"
+                "description": "Nationalite"
             },
             {
                 "id": "description",
-                "description": "(CZ) Description"
+                "description": "Description"
             },
             {
                 "id": "code",
-                "description": "(CZ) Code"
+                "description": "Code"
             },
             {
                 "id": "isActive",
-                "description": "(CZ) Active"
+                "description": "Active"
             },
             {
                 "id": "deleteButton",
-                "description": "(CZ) Delete"
+                "description": "Effacer"
             },
             {
                 "id": "saveButton",
-                "description": "(CZ) Save"
+                "description": "Enregistrer"
             }
         ]
     },
@@ -1548,19 +1548,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Invoicing"
+                "description": "Τιμολογηση"
             },
             {
                 "id": "searchLabel",
-                "description": "Datum"
+                "description": "Date"
             },
             {
                 "id": "searchHint",
-                "description": "Vyplňte nebo vyberte datum"
+                "description": "Donnez Date"
             },
             {
                 "id": "searchButton",
-                "description": "Vyhledat"
+                "description": "Recherche"
             }
         ]
     },
@@ -1569,31 +1569,31 @@
         "labels": [
             {
                 "id": "headerAdults",
-                "description": "Do"
+                "description": "Ε"
             },
             {
                 "id": "headerCustomerDescription",
-                "description": "Zákazníci"
+                "description": "Client"
             },
             {
                 "id": "headerDestinationDescription",
-                "description": "Destinace"
+                "description": "Destination"
             },
             {
                 "id": "headerFree",
-                "description": "Z"
+                "description": "Δ"
             },
             {
                 "id": "headerIsTransfer",
-                "description": "(CZ) Transfer"
+                "description": "Μεταφορα"
             },
             {
                 "id": "headerKids",
-                "description": "Dí"
+                "description": "Π"
             },
             {
                 "id": "headerRemarks",
-                "description": "Poznámky"
+                "description": "ΠRemarques"
             },
             {
                 "id": "reservationId",
@@ -1601,15 +1601,15 @@
             },
             {
                 "id": "headerShipDescription",
-                "description": "(CZ) Vessel"
+                "description": " bateau"
             },
             {
                 "id": "headerTicketNo",
-                "description": "(CZ) Ticket"
+                "description": "Billet"
             },
             {
                 "id": "headerTotalPersons",
-                "description": "C"
+                "description": "Σ"
             }
         ]
     },
@@ -1618,35 +1618,35 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Colour Legend"
+                "description": "Explication des couleurs"
             },
             {
                 "id": "sub-header",
-                "description": "(CZ) Each Colour Represents the Available Seats"
+                "description": "Chaque couleur correspond aux places libres"
             },
             {
                 "id": "plenty",
-                "description": "(CZ) Plenty"
+                "description": "Beaucoup"
             },
             {
                 "id": "some",
-                "description": "(CZ) Some"
+                "description": "Quelques"
             },
             {
                 "id": "limited",
-                "description": "(CZ) Limited"
+                "description": "Peu"
             },
             {
                 "id": "extremely-limited",
-                "description": "(CZ) Extremely Limited"
+                "description": "Tres limitees"
             },
             {
                 "id": "none",
-                "description": "(CZ) None"
+                "description": "Aucune"
             },
             {
                 "id": "closeButton",
-                "description": "(CZ) Close"
+                "description": "Cloture"
             }
         ]
     },
@@ -1655,39 +1655,39 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Vessel Manifest"
+                "description": "Situation de bateau"
             },
             {
                 "id": "date",
-                "description": "(CZ) Date"
+                "description": "Date"
             },
             {
                 "id": "searchDateHint",
-                "description": "(CZ) Select or enter date"
+                "description": "Donnez Date"
             },
             {
                 "id": "destination",
-                "description": "(CZ) Destination"
+                "description": "Destination"
             },
             {
                 "id": "port",
-                "description": "(CZ) Port"
+                "description": "Port"
             },
             {
                 "id": "ship",
-                "description": "(CZ) Vessel"
+                "description": "Bateau"
             },
             {
                 "id": "shipRoute",
-                "description": "(CZ) Route"
+                "description": "Route"
             },
             {
                 "id": "searchDropdownHint",
-                "description": "(CZ) Select from the list"
+                "description": "Selectionner dans la liste"
             },
             {
                 "id": "searchButton",
-                "description": "(CZ) Search"
+                "description": "Recherche"
             }
         ]
     },
@@ -1700,39 +1700,39 @@
             },
             {
                 "id": "headerLastname",
-                "description": "(CZ) Last name"
+                "description": "Nom de famille"
             },
             {
                 "id": "headerFirstname",
-                "description": "(CZ) First name"
+                "description": "Nom "
             },
             {
                 "id": "headerNationality",
-                "description": "(CZ) Nationality"
+                "description": "Heure"
             },
             {
                 "id": "headerDoB",
-                "description": "(CZ) DoB"
+                "description": "Date de naissance"
             },
             {
                 "id": "headerOccupant",
-                "description": "(CZ) Occupant"
+                "description": "Capacite"
             },
             {
                 "id": "headerGender",
-                "description": "(CZ) Gender"
+                "description": "Sexe"
             },
             {
                 "id": "headerRemarks",
-                "description": "(CZ) Remarks"
+                "description": "Remarques"
             },
             {
                 "id": "headerSpecialCare",
-                "description": "(CZ) Special care"
+                "description": "Traitement special"
             },
             {
                 "id": "exportToPdfButton",
-                "description": "(CZ) Export to PDF"
+                "description": "Creer un PDF"
             }
         ]
     }

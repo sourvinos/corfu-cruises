@@ -1,4 +1,3 @@
-import { WebModule } from './../features/web/classes/modules/web.module';
 // Base
 import { NgModule } from '@angular/core'
 import { AppRoutingModule } from './app.routing.module'
@@ -23,9 +22,10 @@ import { PortModule } from '../features/ports/classes/port.module'
 import { ReservationModule } from '../features/reservations/classes/modules/reservation.module'
 import { RouteModule } from '../features/routes/classes/route.module'
 import { ScheduleModule } from '../features/schedules/classes/schedule.module'
-import { ShipModule } from '../features/ships/classes/ship.module'
+import { ShipModule } from '../features/ships/base/classes/ship.module'
 import { UserIdleModule } from 'angular-user-idle'
 import { UserModule } from '../features/users/classes/user.module'
+import { WebModule } from './../features/web/classes/modules/web.module'
 
 // Components
 import { AppComponent } from './app.component'

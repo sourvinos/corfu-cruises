@@ -1,0 +1,75 @@
+[
+    {
+        "feature": "main-menu",
+        "labels": [
+            {
+                "id": "passengers",
+                "description": "Passagers" 
+            },
+            {
+                "id": "boarding",
+                "description": "Embarquement"
+            },
+            {
+                "id": "manifest",
+                "description": "Situation de bateau"
+            },
+            {
+                "id": "reservations",
+                "description": "Reservations"
+            },
+            {
+                "id": "dashboard",
+                "description": "Tablau central"
+            },
+            {
+                "id": "invoicing",
+                "description": "Prix"
+            },
+            {
+                "id": "tables",
+                "description": "Tableaux"
+            },
+            {
+                "id": "users",
+                "description": "Utilisateurs"
+            },
+            {
+                "id": "customers",
+                "description": "Clients"
+            },
+            {
+                "id": "destinations",
+                "description": "Destinations"
+            },
+            {
+                "id": "drivers",
+                "description": "Conducteurs"
+            },
+            {
+                "id": "genders",
+                "description": "Sexes"
+            },
+            {
+                "id": "pickupPoints",
+                "description": "Points de collecte"
+            },
+            {
+                "id": "ports",
+                "description": "Ports"
+            },
+            {
+                "id": "routes",
+                "description": "Itineraires"
+            },
+            {
+                "id": "schedules",
+                "description": "Programmes"
+            },
+            {
+                "id": "ships",
+                "description": "Bateaux"
+            }
+        ]
+    }
+]

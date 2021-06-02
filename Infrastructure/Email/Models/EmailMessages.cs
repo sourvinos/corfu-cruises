@@ -51,6 +51,17 @@ namespace CorfuCruises {
                         "Best regards,",
                         "Login credentials"
                      };
+                case "fr-FR":
+                    return new[] {
+                        "Salut, ",
+                        "Utilisez les informations d'identification suivantes pour vous connecter:",
+                        "Nom d'utilisateur: " ,
+                        "Mot de passe: ",
+                        "Connexion",
+                        "Thank you for using our online platform.",
+                        "Cordiales salutations,",
+                        "Login credentials"
+                     };
                 default:
                     return new[] {
                         "Hello, ",

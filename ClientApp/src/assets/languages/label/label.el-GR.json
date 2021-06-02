@@ -1100,10 +1100,6 @@
             {
                 "id": "headerName",
                 "description": "Ονομα"
-            },
-            {
-                "id": "headerMaxPersons",
-                "description": "Χωρητικοτητα"
             }
         ]
     },
@@ -1119,6 +1115,10 @@
                 "description": "Ονομα"
             },
             {
+                "id": "shipOwnerDescription",
+                "description": "Πλοιοκτήτης"
+            },
+            {
                 "id": "imo",
                 "description": "ΙΜΟ"
             },
@@ -1131,8 +1131,16 @@
                 "description": "Αρ. νηολογιου"
             },
             {
-                "id": "maxPersons",
-                "description": "Xωρητικοτητα ατομων"
+                "id": "manager",
+                "description": "Διαχειριστης"
+            },
+            {
+                "id": "managerInGreece",
+                "description": "Διαχειριστης στην Ελλαδα"
+            },
+            {
+                "id": "agent",
+                "description": "Υπευθυνοι ναυτικοι πρακτορες"
             },
             {
                 "id": "isActive",

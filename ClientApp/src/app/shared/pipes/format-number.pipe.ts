@@ -55,6 +55,8 @@ export class FormatNumberPipe implements PipeTransform {
                 return ['.', ',']
             case 'en-GB':
                 return [',', '.']
+            case 'fr-FR':
+                return [' ', ',']
         }
     }
 
