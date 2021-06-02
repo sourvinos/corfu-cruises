@@ -79,36 +79,36 @@ export class ManifestPdfService {
     private createShipData(manifest: ManifestViewModel): string {
         return '' +
             'ΣΤΟΙΧΕΙΑ ΠΛΟΙΟΥ' + '\n' +
-            'ΟΝΟΜΑ ' + manifest.shipResource.description + '\n' +
-            'ΣΗΜΑΙΑ ' + manifest.shipResource.flag + '\n' +
-            'ΑΡΙΘΜΟΣ ΝΗΟΛΟΓΙΟΥ ' + manifest.shipResource.registryNo + '\n' +
-            'ΙΜΟ ' + manifest.shipResource.imo + '\n'
+            'ΟΝΟΜΑ ' + manifest.ship.description + '\n' +
+            'ΣΗΜΑΙΑ ' + manifest.ship.flag + '\n' +
+            'ΑΡΙΘΜΟΣ ΝΗΟΛΟΓΙΟΥ ' + manifest.ship.registryNo + '\n' +
+            'ΙΜΟ ' + manifest.ship.imo + '\n'
     }
 
     private createManager(manifest: ManifestViewModel): string {
         return '' +
             'ΣΤΟΙΧΕΙΑ ΕΤΑΙΡΙΑΣ' + '\n' +
-            'ΥΠΕΥΘΥΝΟΣ ΔΙΑΧΕΙΡΙΣΤΗΣ ' + manifest.shipResource.manager + '\n' +
-            'ΔΙΑΧΕΙΡΙΣΤΗΣ ΣΤΗΝ ΕΛΛΑΔΑ ' + manifest.shipResource.managerInGreece + '\n' +
-            'ΥΠΕΥΘΥΝΟΙ ΝΑΥΤΙΚΟΙ ΠΡΑΚΤΟΡΕΣ ' + manifest.shipResource.agent + '\n'
+            'ΥΠΕΥΘΥΝΟΣ ΔΙΑΧΕΙΡΙΣΤΗΣ ' + manifest.ship.manager + '\n' +
+            'ΔΙΑΧΕΙΡΙΣΤΗΣ ΣΤΗΝ ΕΛΛΑΔΑ ' + manifest.ship.managerInGreece + '\n' +
+            'ΥΠΕΥΘΥΝΟΙ ΝΑΥΤΙΚΟΙ ΠΡΑΚΤΟΡΕΣ ' + manifest.ship.agent + '\n'
     }
 
     private createDataEntryPrimaryPerson(manifest: ManifestViewModel): string {
         return '' +
             'ΥΠΕΥΘΥΝΟΣ ΚΑΤΑΓΡΑΦΗΣ' + '\n' +
-            'ΟΝΟΜΑΤΕΠΩΝΥΜΟ ' + manifest.shipResource.dataEntryPersons[0].fullname + '\n' +
-            'ΤΗΛΕΦΩΝΑ ' + manifest.shipResource.dataEntryPersons[0].phones + '\n' +
-            'EMAIL ' + manifest.shipResource.dataEntryPersons[0].email + '\n' +
-            'FAX ' + manifest.shipResource.dataEntryPersons[0].fax + '\n'
+            'ΟΝΟΜΑΤΕΠΩΝΥΜΟ ' + manifest.ship.dataEntryPersons[0].fullname + '\n' +
+            'ΤΗΛΕΦΩΝΑ ' + manifest.ship.dataEntryPersons[0].phones + '\n' +
+            'EMAIL ' + manifest.ship.dataEntryPersons[0].email + '\n' +
+            'FAX ' + manifest.ship.dataEntryPersons[0].fax + '\n'
     }
 
     private createDataEntrySecondaryPerson(manifest: ManifestViewModel): string {
         return '' +
             'ΑΝΤΙΚΑΤΑΣΤΑΤΗΣ ΥΠΕΥΘΥΝΟΥ ΚΑΤΑΓΡΑΦΗΣ' + '\n' +
-            'ΟΝΟΜΑΤΕΠΩΝΥΜΟ ' + manifest.shipResource.dataEntryPersons[1].fullname + '\n' +
-            'ΤΗΛΕΦΩΝΑ ' + manifest.shipResource.dataEntryPersons[1].phones + '\n' +
-            'EMAIL ' + manifest.shipResource.dataEntryPersons[1].email + '\n' +
-            'FAX ' + manifest.shipResource.dataEntryPersons[1].fax + '\n'
+            'ΟΝΟΜΑΤΕΠΩΝΥΜΟ ' + manifest.ship.dataEntryPersons[1].fullname + '\n' +
+            'ΤΗΛΕΦΩΝΑ ' + manifest.ship.dataEntryPersons[1].phones + '\n' +
+            'EMAIL ' + manifest.ship.dataEntryPersons[1].email + '\n' +
+            'FAX ' + manifest.ship.dataEntryPersons[1].fax + '\n'
     }
 
     private createTitle(manifest: ManifestViewModel): string {
@@ -121,7 +121,7 @@ export class ManifestPdfService {
         return '' +
             'ΒΕΒΑΙΩΝΕΤΑΙ Η ΑΚΡΙΒΕΙΑ ΤΩΝ ΩΣ ΑΝΩ ΣΤΟΙΧΕΙΩΝ' + '\n' +
             'ΚΑΙ ΠΛΗΡΟΦΟΡΙΩΝ ΑΠΟ ΤΟΝ / ΤΗΝ' + '\n' +
-            manifest.shipResource.manager + '\n' +
+            manifest.ship.manager + '\n' +
             'ΠΟΥ ΕΧΕΙ ΟΡΙΣΤΕΙ ΑΠΟ ΤΗΝ ΕΤΑΙΡΙΑ ΓΙΑ ΤΗ ΔΙΑΒΙΒΑΣΗ ΤΟΥΣ ΣΤΗΝ ΑΡΧΗ'
     }
 
@@ -147,12 +147,12 @@ export class ManifestPdfService {
     }
 
     private createPageHeader(manifest: ManifestViewModel): string {
-        return manifest.shipResource.shipOwner.description + '\n' +
-            manifest.shipResource.shipOwner.profession + '\n' +
-            manifest.shipResource.shipOwner.address + '\n' +
-            manifest.shipResource.shipOwner.city + '\n' +
-            manifest.shipResource.shipOwner.phones + '\n' +
-            manifest.shipResource.shipOwner.taxNo + '\n'
+        return manifest.ship.shipOwner.description + '\n' +
+            manifest.ship.shipOwner.profession + '\n' +
+            manifest.ship.shipOwner.address + '\n' +
+            manifest.ship.shipOwner.city + '\n' +
+            manifest.ship.shipOwner.phones + '\n' +
+            manifest.ship.shipOwner.taxNo + '\n'
     }
 
     private createPdf(document: any): void {

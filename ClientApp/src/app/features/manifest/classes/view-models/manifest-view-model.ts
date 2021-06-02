@@ -5,7 +5,7 @@ export class ManifestViewModel {
 
     date: string
     route: string
-    shipResource: Ship
+    ship: Ship
 
     passengers: ManifestPassenger[] = []
 

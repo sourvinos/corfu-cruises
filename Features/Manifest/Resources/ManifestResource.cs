@@ -6,7 +6,7 @@ namespace CorfuCruises.Manifest {
 
         public string Date { get; set; }
 
-        public ShipReadResource ShipReadResource { get; set; }
+        public Ship Ship { get; set; }
 
         public IEnumerable<PassengerResource> Passengers { get; set; }
 

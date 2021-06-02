@@ -87,6 +87,7 @@ export class ManifestWrapperComponent {
 
     public onLoadManifest(): void {
         if (this.checkValidDate()) {
+            this.onUpdateShipRoute()
             this.navigateToList()
             this.close()
         }

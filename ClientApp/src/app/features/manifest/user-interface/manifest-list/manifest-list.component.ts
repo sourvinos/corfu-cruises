@@ -65,7 +65,6 @@ export class ManifestListComponent {
     ngOnInit(): void {
         this.setWindowTitle()
         this.getLocale()
-        this.updateShipRoute()
     }
 
     ngOnDestroy(): void {
@@ -78,7 +77,9 @@ export class ManifestListComponent {
     //#region public methods
 
     public onCreatePdf(): void {
-        this.pdfService.createReport(this.selectedShipRoute, this.records)
+        this.updateShipRoute().then(() => {
+            this.pdfService.createReport(this.selectedShipRoute, this.records)
+        })
     }
 
     public onGetLabel(id: string): string {
@@ -115,9 +116,12 @@ export class ManifestListComponent {
         this.snackbarService.open(message, type)
     }
 
-    private updateShipRoute(): void {
-        this.shipRouteService.getSingle(this.helperService.readItem('shipRoute')).subscribe(result => {
-            this.selectedShipRoute = result
+    private updateShipRoute(): Promise<any> {
+        return new Promise((resolve) => {
+            this.shipRouteService.getSingle(this.helperService.readItem('shipRoute')).subscribe(result => {
+                this.selectedShipRoute = result
+                resolve(this.selectedShipRoute)
+            })
         })
     }
 
