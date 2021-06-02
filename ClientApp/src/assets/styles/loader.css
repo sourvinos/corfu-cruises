@@ -19,12 +19,13 @@
 #loader p:nth-child(2) {
     color: #b56576 !important;
     font-size: var(--font-size-logo-side-bar-second-child) !important;
-    margin: -1rem 0 0 0 !important;
+    margin: -0.5rem 0 0 0 !important;
 }
 
 #loading-message {
     color: #355070;
-    font-family: var(--font-family-master);
+    font-family: var(--font-family-logo);
+    font-size: var(--font-size-loading-message);
     margin-top: 0.5rem !important;
 }
 

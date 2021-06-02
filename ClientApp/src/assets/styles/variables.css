@@ -1,8 +1,8 @@
 * {
     /* Font names */
-    --font-family-table: "Open Sans Condensed";
-    --font-family-logo: "Yanone Kaffeesatz";
+    --font-family-logo: "Aka-Acid-CanterBold";
     --font-family-master: "Ubuntu";
+    --font-family-table: "Open Sans Condensed";
     /* Font weights */
     --font-weight-button: 100 !important;
     --font-weight-checkbox: 400 !important;
@@ -28,8 +28,9 @@
     --font-size-input-hint: 0.8rem;
     --font-size-input: 1rem;
     --font-size-label: 1.25rem;
+    --font-size-loading-message: 1.4375rem;
     --font-size-logo-side-bar-first-child: 6rem;
-    --font-size-logo-side-bar-second-child: 3.5rem;
+    --font-size-logo-side-bar-second-child: 3rem;
     --font-size-panel-buttons: 1.25rem;
     --font-size-paragraph: 0.7rem;
     --font-size-snackbar: 1.125rem;

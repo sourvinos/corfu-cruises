@@ -55,13 +55,6 @@ export class AppComponent {
 
     //#region private methods
 
-    private getSidebarWidth(): number {
-        if (document.body.contains(document.getElementById('side-bar'))) {
-            return document.getElementById('side-bar').clientWidth
-        }
-        return 0
-    }
-
     private positionSpinner(): void {
         document.getElementById('spinner').style.left = (window.outerWidth / 2) - 40 + 'px'
         document.getElementById('spinner').style.top = (document.getElementById('wrapper').clientHeight / 2) - 40 + 'px'

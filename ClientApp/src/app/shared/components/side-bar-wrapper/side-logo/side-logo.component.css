@@ -5,7 +5,7 @@
     flex-direction: column;
     font-family: var(--font-family-logo);
     font-weight: 600;
-    margin-top: 5rem;
+    margin-top: 6rem;
     outline: 0;
     transition: opacity 0.5s;
 }
@@ -22,5 +22,5 @@
 #side-logo span:nth-child(3) {
     color: var(--color-logo-secondary) !important;
     font-size: var(--font-size-logo-side-bar-second-child) !important;
-    margin-top: -1rem;
+    margin-top: -0.5rem;
 }
