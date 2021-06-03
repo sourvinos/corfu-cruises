@@ -19,8 +19,8 @@ import { ShipOwnerService } from '../classes/ship-owner.service'
 import { ShipOwner } from '../classes/ship-owner'
 
 @Component({
-    selector: 'shipOwner-form',
-    templateUrl: './shipOwner-form.component.html',
+    selector: 'ship-owner-form',
+    templateUrl: './ship-owner-form.component.html',
     styleUrls: ['../../../../../assets/styles/forms.css'],
     animations: [slideFromLeft, slideFromRight]
 })

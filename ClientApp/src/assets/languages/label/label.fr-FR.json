@@ -1750,7 +1750,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": ""
+                "description": "(FR) Shipowner"
             },
             {
                 "id": "description",
@@ -1791,6 +1791,27 @@
             {
                 "id": "saveButton",
                 "description": "Enregistrer"
+            }
+        ]
+    },
+    {
+        "feature": "shipOwnerList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(FR) Shipowners"
+            },
+            {
+                "id": "searchLabel",
+                "description": "(FR) Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "(FR) Search by name"
+            },
+            {
+                "id": "newButton",
+                "description": "(FR) New"
             }
         ]
     }

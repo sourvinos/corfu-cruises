@@ -29,6 +29,7 @@ const appRoutes: Routes = [
     { path: 'routes', loadChildren: (): any => import('../features/routes/classes/route.module').then(m => m.RouteModule) },
     { path: 'schedules', loadChildren: (): any => import('../features/schedules/classes/schedule.module').then(m => m.ScheduleModule) },
     { path: 'ships', loadChildren: (): any => import('../features/ships/base/classes/ship.module').then(m => m.ShipModule) },
+    { path: 'shipOwners', loadChildren: (): any => import('../features/ships/owners/classes/ship-owner.module').then(m => m.ShipOwnerModule) },
     { path: 'users', loadChildren: (): any => import('../features/users/classes/user.module').then(m => m.UserModule) },
     { path: 'web', loadChildren: (): any => import('../features/web/classes/modules/web.module').then(m => m.WebModule) },
     { path: 'credits', component: CreditsComponent },

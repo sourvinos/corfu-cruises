@@ -1793,5 +1793,26 @@
                 "description": "Αποθηκευση"
             }
         ]
+    },
+    {
+        "feature": "shipOwnerList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Πλοιοκτητες"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Αναζητηση"
+            },
+            {
+                "id": "searchHint",
+                "description": "Με βαση την επωνυμια"
+            },
+            {
+                "id": "newButton",
+                "description": "Νεος"
+            }
+        ]
     }
 ]

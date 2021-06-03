@@ -4,7 +4,7 @@
         "labels": [
             {
                 "id": "passengers",
-                "description": "Passagers" 
+                "description": "Passagers"
             },
             {
                 "id": "boarding",
@@ -69,6 +69,22 @@
             {
                 "id": "ships",
                 "description": "Bateaux"
+            },
+            {
+                "id": "shipManagement",
+                "description": "(FR) Management"
+            },
+            {
+                "id": "shipOwners",
+                "description": "(FR) Owners"
+            },
+            {
+                "id": "dataEntryPersons",
+                "description": "(FR) Passengers input persons"
+            },
+            {
+                "id": "shipRoutes",
+                "description": "(FR) Routes"
             }
         ]
     }

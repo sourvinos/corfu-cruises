@@ -1750,7 +1750,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Ship owner"
+                "description": "(CZ) Shipowner"
             },
             {
                 "id": "description",
@@ -1791,6 +1791,27 @@
             {
                 "id": "saveButton",
                 "description": "(CZ) Save"
+            }
+        ]
+    },
+    {
+        "feature": "shipOwnerList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(CZ) Shipowners"
+            },
+            {
+                "id": "searchLabel",
+                "description": "(CZ) Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "(CZ) Search by name"
+            },
+            {
+                "id": "newButton",
+                "description": "(CZ) New"
             }
         ]
     }

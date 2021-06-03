@@ -10,14 +10,14 @@ import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { ShipOwner } from './../classes/ship-owner'
+import { ShipOwner } from '../classes/ship-owner'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 
 @Component({
-    selector: 'shipOwner-list',
-    templateUrl: './shipOwner-list.component.html',
+    selector: 'ship-owner-list',
+    templateUrl: './ship-owner-list.component.html',
     styleUrls: ['../../../../../assets/styles/lists.css'],
     animations: [slideFromLeft, slideFromRight]
 })

@@ -7,6 +7,7 @@ ul {
 
 li {
     position: relative;
+    height: 2.75rem;
 }
 
 button {
@@ -35,12 +36,10 @@ li:hover .sub-menu {
     z-index: 2 !important;
 }
 
-.sub-menu li {
+.sub-menu > li {
     animation: enter 0.2s ease forwards;
     background-color: var(--color-main-menu-background);
-    opacity: 0;
-    transform-origin: bottom;
-    width: 100%;
+    width: 150px;
 }
 
 .sub-menu > li:last-child:hover > .sub-sub-menu {
@@ -53,8 +52,14 @@ li:hover .sub-menu {
     left: 140px;
     list-style: none;
     padding: 0;
-    position: absolute;
-    top: 0;
+    position: relative;
+    top: -48px;
     width: max-content;
     z-index: 2 !important;
+}
+
+.sub-sub-menu > li {
+    background-color: var(--color-main-menu-background);
+    width: 100%;
+    animation: enter 0.2s ease forwards;
 }

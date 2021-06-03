@@ -69,6 +69,22 @@
             {
                 "id": "ships",
                 "description": "Vessels"
+            },
+            {
+                "id": "shipManagement",
+                "description": "Management"
+            },
+            {
+                "id": "shipOwners",
+                "description": "Owners"
+            },
+            {
+                "id": "dataEntryPersons",
+                "description": "Passengers input persons"
+            },
+            {
+                "id": "shipRoutes",
+                "description": "Routes"
             }
         ]
     }

@@ -69,6 +69,22 @@
             {
                 "id": "ships",
                 "description": "Schiffe"
+            },
+            {
+                "id": "shipManagement",
+                "description": "(DE) Management"
+            },
+            {
+                "id": "shipOwners",
+                "description": "(DE) Owners"
+            },
+            {
+                "id": "dataEntryPersons",
+                "description": "(DE) Passengers input persons"
+            },
+            {
+                "id": "shipRoutes",
+                "description": "(DE) Routes"
             }
         ]
     }

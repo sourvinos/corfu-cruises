@@ -69,6 +69,22 @@
             {
                 "id": "ships",
                 "description": "Πλοια"
+            },
+            {
+                "id": "shipManagement",
+                "description": "Διαχειρηση"
+            },
+            {
+                "id": "shipOwners",
+                "description": "Πλοιοκτητες"
+            },
+            {
+                "id": "dataEntryPersons",
+                "description": "Υπευθυνοι καταχωρησης επιβατων"
+            },
+            {
+                "id": "shipRoutes",
+                "description": "Διαδρομες"
             }
         ]
     }

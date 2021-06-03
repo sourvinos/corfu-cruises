@@ -24,10 +24,10 @@
                 <li><button data-cy="schedulesMenu" mat-menu-item [routerLink]="['/schedules']">{{ onGetLabel('schedules') }}</button></li>
                 <li><button data-cy="shipsMenu" mat-menu-item>{{ onGetLabel('ships') }}<img class="arrow-right" src="/assets/images/shared/arrow-right.svg"></button>
                     <ul class="sub-sub-menu">
-                        <li><button mat-menu-item [routerLink]="['/ships']">Διαχειρηση</button></li>
-                        <li><button mat-menu-item [routerLink]="['/schedules']">Πλοιοκτητες</button></li>
-                        <li><button mat-menu-item [routerLink]="['/ships']">Υπευθυνοι καταχωρησης επιβατων</button></li>
-                        <li><button mat-menu-item [routerLink]="['/ships']">Διαδρομες</button></li>
+                        <li><button mat-menu-item [routerLink]="['/ships']">{{ onGetLabel('shipManagement') }}</button></li>
+                        <li><button mat-menu-item [routerLink]="['/shipOwners']">{{ onGetLabel('shipOwners') }}</button></li>
+                        <li><button mat-menu-item [routerLink]="['/ships']">{{ onGetLabel('dataEntryPersons')}}</button></li>
+                        <li><button mat-menu-item [routerLink]="['/ships']">{{ onGetLabel('shipRoutes')}}</button></li>
                     </ul>
                 </li>
             </ul>

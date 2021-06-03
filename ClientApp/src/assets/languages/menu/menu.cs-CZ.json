@@ -69,6 +69,22 @@
             {
                 "id": "ships",
                 "description": "Lodě"
+            },
+            {
+                "id": "shipManagement",
+                "description": "(CZ) Management"
+            },
+            {
+                "id": "shipOwners",
+                "description": "(CZ) Owners"
+            },
+            {
+                "id": "dataEntryPersons",
+                "description": "(CZ) Passengers input persons"
+            },
+            {
+                "id": "shipRoutes",
+                "description": "(CZ) Routes"
             }
         ]
     }
