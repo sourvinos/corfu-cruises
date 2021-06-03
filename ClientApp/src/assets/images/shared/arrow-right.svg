@@ -7,13 +7,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="3.36799mm"
-   height="1.684mm"
-   viewBox="0 0 3.36799 1.684"
+   width="1.684mm"
+   height="3.367985mm"
+   viewBox="0 0 1.684 3.367985"
    version="1.1"
    id="svg978"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
-   sodipodi:docname="dropdown-arrow-dark.svg">
+   sodipodi:docname="right-arrow.svg">
   <defs
      id="defs972" />
   <sodipodi:namedview
@@ -24,15 +24,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.584375"
-     inkscape:cx="-3.6352957"
-     inkscape:cy="0.32521575"
+     inkscape:cx="-6.817639"
+     inkscape:cy="3.5075591"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
-     inkscape:window-x="1358"
+     inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      fit-margin-top="0"
@@ -55,12 +55,12 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-19.482672,-100.45562)">
+     transform="translate(-20.324667,-99.613625)">
     <path
-       d="m 19.482672,100.45562 1.683996,1.684 1.683994,-1.684 z"
+       d="m 20.324667,102.98161 1.684,-1.68399 -1.684,-1.683995 z"
        id="path959"
        style="fill:#dcdcdc;fill-opacity:1;stroke-width:0.336799"
-       inkscape:export-filename="F:\Corfu Cruises\ClientApp\src\assets\images\navigation\dropdown-arrow-dark.png"
+       inkscape:export-filename="F:\Corfu Cruises\ClientApp\src\assets\images\navigation\droparrow-down-dark.png"
        inkscape:export-xdpi="67.5"
        inkscape:export-ydpi="67.5" />
   </g>

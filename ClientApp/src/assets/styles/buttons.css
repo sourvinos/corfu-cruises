@@ -56,7 +56,7 @@ button.tab {
     background-color: var(--color-background-secondary) !important;
 }
 
-button.tab>span.mat-button-wrapper {
+button.tab > span.mat-button-wrapper {
     border-bottom: 1px solid var(--color-background-secondary);
 }
 
@@ -64,7 +64,7 @@ button.tab:first-child {
     margin-right: 1rem;
 }
 
-button.tab.active>span.mat-button-wrapper {
+button.tab.active > span.mat-button-wrapper {
     border-bottom: 1px solid var(--color-selected-tab);
 }
 
@@ -88,10 +88,6 @@ button:not(:disabled) {
     cursor: pointer !important;
 }
 
-button img {
-    margin: 0.625rem 0;
-}
-
 .mat-mini-fab .mat-button-wrapper {
     padding-top: 0.3125rem !important;
 }
@@ -105,7 +101,11 @@ button img {
     padding-bottom: 0.1875rem !important;
 }
 
-.dropdown-arrow {
+.arrow-down {
     margin-left: 0.5rem;
     width: 0.7rem;
+}
+
+.arrow-right {
+    margin-left: auto;
 }
