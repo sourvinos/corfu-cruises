@@ -663,7 +663,7 @@
             },
             {
                 "id": "summaryHeaderShips",
-                "description": "(CZ) Vessels"
+                "description": "(CZ) Ships"
             },
             {
                 "id": "assignToDriverButton",
@@ -671,7 +671,7 @@
             },
             {
                 "id": "assignToShipButton",
-                "description": "(CZ) Assign passengers to vessel"
+                "description": "(CZ) Assign passengers to ship"
             },
             {
                 "id": "createPdfButton",
@@ -711,7 +711,7 @@
             },
             {
                 "id": "headerShip",
-                "description": "(CZ) Vessel"
+                "description": "(CZ) Ship"
             },
             {
                 "id": "headerCustomer",
@@ -812,7 +812,7 @@
             },
             {
                 "id": "ship",
-                "description": "(CZ) Vessel"
+                "description": "(CZ) Ship"
             },
             {
                 "id": "email",
@@ -941,11 +941,11 @@
             },
             {
                 "id": "header",
-                "description": "(CZ) Assign to vessel"
+                "description": "(CZ) Assign to ship"
             },
             {
                 "id": "ship",
-                "description": "(CZ) Vessel"
+                "description": "(CZ) Ship"
             },
             {
                 "id": "okButton",
@@ -1108,7 +1108,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Vessel"
+                "description": "(CZ) Ship"
             },
             {
                 "id": "description",
@@ -1412,7 +1412,7 @@
             },
             {
                 "id": "ship",
-                "description": "(CZ) Vessel"
+                "description": "(CZ) Ship"
             },
             {
                 "id": "searchDropdownHint",
@@ -1601,7 +1601,7 @@
             },
             {
                 "id": "headerShipDescription",
-                "description": "(CZ) Vessel"
+                "description": "(CZ) Ship"
             },
             {
                 "id": "headerTicketNo",
@@ -1655,7 +1655,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Vessel Manifest"
+                "description": "(CZ) Ship Manifest"
             },
             {
                 "id": "date",
@@ -1675,7 +1675,7 @@
             },
             {
                 "id": "ship",
-                "description": "(CZ) Vessel"
+                "description": "(CZ) Ship"
             },
             {
                 "id": "shipRoute",

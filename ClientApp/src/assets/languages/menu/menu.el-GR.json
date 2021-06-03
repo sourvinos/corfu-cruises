@@ -80,7 +80,7 @@
             },
             {
                 "id": "dataEntryPersons",
-                "description": "Υπευθυνοι καταχωρησης επιβατων"
+                "description": "Καταχωρητες επιβατων"
             },
             {
                 "id": "shipRoutes",

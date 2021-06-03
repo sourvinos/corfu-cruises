@@ -12,7 +12,7 @@
             },
             {
                 "id": "manifest",
-                "description": "Vessel Manifest"
+                "description": "Ship Manifest"
             },
             {
                 "id": "reservations",
@@ -68,7 +68,7 @@
             },
             {
                 "id": "ships",
-                "description": "Vessels"
+                "description": "Ships"
             },
             {
                 "id": "shipManagement",
@@ -80,7 +80,7 @@
             },
             {
                 "id": "dataEntryPersons",
-                "description": "Passengers input persons"
+                "description": "Registrars"
             },
             {
                 "id": "shipRoutes",

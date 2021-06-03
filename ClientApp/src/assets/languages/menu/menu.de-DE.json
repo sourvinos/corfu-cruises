@@ -80,7 +80,7 @@
             },
             {
                 "id": "dataEntryPersons",
-                "description": "(DE) Passengers input persons"
+                "description": "(DE) Registrars"
             },
             {
                 "id": "shipRoutes",

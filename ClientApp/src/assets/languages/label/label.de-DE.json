@@ -663,7 +663,7 @@
             },
             {
                 "id": "summaryHeaderShips",
-                "description": "(DE) Vessels"
+                "description": "(DE) Ships"
             },
             {
                 "id": "assignToDriverButton",
@@ -711,7 +711,7 @@
             },
             {
                 "id": "headerShip",
-                "description": "(DE) Vessel"
+                "description": "(DE) Ship"
             },
             {
                 "id": "headerCustomer",
@@ -812,7 +812,7 @@
             },
             {
                 "id": "ship",
-                "description": "(DE) Vessel"
+                "description": "(DE) Ship"
             },
             {
                 "id": "email",
@@ -941,11 +941,11 @@
             },
             {
                 "id": "header",
-                "description": "(DE) Assign to vessel"
+                "description": "(DE) Assign to ship"
             },
             {
                 "id": "ship",
-                "description": "(DE) Vessel"
+                "description": "(DE) Ship"
             },
             {
                 "id": "okButton",
@@ -1083,7 +1083,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Vessels"
+                "description": "(DE) Ships"
             },
             {
                 "id": "searchLabel",
@@ -1108,7 +1108,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Vessel"
+                "description": "(DE) Ship"
             },
             {
                 "id": "description",
@@ -1412,7 +1412,7 @@
             },
             {
                 "id": "ship",
-                "description": "(DE) Vessel"
+                "description": "(DE) Ship"
             },
             {
                 "id": "searchDropdownHint",
@@ -1601,7 +1601,7 @@
             },
             {
                 "id": "headerShipDescription",
-                "description": "(DE) Vessel"
+                "description": "(DE) Ship"
             },
             {
                 "id": "headerTicketNo",
@@ -1675,7 +1675,7 @@
             },
             {
                 "id": "ship",
-                "description": "(DE) Vessel"
+                "description": "(DE) Ship"
             },
             {
                 "id": "shipRoute",

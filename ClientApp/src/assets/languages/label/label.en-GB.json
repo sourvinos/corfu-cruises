@@ -663,7 +663,7 @@
             },
             {
                 "id": "summaryHeaderShips",
-                "description": "Vessels"
+                "description": "Ships"
             },
             {
                 "id": "assignToDriverButton",
@@ -711,7 +711,7 @@
             },
             {
                 "id": "headerShip",
-                "description": "Vessel"
+                "description": "Ship"
             },
             {
                 "id": "headerCustomer",
@@ -812,7 +812,7 @@
             },
             {
                 "id": "ship",
-                "description": "Vessel"
+                "description": "Ship"
             },
             {
                 "id": "email",
@@ -1083,7 +1083,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Vessels"
+                "description": "Ships"
             },
             {
                 "id": "searchLabel",
@@ -1108,7 +1108,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Vessel"
+                "description": "Ship"
             },
             {
                 "id": "description",
@@ -1412,7 +1412,7 @@
             },
             {
                 "id": "ship",
-                "description": "Vessel"
+                "description": "Ship"
             },
             {
                 "id": "searchDropdownHint",
@@ -1601,7 +1601,7 @@
             },
             {
                 "id": "headerShipDescription",
-                "description": "Vessel"
+                "description": "Ship"
             },
             {
                 "id": "headerTicketNo",
@@ -1655,7 +1655,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Vessel Manifest"
+                "description": "Ship Manifest"
             },
             {
                 "id": "date",
@@ -1675,7 +1675,7 @@
             },
             {
                 "id": "ship",
-                "description": "Vessel"
+                "description": "Ship"
             },
             {
                 "id": "shipRoute",
