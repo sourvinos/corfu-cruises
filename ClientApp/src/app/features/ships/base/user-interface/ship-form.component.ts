@@ -276,8 +276,6 @@ export class ShipFormComponent {
         this.owners.forEach((obj: any) => {
             this.renameKey(obj, 'id', 'shipOwnerId')
             this.renameKey(obj, 'description', 'shipOwnerDescription')
-            this.renameKey(obj, 'isActive', 'ownerIsActive')
-            this.renameKey(obj, 'userId', 'ownerUserId')
         })
     }
 
