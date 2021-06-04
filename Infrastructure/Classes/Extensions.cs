@@ -118,6 +118,7 @@ namespace CorfuCruises {
             services.AddTransient<IValidator<Reservation>, ReservationValidator>();
             services.AddTransient<IValidator<Route>, RouteValidator>();
             services.AddTransient<IValidator<Schedule>, ScheduleValidator>();
+            services.AddTransient<IValidator<ShipRoute>, ShipRouteValidator>();
         }
 
     }

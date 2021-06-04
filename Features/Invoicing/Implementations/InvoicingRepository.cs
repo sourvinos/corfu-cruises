@@ -22,7 +22,7 @@ namespace CorfuCruises {
                 .Include(x => x.Ship)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route)
                 .OrderBy(x => x.Date).ThenBy(x => x.Customer.Description).ThenBy(x => x.PickupPoint.Route.IsTransfer)
-                .Where(x => x.Date == date && x.CustomerId == 53)
+                .Where(x => x.Date == date)
                 .AsEnumerable().GroupBy(x => new { x.Date, x.Customer })
                 .Select(x => new InvoiceIntermediateViewModel {
                     Date = x.Key.Date,
