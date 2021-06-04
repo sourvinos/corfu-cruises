@@ -1,3 +1,4 @@
+using System.Linq;
 using AutoMapper;
 
 namespace CorfuCruises {
@@ -5,12 +6,18 @@ namespace CorfuCruises {
     public class InvoicingMappingProfile : Profile {
 
         public InvoicingMappingProfile() {
-            CreateMap<Reservation, InvoiceViewModel>()
-                .ForMember(rr => rr.Destination, opt => opt.MapFrom(r => r.Destination.Description))
-                .ForMember(rr => rr.Customer, opt => opt.MapFrom(r => r.Customer.Description))
-                .ForMember(rr => rr.PickupPoint, opt => opt.MapFrom(r => r.PickupPoint.Description))
-                .ForMember(rr => rr.IsTransfer, opt => opt.MapFrom(r => r.PickupPoint.Route.IsTransfer))
-                .ForMember(rr => rr.Ship, opt => opt.MapFrom(r => r.Ship.Description));
+            CreateMap<InvoiceIntermediateViewModel, InvoiceViewModel>()
+                .ForMember(x => x.CustomerDescription, opt => opt.MapFrom(x => x.Customer.Description))
+                .ForMember(x => x.Reservations, x => x.MapFrom(x => x.Reservations.Select(isTransfer => new {
+                    ReservationId = isTransfer.ReservationId,
+                    Adults = isTransfer.Adults,
+                    Kids = isTransfer.Kids,
+                    Free = isTransfer.Free,
+                    TotalPersons = isTransfer.TotalPersons,
+                    TicketNo = isTransfer.TicketNo,
+                    DestinationDescription = isTransfer.Destination.Description,
+                    IsTransfer = isTransfer.PickupPoint.Route.IsTransfer
+                })));
         }
 
     }

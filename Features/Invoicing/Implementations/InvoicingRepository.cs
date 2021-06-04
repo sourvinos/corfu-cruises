@@ -21,24 +21,26 @@ namespace CorfuCruises {
                 .Include(x => x.Destination)
                 .Include(x => x.Ship)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route)
-                .OrderBy(x => x.Customer)
-                .Where(x => x.Date == date)
-                .AsEnumerable().GroupBy(x => x.Customer)
-                .Select(x => new InvoiceViewModel {
-                    Customer = x.Key.ToString(),
+                .OrderBy(x => x.Date).ThenBy(x => x.Customer.Description).ThenBy(x => x.PickupPoint.Route.IsTransfer)
+                .Where(x => x.Date == date && x.CustomerId == 53)
+                .AsEnumerable().GroupBy(x => new { x.Date, x.Customer })
+                .Select(x => new InvoiceIntermediateViewModel {
+                    Date = x.Key.Date,
+                    Customer = x.Key.Customer,
                     Reservations = x.ToList(),
-                    VesselReservations = GetCustomerVessels(x.ToList()),
-                    Total = x.Select(r => r.TotalPersons).Sum()
-                });
-            return result;
+                    IsTransferGroup = GetCustomerVessels(x.ToList()),
+                    TotalPersons = x.Select(r => r.TotalPersons).Sum()
+                }).ToList();
+            // return result;
+            return mapper.Map<IEnumerable<InvoiceIntermediateViewModel>, IEnumerable<InvoiceViewModel>>(result);
         }
 
-        public List<ShipViewModel> GetCustomerVessels(List<Reservation> reservations) {
+        public List<IsTransferGroupViewModel> GetCustomerVessels(List<Reservation> reservations) {
             var result = reservations
                     .GroupBy(r => r.PickupPoint.Route.IsTransfer)
-                    .Select(g => new ShipViewModel {
-                        Vessel = g.Key.ToString(),
-                        Passengers = g.Select(r => r.TotalPersons).Sum(),
+                    .Select(g => new IsTransferGroupViewModel {
+                        IsTransfer = g.Key,
+                        TotalPersons = g.Select(r => r.TotalPersons).Sum(),
                     })
                     .ToList();
             return result;

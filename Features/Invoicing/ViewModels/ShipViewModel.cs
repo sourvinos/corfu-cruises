@@ -1,9 +1,9 @@
 namespace CorfuCruises {
 
-    public class ShipViewModel {
+    public class IsTransferGroupViewModel {
         
-        public string Vessel { get; set; }
-        public int Passengers { get; set; }
+        public bool IsTransfer { get; set; }
+        public int TotalPersons { get; set; }
     }
 
 }
