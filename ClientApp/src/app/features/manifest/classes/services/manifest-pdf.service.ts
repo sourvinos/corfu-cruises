@@ -96,19 +96,19 @@ export class ManifestPdfService {
     private createDataEntryPrimaryPerson(manifest: ManifestViewModel): string {
         return '' +
             'ΥΠΕΥΘΥΝΟΣ ΚΑΤΑΓΡΑΦΗΣ' + '\n' +
-            'ΟΝΟΜΑΤΕΠΩΝΥΜΟ ' + manifest.ship.dataEntryPersons[0].fullname + '\n' +
-            'ΤΗΛΕΦΩΝΑ ' + manifest.ship.dataEntryPersons[0].phones + '\n' +
-            'EMAIL ' + manifest.ship.dataEntryPersons[0].email + '\n' +
-            'FAX ' + manifest.ship.dataEntryPersons[0].fax + '\n'
+            'ΟΝΟΜΑΤΕΠΩΝΥΜΟ ' + manifest.ship.registrars[0].fullname + '\n' +
+            'ΤΗΛΕΦΩΝΑ ' + manifest.ship.registrars[0].phones + '\n' +
+            'EMAIL ' + manifest.ship.registrars[0].email + '\n' +
+            'FAX ' + manifest.ship.registrars[0].fax + '\n'
     }
 
     private createDataEntrySecondaryPerson(manifest: ManifestViewModel): string {
         return '' +
             'ΑΝΤΙΚΑΤΑΣΤΑΤΗΣ ΥΠΕΥΘΥΝΟΥ ΚΑΤΑΓΡΑΦΗΣ' + '\n' +
-            'ΟΝΟΜΑΤΕΠΩΝΥΜΟ ' + manifest.ship.dataEntryPersons[1].fullname + '\n' +
-            'ΤΗΛΕΦΩΝΑ ' + manifest.ship.dataEntryPersons[1].phones + '\n' +
-            'EMAIL ' + manifest.ship.dataEntryPersons[1].email + '\n' +
-            'FAX ' + manifest.ship.dataEntryPersons[1].fax + '\n'
+            'ΟΝΟΜΑΤΕΠΩΝΥΜΟ ' + manifest.ship.registrars[1].fullname + '\n' +
+            'ΤΗΛΕΦΩΝΑ ' + manifest.ship.registrars[1].phones + '\n' +
+            'EMAIL ' + manifest.ship.registrars[1].email + '\n' +
+            'FAX ' + manifest.ship.registrars[1].fax + '\n'
     }
 
     private createTitle(manifest: ManifestViewModel): string {

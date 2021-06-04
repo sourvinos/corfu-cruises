@@ -1888,5 +1888,79 @@
                 "description": "Save"
             }
         ]
+    },
+    {
+        "feature": "registrarList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Registrars"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "Search by fullname"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
+            },
+            {
+                "id": "headerFullname",
+                "description": "Fullname"
+            }
+        ]
+    },
+    {
+        "feature": "registrarForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Registrar"
+            },
+            {
+                "id": "fullname",
+                "description": "Fullname"
+            },
+            {
+                "id": "shipDescription",
+                "description": "Ship"
+            },
+            {
+                "id": "phones",
+                "description": "Phones"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "fax",
+                "description": "Fax"
+            },
+            {
+                "id": "address",
+                "description": "Address"
+            },
+            {
+                "id": "isPrimary",
+                "description": "Primary"
+            },
+            {
+                "id": "isActive",
+                "description": "Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
     }
 ]

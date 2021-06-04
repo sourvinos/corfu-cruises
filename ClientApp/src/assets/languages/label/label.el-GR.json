@@ -1888,5 +1888,79 @@
                 "description": "Αποθηκευση"
             }
         ]
+    },
+    {
+        "feature": "registrarList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Καταγραφεις επιβατων"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Αναζητηση"
+            },
+            {
+                "id": "searchHint",
+                "description": "Με βαση το πληρες ονομα"
+            },
+            {
+                "id": "newButton",
+                "description": "Νεος"
+            },
+            {
+                "id": "headerFullname",
+                "description": "Πληρες ονομα"
+            }
+        ]
+    },
+    {
+        "feature": "registrarForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Καταγραφεας επιβατων"
+            },
+            {
+                "id": "fullname",
+                "description": "Πληρες ονομα"
+            },
+            {
+                "id": "shipDescription",
+                "description": "Πλοιο"
+            },
+            {
+                "id": "phones",
+                "description": "Τηλεφωνα"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "fax",
+                "description": "Fax"
+            },
+            {
+                "id": "address",
+                "description": "Διευθυνση"
+            },
+            {
+                "id": "isPrimary",
+                "description": "Πρωτευον"
+            },
+            {
+                "id": "isActive",
+                "description": "Ενεργος"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Διαγραφη"
+            },
+            {
+                "id": "saveButton",
+                "description": "Αποθηκευση"
+            }
+        ]
     }
 ]

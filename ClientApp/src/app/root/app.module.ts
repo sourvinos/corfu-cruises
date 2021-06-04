@@ -49,6 +49,7 @@ import { UserMenuComponent } from '../shared/components/top-bar-wrapper/user-men
 // Utils
 import { DomChangeDirective } from '../shared/directives/dom-change.directive'
 import { JwtInterceptor } from '../shared/services/jwt.interceptor'
+import { RegistrarModule } from '../features/ships/registrars/classes/registrar.module'
 
 @NgModule({
     declarations: [
@@ -88,6 +89,7 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         PickupPointModule,
         PortModule,
         ReactiveFormsModule,
+        RegistrarModule,
         ReservationModule,
         RouteModule,
         ScheduleModule,

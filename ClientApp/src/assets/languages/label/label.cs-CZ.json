@@ -1875,7 +1875,7 @@
                 "id": "toTime",
                 "description": "Čas"
             },
-           {
+            {
                 "id": "isActive",
                 "description": "Aktivní"
             },
@@ -1886,6 +1886,80 @@
             {
                 "id": "saveButton",
                 "description": "Uložit"
+            }
+        ]
+    },
+    {
+        "feature": "registrarList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(CZ) Registrars"
+            },
+            {
+                "id": "searchLabel",
+                "description": "(CZ) Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "(CZ) Search by fullname"
+            },
+            {
+                "id": "newButton",
+                "description": "(CZ) New"
+            },
+            {
+                "id": "headerFullname",
+                "description": "(CZ) Fullname"
+            }
+        ]
+    },
+    {
+        "feature": "registrarForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(CZ) Registrar"
+            },
+            {
+                "id": "fullname",
+                "description": "(CZ) Fullname"
+            },
+            {
+                "id": "shipDescription",
+                "description": "(CZ) Ship"
+            },
+            {
+                "id": "phones",
+                "description": "(CZ) Phones"
+            },
+            {
+                "id": "email",
+                "description": "(CZ) Email"
+            },
+            {
+                "id": "fax",
+                "description": "(CZ) Fax"
+            },
+            {
+                "id": "address",
+                "description": "(CZ) Address"
+            },
+            {
+                "id": "isPrimary",
+                "description": "(CZ) Primary"
+            },
+            {
+                "id": "isActive",
+                "description": "(CZ) Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "(CZ) Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "(CZ) Save"
             }
         ]
     }

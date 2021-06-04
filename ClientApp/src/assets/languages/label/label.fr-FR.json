@@ -1888,5 +1888,79 @@
                 "description": "(FR) Save"
             }
         ]
+    },
+    {
+        "feature": "registrarList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(FR) Registrars"
+            },
+            {
+                "id": "searchLabel",
+                "description": "(FR) Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "(FR) Search by fullname"
+            },
+            {
+                "id": "newButton",
+                "description": "(FR) New"
+            },
+            {
+                "id": "headerFullname",
+                "description": "(FR) Fullname"
+            }
+        ]
+    },
+    {
+        "feature": "registrarForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(FR) Registrar"
+            },
+            {
+                "id": "fullname",
+                "description": "(FR) Fullname"
+            },
+            {
+                "id": "shipDescription",
+                "description": "(FR) Ship"
+            },
+            {
+                "id": "phones",
+                "description": "(FR) Phones"
+            },
+            {
+                "id": "email",
+                "description": "(FR) Email"
+            },
+            {
+                "id": "fax",
+                "description": "(FR) Fax"
+            },
+            {
+                "id": "address",
+                "description": "(FR) Address"
+            },
+            {
+                "id": "isPrimary",
+                "description": "(FR) Primary"
+            },
+            {
+                "id": "isActive",
+                "description": "(FR) Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "(FR) Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "(FR) Save"
+            }
+        ]
     }
 ]
