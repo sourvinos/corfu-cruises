@@ -18,7 +18,7 @@ namespace CorfuCruises {
 
         public ShipOwner ShipOwner { get; set; }
 
-        public IEnumerable<DataEntryPerson> DataEntryPersons { get; set; }
+        public IEnumerable<Registrar> Registrars { get; set; }
 
     }
 

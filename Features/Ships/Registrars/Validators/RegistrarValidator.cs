@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace CorfuCruises {
 
-    public class DataEntryPersonValidator : AbstractValidator<DataEntryPerson> {
+    public class RegistrarValidator : AbstractValidator<Registrar> {
 
-        public DataEntryPersonValidator() {
+        public RegistrarValidator() {
             RuleFor(x => x.ShipId).NotNull().NotEmpty();
             RuleFor(x => x.Fullname).NotNull().NotEmpty().MaximumLength(128);
             RuleFor(x => x.Phones).NotNull().NotEmpty().MaximumLength(128);

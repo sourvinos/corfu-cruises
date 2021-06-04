@@ -1,6 +1,6 @@
 namespace CorfuCruises {
 
-    public class DataEntryPerson {
+    public class Registrar {
 
         public int Id { get; set; }
         public int ShipId { get; set; }
@@ -13,7 +13,7 @@ namespace CorfuCruises {
         public bool IsActive { get; set; }
         public string UserId { get; set; }
 
-        // public Ship Ship { get; set; }
+        public Ship Ship { get; set; }
 
     }
 

@@ -9,34 +9,34 @@ using Microsoft.Extensions.Logging;
 
 namespace CorfuCruises {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
-    public class DataEntryPersonsController : ControllerBase {
+    public class RegistrarsController : ControllerBase {
 
-        private readonly IDataEntryPersonRepository repo;
-        private readonly ILogger<DataEntryPersonsController> logger;
+        private readonly IRegistrarRepository repo;
+        private readonly ILogger<RegistrarsController> logger;
         private readonly IMapper mapper;
 
-        public DataEntryPersonsController(IDataEntryPersonRepository repo, ILogger<DataEntryPersonsController> logger, IMapper mapper) {
+        public RegistrarsController(IRegistrarRepository repo, ILogger<RegistrarsController> logger, IMapper mapper) {
             this.repo = repo;
             this.logger = logger;
             this.mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<DataEntryPersonReadResource>> Get() {
+        public async Task<IEnumerable<RegistrarListResource>> Get() {
             return await repo.Get();
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<DataEntryPerson>> GetActive() {
+        public async Task<IEnumerable<Registrar>> GetActive() {
             return await repo.GetActive(x => x.IsActive);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetΒyId(int id) {
-            DataEntryPerson record = await repo.GetById(id);
+            RegistrarReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -48,10 +48,10 @@ namespace CorfuCruises {
 
         [HttpPost]
         // [Authorize(Roles = "Admin")]
-        public IActionResult Post([FromBody] DataEntryPersonWriteResource record) {
+        public IActionResult Post([FromBody] RegistrarWriteResource record) {
             if (ModelState.IsValid) {
                 try {
-                    repo.Create(mapper.Map<DataEntryPersonWriteResource, DataEntryPerson>(record));
+                    repo.Create(mapper.Map<RegistrarWriteResource, Registrar>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordCreated()
                     });
@@ -70,10 +70,10 @@ namespace CorfuCruises {
 
         [HttpPut("{id}")]
         // [Authorize(Roles = "Admin")]
-        public IActionResult Put([FromRoute] int id, [FromBody] DataEntryPersonWriteResource record) {
+        public IActionResult Put([FromRoute] int id, [FromBody] RegistrarWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
-                    repo.Update(mapper.Map<DataEntryPersonWriteResource, DataEntryPerson>(record));
+                    repo.Update(mapper.Map<RegistrarWriteResource, Registrar>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });
@@ -93,7 +93,7 @@ namespace CorfuCruises {
         [HttpDelete("{id}")]
         // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id) {
-            DataEntryPerson record = await repo.GetById(id);
+            Registrar record = await repo.GetByIdToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
