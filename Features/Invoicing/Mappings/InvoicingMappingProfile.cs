@@ -5,7 +5,7 @@ namespace CorfuCruises {
     public class InvoicingMappingProfile : Profile {
 
         public InvoicingMappingProfile() {
-            CreateMap<Reservation, InvoicingReservationViewModel>()
+            CreateMap<Reservation, InvoiceViewModel>()
                 .ForMember(rr => rr.Destination, opt => opt.MapFrom(r => r.Destination.Description))
                 .ForMember(rr => rr.Customer, opt => opt.MapFrom(r => r.Customer.Description))
                 .ForMember(rr => rr.PickupPoint, opt => opt.MapFrom(r => r.PickupPoint.Description))

@@ -15,7 +15,7 @@ namespace CorfuCruises {
             this.mapper = mapper;
         }
 
-        public IEnumerable<InvoicingReservationViewModel> Get(string date) {
+        public IEnumerable<InvoiceViewModel> Get(string date) {
             var result = context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
@@ -23,8 +23,25 @@ namespace CorfuCruises {
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route)
                 .OrderBy(x => x.Customer)
                 .Where(x => x.Date == date)
-                .AsEnumerable();
-            return mapper.Map<IEnumerable<Reservation>, IEnumerable<InvoicingReservationViewModel>>(result);
+                .AsEnumerable().GroupBy(x => x.Customer)
+                .Select(x => new InvoiceViewModel {
+                    Customer = x.Key.ToString(),
+                    Reservations = x.ToList(),
+                    VesselReservations = GetCustomerVessels(x.ToList()),
+                    Total = x.Select(r => r.TotalPersons).Sum()
+                });
+            return result;
+        }
+
+        public List<ShipViewModel> GetCustomerVessels(List<Reservation> reservations) {
+            var result = reservations
+                    .GroupBy(r => r.PickupPoint.Route.IsTransfer)
+                    .Select(g => new ShipViewModel {
+                        Vessel = g.Key.ToString(),
+                        Passengers = g.Select(r => r.TotalPersons).Sum(),
+                    })
+                    .ToList();
+            return result;
         }
 
     }

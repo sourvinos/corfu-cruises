@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 
 namespace CorfuCruises {
 
-    public class InvoicingReservationViewModel {
+    public class InvoiceViewModel {
 
         public string Date { get; set; }
         public Guid ReservationId { get; set; }
@@ -18,6 +19,10 @@ namespace CorfuCruises {
         public string Customer { get; set; }
         public string PickupPoint { get; set; }
         public string Ship { get; set; }
+
+        public List<Reservation> Reservations { get; set; }
+        public List<ShipViewModel> VesselReservations { get; set; }
+        public int Total { get; set; }
 
     }
 

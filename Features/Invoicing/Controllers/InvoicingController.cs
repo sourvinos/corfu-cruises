@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CorfuCruises {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class InvoicingController : ControllerBase {
@@ -25,7 +25,7 @@ namespace CorfuCruises {
 
         [HttpGet("date/{date}")]
         // [Authorize(Roles = "Admin")]
-        public IEnumerable<InvoicingReservationViewModel> Get(string date) {
+        public IEnumerable<InvoiceViewModel> Get(string date) {
             return this.repo.Get(date);
         }
 
