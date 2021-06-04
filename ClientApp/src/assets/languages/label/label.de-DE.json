@@ -1814,5 +1814,79 @@
                 "description": "(DE) New"
             }
         ]
+    },
+    {
+        "feature": "shipRouteList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(DE) Routes"
+            },
+            {
+                "id": "searchLabel",
+                "description": "(DE) Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "(DE) Search by description"
+            },
+            {
+                "id": "newButton",
+                "description": "(DE) New"
+            },
+            {
+                "id": "headerDescription",
+                "description": "(DE) Description"
+            }
+        ]
+    },
+    {
+        "feature": "shipRouteForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(DE) Route"
+            },
+            {
+                "id": "description",
+                "description": "(DE) Description"
+            },
+            {
+                "id": "fromPort",
+                "description": "(DE) Departure port"
+            },
+            {
+                "id": "fromTime",
+                "description": "(DE) Time"
+            },
+            {
+                "id": "viaPort",
+                "description": "(DE) Intermediate port"
+            },
+            {
+                "id": "viaTime",
+                "description": "(DE) Time"
+            },
+            {
+                "id": "toPort",
+                "description": "(DE) Destination port"
+            },
+            {
+                "id": "toTime",
+                "description": "(DE) Time"
+            },
+            {
+                "id": "isActive",
+                "description": "(DE) Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "(DE) Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "(DE) Save"
+            }
+        ]
     }
 ]

@@ -23,6 +23,7 @@ import { ReservationModule } from '../features/reservations/classes/modules/rese
 import { RouteModule } from '../features/routes/classes/route.module'
 import { ScheduleModule } from '../features/schedules/classes/schedule.module'
 import { ShipModule } from '../features/ships/base/classes/ship.module'
+import { ShipRouteModule } from '../features/ships/routes/classes/shipRoute.module'
 import { UserIdleModule } from 'angular-user-idle'
 import { UserModule } from '../features/users/classes/user.module'
 import { WebModule } from './../features/web/classes/modules/web.module'
@@ -92,6 +93,7 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         ScheduleModule,
         ScrollingModule,
         ShipModule,
+        ShipRouteModule,
         UserModule,
         WebModule,
         UserIdleModule.forRoot({ idle: 3600, timeout: 60, ping: 60 })

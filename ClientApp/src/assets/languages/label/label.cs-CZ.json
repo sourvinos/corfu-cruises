@@ -1814,5 +1814,79 @@
                 "description": "(CZ) New"
             }
         ]
+    },
+    {
+        "feature": "shipRouteList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(CZ) Routes"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Vyhledat"
+            },
+            {
+                "id": "searchHint",
+                "description": "Vyhledat podle jména"
+            },
+            {
+                "id": "newButton",
+                "description": "Nový"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Popis"
+            }
+        ]
+    },
+    {
+        "feature": "shipRouteForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Trasa"
+            },
+            {
+                "id": "description",
+                "description": "Jméno"
+            },
+            {
+                "id": "fromPort",
+                "description": "Přístav vyplutí"
+            },
+            {
+                "id": "fromTime",
+                "description": "Čas"
+            },
+            {
+                "id": "viaPort",
+                "description": "Mezilehlý Přístav"
+            },
+            {
+                "id": "viaTime",
+                "description": "Čas"
+            },
+            {
+                "id": "toPort",
+                "description": "Cílový mezilehlý"
+            },
+            {
+                "id": "toTime",
+                "description": "Čas"
+            },
+           {
+                "id": "isActive",
+                "description": "Aktivní"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Vymazat"
+            },
+            {
+                "id": "saveButton",
+                "description": "Uložit"
+            }
+        ]
     }
 ]

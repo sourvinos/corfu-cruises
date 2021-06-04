@@ -1814,5 +1814,79 @@
                 "description": "(FR) New"
             }
         ]
+    },
+    {
+        "feature": "shipRouteList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(FR) Routes"
+            },
+            {
+                "id": "searchLabel",
+                "description": "(FR) Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "(FR) Search by description"
+            },
+            {
+                "id": "newButton",
+                "description": "(FR) New"
+            },
+            {
+                "id": "headerDescription",
+                "description": "(FR) Description"
+            }
+        ]
+    },
+    {
+        "feature": "shipRouteForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(FR) Route"
+            },
+            {
+                "id": "description",
+                "description": "(FR) Description"
+            },
+            {
+                "id": "fromPort",
+                "description": "(FR) Departure port"
+            },
+            {
+                "id": "fromTime",
+                "description": "(FR) Time"
+            },
+            {
+                "id": "viaPort",
+                "description": "(FR) Intermediate port"
+            },
+            {
+                "id": "viaTime",
+                "description": "(FR) Time"
+            },
+            {
+                "id": "toPort",
+                "description": "(FR) Destination port"
+            },
+            {
+                "id": "toTime",
+                "description": "(FR) Time"
+            },
+            {
+                "id": "isActive",
+                "description": "(FR) Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "(FR) Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "(FR) Save"
+            }
+        ]
     }
 ]

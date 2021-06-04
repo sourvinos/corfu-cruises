@@ -1814,5 +1814,79 @@
                 "description": "New"
             }
         ]
+    },
+    {
+        "feature": "shipRouteList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Routes"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "Search by description"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Description"
+            }
+        ]
+    },
+    {
+        "feature": "shipRouteForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Route"
+            },
+            {
+                "id": "description",
+                "description": "Description"
+            },
+            {
+                "id": "fromPort",
+                "description": "Departure port"
+            },
+            {
+                "id": "fromTime",
+                "description": "Time"
+            },
+            {
+                "id": "viaPort",
+                "description": "Intermediate port"
+            },
+            {
+                "id": "viaTime",
+                "description": "Time"
+            },
+            {
+                "id": "toPort",
+                "description": "Destination port"
+            },
+            {
+                "id": "toTime",
+                "description": "Time"
+            },
+            {
+                "id": "isActive",
+                "description": "Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
     }
 ]

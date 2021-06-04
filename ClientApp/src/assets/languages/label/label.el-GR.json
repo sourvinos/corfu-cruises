@@ -1814,5 +1814,79 @@
                 "description": "Νεος"
             }
         ]
+    },
+    {
+        "feature": "shipRouteList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Διαδρομες"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Αναζητηση"
+            },
+            {
+                "id": "searchHint",
+                "description": "Με βαση την περιγραφη"
+            },
+            {
+                "id": "newButton",
+                "description": "Νεα"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Περιγραφη"
+            }
+        ]
+    },
+    {
+        "feature": "shipRouteForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Διαδρομη"
+            },
+            {
+                "id": "description",
+                "description": "Περιγραφη"
+            },
+            {
+                "id": "fromPort",
+                "description": "Λιμανι αναχωρησης"
+            },
+            {
+                "id": "fromTime",
+                "description": "Ωρα"
+            },
+            {
+                "id": "viaPort",
+                "description": "Ενδιαμεσοι λιμενες προσεγγισης"
+            },
+            {
+                "id": "viaTime",
+                "description": "Ωρα"
+            },
+            {
+                "id": "toPort",
+                "description": "Λιμενας προορισμου"
+            },
+            {
+                "id": "toTime",
+                "description": "Ωρα"
+            },
+            {
+                "id": "isActive",
+                "description": "Ενεργη"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Διαγραφη"
+            },
+            {
+                "id": "saveButton",
+                "description": "Αποθηκευση"
+            }
+        ]
     }
 ]
