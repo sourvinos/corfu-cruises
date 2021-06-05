@@ -1962,5 +1962,79 @@
                 "description": "(CZ) Save"
             }
         ]
+    },
+    {
+        "feature": "crewList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(CZ) Crews"
+            },
+            {
+                "id": "searchLabel",
+                "description": "(CZ) Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "(CZ) Search by lastname"
+            },
+            {
+                "id": "newButton",
+                "description": "(CZ) New"
+            },
+            {
+                "id": "headerLastname",
+                "description": "(CZ) Lastname"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "(CZ) Firstname"
+            }
+        ]
+    },
+    {
+        "feature": "crewForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(CZ) Crew"
+            },
+            {
+                "id": "shipDescription",
+                "description": "(CZ) Ship"
+            },
+            {
+                "id": "nationalityDescription",
+                "description": "(CZ) Nationality"
+            },
+            {
+                "id": "genderDescription",
+                "description": "(CZ) Gender"
+            },
+            {
+                "id": "lastname",
+                "description": "(CZ) Lastname"
+            },
+            {
+                "id": "firstname",
+                "description": "(CZ) Firstname"
+            },
+            {
+                "id": "birthDate",
+                "description": "(CZ) Birth date"
+            },
+            {
+                "id": "isActive",
+                "description": "(CZ) Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "(CZ) Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "(CZ) Save"
+            }
+        ]
     }
 ]

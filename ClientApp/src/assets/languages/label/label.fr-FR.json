@@ -1962,5 +1962,79 @@
                 "description": "(FR) Save"
             }
         ]
+    },
+    {
+        "feature": "crewList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(FR) Crews"
+            },
+            {
+                "id": "searchLabel",
+                "description": "(FR) Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "(FR) Search by lastname"
+            },
+            {
+                "id": "newButton",
+                "description": "(FR) New"
+            },
+            {
+                "id": "headerLastname",
+                "description": "(FR) Lastname"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "(FR) Firstname"
+            }
+        ]
+    },
+    {
+        "feature": "crewForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "(FR) Crew"
+            },
+            {
+                "id": "shipDescription",
+                "description": "(FR) Ship"
+            },
+            {
+                "id": "nationalityDescription",
+                "description": "(FR) Nationality"
+            },
+            {
+                "id": "genderDescription",
+                "description": "(FR) Gender"
+            },
+            {
+                "id": "lastname",
+                "description": "(FR) Lastname"
+            },
+            {
+                "id": "firstname",
+                "description": "(FR) Firstname"
+            },
+            {
+                "id": "birthDate",
+                "description": "(FR) Birth date"
+            },
+            {
+                "id": "isActive",
+                "description": "(FR) Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "(FR) Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "(FR) Save"
+            }
+        ]
     }
 ]
