@@ -21,7 +21,7 @@ namespace CorfuCruises {
                 .Include(x => x.Destination)
                 .Include(x => x.Ship)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route)
-                .OrderBy(x => x.Date).ThenBy(x => x.Customer.Description).ThenBy(x => x.PickupPoint.Route.IsTransfer)
+                .OrderBy(x => x.Date).ThenBy(x => x.Customer.Description).ThenBy(x => !x.PickupPoint.Route.IsTransfer)
                 .Where(x => x.Date == date)
                 .AsEnumerable().GroupBy(x => new { x.Date, x.Customer })
                 .Select(x => new InvoiceIntermediateViewModel {
@@ -29,9 +29,11 @@ namespace CorfuCruises {
                     Customer = x.Key.Customer,
                     Reservations = x.ToList(),
                     IsTransferGroup = GetCustomerVessels(x.ToList()),
+                    Adults = x.Select(r => r.Adults).Sum(),
+                    Kids = x.Select(r => r.Kids).Sum(),
+                    Free = x.Select(r => r.Free).Sum(),
                     TotalPersons = x.Select(r => r.TotalPersons).Sum()
                 }).ToList();
-            // return result;
             return mapper.Map<IEnumerable<InvoiceIntermediateViewModel>, IEnumerable<InvoiceViewModel>>(result);
         }
 
@@ -40,6 +42,9 @@ namespace CorfuCruises {
                     .GroupBy(r => r.PickupPoint.Route.IsTransfer)
                     .Select(g => new IsTransferGroupViewModel {
                         IsTransfer = g.Key,
+                        Adults = g.Select(r => r.Adults).Sum(),
+                        Kids = g.Select(r => r.Kids).Sum(),
+                        Free = g.Select(r => r.Free).Sum(),
                         TotalPersons = g.Select(r => r.TotalPersons).Sum(),
                     })
                     .ToList();
@@ -47,13 +52,5 @@ namespace CorfuCruises {
         }
 
     }
-
-    public class Group {
-
-        public string Customer { get; set; }
-
-        public IEnumerable<Reservation> Records { get; set; }
-
-    }
-
+ 
 }

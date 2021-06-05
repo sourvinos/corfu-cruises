@@ -15,106 +15,79 @@
     overflow: hidden;
 }
 
-#panelButtons {
-    align-items: center;
-    display: flex;
-    margin-bottom: 1rem;
-}
-
-#panelButtons .selection {
-    margin-left: auto;
-    margin-right: 1rem;
-}
-
-#summary {
-    column-gap: 0.5rem;
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0px, 1fr));
-    transition: background-color 0.7s;
-}
-
-#listFormCombo {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    justify-content: flex-start;
-    overflow: hidden;
-    transition: background-color 0.7s;
-}
-
-#footer {
-    margin-top: 2rem;
-}
-
-#footer #buttons {
-    align-items: flex-end;
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 1rem;
-}
-
-#reservationList {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    transition: background-color 1.7s;
-}
-
-#reservationList .scrollable::-webkit-scrollbar-thumb {
-    border-top: 41px solid var(--color-background-secondary) !important;
-}
-
-#panelButtons button {
-    border-radius: 0;
-    color: var(--color-text-primary) !important;
-    font-size: var(--font-size-panel-buttons) !important;
+.customerDescription {
+    color: var(--color-text-primary);
+    font-family: var(--font-family-master);
+    font-size: var(--font-size-table-header);
     font-variant-caps: petite-caps;
+    font-weight: var(--font-weight-table-header);
+    padding: 0.625rem 0 0.5625rem 0;
+    transition: background-color 0.7s;
 }
 
-#reservationFormModal {
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.2);
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    left: 0;
-    position: absolute;
+table {
+    border-spacing: 0;
+    flex: 1;
+    table-layout: fixed;
+    transition: background-color 0.7s;
+    width: -webkit-fill-available;
+}
+
+th {
+    background-color: var(--color-table-header);
+    border-right: 0.125rem solid var(--color-background-secondary);
+    color: var(--color-text-primary);
+    font-family: var(--font-family-master);
+    font-size: var(--font-size-table-header);
+    font-variant-caps: petite-caps;
+    font-weight: var(--font-weight-table-header);
+    padding: 0.625rem 0 0.5625rem 0;
+    text-align: center;
     top: 0;
-    visibility: hidden;
-    width: 100vw;
+    transition: background-color 0.7s;
     z-index: 1;
 }
 
-#totals {
-    display: flex;
-    font-family: var(--font-family-master);
-    font-weight: var(--font-weight-totals);
-    justify-content: flex-end;
-    margin-left: auto;
-    text-align: right;
+th:hover {
+    background-color: var(--color-background-secondary);
+    cursor: pointer;
 }
 
-.selection {
-    align-items: baseline;
-    display: flex;
+tr:hover td {
+    cursor: pointer;
+}
+
+tr:hover td:last-child > div > .button-row-menu {
+    visibility: visible;
+}
+
+tr.selected {
+    background-color: var(--color-table-row-highlight) !important;
+}
+
+tr.selected td {
+    color: var(--color-text-primary);
+}
+
+td {
+    color: var(--color-text-primary);
     font-family: var(--font-family-master);
     font-size: var(--font-size-table-row);
-    margin-left: 1rem;
+    max-width: 0;
+    overflow: hidden;
+    padding: 5px 8px 4px 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+td.center {
+    text-align: center;
+}
+
+td.right {
     text-align: right;
 }
 
-.selection .label {
-    color: var(--color-text-primary);
-    font-size: var(--font-size-sum-persons);
-    font-variant-caps: petite-caps;
-    font-weight: var(--font-weight-sum-persons);
-    margin: 0 0.5rem 0 0.5rem;
-}
-
-.selection .sum {
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-sum);
-    font-weight: var(--font-weight-sum-persons);
+th.none, td.none {
+    display: none;
 }

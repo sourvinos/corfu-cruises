@@ -1,18 +1,12 @@
-import { Guid } from "guid-typescript"
+import { IsTransferGroupViewModel } from './isTransferGroup-view-model'
+import { ReservationsViewModel } from './reservation-view-model'
 
 export class InvoicingViewModel {
 
-    reservationId: Guid
     date: string
     customerDescription: string
-    destinationDescription: string
-    shipDescription: string
-    adults: number
-    kids: number
-    free: number
-    totalPersons: number
-    ticketNo: string
-    isTransfer: boolean
-    remarks: string
+    reservations: ReservationsViewModel[]
+    isTransferGroup: IsTransferGroupViewModel[]
+    totalPersons:number
 
 }

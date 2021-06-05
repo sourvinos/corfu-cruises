@@ -1,12 +1,61 @@
 <div id="wrapper">
 
-    <div id="table-wrapper">
-        <div id="listFormCombo" [class.hidden]="activePanel=='summary'">
-            <div id="reservationList">
-                <div class="scrollable" id="table">
-                    <custom-table [highlightFirstRow]="highlightFirstRow" [feature]="feature" [records]="queryResult" [headers]="headers" [widths]="widths" [visibility]="visibility" [justify]="justify" [types]="types" [fields]="fields"></custom-table>
-                </div>
+    <div class="scrollable">
+        <div *ngFor="let result of queryResult">
+            <div class="customerDescription">
+                {{ result.customerDescription }}
             </div>
+            <table>
+                <thead>
+                    <th class="none">Id</th>
+                    <th>Destination</th>
+                    <th>Ticket No</th>
+                    <th>Adults</th>
+                    <th>Kids</th>
+                    <th>Free</th>
+                    <th>Total</th>
+                    <th>Transfer</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let reservation of result.reservations">
+                        <td class="none">{{ reservation.reservationId }}</td>
+                        <td>{{ reservation.destinationDescription }}</td>
+                        <td>{{ reservation.ticketNo }}</td>
+                        <td class="right">{{ reservation.adults }}</td>
+                        <td class="right">{{ reservation.kids }}</td>
+                        <td class="right">{{ reservation.free }}</td>
+                        <td class="right">{{ reservation.totalPersons }}</td>
+                        <td class="center">{{ reservation.isTransfer ? "ΝΑΙ" : "ΟΧΙ" }}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <table>
+                        <thead>
+                            <th class="center">TRANSFER</th>
+                            <th>Adults</th>
+                            <th>Kids</th>
+                            <th>Free</th>
+                            <th>Total</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let transfer of result.isTransferGroup">
+                                <td class="center">{{ transfer.isTransfer ? "ΝΑΙ" : "ΟΧΙ" }}</td>
+                                <td class="right">{{ transfer.adults }}</td>
+                                <td class="right">{{ transfer.kids }}</td>
+                                <td class="right">{{ transfer.free }}</td>
+                                <td class="right">{{ transfer.totalPersons }}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <td>ΣΥΝΟΛΟ {{ result.customerDescription }}</td>
+                            <td class="right">{{ result.adults }}</td>
+                            <td class="right">{{ result.kids }}</td>
+                            <td class="right">{{ result.free }}</td>
+                            <td class="right">{{ result.totalPersons }}</td>
+                        </tfoot>
+                    </table>
+                </tfoot>
+            </table>
         </div>
     </div>
 

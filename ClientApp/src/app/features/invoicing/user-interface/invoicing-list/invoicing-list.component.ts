@@ -23,12 +23,12 @@ export class InvoicingListComponent {
     //#region variables
 
     private ngUnsubscribe = new Subject<void>()
-    public queryResult: string[] = []
     private resolver = 'invoicingList'
     private unlisten: Unlisten
     private windowTitle = 'Invoicing'
     public feature = 'invoicingList'
     public highlightFirstRow = false
+    public queryResult: any[]
     public sortColumn: string
     public sortOrder: string
 
@@ -37,7 +37,6 @@ export class InvoicingListComponent {
     //#region particular variables
 
     private dateIn: string
-    public activePanel: string
 
     //#endregion
 
@@ -110,6 +109,7 @@ export class InvoicingListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.queryResult = listResolved.result
+            console.log(this.queryResult)
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
