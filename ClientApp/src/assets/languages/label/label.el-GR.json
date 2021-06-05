@@ -1312,7 +1312,7 @@
                 "description": "Εθνικοτητα"
             },
             {
-                "id": "dob",
+                "id": "birthDate",
                 "description": "Ημερ/νια γεννησης"
             },
             {
@@ -1909,8 +1909,8 @@
                 "description": "Νεος"
             },
             {
-                "id": "headerFullname",
-                "description": "Πληρες ονομα"
+                "id": "headerLastname",
+                "description": "Επωνυμο"
             }
         ]
     },
@@ -1952,6 +1952,80 @@
             {
                 "id": "isActive",
                 "description": "Ενεργος"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Διαγραφη"
+            },
+            {
+                "id": "saveButton",
+                "description": "Αποθηκευση"
+            }
+        ]
+    },
+    {
+        "feature": "crewList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Πληρωματα"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Αναζητηση"
+            },
+            {
+                "id": "searchHint",
+                "description": "Με βαση το επωνυμο"
+            },
+            {
+                "id": "newButton",
+                "description": "Νεο"
+            },
+            {
+                "id": "headerLastname",
+                "description": "Επωνυμο"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "Ονομα"
+            }
+        ]
+    },
+    {
+        "feature": "crewForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Πληρωμα"
+            },
+            {
+                "id": "shipDescription",
+                "description": "Πλοιο"
+            },
+            {
+                "id": "nationalityDescription",
+                "description": "Εθνικοτητα"
+            },
+            {
+                "id": "genderDescription",
+                "description": "Φυλο"
+            },
+           {
+                "id": "lastname",
+                "description": "Επωνυμο"
+            },
+            {
+                "id": "firstname",
+                "description": "Ονομα"
+            },
+            {
+                "id": "birthDate",
+                "description": "Ημερομηνια γεννησης"
+            },
+            {
+                "id": "isActive",
+                "description": "Ενεργο"
             },
             {
                 "id": "deleteButton",

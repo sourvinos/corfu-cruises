@@ -39,7 +39,7 @@ export class ManifestPdfService {
                         layout: 'noBorders'
                     },
                     [
-                        this.table(manifest, ['', 'lastname', 'firstname', 'dob', 'nationalityDescription', 'occupantDescription', 'genderDescription', 'specialCare', 'remarks'], ['right', 'left', 'left', 'left', 'left', 'left', 'left', 'left', 'left'])
+                        this.table(manifest, ['', 'lastname', 'firstname', 'birthDate', 'nationalityDescription', 'occupantDescription', 'genderDescription', 'specialCare', 'remarks'], ['right', 'left', 'left', 'left', 'left', 'left', 'left', 'left', 'left'])
                     ],
                     {
                         table: {

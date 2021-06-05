@@ -1312,8 +1312,8 @@
                 "description": "Nationality"
             },
             {
-                "id": "dob",
-                "description": "DoB"
+                "id": "birthDate",
+                "description": "Birth date"
             },
             {
                 "id": "gender",
@@ -1712,7 +1712,7 @@
             },
             {
                 "id": "headerDoB",
-                "description": "(DE) DoB"
+                "description": "(DE) Birth date"
             },
             {
                 "id": "headerOccupant",

@@ -85,6 +85,10 @@
             {
                 "id": "shipRoutes",
                 "description": "Διαδρομες"
+            },
+            {
+                "id": "crews",
+                "description": "Πληρωματα"
             }
         ]
     }

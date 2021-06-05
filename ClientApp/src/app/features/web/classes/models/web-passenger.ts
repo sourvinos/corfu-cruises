@@ -18,7 +18,7 @@ export class WebPassenger {
     }
     lastname: string
     firstname: string
-    dob: string
+    birthDate: string
     specialCare: string
     remarks: string
     isCheckedIn: boolean

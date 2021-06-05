@@ -85,6 +85,10 @@
             {
                 "id": "shipRoutes",
                 "description": "Routes"
+            },
+            {
+                "id": "crews",
+                "description": "Crews"
             }
         ]
     }

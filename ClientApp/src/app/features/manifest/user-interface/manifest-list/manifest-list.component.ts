@@ -48,7 +48,7 @@ export class ManifestListComponent {
     visibility = ['none', 'none', '', '', '', '', '', '', '', '', '']
     justify = ['center', 'left', 'left', 'left', 'left', 'center', 'center', 'left', 'left', 'left', 'left']
     types = ['', '', '', '', '', '', '', '', '', '', '']
-    fields = ['', 'reservationId', 'lastname', 'firstname', 'nationalityDescription', 'dob', 'occupantDescription', 'genderDescription', 'remarks', 'specialCare', '']
+    fields = ['', 'reservationId', 'lastname', 'firstname', 'nationalityDescription', 'birthDate', 'occupantDescription', 'genderDescription', 'remarks', 'specialCare', '']
 
     //#endregion
 

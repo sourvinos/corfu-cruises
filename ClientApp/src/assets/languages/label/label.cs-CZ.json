@@ -1312,8 +1312,8 @@
                 "description": "(CZ) Nationality"
             },
             {
-                "id": "dob",
-                "description": "(CZ) DOB"
+                "id": "birthDate",
+                "description": "(CZ) Birth date"
             },
             {
                 "id": "gender",
@@ -1712,7 +1712,7 @@
             },
             {
                 "id": "headerDoB",
-                "description": "(CZ) DoB"
+                "description": "(CZ) Birth date"
             },
             {
                 "id": "headerOccupant",

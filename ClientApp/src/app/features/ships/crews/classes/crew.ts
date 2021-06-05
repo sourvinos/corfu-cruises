@@ -1,10 +1,8 @@
-import { Guid } from "guid-typescript"
+import { KeyValuePair } from 'src/app/shared/classes/keyValuePair'
 
-export class Passenger {
+export class Crew extends KeyValuePair {
 
-    id: number
-    reservationId: Guid
-    occupant: {
+    ship: {
         id: number
         description: string
     }
@@ -19,8 +17,6 @@ export class Passenger {
     lastname: string
     firstname: string
     birthDate: string
-    specialCare: string
-    remarks: string
-    isCheckedIn: boolean
+    isActive: boolean
 
 }

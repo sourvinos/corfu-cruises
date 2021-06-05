@@ -31,11 +31,13 @@ import { WebModule } from './../features/web/classes/modules/web.module'
 // Components
 import { AppComponent } from './app.component'
 import { CreditsComponent } from '../features/credits/user-interface/credits.component'
+import { CrewModule } from '../features/ships/crews/classes/crew.module'
 import { EmptyPageComponent } from '../shared/components/empty-page/empty-page.component'
 import { HomeComponent } from '../features/home/home.component'
 import { LanguageMenuComponent } from '../shared/components/top-bar-wrapper/language-menu/language-menu.component'
 import { MainMenuComponent } from '../shared/components/top-bar-wrapper/main-menu/main-menu.component'
 import { NationalityModule } from '../features/nationalities/classes/nationality.module'
+import { RegistrarModule } from '../features/ships/registrars/classes/registrar.module'
 import { ScheduleMenuComponent } from '../shared/components/top-bar-wrapper/schedule-menu/schedule-menu.component'
 import { SideBarComponent } from '../shared/components/side-bar-wrapper/side-bar/side-bar.component'
 import { SideFooterComponent } from './../shared/components/side-bar-wrapper/side-footer/side-footer.component'
@@ -49,7 +51,6 @@ import { UserMenuComponent } from '../shared/components/top-bar-wrapper/user-men
 // Utils
 import { DomChangeDirective } from '../shared/directives/dom-change.directive'
 import { JwtInterceptor } from '../shared/services/jwt.interceptor'
-import { RegistrarModule } from '../features/ships/registrars/classes/registrar.module'
 
 @NgModule({
     declarations: [
@@ -76,6 +77,7 @@ import { RegistrarModule } from '../features/ships/registrars/classes/registrar.
         BoardingModule,
         BrowserAnimationsModule,
         BrowserModule,
+        CrewModule,
         CustomerModule,
         DestinationModule,
         DriverModule,

@@ -1312,7 +1312,7 @@
                 "description": "Nationalite"
             },
             {
-                "id": "dob",
+                "id": "birthDate",
                 "description": "Date de naissance"
             },
             {

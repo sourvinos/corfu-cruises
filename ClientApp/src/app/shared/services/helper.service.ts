@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import moment from 'moment'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
@@ -28,6 +29,11 @@ export class HelperService {
 
     public formatDateToLocale(date: string | number | Date): string {
         return new Date(date).toLocaleDateString(this.readItem('language'))
+    }
+
+    public formatDateToISO(date: string): string {
+        const value = moment(date)
+        return value.format('YYYY-MM-DD')
     }
 
     public getApplicationTitle(): any {

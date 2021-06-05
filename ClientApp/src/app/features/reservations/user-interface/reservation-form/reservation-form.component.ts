@@ -223,7 +223,7 @@ export class ReservationFormComponent {
         }
     }
 
-    public onValidateReservation(): void {
+    public onDoPreSaveTasks(): void {
         let maxPersons = 0
         let primaryPortMaxPersons = 0
         let secondaryPortMaxPersons = 0
@@ -377,7 +377,7 @@ export class ReservationFormComponent {
                 "nationalityDescription": passenger.nationality.description,
                 "lastname": passenger.lastname,
                 "firstname": passenger.firstname,
-                "dob": passenger.dob.substr(0, 10),
+                "birthDate": passenger.birthDate.substr(0, 10),
                 "genderId": passenger.gender.id,
                 "genderDescription": passenger.gender.description,
                 "specialCare": passenger.specialCare,
@@ -539,7 +539,7 @@ export class ReservationFormComponent {
                 'genderId': element.genderId,
                 'lastname': element.lastname,
                 'firstname': element.firstname,
-                'dob': this.formatDate(element.dob),
+                'birthDate': this.formatDate(element.birthDate),
                 'specialCare': element.specialCare,
                 'remarks': element.remarks,
                 'isCheckedIn': element.isCheckedIn

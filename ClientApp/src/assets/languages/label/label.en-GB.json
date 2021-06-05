@@ -1312,8 +1312,8 @@
                 "description": "Nationality"
             },
             {
-                "id": "dob",
-                "description": "DoB"
+                "id": "birthDate",
+                "description": "Birth date"
             },
             {
                 "id": "gender",
@@ -1711,8 +1711,8 @@
                 "description": "Nationality"
             },
             {
-                "id": "headerDoB",
-                "description": "DoB"
+                "id": "headerBirthDate",
+                "description": "Birth date"
             },
             {
                 "id": "headerOccupant",
@@ -1948,6 +1948,80 @@
             {
                 "id": "isPrimary",
                 "description": "Primary"
+            },
+            {
+                "id": "isActive",
+                "description": "Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "Delete"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
+            }
+        ]
+    },
+    {
+        "feature": "crewList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Crews"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "Search by lastname"
+            },
+            {
+                "id": "newButton",
+                "description": "New"
+            },
+            {
+                "id": "headerLastname",
+                "description": "Lastname"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "Firstname"
+            }
+        ]
+    },
+    {
+        "feature": "crewForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Crew"
+            },
+            {
+                "id": "shipDescription",
+                "description": "Ship"
+            },
+            {
+                "id": "nationalityDescription",
+                "description": "Nationality"
+            },
+            {
+                "id": "genderDescription",
+                "description": "Gender"
+            },
+            {
+                "id": "lastname",
+                "description": "Lastname"
+            },
+            {
+                "id": "firstname",
+                "description": "Firstname"
+            },
+            {
+                "id": "birthDate",
+                "description": "Birth date"
             },
             {
                 "id": "isActive",
