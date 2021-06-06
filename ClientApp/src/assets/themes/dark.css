@@ -1,22 +1,45 @@
 :root {
-    /* Common */
-    --color-background-primary: #072d31;
-    --color-background-secondary: #4c565a;
-    /* Logo */
-    --color-logo-primary: #FE9F36;
-    --color-logo-secondary: #FFE85C;
-    /* Snackbars */
-    --color-snackbar-error: #920402;
-    --color-snackbar-info: #76A28D;
+    /* Border of clickable items */
+    --color-border-item-active: #F2D492;
+    --color-border-item-inactive: #576971;
+    /* Buttons */
+    --color-button-delete: #F28482;
+    --color-button-primary-hover: #296672;
+    --color-button-primary: #55828B;
+    --color-button-secondary: #426176;
+    --color-button-text: #EDEDED;
+    /* Calendar legend */
+    --color-calendar-legend: #efefef;
     /* Checkboxes */
     --color-checkbox-checked: #55828B;
     --color-checkbox-indeterminate: #185258;
-    /* Buttons */
-    --color-button-delete: #F28482;
-    --color-button-primary: #55828B;
-    --color-button-primary-hover: #296672;
-    --color-button-secondary: #426176;
-    --color-button-text: #EDEDED;
+    /* Common */
+    --color-common-background-primary: #072d31;
+    --color-common-background-secondary: #4c565a;
+    --color-common-sidenav: #657171;
+    /* Credits */
+    --color-credit-about: #EFEFEF;
+    --color-credit-hover: #545454;
+    --color-credit-title: #FE9F36;
+    --color-credit-url: #FFE85C;
+    /* Datepicker */
+    --color-datepicker-days: #EDEDED;
+    --color-datepicker-month: #FFE85C;
+    /* Mobile menu */
+    --color-mobile-menu: #FFE85C;
+    /* Logo */
+    --color-logo-primary: #FE9F36;
+    --color-logo-secondary: #FFE85C;
+    /* Main menu */
+    --color-main-menu-background-hover: #696969;
+    --color-main-menu-background: #072d31;
+    /* Maps */
+    --color-map-buttons-background: #426176;
+    --color-map-buttons: #EBE5CD;
+    --color-map-tooltip-background: #22333B;
+    --color-map-tooltip-color: #EFEFEF;
+    /* Scroll bars */
+    --color-scrollbar: #FE9F36;
     /* Selected tabs */
     --color-selected-tab: #FFE85C;
     /* Sliders */
@@ -24,49 +47,26 @@
     --color-slider-bar-inactive: #a2a6a7;
     --color-slider-thumb-active: #6a7f82;
     --color-slider-thumb-inactive: #a2a6a7;
+    /* Snackbars */
+    --color-snackbar-error: #920402;
+    --color-snackbar-info: #76A28D;
+    /* Spinner */
+    --color-spinner-inner: #FFE85C;
+    --color-spinner-outer: #FE9F36;
+    --color-spinner: #FE9F36;
     /* Summaries */
     --color-summary-background: #97aaaf21;
     --color-summary-header: #e6ba8a;
     --color-summary-total: #e6ba8a;
+    /* Tables */
+    --color-table-header: #072d313b;
+    --color-table-invoice-customerDescription: #fe9f36;
+    --color-table-row-highlight: #4f5c61;
     /* Text */
     --color-text-primary: #EFEFEF;
     --color-text-secondary: #F2D492;
     --color-text-selected: #f2d49266;
-    /* Maps */
-    --color-map-buttons-background: #426176;
-    --color-map-buttons: #EBE5CD;
-    --color-map-tooltip-background: #22333B;
-    --color-map-tooltip-color: #EFEFEF;
-    /* Spinner */
-    --color-spinner-outer: #FE9F36;
-    --color-spinner-inner: #FFE85C;
-    --color-spinner: #FE9F36;
-    /* Credits */
-    --color-credit-title: #FE9F36;
-    --color-credit-url: #FFE85C;
-    --color-credit-about: #EFEFEF;
-    --color-credit-hover: #545454;
-    /* Tables */
-    --color-table-header: #4f5c61;
-    --color-table-row-highlight: #4f5c61;
-    /* Scroll bars */
-    --color-scrollbar: #FE9F36;
-    /* Main menu */
-    --color-main-menu-background: #072d31;
-    --color-main-menu-background-hover: #696969;
-    /* Border of clickable items */
-    --color-border-active: #F2D492;
-    --color-border-inactive: #576971;
-    /* Datepicker */
-    --color-datepicker-month: #FFE85C;
-    --color-datepicker-days: #EDEDED;
-    /* Boarding list */
-    --color-sidenav: #657171;
-    /* Mobile menu */
-    --color-hamburger-menu: #FFE85C;
     /* Tooltip */
-    --color-tooltip: #072d31;
     --color-tooltip-background: #FE9F36;
-    /* Calendar legend */
-    --color-calendar-legend: #efefef;
+    --color-tooltip: #072d31;
 }

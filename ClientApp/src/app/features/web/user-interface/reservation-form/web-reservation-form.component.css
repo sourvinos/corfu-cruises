@@ -1,5 +1,5 @@
 #form-wrapper {
-    background-color: var(--color-background-secondary);
+    background-color: var(--color-common-background-secondary);
     border-radius: 20px;
     display: grid;
     grid-template-columns: minmax(400px, 1fr);

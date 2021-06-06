@@ -6,18 +6,19 @@
 table {
     border-spacing: 0;
     flex: 1;
-    table-layout: fixed;
+    /* table-layout: fixed; */
     transition: background-color 0.7s;
+    width: 100%;
 }
 
-th {
+thead tr {
     background-color: var(--color-table-header);
-    border-right: 0.125rem solid var(--color-background-secondary);
+    border-right: 0.125rem solid var(--color-common-background-secondary);
     color: var(--color-text-primary);
-    font-family: var(--font-family-master);
+    font-family: var(--font-family-table);
     font-size: var(--font-size-table-header);
     font-variant-caps: petite-caps;
-    font-weight: var(--font-weight-table-header);
+    line-height: 22px;
     padding: 0.625rem 0 0.5625rem 0;
     position: sticky;
     text-align: center;
@@ -26,8 +27,12 @@ th {
     z-index: 1;
 }
 
+th {
+    font-weight: var(--font-weight-table-header);
+}
+
 th:hover {
-    background-color: var(--color-background-secondary);
+    background-color: var(--color-common-background-secondary);
     cursor: pointer;
 }
 
@@ -49,7 +54,7 @@ tr.selected td {
 
 td {
     color: var(--color-text-primary);
-    font-family: var(--font-family-master);
+    font-family: var(--font-family-table);
     font-size: var(--font-size-table-row);
     max-width: 0;
     overflow: hidden;

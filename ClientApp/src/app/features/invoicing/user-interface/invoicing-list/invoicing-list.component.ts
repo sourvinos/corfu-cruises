@@ -14,7 +14,7 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 @Component({
     selector: 'invoicing-list',
     templateUrl: './invoicing-list.component.html',
-    styleUrls: ['./invoicing-list.component.css', '../../../../../assets/styles/summaries.css'],
+    styleUrls: ['./invoicing-list.component.css', '../../../../shared/components/table/custom-table.component.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
@@ -98,7 +98,7 @@ export class InvoicingListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.queryResult = listResolved.result
-            } else {
+        } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }

@@ -2,7 +2,7 @@
     /* Font names */
     --font-family-logo: "Aka-Acid-CanterBold";
     --font-family-master: "Ubuntu";
-    --font-family-table: "Open Sans Condensed";
+    --font-family-table: "Noto Sans";
     /* Font weights */
     --font-weight-button: 100 !important;
     --font-weight-checkbox: 400 !important;
@@ -38,8 +38,8 @@
     --font-size-summary-block-header: 1.6rem;
     --font-size-summary-block-item: 1rem;
     --font-size-tab-label: 1.8rem;
-    --font-size-table-header: 1rem;
-    --font-size-table-row: 0.875rem;
+    --font-size-table-header: 80%;
+    --font-size-table-row: 80%;
     --font-size-tooltip: 0.6rem;
     --font-size-top-logo: 2rem;
 }

@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/*  */
+
 @import "~leaflet/dist/leaflet.css";
 @import "variables.css";
 @import "buttons.css";
@@ -37,6 +40,7 @@ html, body {
 }
 
 h1, h2, h3, h4, p {
+    font-size: 100%;
     margin: 0 !important;
     padding: 0 !important;
 }
@@ -58,7 +62,7 @@ p.instructions {
 
 .mat-menu-panel, .mat-menu-content {
     align-items: flex-start;
-    background-color: var(--color-background-primary) !important;
+    background-color: var(--color-common-background-primary) !important;
     border-radius: 0 !important;
     display: flex;
     flex-direction: column;

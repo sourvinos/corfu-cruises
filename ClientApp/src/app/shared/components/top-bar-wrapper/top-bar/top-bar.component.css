@@ -1,5 +1,5 @@
 #top-bar {
-    background-color: var(--color-background-primary);
+    background-color: var(--color-common-background-primary);
     display: grid;
     grid-template-areas: "left right";
     grid-template-columns: 1fr auto;
@@ -39,7 +39,7 @@
 }
 
 .bar {
-    background-color: var(--color-hamburger-menu);
+    background-color: var(--color-mobile-menu);
     border-radius: 5px;
     height: 5px;
     transition: 0.3s ease;

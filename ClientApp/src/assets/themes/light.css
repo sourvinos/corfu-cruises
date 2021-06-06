@@ -1,22 +1,45 @@
 :root {
-    /* Common */
-    --color-background-primary: #627789;
-    --color-background-secondary: #efefef;
-    /* Logo */
-    --color-logo-primary: #FE9F36;
-    --color-logo-secondary: #FFE85C;
-    /* Snackbars */
-    --color-snackbar-error: #920402;
-    --color-snackbar-info: #76A28D;
+    /* Border of clickable items */
+    --color-border-item-active: #426f8a;
+    --color-border-item-inactive: #d5dee2;
+    /* Buttons */
+    --color-button-delete: #F28482;
+    --color-button-primary-hover: #3c5565;
+    --color-button-primary: #426f8a;
+    --color-button-secondary: #eaa558;
+    --color-button-text: #EDEDED;
+    /* Calendar legend */
+    --color-calendar-legend: #efefef;
     /* Checkboxes */
     --color-checkbox-checked: #426f8a;
     --color-checkbox-indeterminate: #426f8a;
-    /* Buttons */
-    --color-button-delete: #F28482;
-    --color-button-primary: #426f8a;
-    --color-button-primary-hover: #3c5565;
-    --color-button-secondary: #eaa558;
-    --color-button-text: #EDEDED;
+    /* Common */
+    --color-common-background-primary: #627789;
+    --color-common-background-secondary: #efefef;
+    --color-common-sidenav: #caebff;
+    /* Credits */
+    --color-credit-about: #210646;
+    --color-credit-hover: #f9f4d7;
+    --color-credit-title: #FE9F36;
+    --color-credit-url: #86805f;
+    /* Datepicker */
+    --color-datepicker-days: #EDEDED;
+    --color-datepicker-month: #FFE85C;
+    /* Mobile menu */
+    --color-mobile-menu: #c7e1e6;
+    /* Logo */
+    --color-logo-primary: #FE9F36;
+    --color-logo-secondary: #FFE85C;
+    /* Main menu */
+    --color-main-menu-background-hover: #6390ab;
+    --color-main-menu-background: #627789;
+    /* Maps */
+    --color-map-buttons-background: #426176;
+    --color-map-buttons: #EBE5CD;
+    --color-map-tooltip-background: #22333B;
+    --color-map-tooltip-color: #EFEFEF;
+    /* Scroll bars */
+    --color-scrollbar: #FE9F36;
     /* Selected tabs */
     --color-selected-tab: #EF8857;
     /* Sliders */
@@ -24,52 +47,26 @@
     --color-slider-bar-inactive: #a2a6a7;
     --color-slider-thumb-active: #426f8a;
     --color-slider-thumb-inactive: #a2a6a7;
+    /* Snackbars */
+    --color-snackbar-error: #920402;
+    --color-snackbar-info: #76A28D;
+    /* Spinner */
+    --color-spinner-inner: #FFE85C;
+    --color-spinner-outer: #FE9F36;
+    --color-spinner: #FE9F36;
     /* Summaries */
     --color-summary-background: #97aaaf21;
     --color-summary-header: #e6ba8a;
     --color-summary-total: #e6ba8a;
+    /* Tables */
+    --color-table-header: #6277891a;
+    --color-table-invoice-customerDescription: #fe9f36;
+    --color-table-row-highlight: #cce8f9;
     /* Text */
     --color-text-primary: #072d31;
     --color-text-secondary: #EF8857;
     --color-text-selected: #f2d49266;
-    /* Maps */
-    --color-map-buttons-background: #426176;
-    --color-map-buttons: #EBE5CD;
-    --color-map-tooltip-background: #22333B;
-    --color-map-tooltip-color: #EFEFEF;
-    /* Spinner */
-    --color-spinner-outer: #FE9F36;
-    --color-spinner-inner: #FFE85C;
-    --color-spinner: #FE9F36;
-    /* Credits */
-    --color-credit-title: #FE9F36;
-    --color-credit-url: #86805f;
-    --color-credit-about: #210646;
-    --color-credit-hover: #f9f4d7;
-    /* Tables */
-    --color-table-header: #a9c4d4;
-    --color-table-row-highlight: #cce8f9;
-    /* Scroll bars */
-    --color-scrollbar: #FE9F36;
-    /* Main menu */
-    --color-main-menu-background: #627789;
-    --color-main-menu-background-hover: #6390ab;
-    /* Border of clickable items */
-    --color-border-active: #426f8a;
-    --color-border-inactive: #d5dee2;
-    /* Datepicker */
-    --color-datepicker-month: #FFE85C;
-    --color-datepicker-days: #EDEDED;
-    /* Boarding list */
-    --color-expansion-header: #EFEFEF;
-    --color-expansion-list-label: #072d31;
-    --color-expansion-list-value: #9e0d0d;
-    --color-sidenav: #caebff;
-    /* Mobile menu */
-    --color-hamburger-menu: #c7e1e6;
     /* Tooltip */
-    --color-tooltip: #efefef;
     --color-tooltip-background: #426f8a;
-    /* Calendar legend */
-    --color-calendar-legend: #efefef;
+    --color-tooltip: #efefef;
 }

@@ -3,7 +3,7 @@
 }
 
 .mat-datepicker-content {
-    background-color: var(--color-background-primary);
+    background-color: var(--color-common-background-primary);
 }
 
 .mat-calendar {

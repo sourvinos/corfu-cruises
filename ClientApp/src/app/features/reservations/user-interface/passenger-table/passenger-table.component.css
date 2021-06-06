@@ -12,7 +12,7 @@ table {
 
 th {
     background-color: var(--color-table-header);
-    border-right: 0.125rem solid var(--color-background-secondary);
+    border-right: 0.125rem solid var(--color-common-background-secondary);
     color: var(--color-text-primary);
     font-family: var(--font-family-master);
     font-size: var(--font-size-table-header);
@@ -27,12 +27,12 @@ th {
 }
 
 th:hover {
-    background-color: var(--color-background-secondary);
+    background-color: var(--color-common-background-secondary);
     cursor: pointer;
 }
 
 tr:hover {
-    background-color: var(--color-background-secondary);
+    background-color: var(--color-common-background-secondary);
 }
 
 tr:hover td {

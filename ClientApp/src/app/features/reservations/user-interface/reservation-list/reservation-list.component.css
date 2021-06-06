@@ -66,7 +66,7 @@
 }
 
 #reservationList .scrollable::-webkit-scrollbar-thumb {
-    border-top: 41px solid var(--color-background-secondary) !important;
+    border-top: 41px solid var(--color-common-background-secondary) !important;
 }
 
 #panelButtons button {

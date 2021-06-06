@@ -5,7 +5,7 @@
     overflow-x: hidden;
     overflow-y: auto !important;
     scroll-behavior: smooth;
-    scrollbar-color: var(--color-button-secondary) var(--color-background-secondary);
+    scrollbar-color: var(--color-button-secondary) var(--color-common-background-secondary);
     scrollbar-width: thin;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .scrollable::-webkit-scrollbar-track, .mat-tab-body-content::-webkit-scrollbar-track {
-    background-color: var(--color-background-secondary) !important;
+    background-color: var(--color-common-background-secondary) !important;
 }
 
 .scrollable::-webkit-scrollbar-thumb, .mat-tab-body-content::-webkit-scrollbar-thumb {

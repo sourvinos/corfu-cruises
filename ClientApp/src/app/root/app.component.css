@@ -1,5 +1,5 @@
 #wrapper {
-    background-color: var(--color-background-secondary);
+    background-color: var(--color-common-background-secondary);
     display: flex;
     height: 100%;
     transition: background-color 0.7s;
@@ -7,7 +7,7 @@
 }
 
 #main {
-    background-color: var(--color-background-secondary);
+    background-color: var(--color-common-background-secondary);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -15,7 +15,7 @@
 }
 
 #content {
-    background-color: var(--color-background-primary);
+    background-color: var(--color-common-background-primary);
     flex: 1;
     justify-content: center;
     overflow-y: hidden;
@@ -23,7 +23,7 @@
 }
 
 #bottom {
-    background-color: var(--color-background-primary);
+    background-color: var(--color-common-background-primary);
     height: 0.5rem;
     transition: background-color 0.7s;
 }

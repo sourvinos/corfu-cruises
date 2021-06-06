@@ -7,57 +7,70 @@
             </div>
             <table>
                 <thead>
-                    <th class="none">Id</th>
-                    <th class="destination">Destination</th>
-                    <th>Ship</th>
-                    <th>Ticket No</th>
-                    <th>Adults</th>
-                    <th>Kids</th>
-                    <th>Free</th>
-                    <th>Total</th>
-                    <th>Transfer</th>
+                    <tr>
+                        <th class="width-fifteen">ΠΡΟΟΡΙΣΜΟΣ</th>
+                        <th class="width-fifteen">ΠΛΟΙΟ</th>
+                        <th class="width-seven">ΕΙΣΙΤΗΡΙΟ</th>
+                        <th class="width-seven">TRANSFER</th>
+                        <th class="width-seven">ΕΝΗΛΙΚΕΣ</th>
+                        <th class="width-seven">ΠΑΙΔΙΑ</th>
+                        <th class="width-seven">ΔΩΡΕΑΝ</th>
+                        <th class="width-seven">ΣΥΝΟΛΟ</th>
+                        <th class="width-twenty">ΠΑΡΑΤΗΡΗΣΕΙΣ</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let reservation of result.reservations">
-                        <td class="none">{{ reservation.reservationId }}</td>
                         <td>{{ reservation.destinationDescription }}</td>
                         <td>{{ reservation.shipDescription }}</td>
-                        <td>{{ reservation.ticketNo }}</td>
+                        <td class="center">{{ reservation.ticketNo }}</td>
+                        <td class="center">{{ reservation.isTransfer ? "ΝΑΙ" : "ΟΧΙ" }}</td>
                         <td class="right">{{ reservation.adults }}</td>
                         <td class="right">{{ reservation.kids }}</td>
                         <td class="right">{{ reservation.free }}</td>
                         <td class="right">{{ reservation.totalPersons }}</td>
-                        <td class="center">{{ reservation.isTransfer ? "ΝΑΙ" : "ΟΧΙ" }}</td>
                         <td>{{ reservation.remarks }}</td>
                     </tr>
                 </tbody>
-                <tfoot>
-                    <table>
-                        <thead>
-                            <th class="center">TRANSFER</th>
-                            <th>Adults</th>
-                            <th>Kids</th>
-                            <th>Free</th>
-                            <th>Total</th>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let transfer of result.isTransferGroup">
-                                <td class="center">{{ transfer.isTransfer ? "ΝΑΙ" : "ΟΧΙ" }}</td>
-                                <td class="right">{{ transfer.adults }}</td>
-                                <td class="right">{{ transfer.kids }}</td>
-                                <td class="right">{{ transfer.free }}</td>
-                                <td class="right">{{ transfer.totalPersons }}</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <td>ΣΥΝΟΛΟ {{ result.customerDescription }}</td>
-                            <td class="right">{{ result.adults }}</td>
-                            <td class="right">{{ result.kids }}</td>
-                            <td class="right">{{ result.free }}</td>
-                            <td class="right">{{ result.totalPersons }}</td>
-                        </tfoot>
-                    </table>
-                </tfoot>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="width-fifteen"></th>
+                        <th class="width-fifteen"></th>
+                        <th class="width-seven"></th>
+                        <th class="width-seven">TRANSFER</th>
+                        <th class="width-seven">ΕΝΗΛΙΚΕΣ</th>
+                        <th class="width-seven">ΠΑΙΔΙΑ</th>
+                        <th class="width-seven">ΔΩΡΕΑΝ</th>
+                        <th class="width-seven">ΣΥΝΟΛΟ</th>
+                        <th class="width-twenty"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let transfer of result.isTransferGroup">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="center">{{ transfer.isTransfer ? "ΝΑΙ" : "ΟΧΙ" }}</td>
+                        <td class="right">{{ transfer.adults }}</td>
+                        <td class="right">{{ transfer.kids }}</td>
+                        <td class="right">{{ transfer.free }}</td>
+                        <td class="right">{{ transfer.totalPersons }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="center">ΣΥΝΟΛΟ</td>
+                        <td class="right">{{ result.adults }}</td>
+                        <td class="right">{{ result.kids }}</td>
+                        <td class="right">{{ result.free }}</td>
+                        <td class="right">{{ result.totalPersons }}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>

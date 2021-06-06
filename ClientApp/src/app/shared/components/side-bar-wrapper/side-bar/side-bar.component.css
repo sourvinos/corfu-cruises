@@ -1,6 +1,6 @@
 #side-bar {
     align-items: center;
-    background-color: var(--color-background-primary);
+    background-color: var(--color-common-background-primary);
     display: flex;
     flex-direction: column;
     height: 100%;
