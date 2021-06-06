@@ -10,19 +10,24 @@ import { ScrollingModule } from '@angular/cdk/scrolling'
 // Modules
 import { AccountModule } from '../features/account/classes/account.module'
 import { BoardingModule } from '../features/boardings/classes/modules/boarding.module'
+import { CrewModule } from '../features/ships/crews/classes/crew.module'
 import { CustomerModule } from '../features/customers/classes/customer.module'
 import { DestinationModule } from '../features/destinations/classes/destination.module'
 import { DriverModule } from '../features/drivers/classes/driver.module'
 import { GenderModule } from '../features/genders/classes/gender.module'
 import { InvoicingModule } from '../features/invoicing/classes/modules/invoicing.module'
 import { LoginModule } from '../features/login/classes/login.module'
+import { ManifestModule } from '../features/manifest/classes/modules/manifest.module'
 import { MaterialModule } from '../shared/modules/material.module'
+import { NationalityModule } from '../features/nationalities/classes/nationality.module'
 import { PickupPointModule } from '../features/pickupPoints/classes/pickupPoint.module'
 import { PortModule } from '../features/ports/classes/port.module'
+import { RegistrarModule } from '../features/ships/registrars/classes/registrar.module'
 import { ReservationModule } from '../features/reservations/classes/modules/reservation.module'
 import { RouteModule } from '../features/routes/classes/route.module'
 import { ScheduleModule } from '../features/schedules/classes/schedule.module'
 import { ShipModule } from '../features/ships/base/classes/ship.module'
+import { ShipOwnerModule } from './../features/ships/owners/classes/ship-owner.module'
 import { ShipRouteModule } from '../features/ships/routes/classes/shipRoute.module'
 import { UserIdleModule } from 'angular-user-idle'
 import { UserModule } from '../features/users/classes/user.module'
@@ -31,13 +36,10 @@ import { WebModule } from './../features/web/classes/modules/web.module'
 // Components
 import { AppComponent } from './app.component'
 import { CreditsComponent } from '../features/credits/user-interface/credits.component'
-import { CrewModule } from '../features/ships/crews/classes/crew.module'
 import { EmptyPageComponent } from '../shared/components/empty-page/empty-page.component'
 import { HomeComponent } from '../features/home/home.component'
 import { LanguageMenuComponent } from '../shared/components/top-bar-wrapper/language-menu/language-menu.component'
 import { MainMenuComponent } from '../shared/components/top-bar-wrapper/main-menu/main-menu.component'
-import { NationalityModule } from '../features/nationalities/classes/nationality.module'
-import { RegistrarModule } from '../features/ships/registrars/classes/registrar.module'
 import { ScheduleMenuComponent } from '../shared/components/top-bar-wrapper/schedule-menu/schedule-menu.component'
 import { SideBarComponent } from '../shared/components/side-bar-wrapper/side-bar/side-bar.component'
 import { SideFooterComponent } from './../shared/components/side-bar-wrapper/side-footer/side-footer.component'
@@ -86,6 +88,7 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         HttpClientModule,
         InvoicingModule,
         LoginModule,
+        ManifestModule,
         MaterialModule,
         NationalityModule,
         PickupPointModule,
@@ -97,6 +100,7 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         ScheduleModule,
         ScrollingModule,
         ShipModule,
+        ShipOwnerModule,
         ShipRouteModule,
         UserModule,
         WebModule,

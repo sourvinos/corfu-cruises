@@ -1,6 +1,6 @@
 // Base
 import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router'
 
 // Components
 import { CreditsComponent } from '../features/credits/user-interface/credits.component'
@@ -43,7 +43,10 @@ const appRoutes: Routes = [
     declarations: [],
     entryComponents: [],
     imports: [
-        RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' })
+        RouterModule.forRoot(appRoutes, {
+            onSameUrlNavigation: 'reload',
+            preloadingStrategy: PreloadAllModules
+        })
     ],
     exports: [
         RouterModule
