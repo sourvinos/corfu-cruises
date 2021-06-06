@@ -40,17 +40,6 @@ export class InvoicingListComponent {
 
     //#endregion
 
-    //#region table
-
-    headers = ['', 'reservationId', 'headerCustomerDescription', 'headerDestinationDescription', 'headerShipDescription', 'headerTicketNo', 'headerAdults', 'headerKids', 'headerFree', 'headerTotalPersons', 'headerIsTransfer', 'headerRemarks', '']
-    widths = ['40px', '40px', '80px', '80px', '60px', '5%', '3%', '3%', '3%', '3%', '5%', '40px', '3%']
-    visibility = ['none', 'none']
-    justify = ['center', 'left', 'left', 'left', 'left', 'left', 'right', 'right', 'right', 'right', 'center', 'left', 'center']
-    types = ['', '', '', '', '', '', '', '', '', '', 'bool', '', '']
-    fields = ['', 'reservationId', 'customer', 'destination', 'ship', 'ticketNo', 'adults', 'kids', 'free', 'totalPersons', 'isTransfer', 'remarks', '']
-
-    //#endregion
-
     constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
         this.activatedRoute.params.subscribe((params: Params) => this.dateIn = params['dateIn'])
         this.router.events.subscribe((navigation) => {
@@ -109,8 +98,7 @@ export class InvoicingListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.queryResult = listResolved.result
-            console.log(this.queryResult)
-        } else {
+            } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }

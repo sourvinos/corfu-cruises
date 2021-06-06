@@ -91,3 +91,7 @@ td.right {
 th.none, td.none {
     display: none;
 }
+
+th.destination {
+    width: 200px;
+}

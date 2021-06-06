@@ -15,7 +15,9 @@ namespace CorfuCruises {
                     Free = isTransfer.Free,
                     TotalPersons = isTransfer.TotalPersons,
                     TicketNo = isTransfer.TicketNo,
+                    Remarks = isTransfer.Remarks,
                     DestinationDescription = isTransfer.Destination.Description,
+                    ShipDescription = isTransfer.Ship.Description,
                     IsTransfer = isTransfer.PickupPoint.Route.IsTransfer
                 })));
         }

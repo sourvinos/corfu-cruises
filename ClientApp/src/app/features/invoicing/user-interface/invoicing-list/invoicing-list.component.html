@@ -8,7 +8,8 @@
             <table>
                 <thead>
                     <th class="none">Id</th>
-                    <th>Destination</th>
+                    <th class="destination">Destination</th>
+                    <th>Ship</th>
                     <th>Ticket No</th>
                     <th>Adults</th>
                     <th>Kids</th>
@@ -20,12 +21,14 @@
                     <tr *ngFor="let reservation of result.reservations">
                         <td class="none">{{ reservation.reservationId }}</td>
                         <td>{{ reservation.destinationDescription }}</td>
+                        <td>{{ reservation.shipDescription }}</td>
                         <td>{{ reservation.ticketNo }}</td>
                         <td class="right">{{ reservation.adults }}</td>
                         <td class="right">{{ reservation.kids }}</td>
                         <td class="right">{{ reservation.free }}</td>
                         <td class="right">{{ reservation.totalPersons }}</td>
                         <td class="center">{{ reservation.isTransfer ? "ΝΑΙ" : "ΟΧΙ" }}</td>
+                        <td>{{ reservation.remarks }}</td>
                     </tr>
                 </tbody>
                 <tfoot>
