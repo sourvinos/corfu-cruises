@@ -1,12 +1,16 @@
+import { CustomerResource } from './customer-resource'
 import { IsTransferGroupViewModel } from './isTransferGroup-view-model'
 import { ReservationsViewModel } from './reservation-view-model'
 
 export class InvoicingViewModel {
 
     date: string
-    customerDescription: string
+    customerResource: CustomerResource
     reservations: ReservationsViewModel[]
     isTransferGroup: IsTransferGroupViewModel[]
-    totalPersons:number
+    adults:number
+    kids:number
+    free:number
+    totalPersons: number
 
 }

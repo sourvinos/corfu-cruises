@@ -5,11 +5,13 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { InvoicingViewModel } from './../../classes/view-models/invoicing-view-model'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { InvoicingService } from '../../classes/services/invoicing.service'
 
 @Component({
     selector: 'invoicing-list',
@@ -22,28 +24,23 @@ export class InvoicingListComponent {
 
     //#region variables
 
+    private date: string
     private ngUnsubscribe = new Subject<void>()
     private resolver = 'invoicingList'
     private unlisten: Unlisten
     private windowTitle = 'Invoicing'
     public feature = 'invoicingList'
     public highlightFirstRow = false
-    public queryResult: any[]
+    public queryResult: InvoicingViewModel[]
     public sortColumn: string
     public sortOrder: string
 
     //#endregion
 
-    //#region particular variables
-
-    private dateIn: string
-
-    //#endregion
-
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
-        this.activatedRoute.params.subscribe((params: Params) => this.dateIn = params['dateIn'])
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private invoicingService: InvoicingService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
+        this.activatedRoute.params.subscribe((params: Params) => this.date = params['dateIn'])
         this.router.events.subscribe((navigation) => {
-            if (navigation instanceof NavigationEnd && this.dateIn !== '' && this.router.url.split('/').length === 4) {
+            if (navigation instanceof NavigationEnd && this.date !== '' && this.router.url.split('/').length === 4) {
                 this.loadRecords()
             }
         })
@@ -65,6 +62,15 @@ export class InvoicingListComponent {
     //#endregion
 
     //#region public methods
+
+    public doPdfTasks(date: string, customerId: number): void {
+        this.invoicingService.getByDateAndCustomer(date, customerId).subscribe(result => {
+            console.log('Invoice', result)
+            this.invoicingService.createInvoiceOnClient(result)
+        }, errorFromInterceptor => {
+            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+        })
+    }
 
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
@@ -98,6 +104,7 @@ export class InvoicingListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.queryResult = listResolved.result
+            console.log(this.queryResult)
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

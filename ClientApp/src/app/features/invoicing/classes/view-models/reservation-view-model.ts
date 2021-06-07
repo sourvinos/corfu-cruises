@@ -4,7 +4,7 @@ export class ReservationsViewModel {
     destinationDescription: string
     shipDescription:string
     ticketNo: string
-    adult: number
+    adults: number
     kids: number
     free: number
     totalPersons: number

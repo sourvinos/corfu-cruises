@@ -7,7 +7,7 @@ namespace CorfuCruises {
 
         public InvoicingMappingProfile() {
             CreateMap<InvoiceIntermediateViewModel, InvoiceViewModel>()
-                .ForMember(x => x.CustomerDescription, opt => opt.MapFrom(x => x.Customer.Description))
+                .ForMember(x => x.CustomerResource, opt => opt.MapFrom(x => x.Customer))
                 .ForMember(x => x.Reservations, x => x.MapFrom(x => x.Reservations.Select(isTransfer => new {
                     ReservationId = isTransfer.ReservationId,
                     Adults = isTransfer.Adults,

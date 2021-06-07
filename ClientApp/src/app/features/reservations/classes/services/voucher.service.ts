@@ -60,7 +60,7 @@ export class VoucherService extends DataService {
                         body: [
                             [{ text: '' }, { text: '' }],
                             [{ text: 'Pickup details', colSpan: 2, alignment: 'center', fontSize: 18 }],
-                            [{ text: 'Date', style: 'paddingLeft' }, { text: 'Sat, 26 May 2021' }],
+                            [{ text: 'Date', style: 'paddingLeft' }, { text: voucher.date }],
                             [{ text: 'Pickup point', style: 'paddingLeft' }, { text: voucher.pickupPointDescription }],
                             [{ text: 'Exact point', style: 'paddingLeft' }, { text: voucher.pickupPointExactPoint }],
                             [{ text: 'Time', style: 'paddingLeft' }, { text: voucher.pickupPointTime }],

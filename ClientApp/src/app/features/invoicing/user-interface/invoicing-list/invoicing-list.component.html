@@ -3,7 +3,7 @@
     <div class="scrollable">
         <div *ngFor="let result of queryResult">
             <div class="customerDescription">
-                {{ result.customerDescription }}
+                {{ result.customerResource.description }}
             </div>
             <table>
                 <thead>
@@ -68,7 +68,9 @@
                         <td class="right">{{ result.kids }}</td>
                         <td class="right">{{ result.free }}</td>
                         <td class="right">{{ result.totalPersons }}</td>
-                        <td></td>
+                        <td>
+                            <button (click)="doPdfTasks(result.date, result.customerResource.id)">PDF</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
