@@ -29,6 +29,12 @@ namespace CorfuCruises {
             return this.repo.Get(date);
         }
 
+        [HttpGet("date/{date}/customer/{customerId}")]
+        // [Authorize(Roles = "Admin")]
+        public IEnumerable<InvoiceViewModel> GetByDateAndCustomer(string date,int customerId) {
+            return this.repo.GetByDateAndCustomer(date,customerId);
+        }
+
     }
 
 }

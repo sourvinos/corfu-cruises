@@ -28,7 +28,7 @@ namespace CorfuCruises {
                     Date = x.Key.Date,
                     Customer = x.Key.Customer,
                     Reservations = x.ToList(),
-                    IsTransferGroup = GetCustomerVessels(x.ToList()),
+                    IsTransferGroup = GroupReservationsByIsTransfer(x.ToList()),
                     Adults = x.Select(r => r.Adults).Sum(),
                     Kids = x.Select(r => r.Kids).Sum(),
                     Free = x.Select(r => r.Free).Sum(),
@@ -37,7 +37,29 @@ namespace CorfuCruises {
             return mapper.Map<IEnumerable<InvoiceIntermediateViewModel>, IEnumerable<InvoiceViewModel>>(result);
         }
 
-        public List<IsTransferGroupViewModel> GetCustomerVessels(List<Reservation> reservations) {
+        public IEnumerable<InvoiceViewModel> GetByDateAndCustomer(string date, int customerId) {
+            var result = context.Reservations
+                .Include(x => x.Customer)
+                .Include(x => x.Destination)
+                .Include(x => x.Ship)
+                .Include(x => x.PickupPoint).ThenInclude(y => y.Route)
+                .OrderBy(x => x.Date).ThenBy(x => x.Customer.Description).ThenBy(x => !x.PickupPoint.Route.IsTransfer)
+                .Where(x => x.Date == date && x.CustomerId == customerId)
+                .AsEnumerable().GroupBy(x => new { x.Date, x.Customer })
+                .Select(x => new InvoiceIntermediateViewModel {
+                    Date = x.Key.Date,
+                    Customer = x.Key.Customer,
+                    Reservations = x.ToList(),
+                    IsTransferGroup = GroupReservationsByIsTransfer(x.ToList()),
+                    Adults = x.Select(r => r.Adults).Sum(),
+                    Kids = x.Select(r => r.Kids).Sum(),
+                    Free = x.Select(r => r.Free).Sum(),
+                    TotalPersons = x.Select(r => r.TotalPersons).Sum()
+                }).ToList();
+            return mapper.Map<IEnumerable<InvoiceIntermediateViewModel>, IEnumerable<InvoiceViewModel>>(result);
+        }
+
+        public List<IsTransferGroupViewModel> GroupReservationsByIsTransfer(List<Reservation> reservations) {
             var result = reservations
                     .GroupBy(r => r.PickupPoint.Route.IsTransfer)
                     .Select(g => new IsTransferGroupViewModel {
@@ -52,5 +74,5 @@ namespace CorfuCruises {
         }
 
     }
- 
+
 }
