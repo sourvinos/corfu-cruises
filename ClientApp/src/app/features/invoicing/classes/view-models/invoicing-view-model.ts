@@ -8,9 +8,6 @@ export class InvoicingViewModel {
     customerResource: CustomerResource
     reservations: ReservationsViewModel[]
     isTransferGroup: IsTransferGroupViewModel[]
-    adults:number
-    kids:number
-    free:number
-    totalPersons: number
+    isTransferGroupTotal: IsTransferGroupViewModel
 
 }

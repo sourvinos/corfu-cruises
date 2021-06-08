@@ -29,10 +29,12 @@ namespace CorfuCruises {
                     Customer = x.Key.Customer,
                     Reservations = x.ToList(),
                     IsTransferGroup = GroupReservationsByIsTransfer(x.ToList()),
-                    Adults = x.Select(r => r.Adults).Sum(),
-                    Kids = x.Select(r => r.Kids).Sum(),
-                    Free = x.Select(r => r.Free).Sum(),
-                    TotalPersons = x.Select(r => r.TotalPersons).Sum()
+                    IsTransferGroupTotal = new IsTransferGroupViewModel {
+                        Adults = x.Select(r => r.Adults).Sum(),
+                        Kids = x.Select(r => r.Kids).Sum(),
+                        Free = x.Select(r => r.Free).Sum(),
+                        TotalPersons = x.Select(r => r.TotalPersons).Sum()
+                    }
                 }).ToList();
             return mapper.Map<IEnumerable<InvoiceIntermediateViewModel>, IEnumerable<InvoiceViewModel>>(result);
         }
@@ -51,10 +53,12 @@ namespace CorfuCruises {
                     Customer = x.Key.Customer,
                     Reservations = x.ToList(),
                     IsTransferGroup = GroupReservationsByIsTransfer(x.ToList()),
-                    Adults = x.Select(r => r.Adults).Sum(),
-                    Kids = x.Select(r => r.Kids).Sum(),
-                    Free = x.Select(r => r.Free).Sum(),
-                    TotalPersons = x.Select(r => r.TotalPersons).Sum()
+                    IsTransferGroupTotal = new IsTransferGroupViewModel {
+                        Adults = x.Select(r => r.Adults).Sum(),
+                        Kids = x.Select(r => r.Kids).Sum(),
+                        Free = x.Select(r => r.Free).Sum(),
+                        TotalPersons = x.Select(r => r.TotalPersons).Sum()
+                    }
                 }).ToList();
             return mapper.Map<IEnumerable<InvoiceIntermediateViewModel>, IEnumerable<InvoiceViewModel>>(result);
         }

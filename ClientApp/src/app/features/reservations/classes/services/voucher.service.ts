@@ -124,7 +124,8 @@ export class VoucherService extends DataService {
                 },
                 paddingTop: {
                     margin: [0, 15, 0, 0]
-                }, defaultStyle: {
+                },
+                defaultStyle: {
                     font: 'Roboto'
                 }
             }

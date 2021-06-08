@@ -64,10 +64,10 @@
                         <td></td>
                         <td></td>
                         <td class="center">ΣΥΝΟΛΟ</td>
-                        <td class="right">{{ result.adults }}</td>
-                        <td class="right">{{ result.kids }}</td>
-                        <td class="right">{{ result.free }}</td>
-                        <td class="right">{{ result.totalPersons }}</td>
+                        <td class="right">{{ result.isTransferGroupTotal.adults }}</td>
+                        <td class="right">{{ result.isTransferGroupTotal.kids }}</td>
+                        <td class="right">{{ result.isTransferGroupTotal.free }}</td>
+                        <td class="right">{{ result.isTransferGroupTotal.totalPersons }}</td>
                         <td>
                             <button (click)="doPdfTasks(result.date, result.customerResource.id)">PDF</button>
                         </td>
