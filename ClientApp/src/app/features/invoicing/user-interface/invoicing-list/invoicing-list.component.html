@@ -17,6 +17,7 @@
                         <th class="width-seven">ΔΩΡΕΑΝ</th>
                         <th class="width-seven">ΣΥΝΟΛΟ</th>
                         <th class="width-twenty">ΠΑΡΑΤΗΡΗΣΕΙΣ</th>
+                        <th class=""></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +31,7 @@
                         <td class="right">{{ reservation.free }}</td>
                         <td class="right">{{ reservation.totalPersons }}</td>
                         <td>{{ reservation.remarks }}</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -45,6 +47,7 @@
                         <th class="width-seven">ΔΩΡΕΑΝ</th>
                         <th class="width-seven">ΣΥΝΟΛΟ</th>
                         <th class="width-twenty"></th>
+                        <th class=""></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,6 +61,7 @@
                         <td class="right">{{ transfer.free }}</td>
                         <td class="right">{{ transfer.totalPersons }}</td>
                         <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -68,9 +72,7 @@
                         <td class="right">{{ result.isTransferGroupTotal.kids }}</td>
                         <td class="right">{{ result.isTransferGroupTotal.free }}</td>
                         <td class="right">{{ result.isTransferGroupTotal.totalPersons }}</td>
-                        <td>
-                            <button (click)="doPdfTasks(result.date, result.customerResource.id)">PDF</button>
-                        </td>
+                        <td class="center"><button mat-flat-button class="primary" (click)="doPdfTasks(result.date, result.customerResource.id)">PDF</button></td>
                     </tr>
                 </tbody>
             </table>

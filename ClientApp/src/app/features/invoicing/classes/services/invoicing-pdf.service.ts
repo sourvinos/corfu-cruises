@@ -3,22 +3,27 @@ import pdfMake from 'pdfmake/build/pdfmake'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 // Custom
+import { HelperService } from './../../../../shared/services/helper.service'
 import { InvoicingViewModel } from '../view-models/invoicing-view-model'
 import { IsTransferGroupViewModel } from '../view-models/isTransferGroup-view-model'
+import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class InvoicingPdfService {
 
-    public doInvoiceTasks(invoice: InvoicingViewModel): void {
 
+    constructor(private logoService: LogoService, private helperService: HelperService) { }
+
+    public doInvoiceTasks(invoice: InvoicingViewModel): void {
         const dd = {
-            pageMargins: [30, 40, 30, 50],
+            pageMargins: [50, 50, 50, 50],
             pageOrientation: 'portrait',
             pageSize: 'A4',
             defaultStyle: { fontSize: 7 },
             content: [
                 [
+                    this.addHeaders(invoice[0]),
                     this.reservations(invoice[0].reservations,
                         ['destinationDescription', 'shipDescription', 'ticketNo', 'isTransfer', 'adults', 'kids', 'free', 'totalPersons', 'remarks'],
                         ['left', 'left', 'center', 'center', 'right', 'right', 'right', 'right', 'left']),
@@ -41,7 +46,7 @@ export class InvoicingPdfService {
                     margin: [0, 5, 0, 0],
                 },
                 defaultStyle: {
-                    font: 'Roboto'
+                    font: 'montserrat'
                 }
             }
         }
@@ -137,7 +142,6 @@ export class InvoicingPdfService {
             },
             margin: [192, 0, 10, 10]
         }
-
     }
 
     private buildIsTransferGroupTotal(data: IsTransferGroupViewModel): void {
@@ -173,6 +177,29 @@ export class InvoicingPdfService {
             default: return cell
         }
 
+    }
+
+    private addHeaders(data: any): any {
+        return {
+            table: {
+                headerRows: 1,
+                dontBreakRows: true,
+                widths: ['30%', '70%'],
+                body: [
+                    [
+                        { image: this.logoService.getLogo(), width: 80, height: 80, fit: [80, 80], },
+                        {
+                            text: [
+                                { text: '\n\nDate: ' + this.helperService.formatDateToLocale(data.date), alignment: 'right', fontSize: 9 },
+                                { text: '\nCustomer: ' + data.customerResource.description, alignment: 'right', fontSize: 9 },
+                            ]
+                        }
+                    ],
+                    [{ text: 'Trip Report', colSpan: 2, alignment: 'center', margin: [0, 10], fontSize: 18 }, {}],
+                ]
+            },
+            layout: 'noBorders'
+        }
     }
 
 }
