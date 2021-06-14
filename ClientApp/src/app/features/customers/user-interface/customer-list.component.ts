@@ -66,7 +66,7 @@ export class CustomerListComponent {
         this.addShortcuts()
         this.subscribeToInteractionService()
         this.onFilter(this.searchTerm)
-        this.focus('searchTerm')
+        // this.attachEventListeners()
     }
 
     ngOnDestroy(): void {
@@ -80,6 +80,11 @@ export class CustomerListComponent {
 
     //#region public methods
 
+    public onCloseSearchBox(): void {
+        document.getElementById('searchBox').classList.toggle('open')
+        document.getElementById('search-icon').classList.remove('hidden')
+    }
+
     public onFilter(query: string): void {
         this.searchTerm = query
         this.filteredRecords = query ? this.records.filter(p => p.description.toLowerCase().includes(query.toLowerCase())) : this.records
@@ -87,6 +92,11 @@ export class CustomerListComponent {
 
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public onOpenSearchBox(): void {
+        document.getElementById('searchBox').classList.add('open')
+        document.getElementById('search-icon').classList.add('hidden')
     }
 
     //#endregion

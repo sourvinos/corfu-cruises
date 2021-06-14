@@ -13,7 +13,7 @@ span:nth-child(1) {
 }
 
 span:nth-child(2) {
-    color: var(--color-common-background-primary) !important;
+    color: var(--color-gradient-top) !important;
 }
 
 span:nth-child(3) {

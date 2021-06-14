@@ -1,11 +1,14 @@
 :root {
+    /* Sidebar */
+    --color-gradient-top: #767475;
+    --color-gradient-bottom: #000000;
     /* Border of clickable items */
     --color-border-item-active: #F2D492;
     --color-border-item-inactive: #576971;
     /* Buttons */
     --color-button-delete: #F28482;
-    --color-button-primary-hover: #296672;
-    --color-button-primary: #55828B;
+    --color-button-primary-hover: #f5b66e;
+    --color-button-primary: #FE9F36;
     --color-button-secondary: #426176;
     --color-button-text: #EDEDED;
     /* Calendar legend */
@@ -69,4 +72,6 @@
     /* Tooltip */
     --color-tooltip-background: #FE9F36;
     --color-tooltip: #072d31;
+    /* Search box */
+    --color-search-box: #767475;
 }

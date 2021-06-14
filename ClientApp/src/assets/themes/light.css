@@ -72,4 +72,6 @@
     /* Tooltip */
     --color-tooltip-background: #426f8a;
     --color-tooltip: #efefef;
+    /* Search box */
+    --color-search-box: #39a2b6;
 }

@@ -28,6 +28,8 @@ export class AppComponent {
         })
     }
 
+    //#region listeners
+
     @HostListener('window:resize', ['$event']) onResize(): any {
         this.positionSpinner()
     }
@@ -36,19 +38,12 @@ export class AppComponent {
         this.accountService.logout()
     }
 
+    //#endregion
+
     //#region lifecycle hooks
 
     ngAfterViewInit(): void {
         this.positionSpinner()
-    }
-
-    //#endregion
-
-    //#region public methods
-
-    public onHideMenu(): void {
-        const menu = (<HTMLElement>document.getElementById('hamburger-menu')); menu.classList.remove('visible')
-        const nav = (<HTMLElement>document.getElementById('secondary-menu')); nav.classList.remove('visible')
     }
 
     //#endregion
