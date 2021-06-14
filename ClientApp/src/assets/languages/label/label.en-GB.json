@@ -1655,7 +1655,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Ship Manifest"
+                "description": "Ship manifest"
             },
             {
                 "id": "date",

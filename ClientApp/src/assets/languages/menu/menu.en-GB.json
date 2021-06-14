@@ -3,6 +3,10 @@
         "feature": "main-menu",
         "labels": [
             {
+                "id": "home",
+                "description": "Home"
+            },
+            {
                 "id": "passengers",
                 "description": "Passengers"
             },
@@ -12,7 +16,7 @@
             },
             {
                 "id": "manifest",
-                "description": "Ship Manifest"
+                "description": "Ship manifest"
             },
             {
                 "id": "reservations",
@@ -20,7 +24,7 @@
             },
             {
                 "id": "dashboard",
-                "description": "Main Panel"
+                "description": "Main panel"
             },
             {
                 "id": "invoicing",
@@ -67,7 +71,7 @@
                 "description": "Schedules"
             },
             {
-                "id": "ships",
+                "id": "vessels",
                 "description": "Ships"
             },
             {
@@ -89,6 +93,14 @@
             {
                 "id": "crews",
                 "description": "Crews"
+            },
+            {
+                "id": "logout",
+                "description": "Logout"
+            },
+            {
+                "id": "logout",
+                "description": "Logout"
             }
         ]
     }

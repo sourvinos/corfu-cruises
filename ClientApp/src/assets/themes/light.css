@@ -1,4 +1,7 @@
 :root {
+    /* Sidebar */
+    --color-gradient-top: #39a2b6;
+    --color-gradient-bottom: #140436;
     /* Border of clickable items */
     --color-border-item-active: #426f8a;
     --color-border-item-inactive: #d5dee2;

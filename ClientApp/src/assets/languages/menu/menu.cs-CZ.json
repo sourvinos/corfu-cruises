@@ -3,6 +3,10 @@
         "feature": "main-menu",
         "labels": [
             {
+                "id": "home",
+                "description": "(CZ) Home"
+            },
+            {
                 "id": "passengers",
                 "description": "Cestující"
             },
@@ -67,7 +71,7 @@
                 "description": "Rozvrhy"
             },
             {
-                "id": "ships",
+                "id": "vessels",
                 "description": "Lodě"
             },
             {
@@ -89,6 +93,10 @@
             {
                 "id": "crews",
                 "description": "(CZ) Crews"
+            },
+            {
+                "id": "logout",
+                "description": "(CZ) Logout"
             }
         ]
     }

@@ -3,6 +3,10 @@
         "feature": "main-menu",
         "labels": [
             {
+                "id": "home",
+                "description": "(FR) Home"
+            },
+            {
                 "id": "passengers",
                 "description": "Passagers"
             },
@@ -67,7 +71,7 @@
                 "description": "Programmes"
             },
             {
-                "id": "ships",
+                "id": "vessels",
                 "description": "Bateaux"
             },
             {
@@ -89,6 +93,10 @@
             {
                 "id": "crews",
                 "description": "(FR) Crews"
+            },
+            {
+                "id": "logout",
+                "description": "(FR) Logout"
             }
         ]
     }

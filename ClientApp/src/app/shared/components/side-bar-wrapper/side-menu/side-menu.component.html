@@ -1,0 +1,89 @@
+<nav id="sidemenu" (mouseenter)="onOpenSidebar()" (mouseleave)="onDoTasks($event)">
+
+    <div id="menu-wrapper" class="scrollable">
+
+        <div id="menu" *ngIf="loginStatus | async">
+
+            <div class="menu-item">
+                <div class="menu-item-label" (click)="onDoTasks($event)" [routerLink]="['/']">
+                    <span class="icon material-icons-outlined">home</span>
+                    <span class="label">{{ onGetLabel('home') }}</span>
+                </div>
+            </div>
+
+            <div *ngIf="isConnectedUserAdmin" class="menu-item" (click)="onShowSubmenu('passengers', 'first', $event)">
+                <div class="menu-item-label">
+                    <span class="icon material-icons-outlined">file_download</span>
+                    <span class="label">{{ onGetLabel('passengers') }}</span>
+                    <span id="first" class="material-icons expander">expand_more</span>
+                </div>
+                <ul id="passengers" (click)="onDoTasks($event)">
+                    <li [routerLink]="['/boarding']"><a>{{ onGetLabel('boarding') }}</a></li>
+                    <li [routerLink]="['/manifest']"><a>{{ onGetLabel('manifest') }}</a></li>
+                </ul>
+            </div>
+
+            <div class="menu-item" (click)="onShowSubmenu('reservations', 'second', $event)">
+                <div class="menu-item-label">
+                    <span class="icon material-icons-outlined">apps</span>
+                    <span class="label">{{ onGetLabel('reservations') }}</span>
+                    <span id="second" class="material-icons expander">expand_more</span>
+                </div>
+                <ul id="reservations" (click)="onDoTasks($event)">
+                    <li [routerLink]="['/reservations']"><a>{{ onGetLabel('dashboard') }}</a></li>
+                    <li *ngIf="isConnectedUserAdmin" [routerLink]="['/invoicing']"><a>{{ onGetLabel('invoicing') }}</a></li>
+                </ul>
+            </div>
+
+            <div *ngIf="isConnectedUserAdmin" class="menu-item" (click)="onShowSubmenu('tables', 'third', $event)">
+                <div class="menu-item-label">
+                    <span class="icon material-icons-outlined">list_alt</span>
+                    <span class="label">{{ onGetLabel('tables') }}</span>
+                    <span id="third" class="material-icons expander">expand_more</span>
+                </div>
+                <ul id="tables" (click)="onDoTasks($event)">
+                    <li [routerLink]="['/customers']"><a>{{ onGetLabel('customers') }}</a></li>
+                    <li [routerLink]="['/destinations']"><a>{{ onGetLabel('destinations') }}</a></li>
+                    <li [routerLink]="['/drivers']"><a>{{ onGetLabel('drivers') }}</a></li>
+                    <li [routerLink]="['/genders']"><a>{{ onGetLabel('genders') }}</a></li>
+                    <li [routerLink]="['/pickupPoints']"><a>{{ onGetLabel('pickupPoints') }}</a></li>
+                    <li [routerLink]="['/ports']"><a>{{ onGetLabel('ports') }}</a></li>
+                    <li [routerLink]="['/routes']"><a>{{ onGetLabel('routes') }}</a></li>
+                    <li [routerLink]="['/schedules']"><a>{{ onGetLabel('schedules') }}</a></li>
+                </ul>
+            </div>
+
+            <div *ngIf="isConnectedUserAdmin" class="menu-item" (click)="onShowSubmenu('vessels', 'fourth', $event)">
+                <div class="menu-item-label">
+                    <span class="icon material-icons-outlined">directions_boat</span>
+                    <span class="label">{{ onGetLabel('vessels') }}</span>
+                    <span id="fourth" class="material-icons expander">expand_more</span>
+                </div>
+                <ul id="vessels" (click)="onDoTasks($event)">
+                    <li [routerLink]="['/ships']"><a>{{ onGetLabel('shipManagement') }}</a></li>
+                    <li [routerLink]="['/shipOwners']"><a>{{ onGetLabel('shipOwners') }}</a></li>
+                    <li [routerLink]="['/registrars']"><a>{{ onGetLabel('registrars') }}</a></li>
+                    <li [routerLink]="['/shipRoutes']"><a>{{ onGetLabel('shipRoutes') }}</a></li>
+                    <li [routerLink]="['/crews']"><a>{{ onGetLabel('crews') }}</a></li>
+                </ul>
+            </div>
+
+            <div *ngIf="isConnectedUserAdmin" class="menu-item">
+                <div class="menu-item-label" (click)="onDoTasks($event)" [routerLink]="['/users']">
+                    <span class="icon material-icons-outlined">group</span>
+                    <span class="label">{{ onGetLabel('users') }}</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="menu-item">
+        <div class="menu-item-label" (click)="onDoTasks($event)" (click)="onLogout()" [routerLink]="['/']">
+            <span class="icon material-icons-outlined">power_settings_new</span>
+            <span class="label">{{ onGetLabel('logout') }}</span>
+        </div>
+    </div>
+
+</nav>

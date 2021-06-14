@@ -3,6 +3,10 @@
         "feature": "main-menu",
         "labels": [
             {
+                "id": "home",
+                "description": "Αρχικη"
+            },
+            {
                 "id": "passengers",
                 "description": "Επιβατες"
             },
@@ -20,7 +24,7 @@
             },
             {
                 "id": "dashboard",
-                "description": "Κεντρικος Πινακας"
+                "description": "Κεντρικος πινακας"
             },
             {
                 "id": "invoicing",
@@ -67,7 +71,7 @@
                 "description": "Προγραμμα"
             },
             {
-                "id": "ships",
+                "id": "vessels",
                 "description": "Πλοια"
             },
             {
@@ -89,6 +93,10 @@
             {
                 "id": "crews",
                 "description": "Πληρωματα"
+            },
+            {
+                "id": "logout",
+                "description": "Αποσυνδεση"
             }
         ]
     }

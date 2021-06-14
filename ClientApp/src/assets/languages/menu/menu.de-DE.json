@@ -3,6 +3,10 @@
         "feature": "main-menu",
         "labels": [
             {
+                "id": "home",
+                "description": "(DE) Home"
+            },
+            {
                 "id": "passengers",
                 "description": "Schiffspassagiere"
             },
@@ -67,7 +71,7 @@
                 "description": "Zeitplan"
             },
             {
-                "id": "ships",
+                "id": "vessels",
                 "description": "Schiffe"
             },
             {
@@ -89,6 +93,10 @@
             {
                 "id": "crews",
                 "description": "(DE) Crews"
+            },
+            {
+                "id": "logout",
+                "description": "(DE) Logout"
             }
         ]
     }

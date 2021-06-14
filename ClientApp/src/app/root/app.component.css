@@ -18,12 +18,13 @@
     background-color: var(--color-common-background-primary);
     flex: 1;
     justify-content: center;
+    margin-left: 64px;
     overflow-y: hidden;
     transition: background-color 0.7s;
 }
 
 #bottom {
-    background-color: var(--color-common-background-primary);
+    background-color: var(--color-gradient-bottom);
     height: 0.5rem;
     transition: background-color 0.7s;
 }

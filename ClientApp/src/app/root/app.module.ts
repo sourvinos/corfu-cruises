@@ -42,9 +42,7 @@ import { LanguageMenuComponent } from '../shared/components/top-bar-wrapper/lang
 import { MainMenuComponent } from '../shared/components/top-bar-wrapper/main-menu/main-menu.component'
 import { ScheduleMenuComponent } from '../shared/components/top-bar-wrapper/schedule-menu/schedule-menu.component'
 import { SideBarComponent } from '../shared/components/side-bar-wrapper/side-bar/side-bar.component'
-import { SideFooterComponent } from './../shared/components/side-bar-wrapper/side-footer/side-footer.component'
-import { SideImageComponent } from '../shared/components/side-bar-wrapper/side-image/side-image.component'
-import { SideLogoComponent } from './../shared/components/side-bar-wrapper/side-logo/side-logo.component'
+import { SideMenuComponent } from '../shared/components/side-bar-wrapper/side-menu/side-menu.component'
 import { ThemeMenuComponent } from '../shared/components/top-bar-wrapper/theme-menu/theme-menu.component'
 import { TopBarComponent } from '../shared/components/top-bar-wrapper/top-bar/top-bar.component'
 import { TopLogoComponent } from '../shared/components/top-bar-wrapper/logo/top-logo.component'
@@ -65,9 +63,7 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         MainMenuComponent,
         ScheduleMenuComponent,
         SideBarComponent,
-        SideFooterComponent,
-        SideImageComponent,
-        SideLogoComponent,
+        SideMenuComponent,
         ThemeMenuComponent,
         TopBarComponent,
         TopLogoComponent,

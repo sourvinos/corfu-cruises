@@ -1,11 +1,10 @@
 #top-bar {
-    background-color: var(--color-common-background-primary);
+    background-color: var(--color-gradient-top);
     display: grid;
     grid-template-areas: "left right";
     grid-template-columns: 1fr auto;
     height: 3.75rem;
-    padding: 0 2.4rem 0 1.3rem;
-    transition: background-color 0.7s;
+    padding: 0 2.4rem 0 5.625rem;
 }
 
 #left {
