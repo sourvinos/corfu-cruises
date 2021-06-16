@@ -72,21 +72,21 @@
     display: flex;
     justify-content: center;
     overflow: hidden;
-    padding: 0.5rem;
     position: absolute;
     right: 3rem;
-    top: 92px;
+    top: 94px;
     transition: all 0.25s ease-in;
-    z-index: 1;
 }
 
 #searchBox #search-icon {
-    color: var(--color-text-primary);
+    color: var(--color-button-text);
+    margin: 5px;
 }
 
 #searchBox.open {
-    width: 300px;
     height: auto;
+    padding: 1rem;
+    width: 300px;
 }
 
 #searchBox.open #criteria {
@@ -95,14 +95,11 @@
 }
 
 #searchBox #criteria {
-    display: none;
-}
-
-#searchBox #criteria button {
-    margin-top: 3rem;
-}
-
-#criteria {
     display: flex;
+    display: none;
     flex-direction: column;
+}
+
+#searchBox #criteria #closeSearchBox {
+    margin-top: 3rem;
 }

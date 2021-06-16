@@ -2,6 +2,8 @@
     /* Sidebar */
     --color-gradient-top: #39a2b6;
     --color-gradient-bottom: #140436;
+    /* Headers */
+    --color-headers: #38a2b6;
     /* Border of clickable items */
     --color-border-item-active: #426f8a;
     --color-border-item-inactive: #d5dee2;
@@ -10,7 +12,7 @@
     --color-button-primary-hover: #3c5565;
     --color-button-primary: #426f8a;
     --color-button-secondary: #eaa558;
-    --color-button-text: #EDEDED;
+    --color-button-text: #ededed;
     /* Calendar legend */
     --color-calendar-legend: #efefef;
     /* Checkboxes */
@@ -73,5 +75,5 @@
     --color-tooltip-background: #426f8a;
     --color-tooltip: #efefef;
     /* Search box */
-    --color-search-box: #39a2b6;
+    --color-search-box: #767475;
 }

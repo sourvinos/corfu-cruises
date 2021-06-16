@@ -81,7 +81,7 @@ export class CustomerListComponent {
     //#region public methods
 
     public onCloseSearchBox(): void {
-        document.getElementById('searchBox').classList.toggle('open')
+        document.getElementById('searchBox').classList.remove('open')
         document.getElementById('search-icon').classList.remove('hidden')
     }
 

@@ -2,13 +2,15 @@
     /* Sidebar */
     --color-gradient-top: #767475;
     --color-gradient-bottom: #000000;
+    /* Headers */
+    --color-headers: #ffc78a;
     /* Border of clickable items */
     --color-border-item-active: #F2D492;
     --color-border-item-inactive: #576971;
     /* Buttons */
     --color-button-delete: #F28482;
     --color-button-primary-hover: #f5b66e;
-    --color-button-primary: #FE9F36;
+    --color-button-primary: #FD8C0F;
     --color-button-secondary: #426176;
     --color-button-text: #EDEDED;
     /* Calendar legend */

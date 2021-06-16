@@ -44,6 +44,14 @@ export class HelperService {
         return element.clientWidth
     }
 
+    public findElementById(element: string): boolean {
+        const x = document.getElementById(element)
+        if (typeof (x) != 'undefined' && x != null) {
+            return true
+        }
+        return false
+    }
+
     public pushItemToFilteredArray(x: { [x: string]: string }, key: string | number, value: { target: any }, targetArray: any[]): any[] {
         if (value.target.value.startsWith('*')) {
             if (x[key].toUpperCase().includes(this.removeLeadingAsteriskFromString(value.target.value).toUpperCase())) {
