@@ -18,7 +18,7 @@ import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animati
 @Component({
     selector: 'customer-list',
     templateUrl: './customer-list.component.html',
-    styleUrls: ['../../../../assets/styles/lists.css'],
+    styleUrls: ['../../../../assets/styles/lists.css', '../../../../assets/styles/prime-table.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
@@ -40,6 +40,7 @@ export class CustomerListComponent {
     public searchTerm = ''
     public sortColumn: string
     public sortOrder: string
+    public selectedRecord: Customer
 
     //#endregion
 
@@ -51,6 +52,13 @@ export class CustomerListComponent {
     justify = ['center', 'center', 'left', 'left', 'left', 'center']
     types = ['', '', '', '', '', '']
     fields = ['', 'id', 'description', 'phones', 'email', '']
+
+    cols = [
+        { field: 'id', header: 'Id', width: '0px' },
+        { field: 'description', header: 'headerName', width: '200px' },
+        { field: 'phones', header: 'headerPhones', width: '150px' },
+        { field: 'email', header: 'headerEmail', width: '100px' }
+    ];
 
     //#endregion
 
@@ -66,7 +74,6 @@ export class CustomerListComponent {
         this.addShortcuts()
         this.subscribeToInteractionService()
         this.onFilter(this.searchTerm)
-        // this.attachEventListeners()
     }
 
     ngOnDestroy(): void {
@@ -78,11 +85,15 @@ export class CustomerListComponent {
 
     //#endregion
 
-    //#region public methods
+    //#region public methods2
 
     public onCloseSearchBox(): void {
         document.getElementById('searchBox').classList.remove('open')
         document.getElementById('search-icon').classList.remove('hidden')
+    }
+
+    public onEditRecord(record: Customer): void {
+        this.router.navigate([this.baseUrl, record.id])
     }
 
     public onFilter(query: string): void {
@@ -118,10 +129,6 @@ export class CustomerListComponent {
             priority: 0,
             inputs: true
         })
-    }
-
-    private editRecord(id: number): void {
-        this.router.navigate([this.baseUrl, id])
     }
 
     private focus(element: string): void {
@@ -176,7 +183,7 @@ export class CustomerListComponent {
     private subscribeToInteractionService(): void {
         this.interactionService.record.pipe(takeUntil(this.ngUnsubscribe)).subscribe(response => {
             this.updateStorageWithFilter()
-            this.editRecord(response['id'])
+            // this.editRecord(response['id'])
         })
     }
 

@@ -185,7 +185,7 @@ export class CustomerFormComponent {
             address: ['', [Validators.maxLength(128)]],
             phones: ['', [Validators.maxLength(128)]],
             personInCharge: ['', [Validators.maxLength(128)]],
-            email: ['', [Validators.email, Validators.maxLength(128)]],
+            email: ['', [Validators.required, Validators.email, Validators.maxLength(128)]],
             isActive: true,
             userId: this.helperService.readItem('userId')
         })

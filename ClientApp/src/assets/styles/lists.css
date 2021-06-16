@@ -1,18 +1,20 @@
 #list {
-    background: url("../../assets/images/background/background.svg") no-repeat center;
     background-color: var(--color-common-background-secondary);
     background-size: cover;
+    background: url("../../assets/images/background/background.svg") no-repeat center;
     display: flex;
     flex-direction: column;
     height: 100%;
+    margin: 0 auto;
     overflow: hidden;
-    padding: 2rem;
+    padding: 1rem 0 1.5rem 0;
+    width: 90%;
 }
 
 #header {
     align-items: center;
     display: flex;
-    margin: 0 1rem 1.75rem 1rem;
+    margin: 0 1rem 1rem 1rem;
 }
 
 #header #navigation {

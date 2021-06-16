@@ -1,0 +1,65 @@
+table {
+    border-spacing: 0;
+    flex: 1;
+    transition: background-color 0.7s;
+    width: 100%;
+}
+
+th {
+    background-color: var(--color-table-header) !important;
+    border-width: 0 1px 0 0 !important;
+    border-right: 1px solid var(--color-column-seperator) !important;
+    color: var(--color-text-primary) !important;
+    font-family: var(--font-family-table) !important;
+    font-size: var(--font-size-table-header) !important;
+    font-weight: var(--font-weight-table-header) !important;
+    padding: 0.5rem !important;
+    text-align: center !important;
+    transition: background-color 0.7s !important;
+}
+
+tr {
+    background-color: var(--color-common-background-secondary) !important;
+    border: none !important;
+    outline-color: var(--color-common-background-secondary) !important;
+}
+
+tr:hover td {
+    cursor: pointer;
+}
+
+tr:hover td:last-child > div > .button-row-menu {
+    visibility: visible;
+}
+
+td {
+    border: none !important;
+    color: var(--color-text-primary) !important;
+    font-family: var(--font-family-table) !important;
+    font-size: var(--font-size-table-row) !important;
+    max-width: 0;
+    overflow: hidden !important;
+    padding: 0.5rem !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.button-row-menu {
+    height: 30px;
+    line-height: 30px;
+    margin-left: 0 !important;
+    visibility: hidden;
+    width: 30px;
+}
+
+.button-row-menu .mat-icon {
+    color: var(--color-text-primary) !important;
+}
+
+span {
+    font-variant-caps: petite-caps;
+}
+
+.p-highlight {
+    background-color: var(--color-table-row-highlight) !important;
+}

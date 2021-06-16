@@ -4,49 +4,49 @@
     --color-gradient-bottom: #000000;
     /* Headers */
     --color-headers: #ffc78a;
-    /* Border of clickable items */
-    --color-border-item-active: #F2D492;
+    /* border of clickable items */
+    --color-border-item-active: #f2d492;
     --color-border-item-inactive: #576971;
-    /* Buttons */
-    --color-button-delete: #F28482;
-    --color-button-primary-hover: #f5b66e;
-    --color-button-primary: #FD8C0F;
+    /* buttons */
+    --color-button-delete: #f28482;
+    --color-button-primary-hover: #226c7b;
+    --color-button-primary: #55828b;
     --color-button-secondary: #426176;
-    --color-button-text: #EDEDED;
-    /* Calendar legend */
+    --color-button-text: #ededed;
+    /* calendar legend */
     --color-calendar-legend: #efefef;
-    /* Checkboxes */
-    --color-checkbox-checked: #55828B;
+    /* checkboxes */
+    --color-checkbox-checked: #55828b;
     --color-checkbox-indeterminate: #185258;
-    /* Common */
+    /* common */
     --color-common-background-primary: #072d31;
     --color-common-background-secondary: #4c565a;
     --color-common-sidenav: #657171;
-    /* Credits */
-    --color-credit-about: #EFEFEF;
+    /* credits */
+    --color-credit-about: #efefef;
     --color-credit-hover: #545454;
-    --color-credit-title: #FE9F36;
-    --color-credit-url: #FFE85C;
-    /* Datepicker */
-    --color-datepicker-days: #EDEDED;
-    --color-datepicker-month: #FFE85C;
+    --color-credit-title: #fe9f36;
+    --color-credit-url: #ffe85c;
+    /* datepicker */
+    --color-datepicker-days: #ededed;
+    --color-datepicker-month: #ffe85c;
     /* Mobile menu */
-    --color-mobile-menu: #FFE85C;
+    --color-mobile-menu: #ffe85c;
     /* Logo */
-    --color-logo-primary: #FE9F36;
-    --color-logo-secondary: #FFE85C;
+    --color-logo-primary: #fe9f36;
+    --color-logo-secondary: #ffe85c;
     /* Main menu */
     --color-main-menu-background-hover: #696969;
     --color-main-menu-background: #072d31;
     /* Maps */
     --color-map-buttons-background: #426176;
-    --color-map-buttons: #EBE5CD;
-    --color-map-tooltip-background: #22333B;
-    --color-map-tooltip-color: #EFEFEF;
+    --color-map-buttons: #ebe5cd;
+    --color-map-tooltip-background: #22333b;
+    --color-map-tooltip-color: #efefef;
     /* Scroll bars */
-    --color-scrollbar: #FE9F36;
+    --color-scrollbar: #fe9f36;
     /* Selected tabs */
-    --color-selected-tab: #FFE85C;
+    --color-selected-tab: #ffe85c;
     /* Sliders */
     --color-slider-bar-active: #6d7273;
     --color-slider-bar-inactive: #a2a6a7;
@@ -54,25 +54,26 @@
     --color-slider-thumb-inactive: #a2a6a7;
     /* Snackbars */
     --color-snackbar-error: #920402;
-    --color-snackbar-info: #76A28D;
+    --color-snackbar-info: #76a28d;
     /* Spinner */
-    --color-spinner-inner: #FFE85C;
-    --color-spinner-outer: #FE9F36;
-    --color-spinner: #FE9F36;
+    --color-spinner-inner: #ffe85c;
+    --color-spinner-outer: #fe9f36;
+    --color-spinner: #fe9f36;
     /* Summaries */
     --color-summary-background: #97aaaf21;
     --color-summary-header: #e6ba8a;
     --color-summary-total: #e6ba8a;
     /* Tables */
-    --color-table-header: #072d313b;
-    --color-table-invoice-customerDescription: #fe9f36;
+    --color-table-header: #525d61;
+    --color-table-invoice-customerdescription: #fe9f36;
     --color-table-row-highlight: #4f5c61;
+    --color-column-seperator: #767475;
     /* Text */
-    --color-text-primary: #EFEFEF;
-    --color-text-secondary: #F2D492;
+    --color-text-primary: #efefef;
+    --color-text-secondary: #f2d492;
     --color-text-selected: #f2d49266;
     /* Tooltip */
-    --color-tooltip-background: #FE9F36;
+    --color-tooltip-background: #fe9f36;
     --color-tooltip: #072d31;
     /* Search box */
     --color-search-box: #767475;

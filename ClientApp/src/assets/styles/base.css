@@ -232,3 +232,11 @@ p.instructions {
 .tooltip-yellow {
     background: var(--color-tooltip-background);
 }
+
+::-webkit-scrollbar {
+    width: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-scrollbar);
+}

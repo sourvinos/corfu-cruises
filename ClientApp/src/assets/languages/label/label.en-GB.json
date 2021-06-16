@@ -49,15 +49,15 @@
             },
             {
                 "id": "headerName",
-                "description": "Name"
+                "description": "NAME"
             },
             {
                 "id": "headerPhones",
-                "description": "Phones"
+                "description": "PHONES"
             },
             {
                 "id": "headerEmail",
-                "description": "Email"
+                "description": "EMAIL"
             }
         ]
     },

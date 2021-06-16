@@ -15,7 +15,6 @@
 }
 
 #content {
-    background-color: var(--color-common-background-primary);
     flex: 1;
     justify-content: center;
     margin-left: 64px;

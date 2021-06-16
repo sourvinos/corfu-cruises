@@ -17,6 +17,7 @@ import { QRCodeComponent } from '../components/qrCode/qrCode.component'
 import { QRCodeModule } from 'angularx-qrcode'
 import { SafeStylePipe } from '../pipes/safeStyle.pipe'
 import { SnackbarComponent } from '../components/snackbar/snackbar.component'
+import { TableModule } from 'primeng/table'
 
 @NgModule({
     declarations: [
@@ -51,6 +52,7 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         QRCodeComponent,
         ReactiveFormsModule,
         RouterModule,
+        TableModule,
         ZXingScannerModule
     ],
     entryComponents: [
