@@ -4,10 +4,18 @@
         <div @slideFromLeft id="title">
             <h1>{{ onGetLabel('header') }}</h1>
         </div>
+        <div id="search-box">
+            <mat-form-field class="no-bottom-margin">
+                <mat-label>Search</mat-label>
+                <input type="text" matInput id="searchTerm" [(ngModel)]="searchTerm" (input)="onApplyFilter($event, 'contains')">
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-hint>Global search</mat-hint>
+            </mat-form-field>
+        </div>
     </div>
 
     <div id="table-wrapper">
-        <p-table [value]="filteredRecords" columnResizeMode="expand" [resizableColumns]="true" [columns]="cols" selectionMode="single" [(selection)]="selectedRecord" dataKey="id" [scrollable]="true" scrollHeight="flex" [rows]="100">
+        <p-table #table [autoLayout]="true" [(selection)]="selectedRecord" [columns]="columns" [globalFilterFields]="['description','phones','email']" [resizableColumns]="true" [scrollable]="true" [value]="filteredRecords" columnResizeMode="expand" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateStorage="local" stateKey="customer-list">
             <ng-template pTemplate="colgroup" let-columns>
                 <colgroup>
                     <col *ngFor="let col of columns" [style.width]="col.width">
@@ -15,8 +23,9 @@
             </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th *ngFor="let col of columns" pResizableColumn>
+                    <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field">
                         {{ onGetLabel(col.header) }}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
                     </th>
                 </tr>
             </ng-template>
@@ -31,9 +40,22 @@
     </div>
 
     <div id="footer">
+        <div @slideFromLeft id="utility-buttons">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="primary">
+                <ng-container *ngTemplateOutlet="contextMenu"></ng-container>
+            </mat-menu>
+        </div>
         <div @slideFromRight id="buttons">
             <button data-cy="new" mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ onGetLabel('newButton') }}</button>
         </div>
     </div>
 
 </div>
+
+<ng-template #contextMenu>
+    <button mat-menu-item class="primary" (click)="onExportPDF()"><span>Export to PDF</span></button>
+    <button mat-menu-item class="primary" (click)="onExportXLS()"><span>Export to Excel</span></button>
+</ng-template>

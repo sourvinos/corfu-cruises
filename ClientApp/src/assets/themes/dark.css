@@ -64,10 +64,12 @@
     --color-summary-header: #e6ba8a;
     --color-summary-total: #e6ba8a;
     /* Tables */
+    --color-table-column-seperator: #767475;
     --color-table-header: #525d61;
     --color-table-invoice-customerdescription: #fe9f36;
-    --color-table-row-highlight: #4f5c61;
-    --color-column-seperator: #767475;
+    --color-table-row-focus-outline: #ffe85c;
+    --color-table-row-highlight: #7c8084;
+    --color-table-sort-icon: #ffe85c;
     /* Text */
     --color-text-primary: #efefef;
     --color-text-secondary: #f2d492;

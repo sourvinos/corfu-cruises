@@ -5,6 +5,7 @@ import { NgQrScannerModule } from 'angular2-qrscanner'
 import { RouterModule } from '@angular/router'
 import { ZXingScannerModule } from '@zxing/ngx-scanner'
 // Custom
+import { ContextMenuModule } from 'primeng/contextmenu'
 import { CustomTableComponent } from '../components/table/custom-table.component'
 import { DialogAlertComponent } from '../components/dialog-alert/dialog-alert.component'
 import { DialogIndexComponent } from '../components/dialog-index/dialog-index.component'
@@ -42,6 +43,7 @@ import { TableModule } from 'primeng/table'
     ],
     exports: [
         CommonModule,
+        ContextMenuModule,
         CustomTableComponent,
         FormatNumberPipe,
         FormsModule,

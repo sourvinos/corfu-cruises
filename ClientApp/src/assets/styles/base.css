@@ -17,6 +17,7 @@
 @import "headers.css";
 @import "inputs.css";
 @import "loader.css";
+@import "prime-table.css";
 @import "scrollable.css";
 @import "select.css";
 @import "slider.css";
@@ -240,3 +241,4 @@ p.instructions {
 ::-webkit-scrollbar-thumb {
     background-color: var(--color-scrollbar);
 }
+

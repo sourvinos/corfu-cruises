@@ -31,6 +31,18 @@ input:disabled {
     width: 100% !important;
 }
 
+.no-bottom-margin > div {
+    margin-bottom: 0 !important;
+}
+
+.mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
+    padding-bottom: 6px !important;
+}
+
+.mat-form-field-subscript-wrapper {
+    margin-top: 1px;
+}
+
 .mat-form-field-infix {
     font-size: var(--font-size-input-height) !important;
     padding-top: 4px !important;
@@ -40,12 +52,12 @@ input:disabled {
     font-variant-caps: petite-caps !important;
 }
 
-.mat-form-field-type .mat-input .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
-    padding-bottom: 10px !important;
+.mat-form-field-subscript-wrapper {
+    margin-top: 2px !important;
 }
 
 .mat-form-field-wrapper {
-    margin-bottom: 0.625rem !important;
+    margin-bottom: 7px !important;
 }
 
 .mat-hint, .mat-error {
@@ -98,7 +110,6 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 
 .mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label span {
     color: var(--color-text-secondary);
-    font-weight: bold;
 }
 
 .mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
@@ -111,7 +122,10 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 
 .mat-focused .mat-form-field-wrapper .mat-form-field-subscript-wrapper div .mat-hint {
     color: var(--color-text-secondary);
-    font-weight: bold;
+}
+
+.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix .mat-icon {
+    color: var(--color-text-secondary) !important;
 }
 
 .mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
@@ -123,12 +137,10 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 
 .mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label span {
     color: var(--color-button-delete) !important;
-    font-weight: bold;
 }
 
 .mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label span {
     color: var(--color-button-delete);
-    font-weight: bold;
 }
 
 .mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
@@ -141,20 +153,14 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 
 .mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-subscript-wrapper div .mat-error {
     color: var(--color-button-delete);
-    font-weight: bold;
 }
 
 .mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
     color: var(--color-button-delete) !important;
 }
 
-@media only screen and (max-width: 1366px) {
-    .mat-form-field-infix {
-        padding-top: 8px !important;
-    }
-    .mat-form-field-subscript-wrapper {
-        margin-top: 0 !important;
-    }
+.mat-form-field-infix {
+    padding: 0 !important;
 }
 
 .mat-form-field-label {
@@ -167,8 +173,4 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 
 .mat-form-field-type-mat-date-range-input .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
     font-size: unset !important;
-}
-
-.no-bottom-margin div {
-    margin-bottom: 0 !important;
 }

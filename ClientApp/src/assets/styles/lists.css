@@ -1,13 +1,12 @@
 #list {
     background-color: var(--color-common-background-secondary);
     background-size: cover;
-    background: url("../../assets/images/background/background.svg") no-repeat center;
     display: flex;
     flex-direction: column;
     height: 100%;
     margin: 0 auto;
     overflow: hidden;
-    padding: 1rem 0 1.5rem 0;
+    padding: 1.2rem 0 1.2rem 0;
     width: 90%;
 }
 
@@ -37,7 +36,7 @@
     flex-direction: row;
     gap: 1rem;
     margin-left: auto;
-    width: auto;
+    width: 12rem;
 }
 
 #header #search-box button {
@@ -56,6 +55,8 @@
 }
 
 #footer {
+    display: flex;
+    justify-content: space-between;
     margin: 1rem 1rem 0 1rem;
 }
 

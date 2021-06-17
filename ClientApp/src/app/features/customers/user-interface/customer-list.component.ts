@@ -1,13 +1,12 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-import { takeUntil } from 'rxjs/operators'
+import { Table } from 'primeng/table'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { Customer } from '../classes/customer'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from '../../../shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -27,7 +26,7 @@ export class CustomerListComponent {
     //#region variables
 
     private baseUrl = '/customers'
-    private localStorageSearchTerm = 'searchTermCustomer'
+    private localStorageSearchTerm = 'customer-list-search-term'
     private ngUnsubscribe = new Subject<void>()
     private records: Customer[] = []
     private resolver = 'customerList'
@@ -35,49 +34,37 @@ export class CustomerListComponent {
     private windowTitle = 'Customers'
     public feature = 'customerList'
     public filteredRecords: Customer[] = []
-    public highlightFirstRow = false
     public newUrl = this.baseUrl + '/new'
     public searchTerm = ''
-    public sortColumn: string
-    public sortOrder: string
     public selectedRecord: Customer
 
     //#endregion
 
     //#region table
 
-    headers = ['', 'Id', 'headerName', 'headerPhones', 'headerEmail', '']
-    widths = ['40px', '0px', '50%', '25%', '', '56px']
-    visibility = ['none', 'none', '', '', '', '']
-    justify = ['center', 'center', 'left', 'left', 'left', 'center']
-    types = ['', '', '', '', '', '']
-    fields = ['', 'id', 'description', 'phones', 'email', '']
+    @ViewChild('table') table: Table | undefined
 
-    cols = [
-        { field: 'id', header: 'Id', width: '0px' },
-        { field: 'description', header: 'headerName', width: '200px' },
-        { field: 'phones', header: 'headerPhones', width: '150px' },
-        { field: 'email', header: 'headerEmail', width: '100px' }
+    columns = [
+        { field: 'id', header: 'Id', width: '0%' },
+        { field: 'description', header: 'headerName', width: '40%' },
+        { field: 'phones', header: 'headerPhones', width: '30%' },
+        { field: 'email', header: 'headerEmail', width: '30%' }
     ];
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
         this.getFilterFromStorage()
-        if (!this.getSortObjectFromStorage()) this.saveSortObjectToStorage('description', 'asc')
         this.loadRecords()
         this.addShortcuts()
-        this.subscribeToInteractionService()
-        this.onFilter(this.searchTerm)
     }
 
     ngOnDestroy(): void {
-        this.updateStorageWithFilter()
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
         this.unlisten()
@@ -85,29 +72,27 @@ export class CustomerListComponent {
 
     //#endregion
 
-    //#region public methods2
+    //#region public methods
 
-    public onCloseSearchBox(): void {
-        document.getElementById('searchBox').classList.remove('open')
-        document.getElementById('search-icon').classList.remove('hidden')
+    public onApplyFilter($event: any, stringVal: any): void {
+        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
+        this.updateStorageWithFilter()
     }
 
     public onEditRecord(record: Customer): void {
         this.router.navigate([this.baseUrl, record.id])
     }
 
-    public onFilter(query: string): void {
-        this.searchTerm = query
-        this.filteredRecords = query ? this.records.filter(p => p.description.toLowerCase().includes(query.toLowerCase())) : this.records
+    public onExportXLS(): void {
+        console.log()
+    }
+
+    public onExportPDF(): void {
+        console.log()
     }
 
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
-    }
-
-    public onOpenSearchBox(): void {
-        document.getElementById('searchBox').classList.add('open')
-        document.getElementById('search-icon').classList.add('hidden')
     }
 
     //#endregion
@@ -116,10 +101,10 @@ export class CustomerListComponent {
 
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'goBack')
+            'Escape': () => {
+                this.goBack()
             },
-            'Alt.F': () => {
+            'Alt.S': () => {
                 this.focus('searchTerm')
             },
             'Alt.N': (event: KeyboardEvent) => {
@@ -132,25 +117,11 @@ export class CustomerListComponent {
     }
 
     private focus(element: string): void {
-        event.preventDefault()
         this.helperService.setFocus(element)
     }
 
     private getFilterFromStorage(): void {
         this.searchTerm = this.helperService.readItem(this.localStorageSearchTerm)
-    }
-
-    private getSortObjectFromStorage(): boolean {
-        try {
-            const sortObject = JSON.parse(this.helperService.readItem(this.feature))
-            if (sortObject) {
-                this.sortColumn = sortObject.column
-                this.sortOrder = sortObject.order
-                return true
-            }
-        } catch {
-            return false
-        }
     }
 
     private goBack(): void {
@@ -168,23 +139,12 @@ export class CustomerListComponent {
         }
     }
 
-    private saveSortObjectToStorage(columnName: string, sortOrder: string): void {
-        this.helperService.saveItem(this.feature, JSON.stringify({ columnName, sortOrder }))
-    }
-
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private subscribeToInteractionService(): void {
-        this.interactionService.record.pipe(takeUntil(this.ngUnsubscribe)).subscribe(response => {
-            this.updateStorageWithFilter()
-            // this.editRecord(response['id'])
-        })
     }
 
     private updateStorageWithFilter(): void {

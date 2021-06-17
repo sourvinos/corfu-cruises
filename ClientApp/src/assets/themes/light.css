@@ -4,49 +4,49 @@
     --color-gradient-bottom: #140436;
     /* Headers */
     --color-headers: #38a2b6;
-    /* Border of clickable items */
+    /* border of clickable items */
     --color-border-item-active: #426f8a;
     --color-border-item-inactive: #d5dee2;
-    /* Buttons */
-    --color-button-delete: #F28482;
+    /* buttons */
+    --color-button-delete: #f28482;
     --color-button-primary-hover: #3c5565;
     --color-button-primary: #426f8a;
     --color-button-secondary: #eaa558;
     --color-button-text: #ededed;
-    /* Calendar legend */
+    /* calendar legend */
     --color-calendar-legend: #efefef;
-    /* Checkboxes */
+    /* checkboxes */
     --color-checkbox-checked: #426f8a;
     --color-checkbox-indeterminate: #426f8a;
-    /* Common */
+    /* common */
     --color-common-background-primary: #627789;
     --color-common-background-secondary: #efefef;
     --color-common-sidenav: #caebff;
-    /* Credits */
+    /* credits */
     --color-credit-about: #210646;
     --color-credit-hover: #f9f4d7;
-    --color-credit-title: #FE9F36;
+    --color-credit-title: #fe9f36;
     --color-credit-url: #86805f;
-    /* Datepicker */
-    --color-datepicker-days: #EDEDED;
-    --color-datepicker-month: #FFE85C;
+    /* datepicker */
+    --color-datepicker-days: #ededed;
+    --color-datepicker-month: #ffe85c;
     /* Mobile menu */
     --color-mobile-menu: #c7e1e6;
     /* Logo */
-    --color-logo-primary: #FE9F36;
-    --color-logo-secondary: #FFE85C;
+    --color-logo-primary: #fe9f36;
+    --color-logo-secondary: #ffe85c;
     /* Main menu */
     --color-main-menu-background-hover: #6390ab;
     --color-main-menu-background: #627789;
     /* Maps */
     --color-map-buttons-background: #426176;
-    --color-map-buttons: #EBE5CD;
-    --color-map-tooltip-background: #22333B;
-    --color-map-tooltip-color: #EFEFEF;
+    --color-map-buttons: #ebe5cd;
+    --color-map-tooltip-background: #22333b;
+    --color-map-tooltip-color: #efefef;
     /* Scroll bars */
-    --color-scrollbar: #FE9F36;
+    --color-scrollbar: #fe9f36;
     /* Selected tabs */
-    --color-selected-tab: #EF8857;
+    --color-selected-tab: #ef8857;
     /* Sliders */
     --color-slider-bar-active: #94999a;
     --color-slider-bar-inactive: #a2a6a7;
@@ -54,26 +54,29 @@
     --color-slider-thumb-inactive: #a2a6a7;
     /* Snackbars */
     --color-snackbar-error: #920402;
-    --color-snackbar-info: #76A28D;
+    --color-snackbar-info: #76a28d;
     /* Spinner */
-    --color-spinner-inner: #FFE85C;
-    --color-spinner-outer: #FE9F36;
-    --color-spinner: #FE9F36;
+    --color-spinner-inner: #ffe85c;
+    --color-spinner-outer: #fe9f36;
+    --color-spinner: #fe9f36;
     /* Summaries */
     --color-summary-background: #97aaaf21;
     --color-summary-header: #e6ba8a;
     --color-summary-total: #e6ba8a;
     /* Tables */
+    --color-table-column-seperator: #767475;
     --color-table-header: #6277891a;
-    --color-table-invoice-customerDescription: #fe9f36;
+    --color-table-invoice-customerdescription: #fe9f36;
+    --color-table-row-focus-outline: #ffe85c;
     --color-table-row-highlight: #cce8f9;
+    --color-table-sort-icon: #fe9f36;
     /* Text */
     --color-text-primary: #072d31;
-    --color-text-secondary: #EF8857;
+    --color-text-secondary: #ef8857;
     --color-text-selected: #f2d49266;
     /* Tooltip */
     --color-tooltip-background: #426f8a;
     --color-tooltip: #efefef;
     /* Search box */
     --color-search-box: #767475;
-}
+}   
