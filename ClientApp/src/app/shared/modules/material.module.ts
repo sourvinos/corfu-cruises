@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-
+// Custom
 import { MAT_DATE_LOCALE } from '@angular/material/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
@@ -14,13 +14,13 @@ import { MatInputModule } from '@angular/material/input'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatSelectModule } from '@angular/material/select'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/material/tooltip'
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
     showDelay: 0,

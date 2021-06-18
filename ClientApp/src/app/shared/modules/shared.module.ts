@@ -14,11 +14,11 @@ import { InputFormatDirective } from 'src/app/shared/directives/input-format.dir
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MapComponent } from '../components/map/map.component'
 import { MaterialModule } from './material.module'
+import { PrimeNgModule } from './primeng.module'
 import { QRCodeComponent } from '../components/qrCode/qrCode.component'
 import { QRCodeModule } from 'angularx-qrcode'
 import { SafeStylePipe } from '../pipes/safeStyle.pipe'
 import { SnackbarComponent } from '../components/snackbar/snackbar.component'
-import { TableModule } from 'primeng/table'
 
 @NgModule({
     declarations: [
@@ -38,6 +38,7 @@ import { TableModule } from 'primeng/table'
         FormsModule,
         MaterialModule,
         NgQrScannerModule,
+        PrimeNgModule,
         QRCodeModule,
         ZXingScannerModule
     ],
@@ -54,7 +55,6 @@ import { TableModule } from 'primeng/table'
         QRCodeComponent,
         ReactiveFormsModule,
         RouterModule,
-        TableModule,
         ZXingScannerModule
     ],
     entryComponents: [
