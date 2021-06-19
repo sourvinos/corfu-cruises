@@ -3,7 +3,7 @@
     background-color: var(--color-common-background-secondary);
     background-size: cover;
     display: flex;
-    height: 100%;
+    height: calc(100% - 6px);
     justify-content: center;
     width: 100%;
 }

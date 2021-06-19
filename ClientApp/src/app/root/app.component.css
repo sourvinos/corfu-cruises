@@ -22,12 +22,6 @@
     transition: background-color 0.7s;
 }
 
-#bottom {
-    background-color: var(--color-gradient-bottom);
-    height: 0.5rem;
-    transition: background-color 0.7s;
-}
-
 #spinner {
     border: 0.1875rem solid var(--color-spinner-outer);
     border-top: 0.1875rem solid var(--color-spinner-inner);

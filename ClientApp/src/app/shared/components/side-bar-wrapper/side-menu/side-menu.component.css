@@ -1,22 +1,38 @@
 #sidemenu {
     background: linear-gradient(180deg, var(--color-gradient-top) 0%, var(--color-gradient-bottom) 100%);
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    height: calc(100% - 68px);
-    left: 0;
-    padding:  8px;
+    height: calc(100% - 4.125rem);
+    justify-content: space-between;
+    left: 0.3125rem;
+    padding: 0.5rem;
     position: fixed;
-    top: 60px;
+    top: 3.8125rem;
     transition: width 0.2s ease-out;
+    width: 61px;
+    z-index: 2;
 }
 
-#menu-wrapper {
+#top-part {
     display: flex;
     flex-direction: column;
+    height: 94%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#bottom-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-top: 0;
+    overflow-x: hidden;
 }
 
 .menu-item {
     border-radius: 10px;
+    display: contents;
     overflow: hidden;
     transition: 0.3s;
     user-select: none;
@@ -26,36 +42,13 @@
     cursor: pointer;
 }
 
-li:hover {
-    background-color: #9AE5D0;
+li {
     border-radius: 5px;
-}
-
-li:hover a {
-    color: #0a0a0a;
-}
-
-.menu-item:hover > .menu-item-label > .label, .menu-item:hover > .menu-item-label > .icon {
-    color: #9AE5D0;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.label {
-    color: #efefef;
-    font-family: var(--font-family-menu);
-    font-variant-caps: petite-caps;
-    margin-left: 23px;
-}
-
-.icon {
-    color: #efefef;
-    font-size: 30px;
+    transition: all 0.2s ease-in;
 }
 
 ul {
     display: none;
-    margin: 0.6rem 0.4rem;
     padding: 0;
     position: static;
 }
@@ -74,6 +67,36 @@ a {
     text-decoration: none;
 }
 
+a {
+    transition: all 0.2s ease-in;
+}
+
+li:hover {
+    background-color: #9AE5D0;
+}
+
+li:hover a {
+    color: #0a0a0a;
+}
+
+.menu-item:hover > .menu-item-label > .label, .menu-item:hover > .menu-item-label > .icon {
+    color: #9AE5D0;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.label {
+    color: #efefef;
+    font-family: var(--font-family-menu);
+    font-variant-caps: petite-caps;
+    margin-left: 1.4375rem;
+}
+
+.icon {
+    color: #efefef;
+    font-size: 1.8125rem;
+}
+
 .rotate {
     transform: translateY(0%) rotate(-180deg) !important;
 }
@@ -84,20 +107,21 @@ a {
     align-items: center;
 }
 
+.menu-item-label:last-child {
+    padding: 0.25rem 0.5rem;
+}
+
 .expander {
-    transition: transform 0.3s;
     color: white;
     margin-left: auto;
+    transition: transform 0.3s;
 }
 
 .show {
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
 
 .open {
-    width: 250px;
-}
-
-.closed {
-    width: 65px;
+    width: 250px !important;
 }

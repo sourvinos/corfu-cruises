@@ -1,12 +1,15 @@
 import { Component } from '@angular/core'
 import { Observable } from 'rxjs'
+// Custom
 import { AccountService } from '../../../services/account.service'
 import { MessageMenuService } from '../../../services/messages-menu.service'
+import { slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'side-menu',
     templateUrl: './side-menu.component.html',
-    styleUrls: ['./side-menu.component.css']
+    styleUrls: ['./side-menu.component.css'],
+    animations: [slideFromLeft]
 })
 
 export class SideMenuComponent {
@@ -14,18 +17,14 @@ export class SideMenuComponent {
     //#region  variables
 
     private feature = 'main-menu'
-    public loginStatus: Observable<boolean>
     private userRole: Observable<string>
+    public loginStatus: Observable<boolean>
 
     //#endregion
 
     constructor(private accountService: AccountService, private messageMenuService: MessageMenuService) { }
 
     //#region lifecycle hooks
-    
-    ngOnInit(): void {
-        document.getElementById('sidemenu').classList.add('closed')
-    }
 
     ngDoCheck(): void {
         this.updateVariables()
@@ -50,12 +49,10 @@ export class SideMenuComponent {
 
     public onOpenSidebar(): void {
         document.getElementById('sidemenu').classList.add('open')
-        document.getElementById('sidemenu').classList.remove('closed')
     }
 
     public onShowSubmenu(subMenu: string, spanId: string, event: { stopPropagation: () => void }): void {
         document.getElementById('sidemenu').classList.add('open')
-        document.getElementById('sidemenu').classList.remove('closed')
         document.getElementById(subMenu).classList.toggle('show')
         document.getElementById(spanId).classList.toggle('rotate')
         event.stopPropagation()
@@ -68,11 +65,11 @@ export class SideMenuComponent {
     private closeSidebar(event: Event): void {
         event.stopPropagation()
         document.getElementById('sidemenu').classList.remove('open')
-        document.getElementById('sidemenu').classList.add('closed')
     }
 
     private hideSubmenus(): void {
         Array.from(document.querySelectorAll('ul')).forEach((el) => el.classList.remove('show'))
+        Array.from(document.querySelectorAll('span.expander')).forEach((el) => el.classList.remove('rotate'))
     }
 
     private updateVariables(): void {

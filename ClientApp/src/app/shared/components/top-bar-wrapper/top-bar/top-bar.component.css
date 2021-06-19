@@ -1,5 +1,5 @@
 #top-bar {
-    background-color: var(--color-gradient-top);
+    background-color: transparent;
     display: grid;
     grid-template-areas: "left right";
     grid-template-columns: 1fr auto;
