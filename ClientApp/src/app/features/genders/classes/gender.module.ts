@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core'
-
+// Custom
 import { GenderFormComponent } from '../user-interface/gender-form.component'
 import { GenderListComponent } from '../user-interface/gender-list.component'
 import { GenderRoutingModule } from './gender.routing.module'
-import { MaterialModule } from '../../../shared/modules/material.module'
 import { SharedModule } from '../../../shared/modules/shared.module'
 
 @NgModule({
@@ -13,7 +12,6 @@ import { SharedModule } from '../../../shared/modules/shared.module'
     ],
     imports: [
         SharedModule,
-        MaterialModule,
         GenderRoutingModule
     ]
 })

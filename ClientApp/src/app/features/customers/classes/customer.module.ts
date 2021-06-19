@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core'
-
+// Custom
 import { CustomerFormComponent } from '../user-interface/customer-form.component'
 import { CustomerListComponent } from '../user-interface/customer-list.component'
 import { CustomerRoutingModule } from './customer.routing.module'
-import { MaterialModule } from '../../../shared/modules/material.module'
 import { SharedModule } from '../../../shared/modules/shared.module'
 
 @NgModule({
@@ -13,7 +12,6 @@ import { SharedModule } from '../../../shared/modules/shared.module'
     ],
     imports: [
         SharedModule,
-        MaterialModule,
         CustomerRoutingModule
     ]
 })

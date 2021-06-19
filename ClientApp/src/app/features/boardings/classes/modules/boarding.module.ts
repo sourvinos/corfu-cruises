@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core'
 import { BoardingListComponent } from '../../user-interface/boarding-list/boarding-list.component'
 import { BoardingRoutingModule } from './boarding.routing.module'
 import { BoardingWrapperComponent } from '../../user-interface/boarding-wrapper/boarding-wrapper.component'
-import { MaterialModule } from 'src/app/shared/modules/material.module'
 import { SharedModule } from 'src/app/shared/modules/shared.module'
 
 @NgModule({
@@ -13,7 +12,6 @@ import { SharedModule } from 'src/app/shared/modules/shared.module'
 
     ],
     imports: [
-        MaterialModule,
         SharedModule,
         BoardingRoutingModule
     ]

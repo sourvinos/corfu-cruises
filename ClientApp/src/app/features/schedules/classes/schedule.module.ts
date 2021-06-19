@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core'
 // Custom
 import { CalendarComponent } from '../user-interface/calendar.component'
-import { MaterialModule } from '../../../shared/modules/material.module'
+import { CalendarLegendComponent } from '../user-interface/calendar-legend.component'
 import { ScheduleCreateFormComponent } from '../user-interface/schedule-create-form.component'
 import { ScheduleRoutingModule } from './schedule.routing.module'
 import { ScheduleWrapperComponent } from '../user-interface/schedule-wrapper.component'
 import { SharedModule } from '../../../shared/modules/shared.module'
-import { CalendarLegendComponent } from '../user-interface/calendar-legend.component'
 
 @NgModule({
     declarations: [
@@ -16,7 +15,6 @@ import { CalendarLegendComponent } from '../user-interface/calendar-legend.compo
         CalendarLegendComponent
     ],
     imports: [
-        MaterialModule,
         ScheduleRoutingModule,
         SharedModule,
     ]

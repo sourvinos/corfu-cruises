@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core'
-
-import { MaterialModule } from '../../../shared/modules/material.module'
+// Custom
 import { PickupPointFormComponent } from '../user-interface/pickupPoint-form.component'
 import { PickupPointListComponent } from '../user-interface/pickupPoint-list.component'
 import { PickupPointRoutingModule } from './pickupPoint.routing.module'
@@ -15,7 +14,6 @@ import { SharedModule } from '../../../shared/modules/shared.module'
     ],
     imports: [
         SharedModule,
-        MaterialModule,
         PickupPointRoutingModule
     ]
 })

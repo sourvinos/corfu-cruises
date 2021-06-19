@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core'
 // Custom
-import { MaterialModule } from 'src/app/shared/modules/material.module'
 import { SharedModule } from 'src/app/shared/modules/shared.module'
 import { WebPassengerFormComponent } from '../../user-interface/passenger-form/web-passenger-form.component'
 import { WebPassengerListComponent } from '../../user-interface/passenger-list/web-passenger-list.component'
@@ -17,7 +16,6 @@ import { WebRoutingModule } from './web.routing.module'
         WebPassengerTableComponent
     ],
     imports: [
-        MaterialModule,
         SharedModule,
         WebRoutingModule
     ]

@@ -1,11 +1,10 @@
+import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { NgModule } from '@angular/core'
 import { NgQrScannerModule } from 'angular2-qrscanner'
 import { RouterModule } from '@angular/router'
 import { ZXingScannerModule } from '@zxing/ngx-scanner'
 // Custom
-import { ContextMenuModule } from 'primeng/contextmenu'
 import { CustomTableComponent } from '../components/table/custom-table.component'
 import { DialogAlertComponent } from '../components/dialog-alert/dialog-alert.component'
 import { DialogIndexComponent } from '../components/dialog-index/dialog-index.component'
@@ -44,14 +43,15 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
     ],
     exports: [
         CommonModule,
-        ContextMenuModule,
         CustomTableComponent,
         FormatNumberPipe,
         FormsModule,
         InputFormatDirective,
         InputTabStopDirective,
         MapComponent,
+        MaterialModule,
         NgQrScannerModule,
+        PrimeNgModule,
         QRCodeComponent,
         ReactiveFormsModule,
         RouterModule,

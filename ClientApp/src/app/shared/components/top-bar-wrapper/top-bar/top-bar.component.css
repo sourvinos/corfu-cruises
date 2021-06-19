@@ -73,6 +73,7 @@
 }
 
 #secondary-menu {
+    align-items: center;
     animation: enter 1s ease forwards;
     display: none;
     grid-area: right;

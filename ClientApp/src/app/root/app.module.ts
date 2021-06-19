@@ -18,10 +18,10 @@ import { GenderModule } from '../features/genders/classes/gender.module'
 import { InvoicingModule } from '../features/invoicing/classes/modules/invoicing.module'
 import { LoginModule } from '../features/login/classes/login.module'
 import { ManifestModule } from '../features/manifest/classes/modules/manifest.module'
-import { MaterialModule } from '../shared/modules/material.module'
 import { NationalityModule } from '../features/nationalities/classes/nationality.module'
 import { PickupPointModule } from '../features/pickupPoints/classes/pickupPoint.module'
 import { PortModule } from '../features/ports/classes/port.module'
+import { PrimeNgModule } from '../shared/modules/primeng.module'
 import { RegistrarModule } from '../features/ships/registrars/classes/registrar.module'
 import { ReservationModule } from '../features/reservations/classes/modules/reservation.module'
 import { RouteModule } from '../features/routes/classes/route.module'
@@ -50,6 +50,7 @@ import { UserMenuComponent } from '../shared/components/top-bar-wrapper/user-men
 // Utils
 import { DomChangeDirective } from '../shared/directives/dom-change.directive'
 import { JwtInterceptor } from '../shared/services/jwt.interceptor'
+
 
 @NgModule({
     declarations: [
@@ -83,10 +84,10 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         InvoicingModule,
         LoginModule,
         ManifestModule,
-        MaterialModule,
         NationalityModule,
         PickupPointModule,
         PortModule,
+        PrimeNgModule,
         ReactiveFormsModule,
         RegistrarModule,
         ReservationModule,

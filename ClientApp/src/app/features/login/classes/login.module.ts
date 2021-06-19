@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core'
-import { MaterialModule } from '../../../shared/modules/material.module'
-import { SharedModule } from '../../../shared/modules/shared.module'
+// Custom
 import { LoginFormComponent } from '../user-interface/login-form.component'
+import { SharedModule } from '../../../shared/modules/shared.module'
 
 @NgModule({
     declarations: [
         LoginFormComponent
     ],
     imports: [
-        SharedModule,
-        MaterialModule
+        SharedModule
     ]
 })
 
