@@ -12,13 +12,13 @@
 
 #loader p:nth-child(1) {
     color: #355070 !important;
-    font-size: var(--font-size-logo-side-bar-first-child) !important;
+    font-size: var(--font-size-logo-loader-first-child) !important;
     margin: 0;
 }
 
 #loader p:nth-child(2) {
     color: #b56576 !important;
-    font-size: var(--font-size-logo-side-bar-second-child) !important;
+    font-size: var(--font-size-logo-loader-second-child) !important;
     margin: -0.5rem 0 0 0 !important;
 }
 

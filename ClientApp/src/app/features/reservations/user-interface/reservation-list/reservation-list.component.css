@@ -118,7 +118,7 @@
 
 .selection .sum {
     color: var(--color-text-secondary);
-    font-size: var(--font-size-sum);
+    font-size: var(--font-size-sum-persons);
     font-weight: var(--font-weight-sum-persons);
 }
 

@@ -1,10 +1,10 @@
-table {
+.p-datatable table {
     border-spacing: 0;
     flex: 1;
     transition: background-color 0.7s;
 }
 
-th {
+.p-datatable .p-datatable-thead > tr > th {
     background-color: var(--color-table-header) !important;
     border-right: 1px solid var(--color-table-column-seperator) !important;
     border-width: 0 1px 0 0 !important;
@@ -17,18 +17,18 @@ th {
     transition: background-color 0.7s !important;
 }
 
-tr {
+.p-datatable .p-datatable-tbody > tr {
     background-color: var(--color-common-background-secondary) !important;
     border: none !important;
     outline-color: var(--color-common-background-secondary) !important;
 }
 
-tr:focus-visible {
+.p-datatable .p-datatable-tbody > tr:focus-visible {
     outline: none !important;
     background-color: var(--color-table-row-highlight) !important;
 }
 
-td {
+.p-datatable .p-datatable-tbody > tr > td {
     border: none !important;
     color: var(--color-text-primary) !important;
     font-family: var(--font-family-table) !important;
@@ -40,7 +40,7 @@ td {
     white-space: nowrap !important;
 }
 
-tr.p-highlight {
+.p-datatable .p-datatable-tbody > tr .p-highlight {
     background-color: var(--color-table-row-highlight) !important;
 }
 

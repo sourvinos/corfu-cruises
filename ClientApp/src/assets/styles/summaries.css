@@ -19,7 +19,7 @@
     font-family: var(--font-family-master);
     font-size: var(--font-size-summary-block-item);
     justify-content: space-between;
-    line-height: 1.8rem;
+    line-height: 1.4rem;
     margin-bottom: 0.2rem;
     padding: 0.125rem 0.5rem 0.125rem 1rem;
 }
@@ -62,10 +62,9 @@
 }
 
 .mat-checkbox {
-    color: var(--color-text) !important;
+    color: var(--color-text-primary) !important;
     display: flex;
     font-family: var(--font-family-master) !important;
-    font-size: var(--font-size-summary-block-header) !important;
     font-variant-caps: petite-caps !important;
     font-weight: var(--font-weight-summary-header) !important;
     width: 100%;

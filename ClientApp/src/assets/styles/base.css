@@ -41,10 +41,11 @@ html, body {
     user-select: none;
 }
 
-h1, h2, h3, h4, p {
-    font-size: 100%;
-    margin: 0 !important;
-    padding: 0 !important;
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .hidden {
@@ -54,7 +55,7 @@ h1, h2, h3, h4, p {
 p.instructions {
     color: var(--color-text-primary);
     font-family: var(--font-family-master);
-    font-size: var(--font-size-paragraph);
+    /* font-size: var(--font-size-paragraph); */
     overflow: hidden;
 }
 
@@ -101,12 +102,6 @@ p.instructions {
     background-color: var(--color-snackbar-info) !important;
 }
 
-.mat-button-wrapper {
-    align-items: center !important;
-    display: flex !important;
-    justify-content: center !important;
-}
-
 .mat-date-range-input-start-wrapper {
     width: 100% !important;
 }
@@ -127,11 +122,11 @@ p.instructions {
 }
 
 .leaflet-tooltip span:first-child {
-    font-size: 1.6rem;
+    /* font-size: 1.6rem; */
 }
 
 .leaflet-tooltip span:not(:first-child) {
-    font-size: 1.1rem;
+    /* font-size: 1.1rem; */
 }
 
 .leaflet-tooltip-top:before {
@@ -226,7 +221,6 @@ p.instructions {
 .mat-tooltip {
     color: var(--color-tooltip) !important;
     font-family: var(--font-family-master);
-    font-size: var(--font-size-tooltip);
     font-weight: var(--font-weight-tooltip);
 }
 
@@ -241,4 +235,3 @@ p.instructions {
 ::-webkit-scrollbar-thumb {
     background-color: var(--color-scrollbar);
 }
-

@@ -25,12 +25,12 @@ body, h1, h2, h3, p {
 
 #companyLogo>:first-child {
     color: #FE9F36 !important;
-    font-size: 6rem !important;
+    /* font-size: 6rem !important; */
 }
 
 #companyLogo>:last-child {
     color: #FFE85C !important;
-    font-size: 3.5rem !important;
+    /* font-size: 3.5rem !important; */
     font-weight: normal !important;
     margin: -1rem 0 0 0 !important;
 }
@@ -38,7 +38,7 @@ body, h1, h2, h3, p {
 .message {
     color: #ffc788;
     font-family: "Ubuntu Condensed";
-    font-size: 1.5rem;
+    /* font-size: 1.5rem; */
 }
 
 .error {
@@ -52,7 +52,7 @@ input[type=submit], a {
     color: #FFFDDD !important;
     cursor: pointer !important;
     font-family: "Ubuntu Condensed" !important;
-    font-size: 1.25rem;
+    /* font-size: 1.25rem; */
     font-weight: 100 !important;
     margin: 2rem 0 0 0 !important;
     min-width: 0 !important;

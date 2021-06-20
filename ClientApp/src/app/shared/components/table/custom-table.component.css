@@ -16,7 +16,6 @@ thead tr {
     border-right: 0.125rem solid var(--color-common-background-secondary);
     color: var(--color-text-primary);
     font-family: var(--font-family-table);
-    font-size: var(--font-size-table-header);
     font-variant-caps: petite-caps;
     line-height: 22px;
     padding: 0.625rem 0 0.5625rem 0;

@@ -3,12 +3,12 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    height: calc(100% - 4.125rem);
+    height: calc(100% - 3.5rem);
     justify-content: space-between;
     left: 0.3125rem;
     padding: 0.5rem;
     position: fixed;
-    top: 3.8125rem;
+    top: 3.1875rem;
     transition: width 0.2s ease-out;
     width: 61px;
     z-index: 2;
@@ -48,19 +48,19 @@ li {
 }
 
 ul {
+    flex-direction: column;
     display: none;
-    padding: 0;
-    position: static;
 }
 
 li {
     line-height: 2rem;
+    margin-right: 0.5rem;
 }
 
 a {
     color: #e6e6e6;
     font-family: var(--font-family-menu);
-    font-size: 87%;
+    font-size: var(--font-size-menu);
     font-variant-caps: petite-caps;
     font-weight: 500;
     padding: 0.3rem 1rem;
@@ -94,7 +94,6 @@ li:hover a {
 
 .icon {
     color: #efefef;
-    font-size: 1.8125rem;
 }
 
 .rotate {

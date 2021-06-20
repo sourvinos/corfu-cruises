@@ -2,7 +2,6 @@
     background-color: var(--color-common-background-secondary);
     color: var(--color-text-primary);
     font-family: var(--font-family-master);
-    font-size: var(--font-size-tab-label);
     font-variant-caps: petite-caps;
     font-weight: var(--font-weight-header);
 }
@@ -18,7 +17,6 @@
 
 .mat-tab-body-content {
     display: flex !important;
-    /* height: 367px !important; */
     padding: 0;
     width: 100%;
 }
@@ -38,7 +36,7 @@
 .mat-tab-label-content {
     color: var(--color-text-primary) !important;
     font-family: var(--font-family-master) !important;
-    font-size: var(--font-size-button) !important;
+    font-size: var(--font-size-tab-label) !important;
     font-weight: var(--font-weight-button) !important;
 }
 

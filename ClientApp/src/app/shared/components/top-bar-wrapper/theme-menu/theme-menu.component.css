@@ -29,13 +29,13 @@ label:hover {
 
 .fa-sun {
     color: #ffeb6f;
-    font-size: 25px;
+    /* font-size: 25px; */
     transition: .3s;
 }
 
 .fa-moon {
     color: #ffffff;
-    font-size: 25px;
+    /* font-size: 25px; */
     transition: .3s;
 }
 
