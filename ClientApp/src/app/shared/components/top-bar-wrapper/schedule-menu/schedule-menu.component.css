@@ -16,7 +16,7 @@ li {
 }
 
 li:hover {
-    background-color: var(--color-main-menu-background-hover) !important;
+    background-color: var(--color-menu-background-hover) !important;
     cursor: pointer;
 }
 

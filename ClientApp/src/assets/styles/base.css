@@ -17,6 +17,7 @@
 @import "headers.css";
 @import "inputs.css";
 @import "loader.css";
+@import "prime-menu.css";
 @import "prime-table.css";
 @import "scrollable.css";
 @import "select.css";
@@ -40,7 +41,6 @@ html, body {
     padding: 0;
     user-select: none;
 }
-
 
 ul {
     list-style: none;
@@ -122,11 +122,11 @@ p.instructions {
 }
 
 .leaflet-tooltip span:first-child {
-    /* font-size: 1.6rem; */
+    font-size: 100%;
 }
 
 .leaflet-tooltip span:not(:first-child) {
-    /* font-size: 1.1rem; */
+    font-size: 100%;
 }
 
 .leaflet-tooltip-top:before {
@@ -235,3 +235,4 @@ p.instructions {
 ::-webkit-scrollbar-thumb {
     background-color: var(--color-scrollbar);
 }
+

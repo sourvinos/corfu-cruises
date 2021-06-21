@@ -30,14 +30,13 @@
     /* datepicker */
     --color-datepicker-days: #ededed;
     --color-datepicker-month: #ffe85c;
-    /* Mobile menu */
-    --color-mobile-menu: #c7e1e6;
     /* Logo */
     --color-logo-primary: #fe9f36;
     --color-logo-secondary: #ffe85c;
-    /* Main menu */
-    --color-main-menu-background-hover: #6390ab;
-    --color-main-menu-background: #627789;
+    /* Menu */
+    --color-menu-background-hover: #6390ab;
+    --color-menu-background: #627789;
+    --color-menu-sub-items: #072d31;
     /* Maps */
     --color-map-buttons-background: #426176;
     --color-map-buttons: #ebe5cd;

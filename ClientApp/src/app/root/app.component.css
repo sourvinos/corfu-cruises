@@ -17,7 +17,6 @@
 #content {
     flex: 1;
     justify-content: center;
-    margin-left: 0 64px 0 128px;
     overflow-y: hidden;
     transition: background-color 0.7s;
 }

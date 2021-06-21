@@ -1,5 +1,5 @@
 #sidemenu {
-    background: linear-gradient(180deg, var(--color-gradient-top) 0%, var(--color-gradient-bottom) 100%);
+    background: rgba(0, 0, 0, 0.02);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -9,118 +9,6 @@
     padding: 0.5rem;
     position: fixed;
     top: 3.1875rem;
-    transition: width 0.2s ease-out;
-    width: 61px;
+    width: 155px;
     z-index: 2;
-}
-
-#top-part {
-    display: flex;
-    flex-direction: column;
-    height: 94%;
-    overflow-x: hidden;
-    overflow-y: scroll;
-}
-
-#bottom-part {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    margin-top: 0;
-    overflow-x: hidden;
-}
-
-.menu-item {
-    border-radius: 10px;
-    display: contents;
-    overflow: hidden;
-    transition: 0.3s;
-    user-select: none;
-}
-
-.menu-item:hover {
-    cursor: pointer;
-}
-
-li {
-    border-radius: 5px;
-    transition: all 0.2s ease-in;
-}
-
-ul {
-    flex-direction: column;
-    display: none;
-}
-
-li {
-    line-height: 2rem;
-    margin-right: 0.5rem;
-}
-
-a {
-    color: #e6e6e6;
-    font-family: var(--font-family-menu);
-    font-size: var(--font-size-menu);
-    font-variant-caps: petite-caps;
-    font-weight: 500;
-    padding: 0.3rem 1rem;
-    text-decoration: none;
-}
-
-a {
-    transition: all 0.2s ease-in;
-}
-
-li:hover {
-    background-color: #9AE5D0;
-}
-
-li:hover a {
-    color: #0a0a0a;
-}
-
-.menu-item:hover > .menu-item-label > .label, .menu-item:hover > .menu-item-label > .icon {
-    color: #9AE5D0;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.label {
-    color: #efefef;
-    font-family: var(--font-family-menu);
-    font-variant-caps: petite-caps;
-    margin-left: 1.4375rem;
-}
-
-.icon {
-    color: #efefef;
-}
-
-.rotate {
-    transform: translateY(0%) rotate(-180deg) !important;
-}
-
-.menu-item-label {
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-}
-
-.menu-item-label:last-child {
-    padding: 0.25rem 0.5rem;
-}
-
-.expander {
-    color: white;
-    margin-left: auto;
-    transition: transform 0.3s;
-}
-
-.show {
-    display: flex;
-    flex-direction: column;
-}
-
-.open {
-    width: 250px !important;
 }

@@ -1,24 +1,25 @@
 import { Component } from '@angular/core'
+import { MenuItem } from 'primeng/api'
 import { Observable } from 'rxjs'
 // Custom
 import { AccountService } from '../../../services/account.service'
 import { MessageMenuService } from '../../../services/messages-menu.service'
-import { slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'side-menu',
     templateUrl: './side-menu.component.html',
-    styleUrls: ['./side-menu.component.css'],
-    animations: [slideFromLeft]
+    styleUrls: ['./side-menu.component.css']
 })
 
 export class SideMenuComponent {
 
-    //#region  variables
+    //#region variables
 
     private feature = 'main-menu'
     private userRole: Observable<string>
+    public bottomItems: MenuItem[]
     public loginStatus: Observable<boolean>
+    public topItems: MenuItem[]
 
     //#endregion
 
@@ -26,50 +27,74 @@ export class SideMenuComponent {
 
     //#region lifecycle hooks
 
+    ngOnInit(): void {
+        this.buildMenu()
+    }
+
     ngDoCheck(): void {
         this.updateVariables()
     }
 
     //#endregion
 
-    //#region public methods
-
-    public onDoTasks(event: Event): void {
-        this.closeSidebar(event)
-        this.hideSubmenus()
-    }
-
-    public onGetLabel(id: string): string {
-        return this.messageMenuService.getDescription(this.feature, id)
-    }
-
-    public onLogout(): void {
-        this.accountService.logout()
-    }
-
-    public onOpenSidebar(): void {
-        document.getElementById('sidemenu').classList.add('open')
-    }
-
-    public onShowSubmenu(subMenu: string, spanId: string, event: { stopPropagation: () => void }): void {
-        document.getElementById('sidemenu').classList.add('open')
-        document.getElementById(subMenu).classList.toggle('show')
-        document.getElementById(spanId).classList.toggle('rotate')
-        event.stopPropagation()
-    }
-
-    //#endregion
-
     //#region private methods
 
-    private closeSidebar(event: Event): void {
-        event.stopPropagation()
-        document.getElementById('sidemenu').classList.remove('open')
+    private buildMenu(): void {
+        this.topItems = [
+            {
+                label: 'Home',
+                icon: 'pi pi-pw pi-home',
+                routerLink: ['/']
+            },
+            {
+                label: 'Passengers',
+                items: [
+                    { label: 'Embarkation', routerLink: '/boarding' },
+                    { label: 'Ship Manifest', routerLink: '/manifest' }
+                ]
+            },
+            {
+                label: 'Reservations',
+                items: [
+                    { label: 'Dashboard', routerLink: 'reservations' },
+                    { label: 'Invoicing', routerLink: 'invoicing' }
+                ]
+            },
+            {
+                label: 'Tables',
+                items: [
+                    { label: 'Customers', routerLink: 'customers' },
+                    { label: 'Destinations', routerLink: 'destinations' },
+                    { label: 'Drivers', routerLink: 'drivers' },
+                    { label: 'Genders', routerLink: 'genders' },
+                    { label: 'Pickup points', routerLink: 'pickupPoints' },
+                    { label: 'Ports', routerLink: 'ports' },
+                    { label: 'Routes', routerLink: 'routes' },
+                    { label: 'Schedules', routerLink: 'schedules' }
+                ]
+            },
+            {
+                label: 'Users',
+                icon: 'pi pi-pw pi-users',
+                routerLink: 'users'
+            },
+            {
+                label: 'Vessels',
+                icon: 'pi pi-pw pi-shield',
+                routerLink: ''
+            },
+        ]
+        this.bottomItems = [
+            {
+                label: 'Logout',
+                icon: 'pi pi-fw pi-power-off'
+            }
+
+        ]
     }
 
-    private hideSubmenus(): void {
-        Array.from(document.querySelectorAll('ul')).forEach((el) => el.classList.remove('show'))
-        Array.from(document.querySelectorAll('span.expander')).forEach((el) => el.classList.remove('rotate'))
+    private getLabel(id: string): string {
+        return this.messageMenuService.getDescription(this.feature, id)
     }
 
     private updateVariables(): void {
