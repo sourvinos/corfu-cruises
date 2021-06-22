@@ -17,7 +17,7 @@ import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animati
 @Component({
     selector: 'customer-list',
     templateUrl: './customer-list.component.html',
-    styleUrls: ['../../../../assets/styles/lists.css', '../../../../assets/styles/prime-table.css'],
+    styleUrls: ['../../../../assets/styles/lists.css', '../../../../assets/styles/prime-ng-table.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 

@@ -1,0 +1,94 @@
+.p-menubar {
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    padding: 0;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-submenu-icon {
+    color: var(--color-button-primary);
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-menu-items);
+    line-height: 1px;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover {
+    background-color: var(--color-menu-background-hover);
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
+    color: var(--color-text-primary);
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link, .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover {
+    background-color: var(--color-menu-background-hover);
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text, .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
+    color: var(--color-text-primary);
+}
+
+.p-menubar .p-submenu-list {
+    background-color: var(--color-menu-sub-list);
+    border-radius: 5px;
+    box-shadow: none;
+    padding: 0.5rem;
+}
+
+.p-menubar .p-menuitem.p-menuitem-active {
+    background-color: var(--color-menu-background-hover);
+}
+
+.p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link {
+    background-color: var(--color-menu-background-hover);
+}
+
+.p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link:first-child {
+    background-color: var(--color-menu-background-hover);
+}
+
+.p-menubar .p-menuitem-link .p-menuitem-text {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-menu-items);
+}
+
+.p-menubar .p-menuitem-link:not(.p-disabled):hover {
+    color: var(--color-text-primary);
+}
+
+.p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text {
+    color: var(--color-text-primary);
+}
+
+.p-hidden {
+    display: none !important;
+}
+
+.flag {
+    height: 16px !important;
+    width: 23px !important;
+}
+
+.flag.cs-CZ {
+    background: url('/assets/images/flags/cs-CZ.svg') center no-repeat !important;
+}
+
+.flag.de-DE {
+    background: url('/assets/images/flags/de-DE.svg') center no-repeat !important;
+}
+
+.flag.el-GR {
+    background: url('/assets/images/flags/el-GR.svg') center no-repeat !important;
+}
+
+.flag.en-GB {
+    background: url('/assets/images/flags/en-GB.svg') center no-repeat !important;
+}
+
+.flag.fr-FR {
+    background: url('/assets/images/flags/fr-FR.svg') center no-repeat !important;
+}

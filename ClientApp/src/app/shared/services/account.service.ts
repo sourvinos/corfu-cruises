@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { ConnectedUserService } from './connected-user.service'
 import { HelperService } from './helper.service'
+import { InteractionService } from './interaction.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -24,7 +25,7 @@ export class AccountService {
 
     //#endregion
 
-    constructor(private connectedUserService: ConnectedUserService, private helperService: HelperService, private httpClient: HttpClient, private router: Router, private userIdleService: UserIdleService) { }
+    constructor(private interactionService: InteractionService, private connectedUserService: ConnectedUserService, private helperService: HelperService, private httpClient: HttpClient, private router: Router, private userIdleService: UserIdleService) { }
 
     //#region public methods
 
@@ -42,6 +43,7 @@ export class AccountService {
                 if (response.response.token) {
                     this.setLoginStatus(true)
                     this.setLocalStorage(response)
+                    this.refreshMenus()
                 }
                 return <any>response
             })
@@ -55,6 +57,7 @@ export class AccountService {
             this.setLoginStatus(true)
             this.setLocalStorage(response)
             this.setUserData()
+            this.refreshMenus()
         }))
     }
 
@@ -62,6 +65,7 @@ export class AccountService {
         this.setLoginStatus(false)
         this.clearLocalStorage()
         this.resetTimer()
+        this.refreshMenus()
         this.navigateToLogin()
     }
 
@@ -117,6 +121,10 @@ export class AccountService {
 
     private navigateToLogin(): void {
         this.router.navigate(['/login'])
+    }
+
+    private refreshMenus(): void {
+        this.interactionService.mustRefreshMenus()
     }
 
     private resetTimer(): void {

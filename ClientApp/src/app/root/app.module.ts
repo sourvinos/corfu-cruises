@@ -49,7 +49,8 @@ import { UserMenuComponent } from '../shared/components/top-bar-wrapper/user-men
 
 // Utils
 import { DomChangeDirective } from '../shared/directives/dom-change.directive'
-import { JwtInterceptor } from '../shared/services/jwt.interceptor'
+import { JwtInterceptor } from '../shared/services/jwt.interceptor';
+import { TopMenuComponent } from '../shared/components/top-bar-wrapper/top-menu/top-menu.component'
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         ThemeMenuComponent,
         TopBarComponent,
         TopLogoComponent,
+        TopMenuComponent,
         UserMenuComponent,
     ],
     imports: [

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { MenuItem } from 'primeng/api'
+import { MenuItem } from 'primeng/api/menuitem'
 import { Observable } from 'rxjs'
 // Custom
 import { AccountService } from '../../../services/account.service'
@@ -80,14 +80,14 @@ export class SideMenuComponent {
             },
             {
                 label: 'Vessels',
-                icon: 'pi pi-pw pi-shield',
-                routerLink: ''
+                icon: 'pi pi-pw pi-shield'
             },
         ]
         this.bottomItems = [
             {
                 label: 'Logout',
-                icon: 'pi pi-fw pi-power-off'
+                icon: 'pi pi-fw pi-power-off',
+                command: (): void => this.accountService.logout()
             }
 
         ]

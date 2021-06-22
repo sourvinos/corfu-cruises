@@ -14,6 +14,7 @@ export class InteractionService {
     private _refreshBoardingList = new Subject<any>()
     private _tableRow = new Subject()
     private _calendarNavigation = new Subject<any>()
+    private _refreshMenus = new Subject<any>()
 
     public record = this._record.asObservable()
     public reservation = this._reservation.asObservable()
@@ -22,6 +23,7 @@ export class InteractionService {
     public refreshBoardingList = this._refreshBoardingList.asObservable()
     public tableRow = this._tableRow.asObservable()
     public calendarNavigation = this._calendarNavigation.asObservable()
+    public refreshMenus = this._refreshMenus.asObservable()
 
     //#endregion
 
@@ -108,7 +110,6 @@ export class InteractionService {
         this._tableRow.next(rowIndex)
     }
 
-
     /**
      * Caller(s):
      *  boarding-list.component.ts
@@ -136,6 +137,20 @@ export class InteractionService {
 
     public changeCalendarMonth(month: any): void {
         this._calendarNavigation.next(month)
+    }
+
+    /**
+     * Caller(s):
+     *  account.service.ts
+     * 
+     * Subscriber(s):
+     *  top-menu.component.ts
+     * 
+     * Description:
+     *  The caller tells the subscriber to show or hide menu elements
+     */
+    public mustRefreshMenus(): void {
+        this._refreshMenus.next()
     }
 
     //#endregion
