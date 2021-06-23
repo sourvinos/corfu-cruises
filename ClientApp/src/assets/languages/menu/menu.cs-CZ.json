@@ -1,6 +1,6 @@
 [
     {
-        "feature": "main-menu",
+        "feature": "menus",
         "labels": [
             {
                 "id": "home",
@@ -35,10 +35,6 @@
                 "description": "Tabulky"
             },
             {
-                "id": "users",
-                "description": "Uživatelé"
-            },
-            {
                 "id": "customers",
                 "description": "Zákazníci"
             },
@@ -71,32 +67,44 @@
                 "description": "Rozvrhy"
             },
             {
+                "id": "users",
+                "description": "Uživatelé"
+            },
+            {
                 "id": "vessels",
                 "description": "Lodě"
             },
             {
-                "id": "shipManagement",
+                "id": "vesselManagement",
                 "description": "(CZ) Management"
             },
             {
-                "id": "shipOwners",
+                "id": "vesselOwners",
                 "description": "(CZ) Owners"
             },
             {
-                "id": "registrars",
+                "id": "vesselRegistrars",
                 "description": "(CZ) Registrars"
             },
             {
-                "id": "shipRoutes",
+                "id": "vesselRoutes",
                 "description": "(CZ) Routes"
             },
             {
-                "id": "crews",
+                "id": "vesselCrews",
                 "description": "(CZ) Crews"
             },
             {
                 "id": "logout",
-                "description": "(CZ) Logout"
+                "description": "Odhlásit set"
+            },
+            {
+                "id": "myAccount",
+                "description": "Můj účet"
+            },
+            {
+                "id": "editAccount",
+                "description": "(CZ) Edit"
             }
         ]
     }

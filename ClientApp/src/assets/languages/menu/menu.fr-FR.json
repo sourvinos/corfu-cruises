@@ -1,6 +1,6 @@
 [
     {
-        "feature": "main-menu",
+        "feature": "menus",
         "labels": [
             {
                 "id": "home",
@@ -35,10 +35,6 @@
                 "description": "Tableaux"
             },
             {
-                "id": "users",
-                "description": "Utilisateurs"
-            },
-            {
                 "id": "customers",
                 "description": "Clients"
             },
@@ -71,32 +67,44 @@
                 "description": "Programmes"
             },
             {
+                "id": "users",
+                "description": "Utilisateurs"
+            },
+            {
                 "id": "vessels",
                 "description": "Bateaux"
             },
             {
-                "id": "shipManagement",
+                "id": "vesselManagement",
                 "description": "(FR) Management"
             },
             {
-                "id": "shipOwners",
+                "id": "vesselOwners",
                 "description": "(FR) Owners"
             },
             {
-                "id": "registrars",
+                "id": "vesselRegistrars",
                 "description": "(FR) Registrars"
             },
             {
-                "id": "shipRoutes",
+                "id": "vesselRoutes",
                 "description": "(FR) Routes"
             },
             {
-                "id": "crews",
+                "id": "vesselCrews",
                 "description": "(FR) Crews"
             },
             {
                 "id": "logout",
                 "description": "(FR) Logout"
+            },
+            {
+                "id": "myAccount",
+                "description": "Mon compte"
+            },
+            {
+                "id": "editAccount",
+                "description": "(FR) Edit"
             }
         ]
     }

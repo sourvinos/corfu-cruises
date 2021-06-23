@@ -84,6 +84,7 @@ export class HelperService {
         }, 500)
     }
 
+
     //#endregion
 
     //#region private methods

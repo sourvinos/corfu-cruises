@@ -11,16 +11,14 @@ export class MessageMenuService {
 
     //#endregion
 
-    constructor(private httpClient: HttpClient) {
-        this.getMessages()
-    }
+    constructor(private httpClient: HttpClient) { }
 
     //#region public methods
 
-    public getDescription(feature: string, id: string): string {
+    public getDescription(response: any[], feature: string, id: string): string {
         let returnValue = ''
-        if (this.messages.length > 0) {
-            this.messages.filter((f: { feature: string; labels: any[] }) => {
+        if (response.length > 0) {
+            response.filter((f: { feature: string; labels: any[] }) => {
                 if (f.feature === feature) {
                     f.labels.filter(l => {
                         if (l.id == id) {

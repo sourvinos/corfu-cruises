@@ -1,8 +1,10 @@
 import { Component } from '@angular/core'
 import { MenuItem } from 'primeng/api/menuitem'
-import { Observable } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 // Custom
 import { AccountService } from '../../../services/account.service'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { MessageMenuService } from '../../../services/messages-menu.service'
 
 @Component({
@@ -15,7 +17,7 @@ export class SideMenuComponent {
 
     //#region variables
 
-    private feature = 'main-menu'
+    private ngUnsubscribe = new Subject<void>()
     private userRole: Observable<string>
     public bottomItems: MenuItem[]
     public loginStatus: Observable<boolean>
@@ -23,12 +25,15 @@ export class SideMenuComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private messageMenuService: MessageMenuService) { }
+    constructor(private accountService: AccountService, private interactionService: InteractionService, private messageMenuService: MessageMenuService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.buildMenu()
+        this.messageMenuService.getMessages().then((response) => {
+            this.buildMenu(response)
+            this.subscribeToInteractionService()
+        })
     }
 
     ngDoCheck(): void {
@@ -39,53 +44,53 @@ export class SideMenuComponent {
 
     //#region private methods
 
-    private buildMenu(): void {
+    private buildMenu(menuItems: any[]): void {
         this.topItems = [
             {
-                label: 'Home',
+                label: this.getLabel(menuItems, 'home'),
                 icon: 'pi pi-pw pi-home',
                 routerLink: ['/']
             },
             {
-                label: 'Passengers',
+                label: this.getLabel(menuItems, 'passengers'),
                 items: [
-                    { label: 'Embarkation', routerLink: '/boarding' },
-                    { label: 'Ship Manifest', routerLink: '/manifest' }
+                    { label: this.getLabel(menuItems, 'embarkation'), routerLink: '/boarding' },
+                    { label: this.getLabel(menuItems, 'manifest'), routerLink: '/manifest' }
                 ]
             },
             {
-                label: 'Reservations',
+                label: this.getLabel(menuItems, 'reservations'),
                 items: [
-                    { label: 'Dashboard', routerLink: 'reservations' },
-                    { label: 'Invoicing', routerLink: 'invoicing' }
+                    { label: this.getLabel(menuItems, 'dashboard'), routerLink: 'reservations' },
+                    { label: this.getLabel(menuItems, 'invoicing'), routerLink: 'invoicing' }
                 ]
             },
             {
-                label: 'Tables',
+                label: this.getLabel(menuItems, 'tables'),
                 items: [
-                    { label: 'Customers', routerLink: 'customers' },
-                    { label: 'Destinations', routerLink: 'destinations' },
-                    { label: 'Drivers', routerLink: 'drivers' },
-                    { label: 'Genders', routerLink: 'genders' },
-                    { label: 'Pickup points', routerLink: 'pickupPoints' },
-                    { label: 'Ports', routerLink: 'ports' },
-                    { label: 'Routes', routerLink: 'routes' },
-                    { label: 'Schedules', routerLink: 'schedules' }
+                    { label: this.getLabel(menuItems, 'customers'), routerLink: 'customers' },
+                    { label: this.getLabel(menuItems, 'destinations'), routerLink: 'destinations' },
+                    { label: this.getLabel(menuItems, 'drivers'), routerLink: 'drivers' },
+                    { label: this.getLabel(menuItems, 'genders'), routerLink: 'genders' },
+                    { label: this.getLabel(menuItems, 'pickupPoints'), routerLink: 'pickupPoints' },
+                    { label: this.getLabel(menuItems, 'ports'), routerLink: 'ports' },
+                    { label: this.getLabel(menuItems, 'routes'), routerLink: 'routes' },
+                    { label: this.getLabel(menuItems, 'schedules'), routerLink: 'schedules' }
                 ]
             },
             {
-                label: 'Users',
+                label: this.getLabel(menuItems, 'users'),
                 icon: 'pi pi-pw pi-users',
                 routerLink: 'users'
             },
             {
-                label: 'Vessels',
+                label: this.getLabel(menuItems, 'vessels'),
                 icon: 'pi pi-pw pi-shield'
             },
         ]
         this.bottomItems = [
             {
-                label: 'Logout',
+                label: this.getLabel(menuItems,'logout'),
                 icon: 'pi pi-fw pi-power-off',
                 command: (): void => this.accountService.logout()
             }
@@ -93,8 +98,16 @@ export class SideMenuComponent {
         ]
     }
 
-    private getLabel(id: string): string {
-        return this.messageMenuService.getDescription(this.feature, id)
+    private getLabel(response: any[], label: string): string {
+        return this.messageMenuService.getDescription(response, 'menus', label)
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshMenus.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
+            this.messageMenuService.getMessages().then((response) => {
+                this.buildMenu(response)
+            })
+        })
     }
 
     private updateVariables(): void {

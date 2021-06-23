@@ -1,102 +1,110 @@
 [
     {
-        "feature": "main-menu",
+        "feature": "menus",
         "labels": [
             {
                 "id": "home",
-                "description": "Αρχικη"
+                "description": "Αρχική"
             },
             {
                 "id": "passengers",
-                "description": "Επιβατες"
+                "description": "Επιβάτες"
             },
             {
-                "id": "boarding",
-                "description": "Επιβιβαση"
+                "id": "embarkation" ,
+                "description": "Επιβίβαση"
             },
             {
                 "id": "manifest",
-                "description": "Κατασταση πλοιου"
+                "description": "Κατάσταση πλοίου"
             },
             {
                 "id": "reservations",
-                "description": "Κρατησεις"
+                "description": "Κρατήσεις"
             },
             {
                 "id": "dashboard",
-                "description": "Κεντρικος πινακας"
+                "description": "Κεντρικός πίνακας"
             },
             {
                 "id": "invoicing",
-                "description": "Τιμολογηση"
+                "description": "Τιμολόγηση"
             },
             {
                 "id": "tables",
-                "description": "Πινακες"
-            },
-            {
-                "id": "users",
-                "description": "Χρηστες"
+                "description": "Πίνακες"
             },
             {
                 "id": "customers",
-                "description": "Πελατες"
+                "description": "Πελάτες"
             },
             {
                 "id": "destinations",
-                "description": "Προορισμοι"
+                "description": "Προορισμοί"
             },
             {
                 "id": "drivers",
-                "description": "Οδηγοι"
+                "description": "Οδηγοί"
             },
             {
                 "id": "genders",
-                "description": "Φυλα"
+                "description": "Φύλα"
             },
             {
                 "id": "pickupPoints",
-                "description": "Σημεια παραλαβης"
+                "description": "Σημεία παραλαβής"
             },
             {
                 "id": "ports",
-                "description": "Λιμανια"
+                "description": "Λιμάνια"
             },
             {
                 "id": "routes",
-                "description": "Διαδρομες"
+                "description": "Διαδρομές"
             },
             {
                 "id": "schedules",
-                "description": "Προγραμμα"
+                "description": "Πρόγραμμα"
+            },
+            {
+                "id": "users",
+                "description": "Χρήστες"
             },
             {
                 "id": "vessels",
-                "description": "Πλοια"
+                "description": "Πλοία"
             },
             {
-                "id": "shipManagement",
-                "description": "Διαχειρηση"
+                "id": "vesselManagement",
+                "description": "Διαχείρηση"
             },
             {
-                "id": "shipOwners",
-                "description": "Πλοιοκτητες"
+                "id": "vesselOwners",
+                "description": "Πλοιοκτήτες"
             },
             {
-                "id": "registrars",
-                "description": "Καταγραφεις επιβατων"
+                "id": "vesselRegistrars",
+                "description": "Καταγραφείς επιβατών"
             },
             {
-                "id": "shipRoutes",
-                "description": "Διαδρομες"
+                "id": "vesselRoutes",
+                "description": "Διαδρομές"
             },
             {
-                "id": "crews",
-                "description": "Πληρωματα"
+                "id": "vesselCrews",
+                "description": "Πληρώματα"
             },
             {
                 "id": "logout",
-                "description": "Αποσυνδεση"
+                "description": "Αποσύνδεση"
+            },
+            {
+                "id": "myAccount",
+                "description": "Ο λογαριασμός μου"
+            },
+            {
+                "id": "editAccount",
+                "description": "Επεξεργασία"
             }
         ]
     }

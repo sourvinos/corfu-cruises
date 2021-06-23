@@ -35,46 +35,66 @@ export class TopMenuComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.buildMenu()
-        this.subscribeToInteractionService()
+        this.messageMenuService.getMessages().then((response) => {
+            this.buildMenu(response)
+            this.subscribeToInteractionService()
+        })
     }
 
     //#endregion
 
     //#region private methods
 
-    private buildMenu(): void {
+    private buildMenu(menuItems: any): void {
         this.menuItems = [
             {
-                label: 'Schedule',
+                label: this.getLabel(menuItems, 'schedules'),
                 icon: 'pi pi-fw pi-calendar',
                 routerLink: ['/schedules'],
                 visible: this.isUserLoggedIn()
             },
             {
-                label: 'My account',
-                icon: 'pi pi-fw pi-user',
-                visible: this.isUserLoggedIn(),
+                label: this.getLabel(menuItems, 'myAccount'),
+                icon: 'pi pi-fw pi-user', visible: this.isUserLoggedIn(),
                 items: [
                     {
-                        label: 'Edit',
+                        label: this.getLabel(menuItems, 'editAccount'),
                         command: (): void => { this.editUser() }
                     },
                     {
-                        label: 'Logout',
+                        label: this.getLabel(menuItems, 'logout'),
                         command: (): void => this.accountService.logout()
-                    }
-                ]
+                    }]
             },
             {
                 label: this.getLanguageLabel(),
                 icon: this.getLanguageIcon(),
                 items: [
-                    { label: 'Ελληνικά', icon: 'flag el-GR', command: (): string => this.doLanguageTasks('el-GR') },
-                    { label: 'English', icon: 'flag en-GB', command: (): string => this.doLanguageTasks('en-GB') },
-                    { label: 'Deutsch', icon: 'flag de-DE', command: (): string => this.doLanguageTasks('de-DE') },
-                    { label: 'Český', icon: 'flag cs-CZ', command: (): string => this.doLanguageTasks('cs-CZ') },
-                    { label: 'Française', icon: 'flag fr-FR', command: (): string => this.doLanguageTasks('fr-FR') },
+                    {
+                        label: 'Ελληνικά',
+                        icon: 'flag el-GR',
+                        command: (): string => this.doLanguageTasks('el-GR')
+                    },
+                    {
+                        label: 'English',
+                        icon: 'flag en-GB',
+                        command: (): string => this.doLanguageTasks('en-GB')
+                    },
+                    {
+                        label: 'Deutsch',
+                        icon: 'flag de-DE',
+                        command: (): string => this.doLanguageTasks('de-DE')
+                    },
+                    {
+                        label: 'Český',
+                        icon: 'flag cs-CZ',
+                        command: (): string => this.doLanguageTasks('cs-CZ')
+                    },
+                    {
+                        label: 'Française',
+                        icon: 'flag fr-FR',
+                        command: (): string => this.doLanguageTasks('fr-FR')
+                    },
                 ]
             }
         ]
@@ -84,7 +104,9 @@ export class TopMenuComponent {
         this.saveLanguage(language)
         this.loadMessages()
         this.updateDateAdapter()
-        this.buildMenu()
+        this.messageMenuService.getMessages().then((response) => {
+            this.buildMenu(response)
+        })
         return language
     }
 
@@ -113,6 +135,10 @@ export class TopMenuComponent {
         }
     }
 
+    private getLabel(response: any[], label: string): string {
+        return this.messageMenuService.getDescription(response, 'menus', label)
+    }
+
     private isUserLoggedIn(): boolean {
         let isLoggedIn = false
         this.accountService.isLoggedIn.subscribe(result => {
@@ -124,10 +150,11 @@ export class TopMenuComponent {
     private loadMessages(): void {
         this.messageCalendarService.getMessages()
         this.messageHintService.getMessages()
+        this.messageLabelService.getMessages()
         this.messageMenuService.getMessages()
         this.messageSnackbarService.getMessages()
         this.messageTableService.getMessages()
-        this.messageLabelService.getMessages()
+        this.interactionService.mustRefreshMenus()
     }
 
     private saveLanguage(language: string): void {
@@ -136,7 +163,9 @@ export class TopMenuComponent {
 
     private subscribeToInteractionService(): void {
         this.interactionService.refreshMenus.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
-            this.buildMenu()
+            this.messageMenuService.getMessages().then((response) => {
+                this.buildMenu(response)
+            })
         })
     }
 

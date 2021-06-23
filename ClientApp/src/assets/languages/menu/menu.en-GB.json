@@ -1,6 +1,6 @@
 [
     {
-        "feature": "main-menu",
+        "feature": "menus",
         "labels": [
             {
                 "id": "home",
@@ -11,7 +11,7 @@
                 "description": "Passengers"
             },
             {
-                "id": "boarding",
+                "id": "embarkation",
                 "description": "Embarkation"
             },
             {
@@ -24,7 +24,7 @@
             },
             {
                 "id": "dashboard",
-                "description": "Main panel"
+                "description": "Dashboard"
             },
             {
                 "id": "invoicing",
@@ -33,10 +33,6 @@
             {
                 "id": "tables",
                 "description": "Tables"
-            },
-            {
-                "id": "users",
-                "description": "Users"
             },
             {
                 "id": "customers",
@@ -71,27 +67,31 @@
                 "description": "Schedules"
             },
             {
+                "id": "users",
+                "description": "Users"
+            },
+            {
                 "id": "vessels",
                 "description": "Vessels"
             },
             {
-                "id": "shipManagement",
+                "id": "vesselManagement",
                 "description": "Management"
             },
             {
-                "id": "shipOwners",
+                "id": "vesselOwners",
                 "description": "Owners"
             },
             {
-                "id": "registrars",
+                "id": "vesselRegistrars",
                 "description": "Registrars"
             },
             {
-                "id": "shipRoutes",
+                "id": "vesselRoutes",
                 "description": "Routes"
             },
             {
-                "id": "crews",
+                "id": "vesselCrews",
                 "description": "Crews"
             },
             {
@@ -99,8 +99,12 @@
                 "description": "Logout"
             },
             {
-                "id": "logout",
-                "description": "Logout"
+                "id": "myAccount",
+                "description": "My account"
+            },
+            {
+                "id": "editAccount",
+                "description": "Edit"
             }
         ]
     }
