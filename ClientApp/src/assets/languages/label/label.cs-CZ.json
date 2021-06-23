@@ -1031,41 +1031,6 @@
         ]
     },
     {
-        "feature": "schedule-menu",
-        "labels": [
-            {
-                "id": "schedule",
-                "description": "Rozvrhy"
-            }
-        ]
-    },
-    {
-        "feature": "user-menu",
-        "labels": [
-            {
-                "id": "myAccount",
-                "description": "Můj účet"
-            },
-            {
-                "id": "logout",
-                "description": "Odhlásit set"
-            }
-        ]
-    },
-    {
-        "feature": "theme-menu",
-        "labels": [
-            {
-                "id": "light",
-                "description": "Světlo"
-            },
-            {
-                "id": "dark",
-                "description": "Temný"
-            }
-        ]
-    },
-    {
         "feature": "credits",
         "labels": [
             {

@@ -1031,41 +1031,6 @@
         ]
     },
     {
-        "feature": "schedule-menu",
-        "labels": [
-            {
-                "id": "schedule",
-                "description": "Προγραμμα"
-            }
-        ]
-    },
-    {
-        "feature": "user-menu",
-        "labels": [
-            {
-                "id": "myAccount",
-                "description": "Ο λογαριασμος μου"
-            },
-            {
-                "id": "logout",
-                "description": "Εξοδος"
-            }
-        ]
-    },
-    {
-        "feature": "theme-menu",
-        "labels": [
-            {
-                "id": "light",
-                "description": "Ανοιχτο"
-            },
-            {
-                "id": "dark",
-                "description": "Σκουρο"
-            }
-        ]
-    },
-    {
         "feature": "credits",
         "labels": [
             {

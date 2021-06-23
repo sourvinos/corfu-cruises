@@ -1031,41 +1031,6 @@
         ]
     },
     {
-        "feature": "schedule-menu",
-        "labels": [
-            {
-                "id": "schedule",
-                "description": "Zeitplan"
-            }
-        ]
-    },
-    {
-        "feature": "user-menu",
-        "labels": [
-            {
-                "id": "myAccount",
-                "description": "(DE) My account"
-            },
-            {
-                "id": "logout",
-                "description": "(DE) Logout"
-            }
-        ]
-    },
-    {
-        "feature": "theme-menu",
-        "labels": [
-            {
-                "id": "light",
-                "description": "Licht"
-            },
-            {
-                "id": "dark",
-                "description": "Dunkel"
-            }
-        ]
-    },
-    {
         "feature": "credits",
         "labels": [
             {

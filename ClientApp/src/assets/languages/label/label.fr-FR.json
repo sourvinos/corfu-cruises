@@ -1031,41 +1031,6 @@
         ]
     },
     {
-        "feature": "schedule-menu",
-        "labels": [
-            {
-                "id": "schedule",
-                "description": "Programme"
-            }
-        ]
-    },
-    {
-        "feature": "user-menu",
-        "labels": [
-            {
-                "id": "myAccount",
-                "description": "Mon compte"
-            },
-            {
-                "id": "logout",
-                "description": "Quitter"
-            }
-        ]
-    },
-    {
-        "feature": "theme-menu",
-        "labels": [
-            {
-                "id": "light",
-                "description": "Ouvert"
-            },
-            {
-                "id": "dark",
-                "description": "Fonce"
-            }
-        ]
-    },
-    {
         "feature": "credits",
         "labels": [
             {

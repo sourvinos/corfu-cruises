@@ -38,14 +38,11 @@ import { AppComponent } from './app.component'
 import { CreditsComponent } from '../features/credits/user-interface/credits.component'
 import { EmptyPageComponent } from '../shared/components/empty-page/empty-page.component'
 import { HomeComponent } from '../features/home/home.component'
-import { LanguageMenuComponent } from '../shared/components/top-bar-wrapper/language-menu/language-menu.component'
-import { ScheduleMenuComponent } from '../shared/components/top-bar-wrapper/schedule-menu/schedule-menu.component'
 import { SideBarComponent } from '../shared/components/side-bar-wrapper/side-bar/side-bar.component'
 import { SideMenuComponent } from '../shared/components/side-bar-wrapper/side-menu/side-menu.component'
 import { ThemeMenuComponent } from '../shared/components/top-bar-wrapper/theme-menu/theme-menu.component'
 import { TopBarComponent } from '../shared/components/top-bar-wrapper/top-bar/top-bar.component'
 import { TopLogoComponent } from '../shared/components/top-bar-wrapper/logo/top-logo.component'
-import { UserMenuComponent } from '../shared/components/top-bar-wrapper/user-menu/user-menu.component'
 
 // Utils
 import { DomChangeDirective } from '../shared/directives/dom-change.directive'
@@ -60,15 +57,12 @@ import { TopMenuComponent } from '../shared/components/top-bar-wrapper/top-menu/
         DomChangeDirective,
         EmptyPageComponent,
         HomeComponent,
-        LanguageMenuComponent,
-        ScheduleMenuComponent,
         SideBarComponent,
         SideMenuComponent,
         ThemeMenuComponent,
         TopBarComponent,
         TopLogoComponent,
-        TopMenuComponent,
-        UserMenuComponent,
+        TopMenuComponent
     ],
     imports: [
         AccountModule,
