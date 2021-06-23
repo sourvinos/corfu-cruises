@@ -45,10 +45,10 @@ export class CustomerListComponent {
     @ViewChild('table') table: Table | undefined
 
     columns = [
-        { field: 'id', header: 'Id', width: '0%' },
-        { field: 'description', header: 'headerName', width: '40%' },
-        { field: 'phones', header: 'headerPhones', width: '30%' },
-        { field: 'email', header: 'headerEmail', width: '30%' }
+        { field: 'id', header: 'headerId', width: '0.01%' },
+        { field: 'description', header: 'headerName', width: '60%' },
+        { field: 'phones', header: 'headerPhones', width: '20%' },
+        { field: 'email', header: 'headerEmail', width: '20%' }
     ];
 
     //#endregion
@@ -74,7 +74,7 @@ export class CustomerListComponent {
 
     //#region public methods
 
-    public onApplyFilter($event: any, stringVal: any): void {
+    public onFilter($event: any, stringVal: any): void {
         this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
         this.updateStorageWithFilter()
     }

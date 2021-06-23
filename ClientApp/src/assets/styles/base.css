@@ -25,6 +25,8 @@
 @import "summaries.css";
 @import "table-wrapper.css";
 @import "tabs.css";
+@import "variables-narrow.css";
+@import "variables-wide.css";
 @import "variables.css";
 
 /*  */
@@ -79,7 +81,6 @@ p.instructions {
 .mat-menu-item {
     color: var(--color-button-text) !important;
     display: flex !important;
-    font-variant-caps: petite-caps !important;
     height: 2.75rem;
     justify-content: flex-start !important;
     margin-left: 0 !important;

@@ -11,6 +11,5 @@
     display: flex;
     font-family: var(--font-family-master);
     font-size: var(--font-size-snackbar);
-    font-variant-caps: all-petite-caps;
     font-weight: var(--font-weight-snackbar);
 }

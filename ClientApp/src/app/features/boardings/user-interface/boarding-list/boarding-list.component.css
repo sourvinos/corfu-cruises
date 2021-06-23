@@ -41,8 +41,6 @@
 .label {
     color: var(--color-text-primary);
     font-family: var(--font-family-master);
-    /* font-size: 100%; */
-    font-variant-caps: petite-caps;
 }
 
 .filter {
@@ -95,7 +93,7 @@
 
 .field-value {
     color: var(--color-text-primary);
-    font-family: var(--font-family-table);
+    font-family: var(--font-family-table-header);
     margin-left: 0.5rem;
     overflow: hidden;
     text-overflow: ellipsis;

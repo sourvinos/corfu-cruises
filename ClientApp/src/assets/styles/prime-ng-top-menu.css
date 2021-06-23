@@ -1,6 +1,5 @@
 .p-menubar {
-    background: rgba(0, 0, 0, 0.02);
-    border-radius: 10px;
+    background: transparent;
     border: none;
     display: flex;
     padding: 0;
@@ -41,6 +40,7 @@
 
 .p-menubar .p-menuitem.p-menuitem-active {
     background-color: var(--color-menu-background-hover);
+    border-radius: 5px;
 }
 
 .p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link {

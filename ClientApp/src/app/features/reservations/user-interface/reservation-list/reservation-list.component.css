@@ -73,7 +73,6 @@
     border-radius: 0;
     color: var(--color-text-primary) !important;
     font-size: var(--font-size-panel-buttons) !important;
-    font-variant-caps: petite-caps;
 }
 
 #reservationFormModal {
@@ -111,7 +110,6 @@
 .selection .label {
     color: var(--color-text-primary);
     font-size: var(--font-size-sum-persons);
-    font-variant-caps: petite-caps;
     font-weight: var(--font-weight-sum-persons);
     margin: 0 0.5rem 0 0.5rem;
 }

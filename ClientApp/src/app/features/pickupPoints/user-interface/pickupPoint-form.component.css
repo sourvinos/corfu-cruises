@@ -6,7 +6,6 @@
     border-radius: 0;
     color: var(--color-text-primary) !important;
     font-size: var(--font-size-panel-buttons) !important;
-    font-variant-caps: petite-caps;
 }
 
 #form {

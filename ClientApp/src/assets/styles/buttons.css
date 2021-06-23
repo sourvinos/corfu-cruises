@@ -14,7 +14,6 @@ button {
 button.primary {
     background-color: var(--color-button-primary) !important;
     color: var(--color-button-text) !important;
-    font-variant-caps: petite-caps;
 }
 
 button.primary:hover {
@@ -24,25 +23,21 @@ button.primary:hover {
 button.secondary {
     background-color: var(--color-button-secondary) !important;
     color: var(--color-button-text) !important;
-    font-variant-caps: petite-caps;
 }
 
 button.delete {
     background-color: var(--color-button-delete) !important;
     color: var(--color-button-text) !important;
-    font-variant-caps: petite-caps;
 }
 
 button.transparent {
     background-color: rgba(0, 0, 0, 0.001) !important;
     color: var(--color-text-primary) !important;
-    font-variant-caps: petite-caps;
 }
 
 button.transparent.inverted {
     background-color: rgba(0, 0, 0, 0.001) !important;
     color: var(--color-button-text) !important;
-    font-variant-caps: petite-caps;
 }
 
 button.transparent:hover {

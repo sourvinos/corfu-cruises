@@ -48,7 +48,6 @@ li {
 
 .month {
     font-family: var(--font-family-master);
-    font-variant-caps: petite-caps;
 }
 
 .first-day {
@@ -61,7 +60,6 @@ li {
     color: var(--color-text-primary);
     display: flex;
     font-family: var(--font-family-master);
-    font-variant-caps: petite-caps;
     height: fit-content;
     justify-content: center;
     padding: 0.5rem;

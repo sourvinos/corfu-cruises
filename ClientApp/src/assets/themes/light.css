@@ -34,9 +34,10 @@
     --color-logo-primary: #fe9f36;
     --color-logo-secondary: #ffe85c;
     /* Menu */
-    --color-menu-background-hover: #6390ab;
+    --color-menu-background-hover: #6390ab4d;
     --color-menu-background: #627789;
-    --color-menu-sub-items: #072d31;
+    --color-menu-sub-items: #38a2b6;
+    --color-menu-sub-list: #e3e3e3;
     /* Maps */
     --color-map-buttons-background: #426176;
     --color-map-buttons: #ebe5cd;
@@ -64,7 +65,7 @@
     --color-summary-total: #e6ba8a;
     /* Tables */
     --color-table-column-seperator: #767475;
-    --color-table-header: #6277891a;
+    --color-table-header: #e3e3e3;
     --color-table-invoice-customerdescription: #fe9f36;
     --color-table-row-focus-outline: #ffe85c;
     --color-table-row-highlight: #cce8f9;

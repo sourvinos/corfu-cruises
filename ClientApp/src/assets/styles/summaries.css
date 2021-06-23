@@ -65,7 +65,6 @@
     color: var(--color-text-primary) !important;
     display: flex;
     font-family: var(--font-family-master) !important;
-    font-variant-caps: petite-caps !important;
     font-weight: var(--font-weight-summary-header) !important;
     width: 100%;
 }

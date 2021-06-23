@@ -2,7 +2,6 @@
     background-color: var(--color-common-background-secondary);
     color: var(--color-text-primary);
     font-family: var(--font-family-master);
-    font-variant-caps: petite-caps;
     font-weight: var(--font-weight-header);
 }
 

@@ -20,11 +20,11 @@
             },
             {
                 "id": "forgotPasswordButton",
-                "description": "Zapomněl jsem heslo"
+                "description": "ZAPOMNĚL JSEM HESLO"
             },
             {
                 "id": "loginButton",
-                "description": "Přihlásit se"
+                "description": "PŘIHLÁSIT SE"
             }
         ]
     },
@@ -41,7 +41,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Vyhledat podle názvu"
+                "description": "Globální vyhledávání"
             },
             {
                 "id": "newButton",

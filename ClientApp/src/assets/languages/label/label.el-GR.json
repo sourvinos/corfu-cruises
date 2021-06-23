@@ -4,7 +4,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Εισοδος"
+                "description": "Σύνδεση"
             },
             {
                 "id": "usernameLabel",
@@ -20,11 +20,11 @@
             },
             {
                 "id": "forgotPasswordButton",
-                "description": "Ξεχασα τον κωδικο μου"
+                "description": "ΞΕΧΑΣΑ ΤΟΝ ΚΩΔΙΚΟ ΜΟΥ"
             },
             {
                 "id": "loginButton",
-                "description": "Συνεχεια"
+                "description": "ΣΥΝΔΕΣΗ"
             }
         ]
     },
@@ -33,27 +33,31 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πελατες"
+                "description": "Πελάτες"
             },
             {
                 "id": "searchLabel",
-                "description": "Αναζητηση"
+                "description": "Αναζήτηση"
             },
             {
                 "id": "searchHint",
-                "description": "Με βαση την επωνυμια"
+                "description": "Με βαση οτιδήποτε"
             },
             {
                 "id": "newButton",
-                "description": "Νεος"
+                "description": "ΝΕΟΣ"
+            },
+            {
+                "id": "headerId",
+                "description": "Id"
             },
             {
                 "id": "headerName",
-                "description": "Επωνυμια"
+                "description": "Επωνυμία"
             },
             {
                 "id": "headerPhones",
-                "description": "Τηλεφωνα"
+                "description": "Τηλέφωνα"
             },
             {
                 "id": "headerEmail",

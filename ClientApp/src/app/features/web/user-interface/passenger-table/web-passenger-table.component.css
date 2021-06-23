@@ -15,7 +15,6 @@ th {
     border-right: 0.125rem solid var(--color-common-background-secondary);
     color: var(--color-text-primary);
     font-family: var(--font-family-master);
-    font-variant-caps: petite-caps;
     font-weight: var(--font-weight-table-header);
     padding: 0.625rem 0 0.5625rem 0;
     position: sticky;
@@ -76,10 +75,6 @@ td {
 
 .button-row-menu .mat-icon {
     color: var(--color-text-primary) !important;
-}
-
-span {
-    font-variant-caps: petite-caps;
 }
 
 #image {

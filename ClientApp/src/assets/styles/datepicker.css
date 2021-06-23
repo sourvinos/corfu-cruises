@@ -16,7 +16,7 @@
 
 .mat-calendar-controls .mat-button .mat-button-wrapper {
     color: var(--color-datepicker-month);
-    font-family: var(--font-family-table);
+    font-family: var(--font-family-table-header);
     font-size: var(--font-size-datepicker-header-month);
 }
 
@@ -52,7 +52,7 @@
 .mat-calendar-body-cell-content {
     color: var(--color-button-text);
     flex-direction: column;
-    font-family: var(--font-family-table);
+    font-family: var(--font-family-table-header);
     font-size: var(--font-size-calendar-date);
 }
 

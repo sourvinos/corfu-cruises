@@ -20,11 +20,11 @@
             },
             {
                 "id": "forgotPasswordButton",
-                "description": "I forgot my password"
+                "description": "I FORGOT MY PASSWORD"
             },
             {
                 "id": "loginButton",
-                "description": "Continue"
+                "description": "LOGIN"
             }
         ]
     },
@@ -41,7 +41,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Search by name"
+                "description": "Global search"
             },
             {
                 "id": "newButton",

@@ -20,11 +20,11 @@
             },
             {
                 "id": "forgotPasswordButton",
-                "description": "J'ai oublie mon mot de passe"
+                "description": "J'AI OUBLIE MON MOT DE PASSE"
             },
             {
                 "id": "loginButton",
-                "description": "Connexion"
+                "description": "CONNEXION"
             }
         ]
     },
@@ -41,7 +41,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Base sur le nom de compagnie"
+                "description": "Recherche globale"
             },
             {
                 "id": "newButton",

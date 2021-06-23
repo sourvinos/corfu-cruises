@@ -20,11 +20,11 @@
             },
             {
                 "id": "forgotPasswordButton",
-                "description": "(DE) I forgot my password"
+                "description": "(DE) I FORGOT MY PASSWORD"
             },
             {
                 "id": "loginButton",
-                "description": "(DE) Login"
+                "description": "(DE) LOGIN"
             }
         ]
     },
@@ -41,7 +41,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by name"
+                "description": "(DE) Global search"
             },
             {
                 "id": "newButton",

@@ -6,16 +6,15 @@
         </div>
         <div id="search-box">
             <mat-form-field class="no-bottom-margin">
-                <mat-label>Search</mat-label>
-                <input type="text" matInput id="searchTerm" [(ngModel)]="searchTerm" (input)="onApplyFilter($event, 'contains')">
+                <input data-cy="searchTerm" type="text" matInput [placeholder]="onGetLabel('searchLabel')" [(ngModel)]="searchTerm" id="searchTerm" #query (input)="onFilter($event, 'contains')" autocomplete="off">
                 <mat-icon matSuffix>search</mat-icon>
-                <mat-hint>Global search</mat-hint>
+                <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
             </mat-form-field>
         </div>
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="true" [(selection)]="selectedRecord" [columns]="columns" [globalFilterFields]="['description','phones','email']" [resizableColumns]="true" [scrollable]="true" [value]="filteredRecords" columnResizeMode="expand" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateStorage="local" stateKey="customer-list">
+        <p-table #table [autoLayout]="false" [(selection)]="selectedRecord" [columns]="columns" [globalFilterFields]="['description','phones','email']" [resizableColumns]="true" [scrollable]="true" [value]="filteredRecords" columnResizeMode="expand" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateStorage="local" stateKey="customer-list">
             <ng-template pTemplate="colgroup" let-columns>
                 <colgroup>
                     <col *ngFor="let col of columns" [style.width]="col.width">
@@ -23,7 +22,7 @@
             </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field">
+                    <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field" [style.width]="col.width">
                         {{ onGetLabel(col.header) }}
                         <p-sortIcon [field]="col.field"></p-sortIcon>
                     </th>

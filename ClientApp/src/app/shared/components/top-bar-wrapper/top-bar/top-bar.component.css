@@ -3,7 +3,7 @@
     display: grid;
     grid-template-areas: "left right";
     grid-template-columns: 1fr auto;
-    padding: 0.5rem 2.4rem 0.5rem 10.625rem;
+    padding: 0.5rem 2rem 0.5rem 2rem;
 }
 
 #left {
