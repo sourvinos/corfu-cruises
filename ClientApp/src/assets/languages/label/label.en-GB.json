@@ -45,7 +45,7 @@
             },
             {
                 "id": "newButton",
-                "description": "New"
+                "description": "NEW"
             },
             {
                 "id": "headerName",
@@ -98,11 +98,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "DELETE"
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },

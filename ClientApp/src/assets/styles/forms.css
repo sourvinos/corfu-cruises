@@ -5,13 +5,16 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    margin-left: 10.6rem;
     overflow: hidden;
+    padding: 0 1rem 0 1rem;
     transition: background-color var(--change-theme-delay) ease;
 }
 
 #header {
+    align-items: center;
     display: flex;
-    margin: 2rem;
+    margin: 2rem 4rem 1rem 1rem;
 }
 
 #header #navigation {
@@ -46,7 +49,9 @@
 }
 
 #footer {
-    margin: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 4rem 2rem 1rem;
 }
 
 #footer #buttons {
@@ -54,6 +59,7 @@
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
+    margin-left: auto;
 }
 
 #group-field {

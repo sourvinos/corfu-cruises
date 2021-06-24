@@ -69,7 +69,7 @@ button.goBack {
 }
 
 button.mat-mini-fab {
-    background-color: var(--color-button-primary) !important;
+    background-color: transparent !important;
     color: var(--color-button-text) !important;
     margin: 0 !important;
     outline: 0 !important;
@@ -106,5 +106,5 @@ button:not(:disabled) {
 }
 
 .mat-icon {
-    color: var(--color-text-primary) !important;
+    color: var(--color-button-icon) !important;
 }

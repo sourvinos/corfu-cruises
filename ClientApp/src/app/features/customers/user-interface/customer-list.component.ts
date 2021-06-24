@@ -45,10 +45,10 @@ export class CustomerListComponent {
     @ViewChild('table') table: Table | undefined
 
     columns = [
-        { field: 'id', header: 'headerId', width: '0.01%' },
-        { field: 'description', header: 'headerName', width: '60%' },
-        { field: 'phones', header: 'headerPhones', width: '20%' },
-        { field: 'email', header: 'headerEmail', width: '20%' }
+        { field: 'id', header: 'headerId', width: '0.01%', display: 'none' },
+        { field: 'description', header: 'headerName', width: '50%', display: 'revert' },
+        { field: 'phones', header: 'headerPhones', width: '25%', display: 'revert' },
+        { field: 'email', header: 'headerEmail', width: '25%', display: 'revert' }
     ];
 
     //#endregion

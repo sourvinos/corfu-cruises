@@ -70,27 +70,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πελατης"
+                "description": "Πελάτης"
             },
             {
                 "id": "description",
-                "description": "Επωνυμια"
+                "description": "Επωνυμία"
             },
             {
                 "id": "profession",
-                "description": "Δραστηριοτητα"
+                "description": "Δραστηριότητα"
             },
             {
                 "id": "address",
-                "description": "Διευθυνση"
+                "description": "Διεύθυνση"
             },
             {
                 "id": "phones",
-                "description": "Τηλεφωνα"
+                "description": "Τηλέφωνα"
             },
             {
                 "id": "personInCharge",
-                "description": "Υπευθυνος επικοινωνιας"
+                "description": "Υπεύθυνος επικοινωνίας"
             },
             {
                 "id": "email",
@@ -98,15 +98,15 @@
             },
             {
                 "id": "isActive",
-                "description": "Ενεργος"
+                "description": "Ενεργός"
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },

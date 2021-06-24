@@ -2,6 +2,7 @@
     --color-border-item-active: #f2d492;
     --color-border-item-inactive: #576971;
     --color-button-delete: #f28482;
+    --color-button-icon: #ededed;
     --color-button-primary-hover: #226c7b;
     --color-button-primary: #6ba2ad;
     --color-button-secondary: #426176;
@@ -27,7 +28,7 @@
     --color-menu-background: #657171;
     --color-menu-sub-items-background: #a6d5fa0f;
     --color-menu-sub-items: #c0f3c4;
-    --color-menu-text-hover:#ffffff;
+    --color-menu-text-hover: #ffffff;
     --color-scrollbar: #fe9f36;
     --color-search-box: #767475;
     --color-selected-tab: #ffe85c;

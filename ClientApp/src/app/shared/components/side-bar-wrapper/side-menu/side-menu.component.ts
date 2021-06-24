@@ -91,7 +91,7 @@ export class SideMenuComponent {
         this.bottomItems = [
             {
                 label: this.getLabel(menuItems, 'logout'),
-                icon: 'pi pi-fw pi-power-off',
+                icon: 'fas fa-power-off',
                 command: (): void => this.accountService.logout()
             }
 

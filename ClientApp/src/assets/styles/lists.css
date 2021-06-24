@@ -1,10 +1,11 @@
 #list {
+    background: url("../../assets/images/background/background.svg") no-repeat center;
     background-color: var(--color-common-background);
     background-size: cover;
     display: flex;
     flex-direction: column;
     height: 100%;
-    margin-left: 10rem;
+    margin-left: 10.6rem;
     overflow: hidden;
     padding: 0 1rem 1rem 1rem;
     transition: background-color var(--change-theme-delay) ease;

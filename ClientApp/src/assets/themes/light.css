@@ -2,6 +2,7 @@
     --color-border-item-active: #426f8a;
     --color-border-item-inactive: #d5dee2;
     --color-button-delete: #f28482;
+    --color-button-icon: #227c9d;
     --color-button-primary-hover: #3c5565;
     --color-button-primary: #227c9d;
     --color-button-secondary: #eaa558;
@@ -23,7 +24,7 @@
     --color-map-buttons: #ebe5cd;
     --color-map-tooltip-background: #22333b;
     --color-map-tooltip-color: #efefef;
-    --color-menu-background-hover: #c0ffea;
+    --color-menu-background-hover: #c0faff;
     --color-menu-background: #caebff;
     --color-menu-sub-items-background: #00000008;
     --color-menu-sub-items: #44a3a9;

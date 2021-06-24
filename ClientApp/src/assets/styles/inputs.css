@@ -100,7 +100,6 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 
 .mat-form-field-wrapper .mat-form-field-subscript-wrapper div .mat-hint {
     color: var(--color-text-primary);
-    font-family: var(--font-family-master);
     font-size: var(--font-size-input-hint) !important;
     font-weight: var(--font-weight-mat-hint);
 }
