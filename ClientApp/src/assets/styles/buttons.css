@@ -8,7 +8,7 @@ button {
     min-width: 0 !important;
     outline: 0 !important;
     padding-top: 0.0625rem !important;
-    transition: background-color 0.5s;
+    transition: background-color var(--change-component-delay) ease;
 }
 
 button.primary {
@@ -47,12 +47,12 @@ button.transparent:hover {
 }
 
 button.tab {
-    background-color: var(--color-common-background-secondary) !important;
+    background-color: var(--color-common-background) !important;
     padding-bottom: 5px;
 }
 
 button.tab > span.mat-button-wrapper {
-    border-bottom: 1px solid var(--color-common-background-secondary);
+    border-bottom: 1px solid var(--color-common-background);
 }
 
 button.tab:first-child {

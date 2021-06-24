@@ -1,23 +1,8 @@
 #top-bar {
-    background-color: transparent;
-    display: grid;
-    grid-template-areas: "left right";
-    grid-template-columns: 1fr auto;
-    padding: 0.5rem 2rem 0.5rem 2rem;
-}
-
-#left {
     align-items: center;
+    background-color: var(--color-common-background);
     display: flex;
-    grid-area: left;
-    margin-right: auto;
+    justify-content: space-between;
+    padding: 1rem 5rem 0.3rem 5rem;
+    transition: background-color var(--change-theme-delay) ease;
 }
-
-#right {
-    align-items: center;
-    display: flex;
-    grid-area: right;
-    justify-content: flex-end;
-    align-items: center;
-}
-

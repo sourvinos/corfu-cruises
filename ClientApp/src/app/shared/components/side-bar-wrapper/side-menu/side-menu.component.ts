@@ -48,7 +48,7 @@ export class SideMenuComponent {
         this.topItems = [
             {
                 label: this.getLabel(menuItems, 'home'),
-                icon: 'pi pi-pw pi-home',
+                icon: 'fas fa-home',
                 routerLink: ['/']
             },
             {
@@ -80,17 +80,17 @@ export class SideMenuComponent {
             },
             {
                 label: this.getLabel(menuItems, 'users'),
-                icon: 'pi pi-pw pi-users',
+                icon: 'fas fa-users',
                 routerLink: 'users'
             },
             {
                 label: this.getLabel(menuItems, 'vessels'),
-                icon: 'pi pi-pw pi-shield'
+                icon: 'fas fa-ship'
             },
         ]
         this.bottomItems = [
             {
-                label: this.getLabel(menuItems,'logout'),
+                label: this.getLabel(menuItems, 'logout'),
                 icon: 'pi pi-fw pi-power-off',
                 command: (): void => this.accountService.logout()
             }

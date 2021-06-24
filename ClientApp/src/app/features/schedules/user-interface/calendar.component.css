@@ -32,7 +32,7 @@ h2 {
 }
 
 ol {
-    background-color: var(--color-common-background-secondary);
+    background-color: var(--color-common-background);
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: 38px;

@@ -1,24 +1,25 @@
 #wrapper {
-    background-color: var(--color-common-background-secondary);
+    background-color: var(--color-common-background);
     display: flex;
     height: 100%;
-    transition: background-color 0.7s;
+    transition: background-color var(--change-theme-delay) ease;
     width: 100vw;
 }
 
 #main {
-    background-color: var(--color-common-background-secondary);
+    background-color: var(--color-common-background);
     display: flex;
     flex-direction: column;
     overflow: hidden;
     width: 100%;
+    transition: background-color var(--change-theme-delay) ease;
 }
 
 #content {
     flex: 1;
     justify-content: center;
     overflow-y: hidden;
-    transition: background-color 0.7s;
+    transition: background-color var(--change-theme-delay) ease;
 }
 
 #spinner {

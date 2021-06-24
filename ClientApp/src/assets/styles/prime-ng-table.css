@@ -1,7 +1,6 @@
 .p-datatable table {
     border-spacing: 0;
     flex: 1;
-    transition: background-color 0.7s;
     width: inherit !important;
 }
 
@@ -15,13 +14,14 @@
     font-weight: var(--font-weight-table-header) !important;
     padding: 0.5rem !important;
     text-align: center !important;
-    transition: background-color 0.7s !important;
+    transition: background-color var(--change-theme-delay) ease, color var(--change-theme-delay) ease;
 }
 
 .p-datatable .p-datatable-tbody > tr {
-    background-color: var(--color-common-background-secondary) !important;
+    background-color: var(--color-common-background) !important;
     border: none !important;
-    outline-color: var(--color-common-background-secondary) !important;
+    outline-color: var(--color-common-background) !important;
+    transition: background-color var(--change-theme-delay) ease;
 }
 
 .p-datatable .p-datatable-tbody > tr:focus-visible {
@@ -39,6 +39,7 @@
     padding: 0.5rem !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
+    transition: color var(--change-theme-delay) ease;
 }
 
 .p-datatable .p-datatable-tbody > tr.p-highlight > td {

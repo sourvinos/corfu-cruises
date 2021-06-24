@@ -24,7 +24,6 @@
 
 #loading-message {
     color: #355070;
-    font-family: var(--font-family-logo);
     font-size: var(--font-size-loading-message);
     margin-top: 0.5rem !important;
 }

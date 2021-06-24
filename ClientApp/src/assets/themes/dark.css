@@ -1,82 +1,57 @@
 :root {
-    /* Sidebar */
-    --color-gradient-top: #767475;
-    --color-gradient-bottom: #000000;
-    /* Headers */
-    --color-headers: #ffc78a;
-    /* border of clickable items */
     --color-border-item-active: #f2d492;
     --color-border-item-inactive: #576971;
-    /* buttons */
     --color-button-delete: #f28482;
     --color-button-primary-hover: #226c7b;
     --color-button-primary: #6ba2ad;
     --color-button-secondary: #426176;
     --color-button-text: #ededed;
-    /* calendar legend */
     --color-calendar-legend: #efefef;
-    /* checkboxes */
     --color-checkbox-checked: #55828b;
     --color-checkbox-indeterminate: #185258;
-    /* common */
-    --color-common-background-primary: #072d31;
-    --color-common-background-secondary: #4c565a;
-    --color-common-sidenav: #657171;
-    /* credits */
+    --color-common-background: #4c565a;
     --color-credit-about: #efefef;
     --color-credit-hover: #545454;
     --color-credit-title: #fe9f36;
     --color-credit-url: #ffe85c;
-    /* datepicker */
     --color-datepicker-days: #ededed;
     --color-datepicker-month: #ffe85c;
-    /* Logo */
+    --color-headers: #ffc78a;
     --color-logo-primary: #fe9f36;
     --color-logo-secondary: #ffe85c;
-    /* Menu */
-    --color-menu-background-hover: #6390ab4a;
-    --color-menu-background: #072d31;
-    --color-menu-sub-items: #c0f3c4;
-    --color-menu-sub-list: #5d6569;
-    /* Maps */
     --color-map-buttons-background: #426176;
     --color-map-buttons: #ebe5cd;
     --color-map-tooltip-background: #22333b;
     --color-map-tooltip-color: #efefef;
-    /* Scroll bars */
+    --color-menu-background-hover: #6390ab4a;
+    --color-menu-background: #657171;
+    --color-menu-sub-items-background: #a6d5fa0f;
+    --color-menu-sub-items: #c0f3c4;
+    --color-menu-text-hover:#ffffff;
     --color-scrollbar: #fe9f36;
-    /* Selected tabs */
+    --color-search-box: #767475;
     --color-selected-tab: #ffe85c;
-    /* Sliders */
     --color-slider-bar-active: #6d7273;
     --color-slider-bar-inactive: #a2a6a7;
     --color-slider-thumb-active: #6a7f82;
     --color-slider-thumb-inactive: #a2a6a7;
-    /* Snackbars */
     --color-snackbar-error: #920402;
     --color-snackbar-info: #76a28d;
-    /* Spinner */
     --color-spinner-inner: #ffe85c;
     --color-spinner-outer: #fe9f36;
     --color-spinner: #fe9f36;
-    /* Summaries */
     --color-summary-background: #97aaaf21;
     --color-summary-header: #e6ba8a;
     --color-summary-total: #e6ba8a;
-    /* Tables */
     --color-table-column-seperator: #767475;
     --color-table-header: #525d61;
     --color-table-invoice-customerdescription: #fe9f36;
     --color-table-row-focus-outline: #ffe85c;
     --color-table-row-highlight: #7c8084;
     --color-table-sort-icon: #ffe85c;
-    /* Text */
     --color-text-primary: #efefef;
     --color-text-secondary: #f2d492;
     --color-text-selected: #f2d49266;
-    /* Tooltip */
     --color-tooltip-background: #fe9f36;
     --color-tooltip: #072d31;
-    /* Search box */
-    --color-search-box: #767475;
 }

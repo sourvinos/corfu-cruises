@@ -7,13 +7,13 @@ table {
     border-spacing: 0;
     flex: 1;
     /* table-layout: fixed; */
-    transition: background-color 0.7s;
+    transition: background-color var(--change-theme-delay) ease;
     width: 100%;
 }
 
 thead tr {
     background-color: var(--color-table-header);
-    border-right: 0.125rem solid var(--color-common-background-secondary);
+    border-right: 0.125rem solid var(--color-common-background);
     color: var(--color-text-primary);
     font-family: var(--font-family-table-header);
     line-height: 22px;
@@ -21,7 +21,7 @@ thead tr {
     position: sticky;
     text-align: center;
     top: 0;
-    transition: background-color 0.7s;
+    transition: background-color var(--change-theme-delay) ease;
     z-index: 1;
 }
 
@@ -30,7 +30,7 @@ th {
 }
 
 th:hover {
-    background-color: var(--color-common-background-secondary);
+    background-color: var(--color-common-background);
     cursor: pointer;
 }
 

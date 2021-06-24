@@ -1,6 +1,6 @@
 .mat-select-panel {
-    background-color: var(--color-common-background-secondary) !important;
-    border: 0.0625rem solid var(--color-common-background-primary) !important;
+    background-color: var(--color-common-background) !important;
+    border: 0.0625rem solid var(--color-common-background) !important;
 }
 
 .mat-option:hover:not(.mat-option-disabled), .mat-option:focus:not(.mat-option-disabled) {
@@ -20,7 +20,7 @@
 }
 
 .mat-select-panel::-webkit-scrollbar-track {
-    background-color: var(--color-common-background-secondary);
+    background-color: var(--color-common-background);
     margin-top: 0.0625rem;
 }
 

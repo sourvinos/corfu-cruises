@@ -3,12 +3,12 @@
 }
 
 .mat-dialog-container {
-    background-color: var(--color-common-background-secondary) !important;
+    background-color: var(--color-common-background) !important;
     padding: 2rem !important;
 }
 
 #dialog {
-    background-color: var(--color-common-background-secondary) !important;
+    background-color: var(--color-common-background) !important;
     display: flex;
     flex-direction: column;
     height: 100%;

@@ -38,16 +38,16 @@ import { AppComponent } from './app.component'
 import { CreditsComponent } from '../features/credits/user-interface/credits.component'
 import { EmptyPageComponent } from '../shared/components/empty-page/empty-page.component'
 import { HomeComponent } from '../features/home/home.component'
+import { LogoComponent } from '../shared/components/top-bar-wrapper/logo/logo.component'
 import { SideBarComponent } from '../shared/components/side-bar-wrapper/side-bar/side-bar.component'
 import { SideMenuComponent } from '../shared/components/side-bar-wrapper/side-menu/side-menu.component'
 import { ThemeMenuComponent } from '../shared/components/top-bar-wrapper/theme-menu/theme-menu.component'
 import { TopBarComponent } from '../shared/components/top-bar-wrapper/top-bar/top-bar.component'
-import { TopLogoComponent } from '../shared/components/top-bar-wrapper/logo/top-logo.component'
+import { TopMenuComponent } from '../shared/components/top-bar-wrapper/top-menu/top-menu.component'
 
 // Utils
 import { DomChangeDirective } from '../shared/directives/dom-change.directive'
 import { JwtInterceptor } from '../shared/services/jwt.interceptor';
-import { TopMenuComponent } from '../shared/components/top-bar-wrapper/top-menu/top-menu.component'
 
 
 @NgModule({
@@ -57,12 +57,12 @@ import { TopMenuComponent } from '../shared/components/top-bar-wrapper/top-menu/
         DomChangeDirective,
         EmptyPageComponent,
         HomeComponent,
+        LogoComponent,
         SideBarComponent,
         SideMenuComponent,
         ThemeMenuComponent,
         TopBarComponent,
-        TopLogoComponent,
-        TopMenuComponent
+        TopMenuComponent,
     ],
     imports: [
         AccountModule,

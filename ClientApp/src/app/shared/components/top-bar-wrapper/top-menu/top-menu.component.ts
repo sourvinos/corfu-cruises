@@ -49,13 +49,13 @@ export class TopMenuComponent {
         this.menuItems = [
             {
                 label: this.getLabel(menuItems, 'schedules'),
-                icon: 'pi pi-fw pi-calendar',
+                icon: 'fas fa-calendar',
                 routerLink: ['/schedules'],
                 visible: this.isUserLoggedIn()
             },
             {
                 label: this.getLabel(menuItems, 'myAccount'),
-                icon: 'pi pi-fw pi-user', visible: this.isUserLoggedIn(),
+                icon: 'fas fa-user-alt', visible: this.isUserLoggedIn(),
                 items: [
                     {
                         label: this.getLabel(menuItems, 'editAccount'),

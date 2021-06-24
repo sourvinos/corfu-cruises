@@ -10,10 +10,14 @@
     --font-weight-dialog-content: 300 !important;
     --font-weight-header: 300 !important;
     --font-weight-input-label: 300 !important;
+    --font-weight-logo: 400;
     --font-weight-mat-hint: 300;
     --font-weight-snackbar: 300;
     --font-weight-sum-persons: 300;
     --font-weight-summary-header: 300;
     --font-weight-table-header: 300 !important;
     --font-weight-tooltip: 700;
+    /* Delay */
+    --change-theme-delay: 1s;
+    --change-component-delay: 0.2s
 }

@@ -25,13 +25,13 @@
 }
 
 .mat-sidenav {
-    background-color: var(--color-common-sidenav);
+    background-color: var(--color-menu-background);
     padding: 1rem;
     width: 230px;
 }
 
 .mat-sidenav-content {
-    background-color: var(--color-common-background-secondary);
+    background-color: var(--color-common-background);
     display: flex;
     justify-content: flex-start;
 }

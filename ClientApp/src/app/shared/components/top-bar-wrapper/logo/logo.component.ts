@@ -3,12 +3,12 @@ import { DeviceDetectorService } from 'ngx-device-detector'
 import { HelperService } from 'src/app/shared/services/helper.service'
 
 @Component({
-    selector: 'top-logo',
-    templateUrl: './top-logo.component.html',
-    styleUrls: ['./top-logo.component.css']
+    selector: 'logo',
+    templateUrl: './logo.component.html',
+    styleUrls: ['./logo.component.css']
 })
 
-export class TopLogoComponent {
+export class LogoComponent {
 
     //#region variables
 

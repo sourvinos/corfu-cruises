@@ -1,5 +1,5 @@
 .mat-tab-label {
-    background-color: var(--color-common-background-secondary);
+    background-color: var(--color-common-background);
     color: var(--color-text-primary);
     font-family: var(--font-family-master);
     font-weight: var(--font-weight-header);
@@ -25,7 +25,7 @@
 }
 
 .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
-    background-color: var(--color-common-background-secondary) !important;
+    background-color: var(--color-common-background) !important;
 }
 
 .mat-tab-header {

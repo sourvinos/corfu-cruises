@@ -14,7 +14,7 @@
     font-weight: 300;
     margin-right: 1rem;
     padding: 1rem;
-    transition: background-color 0.2s ease;
+    transition: background-color var(--change-component-delay) ease;
     width: 80%;
 }
 
@@ -38,5 +38,5 @@
 }
 
 .content.scrollable::-webkit-scrollbar-thumb, #content.scrollable::-webkit-scrollbar-thumb {
-    border-top: 0 solid var(--color-common-background-secondary) !important;
+    border-top: 0 solid var(--color-common-background) !important;
 }

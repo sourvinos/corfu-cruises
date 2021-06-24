@@ -30,7 +30,7 @@
     column-gap: 0.5rem;
     display: grid;
     grid-template-columns: repeat(6, minmax(0px, 1fr));
-    transition: background-color 0.7s;
+    transition: background-color var(--change-theme-delay) ease;
 }
 
 #listFormCombo {
@@ -40,7 +40,7 @@
     height: 100%;
     justify-content: flex-start;
     overflow: hidden;
-    transition: background-color 0.7s;
+    transition: background-color var(--change-theme-delay) ease;
 }
 
 #footer {
@@ -62,11 +62,11 @@
     flex-direction: column;
     height: 100%;
     width: 100%;
-    transition: background-color 1.7s;
+    transition: background-color var(--change-theme-delay) ease;
 }
 
 #reservationList .scrollable::-webkit-scrollbar-thumb {
-    border-top: 41px solid var(--color-common-background-secondary) !important;
+    border-top: 41px solid var(--color-common-background) !important;
 }
 
 #panelButtons button {

@@ -23,6 +23,6 @@
         --font-size-tab-label: 100%;
         --font-size-table-header: 110%; /* OK */
         --font-size-table-row: 100%; /* OK */
-        --font-size-top-logo: 220%; /* OK */
+        --font-size-logo: 220%; /* OK */
     }
 }

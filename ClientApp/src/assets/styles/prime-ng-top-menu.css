@@ -1,73 +1,3 @@
-.p-menubar {
-    background: transparent;
-    border: none;
-    display: flex;
-    padding: 0;
-}
-
-.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-submenu-icon {
-    color: var(--color-button-primary);
-}
-
-.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
-    color: var(--color-text-primary);
-    font-size: var(--font-size-menu-items);
-    line-height: 1px;
-}
-
-.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover {
-    background-color: var(--color-menu-background-hover);
-}
-
-.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
-    color: var(--color-text-primary);
-}
-
-.p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link, .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover {
-    background-color: var(--color-menu-background-hover);
-}
-
-.p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text, .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
-    color: var(--color-text-primary);
-}
-
-.p-menubar .p-submenu-list {
-    background-color: var(--color-menu-sub-list);
-    border-radius: 5px;
-    box-shadow: none;
-    padding: 0.5rem;
-}
-
-.p-menubar .p-menuitem.p-menuitem-active {
-    background-color: var(--color-menu-background-hover);
-    border-radius: 5px;
-}
-
-.p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link {
-    background-color: var(--color-menu-background-hover);
-}
-
-.p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link:first-child {
-    background-color: var(--color-menu-background-hover);
-}
-
-.p-menubar .p-menuitem-link .p-menuitem-text {
-    color: var(--color-text-primary);
-    font-size: var(--font-size-menu-items);
-}
-
-.p-menubar .p-menuitem-link:not(.p-disabled):hover {
-    color: var(--color-text-primary);
-}
-
-.p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text {
-    color: var(--color-text-primary);
-}
-
-.p-hidden {
-    display: none !important;
-}
-
 .flag {
     height: 16px !important;
     width: 23px !important;
@@ -91,4 +21,74 @@
 
 .flag.fr-FR {
     background: url('/assets/images/flags/fr-FR.svg') center no-repeat !important;
+}
+
+.p-hidden {
+    display: none !important;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-menu-items);
+    line-height: 1px;
+    transition: color var(--change-component-delay) ease;
+}
+
+.p-menubar .p-menuitem-link .p-menuitem-icon {
+    color: var(--color-button-primary) !important;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
+    color: var(--color-text-primary);
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover {
+    background-color: var(--color-menu-background-hover);
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text, .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
+    color: var(--color-text-primary);
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link, .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover {
+    background-color: var(--color-menu-background-hover);
+}
+
+.p-menubar .p-menuitem-link .p-menuitem-text {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-menu-items);
+}
+
+.p-menubar .p-menuitem-link:not(.p-disabled):hover {
+    color: var(--color-text-primary);
+}
+
+.p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text {
+    color: var(--color-menu-text-hover);
+}
+
+.p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text {
+    color: var(--color-text-primary);
+}
+
+.p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link {
+    background-color: var(--color-menu-background-hover);
+}
+
+.p-menubar .p-menuitem.p-menuitem-active {
+    background-color: var(--color-menu-background-hover);
+    border-radius: 5px;
+}
+
+.p-menubar .p-submenu-list {
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: none;
+    padding: 0.5rem;
+}
+
+.p-menubar {
+    background: transparent;
+    border: none;
+    display: flex;
+    padding: 0;
 }

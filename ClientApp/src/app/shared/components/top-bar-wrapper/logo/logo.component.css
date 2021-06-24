@@ -1,15 +1,14 @@
-#top-logo {
+#logo {
     cursor: pointer;
     display: flex;
     font-family: var(--font-family-logo);
+    font-size: var(--font-size-logo) !important;
+    font-weight: var(--font-weight-logo);
     outline: 0;
-    padding: 0.25rem 1rem 0 0;
 }
 
 span:nth-child(1) {
     color: var(--color-logo-primary) !important;
-    font-size: var(--font-size-top-logo) !important;
-    font-weight: bold;
 }
 
 span:nth-child(2) {
@@ -18,6 +17,4 @@ span:nth-child(2) {
 
 span:nth-child(3) {
     color: var(--color-logo-secondary) !important;
-    font-size: var(--font-size-top-logo) !important;
-    font-weight: bold;
 }
