@@ -79,13 +79,19 @@ export class SideMenuComponent {
                 ]
             },
             {
+                label: this.getLabel(menuItems, 'vessels'),
+                items: [
+                    { label: this.getLabel(menuItems, 'vesselManagement'), routerLink: 'ships' },
+                    { label: this.getLabel(menuItems, 'vesselCrews'), routerLink: 'shipCrews' },
+                    { label: this.getLabel(menuItems, 'vesselOwners'), routerLink: 'shipOwners' },
+                    { label: this.getLabel(menuItems, 'vesselRegistrars'), routerLink: 'shipRegistrars' },
+                    { label: this.getLabel(menuItems, 'vesselRoutes'), routerLink: 'shipRoutes' },
+                ]
+            },
+            {
                 label: this.getLabel(menuItems, 'users'),
                 icon: 'fas fa-users',
                 routerLink: 'users'
-            },
-            {
-                label: this.getLabel(menuItems, 'vessels'),
-                icon: 'fas fa-ship'
             },
         ]
         this.bottomItems = [
