@@ -8,7 +8,7 @@ button {
     min-width: 0 !important;
     outline: 0 !important;
     padding-top: 0.0625rem !important;
-    transition: background-color var(--change-component-delay) ease;
+    transition: background-color var(--change-component-theme-on-hover) ease;
 }
 
 button.primary {
@@ -43,7 +43,6 @@ button.transparent.inverted {
 button.transparent:hover {
     background-color: var(--color-button-primary) !important;
     color: var(--color-button-text) !important;
-    transition-duration: 500ms;
 }
 
 button.tab {

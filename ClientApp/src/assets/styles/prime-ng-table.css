@@ -12,7 +12,7 @@
     font-family: var(--font-family-table-header) !important;
     font-size: var(--font-size-table-header) !important;
     font-weight: var(--font-weight-table-header) !important;
-    padding: 0.5rem !important;
+    padding: 5px !important;
     text-align: center !important;
     transition: background-color var(--change-theme-delay) ease, color var(--change-theme-delay) ease;
 }

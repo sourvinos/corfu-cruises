@@ -4,8 +4,10 @@
         --font-size-button: 110%; /* OK */
         --font-size-calendar-date: 100%;
         --font-size-calendar-legend-items: 100%;
+        --font-size-checkbox: 100%;
         --font-size-datepicker-days: 0.9vw;
         --font-size-datepicker-header-month: 2.2vw;
+        --font-size-dialog: 100%;
         --font-size-header: 250%; /* OK */
         --font-size-input-height: 100%;
         --font-size-input-hint: 110%;
@@ -14,6 +16,7 @@
         --font-size-loading-message: 1.4375rem;
         --font-size-logo-loader-first-child: 6rem;
         --font-size-logo-loader-second-child: 3rem;
+        --font-size-logo: 220%; /* OK */
         --font-size-menu-items: 110%; /* OK */
         --font-size-panel-buttons: 100%;
         --font-size-paragraph: 0.7rem;
@@ -23,6 +26,5 @@
         --font-size-tab-label: 100%;
         --font-size-table-header: 110%; /* OK */
         --font-size-table-row: 100%; /* OK */
-        --font-size-logo: 220%; /* OK */
     }
 }

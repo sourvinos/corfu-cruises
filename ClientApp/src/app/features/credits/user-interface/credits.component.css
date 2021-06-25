@@ -14,7 +14,7 @@
     font-weight: 300;
     margin-right: 1rem;
     padding: 1rem;
-    transition: background-color var(--change-component-delay) ease;
+    transition: background-color var(--change-component-theme-on-hover) ease;
     width: 80%;
 }
 

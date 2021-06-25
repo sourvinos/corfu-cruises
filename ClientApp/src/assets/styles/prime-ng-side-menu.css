@@ -14,7 +14,7 @@
 .p-panelmenu .p-menuitem-text {
     color: var(--color-text-primary) !important;
     font-size: var(--font-size-menu-items) !important;
-    transition: color var(--change-component-delay) ease;
+    transition: color var(--change-component-theme-on-hover) ease;
 }
 
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-menuitem-text {
@@ -86,5 +86,6 @@
 .p-panelmenu .p-submenu-list {
     background-color: var(--color-menu-sub-items-background) !important;
     border-radius: 5px;
-    margin: 2px 0 2px 1rem !important;
+    margin: 2px 0 2px 0 !important;
+    padding: 3px;
 }

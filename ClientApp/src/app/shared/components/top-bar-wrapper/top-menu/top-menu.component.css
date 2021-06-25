@@ -1,8 +1,9 @@
 #topmenu {
-    background: rgba(0, 0, 0, 0.05);
+    background: var(--color-menu-background);
     border-radius: 5px;
     border: none;
     display: flex;
     display: flex;
     padding: 0;
+    transition: background-color var(--change-theme-delay) ease;
 }

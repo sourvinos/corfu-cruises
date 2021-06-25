@@ -7,7 +7,7 @@
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "importHelpers": true,
-        "resolveJsonModule": true, 
+        "resolveJsonModule": true,
         "lib": [
             "es2018",
             "dom"
@@ -17,9 +17,7 @@
         "outDir": "./dist/out-tsc",
         "sourceMap": true,
         "target": "es2015",
-        "types": [
-            "cypress"
-        ],
+        "types": [],
         "typeRoots": [
             "node_modules/@types"
         ],

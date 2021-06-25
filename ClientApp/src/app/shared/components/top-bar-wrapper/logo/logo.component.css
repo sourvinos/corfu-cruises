@@ -9,6 +9,7 @@
 
 span:nth-child(1) {
     color: var(--color-logo-primary) !important;
+    transition: color var(--change-theme-delay) ease;
 }
 
 span:nth-child(2) {
@@ -17,4 +18,5 @@ span:nth-child(2) {
 
 span:nth-child(3) {
     color: var(--color-logo-secondary) !important;
+    transition: color var(--change-theme-delay) ease;
 }

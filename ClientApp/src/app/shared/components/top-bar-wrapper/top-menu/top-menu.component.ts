@@ -59,10 +59,12 @@ export class TopMenuComponent {
                 items: [
                     {
                         label: this.getLabel(menuItems, 'editAccount'),
+                        icon:'fas fa-pen-alt',
                         command: (): void => { this.editUser() }
                     },
                     {
                         label: this.getLabel(menuItems, 'logout'),
+                        icon: 'fas fa-power-off',
                         command: (): void => this.accountService.logout()
                     }]
             },

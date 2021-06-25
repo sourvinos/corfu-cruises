@@ -18,7 +18,7 @@
 #dialog-header {
     align-items: center;
     display: flex;
-    padding-bottom: 2rem;
+    padding-bottom: 1.5rem;
 }
 
 #dialog-header #navigation {
@@ -29,6 +29,7 @@
     color: var(--color-text-primary);
     flex: 1;
     font-family: var(--font-family-master) !important;
+    font-size: var(--font-size-dialog) !important;
     font-weight: var(--font-weight-dialog-content) !important;
     line-height: 2rem;
 }

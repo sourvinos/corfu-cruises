@@ -31,7 +31,7 @@
     color: var(--color-text-primary);
     font-size: var(--font-size-menu-items);
     line-height: 1px;
-    transition: color var(--change-component-delay) ease;
+    transition: color var(--change-component-theme-on-hover) ease;
 }
 
 .p-menubar .p-menuitem-link .p-menuitem-icon {
@@ -81,7 +81,8 @@
 }
 
 .p-menubar .p-submenu-list {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--color-menu-background);
+    border-radius: 5px;
     box-shadow: none;
     padding: 0.5rem;
 }

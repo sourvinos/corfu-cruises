@@ -33,6 +33,5 @@
         { "id": "isOverbooking", "message": "Cette réservation créera une surréservation de passagers" },
         { "id": "wrongPassengerCount", "message": "Le nombre de passagers ne correspond pas au nombre total de personnes" },
         { "id": "emptyEmail", "message": "L' adresse e-mail ne peut pas être vide" },
-        { "id": "emptyEmail", "message": "L'option n'est pas disponible" }
-    ]
+      ]
 }]

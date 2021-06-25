@@ -8,15 +8,15 @@
             },
             {
                 "id": "usernameLabel",
-                "description": "Χρηστης"
+                "description": "Χρήστης"
             },
             {
                 "id": "passwordLabel",
-                "description": "Κωδικος"
+                "description": "Κωδικός"
             },
             {
                 "id": "noRobotCheckbox",
-                "description": "Δεν Ειμαι Ρομποτ"
+                "description": "Δεν είμαι ρομπότ"
             },
             {
                 "id": "forgotPasswordButton",
@@ -41,7 +41,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Με βαση οτιδήποτε"
+                "description": "Με βάση οτιδήποτε"
             },
             {
                 "id": "newButton",
@@ -53,15 +53,15 @@
             },
             {
                 "id": "headerName",
-                "description": "Επωνυμία"
+                "description": "ΕΠΩΝΥΜΙΑ"
             },
             {
                 "id": "headerPhones",
-                "description": "Τηλέφωνα"
+                "description": "ΤΗΛΕΦΩΝΑ"
             },
             {
                 "id": "headerEmail",
-                "description": "Email"
+                "description": "EMAIL"
             }
         ]
     },
@@ -899,7 +899,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Σημαντικό:"
+                "description": "Επιβεβαίωση"
             },
             {
                 "id": "okButton",
@@ -907,7 +907,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Ακυρο"
+                "description": "ΑΚΥΡΟ"
             }
         ]
     },
