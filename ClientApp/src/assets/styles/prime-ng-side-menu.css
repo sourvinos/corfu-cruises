@@ -56,6 +56,10 @@
     margin-top: auto;
 }
 
+.p-panelmenu .p-panelmenu-panel {
+    box-shadow: none;
+}
+
 .p-panelmenu {
     flex-direction: column !important;
     height: 100% !important;
