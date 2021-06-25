@@ -66,7 +66,7 @@ namespace CorfuCruises {
 
         public static void AddInterfaces(IServiceCollection services) {
             services.AddScoped<Token>();
-            services.AddTransient<IBoardingRepository, BoardingRepository>();
+            services.AddTransient<IEmbarkationRepository, EmbarkationRepository>();
             services.AddTransient<ICrewRepository, CrewRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IRegistrarRepository, RegistrarRepository>();

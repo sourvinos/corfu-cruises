@@ -15,7 +15,7 @@ export class ManifestListResolver {
     resolve(route: ActivatedRouteSnapshot): Observable<ManifestListResolved> {
         return this.manifestService.get(route.params.date, route.params.shipId, route.params.portId)
             .pipe(
-                map((boardingList) => new ManifestListResolved(boardingList)),
+                map((embarkationList) => new ManifestListResolved(embarkationList)),
                 catchError((err: any) => of(new ManifestListResolved(null, err)))
             )
     }

@@ -1,0 +1,241 @@
+:host zxing-scanner::ng-deep video {
+    max-height: 50vh;
+    object-fit: contain;
+}
+
+:host zxing-scanner::ng-deep {
+    border-style: solid;
+    border-color: #5d78ff;
+}
+
+:host {
+    width: 100%;
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--color-common-background);
+}
+
+#results {
+    width: 100%;
+}
+
+.mat-drawer-container {
+    height: 100%;
+}
+
+.mat-drawer-content {
+    background-color: var(--color-common-background);
+    padding-right: 0.3125rem;
+}
+
+.mat-sidenav {
+    background-color: var(--color-menu-background);
+    padding: 1rem;
+    width: 230px;
+}
+
+.label {
+    color: var(--color-text-primary);
+    font-family: var(--font-family-master);
+}
+
+.filter {
+    margin-top: 1rem;
+}
+
+#clientFilters {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.filterContent {
+    margin: 1rem 0 0 1rem;
+}
+
+.filterContent .item {
+    border-left: 5px solid var(--color-border-item-inactive);
+    color: var(--color-text-primary);
+    display: flex;
+    font-family: var(--font-family-master);
+    /* font-size: 100%; */
+    justify-content: space-between;
+    line-height: 1.8rem;
+    margin-bottom: 0.2rem;
+    padding: 0.125rem 0.5rem 0.125rem 1rem;
+}
+
+.filterContent .item:hover {
+    color: var(--color-text-secondary);
+    cursor: pointer;
+}
+
+#hideClientFilters {
+    margin-left: 0 !important;
+    width: 100%;
+}
+
+.buttons {
+    margin-top: auto;
+}
+
+.record {
+    display: flex;
+    flex-basis: content;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.field-value {
+    color: var(--color-text-primary);
+    font-family: var(--font-family-table-header);
+    margin-left: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.field {
+    display: flex;
+}
+
+
+/* Reservation */
+
+.reservation {
+    align-items: center;
+    background-color: var(--color-summary-background);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.reservation .ticket {
+    max-width: 15% !important;
+    min-width: 15% !important;
+}
+
+.reservation .driver {
+    width: 25% !important;
+}
+
+.reservation .customer {
+    width: 25%;
+}
+
+.reservation .total-persons {
+    min-width: 10%;
+}
+
+.reservation .pending-persons {
+    min-width: 10%;
+}
+
+.reservation .spacer {
+    flex-grow: 1;
+    text-align: end;
+}
+
+.reservation .remarks img {
+    margin-left: auto;
+}
+
+
+/* Passenger */
+
+.passengers {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+}
+
+.passenger {
+    align-items: center;
+    display: flex;
+    margin: 0;
+}
+
+.passenger .isCheckedIn {
+    max-width: 5%;
+    min-width: 5%;
+}
+
+.passenger .lastname {
+    max-width: 30%;
+    min-width: 30%;
+}
+
+.passenger .firstname {
+    max-width: 20%;
+    min-width: 20%;
+}
+
+.passenger .board-passenger {
+    justify-content: flex-end;
+    width: 100%;
+}
+
+#scanCloseButton {
+    left: 83.3%;
+    position: absolute;
+    top: 22px;
+}
+
+#no-results {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+}
+
+#no-results img {
+    width: 10rem;
+}
+
+img.toggleEmbarkationButton {
+    padding: 0;
+}
+
+
+/* Footer */
+
+#footer {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    margin-top: 2rem;
+}
+
+#footer .totals {
+    align-items: center;
+    display: flex;
+    font-family: var(--font-family-master);
+    /* font-size: var(--font-size-table-row); */
+    justify-content: flex-end;
+    margin: 0 1rem 0 auto;
+}
+
+#footer .totals img {
+    margin: 0.7rem;
+}
+
+#footer .totals .sum {
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-sum-persons);
+}
+
+#video {
+    background-color: #000000;
+    display: none;
+    padding: 1rem;
+    position: fixed;
+    z-index: 1;
+}

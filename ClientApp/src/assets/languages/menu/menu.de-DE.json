@@ -11,7 +11,7 @@
                 "description": "Schiffspassagiere"
             },
             {
-                "id": "boarding",
+                "id": "embarkation",
                 "description": "Einschiffung"
             },
             {

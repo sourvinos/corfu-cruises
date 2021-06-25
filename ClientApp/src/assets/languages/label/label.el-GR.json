@@ -1357,7 +1357,7 @@
         ]
     },
     {
-        "feature": "boardingWrapper",
+        "feature": "embarkationWrapper",
         "labels": [
             {
                 "id": "header",
@@ -1394,7 +1394,7 @@
         ]
     },
     {
-        "feature": "boardingList",
+        "feature": "embarkationList",
         "labels": [
             {
                 "id": "searchLabel",
@@ -1405,7 +1405,7 @@
                 "description": "Με βαση το εισιτηριο"
             },
             {
-                "id": "boardingStatus",
+                "id": "embarkationtatus",
                 "description": "Κατασταση επιβιβασης"
             },
             {

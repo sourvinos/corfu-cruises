@@ -11,7 +11,7 @@ export class InteractionService {
     private _reservation = new Subject<string[]>()
     private _checked = new Subject<number>()
     private _refreshReservationList = new Subject<any>()
-    private _refreshBoardingList = new Subject<any>()
+    private _refreshEmbarkationList = new Subject<any>()
     private _tableRow = new Subject()
     private _calendarNavigation = new Subject<any>()
     private _refreshMenus = new Subject<any>()
@@ -20,7 +20,7 @@ export class InteractionService {
     public reservation = this._reservation.asObservable()
     public checked = this._checked.asObservable()
     public refreshReservationList = this._refreshReservationList.asObservable()
-    public refreshBoardingList = this._refreshBoardingList.asObservable()
+    public refreshEmbarkationList = this._refreshEmbarkationList.asObservable()
     public tableRow = this._tableRow.asObservable()
     public calendarNavigation = this._calendarNavigation.asObservable()
     public refreshMenus = this._refreshMenus.asObservable()
@@ -112,16 +112,16 @@ export class InteractionService {
 
     /**
      * Caller(s):
-     *  boarding-list.component.ts
+     *  embarkation-list.component.ts
      * 
      * Subscriber(s):
-     *  boarding-wrapper.component.ts
+     *  embarkation-wrapper.component.ts
      * 
      * Description:
-     *  The caller tells the subscriber to refresh the passenger totals after each boarding is saved
+     *  The caller tells the subscriber to refresh the passenger totals after each embarkation is saved
      */
-    public mustRefreshBoardingList(): void {
-        this._refreshBoardingList.next()
+    public mustRefreshEmbarkationList(): void {
+        this._refreshEmbarkationList.next()
     }
 
     /**

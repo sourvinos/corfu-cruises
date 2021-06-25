@@ -9,7 +9,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling'
 
 // Modules
 import { AccountModule } from '../features/account/classes/account.module'
-import { BoardingModule } from '../features/boardings/classes/modules/boarding.module'
+import { EmbarkationModule } from '../features/embarkation/classes/modules/embarkation.module'
 import { CrewModule } from '../features/ships/crews/classes/crew.module'
 import { CustomerModule } from '../features/customers/classes/customer.module'
 import { DestinationModule } from '../features/destinations/classes/destination.module'
@@ -67,7 +67,7 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor';
     imports: [
         AccountModule,
         AppRoutingModule,
-        BoardingModule,
+        EmbarkationModule,
         BrowserAnimationsModule,
         BrowserModule,
         CrewModule,

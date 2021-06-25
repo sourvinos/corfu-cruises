@@ -14,7 +14,7 @@ import { AuthGuardService } from '../shared/services/auth-guard.service'
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuardService], pathMatch: 'full' },
     { path: 'account', loadChildren: (): any => import('../features/account/classes/account.module').then(m => m.AccountModule) },
-    { path: 'boarding', loadChildren: (): any => import('../features/boardings/classes/modules/boarding.module').then(m => m.BoardingModule) },
+    { path: 'embarkation', loadChildren: (): any => import('../features/embarkation/classes/modules/embarkation.module').then(m => m.EmbarkationModule) },
     { path: 'customers', loadChildren: (): any => import('../features/customers/classes/customer.module').then(m => m.CustomerModule) },
     { path: 'destinations', loadChildren: (): any => import('../features/destinations/classes/destination.module').then(m => m.DestinationModule) },
     { path: 'drivers', loadChildren: (): any => import('../features/drivers/classes/driver.module').then(m => m.DriverModule) },

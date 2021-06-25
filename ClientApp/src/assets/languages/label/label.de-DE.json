@@ -1353,7 +1353,7 @@
         ]
     },
     {
-        "feature": "boardingWrapper",
+        "feature": "embarkationWrapper",
         "labels": [
             {
                 "id": "header",
@@ -1390,7 +1390,7 @@
         ]
     },
     {
-        "feature": "boardingList",
+        "feature": "embarkationList",
         "labels": [
             {
                 "id": "searchLabel",
@@ -1401,8 +1401,8 @@
                 "description": "(DE) Search by ticket"
             },
             {
-                "id": "boardingStatus",
-                "description": "(DE) Boarding status"
+                "id": "embarkationtatus",
+                "description": "(DE) Embarkation status"
             },
             {
                 "id": "driver",
@@ -1434,11 +1434,11 @@
             },
             {
                 "id": "boarded",
-                "description": "(DE) BOARDING COMPLETED"
+                "description": "(DE) EMBARKATION COMPLETED"
             },
             {
                 "id": "remaining",
-                "description": "(DE) BOARDING PENDING"
+                "description": "(DE) EMBARKATION PENDING"
             },
             {
                 "id": "boardedStatus",

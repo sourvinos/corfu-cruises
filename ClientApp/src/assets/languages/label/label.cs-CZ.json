@@ -1353,11 +1353,11 @@
         ]
     },
     {
-        "feature": "boardingWrapper",
+        "feature": "embarkationWrapper",
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Boarding"
+                "description": "(CZ) Embarkation"
             },
             {
                 "id": "date",
@@ -1390,7 +1390,7 @@
         ]
     },
     {
-        "feature": "boardingList",
+        "feature": "embarkationList",
         "labels": [
             {
                 "id": "searchLabel",
@@ -1401,8 +1401,8 @@
                 "description": "(CZ) Search by ticket"
             },
             {
-                "id": "boardingStatus",
-                "description": "(CZ) Boarding status"
+                "id": "embarkationtatus",
+                "description": "(CZ) Embarkation status"
             },
             {
                 "id": "driver",
@@ -1434,11 +1434,11 @@
             },
             {
                 "id": "boarded",
-                "description": "(CZ) BOARDING COMPLETED"
+                "description": "(CZ) EMBARKATION COMPLETED"
             },
             {
                 "id": "remaining",
-                "description": "(CZ) BOARDING PENDING"
+                "description": "(CZ) EMBARKATION PENDING"
             },
             {
                 "id": "boardedStatus",

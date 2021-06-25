@@ -27,7 +27,7 @@
 }
 
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:not(.p-disabled):hover {
-    background-color: var(--color-menu-background-hover) !important;
+    background: var(--color-menu-background-hover) !important;
 }
 
 .p-panelmenu .p-panelmenu-header > a {
@@ -44,7 +44,7 @@
 }
 
 .p-panelmenu .p-panelmenu-panel .p-panelmenu-header > a {
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0);
     border-radius: 5px !important;
 }
 
@@ -86,11 +86,27 @@
 
 .p-panelmenu .p-panelmenu-header > a .p-menuitem-icon {
     color: var(--color-button-primary);
+    height: 16px !important;
+    text-align: center;
+    width: 20px !important;
+}
+
+.p-panelmenu .p-panelmenu-header > a .p-menuitem-icon::before {
+    height: 16px !important;
+    width: 20px !important;
 }
 
 .p-panelmenu .p-submenu-list {
-    background-color: var(--color-menu-sub-items-background) !important;
+    background-color: var(--color-menu-background) !important;
     border-radius: 5px;
     margin: 2px 0 2px 0 !important;
     padding: 3px;
+}
+
+.p-panelmenu .p-panelmenu-panel .p-panelmenu-header:not(.p-highlight) .p-panelmenu-header-link:focus {
+    background-color: transparent !important;
+}
+
+.p-panelmenu .p-panelmenu-header:not(.p-highlight):not(.p-disabled) > a:hover {
+    background-color: rgba(0, 0, 0, 0.05) !important;
 }
