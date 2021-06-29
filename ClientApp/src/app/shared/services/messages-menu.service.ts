@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
+import { HelperService } from './helper.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -11,7 +12,7 @@ export class MessageMenuService {
 
     //#endregion
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(private helperService: HelperService, private httpClient: HttpClient) { }
 
     //#region public methods
 
@@ -33,7 +34,7 @@ export class MessageMenuService {
 
     public getMessages(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.httpClient.get('assets/languages/menu/menu.' + localStorage.getItem('language') + '.json').toPromise().then(
+            this.httpClient.get('assets/languages/menu/menu.' + this.helperService.readLanguage() + '.json').toPromise().then(
                 response => {
                     this.messages = response
                     resolve(this.messages)

@@ -64,6 +64,10 @@ export class HelperService {
         return targetArray
     }
 
+    public readLanguage(): string {
+        return localStorage.getItem('language') ? localStorage.getItem('language') : this.getDefaultLanguage()
+    }
+
     public readItem(item: string): string {
         return localStorage.getItem(item) || ''
     }
@@ -84,13 +88,17 @@ export class HelperService {
         }, 500)
     }
 
-
     //#endregion
 
     //#region private methods
 
     private removeLeadingAsteriskFromString(value: string): string {
         return value.substr(1, value.length)
+    }
+
+    private getDefaultLanguage(): string {
+        localStorage.setItem('language', 'en-GB')
+        return 'en-GB'
     }
 
     //#endregion
