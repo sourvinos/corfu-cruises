@@ -49,6 +49,12 @@
     color: var(--color-table-sort-icon) !important;
 }
 
+.p-datatable .p-sortable-column .p-sortable-column-badge {
+    background-color: var(--color-table-badge-background);
+    color: var(--color-table-badge-color);
+    transition: background-color var(--change-theme-delay) ease, color var(--change-theme-delay) ease;
+}
+
 .p-sortable-column:focus {
     box-shadow: none !important;
     outline: none;
