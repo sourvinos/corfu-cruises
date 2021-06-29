@@ -2,9 +2,9 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
-import { Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-import { takeUntil } from 'rxjs/operators'
+import { map, startWith, takeUntil } from 'rxjs/operators'
 import moment from 'moment'
 // Custom
 import { Destination } from 'src/app/features/destinations/classes/destination'
@@ -20,6 +20,8 @@ import { Ship } from 'src/app/features/ships/base/classes/ship'
 import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { ValidationService } from 'src/app/shared/services/validation.service'
+import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 
 @Component({
     selector: 'embarkation-wrapper',
@@ -37,20 +39,37 @@ export class EmbarkationWrapperComponent {
     private windowTitle = 'Embarkation'
     public feature = 'embarkationWrapper'
 
-    //#endregion
-
-    //#region particular variables
-
     private dateISO = ''
+
     public destinations: Destination[] = []
+    public filteredDestinations: Observable<Destination[]>
     public ports: Port[] = []
+    public filteredPorts: Observable<Port[]>
     public ships: Ship[] = []
+    public filteredShips: Observable<Ship[]>
+
     public form: FormGroup
     public openedServerFilters = true
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private portService: PortService, private router: Router, private shipService: ShipService, private titleService: Title) { }
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private dateAdapter: DateAdapter<any>,
+        private destinationService: DestinationService,
+        private formBuilder: FormBuilder,
+        private helperService: HelperService,
+        private interactionService: InteractionService,
+        private keyboardShortcutsService: KeyboardShortcuts,
+        private messageHintService: MessageHintService,
+        private messageLabelService: MessageLabelService,
+        private messageSnackbarService: MessageSnackbarService,
+        private portService: PortService,
+        private router: Router,
+        private shipService: ShipService,
+        private snackbarService: SnackbarService,
+        private titleService: Title
+    ) { }
 
     //#region lifecycle hooks
 
@@ -59,7 +78,9 @@ export class EmbarkationWrapperComponent {
         this.initForm()
         this.addShortcuts()
         this.getLocale()
-        this.populateDropDowns()
+        this.populateDropDown('destinationService', 'destinations', 'filteredDestinations', 'destination', 'description')
+        this.populateDropDown('portService', 'ports', 'filteredPorts', 'port', 'description')
+        this.populateDropDown('shipService', 'ships', 'filteredShips', 'ship', 'description')
         this.subscribeToInteractionService()
     }
 
@@ -72,6 +93,18 @@ export class EmbarkationWrapperComponent {
     //#endregion
 
     //#region public methods
+
+    public destinationFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public portFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public shipFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
 
     public onGetHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
@@ -121,6 +154,14 @@ export class EmbarkationWrapperComponent {
         }
     }
 
+    private filterArray(array: string, field: string, value: any): any[] {
+        if (typeof value !== 'object') {
+            const filtervalue = value.toLowerCase()
+            return this[array].filter((element) =>
+                element[field].toLowerCase().startsWith(filtervalue))
+        }
+    }
+
     private getLocale(): void {
         this.dateAdapter.setLocale(this.helperService.readItem("language"))
     }
@@ -128,9 +169,9 @@ export class EmbarkationWrapperComponent {
     private initForm(): void {
         this.form = this.formBuilder.group({
             date: ['', [Validators.required]],
-            destinationId: [0, [Validators.required, ValidationService.isGreaterThanZero]],
-            portId: [0, [Validators.required, ValidationService.isGreaterThanZero]],
-            shipId: [0, [Validators.required, ValidationService.isGreaterThanZero]]
+            destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            ship: ['', [Validators.required, ValidationService.RequireAutocomplete]],
         })
     }
 
@@ -138,20 +179,26 @@ export class EmbarkationWrapperComponent {
         this.router.navigate(['date', this.dateISO, 'destinationId', this.form.value.destinationId, 'portId', this.form.value.portId, 'shipId', this.form.value.shipId], { relativeTo: this.activatedRoute })
     }
 
-    private populateDropDowns(): void {
-        this.destinationService.getAllActive().subscribe((result: any) => {
-            this.destinations = result.sort((a: { description: number; }, b: { description: number; }) => (a.description > b.description) ? 1 : -1)
+    private populateDropDown(service: string, table: string, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this[service].getAllActive().toPromise().then(
+                (response: any) => {
+                    this[table] = response
+                    resolve(this[table])
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                }, (errorFromInterceptor: number) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                })
         })
-        this.portService.getAllActive().subscribe((result: any) => {
-            this.ports = result.sort((a: { description: number; }, b: { description: number; }) => (a.description > b.description) ? 1 : -1)
-        })
-        this.shipService.getAllActive().subscribe((result: any) => {
-            this.ships = result.sort((a: { description: number; }, b: { description: number; }) => (a.description > b.description) ? 1 : -1)
-        })
+        return promise
     }
 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+    }
+
+    private showSnackbar(message: string, type: string): void {
+        this.snackbarService.open(message, type)
     }
 
     private subscribeToInteractionService(): void {
@@ -174,6 +221,18 @@ export class EmbarkationWrapperComponent {
 
     get date(): AbstractControl {
         return this.form.get('date')
+    }
+
+    get destination(): AbstractControl {
+        return this.form.get('destination')
+    }
+
+    get port(): AbstractControl {
+        return this.form.get('port')
+    }
+
+    get ship(): AbstractControl {
+        return this.form.get('ship')
     }
 
     //#endregion    

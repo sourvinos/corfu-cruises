@@ -9,11 +9,11 @@ import { ScrollingModule } from '@angular/cdk/scrolling'
 
 // Modules
 import { AccountModule } from '../features/account/classes/account.module'
-import { EmbarkationModule } from '../features/embarkation/classes/modules/embarkation.module'
 import { CrewModule } from '../features/ships/crews/classes/crew.module'
 import { CustomerModule } from '../features/customers/classes/customer.module'
 import { DestinationModule } from '../features/destinations/classes/destination.module'
 import { DriverModule } from '../features/drivers/classes/driver.module'
+import { EmbarkationModule } from '../features/embarkation/classes/modules/embarkation.module'
 import { GenderModule } from '../features/genders/classes/gender.module'
 import { InvoicingModule } from '../features/invoicing/classes/modules/invoicing.module'
 import { LoginModule } from '../features/login/classes/login.module'

@@ -1,70 +1,68 @@
 <div id="list">
 
     <div id="header">
-        <div id="navigation">
-            <button data-cy="goBack" class="goBack" id="goBack" [routerLink]="['/']" mat-mini-fab>
-                <mat-icon>home</mat-icon>
-            </button>
-        </div>
         <div @slideFromLeft id="title">
             <h1>{{ onGetLabel('header')}}</h1>
         </div>
-        <div id="buttons">
-            <button mat-flat-button class="primary" (click)="toggleServerFilters()" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('searchButton') }}">
-                <img src="/assets/images/shared/search.svg" width="20px">
-            </button>
-        </div>
     </div>
 
-    <div id="results">
-        <mat-sidenav-container [hasBackdrop]="true">
-            <mat-sidenav mode="over" [(opened)]="openedServerFilters" position="end">
-                <div *ngIf="openedServerFilters" id="serverFilters">
-                    <form id="form" [formGroup]="form" autocomplete="off">
-                        <mat-form-field>
-                            <input type="text" matInput class="center" id="date" [matDatepicker]="picker" [placeholder]="onGetLabel('date')" formControlName="date" [inputFormat]="'date'" autocomplete="off">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                            <mat-error *ngIf="date.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                            <mat-hint>{{ onGetLabel('searchDateHint') }}</mat-hint>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>{{ onGetLabel("destination") }}</mat-label>
-                            <mat-select [(value)]="form.value.destinationId" formControlName="destinationId">
-                                <mat-option *ngFor="let destination of destinations" [value]="destination.id">
-                                    {{ destination.description }}
-                                </mat-option>
-                            </mat-select>
-                            <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>{{ onGetLabel("port") }}</mat-label>
-                            <mat-select [(value)]="form.value.portId" formControlName="portId">
-                                <mat-option *ngFor="let port of ports" [value]="port.id">
-                                    {{ port.description }}
-                                </mat-option>
-                            </mat-select>
-                            <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>{{ onGetLabel("ship") }}</mat-label>
-                            <mat-select [(value)]="form.value.shipId" formControlName="shipId">
-                                <mat-option *ngFor="let ship of ships" [value]="ship.id">
-                                    {{ ship.description }}
-                                </mat-option>
-                            </mat-select>
-                            <mat-hint>{{ onGetLabel('searchDropdownHint') }}</mat-hint>
-                        </mat-form-field>
-                    </form>
-                    <button mat-flat-button class="primary" id="loadEmbarkation" [disabled]="!form.valid" (click)="onLoadEmbarkation()">
-                        {{ onGetLabel('searchButton')}}
-                    </button>
-                </div>
-            </mat-sidenav>
-            <mat-sidenav-content>
-                <router-outlet></router-outlet>
-            </mat-sidenav-content>
-        </mat-sidenav-container>
+    <div id="criteria">
+        <form id="form" [formGroup]="form" autocomplete="off">
+            <!-- Date -->
+            <mat-form-field>
+                <input type="text" matInput class="center" id="date" [matDatepicker]="picker" [placeholder]="onGetLabel('date')" formControlName="date" [inputFormat]="'date'" autocomplete="off">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="date.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                <mat-hint>{{ onGetLabel('searchDateHint') }}</mat-hint>
+            </mat-form-field>
+            <!-- Destination -->
+            <mat-form-field>
+                <mat-label>{{ onGetLabel("destination") }}</mat-label>
+                <input matInput formControlName="destination" [matAutocomplete]="destinations">
+                <mat-error *ngIf="destination.hasError('required')">This is required</mat-error>
+                <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">This is invalid</mat-error>
+            </mat-form-field>
+            <!-- Port -->
+            <mat-form-field>
+                <mat-label>{{ onGetLabel("port") }}</mat-label>
+                <input matInput formControlName="port" [matAutocomplete]="ports">
+                <mat-error *ngIf="port.hasError('required')">This is required</mat-error>
+                <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">This is invalid</mat-error>
+            </mat-form-field>
+            <!-- Ship -->
+            <mat-form-field>
+                <mat-label>{{ onGetLabel("ship") }}</mat-label>
+                <input matInput formControlName="ship" [matAutocomplete]="ships">
+                <mat-error *ngIf="ship.hasError('required')">This is required</mat-error>
+                <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">This is invalid</mat-error>
+            </mat-form-field>
+        </form>
+
+        <div @slideFromRight id="buttons">
+            <button mat-flat-button class="primary" [disabled]="!form.valid">{{ onGetLabel('searchButton') }}</button>
+        </div>
+
     </div>
+
+    <router-outlet></router-outlet>
 
 </div>
+
+<mat-autocomplete autoActiveFirstOption #destinations="matAutocomplete" [displayWith]="destinationFields">
+    <mat-option *ngFor="let option of filteredDestinations | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete autoActiveFirstOption #ports="matAutocomplete" [displayWith]="portFields">
+    <mat-option *ngFor="let option of filteredPorts | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete autoActiveFirstOption #ships="matAutocomplete" [displayWith]="shipFields">
+    <mat-option *ngFor="let option of filteredShips | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>

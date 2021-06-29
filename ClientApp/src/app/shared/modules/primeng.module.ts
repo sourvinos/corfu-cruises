@@ -8,7 +8,7 @@ import { TableModule } from 'primeng/table'
 @NgModule({
     exports: [
         DropdownModule,
-        MenubarModule,
+        MenubarModule,  
         PanelMenuModule,
         TableModule
     ]

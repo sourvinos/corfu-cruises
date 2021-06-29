@@ -10,7 +10,7 @@ input::selection {
     background-color: var(--color-text-selected);
 }
 
-input[type=text], input[type=email], input[type=number], input[type=password] {
+input[type=text], input[type=email], input[type=number], input[type=password], input.mat-form-field-autofill-control {
     caret-color: var(--color-text-secondary);
     cursor: text !important;
     font-size: var(--font-size-input) !important;
@@ -81,6 +81,10 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 
 /* Not focused - Not error */
 
+.mat-form-field-appearance-legacy .mat-form-field-label {
+    color: var(--color-text-primary);
+}
+
 .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
     color: var(--color-text-primary);
 }
@@ -92,6 +96,7 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 
 .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
     color: var(--color-text-primary);
+    font-size: var(--font-size-input);
 }
 
 .mat-form-field-wrapper .mat-form-field-underline {
@@ -110,6 +115,10 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 
 
 /* Focused not error */
+
+.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label {
+    color: var(--color-text-secondary);
+}
 
 .mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label span {
     color: var(--color-text-secondary);
@@ -137,6 +146,10 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 
 
 /* Error */
+
+.mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label {
+    color: var(--color-button-delete) !important;
+}
 
 .mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label span {
     color: var(--color-button-delete) !important;

@@ -1,6 +1,8 @@
 @media only screen and (max-width: 1440px) {
     * {
         /* Font sizes */
+        --font-size-autocomplete-line-height: 90%;
+        --font-size-autocomplete: 90%;
         --font-size-button: 100%;
         --font-size-calendar-date: 100%;
         --font-size-calendar-legend-items: 100%;
@@ -12,7 +14,7 @@
         --font-size-input-height: 100%;
         --font-size-input-hint: 90%;
         --font-size-input: 85%;
-        --font-size-label: 110%;
+        --font-size-label: 100%;
         --font-size-loading-message: 1.4375rem;
         --font-size-logo-loader-first-child: 6rem;
         --font-size-logo-loader-second-child: 3rem;

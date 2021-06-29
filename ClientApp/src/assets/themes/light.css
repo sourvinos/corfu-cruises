@@ -1,4 +1,6 @@
 :root {
+    --color-autocomplete-background-hover:#f9ffc9;
+    --color-autocomplete-background: #5f898a;
     --color-border-item-active: #426f8a;
     --color-border-item-inactive: #d5dee2;
     --color-button-delete: #f28482;
@@ -53,7 +55,7 @@
     --color-table-row-highlight: #cce8f9;
     --color-table-sort-icon: #fe9f36;
     --color-text-primary: #072d31;
-    --color-text-secondary: #ef8857;
+    --color-text-secondary: #6297ce;
     --color-text-selected: #f2d49266;
     --color-tooltip-background: #426f8a;
     --color-tooltip: #efefef;

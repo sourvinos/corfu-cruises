@@ -23,6 +23,14 @@ export class ValidationService {
         }
     }
 
+    static RequireAutocomplete(control: AbstractControl): any {
+        const selection: any = control.value
+        if (typeof selection === 'string') {
+            return { incorrect: true }
+        }
+        return null
+    }
+
 }
 
 export class ConfirmValidParentMatcher {

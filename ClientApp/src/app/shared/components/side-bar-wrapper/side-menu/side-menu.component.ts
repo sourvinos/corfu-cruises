@@ -48,14 +48,14 @@ export class SideMenuComponent {
         this.topItems = [
             {
                 label: this.getLabel(menuItems, 'home'),
-                icon: 'fas fa-home',
+                icon: 'fas fa-home',    
                 routerLink: ['/']
             },
             {
                 label: this.getLabel(menuItems, 'passengers'),
                 icon: 'fas fa-users',
                 items: [
-                    { label: this.getLabel(menuItems, 'embarkation'), routerLink: '/embarkation' },
+                    { label: this.getLabel(menuItems, 'embarkation'), routerLink: 'embarkation' },
                     { label: this.getLabel(menuItems, 'manifest'), routerLink: '/manifest' }
                 ]
             },

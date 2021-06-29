@@ -2,43 +2,19 @@
     align-items: center;
 }
 
-#buttons {
-    margin-left: auto;
-}
-
-#loadEmbarkation {
-    margin-left: 0 !important;
-    width: 100%;
-}
-
-#results {
-    overflow-y: auto;
-    height: 100%;
-}
-
-.mat-sidenav-container {
-    height: 100%;
-}
-
-.mat-sidenav, .mat-sidenav-content {
-    padding: 0;
-}
-
-.mat-sidenav {
-    background-color: var(--color-menu-background);
-    padding: 1rem;
-    width: 230px;
-}
-
-.mat-sidenav-content {
-    background-color: var(--color-common-background);
-    display: flex;
-    justify-content: flex-start;
-}
-
-#serverFilters {
+#criteria {
     display: flex;
     flex-direction: column;
     height: 100%;
-    justify-content: space-between;
+    width: 100%;
+}
+
+#buttons {
+    margin: auto 0 0 auto;
+}
+
+#form {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
 }
