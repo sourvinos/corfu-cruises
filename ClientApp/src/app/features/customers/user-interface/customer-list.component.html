@@ -39,22 +39,9 @@
     </div>
 
     <div id="footer">
-        <div @slideFromLeft id="utility-buttons">
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" class="primary">
-                <ng-container *ngTemplateOutlet="contextMenu"></ng-container>
-            </mat-menu>
-        </div>
         <div @slideFromRight id="buttons">
             <button data-cy="new" mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ onGetLabel('newButton') }}</button>
         </div>
     </div>
 
 </div>
-
-<ng-template #contextMenu>
-    <button mat-menu-item class="primary" (click)="onExportPDF()"><span>Export to PDF</span></button>
-    <button mat-menu-item class="primary" (click)="onExportXLS()"><span>Export to Excel</span></button>
-</ng-template>

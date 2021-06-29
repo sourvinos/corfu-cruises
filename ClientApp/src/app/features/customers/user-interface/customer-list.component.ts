@@ -1,8 +1,8 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 import { Table } from 'primeng/table'
+import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { Customer } from '../classes/customer'
@@ -81,14 +81,6 @@ export class CustomerListComponent {
 
     public onEditRecord(record: Customer): void {
         this.router.navigate([this.baseUrl, record.id])
-    }
-
-    public onExportXLS(): void {
-        console.log()
-    }
-
-    public onExportPDF(): void {
-        console.log()
     }
 
     public onGetLabel(id: string): string {

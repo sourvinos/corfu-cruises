@@ -115,27 +115,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Προορισμοι"
+                "description": "Προορισμοί"
             },
             {
                 "id": "searchLabel",
-                "description": "Αναζητηση"
+                "description": "Αναζήτηση"
             },
             {
                 "id": "searchHint",
-                "description": "Με βαση την περιγραφη"
+                "description": "Με βαση οτιδήποτε"
             },
             {
                 "id": "newButton",
-                "description": "Νεος"
+                "description": "ΝΕΟΣ"
             },
             {
                 "id": "headerAbbreviation",
-                "description": "Συντ."
+                "description": "ΣΥΝΤ."
             },
             {
                 "id": "headerDescription",
-                "description": "Περιγραφη"
+                "description": "ΠΕΡΙΓΡΑΦΗ"
             }
         ]
     },
