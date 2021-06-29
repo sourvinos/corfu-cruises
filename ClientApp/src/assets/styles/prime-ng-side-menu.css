@@ -14,7 +14,6 @@
 .p-panelmenu .p-menuitem-text {
     color: var(--color-text-primary) !important;
     font-size: var(--font-size-menu-items) !important;
-    transition: color var(--change-component-theme-on-hover) ease;
 }
 
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-menuitem-text {
@@ -101,6 +100,7 @@
     border-radius: 5px;
     margin: 2px 0 2px 0 !important;
     padding: 3px;
+    transition: background-color var(--change-theme-delay) ease;
 }
 
 .p-panelmenu .p-panelmenu-panel .p-panelmenu-header:not(.p-highlight) .p-panelmenu-header-link:focus {
