@@ -34,7 +34,6 @@
     color: var(--color-text-primary) !important;
     font-family: var(--font-family-table-header) !important;
     font-size: var(--font-size-table-row) !important;
-    max-width: 0;
     overflow: hidden !important;
     padding: 0.5rem !important;
     text-overflow: ellipsis !important;

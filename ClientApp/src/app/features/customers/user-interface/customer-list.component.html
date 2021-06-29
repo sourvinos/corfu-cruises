@@ -17,7 +17,7 @@
         <p-table #table [autoLayout]="false" [(selection)]="selectedRecord" [columns]="columns" [globalFilterFields]="['description','phones','email']" [resizableColumns]="true" [scrollable]="true" [value]="filteredRecords" columnResizeMode="expand" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateStorage="local" stateKey="customer-list">
             <ng-template pTemplate="colgroup" let-columns>
                 <colgroup>
-                    <col *ngFor="let col of columns" [style.width]="col.width" [style.display]="col.display">
+                    <col *ngFor="let col of columns">
                 </colgroup>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
@@ -30,7 +30,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
-                    <td *ngFor="let col of columns" [style.display]="col.display">
+                    <td *ngFor="let col of columns" [style.width]="col.width" [style.display]="col.display">
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
