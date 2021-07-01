@@ -3,6 +3,6 @@
     background-color: var(--color-common-background);
     display: flex;
     justify-content: space-between;
-    padding: 1rem 5rem 0.3rem 5rem;
+    padding: 1rem 5rem 1rem 5rem;
     transition: background-color var(--change-theme-delay) ease;
 }

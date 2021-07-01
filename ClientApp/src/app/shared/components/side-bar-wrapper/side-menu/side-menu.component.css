@@ -7,8 +7,6 @@
     justify-content: space-between;
     left: 0.3125rem;
     padding: 0.5rem;
-    position: fixed;
-    top: 4rem;
     transition: background-color var(--change-theme-delay) ease;
     width: 167px;
     z-index: 2;

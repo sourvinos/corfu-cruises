@@ -118,7 +118,7 @@ export class InteractionService {
      *  embarkation-wrapper.component.ts
      * 
      * Description:
-     *  The caller tells the subscriber to refresh the passenger totals after each embarkation is saved
+     *  The caller tells the subscriber to read from the database after each embarkation is saved
      */
     public mustRefreshEmbarkationList(): void {
         this._refreshEmbarkationList.next()

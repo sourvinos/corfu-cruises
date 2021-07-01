@@ -1,32 +1,44 @@
 <div id="list">
 
     <div id="header">
-        <div id="navigation">
-            <button data-cy="goBack" class="goBack" id="goBack" [routerLink]="['/']" mat-mini-fab>
-                <mat-icon>home</mat-icon>
-            </button>
-        </div>
         <div @slideFromLeft id="title">
             <h1>{{ onGetLabel('header') }}</h1>
         </div>
         <div id="search-box">
             <mat-form-field class="no-bottom-margin">
-                <input data-cy="searchTerm" type="text" matInput [placeholder]="onGetLabel('searchLabel')" [(ngModel)]="searchTerm" id="searchTerm" #query (keyup)="onFilter(query.value)" autocomplete="off">
-                <button data-cy="clearFilter" id="clearInput" mat-button *ngIf="searchTerm" matSuffix mat-icon-button (click)="onFilter('')">
-                    <mat-icon>close</mat-icon>
-                </button>
+                <input data-cy="searchTerm" type="text" matInput [placeholder]="onGetLabel('searchLabel')" [(ngModel)]="searchTerm" id="searchTerm" #query (input)="onFilter($event, 'contains')" autocomplete="off">
+                <mat-icon matSuffix>search</mat-icon>
                 <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
             </mat-form-field>
         </div>
     </div>
 
     <div id="table-wrapper">
-        <div data-cy="content" id="content" class="scrollable">
-            <custom-table [highlightFirstRow]="highlightFirstRow" [feature]="feature" [records]="filteredRecords" [headers]="headers" [widths]="widths" [visibility]="visibility" [justify]="justify" [types]="types" [fields]="fields"></custom-table>
-        </div>
+        <p-table #table [autoLayout]="false" [(selection)]="selectedRecord" [columns]="columns" [globalFilterFields]="['description','phones','email']" [resizableColumns]="true" [scrollable]="true" [value]="filteredRecords" columnResizeMode="expand" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateStorage="local" stateKey="customer-list">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field" [style.width]="col.width" [style.display]="col.display">
+                        {{ onGetLabel(col.header) }}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
+                    <td *ngFor="let col of columns" [style.width]="col.width" [style.display]="col.display">
+                        {{ rowData[col.field] }}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
 
-    <div lideFromRight id="footer">
+    <div id="footer">
         <div @slideFromRight id="buttons">
             <button data-cy="new" mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ onGetLabel('newButton') }}</button>
         </div>

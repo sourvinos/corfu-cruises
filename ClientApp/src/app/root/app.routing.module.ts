@@ -13,6 +13,7 @@ import { AuthGuardService } from '../shared/services/auth-guard.service'
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuardService], pathMatch: 'full' },
+    { path: 'login', component: LoginFormComponent },
     { path: 'account', loadChildren: (): any => import('../features/account/classes/account.module').then(m => m.AccountModule) },
     { path: 'embarkation', loadChildren: (): any => import('../features/embarkation/classes/modules/embarkation.module').then(m => m.EmbarkationModule) },
     { path: 'customers', loadChildren: (): any => import('../features/customers/classes/customer.module').then(m => m.CustomerModule) },
@@ -20,7 +21,6 @@ const appRoutes: Routes = [
     { path: 'drivers', loadChildren: (): any => import('../features/drivers/classes/driver.module').then(m => m.DriverModule) },
     { path: 'genders', loadChildren: (): any => import('../features/genders/classes/gender.module').then(m => m.GenderModule) },
     { path: 'invoicing', loadChildren: (): any => import('../features/invoicing/classes/modules/invoicing.module').then(m => m.InvoicingModule) },
-    { path: 'login', component: LoginFormComponent },
     { path: 'manifest', loadChildren: (): any => import('../features/manifest/classes/modules/manifest.module').then(m => m.ManifestModule) },
     { path: 'nationalities', loadChildren: (): any => import('../features/nationalities/classes/nationality.module').then(m => m.NationalityModule) },
     { path: 'pickupPoints', loadChildren: (): any => import('../features/pickupPoints/classes/pickupPoint.module').then(m => m.PickupPointModule) },

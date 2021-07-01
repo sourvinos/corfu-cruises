@@ -49,7 +49,7 @@ export class CustomerListComponent {
         { field: 'description', header: 'headerName', width: '50%', display: 'revert' },
         { field: 'phones', header: 'headerPhones', width: '25%', display: 'revert' },
         { field: 'email', header: 'headerEmail', width: '25%', display: 'revert' }
-    ];
+    ]
 
     //#endregion
 

@@ -123,7 +123,7 @@
             },
             {
                 "id": "newButton",
-                "description": "New"
+                "description": "NEW"
             },
             {
                 "id": "headerAbbreviation",
@@ -156,11 +156,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "DELETE"
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },
@@ -342,7 +342,7 @@
             },
             {
                 "id": "newButton",
-                "description": "New"
+                "description": "NEW"
             },
             {
                 "id": "headerDescription",
@@ -371,11 +371,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "DELETE"
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },

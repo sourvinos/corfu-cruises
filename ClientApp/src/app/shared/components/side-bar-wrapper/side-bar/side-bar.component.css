@@ -1,4 +1,6 @@
 #side-bar {
     height: 100%;
+    position: fixed;
+    top: 4.0625rem;
     width: 1px;
 }

@@ -1,102 +1,66 @@
-<div id="wrapper">
-
-    <div id="results" class="scrollable">
-        <mat-sidenav-container [hasBackdrop]="true">
-            <mat-sidenav mode="over" [(opened)]="openedClientFilters" (opened)="onUpdateSelectedItems()" (closed)="onSaveSelectedItems()" position="end">
-                <div *ngIf="openedClientFilters" id="clientFilters">
-                    <div class="searchField">
-                        <mat-form-field>
-                            <input type="text" matInput placeholder="{{ onGetLabel('searchLabel') }}" [(ngModel)]="searchTerm" (keyup)="onFilterByTicketNo(query.value)" #query autocomplete="off">
-                            <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
-                        </mat-form-field>
+<div id="list">
+    <div class="scrollable">
+        <div class="record" *ngFor="let embarkation of filteredRecords.embarkation">
+            <div class="reservation">
+                <div class="field ticket">
+                    <i class="fas fa-ticket-alt"></i>
+                    <div class="field-value">{{ embarkation.ticketNo }}</div>
+                </div>
+                <div class="field driver">
+                    <i class="fas fa-bus"></i>
+                    <div class="field-value">{{ embarkation.driver }}</div>
+                </div>
+                <div class="field customer">
+                    <i class="fas fa-user-alt"></i>
+                    <div class="field-value">{{ embarkation.customer }}</div>
+                </div>
+                <div class="field total-persons">
+                    <i class="fas fa-users"></i>
+                    <div class="field-value">{{ embarkation.totalPersons }}</div>
+                </div>
+                <div class="field pending-persons" *ngIf="!personsAreNotMissing(embarkation)">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div class="field-value">{{ embarkation.totalPersons - embarkation.passengers.length }}</div>
+                </div>
+                <div class="field spacer"> </div>
+                <div class="field remarks" *ngIf="onCheckRemarksLength(embarkation.remarks)" matTooltip="{{ embarkation.remarks }}" matTooltipClass="tooltip-yellow">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+            </div>
+            <div class="passengers">
+                <div class="passenger" *ngFor="let passenger of embarkation.passengers">
+                    <div class="field isCheckedIn">
+                        <i class="far fa-check-circle" *ngIf="passenger.isCheckedIn"></i>
+                        <i class="far fa-clock" *ngIf="!passenger.isCheckedIn"></i>
                     </div>
-                    <div class="filter">
-                        <mat-label class="label">{{ onGetLabel('embarkationStatus') }}</mat-label>
-                        <div class="filterContent">
-                            <div *ngFor="let item of embarkationStatus" (click)="onToggleItem(item, this.selectedEmbarkationStatus)" class="item embarkationtatusFilter" [class.active]="item.isSelected" [id]="item">
-                                <div class="description">{{ item }}</div>
-                            </div>
-                        </div>
+                    <div class="field lastname">
+                        <div class="field-value">{{ passenger.lastname }}</div>
                     </div>
-                    <div class="filter">
-                        <mat-label class="label">{{ onGetLabel('driver') }}</mat-label>
-                        <div class="filterContent">
-                            <div *ngFor="let item of drivers" (click)="onToggleItem(item, this.selectedDrivers)" class="item driverFilter" [class.active]="item.isSelected" [id]="item">
-                                <div class="description">{{ item }}</div>
-                            </div>
-                        </div>
+                    <div class="field firstname">
+                        <div class="field-value">{{ passenger.firstname }}</div>
+                    </div>
+                    <div class="field board-passenger">
+                        <button mat-icon-button class="transparent boarding" (click)="onDoEmbarkation(passenger.id)">
+                            <i class="fas fa-arrow-circle-up" *ngIf="passenger.isCheckedIn"></i>
+                            <i class="fas fa-arrow-circle-down" *ngIf="!passenger.isCheckedIn"></i>
+                        </button>
                     </div>
                 </div>
-            </mat-sidenav>
-            <mat-sidenav-content class="scrollable">
-                <div class="record" *ngFor="let embarkation of filteredRecords.embarkation">
-                    <div class="reservation">
-                        <div class="field ticket">
-                            <img src="/assets/images/embarkation/ticket.svg" width="20px">
-                            <div class="field-value">{{ embarkation.ticketNo }}</div>
-                        </div>
-                        <div class="field driver">
-                            <img src="/assets/images/embarkation/driver.svg" width="20px">
-                            <div class="field-value">{{ embarkation.driver }}</div>
-                        </div>
-                        <div class="field customer">
-                            <img src="/assets/images/embarkation/customer.svg" width="20px">
-                            <div class="field-value">{{ embarkation.customer }}</div>
-                        </div>
-                        <div class="field total-persons">
-                            <img src="/assets/images/embarkation/persons.svg" width="20px">
-                            <div class="field-value">{{ embarkation.totalPersons }}</div>
-                        </div>
-                        <div class="field pending-persons" *ngIf="!personsAreNotMissing(embarkation)">
-                            <img src="/assets/images/embarkation/danger.svg" width="20px">
-                            <div class="field-value">{{ embarkation.totalPersons - embarkation.passengers.length }}</div>
-                        </div>
-                        <div class="field spacer"> </div>
-                        <div class="field remarks" *ngIf="onCheckRemarksLength(embarkation.remarks)" matTooltip="{{ embarkation.remarks }}" matTooltipClass="tooltip-yellow">
-                            <img src="/assets/images/embarkation/warning.svg" width="25px">
-                        </div>
-                    </div>
-                    <div class="passengers">
-                        <div class="passenger" *ngFor="let passenger of embarkation.passengers">
-                            <div class="field isCheckedIn">
-                                <img *ngIf="passenger.isCheckedIn" src="/assets/images/embarkation/isBoarded.svg" width="20px">
-                                <img *ngIf="!passenger.isCheckedIn" src="/assets/images/embarkation/isNotBoarded.svg" width="20px">
-                            </div>
-                            <div class="field lastname">
-                                <div class="field-value">{{ passenger.lastname }}</div>
-                            </div>
-                            <div class="field firstname">
-                                <div class="field-value">{{ passenger.firstname }}</div>
-                            </div>
-                            <div class="field board-passenger">
-                                <button mat-flat-button class="transparent" (click)="onDoEmbarkation(passenger.id)">
-                                    <img class="toggleEmbarkationButton" *ngIf="passenger.isCheckedIn" src="/assets/images/embarkation/out.svg" width="20px">
-                                    <img class="toggleEmbarkationButton" *ngIf="!passenger.isCheckedIn" src="/assets/images/embarkation/in.svg" width="20px">
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </mat-sidenav-content>
-        </mat-sidenav-container>
+            </div>
+        </div>
     </div>
-
     <div id="footer">
         <div id="action-buttons">
-            <button mat-flat-button class="primary" (click)="onShowScanner()" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('scanOpenButton') }}">
-                <img src="/assets/images/embarkation/scan.svg" width="20px">
-            </button>
+            <button mat-flat-button class="primary" (click)="onShowScanner()">{{ onGetLabel('scanOpenButton') }}</button>
         </div>
         <div class="totals">
-            <img src="/assets/images/embarkation/persons.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('totalPersons') }}">
+            <i class="fas fa-users" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('totalPersons') }}"></i>
             <div class="sum">{{ records.totalPersons }}</div>
-            <img src="/assets/images/embarkation/danger.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('missingNames') }}">
+            <i class="fas fa-exclamation-triangle" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('missingNames') }}"></i>
             <div class="sum">{{ records.missingNames }}</div>
-            <img src="/assets/images/embarkation/persons.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('passengers') }}">
-            <div class="sum">{{ records.passengers }}</div>
-            <img src="/assets/images/embarkation/isBoarded.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('boarded') }}">
+            <i class="far fa-check-circle" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('boarded') }}"></i>
             <div class="sum"> {{ records.boarded }}</div>
-            <img src="/assets/images/embarkation/isNotBoarded.svg" width="20px" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('remaining') }}">
+            <i class="far fa-clock" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('remaining') }}"></i>
             <div class="sum"> {{ records.remaining }} </div>
         </div>
         <div id="client-filter-buttons">
@@ -105,10 +69,8 @@
             </button>
         </div>
     </div>
-
     <div id="video">
         <zxing-scanner [enable]="scannerEnabled" (camerasFound)="onCamerasFound($event)" #scanner (scanSuccess)="onScanSuccess($event)"></zxing-scanner>
         <button mat-flat-button class="secondary" id="scanCloseButton" (click)="onHideScanner()">{{ onGetLabel('scanCloseButton') }}</button>
     </div>
-
 </div>

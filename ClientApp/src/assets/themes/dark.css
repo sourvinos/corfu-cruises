@@ -1,9 +1,13 @@
 :root {
-    --color-autocomplete-background-hover:#f9ffc9;
+    --color-autocomplete-background-hover: #f9ffc9;
     --color-autocomplete-background: #5f898a;
     --color-border-item-active: #f2d492;
     --color-border-item-inactive: #576971;
     --color-button-delete: #f28482;
+    --color-button-embarkation-checkin: #98fb98;
+    --color-button-embarkation-checkout: #ffb6c1;
+    --color-button-embarkation-triangle: #fcff29;
+    --color-button-embarkation-reservation-icons:#8bd0de;
     --color-button-icon: #ededed;
     --color-button-primary-hover: #226c7b;
     --color-button-primary: #6ba2ad;
@@ -19,6 +23,7 @@
     --color-credit-url: #ffe85c;
     --color-datepicker-days: #ededed;
     --color-datepicker-month: #ffe85c;
+    --color-embarkation-list-icons: #6ba2ad;
     --color-headers: #ffc78a;
     --color-logo-primary: #fe9f36;
     --color-logo-secondary: #ffe85c;

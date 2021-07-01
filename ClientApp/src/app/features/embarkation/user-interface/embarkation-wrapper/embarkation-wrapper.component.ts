@@ -22,6 +22,7 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 
 @Component({
     selector: 'embarkation-wrapper',
@@ -38,38 +39,22 @@ export class EmbarkationWrapperComponent {
     private unlisten: Unlisten
     private windowTitle = 'Embarkation'
     public feature = 'embarkationWrapper'
-
-    private dateISO = ''
-
+    public input: InputTabStopDirective
+    private activeLinkIndex = -1
+    public dateISO = ''
     public destinations: Destination[] = []
     public filteredDestinations: Observable<Destination[]>
     public ports: Port[] = []
     public filteredPorts: Observable<Port[]>
     public ships: Ship[] = []
     public filteredShips: Observable<Ship[]>
-
     public form: FormGroup
     public openedServerFilters = true
+    public navLinks: any[]
 
     //#endregion
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private dateAdapter: DateAdapter<any>,
-        private destinationService: DestinationService,
-        private formBuilder: FormBuilder,
-        private helperService: HelperService,
-        private interactionService: InteractionService,
-        private keyboardShortcutsService: KeyboardShortcuts,
-        private messageHintService: MessageHintService,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageSnackbarService,
-        private portService: PortService,
-        private router: Router,
-        private shipService: ShipService,
-        private snackbarService: SnackbarService,
-        private titleService: Title
-    ) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -82,6 +67,7 @@ export class EmbarkationWrapperComponent {
         this.populateDropDown('portService', 'ports', 'filteredPorts', 'port', 'description')
         this.populateDropDown('shipService', 'ships', 'filteredShips', 'ship', 'description')
         this.subscribeToInteractionService()
+        this.onExpandCriteria()
     }
 
     ngOnDestroy(): void {
@@ -106,6 +92,12 @@ export class EmbarkationWrapperComponent {
         return subject ? subject.description : undefined
     }
 
+    public onExpandCriteria(): void {
+        document.getElementById('criteria').classList.remove('collapsed')
+        document.getElementById('expandCriteria').classList.add('hidden')
+        document.getElementById('results').classList.add('hidden')
+    }
+
     public onGetHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
     }
@@ -121,7 +113,6 @@ export class EmbarkationWrapperComponent {
     public onLoadEmbarkation(): void {
         if (this.checkValidDate()) {
             this.navigateToList()
-            this.close()
         }
     }
 
@@ -140,6 +131,20 @@ export class EmbarkationWrapperComponent {
             priority: 1,
             inputs: true
         })
+    }
+
+    private buildTabs(): void {
+        this.navLinks = [
+            {
+                label: 'Criteria',
+                link: './first',
+                index: 0
+            }, {
+                label: 'Results',
+                link: './second',
+                index: 1
+            }
+        ]
     }
 
     private checkValidDate(): boolean {
@@ -176,7 +181,10 @@ export class EmbarkationWrapperComponent {
     }
 
     private navigateToList(): void {
-        this.router.navigate(['date', this.dateISO, 'destinationId', this.form.value.destinationId, 'portId', this.form.value.portId, 'shipId', this.form.value.shipId], { relativeTo: this.activatedRoute })
+        document.getElementById('criteria').classList.add('collapsed')
+        document.getElementById('expandCriteria').classList.remove('hidden')
+        document.getElementById('results').classList.remove('hidden')
+        this.router.navigate(['date', this.dateISO, 'destinationId', this.form.value.destination.id, 'portId', this.form.value.port.id, 'shipId', this.form.value.ship.id], { relativeTo: this.activatedRoute })
     }
 
     private populateDropDown(service: string, table: string, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
@@ -209,10 +217,6 @@ export class EmbarkationWrapperComponent {
 
     public toggleServerFilters(): void {
         this.openedServerFilters = !this.openedServerFilters
-    }
-
-    public close(): void {
-        if (this.openedServerFilters) this.toggleServerFilters()
     }
 
     //#endregion

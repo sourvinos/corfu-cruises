@@ -70,8 +70,6 @@ export class CustomerFormComponent {
                     this.resetForm()
                     this.onGoBack()
                     return true
-                } else {
-                    this.focus('description')
                 }
             })
         } else {

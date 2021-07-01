@@ -48,7 +48,7 @@ export class DestinationListComponent {
         { field: 'id', header: 'headerId', width: '0.01%', display: 'none' },
         { field: 'abbreviation', header: 'headerAbbreviation', width: '10%', display: 'revert' },
         { field: 'description', header: 'headerDescription', width: '90%', display: 'revert' }
-    ];
+    ]
 
     //#endregion
 

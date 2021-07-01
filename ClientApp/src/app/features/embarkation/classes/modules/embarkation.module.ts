@@ -8,8 +8,7 @@ import { SharedModule } from 'src/app/shared/modules/shared.module'
 @NgModule({
     declarations: [
         EmbarkationWrapperComponent,
-        EmbarkationListComponent,
-
+        EmbarkationListComponent
     ],
     imports: [
         SharedModule,

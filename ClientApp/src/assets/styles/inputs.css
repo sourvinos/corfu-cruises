@@ -28,6 +28,7 @@ input:disabled {
 }
 
 .mat-form-field {
+    line-height: 132%;
     width: 100% !important;
 }
 

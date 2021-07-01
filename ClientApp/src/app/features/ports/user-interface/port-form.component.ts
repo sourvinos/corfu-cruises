@@ -1,9 +1,9 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Title } from '@angular/platform-browser'
 import { Subject } from 'rxjs'
-
+import { Title } from '@angular/platform-browser'
+// Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -15,7 +15,7 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { PortService } from '../classes/port.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'port-form',
@@ -112,16 +112,16 @@ export class PortFormComponent {
                 this.resetForm()
                 this.onGoBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            }, errorFromInterceptor => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
             this.portService.update(this.form.value.id, this.form.value).subscribe(() => {
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
                 this.resetForm()
                 this.onGoBack()
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            }, errorFromInterceptor => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         }
     }
