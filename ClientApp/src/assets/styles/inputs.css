@@ -64,7 +64,6 @@ input:disabled {
 
 .mat-hint, .mat-error {
     font-size: var(--font-size-input-hint) !important;
-    margin-top: 0.1875rem !important;
 }
 
 #search-box .mat-form-field {
@@ -141,6 +140,10 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
     color: var(--color-text-secondary) !important;
 }
 
+.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper {
+    color: var(--color-text-secondary) !important;
+}
+
 .mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
     color: var(--color-text-secondary) !important;
 }
@@ -170,6 +173,10 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 
 .mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-subscript-wrapper div .mat-error {
     color: var(--color-button-delete);
+}
+
+.mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper {
+    color: var(--color-button-delete) !important;
 }
 
 .mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {

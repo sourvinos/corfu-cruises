@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CorfuCruises {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class ReservationsController : ControllerBase {
@@ -24,9 +24,9 @@ namespace CorfuCruises {
             this.mapper = mapper;
         }
 
-        [HttpGet("userId/{userId}/date/{date}")]
-        public async Task<ReservationGroupReadResource<ReservationReadResource>> Get(string userId, string date) {
-            return await this.repo.Get(userId, date);
+        [HttpGet("date/{date}")]
+        public async Task<ReservationGroupReadResource<ReservationReadResource>> Get(string date) {
+            return await this.repo.Get(date);
         }
 
         [HttpGet("[action]/destinationId/{destinationId}")]
@@ -153,6 +153,6 @@ namespace CorfuCruises {
             }
         }
 
-     }
+    }
 
 }

@@ -35,7 +35,7 @@ export class ReservationService extends DataService {
     }
 
     get(date: string): Observable<ReservationViewModel> {
-        return this.http.get<ReservationViewModel>(this.url + '/userId/' + this.helperService.readItem('userId') + '/date/' + date)
+        return this.http.get<ReservationViewModel>(this.url + '/date/' + date)
     }
 
     getByDate(destinationId: number): Promise<any> {

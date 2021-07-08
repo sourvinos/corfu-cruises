@@ -13,7 +13,7 @@
         --font-size-embarkation-footer: 100%;
         --font-size-header: 180%;
         --font-size-input-height: 100%;
-        --font-size-input-hint: 90%;
+        --font-size-input-hint: 80%;
         --font-size-input: 85%;
         --font-size-label: 100%;
         --font-size-loading-message: 1.4375rem;
@@ -26,7 +26,7 @@
         --font-size-snackbar: 120%;
         --font-size-sum-persons: 110%;
         --font-size-summary-block-item: 80%;
-        --font-size-tab-label: 100%;
+        --font-size-tab-label: 130%;
         --font-size-table-header: 100%;
         --font-size-table-row: 80%;
     }

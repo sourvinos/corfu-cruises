@@ -10,7 +10,7 @@ import { DataService } from 'src/app/shared/services/data.service'
 export class EmbarkationService extends DataService {
 
     constructor(http: HttpClient) {
-        super(http, '/api/embarkation')
+        super(http, '/api/embarkations')
     }
 
     get(date: string, destinationId: number, portId: number, shipId: number): Observable<Embarkation> {

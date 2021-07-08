@@ -1,5 +1,5 @@
-<div id="list">
-    <div class="scrollable">
+<div id="results-wrapper">
+    <div id="results" class="scrollable">
         <div class="record" *ngFor="let embarkation of filteredRecords.embarkation">
             <div class="reservation">
                 <div class="field ticket">
@@ -19,12 +19,11 @@
                     <div class="field-value">{{ embarkation.totalPersons }}</div>
                 </div>
                 <div class="field pending-persons" *ngIf="!personsAreNotMissing(embarkation)">
-                    <i class="fas fa-exclamation-triangle"></i>
+                    <i class="fas warning fa-users"></i>
                     <div class="field-value">{{ embarkation.totalPersons - embarkation.passengers.length }}</div>
                 </div>
-                <div class="field spacer"> </div>
-                <div class="field remarks" *ngIf="onCheckRemarksLength(embarkation.remarks)" matTooltip="{{ embarkation.remarks }}" matTooltipClass="tooltip-yellow">
-                    <i class="fas fa-exclamation-circle"></i>
+                <div class="field remarks" *ngIf="onCheckRemarksLength(embarkation.remarks)">
+                    <i class="fas warning fa-align-justify" matTooltip="{{ embarkation.remarks }}" matTooltipClass="tooltip-yellow"></i>
                 </div>
             </div>
             <div class="passengers">
@@ -56,21 +55,21 @@
         <div class="totals">
             <i class="fas fa-users" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('totalPersons') }}"></i>
             <div class="sum">{{ records.totalPersons }}</div>
-            <i class="fas fa-exclamation-triangle" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('missingNames') }}"></i>
+            <i class="fas warning fa-users" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('missingNames') }}"></i>
             <div class="sum">{{ records.missingNames }}</div>
             <i class="far fa-check-circle" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('boarded') }}"></i>
             <div class="sum"> {{ records.boarded }}</div>
             <i class="far fa-clock" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('remaining') }}"></i>
             <div class="sum"> {{ records.remaining }} </div>
-        </div>
-        <div id="client-filter-buttons">
-            <button mat-flat-button class="primary" (click)="onToggleClientFilters()" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('filters') }}">
-                <img src="/assets/images/embarkation/filter.svg" width="20px">
-            </button>
+            <input type="radio" id="all" name="drone" checked><label for="all" (click)="onFilterExclude()">All</label>
+            <input type="radio" id="complete" name="drone"><label for="complete" (click)="onFilterExclude('pending')">Complete</label>
+            <input type="radio" id="pending" name="drone"><label for="pending" (click)="onFilterExclude('completed')">Pending</label>
+          
         </div>
     </div>
-    <div id="video">
-        <zxing-scanner [enable]="scannerEnabled" (camerasFound)="onCamerasFound($event)" #scanner (scanSuccess)="onScanSuccess($event)"></zxing-scanner>
-        <button mat-flat-button class="secondary" id="scanCloseButton" (click)="onHideScanner()">{{ onGetLabel('scanCloseButton') }}</button>
-    </div>
+</div>
+
+<div id="video">
+    <zxing-scanner [enable]="scannerEnabled" (camerasFound)="onCamerasFound($event)" #scanner (scanSuccess)="onScanSuccess($event)"></zxing-scanner>
+    <button mat-flat-button class="secondary" id="scanCloseButton" (click)="onHideScanner()">{{ onGetLabel('scanCloseButton') }}</button>
 </div>

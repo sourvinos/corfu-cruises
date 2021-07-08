@@ -17,9 +17,10 @@
 @import "headers.css";
 @import "inputs.css";
 @import "loader.css";
-@import "prime-ng-side-menu.css";
-@import "prime-ng-table.css";
-@import "prime-ng-top-menu.css";
+@import "prime-side-menu.css";
+@import "prime-tab.css";
+@import "prime-table.css";
+@import "prime-top-menu.css";
 @import "scrollable.css";
 @import "slider.css";
 @import "summaries.css";

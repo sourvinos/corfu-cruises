@@ -1368,6 +1368,10 @@
                 "description": "(DE) Select or enter date"
             },
             {
+                "id": "searchAutocompleteHint",
+                "description": "(DE) Select from the list"
+            },
+            {
                 "id": "destination",
                 "description": "(DE) Destination"
             },

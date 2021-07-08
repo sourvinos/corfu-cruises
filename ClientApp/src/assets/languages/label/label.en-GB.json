@@ -1368,6 +1368,10 @@
                 "description": "Select or enter date"
             },
             {
+                "id": "searchAutocompleteHint",
+                "description": "Select from the list"
+            },
+            {
                 "id": "destination",
                 "description": "Destination"
             },
@@ -1385,7 +1389,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "Search"
+                "description": "SEARCH"
             }
         ]
     },

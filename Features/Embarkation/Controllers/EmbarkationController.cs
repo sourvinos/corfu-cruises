@@ -10,13 +10,13 @@ namespace CorfuCruises {
     // [Authorize]
     [Route("api/[controller]")]
 
-    public class EmbarkationController : ControllerBase {
+    public class EmbarkationsController : ControllerBase {
 
         private readonly IEmbarkationRepository repo;
-        private readonly ILogger<EmbarkationController> logger;
+        private readonly ILogger<EmbarkationsController> logger;
         private readonly IMapper mapper;
 
-        public EmbarkationController(IEmbarkationRepository repo, ILogger<EmbarkationController> logger, IMapper mapper) {
+        public EmbarkationsController(IEmbarkationRepository repo, ILogger<EmbarkationsController> logger, IMapper mapper) {
             this.repo = repo;
             this.logger = logger;
             this.mapper = mapper;

@@ -40,8 +40,12 @@ export class HelperService {
         return this.appName
     }
 
-    public getElementWidth(element: HTMLElement): any {
-        return element.clientWidth
+    public getElementOuterHeight(element: string): any {
+        let height = document.getElementById(element).offsetHeight
+        const style = getComputedStyle(document.getElementById(element))
+        height += parseInt(style.marginTop) + parseInt(style.marginBottom)
+        height -= 32
+        return height + 'px'
     }
 
     public findElementById(element: string): boolean {

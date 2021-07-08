@@ -1368,6 +1368,10 @@
                 "description": "Ημερομηνια"
             },
             {
+                "id": "searchAutocompleteHint",
+                "description": "Επιλεξτε απο τη λιστα"
+            },
+            {
                 "id": "searchDateHint",
                 "description": "Δωστε ημερομηνια"
             },

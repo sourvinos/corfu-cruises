@@ -18,22 +18,21 @@ namespace CorfuCruises {
             this.userManager = userManager;
         }
 
-        public async Task<ReservationGroupReadResource<ReservationReadResource>> Get(string userId, string date) {
-            var user = await this.GetUser(userId);
+        public async Task<ReservationGroupReadResource<ReservationReadResource>> Get(string date) {
             var reservations = await context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
-                .Where(x => x.Date == date && (user.IsAdmin ? true : x.CustomerId == user.CustomerId))
+                .Where(x => x.Date == date)
                 .OrderBy(x => x.Date).ToListAsync();
-            var PersonsPerCustomer = context.Reservations.Include(x => x.Customer).Where(x => x.Date == date && (user.IsAdmin ? true : x.CustomerId == user.CustomerId)).GroupBy(x => new { x.Customer.Description }).Select(x => new PersonsPerCustomer { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var PersonsPerDestination = context.Reservations.Include(x => x.Destination).Where(x => x.Date == date && (user.IsAdmin ? true : x.CustomerId == user.CustomerId)).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var PersonsPerRoute = context.Reservations.Include(x => x.PickupPoint.Route).Where(x => x.Date == date && (user.IsAdmin ? true : x.CustomerId == user.CustomerId)).GroupBy(x => new { x.PickupPoint.Route.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var PersonsPerDriver = context.Reservations.Include(x => x.Driver).Where(x => x.Date == date && (user.IsAdmin ? true : x.CustomerId == user.CustomerId)).OrderBy(o => o.Driver.Description).GroupBy(x => new { x.Driver.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var PersonsPerPort = context.Reservations.Include(x => x.PickupPoint.Route.Port).Where(x => x.Date == date && (user.IsAdmin ? true : x.CustomerId == user.CustomerId)).OrderBy(o => o.PickupPoint.Route.Port.Description).GroupBy(x => new { x.PickupPoint.Route.Port.Description }).Select(x => new PersonsPerPort { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var totalPersonsPerShip = context.Reservations.Include(x => x.Ship).Where(x => x.Date == date && (user.IsAdmin ? true : x.CustomerId == user.CustomerId)).OrderBy(o => o.Ship.Description).GroupBy(x => new { x.Ship.Description }).Select(x => new PersonsPerShip { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var PersonsPerCustomer = context.Reservations.Include(x => x.Customer).Where(x => x.Date == date).GroupBy(x => new { x.Customer.Description }).Select(x => new PersonsPerCustomer { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var PersonsPerDestination = context.Reservations.Include(x => x.Destination).Where(x => x.Date == date).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var PersonsPerRoute = context.Reservations.Include(x => x.PickupPoint.Route).Where(x => x.Date == date).GroupBy(x => new { x.PickupPoint.Route.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var PersonsPerDriver = context.Reservations.Include(x => x.Driver).Where(x => x.Date == date).OrderBy(o => o.Driver.Description).GroupBy(x => new { x.Driver.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var PersonsPerPort = context.Reservations.Include(x => x.PickupPoint.Route.Port).Where(x => x.Date == date).OrderBy(o => o.PickupPoint.Route.Port.Description).GroupBy(x => new { x.PickupPoint.Route.Port.Description }).Select(x => new PersonsPerPort { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var totalPersonsPerShip = context.Reservations.Include(x => x.Ship).Where(x => x.Date == date).OrderBy(o => o.Ship.Description).GroupBy(x => new { x.Ship.Description }).Select(x => new PersonsPerShip { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
                 Reservations = reservations.ToList(),

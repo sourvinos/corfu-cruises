@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core'
 // Custom
-import { DropdownModule } from 'primeng/dropdown'
 import { MenubarModule } from 'primeng/menubar'
 import { PanelMenuModule } from 'primeng/panelmenu'
+import { PanelModule } from 'primeng/panel'
 import { TableModule } from 'primeng/table'
 
 @NgModule({
     exports: [
-        DropdownModule,
-        MenubarModule,  
+        MenubarModule,
         PanelMenuModule,
+        PanelModule,
         TableModule
     ]
 })

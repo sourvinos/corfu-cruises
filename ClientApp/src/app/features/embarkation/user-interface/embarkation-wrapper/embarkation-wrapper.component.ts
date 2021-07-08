@@ -40,7 +40,6 @@ export class EmbarkationWrapperComponent {
     private windowTitle = 'Embarkation'
     public feature = 'embarkationWrapper'
     public input: InputTabStopDirective
-    private activeLinkIndex = -1
     public dateISO = ''
     public destinations: Destination[] = []
     public filteredDestinations: Observable<Destination[]>
@@ -51,6 +50,7 @@ export class EmbarkationWrapperComponent {
     public form: FormGroup
     public openedServerFilters = true
     public navLinks: any[]
+    public isVisible: boolean
 
     //#endregion
 
@@ -67,7 +67,6 @@ export class EmbarkationWrapperComponent {
         this.populateDropDown('portService', 'ports', 'filteredPorts', 'port', 'description')
         this.populateDropDown('shipService', 'ships', 'filteredShips', 'ship', 'description')
         this.subscribeToInteractionService()
-        this.onExpandCriteria()
     }
 
     ngOnDestroy(): void {
@@ -92,12 +91,6 @@ export class EmbarkationWrapperComponent {
         return subject ? subject.description : undefined
     }
 
-    public onExpandCriteria(): void {
-        document.getElementById('criteria').classList.remove('collapsed')
-        document.getElementById('expandCriteria').classList.add('hidden')
-        document.getElementById('results').classList.add('hidden')
-    }
-
     public onGetHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
     }
@@ -116,6 +109,12 @@ export class EmbarkationWrapperComponent {
         }
     }
 
+    public onTabClick(event): void {
+        console.log(event.index)
+        const myHeight = this.helperService.readItem('height')
+        document.getElementById('makis').style.height = myHeight
+    }
+
     //#endregion
 
     //#region private methods
@@ -131,20 +130,6 @@ export class EmbarkationWrapperComponent {
             priority: 1,
             inputs: true
         })
-    }
-
-    private buildTabs(): void {
-        this.navLinks = [
-            {
-                label: 'Criteria',
-                link: './first',
-                index: 0
-            }, {
-                label: 'Results',
-                link: './second',
-                index: 1
-            }
-        ]
     }
 
     private checkValidDate(): boolean {
@@ -181,9 +166,6 @@ export class EmbarkationWrapperComponent {
     }
 
     private navigateToList(): void {
-        document.getElementById('criteria').classList.add('collapsed')
-        document.getElementById('expandCriteria').classList.remove('hidden')
-        document.getElementById('results').classList.remove('hidden')
         this.router.navigate(['date', this.dateISO, 'destinationId', this.form.value.destination.id, 'portId', this.form.value.port.id, 'shipId', this.form.value.ship.id], { relativeTo: this.activatedRoute })
     }
 

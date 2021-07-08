@@ -32,11 +32,6 @@ export class EmbarkationListComponent {
     private unlisten: Unlisten
     private windowTitle = 'Embarkation'
     public feature = 'embarkationList'
-
-    //#endregion
-
-    //#region particular variables
-
     public filteredRecords: EmbarkationCompositeViewModel
     public records: EmbarkationCompositeViewModel
     public searchTerm: string
@@ -46,6 +41,8 @@ export class EmbarkationListComponent {
     public selectedDrivers = []
     public embarkationStatus = []
     public selectedEmbarkationStatus = []
+    public isBoarded = true
+    public isNotBoarded = true
 
     public scannerEnabled: boolean
     public videoDevices: MediaDeviceInfo[] = []
@@ -62,6 +59,8 @@ export class EmbarkationListComponent {
                 this.updateWithPassengerStatus()
                 this.getDistinctDrivers()
                 this.saveSelectedItems()
+                this.isBoarded = true
+                this.isNotBoarded = true
             }
         })
     }
@@ -77,6 +76,7 @@ export class EmbarkationListComponent {
     ngAfterViewInit(): void {
         this.updateSelectedArraysFromInitialResults()
         this.saveSelectedItems()
+        this.addActiveClassToSummaryItems()
     }
 
     ngDoCheck(): void {
@@ -109,6 +109,11 @@ export class EmbarkationListComponent {
             this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
         })
     }
+
+    // public onFilterByEmbarkationStatus(variable: string): void {
+    //     this[variable] = !this[variable]
+    //     this.filterByCriteria()
+    // }
 
     public onFilterByTicketNo(query: string): void {
         this.filteredRecords.embarkation = []
@@ -154,9 +159,14 @@ export class EmbarkationListComponent {
         this.openedClientFilters = !this.openedClientFilters
     }
 
-    public onToggleItem(item: any, lookupArray: string[]): void {
-        this.toggleActiveItem(item, lookupArray)
-        this.filterByCriteria()
+    // public onToggleItem(item: any, lookupArray: string[]): void {
+    //     this.toggleActiveItem(item, lookupArray)
+    //     this.filterByCriteria()
+    // }
+
+    public onFilterExclude(variable?: string): void {
+        this.filteredRecords.embarkation = variable ? this.records.embarkation.filter(x => x.isBoarded != variable.toUpperCase()) : this.records.embarkation
+        console.log('Filter', this.filteredRecords)
     }
 
     //#endregion
@@ -165,9 +175,9 @@ export class EmbarkationListComponent {
 
     private addActiveClassToSummaryItems(): void {
         setTimeout(() => {
-            this.addActiveClassToElements('.item.embarkationtatusFilter', this.selectedEmbarkationStatus)
-            this.addActiveClassToElements('.item.driverFilter', this.selectedDrivers)
-        }, 100)
+            // this.addActiveClassToElements('.item.embarkationtatusFilter', this.selectedEmbarkationStatus)
+            this.addActiveClassToElements('driverFilter', this.selectedDrivers)
+        }, 1000)
     }
 
     private addActiveClassToElements(className: string, lookupArray: string[]): void {
@@ -232,11 +242,10 @@ export class EmbarkationListComponent {
         // })
     }
 
-    private filterByCriteria(): void {
-        this.filteredRecords.embarkation = this.records.embarkation
-            .filter((driver) => this.selectedDrivers.indexOf(driver.driver) !== -1)
-            .filter((isBoarded) => this.selectedEmbarkationStatus.indexOf(isBoarded.isBoarded) !== -1 || (isBoarded.isBoarded === 'Mix' && this.selectedEmbarkationStatus.length > 0))
-    }
+    // private filterByCriteria(): void {
+    //     this.filteredRecords.embarkation = this.records.embarkation
+    //         .filter((isBoarded) => this.selectedEmbarkationStatus.indexOf(isBoarded.isBoarded) !== -1 || (isBoarded.isBoarded === 'Mix' && this.selectedEmbarkationStatus.length > 0))
+    // }
 
     private getDistinctDrivers(): void {
         this.drivers = [... new Set(this.records.embarkation.map(x => x.driver))]
@@ -256,6 +265,7 @@ export class EmbarkationListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
+            console.log(this.filteredRecords)
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -294,6 +304,7 @@ export class EmbarkationListComponent {
         } else {
             element.classList.add('activeItem')
             lookupArray.push(item)
+            console.log(lookupArray)
         }
     }
 
@@ -351,7 +362,7 @@ export class EmbarkationListComponent {
                 record.isBoarded = this.onGetLabel('remainingStatus')
             }
             if (isBoarded.length != record.passengers.length && isNotBoarded.length != record.passengers.length) {
-                record.isBoarded = 'Mix'
+                record.isBoarded = 'MIX'
             }
         })
     }

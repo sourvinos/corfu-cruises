@@ -1,3 +1,7 @@
+.mat-tab-body-content {
+    flex-direction: column;
+}
+
 .mat-tab-label {
     background-color: var(--color-common-background);
     color: var(--color-text-primary);
@@ -29,7 +33,7 @@
 }
 
 .mat-tab-header {
-    margin-bottom: 2rem !important;
+    /* margin-bottom: 2rem !important; */
 }
 
 .mat-tab-label-content {

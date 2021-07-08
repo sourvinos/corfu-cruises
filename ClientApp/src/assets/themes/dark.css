@@ -1,13 +1,12 @@
 :root {
     --color-autocomplete-background-hover: #f9ffc9;
-    --color-autocomplete-background: #5f898a;
+    --color-autocomplete-background: #657171;
+    --color-autocomplete-border-active: #fe9f36;
     --color-border-item-active: #f2d492;
     --color-border-item-inactive: #576971;
     --color-button-delete: #f28482;
     --color-button-embarkation-checkin: #98fb98;
     --color-button-embarkation-checkout: #ffb6c1;
-    --color-button-embarkation-triangle: #fcff29;
-    --color-button-embarkation-reservation-icons:#8bd0de;
     --color-button-icon: #ededed;
     --color-button-primary-hover: #226c7b;
     --color-button-primary: #6ba2ad;
@@ -24,6 +23,7 @@
     --color-datepicker-days: #ededed;
     --color-datepicker-month: #ffe85c;
     --color-embarkation-list-icons: #6ba2ad;
+    --color-embarkation-reservation-icon: #8bd0de;
     --color-headers: #ffc78a;
     --color-logo-primary: #fe9f36;
     --color-logo-secondary: #ffe85c;
@@ -63,5 +63,6 @@
     --color-text-secondary: #ecd234;
     --color-text-selected: #f2d49266;
     --color-tooltip-background: #fe9f36;
-    --color-tooltip: #072d31;
+    --color-tooltip: #ffffff;
+    --color-warning: #fcff29;
 }

@@ -9,7 +9,20 @@
 }
 
 :host {
+    height: 100%;
     width: 100%;
+}
+
+#results-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: 1rem;
+}
+
+#list {
+    margin-left: 0;
+    padding: 0;
 }
 
 #results {
@@ -62,7 +75,6 @@
     color: var(--color-text-primary);
     display: flex;
     font-family: var(--font-family-master);
-    /* font-size: 100%; */
     justify-content: space-between;
     line-height: 1.8rem;
     margin-bottom: 0.2rem;
@@ -142,12 +154,7 @@
     min-width: 10%;
 }
 
-.reservation .spacer {
-    flex-grow: 1;
-    text-align: end;
-}
-
-.reservation .remarks img {
+.reservation .remarks {
     margin-left: auto;
 }
 
@@ -214,7 +221,8 @@ img.toggleEmbarkationButton {
     align-items: center;
     display: flex;
     flex-direction: row;
-    margin-top: 2rem;
+    margin-bottom: 1rem;
+    margin-top: auto;
 }
 
 #footer .totals {
@@ -254,20 +262,8 @@ button.boarding {
     width: 25px;
 }
 
-.fas {
-    color: var(--color-embarkation-list-icons);
-}
-
 .fa-ticket-alt, .fa-bus, .fa-user-alt, .fa-users {
-    color: var(--color-button-embarkation-reservation-icons) !important;
-}
-
-.fas .reservations {
-    color: var(--color-button-embarkation-reservation-icons) !important;
-}
-
-.fa-exclamation-triangle {
-    color: var(--color-button-embarkation-triangle) !important;
+    color: var(--color-embarkation-reservation-icon) !important;
 }
 
 .fa-arrow-circle-down, .fa-check-circle {
@@ -279,5 +275,10 @@ button.boarding {
 }
 
 .scrollable {
+    margin-bottom: 1rem;
     padding-right: 1rem !important;
+}
+
+.warning {
+    color: var(--color-warning) !important;
 }

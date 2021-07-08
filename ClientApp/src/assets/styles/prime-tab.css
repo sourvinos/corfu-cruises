@@ -1,0 +1,60 @@
+:host {
+    display: flex;
+}
+
+p-tabview {
+    height: 100% !important;
+}
+
+.p-tabview .p-tabview-panels {
+    height: 100% !important;
+}
+
+.p-component {
+    height: 100% !important;
+}
+
+.p-tabview-panel {
+    height: 100%;
+}
+
+.p-tabview .p-component {
+    height: 100% !important;
+}
+
+.p-tabview .p-tabview-panels, .p-tabview .p-tabview-nav, .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background-color: transparent;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    color: var(--color-text-primary);
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    background-color: transparent;
+    color: var(--color-text-primary);
+}
+
+.p-tabview .p-tabview-nav .p-tabview-ink-bar {
+    background-color: var(--color-selected-tab);
+}
+
+.p-tabview .p-tabview-nav li:hover {
+    color: var(--color-text-primary);
+}
+
+.p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+    color: var(--color-text-primary);
+}
+
+.p-tabview .p-tabview-nav li {
+    font-family: var(--font-family-master);
+}
+
+.p-tabview-title {
+    font-weight: 300;
+}
+
+.p-tabview .p-tabview-nav {
+    border: none;
+}
