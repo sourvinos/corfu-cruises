@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { Router } from '@angular/router'
 import moment from 'moment'
 import { environment } from 'src/environments/environment'
 
@@ -90,6 +91,12 @@ export class HelperService {
             input.focus()
             input.select()
         }, 500)
+    }
+
+    public refreshPage(router: Router, url: string): void {
+        router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            router.navigate([url])
+        })
     }
 
     //#endregion

@@ -17,10 +17,13 @@
 @import "headers.css";
 @import "inputs.css";
 @import "loader.css";
+@import "prime-dropdown.css";
+@import "prime-input.css";
 @import "prime-side-menu.css";
 @import "prime-tab.css";
 @import "prime-table.css";
 @import "prime-top-menu.css";
+@import "radio.css";
 @import "scrollable.css";
 @import "slider.css";
 @import "summaries.css";
@@ -59,7 +62,7 @@ ul {
 p.instructions {
     color: var(--color-text-primary);
     font-family: var(--font-family-master);
-    /* font-size: var(--font-size-paragraph); */
+    font-size: var(--font-size-paragraph);
     overflow: hidden;
 }
 

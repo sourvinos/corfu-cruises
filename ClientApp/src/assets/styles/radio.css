@@ -1,0 +1,13 @@
+.mat-radio-button {
+    color: var(--color-text-primary);
+    font-family: var(--font-family-master);
+    font-size: var(--font-size-radio-button);
+}
+
+.mat-radio-outer-circle {
+    border-color: var(--color-radio-outer-circle) !important;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+    background-color: var(--color-radio-inner-circle) !important;
+}

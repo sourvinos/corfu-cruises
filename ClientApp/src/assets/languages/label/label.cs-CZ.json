@@ -1357,7 +1357,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(CZ) Embarkation"
+                "description": "Nalodění"
             },
             {
                 "id": "date",
@@ -1397,60 +1397,56 @@
         "feature": "embarkationList",
         "labels": [
             {
-                "id": "searchLabel",
-                "description": "(CZ) Search"
+                "id": "header",
+                "description": "Nalodění"
             },
             {
-                "id": "searchHint",
-                "description": "(CZ) Search by ticket"
-            },
-            {
-                "id": "embarkationtatus",
-                "description": "(CZ) Embarkation status"
-            },
-            {
-                "id": "driver",
-                "description": "(CZ) Driver"
-            },
-            {
-                "id": "scanOpenButton",
-                "description": "(CZ) SCAN VOUCHER"
-            },
-            {
-                "id": "scanCloseButton",
-                "description": "(CZ) Close"
-            },
-            {
-                "id": "filters",
-                "description": "(CZ) FILTERS"
-            },
-            {
-                "id": "totalPersons",
-                "description": "(CZ) DECLARED NUMBER OF PERSONS"
-            },
-            {
-                "id": "missingNames",
-                "description": "(CZ) PERSONS WITH MISSING DATA"
-            },
-            {
-                "id": "passengers",
-                "description": "(CZ) EXPECTED PERSONS WITH DATA"
+                "id": "all",
+                "description": "Všichni"
             },
             {
                 "id": "boarded",
-                "description": "(CZ) EMBARKATION COMPLETED"
+                "description": "Nastoupení"
             },
             {
-                "id": "remaining",
-                "description": "(CZ) EMBARKATION PENDING"
+                "id": "pending",
+                "description": "Čekající"
             },
             {
-                "id": "boardedStatus",
-                "description": "(CZ) COMPLETED"
+                "id": "headerTicketNo",
+                "description": "Číslo lístku"
             },
             {
-                "id": "remainingStatus",
-                "description": "(CZ) PENDING"
+                "id": "headerCustomer",
+                "description": "Zákazník"
+            },
+            {
+                "id": "headerDriver",
+                "description": "Řidič"
+            },
+            {
+                "id": "headerPersons",
+                "description": "Osob"
+            },
+            {
+                "id": "headerStatus",
+                "description": "Postavení"
+            },
+            {
+                "id": "headerLastname",
+                "description": "Příjmení"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "Jméno"
+            },
+            {
+                "id": "scanOpenButton",
+                "description": "SKENOVAT POUKAZ"
+            },
+            {
+                "id": "scanCloseButton",
+                "description": "ZAVŘÍT"
             }
         ]
     },

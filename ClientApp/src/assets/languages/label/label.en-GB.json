@@ -1397,20 +1397,48 @@
         "feature": "embarkationList",
         "labels": [
             {
-                "id": "searchLabel",
-                "description": "Search"
+                "id": "header",
+                "description": "Embarkation"
             },
             {
-                "id": "searchHint",
-                "description": "Search by ticket"
+                "id": "all",
+                "description": "All"
             },
             {
-                "id": "embarkationtatus",
-                "description": "Embarkation status"
+                "id": "boarded",
+                "description": "Boarded"
             },
             {
-                "id": "driver",
+                "id": "pending",
+                "description": "Pending"
+            },
+            {
+                "id": "headerTicketNo",
+                "description": "Ticket No"
+            },
+            {
+                "id": "headerCustomer",
+                "description": "Customer"
+            },
+            {
+                "id": "headerDriver",
                 "description": "Driver"
+            },
+            {
+                "id": "headerPersons",
+                "description": "Persons"
+            },
+            {
+                "id": "headerStatus",
+                "description": "Status"
+            },
+            {
+                "id": "headerLastname",
+                "description": "Lastname"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "Firstname"
             },
             {
                 "id": "scanOpenButton",
@@ -1418,39 +1446,7 @@
             },
             {
                 "id": "scanCloseButton",
-                "description": "Close"
-            },
-            {
-                "id": "filters",
-                "description": "FILTERS"
-            },
-            {
-                "id": "totalPersons",
-                "description": "DECLARED NUMBER OF PERSONS"
-            },
-            {
-                "id": "missingNames",
-                "description": "PERSONS WITH MISSING DATA"
-            },
-            {
-                "id": "passengers",
-                "description": "EXPECTED PERSONS WITH DATA"
-            },
-            {
-                "id": "boarded",
-                "description": "EMBARKATION COMPLETED"
-            },
-            {
-                "id": "remaining",
-                "description": "EMBARKATION PENDING"
-            },
-            {
-                "id": "boardedStatus",
-                "description": "COMPLETED"
-            },
-            {
-                "id": "remainingStatus",
-                "description": "PENDING"
+                "description": "X"
             }
         ]
     },

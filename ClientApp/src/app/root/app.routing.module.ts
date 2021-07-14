@@ -34,7 +34,6 @@ const appRoutes: Routes = [
     { path: 'shipRoutes', loadChildren: (): any => import('../features/ships/routes/classes/shipRoute.module').then(m => m.ShipRouteModule) },
     { path: 'ships', loadChildren: (): any => import('../features/ships/base/classes/ship.module').then(m => m.ShipModule) },
     { path: 'users', loadChildren: (): any => import('../features/users/classes/user.module').then(m => m.UserModule) },
-    { path: 'web', loadChildren: (): any => import('../features/web/classes/modules/web.module').then(m => m.WebModule) },
     { path: 'credits', component: CreditsComponent },
     { path: '**', component: EmptyPageComponent }
 ]

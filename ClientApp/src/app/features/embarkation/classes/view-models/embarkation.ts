@@ -9,7 +9,7 @@ export class Embarkation {
     customer: string
     driver: string
     remarks: string
-    isBoarded: string
+    isCheckedIn: string
 
     passengers: EmbarkationPassenger[]
 

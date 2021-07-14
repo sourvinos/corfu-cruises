@@ -1397,60 +1397,44 @@
         "feature": "embarkationList",
         "labels": [
             {
-                "id": "searchLabel",
-                "description": "Recherche"
+                "id": "header",
+                "description": "Embarquement"
             },
             {
-                "id": "searchHint",
-                "description": "Sous base de Billet"
-            },
-            {
-                "id": "embarkationtatus",
-                "description": "Status d'embarquement"
-            },
-            {
-                "id": "driver",
-                "description": "Conducteur"
-            },
-            {
-                "id": "scanOpenButton",
-                "description": "NUMERISATION DE COUPON"
-            },
-            {
-                "id": "scanCloseButton",
-                "description": "Cloture"
-            },
-            {
-                "id": "filters",
-                "description": "Des filtres"
-            },
-            {
-                "id": "totalPersons",
-                "description": "NOMBRE DE PERSONNES DECLAREES"
-            },
-            {
-                "id": "missingNames",
-                "description": "Personnes sans coordonnees"
-            },
-            {
-                "id": "passengers",
-                "description": "Personnes attendee savec des coordonnees"
+                "id": "all",
+                "description": "Tous"
             },
             {
                 "id": "boarded",
-                "description": "Embarquement complete"
+                "description": "Embarquées"
             },
             {
-                "id": "remaining",
-                "description": "Embarquement en attedant"
+                "id": "pending",
+                "description": "Attente"
             },
             {
-                "id": "boardedStatus",
-                "description": "complete"
+                "id": "headerTicketNo",
+                "description": "Numéro de billet"
             },
             {
-                "id": "remainingStatus",
-                "description": "en attendant"
+                "id": "headerCustomer",
+                "description": "Cliente"
+            },
+            {
+                "id": "headerDriver",
+                "description": "Conducteur"
+            },
+            {
+                "id": "headerPersons",
+                "description": "Personnes"
+            },
+            {
+                "id": "scanOpenButton",
+                "description": "NUMÉRISER LE BON"
+            },
+            {
+                "id": "scanCloseButton",
+                "description": "FERMER"
             }
         ]
     },

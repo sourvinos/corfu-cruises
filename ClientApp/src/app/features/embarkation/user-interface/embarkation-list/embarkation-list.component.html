@@ -1,75 +1,122 @@
-<div id="results-wrapper">
-    <div id="results" class="scrollable">
-        <div class="record" *ngFor="let embarkation of filteredRecords.embarkation">
-            <div class="reservation">
-                <div class="field ticket">
-                    <i class="fas fa-ticket-alt"></i>
-                    <div class="field-value">{{ embarkation.ticketNo }}</div>
-                </div>
-                <div class="field driver">
-                    <i class="fas fa-bus"></i>
-                    <div class="field-value">{{ embarkation.driver }}</div>
-                </div>
-                <div class="field customer">
-                    <i class="fas fa-user-alt"></i>
-                    <div class="field-value">{{ embarkation.customer }}</div>
-                </div>
-                <div class="field total-persons">
-                    <i class="fas fa-users"></i>
-                    <div class="field-value">{{ embarkation.totalPersons }}</div>
-                </div>
-                <div class="field pending-persons" *ngIf="!personsAreNotMissing(embarkation)">
-                    <i class="fas warning fa-users"></i>
-                    <div class="field-value">{{ embarkation.totalPersons - embarkation.passengers.length }}</div>
-                </div>
-                <div class="field remarks" *ngIf="onCheckRemarksLength(embarkation.remarks)">
-                    <i class="fas warning fa-align-justify" matTooltip="{{ embarkation.remarks }}" matTooltipClass="tooltip-yellow"></i>
-                </div>
-            </div>
-            <div class="passengers">
-                <div class="passenger" *ngFor="let passenger of embarkation.passengers">
-                    <div class="field isCheckedIn">
-                        <i class="far fa-check-circle" *ngIf="passenger.isCheckedIn"></i>
-                        <i class="far fa-clock" *ngIf="!passenger.isCheckedIn"></i>
-                    </div>
-                    <div class="field lastname">
-                        <div class="field-value">{{ passenger.lastname }}</div>
-                    </div>
-                    <div class="field firstname">
-                        <div class="field-value">{{ passenger.firstname }}</div>
-                    </div>
-                    <div class="field board-passenger">
-                        <button mat-icon-button class="transparent boarding" (click)="onDoEmbarkation(passenger.id)">
-                            <i class="fas fa-arrow-circle-up" *ngIf="passenger.isCheckedIn"></i>
-                            <i class="fas fa-arrow-circle-down" *ngIf="!passenger.isCheckedIn"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+<div id="list">
+
+    <div id="header">
+        <div id="navigation">
+            <button data-cy="goBack" class="goBack" id="goBack" [routerLink]="['/embarkation']" mat-mini-fab>
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+        <div @slideFromLeft id="title">
+            <h1>{{ onGetLabel('header') }}</h1>
+        </div>
+        <div id="embarkationFilter">
+            <mat-radio-group>
+                <mat-radio-button checked value="all" (click)="onFilterExclude()">{{ onGetLabel('all') }} ({{ records.totalPersons }})</mat-radio-button>
+                <mat-radio-button value="boarded" (click)="onFilterExclude('pending')">{{ onGetLabel('boarded') }} ({{ records.boarded }})</mat-radio-button>
+                <mat-radio-button value="pending" (click)="onFilterExclude('boarded')">{{ onGetLabel('pending') }} ({{ records.remaining }})</mat-radio-button>
+            </mat-radio-group>
         </div>
     </div>
-    <div id="footer">
-        <div id="action-buttons">
-            <button mat-flat-button class="primary" (click)="onShowScanner()">{{ onGetLabel('scanOpenButton') }}</button>
-        </div>
-        <div class="totals">
-            <i class="fas fa-users" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('totalPersons') }}"></i>
-            <div class="sum">{{ records.totalPersons }}</div>
-            <i class="fas warning fa-users" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('missingNames') }}"></i>
-            <div class="sum">{{ records.missingNames }}</div>
-            <i class="far fa-check-circle" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('boarded') }}"></i>
-            <div class="sum"> {{ records.boarded }}</div>
-            <i class="far fa-clock" matTooltipClass="tooltip-yellow" matTooltip="{{ onGetLabel('remaining') }}"></i>
-            <div class="sum"> {{ records.remaining }} </div>
-            <input type="radio" id="all" name="drone" checked><label for="all" (click)="onFilterExclude()">All</label>
-            <input type="radio" id="complete" name="drone"><label for="complete" (click)="onFilterExclude('pending')">Complete</label>
-            <input type="radio" id="pending" name="drone"><label for="pending" (click)="onFilterExclude('completed')">Pending</label>
-          
-        </div>
+
+    <div id="table-wrapper">
+        <p-table #dt2 [value]="filteredRecords.embarkation" [scrollable]="true" styleClass="p-datatable-reservations" scrollHeight="50vh" [globalFilterFields]="['ticketNo']" dataKey="ticketNo">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 5%;"></th>
+                    <th style="width: 5%;"></th>
+                    <th style="width: 10%;">{{ onGetLabel('headerTicketNo') }}</th>
+                    <th>{{ onGetLabel('headerCustomer') }}</th>
+                    <th>{{ onGetLabel('headerDriver') }}</th>
+                    <th style="width: 6%;">{{ onGetLabel('headerPersons') }}</th>
+                </tr>
+                <tr>
+                    <th style="width: 5%;"></th>
+                    <th style="width: 5%;"></th>
+                    <th style="width: 10%;">
+                        <p-columnFilter type="text" field="ticketNo" (input)="dt2.filterGlobal($event.target.value, 'contains')"></p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter field="customer" matchMode="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="customers" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span>{{ option.label }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter field="driver" matchMode="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="drivers" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span>{{ option.label }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                    <th style="width: 6%;">
+                        <p-columnFilter type="text" field="persons"></p-columnFilter>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-reservation let-expanded="expanded">
+                <tr>
+                    <td style="width: 5%; padding: 5px !important;"><button type="button" pButton pRipple [pRowToggler]="reservation" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button></td>
+                    <td style="width: 5%; text-align: center;"><i *ngIf="onHasRemarks(reservation.remarks)"class="fas fa-exclamation-triangle" matTooltipClass="tooltip-yellow" matTooltip="{{ reservation.remarks }}"></i></td>
+                    <td style="width: 10%; padding: 5px !important; color: var(--color-embarkation-list-ticketNo) !important;">{{ reservation.ticketNo }}</td>
+                    <td style="padding: 5px !important;">{{ reservation.customer }}</td>
+                    <td style="padding: 5px !important;">{{ reservation.driver }}</td>
+                    <td style="width: 6%; padding: 5px !important; text-align: center;">{{ reservation.totalPersons }}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-reservation>
+                <tr>
+                    <td colspan="5">
+                        <div>
+                            <p-table [value]="reservation.passengers" dataKey="lastname">
+                                <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 5%;"></th>
+                    <th style="width: 10%;">{{ onGetLabel('headerStatus') }}</th>
+                    <th pSortableColumn="lastname">{{ onGetLabel('headerLastname')}} <p-sortIcon field="lastname"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="firstname">{{ onGetLabel('headerFirstname') }} <p-sortIcon field="firstname"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-passenger>
+                <tr class="passenger">
+                    <td style="width: 5%; padding: 5px !important;"></td>
+                    <td style="text-align: center; padding: 5px !important;">
+                        <div class="transparent boarding" (click)="onDoEmbarkation(passenger.id)">
+                            <i class="fas fa-arrow-circle-up" *ngIf="passenger.isCheckedIn"></i>
+                            <i class="fas fa-arrow-circle-down" *ngIf="!passenger.isCheckedIn"></i>
+                        </div>
+                    </td>
+                    <td style="padding: 5px !important;">{{ passenger.lastname }}</td>
+                    <td style="padding: 5px !important;">{{ passenger.firstname }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    </td>
+    </tr>
+    </ng-template>
+    </p-table>
+</div>
+
+<div id="footer">
+    <div @slideFromRight id="buttons">
+        <button mat-flat-button class="primary" (click)="onShowScanner()">{{ onGetLabel('scanOpenButton') }}</button>
     </div>
 </div>
 
+</div>
+
 <div id="video">
-    <zxing-scanner [enable]="scannerEnabled" (camerasFound)="onCamerasFound($event)" #scanner (scanSuccess)="onScanSuccess($event)"></zxing-scanner>
+    <zxing-scanner [enable]="scannerEnabled" (camerasFound)="onDoCamerasTasks($event)" #scanner (scanSuccess)="onScanSuccess($event)"></zxing-scanner>
     <button mat-flat-button class="secondary" id="scanCloseButton" (click)="onHideScanner()">{{ onGetLabel('scanCloseButton') }}</button>
 </div>

@@ -21,10 +21,6 @@
     margin-left: 0;
 }
 
-#header #navigation .mat-icon {
-    color: var(--color-button-text) !important;
-}
-
 #header #title {
     align-items: baseline;
     display: flex;

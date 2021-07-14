@@ -45,8 +45,8 @@ export class CustomerListComponent {
     @ViewChild('table') table: Table | undefined
 
     columns = [
-        { field: 'id', header: 'headerId', width: '0.01%', display: 'none' },
-        { field: 'description', header: 'headerName', width: '50%', display: 'revert' },
+        { field: 'id', header: 'headerId', width: '0.01%', display: 'revert' },
+        { field: 'description', header: 'headerName', width: '49.99%', display: 'revert' },
         { field: 'phones', header: 'headerPhones', width: '25%', display: 'revert' },
         { field: 'email', header: 'headerEmail', width: '25%', display: 'revert' }
     ]

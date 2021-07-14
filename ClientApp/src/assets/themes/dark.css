@@ -22,9 +22,12 @@
     --color-credit-url: #ffe85c;
     --color-datepicker-days: #ededed;
     --color-datepicker-month: #ffe85c;
+    --color-dropdown-background: #657171;
     --color-embarkation-list-icons: #6ba2ad;
+    --color-embarkation-list-ticketNo: #fe9f36;
     --color-embarkation-reservation-icon: #8bd0de;
     --color-headers: #ffc78a;
+    --color-icon-remarks-warning: #fcff29;
     --color-logo-primary: #fe9f36;
     --color-logo-secondary: #ffe85c;
     --color-map-buttons-background: #426176;
@@ -36,6 +39,8 @@
     --color-menu-sub-items-background: #a6d5fa0f;
     --color-menu-sub-items: #c0f3c4;
     --color-menu-text-hover: #ffffff;
+    --color-radio-inner-circle:#ffe85c;
+    --color-radio-outer-circle:#fe9f36;
     --color-scrollbar: #fe9f36;
     --color-search-box: #767475;
     --color-selected-tab: #ffe85c;
@@ -63,6 +68,5 @@
     --color-text-secondary: #ecd234;
     --color-text-selected: #f2d49266;
     --color-tooltip-background: #fe9f36;
-    --color-tooltip: #ffffff;
-    --color-warning: #fcff29;
+    --color-tooltip: #525d61;
 }

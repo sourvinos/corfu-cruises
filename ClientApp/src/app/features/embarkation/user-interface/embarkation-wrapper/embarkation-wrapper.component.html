@@ -1,4 +1,4 @@
-<div id="list">
+<div id="form-wrapper">
 
     <div id="header">
         <div @slideFromLeft id="title">
@@ -6,50 +6,47 @@
         </div>
     </div>
 
-    <button [disabled]="isVisible" (click)="isVisible=!isVisible">Criteria</button>
-    <button [disabled]="!isVisible" (click)="isVisible=!isVisible">Results</button>
-    <div id="tab-group">
-        <div class="tab" id="criteria">
-            <form id="form" [formGroup]="form" autocomplete="off">
-                <!-- Date -->
-                <mat-form-field>
-                    <input type="text" matInput d="date" [matDatepicker]="picker" [placeholder]="onGetLabel('date')" formControlName="date" [inputFormat]="'date'" autocomplete="off" data-tabindex="1" [inputTabStop]="input">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="date.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                    <mat-hint>{{ onGetLabel('searchDateHint') }}</mat-hint>
-                </mat-form-field>
-                <!-- Destination -->
-                <mat-form-field>
-                    <mat-label>{{ onGetLabel("destination") }}</mat-label>
-                    <input matInput formControlName="destination" [matAutocomplete]="destinations" data-tabindex="2" [inputTabStop]="input">
-                    <mat-error *ngIf="destination.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                    <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                    <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
-                </mat-form-field>
-                <!-- Port -->
-                <mat-form-field>
-                    <mat-label>{{ onGetLabel("port") }}</mat-label>
-                    <input matInput formControlName="port" [matAutocomplete]="ports" data-tabindex="3" [inputTabStop]="input">
-                    <mat-error *ngIf="port.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                    <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                    <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
-                </mat-form-field>
-                <!-- Ship -->
-                <mat-form-field>
-                    <mat-label>{{ onGetLabel("ship") }}</mat-label>
-                    <input matInput formControlName="ship" [matAutocomplete]="ships" data-tabindex="4" [inputTabStop]="input">
-                    <mat-error *ngIf="ship.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                    <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                    <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
-                </mat-form-field>
-            </form>
-            <div id="buttons">
-                <button mat-flat-button class="primary" [disabled]="!form.valid" (click)="onLoadEmbarkation()">{{ onGetLabel('searchButton') }}</button>
-            </div>
-        </div>
-        <div class="tab" id="results">
-            <router-outlet></router-outlet>
+    <div id="content">
+        <form id="form" [formGroup]="form" autocomplete="off">
+            <!-- Date -->
+            <mat-form-field>
+                <input type="text" matInput d="date" [matDatepicker]="picker" [placeholder]="onGetLabel('date')" formControlName="date" [inputFormat]="'date'" autocomplete="off" data-tabindex="1" [inputTabStop]="input">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="date.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                <mat-hint>{{ onGetLabel('searchDateHint') }}</mat-hint>
+            </mat-form-field>
+            <!-- Destination -->
+            <mat-form-field>
+                <mat-label>{{ onGetLabel("destination") }}</mat-label>
+                <input matInput formControlName="destination" [matAutocomplete]="destinations" data-tabindex="2" [inputTabStop]="input">
+                <mat-error *ngIf="destination.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
+            </mat-form-field>
+            <!-- Port -->
+            <mat-form-field>
+                <mat-label>{{ onGetLabel("port") }}</mat-label>
+                <input matInput formControlName="port" [matAutocomplete]="ports" data-tabindex="3" [inputTabStop]="input">
+                <mat-error *ngIf="port.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
+            </mat-form-field>
+            <!-- Ship -->
+            <mat-form-field>
+                <mat-label>{{ onGetLabel("ship") }}</mat-label>
+                <input matInput formControlName="ship" [matAutocomplete]="ships" data-tabindex="4" [inputTabStop]="input">
+                <mat-error *ngIf="ship.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
+            </mat-form-field>
+        </form>
+        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+    </div>
+
+    <div id="footer">
+        <div @slideFromRight id="buttons">
+            <button mat-flat-button class="primary" [disabled]="!form.valid" id="search" (click)="onDoJobs()">{{ onGetLabel('searchButton') }}</button>
         </div>
     </div>
 

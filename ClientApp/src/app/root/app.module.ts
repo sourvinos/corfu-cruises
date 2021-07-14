@@ -31,7 +31,6 @@ import { ShipOwnerModule } from './../features/ships/owners/classes/ship-owner.m
 import { ShipRouteModule } from '../features/ships/routes/classes/shipRoute.module'
 import { UserIdleModule } from 'angular-user-idle'
 import { UserModule } from '../features/users/classes/user.module'
-import { WebModule } from './../features/web/classes/modules/web.module'
 
 // Components
 import { AppComponent } from './app.component'
@@ -93,7 +92,6 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         ShipOwnerModule,
         ShipRouteModule,
         UserModule,
-        WebModule,
         UserIdleModule.forRoot({ idle: 3600, timeout: 60, ping: 60 })
     ],
     providers: [

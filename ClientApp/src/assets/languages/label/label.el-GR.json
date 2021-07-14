@@ -48,10 +48,6 @@
                 "description": "ΝΕΟΣ"
             },
             {
-                "id": "headerId",
-                "description": "Id"
-            },
-            {
                 "id": "headerName",
                 "description": "ΕΠΩΝΥΜΙΑ"
             },
@@ -144,7 +140,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Προορισμος"
+                "description": "Προορισμός"
             },
             {
                 "id": "abbreviation",
@@ -239,7 +235,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Επιλεξτε απο τη λιστα"
+                "description": "Επιλέξτε από τη λίστα"
             }
         ]
     },
@@ -470,7 +466,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Δωστε ημερομηνια"
+                "description": "Δώστε ημερομηνία"
             },
             {
                 "id": "searchButton",
@@ -707,7 +703,7 @@
             },
             {
                 "id": "headerDestination",
-                "description": "Προορισμος"
+                "description": "Προορισμός"
             },
             {
                 "id": "headerRoute",
@@ -776,7 +772,7 @@
             },
             {
                 "id": "destination",
-                "description": "Προορισμος"
+                "description": "Προορισμός"
             },
             {
                 "id": "customer",
@@ -869,7 +865,7 @@
             },
             {
                 "id": "weNeedYourEmail",
-                "description": "Δωστε μας το email σας και θα σας στειλουμε οδηγιες για να δημιουργησετε νεο κωδικο"
+                "description": "Δώστε μας το email σας και θα σας στειλουμε οδηγιες για να δημιουργησετε νεο κωδικο"
             }
         ]
     },
@@ -916,7 +912,7 @@
         "labels": [
             {
                 "id": "searchHint",
-                "description": "Επιλεξτε απο τη λιστα"
+                "description": "Επιλέξτε από τη λίστα"
             },
             {
                 "id": "header",
@@ -941,7 +937,7 @@
         "labels": [
             {
                 "id": "searchHint",
-                "description": "Επιλεξτε απο τη λιστα"
+                "description": "Επιλέξτε από τη λίστα"
             },
             {
                 "id": "header",
@@ -1134,7 +1130,7 @@
             },
             {
                 "id": "searchLabelDestination",
-                "description": "Προορισμος"
+                "description": "Προορισμός"
             },
             {
                 "id": "searchLabelPort",
@@ -1142,7 +1138,7 @@
             },
             {
                 "id": "searchDropdownHint",
-                "description": "Επιλεξτε απο τη λιστα"
+                "description": "Επιλέξτε από τη λίστα"
             },
             {
                 "id": "searchButton",
@@ -1200,7 +1196,7 @@
             },
             {
                 "id": "destination",
-                "description": "Προορισμος"
+                "description": "Προορισμός"
             },
             {
                 "id": "port",
@@ -1361,39 +1357,39 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Επιβιβαση"
+                "description": "Επιβίβαση"
             },
             {
                 "id": "date",
-                "description": "Ημερομηνια"
+                "description": "Ημερομηνία"
             },
             {
                 "id": "searchAutocompleteHint",
-                "description": "Επιλεξτε απο τη λιστα"
+                "description": "Επιλέξτε από τη λίστα"
             },
             {
                 "id": "searchDateHint",
-                "description": "Δωστε ημερομηνια"
+                "description": "Δώστε ημερομηνία"
             },
             {
                 "id": "destination",
-                "description": "Προορισμος"
+                "description": "Προορισμός"
             },
             {
                 "id": "port",
-                "description": "Λιμανι"
+                "description": "Λιμάνι"
             },
             {
                 "id": "ship",
-                "description": "Πλοιο"
+                "description": "Πλοίο"
             },
             {
                 "id": "searchDropdownHint",
-                "description": "Επιλεξτε απο τη λιστα"
+                "description": "Επιλέξτε από τη λίστα"
             },
             {
                 "id": "searchButton",
-                "description": "Αναζητηση"
+                "description": "ΑΝΑΖΗΤΗΣΗ"
             }
         ]
     },
@@ -1401,20 +1397,48 @@
         "feature": "embarkationList",
         "labels": [
             {
-                "id": "searchLabel",
-                "description": "Αναζητηση"
+                "id": "header",
+                "description": "Επιβίβαση"
             },
             {
-                "id": "searchHint",
-                "description": "Με βαση το εισιτηριο"
+                "id": "all",
+                "description": "Όλοι"
             },
             {
-                "id": "embarkationtatus",
-                "description": "Κατασταση επιβιβασης"
+                "id": "boarded",
+                "description": "Έχουν επιβιβαστεί"
             },
             {
-                "id": "driver",
-                "description": "Οδηγος"
+                "id": "pending",
+                "description": "Σε εκκρεμότητα"
+            },
+            {
+                "id": "headerTicketNo",
+                "description": "Αρ. εισιτηρίου"
+            },
+            {
+                "id": "headerCustomer",
+                "description": "Πελάτης"
+            },
+            {
+                "id": "headerDriver",
+                "description": "Οδηγός"
+            },
+            {
+                "id": "headerPersons",
+                "description": "Άτομα"
+            },
+            {
+                "id": "headerStatus",
+                "description": "Κατάσταση"
+            },
+            {
+                "id": "headerLastname",
+                "description": "Επώνυμο"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "Όνομα"
             },
             {
                 "id": "scanOpenButton",
@@ -1422,39 +1446,7 @@
             },
             {
                 "id": "scanCloseButton",
-                "description": "Κλεισιμο"
-            },
-            {
-                "id": "filters",
-                "description": "ΦΙΛΤΡΑ"
-            },
-            {
-                "id": "totalPersons",
-                "description": "ΔΗΛΩΜΕΝΟΣ ΑΡΙΘΜΟΣ ΑΤΟΜΩΝ"
-            },
-            {
-                "id": "missingNames",
-                "description": "ΑΤΟΜΑ ΧΩΡΙΣ ΣΤΟΙΧΕΙΑ"
-            },
-            {
-                "id": "passengers",
-                "description": "ΑΝΑΜΕΝΟΜΕΝΑ ΑΤΟΜΑ ΜΕ ΣΤΟΙΧΕΙΑ"
-            },
-            {
-                "id": "boarded",
-                "description": "ΕΠΙΒΙΒΑΣΗ ΟΛΟΚΛΗΡΩΜΕΝΗ"
-            },
-            {
-                "id": "remaining",
-                "description": "ΕΠΙΒΙΒΑΣΗ ΕΚΚΡΕΜΕΙ"
-            },
-            {
-                "id": "boardedStatus",
-                "description": "ΟΛΟΚΛΗΡΩΜΕΝΗ"
-            },
-            {
-                "id": "remainingStatus",
-                "description": "ΕΚΚΡΕΜΕΙ"
+                "description": "X"
             }
         ]
     },
@@ -1529,7 +1521,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Δωστε ημερομηνια"
+                "description": "Δώστε ημερομηνία"
             },
             {
                 "id": "searchButton",
@@ -1550,7 +1542,7 @@
             },
             {
                 "id": "headerDestinationDescription",
-                "description": "Προορισμος"
+                "description": "Προορισμός"
             },
             {
                 "id": "headerFree",
@@ -1636,11 +1628,11 @@
             },
             {
                 "id": "searchDateHint",
-                "description": "Δωστε ημερομηνια"
+                "description": "Δώστε ημερομηνία"
             },
             {
                 "id": "destination",
-                "description": "Προορισμος"
+                "description": "Προορισμός"
             },
             {
                 "id": "port",
@@ -1656,7 +1648,7 @@
             },
             {
                 "id": "searchDropdownHint",
-                "description": "Επιλεξτε απο τη λιστα"
+                "description": "Επιλέξτε από τη λίστα"
             },
             {
                 "id": "searchButton",
@@ -1984,7 +1976,7 @@
                 "id": "genderDescription",
                 "description": "Φυλο"
             },
-           {
+            {
                 "id": "lastname",
                 "description": "Επωνυμο"
             },

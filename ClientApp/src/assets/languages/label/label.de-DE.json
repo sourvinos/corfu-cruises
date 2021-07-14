@@ -1397,60 +1397,56 @@
         "feature": "embarkationList",
         "labels": [
             {
-                "id": "searchLabel",
-                "description": "(DE) Search"
+                "id": "header",
+                "description": "Einschiffung"
             },
             {
-                "id": "searchHint",
-                "description": "(DE) Search by ticket"
-            },
-            {
-                "id": "embarkationtatus",
-                "description": "(DE) Embarkation status"
-            },
-            {
-                "id": "driver",
-                "description": "(DE) Driver"
-            },
-            {
-                "id": "scanOpenButton",
-                "description": "(DE) SCAN VOUCHER"
-            },
-            {
-                "id": "scanCloseButton",
-                "description": "(DE) Close"
-            },
-            {
-                "id": "filters",
-                "description": "(DE) FILTERS"
-            },
-            {
-                "id": "totalPersons",
-                "description": "(DE) DECLARED NUMBER OF PERSONS"
-            },
-            {
-                "id": "missingNames",
-                "description": "(DE) PERSONS WITH MISSING DATA"
-            },
-            {
-                "id": "passengers",
-                "description": "(DE) EXPECTED PERSONS WITH DATA"
+                "id": "all",
+                "description": "Alle"
             },
             {
                 "id": "boarded",
-                "description": "(DE) EMBARKATION COMPLETED"
+                "description": "Eingestiegene"
             },
             {
-                "id": "remaining",
-                "description": "(DE) EMBARKATION PENDING"
+                "id": "pending",
+                "description": "Ausstehende"
             },
             {
-                "id": "boardedStatus",
-                "description": "(DE) COMPLETED"
+                "id": "headerTicketNo",
+                "description": "Ticket-Nr"
             },
             {
-                "id": "remainingStatus",
-                "description": "(DE) PENDING"
+                "id": "headerCustomer",
+                "description": "Kunde"
+            },
+            {
+                "id": "headerDriver",
+                "description": "Fahrer"
+            },
+            {
+                "id": "headerPersons",
+                "description": "Personen"
+            },
+            {
+                "id": "headerStatus",
+                "description": "Status"
+            },
+            {
+                "id": "headerLastname",
+                "description": "Name"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "Vorname"
+            },
+            {
+                "id": "scanOpenButton",
+                "description": "GUTSCHEIN SCANNEN"
+            },
+            {
+                "id": "scanCloseButton",
+                "description": "Schließen"
             }
         ]
     },

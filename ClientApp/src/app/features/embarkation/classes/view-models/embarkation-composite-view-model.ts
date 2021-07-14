@@ -1,4 +1,3 @@
-// Custom
 import { Embarkation } from "./embarkation"
 
 export class EmbarkationCompositeViewModel {

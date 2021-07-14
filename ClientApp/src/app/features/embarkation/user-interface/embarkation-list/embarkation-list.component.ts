@@ -3,16 +3,16 @@ import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
+import { QrScannerComponent } from 'angular2-qrscanner'
 // Custom
+import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { EmbarkationCompositeViewModel } from '../../classes/view-models/embarkation-composite-view-model'
 import { EmbarkationService } from '../../classes/services/embarkation.service'
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
-import { QrScannerComponent } from 'angular2-qrscanner'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -35,17 +35,14 @@ export class EmbarkationListComponent {
     public filteredRecords: EmbarkationCompositeViewModel
     public records: EmbarkationCompositeViewModel
     public searchTerm: string
-    public openedClientFilters: boolean
 
+    private tempArray = []
+
+    public customers = []
     public drivers = []
-    public selectedDrivers = []
-    public embarkationStatus = []
-    public selectedEmbarkationStatus = []
-    public isBoarded = true
-    public isNotBoarded = true
 
     public scannerEnabled: boolean
-    public videoDevices: MediaDeviceInfo[] = []
+    public inputDevices: MediaDeviceInfo[] = []
     private chosenDevice: any
 
     @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent
@@ -56,11 +53,9 @@ export class EmbarkationListComponent {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.loadRecords()
-                this.updateWithPassengerStatus()
+                this.updatePassengerStatus()
+                this.getDistinctCustomers()
                 this.getDistinctDrivers()
-                this.saveSelectedItems()
-                this.isBoarded = true
-                this.isNotBoarded = true
             }
         })
     }
@@ -73,16 +68,6 @@ export class EmbarkationListComponent {
         this.getLocale()
     }
 
-    ngAfterViewInit(): void {
-        this.updateSelectedArraysFromInitialResults()
-        this.saveSelectedItems()
-        this.addActiveClassToSummaryItems()
-    }
-
-    ngDoCheck(): void {
-        this.getEmbarkationStatus()
-    }
-
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
@@ -93,27 +78,28 @@ export class EmbarkationListComponent {
 
     //#region public methods
 
-    public onCamerasFound($event: any): void {
+    public onDoCamerasTasks($event: any): void {
+        console.log('1')
         $event.forEach((element: any) => {
+            this.inputDevices.push(element)
             console.log(JSON.stringify(element))
         })
+        console.log('Devices found', this.inputDevices)
+        if (this.inputDevices.length > 0) {
+            this.checkForVideoDevices()
+        }
     }
 
-    public onCheckRemarksLength(remarks: string): boolean {
+    public onHasRemarks(remarks: string): boolean {
         return remarks.length > 0 ? true : false
     }
 
     public onDoEmbarkation(id: number): void {
         this.embarkationervice.boardPassenger(id).subscribe(() => {
-            this.refreshSummary()
+            this.refreshPage()
             this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
         })
     }
-
-    // public onFilterByEmbarkationStatus(variable: string): void {
-    //     this[variable] = !this[variable]
-    //     this.filterByCriteria()
-    // }
 
     public onFilterByTicketNo(query: string): void {
         this.filteredRecords.embarkation = []
@@ -122,6 +108,10 @@ export class EmbarkationListComponent {
                 this.filteredRecords.embarkation.push(record)
             }
         })
+    }
+
+    public onFilterExclude(variable?: string): void {
+        this.filteredRecords.embarkation = variable ? this.records.embarkation.filter(x => x.isCheckedIn != variable.toUpperCase()) : this.records.embarkation
     }
 
     public onGetLabel(id: string): string {
@@ -145,50 +135,19 @@ export class EmbarkationListComponent {
     }
 
     public onShowScanner(): void {
-        if (this.checkForDevices()) {
-            this.searchTerm = ''
-            this.scannerEnabled = true
-            setTimeout(() => { this.positionVideo() }, 1000)
-            this.qrScannerComponent.startScanning(this.chosenDevice)
-        } else {
-            this.showSnackbar(this.messageSnackbarService.noVideoDevicesFound(), 'error')
-        }
-    }
-
-    public onToggleClientFilters(): void {
-        this.openedClientFilters = !this.openedClientFilters
-    }
-
-    // public onToggleItem(item: any, lookupArray: string[]): void {
-    //     this.toggleActiveItem(item, lookupArray)
-    //     this.filterByCriteria()
-    // }
-
-    public onFilterExclude(variable?: string): void {
-        this.filteredRecords.embarkation = variable ? this.records.embarkation.filter(x => x.isBoarded != variable.toUpperCase()) : this.records.embarkation
-        console.log('Filter', this.filteredRecords)
+        // if (this.checkForDevices()) {
+        this.searchTerm = ''
+        this.scannerEnabled = true
+        setTimeout(() => { this.positionVideo() }, 1000)
+        this.qrScannerComponent.startScanning(this.chosenDevice)
+        // } else {
+        // this.showSnackbar(this.messageSnackbarService.noVideoDevicesFound(), 'error')
+        // }
     }
 
     //#endregion
 
     //#region private methods
-
-    private addActiveClassToSummaryItems(): void {
-        setTimeout(() => {
-            // this.addActiveClassToElements('.item.embarkationtatusFilter', this.selectedEmbarkationStatus)
-            this.addActiveClassToElements('driverFilter', this.selectedDrivers)
-        }, 1000)
-    }
-
-    private addActiveClassToElements(className: string, lookupArray: string[]): void {
-        const elements = document.querySelectorAll(className)
-        elements.forEach((element) => {
-            const position = lookupArray.indexOf(element.id)
-            if (position >= 0) {
-                element.classList.add('activeItem')
-            }
-        })
-    }
 
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
@@ -206,18 +165,20 @@ export class EmbarkationListComponent {
         })
     }
 
-    private checkForDevices(): boolean {
+    private checkForVideoDevices(): boolean {
+        console.log('2')
         let isCameraFound = false
         if (this.qrScannerComponent != undefined) {
             this.qrScannerComponent.getMediaDevices().then(devices => {
-                console.log(devices)
+                console.log('Found', devices)
                 for (const device of devices) {
                     if (device.kind.toString() === 'videoinput') {
-                        this.videoDevices.push(device)
+                        this.inputDevices.push(device)
+                        console.log('Added', this.inputDevices)
                     }
                 }
-                if (this.videoDevices.length > 0) {
-                    for (const dev of this.videoDevices) {
+                if (this.inputDevices.length > 0) {
+                    for (const dev of this.inputDevices) {
                         console.log('Video devices found', dev.label)
                         if (dev.label.includes('back')) {
                             this.chosenDevice = dev
@@ -228,7 +189,7 @@ export class EmbarkationListComponent {
                         this.qrScannerComponent.chooseCamera.next(this.chosenDevice)
                         isCameraFound = true
                     } else {
-                        this.qrScannerComponent.chooseCamera.next(this.videoDevices[0])
+                        this.qrScannerComponent.chooseCamera.next(this.inputDevices[0])
                         isCameraFound = true
                     }
                 }
@@ -242,18 +203,18 @@ export class EmbarkationListComponent {
         // })
     }
 
-    // private filterByCriteria(): void {
-    //     this.filteredRecords.embarkation = this.records.embarkation
-    //         .filter((isBoarded) => this.selectedEmbarkationStatus.indexOf(isBoarded.isBoarded) !== -1 || (isBoarded.isBoarded === 'Mix' && this.selectedEmbarkationStatus.length > 0))
-    // }
-
-    private getDistinctDrivers(): void {
-        this.drivers = [... new Set(this.records.embarkation.map(x => x.driver))]
-        this.selectedDrivers = [... new Set(this.records.embarkation.map(x => x.driver))]
+    private getDistinctCustomers(): void {
+        this.tempArray = [... new Set(this.records.embarkation.map(x => x.customer))]
+        this.tempArray.forEach(element => {
+            this.customers.push({ label: element, value: element })
+        })
     }
 
-    private getEmbarkationStatus(): void {
-        this.embarkationStatus = [this.onGetLabel('boardedStatus'), this.onGetLabel('remainingStatus')]
+    private getDistinctDrivers(): void {
+        this.tempArray = [... new Set(this.records.embarkation.map(x => x.driver))]
+        this.tempArray.forEach(element => {
+            this.drivers.push({ label: element, value: element })
+        })
     }
 
     private getLocale(): void {
@@ -265,7 +226,6 @@ export class EmbarkationListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
-            console.log(this.filteredRecords)
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -278,8 +238,8 @@ export class EmbarkationListComponent {
         document.getElementById('video').style.display = 'flex'
     }
 
-    private refreshSummary(): void {
-        this.interactionService.mustRefreshEmbarkationList()
+    private refreshPage(): void {
+        this.helperService.refreshPage(this.router, this.router.url)
     }
 
     private setWindowTitle(): void {
@@ -290,59 +250,6 @@ export class EmbarkationListComponent {
         this.snackbarService.open(message, type)
     }
 
-    private toggleActiveItem(item: string, lookupArray: string[]): void {
-        const element = document.getElementById(item)
-        if (element.classList.contains('activeItem')) {
-            for (let i = 0; i < lookupArray.length; i++) {
-                if ((lookupArray)[i] === item) {
-                    lookupArray.splice(i, 1)
-                    i--
-                    element.classList.remove('activeItem')
-                    break
-                }
-            }
-        } else {
-            element.classList.add('activeItem')
-            lookupArray.push(item)
-            console.log(lookupArray)
-        }
-    }
-
-    public personsAreNotMissing(record): boolean {
-        if (record.totalPersons == record.passengers.length) {
-            return true
-        }
-    }
-
-    private updateSelectedArraysFromInitialResults(): void {
-        this.embarkationStatus.forEach(element => {
-            this.selectedEmbarkationStatus.push(element)
-        })
-    }
-
-    private saveSelectedItems(): void {
-        const summaryItems = {
-            'embarkationtatus': JSON.stringify(this.selectedEmbarkationStatus),
-            'drivers': JSON.stringify(this.selectedDrivers)
-        }
-        this.helperService.saveItem('embarkationFilters', JSON.stringify(summaryItems))
-    }
-
-    public onSaveSelectedItems(): void {
-        this.saveSelectedItems()
-    }
-
-    public onUpdateSelectedItems(): void {
-        this.getItemsFromLocalStorage()
-        this.addActiveClassToSummaryItems()
-    }
-
-    private getItemsFromLocalStorage(): void {
-        const localStorageData = JSON.parse(this.helperService.readItem('embarkationFilters'))
-        this.selectedDrivers = JSON.parse(localStorageData.drivers)
-        this.selectedEmbarkationStatus = JSON.parse(localStorageData.embarkationtatus)
-    }
-
     private scanVoucher(): void {
         this.qrScannerComponent.capturedQr.subscribe((result: string) => {
             this.searchTerm = result
@@ -351,20 +258,23 @@ export class EmbarkationListComponent {
         })
     }
 
-    private updateWithPassengerStatus(): void {
+    private updatePassengerStatus(): void {
         this.records.embarkation.forEach(record => {
-            const isBoarded = record.passengers.filter(x => x.isCheckedIn)
-            const isNotBoarded = record.passengers.filter(x => !x.isCheckedIn)
-            if (isBoarded.length == record.passengers.length) {
-                record.isBoarded = this.onGetLabel('boardedStatus')
+            if (record.passengers.filter(x => x.isCheckedIn).length == record.passengers.length) {
+                record.isCheckedIn = this.onGetLabel('boarded').toUpperCase()
             }
-            if (isNotBoarded.length == record.passengers.length) {
-                record.isBoarded = this.onGetLabel('remainingStatus')
+            if (record.passengers.filter(x => !x.isCheckedIn).length == record.passengers.length) {
+                record.isCheckedIn = this.onGetLabel('pending').toUpperCase()
             }
-            if (isBoarded.length != record.passengers.length && isNotBoarded.length != record.passengers.length) {
-                record.isBoarded = 'MIX'
+            if (record.passengers.filter(x => x.isCheckedIn).length != record.passengers.length && record.passengers.filter(x => !x.isCheckedIn).length != record.passengers.length) {
+                record.isCheckedIn = 'MIX'
             }
         })
+        console.log(this.records.embarkation)
+    }
+
+    public getTableHeight(): string {
+        return '200px'
     }
 
     //#endregion
