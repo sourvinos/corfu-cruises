@@ -30,10 +30,11 @@ input:disabled {
 .mat-form-field {
     line-height: 132%;
     width: 100% !important;
+    margin-top: var(--form-field-margin) !important;
 }
 
-.no-bottom-margin > div {
-    margin-bottom: 0 !important;
+.no-margin {
+    margin: 0 !important;
 }
 
 .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
@@ -45,7 +46,7 @@ input:disabled {
 }
 
 .mat-form-field-infix {
-    border-top: 18px solid transparent;
+    border-top: 20px solid transparent;
     font-size: var(--font-size-input-height) !important;
     padding-top: 4px !important;
 }
@@ -56,10 +57,6 @@ input:disabled {
 
 .mat-form-field-subscript-wrapper {
     margin-top: 2px !important;
-}
-
-.mat-form-field-wrapper {
-    margin-bottom: 7px !important;
 }
 
 .mat-hint, .mat-error {

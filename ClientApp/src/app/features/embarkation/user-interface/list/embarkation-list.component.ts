@@ -111,7 +111,7 @@ export class EmbarkationListComponent {
     }
 
     public onFilterExclude(variable?: string): void {
-        this.filteredRecords.embarkation = variable ? this.records.embarkation.filter(x => x.isCheckedIn != variable.toUpperCase()) : this.records.embarkation
+        this.filteredRecords.embarkation = variable ? this.records.embarkation.filter(x => x.isCheckedIn != variable) : this.records.embarkation
     }
 
     public onGetLabel(id: string): string {

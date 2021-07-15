@@ -10,7 +10,7 @@
             <h1>{{ onGetLabel('header') }}</h1>
         </div>
         <div id="search-box">
-            <mat-form-field class="no-bottom-margin">
+            <mat-form-field class="no-margin">
                 <mat-label>{{ onGetLabel('searchLabel') }}</mat-label>
                 <mat-select data-cy="routeSelect" [(value)]="id" (selectionChange)="onLoadPickupPoints()">
                     <mat-option data-cy="routeElement" *ngFor="let route of routes" [value]="route.id">

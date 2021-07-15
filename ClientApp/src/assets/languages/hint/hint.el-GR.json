@@ -2,31 +2,31 @@
     "labels": [
         {
             "id": "required",
-            "description": "Το πεδιο ειναι υποχρεωτικο"
+            "description": "Το πεδίο είναι υποχρεωτικό"
         },
         {
             "id": "minLength",
-            "description": "Το πεδιο πρεπει να εχει μηκος τουλαχιστον xx χαρακτηρες"
+            "description": "Το πεδίο πρέπει να έχει μήκος τουλάχιστον xx χαρακτήρες"
         },
         {
             "id": "maxLength",
-            "description": "Το πεδιο μπορει να εχει μηκος μεχρι xx χαρακτηρες"
+            "description": "Το πεδίο μπορεί να έχει μήκος μέχρι xx χαρακτήρες"
         },
         {
             "id": "invalid",
-            "description": "Το πεδιο ειναι λαθος"
+            "description": "Το πεδίο είναι λάθος"
         },
         {
             "id": "passwordsNoMatch",
-            "description": "Ο κωδικος και η επιβεβαιωση κωδικου πρεπει να συμφωνουν"
+            "description": "Ο κωδικός και η επιβεβαίωση κωδικού πρέπει να συμφωνούν"
         },
         {
             "id": "spacesNotAllowed",
-            "description": "Τα κενα απαγορευονται"
+            "description": "Τα κενά απαγορεύονται"
         },
         {
             "id": "otherErrors",
-            "description": "Το πεδιο εχει λαθη"
+            "description": "Το πεδίο έχει λάθη"
         }
     ]
 }

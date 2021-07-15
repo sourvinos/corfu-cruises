@@ -27,7 +27,7 @@
     --color-embarkation-list-ticketNo: #b56576;
     --color-embarkation-reservation-icon: #8bd0de;
     --color-headers: #227c9d;
-    --color-icon-remarks-warning: #b7b910;
+    --color-icon-remarks-warning: #ff2704;
     --color-logo-primary: #355070;
     --color-logo-secondary: #b56576;
     --color-map-buttons-background: #426176;
@@ -58,8 +58,9 @@
     --color-summary-total: #e6ba8a;
     --color-table-badge-background: #edf8ff;
     --color-table-badge-color: #b56576;
-    --color-table-column-seperator: #767475;
-    --color-table-header: #e3e3e3;
+    --color-table-column-seperator: #e9ecef;
+    --color-table-expand-row: #227c9d;
+    --color-table-header: #edf8ff;
     --color-table-invoice-customerdescription: #fe9f36;
     --color-table-row-focus-outline: #ffe85c;
     --color-table-row-highlight: #cce8f9;

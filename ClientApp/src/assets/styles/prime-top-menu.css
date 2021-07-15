@@ -29,13 +29,13 @@
 
 .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
     color: var(--color-text-primary);
-    font-size: var(--font-size-menu-items);
-    line-height: 1px;
     transition: color var(--change-component-theme-on-hover) ease;
 }
 
 .p-menubar .p-menuitem-link .p-menuitem-icon {
     color: var(--color-button-primary) !important;
+    height: 16px;
+    width: 16px;
 }
 
 .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
@@ -56,7 +56,6 @@
 
 .p-menubar .p-menuitem-link .p-menuitem-text {
     color: var(--color-text-primary);
-    font-size: var(--font-size-menu-items);
 }
 
 .p-menubar .p-menuitem-link:not(.p-disabled):hover {
@@ -92,4 +91,8 @@
     border: none;
     display: flex;
     padding: 0;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-submenu-icon {
+    color: var(--color-table-expand-row) !important;
 }

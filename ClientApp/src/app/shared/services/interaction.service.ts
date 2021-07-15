@@ -115,7 +115,7 @@ export class InteractionService {
      *  embarkation-list.component.ts
      * 
      * Subscriber(s):
-     *  embarkation-wrapper.component.ts
+     *  embarkation-criteria.component.ts
      * 
      * Description:
      *  The caller tells the subscriber to read from the database after each embarkation is saved

@@ -1,6 +1,6 @@
 .p-menuitem-link {
     border-radius: 5px !important;
-    padding: 9px 15px !important;
+    padding: 8px 15px !important;
 }
 
 .p-menuitem-link:focus {
@@ -13,7 +13,6 @@
 
 .p-panelmenu .p-menuitem-text {
     color: var(--color-text-primary) !important;
-    font-size: var(--font-size-menu-items) !important;
 }
 
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-menuitem-text {
@@ -63,7 +62,6 @@
     flex-direction: column !important;
     height: 100% !important;
     overflow-y: scroll;
-    padding-right: 7px;
 }
 
 .p-panelmenu-content {
@@ -74,8 +72,9 @@
     font-family: var(--font-family-master);
 }
 
-.pi {
+.p-panelmenu .p-panelmenu-panel .p-panelmenu-header .p-panelmenu-icon {
     color: var(--color-button-primary) !important;
+    display: none;
 }
 
 .vertical-menu {
@@ -98,7 +97,7 @@
 .p-panelmenu .p-submenu-list {
     background-color: var(--color-menu-background) !important;
     border-radius: 5px;
-    margin: 2px 0 2px 0 !important;
+    margin: 0.125rem 0 0.125rem 1.4375rem !important;
     padding: 3px;
     transition: background-color var(--change-theme-delay) ease;
 }

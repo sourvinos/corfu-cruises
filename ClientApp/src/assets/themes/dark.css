@@ -1,5 +1,5 @@
 :root {
-    --color-autocomplete-background-hover: #f9ffc9;
+    --color-autocomplete-background-hover: #a6d5fa26;
     --color-autocomplete-background: #657171;
     --color-autocomplete-border-active: #fe9f36;
     --color-border-item-active: #f2d492;
@@ -39,8 +39,8 @@
     --color-menu-sub-items-background: #a6d5fa0f;
     --color-menu-sub-items: #c0f3c4;
     --color-menu-text-hover: #ffffff;
-    --color-radio-inner-circle:#ffe85c;
-    --color-radio-outer-circle:#fe9f36;
+    --color-radio-inner-circle: #ffe85c;
+    --color-radio-outer-circle: #fe9f36;
     --color-scrollbar: #fe9f36;
     --color-search-box: #767475;
     --color-selected-tab: #ffe85c;
@@ -59,6 +59,7 @@
     --color-table-badge-background: #7c8084;
     --color-table-badge-color: #ffe85c;
     --color-table-column-seperator: #767475;
+    --color-table-expand-row: #ffc78a;
     --color-table-header: #525d61;
     --color-table-invoice-customerdescription: #fe9f36;
     --color-table-row-focus-outline: #ffe85c;

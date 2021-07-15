@@ -1353,7 +1353,7 @@
         ]
     },
     {
-        "feature": "embarkationWrapper",
+        "feature": "embarkationCriteria",
         "labels": [
             {
                 "id": "header",
@@ -1447,6 +1447,14 @@
             {
                 "id": "scanCloseButton",
                 "description": "X"
+            },
+            {
+                "id": "buttonEmbarkPassenger",
+                "description": "CLICK TO EMBARK PASSENGER"
+            },
+            {
+                "id": "buttonDisembarkPassenger",
+                "description": "CLICK TO DISEMBARK PASSENGER"
             }
         ]
     },

@@ -1,7 +1,8 @@
 @media only screen and (max-width: 1440px) {
     * {
-        /* Font sizes */
-        --font-size-autocomplete-line-height: 90%;
+        --content-padding-bottom: 1rem;
+        --content-padding-left: 202px;
+        --content-padding-right: 2rem;
         --font-size-autocomplete: 90%;
         --font-size-button: 100%;
         --font-size-calendar-date: 100%;
@@ -20,7 +21,6 @@
         --font-size-logo-loader-first-child: 6rem;
         --font-size-logo-loader-second-child: 3rem;
         --font-size-logo: 200%;
-        --font-size-menu-items: 90%;
         --font-size-panel-buttons: 100%;
         --font-size-paragraph: 0.7rem;
         --font-size-radio-button: 90%;
@@ -30,5 +30,8 @@
         --font-size-tab-label: 130%;
         --font-size-table-header: 100%;
         --font-size-table-row: 80%;
+        --form-field-margin: 10px;
+        --header-line-height: 20px;
+        --side-bar-width: 167px;
     }
 }

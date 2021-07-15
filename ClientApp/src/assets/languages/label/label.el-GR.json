@@ -1353,7 +1353,7 @@
         ]
     },
     {
-        "feature": "embarkationWrapper",
+        "feature": "embarkationCriteria",
         "labels": [
             {
                 "id": "header",
@@ -1406,11 +1406,11 @@
             },
             {
                 "id": "boarded",
-                "description": "Έχουν επιβιβαστεί"
+                "description": "Εχουν επιβιβαστει"
             },
             {
                 "id": "pending",
-                "description": "Σε εκκρεμότητα"
+                "description": "Σε εκκρεμοτητα"
             },
             {
                 "id": "headerTicketNo",
@@ -1447,6 +1447,14 @@
             {
                 "id": "scanCloseButton",
                 "description": "X"
+            },
+            {
+                "id": "buttonEmbarkPassenger",
+                "description": "ΚAΝΤΕ ΚΛΙΚ ΓΙΑ ΕΠΙΒIΒΑΣΗ ΕΠΙΒAΤΗ"
+            },
+            {
+                "id": "buttonDisembarkPassenger",
+                "description": "ΚAΝΤΕ ΚΛΙΚ ΓΙΑ ΑΠΟΒIΒΑΣΗ ΕΠΙΒAΤΗ"
             }
         ]
     },

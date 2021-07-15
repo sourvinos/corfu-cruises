@@ -8,6 +8,6 @@
     left: 0.3125rem;
     padding: 0.5rem;
     transition: background-color var(--change-theme-delay) ease;
-    width: 167px;
+    width: var(--side-bar-width);
     z-index: 2;
 }

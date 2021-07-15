@@ -230,7 +230,7 @@ p.instructions {
     font-weight: var(--font-weight-tooltip);
 }
 
-.tooltip-yellow {
+.tooltip-background {
     background: var(--color-tooltip-background);
 }
 

@@ -9,7 +9,7 @@ import moment from 'moment'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { Destination } from 'src/app/features/destinations/classes/destination'
-import { DestinationService } from './../../../destinations/classes/destination.service'
+import { DestinationService } from '../../../destinations/classes/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -25,20 +25,20 @@ import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
-    selector: 'embarkation-wrapper',
-    templateUrl: './embarkation-wrapper.component.html',
+    selector: 'embarkation-criteria',
+    templateUrl: './embarkation-criteria.component.html',
     styleUrls: ['../../../../../assets/styles/forms.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
-export class EmbarkationWrapperComponent {
+export class embarkationCriteriaComponent {
 
     //#region variables
 
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
     private windowTitle = 'Embarkation'
-    public feature = 'embarkationWrapper'
+    public feature = 'embarkationCriteria'
     public input: InputTabStopDirective
     public form: FormGroup
     public destinations: Destination[] = []

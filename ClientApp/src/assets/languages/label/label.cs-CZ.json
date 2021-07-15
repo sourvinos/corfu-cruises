@@ -1353,7 +1353,7 @@
         ]
     },
     {
-        "feature": "embarkationWrapper",
+        "feature": "embarkationCriteria",
         "labels": [
             {
                 "id": "header",
@@ -1446,7 +1446,15 @@
             },
             {
                 "id": "scanCloseButton",
-                "description": "ZAVŘÍT"
+                "description": "X"
+            },
+            {
+                "id": "buttonEmbarkPassenger",
+                "description": "KLIKNUTÍM NALODÍTE CESTUJÍCÍHO"
+            },
+            {
+                "id": "buttonDisembarkPassenger",
+                "description": "KLIKNUTÍM VYSTOUPÍTE Z CESTUJÍCÍHO"
             }
         ]
     },

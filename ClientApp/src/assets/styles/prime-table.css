@@ -1,4 +1,5 @@
 .p-datatable table {
+    background-color: var(--color-table-header);
     border-spacing: 0;
     flex: 1;
 }
@@ -21,6 +22,7 @@
     font-weight: var(--font-weight-table-header) !important;
     padding: 5px 7px !important;
     text-align: center !important;
+    top: 1px;
     transition: background-color var(--change-theme-delay) ease, color var(--change-theme-delay) ease;
 }
 
@@ -42,7 +44,7 @@
     font-family: var(--font-family-table-header) !important;
     font-size: var(--font-size-table-row) !important;
     overflow: hidden !important;
-    padding: 0 !important;
+    padding: 0.5rem !important;
     text-overflow: ellipsis !important;
     transition: color var(--change-theme-delay) ease;
     white-space: nowrap !important;
@@ -54,11 +56,13 @@
 
 .pi-sort-amount-up-alt, .pi-sort-amount-down {
     color: var(--color-table-sort-icon) !important;
+    margin-top: -4px;
 }
 
 .p-datatable .p-sortable-column .p-sortable-column-badge {
     background-color: var(--color-table-badge-background);
     color: var(--color-table-badge-color);
+    margin-top: -4px;
     transition: background-color var(--change-theme-delay) ease, color var(--change-theme-delay) ease;
 }
 
@@ -72,6 +76,7 @@
 }
 
 .p-button.p-button-icon-only.p-button-rounded {
+    color: var(--color-table-expand-row);
     padding: 0;
 }
 
