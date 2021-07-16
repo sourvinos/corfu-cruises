@@ -25,6 +25,8 @@ export class CustomerListComponent {
 
     //#region variables
 
+    @ViewChild('table') table: Table | undefined
+
     private baseUrl = '/customers'
     private localStorageSearchTerm = 'customer-list-search-term'
     private ngUnsubscribe = new Subject<void>()
@@ -37,19 +39,6 @@ export class CustomerListComponent {
     public newUrl = this.baseUrl + '/new'
     public searchTerm = ''
     public selectedRecord: Customer
-
-    //#endregion
-
-    //#region table
-
-    @ViewChild('table') table: Table | undefined
-
-    columns = [
-        { field: 'id', header: 'headerId', width: '0.01%', display: 'revert' },
-        { field: 'description', header: 'headerName', width: '49.99%', display: 'revert' },
-        { field: 'phones', header: 'headerPhones', width: '25%', display: 'revert' },
-        { field: 'email', header: 'headerEmail', width: '25%', display: 'revert' }
-    ]
 
     //#endregion
 
