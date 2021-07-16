@@ -1357,39 +1357,35 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Einsteigen"
+                "description": "Einschiffung"
             },
             {
                 "id": "date",
-                "description": "(DE) Date"
+                "description": "Datum"
             },
             {
                 "id": "searchDateHint",
-                "description": "(DE) Select or enter date"
+                "description": "Einschiffungsdatum"
             },
             {
                 "id": "searchAutocompleteHint",
-                "description": "(DE) Select from the list"
+                "description": "Aus der Liste auswählen"
             },
             {
                 "id": "destination",
-                "description": "(DE) Destination"
+                "description": "Ziel"
             },
             {
                 "id": "port",
-                "description": "(DE) Port"
+                "description": "Hafen"
             },
             {
                 "id": "ship",
-                "description": "(DE) Ship"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "(DE) Select from the list"
+                "description": "Schiff"
             },
             {
                 "id": "searchButton",
-                "description": "(DE) Search"
+                "description": "SUCHE"
             }
         ]
     },

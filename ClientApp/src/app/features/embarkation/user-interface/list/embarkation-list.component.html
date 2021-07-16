@@ -27,7 +27,7 @@
                     <th style="width: 10%;">{{ onGetLabel('headerTicketNo') }}</th>
                     <th>{{ onGetLabel('headerCustomer') }}</th>
                     <th>{{ onGetLabel('headerDriver') }}</th>
-                    <th style="width: 6%;">{{ onGetLabel('headerPersons') }}</th>
+                    <th style="width: 7%;">{{ onGetLabel('headerPersons') }}</th>
                 </tr>
                 <tr>
                     <th style="width: 5%;"></th>
@@ -57,7 +57,7 @@
                             </ng-template>
                         </p-columnFilter>
                     </th>
-                    <th style="width: 6%;">
+                    <th style="width: 7%;">
                         <p-columnFilter type="text" field="persons"></p-columnFilter>
                     </th>
                 </tr>
@@ -69,7 +69,7 @@
                     <td style="width: 10%; padding: 5px !important; color: var(--color-embarkation-list-ticketNo) !important;">{{ reservation.ticketNo }}</td>
                     <td style="padding: 5px !important;">{{ reservation.customer }}</td>
                     <td style="padding: 5px !important;">{{ reservation.driver }}</td>
-                    <td style="width: 6%; padding: 5px !important; text-align: center;">{{ reservation.totalPersons }}</td>
+                    <td style="width: 7%; padding: 5px !important; text-align: center;">{{ reservation.totalPersons }}</td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="rowexpansion" let-reservation>

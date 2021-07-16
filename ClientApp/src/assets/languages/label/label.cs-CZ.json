@@ -1361,35 +1361,31 @@
             },
             {
                 "id": "date",
-                "description": "(CZ) Date"
+                "description": "Datum"
             },
             {
                 "id": "searchDateHint",
-                "description": "(CZ) Select or enter date"
+                "description": "Datum nalodění"
             },
             {
                 "id": "searchAutocompleteHint",
-                "description": "(CZ) Select from the list"
+                "description": "Vyberte ze seznamu"
             },
             {
                 "id": "destination",
-                "description": "(CZ) Destination"
+                "description": "Destinace"
             },
             {
                 "id": "port",
-                "description": "(CZ) Port"
+                "description": "Přístav"
             },
             {
                 "id": "ship",
-                "description": "(CZ) Ship"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "(CZ) Select from the list"
+                "description": "Plavidlo"
             },
             {
                 "id": "searchButton",
-                "description": "(CZ) Search"
+                "description": "VYHLEDÁVÁNÍ"
             }
         ]
     },

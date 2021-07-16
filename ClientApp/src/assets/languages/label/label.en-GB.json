@@ -1364,8 +1364,8 @@
                 "description": "Date"
             },
             {
-                "id": "searchDateHint",
-                "description": "Select or enter date"
+                "id": "searchAutocompleteHint",
+                "description": "Επιλέξτε από τη λίστα"
             },
             {
                 "id": "searchAutocompleteHint",
@@ -1382,10 +1382,6 @@
             {
                 "id": "ship",
                 "description": "Ship"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "Select from the list"
             },
             {
                 "id": "searchButton",

@@ -1369,7 +1369,7 @@
             },
             {
                 "id": "searchDateHint",
-                "description": "Δώστε ημερομηνία"
+                "description": "Ημερομηνία"
             },
             {
                 "id": "destination",
@@ -1382,10 +1382,6 @@
             {
                 "id": "ship",
                 "description": "Πλοίο"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "Επιλέξτε από τη λίστα"
             },
             {
                 "id": "searchButton",

@@ -1365,11 +1365,11 @@
             },
             {
                 "id": "searchDateHint",
-                "description": "Donnez Date"
+                "description": "Date d'embarquement"
             },
             {
                 "id": "searchAutocompleteHint",
-                "description": "(FR) Select from the list"
+                "description": "Sélectionnez dans la liste"
             },
             {
                 "id": "destination",
@@ -1381,15 +1381,11 @@
             },
             {
                 "id": "ship",
-                "description": " bateau"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "Selectionner dans la liste"
+                "description": "Navire"
             },
             {
                 "id": "searchButton",
-                "description": "Recherche"
+                "description": "RECHERCHER"
             }
         ]
     },
@@ -1410,7 +1406,7 @@
             },
             {
                 "id": "pending",
-                "description": "Attente"
+                "description": "En attente"
             },
             {
                 "id": "headerTicketNo",
@@ -1429,8 +1425,20 @@
                 "description": "Personnes"
             },
             {
+                "id": "headerStatus",
+                "description": "Statut"
+            },
+            {
+                "id": "headerLastname",
+                "description": "Nom de famille"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "Prénom"
+            },
+            {
                 "id": "scanOpenButton",
-                "description": "NUMÉRISER LE BON"
+                "description": "SCANNEZ LE BON"
             },
             {
                 "id": "scanCloseButton",
