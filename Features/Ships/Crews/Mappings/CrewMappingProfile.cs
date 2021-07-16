@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class CrewMappingProfile : Profile {
 

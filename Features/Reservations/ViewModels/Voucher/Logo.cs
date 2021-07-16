@@ -1,4 +1,4 @@
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public static class Logo {
 

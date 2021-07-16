@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class ShipValidator : AbstractValidator<Ship> {
 

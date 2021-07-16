@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class Startup {
 
@@ -40,8 +40,7 @@ namespace CorfuCruises {
             services.AddEmailSenders();
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             services.Configure<CookiePolicyOptions>(options => { options.CheckConsentNeeded = context => true; options.MinimumSameSitePolicy = SameSiteMode.None; });
-            services.Configure<AppCorfuCruisesSettings>(options => Configuration.GetSection("AppCorfuCruises").Bind(options));
-            services.Configure<WebDefaultSettings>(options => Configuration.GetSection("WebDefaultSettings").Bind(options));
+            services.Configure<ShipCruisesSettings>(options => Configuration.GetSection("ShipCruises").Bind(options));
             services.Configure<TokenSettings>(options => Configuration.GetSection("TokenSettings").Bind(options));
         }
 

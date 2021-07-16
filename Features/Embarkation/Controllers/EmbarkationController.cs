@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     // [Authorize]
     [Route("api/[controller]")]

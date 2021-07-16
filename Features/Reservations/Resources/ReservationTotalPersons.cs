@@ -1,4 +1,4 @@
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class ReservationTotalPersons {
         public string Date { get; set; }

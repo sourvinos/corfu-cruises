@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace CorfuCruises.Manifest {
+namespace ShipCruises.Manifest {
 
     public class ManifestMappingProfile : Profile {
 

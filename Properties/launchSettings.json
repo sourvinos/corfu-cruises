@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "CorfuCruises": {
+    "ShipCruises": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:5001",

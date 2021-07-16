@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-namespace CorfuCruises.Manifest {
+namespace ShipCruises.Manifest {
 
     public interface IManifestRepository {
 

@@ -29,7 +29,7 @@ export class LogoComponent {
     //#region private methods
 
     private updateCompanyLogo(): void {
-        this.companyLogo = this.helperService.getApplicationTitle().split(' ')
+        this.companyLogo = this.helperService.getApplicationTitle()
     }
 
     //#endregion

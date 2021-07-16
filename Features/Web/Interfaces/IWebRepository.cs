@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public interface IWebRepository : IRepository<Reservation> {
 

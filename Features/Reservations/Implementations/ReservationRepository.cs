@@ -6,7 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class ReservationRepository : Repository<Reservation>, IReservationRepository {
 

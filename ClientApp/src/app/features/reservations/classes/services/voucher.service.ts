@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
@@ -110,9 +111,9 @@ export class VoucherService extends DataService {
                         { width: '*', text: '' }
                     ]
                 },
-                { text: 'Problems or questions? Call us at +30 26620 61400', alignment: 'center', style: ['small'] },
-                { text: 'or email at info@corfucruises.com', alignment: 'center', style: ['small'] },
-                { text: '© Corfu Cruises 2021, Kavos - Corfu - Greece', alignment: 'center', style: ['small'] }
+                { text: environment.emailFooter.lineA, alignment: 'center', style: ['small'] },
+                { text: environment.emailFooter.lineB, alignment: 'center', style: ['small'] },
+                { text: environment.emailFooter.lineC, alignment: 'center', style: ['small'] }
                 ]
             },
             styles: {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class DbContext : IdentityDbContext<IdentityUser> {
 

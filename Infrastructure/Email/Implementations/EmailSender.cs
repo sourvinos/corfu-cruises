@@ -5,14 +5,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class EmailSender : IEmailSender {
 
         private readonly IWebHostEnvironment env;
-        private readonly AppCorfuCruisesSettings settings;
+        private readonly ShipCruisesSettings settings;
 
-        public EmailSender(IWebHostEnvironment env, IOptions<AppCorfuCruisesSettings> settings) {
+        public EmailSender(IWebHostEnvironment env, IOptions<ShipCruisesSettings> settings) {
             this.env = env;
             this.settings = settings.Value;
         }
@@ -24,7 +24,7 @@ namespace CorfuCruises {
             var htmlContent = "";
             var body = EmailMessages.FirstLoginCredentials(model.Language);
 
-            htmlContent += "<h1 style = 'font-weight: 500;'><span style = 'color: #0078d7;'>Corfu</span><span style = 'color: #5db2ff;'> Cruises</span></h1>";
+            htmlContent += "<h1 style = 'font-weight: 500;'><span style = 'color: #0078d7;'>Blue Water</span><span style = 'color: #5db2ff;'> Cruises</span></h1>";
             htmlContent += "<p>" + body[0] + model.DisplayName + "!" + "</p>";
             htmlContent += "<p>" + body[1] + "</p>";
             htmlContent += "<p>" + body[2] + model.UserName + "</p>";
@@ -40,7 +40,7 @@ namespace CorfuCruises {
             htmlContent += "<p>" + body[8] + "</p>";
             htmlContent += "<br>";
             htmlContent += "<p>" + body[9] + "</p>";
-            htmlContent += "<p>Corfu Cruises " + DateTime.Now.ToString("yyyy") + "</p>";
+            htmlContent += "<p>Blue Water Cruises " + DateTime.Now.ToString("yyyy") + "</p>";
 
             message.From.Add(new MailboxAddress(settings.From, settings.Username));
             message.To.Add(new MailboxAddress(model.DisplayName, model.Email));
@@ -97,9 +97,9 @@ namespace CorfuCruises {
                     FileName = Path.GetFileName($@"Vouchers\\Voucher{voucher.TicketNo}.pdf")
                 };
 
-                message.From.Add(new MailboxAddress("", "postmaster@appcorfucruises.com"));
+                message.From.Add(new MailboxAddress("", settings.Username));
                 message.To.Add(new MailboxAddress("", voucher.Email));
-                message.Subject = "Your Reservation With Corfu Cruises Is Ready!";
+                message.Subject = "Your Reservation With " + settings.From + " Is Ready!";
 
                 multipart.Add(attachment);
                 message.Body = multipart;
@@ -126,7 +126,7 @@ namespace CorfuCruises {
 
         private string UpdateResetPasswordWithVariables(string displayName, string callbackUrl) {
 
-            var response = ResetPasswordTemplate.GetHtmlString(displayName, callbackUrl);
+            var response = ResetPasswordTemplate.GetHtmlString(displayName, callbackUrl,settings);
 
             var updatedResponse = response
                 .Replace("[displayName]", displayName)

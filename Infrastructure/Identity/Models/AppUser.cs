@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class AppUser : IdentityUser {
 

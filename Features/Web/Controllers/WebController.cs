@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     [Route("api/[controller]")]
 

@@ -1,22 +1,9 @@
 #logo {
+    color: var(--color-logo) !important;
     cursor: pointer;
-    display: flex;
     font-family: var(--font-family-logo);
     font-size: var(--font-size-logo) !important;
     font-weight: var(--font-weight-logo);
     outline: 0;
-}
-
-span:nth-child(1) {
-    color: var(--color-logo-primary) !important;
-    transition: color var(--change-theme-delay) ease;
-}
-
-span:nth-child(2) {
-    color: transparent;
-}
-
-span:nth-child(3) {
-    color: var(--color-logo-secondary) !important;
     transition: color var(--change-theme-delay) ease;
 }

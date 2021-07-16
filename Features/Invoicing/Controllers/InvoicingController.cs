@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     // [Authorize]
     [Route("api/[controller]")]

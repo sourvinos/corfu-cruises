@@ -1,4 +1,4 @@
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class NationalityRepository : Repository<Nationality>, INationalityRepository {
 

@@ -1,4 +1,3 @@
-using CorfuCruises.Manifest;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -10,8 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System;
+using ShipCruises.Manifest;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public static class Extensions {
 

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class EmailNotificationsController : Controller {
 

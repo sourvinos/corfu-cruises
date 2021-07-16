@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class Ship {
 

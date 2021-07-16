@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public interface IShipRepository : IRepository<Ship> {
 

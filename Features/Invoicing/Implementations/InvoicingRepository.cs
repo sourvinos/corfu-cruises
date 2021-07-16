@@ -3,7 +3,7 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class InvoicingRepository : IInvoicingRepository {
 

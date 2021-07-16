@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class RouteRepository : Repository<Route>, IRouteRepository {
 

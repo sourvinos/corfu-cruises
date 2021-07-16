@@ -1,10 +1,11 @@
 using System.Text;
+using Microsoft.Extensions.Options;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public static class ResetPasswordTemplate {
 
-        public static string GetHtmlString(string displayName, string callbackUrl) {
+        public static string GetHtmlString(string displayName, string callbackUrl, ShipCruisesSettings settings) {
 
             var sb = new StringBuilder();
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class EmbarkationRepository : Repository<Reservation>, IEmbarkationRepository {
 

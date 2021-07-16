@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public static class LoggerExtensions {
 

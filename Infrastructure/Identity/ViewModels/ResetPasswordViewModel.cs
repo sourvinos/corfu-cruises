@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class ResetPasswordViewModel {
 

@@ -2,7 +2,7 @@ using System.IO;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     [ProviderAlias("File")]
     

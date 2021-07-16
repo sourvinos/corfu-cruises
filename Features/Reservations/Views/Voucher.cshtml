@@ -1,4 +1,4 @@
-@model CorfuCruises.Voucher
+@model ShipCruises.Voucher
 
 <head>
     <style>
@@ -16,15 +16,6 @@
 
         .text {
             font-family: Roboto;
-            @* font-size: 1.5rem; *@
-        }
-
-        .text.large {
-            @* font-size: 2rem; *@
-        }
-
-        .text.small {
-            @* font-size: 1rem; *@
         }
 
         .text.center {
@@ -71,7 +62,7 @@
     <div id="wrapper">
 
         <div id="logo">
-            <img src="@Model.Logo" width="200px" height="200px" alt="Corfu Cruises Logo">
+            <img src="@Model.Logo" width="200px" height="200px" alt="Logo">
         </div>
 
         <div class="group">
@@ -114,11 +105,13 @@
                 </thead>
                 <tbody>
                     @foreach (var passenger in Model.Passengers)
+
                     {
                         <tr>
                             <td class="text">@passenger.Lastname</td>
                             <td class="text">@passenger.Firstname</td>
                         </tr>
+
                     }
                     <tr id="last-row">
                         <td colspan="2" class="text center">Total passengers: @Model.Passengers.Count()</td>
@@ -132,9 +125,9 @@
         </div>
 
         <div id="social">
-            <img src="@Model.Facebook" width="30px" height="30px" alt="Corfu Cruises Logo">
-            <img src="@Model.YouTube" width="30px" height="30px" alt="Corfu Cruises Logo">
-            <img src="@Model.Instagram" width="30px" height="30px" alt="Corfu Cruises Logo">
+            <img src="@Model.Facebook" width="30px" height="30px" alt="Logo">
+            <img src="@Model.YouTube" width="30px" height="30px" alt="Logo">
+            <img src="@Model.Instagram" width="30px" height="30px" alt="Logo">
         </div>
 
         <div class="group">

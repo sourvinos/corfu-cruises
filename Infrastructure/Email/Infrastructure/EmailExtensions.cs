@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public static class AddEmailExtensions {
 

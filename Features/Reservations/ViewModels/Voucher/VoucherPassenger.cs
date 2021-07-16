@@ -1,6 +1,6 @@
 using System;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class VoucherPassenger {
 

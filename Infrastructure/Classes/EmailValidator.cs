@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     class EmailValidator {
 

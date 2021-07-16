@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class PickupPointRepository : Repository<PickupPoint>, IPickupPointRepository {
 

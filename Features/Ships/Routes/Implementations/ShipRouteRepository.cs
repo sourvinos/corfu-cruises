@@ -1,4 +1,4 @@
-namespace CorfuCruises {
+namespace ShipCruises {
 
     public class ShipRouteRepository : Repository<ShipRoute>, IShipRouteRepository {
 
