@@ -4,27 +4,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Login"
+                "description": "Anmeldung"
             },
             {
                 "id": "usernameLabel",
-                "description": "(DE) Username"
+                "description": "Nutzername"
             },
             {
                 "id": "passwordLabel",
-                "description": "(DE) Password"
+                "description": "Passwort"
             },
             {
                 "id": "noRobotCheckbox",
-                "description": "(DE) I am not a robot"
+                "description": "Ich bin kein Roboter"
             },
             {
                 "id": "forgotPasswordButton",
-                "description": "(DE) I FORGOT MY PASSWORD"
+                "description": "PASSWORT VERGESSEN"
             },
             {
                 "id": "loginButton",
-                "description": "(DE) LOGIN"
+                "description": "ANMELDUNG"
             }
         ]
     },
@@ -33,31 +33,31 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Customers"
+                "description": "Kunden"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Search"
+                "description": "Suche"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Global search"
+                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "headerName",
-                "description": "(DE) Name"
+                "description": "NAME"
             },
             {
                 "id": "headerPhones",
-                "description": "(DE) Phones"
+                "description": "TELEFONE"
             },
             {
                 "id": "headerEmail",
-                "description": "(DE) Email"
+                "description": "EMAIL"
             }
         ]
     },
@@ -66,43 +66,43 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Customer"
+                "description": "Kunde"
             },
             {
                 "id": "description",
-                "description": "(DE) Name"
+                "description": "Name der Firma"
             },
             {
                 "id": "profession",
-                "description": "(DE) Profession"
+                "description": "Beruf"
             },
             {
                 "id": "address",
-                "description": "(DE) Address"
+                "description": "Adresse"
             },
             {
                 "id": "phones",
-                "description": "(DE) Phones"
+                "description": "Telefone"
             },
             {
                 "id": "personInCharge",
-                "description": "(DE) Person in charge"
+                "description": "Verantwortlicher"
             },
             {
                 "id": "email",
-                "description": "(DE) Email"
+                "description": "Email"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "LÖSCHEN"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "SPEICHERN"
             }
         ]
     },
@@ -111,27 +111,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Destinations"
+                "description": "Reiseziele"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Search"
+                "description": "Suche"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by description"
+                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "headerAbbreviation",
-                "description": "(DE) Abbr"
+                "description": "Abk."
             },
             {
                 "id": "headerDescription",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             }
         ]
     },
@@ -140,27 +140,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Destination"
+                "description": "Reiseziel"
             },
             {
                 "id": "abbreviation",
-                "description": "(DE) Abbr"
+                "description": "Abk."
             },
             {
                 "id": "description",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Löschen"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -169,27 +169,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Drivers"
+                "description": "Fahrern"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Search"
+                "description": "Suchen"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by name"
+                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "headerName",
-                "description": "(DE) Name"
+                "description": "Vollständiger Name"
             },
             {
                 "id": "headerPhones",
-                "description": "(DE) Phones"
+                "description": "Telefone"
             }
         ]
     },
@@ -198,27 +198,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Driver"
+                "description": "Fahrer"
             },
             {
                 "id": "description",
-                "description": "(DE) Name"
+                "description": "Vollständiger Name"
             },
             {
                 "id": "phones",
-                "description": "(DE) Phones"
+                "description": "Telefone"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Löschen"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -227,15 +227,15 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Pickup points"
+                "description": "Abholpunkte"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Routes"
+                "description": "Routen"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Select from the list"
+                "description": "Aus der Liste auswählen"
             }
         ]
     },
@@ -244,35 +244,35 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Pickup Points for Route: "
+                "description": "Abholpunkte für die Route: "
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Search"
+                "description": "Suchen"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by description"
+                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "headerDescription",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             },
             {
                 "id": "headerExactPoint",
-                "description": "(DE) Exact point"
+                "description": "Genauer Punkt"
             },
             {
                 "id": "headerCoordinates",
-                "description": "(DE) GPS Coordinates"
+                "description": "GPS Koordinaten"
             },
             {
                 "id": "headerTime",
-                "description": "(DE) Time"
+                "description": "Zeit"
             }
         ]
     },
@@ -281,47 +281,47 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Pickup point"
+                "description": "Abholpunkt"
             },
             {
                 "id": "route",
-                "description": "(DE) Route"
+                "description": "Route"
             },
             {
                 "id": "description",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             },
             {
                 "id": "exactPoint",
-                "description": "(DE) Exact point"
+                "description": "Genauer Punkt"
             },
             {
                 "id": "time",
-                "description": "(DE) Time"
+                "description": "Zeit"
             },
             {
                 "id": "coordinates",
-                "description": "(DE) GPS Coordinates"
+                "description": "GPS Koordinaten"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Löschen"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             },
             {
                 "id": "formTab",
-                "description": "(DE) Form"
+                "description": "Formular"
             },
             {
                 "id": "mapTab",
-                "description": "(DE) Map"
+                "description": "Karte"
             }
         ]
     },
@@ -330,23 +330,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Ports"
+                "description": "Häfen"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Search"
+                "description": "Suchen"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by description"
+                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "headerDescription",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             }
         ]
     },
@@ -355,27 +355,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Port"
+                "description": "Hafen"
             },
             {
                 "id": "description",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             },
             {
                 "id": "isPrimary",
-                "description": "(DE) Primary"
+                "description": "Primär"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Löschen"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -384,27 +384,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Routes"
+                "description": "Routen"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Search"
+                "description": "Suchen"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by description"
+                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "headerAbbreviation",
-                "description": "(DE) Abbr."
+                "description": "Abk."
             },
             {
                 "id": "headerDescription",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             }
         ]
     },
@@ -413,43 +413,43 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Route"
+                "description": "Route"
             },
             {
                 "id": "abbreviation",
-                "description": "(DE) Abbr."
+                "description": "Abk."
             },
             {
                 "id": "description",
-                "description": "(DE) description"
+                "description": "Beschreibung"
             },
             {
                 "id": "port",
-                "description": "(DE) Port"
+                "description": "Hafen"
             },
             {
                 "id": "isTransfer",
-                "description": "(DE) Requires transfer"
+                "description": "Erfordert Übertragung"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Löschen"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             },
             {
                 "id": "formTab",
-                "description": "(DE) Form"
+                "description": "Formular"
             },
             {
                 "id": "mapTab",
-                "description": "(DE) Map"
+                "description": "Karte"
             }
         ]
     },
@@ -458,19 +458,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Reservations"
+                "description": "Reservierungen"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Date"
+                "description": "Datum"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Select or enter date"
+                "description": "Reservierungsdatum"
             },
             {
                 "id": "searchButton",
-                "description": "(DE) Search"
+                "description": "Suchen"
             }
         ]
     },
@@ -479,31 +479,31 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Users"
+                "description": "Benutzer"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Search"
+                "description": "Suchen"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by username"
+                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "headerUsername",
-                "description": "(DE) Username"
+                "description": "Nutzername"
             },
             {
                 "id": "headerDisplayname",
-                "description": "(DE) Display name"
+                "description": "Angezeigter Name"
             },
             {
                 "id": "headerEmail",
-                "description": "(DE) Email"
+                "description": "Email"
             }
         ]
     },
@@ -512,47 +512,47 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) User"
+                "description": "Benutzer"
             },
             {
                 "id": "userName",
-                "description": "(DE) Username"
+                "description": "Nutzername"
             },
             {
                 "id": "displayName",
-                "description": "(DE) Displayed Name"
+                "description": "Angezeigter Name"
             },
             {
                 "id": "customer",
-                "description": "(DE) Linked Customer"
+                "description": "Linkedin-Kunde"
             },
             {
                 "id": "email",
-                "description": "(DE) Email"
+                "description": "Email"
             },
             {
                 "id": "isAdmin",
-                "description": "(DE) Admin"
+                "description": "Admin"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Löschen"
             },
             {
                 "id": "changePasswordButton",
-                "description": "(DE) Change password"
+                "description": "Kennwort ändern"
             },
             {
                 "id": "sendEmailToUser",
-                "description": "(DE) Send email"
+                "description": "E-Mail senden"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -561,47 +561,47 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) User"
+                "description": "Nutzer"
             },
             {
                 "id": "userName",
-                "description": "(DE) Username"
+                "description": "Nutzername"
             },
             {
                 "id": "displayName",
-                "description": "(DE) Displayed name"
+                "description": "Angezeigter Name"
             },
             {
                 "id": "email",
-                "description": "(DE) Email"
+                "description": "Email"
             },
             {
                 "id": "password",
-                "description": "(DE) Password"
+                "description": "Passwort"
             },
             {
                 "id": "confirmPassword",
-                "description": "(DE) Confirm password"
+                "description": "Kennwort bestätigen"
             },
             {
                 "id": "customer",
-                "description": "(DE) Linked Customer"
+                "description": "Linkedin-Kunde"
             },
             {
                 "id": "isAdmin",
-                "description": "(DE) Admin"
+                "description": "Admin"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "sendLoginCredentials",
-                "description": "Send to email"
+                "description": "An E-Mail senden"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -610,23 +610,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Change password"
+                "description": "Kennwort ändern"
             },
             {
                 "id": "currentPassword",
-                "description": "(DE) Current password"
+                "description": "Jetziges Passwort"
             },
             {
                 "id": "newPassword",
-                "description": "(DE) New password"
+                "description": "Neues Kennwort"
             },
             {
                 "id": "confirmPassword",
-                "description": "(DE) Confirm new password"
+                "description": "Bestätige neues Passwort"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -635,119 +635,119 @@
         "labels": [
             {
                 "id": "summaryTab",
-                "description": "(DE) Summary"
+                "description": "Kurzbericht"
             },
             {
                 "id": "listTab",
-                "description": "(DE) Records"
+                "description": "Aufzeichnungen"
             },
             {
                 "id": "summaryHeaderDestinations",
-                "description": "(DE) Destinations"
+                "description": "Reiseziele"
             },
             {
                 "id": "summaryHeaderCustomers",
-                "description": "(DE) Customers"
+                "description": "Kunden"
             },
             {
                 "id": "summaryHeaderRoutes",
-                "description": "(DE) Routes"
+                "description": "Routen"
             },
             {
                 "id": "summaryHeaderDrivers",
-                "description": "(DE) Drivers"
+                "description": "Fahrer"
             },
             {
                 "id": "summaryHeaderPorts",
-                "description": "(DE) Ports"
+                "description": "Häfen"
             },
             {
                 "id": "summaryHeaderShips",
-                "description": "(DE) Ships"
+                "description": "Schiffe"
             },
             {
                 "id": "assignToDriverButton",
-                "description": "(DE) Assign passengers to driver"
+                "description": "Fahrgäste in den Bus einteilen"
             },
             {
                 "id": "assignToShipButton",
-                "description": "(DE) Assign passengers to ship"
+                "description": "Passagiere auf das Schiff einlassen"
             },
             {
                 "id": "createPdfButton",
-                "description": "(DE) Create PDF for drivers"
+                "description": "PDF für Fahrer erstellen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "total",
-                "description": "(DE) All"
+                "description": "Alle"
             },
             {
                 "id": "displayed",
-                "description": "(DE) Displayed"
+                "description": "Angezeigt"
             },
             {
                 "id": "selected",
-                "description": "(DE) Selected"
+                "description": "Ausgewählt"
             },
             {
                 "id": "filtered",
-                "description": "(DE) Filtered"
+                "description": "Gefiltert"
             },
             {
                 "id": "headerTicketNo",
-                "description": "(DE) Ticket"
+                "description": "Ticketnummer"
             },
             {
                 "id": "headerDestination",
-                "description": "(DE) Destination"
+                "description": "Ziel"
             },
             {
                 "id": "headerRoute",
-                "description": "(DE) Route"
+                "description": "Route"
             },
             {
                 "id": "headerShip",
-                "description": "(DE) Ship"
+                "description": "Schiff"
             },
             {
                 "id": "headerCustomer",
-                "description": "(DE) Customer"
+                "description": "Kunde"
             },
             {
                 "id": "headerPickupPoint",
-                "description": "(DE) Pickup point"
+                "description": "Abholpunkt"
             },
             {
                 "id": "headerTime",
-                "description": "(DE) Time"
+                "description": "Zeit"
             },
             {
                 "id": "headerAdults",
-                "description": "(DE) A"
+                "description": "E"
             },
             {
                 "id": "headerKids",
-                "description": "(DE) K"
+                "description": "K"
             },
             {
                 "id": "headerFree",
-                "description": "(DE) F"
+                "description": "G"
             },
             {
                 "id": "headerTotal",
-                "description": "(DE) T"
+                "description": "T"
             },
             {
                 "id": "headerDriver",
-                "description": "(DE) Driver"
+                "description": "Fahrer"
             },
             {
                 "id": "headerPort",
-                "description": "(DE) Port"
+                "description": "Hafen"
             }
         ]
     },
@@ -756,95 +756,95 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Reservation"
+                "description": "Reservierung"
             },
             {
                 "id": "tabGeneral",
-                "description": "(DE) General"
+                "description": "Allgemeines"
             },
             {
                 "id": "tabPassengers",
-                "description": "(DE) Passengers"
+                "description": "Passagiere"
             },
             {
                 "id": "tabMoreInfo",
-                "description": "(DE) More"
+                "description": "Mehr"
             },
             {
                 "id": "destination",
-                "description": "(DE) Destination"
+                "description": "Ziel"
             },
             {
                 "id": "customer",
-                "description": "(DE) Customer"
+                "description": "Kunde"
             },
             {
                 "id": "pickupPoint",
-                "description": "(DE) Pickup point"
+                "description": "Abholpunkt"
             },
             {
                 "id": "ticketNo",
-                "description": "(DE) Ticket"
+                "description": "Ticketnummer"
             },
             {
                 "id": "adults",
-                "description": "(DE) Adults"
+                "description": "Erwachsene"
             },
             {
                 "id": "kids",
-                "description": "(DE) Kids"
+                "description": "Kinder"
             },
             {
                 "id": "free",
-                "description": "(DE) Free"
+                "description": "Gratis"
             },
             {
                 "id": "totalPersons",
-                "description": "(DE) Total"
+                "description": "Gesamt"
             },
             {
                 "id": "driver",
-                "description": "(DE) Driver"
+                "description": "Fahrer"
             },
             {
                 "id": "port",
-                "description": "(DE) Port"
+                "description": "Hafen"
             },
             {
                 "id": "ship",
-                "description": "(DE) Ship"
+                "description": "Schiff"
             },
             {
                 "id": "email",
-                "description": "(DE) Email"
+                "description": "E-Mail"
             },
             {
                 "id": "phones",
-                "description": "(DE) Phones"
+                "description": "Telefone"
             },
             {
                 "id": "remarks",
-                "description": "(DE) Remarks"
+                "description": "Bemerkungen"
             },
             {
                 "id": "abortButton",
-                "description": "(DE) Cancel"
+                "description": Abbrechen"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Löschen"
             },
             {
                 "id": "printVoucherButton",
-                "description": "(DE) Print"
+                "description": "Drucken"
             },
             {
                 "id": "sendVoucherButton",
-                "description": "(DE) Send to email"
+                "description": "An E-Mail senden"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -853,19 +853,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Forgot password"
+                "description": "Passwort vergessen"
             },
             {
                 "id": "email",
-                "description": "(DE) Email"
+                "description": "E-Mail"
             },
             {
                 "id": "submitButton",
-                "description": "(DE) Submit"
+                "description": "Einreichen"
             },
             {
                 "id": "weNeedYourEmail",
-                "description": "(DE) Give us your email and we'll send you instructions on how to reset your password"
+                "description": "Geben Sie uns Ihre E-Mail-Adresse und wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts"
             }
         ]
     },
@@ -874,19 +874,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Reset password"
+                "description": "Passwort zurücksetzen"
             },
             {
                 "id": "password",
-                "description": "(DE) Password"
+                "description": "Passwort"
             },
             {
                 "id": "confirmPassword",
-                "description": "(DE) Confirm password"
+                "description": "Kennwort bestätigen"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -895,15 +895,15 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Important:"
+                "description": "Warnung"
             },
             {
                 "id": "okButton",
-                "description": "(DE) OK"
+                "description": "OK"
             },
             {
                 "id": "noButton",
-                "description": "(DE) Cancel"
+                "description": Abbrechen"
             }
         ]
     },
@@ -912,7 +912,7 @@
         "labels": [
             {
                 "id": "searchHint",
-                "description": "(DE) Select from the list"
+                "description": "Aus der Liste auswählen"
             },
             {
                 "id": "header",
@@ -920,7 +920,7 @@
             },
             {
                 "id": "driver",
-                "description": "(DE) Driver"
+                "description": "Fahrer"
             },
             {
                 "id": "okButton",
@@ -928,7 +928,7 @@
             },
             {
                 "id": "noButton",
-                "description": "(DE) Cancel"
+                "description": Abbrechen"
             }
         ]
     },
@@ -937,7 +937,7 @@
         "labels": [
             {
                 "id": "searchHint",
-                "description": "(DE) Select from the list"
+                "description": "Aus der Liste auswählen"
             },
             {
                 "id": "header",
@@ -945,7 +945,7 @@
             },
             {
                 "id": "ship",
-                "description": "(DE) Ship"
+                "description": "Schiff"
             },
             {
                 "id": "okButton",
@@ -953,7 +953,7 @@
             },
             {
                 "id": "noButton",
-                "description": "(DE) Cancel"
+                "description": Abbrechen"
             }
         ]
     },
@@ -962,71 +962,71 @@
         "labels": [
             {
                 "id": "ports",
-                "description": "(DE) Ports"
+                "description": "Häfen"
             },
             {
                 "id": "portId",
-                "description": "(DE) Id"
+                "description": "Id"
             },
             {
                 "id": "portDescription",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             },
             {
                 "id": "destinations",
-                "description": "(DE) Destinations"
+                "description": "Reiseziele"
             },
             {
                 "id": "destinationId",
-                "description": "(DE) Id"
+                "description": "Id"
             },
             {
                 "id": "destinationDescription",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             },
             {
                 "id": "customers",
-                "description": "(DE) Customers"
+                "description": "Kunder"
             },
             {
                 "id": "customerId",
-                "description": "(DE) Id"
+                "description": "Id"
             },
             {
                 "id": "customerDescription",
-                "description": "(DE) Name"
+                "description": "Name der Firma"
             },
             {
                 "id": "pickupPoints",
-                "description": "(DE) Pickup points"
+                "description": "Abholpunkte"
             },
             {
                 "id": "pickupPointId",
-                "description": "(DE) Id"
+                "description": "Id"
             },
             {
                 "id": "pickupPointDescription",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             },
             {
                 "id": "exactPoint",
-                "description": "(DE) Exact point"
+                "description": "Genauer Punkt"
             },
             {
                 "id": "time",
-                "description": "(DE) Time"
+                "description": "Zeit"
             },
             {
                 "id": "selectButton",
-                "description": "(DE) Select"
+                "description": "Wählen"
             },
             {
                 "id": "nationalityDescription",
-                "description": "(DE) Natinality"
+                "description": "Nationalität"
             },
             {
                 "id": "genderDescription",
-                "description": "(DE) Gender"
+                "description": "Geschlecht"
             }
         ]
     },
@@ -1048,23 +1048,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Ships"
+                "description": "Schiffe"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Search"
+                "description": "Suchen"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by name"
+                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "headerName",
-                "description": "(DE) Name"
+                "description": "Beschreibung"
             }
         ]
     },
@@ -1073,51 +1073,51 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Ship"
+                "description": "Schiff"
             },
             {
                 "id": "description",
-                "description": "(DE) Name"
+                "description": "Beschreibung"
             },
             {
                 "id": "shipOwnerDescription",
-                "description": "(DE) Owner"
+                "description": "Inhaber"
             },
             {
                 "id": "imo",
-                "description": "(DE) ΙΜΟ"
+                "description": "ΙΜΟ"
             },
             {
                 "id": "flag",
-                "description": "(DE) Flag"
+                "description": "Flagge"
             },
             {
                 "id": "registryNo",
-                "description": "(DE) Registry no"
+                "description": "Registrierungsnummer"
             },
             {
                 "id": "manager",
-                "description": "(DE) Manager"
+                "description": "Manager"
             },
             {
                 "id": "managerInGreece",
-                "description": "(DE) Manager in Greece"
+                "description": "Manager in Griechenland"
             },
             {
                 "id": "agent",
-                "description": "(DE) Shipping agents"
+                "description": "Agenten"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Löschen"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -1126,31 +1126,31 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Schedule"
+                "description": "Zeitplan"
             },
             {
                 "id": "searchLabelDestination",
-                "description": "(DE) Destination"
+                "description": "Ziel"
             },
             {
                 "id": "searchLabelPort",
-                "description": "(DE) Port"
+                "description": "Hafen"
             },
             {
                 "id": "searchDropdownHint",
-                "description": "(DE) Select from the list"
+                "description": "Aus der Liste auswählen"
             },
             {
                 "id": "searchButton",
-                "description": "(DE) Search"
+                "description": "Suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "menu",
-                "description": "(DE) Colour Legend"
+                "description": "Farblegende"
             }
         ]
     },
@@ -1159,31 +1159,31 @@
         "labels": [
             {
                 "id": "newButton",
-                "description": "New"
+                "description": "NEU"
             },
             {
                 "id": "availabilityHeader",
-                "description": "(DE) Availability"
+                "description": "Verfügbarkeit"
             },
             {
                 "id": "high",
-                "description": "(DE) High"
+                "description": "Hohe"
             },
             {
                 "id": "average",
-                "description": "(DE) Average"
+                "description": "Mittlere"
             },
             {
                 "id": "limited",
-                "description": "(DE) Limited"
+                "description": "Begrenzt"
             },
             {
                 "id": "extremely-limited",
-                "description": "(DE) Extremely limited"
+                "description": "Extrem begrenzt"
             },
             {
                 "id": "none",
-                "description": "(DE) None"
+                "description": "Keine"
             }
         ]
     },
@@ -1192,31 +1192,31 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) New Schedule"
+                "description": "Neuer Zeitplan"
             },
             {
                 "id": "destination",
-                "description": "(DE) Destination"
+                "description": "Ziel"
             },
             {
                 "id": "port",
-                "description": "(DE) Port"
+                "description": "Hafen"
             },
             {
                 "id": "dateRange",
-                "description": "(DE) Period"
+                "description": "Zeitraum"
             },
             {
                 "id": "maxPersons",
-                "description": "(DE) Max Capacity"
+                "description": "Maximale Kapazität"
             },
             {
                 "id": "invalidPeriod",
-                "description": "(DE) The period is not valid"
+                "description": "Der Zeitraum ist nicht gültig"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -1225,35 +1225,35 @@
         "labels": [
             {
                 "id": "headerLastname",
-                "description": "(DE) Last name"
+                "description": "Name"
             },
             {
                 "id": "headerFirstname",
-                "description": "(DE) First name"
+                "description": "Vorname"
             },
             {
                 "id": "headerNationality",
-                "description": "(DE) Nationality"
+                "description": "Nationalität"
             },
             {
                 "id": "headerDoB",
-                "description": "Date of Birth"
+                "description": "Geburtsdatum"
             },
             {
                 "id": "headerSpecialCare",
-                "description": "Special care"
+                "description": "Spezialbehandlung"
             },
             {
                 "id": "headerRemarks",
-                "description": "Remarks"
+                "description": "Auslassungen"
             },
             {
                 "id": "headerIsCheckedIn",
-                "description": "(DE) Checked In"
+                "description": "Einchecken"
             },
             {
                 "id": "newPassengerButton",
-                "description": "(DE) New passenger"
+                "description": "Neuer Passagier"
             }
         ]
     },
@@ -1262,39 +1262,39 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Passenger"
+                "description": "Passagier"
             },
             {
                 "id": "lastname",
-                "description": "Lastname"
+                "description": "Name"
             },
             {
                 "id": "firstname",
-                "description": "Firstname"
+                "description": "Vorname"
             },
             {
                 "id": "nationality",
-                "description": "Nationality"
+                "description": "Nationalität"
             },
             {
                 "id": "birthDate",
-                "description": "Birth date"
+                "description": "Geburtsdatum"
             },
             {
                 "id": "gender",
-                "description": "Gender"
+                "description": "Geschlecht"
             },
             {
                 "id": "specialCare",
-                "description": "Special care"
+                "description": "Spezialbehandlung"
             },
             {
                 "id": "remarks",
-                "description": "Remarks"
+                "description": "Auslassungen"
             },
             {
                 "id": "isCheckedIn",
-                "description": "Checked In"
+                "description": "Einchecken"
             },
             {
                 "id": "saveButton",
@@ -1307,23 +1307,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Genders"
+                "description": "Geschlechter"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Search"
+                "description": "Suchen"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by description"
+                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "headerName",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             }
         ]
     },
@@ -1332,23 +1332,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Gender"
+                "description": "Geschlecht"
             },
             {
                 "id": "description",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Löschen"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -1459,27 +1459,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Nationalities"
+                "description": "Nationalitäten"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Search"
+                "description": "Suchen"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by description"
+                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "headerDescription",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             },
             {
                 "id": "headerFlag",
-                "description": "(DE) Flag"
+                "description": "Flagge"
             }
         ]
     },
@@ -1488,27 +1488,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Nationality"
+                "description": "Nationalität"
             },
             {
                 "id": "description",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             },
             {
                 "id": "code",
-                "description": "(DE) Code"
+                "description": "Code"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Löschen"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -1517,19 +1517,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Invoicing"
+                "description": "Fakturierung"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Date"
+                "description": "Datum"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Select or enter date"
+                "description": "Einschiffungsdatum"
             },
             {
                 "id": "searchButton",
-                "description": "(DE) Search"
+                "description": "Suchen"
             }
         ]
     },
@@ -1538,31 +1538,31 @@
         "labels": [
             {
                 "id": "headerAdults",
-                "description": "(DE) A"
+                "description": "E"
             },
             {
                 "id": "headerCustomerDescription",
-                "description": "(DE) Customer"
+                "description": "K"
             },
             {
                 "id": "headerDestinationDescription",
-                "description": "(DE) Destination"
+                "description": "Ziel"
             },
             {
                 "id": "headerFree",
-                "description": "(DE) F"
+                "description": "G"
             },
             {
                 "id": "headerIsTransfer",
-                "description": "(DE) Transfer"
+                "description": "Transfer"
             },
             {
                 "id": "headerKids",
-                "description": "(DE) K"
+                "description": "K"
             },
             {
                 "id": "headerRemarks",
-                "description": "(DE) Remarks"
+                "description": "Bemerkungen"
             },
             {
                 "id": "reservationId",
@@ -1570,15 +1570,15 @@
             },
             {
                 "id": "headerShipDescription",
-                "description": "(DE) Ship"
+                "description": "Schiff"
             },
             {
                 "id": "headerTicketNo",
-                "description": "(DE) Ticket"
+                "description": "Ticketnummer"
             },
             {
                 "id": "headerTotalPersons",
-                "description": "T"
+                "description": "G"
             }
         ]
     },
@@ -1587,11 +1587,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Colour Legend"
+                "description": "Farblegende"
             },
             {
                 "id": "sub-header",
-                "description": "(DE) Each Colour Represents the Available Seats"
+                "description": "Jede Farbe steht für die verfügbaren Sitzplätze"
             },
             {
                 "id": "plenty",
@@ -1603,19 +1603,19 @@
             },
             {
                 "id": "limited",
-                "description": "(DE) Limited"
+                "description": "Begrenzt"
             },
             {
                 "id": "extremely-limited",
-                "description": "(DE) Extremely Limited"
+                "description": "Extrem begrenzt"
             },
             {
                 "id": "none",
-                "description": "(DE) None"
+                "description": "Keine"
             },
             {
                 "id": "closeButton",
-                "description": "(DE) Close"
+                "description": "Schließen"
             }
         ]
     },
@@ -1624,11 +1624,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Manifest"
+                "description": "Manifest"
             },
             {
                 "id": "date",
-                "description": "(DE) Date"
+                "description": "Datum"
             },
             {
                 "id": "searchDateHint",
@@ -1636,27 +1636,27 @@
             },
             {
                 "id": "destination",
-                "description": "(DE) Destination"
+                "description": "Ziel"
             },
             {
                 "id": "port",
-                "description": "(DE) Port"
+                "description": "Hafen"
             },
             {
                 "id": "ship",
-                "description": "(DE) Ship"
+                "description": "Schiff"
             },
             {
                 "id": "shipRoute",
-                "description": "(DE) Route"
+                "description": "Route"
             },
             {
                 "id": "searchDropdownHint",
-                "description": "(DE) Select from the list"
+                "description": "Aus der Liste auswählen"
             },
             {
                 "id": "searchButton",
-                "description": "(DE) Search"
+                "description": "Suchen"
             }
         ]
     },
@@ -1669,15 +1669,15 @@
             },
             {
                 "id": "headerLastname",
-                "description": "(DE) Last name"
+                "description": "Name"
             },
             {
                 "id": "headerFirstname",
-                "description": "(DE) First name"
+                "description": "Vorname"
             },
             {
                 "id": "headerNationality",
-                "description": "(DE) Nationality"
+                "description": "Nationalität"
             },
             {
                 "id": "headerDoB",
@@ -1689,11 +1689,11 @@
             },
             {
                 "id": "headerGender",
-                "description": "(DE) Gender"
+                "description": "Geschlecht"
             },
             {
                 "id": "headerRemarks",
-                "description": "(DE) Remarks"
+                "description": "Bemerkungen"
             },
             {
                 "id": "headerSpecialCare",
@@ -1701,7 +1701,7 @@
             },
             {
                 "id": "exportToPdfButton",
-                "description": "(DE) Export to PDF"
+                "description": "Als PDF exportieren"
             }
         ]
     },
@@ -1710,7 +1710,7 @@
         "labels": [
             {
                 "id": "headerName",
-                "description": "(DE) Name"
+                "description": "Inhaber"
             }
         ]
     },
@@ -1719,47 +1719,47 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Shipowner"
+                "description": "Inhaber"
             },
             {
                 "id": "description",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             },
             {
                 "id": "profession",
-                "description": "(DE) Profession"
+                "description": "Beruf"
             },
             {
                 "id": "address",
-                "description": "(DE) Address"
+                "description": "Adresse"
             },
             {
                 "id": "taxNo",
-                "description": "(DE) Tax number"
+                "description": "Steuernummer"
             },
             {
                 "id": "city",
-                "description": "(DE) City"
+                "description": "Stadt"
             },
             {
                 "id": "phones",
-                "description": "(DE) Phones"
+                "description": "Telefone"
             },
             {
                 "id": "email",
-                "description": "(DE) Email"
+                "description": "E-Mail"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Löschen"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -1768,19 +1768,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Shipowners"
+                "description": "Beschreibung"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Search"
+                "description": "Suchen"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by name"
+                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             }
         ]
     },
@@ -1789,23 +1789,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Routes"
+                "description": "Routes"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Search"
+                "description": "Suchen"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by description"
+                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "headerDescription",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             }
         ]
     },
@@ -1814,47 +1814,47 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Route"
+                "description": "Route"
             },
             {
                 "id": "description",
-                "description": "(DE) Description"
+                "description": "Beschreibung"
             },
             {
                 "id": "fromPort",
-                "description": "(DE) Departure port"
+                "description": "Abreisehafen"
             },
             {
                 "id": "fromTime",
-                "description": "(DE) Time"
+                "description": "Zeit"
             },
             {
                 "id": "viaPort",
-                "description": "(DE) Intermediate port"
+                "description": "Zwischenanschluss"
             },
             {
                 "id": "viaTime",
-                "description": "(DE) Time"
+                "description": "Zeit"
             },
             {
                 "id": "toPort",
-                "description": "(DE) Destination port"
+                "description": "Ziel port"
             },
             {
                 "id": "toTime",
-                "description": "(DE) Time"
+                "description": "Zeit"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Löschen"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -1863,19 +1863,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Registrars"
+                "description": "Registrare"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Search"
+                "description": "Suchen"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by fullname"
+                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "headerFullname",
@@ -1888,47 +1888,47 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Registrar"
+                "description": "Registrator"
             },
             {
                 "id": "fullname",
-                "description": "(DE) Fullname"
+                "description": "Vollständiger Name"
             },
             {
                 "id": "shipDescription",
-                "description": "(DE) Ship"
+                "description": "Schiff"
             },
             {
                 "id": "phones",
-                "description": "(DE) Phones"
+                "description": "Telefone"
             },
             {
                 "id": "email",
-                "description": "(DE) Email"
+                "description": "E-Mail"
             },
             {
                 "id": "fax",
-                "description": "(DE) Fax"
+                "description": "Fax"
             },
             {
                 "id": "address",
-                "description": "(DE) Address"
+                "description": "Adresse"
             },
             {
                 "id": "isPrimary",
-                "description": "(DE) Primary"
+                "description": "Primär"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Löschen"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     },
@@ -1937,27 +1937,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Crews"
+                "description": "Besatzungen"
             },
             {
                 "id": "searchLabel",
-                "description": "(DE) Search"
+                "description": "Suchen"
             },
             {
                 "id": "searchHint",
-                "description": "(DE) Search by lastname"
+                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
-                "description": "(DE) New"
+                "description": "NEU"
             },
             {
                 "id": "headerLastname",
-                "description": "(DE) Lastname"
+                "description": "Name"
             },
             {
                 "id": "headerFirstname",
-                "description": "(DE) Firstname"
+                "description": "Vorname"
             }
         ]
     },
@@ -1966,43 +1966,43 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(DE) Crew"
+                "description": "Besatzung"
             },
             {
                 "id": "shipDescription",
-                "description": "(DE) Ship"
+                "description": "Schiff"
             },
             {
                 "id": "nationalityDescription",
-                "description": "(DE) Nationality"
+                "description": "Nationalität"
             },
             {
                 "id": "genderDescription",
-                "description": "(DE) Gender"
+                "description": "Geschlecht"
             },
             {
                 "id": "lastname",
-                "description": "(DE) Lastname"
+                "description": "Name"
             },
             {
                 "id": "firstname",
-                "description": "(DE) Firstname"
+                "description": "Vorname"
             },
             {
                 "id": "birthDate",
-                "description": "(DE) Birth date"
+                "description": "Geburtsdatum"
             },
             {
                 "id": "isActive",
-                "description": "(DE) Active"
+                "description": "Aktiv"
             },
             {
                 "id": "deleteButton",
-                "description": "(DE) Delete"
+                "description": "Löschen"
             },
             {
                 "id": "saveButton",
-                "description": "(DE) Save"
+                "description": "Speichern"
             }
         ]
     }

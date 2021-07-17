@@ -24,7 +24,7 @@
             },
             {
                 "id": "loginButton",
-                "description": "CONNEXION"
+                "description": "CONNECTE"
             }
         ]
     },
@@ -33,31 +33,31 @@
         "labels": [
             {
                 "id": "header",
-                "description": "clients"
+                "description": "Clients"
             },
             {
                 "id": "searchLabel",
-                "description": "Recherche"
+                "description": "Rechercher"
             },
             {
                 "id": "searchHint",
-                "description": "Recherche globale"
+                "description": "Tout rechercher"
             },
             {
                 "id": "newButton",
-                "description": "Nouvel utilisateur"
+                "description": "NOUVEAU"
             },
             {
                 "id": "headerName",
-                "description": "Nom de compagnie"
+                "description": "NOM DE COMPAGNIE"
             },
             {
                 "id": "headerPhones",
-                "description": "numeros de telephone"
+                "description": "TÉLÉPHONE"
             },
             {
                 "id": "headerEmail",
-                "description": "Email"
+                "description": "EMAIL"
             }
         ]
     },
@@ -66,7 +66,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "client"
+                "description": "Client"
             },
             {
                 "id": "description",
@@ -82,7 +82,7 @@
             },
             {
                 "id": "phones",
-                "description": "numeros de telephone"
+                "description": "Téléphone"
             },
             {
                 "id": "personInCharge",
@@ -98,11 +98,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Effacer"
+                "description": "EFFACER"
             },
             {
                 "id": "saveButton",
-                "description": "Enregistrer"
+                "description": "ENREGISTRER"
             }
         ]
     },
@@ -119,11 +119,11 @@
             },
             {
                 "id": "searchHint",
-                "description": "Base sur la description"
+                "description": "Tout rechercher"
             },
             {
                 "id": "newButton",
-                "description": "Nouvel utilisateur"
+                "description": "NOUVEL"
             },
             {
                 "id": "headerAbbreviation",
@@ -177,7 +177,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Sous nom de compagnie"
+                "description": "Tout rechercher"
             },
             {
                 "id": "newButton",
@@ -252,7 +252,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "base sur la Description"
+                "description": "Tout rechercher"
             },
             {
                 "id": "newButton",
@@ -338,7 +338,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Sous la base  Description"
+                "description": "Tout rechercher"
             },
             {
                 "id": "newButton",
@@ -392,7 +392,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Sous la base  Description"
+                "description": "Tout rechercher"
             },
             {
                 "id": "newButton",
@@ -487,23 +487,23 @@
             },
             {
                 "id": "searchHint",
-                "description": "Sous base de nom"
+                "description": "Tout rechercher"
             },
             {
                 "id": "newButton",
-                "description": "Nouvel utilisateurς"
+                "description": "NOUVEL"
             },
             {
                 "id": "headerUsername",
-                "description": "Nom d'utilisateur"
+                "description": "NOM D'UTILISATEUR"
             },
             {
                 "id": "headerDisplayname",
-                "description": "Nom apparu"
+                "description": "NOM AFFICHÉ"
             },
             {
                 "id": "headerEmail",
-                "description": "Email"
+                "description": "E-MAIL"
             }
         ]
     },
@@ -812,7 +812,7 @@
             },
             {
                 "id": "ship",
-                "description": " bateau"
+                "description": "Bateau"
             },
             {
                 "id": "email",
@@ -941,11 +941,11 @@
             },
             {
                 "id": "header",
-                "description": "Affectation a   bateau"
+                "description": "Affectation a bateau"
             },
             {
                 "id": "ship",
-                "description": " bateau"
+                "description": "Bateau"
             },
             {
                 "id": "okButton",
@@ -1270,7 +1270,7 @@
             },
             {
                 "id": "firstname",
-                "description": "Nom "
+                "description": "Nom"
             },
             {
                 "id": "nationality",
@@ -1780,7 +1780,7 @@
             },
             {
                 "id": "newButton",
-                "description": "(FR) New"
+                "description": "NOUVEAU"
             }
         ]
     },
@@ -1801,7 +1801,7 @@
             },
             {
                 "id": "newButton",
-                "description": "(FR) New"
+                "description": "NOUVEAU"
             },
             {
                 "id": "headerDescription",
@@ -1846,15 +1846,15 @@
             },
             {
                 "id": "isActive",
-                "description": "(FR) Active"
+                "description": "Actif"
             },
             {
                 "id": "deleteButton",
-                "description": "(FR) Delete"
+                "description": "EFFACER"
             },
             {
                 "id": "saveButton",
-                "description": "(FR) Save"
+                "description": "ENREGISTRER"
             }
         ]
     },
@@ -1871,15 +1871,15 @@
             },
             {
                 "id": "searchHint",
-                "description": "(FR) Search by fullname"
+                "description": "Tout rechercher"
             },
             {
                 "id": "newButton",
-                "description": "(FR) New"
+                "description": "NOUVEAU"
             },
             {
                 "id": "headerFullname",
-                "description": "(FR) Fullname"
+                "description": "NOM ET PRÉNOM"
             }
         ]
     },
@@ -1888,47 +1888,47 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(FR) Registrar"
+                "description": "Greffier"
             },
             {
                 "id": "fullname",
-                "description": "(FR) Fullname"
+                "description": "Nom et prénom"
             },
             {
                 "id": "shipDescription",
-                "description": "(FR) Ship"
+                "description": "Navire"
             },
             {
                 "id": "phones",
-                "description": "(FR) Phones"
+                "description": "Numéro de téléphone"
             },
             {
                 "id": "email",
-                "description": "(FR) Email"
+                "description": "E-Mail"
             },
             {
                 "id": "fax",
-                "description": "(FR) Fax"
+                "description": "Fax"
             },
             {
                 "id": "address",
-                "description": "(FR) Address"
+                "description": "Adresse"
             },
             {
                 "id": "isPrimary",
-                "description": "(FR) Primary"
+                "description": "Primaire"
             },
             {
                 "id": "isActive",
-                "description": "(FR) Active"
+                "description": "Actif"
             },
             {
                 "id": "deleteButton",
-                "description": "(FR) Delete"
+                "description": "EFFACER"
             },
             {
                 "id": "saveButton",
-                "description": "(FR) Save"
+                "description": "ENREGISTRER"
             }
         ]
     },
@@ -1937,27 +1937,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(FR) Crews"
+                "description": "Équipages"
             },
             {
                 "id": "searchLabel",
-                "description": "(FR) Search"
+                "description": "Rechercher"
             },
             {
                 "id": "searchHint",
-                "description": "(FR) Search by lastname"
+                "description": "Tout rechercher"
             },
             {
                 "id": "newButton",
-                "description": "(FR) New"
+                "description": "NOUVEAU"
             },
             {
                 "id": "headerLastname",
-                "description": "(FR) Lastname"
+                "description": "NOM DE FAMILLE"
             },
             {
                 "id": "headerFirstname",
-                "description": "(FR) Firstname"
+                "description": "NOM"
             }
         ]
     },
@@ -1966,43 +1966,43 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(FR) Crew"
+                "description": "L' équipe"
             },
             {
                 "id": "shipDescription",
-                "description": "(FR) Ship"
+                "description": "Bateau"
             },
             {
                 "id": "nationalityDescription",
-                "description": "(FR) Nationality"
+                "description": "Nationalite"
             },
             {
                 "id": "genderDescription",
-                "description": "(FR) Gender"
+                "description": "Genre"
             },
             {
                 "id": "lastname",
-                "description": "(FR) Lastname"
+                "description": "Nom de famille"
             },
             {
                 "id": "firstname",
-                "description": "(FR) Firstname"
+                "description": "Nom"
             },
             {
                 "id": "birthDate",
-                "description": "(FR) Birth date"
+                "description": "Date de naissance"
             },
             {
                 "id": "isActive",
-                "description": "(FR) Active"
+                "description": "Actif"
             },
             {
                 "id": "deleteButton",
-                "description": "(FR) Delete"
+                "description": "EFFACER"
             },
             {
                 "id": "saveButton",
-                "description": "(FR) Save"
+                "description": "ENREGISTRER"
             }
         ]
     }
