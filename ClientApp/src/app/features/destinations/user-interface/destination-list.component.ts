@@ -22,8 +22,10 @@ import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animati
 })
 
 export class DestinationListComponent {
-
+    
     //#region variables
+    
+    @ViewChild('table') table: Table | undefined
 
     private baseUrl = '/destinations'
     private localStorageSearchTerm = 'destination-list-search-term'
@@ -37,18 +39,6 @@ export class DestinationListComponent {
     public newUrl = this.baseUrl + '/new'
     public searchTerm = ''
     public selectedRecord: Destination
-
-    //#endregion
-
-    //#region table
-
-    @ViewChild('table') table: Table | undefined
-
-    columns = [
-        { field: 'id', header: 'headerId', width: '0.01%', display: 'none' },
-        { field: 'abbreviation', header: 'headerAbbreviation', width: '10%', display: 'revert' },
-        { field: 'description', header: 'headerDescription', width: '90%', display: 'revert' }
-    ]
 
     //#endregion
 

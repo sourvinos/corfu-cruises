@@ -14,16 +14,13 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [globalFilterFields]="['description','phones','email']" [scrollable]="true" [value]="filteredRecords" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateStorage="local" stateKey="customer-list">
+        <p-table #table [autoLayout]="false" [globalFilterFields]="['description','phones','email']" [scrollable]="true" [value]="filteredRecords" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="destination-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 0;"></th>
-                    <th style="width: 50%;" pSortableColumn="description">{{ onGetLabel('headerName') }}<p-sortIcon field="description"></p-sortIcon>
-                    </th>
-                    <th style="width: 25%;" pSortableColumn="email">{{ onGetLabel('headerEmail') }}<p-sortIcon field="email"></p-sortIcon>
-                    </th>
-                    <th style="width: 25%;" pSortableColumn="phones">{{ onGetLabel('headerPhones') }}<p-sortIcon field="phones"></p-sortIcon>
-                    </th>
+                    <th style="width: 50%;" pSortableColumn="description">{{ onGetLabel('headerName') }}<p-sortIcon field="description"></p-sortIcon></th>
+                    <th style="width: 25%;" pSortableColumn="email">{{ onGetLabel('headerEmail') }}<p-sortIcon field="email"></p-sortIcon></th>
+                    <th style="width: 25%;" pSortableColumn="phones">{{ onGetLabel('headerPhones') }}<p-sortIcon field="phones"></p-sortIcon></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
