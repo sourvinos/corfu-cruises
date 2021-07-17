@@ -19,7 +19,7 @@
 #loader p:nth-child(2) {
     color: #b56576 !important;
     font-size: var(--font-size-logo-loader-second-child) !important;
-    margin: -0.5rem 0 0 0 !important;
+    margin: -0.25rem 0 0 0 !important;
 }
 
 #loading-message {
@@ -30,7 +30,7 @@
 
 .progress-line, .progress-line::before {
     height: 0.1875rem;
-    width: 25rem;
+    width: 30rem;
 }
 
 .progress-line {

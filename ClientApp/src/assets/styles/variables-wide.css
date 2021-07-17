@@ -17,9 +17,9 @@
         --font-size-input-hint: 90%;
         --font-size-input: 85%;
         --font-size-label: 105%;
-        --font-size-loading-message: 1.4375rem;
-        --font-size-logo-loader-first-child: 6rem;
-        --font-size-logo-loader-second-child: 3rem;
+        --font-size-loading-message: 1rem;
+        --font-size-logo-loader-first-child: 4rem;
+        --font-size-logo-loader-second-child: 2.5rem;
         --font-size-logo: 220%;
         --font-size-panel-buttons: 100%;
         --font-size-paragraph: 0.7rem;
