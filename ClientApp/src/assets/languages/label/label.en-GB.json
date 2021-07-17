@@ -1364,8 +1364,8 @@
                 "description": "Date"
             },
             {
-                "id": "searchAutocompleteHint",
-                "description": "Επιλέξτε από τη λίστα"
+                "id": "searchDateHint",
+                "description": "Departure date"
             },
             {
                 "id": "searchAutocompleteHint",

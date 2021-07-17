@@ -63,10 +63,6 @@ button.tab.active > span.mat-button-wrapper {
     padding-bottom: 5px;
 }
 
-button.goBack {
-    background-color: var(--color-button-primary) !important;
-}
-
 button.mat-mini-fab {
     background-color: transparent !important;
     color: var(--color-button-text) !important;
@@ -106,4 +102,8 @@ button:not(:disabled) {
 
 .mat-icon {
     color: var(--color-button-icon) !important;
+}
+
+.goBack:hover {
+    cursor: pointer;
 }

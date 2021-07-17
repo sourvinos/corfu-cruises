@@ -96,10 +96,8 @@ export class embarkationCriteriaComponent {
     }
 
     public onDoJobs(): void {
-        // if (this.checkValidDate()) {
         this.storeCriteria()
         this.navigateToList()
-        // }
     }
 
     //#endregion
@@ -181,6 +179,7 @@ export class embarkationCriteriaComponent {
     private removeCriteria(): void {
         this.helperService.removeItem('embarkationCriteria')
     }
+    
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }

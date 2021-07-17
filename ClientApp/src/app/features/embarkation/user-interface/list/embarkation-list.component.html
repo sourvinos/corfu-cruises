@@ -2,9 +2,7 @@
 
     <div id="header">
         <div id="navigation">
-            <button data-cy="goBack" class="goBack" id="goBack" [routerLink]="['/embarkation']" mat-mini-fab>
-                <mat-icon>arrow_back</mat-icon>
-            </button>
+            <mat-icon class="goBack" [routerLink]="['/embarkation']">arrow_back</mat-icon>
         </div>
         <div @slideFromLeft id="title">
             <h1>{{ onGetLabel('header') }}</h1>
@@ -110,7 +108,7 @@
 
 <div id="footer">
     <div @slideFromRight id="buttons">
-        <button mat-flat-button class="primary" (click)="onShowScanner()">{{ onGetLabel('scanOpenButton') }}</button>
+        <button mat-flat-button class="primary" id="showScanner" (click)="onShowScanner()">{{ onGetLabel('scanOpenButton') }}</button>
     </div>
 </div>
 

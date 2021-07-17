@@ -828,7 +828,7 @@
             },
             {
                 "id": "abortButton",
-                "description": Abbrechen"
+                "description": "Abbrechen"
             },
             {
                 "id": "deleteButton",
@@ -903,7 +903,7 @@
             },
             {
                 "id": "noButton",
-                "description": Abbrechen"
+                "description": "Abbrechen"
             }
         ]
     },
@@ -928,7 +928,7 @@
             },
             {
                 "id": "noButton",
-                "description": Abbrechen"
+                "description": "Abbrechen"
             }
         ]
     },
@@ -953,7 +953,7 @@
             },
             {
                 "id": "noButton",
-                "description": Abbrechen"
+                "description": "Abbrechen"
             }
         ]
     },

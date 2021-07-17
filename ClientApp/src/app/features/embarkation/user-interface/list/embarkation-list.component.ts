@@ -157,7 +157,7 @@ export class EmbarkationListComponent {
                 }
             },
             'Alt.S': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'search')
+                this.buttonClickService.clickOnButton(event, 'showScanner')
             }
         }, {
             priority: 1,

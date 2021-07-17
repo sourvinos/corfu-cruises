@@ -1364,12 +1364,12 @@
                 "description": "Ημερομηνία"
             },
             {
-                "id": "searchAutocompleteHint",
-                "description": "Επιλέξτε από τη λίστα"
+                "id": "searchDateHint",
+                "description": "Ημερομηνία αναχώρησης"
             },
             {
-                "id": "searchDateHint",
-                "description": "Ημερομηνία"
+                "id": "searchAutocompleteHint",
+                "description": "Επιλέξτε από τη λίστα"
             },
             {
                 "id": "destination",
@@ -1402,11 +1402,11 @@
             },
             {
                 "id": "boarded",
-                "description": "Εχουν επιβιβαστει"
+                "description": "Έχουν επιβιβαστεί"
             },
             {
                 "id": "pending",
-                "description": "Σε εκκρεμοτητα"
+                "description": "Σε εκκρεμότητα"
             },
             {
                 "id": "headerTicketNo",

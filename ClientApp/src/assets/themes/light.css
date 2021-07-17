@@ -1,6 +1,6 @@
 :root {
-    --color-autocomplete-background-hover:#f9ffc9;
-    --color-autocomplete-background: #5f898a;
+    --color-autocomplete-background-hover: #f9ffc9;
+    --color-autocomplete-background: #f1ffff;
     --color-autocomplete-border-active: #426f8a;
     --color-border-item-active: #426f8a;
     --color-border-item-inactive: #d5dee2;
@@ -22,15 +22,14 @@
     --color-credit-url: #86805f;
     --color-datepicker-days: #ededed;
     --color-datepicker-month: #ffe85c;
-    --color-dropdown-background: #657171;
+    --color-dropdown-background: #f1ffff;
     --color-embarkation-list-icons: #6ba2ad;
     --color-embarkation-list-ticketNo: #b56576;
     --color-embarkation-reservation-icon: #8bd0de;
     --color-headers: #227c9d;
-    --color-icon-remarks-warning: #ff2704;
-    --color-logo-image:#072d31;
-    --color-logo-text: #44a3a9; 
-    --color-logo: #1a75ab;
+    --color-icon-remarks-warning: #ffc904;
+    --color-logo-image: #072d31;
+    --color-logo-text: #44a3a9;
     --color-map-buttons-background: #426176;
     --color-map-buttons: #ebe5cd;
     --color-map-tooltip-background: #22333b;
@@ -39,9 +38,9 @@
     --color-menu-background: #edf8ff;
     --color-menu-sub-items-background: #00000008;
     --color-menu-sub-items: #44a3a9;
-    --color-menu-text-hover:#072d31;
-    --color-radio-inner-circle:#ffe85c;
-    --color-radio-outer-circle:#fe9f36;
+    --color-menu-text-hover: #072d31;
+    --color-radio-inner-circle: #ffe85c;
+    --color-radio-outer-circle: #fe9f36;
     --color-scrollbar: #fe9f36;
     --color-search-box: #767475;
     --color-selected-tab: #ef8857;
@@ -60,7 +59,7 @@
     --color-table-badge-background: #edf8ff;
     --color-table-badge-color: #b56576;
     --color-table-column-seperator: #e9ecef;
-    --color-table-expand-row: #227c9d;
+    --color-table-expand-row: #44a3a9;
     --color-table-header: #edf8ff;
     --color-table-invoice-customerdescription: #fe9f36;
     --color-table-row-focus-outline: #ffe85c;
