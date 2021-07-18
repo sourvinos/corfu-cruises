@@ -355,27 +355,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Λιμανι"
+                "description": "Λιμάνι"
             },
             {
                 "id": "description",
-                "description": "Περιγραφη"
+                "description": "Περιγραφή"
             },
             {
                 "id": "isPrimary",
-                "description": "Πρωτευον"
+                "description": "Πρωτεύον"
             },
             {
                 "id": "isActive",
-                "description": "Ενεργο"
+                "description": "Ενεργό"
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },

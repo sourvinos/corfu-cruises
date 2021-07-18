@@ -117,9 +117,9 @@ export class PortFormComponent {
             })
         } else {
             this.portService.update(this.form.value.id, this.form.value).subscribe(() => {
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
                 this.resetForm()
                 this.onGoBack()
+                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
             }, errorFromInterceptor => {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })

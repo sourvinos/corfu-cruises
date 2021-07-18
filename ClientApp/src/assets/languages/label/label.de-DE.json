@@ -371,11 +371,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Löschen"
+                "description": "LÖSCHEN"
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     },
