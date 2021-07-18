@@ -1322,8 +1322,8 @@
                 "description": "NEU"
             },
             {
-                "id": "headerName",
-                "description": "Beschreibung"
+                "id": "headerDescription",
+                "description": "BESCHREIBUNG"
             }
         ]
     },
@@ -1344,11 +1344,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Löschen"
+                "description": "LÖSCHEN"
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     },

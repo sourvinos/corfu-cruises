@@ -1315,15 +1315,15 @@
             },
             {
                 "id": "searchHint",
-                "description": "Sous la base de Description"
+                "description": "Tout rechercher"
             },
             {
                 "id": "newButton",
-                "description": "Nouvel utilisateur"
+                "description": "NOUVEL"
             },
             {
-                "id": "headerName",
-                "description": "Description"
+                "id": "headerDescription",
+                "description": "DESCRIPTION"
             }
         ]
     },

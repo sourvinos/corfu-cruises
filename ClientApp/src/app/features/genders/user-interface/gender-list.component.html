@@ -1,29 +1,33 @@
 <div id="list">
 
     <div id="header">
-        <div id="navigation">
-            <button data-cy="goBack" class="goBack" id="goBack" [routerLink]="['/']" mat-mini-fab>
-                <mat-icon>home</mat-icon>
-            </button>
-        </div>
         <div @slideFromLeft id="title">
             <h1>{{ onGetLabel('header') }}</h1>
         </div>
         <div id="search-box">
             <mat-form-field class="no-margin">
-                <input data-cy="searchTerm" type="text" matInput [placeholder]="onGetLabel('searchLabel')" [(ngModel)]="searchTerm" id="searchTerm" #query (keyup)="onFilter(query.value)" autocomplete="off">
-                <button data-cy="clearFilter" id="clearInput" mat-button *ngIf="searchTerm" matSuffix mat-icon-button (click)="onFilter('')">
-                    <mat-icon>close</mat-icon>
-                </button>
+                <input data-cy="searchTerm" type="text" matInput [placeholder]="onGetLabel('searchLabel')" [(ngModel)]="searchTerm" id="searchTerm" #query (input)="onFilter($event, 'contains')" autocomplete="off">
+                <mat-icon matSuffix>search</mat-icon>
                 <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
             </mat-form-field>
         </div>
     </div>
 
     <div id="table-wrapper">
-        <div data-cy="content" id="content" class="scrollable">
-            <custom-table [highlightFirstRow]="highlightFirstRow" [feature]="feature" [records]="filteredRecords" [headers]="headers" [widths]="widths" [visibility]="visibility" [justify]="justify" [types]="types" [fields]="fields"></custom-table>
-        </div>
+        <p-table #table [autoLayout]="false" [globalFilterFields]="['description']" [scrollable]="true" [value]="filteredRecords" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="gender-list" stateStorage="local">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 0;"></th>
+                    <th style="width: 100%;" pSortableColumn="description">{{ onGetLabel('headerDescription') }}<p-sortIcon field="description"></p-sortIcon></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
+                    <td style="width: 0;">{{ rowData.id }}</td>
+                    <td style="width: 100%; padding: 5px !important;">{{ rowData.description }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
 
     <div id="footer">

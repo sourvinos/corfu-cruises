@@ -1315,15 +1315,15 @@
             },
             {
                 "id": "searchHint",
-                "description": "Vyhledávání by description"
+                "description": "Všechny vyhledávání"
             },
             {
                 "id": "newButton",
                 "description": "NOVÝ"
             },
             {
-                "id": "headerName",
-                "description": "Popis"
+                "id": "headerDescription",
+                "description": "POPIS"
             }
         ]
     },

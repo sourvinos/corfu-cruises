@@ -1307,23 +1307,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Φυλα"
+                "description": "Φύλα"
             },
             {
                 "id": "searchLabel",
-                "description": "Αναζητηση"
+                "description": "Αναζήτηση"
             },
             {
                 "id": "searchHint",
-                "description": "Με βαση την περιγραφη"
+                "description": "Με βάση οτιδήποτε"
             },
             {
                 "id": "newButton",
-                "description": "Νεο"
+                "description": "ΝΕΟ"
             },
             {
-                "id": "headerName",
-                "description": "Περιγραφη"
+                "id": "headerDescription",
+                "description": "ΠΕΡΙΓΡΑΦΗ"
             }
         ]
     },
