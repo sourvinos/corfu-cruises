@@ -1,5 +1,5 @@
 .mat-slide-toggle {
-    margin-bottom: 1rem;
+    margin: 0.625rem 0 1rem 0;
 }
 
 .mat-slide-toggle-content {
@@ -7,6 +7,10 @@
     font-family: var(--font-family-master) !important;
     font-size: var(--font-size-checkbox) !important;
     font-weight: var(--font-weight-checkbox) !important;
+}
+
+.no-bottom-margin {
+    margin-bottom: 0 !important;
 }
 
 
