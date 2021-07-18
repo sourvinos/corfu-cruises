@@ -1,18 +1,18 @@
-import { Component } from '@angular/core'
-import { Title } from '@angular/platform-browser'
 import { ActivatedRoute, Router } from '@angular/router'
+import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
-import { ListResolved } from 'src/app/shared/classes/list-resolved'
+import { Table } from 'primeng/table'
+import { Title } from '@angular/platform-browser'
+// Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
-import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { Driver } from '../classes/driver'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { HelperService } from 'src/app/shared/services/helper.service'
+import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'driver-list',
@@ -25,8 +25,10 @@ export class DriverListComponent {
 
     //#region variables
 
+    @ViewChild('table') table: Table | undefined
+
     private baseUrl = '/drivers'
-    private localStorageSearchTerm = 'searchTermDriver'
+    private localStorageSearchTerm = 'driver-list-search-term'
     private ngUnsubscribe = new Subject<void>()
     private records: Driver[] = []
     private resolver = 'driverList'
@@ -34,42 +36,24 @@ export class DriverListComponent {
     private windowTitle = 'Drivers'
     public feature = 'driverList'
     public filteredRecords: Driver[] = []
-    public highlightFirstRow = false
     public newUrl = this.baseUrl + '/new'
     public searchTerm = ''
-    public sortColumn: string
-    public sortOrder: string
+    public selectedRecord: Driver
 
     //#endregion
 
-    //#region table
-
-    headers = ['', 'Id', 'headerName', 'headerPhones', '']
-    widths = ['40px', '0px', '50%', '', '56px']
-    visibility = ['none', 'none']
-    justify = ['center', 'center', 'left', 'left', 'center']
-    types = ['', '', '', '', '']
-    fields = ['', 'id', 'description', 'phones', '']
-
-    //#endregion
-
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
         this.getFilterFromStorage()
-        if (!this.getSortObjectFromStorage()) this.saveSortObjectToStorage('description', 'asc')
         this.loadRecords()
         this.addShortcuts()
-        this.subscribeToInteractionService()
-        this.onFilter(this.searchTerm)
-        this.focus('searchTerm')
     }
 
     ngOnDestroy(): void {
-        this.updateStorageWithFilter()
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
         this.unlisten()
@@ -79,9 +63,13 @@ export class DriverListComponent {
 
     //#region public methods
 
-    public onFilter(query: string): void {
-        this.searchTerm = query
-        this.filteredRecords = query ? this.records.filter(p => p.description.toLowerCase().includes(query.toLowerCase())) : this.records
+    public onFilter($event: any, stringVal: any): void {
+        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
+        this.updateStorageWithFilter()
+    }
+
+    public onEditRecord(record: Driver): void {
+        this.router.navigate([this.baseUrl, record.id])
     }
 
     public onGetLabel(id: string): string {
@@ -97,7 +85,7 @@ export class DriverListComponent {
             'Escape': (event: KeyboardEvent) => {
                 this.buttonClickService.clickOnButton(event, 'goBack')
             },
-            'Alt.F': () => {
+            'Alt.S': () => {
                 this.focus('searchTerm')
             },
             'Alt.N': (event: KeyboardEvent) => {
@@ -109,30 +97,12 @@ export class DriverListComponent {
         })
     }
 
-    private editRecord(id: number): void {
-        this.router.navigate([this.baseUrl, id])
-    }
-
     private focus(element: string): void {
-        event.preventDefault()
         this.helperService.setFocus(element)
     }
 
     private getFilterFromStorage(): void {
         this.searchTerm = this.helperService.readItem(this.localStorageSearchTerm)
-    }
-
-    private getSortObjectFromStorage(): boolean {
-        try {
-            const sortObject = JSON.parse(this.helperService.readItem(this.feature))
-            if (sortObject) {
-                this.sortColumn = sortObject.column
-                this.sortOrder = sortObject.order
-                return true
-            }
-        } catch {
-            return false
-        }
     }
 
     private goBack(): void {
@@ -150,23 +120,12 @@ export class DriverListComponent {
         }
     }
 
-    private saveSortObjectToStorage(columnName: string, sortOrder: string): void {
-        this.helperService.saveItem(this.feature, JSON.stringify({ columnName, sortOrder }))
-    }
-
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private subscribeToInteractionService(): void {
-        this.interactionService.record.pipe(takeUntil(this.ngUnsubscribe)).subscribe(response => {
-            this.updateStorageWithFilter()
-            this.editRecord(response['id'])
-        })
     }
 
     private updateStorageWithFilter(): void {

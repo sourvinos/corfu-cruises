@@ -169,7 +169,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Fahrern"
+                "description": "Fahrer"
             },
             {
                 "id": "searchLabel",
@@ -185,11 +185,11 @@
             },
             {
                 "id": "headerName",
-                "description": "Vollständiger Name"
+                "description": "VOLLSTÄNDIGER NAME"
             },
             {
                 "id": "headerPhones",
-                "description": "Telefone"
+                "description": "TELEFONNUMMERN"
             }
         ]
     },

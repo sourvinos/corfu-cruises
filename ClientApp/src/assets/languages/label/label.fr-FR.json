@@ -169,7 +169,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "conducteurs"
+                "description": "Conducteurs"
             },
             {
                 "id": "searchLabel",
@@ -181,15 +181,15 @@
             },
             {
                 "id": "newButton",
-                "description": "Nouvel utilisateur"
+                "description": "NOUVEL"
             },
             {
                 "id": "headerName",
-                "description": "Prenom"
+                "description": "PRENOM"
             },
             {
                 "id": "headerPhones",
-                "description": "Numeros de telephones"
+                "description": "NUMEROS DE TELEPHONES"
             }
         ]
     },

@@ -169,27 +169,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Οδηγοι"
+                "description": "Οδηγοί"
             },
             {
                 "id": "searchLabel",
-                "description": "Αναζητηση"
+                "description": "Αναζήτηση"
             },
             {
                 "id": "searchHint",
-                "description": "Με βαση το ονομα"
+                "description": "Με βάση οτιδήποτε"
             },
             {
                 "id": "newButton",
-                "description": "Νεος"
+                "description": "ΝΕΟΣ"
             },
             {
                 "id": "headerName",
-                "description": "Ονομα"
+                "description": "ΟΝΟΜΑ"
             },
             {
                 "id": "headerPhones",
-                "description": "Τηλεφωνα"
+                "description": "ΑΡΙΘΜΟΙ ΤΗΛΕΦΩΝΩΝ"
             }
         ]
     },

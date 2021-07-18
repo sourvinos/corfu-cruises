@@ -177,7 +177,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Vyhledat podle jména"
+                "description": "Globální vyhledávání"
             },
             {
                 "id": "newButton",
@@ -185,11 +185,11 @@
             },
             {
                 "id": "headerName",
-                "description": "Jméno"
+                "description": "JMÉNO"
             },
             {
                 "id": "headerPhones",
-                "description": "Telefonní čísla"
+                "description": "TELEFONNÍ ČÍSLA"
             }
         ]
     },

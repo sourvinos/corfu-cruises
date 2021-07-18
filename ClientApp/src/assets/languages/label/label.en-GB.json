@@ -177,19 +177,19 @@
             },
             {
                 "id": "searchHint",
-                "description": "Search by name"
+                "description": "Global search"
             },
             {
                 "id": "newButton",
-                "description": "New"
+                "description": "NEW"
             },
             {
                 "id": "headerName",
-                "description": "Name"
+                "description": "NAME"
             },
             {
                 "id": "headerPhones",
-                "description": "Phones"
+                "description": "TELEPHONE NUMBERS"
             }
         ]
     },
