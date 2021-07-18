@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Title } from '@angular/platform-browser'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Subject } from 'rxjs'
+// Custom
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
@@ -69,8 +70,6 @@ export class GenderFormComponent {
                     this.resetForm()
                     this.onGoBack()
                     return true
-                } else {
-                    this.focus('description')
                 }
             })
         } else {
@@ -180,7 +179,6 @@ export class GenderFormComponent {
         this.form = this.formBuilder.group({
             id: 0,
             description: ['', [Validators.required, Validators.maxLength(128)]],
-
             isActive: true,
             userId: this.helperService.readItem('userId')
         })

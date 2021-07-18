@@ -1332,7 +1332,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Sexe"
+                "description": "Genre"
             },
             {
                 "id": "description",
@@ -1344,11 +1344,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Effacer"
+                "description": "EFFACER"
             },
             {
                 "id": "saveButton",
-                "description": "Enregistrer"
+                "description": "ENREGISTRER"
             }
         ]
     },

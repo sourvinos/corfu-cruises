@@ -1332,23 +1332,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Φυλο"
+                "description": "Φύλο"
             },
             {
                 "id": "description",
-                "description": "Περιγραφη"
+                "description": "Περιγραφή"
             },
             {
                 "id": "isActive",
-                "description": "Ενεργο"
+                "description": "Ενεργό"
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },
