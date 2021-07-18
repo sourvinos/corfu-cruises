@@ -85,7 +85,7 @@ export class GenderListComponent {
             'Escape': () => {
                 this.goBack()
             },
-            'Alt.S': () => {
+            'Alt.F': () => {
                 this.focus('searchTerm')
             },
             'Alt.N': (event: KeyboardEvent) => {

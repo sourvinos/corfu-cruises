@@ -14,25 +14,18 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [(selection)]="selectedRecord" [columns]="columns" [globalFilterFields]="['description','phones','email']" [resizableColumns]="true" [scrollable]="true" [value]="filteredRecords" columnResizeMode="expand" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateStorage="local" stateKey="customer-list">
-            <ng-template pTemplate="colgroup" let-columns>
-                <colgroup>
-                    <col *ngFor="let col of columns">
-                </colgroup>
-            </ng-template>
-            <ng-template pTemplate="header" let-columns>
+        <p-table #table [autoLayout]="false" [(selection)]="selectedRecord" [columns]="columns" [globalFilterFields]="['description']" [resizableColumns]="true" [scrollable]="true" [value]="filteredRecords" columnResizeMode="expand" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateStorage="local" stateKey="port-list">
+            <ng-template pTemplate="header">
                 <tr>
-                    <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field" [style.width]="col.width" [style.display]="col.display">
-                        {{ onGetLabel(col.header) }}
-                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    <th style="width: 0;"></th>
+                    <th style="width: 100%;" pSortableColumn="description">{{ onGetLabel('headerDescription') }}<p-sortIcon field="description"></p-sortIcon>
                     </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
-                    <td *ngFor="let col of columns" [style.width]="col.width" [style.display]="col.display">
-                        {{ rowData[col.field] }}
-                    </td>
+                    <td style="width: 0;">{{ rowData.id }}</td>
+                    <td style="width: 100%; padding: 5px !important;">{{ rowData.description }}</td>
                 </tr>
             </ng-template>
         </p-table>

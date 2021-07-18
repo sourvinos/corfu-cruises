@@ -330,23 +330,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Λιμανια"
+                "description": "Λιμάνια"
             },
             {
                 "id": "searchLabel",
-                "description": "Αναζητηση"
+                "description": "Αναζήτηση"
             },
             {
                 "id": "searchHint",
-                "description": "Με βαση την περιγραφη"
+                "description": "Με βάση οτιδήποτε"
             },
             {
                 "id": "newButton",
-                "description": "Νεο"
+                "description": "ΝΕΟ"
             },
             {
                 "id": "headerDescription",
-                "description": "Περιγραφη"
+                "description": "ΠΕΡΙΓΡΑΦΗ"
             }
         ]
     },

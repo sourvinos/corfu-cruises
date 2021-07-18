@@ -25,8 +25,10 @@ export class PortListComponent {
 
     //#region variables
 
+    @ViewChild('table') table: Table | undefined
+
     private baseUrl = '/ports'
-    private localStorageSearchTerm = 'searchTermPort'
+    private localStorageSearchTerm = 'port-list-search-term'
     private ngUnsubscribe = new Subject<void>()
     private records: Port[] = []
     private resolver = 'portList'
@@ -37,17 +39,6 @@ export class PortListComponent {
     public newUrl = this.baseUrl + '/new'
     public searchTerm = ''
     public selectedRecord: Port
-
-    //#endregion
-
-    //#region table
-
-    @ViewChild('table') table: Table | undefined
-
-    columns = [
-        { field: 'id', header: 'headerId', width: '0.01%', display: 'none' },
-        { field: 'description', header: 'headerDescription', width: '100%', display: 'revert' }
-    ]
 
     //#endregion
 
@@ -72,13 +63,13 @@ export class PortListComponent {
 
     //#region public methods
 
+    public onEditRecord(record: Port): void {
+        this.router.navigate([this.baseUrl, record.id])
+    }
+    
     public onFilter($event: any, stringVal: any): void {
         this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
         this.updateStorageWithFilter()
-    }
-
-    public onEditRecord(record: Port): void {
-        this.router.navigate([this.baseUrl, record.id])
     }
 
     public onGetLabel(id: string): string {
@@ -94,7 +85,7 @@ export class PortListComponent {
             'Escape': () => {
                 this.goBack()
             },
-            'Alt.F': () => {
+            'Alt.S': () => {
                 this.focus('searchTerm')
             },
             'Alt.N': (event: KeyboardEvent) => {

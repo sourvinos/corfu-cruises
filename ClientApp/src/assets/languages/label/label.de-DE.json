@@ -342,11 +342,11 @@
             },
             {
                 "id": "newButton",
-                "description": "NEU"
+                "description": "NEUER"
             },
             {
                 "id": "headerDescription",
-                "description": "Beschreibung"
+                "description": "BESCHREIBUNG"
             }
         ]
     },

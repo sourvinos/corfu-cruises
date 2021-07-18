@@ -338,7 +338,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Search by description"
+                "description": "Global search"
             },
             {
                 "id": "newButton",
@@ -346,7 +346,7 @@
             },
             {
                 "id": "headerDescription",
-                "description": "Description"
+                "description": "DESCRIPTION"
             }
         ]
     },

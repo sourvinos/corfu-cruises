@@ -338,7 +338,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Vyhledat podle popisu"
+                "description": "Všechny vyhledávání"
             },
             {
                 "id": "newButton",
@@ -346,7 +346,7 @@
             },
             {
                 "id": "headerDescription",
-                "description": "Popis"
+                "description": "POPIS"
             }
         ]
     },

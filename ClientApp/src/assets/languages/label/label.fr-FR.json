@@ -330,7 +330,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Des ports"
+                "description": "Ports"
             },
             {
                 "id": "searchLabel",
@@ -342,11 +342,11 @@
             },
             {
                 "id": "newButton",
-                "description": "Nouvel utilisateur"
+                "description": "NOUVEAU"
             },
             {
                 "id": "headerDescription",
-                "description": "Description"
+                "description": "DESCRIPTION"
             }
         ]
     },
