@@ -384,27 +384,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Διαδρομες"
+                "description": "Διαδρομές"
             },
             {
                 "id": "searchLabel",
-                "description": "Αναζητηση"
+                "description": "Αναζήτηση"
             },
             {
                 "id": "searchHint",
-                "description": "Με βαση την περιγραφη"
+                "description": "Με βάση οτιδήποτε"
             },
             {
                 "id": "newButton",
-                "description": "Νεα"
+                "description": "ΝΕΑ"
             },
             {
                 "id": "headerAbbreviation",
-                "description": "Συντ."
+                "description": "ΣΥΝΤ."
             },
             {
                 "id": "headerDescription",
-                "description": "Περιγραφη"
+                "description": "ΠΕΡΙΓΡΑΦΗ"
             }
         ]
     },

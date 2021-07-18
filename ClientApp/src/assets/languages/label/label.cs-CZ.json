@@ -392,19 +392,19 @@
             },
             {
                 "id": "searchHint",
-                "description": "Vyhledat podle popisu"
+                "description": "Globální vyhledávání"
             },
             {
                 "id": "newButton",
-                "description": "NOVÝ"
+                "description": "NOVÁ"
             },
             {
                 "id": "headerAbbreviation",
-                "description": "Zkratka"
+                "description": "ZKR."
             },
             {
                 "id": "headerDescription",
-                "description": "Popis"
+                "description": "POPIS"
             }
         ]
     },

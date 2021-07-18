@@ -392,19 +392,19 @@
             },
             {
                 "id": "searchHint",
-                "description": "Search by description"
+                "description": "Global search"
             },
             {
                 "id": "newButton",
-                "description": "New"
+                "description": "NEW"
             },
             {
                 "id": "headerAbbreviation",
-                "description": "Abbr."
+                "description": "ABBR."
             },
             {
                 "id": "headerDescription",
-                "description": "Description"
+                "description": "DESCRIPTION"
             }
         ]
     },

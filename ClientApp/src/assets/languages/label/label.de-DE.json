@@ -396,15 +396,15 @@
             },
             {
                 "id": "newButton",
-                "description": "NEU"
+                "description": "NEUE"
             },
             {
                 "id": "headerAbbreviation",
-                "description": "Abk."
+                "description": "ABK."
             },
             {
                 "id": "headerDescription",
-                "description": "Beschreibung"
+                "description": "BESCHREIBUNG"
             }
         ]
     },

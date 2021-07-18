@@ -384,7 +384,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Itineraires"
+                "description": "Routes"
             },
             {
                 "id": "searchLabel",
@@ -396,15 +396,15 @@
             },
             {
                 "id": "newButton",
-                "description": "Nouvelle"
+                "description": "NOUVELLE"
             },
             {
                 "id": "headerAbbreviation",
-                "description": "Abbreviation."
+                "description": "ABR."
             },
             {
                 "id": "headerDescription",
-                "description": "Description"
+                "description": "DESCRIPTION"
             }
         ]
     },
