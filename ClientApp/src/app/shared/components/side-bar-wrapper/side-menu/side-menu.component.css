@@ -1,9 +1,9 @@
 #sidemenu {
-    background: var(--color-menu-background);    
+    background: var(--color-menu-background);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    height: calc(100% - 4.3125rem);
+    height: calc(100% - var(--top-bar-height) - 0.3rem);
     justify-content: space-between;
     left: 0.3125rem;
     padding: 0.5rem;

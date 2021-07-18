@@ -2,5 +2,5 @@
     height: 100%;
     margin-left: 0.3125rem;
     position: fixed;
-    top: 4.0625rem;
+    top: var(--top-bar-height);
 }
