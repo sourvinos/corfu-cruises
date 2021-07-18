@@ -2,6 +2,7 @@
     --color-autocomplete-background-hover: #a6d5fa26;
     --color-autocomplete-background: #657171;
     --color-autocomplete-border-active: #fe9f36;
+    --color-autocomplete: #ededed;
     --color-border-item-active: #f2d492;
     --color-border-item-inactive: #576971;
     --color-button-delete: #f28482;
@@ -28,7 +29,7 @@
     --color-embarkation-reservation-icon: #8bd0de;
     --color-headers: #b9d2e4;
     --color-icon-remarks-warning: #fcff29;
-    --color-logo-image:#efe7ce;
+    --color-logo-image: #efe7ce;
     --color-logo-text: #a6d5fa;
     --color-map-buttons-background: #426176;
     --color-map-buttons: #ebe5cd;
