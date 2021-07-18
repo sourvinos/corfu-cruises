@@ -198,27 +198,27 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Οδηγος"
+                "description": "Οδηγός"
             },
             {
                 "id": "description",
-                "description": "Ονομα"
+                "description": "Όνομα"
             },
             {
                 "id": "phones",
-                "description": "Τηλεφωνα"
+                "description": "Αριθμοί τηλεφώνων"
             },
             {
                 "id": "isActive",
-                "description": "Ενεργος"
+                "description": "Ενεργός"
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },

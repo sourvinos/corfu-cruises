@@ -206,7 +206,7 @@
             },
             {
                 "id": "phones",
-                "description": "Phones"
+                "description": "Phone numbers"
             },
             {
                 "id": "isActive",
@@ -214,11 +214,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "DELETE"
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },

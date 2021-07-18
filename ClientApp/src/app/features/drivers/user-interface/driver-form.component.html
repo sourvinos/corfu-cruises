@@ -13,7 +13,7 @@
 
     <div id="content">
         <form id="form" data-cy="form" [formGroup]="form" autocomplete="off">
-            <mat-form-field>
+            <mat-form-field class="no-margin">
                 <input data-cy="description" type="text" matInput [placeholder]="onGetLabel('description')" formControlName="description" data-tabindex="1" id="description" [inputTabStop]="input">
                 <mat-error *ngIf="description.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-error *ngIf="description.hasError('maxlength')">{{ onGetHint('maxLength', description.errors.maxlength.requiredLength) }}</mat-error>
@@ -22,7 +22,7 @@
                 <input data-cy="phones" type="text" matInput [placeholder]="onGetLabel('phones')" formControlName="phones" data-tabindex="2" id="phones" [inputTabStop]="input">
                 <mat-error *ngIf="phones.hasError('maxlength')">{{ onGetHint('maxLength', phones.errors.maxlength.requiredLength) }}</mat-error>
             </mat-form-field>
-            <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
+            <mat-slide-toggle data-cy="isActive" class="no-bottom-margin" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
         </form>
         <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
     </div>
