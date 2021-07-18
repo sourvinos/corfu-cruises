@@ -45,7 +45,7 @@
                     <mat-error *ngIf="!email.hasError('maxlength') && email.hasError('email')">{{ onGetHint('invalid') }}</mat-error>
                 </mat-form-field>
             </div>
-            <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
+            <mat-slide-toggle data-cy="isActive" class="no-bottom-margin" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
         </form>
         <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
     </div>
