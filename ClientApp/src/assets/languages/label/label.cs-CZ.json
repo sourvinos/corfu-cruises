@@ -1402,11 +1402,15 @@
             },
             {
                 "id": "boarded",
-                "description": "Nastoupení"
+                "description": "Nastoupili"
             },
             {
                 "id": "pending",
                 "description": "Čekající"
+            },
+            {
+                "id": "filtered",
+                "description": "Filtrovaní"
             },
             {
                 "id": "headerTicketNo",

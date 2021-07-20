@@ -1409,6 +1409,10 @@
                 "description": "Pending"
             },
             {
+                "id": "filtered",
+                "description": "Filtered"
+            },
+            {
                 "id": "headerTicketNo",
                 "description": "Ticket No"
             },

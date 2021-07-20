@@ -1409,6 +1409,10 @@
                 "description": "En attente"
             },
             {
+                "id": "filtered",
+                "description": "Filtrés"
+            },
+            {
                 "id": "headerTicketNo",
                 "description": "Numéro de billet"
             },

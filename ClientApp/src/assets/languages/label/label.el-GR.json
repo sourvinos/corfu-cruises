@@ -1409,6 +1409,10 @@
                 "description": "Σε εκκρεμότητα"
             },
             {
+                "id": "filtered",
+                "description": "Φιλτραρισμένοι"
+            },
+            {
                 "id": "headerTicketNo",
                 "description": "Αρ. εισιτηρίου"
             },

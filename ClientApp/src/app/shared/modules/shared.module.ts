@@ -1,7 +1,6 @@
-import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { NgQrScannerModule } from 'angular2-qrscanner'
+import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { ZXingScannerModule } from '@zxing/ngx-scanner'
 // Custom
@@ -18,6 +17,7 @@ import { QRCodeComponent } from '../components/qrCode/qrCode.component'
 import { QRCodeModule } from 'angularx-qrcode'
 import { SafeStylePipe } from '../pipes/safeStyle.pipe'
 import { SnackbarComponent } from '../components/snackbar/snackbar.component'
+import { NgQrScannerModule } from 'angular2-qrscanner'
 
 @NgModule({
     declarations: [
@@ -36,7 +36,6 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         CommonModule,
         FormsModule,
         MaterialModule,
-        NgQrScannerModule,
         PrimeNgModule,
         QRCodeModule,
         ZXingScannerModule
@@ -54,8 +53,8 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         PrimeNgModule,
         QRCodeComponent,
         ReactiveFormsModule,
-        RouterModule,
-        ZXingScannerModule
+        RouterModule
+        // ZXingScannerModule
     ],
     entryComponents: [
         DialogAlertComponent,

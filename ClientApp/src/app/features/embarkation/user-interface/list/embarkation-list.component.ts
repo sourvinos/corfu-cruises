@@ -2,8 +2,8 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { Subject } from 'rxjs'
+import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
-import { QrScannerComponent } from 'angular2-qrscanner'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { EmbarkationCompositeViewModel } from '../../classes/view-models/embarkation-composite-view-model'
@@ -15,6 +15,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { QrScannerComponent } from 'angular2-qrscanner'
 
 @Component({
     selector: 'embarkation-list',
@@ -44,8 +45,10 @@ export class EmbarkationListComponent {
     public scannerEnabled: boolean
     public inputDevices: MediaDeviceInfo[] = []
     private chosenDevice: any
+    private videoDevices: MediaDeviceInfo[] = []
+    private selectedVideoDevice: MediaDeviceInfo
 
-    @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent
+    @ViewChild(QrScannerComponent, { static: false }) qrScannerComponent: QrScannerComponent
 
     //#endregion
 
@@ -68,6 +71,10 @@ export class EmbarkationListComponent {
         this.getLocale()
     }
 
+    ngAfterViewInit(): void {
+        // this.getVideoDevices()
+    }
+
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
@@ -78,16 +85,12 @@ export class EmbarkationListComponent {
 
     //#region public methods
 
-    public onDoCamerasTasks($event: any): void {
-        console.log('1')
-        $event.forEach((element: any) => {
-            this.inputDevices.push(element)
-            console.log(JSON.stringify(element))
-        })
-        console.log('Devices found', this.inputDevices)
-        if (this.inputDevices.length > 0) {
-            this.checkForVideoDevices()
-        }
+    public onClearAllFilters(table: Table): void {
+        this.searchTerm = ''
+        const input = (<HTMLInputElement>document.querySelectorAll('.p-inputtext')[0])
+        input.value = ''
+        table.reset()
+        table.clear()
     }
 
     public onHasRemarks(remarks: string): boolean {
@@ -98,15 +101,6 @@ export class EmbarkationListComponent {
         this.embarkationervice.boardPassenger(id).subscribe(() => {
             this.refreshPage()
             this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-        })
-    }
-
-    public onFilterByTicketNo(query: string): void {
-        this.filteredRecords.embarkation = []
-        this.records.embarkation.forEach((record) => {
-            if (record.ticketNo.toLowerCase().startsWith(query.toLowerCase())) {
-                this.filteredRecords.embarkation.push(record)
-            }
         })
     }
 
@@ -127,22 +121,34 @@ export class EmbarkationListComponent {
         this.scannerEnabled = false
     }
 
-    public onScanSuccess($event: any): void {
-        this.searchTerm = $event
-        this.scannerEnabled = false
-        document.getElementById('video').style.display = 'none'
-        this.onFilterByTicketNo(this.searchTerm)
-    }
-
     public onShowScanner(): void {
-        // if (this.checkForDevices()) {
-        this.searchTerm = ''
-        this.scannerEnabled = true
-        setTimeout(() => { this.positionVideo() }, 1000)
-        this.qrScannerComponent.startScanning(this.chosenDevice)
-        // } else {
-        // this.showSnackbar(this.messageSnackbarService.noVideoDevicesFound(), 'error')
-        // }
+        this.positionVideo()
+        this.qrScannerComponent.getMediaDevices().then(devices => {
+            console.log(devices)
+            const videoDevices: MediaDeviceInfo[] = []
+            for (const device of devices) {
+                if (device.kind.toString() === 'videoinput') {
+                    videoDevices.push(device)
+                }
+            }
+            if (videoDevices.length > 0) {
+                let choosenDev: MediaDeviceInfo
+                for (const dev of videoDevices) {
+                    if (dev.label.includes('front')) {
+                        choosenDev = dev
+                        break
+                    }
+                }
+                if (choosenDev) {
+                    this.qrScannerComponent.chooseCamera.next(choosenDev)
+                } else {
+                    this.qrScannerComponent.chooseCamera.next(videoDevices[0])
+                }
+            }
+        })
+        this.qrScannerComponent.capturedQr.subscribe((result: any) => {
+            console.log(result)
+        })
     }
 
     //#endregion
@@ -165,42 +171,13 @@ export class EmbarkationListComponent {
         })
     }
 
-    private checkForVideoDevices(): boolean {
-        console.log('2')
-        let isCameraFound = false
-        if (this.qrScannerComponent != undefined) {
-            this.qrScannerComponent.getMediaDevices().then(devices => {
-                console.log('Found', devices)
-                for (const device of devices) {
-                    if (device.kind.toString() === 'videoinput') {
-                        this.inputDevices.push(device)
-                        console.log('Added', this.inputDevices)
-                    }
-                }
-                if (this.inputDevices.length > 0) {
-                    for (const dev of this.inputDevices) {
-                        console.log('Video devices found', dev.label)
-                        if (dev.label.includes('back')) {
-                            this.chosenDevice = dev
-                            break
-                        }
-                    }
-                    if (this.chosenDevice) {
-                        this.qrScannerComponent.chooseCamera.next(this.chosenDevice)
-                        isCameraFound = true
-                    } else {
-                        this.qrScannerComponent.chooseCamera.next(this.inputDevices[0])
-                        isCameraFound = true
-                    }
-                }
-            })
-        }
-        return isCameraFound
-        // this.qrScannerComponent.capturedQr.subscribe((result: string) => {
-        //     this.searchTerm = result
-        //     this.onHideScanner()
-        //     this.onFilterByTicketNo(this.searchTerm)
-        // })
+    private filterByTicketNo(query: string): void {
+        this.filteredRecords.embarkation = []
+        this.records.embarkation.forEach((record) => {
+            if (record.ticketNo.toLowerCase().startsWith(query.toLowerCase())) {
+                this.filteredRecords.embarkation.push(record)
+            }
+        })
     }
 
     private getDistinctCustomers(): void {
@@ -219,6 +196,41 @@ export class EmbarkationListComponent {
 
     private getLocale(): void {
         this.dateAdapter.setLocale(this.helperService.readItem("language"))
+    }
+
+    private getVideoDevices(): void {
+        this.qrScannerComponent.getMediaDevices().then(devices => {
+            console.log('Devices', devices)
+            for (const device of devices) {
+                if (device.kind.toString() === 'videoinput') {
+                    this.videoDevices.push(device)
+                }
+            }
+            if (this.videoDevices.length > 0) {
+                // let choosenDev: MediaDeviceInfo
+                for (const dev of this.videoDevices) {
+                    console.log('Video Device', dev)
+                    // choosenDev = dev
+                    this.selectedVideoDevice = dev
+                    console.log('Added video device', this.selectedVideoDevice)
+                }
+                // if (choosenDev) {
+                //     this.qrScannerComponent.chooseCamera.next(choosenDev)
+                // } else {
+                //     console.log('Selected video device', this.videoDevices[0])
+                //     this.qrScannerComponent.chooseCamera.next(this.videoDevices[0])
+                // }
+            }
+        })
+        this.qrScannerComponent.capturedQr.subscribe((result: any) => {
+            console.log(result)
+        })
+        // this.qrScannerComponent.capturedQr.subscribe((result: string) => {
+        //     console.log('Result', result)
+        //     // const input = (<HTMLInputElement>document.querySelectorAll('.p-inputtext')[0])
+        //     // input.value = result
+        //     // this.filterByTicketNo(input.value)
+        // })
     }
 
     private loadRecords(): void {
@@ -250,14 +262,6 @@ export class EmbarkationListComponent {
         this.snackbarService.open(message, type)
     }
 
-    private scanVoucher(): void {
-        this.qrScannerComponent.capturedQr.subscribe((result: string) => {
-            this.searchTerm = result
-            this.onHideScanner()
-            this.onFilterByTicketNo(this.searchTerm)
-        })
-    }
-
     private updatePassengerStatus(): void {
         this.records.embarkation.forEach(record => {
             if (record.passengers.filter(x => x.isCheckedIn).length == record.passengers.length) {
@@ -270,7 +274,6 @@ export class EmbarkationListComponent {
                 record.isCheckedIn = 'MIX'
             }
         })
-        console.log(this.records.embarkation)
     }
 
     public getTableHeight(): string {

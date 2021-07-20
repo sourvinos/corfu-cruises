@@ -1409,6 +1409,10 @@
                 "description": "Ausstehende"
             },
             {
+                "id": "filtered",
+                "description": "Gefilterte"
+            },
+            {
                 "id": "headerTicketNo",
                 "description": "Ticket-Nr"
             },
