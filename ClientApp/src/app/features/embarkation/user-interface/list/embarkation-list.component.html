@@ -12,6 +12,7 @@
                 <mat-radio-button checked value="all" (click)="onFilterExclude()">{{ onGetLabel('all') }} ({{ records.totalPersons }})</mat-radio-button>
                 <mat-radio-button value="boarded" (click)="onFilterExclude(onGetLabel('pending').toUpperCase())">{{ onGetLabel('boarded') }} ({{ records.boarded }})</mat-radio-button>
                 <mat-radio-button value="pending" (click)="onFilterExclude(onGetLabel('boarded').toUpperCase())">{{ onGetLabel('pending') }} ({{ records.remaining }})</mat-radio-button>
+                <mat-radio-button value="filtered" (click)="$event.preventDefault()">{{ onGetLabel('filtered') }}</mat-radio-button>
             </mat-radio-group>
         </div>
     </div>
@@ -76,45 +77,43 @@
                         <div>
                             <p-table [value]="reservation.passengers" dataKey="lastname">
                                 <ng-template pTemplate="header">
-                <tr>
-                    <th style="width: 5%;"></th>
-                    <th style="width: 10%;">{{ onGetLabel('headerStatus') }}</th>
-                    <th pSortableColumn="lastname">{{ onGetLabel('headerLastname')}} <p-sortIcon field="lastname"></p-sortIcon>
-                    </th>
-                    <th pSortableColumn="firstname">{{ onGetLabel('headerFirstname') }} <p-sortIcon field="firstname"></p-sortIcon>
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-passenger>
-                <tr class="passenger">
-                    <td style="width: 5%; padding: 5px !important;"></td>
-                    <td style="text-align: center; padding: 5px !important;">
-                        <div class="transparent boarding" (click)="onDoEmbarkation(passenger.id)">
-                            <i class="fas fa-arrow-circle-up" *ngIf="passenger.isCheckedIn" matTooltipClass="tooltip-background" matTooltip="{{ onGetLabel('buttonDisembarkPassenger') }}"></i>
-                            <i class="fas fa-arrow-circle-down" *ngIf="!passenger.isCheckedIn" matTooltipClass="tooltip-background" matTooltip="{{ onGetLabel('buttonEmbarkPassenger') }}"></i>
+                                    <tr>
+                                        <th style="width: 5%;"></th>
+                                        <th style="width: 10%;">{{ onGetLabel('headerStatus') }}</th>
+                                        <th pSortableColumn="lastname">{{ onGetLabel('headerLastname')}}
+                                            <p-sortIcon field="lastname"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="firstname">{{ onGetLabel('headerFirstname') }}
+                                            <p-sortIcon field="firstname"></p-sortIcon>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-passenger>
+                                    <tr class="passenger">
+                                        <td style="width: 5%; padding: 5px !important;"></td>
+                                        <td style="text-align: center; padding: 5px !important;">
+                                            <div class="transparent boarding" (click)="onDoEmbarkation(passenger.id)">
+                                                <i class="fas fa-arrow-circle-up" *ngIf="passenger.isCheckedIn" matTooltipClass="tooltip-background" matTooltip="{{ onGetLabel('buttonDisembarkPassenger') }}"></i>
+                                                <i class="fas fa-arrow-circle-down" *ngIf="!passenger.isCheckedIn" matTooltipClass="tooltip-background" matTooltip="{{ onGetLabel('buttonEmbarkPassenger') }}"></i>
+                                            </div>
+                                        </td>
+                                        <td style="padding: 5px !important;">{{ passenger.lastname }}</td>
+                                        <td style="padding: 5px !important;">{{ passenger.firstname }}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
                         </div>
                     </td>
-                    <td style="padding: 5px !important;">{{ passenger.lastname }}</td>
-                    <td style="padding: 5px !important;">{{ passenger.firstname }}</td>
                 </tr>
             </ng-template>
         </p-table>
     </div>
-    </td>
-    </tr>
-    </ng-template>
-    </p-table>
-    <button mat-icon-button (click)="onClearAllFilters(dt2)">Clear all filters</button>
-</div>
 
-S:{{ searchTerm }}
-
-<div id="footer">
-    <div @slideFromRight id="buttons">
-        <button mat-flat-button class="primary" id="showScanner" (click)="onShowScanner()">{{ onGetLabel('scanOpenButton') }}</button>
+    <div id="footer">
+        <div @slideFromRight id="buttons">
+            <button mat-flat-button class="primary" id="showScanner" (click)="onShowScanner()">{{ onGetLabel('scanOpenButton') }}</button>
+        </div>
     </div>
-</div>
-
 
 </div>
 
