@@ -23,6 +23,8 @@ namespace ShipCruises {
         public Occupant Occupant { get; set; }
         public Gender Gender { get; set; }
 
+        public virtual Reservation Reservation { get; set; }
+
     }
 
 }

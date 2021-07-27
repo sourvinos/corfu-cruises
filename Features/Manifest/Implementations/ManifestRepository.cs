@@ -13,31 +13,17 @@ namespace ShipCruises.Manifest {
         }
 
         public ManifestResource Get(string date, int shipId, int portId) {
-            var manifest = context.Reservations
-                .Include(x => x.Ship).ThenInclude(x => x.ShipOwner)
-                .Include(x => x.Ship).ThenInclude(x => x.Registrars)
-                .Include(x => x.Passengers).ThenInclude(x => x.Gender)
-                .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
-                .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
-                .Where(x => x.Date == date && x.ShipId == shipId && x.PortId == portId && x.Passengers.Any(x => x.IsCheckedIn))
-                .Select(x => new ManifestViewModel {
-                    Date = x.Date,
-                    Ship = new Ship {
-                        Id = x.Ship.Id,
-                        ShipOwnerId = x.Ship.ShipOwner.Id,
-                        Description = x.Ship.Description,
-                        Manager = x.Ship.Manager,
-                        ManagerInGreece = x.Ship.ManagerInGreece,
-                        Agent = x.Ship.Agent,
-                        Flag = x.Ship.Flag,
-                        RegistryNo = x.Ship.RegistryNo,
-                        IMO = x.Ship.IMO,
-                        ShipOwner = x.Ship.ShipOwner,
-                        Registrars = x.Ship.Registrars.OrderBy(x => x.IsPrimary).ToList()
-                    },
-                    Port = x.Port.Description,
-                    Passengers = x.Passengers.ToList()
-                }).FirstOrDefault();
+            var manifest = new ManifestViewModel {
+                Date = date,
+                Ship = context.Ships.Include(x => x.Registrars).Include(x => x.ShipOwner).SingleOrDefault(x => x.Id == shipId),
+                Port = context.Ports.SingleOrDefault(x => x.Id == portId),
+                Passengers = context.Passengers
+                    .Include(x => x.Nationality)
+                    .Include(x => x.Occupant)
+                    .Include(x => x.Gender)
+                    .Where(x => x.IsCheckedIn && x.Reservation.Date == date)
+                    .ToList()
+            };
             return mapper.Map<ManifestViewModel, ManifestResource>(manifest);
         }
 

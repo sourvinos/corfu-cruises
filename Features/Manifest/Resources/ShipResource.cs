@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 
-namespace ShipCruises {
+namespace ShipCruises.Manifest {
 
-    public class Ship {
+    public class ShipResource {
 
-        public int Id { get; set; }
-        public int ShipOwnerId { get; set; }
         public string Description { get; set; }
         public string IMO { get; set; }
         public string Flag { get; set; }
@@ -13,12 +11,10 @@ namespace ShipCruises {
         public string Manager { get; set; }
         public string ManagerInGreece { get; set; }
         public string Agent { get; set; }
-        public bool IsActive { get; set; }
-        public string UserId { get; set; }
 
-        public ShipOwner ShipOwner { get; set; }
+        public ShipOwnerResource ShipOwner { get; set; }
 
-        public List<Registrar> Registrars { get; set; }
+        public List<RegistrarResource> Registrars { get; set; }
 
     }
 

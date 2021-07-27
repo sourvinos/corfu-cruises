@@ -14,5 +14,5 @@ namespace ShipCruises {
         public string UserId { get; set; }
 
     }
-    
+
 }

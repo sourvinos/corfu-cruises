@@ -8,8 +8,6 @@ import { map, startWith } from 'rxjs/operators'
 import moment from 'moment'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { Destination } from 'src/app/features/destinations/classes/destination'
-import { DestinationService } from '../../../destinations/classes/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -19,38 +17,40 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { Port } from 'src/app/features/ports/classes/port'
 import { PortService } from 'src/app/features/ports/classes/port.service'
 import { Ship } from 'src/app/features/ships/base/classes/ship'
+import { ShipRoute } from 'src/app/features/ships/routes/classes/shipRoute'
+import { ShipRouteService } from 'src/app/features/ships/routes/classes/shipRoute.service'
 import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
-    selector: 'embarkation-criteria',
-    templateUrl: './embarkation-criteria.component.html',
+    selector: 'manifest-criteria',
+    templateUrl: './manifest-criteria.component.html',
     styleUrls: ['../../../../../assets/styles/forms.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
-export class EmbarkationCriteriaComponent {
+export class ManifestCriteriaComponent {
 
     //#region variables
 
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private windowTitle = 'Embarkation'
-    public feature = 'embarkationCriteria'
+    private windowTitle = 'Manifest'
+    public feature = 'manifestCriteria'
     public input: InputTabStopDirective
     public form: FormGroup
-    public destinations: Destination[] = []
     public ports: Port[] = []
-    public ships: Ship[] = []
-    public filteredDestinations: Observable<Destination[]>
+    public routes: ShipRoute[]
+    public vessels: Ship[] = []
     public filteredPorts: Observable<Port[]>
-    public filteredShips: Observable<Ship[]>
+    public filteredRoutes: Observable<ShipRoute[]>
+    public filteredVessels: Observable<Ship[]>
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private shipRouteService: ShipRouteService, private snackbarService: SnackbarService, private titleService: Title, private vesselService: ShipService) { }
 
     //#region lifecycle hooks
 
@@ -59,9 +59,9 @@ export class EmbarkationCriteriaComponent {
         this.initForm()
         this.addShortcuts()
         this.getLocale()
-        this.populateDropDown('destinationService', 'destinations', 'filteredDestinations', 'destination', 'description')
-        this.populateDropDown('portService', 'ports', 'filteredPorts', 'port', 'description')
-        this.populateDropDown('shipService', 'ships', 'filteredShips', 'ship', 'description')
+        this.populateDropDown(this.vesselService, 'vessels', 'filteredVessels', 'vessel', 'description')
+        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
+        this.populateDropDown(this.shipRouteService, 'shipRoutes', 'filteredRoutes', 'route', 'description')
         this.populateFields()
     }
 
@@ -75,7 +75,7 @@ export class EmbarkationCriteriaComponent {
 
     //#region public methods
 
-    public destinationFields(subject: { description: any }): any {
+    public routeFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
 
@@ -83,7 +83,7 @@ export class EmbarkationCriteriaComponent {
         return subject ? subject.description : undefined
     }
 
-    public shipFields(subject: { description: any }): any {
+    public vesselFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
 
@@ -140,19 +140,19 @@ export class EmbarkationCriteriaComponent {
     private initForm(): void {
         this.form = this.formBuilder.group({
             date: ['', [Validators.required]],
-            destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            vessel: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
-            ship: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            route: ['', [Validators.required, ValidationService.RequireAutocomplete]],
         })
     }
 
     private navigateToList(): void {
-        this.router.navigate(['date', moment(this.form.value.date).toISOString().substr(0, 10), 'destinationId', this.form.value.destination.id, 'portId', this.form.value.port.id, 'shipId', this.form.value.ship.id], { relativeTo: this.activatedRoute })
+        this.router.navigate(['date', moment(this.form.value.date).toISOString().substr(0, 10), 'shipId', this.form.value.vessel.id, 'portId', this.form.value.port.id], { relativeTo: this.activatedRoute })
     }
 
-    private populateDropDown(service: string, table: string, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
         const promise = new Promise((resolve) => {
-            this[service].getAllActive().toPromise().then(
+            service.getAllActive().toPromise().then(
                 (response: any) => {
                     this[table] = response
                     resolve(this[table])
@@ -165,21 +165,21 @@ export class EmbarkationCriteriaComponent {
     }
 
     private populateFields(): void {
-        if (this.helperService.readItem('embarkationCriteria')) {
-            const criteria = JSON.parse(this.helperService.readItem('embarkationCriteria'))
+        if (this.helperService.readItem('manifestCriteria')) {
+            const criteria = JSON.parse(this.helperService.readItem('manifestCriteria'))
             this.form.setValue({
                 date: moment(criteria.date).toISOString(),
-                destination: criteria.destination,
+                vessel: criteria.vessel,
                 port: criteria.port,
-                ship: criteria.ship
+                route: criteria.route
             })
         }
     }
 
     private removeCriteria(): void {
-        this.helperService.removeItem('embarkationCriteria')
+        this.helperService.removeItem('manifestCriteria')
     }
-    
+
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
@@ -189,7 +189,7 @@ export class EmbarkationCriteriaComponent {
     }
 
     private storeCriteria(): void {
-        this.helperService.saveItem('embarkationCriteria', JSON.stringify(this.form.value))
+        this.helperService.saveItem('manifestCriteria', JSON.stringify(this.form.value))
     }
 
     //#endregion
@@ -200,18 +200,18 @@ export class EmbarkationCriteriaComponent {
         return this.form.get('date')
     }
 
-    get destination(): AbstractControl {
-        return this.form.get('destination')
+    get vessel(): AbstractControl {
+        return this.form.get('vessel')
     }
 
     get port(): AbstractControl {
         return this.form.get('port')
     }
 
-    get ship(): AbstractControl {
-        return this.form.get('ship')
+    get route(): AbstractControl {
+        return this.form.get('route')
     }
 
-    //#endregion    
+    //#endregion
 
 }

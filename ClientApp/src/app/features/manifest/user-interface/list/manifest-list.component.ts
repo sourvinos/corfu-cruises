@@ -1,18 +1,20 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { Subject } from 'rxjs'
+import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
+import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
 import { ManifestViewModel } from '../../classes/view-models/manifest-view-model'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
+import { ShipRouteService } from 'src/app/features/ships/routes/classes/shipRoute.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { ShipRoute } from 'src/app/features/ships/routes/classes/shipRoute'
-import { ShipRouteService } from 'src/app/features/ships/routes/classes/shipRoute.service'
 
 @Component({
     selector: 'manifest-list',
@@ -25,34 +27,22 @@ export class ManifestListComponent {
 
     //#region variables
 
+    @ViewChild('table') table: Table | undefined
+
+    private localStorageSearchTerm = 'manifest-list-search-term'
     private ngUnsubscribe = new Subject<void>()
     private resolver = 'manifestList'
+    private unlisten: Unlisten
     private windowTitle = 'Manifest'
     public feature = 'manifestList'
-
-    //#endregion
-
-    //#region particular variables
-
+    public filteredRecords: ManifestViewModel
     public records: ManifestViewModel
-    public shipRoutes: ShipRoute[] = []
+    public searchTerm = ''
     public selectedShipRoute: any
-    public highlightFirstRow = false
 
     //#endregion
 
-    //#region table
-
-    headers = ['', 'headerId', 'headerLastname', 'headerFirstname', 'headerNationality', 'headerDoB', 'headerOccupant', 'headerGender', 'headerRemarks', 'headerSpecialCare', '']
-    widths = ['0px', '0px', '12%', '12%', '12%', '12%', '12%', '12%', '12%', '12%', '56px']
-    visibility = ['none', 'none', '', '', '', '', '', '', '', '', '']
-    justify = ['center', 'left', 'left', 'left', 'left', 'center', 'center', 'left', 'left', 'left', 'left']
-    types = ['', '', '', '', '', '', '', '', '', '', '']
-    fields = ['', 'reservationId', 'lastname', 'firstname', 'nationalityDescription', 'birthDate', 'occupantDescription', 'genderDescription', 'remarks', 'specialCare', '']
-
-    //#endregion
-
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private snackbarService: SnackbarService, private shipRouteService: ShipRouteService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private shipRouteService: ShipRouteService, private snackbarService: SnackbarService, private titleService: Title,) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.loadRecords()
@@ -64,12 +54,15 @@ export class ManifestListComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.getLocale()
+        this.getFilterFromStorage()
+        this.loadRecords()
+        this.addShortcuts()
     }
 
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
+        this.unlisten()
     }
 
     //#endregion
@@ -82,11 +75,16 @@ export class ManifestListComponent {
         })
     }
 
+    public onFilter($event: any, stringVal: any): void {
+        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
+        this.updateStorageWithFilter()
+    }
+
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onGoBack(): void {
+    public goBack(): void {
         this.router.navigate(['/manifest'])
     }
 
@@ -94,16 +92,38 @@ export class ManifestListComponent {
 
     //#region private methods
 
-    private getLocale(): void {
-        this.dateAdapter.setLocale(this.helperService.readItem("language"))
+    private addShortcuts(): void {
+        this.unlisten = this.keyboardShortcutsService.listen({
+            'Escape': () => {
+                this.goBack()
+            },
+            'Alt.S': () => {
+                this.focus('searchTerm')
+            },
+            'Alt.E': (event: KeyboardEvent) => {
+                this.buttonClickService.clickOnButton(event, 'exportToPDF')
+            }
+        }, {
+            priority: 0,
+            inputs: true
+        })
+    }
+
+    private focus(element: string): void {
+        this.helperService.setFocus(element)
+    }
+
+    private getFilterFromStorage(): void {
+        this.searchTerm = this.helperService.readItem(this.localStorageSearchTerm)
     }
 
     private loadRecords(): void {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
+            this.filteredRecords = this.records
         } else {
-            this.onGoBack()
+            this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }
     }
@@ -123,6 +143,10 @@ export class ManifestListComponent {
                 resolve(this.selectedShipRoute)
             })
         })
+    }
+
+    private updateStorageWithFilter(): void {
+        this.helperService.saveItem(this.localStorageSearchTerm, this.searchTerm)
     }
 
     //#endregion

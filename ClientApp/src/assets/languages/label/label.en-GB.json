@@ -1624,11 +1624,11 @@
         ]
     },
     {
-        "feature": "manifestWrapper",
+        "feature": "manifestCriteria",
         "labels": [
             {
                 "id": "header",
-                "description": "Ship manifest"
+                "description": "Passenger manifest"
             },
             {
                 "id": "date",
@@ -1636,7 +1636,11 @@
             },
             {
                 "id": "searchDateHint",
-                "description": "Select or enter date"
+                "description": "Departure date"
+            },
+            {
+                "id": "vessel",
+                "description": "Vessel"
             },
             {
                 "id": "destination",
@@ -1647,26 +1651,34 @@
                 "description": "Port"
             },
             {
-                "id": "ship",
-                "description": "Ship"
-            },
-            {
-                "id": "shipRoute",
+                "id": "route",
                 "description": "Route"
             },
             {
-                "id": "searchDropdownHint",
+                "id": "searchAutocompleteHint",
                 "description": "Select from the list"
             },
             {
                 "id": "searchButton",
-                "description": "Search"
+                "description": "SEARCH"
             }
         ]
     },
     {
         "feature": "manifestList",
         "labels": [
+            {
+                "id": "header",
+                "description": "Passenger manifest"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Search"
+            },
+            {
+                "id": "searchHint",
+                "description": "By last name"
+            },
             {
                 "id": "headerLineNo",
                 "description": "No"
@@ -1694,14 +1706,6 @@
             {
                 "id": "headerGender",
                 "description": "Gender"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Remarks"
-            },
-            {
-                "id": "headerSpecialCare",
-                "description": "Special care"
             },
             {
                 "id": "exportToPdfButton",

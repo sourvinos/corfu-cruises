@@ -1624,11 +1624,11 @@
         ]
     },
     {
-        "feature": "manifestWrapper",
+        "feature": "manifestCriteria",
         "labels": [
             {
                 "id": "header",
-                "description": "Plavidlo Manifest"
+                "description": "Manifest plavidla"
             },
             {
                 "id": "date",
@@ -1636,7 +1636,11 @@
             },
             {
                 "id": "searchDateHint",
-                "description": "Datum nalodění"
+                "description": "Datum odletu"
+            },
+            {
+                "id": "vessel",
+                "description": "Plavidlo"
             },
             {
                 "id": "destination",
@@ -1647,15 +1651,11 @@
                 "description": "Přístav"
             },
             {
-                "id": "ship",
-                "description": "Plavidlo"
-            },
-            {
-                "id": "shipRoute",
+                "id": "route",
                 "description": "Trasa"
             },
             {
-                "id": "searchDropdownHint",
+                "id": "searchAutocompleteHint",
                 "description": "Vyberte ze seznamu"
             },
             {
@@ -1667,6 +1667,18 @@
     {
         "feature": "manifestList",
         "labels": [
+            {
+                "id": "header",
+                "description": "Cestující manifest"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Vyhledávání"
+            },
+            {
+                "id": "searchHint",
+                "description": "Hledat podle příjmení"
+            },
             {
                 "id": "headerLineNo",
                 "description": "No"
@@ -1681,7 +1693,7 @@
             },
             {
                 "id": "headerNationality",
-                "description": "Národnost"
+                "description": "Státní příslušnost"
             },
             {
                 "id": "headerDoB",
@@ -1689,23 +1701,15 @@
             },
             {
                 "id": "headerOccupant",
-                "description": "Vlastnost"
+                "description": "Obyvatel"
             },
             {
                 "id": "headerGender",
                 "description": "Rod"
             },
             {
-                "id": "headerRemarks",
-                "description": "Poznámky"
-            },
-            {
-                "id": "headerSpecialCare",
-                "description": "Speciální péče"
-            },
-            {
                 "id": "exportToPdfButton",
-                "description": "Export do PDF"
+                "description": "EXPORT DO PDF"
             }
         ]
     },

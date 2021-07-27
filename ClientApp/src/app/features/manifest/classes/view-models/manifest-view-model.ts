@@ -4,8 +4,8 @@ import { ManifestPassenger } from './manifest-passenger'
 export class ManifestViewModel {
 
     date: string
-    route: string
     ship: Ship
+    route: string
 
     passengers: ManifestPassenger[] = []
 

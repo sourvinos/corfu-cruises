@@ -37,7 +37,7 @@
             },
             {
                 "id": "searchLabel",
-                "description": "Rechercher"
+                "description": "Toutes les recherches"
             },
             {
                 "id": "searchHint",
@@ -115,7 +115,7 @@
             },
             {
                 "id": "searchLabel",
-                "description": "Recherche"
+                "description": "Toutes les recherches"
             },
             {
                 "id": "searchHint",
@@ -1624,11 +1624,11 @@
         ]
     },
     {
-        "feature": "manifestWrapper",
+        "feature": "manifestCriteria",
         "labels": [
             {
                 "id": "header",
-                "description": "Situation de bateau"
+                "description": "Manifeste du navire"
             },
             {
                 "id": "date",
@@ -1636,7 +1636,11 @@
             },
             {
                 "id": "searchDateHint",
-                "description": "Donnez Date"
+                "description": "Date de départ"
+            },
+            {
+                "id": "vessel",
+                "description": "Navire"
             },
             {
                 "id": "destination",
@@ -1647,26 +1651,34 @@
                 "description": "Port"
             },
             {
-                "id": "ship",
-                "description": "Bateau"
-            },
-            {
-                "id": "shipRoute",
+                "id": "route",
                 "description": "Route"
             },
             {
-                "id": "searchDropdownHint",
+                "id": "searchAutocompleteHint",
                 "description": "Selectionner dans la liste"
             },
             {
                 "id": "searchButton",
-                "description": "Recherche"
+                "description": "RECHERCHE"
             }
         ]
     },
     {
         "feature": "manifestList",
         "labels": [
+            {
+                "id": "header",
+                "description": "Manifeste des passagers"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Chercher"
+            },
+            {
+                "id": "searchHint",
+                "description": "Recherche par nom"
+            },
             {
                 "id": "headerLineNo",
                 "description": "No"
@@ -1677,11 +1689,11 @@
             },
             {
                 "id": "headerFirstname",
-                "description": "Nom "
+                "description": "Nom"
             },
             {
                 "id": "headerNationality",
-                "description": "Heure"
+                "description": "Nationalité"
             },
             {
                 "id": "headerDoB",
@@ -1689,23 +1701,15 @@
             },
             {
                 "id": "headerOccupant",
-                "description": "Capacite"
+                "description": "Occupant"
             },
             {
                 "id": "headerGender",
-                "description": "Sexe"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Remarques"
-            },
-            {
-                "id": "headerSpecialCare",
-                "description": "Traitement special"
+                "description": "Le genre"
             },
             {
                 "id": "exportToPdfButton",
-                "description": "Creer un PDF"
+                "description": "CRÉER UN PDF"
             }
         ]
     },

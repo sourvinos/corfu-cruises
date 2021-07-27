@@ -1,0 +1,21 @@
+#header #navigation {
+    align-items: center;
+    display: flex;
+    margin-right: 1rem;
+}
+
+#header #embarkationFilter {
+    margin-left: auto;
+}
+
+#header #embarkationFilter .mat-radio-button {
+    margin-left: 1rem;
+}
+
+#table-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: 0.5rem;
+    width: 100%;
+}

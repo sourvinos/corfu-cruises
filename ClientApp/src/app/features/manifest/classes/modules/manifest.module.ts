@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core'
 // Custom
-import { ManifestListComponent } from '../../user-interface/manifest-list/manifest-list.component'
+import { ManifestCriteriaComponent } from '../../user-interface/criteria/manifest-criteria.component'
+import { ManifestListComponent } from '../../user-interface/list/manifest-list.component'
 import { ManifestRoutingModule } from './manifest.routing.module'
-import { ManifestWrapperComponent } from '../../user-interface/manifest-wrapper/manifest-wrapper.component'
 import { SharedModule } from 'src/app/shared/modules/shared.module'
 
 @NgModule({
     declarations: [
-        ManifestWrapperComponent,
+        ManifestCriteriaComponent,
         ManifestListComponent,
 
     ],

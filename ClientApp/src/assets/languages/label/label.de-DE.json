@@ -37,7 +37,7 @@
             },
             {
                 "id": "searchLabel",
-                "description": "Suche"
+                "description": "Suchen"
             },
             {
                 "id": "searchHint",
@@ -115,7 +115,7 @@
             },
             {
                 "id": "searchLabel",
-                "description": "Suche"
+                "description": "Suchen"
             },
             {
                 "id": "searchHint",
@@ -1624,11 +1624,11 @@
         ]
     },
     {
-        "feature": "manifestWrapper",
+        "feature": "manifestCriteria",
         "labels": [
             {
                 "id": "header",
-                "description": "Manifest"
+                "description": "Passagiermanifest"
             },
             {
                 "id": "date",
@@ -1636,7 +1636,11 @@
             },
             {
                 "id": "searchDateHint",
-                "description": "(DE) Select or enter date"
+                "description": "Abreisedatum"
+            },
+            {
+                "id": "vessel",
+                "description": "Schiff"
             },
             {
                 "id": "destination",
@@ -1647,20 +1651,16 @@
                 "description": "Hafen"
             },
             {
-                "id": "ship",
-                "description": "Schiff"
-            },
-            {
-                "id": "shipRoute",
+                "id": "route",
                 "description": "Route"
             },
             {
-                "id": "searchDropdownHint",
+                "id": "searchAutocompleteHint",
                 "description": "Aus der Liste auswählen"
             },
             {
                 "id": "searchButton",
-                "description": "Suchen"
+                "description": "SUCHEN"
             }
         ]
     },
@@ -1668,12 +1668,24 @@
         "feature": "manifestList",
         "labels": [
             {
+                "id": "header",
+                "description": "Passagiermanifest"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Suche"
+            },
+            {
+                "id": "searchHint",
+                "description": "Suche nach Nachnamen"
+            },
+            {
                 "id": "headerLineNo",
                 "description": "No"
             },
             {
                 "id": "headerLastname",
-                "description": "Name"
+                "description": "Nachname"
             },
             {
                 "id": "headerFirstname",
@@ -1685,27 +1697,19 @@
             },
             {
                 "id": "headerDoB",
-                "description": "(DE) Birth date"
+                "description": "Geburtsdatum"
             },
             {
                 "id": "headerOccupant",
-                "description": "(DE) Occupant"
+                "description": "Bewohner"
             },
             {
                 "id": "headerGender",
                 "description": "Geschlecht"
             },
             {
-                "id": "headerRemarks",
-                "description": "Bemerkungen"
-            },
-            {
-                "id": "headerSpecialCare",
-                "description": "(DE) Special care"
-            },
-            {
                 "id": "exportToPdfButton",
-                "description": "Als PDF exportieren"
+                "description": "ALS PDF EXPORTIEREN"
             }
         ]
     },

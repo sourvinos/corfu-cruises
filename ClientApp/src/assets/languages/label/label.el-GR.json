@@ -1624,19 +1624,23 @@
         ]
     },
     {
-        "feature": "manifestWrapper",
+        "feature": "manifestCriteria",
         "labels": [
             {
                 "id": "header",
-                "description": "Κατασταση Πλοιου"
+                "description": "Κατάσταση επιβατών"
             },
             {
                 "id": "date",
-                "description": "Ημερομηνια"
+                "description": "Ημερομηνία"
             },
             {
                 "id": "searchDateHint",
-                "description": "Δώστε ημερομηνία"
+                "description": "Ημερομηνία αναχώρησης"
+            },
+            {
+                "id": "vessel",
+                "description": "Πλοίο"
             },
             {
                 "id": "destination",
@@ -1644,23 +1648,19 @@
             },
             {
                 "id": "port",
-                "description": "Λιμανι"
+                "description": "Λιμάνι"
             },
             {
-                "id": "ship",
-                "description": "Πλοιο"
+                "id": "route",
+                "description": "Δρομολόγιο"
             },
             {
-                "id": "shipRoute",
-                "description": "Δρομολογιο"
-            },
-            {
-                "id": "searchDropdownHint",
+                "id": "searchAutocompleteHint",
                 "description": "Επιλέξτε από τη λίστα"
             },
             {
                 "id": "searchButton",
-                "description": "Αναζητηση"
+                "description": "ΑΝΑΖΗΤΗΣΗ"
             }
         ]
     },
@@ -1668,12 +1668,24 @@
         "feature": "manifestList",
         "labels": [
             {
+                "id": "header",
+                "description": "Κατάσταση επιβατών"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Αναζήτηση"
+            },
+            {
+                "id": "searchHint",
+                "description": "Με βάση το επώνυμο"
+            },
+            {
                 "id": "headerLineNo",
                 "description": "No"
             },
             {
                 "id": "headerLastname",
-                "description": "Επωνυμο"
+                "description": "Επώνυμο"
             },
             {
                 "id": "headerFirstname",
@@ -1681,31 +1693,23 @@
             },
             {
                 "id": "headerNationality",
-                "description": "Χωρα"
+                "description": "Χώρα"
             },
             {
                 "id": "headerDoB",
-                "description": "Ημερομηνια γεννησης"
+                "description": "Ημερομηνία γέννησης"
             },
             {
                 "id": "headerOccupant",
-                "description": "Ιδιοτητα"
+                "description": "Ιδιότητα"
             },
             {
                 "id": "headerGender",
-                "description": "Φυλο"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Παρατηρησεις"
-            },
-            {
-                "id": "headerSpecialCare",
-                "description": "Ειδικη φροντιδα"
+                "description": "Φύλο"
             },
             {
                 "id": "exportToPdfButton",
-                "description": "Δημιουργια PDF"
+                "description": "ΔΗΜΙΟΥΡΓΙΑ PDF"
             }
         ]
     },
