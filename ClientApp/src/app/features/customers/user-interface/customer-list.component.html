@@ -17,7 +17,7 @@
         <p-table #table [autoLayout]="false" [globalFilterFields]="['description','phones','email']" [scrollable]="true" [value]="filteredRecords" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="customer-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 0;"></th>
+                    <th style="width: 0%;"></th>
                     <th style="width: 50%;" pSortableColumn="description">{{ onGetLabel('headerName') }}<p-sortIcon field="description"></p-sortIcon></th>
                     <th style="width: 25%;" pSortableColumn="email">{{ onGetLabel('headerEmail') }}<p-sortIcon field="email"></p-sortIcon></th>
                     <th style="width: 25%;" pSortableColumn="phones">{{ onGetLabel('headerPhones') }}<p-sortIcon field="phones"></p-sortIcon></th>
@@ -25,7 +25,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
-                    <td style="width: 0;">{{ rowData.id }}</td>
+                    <td style="width: 0%;">{{ rowData.id }}</td>
                     <td style="width: 50%; padding: 5px !important;">{{ rowData.description }}</td>
                     <td style="width: 25%; padding: 5px !important;">{{ rowData.email }}</td>
                     <td style="width: 25%; padding: 5px !important;">{{ rowData.phones }}</td>

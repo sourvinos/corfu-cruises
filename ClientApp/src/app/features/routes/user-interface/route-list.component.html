@@ -17,14 +17,14 @@
         <p-table #table [autoLayout]="false" [globalFilterFields]="['abbreviation','description']" [scrollable]="true" [value]="filteredRecords" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="route-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 0;"></th>
+                    <th style="width: 0%;"></th>
                     <th style="width: 10%;" pSortableColumn="abbreviation">{{ onGetLabel('headerAbbreviation') }}<p-sortIcon field="abbreviation"></p-sortIcon></th>
                     <th style="width: 90%;" pSortableColumn="description">{{ onGetLabel('headerDescription') }}<p-sortIcon field="description"></p-sortIcon></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
-                    <td style="width: 0;">{{ rowData.id }}</td>
+                    <td style="width: 0%;">{{ rowData.id }}</td>
                     <td style="width: 10%; padding: 5px !important; text-align: center;">{{ rowData.abbreviation }}</td>
                     <td style="width: 90%; padding: 5px !important;">{{ rowData.description }}</td>
                 </tr>

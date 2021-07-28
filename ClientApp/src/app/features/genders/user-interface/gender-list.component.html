@@ -17,13 +17,13 @@
         <p-table #table [autoLayout]="false" [globalFilterFields]="['description']" [scrollable]="true" [value]="filteredRecords" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="gender-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 0;"></th>
+                    <th style="width: 0%;"></th>
                     <th style="width: 100%;" pSortableColumn="description">{{ onGetLabel('headerDescription') }}<p-sortIcon field="description"></p-sortIcon></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
-                    <td style="width: 0;">{{ rowData.id }}</td>
+                    <td style="width: 0%;">{{ rowData.id }}</td>
                     <td style="width: 100%; padding: 5px !important;">{{ rowData.description }}</td>
                 </tr>
             </ng-template>
