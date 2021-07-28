@@ -1,38 +1,20 @@
 @media only screen and (max-width: 1440px) {
     * {
         --content-padding-bottom: 1rem;
-        --content-padding-left: 202px;
-        --content-padding-right: 2rem;
-        --font-size-autocomplete: 90%;
+        --content-padding-left: 12rem;
+        --content-padding-right: 1rem;
         --font-size-button: 100%;
-        --font-size-calendar-date: 100%;
-        --font-size-calendar-legend-items: 100%;
-        --font-size-checkbox: 100%;
-        --font-size-datepicker-days: 0.9vw;
-        --font-size-datepicker-header-month: 2.2vw;
-        --font-size-dialog: 110%;
-        --font-size-embarkation-footer: 100%;
         --font-size-header: 180%;
-        --font-size-input-height: 100%;
         --font-size-input-hint: 80%;
-        --font-size-input: 85%;
         --font-size-label: 100%;
-        --font-size-loading-message: 1rem;
-        --font-size-logo-loader-first-child: 4rem;
-        --font-size-logo-loader-second-child: 2.5rem;
         --font-size-logo: 200%;
-        --font-size-panel-buttons: 100%;
-        --font-size-paragraph: 0.7rem;
-        --font-size-radio-button: 90%;
-        --font-size-snackbar: 120%;
-        --font-size-sum-persons: 110%;
-        --font-size-summary-block-item: 80%;
-        --font-size-tab-label: 130%;
         --font-size-table-header: 100%;
         --font-size-table-row: 80%;
-        --form-field-margin: 10px;
+        --header-bottom-margin: 9px;
         --header-line-height: 20px;
-        --side-bar-width: 167px;
+        --side-bar-margin-left: 1rem;
+        --side-bar-width: 10rem;
         --top-bar-height: 67px;
+        --top-bar-top-padding: 1rem;
     }
 }

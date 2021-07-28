@@ -1,6 +1,6 @@
 #side-bar {
     height: 100%;
-    margin-left: 0.3125rem;
+    margin-left: var(--side-bar-margin-left);
     position: fixed;
     top: var(--top-bar-height);
 }
