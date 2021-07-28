@@ -3,7 +3,7 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    height: calc(100% - var(--top-bar-height) - var(--top-bar-top-padding));
+    height: calc(100% - var(--top-bar-height) - var(--gap));
     justify-content: space-between;
     padding: 0.5rem;
     transition: background-color var(--change-theme-delay) ease;

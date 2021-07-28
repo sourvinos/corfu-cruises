@@ -223,28 +223,11 @@
         ]
     },
     {
-        "feature": "pickupPointWrapper",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Σημεια παραλαβης"
-            },
-            {
-                "id": "searchLabel",
-                "description": "Διαδρομες"
-            },
-            {
-                "id": "searchHint",
-                "description": "Επιλέξτε από τη λίστα"
-            }
-        ]
-    },
-    {
         "feature": "pickupPointList",
         "labels": [
             {
                 "id": "header",
-                "description": "Σημεια Παραλαβης Διαδρομης: "
+                "description": "Σημεία Παραλαβής"
             },
             {
                 "id": "searchLabel",
@@ -252,27 +235,27 @@
             },
             {
                 "id": "searchHint",
-                "description": "Με βαση την περιγραφη"
+                "description": "Με βάση την περιγραφή"
             },
             {
                 "id": "newButton",
                 "description": "Νεο"
             },
             {
+                "id": "headerRouteAbbreviation",
+                "description": "ΔΙΑΔΡΟΜΗ"
+            },
+            {
                 "id": "headerDescription",
-                "description": "Περιγραφη"
+                "description": "ΠΕΡΙΓΡΑΦΗ"
             },
             {
                 "id": "headerExactPoint",
-                "description": "Ακριβες σημειο"
-            },
-            {
-                "id": "headerCoordinates",
-                "description": "GPS Συντεταγμενες"
+                "description": "ΑΚΡΙΒΕΣ ΣΗΜΕΙΟ"
             },
             {
                 "id": "headerTime",
-                "description": "Ωρα"
+                "description": "ΩΡΑ"
             }
         ]
     },
@@ -1471,7 +1454,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Με βαση την περιγραφη"
+                "description": "Με βάση την περιγραφή"
             },
             {
                 "id": "newButton",
@@ -1805,7 +1788,7 @@
             },
             {
                 "id": "searchHint",
-                "description": "Με βαση την περιγραφη"
+                "description": "Με βάση την περιγραφή"
             },
             {
                 "id": "newButton",

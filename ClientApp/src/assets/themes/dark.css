@@ -24,11 +24,11 @@
     --color-datepicker-days: #ededed;
     --color-datepicker-month: #ffe85c;
     --color-dropdown-background: #657171;
-    --color-dropdown-icons: #ededed;
+    --color-dropdown-icons: #efe7ce;
     --color-embarkation-list-icons: #6ba2ad;
     --color-embarkation-list-ticketNo: #f0e8df;
     --color-embarkation-reservation-icon: #8bd0de;
-    --color-headers: #b9d2e4;
+    --color-headers: #efe7ce;
     --color-icon-remarks-warning: #fcff29;
     --color-logo-image: #efe7ce;
     --color-logo-text: #cce3ff;
@@ -66,7 +66,7 @@
     --color-table-invoice-customerdescription: #fe9f36;
     --color-table-row-focus-outline: #ffe85c;
     --color-table-row-highlight: #7c8084;
-    --color-table-sort-icon: #ffe85c;
+    --color-table-sort-icon: #efe7ce;
     --color-text-primary: #efefef;
     --color-text-secondary: #ecd234;
     --color-text-selected: #f2d49266;

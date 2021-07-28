@@ -223,28 +223,11 @@
         ]
     },
     {
-        "feature": "pickupPointWrapper",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Abholpunkte"
-            },
-            {
-                "id": "searchLabel",
-                "description": "Routen"
-            },
-            {
-                "id": "searchHint",
-                "description": "Aus der Liste auswählen"
-            }
-        ]
-    },
-    {
         "feature": "pickupPointList",
         "labels": [
             {
                 "id": "header",
-                "description": "Abholpunkte für die Route: "
+                "description": "Abholpunkte"
             },
             {
                 "id": "searchLabel",
@@ -259,20 +242,20 @@
                 "description": "NEU"
             },
             {
+                "id": "headerRouteAbbreviation",
+                "description": "ROUTE"
+            },
+            {
                 "id": "headerDescription",
-                "description": "Beschreibung"
+                "description": "BESCHREIBUNG"
             },
             {
                 "id": "headerExactPoint",
-                "description": "Genauer Punkt"
-            },
-            {
-                "id": "headerCoordinates",
-                "description": "GPS Koordinaten"
+                "description": "GENAUER PUNKT"
             },
             {
                 "id": "headerTime",
-                "description": "Zeit"
+                "description": "ZEIT"
             }
         ]
     },

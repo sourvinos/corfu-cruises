@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using ShipCruises.PickupPoints;
 
 namespace ShipCruises.PickupPoints {
 
@@ -16,7 +15,12 @@ namespace ShipCruises.PickupPoints {
         }
 
         public async Task<IEnumerable<PickupPointResource>> Get() {
-            var pickupPoints = await context.PickupPoints.Include(x => x.Route).ThenInclude(y => y.Port).OrderBy(o => o.Time).ThenBy(o => o.Description).AsNoTracking().ToListAsync();
+            var pickupPoints = await context.PickupPoints
+                .Include(x => x.Route)
+                .OrderBy(o => o.Route.Description)
+                    .ThenBy(o => o.Time)
+                        .ThenBy(o=>o.Description)
+                .AsNoTracking().ToListAsync();
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointResource>>(pickupPoints);
         }
 

@@ -7,11 +7,9 @@ import { PickupPointFormComponent } from '../user-interface/pickupPoint-form.com
 import { PickupPointFormResolver } from './pickupPoint-form.resolver'
 import { PickupPointListComponent } from '../user-interface/pickupPoint-list.component'
 import { PickupPointListResolver } from './pickupPoint-list.resolver'
-import { PickupPointWrapperComponent } from '../user-interface/pickupPoint-wrapper.component'
 
 const routes: Routes = [
-    { path: '', component: PickupPointWrapperComponent, canActivate: [AuthGuardService] },
-    { path: 'routeId/:routeId', component: PickupPointListComponent, canActivate: [AuthGuardService], resolve: { pickupPointList: PickupPointListResolver } },
+    { path: '', component: PickupPointListComponent, canActivate: [AuthGuardService], resolve: { pickupPointList: PickupPointListResolver } },
     { path: 'routeId/:routeId/pickupPoint/new', component: PickupPointFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard] },
     { path: 'routeId/:routeId/pickupPoint/:pickupPointId', component: PickupPointFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard], resolve: { pickupPointForm: PickupPointFormResolver } },
 ]

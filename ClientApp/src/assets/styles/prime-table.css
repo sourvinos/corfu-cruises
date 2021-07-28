@@ -54,7 +54,7 @@
     background-color: var(--color-table-row-highlight) !important;
 }
 
-.pi-sort-amount-up-alt, .pi-sort-amount-down {
+.p-datatable .p-sortable-column .p-sortable-column-icon {
     color: var(--color-table-sort-icon) !important;
     margin-top: -4px;
 }

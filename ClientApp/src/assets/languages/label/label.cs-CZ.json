@@ -223,28 +223,11 @@
         ]
     },
     {
-        "feature": "pickupPointWrapper",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Nástupní místa"
-            },
-            {
-                "id": "searchLabel",
-                "description": "Trasy"
-            },
-            {
-                "id": "searchHint",
-                "description": "Vybrat ze seznamu"
-            }
-        ]
-    },
-    {
         "feature": "pickupPointList",
         "labels": [
             {
                 "id": "header",
-                "description": "Nástupní Místa pro Trasu:"
+                "description": "Nástupní Místa"
             },
             {
                 "id": "searchLabel",
@@ -259,16 +242,16 @@
                 "description": "NOVÝ"
             },
             {
+                "id": "headerRouteAbbreviation",
+                "description": "Route"
+            },
+            {
                 "id": "headerDescription",
                 "description": "Popis"
             },
             {
                 "id": "headerExactPoint",
                 "description": "Přesné místo"
-            },
-            {
-                "id": "headerCoordinates",
-                "description": "Souřadnice GPS"
             },
             {
                 "id": "headerTime",
