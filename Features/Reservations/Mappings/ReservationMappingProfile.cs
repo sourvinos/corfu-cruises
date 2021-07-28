@@ -1,4 +1,5 @@
 using AutoMapper;
+using ShipCruises.Reservations;
 
 namespace ShipCruises {
 

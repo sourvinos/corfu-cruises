@@ -1,4 +1,4 @@
-﻿namespace ShipCruises {
+﻿namespace ShipCruises.PickupPoints{
 
     public class PickupPoint {
 

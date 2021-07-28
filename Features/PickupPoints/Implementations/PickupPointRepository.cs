@@ -1,16 +1,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using ShipCruises.PickupPoints;
 
-namespace ShipCruises {
+namespace ShipCruises.PickupPoints {
 
     public class PickupPointRepository : Repository<PickupPoint>, IPickupPointRepository {
 
-        public PickupPointRepository(DbContext appDbContext) : base(appDbContext) { }
+        private readonly IMapper mapper;
 
-        public async Task<IEnumerable<PickupPoint>> Get() =>
-            await context.PickupPoints.Include(x => x.Route).ThenInclude(y => y.Port).OrderBy(o => o.Time).ThenBy(o => o.Description).AsNoTracking().ToListAsync();
+        public PickupPointRepository(DbContext appDbContext, IMapper mapper) : base(appDbContext) {
+            this.mapper = mapper;
+        }
+
+        public async Task<IEnumerable<PickupPointResource>> Get() {
+            var pickupPoints = await context.PickupPoints.Include(x => x.Route).ThenInclude(y => y.Port).OrderBy(o => o.Time).ThenBy(o => o.Description).AsNoTracking().ToListAsync();
+            return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointResource>>(pickupPoints);
+        }
 
         public async Task<IEnumerable<PickupPoint>> GetActive() =>
             await context.PickupPoints.Include(x => x.Route).ThenInclude(y => y.Port).Where(a => a.IsActive).OrderBy(o => o.Time).ThenBy(o => o.Description).AsNoTracking().ToListAsync();

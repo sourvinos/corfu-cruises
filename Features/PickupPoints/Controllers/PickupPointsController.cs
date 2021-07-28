@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace ShipCruises {
+namespace ShipCruises.PickupPoints {
 
     [Authorize]
     [Route("api/[controller]")]
@@ -22,7 +22,7 @@ namespace ShipCruises {
         }
 
         [HttpGet]
-        public async Task<IEnumerable<PickupPoint>> Get() {
+        public async Task<IEnumerable<PickupPointResource>> Get() {
             return await repo.Get();
         }
 
