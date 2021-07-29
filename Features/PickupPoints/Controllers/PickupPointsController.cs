@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,21 +9,23 @@ using Microsoft.Extensions.Logging;
 
 namespace ShipCruises.PickupPoints {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class PickupPointsController : ControllerBase {
 
         private readonly IPickupPointRepository repo;
         private readonly ILogger<PickupPointsController> logger;
+        private readonly IMapper mapper;
 
-        public PickupPointsController(IPickupPointRepository repo, ILogger<PickupPointsController> logger) {
+        public PickupPointsController(IPickupPointRepository repo, ILogger<PickupPointsController> logger, IMapper mapper) {
             this.repo = repo;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<PickupPointResource>> Get() {
+        public async Task<IEnumerable<PickupPointReadResource>> Get() {
             return await repo.Get();
         }
 
@@ -71,11 +74,12 @@ namespace ShipCruises.PickupPoints {
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
-        public IActionResult PutPickupPoint([FromRoute] int id, [FromBody] PickupPoint record) {
+        // [Authorize(Roles = "Admin")]
+        public IActionResult PutPickupPoint([FromRoute] int id, [FromBody] PickupPointWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
-                    repo.Update(record);
+                    var pickupPoint = mapper.Map<PickupPointWriteResource, PickupPoint>(record);
+                    repo.Update(pickupPoint);
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });

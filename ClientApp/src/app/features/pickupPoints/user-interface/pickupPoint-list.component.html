@@ -41,7 +41,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
-                <tr [pSelectableRow]="rowData">
+                <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
                     <td style="width: 0%;">{{ rowData.id }}</td>
                     <td style="width: 10%; padding: 5px !important; text-align: center;">{{ rowData.routeAbbreviation }}</td>
                     <td style="width: 40%; padding: 5px !important;">{{ rowData.description }}</td>

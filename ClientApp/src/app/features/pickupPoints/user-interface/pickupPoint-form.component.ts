@@ -1,24 +1,27 @@
-import { ValidationService } from '../../../shared/services/validation.service'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Title } from '@angular/platform-browser'
-import { ActivatedRoute, Router } from '@angular/router'
-import { forkJoin, Subject, Subscription } from 'rxjs'
-import { RouteService } from 'src/app/features/routes/classes/route.service'
-import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { ValidationService } from '../../../shared/services/validation.service'
+import { Observable, Subject } from 'rxjs'
+// Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { DialogService } from '../../../shared/services/dialog.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
+import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { MapComponent } from 'src/app/shared/components/map/map.component'
+import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
+import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { PickupPoint } from '../classes/pickupPoint'
 import { PickupPointService } from '../classes/pickupPoint.service'
+import { RouteService } from 'src/app/features/routes/classes/route.service'
+import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
-import { MapComponent } from 'src/app/shared/components/map/map.component'
+import { Route } from '../../routes/classes/route'
+import { map, startWith } from 'rxjs/operators'
 
 @Component({
     selector: 'pickuppoint-form',
@@ -32,9 +35,10 @@ export class PickupPointFormComponent {
     //#region variables
 
     private feature = 'pickupPointForm'
+    private flatForm: FormGroup
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '../../'
+    private url = '/pickupPoints'
     private windowTitle = 'Pickup point'
     public environment = environment.production
     public form: FormGroup
@@ -45,8 +49,7 @@ export class PickupPointFormComponent {
     //#region particular variables
 
     public activePanel: string
-    private routeId: number
-    private routes: any
+    public filteredRoutes: Observable<Route[]>
     public pickupPoints = []
 
     //#endregion
@@ -55,12 +58,9 @@ export class PickupPointFormComponent {
 
     constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private routeService: RouteService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
         this.activatedRoute.params.subscribe(p => {
-            if (p.pickupPointId) {
-                this.getRecord(p.pickupPointId)
-                this.getPickupPoints(p.pickupPointId)
-            } else {
-                this.routeId = parseInt(this.router.url.split('/')[3], 10)
-                this.patchRouteFields()
+            if (p.id) {
+                this.getRecord(p.id)
+                this.getPickupPoints(p.id)
             }
         })
     }
@@ -71,12 +71,8 @@ export class PickupPointFormComponent {
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
-        this.populateDropDowns()
+        this.populateDropDown(this.routeService, 'routes', 'filteredRoutes', 'route', 'abbreviation')
         this.onFocusFormPanel()
-    }
-
-    ngAfterViewInit(): void {
-        this.focus('description')
     }
 
     ngOnDestroy(): void {
@@ -139,14 +135,19 @@ export class PickupPointFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
+    public routeFields(subject: { abbreviation: any }): any {
+        return subject ? subject.abbreviation : undefined
+    }
+
     public onGoBack(): void {
-        this.router.navigate([this.url], { relativeTo: this.activatedRoute })
+        this.router.navigate([this.url])
     }
 
     public onSave(): void {
         if (this.form.value.id === 0 || this.form.value.id === null) {
-            this.form.get('coordinates').enable()
-            this.pickupPointService.add(this.form.value).subscribe(() => {
+            this.enableField(this.form, 'coordinates')
+            this.flattenForm()
+            this.pickupPointService.add(this.flatForm.value).subscribe(() => {
                 this.resetForm()
                 this.onGoBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -154,8 +155,9 @@ export class PickupPointFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
             })
         } else {
-            this.form.get('coordinates').enable()
-            this.pickupPointService.update(this.form.value.id, this.form.value).subscribe(() => {
+            this.enableField(this.form, 'coordinates')
+            this.flattenForm()
+            this.pickupPointService.update(this.flatForm.value.id, this.flatForm.value).subscribe(() => {
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
                 this.resetForm()
                 this.onGoBack()
@@ -211,8 +213,44 @@ export class PickupPointFormComponent {
         })
     }
 
+    private enableField(form: FormGroup, field: string): void {
+        this.helperService.enableField(form, field)
+    }
+
+    private filterArray(array: string, field: string, value: any): any[] {
+        if (typeof value !== 'object') {
+            const filtervalue = value.toLowerCase()
+            return this[array].filter((element) =>
+                element[field].toLowerCase().startsWith(filtervalue))
+        }
+    }
+
+    private flattenForm(): void {
+        this.flatForm = this.formBuilder.group({
+            id: this.form.value.id,
+            routeId: this.form.value.route.id,
+            description: this.form.value.description,
+            exactPoint: this.form.value.exactPoint,
+            time: this.form.value.time,
+            coordinates: this.form.value.coordinates,
+            isActive: this.form.value.isActive,
+            userId: this.form.value.userId
+        })
+        console.log(this.flatForm.value)
+    }
+
     private focus(field: string): void {
         this.helperService.setFocus(field)
+    }
+
+    private getRecord(id: number): void {
+        this.pickupPointService.getSingle(id).subscribe(result => {
+            console.log(result)
+            this.populateFields(result)
+        }, errorFromInterceptor => {
+            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            this.onGoBack()
+        })
     }
 
     private getPickupPoints(id: string): void {
@@ -221,19 +259,10 @@ export class PickupPointFormComponent {
         })
     }
 
-    private getRecord(id: number): void {
-        this.pickupPointService.getSingle(id).subscribe(result => {
-            this.populateFields(result)
-        }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            this.onGoBack()
-        })
-    }
-
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: 0,
-            routeId: [0, Validators.required], routeDescription: [{ value: '', disabled: true }, Validators.required],
+            route: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             description: ['', [Validators.required, Validators.maxLength(128)]],
             exactPoint: ['', [Validators.required, Validators.maxLength(128)]],
             time: ['', [Validators.required, ValidationService.isTime]],
@@ -243,53 +272,30 @@ export class PickupPointFormComponent {
         })
     }
 
-    private patchRouteFields(): void {
-        setTimeout(() => {
-            const route: any[] = this.routes.filter((x: { routeId: number }) => x.routeId === this.routeId)
-            this.form.patchValue({
-                routeId: this.routeId,
-                routeDescription: route[0].routeDescription
-            })
-        }, 500)
-    }
-
-    private populateDropDowns(): Subscription {
-        const sources = []
-        sources.push(this.routeService.getAllActive())
-        return forkJoin(sources).subscribe(
-            result => {
-                this.routes = result[0]
-                this.renameObjects()
-            }
-        )
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+        const promise = new Promise((resolve) => {
+            service.getAllActive().toPromise().then(
+                (response: any) => {
+                    this[table] = response
+                    resolve(this[table])
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                }, (errorFromInterceptor: number) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                })
+        })
+        return promise
     }
 
     private populateFields(result: PickupPoint): void {
         this.form.setValue({
             id: result.id,
-            routeId: result.route.id, routeDescription: result.route.description,
+            route: { "id": result.route.id, "abbreviation": result.route.abbreviation },
             description: result.description,
             exactPoint: result.exactPoint,
             time: result.time,
             coordinates: result.coordinates,
             isActive: result.isActive,
             userId: this.helperService.readItem('userId')
-        })
-    }
-
-    private renameKey(obj: unknown, oldKey: string, newKey: string): void {
-        if (oldKey !== newKey) {
-            Object.defineProperty(obj, newKey, Object.getOwnPropertyDescriptor(obj, oldKey))
-            delete obj[oldKey]
-        }
-    }
-
-    private renameObjects(): void {
-        this.routes.forEach((obj: any) => {
-            this.renameKey(obj, 'id', 'routeId')
-            this.renameKey(obj, 'description', 'routeDescription')
-            this.renameKey(obj, 'isActive', 'routeIsActive')
-            this.renameKey(obj, 'userId', 'routeUserId')
         })
     }
 
@@ -314,8 +320,8 @@ export class PickupPointFormComponent {
 
     //#region getters
 
-    get routeDescription(): AbstractControl {
-        return this.form.get('routeDescription')
+    get route(): AbstractControl {
+        return this.form.get('route')
     }
 
     get description(): AbstractControl {

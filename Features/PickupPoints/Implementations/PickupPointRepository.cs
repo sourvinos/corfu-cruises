@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,14 +15,14 @@ namespace ShipCruises.PickupPoints {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<PickupPointResource>> Get() {
+        public async Task<IEnumerable<PickupPointReadResource>> Get() {
             var pickupPoints = await context.PickupPoints
                 .Include(x => x.Route)
                 .OrderBy(o => o.Route.Description)
                     .ThenBy(o => o.Time)
-                        .ThenBy(o=>o.Description)
+                        .ThenBy(o => o.Description)
                 .AsNoTracking().ToListAsync();
-            return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointResource>>(pickupPoints);
+            return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointReadResource>>(pickupPoints);
         }
 
         public async Task<IEnumerable<PickupPoint>> GetActive() =>

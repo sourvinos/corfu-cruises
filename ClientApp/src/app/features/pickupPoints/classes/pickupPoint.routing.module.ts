@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-
+// Custom
 import { AuthGuardService } from 'src/app/shared/services/auth-guard.service'
 import { CanDeactivateGuard } from 'src/app/shared/services/can-deactivate-guard.service'
 import { PickupPointFormComponent } from '../user-interface/pickupPoint-form.component'
@@ -10,8 +10,8 @@ import { PickupPointListResolver } from './pickupPoint-list.resolver'
 
 const routes: Routes = [
     { path: '', component: PickupPointListComponent, canActivate: [AuthGuardService], resolve: { pickupPointList: PickupPointListResolver } },
-    { path: 'routeId/:routeId/pickupPoint/new', component: PickupPointFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard] },
-    { path: 'routeId/:routeId/pickupPoint/:pickupPointId', component: PickupPointFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard], resolve: { pickupPointForm: PickupPointFormResolver } },
+    { path: 'new', component: PickupPointFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard] },
+    { path: ':id', component: PickupPointFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard], resolve: { pickupPointForm: PickupPointFormResolver } },
 ]
 
 @NgModule({

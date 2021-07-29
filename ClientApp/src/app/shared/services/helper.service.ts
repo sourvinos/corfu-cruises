@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { FormGroup } from '@angular/forms'
 import { Router } from '@angular/router'
 import moment from 'moment'
 import { environment } from 'src/environments/environment'
@@ -26,6 +27,10 @@ export class HelperService {
 
     public deviceDetector(): string {
         return 'desktop'
+    }
+
+    public enableField(form: FormGroup, field: string): void {
+        form.get(field).enable()
     }
 
     public formatDateToLocale(date: string | number | Date): string {
