@@ -9,6 +9,7 @@
 }
 
 .p-datatable-scrollable-footer, .p-datatable-scrollable-header {
+    background-color: var(--color-table-header) !important;
     overflow: visible !important;
 }
 

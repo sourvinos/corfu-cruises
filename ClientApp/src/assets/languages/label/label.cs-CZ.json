@@ -243,19 +243,19 @@
             },
             {
                 "id": "headerRouteAbbreviation",
-                "description": "Route"
+                "description": "ROUTE"
             },
             {
                 "id": "headerDescription",
-                "description": "Popis"
+                "description": "POPIS"
             },
             {
                 "id": "headerExactPoint",
-                "description": "Přesné místo"
+                "description": "PŘESNÉ MÍSTO"
             },
             {
                 "id": "headerTime",
-                "description": "Čas"
+                "description": "ČAS"
             }
         ]
     },
