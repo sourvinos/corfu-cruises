@@ -4,7 +4,7 @@
 }
 
 .p-dropdown .p-dropdown-trigger {
-    border-bottom: 1px solid var(--color-dropdown-icons);
+    border-bottom: 1px solid var(--color-table-filter-border);
     border-radius: 0;
 }
 

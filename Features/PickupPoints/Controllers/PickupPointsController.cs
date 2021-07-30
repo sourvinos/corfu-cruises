@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ShipCruises.PickupPoints {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class PickupPointsController : ControllerBase {
@@ -53,10 +53,10 @@ namespace ShipCruises.PickupPoints {
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public IActionResult PostPickupPoint([FromBody] PickupPoint record) {
+        public IActionResult PostPickupPoint([FromBody] PickupPointWriteResource  record) {
             if (ModelState.IsValid) {
                 try {
-                    repo.Create(record);
+                    repo.Create(mapper.Map<PickupPointWriteResource, PickupPoint>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordCreated()
                     });

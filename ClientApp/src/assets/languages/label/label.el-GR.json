@@ -156,11 +156,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },
@@ -264,47 +264,47 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Σημειο παραλαβης"
+                "description": "Σημείο παραλαβής"
             },
             {
                 "id": "route",
-                "description": "Διαδρομη"
+                "description": "Διαδρομή"
             },
             {
                 "id": "description",
-                "description": "Περιγραφη"
+                "description": "Περιγραφή"
             },
             {
                 "id": "exactPoint",
-                "description": "Ακριβες σημειο"
+                "description": "Ακριβές σημείο"
             },
             {
                 "id": "time",
-                "description": "Ωρα"
+                "description": "Ώρα"
             },
             {
                 "id": "coordinates",
-                "description": "GPS Συντεταγμενες"
+                "description": "GPS Συντεταγμένες"
             },
             {
                 "id": "isActive",
-                "description": "Ενεργο"
+                "description": "Ενεργό"
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             },
             {
                 "id": "formTab",
-                "description": "Στοιχεια"
+                "description": "ΦΟΡΜΑ"
             },
             {
                 "id": "mapTab",
-                "description": "Χαρτης"
+                "description": "ΧΑΡΤΗΣ"
             }
         ]
     },
@@ -420,11 +420,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             },
             {
                 "id": "formTab",
@@ -523,7 +523,7 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "changePasswordButton",
@@ -535,7 +535,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },
@@ -584,7 +584,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },
@@ -609,7 +609,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },
@@ -815,7 +815,7 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "printVoucherButton",
@@ -827,7 +827,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },
@@ -869,7 +869,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },
@@ -1096,11 +1096,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },
@@ -1199,7 +1199,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },
@@ -1491,11 +1491,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },
@@ -1746,11 +1746,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },
@@ -1841,11 +1841,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },
@@ -1915,11 +1915,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },
@@ -1989,11 +1989,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Διαγραφη"
+                "description": "ΔΙΑΓΡΑΦΗ"
             },
             {
                 "id": "saveButton",
-                "description": "Αποθηκευση"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     }

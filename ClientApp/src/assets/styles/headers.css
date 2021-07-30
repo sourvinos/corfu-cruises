@@ -3,7 +3,6 @@ h1 {
     font-family: var(--font-family-master) !important;
     font-size: var(--font-size-header) !important;
     font-weight: var(--font-weight-header) !important;
-    line-height: var(--header-line-height) !important;
     margin: 0 !important;
     padding: 0 !important;
     transition: color var(--change-component-theme-on-hover) ease;

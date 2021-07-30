@@ -156,11 +156,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Löschen"
+                "description": "LÖSCHEN"
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     },
@@ -292,19 +292,19 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Löschen"
+                "description": "LÖSCHEN"
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             },
             {
                 "id": "formTab",
-                "description": "Formular"
+                "description": "FORMULAR"
             },
             {
                 "id": "mapTab",
-                "description": "Karte"
+                "description": "KARTE"
             }
         ]
     },
@@ -420,11 +420,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Löschen"
+                "description": "LÖSCHEN"
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             },
             {
                 "id": "formTab",
@@ -523,7 +523,7 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Löschen"
+                "description": "LÖSCHEN"
             },
             {
                 "id": "changePasswordButton",
@@ -535,7 +535,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     },
@@ -584,7 +584,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     },
@@ -609,7 +609,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     },
@@ -815,7 +815,7 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Löschen"
+                "description": "LÖSCHEN"
             },
             {
                 "id": "printVoucherButton",
@@ -827,7 +827,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     },
@@ -869,7 +869,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     },
@@ -1096,11 +1096,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Löschen"
+                "description": "LÖSCHEN"
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     },
@@ -1199,7 +1199,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     },
@@ -1491,11 +1491,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Löschen"
+                "description": "LÖSCHEN"
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     },
@@ -1746,11 +1746,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Löschen"
+                "description": "LÖSCHEN"
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     },
@@ -1841,11 +1841,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Löschen"
+                "description": "LÖSCHEN"
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     },
@@ -1915,11 +1915,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Löschen"
+                "description": "LÖSCHEN"
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     },
@@ -1989,11 +1989,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Löschen"
+                "description": "LÖSCHEN"
             },
             {
                 "id": "saveButton",
-                "description": "Speichern"
+                "description": "SPEICHERN"
             }
         ]
     }

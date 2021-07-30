@@ -2,9 +2,7 @@
 
     <div id="header">
         <div id="navigation">
-            <button data-cy="goBack" class="goBack" id="goBack" (click)="onGoBack()" mat-mini-fab>
-                <mat-icon>arrow_back</mat-icon>
-            </button>
+            <mat-icon data-cy="goBack"class="goBack" [routerLink]="['/pickupPoints']">arrow_back</mat-icon>
         </div>
         <div @slideFromLeft id="title">
             <h1>{{ onGetLabel('header') }}</h1>

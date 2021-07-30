@@ -22,7 +22,7 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { Passenger } from '../../classes/models/passenger'
-import { PickupPointFlat } from '../../../pickupPoints/classes/pickupPoint-flat'
+import { PickupPointFlat } from '../../classes/view-models/pickupPoint-flat'
 import { PickupPointService } from 'src/app/features/pickupPoints/classes/pickupPoint.service'
 import { PortService } from 'src/app/features/ports/classes/port.service'
 import { Reservation } from '../../classes/models/reservation'

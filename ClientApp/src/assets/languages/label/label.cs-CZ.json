@@ -300,11 +300,11 @@
             },
             {
                 "id": "formTab",
-                "description": "Formulář"
+                "description": "FORMULÁŘ"
             },
             {
                 "id": "mapTab",
-                "description": "Mapa"
+                "description": "MAPA"
             }
         ]
     },

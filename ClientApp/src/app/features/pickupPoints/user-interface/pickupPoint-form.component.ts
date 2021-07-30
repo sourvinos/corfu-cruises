@@ -1,9 +1,8 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Title } from '@angular/platform-browser'
-import { ValidationService } from '../../../shared/services/validation.service'
 import { Observable, Subject } from 'rxjs'
+import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from '../../../shared/services/dialog.service'
@@ -16,12 +15,13 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { PickupPoint } from '../classes/pickupPoint'
 import { PickupPointService } from '../classes/pickupPoint.service'
+import { Route } from '../../routes/classes/route'
 import { RouteService } from 'src/app/features/routes/classes/route.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { ValidationService } from '../../../shared/services/validation.service'
 import { environment } from 'src/environments/environment'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { Route } from '../../routes/classes/route'
 import { map, startWith } from 'rxjs/operators'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'pickuppoint-form',

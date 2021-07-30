@@ -11,10 +11,10 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 0%;"></th>
-                    <th style="width: 10%;" pSortableColumn="routeAbbreviation">{{ onGetLabel('headerRouteAbbreviation') }}<p-sortIcon field="routeAbbreviation"></p-sortIcon></th>
+                    <th style="width: 14%; border-top-left-radius: 10px;" pSortableColumn="routeAbbreviation">{{ onGetLabel('headerRouteAbbreviation') }}<p-sortIcon field="routeAbbreviation"></p-sortIcon></th>
                     <th style="width: 40%;" pSortableColumn="description">{{ onGetLabel('headerDescription') }}<p-sortIcon field="description"></p-sortIcon></th>
-                    <th style="width: 40%;" pSortableColumn="exactPoint">{{ onGetLabel('headerExactPoint') }}<p-sortIcon field="exactPoint"></p-sortIcon></th>
-                    <th style="width: 10%;" pSortableColumn="time">{{ onGetLabel('headerTime') }}<p-sortIcon field="time"></p-sortIcon></th>
+                    <th style="width: 36%;" pSortableColumn="exactPoint">{{ onGetLabel('headerExactPoint') }}<p-sortIcon field="exactPoint"></p-sortIcon></th>
+                    <th style="width: 10%; border-top-right-radius: 10px;" pSortableColumn="time">{{ onGetLabel('headerTime') }}<p-sortIcon field="time"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th style="width: 0%;"></th>
@@ -43,9 +43,9 @@
             <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
                     <td style="width: 0%;">{{ rowData.id }}</td>
-                    <td style="width: 10%; padding: 5px !important; text-align: center;">{{ rowData.routeAbbreviation }}</td>
+                    <td style="width: 14%; padding: 5px !important; text-align: center;">{{ rowData.routeAbbreviation }}</td>
                     <td style="width: 40%; padding: 5px !important;">{{ rowData.description }}</td>
-                    <td style="width: 40%; padding: 5px !important;">{{ rowData.exactPoint }}</td>
+                    <td style="width: 36%; padding: 5px !important;">{{ rowData.exactPoint }}</td>
                     <td style="width: 10%; padding: 5px !important; text-align: center;">{{ rowData.time }}</td>
                 </tr>
             </ng-template>

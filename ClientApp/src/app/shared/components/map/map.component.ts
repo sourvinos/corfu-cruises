@@ -18,7 +18,7 @@ export class MapComponent {
     @Output() outputCoordinates = new EventEmitter()
 
     private bounds = [39.821062382395915, 19.528198242187504, 39.337351150575174, 20.17772605800193]
-    private icon = new L.Icon({ iconUrl: 'assets/images/markers/pin.svg', iconAnchor: [0, 60], iconSize: [60, 60] })
+    private icon = new L.Icon({ iconUrl: 'assets/images/markers/place.svg', iconAnchor: [8, 50], iconSize: [32, 50] })
     private isInitialized = false
     private map: L.Map
 
@@ -92,7 +92,7 @@ export class MapComponent {
             direction: 'top',
             className: 'leaflet-tooltip',
             permanent: this.pickupPoints.length == 1 ? true : false,
-            offset: L.point(0, -50)
+            offset: L.point(-28, -35)
         }).openTooltip()
             .on('dragend', () => {
                 const emitted = []

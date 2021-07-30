@@ -292,19 +292,19 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "DELETE"
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             },
             {
                 "id": "formTab",
-                "description": "Form"
+                "description": "FORM"
             },
             {
                 "id": "mapTab",
-                "description": "Map"
+                "description": "MAP"
             }
         ]
     },
@@ -420,11 +420,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "DELETE"
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             },
             {
                 "id": "formTab",
@@ -523,7 +523,7 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "DELETE"
             },
             {
                 "id": "changePasswordButton",
@@ -535,7 +535,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },
@@ -584,7 +584,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },
@@ -609,7 +609,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },
@@ -815,7 +815,7 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "DELETE"
             },
             {
                 "id": "printVoucherButton",
@@ -827,7 +827,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },
@@ -869,7 +869,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },
@@ -1096,11 +1096,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "DELETE"
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },
@@ -1199,7 +1199,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },
@@ -1491,11 +1491,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "DELETE"
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },
@@ -1746,11 +1746,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "DELETE"
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },
@@ -1841,11 +1841,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "DELETE"
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },
@@ -1915,11 +1915,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "DELETE"
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     },
@@ -1989,11 +1989,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Delete"
+                "description": "DELETE"
             },
             {
                 "id": "saveButton",
-                "description": "Save"
+                "description": "SAVE"
             }
         ]
     }

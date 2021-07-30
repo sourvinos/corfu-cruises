@@ -34,8 +34,8 @@
     --color-logo-text: #cce3ff;
     --color-map-buttons-background: #426176;
     --color-map-buttons: #ebe5cd;
-    --color-map-tooltip-background: #22333b;
-    --color-map-tooltip-color: #efefef;
+    --color-map-tooltip-background: #93bcc4;
+    --color-map-tooltip-color: #000000;
     --color-menu-background-hover: #6390ab4a;
     --color-menu-background: #657171;
     --color-menu-sub-items-background: #a6d5fa0f;
@@ -60,9 +60,10 @@
     --color-summary-total: #e6ba8a;
     --color-table-badge-background: #7c8084;
     --color-table-badge-color: #ffe85c;
-    --color-table-column-seperator: #767475;
+    --color-table-column-seperator: #4c565a;
     --color-table-expand-row: #a6d5fa;
-    --color-table-header: #525d61;
+    --color-table-filter-border:#8d8d8d;
+    --color-table-header: #657171;
     --color-table-invoice-customerdescription: #fe9f36;
     --color-table-row-focus-outline: #ffe85c;
     --color-table-row-highlight: #7c8084;

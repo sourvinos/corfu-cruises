@@ -156,7 +156,7 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Effacer"
+                "description": "EFFACER"
             },
             {
                 "id": "saveButton",
@@ -264,11 +264,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "point de collecte"
+                "description": "Point de collecte"
             },
             {
                 "id": "route",
-                "description": "Itineraire"
+                "description": "Route"
             },
             {
                 "id": "description",
@@ -292,19 +292,19 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Effacer"
+                "description": "EFFACER"
             },
             {
                 "id": "saveButton",
-                "description": "Enregistrer"
+                "description": "ENREGISTRER"
             },
             {
                 "id": "formTab",
-                "description": "Des coordonnees"
+                "description": "FORMULAIRE"
             },
             {
                 "id": "mapTab",
-                "description": "Cartes"
+                "description": "CARTE"
             }
         ]
     },
@@ -420,11 +420,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Effacer"
+                "description": "EFFACER"
             },
             {
                 "id": "saveButton",
-                "description": "Enregistrer"
+                "description": "ENREGISTRER"
             },
             {
                 "id": "formTab",
@@ -523,7 +523,7 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Effacer"
+                "description": "EFFACER"
             },
             {
                 "id": "changePasswordButton",
@@ -535,7 +535,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Enregistrer"
+                "description": "ENREGISTRER"
             }
         ]
     },
@@ -584,7 +584,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Enregistrer"
+                "description": "ENREGISTRER"
             }
         ]
     },
@@ -609,7 +609,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Enregistrer"
+                "description": "ENREGISTRER"
             }
         ]
     },
@@ -815,7 +815,7 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Effacer"
+                "description": "EFFACER"
             },
             {
                 "id": "printVoucherButton",
@@ -827,7 +827,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Enregistrer"
+                "description": "ENREGISTRER"
             }
         ]
     },
@@ -869,7 +869,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Enregistrer"
+                "description": "ENREGISTRER"
             }
         ]
     },
@@ -1096,11 +1096,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Effacer"
+                "description": "EFFACER"
             },
             {
                 "id": "saveButton",
-                "description": "Enregistrer"
+                "description": "ENREGISTRER"
             }
         ]
     },
@@ -1199,7 +1199,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "Enregistrer"
+                "description": "ENREGISTRER"
             }
         ]
     },
@@ -1491,11 +1491,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Effacer"
+                "description": "EFFACER"
             },
             {
                 "id": "saveButton",
-                "description": "Enregistrer"
+                "description": "ENREGISTRER"
             }
         ]
     },
@@ -1746,11 +1746,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "Effacer"
+                "description": "EFFACER"
             },
             {
                 "id": "saveButton",
-                "description": "Enregistrer"
+                "description": "ENREGISTRER"
             }
         ]
     },
