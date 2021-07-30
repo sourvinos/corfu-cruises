@@ -1,18 +1,18 @@
-import { Component } from '@angular/core'
-import { Title } from '@angular/platform-browser'
 import { ActivatedRoute, Router } from '@angular/router'
+import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
-import { User } from 'src/app/features/account/classes/user'
-import { ListResolved } from 'src/app/shared/classes/list-resolved'
+import { Table } from 'primeng/table'
+import { Title } from '@angular/platform-browser'
+// Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { KeyboardShortcuts, Unlisten } from '../../../shared/services/keyboard-shortcuts.service'
+import { ListResolved } from 'src/app/shared/classes/list-resolved'
+import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { KeyboardShortcuts, Unlisten } from '../../../shared/services/keyboard-shortcuts.service'
+import { User } from 'src/app/features/account/classes/user'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 
 @Component({
     selector: 'user-list',
@@ -25,8 +25,10 @@ export class UserListComponent {
 
     //#region variables
 
+    @ViewChild('table') table: Table | undefined
+
     private baseUrl = '/users'
-    private localStorageSearchTerm = 'searchTermUser'
+    private localStorageSearchTerm = 'user-list-search-term'
     private ngUnsubscribe = new Subject<void>()
     private records: User[] = []
     private resolver = 'userList'
@@ -34,42 +36,24 @@ export class UserListComponent {
     private windowTitle = 'Users'
     public feature = 'userList'
     public filteredRecords: User[] = []
-    public highlightFirstRow = false
     public newUrl = this.baseUrl + '/new'
     public searchTerm = ''
-    public sortColumn: string
-    public sortOrder: string
+    public selectedRecord: User
 
     //#endregion
 
-    //#region table
-
-    headers = ['', 'Id', 'headerDisplayname', 'headerUsername', 'headerEmail', '']
-    widths = ['40px', '', '30%', '30%', '', '56px']
-    visibility = ['none', 'none']
-    justify = ['center', 'left', 'left', 'left', 'left', 'center']
-    types = ['', '', '', '', '', '']
-    fields = ['', 'id', 'displayName', 'userName', 'email', '']
-
-    //#endregion
-
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
         this.getFilterFromStorage()
-        if (!this.getSortObjectFromStorage()) this.saveSortObjectToStorage('displayName', 'asc')
         this.loadRecords()
         this.addShortcuts()
-        this.subscribeToInteractionService()
-        this.onFilter(this.searchTerm)
-        this.focus('searchTerm')
     }
 
     ngOnDestroy(): void {
-        this.updateStorageWithFilter()
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
         this.unlisten()
@@ -79,9 +63,13 @@ export class UserListComponent {
 
     //#region public methods
 
-    public onFilter(query: string): void {
-        this.searchTerm = query
-        this.filteredRecords = query ? this.records.filter(p => p.userName.toLowerCase().includes(query.toLowerCase())) : this.records
+    public onEditRecord(id: number): void {
+        this.router.navigate([this.baseUrl, id])
+    }
+
+    public onFilter($event: any, stringVal: any): void {
+        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
+        this.updateStorageWithFilter()
     }
 
     public onGetLabel(id: string): string {
@@ -94,10 +82,10 @@ export class UserListComponent {
 
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'goBack')
+            'Escape': () => {
+                this.goBack()
             },
-            'Alt.F': () => {
+            'Alt.S': () => {
                 this.focus('searchTerm')
             },
             'Alt.N': (event: KeyboardEvent) => {
@@ -109,31 +97,12 @@ export class UserListComponent {
         })
     }
 
-    private editRecord(id: number): void {
-        this.updateStorageWithCallerForm()
-        this.router.navigate([this.baseUrl, id])
-    }
-
     private focus(element: string): void {
-        event.preventDefault()
         this.helperService.setFocus(element)
     }
 
     private getFilterFromStorage(): void {
         this.searchTerm = this.helperService.readItem(this.localStorageSearchTerm)
-    }
-
-    private getSortObjectFromStorage(): boolean {
-        try {
-            const sortObject = JSON.parse(this.helperService.readItem(this.feature))
-            if (sortObject) {
-                this.sortColumn = sortObject.column
-                this.sortOrder = sortObject.order
-                return true
-            }
-        } catch {
-            return false
-        }
     }
 
     private goBack(): void {
@@ -144,15 +113,11 @@ export class UserListComponent {
         const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.list
-            this.filteredRecords = this.records.sort((a, b) => (a.userName > b.userName) ? 1 : -1)
+            this.filteredRecords = this.records
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }
-    }
-
-    private saveSortObjectToStorage(columnName: string, sortOrder: string): void {
-        this.helperService.saveItem(this.feature, JSON.stringify({ columnName, sortOrder }))
     }
 
     private setWindowTitle(): void {
@@ -161,17 +126,6 @@ export class UserListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private subscribeToInteractionService(): void {
-        this.interactionService.record.pipe(takeUntil(this.ngUnsubscribe)).subscribe(response => {
-            this.updateStorageWithFilter()
-            this.editRecord(response['id'])
-        })
-    }
-
-    private updateStorageWithCallerForm(): void {
-        this.helperService.saveItem('editUserCaller', 'list')
     }
 
     private updateStorageWithFilter(): void {

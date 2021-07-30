@@ -63,13 +63,13 @@ export class CustomerListComponent {
 
     //#region public methods
 
+    public onEditRecord(record: Customer): void {
+        this.router.navigate([this.baseUrl, record.id])
+    }
+
     public onFilter($event: any, stringVal: any): void {
         this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
         this.updateStorageWithFilter()
-    }
-
-    public onEditRecord(record: Customer): void {
-        this.router.navigate([this.baseUrl, record.id])
     }
 
     public onGetLabel(id: string): string {
