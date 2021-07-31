@@ -1,6 +1,7 @@
-export class ShipListResource  {
+export class ShipListResource {
 
-    id:number
+    id: number
     description: string
+    ownerDescription: string
 
 }

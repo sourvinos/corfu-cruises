@@ -5,7 +5,7 @@ namespace ShipCruises {
 
     public interface IShipRepository : IRepository<Ship> {
 
-        Task<IList<Ship>> Get();
+        Task<IEnumerable<ShipListResource>> Get();
         Task<Ship> GetByIdToDelete(int shipId);
         new Task<ShipReadResource> GetById(int shipId);
         

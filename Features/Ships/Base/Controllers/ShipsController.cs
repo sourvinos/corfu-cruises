@@ -26,8 +26,8 @@ namespace ShipCruises {
 
         [HttpGet]
         public async Task<IEnumerable<ShipListResource>> Get() {
-            var records = await repo.Get(x => x.Id > 1);
-            return mapper.Map<IEnumerable<Ship>, IEnumerable<ShipListResource>>(records);
+            var records = await repo.Get();
+            return records;
         }
 
         [HttpGet("[action]")]

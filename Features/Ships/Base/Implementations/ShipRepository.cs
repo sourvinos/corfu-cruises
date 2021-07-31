@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +14,10 @@ namespace ShipCruises {
             this.mapper = mapper;
         }
 
-        async Task<IList<Ship>> IShipRepository.Get() =>
-            await context.Ships.ToListAsync();
+        public  async Task<IEnumerable<ShipListResource>> Get() {
+            var ships = await context.Ships.Include(x => x.ShipOwner).Where(x => x.Id > 1).ToListAsync();
+            return mapper.Map<IEnumerable<Ship>, IEnumerable<ShipListResource>>(ships);
+        }
 
         public new async Task<ShipReadResource> GetById(int shipId) {
             var ship = await context.Ships.Include(x => x.ShipOwner).SingleOrDefaultAsync(m => m.Id == shipId);
