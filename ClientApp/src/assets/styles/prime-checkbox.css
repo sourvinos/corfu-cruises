@@ -1,0 +1,17 @@
+.p-checkbox-focused {
+    box-shadow: none !important;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+    box-shadow: none !important;
+}
+
+.p-checkbox .p-checkbox-box {
+    background-color: var(--color-checkbox-checked) !important;
+    border-color: var(--color-checkbox-checked) !important;
+}
+
+.p-checkbox .p-checkbox-box.p-highlight {
+    background-color: var(--color-checkbox-checked) !important;
+    border-color: var(--color-checkbox-checked) !important;
+}

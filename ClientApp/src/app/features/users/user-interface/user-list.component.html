@@ -4,37 +4,35 @@
         <div @slideFromLeft id="title">
             <h1>{{ onGetLabel('header') }}</h1>
         </div>
-        <div id="search-box">
-            <mat-form-field class="no-margin">
-                <input data-cy="searchTerm" type="text" matInput [placeholder]="onGetLabel('searchLabel')" [(ngModel)]="searchTerm" id="searchTerm" #query (input)="onFilter($event, 'contains')" autocomplete="off">
-                <mat-icon matSuffix>search</mat-icon>
-                <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
-            </mat-form-field>
-        </div>
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [globalFilterFields]="['description','phones','email']" [scrollable]="true" [value]="filteredRecords" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="customer-list" stateStorage="local">
+        <p-table #table [autoLayout]="false" [globalFilterFields]="['userName']" [scrollable]="true" [value]="filteredRecords" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="user-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 0%;"></th>
-                    <th style="width: 50%;" pSortableColumn="username">{{ onGetLabel('headerUsername') }}
-                        <p-sortIcon field="username"></p-sortIcon>
-                    </th>
-                    <th style="width: 25%;" pSortableColumn="displayedname">{{ onGetLabel('headerDisplayname') }}
-                        <p-sortIcon field="displayedname"></p-sortIcon>
-                    </th>
-                    <th style="width: 25%;" pSortableColumn="email">{{ onGetLabel('headerEmail') }}
-                        <p-sortIcon field="email"></p-sortIcon>
-                    </th>
+                    <th style="width: 12%; border-top-left-radius: 10px;" pSortableColumn="isAdmin">{{ onGetLabel('headerAdmin') }}<p-sortIcon field="isAdmin"></p-sortIcon></th>
+                    <th style="width: 30%;" pSortableColumn="userName">{{ onGetLabel('headerUsername') }}<p-sortIcon field="userName"></p-sortIcon></th>
+                    <th style="width: 30%;" pSortableColumn="displayName">{{ onGetLabel('headerDisplayname') }}<p-sortIcon field="displayName"></p-sortIcon></th>
+                    <th style="width: 28%; border-top-right-radius: 10px;" pSortableColumn="email">{{ onGetLabel('headerEmail') }}<p-sortIcon field="email"></p-sortIcon></th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th><p-columnFilter type="boolean" field="isAdmin"></p-columnFilter></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'userName', 'contains')" [value]="$any(table).filters['userName']?.value"></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'displayName', 'contains')" [value]="$any(table).filters['displayName']?.value"></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'email', 'contains')" [value]="$any(table).filters['email']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
                     <td style="width: 0%;">{{ rowData.id }}</td>
-                    <td style="width: 50%; padding: 5px !important;">{{ rowData.userName }}</td>
-                    <td style="width: 25%; padding: 5px !important;">{{ rowData.displayName }}</td>
-                    <td style="width: 25%; padding: 5px !important;">{{ rowData.email }}</td>
+                    <td style="width: 12%; padding: 5px !important; text-align: center;">
+                        <i class="pi" [ngClass]="{'icon-green pi-check': rowData.isAdmin, 'icon-red pi-times': !rowData.isAdmin}"></i>
+                    </td>
+                    <td style="width: 30%; padding: 5px !important;">{{ rowData.userName }}</td>
+                    <td style="width: 30%; padding: 5px !important;">{{ rowData.displayName }}</td>
+                    <td style="width: 28%; padding: 5px !important;">{{ rowData.email }}</td>
                 </tr>
             </ng-template>
         </p-table>

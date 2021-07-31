@@ -95,6 +95,6 @@
     padding-bottom: 5px !important;
 }
 
-.p-column-filter-row:hover {
+div:not(.p-column-filter).p-column-filter-row:hover {
     background-color: var(--color-menu-background-hover);
 }

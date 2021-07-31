@@ -11,7 +11,8 @@
         --font-size-table-header: 110%;
         --font-size-table-row: 100%;
         --gap: 2rem;
-        --header-bottom-margin: 22px;
+        --header-margin-top: 1rem;
+        --header-margin-bottom: 1.3125rem;
         --side-bar-width: 12rem;
         --top-bar-height: 102px;
     }

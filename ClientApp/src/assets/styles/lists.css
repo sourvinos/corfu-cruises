@@ -13,7 +13,7 @@
 #header {
     align-items: center;
     display: flex;
-    margin: 0.4rem 1rem var(--header-bottom-margin) 1rem;
+    margin: var(--header-margin-top) 1rem var(--header-margin-bottom) 1rem !important;
 }
 
 #header #navigation {
@@ -23,7 +23,6 @@
 #header #title {
     align-items: baseline;
     display: flex;
-    margin: 0 1rem 0 0;
 }
 
 #header #search-box {
@@ -94,4 +93,12 @@
 
 #searchBox #criteria #closeSearchBox {
     margin-top: 3rem;
+}
+
+.icon-red {
+    color: #ff5276;
+}
+
+.icon-green {
+    color: #17da17;
 }

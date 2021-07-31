@@ -465,16 +465,12 @@
                 "description": "Benutzer"
             },
             {
-                "id": "searchLabel",
-                "description": "Suchen"
-            },
-            {
-                "id": "searchHint",
-                "description": "Alle suchen"
-            },
-            {
                 "id": "newButton",
-                "description": "NEU"
+                "description": "NEUER"
+            },
+            {
+                "id": "headerAdmin",
+                "description": "Admin"
             },
             {
                 "id": "headerUsername",

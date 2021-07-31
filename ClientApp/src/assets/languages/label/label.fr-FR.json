@@ -465,28 +465,24 @@
                 "description": "Utilisateurs"
             },
             {
-                "id": "searchLabel",
-                "description": "Recherche"
-            },
-            {
-                "id": "searchHint",
-                "description": "Tout rechercher"
-            },
-            {
                 "id": "newButton",
                 "description": "NOUVEL"
             },
             {
+                "id": "headerAdmin",
+                "description": "Admin"
+            },
+            {
                 "id": "headerUsername",
-                "description": "NOM D'UTILISATEUR"
+                "description": "Nom D'utilisateur"
             },
             {
                 "id": "headerDisplayname",
-                "description": "NOM AFFICHÉ"
+                "description": "Nom Affiché"
             },
             {
                 "id": "headerEmail",
-                "description": "E-MAIL"
+                "description": "Email"
             }
         ]
     },

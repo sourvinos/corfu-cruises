@@ -462,27 +462,23 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Χρηστες"
-            },
-            {
-                "id": "searchLabel",
-                "description": "Αναζητηση"
-            },
-            {
-                "id": "searchHint",
-                "description": "Με βαση το ονομα"
+                "description": "Χρήστες"
             },
             {
                 "id": "newButton",
-                "description": "Νεος"
+                "description": "ΝΕΟΣ"
+            },
+            {
+                "id": "headerAdmin",
+                "description": "Δχστής"
             },
             {
                 "id": "headerUsername",
-                "description": "Ονομα χρηστη"
+                "description": "Χρήστης"
             },
             {
                 "id": "headerDisplayname",
-                "description": "Εμφανιζομενο ονομα"
+                "description": "Εμφανιζόμενο Όνομα"
             },
             {
                 "id": "headerEmail",

@@ -465,16 +465,12 @@
                 "description": "Users"
             },
             {
-                "id": "searchLabel",
-                "description": "Search"
-            },
-            {
-                "id": "searchHint",
-                "description": "Search by username"
-            },
-            {
                 "id": "newButton",
-                "description": "New"
+                "description": "NEW"
+            },
+            {
+                "id": "headerAdmin",
+                "description": "Admin"
             },
             {
                 "id": "headerUsername",
@@ -482,7 +478,7 @@
             },
             {
                 "id": "headerDisplayname",
-                "description": "Displayed name"
+                "description": "Displayed Name"
             },
             {
                 "id": "headerEmail",

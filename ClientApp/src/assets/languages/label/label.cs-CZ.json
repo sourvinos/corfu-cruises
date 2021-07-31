@@ -465,28 +465,24 @@
                 "description": "Uživatelé"
             },
             {
-                "id": "searchLabel",
-                "description": "Vyhledat"
-            },
-            {
-                "id": "searchHint",
-                "description": "Vyhledat podle uživatelského jména"
-            },
-            {
                 "id": "newButton",
                 "description": "NOVÝ"
             },
             {
+                "id": "headerAdmin",
+                "description": "Admin"
+            },
+            {
                 "id": "headerUsername",
-                "description": "Uživatelské jméno"
+                "description": "Uživatelské Jméno"
             },
             {
                 "id": "headerDisplayname",
-                "description": "Zobrazené jméno"
+                "description": "Zobrazené Jméno"
             },
             {
                 "id": "headerEmail",
-                "description": "E-Mail"
+                "description": "Email"
             }
         ]
     },
