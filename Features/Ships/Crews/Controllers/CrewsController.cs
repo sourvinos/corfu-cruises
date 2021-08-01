@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ShipCruises {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class CrewsController : ControllerBase {
@@ -25,7 +25,7 @@ namespace ShipCruises {
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CrewReadResource>> Get() {
+        public async Task<IEnumerable<CrewListResource>> Get() {
             return await repo.Get();
         }
 

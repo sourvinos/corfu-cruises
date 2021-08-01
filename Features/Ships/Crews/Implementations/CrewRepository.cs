@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -15,12 +16,13 @@ namespace ShipCruises {
             this.mapper = mapper;
         }
 
-        async Task<IEnumerable<CrewReadResource>> ICrewRepository.Get() {
+        async Task<IEnumerable<CrewListResource>> ICrewRepository.Get() {
             var crews = await context.Crews
                 .Include(x => x.Ship)
                 .Include(x => x.Gender)
-                .Include(p => p.Nationality).ToListAsync();
-            return mapper.Map<IEnumerable<Crew>, IEnumerable<CrewReadResource>>(crews);
+                .Include(p => p.Nationality)
+                .OrderBy(x => x.Ship.Description).ToListAsync();
+            return mapper.Map<IEnumerable<Crew>, IEnumerable<CrewListResource>>(crews);
         }
 
         public new async Task<Crew> GetById(int crewId) {
@@ -30,7 +32,7 @@ namespace ShipCruises {
                 .Include(p => p.Nationality).SingleOrDefaultAsync(m => m.Id == crewId);
             return crew;
         }
-        
+
     }
 
 }

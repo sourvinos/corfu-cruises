@@ -5,7 +5,7 @@ namespace ShipCruises {
     public class CrewMappingProfile : Profile {
 
         public CrewMappingProfile() {
-            CreateMap<Crew, CrewReadResource>();
+            CreateMap<Crew, CrewListResource>();
             CreateMap<CrewWriteResource, Crew>();
         }
 

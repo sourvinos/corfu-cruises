@@ -1,11 +1,11 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
+import { CrewListResource } from './../classes/crew-list-resource'
 import { Subject } from 'rxjs'
+import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
-import { takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { Crew } from '../classes/crew'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -26,31 +26,23 @@ export class CrewListComponent {
 
     //#region variables
 
+    @ViewChild('table') table: Table | undefined
+
     private baseUrl = '/crews'
-    private localStorageSearchTerm = 'searchTermCrew'
+    private localStorageSearchTerm = 'crew-list-search-term'
     private ngUnsubscribe = new Subject<void>()
-    private records: Crew[] = []
+    private records: CrewListResource[] = []
     private resolver = 'crewList'
     private unlisten: Unlisten
     private windowTitle = 'Crews'
     public feature = 'crewList'
-    public filteredRecords: Crew[] = []
-    public highlightFirstRow = false
+    public filteredRecords: CrewListResource[] = []
     public newUrl = this.baseUrl + '/new'
     public searchTerm = ''
-    public sortColumn: string
-    public sortOrder: string
 
-    //#endregion
-
-    //#region table
-
-    headers = ['', 'Id', 'headerLastname', 'headerFirstname', '']
-    widths = ['40px', '0px', '50%', '', '56px']
-    visibility = ['none', 'none']
-    justify = ['center', 'center', 'left', 'left', 'center']
-    types = ['', '', '', '', '']
-    fields = ['', 'id', 'lastname', 'firstname', '']
+    private temp = []
+    public ships = []
+    public rowGroupMetadata: any
 
     //#endregion
 
@@ -60,17 +52,12 @@ export class CrewListComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.getFilterFromStorage()
-        if (!this.getSortObjectFromStorage()) this.saveSortObjectToStorage('description', 'asc')
         this.loadRecords()
+        this.getDistinctShips()
         this.addShortcuts()
-        this.subscribeToInteractionService()
-        this.onFilter(this.searchTerm)
-        this.focus('searchTerm')
     }
 
     ngOnDestroy(): void {
-        this.updateStorageWithFilter()
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
         this.unlisten()
@@ -80,9 +67,13 @@ export class CrewListComponent {
 
     //#region public methods
 
-    public onFilter(query: string): void {
-        this.searchTerm = query
-        this.filteredRecords = query ? this.records.filter(p => p.lastname.toLowerCase().includes(query.toLowerCase())) : this.records
+    public onEditRecord(id: number): void {
+        this.router.navigate([this.baseUrl, id])
+    }
+
+    public onFilter($event: any, stringVal: any): void {
+        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
+        this.updateStorageWithFilter()
     }
 
     public onGetLabel(id: string): string {
@@ -95,10 +86,10 @@ export class CrewListComponent {
 
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'goBack')
+            'Escape': () => {
+                this.goBack()
             },
-            'Alt.F': () => {
+            'Alt.S': () => {
                 this.focus('searchTerm')
             },
             'Alt.N': (event: KeyboardEvent) => {
@@ -110,30 +101,15 @@ export class CrewListComponent {
         })
     }
 
-    private editRecord(id: number): void {
-        this.router.navigate([this.baseUrl, id])
-    }
-
     private focus(element: string): void {
-        event.preventDefault()
         this.helperService.setFocus(element)
     }
 
-    private getFilterFromStorage(): void {
-        this.searchTerm = this.helperService.readItem(this.localStorageSearchTerm)
-    }
-
-    private getSortObjectFromStorage(): boolean {
-        try {
-            const sortObject = JSON.parse(this.helperService.readItem(this.feature))
-            if (sortObject) {
-                this.sortColumn = sortObject.column
-                this.sortOrder = sortObject.order
-                return true
-            }
-        } catch {
-            return false
-        }
+    private getDistinctShips(): void {
+        this.temp = [... new Set(this.records.map(x => x.shipDescription))]
+        this.temp.forEach(element => {
+            this.ships.push({ label: element, value: element })
+        })
     }
 
     private goBack(): void {
@@ -144,15 +120,12 @@ export class CrewListComponent {
         const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.list
-            this.filteredRecords = this.records.sort((a, b) => (a.lastname > b.lastname) ? 1 : -1)
+            this.filteredRecords = this.records
+            this.updateRowGroupMetaData()
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }
-    }
-
-    private saveSortObjectToStorage(columnName: string, sortOrder: string): void {
-        this.helperService.saveItem(this.feature, JSON.stringify({ columnName, sortOrder }))
     }
 
     private setWindowTitle(): void {
@@ -163,11 +136,28 @@ export class CrewListComponent {
         this.snackbarService.open(message, type)
     }
 
-    private subscribeToInteractionService(): void {
-        this.interactionService.record.pipe(takeUntil(this.ngUnsubscribe)).subscribe(response => {
-            this.updateStorageWithFilter()
-            this.editRecord(response['id'])
-        })
+    updateRowGroupMetaData(): void {
+
+        this.rowGroupMetadata = {}
+        
+        if (this.records) {
+            for (let i = 0; i < this.records.length; i++) {
+                const rowData = this.records[i]
+                const shipDescription = rowData.shipDescription
+                if (i == 0) {
+                    this.rowGroupMetadata[shipDescription] = { index: 0, size: 1 }
+                }
+                else {
+                    const previousRowData = this.records[i - 1]
+                    const previousRowGroup = previousRowData.shipDescription
+                    if (shipDescription === previousRowGroup)
+                        this.rowGroupMetadata[shipDescription].size++
+                    else
+                        this.rowGroupMetadata[shipDescription] = { index: i, size: 1 }
+                }
+            }
+        }
+
     }
 
     private updateStorageWithFilter(): void {

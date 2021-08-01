@@ -1,6 +1,6 @@
 namespace ShipCruises {
 
-    public class CrewReadResource {
+    public class CrewListResource {
 
         public int Id { get; set; }
         public string Lastname { get; set; }
