@@ -1,37 +1,147 @@
-[{
-    "feature": "snackbarMessages",
-    "labels": [
-        { "error": 400, "id": "invalidModel", "message": "Κάτι δεν πήγε και πολύ καλά" },
-        { "error": 401, "id": "authenticationFailed", "message": "Ο συνδυασμός χρήστης / κωδικός είναι λάθος" },
-        { "error": 403, "id": "authorizationFailed", "message": "Αυτή η επιλογή απαιτεί εξουσιοδότηση υψηλότερου επιπέδου" },
-        { "error": 404, "id": "recordNotFound", "message": "Η εγγραφή δεν βρέθηκε" },
-        { "error": 409, "id": "duplicateRecord", "message": "Η εγγραφή δεν είναι μοναδική" },
-        { "error": 490, "id": "unableToSaveRecord", "message": "Η εγγραφή δεν αποθηκεύτηκε" },
-        { "error": 491, "id": "recordInUse", "message": "Η εγγραφή χρησιμοποιείται και δεν μπορεί να διαγραφεί" },
-        { "error": 492, "id": "unableToRegisterUser", "message": "Ο χρήστης με αυτά τα στοιχεία δεν μπορεί να δημιουργηθεί" },
-        { "error": 493, "id": "fileNotCreated", "message": "Το αρχείο δεν δημιουργήθηκε" },
-        { "error": 494, "id": "unableToChangePassword", "message": "Ο κωδικός δεν μπορεί να αλλάξει" },
-        { "error": 495, "id": "accountNotConfirmed", "message": "Η εγγραφή του χρήστη δεν έχει ακόμη επιβεβαιωθεί" },
-        { "error": 499, "id": "redAlert", "message":"Κάτι πήγε πολύ στραβά. Αποσυνδεθείτε αμέσως" },
-        { "id": "askConfirmationToAbortEditing", "message": "Αν συνεχίσετε, οι αλλαγές θα χαθούν." },
-        { "id": "askConfirmationToDelete", "message": "Αν συνεχίσετε, η εγγραφή θα διαγραφεί για πάντα" },
-        { "id": "emailSent", "message": "Στάλθηκε ένα email με οδηγίες" },
-        { "id": "formIsDirty", "message": "Πριν συνεχίσετε, οι αλλαγές πρέπει να αποθηκευτούν" },
-        { "id": "fullyBooked", "message": "Λυπούμαστε, δεν υπάρχουν ελεύθερες θέσεις" },
-        { "id": "noRecordsSelected", "message": "Δεν έχετε επιλέξει εγγραφές" },
-        { "id": "noResults", "message": "Με τα κριτήρια αυτά, δεν βρήκαμε τίποτα" },
-        { "id": "noScheduleFound", "message": "Δεν έχουμε καμμία εκδρομή για αυτή την ημέρα" },
-        { "id": "noScheduleFoundWithDetails", "message": "Δεν έχουμε καμμία εκδρομή για την επιλεγμένη ημερομηνία και προορισμό" },
-        { "id": "noVideoDevicesFound", "message": "Δεν βρέθηκαν κάμερες στη συσκευή σας" },
-        { "id": "passwordChanged", "message": "Ο κωδικός άλλαξε, πρέπει να συνδεθείτε ξανά" },
-        { "id": "recordCreated", "message": "Η εγγραφή δημιουργήθηκε" },
-        { "id": "recordDeleted", "message": "Η εγγραφή διαγράφηκε" },
-        { "id": "recordUpdated", "message": "Η εγγραφή ενημερώθηκε" },
-        { "id": "fileCreated", "message": "Το αρχείο δημιουργήθηκε" },
-        { "id": "selectedRecordsHaveBeenProcessed", "message": "Ολες οι επιλεγμένες εγγραφές ενημερώθηκαν" },
-        { "id": "unableToResetPassword", "message": "Δεν μπορεί να γίνει επαναφορά κωδικού" },
-        { "id": "isOverbooking", "message": "Αυτή η κράτηση θα δημιουργήσει υπεράριθμους επιβάτες" },
-        { "id": "wrongPassengerCount", "message": "Ο αριθμός των επιβατών δεν συμφωνεί με το σύνολο των ατόμων" },
-        { "id": "emptyEmail", "message": "Το email δεν μπορεί να είναι κενό" }
-    ]
-}]
+[
+    {
+        "feature": "snackbarMessages",
+        "labels": [
+            {
+                "error": 400,
+                "id": "invalidModel",
+                "message": "Κάτι δεν πήγε και πολύ καλά"
+            },
+            {
+                "error": 401,
+                "id": "authenticationFailed",
+                "message": "Ο συνδυασμός χρήστης / κωδικός είναι λάθος"
+            },
+            {
+                "error": 403,
+                "id": "authorizationFailed",
+                "message": "Αυτή η επιλογή απαιτεί εξουσιοδότηση υψηλότερου επιπέδου"
+            },
+            {
+                "error": 404,
+                "id": "recordNotFound",
+                "message": "Η εγγραφή δεν βρέθηκε"
+            },
+            {
+                "error": 409,
+                "id": "duplicateRecord",
+                "message": "Η εγγραφή δεν είναι μοναδική"
+            },
+            {
+                "error": 490,
+                "id": "unableToSaveRecord",
+                "message": "Η εγγραφή δεν αποθηκεύτηκε"
+            },
+            {
+                "error": 491,
+                "id": "recordInUse",
+                "message": "Η εγγραφή χρησιμοποιείται και δεν μπορεί να διαγραφεί"
+            },
+            {
+                "error": 492,
+                "id": "unableToRegisterUser",
+                "message": "Ο χρήστης με αυτά τα στοιχεία δεν μπορεί να δημιουργηθεί"
+            },
+            {
+                "error": 493,
+                "id": "fileNotCreated",
+                "message": "Το αρχείο δεν δημιουργήθηκε"
+            },
+            {
+                "error": 494,
+                "id": "unableToChangePassword",
+                "message": "Ο κωδικός δεν μπορεί να αλλάξει"
+            },
+            {
+                "error": 495,
+                "id": "accountNotConfirmed",
+                "message": "Η εγγραφή του χρήστη δεν έχει ακόμη επιβεβαιωθεί"
+            },
+            {
+                "error": 499,
+                "id": "redAlert",
+                "message": "Κάτι πήγε πολύ στραβά. Αποσυνδεθείτε αμέσως"
+            },
+            {
+                "id": "askConfirmationToAbortEditing",
+                "message": "Αν συνεχίσετε, οι αλλαγές θα χαθούν."
+            },
+            {
+                "id": "askConfirmationToDelete",
+                "message": "Αν συνεχίσετε, η εγγραφή θα διαγραφεί για πάντα"
+            },
+            {
+                "id": "emailSent",
+                "message": "Στάλθηκε ένα email με οδηγίες"
+            },
+            {
+                "id": "formIsDirty",
+                "message": "Πριν συνεχίσετε, οι αλλαγές πρέπει να αποθηκευτούν"
+            },
+            {
+                "id": "fullyBooked",
+                "message": "Λυπούμαστε, δεν υπάρχουν ελεύθερες θέσεις"
+            },
+            {
+                "id": "noRecordsSelected",
+                "message": "Δεν έχετε επιλέξει εγγραφές"
+            },
+            {
+                "id": "noResults",
+                "message": "Με τα κριτήρια αυτά, δεν βρήκαμε τίποτα"
+            },
+            {
+                "id": "noScheduleFound",
+                "message": "Δεν έχουμε καμμία εκδρομή για αυτή την ημέρα"
+            },
+            {
+                "id": "noScheduleFoundWithDetails",
+                "message": "Δεν έχουμε καμμία εκδρομή για την επιλεγμένη ημερομηνία και προορισμό"
+            },
+            {
+                "id": "noVideoDevicesFound",
+                "message": "Δεν βρέθηκαν κάμερες στη συσκευή σας"
+            },
+            {
+                "id": "passwordChanged",
+                "message": "Ο κωδικός άλλαξε, πρέπει να συνδεθείτε ξανά"
+            },
+            {
+                "id": "recordCreated",
+                "message": "Η εγγραφή δημιουργήθηκε"
+            },
+            {
+                "id": "recordDeleted",
+                "message": "Η εγγραφή διαγράφηκε"
+            },
+            {
+                "id": "recordUpdated",
+                "message": "Η εγγραφή ενημερώθηκε"
+            },
+            {
+                "id": "fileCreated",
+                "message": "Το αρχείο δημιουργήθηκε"
+            },
+            {
+                "id": "selectedRecordsHaveBeenProcessed",
+                "message": "Ολες οι επιλεγμένες εγγραφές ενημερώθηκαν"
+            },
+            {
+                "id": "unableToResetPassword",
+                "message": "Δεν μπορεί να γίνει επαναφορά κωδικού"
+            },
+            {
+                "id": "isOverbooking",
+                "message": "Αυτή η κράτηση θα δημιουργήσει υπεράριθμους επιβάτες"
+            },
+            {
+                "id": "wrongPassengerCount",
+                "message": "Ο αριθμός των επιβατών δεν συμφωνεί με το σύνολο των ατόμων"
+            },
+            {
+                "id": "emptyEmail",
+                "message": "Το email δεν μπορεί να είναι κενό"
+            }
+        ]
+    }
+]

@@ -70,7 +70,7 @@ namespace ShipCruises {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult PutShip([FromRoute] int id, [FromBody] ShipWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {

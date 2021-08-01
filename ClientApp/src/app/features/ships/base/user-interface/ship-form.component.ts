@@ -2,23 +2,27 @@ import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Title } from '@angular/platform-browser'
 import { ActivatedRoute, Router } from '@angular/router'
-import { forkJoin, Subject, Subscription } from 'rxjs'
-import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { Observable, Subject } from 'rxjs'
+// Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { DialogIndexComponent } from 'src/app/shared/components/dialog-index/dialog-index.component'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { ShipService } from '../classes/ship.service'
-import { environment } from 'src/environments/environment'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
-import { DialogIndexComponent } from 'src/app/shared/components/dialog-index/dialog-index.component'
 import { MatDialog } from '@angular/material/dialog'
+import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
+import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ShipOwner } from './../../owners/classes/ship-owner'
 import { ShipOwnerService } from '../../owners/classes/ship-owner.service'
 import { ShipReadResource } from '../classes/ship-read-resource'
+import { ShipService } from '../classes/ship.service'
+import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { ValidationService } from 'src/app/shared/services/validation.service'
+import { environment } from 'src/environments/environment'
+import { map, startWith } from 'rxjs/operators'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'ship-form',
@@ -32,6 +36,7 @@ export class ShipFormComponent {
     //#region variables 
 
     private feature = 'shipForm'
+    private flatForm: FormGroup
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
     private url = '/ships'
@@ -45,13 +50,17 @@ export class ShipFormComponent {
     //#region particular variables
 
     public activePanel: string
-    public owners: any
+    public shipOwners = []
+    public filteredShipOwners: Observable<ShipOwner[]>
 
     //#endregion
 
     constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private shipService: ShipService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private shipOwnerService: ShipOwnerService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
         this.activatedRoute.params.subscribe(p => {
-            if (p.id) { this.getRecord(p.id) }
+            if (p.id) {
+                this.getRecord(p.id)
+                this.getShipOwners(p.id)
+            }
         })
     }
 
@@ -61,7 +70,7 @@ export class ShipFormComponent {
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
-        this.populateDropDowns()
+        this.populateDropDown(this.shipOwnerService, 'shipOwners', 'filteredShipOwners', 'shipOwner', 'description')
     }
 
     ngAfterViewInit(): void {
@@ -137,8 +146,9 @@ export class ShipFormComponent {
     }
 
     public onSave(): void {
-        if (this.form.value.id === 0) {
-            this.shipService.add(this.form.value).subscribe(() => {
+        if (this.form.value.id === 0 || this.form.value.id === null) {
+            this.flattenForm()
+            this.shipService.add(this.flatForm.value).subscribe(() => {
                 this.resetForm()
                 this.onGoBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -146,7 +156,8 @@ export class ShipFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.shipService.update(this.form.value.id, this.form.value).subscribe(() => {
+            this.flattenForm()
+            this.shipService.update(this.flatForm.value.id, this.flatForm.value).subscribe(() => {
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
                 this.resetForm()
                 this.onGoBack()
@@ -154,6 +165,10 @@ export class ShipFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         }
+    }
+
+    public shipOwnerFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
     }
 
     //#endregion
@@ -196,12 +211,38 @@ export class ShipFormComponent {
         this.form.patchValue({ [description]: result ? result.description : '' })
     }
 
+    private filterArray(array: string, field: string, value: any): any[] {
+        if (typeof value !== 'object') {
+            const filtervalue = value.toLowerCase()
+            return this[array].filter((element) =>
+                element[field].toLowerCase().startsWith(filtervalue))
+        }
+    }
+
+    private flattenForm(): void {
+        this.flatForm = this.formBuilder.group({
+            id: this.form.value.id,
+            shipOwnerId: this.form.value.shipOwner.id,
+            description: this.form.value.description,
+            imo: this.form.value.imo,
+            flag: this.form.value.flag,
+            registryNo: this.form.value.registryNo,
+            manager: this.form.value.manager,
+            managerInGreece: this.form.value.managerInGreece,
+            agent: this.form.value.agent,
+            isActive: this.form.value.isActive,
+            userId: this.form.value.userId
+        })
+        console.log(this.flatForm.value)
+    }
+
     private focus(field: string): void {
         this.helperService.setFocus(field)
     }
 
     private getRecord(id: number): void {
         this.shipService.getSingle(id).subscribe(result => {
+            console.log(result)
             this.populateFields(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
@@ -209,11 +250,17 @@ export class ShipFormComponent {
         })
     }
 
+    private getShipOwners(id: string): void {
+        this.shipOwnerService.getSingle(id).subscribe(result => {
+            this.shipOwners.push(result)
+        })
+    }
+
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: 0,
             description: ['', [Validators.required, Validators.maxLength(128)]],
-            shipOwnerId: ['', Validators.required], shipOwnerDescription: ['', Validators.required],
+            shipOwner: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             imo: ['', [Validators.maxLength(128)]],
             flag: ['', [Validators.maxLength(128)]],
             registryNo: ['', [Validators.maxLength(128)]],
@@ -237,23 +284,25 @@ export class ShipFormComponent {
         }
     }
 
-    private populateDropDowns(): Subscription {
-        const sources = []
-        sources.push(this.shipOwnerService.getAllActive())
-        return forkJoin(sources).subscribe(
-            result => {
-                this.owners = result[0]
-                this.renameObjects()
-            }
-        )
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+        const promise = new Promise((resolve) => {
+            service.getAllActive().toPromise().then(
+                (response: any) => {
+                    this[table] = response
+                    resolve(this[table])
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                }, (errorFromInterceptor: number) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                })
+        })
+        return promise
     }
 
     private populateFields(result: ShipReadResource): void {
         this.form.setValue({
             id: result.id,
             description: result.description,
-            shipOwnerId: result.shipOwnerId,
-            shipOwnerDescription: result.shipOwnerDescription,
+            shipOwner: { "id": result.shipOwner.id, "description": result.shipOwner.description },
             imo: result.imo,
             flag: result.flag,
             registryNo: result.registryNo,
@@ -262,20 +311,6 @@ export class ShipFormComponent {
             agent: result.agent,
             isActive: result.isActive,
             userId: this.helperService.readItem('userId')
-        })
-    }
-
-    private renameKey(obj: any, oldKey: string, newKey: string): void {
-        if (oldKey !== newKey) {
-            Object.defineProperty(obj, newKey, Object.getOwnPropertyDescriptor(obj, oldKey))
-            delete obj[oldKey]
-        }
-    }
-
-    private renameObjects(): void {
-        this.owners.forEach((obj: any) => {
-            this.renameKey(obj, 'id', 'shipOwnerId')
-            this.renameKey(obj, 'description', 'shipOwnerDescription')
         })
     }
 
@@ -324,12 +359,8 @@ export class ShipFormComponent {
         return this.form.get('description')
     }
 
-    get shipOwnerId(): AbstractControl {
-        return this.form.get('shipOwnerId')
-    }
-
-    get shipOwnerDescription(): AbstractControl {
-        return this.form.get('shipOwnerDescription')
+    get shipOwner(): AbstractControl {
+        return this.form.get('shipOwner')
     }
 
     get imo(): AbstractControl {

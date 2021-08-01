@@ -14,24 +14,26 @@
                     <th style="width: 50%; border-top-left-radius: 10px;" pSortableColumn="description">{{ onGetLabel('headerDescription') }}
                         <p-sortIcon field="description"></p-sortIcon>
                     </th>
-                    <th style="width: 10%;">Flag</th>
-                    <th style="width: 40%; border-top-right-radius: 10px;" pSortableColumn="ownerDescription">{{ onGetLabel('ownerDescription') }}
+                    <th style="width: 40%;" pSortableColumn="ownerDescription">{{ onGetLabel('headerOwnerDescription') }}
                         <p-sortIcon field="ownerDescription"></p-sortIcon>
+                    </th>
+                    <th style="width: 10%; border-top-right-radius: 10px;" pSortableColumn="imo">{{ onGetLabel('headerIMO') }}
+                        <p-sortIcon field="imo"></p-sortIcon>
                     </th>
                 </tr>
                 <tr>
                     <th></th>
                     <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
-                    <th></th>
                     <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ownerDescription', 'contains')" [value]="$any(table).filters['ownerDescription']?.value"></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'imo', 'contains')" [value]="$any(table).filters['imo']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
-                <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
+                <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
                     <td style="width: 0%;">{{ rowData.id }}</td>
                     <td style="width: 50%; padding: 5px !important;">{{ rowData.description }}</td>
-                    <td style="width: 10%; padding: 5px !important;"><img src="assets/images/countries/gr.png" width="30"></td>
                     <td style="width: 40%; padding: 5px !important;">{{ rowData.ownerDescription }}</td>
+                    <td style="width: 10%; padding: 5px !important; text-align: center;">{{ rowData.imo }}</td>
                 </tr>
             </ng-template>
         </p-table>

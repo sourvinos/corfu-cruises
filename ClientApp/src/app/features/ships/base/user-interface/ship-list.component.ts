@@ -114,6 +114,7 @@ export class ShipListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.list
             this.filteredRecords = this.records
+            console.log('list', this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
