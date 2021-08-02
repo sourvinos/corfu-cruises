@@ -197,7 +197,7 @@ export class CrewFormComponent {
     }
 
     private formatDateToISO(): void {
-        this.form.value.birthDate = this.helperService.formatDateToISO(this.form.value.birthDate)
+        this.form.value.birthdate = this.helperService.formatDateToISO(this.form.value.birthdate)
     }
 
     private getLocale(): void {
@@ -221,7 +221,7 @@ export class CrewFormComponent {
             genderId: ['', Validators.required], genderDescription: ['', Validators.required],
             lastname: ['', [Validators.required, Validators.maxLength(128)]],
             firstname: ['', [Validators.required, Validators.maxLength(128)]],
-            birthDate: ['', [Validators.required, Validators.maxLength(10)]],
+            birthdate: ['', [Validators.required, Validators.maxLength(10)]],
             isActive: true,
             userId: this.helperService.readItem('userId')
         })
@@ -265,7 +265,7 @@ export class CrewFormComponent {
             genderDescription: result.gender.description,
             lastname: result.lastname,
             firstname: result.firstname,
-            birthDate: result.birthDate,
+            birthdate: result.birthdate,
             isActive: result.isActive,
             userId: this.helperService.readItem('userId')
         })
@@ -387,8 +387,8 @@ export class CrewFormComponent {
         return this.form.get('firstname')
     }
 
-    get birthDate(): AbstractControl {
-        return this.form.get('birthDate')
+    get birthdate(): AbstractControl {
+        return this.form.get('birthdate')
     }
 
     //#endregion

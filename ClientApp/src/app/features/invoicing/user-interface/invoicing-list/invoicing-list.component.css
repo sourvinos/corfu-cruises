@@ -17,7 +17,7 @@
 
 .customerDescription {
     color: var(--color-table-invoice-customerDescription);
-    font-family: var(--font-family-table-header);
+    font-family: var(--font-family-table);
     margin: 0 0 0.5rem 0.5rem;
 }
 

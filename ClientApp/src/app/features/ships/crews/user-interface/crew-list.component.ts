@@ -7,7 +7,6 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -28,7 +27,7 @@ export class CrewListComponent {
 
     @ViewChild('table') table: Table | undefined
 
-    private baseUrl = '/crews'
+    private baseUrl = '/shipCrews'
     private localStorageSearchTerm = 'crew-list-search-term'
     private ngUnsubscribe = new Subject<void>()
     private records: CrewListResource[] = []
@@ -41,18 +40,19 @@ export class CrewListComponent {
     public searchTerm = ''
 
     private temp = []
-    public ships = []
     public rowGroupMetadata: any
+    public ships = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
         this.loadRecords()
+        this.updateRowGroupMetaData()
         this.getDistinctShips()
         this.addShortcuts()
     }
@@ -74,6 +74,10 @@ export class CrewListComponent {
     public onFilter($event: any, stringVal: any): void {
         this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
         this.updateStorageWithFilter()
+    }
+
+    public onFormatDate(date: string): string {
+        return this.helperService.formatDateToLocale(date)
     }
 
     public onGetLabel(id: string): string {
@@ -121,34 +125,25 @@ export class CrewListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.list
             this.filteredRecords = this.records
-            this.updateRowGroupMetaData()
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }
     }
 
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
-    }
-
-    updateRowGroupMetaData(): void {
+    private updateRowGroupMetaData(): void {
 
         this.rowGroupMetadata = {}
-        
-        if (this.records) {
-            for (let i = 0; i < this.records.length; i++) {
-                const rowData = this.records[i]
+
+        if (this.filteredRecords) {
+            for (let i = 0; i < this.filteredRecords.length; i++) {
+                const rowData = this.filteredRecords[i]
                 const shipDescription = rowData.shipDescription
                 if (i == 0) {
                     this.rowGroupMetadata[shipDescription] = { index: 0, size: 1 }
                 }
                 else {
-                    const previousRowData = this.records[i - 1]
+                    const previousRowData = this.filteredRecords[i - 1]
                     const previousRowGroup = previousRowData.shipDescription
                     if (shipDescription === previousRowGroup)
                         this.rowGroupMetadata[shipDescription].size++
@@ -158,6 +153,14 @@ export class CrewListComponent {
             }
         }
 
+    }
+
+    private setWindowTitle(): void {
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+    }
+
+    private showSnackbar(message: string, type: string): void {
+        this.snackbarService.open(message, type)
     }
 
     private updateStorageWithFilter(): void {

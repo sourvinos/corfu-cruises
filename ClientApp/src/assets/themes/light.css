@@ -62,7 +62,8 @@
     --color-table-badge-color: #b56576;
     --color-table-column-seperator: #ffffff;
     --color-table-expand-row: #44a3a9;
-    --color-table-filter-border:#cce8f9;
+    --color-table-filter-border: #cce8f9;
+    --color-table-row-group: #44a3a9;
     --color-table-header: #e1f1fa;
     --color-table-invoice-customerdescription: #fe9f36;
     --color-table-row-focus-outline: #ffe85c;

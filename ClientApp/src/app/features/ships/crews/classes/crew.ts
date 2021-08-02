@@ -16,7 +16,7 @@ export class Crew extends KeyValuePair {
     }
     lastname: string
     firstname: string
-    birthDate: string
+    birthdate: string
     isActive: boolean
 
 }

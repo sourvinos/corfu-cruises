@@ -6,6 +6,6 @@ export class CrewListResource {
     shipDescription: string
     genderDescription: string
     nationalityDescription: string
-    birthDate: string
+    birthdate: string
 
 }

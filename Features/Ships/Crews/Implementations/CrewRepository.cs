@@ -21,7 +21,11 @@ namespace ShipCruises {
                 .Include(x => x.Ship)
                 .Include(x => x.Gender)
                 .Include(p => p.Nationality)
-                .OrderBy(x => x.Ship.Description).ToListAsync();
+                .OrderBy(x => x.Ship.Description)
+                    .ThenBy(x => x.Lastname)
+                        .ThenBy(x => x.Firstname)
+                            .ThenBy(x => x.Birthdate)
+                .ToListAsync();
             return mapper.Map<IEnumerable<Crew>, IEnumerable<CrewListResource>>(crews);
         }
 

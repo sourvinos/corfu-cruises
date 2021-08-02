@@ -8,11 +8,13 @@
         --font-size-label: 105%;
         --font-size-logo: 220%;
         --font-size-panel-buttons: 130%;
+        --font-size-row-group: 130%;
         --font-size-table-header: 110%;
         --font-size-table-row: 100%;
+        --footer-right-margin: 3rem;
         --gap: 2rem;
-        --header-margin-top: 1rem;
         --header-margin-bottom: 1.3125rem;
+        --header-margin-top: 1rem;
         --side-bar-width: 12rem;
         --top-bar-height: 102px;
     }

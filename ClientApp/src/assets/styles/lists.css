@@ -52,7 +52,7 @@
 #footer {
     display: flex;
     justify-content: flex-end;
-    margin: var(--gap) 3rem 0 0;
+    margin: var(--gap) var(--footer-right-margin) 0 0;
 }
 
 #searchBox {

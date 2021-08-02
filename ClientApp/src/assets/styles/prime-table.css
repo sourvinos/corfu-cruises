@@ -19,7 +19,7 @@
     border-right: 1px solid var(--color-table-column-seperator) !important;
     border-width: 0 1px 0 0 !important;
     color: var(--color-text-primary) !important;
-    font-family: var(--font-family-table-header) !important;
+    font-family: var(--font-family-table) !important;
     font-size: var(--font-size-table-header) !important;
     font-weight: var(--font-weight-table-header) !important;
     padding: 5px 7px !important;
@@ -42,9 +42,9 @@
 
 .p-datatable .p-datatable-tbody > tr > td {
     border: none !important;
-    color: var(--color-text-primary) !important;
-    font-family: var(--font-family-table-header) !important;
-    font-size: var(--font-size-table-row) !important;
+    color: var(--color-text-primary);
+    font-family: var(--font-family-table);
+    font-size: var(--font-size-table-row);
     overflow: hidden !important;
     padding: 0.5rem !important;
     text-overflow: ellipsis !important;
@@ -97,4 +97,10 @@
 
 div:not(.p-column-filter).p-column-filter-row:hover {
     background-color: var(--color-menu-background-hover);
+}
+
+.rowGroup {
+    color: var(--color-table-row-group) !important;
+    font-size: var(--font-size-row-group) !important;
+    font-weight: bold;
 }

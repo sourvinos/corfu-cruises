@@ -26,9 +26,9 @@
             <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
                     <td style="width: 0%;">{{ rowData.id }}</td>
-                    <td style="width: 50%; padding: 5px !important;">{{ rowData.description }}</td>
-                    <td style="width: 25%; padding: 5px !important;">{{ rowData.email }}</td>
-                    <td style="width: 25%; padding: 5px !important;">{{ rowData.phones }}</td>
+                    <td style="width: 50%;">{{ rowData.description }}</td>
+                    <td style="width: 25%;">{{ rowData.email }}</td>
+                    <td style="width: 25%;">{{ rowData.phones }}</td>
                 </tr>
             </ng-template>
         </p-table>

@@ -31,7 +31,7 @@ export class PassengerListComponent {
 
     //#region table
 
-    headers = ['', 'reservationId', 'Id', 'headerLastname', 'headerFirstname', 'headerNationalityId', 'headerNationalityDescription', 'headerGenderId', 'headerGenderDescription', 'headerDoB', 'headerIsCheckedIn', '', '']
+    headers = ['', 'reservationId', 'Id', 'headerLastname', 'headerFirstname', 'headerNationalityId', 'headerNationalityDescription', 'headerGenderId', 'headerGenderDescription', 'headerBirthdate', 'headerIsCheckedIn', '', '']
     widths = ['0px', '60px', '60px', '0px', '40%', '0px', '0px', '0px', '0px', '0px', '0px', '50px', '50px']
     visibility = ['none', 'none', 'none', '', '', 'none', 'none', 'none', 'none', 'none', 'none', '', '']
     justify = ['center', 'center', 'center', 'left', 'left', 'left', 'left', 'left', 'left', 'center', 'center', 'center', 'center']
