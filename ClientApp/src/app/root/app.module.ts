@@ -27,7 +27,7 @@ import { ReservationModule } from '../features/reservations/classes/modules/rese
 import { RouteModule } from '../features/routes/classes/route.module'
 import { ScheduleModule } from '../features/schedules/classes/schedule.module'
 import { ShipModule } from '../features/ships/base/classes/ship.module'
-import { ShipOwnerModule } from './../features/ships/owners/classes/ship-owner.module'
+import { ShipOwnerModule } from '../features/ships/owners/classes/base/ship-owner.module'
 import { ShipRouteModule } from '../features/ships/routes/classes/shipRoute.module'
 import { UserIdleModule } from 'angular-user-idle'
 import { UserModule } from '../features/users/classes/user.module'

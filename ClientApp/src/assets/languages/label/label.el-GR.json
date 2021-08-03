@@ -1696,8 +1696,20 @@
         "feature": "shipOwnerList",
         "labels": [
             {
-                "id": "headerName",
-                "description": "Επωνυμια"
+                "id": "header",
+                "description": "Πλοιοκτήτες"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Ενεργός"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Επωνυμία εταιρίας"
+            },
+            {
+                "id": "newButton",
+                "description": "ΝΕΟΣ"
             }
         ]
     },
@@ -1747,27 +1759,6 @@
             {
                 "id": "saveButton",
                 "description": "ΑΠΟΘΗΚΕΥΣΗ"
-            }
-        ]
-    },
-    {
-        "feature": "shipOwnerList",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Πλοιοκτητες"
-            },
-            {
-                "id": "searchLabel",
-                "description": "Αναζητηση"
-            },
-            {
-                "id": "searchHint",
-                "description": "Με βαση την επωνυμια"
-            },
-            {
-                "id": "newButton",
-                "description": "Νεος"
             }
         ]
     },

@@ -1,7 +1,7 @@
 import { ActivatedRouteSnapshot } from '@angular/router'
 import { Injectable } from '@angular/core'
 // Custom
-import { ShipOwnerService } from './ship-owner.service'
+import { ShipOwnerService } from '../services/ship-owner.service'
 
 @Injectable({ providedIn: 'root' })
 

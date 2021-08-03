@@ -26,14 +26,12 @@ namespace ShipCruises {
 
         [HttpGet]
         public async Task<IEnumerable<ShipOwnerListResource>> Get() {
-            var records = await repo.Get(x => x.Id > 1);
-            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerListResource>>(records);
+            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerListResource>>(await repo.Get(x => x.Id > 1));
         }
 
         [HttpGet("[action]")]
         public async Task<IEnumerable<ShipOwnerListResource>> GetActive() {
-            var records = await repo.GetActive(x => x.IsActive);
-            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerListResource>>(records);
+            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerListResource>>(await repo.GetActive(x => x.IsActive));
         }
 
         [HttpGet("{id}")]

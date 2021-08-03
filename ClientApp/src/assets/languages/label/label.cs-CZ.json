@@ -1696,8 +1696,20 @@
         "feature": "shipOwnerList",
         "labels": [
             {
-                "id": "headerName",
-                "description": "Popis"
+                "id": "header",
+                "description": "Majitelé lodí"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Aktivní"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Jméno společnosti"
+            },
+            {
+                "id": "newButton",
+                "description": "NOVÝ"
             }
         ]
     },
@@ -1747,27 +1759,6 @@
             {
                 "id": "saveButton",
                 "description": "ULOŽIT"
-            }
-        ]
-    },
-    {
-        "feature": "shipOwnerList",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Plavidloowners"
-            },
-            {
-                "id": "searchLabel",
-                "description": "Vyhledávání"
-            },
-            {
-                "id": "searchHint",
-                "description": "Vyhledávání by name"
-            },
-            {
-                "id": "newButton",
-                "description": "NOVÝ"
             }
         ]
     },

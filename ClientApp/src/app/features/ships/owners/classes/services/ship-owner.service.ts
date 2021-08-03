@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { DataService } from 'src/app/shared/services/data.service'
-import { ShipOwner } from './ship-owner'
+import { ShipOwner } from '../base/ship-owner'
 
 @Injectable({ providedIn: 'root' })
 

@@ -1060,7 +1060,7 @@
             },
             {
                 "id": "shipOwner",
-                "description": "Eigners"
+                "description": "Schiffseigner"
             },
             {
                 "id": "imo",
@@ -1696,8 +1696,20 @@
         "feature": "shipOwnerList",
         "labels": [
             {
-                "id": "headerName",
-                "description": "Inhaber"
+                "id": "header",
+                "description": "Reeder"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Activ"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Name der Firma"
+            },
+            {
+                "id": "newButton",
+                "description": "NEUER"
             }
         ]
     },
@@ -1747,27 +1759,6 @@
             {
                 "id": "saveButton",
                 "description": "SPEICHERN"
-            }
-        ]
-    },
-    {
-        "feature": "shipOwnerList",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Beschreibung"
-            },
-            {
-                "id": "searchLabel",
-                "description": "Suchen"
-            },
-            {
-                "id": "searchHint",
-                "description": "Alle suchen"
-            },
-            {
-                "id": "newButton",
-                "description": "NEU"
             }
         ]
     },

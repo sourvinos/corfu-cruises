@@ -15,8 +15,8 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import { ShipOwnerService } from '../classes/ship-owner.service'
-import { ShipOwner } from '../classes/ship-owner'
+import { ShipOwnerService } from '../classes/services/ship-owner.service'
+import { ShipOwner } from '../classes/base/ship-owner'
 
 @Component({
     selector: 'ship-owner-form',

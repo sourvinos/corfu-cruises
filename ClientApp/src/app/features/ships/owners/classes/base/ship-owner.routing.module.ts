@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router'
 // Custom
 import { AuthGuardService } from 'src/app/shared/services/auth-guard.service'
 import { CanDeactivateGuard } from 'src/app/shared/services/can-deactivate-guard.service'
-import { ShipOwnerFormComponent } from '../user-interface/ship-owner-form.component'
-import { ShipOwnerListComponent } from '../user-interface/ship-owner-list.component'
-import { ShipOwnerFormResolver } from './ship-owner-form.resolver'
-import { ShipOwnerListResolver } from './ship-owner-list.resolver'
+import { ShipOwnerFormComponent } from '../../user-interface/ship-owner-form.component'
+import { ShipOwnerListComponent } from '../../user-interface/ship-owner-list.component'
+import { ShipOwnerFormResolver } from '../resolvers/ship-owner-form.resolver'
+import { ShipOwnerListResolver } from '../resolvers/ship-owner-list.resolver'
 
 const routes: Routes = [
     { path: '', component: ShipOwnerListComponent, canActivate: [AuthGuardService], resolve: { shipOwnerList: ShipOwnerListResolver } },

@@ -1696,8 +1696,20 @@
         "feature": "shipOwnerList",
         "labels": [
             {
-                "id": "headerName",
-                "description": "(FR) Name"
+                "id": "header",
+                "description": "Armateurs"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Actif"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Nom de compagnie"
+            },
+            {
+                "id": "newButton",
+                "description": "NOUVEAU"
             }
         ]
     },
@@ -1747,27 +1759,6 @@
             {
                 "id": "saveButton",
                 "description": "ENREGISTRER"
-            }
-        ]
-    },
-    {
-        "feature": "shipOwnerList",
-        "labels": [
-            {
-                "id": "header",
-                "description": "(FR) Shipowners"
-            },
-            {
-                "id": "searchLabel",
-                "description": "(FR) Search"
-            },
-            {
-                "id": "searchHint",
-                "description": "(FR) Search by name"
-            },
-            {
-                "id": "newButton",
-                "description": "NOUVEAU"
             }
         ]
     },

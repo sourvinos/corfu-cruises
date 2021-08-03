@@ -1,6 +1,6 @@
 import { KeyValuePair } from '../../../../shared/classes/keyValuePair'
 import { Registrar } from '../../registrars/classes/registrar'
-import { ShipOwner } from '../../owners/classes/ship-owner'
+import { ShipOwner } from '../../owners/classes/base/ship-owner'
 
 export class Ship extends KeyValuePair {
 
