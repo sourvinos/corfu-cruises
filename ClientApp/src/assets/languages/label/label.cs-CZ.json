@@ -1956,18 +1956,6 @@
                 "description": "Osazenstvo"
             },
             {
-                "id": "shipDescription",
-                "description": "Plavidlo"
-            },
-            {
-                "id": "nationalityDescription",
-                "description": "Národnost"
-            },
-            {
-                "id": "genderDescription",
-                "description": "Rod"
-            },
-            {
                 "id": "lastname",
                 "description": "Příjmení"
             },
@@ -1976,8 +1964,20 @@
                 "description": "Jméno"
             },
             {
-                "id": "birthDate",
+                "id": "birthdate",
                 "description": "Datum narození"
+            },
+            {
+                "id": "vessel",
+                "description": "Plavidlo"
+            },
+            {
+                "id": "nationality",
+                "description": "Národnost"
+            },
+            {
+                "id": "gender",
+                "description": "Rod"
             },
             {
                 "id": "isActive",

@@ -1953,35 +1953,35 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πληρωμα"
-            },
-            {
-                "id": "shipDescription",
-                "description": "Πλοιο"
-            },
-            {
-                "id": "nationalityDescription",
-                "description": "Εθνικοτητα"
-            },
-            {
-                "id": "genderDescription",
-                "description": "Φυλο"
+                "description": "Πλήρωμα"
             },
             {
                 "id": "lastname",
-                "description": "Επωνυμο"
+                "description": "Επώνυμο"
             },
             {
                 "id": "firstname",
-                "description": "Ονομα"
+                "description": "'Ονομα"
             },
             {
-                "id": "birthDate",
-                "description": "Ημερομηνια γεννησης"
+                "id": "birthdate",
+                "description": "Ημερομηνία γέννησης"
+            },
+            {
+                "id": "vessel",
+                "description": "Πλοίο"
+            },
+            {
+                "id": "nationality",
+                "description": "Εθνικότητα"
+            },
+            {
+                "id": "gender",
+                "description": "Φύλο"
             },
             {
                 "id": "isActive",
-                "description": "Ενεργο"
+                "description": "Ενεργό"
             },
             {
                 "id": "deleteButton",

@@ -6,7 +6,8 @@ namespace ShipCruises {
     public interface ICrewRepository : IRepository<Crew> {
 
         Task<IEnumerable<CrewListResource>> Get();
-        new Task<Crew> GetById(int crewId);
+        Task<Crew> GetByIdToDelete(int id);
+        new Task<CrewResource> GetById(int id);
 
     }
 

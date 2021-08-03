@@ -36,7 +36,7 @@ namespace ShipCruises {
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetΒyId(int id) {
-            Crew record = await repo.GetById(id);
+            CrewResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -93,7 +93,7 @@ namespace ShipCruises {
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id) {
-            Crew record = await repo.GetById(id);
+            Crew record = await repo.GetByIdToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {

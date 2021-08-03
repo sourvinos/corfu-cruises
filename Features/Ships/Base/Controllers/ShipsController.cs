@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ShipCruises {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class ShipsController : ControllerBase {
@@ -92,7 +92,7 @@ namespace ShipCruises {
         }
 
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteShip([FromRoute] int id) {
             Ship record = await repo.GetByIdToDelete(id);
             if (record == null) {

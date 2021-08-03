@@ -14,7 +14,7 @@ namespace ShipCruises {
             this.mapper = mapper;
         }
 
-        public  async Task<IEnumerable<ShipListResource>> Get() {
+        public async Task<IEnumerable<ShipListResource>> Get() {
             var ships = await context.Ships.Include(x => x.ShipOwner).Where(x => x.Id > 1).ToListAsync();
             return mapper.Map<IEnumerable<Ship>, IEnumerable<ShipListResource>>(ships);
         }

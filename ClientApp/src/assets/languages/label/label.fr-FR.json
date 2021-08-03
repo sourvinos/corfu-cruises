@@ -1956,18 +1956,6 @@
                 "description": "L' équipe"
             },
             {
-                "id": "shipDescription",
-                "description": "Bateau"
-            },
-            {
-                "id": "nationalityDescription",
-                "description": "Nationalite"
-            },
-            {
-                "id": "genderDescription",
-                "description": "Genre"
-            },
-            {
                 "id": "lastname",
                 "description": "Nom de famille"
             },
@@ -1976,8 +1964,20 @@
                 "description": "Nom"
             },
             {
-                "id": "birthDate",
+                "id": "birthdate",
                 "description": "Date de naissance"
+            },
+            {
+                "id": "vessel",
+                "description": "Navire"
+            },
+            {
+                "id": "nationality",
+                "description": "Nationalite"
+            },
+            {
+                "id": "gender",
+                "description": "Genre"
             },
             {
                 "id": "isActive",

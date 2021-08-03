@@ -1,7 +1,10 @@
 import { KeyValuePair } from 'src/app/shared/classes/keyValuePair'
 
-export class Crew extends KeyValuePair {
+export class CrewResource extends KeyValuePair {
 
+    lastname: string
+    firstname: string
+    birthdate: string
     ship: {
         id: number
         description: string
@@ -14,9 +17,6 @@ export class Crew extends KeyValuePair {
         id: number
         description: string
     }
-    lastname: string
-    firstname: string
-    birthdate: string
     isActive: boolean
 
 }

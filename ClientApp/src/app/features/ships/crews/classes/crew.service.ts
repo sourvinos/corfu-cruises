@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-// Common
-import { Crew } from './crew'
+// Custom
+import { CrewResource } from './crew-resource'
 import { DataService } from 'src/app/shared/services/data.service'
 
 @Injectable({ providedIn: 'root' })
@@ -15,8 +15,8 @@ export class CrewService extends DataService {
 
     //#region public methods
 
-    public getAllActive(): Observable<Crew[]> {
-        return this.http.get<Crew[]>('/api/crews/getActive')
+    public getAllActive(): Observable<CrewResource[]> {
+        return this.http.get<CrewResource[]>('/api/crews/getActive')
     }
 
     //#endregion
