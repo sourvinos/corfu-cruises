@@ -20,8 +20,8 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 import { ValidationService } from 'src/app/shared/services/validation.service'
 
 @Component({
-    selector: 'shipRoute-form',
-    templateUrl: './shipRoute-form.component.html',
+    selector: 'ship-route-form',
+    templateUrl: './ship-route-form.component.html',
     styleUrls: ['../../../../../assets/styles/forms.css'],
     animations: [slideFromLeft, slideFromRight]
 })

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 // Custom
-import {  ShipRouteFormComponent } from '../user-interface/shipRoute-form.component'
-import {  ShipRouteListComponent } from '../user-interface/shipRoute-list.component'
+import {  ShipRouteFormComponent } from '../user-interface/ship-route-form.component'
+import {  ShipRouteListComponent } from '../user-interface/ship-route-list.component'
 import { SharedModule } from '../../../../shared/modules/shared.module'
 import { ShipRouteRoutingModule } from './shipRoute.routing.module'
 

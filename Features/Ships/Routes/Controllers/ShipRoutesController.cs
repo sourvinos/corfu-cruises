@@ -22,8 +22,8 @@ namespace ShipCruises {
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ShipRoute>> Get() {
-            return await repo.Get(x => x.Id != 1);
+        public async Task<IEnumerable<ShipRouteListResource>> Get() {
+            return await repo.Get();
         }
 
         [HttpGet("[action]")]

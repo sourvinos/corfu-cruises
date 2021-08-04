@@ -3,9 +3,9 @@ import { Routes, RouterModule } from '@angular/router'
 // Custom
 import { AuthGuardService } from 'src/app/shared/services/auth-guard.service'
 import { CanDeactivateGuard } from 'src/app/shared/services/can-deactivate-guard.service'
-import { ShipRouteFormComponent } from '../user-interface/shipRoute-form.component'
+import { ShipRouteFormComponent } from '../user-interface/ship-route-form.component'
 import { ShipRouteFormResolver } from './shipRoute-form.resolver'
-import { ShipRouteListComponent } from '../user-interface/shipRoute-list.component'
+import { ShipRouteListComponent } from '../user-interface/ship-route-list.component'
 import { ShipRouteListResolver } from './shipRoute-list.resolver'
 
 const routes: Routes = [
