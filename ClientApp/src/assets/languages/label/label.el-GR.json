@@ -1922,6 +1922,10 @@
                 "description": "ΝΕΟ"
             },
             {
+                "id": "headerIsActive",
+                "description": "Ενεργό"
+            },
+            {
                 "id": "headerShipDescription",
                 "description": "Πλοίο"
             },

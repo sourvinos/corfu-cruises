@@ -34,7 +34,7 @@ export class HelperService {
     }
 
     public formatDateToLocale(date: string | number | Date): string {
-        return new Date(date).toLocaleDateString(this.readItem('language'))
+        return new Date(date).toLocaleDateString(this.readItem('language'), { day: '2-digit', month: '2-digit', year: 'numeric' })
     }
 
     public formatDateToISO(date: string): string {

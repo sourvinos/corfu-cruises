@@ -7,22 +7,34 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="filteredRecords" scrollHeight="flex" selectionMode="single" stateKey="crew-list" stateStorage="local">
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" scrollHeight="flex" selectionMode="single" sortField="none" sortMode="single" stateKey="crew-list" stateStorage="local" (onSort)="onSort()">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 50%; border-top-left-radius: 10px;">{{ onGetLabel('headerLastname') }}</th>
+                    <th style="width: 10%; border-top-left-radius: 10px;">{{ onGetLabel('headerIsActive') }}</th>
+                    <th style="width: 40%;">{{ onGetLabel('headerLastname') }}</th>
                     <th style="width: 30%;">{{ onGetLabel('headerFirstname') }}</th>
                     <th style="width: 20%; border-top-right-radius: 10px;">{{ onGetLabel('headerBirthdate') }}</th>
+                </tr>
+                <tr>
+                    <th><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'birthdate', 'contains')" [value]="$any(table).filters['birthdate']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                 <tr *ngIf="rowGroupMetadata[rowData.shipDescription].index === rowIndex">
-                    <td style="width: 50%;" class="rowGroup">{{ rowData.shipDescription }}</td>
+                    <td style="width: 10%;"></td>
+                    <td style="width: 40%;" class="rowGroup">{{ rowData.shipDescription }}</td>
                     <td style="width: 30%;"></td>
                     <td style="width: 20%;"></td>
+                    <td></td>
                 </tr>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
-                    <td style="width: 50%;">{{ rowData.lastname }}</td>
+                    <td style="width: 10%; padding: 5px !important; text-align: center;">
+                        <i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i>
+                    </td>
+                    <td style="width: 40%;">{{ rowData.lastname }}</td>
                     <td style="width: 30%;">{{ rowData.firstname }}</td>
                     <td style="width: 20%; text-align: center;"> {{ onFormatDate(rowData.birthdate) }}</td>
                 </tr>

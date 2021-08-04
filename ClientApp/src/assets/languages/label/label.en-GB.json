@@ -1922,6 +1922,10 @@
                 "description": "NEW"
             },
             {
+                "id": "headerIsActive",
+                "description": "Active"
+            },
+            {
                 "id": "headerShipDescription",
                 "description": "Vessel"
             },

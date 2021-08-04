@@ -1922,6 +1922,10 @@
                 "description": "NOVÝ"
             },
             {
+                "id": "headerIsActive",
+                "description": "Aktivní"
+            },
+            {
                 "id": "headerShipDescription",
                 "description": "Plavidlo"
             },

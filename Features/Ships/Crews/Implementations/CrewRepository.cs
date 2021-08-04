@@ -16,7 +16,7 @@ namespace ShipCruises {
             this.mapper = mapper;
         }
 
-        async Task<IEnumerable<CrewListResource>> ICrewRepository.Get() {
+        public async Task<IEnumerable<CrewListResource>> Get() {
             var crews = await context.Crews
                 .Include(x => x.Ship)
                 .Include(x => x.Gender)
