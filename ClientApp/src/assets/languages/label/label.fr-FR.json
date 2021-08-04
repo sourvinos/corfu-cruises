@@ -1841,23 +1841,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(FR) Registrars"
+                "description": "Registraires"
             },
             {
-                "id": "searchLabel",
-                "description": "(FR) Search"
+                "id": "headerIsActive",
+                "description": "Actif"
             },
             {
-                "id": "searchHint",
-                "description": "Tout rechercher"
+                "id": "headerFullname",
+                "description": "Nom complet"
             },
             {
                 "id": "newButton",
                 "description": "NOUVEAU"
-            },
-            {
-                "id": "headerFullname",
-                "description": "NOM ET PRÉNOM"
             }
         ]
     },

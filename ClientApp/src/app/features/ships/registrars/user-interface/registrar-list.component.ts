@@ -1,8 +1,8 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
+import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
-import { takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -11,7 +11,7 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { Registrar } from '../classes/registrar'
+import { RegistrarListResource } from '../classes/registrar-list-resource'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -26,31 +26,22 @@ export class RegistrarListComponent {
 
     //#region variables
 
-    private baseUrl = '/registrars'
-    private localStorageSearchTerm = 'searchTermRegistrar'
+    @ViewChild('table') table: Table | undefined
+
+    private baseUrl = '/shipRegistrars'
+    private localStorageSearchTerm = 'registrar-list-search-term'
     private ngUnsubscribe = new Subject<void>()
-    private records: Registrar[] = []
     private resolver = 'registrarList'
     private unlisten: Unlisten
     private windowTitle = 'Registrars'
     public feature = 'registrarList'
-    public filteredRecords: Registrar[] = []
-    public highlightFirstRow = false
     public newUrl = this.baseUrl + '/new'
+    public records: RegistrarListResource[] = []
     public searchTerm = ''
-    public sortColumn: string
-    public sortOrder: string
 
-    //#endregion
-
-    //#region table
-
-    headers = ['', 'Id', 'headerFullname', '']
-    widths = ['40px', '0px', '', '56px']
-    visibility = ['none', 'none']
-    justify = ['center', 'center', 'left', 'center']
-    types = ['', '', '', '']
-    fields = ['', 'id', 'fullname', '']
+    private temp = []
+    public rowGroupMetadata: any
+    public ships = []
 
     //#endregion
 
@@ -60,17 +51,11 @@ export class RegistrarListComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.getFilterFromStorage()
-        if (!this.getSortObjectFromStorage()) this.saveSortObjectToStorage('description', 'asc')
         this.loadRecords()
         this.addShortcuts()
-        this.subscribeToInteractionService()
-        this.onFilter(this.searchTerm)
-        this.focus('searchTerm')
     }
 
     ngOnDestroy(): void {
-        this.updateStorageWithFilter()
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
         this.unlisten()
@@ -80,26 +65,35 @@ export class RegistrarListComponent {
 
     //#region public methods
 
-    public onFilter(query: string): void {
-        this.searchTerm = query
-        this.filteredRecords = query ? this.records.filter(p => p.fullname.toLowerCase().includes(query.toLowerCase())) : this.records
+    public onEditRecord(id: number): void {
+        this.router.navigate([this.baseUrl, id])
+    }
+
+    public onFilter($event: any, stringVal: any): void {
+        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
+        this.updateStorageWithFilter()
+    }
+
+    public onFormatDate(date: string): string {
+        return this.helperService.formatDateToLocale(date)
     }
 
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
+    public onSort(): void {
+        this.updateRowGroupMetaData()
+    }
+    
     //#endregion
 
     //#region private methods
 
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'goBack')
-            },
-            'Alt.F': () => {
-                this.focus('searchTerm')
+            'Escape': () => {
+                this.goBack()
             },
             'Alt.N': (event: KeyboardEvent) => {
                 this.buttonClickService.clickOnButton(event, 'new')
@@ -110,30 +104,8 @@ export class RegistrarListComponent {
         })
     }
 
-    private editRecord(id: number): void {
-        this.router.navigate([this.baseUrl, id])
-    }
-
     private focus(element: string): void {
-        event.preventDefault()
         this.helperService.setFocus(element)
-    }
-
-    private getFilterFromStorage(): void {
-        this.searchTerm = this.helperService.readItem(this.localStorageSearchTerm)
-    }
-
-    private getSortObjectFromStorage(): boolean {
-        try {
-            const sortObject = JSON.parse(this.helperService.readItem(this.feature))
-            if (sortObject) {
-                this.sortColumn = sortObject.column
-                this.sortOrder = sortObject.order
-                return true
-            }
-        } catch {
-            return false
-        }
     }
 
     private goBack(): void {
@@ -144,15 +116,37 @@ export class RegistrarListComponent {
         const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.list
-            this.filteredRecords = this.records.sort((a, b) => (a.fullname > b.fullname) ? 1 : -1)
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }
     }
 
-    private saveSortObjectToStorage(columnName: string, sortOrder: string): void {
-        this.helperService.saveItem(this.feature, JSON.stringify({ columnName, sortOrder }))
+    private updateRowGroupMetaData(): void {
+
+        console.log('Active', this.records)
+
+        this.rowGroupMetadata = {}
+
+        if (this.records) {
+            for (let i = 0; i < this.records.length; i++) {
+                const rowData = this.records[i]
+                const shipDescription = rowData.shipDescription
+                if (i == 0) {
+                    this.rowGroupMetadata[shipDescription] = { index: 0, size: 1 }
+                }
+                else {
+                    const previousRowData = this.records[i - 1]
+                    const previousRowGroup = previousRowData.shipDescription
+                    if (shipDescription === previousRowGroup)
+                        this.rowGroupMetadata[shipDescription].size++
+                    else
+                        this.rowGroupMetadata[shipDescription] = { index: i, size: 1 }
+                }
+            }
+        }
+
     }
 
     private setWindowTitle(): void {
@@ -161,13 +155,6 @@ export class RegistrarListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private subscribeToInteractionService(): void {
-        this.interactionService.record.pipe(takeUntil(this.ngUnsubscribe)).subscribe(response => {
-            this.updateStorageWithFilter()
-            this.editRecord(response['id'])
-        })
     }
 
     private updateStorageWithFilter(): void {

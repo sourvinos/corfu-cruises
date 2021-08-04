@@ -1844,20 +1844,16 @@
                 "description": "Registrare"
             },
             {
-                "id": "searchLabel",
-                "description": "Suchen"
-            },
-            {
-                "id": "searchHint",
-                "description": "Alle suchen"
-            },
-            {
-                "id": "newButton",
-                "description": "NEU"
+                "id": "headerIsActive",
+                "description": "Activ"
             },
             {
                 "id": "headerFullname",
-                "description": "(DE) Fullname"
+                "description": "Vollständiger Name"
+            },
+            {
+                "id": "newButton",
+                "description": "NEUER"
             }
         ]
     },

@@ -52,8 +52,6 @@ export class CrewListComponent {
     ngOnInit(): void {
         this.setWindowTitle()
         this.loadRecords()
-        // this.updateRowGroupMetaData()
-        // this.getDistinctShips()
         this.addShortcuts()
     }
 
@@ -111,13 +109,6 @@ export class CrewListComponent {
 
     private focus(element: string): void {
         this.helperService.setFocus(element)
-    }
-
-    private getDistinctShips(): void {
-        this.temp = [... new Set(this.records.map(x => x.shipDescription))]
-        this.temp.forEach(element => {
-            this.ships.push({ label: element, value: element })
-        })
     }
 
     private goBack(): void {

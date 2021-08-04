@@ -1844,20 +1844,16 @@
                 "description": "Registrars"
             },
             {
-                "id": "searchLabel",
-                "description": "Search"
-            },
-            {
-                "id": "searchHint",
-                "description": "Search by fullname"
-            },
-            {
-                "id": "newButton",
-                "description": "New"
+                "id": "headerIsActive",
+                "description": "Active"
             },
             {
                 "id": "headerFullname",
                 "description": "Fullname"
+            },
+            {
+                "id": "newButton",
+                "description": "NEW"
             }
         ]
     },

@@ -1844,20 +1844,16 @@
                 "description": "Registrátors"
             },
             {
-                "id": "searchLabel",
-                "description": "Vyhledávání"
-            },
-            {
-                "id": "searchHint",
-                "description": "Vyhledávání by fullname"
-            },
-            {
-                "id": "newButton",
-                "description": "NOVÝ"
+                "id": "headerIsActive",
+                "description": "Aktivní"
             },
             {
                 "id": "headerFullname",
                 "description": "Celé jméno"
+            },
+            {
+                "id": "newButton",
+                "description": "NOVÝ"
             }
         ]
     },
