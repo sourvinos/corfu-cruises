@@ -28,16 +28,13 @@ export class ShipListComponent {
     @ViewChild('table') table: Table | undefined
 
     private baseUrl = '/ships'
-    private localStorageSearchTerm = 'ship-list-search-term'
     private ngUnsubscribe = new Subject<void>()
-    private records: ShipListResource[] = []
     private resolver = 'shipList'
     private unlisten: Unlisten
     private windowTitle = 'Ships'
     public feature = 'shipList'
-    public filteredRecords: ShipListResource[] = []
     public newUrl = this.baseUrl + '/new'
-    public searchTerm = ''
+    public records: ShipListResource[] = []
 
     //#endregion
 
@@ -47,7 +44,6 @@ export class ShipListComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.getFilterFromStorage()
         this.loadRecords()
         this.addShortcuts()
     }
@@ -66,11 +62,6 @@ export class ShipListComponent {
         this.router.navigate([this.baseUrl, id])
     }
 
-    public onFilter($event: any, stringVal: any): void {
-        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
-        this.updateStorageWithFilter()
-    }
-
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -84,9 +75,6 @@ export class ShipListComponent {
             'Escape': () => {
                 this.goBack()
             },
-            'Alt.S': () => {
-                this.focus('searchTerm')
-            },
             'Alt.N': (event: KeyboardEvent) => {
                 this.buttonClickService.clickOnButton(event, 'new')
             }
@@ -94,15 +82,6 @@ export class ShipListComponent {
             priority: 0,
             inputs: true
         })
-    }
-
-    private focus(element: string): void {
-        event.preventDefault()
-        this.helperService.setFocus(element)
-    }
-
-    private getFilterFromStorage(): void {
-        this.searchTerm = this.helperService.readItem(this.localStorageSearchTerm)
     }
 
     private goBack(): void {
@@ -113,8 +92,6 @@ export class ShipListComponent {
         const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.list
-            this.filteredRecords = this.records
-            console.log('list', this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -127,10 +104,6 @@ export class ShipListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private updateStorageWithFilter(): void {
-        this.helperService.saveItem(this.localStorageSearchTerm, this.searchTerm)
     }
 
     //#endregion

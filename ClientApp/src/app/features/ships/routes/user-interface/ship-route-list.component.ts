@@ -29,26 +29,16 @@ export class ShipRouteListComponent {
 
     private baseUrl = '/shipRoutes'
     private ngUnsubscribe = new Subject<void>()
+    private resolver = 'shipRouteList'
     private unlisten: Unlisten
     private windowTitle = 'Routes'
-    private resolver = 'shipRouteList'
     public feature = 'shipRouteList'
     public newUrl = this.baseUrl + '/new'
     public records: ShipRouteListResource[] = []
 
     //#endregion
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private buttonClickService: ButtonClickService,
-        private helperService: HelperService,
-        private keyboardShortcutsService: KeyboardShortcuts,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageSnackbarService,
-        private router: Router,
-        private snackbarService: SnackbarService,
-        private titleService: Title
-    ) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -72,10 +62,6 @@ export class ShipRouteListComponent {
         this.router.navigate([this.baseUrl, id])
     }
 
-    public onFilter($event: any, stringVal: any): void {
-        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
-    }
-
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -97,7 +83,6 @@ export class ShipRouteListComponent {
             inputs: true
         })
     }
-
 
     private goBack(): void {
         this.router.navigate(['/'])

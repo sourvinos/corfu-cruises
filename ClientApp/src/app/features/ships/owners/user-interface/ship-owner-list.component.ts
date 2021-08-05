@@ -1,18 +1,18 @@
-import { ShipOwnerResource } from './../../base/classes/ship-owner-resource'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
+import { ShipOwnerResource } from './../../base/classes/ship-owner-resource'
 import { Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 import { Table } from 'primeng/table'
+import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'ship-owner-list',
@@ -28,16 +28,13 @@ export class ShipOwnerListComponent {
     @ViewChild('table') table: Table | undefined
 
     private baseUrl = '/shipOwners'
-    private localStorageSearchTerm = 'shipOwner-list-search-term'
     private ngUnsubscribe = new Subject<void>()
-    private records: ShipOwnerResource[] = []
     private resolver = 'shipOwnerList'
     private unlisten: Unlisten
     private windowTitle = 'Ship owners'
     public feature = 'shipOwnerList'
-    public filteredRecords: ShipOwnerResource[] = []
     public newUrl = this.baseUrl + '/new'
-    public searchTerm = ''
+    public records: ShipOwnerResource[] = []
 
     //#endregion
 
@@ -65,11 +62,6 @@ export class ShipOwnerListComponent {
         this.router.navigate([this.baseUrl, id])
     }
 
-    public onFilter($event: any, stringVal: any): void {
-        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
-        this.updateStorageWithFilter()
-    }
-
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -83,9 +75,6 @@ export class ShipOwnerListComponent {
             'Escape': () => {
                 this.goBack()
             },
-            'Alt.S': () => {
-                this.focus('searchTerm')
-            },
             'Alt.N': (event: KeyboardEvent) => {
                 this.buttonClickService.clickOnButton(event, 'new')
             }
@@ -93,10 +82,6 @@ export class ShipOwnerListComponent {
             priority: 0,
             inputs: true
         })
-    }
-
-    private focus(element: string): void {
-        this.helperService.setFocus(element)
     }
 
     private goBack(): void {
@@ -107,8 +92,6 @@ export class ShipOwnerListComponent {
         const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.list
-            this.filteredRecords = this.records
-            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -121,10 +104,6 @@ export class ShipOwnerListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private updateStorageWithFilter(): void {
-        this.helperService.saveItem(this.localStorageSearchTerm, this.searchTerm)
     }
 
     //#endregion

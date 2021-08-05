@@ -1,5 +1,3 @@
-
-
 <div id="list">
 
     <div id="header">
@@ -9,14 +7,16 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" scrollHeight="flex" selectionMode="single" sortField="none" sortMode="single" stateKey="registrar-list" stateStorage="local"(onSort)="onSort()">
+        <p-table #table (onFilter)="onFilter($event)" [autoLayout]="false" [customSort]="true" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" stateKey="registrar-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 10%; border-top-left-radius: 10px;">{{ onGetLabel('headerIsActive') }}</th>
                     <th style="width: 90%; border-top-right-radius: 10px;">{{ onGetLabel('headerFullname') }}</th>
                 </tr>
                 <tr>
-                    <th><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
+                    <th>
+                        <p-columnFilter type="boolean" field="isActive"></p-columnFilter>
+                    </th>
                     <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'fullname', 'contains')" [value]="$any(table).filters['fullname']?.value"></th>
                 </tr>
             </ng-template>

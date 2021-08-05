@@ -1,5 +1,4 @@
 import { KeyValuePair } from 'src/app/shared/classes/keyValuePair'
-import { Ship } from '../../base/classes/ship'
 
 export class Registrar extends KeyValuePair {
 

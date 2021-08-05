@@ -1,6 +1,6 @@
 import { KeyValuePair } from 'src/app/shared/classes/keyValuePair'
 
-export class CrewResource extends KeyValuePair {
+export class Crew extends KeyValuePair {
 
     lastname: string
     firstname: string

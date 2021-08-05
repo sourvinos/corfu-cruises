@@ -7,7 +7,7 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" scrollHeight="flex" selectionMode="single" sortField="none" sortMode="single" stateKey="crew-list" stateStorage="local" (onSort)="onSort()">
+        <p-table #table (onFilter)="onFilter($event)" [autoLayout]="false" [customSort]="true" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" stateKey="crew-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 10%; border-top-left-radius: 10px;">{{ onGetLabel('headerIsActive') }}</th>
@@ -16,7 +16,9 @@
                     <th style="width: 20%; border-top-right-radius: 10px;">{{ onGetLabel('headerBirthdate') }}</th>
                 </tr>
                 <tr>
-                    <th><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
+                    <th>
+                        <p-columnFilter type="boolean" field="isActive"></p-columnFilter>
+                    </th>
                     <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
                     <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
                     <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'birthdate', 'contains')" [value]="$any(table).filters['birthdate']?.value"></th>
@@ -28,7 +30,6 @@
                     <td style="width: 40%;" class="rowGroup">{{ rowData.shipDescription }}</td>
                     <td style="width: 30%;"></td>
                     <td style="width: 20%;"></td>
-                    <td></td>
                 </tr>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
                     <td style="width: 10%; padding: 5px !important; text-align: center;">

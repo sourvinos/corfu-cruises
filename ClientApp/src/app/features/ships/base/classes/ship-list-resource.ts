@@ -4,6 +4,7 @@ export class ShipListResource {
     description: string
     registryNo: string
     ownerDescription: string
+    isActive: boolean
 
 
 }

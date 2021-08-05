@@ -21,7 +21,7 @@
                     </th>
                     <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'fromPort', 'contains')" [value]="$any(table).filters['fromPort']?.value"></th>
                     <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'viaPort', 'contains')" [value]="$any(table).filters['viaPort']?.value"></th>
-                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ToPort', 'contains')" [value]="$any(table).filters['toPort']?.value"></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'toPort', 'contains')" [value]="$any(table).filters['toPort']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">

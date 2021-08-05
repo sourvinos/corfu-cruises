@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { CrewResource } from '../classes/crew-resource'
+import { Crew } from '../classes/crew'
 import { CrewService } from '../classes/crew.service'
 import { DateAdapter } from '@angular/material/core'
 import { DialogService } from 'src/app/shared/services/dialog.service'
@@ -256,7 +256,7 @@ export class CrewFormComponent {
         return promise
     }
 
-    private populateFields(result: CrewResource): void {
+    private populateFields(result: Crew): void {
         this.form.setValue({
             id: result.id,
             lastname: result.lastname,
