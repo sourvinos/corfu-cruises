@@ -5,7 +5,6 @@ import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { Destination } from '../classes/destination'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
@@ -13,6 +12,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { Destination } from '../classes/destination'
 
 @Component({
     selector: 'destination-list',
@@ -22,23 +22,19 @@ import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animati
 })
 
 export class DestinationListComponent {
-    
+
     //#region variables
-    
+
     @ViewChild('table') table: Table | undefined
 
     private baseUrl = '/destinations'
-    private localStorageSearchTerm = 'destination-list-search-term'
     private ngUnsubscribe = new Subject<void>()
-    private records: Destination[] = []
     private resolver = 'destinationList'
     private unlisten: Unlisten
     private windowTitle = 'Destinations'
     public feature = 'destinationList'
-    public filteredRecords: Destination[] = []
     public newUrl = this.baseUrl + '/new'
-    public searchTerm = ''
-    public selectedRecord: Destination
+    public records : Destination[] = []
 
     //#endregion
 
@@ -48,7 +44,6 @@ export class DestinationListComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.getFilterFromStorage()
         this.loadRecords()
         this.addShortcuts()
     }
@@ -62,12 +57,7 @@ export class DestinationListComponent {
     //#endregion
 
     //#region public methods
-
-    public onFilter($event: any, stringVal: any): void {
-        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
-        this.updateStorageWithFilter()
-    }
-
+    
     public onEditRecord(record: Destination): void {
         this.router.navigate([this.baseUrl, record.id])
     }
@@ -85,9 +75,6 @@ export class DestinationListComponent {
             'Escape': () => {
                 this.goBack()
             },
-            'Alt.S': () => {
-                this.focus('searchTerm')
-            },
             'Alt.N': (event: KeyboardEvent) => {
                 this.buttonClickService.clickOnButton(event, 'new')
             }
@@ -95,14 +82,6 @@ export class DestinationListComponent {
             priority: 0,
             inputs: true
         })
-    }
-
-    private focus(element: string): void {
-        this.helperService.setFocus(element)
-    }
-
-    private getFilterFromStorage(): void {
-        this.searchTerm = this.helperService.readItem(this.localStorageSearchTerm)
     }
 
     private goBack(): void {
@@ -113,7 +92,6 @@ export class DestinationListComponent {
         const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.list
-            this.filteredRecords = this.records
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -126,10 +104,6 @@ export class DestinationListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private updateStorageWithFilter(): void {
-        this.helperService.saveItem(this.localStorageSearchTerm, this.searchTerm)
     }
 
     //#endregion
