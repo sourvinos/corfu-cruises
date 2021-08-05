@@ -36,28 +36,24 @@
                 "description": "Πελάτες"
             },
             {
-                "id": "searchLabel",
-                "description": "Αναζήτηση"
+                "id": "headerIsActive",
+                "description": "Ενεργός"
             },
             {
-                "id": "searchHint",
-                "description": "Με βάση οτιδήποτε"
+                "id": "headerName",
+                "description": "Επωνυμία"
+            },
+            {
+                "id": "headerPhones",
+                "description": "Τηλέφωνα"
+            },
+            {
+                "id": "headerEmail",
+                "description": "Email"
             },
             {
                 "id": "newButton",
                 "description": "ΝΕΟΣ"
-            },
-            {
-                "id": "headerName",
-                "description": "ΕΠΩΝΥΜΙΑ"
-            },
-            {
-                "id": "headerPhones",
-                "description": "ΤΗΛΕΦΩΝΑ"
-            },
-            {
-                "id": "headerEmail",
-                "description": "EMAIL"
             }
         ]
     },

@@ -4,31 +4,32 @@
         <div @slideFromLeft id="title">
             <h1>{{ onGetLabel('header') }}</h1>
         </div>
-        <div id="search-box">
-            <mat-form-field class="no-margin">
-                <input data-cy="searchTerm" type="text" matInput [placeholder]="onGetLabel('searchLabel')" [(ngModel)]="searchTerm" id="searchTerm" #query (input)="onFilter($event, 'contains')" autocomplete="off">
-                <mat-icon matSuffix>search</mat-icon>
-                <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
-            </mat-form-field>
-        </div>
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [globalFilterFields]="['description','phones','email']" [scrollable]="true" [value]="filteredRecords" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="customer-list" stateStorage="local">
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="customer-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 0%;"></th>
+                    <th style="width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ onGetLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
                     <th style="width: 50%;" pSortableColumn="description">{{ onGetLabel('headerName') }}<p-sortIcon field="description"></p-sortIcon></th>
-                    <th style="width: 25%;" pSortableColumn="email">{{ onGetLabel('headerEmail') }}<p-sortIcon field="email"></p-sortIcon></th>
-                    <th style="width: 25%;" pSortableColumn="phones">{{ onGetLabel('headerPhones') }}<p-sortIcon field="phones"></p-sortIcon></th>
+                    <th style="width: 20%;" pSortableColumn="email">{{ onGetLabel('headerEmail') }}<p-sortIcon field="email"></p-sortIcon></th>
+                    <th style="width: 18%; border-top-right-radius: 10px;" pSortableColumn="phones">{{ onGetLabel('headerPhones') }}<p-sortIcon field="phones"></p-sortIcon></th>
+                </tr>
+                <tr>
+                    <th><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'email', 'contains')" [value]="$any(table).filters['email']?.value"></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'phones', 'contains')" [value]="$any(table).filters['phones']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
-                    <td style="width: 0%;">{{ rowData.id }}</td>
+                    <td style="width: 12%; text-align: center;">
+                        <i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i>
+                    </td>
                     <td style="width: 50%;">{{ rowData.description }}</td>
-                    <td style="width: 25%;">{{ rowData.email }}</td>
-                    <td style="width: 25%;">{{ rowData.phones }}</td>
+                    <td style="width: 20%;">{{ rowData.email }}</td>
+                    <td style="width: 18%;">{{ rowData.phones }}</td>
                 </tr>
             </ng-template>
         </p-table>

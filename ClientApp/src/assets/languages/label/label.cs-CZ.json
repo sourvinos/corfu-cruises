@@ -36,28 +36,24 @@
                 "description": "Zákazníci"
             },
             {
-                "id": "searchLabel",
-                "description": "Vyhledat"
+                "id": "headerIsActive",
+                "description": "Aktivní"
             },
             {
-                "id": "searchHint",
-                "description": "Všechny vyhledávání"
+                "id": "headerName",
+                "description": "Název"
+            },
+            {
+                "id": "headerPhones",
+                "description": "Phony"
+            },
+            {
+                "id": "headerEmail",
+                "description": "Email"
             },
             {
                 "id": "newButton",
                 "description": "NOVÝ"
-            },
-            {
-                "id": "headerName",
-                "description": "NÁZEV"
-            },
-            {
-                "id": "headerPhones",
-                "description": "PHONY"
-            },
-            {
-                "id": "headerEmail",
-                "description": "EMAIL"
             }
         ]
     },

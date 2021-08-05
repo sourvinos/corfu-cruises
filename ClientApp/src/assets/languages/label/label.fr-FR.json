@@ -36,28 +36,24 @@
                 "description": "Clients"
             },
             {
-                "id": "searchLabel",
-                "description": "Toutes les recherches"
+                "id": "headerIsActive",
+                "description": "Actif"
             },
             {
-                "id": "searchHint",
-                "description": "Tout rechercher"
+                "id": "headerName",
+                "description": "Nom de compagnie"
+            },
+            {
+                "id": "headerPhones",
+                "description": "Téléphone"
+            },
+            {
+                "id": "headerEmail",
+                "description": "Email"
             },
             {
                 "id": "newButton",
                 "description": "NOUVEAU"
-            },
-            {
-                "id": "headerName",
-                "description": "NOM DE COMPAGNIE"
-            },
-            {
-                "id": "headerPhones",
-                "description": "TÉLÉPHONE"
-            },
-            {
-                "id": "headerEmail",
-                "description": "EMAIL"
             }
         ]
     },

@@ -36,28 +36,24 @@
                 "description": "Customers"
             },
             {
-                "id": "searchLabel",
-                "description": "Search"
+                "id": "headerIsActive",
+                "description": "Active"
             },
             {
-                "id": "searchHint",
-                "description": "Global search"
+                "id": "headerName",
+                "description": "Name"
+            },
+            {
+                "id": "headerPhones",
+                "description": "Phones"
+            },
+            {
+                "id": "headerEmail",
+                "description": "Email"
             },
             {
                 "id": "newButton",
                 "description": "NEW"
-            },
-            {
-                "id": "headerName",
-                "description": "NAME"
-            },
-            {
-                "id": "headerPhones",
-                "description": "PHONES"
-            },
-            {
-                "id": "headerEmail",
-                "description": "EMAIL"
             }
         ]
     },
