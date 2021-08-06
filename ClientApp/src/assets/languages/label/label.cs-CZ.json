@@ -1,8 +1,6 @@
-[
-    {
+[{
         "feature": "loginForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Přihlásit se"
             },
@@ -30,8 +28,7 @@
     },
     {
         "feature": "customerList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Zákazníci"
             },
@@ -59,8 +56,7 @@
     },
     {
         "feature": "customerForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Zákazník"
             },
@@ -104,8 +100,7 @@
     },
     {
         "feature": "destinationList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Destinace"
             },
@@ -129,8 +124,7 @@
     },
     {
         "feature": "destinationForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Destinace"
             },
@@ -158,8 +152,7 @@
     },
     {
         "feature": "driverList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Řidiči"
             },
@@ -183,8 +176,7 @@
     },
     {
         "feature": "driverForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Řidič"
             },
@@ -212,8 +204,7 @@
     },
     {
         "feature": "pickupPointList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Nástupní místa"
             },
@@ -245,8 +236,7 @@
     },
     {
         "feature": "pickupPointForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Nástupní místo"
             },
@@ -294,33 +284,27 @@
     },
     {
         "feature": "portList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Přístavy"
             },
             {
-                "id": "searchLabel",
-                "description": "Vyhledat"
-            },
-            {
-                "id": "searchHint",
-                "description": "Všechny vyhledávání"
-            },
-            {
-                "id": "newButton",
-                "description": "NOVÝ"
+                "id": "headerIsActive",
+                "description": "Aktivní"
             },
             {
                 "id": "headerDescription",
-                "description": "POPIS"
+                "description": "Popis"
+            },
+            {
+                "id": "newButton",
+                "description": "NOVÉ"
             }
         ]
     },
     {
         "feature": "portForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Přístavt"
             },
@@ -348,8 +332,7 @@
     },
     {
         "feature": "routeList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Trasy"
             },
@@ -377,8 +360,7 @@
     },
     {
         "feature": "routeForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Trasa"
             },
@@ -422,8 +404,7 @@
     },
     {
         "feature": "reservationWrapper",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Rezervace"
             },
@@ -443,8 +424,7 @@
     },
     {
         "feature": "userList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Uživatelé"
             },
@@ -472,8 +452,7 @@
     },
     {
         "feature": "editUserForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Uživatel"
             },
@@ -521,8 +500,7 @@
     },
     {
         "feature": "registerUserForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Uživatel"
             },
@@ -570,8 +548,7 @@
     },
     {
         "feature": "changePasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Změnit heslo"
             },
@@ -595,8 +572,7 @@
     },
     {
         "feature": "reservationList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "summaryTab",
                 "description": "Souhrn"
             },
@@ -716,8 +692,7 @@
     },
     {
         "feature": "reservationForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Rezervace"
             },
@@ -813,8 +788,7 @@
     },
     {
         "feature": "forgotPasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Zapomněl jsem heslo"
             },
@@ -834,8 +808,7 @@
     },
     {
         "feature": "resetPasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Obnovit heslo"
             },
@@ -855,8 +828,7 @@
     },
     {
         "feature": "dialog",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Důležité:"
             },
@@ -872,8 +844,7 @@
     },
     {
         "feature": "assignToDriver",
-        "labels": [
-            {
+        "labels": [{
                 "id": "searchHint",
                 "description": "Vyberte ze seznamu"
             },
@@ -897,8 +868,7 @@
     },
     {
         "feature": "assignToShip",
-        "labels": [
-            {
+        "labels": [{
                 "id": "searchHint",
                 "description": "Vyberte ze seznamu"
             },
@@ -922,8 +892,7 @@
     },
     {
         "feature": "index",
-        "labels": [
-            {
+        "labels": [{
                 "id": "ports",
                 "description": "Přístavy"
             },
@@ -995,8 +964,7 @@
     },
     {
         "feature": "credits",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Zdroje"
             },
@@ -1008,8 +976,7 @@
     },
     {
         "feature": "shipList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Plavidla"
             },
@@ -1037,8 +1004,7 @@
     },
     {
         "feature": "shipForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Plavidlo"
             },
@@ -1090,8 +1056,7 @@
     },
     {
         "feature": "scheduleWrapper",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Plán"
             },
@@ -1123,8 +1088,7 @@
     },
     {
         "feature": "scheduleList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "newButton",
                 "description": "NOVÝ"
             },
@@ -1156,8 +1120,7 @@
     },
     {
         "feature": "scheduleCreateForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "NOVÝ Schedule"
             },
@@ -1189,8 +1152,7 @@
     },
     {
         "feature": "passengerList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "headerLastname",
                 "description": "Příjmení"
             },
@@ -1226,8 +1188,7 @@
     },
     {
         "feature": "passengerForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Cestující"
             },
@@ -1271,8 +1232,7 @@
     },
     {
         "feature": "genderList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Rods"
             },
@@ -1292,8 +1252,7 @@
     },
     {
         "feature": "genderForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Rod"
             },
@@ -1317,8 +1276,7 @@
     },
     {
         "feature": "embarkationCriteria",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Nalodění"
             },
@@ -1354,8 +1312,7 @@
     },
     {
         "feature": "embarkationList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Nalodění"
             },
@@ -1423,8 +1380,7 @@
     },
     {
         "feature": "nationalityList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Národnosti"
             },
@@ -1452,8 +1408,7 @@
     },
     {
         "feature": "nationalityForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Národnost"
             },
@@ -1481,8 +1436,7 @@
     },
     {
         "feature": "invoicingWrapper",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Fakturace"
             },
@@ -1502,8 +1456,7 @@
     },
     {
         "feature": "invoicingList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "headerAdults",
                 "description": "Do"
             },
@@ -1551,8 +1504,7 @@
     },
     {
         "feature": "calendarLegend",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Barevná legenda"
             },
@@ -1588,8 +1540,7 @@
     },
     {
         "feature": "manifestCriteria",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Manifest plavidla"
             },
@@ -1629,8 +1580,7 @@
     },
     {
         "feature": "manifestList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Cestující manifest"
             },
@@ -1678,8 +1628,7 @@
     },
     {
         "feature": "shipOwnerList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Majitelé lodí"
             },
@@ -1699,8 +1648,7 @@
     },
     {
         "feature": "shipOwnerForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Plavidloowner"
             },
@@ -1748,8 +1696,7 @@
     },
     {
         "feature": "shipRouteList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Itineráře"
             },
@@ -1777,8 +1724,7 @@
     },
     {
         "feature": "shipRouteForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Trasa"
             },
@@ -1826,8 +1772,7 @@
     },
     {
         "feature": "registrarList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Registrátors"
             },
@@ -1847,8 +1792,7 @@
     },
     {
         "feature": "registrarForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Registrátor"
             },
@@ -1896,8 +1840,7 @@
     },
     {
         "feature": "crewList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Osazenstvos"
             },
@@ -1925,8 +1868,7 @@
     },
     {
         "feature": "crewForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Osazenstvo"
             },

@@ -1,8 +1,6 @@
-[
-    {
+[{
         "feature": "loginForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Anmeldung"
             },
@@ -30,8 +28,7 @@
     },
     {
         "feature": "customerList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Kunden"
             },
@@ -59,8 +56,7 @@
     },
     {
         "feature": "customerForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Kunde"
             },
@@ -104,8 +100,7 @@
     },
     {
         "feature": "destinationList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Reiseziele"
             },
@@ -129,8 +124,7 @@
     },
     {
         "feature": "destinationForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Reiseziel"
             },
@@ -158,8 +152,7 @@
     },
     {
         "feature": "driverList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Fahrer"
             },
@@ -183,8 +176,7 @@
     },
     {
         "feature": "driverForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Fahrer"
             },
@@ -212,8 +204,7 @@
     },
     {
         "feature": "pickupPointList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Abholpunkte"
             },
@@ -245,8 +236,7 @@
     },
     {
         "feature": "pickupPointForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Abholpunkt"
             },
@@ -294,33 +284,27 @@
     },
     {
         "feature": "portList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Häfen"
             },
             {
-                "id": "searchLabel",
-                "description": "Suchen"
+                "id": "headerIsActive",
+                "description": "Aktiv"
             },
             {
-                "id": "searchHint",
-                "description": "Alle suchen"
+                "id": "headerDescription",
+                "description": "Beschreibung"
             },
             {
                 "id": "newButton",
                 "description": "NEUER"
-            },
-            {
-                "id": "headerDescription",
-                "description": "BESCHREIBUNG"
             }
         ]
     },
     {
         "feature": "portForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Hafen"
             },
@@ -348,8 +332,7 @@
     },
     {
         "feature": "routeList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Routen"
             },
@@ -377,8 +360,7 @@
     },
     {
         "feature": "routeForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Route"
             },
@@ -422,8 +404,7 @@
     },
     {
         "feature": "reservationWrapper",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Reservierungen"
             },
@@ -443,8 +424,7 @@
     },
     {
         "feature": "userList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Benutzer"
             },
@@ -472,8 +452,7 @@
     },
     {
         "feature": "editUserForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Benutzer"
             },
@@ -521,8 +500,7 @@
     },
     {
         "feature": "registerUserForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Nutzer"
             },
@@ -570,8 +548,7 @@
     },
     {
         "feature": "changePasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Kennwort ändern"
             },
@@ -595,8 +572,7 @@
     },
     {
         "feature": "reservationList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "summaryTab",
                 "description": "Kurzbericht"
             },
@@ -716,8 +692,7 @@
     },
     {
         "feature": "reservationForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Reservierung"
             },
@@ -813,8 +788,7 @@
     },
     {
         "feature": "forgotPasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Passwort vergessen"
             },
@@ -834,8 +808,7 @@
     },
     {
         "feature": "resetPasswordForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Passwort zurücksetzen"
             },
@@ -855,8 +828,7 @@
     },
     {
         "feature": "dialog",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Warnung"
             },
@@ -872,8 +844,7 @@
     },
     {
         "feature": "assignToDriver",
-        "labels": [
-            {
+        "labels": [{
                 "id": "searchHint",
                 "description": "Aus der Liste auswählen"
             },
@@ -897,8 +868,7 @@
     },
     {
         "feature": "assignToShip",
-        "labels": [
-            {
+        "labels": [{
                 "id": "searchHint",
                 "description": "Aus der Liste auswählen"
             },
@@ -922,8 +892,7 @@
     },
     {
         "feature": "index",
-        "labels": [
-            {
+        "labels": [{
                 "id": "ports",
                 "description": "Häfen"
             },
@@ -995,8 +964,7 @@
     },
     {
         "feature": "credits",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Ressourcen"
             },
@@ -1008,8 +976,7 @@
     },
     {
         "feature": "shipList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Schiffe"
             },
@@ -1037,8 +1004,7 @@
     },
     {
         "feature": "shipForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Schiff"
             },
@@ -1090,8 +1056,7 @@
     },
     {
         "feature": "scheduleWrapper",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Zeitplan"
             },
@@ -1123,8 +1088,7 @@
     },
     {
         "feature": "scheduleList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "newButton",
                 "description": "NEU"
             },
@@ -1156,8 +1120,7 @@
     },
     {
         "feature": "scheduleCreateForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Neuer Zeitplan"
             },
@@ -1189,8 +1152,7 @@
     },
     {
         "feature": "passengerList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "headerLastname",
                 "description": "Name"
             },
@@ -1226,8 +1188,7 @@
     },
     {
         "feature": "passengerForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Passagier"
             },
@@ -1271,8 +1232,7 @@
     },
     {
         "feature": "genderList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Geschlechter"
             },
@@ -1292,8 +1252,7 @@
     },
     {
         "feature": "genderForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Geschlecht"
             },
@@ -1317,8 +1276,7 @@
     },
     {
         "feature": "embarkationCriteria",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Einschiffung"
             },
@@ -1354,8 +1312,7 @@
     },
     {
         "feature": "embarkationList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Einschiffung"
             },
@@ -1423,8 +1380,7 @@
     },
     {
         "feature": "nationalityList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Nationalitäten"
             },
@@ -1452,8 +1408,7 @@
     },
     {
         "feature": "nationalityForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Nationalität"
             },
@@ -1481,8 +1436,7 @@
     },
     {
         "feature": "invoicingWrapper",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Fakturierung"
             },
@@ -1502,8 +1456,7 @@
     },
     {
         "feature": "invoicingList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "headerAdults",
                 "description": "E"
             },
@@ -1551,8 +1504,7 @@
     },
     {
         "feature": "calendarLegend",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Farblegende"
             },
@@ -1588,8 +1540,7 @@
     },
     {
         "feature": "manifestCriteria",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Passagiermanifest"
             },
@@ -1629,8 +1580,7 @@
     },
     {
         "feature": "manifestList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Passagiermanifest"
             },
@@ -1678,8 +1628,7 @@
     },
     {
         "feature": "shipOwnerList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Reeder"
             },
@@ -1699,8 +1648,7 @@
     },
     {
         "feature": "shipOwnerForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Inhaber"
             },
@@ -1748,8 +1696,7 @@
     },
     {
         "feature": "shipRouteList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Routen"
             },
@@ -1777,8 +1724,7 @@
     },
     {
         "feature": "shipRouteForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Route"
             },
@@ -1826,8 +1772,7 @@
     },
     {
         "feature": "registrarList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Registrare"
             },
@@ -1847,8 +1792,7 @@
     },
     {
         "feature": "registrarForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Registrator"
             },
@@ -1896,8 +1840,7 @@
     },
     {
         "feature": "crewList",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Besatzungen"
             },
@@ -1925,8 +1868,7 @@
     },
     {
         "feature": "crewForm",
-        "labels": [
-            {
+        "labels": [{
                 "id": "header",
                 "description": "Besatzung"
             },
