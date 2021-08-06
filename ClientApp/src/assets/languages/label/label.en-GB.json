@@ -1,6 +1,8 @@
-[{
+[
+    {
         "feature": "loginForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Login"
             },
@@ -28,7 +30,8 @@
     },
     {
         "feature": "customerList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Customers"
             },
@@ -56,7 +59,8 @@
     },
     {
         "feature": "customerForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Customer"
             },
@@ -100,7 +104,8 @@
     },
     {
         "feature": "destinationList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Destinations"
             },
@@ -115,16 +120,17 @@
             {
                 "id": "headerDescription",
                 "description": "Description"
-            }, {
+            },
+            {
                 "id": "newButton",
                 "description": "NEW"
             }
-
         ]
     },
     {
         "feature": "destinationForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Destination"
             },
@@ -152,35 +158,33 @@
     },
     {
         "feature": "driverList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Drivers"
             },
             {
-                "id": "searchLabel",
-                "description": "Search"
+                "id": "headerIsActive",
+                "description": "Active"
             },
             {
-                "id": "searchHint",
-                "description": "Global search"
+                "id": "headerFullname",
+                "description": "Fullname"
+            },
+            {
+                "id": "headerPhones",
+                "description": "Phones"
             },
             {
                 "id": "newButton",
                 "description": "NEW"
-            },
-            {
-                "id": "headerName",
-                "description": "NAME"
-            },
-            {
-                "id": "headerPhones",
-                "description": "TELEPHONE NUMBERS"
             }
         ]
     },
     {
         "feature": "driverForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Driver"
             },
@@ -208,7 +212,8 @@
     },
     {
         "feature": "pickupPointList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Pickup points"
             },
@@ -244,7 +249,8 @@
     },
     {
         "feature": "pickupPointForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Pickup point"
             },
@@ -292,7 +298,8 @@
     },
     {
         "feature": "portList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Ports"
             },
@@ -316,7 +323,8 @@
     },
     {
         "feature": "portForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Port"
             },
@@ -344,7 +352,8 @@
     },
     {
         "feature": "routeList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Routes"
             },
@@ -372,7 +381,8 @@
     },
     {
         "feature": "routeForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Route"
             },
@@ -416,7 +426,8 @@
     },
     {
         "feature": "reservationWrapper",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Reservations"
             },
@@ -436,7 +447,8 @@
     },
     {
         "feature": "userList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Users"
             },
@@ -464,7 +476,8 @@
     },
     {
         "feature": "editUserForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "User"
             },
@@ -512,7 +525,8 @@
     },
     {
         "feature": "registerUserForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "User"
             },
@@ -560,7 +574,8 @@
     },
     {
         "feature": "changePasswordForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Change password"
             },
@@ -584,7 +599,8 @@
     },
     {
         "feature": "reservationList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "summaryTab",
                 "description": "Summary"
             },
@@ -704,7 +720,8 @@
     },
     {
         "feature": "reservationForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Reservation"
             },
@@ -800,7 +817,8 @@
     },
     {
         "feature": "forgotPasswordForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Forgot password"
             },
@@ -820,7 +838,8 @@
     },
     {
         "feature": "resetPasswordForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Reset password"
             },
@@ -840,7 +859,8 @@
     },
     {
         "feature": "dialog",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Important:"
             },
@@ -856,7 +876,8 @@
     },
     {
         "feature": "assignToDriver",
-        "labels": [{
+        "labels": [
+            {
                 "id": "searchHint",
                 "description": "Select from the list"
             },
@@ -880,7 +901,8 @@
     },
     {
         "feature": "assignToShip",
-        "labels": [{
+        "labels": [
+            {
                 "id": "searchHint",
                 "description": "Select from the list"
             },
@@ -904,7 +926,8 @@
     },
     {
         "feature": "index",
-        "labels": [{
+        "labels": [
+            {
                 "id": "ports",
                 "description": "Ports"
             },
@@ -976,7 +999,8 @@
     },
     {
         "feature": "credits",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Resources"
             },
@@ -988,7 +1012,8 @@
     },
     {
         "feature": "shipList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Vessels"
             },
@@ -1016,7 +1041,8 @@
     },
     {
         "feature": "shipForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Vessel"
             },
@@ -1068,7 +1094,8 @@
     },
     {
         "feature": "scheduleWrapper",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Schedule"
             },
@@ -1100,7 +1127,8 @@
     },
     {
         "feature": "scheduleList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "newButton",
                 "description": "New"
             },
@@ -1132,7 +1160,8 @@
     },
     {
         "feature": "scheduleCreateForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "New Schedule"
             },
@@ -1164,7 +1193,8 @@
     },
     {
         "feature": "passengerList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "headerLastname",
                 "description": "Last name"
             },
@@ -1200,7 +1230,8 @@
     },
     {
         "feature": "passengerForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Passenger"
             },
@@ -1244,31 +1275,29 @@
     },
     {
         "feature": "genderList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Genders"
             },
             {
-                "id": "searchLabel",
-                "description": "Search"
+                "id": "headerIsActive",
+                "description": "Active"
             },
             {
-                "id": "searchHint",
-                "description": "Global search"
+                "id": "headerDescription",
+                "description": "Description"
             },
             {
                 "id": "newButton",
                 "description": "NEW"
-            },
-            {
-                "id": "headerDescription",
-                "description": "DESCRIPTION"
             }
         ]
     },
     {
         "feature": "genderForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Gender"
             },
@@ -1292,7 +1321,8 @@
     },
     {
         "feature": "embarkationCriteria",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Embarkation"
             },
@@ -1328,7 +1358,8 @@
     },
     {
         "feature": "embarkationList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Embarkation"
             },
@@ -1396,7 +1427,8 @@
     },
     {
         "feature": "nationalityList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Nationalities"
             },
@@ -1424,7 +1456,8 @@
     },
     {
         "feature": "nationalityForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Nationality"
             },
@@ -1452,7 +1485,8 @@
     },
     {
         "feature": "invoicingWrapper",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Invoicing"
             },
@@ -1472,7 +1506,8 @@
     },
     {
         "feature": "invoicingList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "headerAdults",
                 "description": "A"
             },
@@ -1520,7 +1555,8 @@
     },
     {
         "feature": "calendarLegend",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Colour Legend"
             },
@@ -1556,7 +1592,8 @@
     },
     {
         "feature": "manifestCriteria",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Passenger manifest"
             },
@@ -1596,7 +1633,8 @@
     },
     {
         "feature": "manifestList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Passenger manifest"
             },
@@ -1644,7 +1682,8 @@
     },
     {
         "feature": "shipOwnerList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Shipowners"
             },
@@ -1664,7 +1703,8 @@
     },
     {
         "feature": "shipOwnerForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Shipowner"
             },
@@ -1712,7 +1752,8 @@
     },
     {
         "feature": "shipRouteList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Routes"
             },
@@ -1740,7 +1781,8 @@
     },
     {
         "feature": "shipRouteForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Route"
             },
@@ -1788,7 +1830,8 @@
     },
     {
         "feature": "registrarList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Registrars"
             },
@@ -1808,7 +1851,8 @@
     },
     {
         "feature": "registrarForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Registrar"
             },
@@ -1856,7 +1900,8 @@
     },
     {
         "feature": "crewList",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Crews"
             },
@@ -1884,7 +1929,8 @@
     },
     {
         "feature": "crewForm",
-        "labels": [{
+        "labels": [
+            {
                 "id": "header",
                 "description": "Crew"
             },

@@ -1,3 +1,5 @@
+
+
 <div id="list">
 
     <div id="header">
@@ -21,9 +23,7 @@
                     </th>
                 </tr>
                 <tr>
-                    <th>
-                        <p-columnFilter type="boolean" field="isActive"></p-columnFilter>
-                    </th>
+                    <th><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
                     <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'abbreviation', 'contains')" [value]="$any(table).filters['abbreviation']?.value"></th>
                     <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
                 </tr>

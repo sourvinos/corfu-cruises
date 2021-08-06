@@ -28,27 +28,22 @@ export class GenderListComponent {
     @ViewChild('table') table: Table | undefined
 
     private baseUrl = '/genders'
-    private localStorageSearchTerm = 'gender-list-search-term'
     private ngUnsubscribe = new Subject<void>()
-    private records: Gender[] = []
     private resolver = 'genderList'
     private unlisten: Unlisten
     private windowTitle = 'Genders'
     public feature = 'genderList'
-    public filteredRecords: Gender[] = []
     public newUrl = this.baseUrl + '/new'
-    public searchTerm = ''
-    public selectedRecord: Gender
-
+    public records: Gender[] = []
+    
     //#endregion
-
+    
     constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.getFilterFromStorage()
         this.loadRecords()
         this.addShortcuts()
     }
@@ -67,11 +62,6 @@ export class GenderListComponent {
         this.router.navigate([this.baseUrl, record.id])
     }
 
-    public onFilter($event: any, stringVal: any): void {
-        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
-        this.updateStorageWithFilter()
-    }
-
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -85,9 +75,6 @@ export class GenderListComponent {
             'Escape': () => {
                 this.goBack()
             },
-            'Alt.F': () => {
-                this.focus('searchTerm')
-            },
             'Alt.N': (event: KeyboardEvent) => {
                 this.buttonClickService.clickOnButton(event, 'new')
             }
@@ -95,14 +82,6 @@ export class GenderListComponent {
             priority: 0,
             inputs: true
         })
-    }
-
-    private focus(element: string): void {
-        this.helperService.setFocus(element)
-    }
-
-    private getFilterFromStorage(): void {
-        this.searchTerm = this.helperService.readItem(this.localStorageSearchTerm)
     }
 
     private goBack(): void {
@@ -113,7 +92,6 @@ export class GenderListComponent {
         const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.list
-            this.filteredRecords = this.records.sort((a, b) => (a.description > b.description) ? 1 : -1)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -126,10 +104,6 @@ export class GenderListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private updateStorageWithFilter(): void {
-        this.helperService.saveItem(this.localStorageSearchTerm, this.searchTerm)
     }
 
     //#endregion

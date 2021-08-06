@@ -28,17 +28,13 @@ export class DriverListComponent {
     @ViewChild('table') table: Table | undefined
 
     private baseUrl = '/drivers'
-    private localStorageSearchTerm = 'driver-list-search-term'
     private ngUnsubscribe = new Subject<void>()
-    private records: Driver[] = []
     private resolver = 'driverList'
     private unlisten: Unlisten
     private windowTitle = 'Drivers'
     public feature = 'driverList'
-    public filteredRecords: Driver[] = []
     public newUrl = this.baseUrl + '/new'
-    public searchTerm = ''
-    public selectedRecord: Driver
+    public records: Driver[] = []
 
     //#endregion
 
@@ -48,7 +44,6 @@ export class DriverListComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.getFilterFromStorage()
         this.loadRecords()
         this.addShortcuts()
     }
@@ -62,11 +57,6 @@ export class DriverListComponent {
     //#endregion
 
     //#region public methods
-
-    public onFilter($event: any, stringVal: any): void {
-        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
-        this.updateStorageWithFilter()
-    }
 
     public onEditRecord(record: Driver): void {
         this.router.navigate([this.baseUrl, record.id])
@@ -82,11 +72,8 @@ export class DriverListComponent {
 
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'goBack')
-            },
-            'Alt.S': () => {
-                this.focus('searchTerm')
+            'Escape': () => {
+                this.goBack()
             },
             'Alt.N': (event: KeyboardEvent) => {
                 this.buttonClickService.clickOnButton(event, 'new')
@@ -97,14 +84,6 @@ export class DriverListComponent {
         })
     }
 
-    private focus(element: string): void {
-        this.helperService.setFocus(element)
-    }
-
-    private getFilterFromStorage(): void {
-        this.searchTerm = this.helperService.readItem(this.localStorageSearchTerm)
-    }
-
     private goBack(): void {
         this.router.navigate(['/'])
     }
@@ -113,7 +92,6 @@ export class DriverListComponent {
         const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.list
-            this.filteredRecords = this.records.sort((a, b) => (a.description > b.description) ? 1 : -1)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -126,10 +104,6 @@ export class DriverListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private updateStorageWithFilter(): void {
-        this.helperService.saveItem(this.localStorageSearchTerm, this.searchTerm)
     }
 
     //#endregion

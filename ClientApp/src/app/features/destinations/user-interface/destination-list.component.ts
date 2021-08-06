@@ -5,6 +5,7 @@ import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { Destination } from '../classes/destination'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
@@ -12,7 +13,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import { Destination } from '../classes/destination'
 
 @Component({
     selector: 'destination-list',
@@ -34,7 +34,7 @@ export class DestinationListComponent {
     private windowTitle = 'Destinations'
     public feature = 'destinationList'
     public newUrl = this.baseUrl + '/new'
-    public records : Destination[] = []
+    public records: Destination[] = []
 
     //#endregion
 
@@ -57,7 +57,7 @@ export class DestinationListComponent {
     //#endregion
 
     //#region public methods
-    
+
     public onEditRecord(record: Destination): void {
         this.router.navigate([this.baseUrl, record.id])
     }
