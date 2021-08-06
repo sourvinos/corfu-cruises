@@ -218,32 +218,28 @@
                 "description": "Points de collectes"
             },
             {
-                "id": "searchLabel",
-                "description": "Recherche"
+                "id": "headerIsActive",
+                "description": "Actif"
             },
             {
-                "id": "searchHint",
-                "description": "Tout rechercher"
+                "id": "headerRouteAbbreviation",
+                "description": "Route"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Description"
+            },
+            {
+                "id": "headerExactPoint",
+                "description": "Point precis"
+            },
+            {
+                "id": "headerTime",
+                "description": "Heure"
             },
             {
                 "id": "newButton",
                 "description": "NOUVEAU"
-            },
-            {
-                "id": "headerRouteAbbreviation",
-                "description": "ROUTE"
-            },
-            {
-                "id": "headerDescription",
-                "description": "DESCRIPTION"
-            },
-            {
-                "id": "headerExactPoint",
-                "description": "POINT PRECIS"
-            },
-            {
-                "id": "headerTime",
-                "description": "HEURE"
             }
         ]
     },

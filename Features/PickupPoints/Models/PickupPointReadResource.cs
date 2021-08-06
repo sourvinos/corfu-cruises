@@ -7,7 +7,7 @@ namespace ShipCruises.PickupPoints {
         public string Description { get; set; }
         public string ExactPoint { get; set; }
         public string Time { get; set; }
-
+        public bool IsActive { get; set; }
 
     }
 

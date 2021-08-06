@@ -215,35 +215,31 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Nástupní Místa"
+                "description": "Nástupní místa"
             },
             {
-                "id": "searchLabel",
-                "description": "Vyhledat"
+                "id": "headerIsActive",
+                "description": "Aktivní"
             },
             {
-                "id": "searchHint",
-                "description": "Vyhledat podle popisu"
+                "id": "headerRouteAbbreviation",
+                "description": "Trasa"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Popis"
+            },
+            {
+                "id": "headerExactPoint",
+                "description": "Přesné místo"
+            },
+            {
+                "id": "headerTime",
+                "description": "Čas"
             },
             {
                 "id": "newButton",
                 "description": "NOVÝ"
-            },
-            {
-                "id": "headerRouteAbbreviation",
-                "description": "ROUTE"
-            },
-            {
-                "id": "headerDescription",
-                "description": "POPIS"
-            },
-            {
-                "id": "headerExactPoint",
-                "description": "PŘESNÉ MÍSTO"
-            },
-            {
-                "id": "headerTime",
-                "description": "ČAS"
             }
         ]
     },

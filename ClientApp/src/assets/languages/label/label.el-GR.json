@@ -218,32 +218,28 @@
                 "description": "Σημεία Παραλαβής"
             },
             {
-                "id": "searchLabel",
-                "description": "Αναζητηση"
+                "id": "headerIsActive",
+                "description": "Ενεργό"
             },
             {
-                "id": "searchHint",
-                "description": "Με βάση την περιγραφή"
+                "id": "headerRouteAbbreviation",
+                "description": "Διαδρομή"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Περιγραφή"
+            },
+            {
+                "id": "headerExactPoint",
+                "description": "Ακριβές σημείο"
+            },
+            {
+                "id": "headerTime",
+                "description": "Ώρα"
             },
             {
                 "id": "newButton",
                 "description": "ΝΕΟ"
-            },
-            {
-                "id": "headerRouteAbbreviation",
-                "description": "ΔΙΑΔΡΟΜΗ"
-            },
-            {
-                "id": "headerDescription",
-                "description": "ΠΕΡΙΓΡΑΦΗ"
-            },
-            {
-                "id": "headerExactPoint",
-                "description": "ΑΚΡΙΒΕΣ ΣΗΜΕΙΟ"
-            },
-            {
-                "id": "headerTime",
-                "description": "ΩΡΑ"
             }
         ]
     },

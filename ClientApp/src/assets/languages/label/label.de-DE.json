@@ -218,32 +218,28 @@
                 "description": "Abholpunkte"
             },
             {
-                "id": "searchLabel",
-                "description": "Suchen"
-            },
-            {
-                "id": "searchHint",
-                "description": "Alle suchen"
-            },
-            {
-                "id": "newButton",
-                "description": "NEU"
+                "id": "headerIsActive",
+                "description": "Aktiv"
             },
             {
                 "id": "headerRouteAbbreviation",
-                "description": "ROUTE"
+                "description": "Route"
             },
             {
                 "id": "headerDescription",
-                "description": "BESCHREIBUNG"
+                "description": "Beschreibung"
             },
             {
                 "id": "headerExactPoint",
-                "description": "GENAUER PUNKT"
+                "description": "Genauer punkt"
             },
             {
                 "id": "headerTime",
-                "description": "ZEIT"
+                "description": "Zeit"
+            },
+            {
+                "id": "newButton",
+                "description": "NEUER"
             }
         ]
     },

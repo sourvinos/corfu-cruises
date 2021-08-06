@@ -18,7 +18,7 @@ namespace ShipCruises.PickupPoints {
         public async Task<IEnumerable<PickupPointReadResource>> Get() {
             var pickupPoints = await context.PickupPoints
                 .Include(x => x.Route)
-                .OrderBy(o => o.Route.Description)
+                .OrderBy(o => o.Route.Abbreviation)
                     .ThenBy(o => o.Time)
                         .ThenBy(o => o.Description)
                 .AsNoTracking().ToListAsync();

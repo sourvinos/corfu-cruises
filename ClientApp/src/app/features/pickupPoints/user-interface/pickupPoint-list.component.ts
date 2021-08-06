@@ -2,6 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { Location } from '@angular/common'
 import { Subject } from 'rxjs'
+import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
@@ -13,13 +14,11 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { PickupPoint } from '../classes/pickupPoint'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { Table } from 'primeng/table'
-import { PickupPointResource } from '../classes/pickupPoint-resource'
 
 @Component({
     selector: 'pickuppoint-list',
     templateUrl: './pickupPoint-list.component.html',
-    styleUrls: ['../../../../assets/styles/lists.css', './pickupPoint-list.component.css'],
+    styleUrls: ['../../../../assets/styles/lists.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
@@ -31,16 +30,15 @@ export class PickupPointListComponent {
 
     private baseUrl = this.location.path()
     private ngUnsubscribe = new Subject<void>()
-    private records: PickupPointResource[] = []
     private resolver = 'pickupPointList'
     private unlisten: Unlisten
     private windowTitle = 'Pickup points'
     public feature = 'pickupPointList'
-    public filteredRecords: PickupPointResource[] = []
     public newUrl = this.baseUrl + '/new'
+    public records: any[] = []
 
-    private temp = []
     public routes = []
+    public rowGroupMetadata: any
 
     //#endregion
 
@@ -69,6 +67,10 @@ export class PickupPointListComponent {
         this.router.navigate([this.baseUrl, record.id])
     }
 
+    public onFilter(event: { filteredValue: string | any[] }): void {
+        this.updateRowGroupMetaData(event.filteredValue)
+    }
+
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -92,8 +94,9 @@ export class PickupPointListComponent {
     }
 
     private getDistinctRoutes(): void {
-        this.temp = [... new Set(this.records.map(x => x.routeAbbreviation))]
-        this.temp.forEach(element => {
+        let array = []
+        array = [... new Set(this.records.map(x => x.routeAbbreviation))]
+        array.forEach(element => {
             this.routes.push({ label: element, value: element })
         })
     }
@@ -106,7 +109,6 @@ export class PickupPointListComponent {
         const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.list
-            this.filteredRecords = this.records
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -119,6 +121,30 @@ export class PickupPointListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
+    }
+
+    private updateRowGroupMetaData(data: string | any[]): void {
+
+        this.rowGroupMetadata = {}
+
+        if (data) {
+            for (let i = 0; i < data.length; i++) {
+                const rowData = data[i]
+                const routeAbbreviation = rowData.routeAbbreviation
+                if (i == 0) {
+                    this.rowGroupMetadata[routeAbbreviation] = { index: 0, size: 1 }
+                }
+                else {
+                    const previousRowData = data[i - 1]
+                    const previousRowGroup = previousRowData.routeAbbreviation
+                    if (routeAbbreviation === previousRowGroup)
+                        this.rowGroupMetadata[routeAbbreviation].size++
+                    else
+                        this.rowGroupMetadata[routeAbbreviation] = { index: i, size: 1 }
+                }
+            }
+        }
+
     }
 
     //#endregion

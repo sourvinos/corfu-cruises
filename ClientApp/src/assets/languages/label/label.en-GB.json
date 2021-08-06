@@ -218,32 +218,28 @@
                 "description": "Pickup points"
             },
             {
-                "id": "searchLabel",
-                "description": "Search"
+                "id": "headerIsActive",
+                "description": "Active"
             },
             {
-                "id": "searchHint",
-                "description": "Search by description"
+                "id": "headerRouteAbbreviation",
+                "description": "Route"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Description"
+            },
+            {
+                "id": "headerExactPoint",
+                "description": "Exact point"
+            },
+            {
+                "id": "headerTime",
+                "description": "Time"
             },
             {
                 "id": "newButton",
                 "description": "NEW"
-            },
-            {
-                "id": "headerRouteAbbreviation",
-                "description": "ROUTE"
-            },
-            {
-                "id": "headerDescription",
-                "description": "DESCRIPTION"
-            },
-            {
-                "id": "headerExactPoint",
-                "description": "EXACT POINT"
-            },
-            {
-                "id": "headerTime",
-                "description": "TIME"
             }
         ]
     },
