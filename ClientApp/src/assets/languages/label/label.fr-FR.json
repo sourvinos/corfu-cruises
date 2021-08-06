@@ -429,16 +429,16 @@
                 "description": "Utilisateurs"
             },
             {
-                "id": "newButton",
-                "description": "NOUVEL"
+                "id": "headerIsActive",
+                "description": "Actif"
             },
             {
-                "id": "headerAdmin",
+                "id": "headerIsAdmin",
                 "description": "Admin"
             },
             {
                 "id": "headerUsername",
-                "description": "Nom D'utilisateur"
+                "description": "Nom d'utilisateur"
             },
             {
                 "id": "headerDisplayname",
@@ -447,6 +447,10 @@
             {
                 "id": "headerEmail",
                 "description": "Email"
+            },
+            {
+                "id": "newButton",
+                "description": "NOUVEL"
             }
         ]
     },

@@ -33,7 +33,8 @@ namespace ShipCruises {
                 UserName = u.UserName,
                 DisplayName = u.DisplayName,
                 Email = u.Email,
-                IsAdmin = u.IsAdmin
+                IsAdmin = u.IsAdmin,
+                IsActive = u.IsActive
             }).OrderBy(o => o.UserName).AsNoTracking().ToListAsync();
         }
 

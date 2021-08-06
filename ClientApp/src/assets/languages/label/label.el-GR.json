@@ -429,24 +429,28 @@
                 "description": "Χρήστες"
             },
             {
-                "id": "newButton",
-                "description": "ΝΕΟΣ"
+                "id": "headerIsActive",
+                "description": "Ενεργός"
             },
             {
-                "id": "headerAdmin",
+                "id": "headerIsAdmin",
                 "description": "Δχστής"
             },
             {
                 "id": "headerUsername",
-                "description": "Χρήστης"
+                "description": "Όνομα χρήστη"
             },
             {
                 "id": "headerDisplayname",
-                "description": "Εμφανιζόμενο Όνομα"
+                "description": "Εμφανιζόμενο όνομα"
             },
             {
                 "id": "headerEmail",
                 "description": "Email"
+            },
+            {
+                "id": "newButton",
+                "description": "ΝΕΟΣ"
             }
         ]
     },

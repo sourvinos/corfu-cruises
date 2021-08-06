@@ -429,24 +429,28 @@
                 "description": "Uživatelé"
             },
             {
-                "id": "newButton",
-                "description": "NOVÝ"
+                "id": "headerIsActive",
+                "description": "Aktivní"
             },
             {
-                "id": "headerAdmin",
+                "id": "headerisAdmin",
                 "description": "Admin"
             },
             {
                 "id": "headerUsername",
-                "description": "Uživatelské Jméno"
+                "description": "Uživatelské jméno"
             },
             {
                 "id": "headerDisplayname",
-                "description": "Zobrazené Jméno"
+                "description": "Zobrazené jméno"
             },
             {
                 "id": "headerEmail",
                 "description": "Email"
+            },
+            {
+                "id": "newButton",
+                "description": "NOVÝ"
             }
         ]
     },

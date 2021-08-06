@@ -429,11 +429,11 @@
                 "description": "Benutzer"
             },
             {
-                "id": "newButton",
-                "description": "NEUER"
+                "id": "headerIsActive",
+                "description": "Activ"
             },
             {
-                "id": "headerAdmin",
+                "id": "headerisAdmin",
                 "description": "Admin"
             },
             {
@@ -442,11 +442,15 @@
             },
             {
                 "id": "headerDisplayname",
-                "description": "Angezeigter Name"
+                "description": "Angezeigter name"
             },
             {
                 "id": "headerEmail",
                 "description": "Email"
+            },
+            {
+                "id": "newButton",
+                "description": "NEUER"
             }
         ]
     },
