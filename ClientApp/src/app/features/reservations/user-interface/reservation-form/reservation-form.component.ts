@@ -377,7 +377,7 @@ export class ReservationFormComponent {
                 "nationalityDescription": passenger.nationality.description,
                 "lastname": passenger.lastname,
                 "firstname": passenger.firstname,
-                "birthDate": passenger.birthDate.substr(0, 10),
+                "birthdate": passenger.birthdate.substr(0, 10),
                 "genderId": passenger.gender.id,
                 "genderDescription": passenger.gender.description,
                 "specialCare": passenger.specialCare,
@@ -539,7 +539,7 @@ export class ReservationFormComponent {
                 'genderId': element.genderId,
                 'lastname': element.lastname,
                 'firstname': element.firstname,
-                'birthDate': this.formatDate(element.birthDate),
+                'birthdate': this.formatDate(element.birthdate),
                 'specialCare': element.specialCare,
                 'remarks': element.remarks,
                 'isCheckedIn': element.isCheckedIn

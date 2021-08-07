@@ -15,7 +15,10 @@ namespace ShipCruises.Manifest {
         public ManifestResource Get(string date, int shipId, int portId) {
             var manifest = new ManifestViewModel {
                 Date = date,
-                Ship = context.Ships.Include(x => x.Registrars).Include(x => x.ShipOwner).SingleOrDefault(x => x.Id == shipId),
+                Ship = context.Ships
+                    .Include(x => x.Registrars)
+                    .Include(x => x.ShipOwner)
+                    .SingleOrDefault(x => x.Id == shipId),
                 Port = context.Ports.SingleOrDefault(x => x.Id == portId),
                 Passengers = context.Passengers
                     .Include(x => x.Nationality)

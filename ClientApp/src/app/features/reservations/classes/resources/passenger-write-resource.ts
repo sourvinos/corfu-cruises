@@ -9,7 +9,7 @@ export class PassengerWriteResource {
     genderId: number
     lastname: string
     firstname: string
-    birthDate: string
+    birthdate: string
     specialCare: string
     remarks: string
     isCheckedIn: boolean

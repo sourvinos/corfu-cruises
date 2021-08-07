@@ -36,7 +36,7 @@ export class PassengerListComponent {
     visibility = ['none', 'none', 'none', '', '', 'none', 'none', 'none', 'none', 'none', 'none', '', '']
     justify = ['center', 'center', 'center', 'left', 'left', 'left', 'left', 'left', 'left', 'center', 'center', 'center', 'center']
     types = ['', '', '', '', '', '', '', '', '', 'date', '', 'trash', '']
-    fields = ['', 'reservationId', 'id', 'lastname', 'firstname', 'nationalityId', 'nationalityDescription', 'genderId', 'genderDescription', 'birthDate', 'isCheckedIn', '', '']
+    fields = ['', 'reservationId', 'id', 'lastname', 'firstname', 'nationalityId', 'nationalityDescription', 'genderId', 'genderDescription', 'birthdate', 'isCheckedIn', '', '']
 
     //#endregion
 
@@ -104,7 +104,7 @@ export class PassengerListComponent {
                     occupantId: 2,
                     nationalityId: 1, nationalityDescription: '',
                     genderId: 1, genderDescription: '',
-                    birthDate: '',
+                    birthdate: '',
                     specialCare: '',
                     remarks: '',
                     isCheckedIn: false
@@ -126,7 +126,7 @@ export class PassengerListComponent {
                     nationalityId: reservationDetail.nationalityId,
                     nationalityDescription: reservationDetail.nationalityDescription,
                     occupantId: reservationDetail.occupantId,
-                    birthDate: reservationDetail.birthDate,
+                    birthdate: reservationDetail.birthdate,
                     genderId: reservationDetail.genderId,
                     genderDescription: reservationDetail.genderDescription,
                     remarks: reservationDetail.remarks,
@@ -141,7 +141,7 @@ export class PassengerListComponent {
                     reservationDetail.firstname = result.firstname
                     reservationDetail.nationalityId = result.nationalityId
                     reservationDetail.nationalityDescription = result.nationalityDescription
-                    reservationDetail.birthDate = result.birthDate
+                    reservationDetail.birthdate = result.birthdate
                     reservationDetail.genderId = result.genderId
                     reservationDetail.genderDescription = result.genderDescription
                     reservationDetail.specialCare = result.specialCare

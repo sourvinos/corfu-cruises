@@ -18,7 +18,7 @@ export class Passenger {
     }
     lastname: string
     firstname: string
-    birthDate: string
+    birthdate: string
     specialCare: string
     remarks: string
     isCheckedIn: boolean

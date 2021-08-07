@@ -29,16 +29,16 @@ export class ManifestListComponent {
 
     @ViewChild('table') table: Table | undefined
 
-    private localStorageSearchTerm = 'manifest-list-search-term'
     private ngUnsubscribe = new Subject<void>()
     private resolver = 'manifestList'
     private unlisten: Unlisten
     private windowTitle = 'Manifest'
     public feature = 'manifestList'
-    public filteredRecords: ManifestViewModel
     public records: ManifestViewModel
-    public searchTerm = ''
     public selectedShipRoute: any
+
+    public genders = []
+    public nationalities = []
 
     //#endregion
 
@@ -54,8 +54,9 @@ export class ManifestListComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.getFilterFromStorage()
         this.loadRecords()
+        this.getDistinctGenders()
+        this.getDistinctNationalities()
         this.addShortcuts()
     }
 
@@ -75,9 +76,8 @@ export class ManifestListComponent {
         })
     }
 
-    public onFilter($event: any, stringVal: any): void {
-        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
-        this.updateStorageWithFilter()
+    public onFormatDate(date: string): string {
+        return this.helperService.formatDateToLocale(date)
     }
 
     public onGetLabel(id: string): string {
@@ -113,15 +113,27 @@ export class ManifestListComponent {
         this.helperService.setFocus(element)
     }
 
-    private getFilterFromStorage(): void {
-        this.searchTerm = this.helperService.readItem(this.localStorageSearchTerm)
+    private getDistinctGenders(): void {
+        let array = []
+        array = [... new Set(this.records.passengers.map(x => x.genderDescription))]
+        array.forEach(element => {
+            this.genders.push({ label: element, value: element })
+        })
+    }
+
+    private getDistinctNationalities(): void {
+        let array = []
+        array = [... new Set(this.records.passengers.map(x => x.nationalityDescription))]
+        array.forEach(element => {
+            this.nationalities.push({ label: element, value: element })
+        })
     }
 
     private loadRecords(): void {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
-            this.filteredRecords = this.records
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -143,10 +155,6 @@ export class ManifestListComponent {
                 resolve(this.selectedShipRoute)
             })
         })
-    }
-
-    private updateStorageWithFilter(): void {
-        this.helperService.saveItem(this.localStorageSearchTerm, this.searchTerm)
     }
 
     //#endregion

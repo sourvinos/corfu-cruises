@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ShipCruises.Manifest {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class ManifestController : ControllerBase {

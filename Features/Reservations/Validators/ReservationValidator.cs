@@ -18,7 +18,7 @@ namespace ShipCruises {
             RuleForEach(x => x.Passengers).ChildRules(passenger => {
                 passenger.RuleFor(x => x.Lastname).NotEmpty();
                 passenger.RuleFor(x => x.Firstname).NotEmpty();
-                passenger.RuleFor(x => x.BirthDate).NotEmpty();
+                passenger.RuleFor(x => x.Birthdate).NotEmpty();
                 passenger.RuleFor(x => x.Remarks).MaximumLength(128);
                 passenger.RuleFor(x => x.SpecialCare).MaximumLength(128);
             });

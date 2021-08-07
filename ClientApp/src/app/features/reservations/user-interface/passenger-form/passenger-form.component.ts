@@ -174,7 +174,7 @@ export class PassengerFormComponent {
             nationalityId: [0, Validators.required], nationalityDescription: ['', Validators.required],
             lastname: ['', [Validators.required, Validators.maxLength(128)]],
             firstname: ['', [Validators.required, Validators.maxLength(128)]],
-            birthDate: ['', [Validators.required, Validators.maxLength(10)]],
+            birthdate: ['', [Validators.required, Validators.maxLength(10)]],
             genderId: [0, Validators.required], genderDescription: ['', Validators.required],
             specialCare: ['', Validators.maxLength(128)],
             remarks: ['', Validators.maxLength(128)],
@@ -217,7 +217,7 @@ export class PassengerFormComponent {
             genderDescription: result.genderDescription,
             lastname: result.lastname,
             firstname: result.firstname,
-            birthDate: result.birthDate,
+            birthdate: result.birthdate,
             specialCare: result.specialCare,
             remarks: result.remarks,
             isCheckedIn: result.isCheckedIn
@@ -298,8 +298,8 @@ export class PassengerFormComponent {
         return this.form.get('nationalityDescription')
     }
 
-    get birthDate(): AbstractControl {
-        return this.form.get('birthDate')
+    get birthdate(): AbstractControl {
+        return this.form.get('birthdate')
     }
 
     get genderId(): AbstractControl {

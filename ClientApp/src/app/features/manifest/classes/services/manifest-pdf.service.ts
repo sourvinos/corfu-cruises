@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { ShipRoute } from 'src/app/features/ships/routes/classes/shipRoute'
 import pdfMake from 'pdfmake/build/pdfmake'
 // Custom
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { ManifestPassenger } from '../view-models/manifest-passenger'
 import { ManifestViewModel } from './../view-models/manifest-view-model'
 
@@ -14,6 +15,8 @@ export class ManifestPdfService {
     private rowCount = 0
 
     //#endregion
+
+    constructor(private helperService: HelperService) { }
 
     //#region public methods
 
@@ -39,7 +42,10 @@ export class ManifestPdfService {
                         layout: 'noBorders'
                     },
                     [
-                        this.table(manifest, ['', 'lastname', 'firstname', 'birthDate', 'nationalityDescription', 'occupantDescription', 'genderDescription', 'specialCare', 'remarks'], ['right', 'left', 'left', 'left', 'left', 'left', 'left', 'left', 'left'])
+                        this.table(manifest,
+                            ['', '', '', 'date', '', '', '', '', ''],
+                            ['', 'lastname', 'firstname', 'birthdate', 'nationalityDescription', 'occupantDescription', 'genderDescription', 'specialCare', 'remarks'],
+                            ['right', 'left', 'left', 'left', 'left', 'left', 'left', 'left', 'left'])
                     ],
                     {
                         table: {
@@ -65,12 +71,12 @@ export class ManifestPdfService {
 
     //#region private methods
 
-    private buildTableBody(data: ManifestViewModel, columns: any[], align: any[]): void {
+    private buildTableBody(data: ManifestViewModel, columnTypes: any[], columns: any[], align: any[]): void {
         const body: any = []
         body.push(this.createTableHeaders())
         data.passengers.forEach((row) => {
             let dataRow = []
-            dataRow = this.processRow(columns, row, dataRow, align)
+            dataRow = this.processRow(columnTypes, columns, row, dataRow, align)
             body.push(dataRow)
         })
         return body
@@ -159,23 +165,32 @@ export class ManifestPdfService {
         pdfMake.createPdf(document).download('Manifest.pdf')
     }
 
-    private processRow(columns: any[], row: ManifestPassenger, dataRow: any[], align: any[]): any {
+    private formatField(type: any, field: string | number | Date): string {
+        switch (type) {
+            case 'date':
+                return this.helperService.formatDateToLocale(field)
+            default:
+                return field.toString()
+        }
+    }
+
+    private processRow(columnTypes: any[], columns: any[], row: ManifestPassenger, dataRow: any[], align: any[]): any {
         columns.forEach((element, index) => {
             if (index == 0) {
                 dataRow.push({ text: ++this.rowCount, alignment: 'right', color: '#000000', noWrap: false })
             } else {
-                dataRow.push({ text: row[element].toString(), alignment: align[index].toString(), color: '#000000', noWrap: false })
+                dataRow.push({ text: this.formatField(columnTypes[index], row[element]), alignment: align[index].toString(), color: '#000000', noWrap: false })
             }
         })
         return dataRow
     }
 
-    private table(data: ManifestViewModel, columns: any[], align: any[]): any {
+    private table(data: ManifestViewModel, columnTypes: any[], columns: any[], align: any[]): any {
         return {
             table: {
                 headerRows: 1,
                 dontBreakRows: true,
-                body: this.buildTableBody(data, columns, align),
+                body: this.buildTableBody(data, columnTypes, columns, align),
                 heights: 10,
                 bold: false,
                 style: 'table',

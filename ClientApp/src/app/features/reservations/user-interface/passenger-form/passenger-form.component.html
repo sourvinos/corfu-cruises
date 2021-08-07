@@ -30,10 +30,10 @@
                 <mat-error *ngIf="nationalityDescription.hasError('required')">{{ onGetHint('required') }}</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input type="text" matInput [placeholder]="onGetLabel('birthDate')" formControlName="birthDate" data-tabindex="4" id="birthDate" autocomplete="off" [inputTabStop]="input" [inputFormat]="'date'" [matDatepicker]="picker">
+                <input type="text" matInput [placeholder]="onGetLabel('birthdate')" formControlName="birthdate" data-tabindex="4" id="birthdate" autocomplete="off" [inputTabStop]="input" [inputFormat]="'date'" [matDatepicker]="picker">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="birthDate.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                <mat-error *ngIf="birthdate.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-hint>{{ onGetLabel('searchHint') }}</mat-hint>
             </mat-form-field>
             <mat-form-field>
