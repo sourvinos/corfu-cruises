@@ -13,8 +13,8 @@ namespace ShipCruises.Manifest {
         public string Agent { get; set; }
 
         public ShipOwnerResource ShipOwner { get; set; }
-
         public List<RegistrarResource> Registrars { get; set; }
+        public List<ManifestCrewResource> Crew { get; set; }
 
     }
 

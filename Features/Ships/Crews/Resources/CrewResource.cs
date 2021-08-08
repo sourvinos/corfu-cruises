@@ -1,4 +1,4 @@
-namespace ShipCruises {
+namespace ShipCruises.Ships {
 
     public class CrewResource {
 

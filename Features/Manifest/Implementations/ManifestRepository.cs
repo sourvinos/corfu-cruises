@@ -13,11 +13,14 @@ namespace ShipCruises.Manifest {
         }
 
         public ManifestResource Get(string date, int shipId, int portId) {
+            // public ManifestViewModel Get(string date, int shipId, int portId) {
             var manifest = new ManifestViewModel {
                 Date = date,
                 Ship = context.Ships
                     .Include(x => x.Registrars)
                     .Include(x => x.ShipOwner)
+                    .Include(x => x.Crew)
+                        .ThenInclude(x => x.Nationality)
                     .SingleOrDefault(x => x.Id == shipId),
                 Port = context.Ports.SingleOrDefault(x => x.Id == portId),
                 Passengers = context.Passengers
@@ -28,6 +31,7 @@ namespace ShipCruises.Manifest {
                     .ToList()
             };
             return mapper.Map<ManifestViewModel, ManifestResource>(manifest);
+            // return manifest;
         }
 
     }

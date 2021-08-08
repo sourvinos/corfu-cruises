@@ -8,7 +8,7 @@ namespace ShipCruises.Manifest {
         public Ship Ship { get; set; }
         public Port Port { get; set; }
 
-        public IEnumerable<Passenger> Passengers { get; set; }
+        public List<Passenger> Passengers { get; set; }
 
     }
 

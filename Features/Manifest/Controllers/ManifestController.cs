@@ -28,6 +28,9 @@ namespace ShipCruises.Manifest {
         public ManifestResource Get(string date, int shipId, int portId) {
             return this.repo.Get(date, shipId, portId);
         }
+        // public ManifestViewModel Get(string date, int shipId, int portId) {
+        //     return this.repo.Get(date, shipId, portId);
+        // }
 
     }
 

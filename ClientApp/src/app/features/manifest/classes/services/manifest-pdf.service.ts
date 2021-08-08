@@ -166,6 +166,7 @@ export class ManifestPdfService {
     }
 
     private formatField(type: any, field: string | number | Date): string {
+        console.log('Field', field)
         switch (type) {
             case 'date':
                 return this.helperService.formatDateToLocale(field)

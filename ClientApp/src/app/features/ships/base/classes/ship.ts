@@ -1,6 +1,7 @@
 import { KeyValuePair } from '../../../../shared/classes/keyValuePair'
 import { Registrar } from '../../registrars/classes/registrar'
 import { ShipOwner } from '../../owners/classes/base/ship-owner'
+import { Crew } from '../../crews/classes/crew'
 
 export class Ship extends KeyValuePair {
 
@@ -16,5 +17,6 @@ export class Ship extends KeyValuePair {
     shipOwner: ShipOwner
 
     registrars: Registrar[] = []
+    crew: Crew[] = []
 
 }

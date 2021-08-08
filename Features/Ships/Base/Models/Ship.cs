@@ -17,8 +17,8 @@ namespace ShipCruises {
         public string UserId { get; set; }
 
         public ShipOwner ShipOwner { get; set; }
-
         public List<Registrar> Registrars { get; set; }
+        public List<Crew> Crew { get; set; }
 
     }
 
