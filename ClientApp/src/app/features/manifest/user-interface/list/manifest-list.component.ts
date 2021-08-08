@@ -1,4 +1,4 @@
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { Subject } from 'rxjs'
@@ -42,19 +42,14 @@ export class ManifestListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private shipRouteService: ShipRouteService, private snackbarService: SnackbarService, private titleService: Title,) {
-        this.router.events.subscribe((navigation) => {
-            if (navigation instanceof NavigationEnd) {
-                this.loadRecords()
-            }
-        })
-    }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private shipRouteService: ShipRouteService, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
         this.loadRecords()
+        this.addCrewToPassengers()
         this.getDistinctGenders()
         this.getDistinctNationalities()
         this.addShortcuts()
@@ -92,6 +87,11 @@ export class ManifestListComponent {
 
     //#region private methods
 
+    private addCrewToPassengers(): void {
+        this.records.ship.crew.forEach(crew => {
+            this.records.passengers.push(crew)
+        })
+    }
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
             'Escape': () => {
