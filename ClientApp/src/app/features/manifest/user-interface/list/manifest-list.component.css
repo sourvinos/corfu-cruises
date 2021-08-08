@@ -1,3 +1,21 @@
-#navigation {
+#header #navigation {
+    align-items: center;
+    display: flex;
     margin-right: 1rem;
+}
+
+#header #manifestFilter {
+    margin-left: auto;
+}
+
+#header #manifestFilter .mat-radio-button {
+    margin-left: 1rem;
+}
+
+.fa-user {
+    color: var(--color-manifest-list-passenger-icon);
+}
+
+.fa-anchor {
+    color: var(--color-manifest-list-crew-icon);
 }

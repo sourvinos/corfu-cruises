@@ -1,6 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
-import { DateAdapter } from '@angular/material/core'
 import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
@@ -36,19 +35,22 @@ export class ManifestListComponent {
     public feature = 'manifestList'
     public records: ManifestViewModel
     public selectedShipRoute: any
+    public passengerCount = 0
+    public crewCount = 0
 
     public genders = []
     public nationalities = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private shipRouteService: ShipRouteService, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private shipRouteService: ShipRouteService, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
         this.loadRecords()
+        this.calculateTotals()
         this.addCrewToPassengers()
         this.getDistinctGenders()
         this.getDistinctNationalities()
@@ -92,6 +94,7 @@ export class ManifestListComponent {
             this.records.passengers.push(crew)
         })
     }
+
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
             'Escape': () => {
@@ -107,6 +110,11 @@ export class ManifestListComponent {
             priority: 0,
             inputs: true
         })
+    }
+
+    private calculateTotals(): void {
+        this.passengerCount = this.records.passengers.length
+        this.crewCount = this.records.ship.crew.length
     }
 
     private focus(element: string): void {
@@ -133,7 +141,6 @@ export class ManifestListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
-            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

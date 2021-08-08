@@ -26,14 +26,6 @@
     margin-left: 1rem;
 }
 
-#table-wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding-top: 0.5rem;
-    width: 100%;
-}
-
 #scanCloseButton {
     left: 89.3%;
     position: absolute;

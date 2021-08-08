@@ -30,6 +30,7 @@ namespace ShipCruises.Manifest {
                         Address = registrar.Address
                     }).ToList(),
                     Crew = source.Ship.Crew.Select(crew => new ManifestCrewResource {
+                        Id = crew.Id,
                         Lastname = crew.Lastname,
                         Firstname = crew.Firstname,
                         Birthdate = crew.Birthdate,

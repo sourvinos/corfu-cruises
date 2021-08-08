@@ -13,7 +13,6 @@ namespace ShipCruises.Manifest {
         }
 
         public ManifestResource Get(string date, int shipId, int portId) {
-            // public ManifestViewModel Get(string date, int shipId, int portId) {
             var manifest = new ManifestViewModel {
                 Date = date,
                 Ship = context.Ships
@@ -23,15 +22,13 @@ namespace ShipCruises.Manifest {
                         .ThenInclude(x => x.Nationality)
                     .SingleOrDefault(x => x.Id == shipId),
                 Port = context.Ports.SingleOrDefault(x => x.Id == portId),
-                Passengers = context.Passengers
-                    .Include(x => x.Nationality)
+                Passengers = context.Passengers.Include(x => x.Nationality)
                     .Include(x => x.Occupant)
                     .Include(x => x.Gender)
                     .Where(x => x.IsCheckedIn && x.Reservation.Date == date)
                     .ToList()
             };
             return mapper.Map<ManifestViewModel, ManifestResource>(manifest);
-            // return manifest;
         }
 
     }

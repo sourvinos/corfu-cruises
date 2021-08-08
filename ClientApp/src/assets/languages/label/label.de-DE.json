@@ -1655,6 +1655,18 @@
                 "description": "Geburtsdatum"
             },
             {
+                "id": "allRecordCount",
+                "description": "Alle"
+            },
+            {
+                "id": "passengerCount",
+                "description": "Passagiere"
+            },
+            {
+                "id": "crewCount",
+                "description": "Besatzungen"
+            },
+            {
                 "id": "exportToPdfButton",
                 "description": "ALS PDF EXPORTIEREN"
             }

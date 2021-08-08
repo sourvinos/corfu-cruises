@@ -7,19 +7,38 @@
         <div @slideFromLeft id="title">
             <h1>{{ onGetLabel('header') }}</h1>
         </div>
+        <div id="manifestFilter">
+            <mat-radio-group>
+                <mat-radio-button checked value="all">{{ onGetLabel('allRecordCount') }} ({{ passengerCount + crewCount }})</mat-radio-button>
+                <mat-radio-button value="passengerCount">{{ onGetLabel('passengerCount') }} ({{ passengerCount }})</mat-radio-button>
+                <mat-radio-button value="crewCount">{{ onGetLabel('crewCount') }} ({{ crewCount }})</mat-radio-button>
+            </mat-radio-group>
+        </div>
     </div>
 
     <div id="table-wrapper">
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records.passengers" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="manifest-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 30%; border-top-left-radius: 10px;" pSortableColumn="lastname">{{ onGetLabel('headerLastname') }}<p-sortIcon field="lastname"></p-sortIcon></th>
-                    <th style="width: 25%;" pSortableColumn="firstname">{{ onGetLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
-                    <th style="width: 15%;" pSortableColumn="nationalityDescription">{{ onGetLabel('headerNationality') }}<p-sortIcon field="nationalityDescription"></p-sortIcon></th>
-                    <th style="width: 15%;" pSortableColumn="genderDescription">{{ onGetLabel('headerGender') }}<p-sortIcon field="genderDescription"></p-sortIcon></th>
-                    <th style="width: 15%; border-top-right-radius: 10px;" pSortableColumn="birthdate">{{ onGetLabel('headerBirthdate') }}<p-sortIcon field="birthdate"></p-sortIcon></th>
+                    <th style="width: 10%;">*</th>
+                    <th style="width: 30%; border-top-left-radius: 10px;" pSortableColumn="lastname">{{ onGetLabel('headerLastname') }}
+                        <p-sortIcon field="lastname"></p-sortIcon>
+                    </th>
+                    <th style="width: 25%;" pSortableColumn="firstname">{{ onGetLabel('headerFirstname') }}
+                        <p-sortIcon field="firstname"></p-sortIcon>
+                    </th>
+                    <th style="width: 15%;" pSortableColumn="nationalityDescription">{{ onGetLabel('headerNationality') }}
+                        <p-sortIcon field="nationalityDescription"></p-sortIcon>
+                    </th>
+                    <th style="width: 15%;" pSortableColumn="genderDescription">{{ onGetLabel('headerGender') }}
+                        <p-sortIcon field="genderDescription"></p-sortIcon>
+                    </th>
+                    <th style="width: 15%; border-top-right-radius: 10px;" pSortableColumn="birthdate">{{ onGetLabel('headerBirthdate') }}
+                        <p-sortIcon field="birthdate"></p-sortIcon>
+                    </th>
                 </tr>
                 <tr>
+                    <th></th>
                     <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
                     <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
                     <th>
@@ -49,6 +68,10 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData">
+                    <td style="width: 10%; text-align: center;">
+                        <i class="far fa-user" *ngIf="rowData.occupantDescription=='PASSENGER'"></i>
+                        <i class="fas fa-anchor" *ngIf="rowData.occupantDescription!='PASSENGER'"></i>
+                    </td>
                     <td style="width: 30%;">{{ rowData.lastname }}</td>
                     <td style="width: 25%;">{{ rowData.firstname }}</td>
                     <td style="width: 15%;">{{ rowData.nationalityDescription }}</td>

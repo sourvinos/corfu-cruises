@@ -74,4 +74,7 @@
     --color-text-selected: #f2d49266;
     --color-tooltip-background: #426f8a;
     --color-tooltip: #efefef;
+    --color-manifest-list-passenger-icon: #ffe85c;
+    --color-manifest-list-crew-icon: #77779a;
+
 }
