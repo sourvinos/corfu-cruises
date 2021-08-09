@@ -33,7 +33,7 @@ export class ManifestPdfService {
                             body: [
                                 [this.createPageHeader(manifest), this.createTitle(manifest)],
                                 [this.createShipData(manifest), this.createManager(manifest)],
-                                [this.createShipRoute(shipRoute), ''],
+                                // [this.createShipRoute(shipRoute), ''],
                                 [this.createDataEntryPrimaryPerson(manifest), this.createDataEntrySecondaryPerson(manifest)]
                             ],
                             style: 'table',
@@ -171,16 +171,20 @@ export class ManifestPdfService {
             case 'date':
                 return this.helperService.formatDateToLocale(field)
             default:
-                return field.toString()
+                return field != undefined ? field.toString() : ''
         }
     }
 
     private processRow(columnTypes: any[], columns: any[], row: ManifestPassenger, dataRow: any[], align: any[]): any {
+        console.log('Row', row)
         columns.forEach((element, index) => {
-            if (index == 0) {
-                dataRow.push({ text: ++this.rowCount, alignment: 'right', color: '#000000', noWrap: false })
-            } else {
-                dataRow.push({ text: this.formatField(columnTypes[index], row[element]), alignment: align[index].toString(), color: '#000000', noWrap: false })
+            console.log('Element', element)
+            if (element != undefined) {
+                if (index == 0) {
+                    dataRow.push({ text: ++this.rowCount, alignment: 'right', color: '#000000', noWrap: false })
+                } else {
+                    dataRow.push({ text: this.formatField(columnTypes[index], row[element]), alignment: align[index].toString(), color: '#000000', noWrap: false })
+                }
             }
         })
         return dataRow

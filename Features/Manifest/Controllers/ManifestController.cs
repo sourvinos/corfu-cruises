@@ -24,13 +24,10 @@ namespace ShipCruises.Manifest {
             this.context = context;
         }
 
-        [HttpGet("date/{date}/shipId/{shipId}/portId/{portId}")]
-        public ManifestResource Get(string date, int shipId, int portId) {
-            return this.repo.Get(date, shipId, portId);
+        [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/vesselId/{vesselId}")]
+        public ManifestResource Get(string date, int destinationId, int portId, int vesselId) {
+            return this.repo.Get(date, destinationId, portId, vesselId);
         }
-        // public ManifestViewModel Get(string date, int shipId, int portId) {
-        //     return this.repo.Get(date, shipId, portId);
-        // }
 
     }
 

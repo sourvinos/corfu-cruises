@@ -16,32 +16,44 @@
                 <mat-error *ngIf="date.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-hint>{{ onGetLabel('searchDateHint') }}</mat-hint>
             </mat-form-field>
-            <!-- Vessel -->
-            <mat-form-field>
-                <mat-label>{{ onGetLabel("vessel") }}</mat-label>
-                <input matInput formControlName="vessel" [matAutocomplete]="vessels" data-tabindex="2" [inputTabStop]="input">
-                <mat-error *ngIf="vessel.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                <mat-error *ngIf="!vessel.hasError('required') && vessel.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
-            </mat-form-field>
-            <!-- Port -->
-            <mat-form-field>
-                <mat-label>{{ onGetLabel("port") }}</mat-label>
-                <input matInput formControlName="port" [matAutocomplete]="ports" data-tabindex="3" [inputTabStop]="input">
-                <mat-error *ngIf="port.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
-            </mat-form-field>
-            <!-- Route -->
-            <mat-form-field>
-                <mat-label>{{ onGetLabel("route") }}</mat-label>
-                <input matInput formControlName="route" [matAutocomplete]="routes" data-tabindex="4" [inputTabStop]="input">
-                <mat-error *ngIf="route.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                <mat-error *ngIf="!route.hasError('required') && route.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
-            </mat-form-field>
+            <div id="group-field">
+                <!-- Destination -->
+                <mat-form-field>
+                    <mat-label>{{ onGetLabel("destination") }}</mat-label>
+                    <input matInput formControlName="destination" [matAutocomplete]="destinations" data-tabindex="2" [inputTabStop]="input">
+                    <mat-error *ngIf="destination.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                    <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                    <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
+                </mat-form-field>
+                <!-- Port -->
+                <mat-form-field>
+                    <mat-label>{{ onGetLabel("port") }}</mat-label>
+                    <input matInput formControlName="port" [matAutocomplete]="ports" data-tabindex="3" [inputTabStop]="input">
+                    <mat-error *ngIf="port.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                    <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                    <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
+                </mat-form-field>
+            </div>
+            <div id="group-field">
+                <!-- Vessel -->
+                <mat-form-field>
+                    <mat-label>{{ onGetLabel("vessel") }}</mat-label>
+                    <input matInput formControlName="vessel" [matAutocomplete]="vessels" data-tabindex="4" [inputTabStop]="input">
+                    <mat-error *ngIf="vessel.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                    <mat-error *ngIf="!vessel.hasError('required') && vessel.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                    <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
+                </mat-form-field>
+                <!-- Route -->
+                <mat-form-field>
+                    <mat-label>{{ onGetLabel("route") }}</mat-label>
+                    <input matInput formControlName="route" [matAutocomplete]="routes" data-tabindex="5" [inputTabStop]="input">
+                    <mat-error *ngIf="route.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                    <mat-error *ngIf="!route.hasError('required') && route.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                    <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
+                </mat-form-field>
+            </div>
         </form>
-        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+        <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
     </div>
 
     <div id="footer">
@@ -52,8 +64,8 @@
 
 </div>
 
-<mat-autocomplete autoActiveFirstOption #vessels="matAutocomplete" [displayWith]="vesselFields">
-    <mat-option *ngFor="let option of filteredVessels | async" [value]="option">
+<mat-autocomplete autoActiveFirstOption #destinations="matAutocomplete" [displayWith]="destinationFields">
+    <mat-option *ngFor="let option of filteredDestinations | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
@@ -64,10 +76,14 @@
     </mat-option>
 </mat-autocomplete>
 
+<mat-autocomplete autoActiveFirstOption #vessels="matAutocomplete" [displayWith]="vesselFields">
+    <mat-option *ngFor="let option of filteredVessels | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
 <mat-autocomplete autoActiveFirstOption #routes="matAutocomplete" [displayWith]="routeFields">
     <mat-option *ngFor="let option of filteredRoutes | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
-
-

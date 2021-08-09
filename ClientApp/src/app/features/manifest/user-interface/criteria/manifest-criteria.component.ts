@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
@@ -5,9 +6,9 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import { map, startWith } from 'rxjs/operators'
-import moment from 'moment'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { Destination } from './../../../destinations/classes/destination'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -23,6 +24,7 @@ import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
 
 @Component({
     selector: 'manifest-criteria',
@@ -41,16 +43,35 @@ export class ManifestCriteriaComponent {
     public feature = 'manifestCriteria'
     public input: InputTabStopDirective
     public form: FormGroup
+    public destinations: Destination[] = []
     public ports: Port[] = []
-    public routes: ShipRoute[]
     public vessels: Ship[] = []
+    public routes: ShipRoute[]
+    public filteredDestinations: Observable<Destination[]>
     public filteredPorts: Observable<Port[]>
-    public filteredRoutes: Observable<ShipRoute[]>
     public filteredVessels: Observable<Ship[]>
+    public filteredRoutes: Observable<ShipRoute[]>
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private shipRouteService: ShipRouteService, private snackbarService: SnackbarService, private titleService: Title, private vesselService: ShipService) { }
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private buttonClickService: ButtonClickService,
+        private dateAdapter: DateAdapter<any>,
+        private destinationService: DestinationService,
+        private formBuilder: FormBuilder,
+        private helperService: HelperService,
+        private keyboardShortcutsService: KeyboardShortcuts,
+        private messageHintService: MessageHintService,
+        private messageLabelService: MessageLabelService,
+        private messageSnackbarService: MessageSnackbarService,
+        private portService: PortService,
+        private router: Router,
+        private shipRouteService: ShipRouteService,
+        private snackbarService: SnackbarService,
+        private titleService: Title,
+        private vesselService: ShipService,
+    ) { }
 
     //#region lifecycle hooks
 
@@ -59,8 +80,9 @@ export class ManifestCriteriaComponent {
         this.initForm()
         this.addShortcuts()
         this.getLocale()
-        this.populateDropDown(this.vesselService, 'vessels', 'filteredVessels', 'vessel', 'description')
+        this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
         this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
+        this.populateDropDown(this.vesselService, 'vessels', 'filteredVessels', 'vessel', 'description')
         this.populateDropDown(this.shipRouteService, 'shipRoutes', 'filteredRoutes', 'route', 'description')
         this.populateFields()
     }
@@ -75,7 +97,7 @@ export class ManifestCriteriaComponent {
 
     //#region public methods
 
-    public routeFields(subject: { description: any }): any {
+    public destinationFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
 
@@ -84,6 +106,10 @@ export class ManifestCriteriaComponent {
     }
 
     public vesselFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public routeFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
 
@@ -140,14 +166,20 @@ export class ManifestCriteriaComponent {
     private initForm(): void {
         this.form = this.formBuilder.group({
             date: ['', [Validators.required]],
-            vessel: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            vessel: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             route: ['', [Validators.required, ValidationService.RequireAutocomplete]],
         })
     }
 
     private navigateToList(): void {
-        this.router.navigate(['date', moment(this.form.value.date).toISOString().substr(0, 10), 'shipId', this.form.value.vessel.id, 'portId', this.form.value.port.id], { relativeTo: this.activatedRoute })
+        this.router.navigate([
+            'date', moment(this.form.value.date).toISOString().substr(0, 10),
+            'destinationId', 1,
+            'portId', this.form.value.port.id,
+            'vesselId', this.form.value.vessel.id
+        ], { relativeTo: this.activatedRoute })
     }
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
@@ -169,8 +201,9 @@ export class ManifestCriteriaComponent {
             const criteria = JSON.parse(this.helperService.readItem('manifestCriteria'))
             this.form.setValue({
                 date: moment(criteria.date).toISOString(),
-                vessel: criteria.vessel,
+                destination: criteria.destination,
                 port: criteria.port,
+                vessel: criteria.vessel,
                 route: criteria.route
             })
         }
@@ -200,12 +233,16 @@ export class ManifestCriteriaComponent {
         return this.form.get('date')
     }
 
-    get vessel(): AbstractControl {
-        return this.form.get('vessel')
+    get destination(): AbstractControl {
+        return this.form.get('destination')
     }
 
     get port(): AbstractControl {
         return this.form.get('port')
+    }
+
+    get vessel(): AbstractControl {
+        return this.form.get('vessel')
     }
 
     get route(): AbstractControl {

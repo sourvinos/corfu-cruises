@@ -9,33 +9,23 @@
         </div>
         <div id="manifestFilter">
             <mat-radio-group>
-                <mat-radio-button checked value="all">{{ onGetLabel('allRecordCount') }} ({{ passengerCount + crewCount }})</mat-radio-button>
-                <mat-radio-button value="passengerCount">{{ onGetLabel('passengerCount') }} ({{ passengerCount }})</mat-radio-button>
-                <mat-radio-button value="crewCount">{{ onGetLabel('crewCount') }} ({{ crewCount }})</mat-radio-button>
+                <mat-radio-button value="all" (click)="onFilterExclude()" checked>{{ onGetLabel('allRecordCount') }} ({{ passengerCount + crewCount }})</mat-radio-button>
+                <mat-radio-button value="passengerCount" (click)="onFilterExclude('Crew')">{{ onGetLabel('passengerCount') }} ({{ passengerCount }})</mat-radio-button>
+                <mat-radio-button value="crewCount" (click)="onFilterExclude('Passenger')">{{ onGetLabel('crewCount') }} ({{ crewCount }})</mat-radio-button>
             </mat-radio-group>
         </div>
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records.passengers" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="manifest-list" stateStorage="local">
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="filteredRecords.passengers" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="manifest-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 10%;">*</th>
-                    <th style="width: 30%; border-top-left-radius: 10px;" pSortableColumn="lastname">{{ onGetLabel('headerLastname') }}
-                        <p-sortIcon field="lastname"></p-sortIcon>
-                    </th>
-                    <th style="width: 25%;" pSortableColumn="firstname">{{ onGetLabel('headerFirstname') }}
-                        <p-sortIcon field="firstname"></p-sortIcon>
-                    </th>
-                    <th style="width: 15%;" pSortableColumn="nationalityDescription">{{ onGetLabel('headerNationality') }}
-                        <p-sortIcon field="nationalityDescription"></p-sortIcon>
-                    </th>
-                    <th style="width: 15%;" pSortableColumn="genderDescription">{{ onGetLabel('headerGender') }}
-                        <p-sortIcon field="genderDescription"></p-sortIcon>
-                    </th>
-                    <th style="width: 15%; border-top-right-radius: 10px;" pSortableColumn="birthdate">{{ onGetLabel('headerBirthdate') }}
-                        <p-sortIcon field="birthdate"></p-sortIcon>
-                    </th>
+                    <th style="width: 5%; border-top-left-radius: 10px;"></th>
+                    <th style="width: 30%">{{ onGetLabel('headerLastname') }}</th>
+                    <th style="width: 25%;">{{ onGetLabel('headerFirstname') }}</th>
+                    <th style="width: 15%;">{{ onGetLabel('headerNationality') }}</th>
+                    <th style="width: 15%;">{{ onGetLabel('headerGender') }}</th>
+                    <th style="width: 15%; border-top-right-radius: 10px;">{{ onGetLabel('headerBirthdate') }}</th>
                 </tr>
                 <tr>
                     <th></th>
@@ -68,9 +58,9 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData">
-                    <td style="width: 10%; text-align: center;">
-                        <i class="far fa-user" *ngIf="rowData.occupantDescription=='PASSENGER'"></i>
-                        <i class="fas fa-anchor" *ngIf="rowData.occupantDescription!='PASSENGER'"></i>
+                    <td style="width: 5%; text-align: center;">
+                        <i class="fas fa-user-alt" *ngIf="rowData.occupantDescription.toLowerCase()=='passenger'"></i>
+                        <i class="fas fa-anchor" *ngIf="rowData.occupantDescription.toLowerCase()!='passenger'"></i>
                     </td>
                     <td style="width: 30%;">{{ rowData.lastname }}</td>
                     <td style="width: 25%;">{{ rowData.firstname }}</td>

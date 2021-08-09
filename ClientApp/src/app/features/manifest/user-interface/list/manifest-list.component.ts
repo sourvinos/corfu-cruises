@@ -32,11 +32,12 @@ export class ManifestListComponent {
     private resolver = 'manifestList'
     private unlisten: Unlisten
     private windowTitle = 'Manifest'
+    public crewCount = 0
     public feature = 'manifestList'
+    public filteredRecords: ManifestViewModel
+    public passengerCount = 0
     public records: ManifestViewModel
     public selectedShipRoute: any
-    public passengerCount = 0
-    public crewCount = 0
 
     public genders = []
     public nationalities = []
@@ -73,6 +74,10 @@ export class ManifestListComponent {
         })
     }
 
+    public onFilterExclude(occupantDescription?: string): void {
+        this.filteredRecords.passengers = occupantDescription ? this.records.passengers.filter(x => x.occupantDescription != occupantDescription) : this.records.passengers
+    }
+
     public onFormatDate(date: string): string {
         return this.helperService.formatDateToLocale(date)
     }
@@ -100,9 +105,6 @@ export class ManifestListComponent {
             'Escape': () => {
                 this.goBack()
             },
-            'Alt.S': () => {
-                this.focus('searchTerm')
-            },
             'Alt.E': (event: KeyboardEvent) => {
                 this.buttonClickService.clickOnButton(event, 'exportToPDF')
             }
@@ -115,10 +117,6 @@ export class ManifestListComponent {
     private calculateTotals(): void {
         this.passengerCount = this.records.passengers.length
         this.crewCount = this.records.ship.crew.length
-    }
-
-    private focus(element: string): void {
-        this.helperService.setFocus(element)
     }
 
     private getDistinctGenders(): void {
@@ -138,9 +136,17 @@ export class ManifestListComponent {
     }
 
     private loadRecords(): void {
+        // this.manifestService.get('2021-05-01', 1, 2, 2).subscribe(result => {
+        //     console.log('Result', result)
+        //     this.records = result
+        //     this.filteredRecords = Object.assign([], this.records)
+        //     console.log('Records', this.filteredRecords)
+        // })
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
+            this.filteredRecords = Object.assign([], this.records)
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

@@ -12,20 +12,21 @@ namespace ShipCruises.Manifest {
             this.mapper = mapper;
         }
 
-        public ManifestResource Get(string date, int shipId, int portId) {
+        public ManifestResource Get(string date, int destinationId, int portId, int vesselId) {
             var manifest = new ManifestViewModel {
                 Date = date,
                 Ship = context.Ships
-                    .Include(x => x.Registrars)
+                    .Include(x => x.Registrars.Where(x => x.IsActive))
                     .Include(x => x.ShipOwner)
-                    .Include(x => x.Crew)
+                    .Include(x => x.Crew.Where(x => x.IsActive))
                         .ThenInclude(x => x.Nationality)
-                    .SingleOrDefault(x => x.Id == shipId),
+                    .SingleOrDefault(x => x.Id == vesselId),
                 Port = context.Ports.SingleOrDefault(x => x.Id == portId),
-                Passengers = context.Passengers.Include(x => x.Nationality)
+                Passengers = context.Passengers
+                    .Include(x => x.Nationality)
                     .Include(x => x.Occupant)
                     .Include(x => x.Gender)
-                    .Where(x => x.IsCheckedIn && x.Reservation.Date == date)
+                    .Where(x => x.Reservation.Date == date && x.Reservation.DestinationId == destinationId && x.Reservation.ShipId == vesselId && x.IsCheckedIn)
                     .ToList()
             };
             return mapper.Map<ManifestViewModel, ManifestResource>(manifest);

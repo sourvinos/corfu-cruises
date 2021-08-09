@@ -32,6 +32,8 @@
     --color-icon-remarks-warning: #fcff29;
     --color-logo-image: #efe7ce;
     --color-logo-text: #cce3ff;
+    --color-manifest-list-crew-icon: #ffe85c;
+    --color-manifest-list-passenger-icon: #6ba2ad;
     --color-map-buttons-background: #426176;
     --color-map-buttons: #ebe5cd;
     --color-map-tooltip-background: #93bcc4;
@@ -63,10 +65,10 @@
     --color-table-column-seperator: #4c565a;
     --color-table-expand-row: #a6d5fa;
     --color-table-filter-border: #8d8d8d;
-    --color-table-row-group: #c0f3c4;
     --color-table-header: #657171;
     --color-table-invoice-customerdescription: #fe9f36;
     --color-table-row-focus-outline: #ffe85c;
+    --color-table-row-group: #c0f3c4;
     --color-table-row-highlight: #7c8084;
     --color-table-sort-icon: #efe7ce;
     --color-text-primary: #efefef;
@@ -74,6 +76,4 @@
     --color-text-selected: #f2d49266;
     --color-tooltip-background: #fe9f36;
     --color-tooltip: #525d61;
-    --color-manifest-list-passenger-icon: #ffe85c;
-    --color-manifest-list-crew-icon: #c0f3c4;
 }

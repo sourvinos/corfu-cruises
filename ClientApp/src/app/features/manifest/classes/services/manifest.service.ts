@@ -12,8 +12,8 @@ export class ManifestService extends DataService {
         super(http, '/api/manifest')
     }
 
-    get(date: string, shipId: number, portId: number): Observable<any> {
-        return this.http.get<any>(this.url + '/date/' + date + '/shipId/' + shipId + '/portId/' + portId)
+    get(date: string, destinationId: number, portId: number, vesselId: number): Observable<any> {
+        return this.http.get<any>(this.url + '/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId + '/vesselId/' + vesselId)
     }
 
 }

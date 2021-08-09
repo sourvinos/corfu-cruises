@@ -27,7 +27,10 @@ namespace ShipCruises.Manifest {
                         Fullname = registrar.Fullname,
                         Phones = registrar.Phones,
                         Email = registrar.Email,
-                        Address = registrar.Address
+                        Fax = registrar.Fax,
+                        Address = registrar.Address,
+                        IsPrimary = registrar.IsPrimary,
+                        IsActive = registrar.IsActive
                     }).ToList(),
                     Crew = source.Ship.Crew.Select(crew => new ManifestCrewResource {
                         Id = crew.Id,
@@ -35,7 +38,9 @@ namespace ShipCruises.Manifest {
                         Firstname = crew.Firstname,
                         Birthdate = crew.Birthdate,
                         GenderDescription = crew.Gender.Description,
-                        NationalityDescription = crew.Nationality.Description
+                        NationalityDescription = crew.Nationality.Description,
+                        IsActive = crew.IsActive,
+                        OccupantDescription = "Crew",
                     }).ToList(),
                 }))
                 .ForMember(x => x.Passengers, x => x.MapFrom(x => x.Passengers.Select(passenger => new PassengerResource {
@@ -43,13 +48,14 @@ namespace ShipCruises.Manifest {
                     ReservationId = passenger.ReservationId,
                     Lastname = passenger.Lastname,
                     Firstname = passenger.Firstname,
+                    Birthdate = passenger.Birthdate,
                     Remarks = passenger.Remarks,
                     SpecialCare = passenger.SpecialCare,
                     IsCheckedIn = passenger.IsCheckedIn,
                     NationalityCode = passenger.Nationality.Code,
                     NationalityDescription = passenger.Nationality.Description,
                     GenderDescription = passenger.Gender.Description,
-                    OccupantDescription = passenger.Occupant.Description
+                    OccupantDescription = "Passenger"
                 })));
         }
 

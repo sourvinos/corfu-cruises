@@ -19,7 +19,8 @@ export class Crew extends KeyValuePair {
     }
     isActive: boolean
 
-    genderDescription:string
-    nationalityDescription:string
+    genderDescription: string
+    nationalityDescription: string
+    occupantDescription: string
 
 }

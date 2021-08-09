@@ -1591,7 +1591,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Passagiermanifest"
+                "description": "Schiffsmanifest"
             },
             {
                 "id": "date",
@@ -1632,11 +1632,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Passagiermanifest"
+                "description": "Schiffsmanifest"
             },
             {
                 "id": "headerLastname",
-                "description": "Nachname"
+                "description": "Name"
             },
             {
                 "id": "headerFirstname",
