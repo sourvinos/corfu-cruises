@@ -1,4 +1,3 @@
-import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
@@ -6,9 +5,11 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import { map, startWith } from 'rxjs/operators'
+import moment from 'moment'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { Destination } from './../../../destinations/classes/destination'
+import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -24,7 +25,6 @@ import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
 
 @Component({
     selector: 'manifest-criteria',
@@ -54,24 +54,7 @@ export class ManifestCriteriaComponent {
 
     //#endregion
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private buttonClickService: ButtonClickService,
-        private dateAdapter: DateAdapter<any>,
-        private destinationService: DestinationService,
-        private formBuilder: FormBuilder,
-        private helperService: HelperService,
-        private keyboardShortcutsService: KeyboardShortcuts,
-        private messageHintService: MessageHintService,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageSnackbarService,
-        private portService: PortService,
-        private router: Router,
-        private shipRouteService: ShipRouteService,
-        private snackbarService: SnackbarService,
-        private titleService: Title,
-        private vesselService: ShipService,
-    ) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private shipRouteService: ShipRouteService, private snackbarService: SnackbarService, private titleService: Title, private vesselService: ShipService,) { }
 
     //#region lifecycle hooks
 
@@ -197,8 +180,8 @@ export class ManifestCriteriaComponent {
     }
 
     private populateFields(): void {
-        if (this.helperService.readItem('manifestCriteria')) {
-            const criteria = JSON.parse(this.helperService.readItem('manifestCriteria'))
+        if (this.helperService.readItem('manifest-criteria')) {
+            const criteria = JSON.parse(this.helperService.readItem('manifest-criteria'))
             this.form.setValue({
                 date: moment(criteria.date).toISOString(),
                 destination: criteria.destination,
@@ -222,7 +205,7 @@ export class ManifestCriteriaComponent {
     }
 
     private storeCriteria(): void {
-        this.helperService.saveItem('manifestCriteria', JSON.stringify(this.form.value))
+        this.helperService.saveItem('manifest-criteria', JSON.stringify(this.form.value))
     }
 
     //#endregion

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core'
-import { ShipRoute } from 'src/app/features/ships/routes/classes/shipRoute'
 import pdfMake from 'pdfmake/build/pdfmake'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -13,6 +12,8 @@ export class ManifestPdfService {
     //#region variables
 
     private rowCount = 0
+    private date: string
+    private shipRoute: any
 
     //#endregion
 
@@ -20,7 +21,9 @@ export class ManifestPdfService {
 
     //#region public methods
 
-    public createReport(shipRoute: ShipRoute, manifest: ManifestViewModel): void {
+    public createReport(manifest: ManifestViewModel): void {
+        this.date = JSON.parse(localStorage.getItem('manifest-criteria')).date
+        this.shipRoute = JSON.parse(localStorage.getItem('manifest-criteria')).route
         const dd = {
             pageMargins: 50,
             pageOrientation: 'portrait',
@@ -33,7 +36,7 @@ export class ManifestPdfService {
                             body: [
                                 [this.createPageHeader(manifest), this.createTitle(manifest)],
                                 [this.createShipData(manifest), this.createManager(manifest)],
-                                // [this.createShipRoute(shipRoute), ''],
+                                [this.createShipRoute(), ''],
                                 [this.createDataEntryPrimaryPerson(manifest), this.createDataEntrySecondaryPerson(manifest)]
                             ],
                             style: 'table',
@@ -131,11 +134,11 @@ export class ManifestPdfService {
             'ΠΟΥ ΕΧΕΙ ΟΡΙΣΤΕΙ ΑΠΟ ΤΗΝ ΕΤΑΙΡΙΑ ΓΙΑ ΤΗ ΔΙΑΒΙΒΑΣΗ ΤΟΥΣ ΣΤΗΝ ΑΡΧΗ'
     }
 
-    private createShipRoute(shipRoute: ShipRoute): string {
+    private createShipRoute(): string {
         return '' +
-            'ΛΙΜΕΝΑΣ ΑΠΟΠΛΟΥ ' + shipRoute.fromPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + '---' + ' ΩΡΑ ' + shipRoute.fromTime + '\n' +
-            'ΕΝΔΙΑΜΕΣΟΙ ΛΙΜΕΝΕΣ ΠΡΟΣΕΓΓΙΣΗΣ ' + shipRoute.viaPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + '---' + ' ΩΡΑ ' + shipRoute.viaTime + '\n' +
-            'ΛΙΜΕΝΑΣ ΚΑΤΑΠΛΟΥ ' + shipRoute.toPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + '---' + ' ΩΡΑ ' + shipRoute.toTime
+            'ΛΙΜΕΝΑΣ ΑΠΟΠΛΟΥ ' + this.shipRoute.fromPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.helperService.formatDateToLocale(this.date) + ' ΩΡΑ ' + this.shipRoute.fromTime + '\n' +
+            'ΕΝΔΙΑΜΕΣΟΙ ΛΙΜΕΝΕΣ ΠΡΟΣΕΓΓΙΣΗΣ ' + this.shipRoute.viaPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.helperService.formatDateToLocale(this.date) + ' ΩΡΑ ' + this.shipRoute.viaTime + '\n' +
+            'ΛΙΜΕΝΑΣ ΚΑΤΑΠΛΟΥ ' + this.shipRoute.toPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.helperService.formatDateToLocale(this.date) + ' ΩΡΑ ' + this.shipRoute.toTime
     }
 
     private createTableHeaders(): any[] {
@@ -166,7 +169,6 @@ export class ManifestPdfService {
     }
 
     private formatField(type: any, field: string | number | Date): string {
-        console.log('Field', field)
         switch (type) {
             case 'date':
                 return this.helperService.formatDateToLocale(field)
@@ -176,9 +178,7 @@ export class ManifestPdfService {
     }
 
     private processRow(columnTypes: any[], columns: any[], row: ManifestPassenger, dataRow: any[], align: any[]): any {
-        console.log('Row', row)
         columns.forEach((element, index) => {
-            console.log('Element', element)
             if (element != undefined) {
                 if (index == 0) {
                     dataRow.push({ text: ++this.rowCount, alignment: 'right', color: '#000000', noWrap: false })

@@ -69,9 +69,7 @@ export class ManifestListComponent {
     //#region public methods
 
     public onCreatePdf(): void {
-        this.updateShipRoute().then(() => {
-            this.pdfService.createReport(this.selectedShipRoute, this.records)
-        })
+        this.pdfService.createReport(this.records)
     }
 
     public onFilterExclude(occupantDescription?: string): void {
@@ -84,10 +82,6 @@ export class ManifestListComponent {
 
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
-    }
-
-    public goBack(): void {
-        this.router.navigate(['/manifest'])
     }
 
     //#endregion
@@ -135,6 +129,10 @@ export class ManifestListComponent {
         })
     }
 
+    private goBack(): void {
+        this.router.navigate(['/manifest'])
+    }
+
     private loadRecords(): void {
         // this.manifestService.get('2021-05-01', 1, 2, 2).subscribe(result => {
         //     console.log('Result', result)
@@ -146,7 +144,6 @@ export class ManifestListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
-            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
