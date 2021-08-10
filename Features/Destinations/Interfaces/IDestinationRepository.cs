@@ -5,8 +5,8 @@ namespace ShipCruises {
 
     public interface IDestinationRepository : IRepository<Destination> {
 
-        Task<IEnumerable<Destination>> Get();
+        Task<IEnumerable<DestinationDropdownResource>> GetActiveForDropdown();
 
     }
-    
+
 }

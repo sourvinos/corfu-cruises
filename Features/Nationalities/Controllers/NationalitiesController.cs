@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ShipCruises {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class NationalitiesController : ControllerBase {
@@ -27,8 +27,8 @@ namespace ShipCruises {
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<Nationality>> GetActive() {
-            return await repo.GetActive(x => x.IsActive);
+        public async Task<IEnumerable<NationalityDropdownResource>> GetActiveForDropdown() {
+            return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]

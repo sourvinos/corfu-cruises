@@ -11,7 +11,17 @@
 
 .mat-option-text {
     color: var(--color-autocomplete) !important;
+    display: flex !important;
     font-size: var(--font-size-autocomplete) !important;
+    justify-content: space-between;
+}
+
+.mat-option-text>span:not(:last-child) {
+    width: 10rem !important;
+}
+
+.mat-option-text>span:last-child {
+    width: 3rem !important;
 }
 
 .mat-option.mat-active {

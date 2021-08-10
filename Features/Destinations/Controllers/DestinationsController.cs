@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ShipCruises {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class DestinationsController : ControllerBase {
@@ -16,19 +16,19 @@ namespace ShipCruises {
         private readonly IDestinationRepository repo;
         private readonly ILogger<DestinationsController> logger;
 
-        public DestinationsController( IDestinationRepository repo,  ILogger<DestinationsController> logger) {
+        public DestinationsController(IDestinationRepository repo, ILogger<DestinationsController> logger) {
             this.repo = repo;
             this.logger = logger;
         }
 
         [HttpGet]
         public async Task<IEnumerable<Destination>> Get() {
-            return await repo.Get();
+            return await repo.Get(x => x.Id != 0);
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<Destination>> GetActive() {
-            return await repo.GetActive(x => x.IsActive);
+        public async Task<IEnumerable<DestinationDropdownResource>> GetActiveForDropdown() {
+            return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]

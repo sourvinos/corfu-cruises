@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ShipCruises {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class DriversController : ControllerBase {
@@ -27,8 +27,8 @@ namespace ShipCruises {
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<Driver>> GetActive() {
-            return await repo.GetActive(x => x.IsActive);
+        public async Task<IEnumerable<DriverDropdownResource>> GetActiveForDropdown() {
+            return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
@@ -44,7 +44,7 @@ namespace ShipCruises {
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]        
+        [Authorize(Roles = "Admin")]
         public IActionResult PostDriver([FromBody] Driver record) {
             if (ModelState.IsValid) {
                 try {

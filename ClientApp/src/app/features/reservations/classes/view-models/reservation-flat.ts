@@ -17,7 +17,7 @@ export class ReservationFlat {
     port: string
     driver: string
     ship: string
-    dateIn: string
+    date: string
     remarks: string
 
 }

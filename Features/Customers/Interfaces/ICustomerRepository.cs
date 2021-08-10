@@ -5,7 +5,7 @@ namespace ShipCruises {
 
     public interface ICustomerRepository : IRepository<Customer> {
 
-        Task<List<CustomerResource>> GetFieldSubset();
+        Task<IEnumerable<CustomerDropdownResource>> GetActiveForDropdown();
 
     }
 

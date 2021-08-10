@@ -50,7 +50,7 @@ export class ReservationListComponent {
 
     //#region particular variables
 
-    private dateIn: string
+    private date: string
     private mustRefreshReservationList = true
     private queryResultClone = new ReservationViewModel()
     public activePanel: string
@@ -90,9 +90,9 @@ export class ReservationListComponent {
     //#endregion
 
     constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private reservationService: ReservationService, private buttonClickService: ButtonClickService, private driverService: DriverService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: DriverPdfService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
-        this.activatedRoute.params.subscribe((params: Params) => this.dateIn = params['dateIn'])
+        this.activatedRoute.params.subscribe((params: Params) => this.date = params['date'])
         this.router.events.subscribe((navigation) => {
-            if (navigation instanceof NavigationEnd && this.dateIn !== '' && this.router.url.split('/').length === 4) {
+            if (navigation instanceof NavigationEnd && this.date !== '' && this.router.url.split('/').length === 4) {
                 this.mustRefreshReservationList = true
                 this.loadRecords()
                 this.onFocusSummaryPanel()
@@ -188,7 +188,7 @@ export class ReservationListComponent {
     }
 
     public onCreatePdf(): void {
-        this.pdfService.createReport(this.reservationsFlat, this.getDriversFromLocalStorage(), this.dateIn)
+        this.pdfService.createReport(this.reservationsFlat, this.getDriversFromLocalStorage(), this.date)
     }
 
     public onFocusListPanel(): void {
@@ -219,7 +219,7 @@ export class ReservationListComponent {
     }
 
     public onNew(): void {
-        this.scheduleService.getForDate(this.dateIn).then(result => {
+        this.scheduleService.getForDate(this.date).then(result => {
             if (result) {
                 document.getElementById('listTab').click()
                 this.router.navigate([this.location.path() + '/reservation/new'])
@@ -339,7 +339,7 @@ export class ReservationListComponent {
             date: p,
             remarks: q
         } of this.queryResultClone.reservations) {
-            this.reservationsFlat.push({ id: a, destination: b, destinationAbbreviation: c, customer: d, ticketNo: e, adults: f, kids: g, free: h, totalPersons: i, pickupPoint: j, time: k, route: l, port: m, driver: n, ship: o, dateIn: p, remarks: q })
+            this.reservationsFlat.push({ id: a, destination: b, destinationAbbreviation: c, customer: d, ticketNo: e, adults: f, kids: g, free: h, totalPersons: i, pickupPoint: j, time: k, route: l, port: m, driver: n, ship: o, date: p, remarks: q })
         }
     }
 
@@ -441,7 +441,7 @@ export class ReservationListComponent {
             this.editRecord(response['id'])
         })
         this.interactionService.refreshReservationList.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
-            this.reservationService.get(this.dateIn).subscribe(result => {
+            this.reservationService.get(this.date).subscribe(result => {
                 this.queryResult = result
                 this.ngAfterViewInit()
             })

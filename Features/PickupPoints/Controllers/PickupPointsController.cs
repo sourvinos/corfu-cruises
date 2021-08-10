@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ShipCruises.PickupPoints {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class PickupPointsController : ControllerBase {
@@ -30,8 +30,8 @@ namespace ShipCruises.PickupPoints {
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<PickupPoint>> GetActive() {
-            return await repo.GetActive();
+        public async Task<IEnumerable<PickupPointDropdownResource>> GetActiveForDropdown() {
+            return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("routeId/{routeId}")]

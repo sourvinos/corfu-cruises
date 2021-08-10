@@ -25,8 +25,17 @@ namespace ShipCruises.PickupPoints {
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointReadResource>>(pickupPoints);
         }
 
-        public async Task<IEnumerable<PickupPoint>> GetActive() =>
-            await context.PickupPoints.Include(x => x.Route).ThenInclude(y => y.Port).Where(a => a.IsActive).OrderBy(o => o.Time).ThenBy(o => o.Description).AsNoTracking().ToListAsync();
+        public async Task<IEnumerable<PickupPointDropdownResource>> GetActiveForDropdown() {
+            var pickupPoints = await context.PickupPoints
+                .Include(x => x.Route)
+                    .ThenInclude(y => y.Port)
+                .Where(x => x.IsActive)
+                .OrderBy(x => x.Time)
+                    .ThenBy(x => x.Description)
+                .AsNoTracking()
+                .ToListAsync();
+            return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointDropdownResource>>(pickupPoints);
+        }
 
         public async Task<IEnumerable<PickupPoint>> GetForRoute(int routeId) =>
             await context.PickupPoints.Include(x => x.Route).ThenInclude(y => y.Port).Where(m => m.RouteId == routeId).OrderBy(o => o.Time).ThenBy(o => o.Description).AsNoTracking().ToListAsync();

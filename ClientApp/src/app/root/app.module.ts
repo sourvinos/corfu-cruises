@@ -18,7 +18,6 @@ import { GenderModule } from '../features/genders/classes/gender.module'
 import { InvoicingModule } from '../features/invoicing/classes/modules/invoicing.module'
 import { LoginModule } from '../features/login/classes/login.module'
 import { ManifestModule } from '../features/manifest/classes/modules/manifest.module'
-import { NationalityModule } from '../features/nationalities/classes/nationality.module'
 import { PickupPointModule } from '../features/pickupPoints/classes/pickupPoint.module'
 import { PortModule } from '../features/ports/classes/port.module'
 import { PrimeNgModule } from '../shared/modules/primeng.module'
@@ -78,7 +77,6 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         InvoicingModule,
         LoginModule,
         ManifestModule,
-        NationalityModule,
         PickupPointModule,
         PortModule,
         PrimeNgModule,

@@ -26,20 +26,29 @@
         <mat-tab label="{{ onGetLabel('tabGeneral') }}">
             <ng-template matTabContent>
                 <form id="form" [formGroup]="form" autocomplete="off">
-                    <mat-form-field>
-                        <input type="text" matInput [placeholder]="onGetLabel('destination')" formControlName="destinationDescription" data-tabindex="1" id="destinationDescription" [inputTabStop]="input" (change)="onLookupIndex(destinations, 'destinations', ['destinationId', 'destinationDescription', ''], ['destinationId', 'destinationDescription', ''], ['destinationId', 'destinationDescription', ''], ['1px', '440px', '56px'], ['none'], ['center', 'left', 'center'], ['', '', ''], $event)">
-                        <mat-error *ngIf="destinationDescription.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                    </mat-form-field>
                     <div id="group-field">
                         <mat-form-field>
-                            <input type="text" matInput [placeholder]="onGetLabel('customer')" formControlName="customerDescription" data-tabindex="2" id="customerDescription" [inputTabStop]="input" (change)="onLookupIndex(customers, 'customers', ['customerId', 'customerDescription', ''], ['customerId', 'customerDescription', ''], ['customerId', 'customerDescription', ''], ['1px', '440px', '56px'], ['none'], ['center', 'left', 'center'], ['', '', ''], $event)">
-                            <mat-error *ngIf="customerDescription.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                            <mat-label>{{ onGetLabel("destination") }}</mat-label>
+                            <input matInput formControlName="destination" [matAutocomplete]="destinations" data-tabindex="1" [inputTabStop]="input">
+                            <mat-error *ngIf="destination.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                            <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                            <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
                         </mat-form-field>
                         <mat-form-field>
-                            <input type="text" matInput [placeholder]="onGetLabel('pickupPoint')" formControlName="pickupPointDescription" data-tabindex="3" id="pickupPointDescription" [inputTabStop]="input" (change)="onLookupIndex(pickupPointsFlat, 'pickupPoints', ['pickuPointId', 'pickupPointDescription', ''], ['pickuPointId', 'pickupPointDescription', 'exactPoint', 'time', ''], ['pickuPointId', 'pickupPointDescription', 'exactPoint', 'time', ''], ['1px', '440px', '440px', '100px', '56px'], ['none'], ['center', 'left', 'left', 'center', 'center'], ['', '', '', '', ''], $event)">
-                            <mat-error *ngIf="pickupPointDescription.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                            <mat-label>{{ onGetLabel("customer") }}</mat-label>
+                            <input matInput formControlName="customer" [matAutocomplete]="customers" data-tabindex="2" [inputTabStop]="input">
+                            <mat-error *ngIf="customer.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                            <mat-error *ngIf="!customer.hasError('required') && customer.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                            <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
                         </mat-form-field>
                     </div>
+                    <mat-form-field>
+                        <mat-label>{{ onGetLabel("pickupPoint") }}</mat-label>
+                        <input matInput formControlName="pickupPoint" [matAutocomplete]="pickupPoints" data-tabindex="3" [inputTabStop]="input">
+                        <mat-error *ngIf="pickupPoint.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                        <mat-error *ngIf="!pickupPoint.hasError('required') && pickupPoint.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                        <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
+                    </mat-form-field>
                     <div id="group-field">
                         <mat-form-field>
                             <input type="text" matInput [placeholder]="onGetLabel('ticketNo')" formControlName="ticketNo" data-tabindex="4" id="ticketNo" [inputTabStop]="input" (keyup)="onDoBarcodeJobs()">
@@ -81,6 +90,7 @@
                         </mat-form-field>
                     </div>
                 </form>
+                <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
             </ng-template>
         </mat-tab>
         <mat-tab label="{{ onGetLabel('tabPassengers') }}">
@@ -115,3 +125,23 @@
     </div>
 
 </div>
+
+<mat-autocomplete autoActiveFirstOption #destinations="matAutocomplete" [displayWith]="onDestinationFields">
+    <mat-option *ngFor="let option of filteredDestinations | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete autoActiveFirstOption #customers="matAutocomplete" [displayWith]="onCustomerFields">
+    <mat-option *ngFor="let option of filteredCustomers | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete autoActiveFirstOption #pickupPoints="matAutocomplete" [displayWith]="onPickupPointFields">
+    <mat-option *ngFor="let option of filteredPickupPoints | async" [value]="option">
+        <span>{{ option.description }}</span>
+        <span>{{ option.exactPoint }}</span>
+        <span>{{ option.time }}</span>
+    </mat-option>
+</mat-autocomplete>

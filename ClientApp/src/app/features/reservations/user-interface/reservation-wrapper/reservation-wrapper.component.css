@@ -1,11 +1,15 @@
-#header #search-box #form {
-    align-items: center;
-    display: flex;
-    gap: 1rem;
+#header #search-box {
+    margin-left: auto;
 }
 
 #header #search-box .mat-form-field {
     width: 12rem !important;
+}
+
+#header #search-box #form {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
 }
 
 #content {

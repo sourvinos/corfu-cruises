@@ -13,7 +13,7 @@ const routes: Routes = [
     {
         path: '', component: ReservationWrapperComponent, canActivate: [AuthGuardService], children: [
             {
-                path: 'date/:dateIn', component: ReservationListComponent, canActivate: [AuthGuardService], resolve: { reservationList: ReservationListResolver }, children: [
+                path: 'date/:date', component: ReservationListComponent, canActivate: [AuthGuardService], resolve: { reservationList: ReservationListResolver }, children: [
                     { path: 'reservation/new', component: ReservationFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard] },
                     { path: 'reservation/:id', component: ReservationFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard], resolve: { reservationForm: ReservationFormResolver } }
                 ], runGuardsAndResolvers: 'always'

@@ -20,8 +20,8 @@ namespace ShipCruises {
 
         public List<PassengerReadResource> Passengers { get; set; }
 
-        public CustomerResource Customer { get; set; }
-        public DestinationResource Destination { get; set; }
+        public CustomerDropdownResource Customer { get; set; }
+        public DestinationDropdownResource Destination { get; set; }
         public PickupPointResource PickupPoint { get; set; }
         public DriverResource Driver { get; set; }
         public ShipReadResource Ship { get; set; }

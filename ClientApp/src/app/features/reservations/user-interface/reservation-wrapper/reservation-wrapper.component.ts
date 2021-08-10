@@ -35,10 +35,8 @@ export class ReservationWrapperComponent {
 
     //#region particular variables
 
-    private dateInISO = ''
     private mustRefreshReservationList = true
     public reservationsFlat: ReservationFlat[] = []
-    public dateIn = ''
     public form: FormGroup
     public records: string[] = []
     public environment = environment.production
@@ -54,17 +52,12 @@ export class ReservationWrapperComponent {
         this.initForm()
         this.addShortcuts()
         this.getLocale()
-    }
-
-    ngAfterViewInit(): void {
-        this.getStoredDate()
-        this.focus('dateIn')
+        this.populateFields()
     }
 
     ngDoCheck(): void {
         if (this.mustRefreshReservationList) {
             this.mustRefreshReservationList = false
-            this.ngAfterViewInit()
         }
     }
 
@@ -79,6 +72,12 @@ export class ReservationWrapperComponent {
 
     //#region public methods
 
+    public onDoJobs(): void {
+        this.clearSelectedArraysFromLocalStorage()
+        this.storeCriteria()
+        this.navigateToList()
+    }
+
     public onGetHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
     }
@@ -89,14 +88,6 @@ export class ReservationWrapperComponent {
 
     public onGoBack(): void {
         this.router.navigate(['/'])
-    }
-
-    public onLoadReservations(): void {
-        this.clearSelectedArraysFromLocalStorage()
-        if (this.checkValidDate()) {
-            this.saveDateToStorage()
-            this.navigateToList()
-        }
     }
 
     //#endregion
@@ -119,30 +110,8 @@ export class ReservationWrapperComponent {
         })
     }
 
-    private checkValidDate(): boolean {
-        const date = (<HTMLInputElement>document.getElementById('dateIn')).value
-        if (moment(moment(date, 'DD/MM/YYYY')).isValid()) {
-            this.dateInISO = moment(date, 'DD/MM/YYYY').toISOString(true)
-            this.dateInISO = moment(this.dateInISO).format('YYYY-MM-DD')
-            return true
-        } else {
-            this.dateInISO = ''
-            return false
-        }
-    }
-
     private clearSelectedArraysFromLocalStorage(): void {
         localStorage.removeItem('reservations')
-    }
-
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
-    }
-
-    private getStoredDate(): void {
-        this.form.setValue({
-            dateIn: this.helperService.readItem('date')
-        })
     }
 
     private getLocale(): void {
@@ -151,12 +120,21 @@ export class ReservationWrapperComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            dateIn: ['', [Validators.required]]
+            date: ['', [Validators.required]]
         })
     }
 
     private navigateToList(): void {
-        this.router.navigate(['date/', this.dateInISO], { relativeTo: this.activatedRoute })
+        this.router.navigate(['date/', moment(this.form.value.date).toISOString().substr(0, 10)], { relativeTo: this.activatedRoute })
+    }
+
+    private populateFields(): void {
+        if (this.helperService.readItem('dashboard')) {
+            const criteria = JSON.parse(this.helperService.readItem('dashboard'))
+            this.form.setValue({
+                date: moment(criteria.date).toISOString()
+            })
+        }
     }
 
     private removeSelectedIdsFromLocalStorage(): void {
@@ -167,8 +145,8 @@ export class ReservationWrapperComponent {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
 
-    private saveDateToStorage(): void {
-        this.helperService.saveItem('date', this.dateInISO)
+    private storeCriteria(): void {
+        this.helperService.saveItem('dashboard', JSON.stringify(this.form.value))
     }
 
     //#endregion
@@ -176,7 +154,7 @@ export class ReservationWrapperComponent {
     //#region getters
 
     get date(): AbstractControl {
-        return this.form.get('dateIn')
+        return this.form.get('date')
     }
 
     //#endregion    

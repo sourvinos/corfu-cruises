@@ -6,7 +6,7 @@ namespace ShipCruises.PickupPoints {
     public interface IPickupPointRepository : IRepository<PickupPoint> {
 
         Task<IEnumerable<PickupPointReadResource>> Get();
-        Task<IEnumerable<PickupPoint>> GetActive();
+        Task<IEnumerable<PickupPointDropdownResource>> GetActiveForDropdown();
         Task<IEnumerable<PickupPoint>> GetForRoute(int routeId);
         new Task<PickupPoint> GetById(int pickupPointId);
         int GetPortId(int pickupPointId);

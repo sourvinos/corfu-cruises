@@ -3,8 +3,8 @@ import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
 import { Title } from '@angular/platform-browser'
-import { forkJoin, Subject, Subscription } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
+import { Observable, Subject } from 'rxjs'
+import { map, startWith, takeUntil } from 'rxjs/operators'
 import moment from 'moment'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
@@ -22,20 +22,20 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { Passenger } from '../../classes/models/passenger'
-import { PickupPointFlat } from '../../classes/view-models/pickupPoint-flat'
+import { PickupPointResource } from '../../classes/view-models/pickupPoint-flat'
 import { PickupPointService } from 'src/app/features/pickupPoints/classes/pickupPoint.service'
-import { PortService } from 'src/app/features/ports/classes/port.service'
 import { Reservation } from '../../classes/models/reservation'
 import { ReservationService } from '../../classes/services/reservation.service'
 import { ReservationWriteResource } from './../../classes/resources/reservation-write-resource'
 import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
-import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { UserService } from 'src/app/features/users/classes/user.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
 import { VoucherService } from '../../classes/services/voucher.service'
 import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { Destination } from 'src/app/features/destinations/classes/destination'
+import { Customer } from 'src/app/features/customers/classes/customer'
 
 @Component({
     selector: 'reservation-form',
@@ -62,21 +62,51 @@ export class ReservationFormComponent {
     //#region particular variables
 
     private drivers: any
-    private pickupPoints: any
+
     private ports: any
     private ships: any
-    public customers: any
-    public destinations: any
-    public pickupPointsFlat: PickupPointFlat[]
+    // public destinations: any
     public barcode = "0"
     public errorCorrectionLevel: "M"
     public margin = 4
     public width = 128
     private savedTotalPersons = 0
 
+    public destinations: Destination[] = []
+    public customers: Customer[] = []
+    public pickupPoints: PickupPointResource[] = []
+
+    public filteredDestinations: Observable<Destination[]>
+    public filteredCustomers: Observable<Customer[]>
+    public filteredPickupPoints: Observable<PickupPointResource[]>
+
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, public dialog: MatDialog) {
+    constructor(
+        private accountService: AccountService,
+        private activatedRoute: ActivatedRoute,
+        private buttonClickService: ButtonClickService,
+        private customerService: CustomerService,
+        private destinationService: DestinationService,
+        private dialogService: DialogService,
+        private driverService: DriverService,
+        private formBuilder: FormBuilder,
+        private helperService: HelperService,
+        private interactionService: InteractionService,
+        private keyboardShortcutsService: KeyboardShortcuts,
+        private messageHintService: MessageHintService,
+        private messageLabelService: MessageLabelService,
+        private messageSnackbarService: MessageSnackbarService,
+        private pickupPointService: PickupPointService,
+        private reservationService: ReservationService,
+        private router: Router,
+        private scheduleService: ScheduleService,
+        private snackbarService: SnackbarService,
+        private titleService: Title,
+        private userService: UserService,
+        private voucherService: VoucherService,
+        public dialog: MatDialog
+        ) {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
                 this.getRecord(p.id)
@@ -135,6 +165,18 @@ export class ReservationFormComponent {
         const totalPersons = parseInt(this.form.value.adults, 10) + parseInt(this.form.value.kids, 10) + parseInt(this.form.value.free, 10)
         this.form.patchValue({ totalPersons: Number(totalPersons) ? totalPersons : 0 })
         return totalPersons > 0 ? true : false
+    }
+
+    public onCustomerFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public onDestinationFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public onPickupPointFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
     }
 
     public onEmailVoucher(): void {
@@ -366,6 +408,14 @@ export class ReservationFormComponent {
         })
     }
 
+    private filterArray(array: string, field: string, value: any): any[] {
+        if (typeof value !== 'object') {
+            const filtervalue = value.toLowerCase()
+            return this[array].filter((element) =>
+                element[field].toLowerCase().startsWith(filtervalue))
+        }
+    }
+
     private flattenDetails(passengers: Passenger[]): any {
         const passengersFlat = []
         passengers.forEach(passenger => {
@@ -387,20 +437,6 @@ export class ReservationFormComponent {
             passengersFlat.push(passengerFlat)
         })
         return passengersFlat
-    }
-
-    private flattenPickupPoints(): any[] {
-        this.pickupPointsFlat = []
-        for (const {
-            id: a,
-            description: b,
-            exactPoint: c,
-            time: d,
-            route: { port: { id: e } }
-        } of this.pickupPoints) {
-            this.pickupPointsFlat.push({ pickupPointId: a, pickupPointDescription: b, exactPoint: c, time: d, portId: e })
-        }
-        return this.pickupPointsFlat
     }
 
     private focus(field: string): void {
@@ -456,9 +492,9 @@ export class ReservationFormComponent {
         this.form = this.formBuilder.group({
             reservationId: '',
             date: '',
-            destinationId: [0, Validators.required], destinationDescription: ['', Validators.required],
-            customerId: [0, Validators.required], customerDescription: [{ value: '', disabled: !this.isAdmin() }, Validators.required],
-            pickupPointId: [0, Validators.required], pickupPointDescription: ['', Validators.required], pickupPointExactPoint: '', pickupPointTime: '',
+            destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            customer: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            pickupPoint: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             adults: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             kids: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             free: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
@@ -573,25 +609,24 @@ export class ReservationFormComponent {
         }
     }
 
-    private populateDropDowns(): Subscription {
-        const sources = []
-        sources.push(this.customerService.getAllActive())
-        sources.push(this.destinationService.getAllActive())
-        sources.push(this.driverService.getAllActive())
-        sources.push(this.pickupPointService.getAllActive())
-        sources.push(this.portService.getAllActive())
-        sources.push(this.shipService.getAllActive())
-        return forkJoin(sources).subscribe(
-            result => {
-                this.customers = result[0]
-                this.destinations = result[1]
-                this.drivers = result[2]
-                this.pickupPoints = result[3]
-                this.pickupPointsFlat = this.flattenPickupPoints()
-                this.ports = result[4]
-                this.ships = result[5]
-                this.renameObjects()
-            })
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+        const promise = new Promise((resolve) => {
+            service.getAllActive().toPromise().then(
+                (response: any) => {
+                    this[table] = response
+                    resolve(this[table])
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                }, (errorFromInterceptor: number) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                })
+        })
+        return promise
+    }
+
+    private populateDropDowns(): void {
+        this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
+        this.populateDropDown(this.customerService, 'customers', 'filteredCustomers', 'customer', 'description')
+        this.populateDropDown(this.pickupPointService, 'pickupPoints', 'filteredPickupPoints', 'pickupPoint', 'description')
     }
 
     private populateFields(result: Reservation): void {
@@ -641,46 +676,6 @@ export class ReservationFormComponent {
 
     private refreshSummary(): void {
         this.interactionService.mustRefreshReservationList()
-    }
-
-    private renameKey(obj: any, oldKey: string, newKey: string): void {
-        if (oldKey !== newKey) {
-            Object.defineProperty(obj, newKey, Object.getOwnPropertyDescriptor(obj, oldKey))
-            delete obj[oldKey]
-        }
-    }
-
-    private renameObjects(): void {
-        this.destinations.forEach((obj: any) => {
-            this.renameKey(obj, 'id', 'destinationId')
-            this.renameKey(obj, 'description', 'destinationDescription')
-            this.renameKey(obj, 'isActive', 'destinationIsActive')
-            this.renameKey(obj, 'userId', 'destinationUserId')
-        })
-        this.customers.forEach((obj: any) => {
-            this.renameKey(obj, 'id', 'customerId')
-            this.renameKey(obj, 'description', 'customerDescription')
-            this.renameKey(obj, 'isActive', 'customerIsActive')
-            this.renameKey(obj, 'userId', 'customerUserId')
-        })
-        this.drivers.forEach((obj: any) => {
-            this.renameKey(obj, 'id', 'driverId')
-            this.renameKey(obj, 'description', 'driverDescription')
-            this.renameKey(obj, 'isActive', 'driverIsActive')
-            this.renameKey(obj, 'userId', 'driverUserId')
-        })
-        this.ports.forEach((obj: any) => {
-            this.renameKey(obj, 'id', 'portId')
-            this.renameKey(obj, 'description', 'portDescription')
-            this.renameKey(obj, 'isActive', 'portIsActive')
-            this.renameKey(obj, 'userId', 'portUserId')
-        })
-        this.ships.forEach((obj: any) => {
-            this.renameKey(obj, 'id', 'shipId')
-            this.renameKey(obj, 'description', 'shipDescription')
-            this.renameKey(obj, 'isActive', 'shipIsActive')
-            this.renameKey(obj, 'userId', 'shipUserId')
-        })
     }
 
     private resetForm(): void {
@@ -759,28 +754,16 @@ export class ReservationFormComponent {
 
     //#region getters
 
-    get destinationId(): AbstractControl {
-        return this.form.get('destinationId')
+    get destination(): AbstractControl {
+        return this.form.get('destination')
     }
 
-    get destinationDescription(): AbstractControl {
-        return this.form.get('destinationDescription')
+    get customer(): AbstractControl {
+        return this.form.get('customer')
     }
 
-    get customerId(): AbstractControl {
-        return this.form.get('customerId')
-    }
-
-    get customerDescription(): AbstractControl {
-        return this.form.get('customerDescription')
-    }
-
-    get pickupPointId(): AbstractControl {
-        return this.form.get('pickupPointId')
-    }
-
-    get pickupPointDescription(): AbstractControl {
-        return this.form.get('pickupPointDescription')
+    get pickupPoint(): AbstractControl {
+        return this.form.get('pickupPoint')
     }
 
     get ticketNo(): AbstractControl {

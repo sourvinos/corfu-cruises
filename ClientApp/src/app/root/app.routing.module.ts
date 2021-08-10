@@ -22,7 +22,6 @@ const appRoutes: Routes = [
     { path: 'genders', loadChildren: (): any => import('../features/genders/classes/gender.module').then(m => m.GenderModule) },
     { path: 'invoicing', loadChildren: (): any => import('../features/invoicing/classes/modules/invoicing.module').then(m => m.InvoicingModule) },
     { path: 'manifest', loadChildren: (): any => import('../features/manifest/classes/modules/manifest.module').then(m => m.ManifestModule) },
-    { path: 'nationalities', loadChildren: (): any => import('../features/nationalities/classes/nationality.module').then(m => m.NationalityModule) },
     { path: 'pickupPoints', loadChildren: (): any => import('../features/pickupPoints/classes/pickupPoint.module').then(m => m.PickupPointModule) },
     { path: 'ports', loadChildren: (): any => import('../features/ports/classes/port.module').then(m => m.PortModule) },
     { path: 'reservations', loadChildren: (): any => import('../features/reservations/classes/modules/reservation.module').then(m => m.ReservationModule) },
