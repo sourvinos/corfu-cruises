@@ -11,6 +11,7 @@ using System.Text;
 using System;
 using ShipCruises.Manifest;
 using ShipCruises.PickupPoints;
+using ShipCruises.Features.Reservations;
 
 namespace ShipCruises {
 
@@ -87,7 +88,6 @@ namespace ShipCruises {
             services.AddTransient<IShipOwnerRepository, ShipOwnerRepository>();
             services.AddTransient<IShipRepository, ShipRepository>();
             services.AddTransient<IShipRouteRepository, ShipRouteRepository>();
-            services.AddTransient<IWebRepository, WebRepository>();
         }
 
         public static void TryUpdateManyToMany<T, TKey>(this DbContext db, IEnumerable<T> currentItems, IEnumerable<T> newItems, Func<T, TKey> getKey) where T : class {

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Reservations {
 
     // [Authorize]
     [Route("api/[controller]")]
@@ -25,7 +25,7 @@ namespace ShipCruises {
         }
 
         [HttpGet("date/{date}")]
-        public async Task<ReservationGroupReadResource<ReservationReadResource>> Get(string date) {
+        public async Task<ReservationGroupResource<ReservationReadResource>> Get(string date) {
             return await this.repo.Get(date);
         }
 

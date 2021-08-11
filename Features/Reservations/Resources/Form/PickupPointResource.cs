@@ -1,4 +1,4 @@
-namespace ShipCruises.Reservations {
+namespace ShipCruises.Features.Reservations {
 
     public class PickupPointResource {
 

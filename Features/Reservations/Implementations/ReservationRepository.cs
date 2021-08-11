@@ -6,7 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Reservations {
 
     public class ReservationRepository : Repository<Reservation>, IReservationRepository {
 
@@ -18,13 +18,14 @@ namespace ShipCruises {
             this.userManager = userManager;
         }
 
-        public async Task<ReservationGroupReadResource<ReservationReadResource>> Get(string date) {
+        public async Task<ReservationGroupResource<ReservationReadResource>> Get(string date) {
             var reservations = await context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
+                .Include(x => x.User)
                 .Where(x => x.Date == date)
                 .OrderBy(x => x.Date).ToListAsync();
             var PersonsPerCustomer = context.Reservations.Include(x => x.Customer).Where(x => x.Date == date).GroupBy(x => new { x.Customer.Description }).Select(x => new PersonsPerCustomer { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
@@ -43,7 +44,7 @@ namespace ShipCruises {
                 PersonsPerPort = PersonsPerPort.ToList(),
                 PersonsPerShip = totalPersonsPerShip.ToList()
             };
-            return mapper.Map<MainResult<Reservation>, ReservationGroupReadResource<ReservationReadResource>>(mainResult);
+            return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationReadResource>>(mainResult);
         }
 
         public IEnumerable<MainResult> GetForDestination(int destinationId) {

@@ -1,4 +1,5 @@
 using FluentValidation;
+using ShipCruises.Features.Reservations;
 
 namespace ShipCruises {
 

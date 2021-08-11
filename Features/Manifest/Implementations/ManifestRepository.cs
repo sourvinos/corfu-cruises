@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using ShipCruises.Features.Reservations;
 using System.Linq;
 
 namespace ShipCruises.Manifest {

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Reservations {
 
     public interface IReservationRepository : IRepository<Reservation> {
 
-        Task<ReservationGroupReadResource<ReservationReadResource>> Get(string date);
+        Task<ReservationGroupResource<ReservationReadResource>> Get(string date);
         IEnumerable<MainResult> GetForDestination(int destinationId);
         ReservationTotalPersons GetForDateAndDestinationAndPort(string date, int destinationId, int portId);
         Task<Reservation> GetById(string id);

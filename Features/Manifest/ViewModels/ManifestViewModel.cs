@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ShipCruises.Features.Reservations;
 
 namespace ShipCruises.Manifest {
 

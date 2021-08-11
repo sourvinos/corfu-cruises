@@ -5,16 +5,16 @@ using Microsoft.Extensions.Logging;
 using ShipCruises.Features.Reservations;
 using ShipCruises.PickupPoints;
 
-namespace ShipCruises {
+namespace ShipCruises.Infrastructure.Classes {
 
-    public class DbContext : IdentityDbContext<IdentityUser> {
+    public class AppDbContext : IdentityDbContext<IdentityUser> {
 
-        public DbContext(DbContextOptions<DbContext> options) : base(options) { }
+        public AppDbContext(DbContextOptions<DbContext> options) : base(options) { }
 
         public DbSet<Crew> Crews { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Destination> Destinations { get; set; }
         public DbSet<Driver> Drivers { get; set; }
+        public DbSet<Destination> Destinations { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Nationality> Nationalities { get; set; }
         public DbSet<Occupant> Occupants { get; set; }

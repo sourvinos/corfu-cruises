@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Reservations {
 
-    public class ReservationGroupReadResource<T> {
+    public class ReservationGroupResource<T> {
 
         public int Persons { get; set; }
         public IEnumerable<ReservationReadResource> Reservations { get; set; }

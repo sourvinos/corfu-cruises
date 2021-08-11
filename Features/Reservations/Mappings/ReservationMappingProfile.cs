@@ -1,29 +1,20 @@
 using AutoMapper;
-using ShipCruises.Reservations;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Reservations {
 
     public class ReservationMappingProfile : Profile {
 
         public ReservationMappingProfile() {
             CreateMap<Reservation, ReservationReadResource>()
-                .ForMember(rr => rr.Destination, opt => opt.MapFrom(r => new DestinationResource { Id = r.Destination.Id, Abbreviation = r.Destination.Abbreviation, Description = r.Destination.Description }))
-                .ForMember(rr => rr.Driver, opt => opt.MapFrom(r => new DriverResource { Id = r.Driver.Id, Description = r.Driver.Description }))
-                .ForMember(rr => rr.PickupPoint, opt => opt.MapFrom(r => new PickupPointResource {
-                    Id = r.PickupPoint.Id,
-                    Description = r.PickupPoint.Description,
-                    ExactPoint = r.PickupPoint.ExactPoint,
-                    Time = r.PickupPoint.Time,
-                    Route = new RouteResource {
-                        Id = r.PickupPoint.Route.Id,
-                        Abbreviation = r.PickupPoint.Route.Abbreviation,
-                        Description = r.PickupPoint.Route.Description,
-                        Port = new PortResource {
-                            Id = r.PickupPoint.Route.PortId,
-                            Description = r.PickupPoint.Route.Port.Description
-                        }
-                    }
-                }));
+                .ForMember(x => x.CustomerDescription, opt => opt.MapFrom(r => r.Customer.Description))
+                .ForMember(x => x.DestinationAbbreviation, opt => opt.MapFrom(r => r.Destination.Abbreviation))
+                .ForMember(x => x.DestinationDescription, opt => opt.MapFrom(r => r.Destination.Description))
+                .ForMember(x => x.DriverDescription, opt => opt.MapFrom(r => r.Driver.Description))
+                .ForMember(x => x.PickupPointDescription, opt => opt.MapFrom(r => r.PickupPoint.Description))
+                .ForMember(x => x.RouteAbbreviation, opt => opt.MapFrom(r => r.PickupPoint.Route.Abbreviation))
+                .ForMember(x => x.PortDescription, opt => opt.MapFrom(r => r.PickupPoint.Route.Port.Description))
+                .ForMember(x => x.ShipDescription, opt => opt.MapFrom(r => r.Ship.Description))
+                .ForMember(x => x.User, opt => opt.MapFrom(r => r.User.DisplayName));
             CreateMap<ReservationWriteResource, Reservation>()
                 .ForMember(r => r.Date, opt => opt.MapFrom(wr => wr.Date))
                 .ForMember(r => r.DestinationId, opt => opt.MapFrom(wr => wr.DestinationId))

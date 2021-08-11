@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ShipCruises.PickupPoints;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Reservations {
 
     public class Reservation {
 
@@ -32,6 +32,7 @@ namespace ShipCruises {
         public PickupPoint PickupPoint { get; set; }
         public Port Port { get; set; }
         public Ship Ship { get; set; }
+        public AppUser User { get; set; }
 
         public List<Passenger> Passengers { get; set; }
 
