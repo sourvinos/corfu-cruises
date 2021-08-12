@@ -1,6 +1,6 @@
 using System;
 
-namespace ShipCruises.Manifest {
+namespace ShipCruises.Features.Manifest {
 
     public class PassengerResource {
 

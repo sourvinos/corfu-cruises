@@ -1,3 +1,5 @@
+using ShipCruises.Features.Reservations;
+
 namespace ShipCruises {
 
     public interface IEmailSender {

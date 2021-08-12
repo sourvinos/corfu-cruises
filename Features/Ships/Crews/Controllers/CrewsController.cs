@@ -6,10 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ShipCruises.Manifest;
-using ShipCruises.Ships;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Ships {
 
     // [Authorize]
     [Route("api/[controller]")]

@@ -1,4 +1,4 @@
-namespace ShipCruises.Manifest {
+namespace ShipCruises.Features.Manifest {
 
     public interface IManifestRepository {
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ShipCruises.Features.Reservations;
+using ShipCruises.Features.Ships;
 using ShipCruises.PickupPoints;
 
 namespace ShipCruises {

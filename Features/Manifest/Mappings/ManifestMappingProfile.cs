@@ -1,7 +1,7 @@
 using System.Linq;
 using AutoMapper;
 
-namespace ShipCruises.Manifest {
+namespace ShipCruises.Features.Manifest {
 
     public class ManifestMappingProfile : Profile {
 
@@ -37,8 +37,8 @@ namespace ShipCruises.Manifest {
                         Lastname = crew.Lastname,
                         Firstname = crew.Firstname,
                         Birthdate = crew.Birthdate,
-                        GenderDescription = crew.Gender.Description,
-                        NationalityDescription = crew.Nationality.Description,
+                        // GenderDescription = crew.Gender.Description,
+                        // NationalityDescription = crew.Nationality.Description,
                         IsActive = crew.IsActive,
                         OccupantDescription = "Crew",
                     }).ToList(),

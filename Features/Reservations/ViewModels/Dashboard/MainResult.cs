@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ShipCruises.Features.Reservations;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Reservations {
 
     public class MainResult<T> {
 

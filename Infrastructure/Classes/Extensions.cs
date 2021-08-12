@@ -9,9 +9,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System;
-using ShipCruises.Manifest;
 using ShipCruises.PickupPoints;
 using ShipCruises.Features.Reservations;
+using ShipCruises.Features.Ships;
+using ShipCruises.Features.Manifest;
 
 namespace ShipCruises {
 

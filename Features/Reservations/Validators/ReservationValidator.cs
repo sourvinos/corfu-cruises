@@ -1,7 +1,6 @@
 using FluentValidation;
-using ShipCruises.Features.Reservations;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Reservations {
 
     public class ReservationValidator : AbstractValidator<Reservation> {
 

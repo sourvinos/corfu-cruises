@@ -18,7 +18,7 @@ namespace ShipCruises.Features.Reservations {
             this.userManager = userManager;
         }
 
-        public async Task<ReservationGroupResource<ReservationReadResource>> Get(string date) {
+        public async Task<ReservationGroupResource<ReservationListResource>> GetForDate(string date) {
             var reservations = await context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
@@ -44,7 +44,7 @@ namespace ShipCruises.Features.Reservations {
                 PersonsPerPort = PersonsPerPort.ToList(),
                 PersonsPerShip = totalPersonsPerShip.ToList()
             };
-            return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationReadResource>>(mainResult);
+            return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
         }
 
         public IEnumerable<MainResult> GetForDestination(int destinationId) {
@@ -76,17 +76,19 @@ namespace ShipCruises.Features.Reservations {
             return reservationTotalPersons;
         }
 
-        public async Task<Reservation> GetById(string id) {
-            return await context.Reservations
+        public async Task<ReservationReadResource> GetSingle(string id) {
+            var reservation = await context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
                 .Include(x => x.Ship)
+                .Include(x => x.User)
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                 .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
                 .Include(x => x.Passengers).ThenInclude(x => x.Gender)
                 .FirstAsync(x => x.ReservationId.ToString() == id);
+            return mapper.Map<Reservation, ReservationReadResource>(reservation);
         }
 
         public bool Update(string id, Reservation updatedRecord) {
@@ -140,11 +142,6 @@ namespace ShipCruises.Features.Reservations {
             };
             context.Passengers.AddRange(records);
             context.SaveChanges();
-        }
-
-        private async Task<AppUser> GetUser(string userId) {
-            AppUser user = await userManager.FindByIdAsync(userId);
-            return user;
         }
 
         public bool IsKeyUnique(ReservationWriteResource record) {

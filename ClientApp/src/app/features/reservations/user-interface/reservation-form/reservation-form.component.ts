@@ -9,7 +9,9 @@ import moment from 'moment'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { Customer } from 'src/app/features/customers/classes/customer'
 import { CustomerService } from 'src/app/features/customers/classes/customer.service'
+import { Destination } from 'src/app/features/destinations/classes/destination'
 import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
 import { DialogIndexComponent } from 'src/app/shared/components/dialog-index/dialog-index.component'
 import { DialogService } from 'src/app/shared/services/dialog.service'
@@ -34,8 +36,6 @@ import { ValidationService } from './../../../../shared/services/validation.serv
 import { VoucherService } from '../../classes/services/voucher.service'
 import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import { Destination } from 'src/app/features/destinations/classes/destination'
-import { Customer } from 'src/app/features/customers/classes/customer'
 
 @Component({
     selector: 'reservation-form',

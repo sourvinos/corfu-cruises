@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ShipCruises.Manifest {
+namespace ShipCruises.Features.Manifest {
 
     public class ManifestResource {
 

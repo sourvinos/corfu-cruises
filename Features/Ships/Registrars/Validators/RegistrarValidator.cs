@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Ships {
 
     public class RegistrarValidator : AbstractValidator<Registrar> {
 

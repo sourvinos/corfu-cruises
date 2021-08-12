@@ -1,8 +1,8 @@
 using System;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Reservations {
 
-    public class ReservationReadResource {
+    public class ReservationListResource {
 
         public Guid ReservationId { get; set; }
 

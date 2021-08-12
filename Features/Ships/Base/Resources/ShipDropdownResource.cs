@@ -1,4 +1,4 @@
-namespace ShipCruises.Features.Ships.Base {
+namespace ShipCruises.Features.Ships {
 
     public class ShipDropdownResource {
 

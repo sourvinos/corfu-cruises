@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Ships {
 
     public class ShipRepository : Repository<Ship>, IShipRepository {
 

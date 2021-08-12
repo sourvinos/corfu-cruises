@@ -1,4 +1,4 @@
-namespace ShipCruises.Ships.Owners {
+namespace ShipCruises.Features.Ships {
 
     public class ShipOwnerDropdownResource {
 

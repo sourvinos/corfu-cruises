@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using ShipCruises.Features.Reservations;
 
 namespace ShipCruises {
 

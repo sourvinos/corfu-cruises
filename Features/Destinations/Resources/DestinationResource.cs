@@ -1,4 +1,4 @@
-namespace ShipCruises {
+namespace ShipCruises.Features.Destinations {
 
     public class DestinationResource {
 

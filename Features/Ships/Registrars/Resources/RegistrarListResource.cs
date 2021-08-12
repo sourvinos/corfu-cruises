@@ -1,4 +1,4 @@
-namespace ShipCruises {
+namespace ShipCruises.Features.Ships {
 
     public class RegistrarListResource {
 

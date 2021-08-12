@@ -5,10 +5,10 @@ namespace ShipCruises.Features.Reservations {
 
     public interface IReservationRepository : IRepository<Reservation> {
 
-        Task<ReservationGroupResource<ReservationReadResource>> Get(string date);
+        Task<ReservationGroupResource<ReservationListResource>> GetForDate(string date);
         IEnumerable<MainResult> GetForDestination(int destinationId);
         ReservationTotalPersons GetForDateAndDestinationAndPort(string date, int destinationId, int portId);
-        Task<Reservation> GetById(string id);
+        Task<ReservationReadResource> GetSingle(string id);
         bool Update(string id, Reservation updatedRecord);
         void AssignToDriver(int driverId, string[] ids);
         void AssignToShip(int shipId, string[] ids);

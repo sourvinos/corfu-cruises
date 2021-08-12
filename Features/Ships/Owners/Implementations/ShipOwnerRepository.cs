@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Ships {
 
     public class ShipOwnerRepository : Repository<ShipOwner>, IShipOwnerRepository {
 

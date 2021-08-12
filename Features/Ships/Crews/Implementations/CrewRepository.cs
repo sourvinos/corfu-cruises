@@ -3,9 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using ShipCruises.Ships;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Ships {
 
     public class CrewRepository : Repository<Crew>, ICrewRepository {
 

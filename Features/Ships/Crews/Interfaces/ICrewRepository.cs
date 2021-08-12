@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ShipCruises.Ships;
 
-namespace ShipCruises {
+namespace ShipCruises.Features.Ships {
 
     public interface ICrewRepository : IRepository<Crew> {
 

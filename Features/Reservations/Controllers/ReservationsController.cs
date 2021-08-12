@@ -25,8 +25,8 @@ namespace ShipCruises.Features.Reservations {
         }
 
         [HttpGet("date/{date}")]
-        public async Task<ReservationGroupResource<ReservationReadResource>> Get(string date) {
-            return await this.repo.Get(date);
+        public async Task<ReservationGroupResource<ReservationListResource>> GetForDate(string date) {
+            return await this.repo.GetForDate(date);
         }
 
         [HttpGet("[action]/destinationId/{destinationId}")]
@@ -41,19 +41,19 @@ namespace ShipCruises.Features.Reservations {
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetReservation(string id) {
-            var record = await repo.GetById(id);
+        public async Task<IActionResult> GetSingle(string id) {
+            var record = await repo.GetSingle(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
             };
-            return StatusCode(200, mapper.Map<Reservation, ReservationReadResource>(record));
+            return StatusCode(200, record);
         }
 
         [HttpPost]
-        public IActionResult PostReservation([FromBody] ReservationWriteResource record) {
+        public IActionResult Post([FromBody] ReservationWriteResource record) {
             if (ModelState.IsValid) {
                 try {
                     if (repo.IsKeyUnique(record)) {
@@ -80,10 +80,11 @@ namespace ShipCruises.Features.Reservations {
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
+        public IActionResult Put([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             if (id == record.ReservationId.ToString() && ModelState.IsValid) {
                 try {
-                    if (repo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record))) {
+                    var a = mapper.Map<ReservationWriteResource, Reservation>(record);
+                    if (repo.Update(id, a)) {
                         return StatusCode(200, new {
                             response = ApiMessages.RecordUpdated()
                         });
@@ -107,7 +108,7 @@ namespace ShipCruises.Features.Reservations {
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteReservation([FromRoute] string id) {
-            Reservation record = await repo.GetById(id);
+            var record = await repo.GetSingle(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -115,7 +116,7 @@ namespace ShipCruises.Features.Reservations {
                 });
             }
             try {
-                repo.Delete(record);
+                repo.Delete(mapper.Map<ReservationReadResource, Reservation>(record));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordDeleted()
                 });
