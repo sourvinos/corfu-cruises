@@ -661,8 +661,12 @@
                 "description": "Filtrovaný"
             },
             {
+                "id": "headerSelected",
+                "description": "V"
+            },
+            {
                 "id": "headerTicketNo",
-                "description": "Číslo lístku"
+                "description": "Ticket No"
             },
             {
                 "id": "headerDestination",
@@ -673,20 +677,12 @@
                 "description": "Trasa"
             },
             {
-                "id": "headerShip",
-                "description": "Plavidlo"
-            },
-            {
                 "id": "headerCustomer",
                 "description": "Zákazník"
             },
             {
                 "id": "headerPickupPoint",
                 "description": "Nástupní zastávka"
-            },
-            {
-                "id": "headerTime",
-                "description": "Čas"
             },
             {
                 "id": "headerAdults",
@@ -711,6 +707,10 @@
             {
                 "id": "headerPort",
                 "description": "Přístav"
+            },
+            {
+                "id": "headerShip",
+                "description": "Plavidlo"
             }
         ]
     },

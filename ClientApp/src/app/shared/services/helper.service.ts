@@ -62,6 +62,16 @@ export class HelperService {
         return false
     }
 
+    public populateTableFiltersDropdowns(records: any[], field: string): any[] {
+        const array = []
+        const elements = [... new Set(records.map(x => x[field]))]
+        elements.forEach(element => {
+            array.push({ label: element, value: element })
+        })
+        return array
+    }
+
+
     public pushItemToFilteredArray(x: { [x: string]: string }, key: string | number, value: { target: any }, targetArray: any[]): any[] {
         if (value.target.value.startsWith('*')) {
             if (x[key].toUpperCase().includes(this.removeLeadingAsteriskFromString(value.target.value).toUpperCase())) {

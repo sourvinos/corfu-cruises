@@ -421,11 +421,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Κρατησεις"
+                "description": "Κρατήσεις"
             },
             {
                 "id": "searchLabel",
-                "description": "Ημερομηνια"
+                "description": "Ημερομηνία"
             },
             {
                 "id": "searchHint",
@@ -433,7 +433,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "Αναζητηση"
+                "description": "Αναζήτηση"
             }
         ]
     },
@@ -598,35 +598,35 @@
         "labels": [
             {
                 "id": "summaryTab",
-                "description": "Συνοπτικα"
+                "description": "Συνοπτικά"
             },
             {
                 "id": "listTab",
-                "description": "Εγγραφες"
+                "description": "Εγγραφές"
             },
             {
                 "id": "summaryHeaderDestinations",
-                "description": "Προορισμοι"
+                "description": "Προορισμοί"
             },
             {
                 "id": "summaryHeaderCustomers",
-                "description": "Πελατες"
+                "description": "Πελάτες"
             },
             {
                 "id": "summaryHeaderRoutes",
-                "description": "Διαδρομες"
+                "description": "Διαδρομές"
             },
             {
                 "id": "summaryHeaderDrivers",
-                "description": "Οδηγοι"
+                "description": "Οδηγοί"
             },
             {
                 "id": "summaryHeaderPorts",
-                "description": "Λιμανια"
+                "description": "Λιμάνια"
             },
             {
                 "id": "summaryHeaderShips",
-                "description": "Πλοια"
+                "description": "Πλοία"
             },
             {
                 "id": "assignToDriverButton",
@@ -642,27 +642,31 @@
             },
             {
                 "id": "newButton",
-                "description": "Νεα"
+                "description": "ΝΕΑ"
             },
             {
                 "id": "total",
-                "description": "Συνολο"
+                "description": "Σύνολο"
             },
             {
                 "id": "displayed",
-                "description": "Εμφανιζονται"
+                "description": "Εμφανίζονται"
             },
             {
                 "id": "selected",
-                "description": "Επιλεγμενες"
+                "description": "Επιλεγμένες"
             },
             {
                 "id": "filtered",
-                "description": "Φιλτραρισμενες"
+                "description": "Φιλτραρισμένες"
+            },
+            {
+                "id": "headerSelected",
+                "description": "Ε"
             },
             {
                 "id": "headerTicketNo",
-                "description": "Εισιτηριο"
+                "description": "Αρ. εισιτηρίου"
             },
             {
                 "id": "headerDestination",
@@ -670,23 +674,15 @@
             },
             {
                 "id": "headerRoute",
-                "description": "Διαδρομη"
-            },
-            {
-                "id": "headerShip",
-                "description": "Πλοιο"
+                "description": "Διαδρομή"
             },
             {
                 "id": "headerCustomer",
-                "description": "Πελατης"
+                "description": "Πελάτης"
             },
             {
                 "id": "headerPickupPoint",
-                "description": "Σημειο παραλαβης"
-            },
-            {
-                "id": "headerTime",
-                "description": "Ωρα"
+                "description": "Σημείο παραλαβής"
             },
             {
                 "id": "headerAdults",
@@ -706,11 +702,15 @@
             },
             {
                 "id": "headerDriver",
-                "description": "Οδηγος"
+                "description": "Οδηγός"
             },
             {
                 "id": "headerPort",
-                "description": "Λιμανι"
+                "description": "Λιμάνι"
+            },
+            {
+                "id": "headerShip",
+                "description": "Πλοίο"
             }
         ]
     },
@@ -747,7 +747,7 @@
             },
             {
                 "id": "ticketNo",
-                "description": "Εισιτηριο"
+                "description": "Αρ. εισιτηρίου"
             },
             {
                 "id": "adults",
@@ -1541,7 +1541,7 @@
             },
             {
                 "id": "headerTicketNo",
-                "description": "Εισιτηριο"
+                "description": "Αρ. εισιτηρίου"
             },
             {
                 "id": "headerTotalPersons",

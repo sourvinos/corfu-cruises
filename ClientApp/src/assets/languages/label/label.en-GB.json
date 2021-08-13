@@ -661,8 +661,12 @@
                 "description": "Filtered"
             },
             {
+                "id": "headerSelected",
+                "description": "S"
+            },
+            {
                 "id": "headerTicketNo",
-                "description": "Ticket"
+                "description": "Ticket No"
             },
             {
                 "id": "headerDestination",
@@ -673,20 +677,12 @@
                 "description": "Route"
             },
             {
-                "id": "headerShip",
-                "description": "Ship"
-            },
-            {
                 "id": "headerCustomer",
                 "description": "Customer"
             },
             {
                 "id": "headerPickupPoint",
                 "description": "Pickup point"
-            },
-            {
-                "id": "headerTime",
-                "description": "Time"
             },
             {
                 "id": "headerAdults",
@@ -711,6 +707,10 @@
             {
                 "id": "headerPort",
                 "description": "Port"
+            },
+            {
+                "id": "headerShip",
+                "description": "Ship"
             }
         ]
     },
@@ -1653,18 +1653,6 @@
             {
                 "id": "headerBirthdate",
                 "description": "Birthdate"
-            },
-            {
-                "id": "allRecordCount",
-                "description": "All"
-            },
-            {
-                "id": "passengerCount",
-                "description": "Passengers"
-            },
-            {
-                "id": "crewCount",
-                "description": "Crew"
             },
             {
                 "id": "allRecordCount",

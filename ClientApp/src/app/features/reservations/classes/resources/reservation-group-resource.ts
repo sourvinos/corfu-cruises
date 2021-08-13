@@ -1,14 +1,16 @@
-import { Reservation } from '../models/reservation'
+import { ReservationListResource } from './reservation-list-resource'
 
-export class ReservationViewModel {
+export class ReservationGroupResource {
 
     persons: number
-    reservations: Reservation[]
+    
     personsPerDestination: any[]
     personsPerCustomer: any[]
     personsPerRoute: any[]
     personsPerDriver: any[]
     personsPerPort: any[]
     personsPerShip: any[]
+    
+    reservations: ReservationListResource[]
 
 }

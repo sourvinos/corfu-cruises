@@ -10,7 +10,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 // Custom
 import { DataService } from 'src/app/shared/services/data.service'
 import { LogoService } from './logo.service'
-import { VoucherViewModel } from '../view-models/voucher-view-model'
+import { VoucherViewModel } from '../view-models/voucher/voucher-view-model'
 
 @Injectable({ providedIn: 'root' })
 

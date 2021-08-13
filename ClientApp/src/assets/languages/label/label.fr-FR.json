@@ -661,6 +661,10 @@
                 "description": "Filtrees"
             },
             {
+                "id": "headerSelected",
+                "description": "C"
+            },
+            {
                 "id": "headerTicketNo",
                 "description": "Billet"
             },
@@ -673,20 +677,12 @@
                 "description": "Itineraire"
             },
             {
-                "id": "headerShip",
-                "description": " bateau"
-            },
-            {
                 "id": "headerCustomer",
                 "description": "Client"
             },
             {
                 "id": "headerPickupPoint",
                 "description": "point de collecte"
-            },
-            {
-                "id": "headerTime",
-                "description": "Heure"
             },
             {
                 "id": "headerAdults",
@@ -711,6 +707,10 @@
             {
                 "id": "headerPort",
                 "description": "Port"
+            },
+            {
+                "id": "headerShip",
+                "description": " bateau"
             }
         ]
     },

@@ -27,8 +27,8 @@ namespace ShipCruises.Features.Reservations {
         public int ShipId { get; set; }
         public string UserId { get; set; }
 
-        public Customer Customer { get; set; }
         public Destination Destination { get; set; }
+        public Customer Customer { get; set; }
         public Driver Driver { get; set; }
         public PickupPoint PickupPoint { get; set; }
         public Port Port { get; set; }

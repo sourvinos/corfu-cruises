@@ -661,6 +661,10 @@
                 "description": "Gefiltert"
             },
             {
+                "id": "headerSelected",
+                "description": "A"
+            },
+            {
                 "id": "headerTicketNo",
                 "description": "Ticketnummer"
             },
@@ -673,20 +677,12 @@
                 "description": "Route"
             },
             {
-                "id": "headerShip",
-                "description": "Schiff"
-            },
-            {
                 "id": "headerCustomer",
                 "description": "Kunde"
             },
             {
                 "id": "headerPickupPoint",
                 "description": "Abholpunkt"
-            },
-            {
-                "id": "headerTime",
-                "description": "Zeit"
             },
             {
                 "id": "headerAdults",
@@ -711,6 +707,10 @@
             {
                 "id": "headerPort",
                 "description": "Hafen"
+            },
+            {
+                "id": "headerShip",
+                "description": "Schiff"
             }
         ]
     },

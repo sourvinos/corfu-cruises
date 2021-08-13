@@ -120,6 +120,6 @@
     font-weight: var(--font-weight-sum-persons);
 }
 
-.mat-icon {
-    color: var(--color-text-primary) !important;
+.fas {
+    margin-right: 0.5rem;
 }

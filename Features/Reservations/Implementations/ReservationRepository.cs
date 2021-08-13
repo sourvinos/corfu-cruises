@@ -91,11 +91,18 @@ namespace ShipCruises.Features.Reservations {
             return mapper.Map<Reservation, ReservationReadResource>(reservation);
         }
 
+        public async Task<Reservation> GetSingleToDelete(string id) {
+            var reservation = await context.Reservations
+                .Include(x => x.Passengers)
+                .FirstAsync(x => x.ReservationId.ToString() == id);
+            return reservation;
+        }
+
         public bool Update(string id, Reservation updatedRecord) {
             using var transaction = context.Database.BeginTransaction();
             try {
                 UpdateReservation(updatedRecord);
-                RemovePassengers(GetReservationById(id));
+                RemovePassengers(GetPassengersForReservation(id));
                 AddPassengers(updatedRecord);
                 transaction.Commit();
                 return true;
@@ -117,12 +124,9 @@ namespace ShipCruises.Features.Reservations {
             context.SaveChanges();
         }
 
-        private Reservation GetReservationById(string id) {
-            var record = context.Reservations
-                .Include(x => x.Passengers)
-                .AsNoTracking()
-                .SingleOrDefault(x => x.ReservationId.ToString() == id);
-            return record;
+        private IEnumerable<Passenger> GetPassengersForReservation(string id) {
+            var passengers = context.Passengers.Where(x => x.ReservationId.ToString() == id).ToList();
+            return passengers;
         }
 
         private void UpdateReservation(Reservation updatedRecord) {
@@ -130,8 +134,8 @@ namespace ShipCruises.Features.Reservations {
             context.SaveChanges();
         }
 
-        private void RemovePassengers(Reservation currentRecord) {
-            context.Passengers.RemoveRange(currentRecord.Passengers);
+        private void RemovePassengers(IEnumerable<Passenger> passengers) {
+            context.Passengers.RemoveRange(passengers);
             context.SaveChanges();
         }
 

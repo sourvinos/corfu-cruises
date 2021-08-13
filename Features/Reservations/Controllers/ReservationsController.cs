@@ -83,8 +83,7 @@ namespace ShipCruises.Features.Reservations {
         public IActionResult Put([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             if (id == record.ReservationId.ToString() && ModelState.IsValid) {
                 try {
-                    var a = mapper.Map<ReservationWriteResource, Reservation>(record);
-                    if (repo.Update(id, a)) {
+                    if (repo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record))) {
                         return StatusCode(200, new {
                             response = ApiMessages.RecordUpdated()
                         });
@@ -107,8 +106,8 @@ namespace ShipCruises.Features.Reservations {
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteReservation([FromRoute] string id) {
-            var record = await repo.GetSingle(id);
+        public async Task<IActionResult> Delete([FromRoute] string id) {
+            var record = await repo.GetSingleToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -116,7 +115,7 @@ namespace ShipCruises.Features.Reservations {
                 });
             }
             try {
-                repo.Delete(mapper.Map<ReservationReadResource, Reservation>(record));
+                repo.Delete(record);
                 return StatusCode(200, new {
                     response = ApiMessages.RecordDeleted()
                 });

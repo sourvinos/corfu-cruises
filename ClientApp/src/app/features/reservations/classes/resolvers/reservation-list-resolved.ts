@@ -1,7 +1,7 @@
-import { ReservationViewModel } from "../view-models/reservation-view-model"
+import { ReservationGroupResource } from "../resources/reservation-group-resource"
 
 export class ReservationListResolved {
 
-    constructor(public result: ReservationViewModel, public error: any = null) { }
+    constructor(public result: ReservationGroupResource, public error: any = null) { }
 
 }

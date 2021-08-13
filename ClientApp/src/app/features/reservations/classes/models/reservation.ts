@@ -14,46 +14,15 @@ export class Reservation {
     email: string
     phones: string
     remarks: string
-    guid: string
 
-    customer: {
-        id: number
-        description: string
-    }
-    destination: {
-        id: number
-        abbreviation: string
-        description: string
-    }
-    driver: {
-        id: number
-        description: string
-    }
-    pickupPoint: {
-        id: number
-        description: string
-        exactPoint: string
-        time: string
-        route: {
-            id: number
-            abbreviation: string
-            description: string
-            port: {
-                id: number
-                description: string
-            }
-        }
-    }
-    port: {
-        id: number
-        description: string
-    }
-    ship: {
-        id: number
-        description: string
-    }
+    destinationDescription:  string
+    customerDescription:  string
+    driverDescription:  string
+    pickupPointDescription:  string
+    portDescription:  string
+    shipDescription:  string
 
-    userId: string
+    userId: { id: string, description: string }
 
     passengers: Passenger[]
 
