@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using ShipCruises.Features.PickupPoints;
 using ShipCruises.Features.Ships;
-using ShipCruises.PickupPoints;
 
 namespace ShipCruises.Features.Reservations {
 

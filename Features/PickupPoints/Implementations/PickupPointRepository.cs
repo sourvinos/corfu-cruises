@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace ShipCruises.PickupPoints {
+namespace ShipCruises.Features.PickupPoints {
 
     public class PickupPointRepository : Repository<PickupPoint>, IPickupPointRepository {
 
@@ -15,14 +14,15 @@ namespace ShipCruises.PickupPoints {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<PickupPointReadResource>> Get() {
+        public async Task<IEnumerable<PickupPointListResource>> Get() {
             var pickupPoints = await context.PickupPoints
                 .Include(x => x.Route)
                 .OrderBy(o => o.Route.Abbreviation)
                     .ThenBy(o => o.Time)
                         .ThenBy(o => o.Description)
-                .AsNoTracking().ToListAsync();
-            return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointReadResource>>(pickupPoints);
+                .AsNoTracking()
+                .ToListAsync();
+            return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointListResource>>(pickupPoints);
         }
 
         public async Task<IEnumerable<PickupPointDropdownResource>> GetActiveForDropdown() {
@@ -37,14 +37,15 @@ namespace ShipCruises.PickupPoints {
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointDropdownResource>>(pickupPoints);
         }
 
-        public async Task<IEnumerable<PickupPoint>> GetForRoute(int routeId) =>
-            await context.PickupPoints.Include(x => x.Route).ThenInclude(y => y.Port).Where(m => m.RouteId == routeId).OrderBy(o => o.Time).ThenBy(o => o.Description).AsNoTracking().ToListAsync();
+        public new async Task<PickupPointReadResource> GetById(int pickupPointId) {
+            var pickupPoint = await context.PickupPoints
+                .Include(x => x.Route)
+                    .SingleOrDefaultAsync(m => m.Id == pickupPointId);
+            return mapper.Map<PickupPoint, PickupPointReadResource>(pickupPoint);
+        }
 
-        public new async Task<PickupPoint> GetById(int pickupPointId) =>
-            await context.PickupPoints.Include(x => x.Route).ThenInclude(y => y.Port).SingleOrDefaultAsync(m => m.Id == pickupPointId);
-
-        public int GetPortId(int pickupPointId) {
-            return context.PickupPoints.Include(x => x.Route).FirstOrDefault(x => x.Id == pickupPointId).Route.PortId;
+        public async Task<PickupPoint> GetByIdToDelete(int pickupPointId) {
+            return await context.PickupPoints.SingleOrDefaultAsync(m => m.Id == pickupPointId);
         }
 
         public void UpdateCoordinates(int pickupPointId, string coordinates) {

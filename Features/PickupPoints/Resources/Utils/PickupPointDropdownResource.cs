@@ -1,4 +1,4 @@
-namespace ShipCruises.PickupPoints {
+namespace ShipCruises.Features.PickupPoints {
 
     public class PickupPointDropdownResource {
 

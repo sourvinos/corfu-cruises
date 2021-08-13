@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShipCruises.PickupPoints {
+namespace ShipCruises.Features.PickupPoints {
 
     public interface IPickupPointRepository : IRepository<PickupPoint> {
 
-        Task<IEnumerable<PickupPointReadResource>> Get();
+        Task<IEnumerable<PickupPointListResource>> Get();
         Task<IEnumerable<PickupPointDropdownResource>> GetActiveForDropdown();
-        Task<IEnumerable<PickupPoint>> GetForRoute(int routeId);
-        new Task<PickupPoint> GetById(int pickupPointId);
-        int GetPortId(int pickupPointId);
+        new Task<PickupPointReadResource> GetById(int pickupPointId);
+        Task<PickupPoint> GetByIdToDelete(int pickupPointId);
         void UpdateCoordinates(int pickupPointId, string coordinates);
 
     }

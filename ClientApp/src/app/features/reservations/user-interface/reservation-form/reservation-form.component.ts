@@ -26,7 +26,6 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { Passenger } from '../../classes/models/passenger'
 import { PickupPointResource } from '../../classes/view-models/pickupPoint-flat'
 import { PickupPointService } from 'src/app/features/pickupPoints/classes/pickupPoint.service'
-import { Reservation } from '../../classes/models/reservation'
 import { ReservationService } from '../../classes/services/reservation.service'
 import { ReservationWriteResource } from './../../classes/resources/reservation-write-resource'
 import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
@@ -464,7 +463,7 @@ export class ReservationFormComponent {
         this.reservationService.getSingle(id).subscribe(result => {
             this.showModalForm().then(() => {
                 this.updateTotalPersons(result)
-                this.populateFields(result)
+                // this.populateFields(result)
                 this.focus('destinationDescription')
                 this.onDoBarcodeJobs()
             })
@@ -629,29 +628,29 @@ export class ReservationFormComponent {
         this.populateDropDown(this.pickupPointService, 'pickupPoints', 'filteredPickupPoints', 'pickupPoint', 'description')
     }
 
-    private populateFields(result: Reservation): void {
-        this.form.setValue({
-            reservationId: result.reservationId,
-            date: result.date,
-            destinationId: result.destination.id, destinationDescription: result.destination.description,
-            customerId: result.customer.id, customerDescription: result.customer.description,
-            pickupPointId: result.pickupPoint.id, pickupPointDescription: result.pickupPoint.description, pickupPointExactPoint: result.pickupPoint.exactPoint, pickupPointTime: result.pickupPoint.time,
-            adults: result.adults,
-            kids: result.kids,
-            free: result.free,
-            totalPersons: result.totalPersons,
-            driverId: result.driver.id, driverDescription: result.driver.description,
-            portId: result.pickupPoint.route.port.id, portDescription: result.pickupPoint.route.port.description,
-            shipId: result.ship.id, shipDescription: result.ship.description,
-            ticketNo: result.ticketNo,
-            email: result.email,
-            phones: result.phones,
-            remarks: result.remarks,
-            uri: '',
-            userId: this.helperService.readItem('userId'),
-            passengers: this.flattenDetails(result.passengers)
-        })
-    }
+    // private populateFields(result: Reservation): void {
+    //     this.form.setValue({
+    //         reservationId: result.reservationId,
+    //         date: result.date,
+    //         destinationId: result.destination.id, destinationDescription: result.destination.description,
+    //         customerId: result.customer.id, customerDescription: result.customer.description,
+    //         pickupPointId: result.pickupPoint.id, pickupPointDescription: result.pickupPoint.description, pickupPointExactPoint: result.pickupPoint.exactPoint, pickupPointTime: result.pickupPoint.time,
+    //         adults: result.adults,
+    //         kids: result.kids,
+    //         free: result.free,
+    //         totalPersons: result.totalPersons,
+    //         driverId: result.driver.id, driverDescription: result.driver.description,
+    //         portId: result.pickupPoint.route.port.id, portDescription: result.pickupPoint.route.port.description,
+    //         shipId: result.ship.id, shipDescription: result.ship.description,
+    //         ticketNo: result.ticketNo,
+    //         email: result.email,
+    //         phones: result.phones,
+    //         remarks: result.remarks,
+    //         uri: '',
+    //         userId: this.helperService.readItem('userId'),
+    //         passengers: this.flattenDetails(result.passengers)
+    //     })
+    // }
 
     private populateFormWithDefaultValues(): void {
         this.form.patchValue({

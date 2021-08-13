@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace ShipCruises.PickupPoints {
+namespace ShipCruises.Features.PickupPoints {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class PickupPointsController : ControllerBase {
@@ -25,7 +25,7 @@ namespace ShipCruises.PickupPoints {
         }
 
         [HttpGet]
-        public async Task<IEnumerable<PickupPointReadResource>> Get() {
+        public async Task<IEnumerable<PickupPointListResource>> Get() {
             return await repo.Get();
         }
 
@@ -34,14 +34,9 @@ namespace ShipCruises.PickupPoints {
             return await repo.GetActiveForDropdown();
         }
 
-        [HttpGet("routeId/{routeId}")]
-        public async Task<IEnumerable<PickupPoint>> Get(int routeId) {
-            return await repo.GetForRoute(routeId);
-        }
-
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPickupPoint(int id) {
-            PickupPoint record = await repo.GetById(id);
+        public async Task<IActionResult> Get(int id) {
+            PickupPointReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -74,7 +69,7 @@ namespace ShipCruises.PickupPoints {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult PutPickupPoint([FromRoute] int id, [FromBody] PickupPointWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -98,13 +93,13 @@ namespace ShipCruises.PickupPoints {
 
         [HttpPatch("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> PatchPickupPoint(int pickupPointId, [FromQuery(Name = "coordinates")] string coordinates) {
-            PickupPoint record = await repo.GetById(pickupPointId);
+        public async Task<IActionResult> PatchPickupPoint(int id, [FromQuery(Name = "coordinates")] string coordinates) {
+            PickupPointReadResource record = await repo.GetById(id);
             try {
-                repo.UpdateCoordinates(pickupPointId, coordinates);
+                repo.UpdateCoordinates(id, coordinates);
                 return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
             } catch (DbUpdateException exception) {
-                LoggerExtensions.LogException(pickupPointId, logger, ControllerContext, null, exception);
+                LoggerExtensions.LogException(id, logger, ControllerContext, null, exception);
                 return StatusCode(490, new {
                     response = ApiMessages.RecordNotSaved()
                 });
@@ -114,7 +109,7 @@ namespace ShipCruises.PickupPoints {
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeletePickupPoint([FromRoute] int id) {
-            PickupPoint record = await repo.GetById(id);
+            PickupPoint record = await repo.GetByIdToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
