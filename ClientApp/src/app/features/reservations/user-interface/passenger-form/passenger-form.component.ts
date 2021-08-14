@@ -1,11 +1,10 @@
-import { Component, Inject, NgZone } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
+import { Component, Inject, NgZone } from '@angular/core'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Title } from '@angular/platform-browser'
-import { forkJoin, Subject, Subscription } from 'rxjs'
-
+import { Observable, Subject } from 'rxjs'
+// Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DialogIndexComponent } from 'src/app/shared/components/dialog-index/dialog-index.component'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { GenderService } from 'src/app/features/genders/classes/gender.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -17,8 +16,13 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { NationalityService } from 'src/app/features/nationalities/classes/nationality.service'
 import { ReservationService } from '../../classes/services/reservation.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { ValidationService } from 'src/app/shared/services/validation.service'
 import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { Nationality } from 'src/app/features/nationalities/classes/nationality'
+import { map, startWith } from 'rxjs/operators'
+import { Gender } from 'src/app/features/genders/classes/gender'
+import moment from 'moment'
 
 @Component({
     selector: 'passenger-form',
@@ -38,13 +42,8 @@ export class PassengerFormComponent {
     public environment = environment.production
     public form: FormGroup
     public input: InputTabStopDirective
-
-    //#endregion
-
-    //#region particular variables
-
-    public genders: any
-    public nationalities: any
+    public activeNationalities: Observable<Nationality[]>
+    public activeGenders: Observable<Gender[]>
 
     //#endregion
 
@@ -53,15 +52,14 @@ export class PassengerFormComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
         this.populateDropDowns()
-        this.populateFields(this.data)
+        // this.populateFields(this.data)
     }
 
     ngAfterViewInit(): void {
-        this.focus('lastname')
+        // this.focus('lastname')
     }
 
 
@@ -74,6 +72,14 @@ export class PassengerFormComponent {
     //#endregion
 
     //#region public methods
+
+    public onGenderFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public onNationalityFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
 
     public onDelete(): void {
         this.dialogService.open('warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
@@ -104,32 +110,35 @@ export class PassengerFormComponent {
         })
     }
 
-    public onLookupIndex(lookupArray: any[], title: string, formFields: any[], fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[], value: { target: any }): void {
-        let filteredArray = []
-        lookupArray.filter(x => {
-            filteredArray = this.helperService.pushItemToFilteredArray(x, fields[1], value, filteredArray)
-        })
-        if (filteredArray.length === 0) {
-            this.clearFields(null, formFields[0], formFields[1])
-        }
-        if (filteredArray.length === 1) {
-            const [...elements] = filteredArray
-            this.patchFields(elements[0], fields)
-        }
-        if (filteredArray.length > 1) {
-            this.showModalIndex(filteredArray, title, fields, headers, widths, visibility, justify, types)
-        }
-    }
-
     public onSave(): void {
         this.ngZone.run(() => {
-            this.dialogRef.close(this.form.value)
+            console.log(this.flattenPassenger(this.form))
+            this.dialogRef.close()
         })
     }
 
     //#endregion
 
     //#region private methods
+
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+        const promise = new Promise((resolve) => {
+            service.getAllActive().toPromise().then(
+                (response: any) => {
+                    this[table] = response
+                    resolve(this[table])
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                }, (errorFromInterceptor: number) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                })
+        })
+        return promise
+    }
+
+    private populateDropDowns(): void {
+        this.populateDropDown(this.nationalityService, 'nationalities', 'activeNationalities', 'nationality', 'description')
+        this.populateDropDown(this.genderService, 'genders', 'activeGenders', 'gender', 'description')
+    }
 
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
@@ -157,53 +166,27 @@ export class PassengerFormComponent {
         })
     }
 
-    private clearFields(result: any, id: any, description: any): void {
-        this.form.patchValue({ [id]: result ? result.id : '' })
-        this.form.patchValue({ [description]: result ? result.description : '' })
-    }
-
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
+    private filterArray(array: string, field: string, value: any): any[] {
+        if (typeof value !== 'object') {
+            const filtervalue = value.toLowerCase()
+            return this[array].filter((element) =>
+                element[field].toLowerCase().startsWith(filtervalue))
+        }
     }
 
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: this.data.id,
             reservationId: this.data.reservationId,
-            occupantId: 2,
-            nationalityId: [0, Validators.required], nationalityDescription: ['', Validators.required],
+            nationality: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             lastname: ['', [Validators.required, Validators.maxLength(128)]],
             firstname: ['', [Validators.required, Validators.maxLength(128)]],
             birthdate: ['', [Validators.required, Validators.maxLength(10)]],
-            genderId: [0, Validators.required], genderDescription: ['', Validators.required],
+            gender: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             specialCare: ['', Validators.maxLength(128)],
             remarks: ['', Validators.maxLength(128)],
             isCheckedIn: false,
         })
-    }
-
-    private patchFields(result: any, fields: any[]): void {
-        if (result) {
-            Object.entries(result).forEach(([key, value]) => {
-                this.form.patchValue({ [key]: value })
-            })
-        } else {
-            fields.forEach(field => {
-                this.form.patchValue({ [field]: '' })
-            })
-        }
-    }
-
-    private populateDropDowns(): Subscription {
-        const sources = []
-        sources.push(this.nationalityService.getAllActive())
-        sources.push(this.genderService.getAllActive())
-        return forkJoin(sources).subscribe(
-            result => {
-                this.nationalities = result[0]
-                this.genders = result[1]
-                this.renameObjects()
-            })
     }
 
     private populateFields(result: any): void {
@@ -224,59 +207,30 @@ export class PassengerFormComponent {
         })
     }
 
-    private renameKey(obj: any, oldKey: string, newKey: string): void {
-        if (oldKey !== newKey) {
-            Object.defineProperty(obj, newKey, Object.getOwnPropertyDescriptor(obj, oldKey))
-            delete obj[oldKey]
-        }
-    }
-
-    private renameObjects(): void {
-        this.nationalities.forEach((obj: any) => {
-            this.renameKey(obj, 'id', 'nationalityId')
-            this.renameKey(obj, 'description', 'nationalityDescription')
-            this.renameKey(obj, 'isActive', 'nationalityIsActive')
-            this.renameKey(obj, 'userId', 'nationalityUserId')
-        })
-        this.genders.forEach((obj: any) => {
-            this.renameKey(obj, 'id', 'genderId')
-            this.renameKey(obj, 'description', 'genderDescription')
-            this.renameKey(obj, 'isActive', 'genderIsActive')
-            this.renameKey(obj, 'userId', 'genderUserId')
-        })
-    }
-
     private resetForm(): void {
         this.form.reset()
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
-    }
-
-    private showModalIndex(elements: any, title: string, fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[]): void {
-        const dialog = this.dialog.open(DialogIndexComponent, {
-            height: '685px',
-            data: {
-                records: elements,
-                title: title,
-                fields: fields,
-                headers: headers,
-                widths: widths,
-                visibility: visibility,
-                justify: justify,
-                types: types,
-                highlightFirstRow: true
-            }
-        })
-        dialog.afterClosed().subscribe((result) => {
-            this.patchFields(result, fields)
-        })
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
     }
+
+    private flattenPassenger(form: FormGroup): any {
+        const passenger = {
+            "id": form.value.id,
+            "reservationId": form.value.reservationId,
+            "lastname": form.value.lastname,
+            "firstname": form.value.firstname,
+            "birthdate": moment(form.value.birthdate).format('YYYY-MM-DD'),
+            "nationality": form.value.nationality,
+            "gender": form.value.gender,
+            "specialCare": form.value.specialCare,
+            "remarks": form.value.remarks,
+            "isCheckedIn": form.value.isCheckedIn
+        }
+        return passenger
+    }
+
 
     //#endregion
 
@@ -290,24 +244,16 @@ export class PassengerFormComponent {
         return this.form.get('firstname')
     }
 
-    get nationalityId(): AbstractControl {
-        return this.form.get('nationalityId')
+    get nationality(): AbstractControl {
+        return this.form.get('nationality')
     }
 
-    get nationalityDescription(): AbstractControl {
-        return this.form.get('nationalityDescription')
+    get gender(): AbstractControl {
+        return this.form.get('gender')
     }
 
     get birthdate(): AbstractControl {
         return this.form.get('birthdate')
-    }
-
-    get genderId(): AbstractControl {
-        return this.form.get('genderId')
-    }
-
-    get genderDescription(): AbstractControl {
-        return this.form.get('genderDescription')
     }
 
     get specialCare(): AbstractControl {

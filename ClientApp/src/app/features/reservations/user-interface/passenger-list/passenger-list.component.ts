@@ -1,14 +1,14 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, ViewChild } from '@angular/core'
 import { Guid } from 'guid-typescript'
 import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
 // Custom
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { Passenger } from '../../classes/models/passenger'
 import { PassengerFormComponent } from '../passenger-form/passenger-form.component'
+import { Table } from 'primeng/table'
 
 @Component({
     selector: 'passenger-list',
@@ -20,6 +20,8 @@ export class PassengerListComponent {
 
     //#region variables
 
+    @ViewChild('table') table: Table | undefined
+
     @Input() passengers: Passenger[] = []
     @Input() reservationId: Guid
     private ngUnsubscribe = new Subject<void>()
@@ -29,24 +31,13 @@ export class PassengerListComponent {
 
     //#endregion
 
-    //#region table
-
-    headers = ['', 'reservationId', 'Id', 'headerLastname', 'headerFirstname', 'headerNationalityId', 'headerNationalityDescription', 'headerGenderId', 'headerGenderDescription', 'headerBirthdate', 'headerIsCheckedIn', '', '']
-    widths = ['0px', '60px', '60px', '0px', '40%', '0px', '0px', '0px', '0px', '0px', '0px', '50px', '50px']
-    visibility = ['none', 'none', 'none', '', '', 'none', 'none', 'none', 'none', 'none', 'none', '', '']
-    justify = ['center', 'center', 'center', 'left', 'left', 'left', 'left', 'left', 'left', 'center', 'center', 'center', 'center']
-    types = ['', '', '', '', '', '', '', '', '', 'date', '', 'trash', '']
-    fields = ['', 'reservationId', 'id', 'lastname', 'firstname', 'nationalityId', 'nationalityDescription', 'genderId', 'genderDescription', 'birthdate', 'isCheckedIn', '', '']
-
-    //#endregion
-
     constructor(public dialog: MatDialog, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.addShortcuts()
-        this.subscribeToInteractionService()
+        // this.subscribeToInteractionService()
     }
 
     ngOnDestroy(): void {
@@ -57,6 +48,10 @@ export class PassengerListComponent {
     //#endregion
 
     //#region public methods
+
+    public onEditRecord(record: Passenger): void {
+        this.showPassengerForm(record)
+    }
 
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
@@ -83,73 +78,92 @@ export class PassengerListComponent {
         })
     }
 
-    private editRecord(reservationDetail: any): void {
-        this.showPassengerForm(reservationDetail)
+    // private subscribeToInteractionService(): void {
+    //     this.interactionService.reservation.pipe(takeUntil(this.ngUnsubscribe)).subscribe(response => {
+    //         this.editRecord(response)
+    //     })
+    // }
+
+    private populateForm(passenger: Passenger): void {
+        const dialog = this.dialog.open(PassengerFormComponent, {
+            data: {
+                id: passenger.id,
+                reservationId: passenger.reservationId,
+                lastname: passenger.lastname,
+                firstname: passenger.firstname,
+                nationality: passenger.nationality,
+                occupant: passenger.occupant,
+                birthdate: passenger.birthdate,
+                gender: passenger.gender,
+                remarks: passenger.remarks,
+                specialCare: passenger.specialCare,
+                isCheckedIn: passenger.isCheckedIn
+            }
+        })
+        dialog.afterClosed().subscribe((result: any) => {
+            if (result) {
+                passenger = this.passengers.find(({ id }) => id === result.id)
+                passenger.lastname = result.lastname
+                passenger.firstname = result.firstname
+                passenger.nationality = result.nationality
+                passenger.birthdate = result.birthdate
+                passenger.gender = result.gender
+                passenger.specialCare = result.specialCare
+                passenger.remarks = result.remarks
+                passenger.isCheckedIn = result.isCheckedIn
+            }
+        })
+
     }
 
-    private subscribeToInteractionService(): void {
-        this.interactionService.reservation.pipe(takeUntil(this.ngUnsubscribe)).subscribe(response => {
-            this.editRecord(response)
+    private showEmptyForm(): void {
+        const dialog = this.dialog.open(PassengerFormComponent, {
+            data: {
+                id: 0,
+                reservationId: this.reservationId,
+                lastname: '',
+                firstname: '',
+                nationality: { 'id': 1, 'description': '' },
+                birthdate: '',
+                specialCare: '',
+                remarks: '',
+                isCheckedIn: false
+            }
+        })
+        dialog.afterClosed().subscribe((result: any) => {
+            if (result) {
+                console.log('New passenger', result)
+                this.passengers.push(result)
+            }
         })
     }
 
-    private showPassengerForm(reservationDetail?: any): void {
-        if (reservationDetail == undefined) {
-            const dialog = this.dialog.open(PassengerFormComponent, {
-                data: {
-                    id: 0,
-                    reservationId: this.reservationId,
-                    lastname: '',
-                    firstname: '',
-                    occupantId: 2,
-                    nationalityId: 1, nationalityDescription: '',
-                    genderId: 1, genderDescription: '',
-                    birthdate: '',
-                    specialCare: '',
-                    remarks: '',
-                    isCheckedIn: false
-                }
-            })
-            dialog.afterClosed().subscribe((result: any) => {
-                if (result) {
-                    this.passengers.push(result)
-                }
-            })
+    private showPassengerForm(passenger?: any): void {
+        if (passenger == undefined) {
+            this.showEmptyForm()
+            // const dialog = this.dialog.open(PassengerFormComponent, {
+            //     data: {
+            //         id: 0,
+            //         reservationId: this.reservationId,
+            //         lastname: '',
+            //         firstname: '',
+            //         occupantId: 2,
+            //         nationalityId: 1, nationalityDescription: '',
+            //         genderId: 1, genderDescription: '',
+            //         birthdate: '',
+            //         specialCare: '',
+            //         remarks: '',
+            //         isCheckedIn: false
+            //     }
+            // })
+            // dialog.afterClosed().subscribe((result: any) => {
+            //     if (result) {
+            //         this.passengers.push(result)
+            //     }
+            // })
         }
-        if (reservationDetail != undefined) {
-            const dialog = this.dialog.open(PassengerFormComponent, {
-                data: {
-                    id: reservationDetail.id,
-                    reservationId: reservationDetail.reservationId,
-                    lastname: reservationDetail.lastname,
-                    firstname: reservationDetail.firstname,
-                    nationalityId: reservationDetail.nationalityId,
-                    nationalityDescription: reservationDetail.nationalityDescription,
-                    occupantId: reservationDetail.occupantId,
-                    birthdate: reservationDetail.birthdate,
-                    genderId: reservationDetail.genderId,
-                    genderDescription: reservationDetail.genderDescription,
-                    remarks: reservationDetail.remarks,
-                    specialCare: reservationDetail.specialCare,
-                    isCheckedIn: reservationDetail.isCheckedIn
-                }
-            })
-            dialog.afterClosed().subscribe((result: any) => {
-                if (result) {
-                    reservationDetail = this.passengers.find(({ id }) => id === result.id)
-                    reservationDetail.lastname = result.lastname
-                    reservationDetail.firstname = result.firstname
-                    reservationDetail.nationalityId = result.nationalityId
-                    reservationDetail.nationalityDescription = result.nationalityDescription
-                    reservationDetail.birthdate = result.birthdate
-                    reservationDetail.genderId = result.genderId
-                    reservationDetail.genderDescription = result.genderDescription
-                    reservationDetail.specialCare = result.specialCare
-                    reservationDetail.remarks = result.remarks
-                    reservationDetail.isCheckedIn = result.isCheckedIn
-                }
-            })
-
+        if (passenger != undefined) {
+            this.populateForm(passenger)
         }
     }
 

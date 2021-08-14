@@ -17,7 +17,7 @@ export class NationalityService extends DataService {
     //#region public methods
 
     getAllActive(): Observable<Nationality[]> {
-        return this.http.get<Nationality[]>('/api/nationalities/getActive')
+        return this.http.get<Nationality[]>('/api/nationalities/getActiveForDropdown')
     }
 
     //#endregion

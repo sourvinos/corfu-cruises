@@ -13,7 +13,6 @@ import { Customer } from 'src/app/features/customers/classes/customer'
 import { CustomerService } from 'src/app/features/customers/classes/customer.service'
 import { Destination } from 'src/app/features/destinations/classes/destination'
 import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
-import { DialogIndexComponent } from 'src/app/shared/components/dialog-index/dialog-index.component'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverService } from 'src/app/features/drivers/classes/driver.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -23,7 +22,6 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { Passenger } from '../../classes/models/passenger'
 import { PickupPointResource } from '../../classes/view-models/pickupPoint-flat'
 import { PickupPointService } from 'src/app/features/pickupPoints/classes/pickupPoint.service'
 import { ReservationService } from '../../classes/services/reservation.service'
@@ -89,8 +87,7 @@ export class ReservationFormComponent {
         private customerService: CustomerService,
         private destinationService: DestinationService,
         private dialogService: DialogService,
-        private driverService: DriverService,
-        private formBuilder: FormBuilder,
+                private formBuilder: FormBuilder,
         private helperService: HelperService,
         private interactionService: InteractionService,
         private keyboardShortcutsService: KeyboardShortcuts,
@@ -111,9 +108,9 @@ export class ReservationFormComponent {
             if (p.id) {
                 this.getRecord(p.id)
             } else {
-                setTimeout(() => { this.populateFormWithDefaultValues() }, 1000)
+                // setTimeout(() => { this.populateFormWithDefaultValues() }, 1000)
                 this.showModalForm().then(() => {
-                    this.focus('destinationDescription')
+                    // this.focus('destinationDescription')
                 })
             }
         })
@@ -246,23 +243,6 @@ export class ReservationFormComponent {
 
     public onGoBack(): void {
         this.router.navigate([this.url], { relativeTo: this.activatedRoute })
-    }
-
-    public onLookupIndex(lookupArray: any[], title: string, formFields: any[], fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[], value: { target: any }): void {
-        let filteredArray = []
-        lookupArray.filter(x => {
-            filteredArray = this.helperService.pushItemToFilteredArray(x, fields[1], value, filteredArray)
-        })
-        if (filteredArray.length === 0) {
-            this.clearFields(null, formFields[0], formFields[1])
-        }
-        if (filteredArray.length === 1) {
-            const [...elements] = filteredArray
-            this.patchFields(elements[0], fields)
-        }
-        if (filteredArray.length > 1) {
-            this.showModalIndex(filteredArray, title, fields, headers, widths, visibility, justify, types)
-        }
     }
 
     public onDoPreSaveTasks(): void {
@@ -416,28 +396,6 @@ export class ReservationFormComponent {
         }
     }
 
-    private flattenDetails(passengers: Passenger[]): any {
-        const passengersFlat = []
-        passengers.forEach(passenger => {
-            const passengerFlat = {
-                "id": passenger.id,
-                "reservationId": passenger.reservationId,
-                "occupantId": passenger.occupant.id,
-                "nationalityId": passenger.nationality.id,
-                "nationalityDescription": passenger.nationality.description,
-                "lastname": passenger.lastname,
-                "firstname": passenger.firstname,
-                "birthdate": passenger.birthdate.substr(0, 10),
-                "genderId": passenger.gender.id,
-                "genderDescription": passenger.gender.description,
-                "specialCare": passenger.specialCare,
-                "remarks": passenger.remarks,
-                "isCheckedIn": passenger.isCheckedIn
-            }
-            passengersFlat.push(passengerFlat)
-        })
-        return passengersFlat
-    }
 
     private focus(field: string): void {
         this.helperService.setFocus(field)
@@ -720,26 +678,6 @@ export class ReservationFormComponent {
         document.getElementById('reservationFormModal').style.visibility = 'visible'
     }
 
-    private showModalIndex(elements: any, title: string, fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[]): void {
-        const dialog = this.dialog.open(DialogIndexComponent, {
-            height: '685px',
-            data: {
-                records: elements,
-                title: title,
-                fields: fields,
-                headers: headers,
-                widths: widths,
-                visibility: visibility,
-                justify: justify,
-                types: types,
-                highlightFirstRow: true
-            }
-        })
-        dialog.afterClosed().subscribe((result) => {
-            this.patchFields(result, fields)
-        })
-    }
-
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
     }
@@ -786,30 +724,6 @@ export class ReservationFormComponent {
 
     get totalPersons(): AbstractControl {
         return this.form.get('totalPersons')
-    }
-
-    get driverId(): AbstractControl {
-        return this.form.get('driverId')
-    }
-
-    get driverDescription(): AbstractControl {
-        return this.form.get('driverDescription')
-    }
-
-    get portId(): AbstractControl {
-        return this.form.get('portId')
-    }
-
-    get portDescription(): AbstractControl {
-        return this.form.get('portDescription')
-    }
-
-    get shipId(): AbstractControl {
-        return this.form.get('shipId')
-    }
-
-    get shipDescription(): AbstractControl {
-        return this.form.get('shipDescription')
     }
 
     get email(): AbstractControl {
