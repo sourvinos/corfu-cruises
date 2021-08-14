@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { DataService } from 'src/app/shared/services/data.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { ReservationGroupResource } from '../resources/reservation-group-resource'
+import { ReservationGroupResource } from '../resources/list/reservation-group-resource'
 import { ReservationByDate } from '../view-models/reservation-by-date'
 
 @Injectable({ providedIn: 'root' })

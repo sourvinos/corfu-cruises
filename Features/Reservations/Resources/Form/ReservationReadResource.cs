@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ShipCruises.Features.Reservations {
 
@@ -12,6 +13,9 @@ namespace ShipCruises.Features.Reservations {
         public int Free { get; set; }
         public int TotalPersons { get; set; }
         public string TicketNo { get; set; }
+        public string Email { get; set; }
+        public string Phones { get; set; }
+        public string Remarks { get; set; }
 
         public CustomerResource Customer { get; set; }
         public DestinationResource Destination { get; set; }
@@ -20,6 +24,8 @@ namespace ShipCruises.Features.Reservations {
         public ShipResource Ship { get; set; }
 
         public UserResource User { get; set; }
+
+        public List<PassengerReadResource> Passengers { get; set; }
 
     }
 

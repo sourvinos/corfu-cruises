@@ -16,7 +16,7 @@ export class CustomerService extends DataService {
     //#region public methods
 
     public getAllActive(): Observable<Customer[]> {
-        return this.http.get<Customer[]>('/api/customers/getActive')
+        return this.http.get<Customer[]>('/api/customers/getActiveForDropdown')
     }
 
     public getSelectedFields(): Observable<any> {

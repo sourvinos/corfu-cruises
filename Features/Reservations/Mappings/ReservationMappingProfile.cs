@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AutoMapper;
 
 namespace ShipCruises.Features.Reservations {
@@ -18,6 +19,7 @@ namespace ShipCruises.Features.Reservations {
                         Description = r.PickupPoint.Route.Port.Description
                     }
                 }));
+            CreateMap<Passenger, PassengerReadResource>();
             // Write
             CreateMap<ReservationWriteResource, Reservation>();
             CreateMap<PassengerWriteResource, Passenger>();

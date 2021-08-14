@@ -19,7 +19,7 @@ export class DestinationService extends DataService {
     }
 
     public getAllActive(): Observable<Destination[]> {
-        return this.http.get<Destination[]>('/api/destinations/getActive')
+        return this.http.get<Destination[]>('/api/destinations/getActiveForDropdown')
     }
 
     //#endregion

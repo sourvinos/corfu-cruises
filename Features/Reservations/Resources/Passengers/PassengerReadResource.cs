@@ -15,13 +15,9 @@ namespace ShipCruises.Features.Reservations {
         public string SpecialCare { get; set; }
         public bool IsCheckedIn { get; set; }
 
-        public int NationalityId { get; set; }
-        public int OccupantId { get; set; }
-        public int GenderId { get; set; }
-
-        public Nationality Nationality { get; set; }
-        public Occupant Occupant { get; set; }
-        public Gender Gender { get; set; }
+        public NationalityResource Nationality { get; set; }
+        public OccupantResource Occupant { get; set; }
+        public GenderResource Gender { get; set; }
 
     }
 

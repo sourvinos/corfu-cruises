@@ -27,7 +27,7 @@ import { Passenger } from '../../classes/models/passenger'
 import { PickupPointResource } from '../../classes/view-models/pickupPoint-flat'
 import { PickupPointService } from 'src/app/features/pickupPoints/classes/pickupPoint.service'
 import { ReservationService } from '../../classes/services/reservation.service'
-import { ReservationWriteResource } from './../../classes/resources/reservation-write-resource'
+import { ReservationWriteResource } from '../../classes/resources/form/reservation-write-resource'
 import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { UserService } from 'src/app/features/users/classes/user.service'
@@ -35,6 +35,7 @@ import { ValidationService } from './../../../../shared/services/validation.serv
 import { VoucherService } from '../../classes/services/voucher.service'
 import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { ReservationReadResource } from '../../classes/resources/form/reservation-read-resource'
 
 @Component({
     selector: 'reservation-form',
@@ -105,7 +106,7 @@ export class ReservationFormComponent {
         private userService: UserService,
         private voucherService: VoucherService,
         public dialog: MatDialog
-        ) {
+    ) {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
                 this.getRecord(p.id)
@@ -461,11 +462,12 @@ export class ReservationFormComponent {
 
     private getRecord(id: number): void {
         this.reservationService.getSingle(id).subscribe(result => {
+            console.log(result)
             this.showModalForm().then(() => {
-                this.updateTotalPersons(result)
-                // this.populateFields(result)
-                this.focus('destinationDescription')
-                this.onDoBarcodeJobs()
+                // this.updateTotalPersons(result)
+                this.populateFields(result)
+                // this.focus('destinationDescription')
+                // this.onDoBarcodeJobs()
             })
         }, errorCode => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
@@ -498,9 +500,9 @@ export class ReservationFormComponent {
             kids: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             free: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             totalPersons: ['0', ValidationService.isGreaterThanZero],
-            driverId: [1, Validators.required], driverDescription: [{ value: '', disabled: true }, Validators.required],
-            portId: [1, Validators.required], portDescription: [{ value: '', disabled: true }, Validators.required],
-            shipId: [1, Validators.required], shipDescription: [{ value: '', disabled: true }, Validators.required],
+            driver: ['', Validators.required],
+            port: ['', Validators.required],
+            ship: ['', Validators.required],
             ticketNo: ['', [Validators.required, Validators.maxLength(128)]],
             email: ['', [Validators.maxLength(128), Validators.email]],
             phones: ['', Validators.maxLength(128)],
@@ -528,12 +530,12 @@ export class ReservationFormComponent {
         const reservation = {
             'reservationId': this.isGuid(form.reservationId),
             'date': this.formatDate(form.date),
-            'destinationId': form.destinationId,
-            'customerId': form.customerId,
-            'pickupPointId': form.pickupPointId,
-            'portId': form.portId,
-            'driverId': form.driverId,
-            'shipId': form.shipId,
+            'destinationId': form.destination.id,
+            'customerId': form.customer.id,
+            'pickupPointId': form.pickupPoint.id,
+            'portId': form.port.id,
+            'driverId': form.driver.id,
+            'shipId': form.ship.id,
             'ticketNo': form.ticketNo,
             'email': form.email,
             'phones': form.phones,
@@ -541,7 +543,6 @@ export class ReservationFormComponent {
             'kids': form.kids,
             'free': form.free,
             'remarks': form.remarks,
-            'guid': form.guid,
             'userId': form.userId,
             'passengers': this.mapPassengers()
         }
@@ -569,9 +570,9 @@ export class ReservationFormComponent {
         this.form.value.passengers.forEach((element: any) => {
             const passenger = {
                 'reservationId': this.isGuid(element.reservationId),
-                'occupantId': element.occupantId,
-                'nationalityId': element.nationalityId,
-                'genderId': element.genderId,
+                'occupantId': element.occupant.id,
+                'nationalityId': element.nationality.id,
+                'genderId': element.gender.id,
                 'lastname': element.lastname,
                 'firstname': element.firstname,
                 'birthdate': this.formatDate(element.birthdate),
@@ -628,29 +629,29 @@ export class ReservationFormComponent {
         this.populateDropDown(this.pickupPointService, 'pickupPoints', 'filteredPickupPoints', 'pickupPoint', 'description')
     }
 
-    // private populateFields(result: Reservation): void {
-    //     this.form.setValue({
-    //         reservationId: result.reservationId,
-    //         date: result.date,
-    //         destinationId: result.destination.id, destinationDescription: result.destination.description,
-    //         customerId: result.customer.id, customerDescription: result.customer.description,
-    //         pickupPointId: result.pickupPoint.id, pickupPointDescription: result.pickupPoint.description, pickupPointExactPoint: result.pickupPoint.exactPoint, pickupPointTime: result.pickupPoint.time,
-    //         adults: result.adults,
-    //         kids: result.kids,
-    //         free: result.free,
-    //         totalPersons: result.totalPersons,
-    //         driverId: result.driver.id, driverDescription: result.driver.description,
-    //         portId: result.pickupPoint.route.port.id, portDescription: result.pickupPoint.route.port.description,
-    //         shipId: result.ship.id, shipDescription: result.ship.description,
-    //         ticketNo: result.ticketNo,
-    //         email: result.email,
-    //         phones: result.phones,
-    //         remarks: result.remarks,
-    //         uri: '',
-    //         userId: this.helperService.readItem('userId'),
-    //         passengers: this.flattenDetails(result.passengers)
-    //     })
-    // }
+    private populateFields(result: ReservationReadResource): void {
+        this.form.setValue({
+            reservationId: result.reservationId,
+            date: result.date,
+            destination: { "id": result.destination.id, "description": result.destination.description },
+            customer: { "id": result.customer.id, "description": result.customer.description },
+            pickupPoint: { "id": result.pickupPoint.id, "description": result.pickupPoint.description },
+            driver: { "id": result.driver.id, "description": result.driver.description },
+            port: { "id": result.pickupPoint.port.id, "description": result.pickupPoint.port.description },
+            ship: { "id": result.ship.id, "description": result.ship.description },
+            adults: result.adults,
+            kids: result.kids,
+            free: result.free,
+            totalPersons: result.totalPersons,
+            ticketNo: result.ticketNo,
+            email: result.email,
+            phones: result.phones,
+            remarks: result.remarks,
+            uri: '',
+            userId: this.helperService.readItem('userId'),
+            passengers: result.passengers
+        })
+    }
 
     private populateFormWithDefaultValues(): void {
         this.form.patchValue({
@@ -681,8 +682,9 @@ export class ReservationFormComponent {
         this.form.reset()
     }
 
-    private save(): void {
+    public save(): void {
         const reservation: ReservationWriteResource = this.mapObject()
+        console.log(reservation)
         if (reservation.reservationId == null) {
             this.reservationService.add(reservation).subscribe(() => {
                 this.resetForm()
@@ -694,6 +696,7 @@ export class ReservationFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
             })
         } else {
+            console.log(reservation)
             this.reservationService.update(this.form.value.reservationId, reservation).subscribe(() => {
                 this.resetForm()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
