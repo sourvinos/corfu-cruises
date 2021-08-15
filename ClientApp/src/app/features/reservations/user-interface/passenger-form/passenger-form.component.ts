@@ -1,28 +1,26 @@
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Component, Inject, NgZone } from '@angular/core'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { Title } from '@angular/platform-browser'
 import { Observable, Subject } from 'rxjs'
+import moment from 'moment'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
+import { Gender } from 'src/app/features/genders/classes/gender'
 import { GenderService } from 'src/app/features/genders/classes/gender.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { Nationality } from 'src/app/features/nationalities/classes/nationality'
 import { NationalityService } from 'src/app/features/nationalities/classes/nationality.service'
 import { ReservationService } from '../../classes/services/reservation.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { environment } from 'src/environments/environment'
-import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import { Nationality } from 'src/app/features/nationalities/classes/nationality'
 import { map, startWith } from 'rxjs/operators'
-import { Gender } from 'src/app/features/genders/classes/gender'
-import moment from 'moment'
+import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'passenger-form',
@@ -38,16 +36,15 @@ export class PassengerFormComponent {
     private feature = 'passengerForm'
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private windowTitle = 'New Passenger'
+    public activeGenders: Observable<Gender[]>
+    public activeNationalities: Observable<Nationality[]>
     public environment = environment.production
     public form: FormGroup
     public input: InputTabStopDirective
-    public activeNationalities: Observable<Nationality[]>
-    public activeGenders: Observable<Gender[]>
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private reservationService: ReservationService, private buttonClickService: ButtonClickService, private dialogRef: MatDialogRef<PassengerFormComponent>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private buttonClickService: ButtonClickService, private dialogRef: MatDialogRef<PassengerFormComponent>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private reservationService: ReservationService, private snackbarService: SnackbarService, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
@@ -55,13 +52,8 @@ export class PassengerFormComponent {
         this.initForm()
         this.addShortcuts()
         this.populateDropDowns()
-        // this.populateFields(this.data)
+        this.populateFields(this.data)
     }
-
-    ngAfterViewInit(): void {
-        // this.focus('lastname')
-    }
-
 
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
@@ -72,14 +64,6 @@ export class PassengerFormComponent {
     //#endregion
 
     //#region public methods
-
-    public onGenderFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public onNationalityFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
 
     public onDelete(): void {
         this.dialogService.open('warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
@@ -93,6 +77,14 @@ export class PassengerFormComponent {
                 })
             }
         })
+    }
+
+    public onDropdownGenderFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public onDropdownNationalityFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
     }
 
     public onGetHint(id: string, minmax = 0): string {
@@ -112,33 +104,14 @@ export class PassengerFormComponent {
 
     public onSave(): void {
         this.ngZone.run(() => {
-            console.log(this.flattenPassenger(this.form))
-            this.dialogRef.close()
+            const passenger = this.flattenPassenger(this.form)
+            this.dialogRef.close(passenger)
         })
     }
 
     //#endregion
 
     //#region private methods
-
-    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
-        const promise = new Promise((resolve) => {
-            service.getAllActive().toPromise().then(
-                (response: any) => {
-                    this[table] = response
-                    resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
-                }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-                })
-        })
-        return promise
-    }
-
-    private populateDropDowns(): void {
-        this.populateDropDown(this.nationalityService, 'nationalities', 'activeNationalities', 'nationality', 'description')
-        this.populateDropDown(this.genderService, 'genders', 'activeGenders', 'gender', 'description')
-    }
 
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
@@ -174,6 +147,23 @@ export class PassengerFormComponent {
         }
     }
 
+    private flattenPassenger(form: FormGroup): any {
+        const passenger = {
+            "id": form.value.id,
+            "reservationId": form.value.reservationId,
+            "lastname": form.value.lastname,
+            "firstname": form.value.firstname,
+            "occupantId": 2,
+            "birthdate": moment(form.value.birthdate).format('YYYY-MM-DD'),
+            "nationality": form.value.nationality,
+            "gender": form.value.gender,
+            "specialCare": form.value.specialCare,
+            "remarks": form.value.remarks,
+            "isCheckedIn": form.value.isCheckedIn
+        }
+        return passenger
+    }
+
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: this.data.id,
@@ -189,15 +179,31 @@ export class PassengerFormComponent {
         })
     }
 
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+        const promise = new Promise((resolve) => {
+            service.getAllActive().toPromise().then(
+                (response: any) => {
+                    this[table] = response
+                    resolve(this[table])
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                }, (errorFromInterceptor: number) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                })
+        })
+        return promise
+    }
+
+    private populateDropDowns(): void {
+        this.populateDropDown(this.nationalityService, 'nationalities', 'activeNationalities', 'nationality', 'description')
+        this.populateDropDown(this.genderService, 'genders', 'activeGenders', 'gender', 'description')
+    }
+
     private populateFields(result: any): void {
         this.form.setValue({
             id: result.id,
             reservationId: result.reservationId,
-            occupantId: result.occupantId,
-            nationalityId: result.nationalityId,
-            nationalityDescription: result.nationalityDescription,
-            genderId: result.genderId,
-            genderDescription: result.genderDescription,
+            nationality: result.nationality,
+            gender: result.gender,
             lastname: result.lastname,
             firstname: result.firstname,
             birthdate: result.birthdate,
@@ -214,23 +220,6 @@ export class PassengerFormComponent {
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
     }
-
-    private flattenPassenger(form: FormGroup): any {
-        const passenger = {
-            "id": form.value.id,
-            "reservationId": form.value.reservationId,
-            "lastname": form.value.lastname,
-            "firstname": form.value.firstname,
-            "birthdate": moment(form.value.birthdate).format('YYYY-MM-DD'),
-            "nationality": form.value.nationality,
-            "gender": form.value.gender,
-            "specialCare": form.value.specialCare,
-            "remarks": form.value.remarks,
-            "isCheckedIn": form.value.isCheckedIn
-        }
-        return passenger
-    }
-
 
     //#endregion
 

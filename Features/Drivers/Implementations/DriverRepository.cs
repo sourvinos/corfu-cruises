@@ -22,6 +22,10 @@ namespace ShipCruises {
             return mapper.Map<IEnumerable<Driver>, IEnumerable<DriverDropdownResource>>(records);
         }
 
+        public async Task<int> GetDefault() {
+            var record = await context.Drivers.Where(x => x.Id == 1).SingleAsync();
+            return record.Id;
+        }
 
     }
 

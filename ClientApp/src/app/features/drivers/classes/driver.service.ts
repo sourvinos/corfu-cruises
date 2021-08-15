@@ -18,6 +18,10 @@ export class DriverService extends DataService {
         return this.http.get<Driver[]>('/api/drivers/getActive')
     }
 
+    getDefault(): Observable<number> {
+        return this.http.get<number>('/api/drivers/getDefault')
+    }
+
     //#endregion
 
 }

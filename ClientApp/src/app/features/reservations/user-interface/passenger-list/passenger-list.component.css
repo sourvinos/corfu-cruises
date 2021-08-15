@@ -11,3 +11,7 @@
 #footer {
     margin-top: auto !important;
 }
+
+.fa-trash-alt {
+    color: var(--color-button-delete) !important;
+}

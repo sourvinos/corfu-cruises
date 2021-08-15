@@ -44,7 +44,7 @@
                     </div>
                     <mat-form-field>
                         <mat-label>{{ onGetLabel("pickupPoint") }}</mat-label>
-                        <input matInput formControlName="pickupPoint" [matAutocomplete]="pickupPoints" data-tabindex="3" [inputTabStop]="input">
+                        <input matInput formControlName="pickupPoint" [matAutocomplete]="pickupPoints" data-tabindex="3" [inputTabStop]="input" (ngModelChange)="onUpdatePort()">
                         <mat-error *ngIf="pickupPoint.hasError('required')">{{ onGetHint('required') }}</mat-error>
                         <mat-error *ngIf="!pickupPoint.hasError('required') && pickupPoint.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
                         <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>

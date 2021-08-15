@@ -27,6 +27,18 @@ namespace ShipCruises {
         }
 
         [HttpGet("[action]")]
+        public async Task<IActionResult> GetDefault() {
+            int id = await repo.GetDefault();
+            if (id == 0) {
+                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                return StatusCode(404, new {
+                    response = ApiMessages.RecordNotFound()
+                });
+            }
+            return StatusCode(200, id);
+        }
+
+        [HttpGet("[action]")]
         public async Task<IEnumerable<DriverDropdownResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }

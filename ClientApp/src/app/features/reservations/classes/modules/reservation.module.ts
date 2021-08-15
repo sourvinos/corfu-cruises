@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core'
 // Custom
 import { PassengerFormComponent } from '../../user-interface/passenger-form/passenger-form.component'
 import { PassengerListComponent } from '../../user-interface/passenger-list/passenger-list.component'
-import { PassengerTableComponent } from '../../user-interface/passenger-table/passenger-table.component'
 import { ReservationFormComponent } from '../../user-interface/reservation-form/reservation-form.component'
 import { ReservationListComponent } from '../../user-interface/reservation-list/reservation-list.component'
 import { ReservationRoutingModule } from './reservation.routing.module'
@@ -19,8 +18,7 @@ import { SharedModule } from '../../../../shared/modules/shared.module'
         ReservationListComponent,
         ReservationWrapperComponent,
         PassengerFormComponent,
-        PassengerListComponent,
-        PassengerTableComponent
+        PassengerListComponent
     ],
     imports: [
         SharedModule,

@@ -4,7 +4,7 @@
     display: grid;
     grid-template-columns: minmax(400px, 1fr);
     grid-template-rows: 1fr 78% 1fr;
-    height: 643px;
+    height: 743px;
     padding: 2rem;
     width: 800px;
     z-index: 1;

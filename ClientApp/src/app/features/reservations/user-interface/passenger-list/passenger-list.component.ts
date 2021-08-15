@@ -49,6 +49,11 @@ export class PassengerListComponent {
 
     //#region public methods
 
+    public onDeleteRow(record: Passenger): void {
+        const index = this.passengers.indexOf(record)
+        this.passengers.splice(index, 1)
+    }
+
     public onEditRecord(record: Passenger): void {
         this.showPassengerForm(record)
     }
@@ -92,7 +97,6 @@ export class PassengerListComponent {
                 lastname: passenger.lastname,
                 firstname: passenger.firstname,
                 nationality: passenger.nationality,
-                occupant: passenger.occupant,
                 birthdate: passenger.birthdate,
                 gender: passenger.gender,
                 remarks: passenger.remarks,
@@ -132,7 +136,6 @@ export class PassengerListComponent {
         })
         dialog.afterClosed().subscribe((result: any) => {
             if (result) {
-                console.log('New passenger', result)
                 this.passengers.push(result)
             }
         })

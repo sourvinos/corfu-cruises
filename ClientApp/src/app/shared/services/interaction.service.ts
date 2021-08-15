@@ -64,21 +64,6 @@ export class InteractionService {
         this._record.next(record)
     }
 
-    /** 
-     * Caller(s):
-     *  passenger-table.component.ts
-     * 
-     * Subscriber(s):
-     *  passenger-list.ts
-     *
-     * Description:
-     *  The caller(s) send the selected item so that the subscribers call the edit method
-     *
-    */
-    public sendReservation(record: any): void {
-        this._reservation.next(record)
-    }
-
     /**
      * Caller(s):
      *  reservation-list.ts
