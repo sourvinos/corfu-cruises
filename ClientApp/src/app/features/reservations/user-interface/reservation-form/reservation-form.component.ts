@@ -2,18 +2,20 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
-import { Title } from '@angular/platform-browser'
 import { Observable, Subject } from 'rxjs'
+import { Title } from '@angular/platform-browser'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 import moment from 'moment'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { Customer } from 'src/app/features/customers/classes/customer'
+import { CustomerDropdownResource } from '../../classes/resources/form/dropdown/customer-dropdown-resource'
 import { CustomerService } from 'src/app/features/customers/classes/customer.service'
 import { Destination } from 'src/app/features/destinations/classes/destination'
 import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
+import { DriverDropdownResource } from '../../classes/resources/form/dropdown/driver-dropdown-resource'
+import { DriverService } from 'src/app/features/drivers/classes/driver.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
@@ -21,19 +23,20 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { PickupPointResource } from '../../classes/view-models/pickupPoint-flat'
+import { PickupPointDropdownResource } from '../../classes/resources/form/dropdown/pickupPoint-dropdown-resource'
 import { PickupPointService } from 'src/app/features/pickupPoints/classes/pickupPoint.service'
-import { ReservationReadResource } from '../../classes/resources/form/reservation-read-resource'
+import { PortService } from 'src/app/features/ports/classes/port.service'
+import { ReservationReadResource } from '../../classes/resources/form/reservation/reservation-read-resource'
 import { ReservationService } from '../../classes/services/reservation.service'
-import { ReservationWriteResource } from '../../classes/resources/form/reservation-write-resource'
+import { ReservationWriteResource } from '../../classes/resources/form/reservation/reservation-write-resource'
 import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
+import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { UserService } from 'src/app/features/users/classes/user.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
 import { VoucherService } from '../../classes/services/voucher.service'
 import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import { DriverService } from 'src/app/features/drivers/classes/driver.service'
 
 @Component({
     selector: 'reservation-form',
@@ -59,9 +62,6 @@ export class ReservationFormComponent {
 
     //#region particular variables
 
-    private drivers: any
-    private ports: any
-    private ships: any
     // public destinations: any
     public barcode = "0"
     public errorCorrectionLevel: "M"
@@ -69,17 +69,15 @@ export class ReservationFormComponent {
     public width = 128
     private savedTotalPersons = 0
 
-    public destinations: Destination[] = []
-    public customers: Customer[] = []
-    public pickupPoints: PickupPointResource[] = []
-
     public filteredDestinations: Observable<Destination[]>
-    public filteredCustomers: Observable<Customer[]>
-    public filteredPickupPoints: Observable<PickupPointResource[]>
+    public filteredCustomers: Observable<CustomerDropdownResource[]>
+    public filteredPickupPoints: Observable<PickupPointDropdownResource[]>
+    public filteredDrivers: Observable<DriverDropdownResource[]>
+    public filteredShips: Observable<DriverDropdownResource[]>
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, public dialog: MatDialog) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, public dialog: MatDialog) {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
                 this.getRecord(p.id)
@@ -92,7 +90,7 @@ export class ReservationFormComponent {
         })
     }
 
-    //#region lifecycle hooks
+    //#region lifecycle hooks2
 
     ngOnInit(): void {
         this.setWindowTitle()
@@ -148,7 +146,19 @@ export class ReservationFormComponent {
         return subject ? subject.description : undefined
     }
 
+    public onDriverFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+
+    }
     public onPickupPointFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public onShipFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public onPortFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
 
@@ -400,6 +410,7 @@ export class ReservationFormComponent {
 
     private getRecord(id: number): void {
         this.reservationService.getSingle(id).subscribe(result => {
+            console.log(result)
             this.showModalForm().then(() => {
                 this.populateFields(result)
                 this.onDoBarcodeJobs()
@@ -435,9 +446,9 @@ export class ReservationFormComponent {
             kids: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             free: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             totalPersons: ['0', ValidationService.isGreaterThanZero],
-            driverId: 1,
-            portId: ['', Validators.required],
-            shipId: 1,
+            driver: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            ship: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             ticketNo: ['', [Validators.required, Validators.maxLength(128)]],
             email: ['', [Validators.maxLength(128), Validators.email]],
             phones: ['', Validators.maxLength(128)],
@@ -562,18 +573,20 @@ export class ReservationFormComponent {
         this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
         this.populateDropDown(this.customerService, 'customers', 'filteredCustomers', 'customer', 'description')
         this.populateDropDown(this.pickupPointService, 'pickupPoints', 'filteredPickupPoints', 'pickupPoint', 'description')
+        this.populateDropDown(this.driverService, 'drivers', 'filteredDrivers', 'driver', 'description')
+        this.populateDropDown(this.shipService, 'ships', 'filteredShips', 'ship', 'description')
+        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
     }
 
     private populateFields(result: ReservationReadResource): void {
+        console.log('Populating', result)
         this.form.setValue({
             reservationId: result.reservationId,
             date: result.date,
             destination: { "id": result.destination.id, "description": result.destination.description },
             customer: { "id": result.customer.id, "description": result.customer.description },
             pickupPoint: { "id": result.pickupPoint.id, "description": result.pickupPoint.description },
-            driver: { "id": result.driver.id, "description": result.driver.description },
-            port: { "id": result.pickupPoint.port.id, "description": result.pickupPoint.port.description },
-            ship: { "id": result.ship.id, "description": result.ship.description },
+            portId: result.pickupPoint.portId,
             adults: result.adults,
             kids: result.kids,
             free: result.free,
@@ -599,7 +612,6 @@ export class ReservationFormComponent {
             kids: 0,
             free: 0,
             totalPersons: 0,
-            driverId: 1, driverDescription: '',
             portId: 1, portDescription: '',
             shipId: 1, shipDescription: '',
             remarks: '',
@@ -679,6 +691,18 @@ export class ReservationFormComponent {
 
     get pickupPoint(): AbstractControl {
         return this.form.get('pickupPoint')
+    }
+
+    get driver(): AbstractControl {
+        return this.form.get('driver')
+    }
+
+    get ship(): AbstractControl {
+        return this.form.get('ship')
+    }
+
+    get port(): AbstractControl {
+        return this.form.get('port')
     }
 
     get ticketNo(): AbstractControl {

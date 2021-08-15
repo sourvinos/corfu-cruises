@@ -98,6 +98,17 @@
                 <passenger-list [passengers]="form.value.passengers" [reservationId]="form.value.reservationId"></passenger-list>
             </ng-template>
         </mat-tab>
+        <mat-tab label="Misc">
+            <ng-template matTabContent>
+                <mat-form-field>
+                    <mat-label>{{ onGetLabel("driver") }}</mat-label>
+                    <input matInput formControlName="driver" [matAutocomplete]="drivers">
+                    <mat-error *ngIf="driver.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                    <mat-error *ngIf="!driver.hasError('required') && driver.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                    <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
+                </mat-form-field>
+            </ng-template>
+        </mat-tab>
     </mat-tab-group>
 
     <qrCode hidden [qrCodeValue]="barcode" [errorCorrectionLevel]="errorCorrectionLevel" [margin]="margin" [width]="width"></qrCode>
@@ -118,6 +129,18 @@
 
 <mat-autocomplete autoActiveFirstOption #customers="matAutocomplete" [displayWith]="onCustomerFields">
     <mat-option *ngFor="let option of filteredCustomers | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete autoActiveFirstOption #drivers="matAutocomplete" [displayWith]="onDriverFields">
+    <mat-option *ngFor="let option of filteredDrivers | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete autoActiveFirstOption #ships="matAutocomplete" [displayWith]="onShipFields">
+    <mat-option *ngFor="let option of filteredShips | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
