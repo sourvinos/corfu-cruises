@@ -1,6 +1,6 @@
-namespace ShipCruises.Features.Reservations {
+namespace ShipCruises.Features.Ports {
 
-    public class ShipResource {
+    public class PortDropdownResource {
 
         public int Id { get; set; }
         public string Description { get; set; }

@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using ShipCruises.Features.Customers;
+using ShipCruises.Features.PickupPoints;
+using ShipCruises.Features.Ports;
 
 namespace ShipCruises.Features.Reservations {
 
@@ -17,11 +20,12 @@ namespace ShipCruises.Features.Reservations {
         public string Phones { get; set; }
         public string Remarks { get; set; }
 
-        public CustomerResource Customer { get; set; }
-        public DestinationResource Destination { get; set; }
-        public DriverResource Driver { get; set; }
-        public PickupPointResource PickupPoint { get; set; }
-        public ShipResource Ship { get; set; }
+        public CustomerDropdownResource Customer { get; set; }
+        public DestinationDropdownResource Destination { get; set; }
+        public PickupPointDropdownResource PickupPoint { get; set; }
+        public DriverDropdownResource Driver { get; set; }
+        public ShipDropdownResource Ship { get; set; }
+        public PortDropdownResource Port { get; set; }
 
         public UserResource User { get; set; }
 

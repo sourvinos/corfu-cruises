@@ -16,7 +16,6 @@ namespace ShipCruises.Features.Reservations {
         public bool IsCheckedIn { get; set; }
 
         public NationalityResource Nationality { get; set; }
-        public OccupantResource Occupant { get; set; }
         public GenderResource Gender { get; set; }
 
     }
