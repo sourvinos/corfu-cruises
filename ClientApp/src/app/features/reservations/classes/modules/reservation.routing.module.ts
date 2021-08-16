@@ -7,11 +7,13 @@ import { ReservationFormComponent } from '../../user-interface/reservation-form/
 import { ReservationListComponent } from '../../user-interface/reservation-list/reservation-list.component'
 import { ReservationListResolver } from '../resolvers/reservation-list.resolver'
 import { ReservationWrapperComponent } from '../../user-interface/reservation-wrapper/reservation-wrapper.component'
+import { ReservationFormResolver } from '../resolvers/reservation-form.resolver'
 
 const routes: Routes = [
     { path: '', component: ReservationWrapperComponent, canActivate: [AuthGuardService] },
     { path: 'date/:date', component: ReservationListComponent, canActivate: [AuthGuardService], resolve: { reservationList: ReservationListResolver } },
-    { path: 'reservation/new', component: ReservationFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard] }
+    { path: 'new', component: ReservationFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard] },
+    { path: ':id', component: ReservationFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard], resolve: { customerForm: ReservationFormResolver } }
 ]
 
 @NgModule({

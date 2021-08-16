@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import { map, startWith, takeUntil } from 'rxjs/operators'
-import moment from 'moment'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
@@ -36,6 +35,7 @@ import { ValidationService } from './../../../../shared/services/validation.serv
 import { VoucherService } from '../../classes/services/voucher.service'
 import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { PortDropdownResource } from '../../classes/resources/form/dropdown/port-dropdown-resource'
 
 @Component({
     selector: 'reservation-form',
@@ -51,7 +51,7 @@ export class ReservationFormComponent {
     private feature = 'reservationForm'
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '../../'
+    private url = '/reservations'
     private windowTitle = 'Reservation'
     public environment = environment.production
     public form: FormGroup
@@ -73,16 +73,19 @@ export class ReservationFormComponent {
     public filteredPickupPoints: Observable<PickupPointDropdownResource[]>
     public filteredDrivers: Observable<DriverDropdownResource[]>
     public filteredShips: Observable<DriverDropdownResource[]>
+    public filteredPorts: Observable<PortDropdownResource[]>
 
     //#endregion
 
     constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService) {
         this.activatedRoute.params.subscribe(p => {
-            if (p.id) { this.getRecord(p.id) }
+            if (p.id) {
+                this.getRecord(p.id)
+            }
         })
     }
 
-    //#region lifecycle hooks2
+    //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
@@ -109,13 +112,11 @@ export class ReservationFormComponent {
             this.dialogService.open('warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
-                    this.mustStayOnTheList(true)
                     this.onGoBack()
                     return true
                 }
             })
         } else {
-            this.hideModalForm()
             return true
         }
     }
@@ -220,7 +221,7 @@ export class ReservationFormComponent {
     }
 
     public onGoBack(): void {
-        this.router.navigate([this.url], { relativeTo: this.activatedRoute })
+        this.router.navigate([this.url + '/date/2021-05-01'])
     }
 
     public onDoPreSaveTasks(): void {
@@ -258,7 +259,7 @@ export class ReservationFormComponent {
                                         console.log('STOP! OVERBOOKING')
                                     } else {
                                         console.log('OK. Continue')
-                                        this.save()
+                                        this.onSave()
                                     }
                                 } else {
                                     if (this.form.value.portId == 2) {
@@ -267,7 +268,7 @@ export class ReservationFormComponent {
                                             console.log('STOP! OVERBOOKING PRIMARY')
                                         } else {
                                             console.log('OK. Continue on primary')
-                                            this.save()
+                                            this.onSave()
                                         }
                                     } else {
                                         if (reservationsPrimaryPort + reservationsSecondaryPort + this.form.value.totalPersons > maxPersons) {
@@ -275,7 +276,7 @@ export class ReservationFormComponent {
                                             console.log('STOP! OVERBOOKING')
                                         } else {
                                             console.log('OK. Continue')
-                                            this.save()
+                                            this.onSave()
                                         }
                                     }
                                 }
@@ -285,10 +286,6 @@ export class ReservationFormComponent {
                 })
             }
         })
-    }
-
-    public onUpdatePort(): void {
-        this.form.get('portId').setValue(this.form.value.pickupPoint['portId'])
     }
 
     // private sendVoucher(): void {
@@ -373,21 +370,6 @@ export class ReservationFormComponent {
         }
     }
 
-
-    private formatDate(date: any): string {
-        const value = moment(date)
-        return value.format('YYYY-MM-DD')
-    }
-
-    private getDefaultDriver(): number {
-        let id: number
-        this.driverService.getDefault().subscribe(result => {
-            console.log(result)
-            id = result
-        })
-        return id
-    }
-
     private getCustomer(): void {
         const userId = this.helperService.readItem('userId')
         this.userService.getSingle(userId).subscribe(user => {
@@ -402,8 +384,9 @@ export class ReservationFormComponent {
 
     private getRecord(id: number): void {
         this.reservationService.getSingle(id).subscribe(result => {
+            console.log(result)
             this.populateFields(result)
-            this.onDoBarcodeJobs()
+            // this.onDoBarcodeJobs()
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             this.onGoBack()
@@ -417,10 +400,6 @@ export class ReservationFormComponent {
                 return i - 1
             }
         }
-    }
-
-    private hideModalForm(): void {
-        document.getElementById('reservationFormModal').style.visibility = "hidden"
     }
 
     private initForm(): void {
@@ -463,13 +442,13 @@ export class ReservationFormComponent {
         const form = this.form.value
         const reservation = {
             'reservationId': this.isGuid(form.reservationId),
-            'date': this.formatDate(form.date),
+            'date': this.helperService.formatDateToISO(form.date),
             'destinationId': form.destination.id,
             'customerId': form.customer.id,
             'pickupPointId': form.pickupPoint.id,
-            'portId': form.portId,
-            'driverId': form.driverId,
-            'shipId': form.shipId,
+            'portId': form.port.id,
+            'driverId': form.driver.id,
+            'shipId': form.ship.id,
             'ticketNo': form.ticketNo,
             'email': form.email,
             'phones': form.phones,
@@ -486,7 +465,7 @@ export class ReservationFormComponent {
     private mapObjectToVoucher(): any {
         const form = this.form.value
         const voucher = {
-            'date': this.formatDate(form.date),
+            'date': this.helperService.formatDateToISO(form.date),
             'destinationDescription': form.destinationDescription,
             'pickupPointDescription': form.pickupPointDescription,
             'pickupPointExactPoint': form.pickupPointExactPoint,
@@ -509,7 +488,7 @@ export class ReservationFormComponent {
                 'genderId': element.gender.id,
                 'lastname': element.lastname,
                 'firstname': element.firstname,
-                'birthdate': this.formatDate(element.birthdate),
+                'birthdate': this.helperService.formatDateToISO(element.birthdate),
                 'specialCare': element.specialCare,
                 'remarks': element.remarks,
                 'isCheckedIn': element.isCheckedIn
@@ -529,18 +508,6 @@ export class ReservationFormComponent {
             passengers.push(passenger)
         })
         return passengers
-    }
-
-    private patchFields(result: any, fields: any[]): void {
-        if (result) {
-            Object.entries(result).forEach(([key, value]) => {
-                this.form.patchValue({ [key]: value })
-            })
-        } else {
-            fields.forEach(field => {
-                this.form.patchValue({ [field]: '' })
-            })
-        }
     }
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
@@ -574,7 +541,9 @@ export class ReservationFormComponent {
             destination: { "id": result.destination.id, "description": result.destination.description },
             customer: { "id": result.customer.id, "description": result.customer.description },
             pickupPoint: { "id": result.pickupPoint.id, "description": result.pickupPoint.description },
-            portId: result.pickupPoint.portId,
+            driver: { "id": result.driver.id, "description": result.driver.description },
+            ship: { "id": result.ship.id, "description": result.ship.description },
+            port: { "id": result.port.id, "description": result.port.description },
             adults: result.adults,
             kids: result.kids,
             free: result.free,
@@ -617,8 +586,9 @@ export class ReservationFormComponent {
         this.form.reset()
     }
 
-    public save(): void {
+    public onSave(): void {
         const reservation: ReservationWriteResource = this.mapObject()
+        console.log('Saving', reservation)
         if (reservation.reservationId == null) {
             this.reservationService.add(reservation).subscribe(() => {
                 this.resetForm()
@@ -681,12 +651,12 @@ export class ReservationFormComponent {
         return this.form.get('pickupPoint')
     }
 
-    get driver(): AbstractControl {
-        return this.form.get('driver')
-    }
-
     get ship(): AbstractControl {
         return this.form.get('ship')
+    }
+
+    get driver(): AbstractControl {
+        return this.form.get('driver')
     }
 
     get port(): AbstractControl {

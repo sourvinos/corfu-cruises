@@ -52,6 +52,7 @@ export class ReservationListComponent {
     public activePanel: string
     public records = new ReservationGroupResource()
     public totals: any[] = []
+    private baseUrl = '/reservations'
 
 
     //#endregion
@@ -193,7 +194,7 @@ export class ReservationListComponent {
         this.scheduleService.getForDate(this.date).then(result => {
             if (result) {
                 document.getElementById('listTab').click()
-                this.router.navigate([this.location.path() + '/reservation/new'])
+                this.router.navigate([this.baseUrl, 'new'])
             } else {
                 this.showSnackbar(this.messageSnackbarService.noScheduleFound(), 'error')
             }
@@ -240,7 +241,7 @@ export class ReservationListComponent {
     }
 
     public onEditRecord(id: number): void {
-        this.router.navigate(['reservation/', id], { relativeTo: this.activatedRoute })
+        this.router.navigate([this.baseUrl, id])
     }
 
     private getDriversFromLocalStorage(): any {
