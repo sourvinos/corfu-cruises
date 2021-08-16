@@ -1,4 +1,4 @@
-namespace ShipCruises.Features.Drivers {
+namespace BlueWaterCruises.Features.Drivers {
 
     public class DriverResource {
 

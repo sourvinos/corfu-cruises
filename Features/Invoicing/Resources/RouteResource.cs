@@ -1,4 +1,4 @@
-namespace ShipCruises.Features.Invoicing {
+namespace BlueWaterCruises.Features.Invoicing {
 
     public class RouteResource {
 

@@ -1,4 +1,4 @@
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Genders {
 
     public class GenderRepository : Repository<Gender>, IGenderRepository {
 

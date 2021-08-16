@@ -1,4 +1,4 @@
-namespace ShipCruises.Features.Routes {
+namespace BlueWaterCruises.Features.Routes {
 
     public class PortResource {
 

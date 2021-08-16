@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ShipCruises.Features.Customers;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Customers {
 
     public interface ICustomerRepository : IRepository<Customer> {
 

@@ -1,4 +1,4 @@
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Invoicing {
 
     public class IsTransferGroupViewModel {
 

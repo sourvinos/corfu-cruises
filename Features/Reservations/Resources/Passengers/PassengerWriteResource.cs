@@ -1,6 +1,6 @@
 using System;
 
-namespace ShipCruises.Features.Reservations {
+namespace BlueWaterCruises.Features.Reservations {
 
     public class PassengerWriteResource {
 

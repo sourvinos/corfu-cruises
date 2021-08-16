@@ -1,10 +1,10 @@
-namespace ShipCruises.Features.Ships {
+namespace BlueWaterCruises.Features.Ships {
 
-    public class ShipOwnerReadResource{
+    public class ShipOwnerReadResource {
 
         public int Id { get; set; }
         public string Description { get; set; }
 
     }
-    
+
 }

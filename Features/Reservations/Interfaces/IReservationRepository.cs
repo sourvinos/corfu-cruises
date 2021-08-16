@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShipCruises.Features.Reservations {
+namespace BlueWaterCruises.Features.Reservations {
 
     public interface IReservationRepository : IRepository<Reservation> {
 

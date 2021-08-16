@@ -1,4 +1,4 @@
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Schedules {
 
     public class ScheduleReadResource {
 

@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
-using ShipCruises.Features.PickupPoints;
-using ShipCruises.Features.Ships;
+using BlueWaterCruises.Features.Customers;
+using BlueWaterCruises.Features.Destinations;
+using BlueWaterCruises.Features.Drivers;
+using BlueWaterCruises.Features.PickupPoints;
+using BlueWaterCruises.Features.Ports;
+using BlueWaterCruises.Features.Ships;
 
-namespace ShipCruises.Features.Reservations {
+namespace BlueWaterCruises.Features.Reservations {
 
     public class Reservation {
 

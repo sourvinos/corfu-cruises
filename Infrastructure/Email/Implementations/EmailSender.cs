@@ -1,19 +1,19 @@
 using System;
 using System.IO;
 using System.Linq;
+using BlueWaterCruises.Features.Reservations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using ShipCruises.Features.Reservations;
 
-namespace ShipCruises {
+namespace BlueWaterCruises {
 
     public class EmailSender : IEmailSender {
 
         private readonly IWebHostEnvironment env;
-        private readonly ShipCruisesSettings settings;
+        private readonly BlueWaterCruisesSettings settings;
 
-        public EmailSender(IWebHostEnvironment env, IOptions<ShipCruisesSettings> settings) {
+        public EmailSender(IWebHostEnvironment env, IOptions<BlueWaterCruisesSettings> settings) {
             this.env = env;
             this.settings = settings.Value;
         }

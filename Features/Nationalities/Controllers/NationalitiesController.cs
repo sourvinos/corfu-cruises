@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Nationalities {
 
     // [Authorize]
     [Route("api/[controller]")]

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Routes {
 
     public class RouteRepository : Repository<Route>, IRouteRepository {
 

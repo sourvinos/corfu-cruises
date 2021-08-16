@@ -1,4 +1,4 @@
-namespace ShipCruises.Features.Manifest {
+namespace BlueWaterCruises.Features.Manifest {
 
     public class ManifestCrewResource {
 

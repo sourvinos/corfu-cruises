@@ -1,4 +1,4 @@
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Ports {
 
     public class PortRepository : Repository<Port>, IPortRepository {
 

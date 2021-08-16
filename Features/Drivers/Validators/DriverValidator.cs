@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Drivers {
 
     public class DriverValidator : AbstractValidator<Driver> {
 

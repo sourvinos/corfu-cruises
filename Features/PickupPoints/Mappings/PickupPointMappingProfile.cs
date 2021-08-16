@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace ShipCruises.Features.PickupPoints {
+namespace BlueWaterCruises.Features.PickupPoints {
 
     public class PickupPointMappingProfile : Profile {
 

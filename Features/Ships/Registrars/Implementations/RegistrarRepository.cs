@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace ShipCruises.Features.Ships {
+namespace BlueWaterCruises.Features.Ships {
 
     public class RegistrarRepository : Repository<Registrar>, IRegistrarRepository {
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using ShipCruises.Features.Drivers;
+using BlueWaterCruises.Features.Drivers;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Embarkation {
 
     public class EmbarkationMainResultResource<T> {
 

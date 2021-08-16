@@ -1,4 +1,7 @@
-namespace ShipCruises.Features.Ships {
+using BlueWaterCruises.Features.Genders;
+using BlueWaterCruises.Features.Nationalities;
+
+namespace BlueWaterCruises.Features.Ships {
 
     public class Crew {
 

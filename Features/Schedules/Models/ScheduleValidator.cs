@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Schedules {
 
     public class ScheduleValidator : AbstractValidator<Schedule> {
 

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Drivers {
 
     public class DriverRepository : Repository<Driver>, IDriverRepository {
 

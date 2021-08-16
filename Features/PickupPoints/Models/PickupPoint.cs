@@ -1,4 +1,6 @@
-﻿namespace ShipCruises.Features.PickupPoints {
+﻿using BlueWaterCruises.Features.Routes;
+
+namespace BlueWaterCruises.Features.PickupPoints {
 
     public class PickupPoint {
 

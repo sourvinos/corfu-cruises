@@ -1,6 +1,9 @@
 using System;
+using BlueWaterCruises.Features.Genders;
+using BlueWaterCruises.Features.Nationalities;
+using BlueWaterCruises.Features.Occupants;
 
-namespace ShipCruises.Features.Reservations {
+namespace BlueWaterCruises.Features.Reservations {
 
     public class Passenger {
 

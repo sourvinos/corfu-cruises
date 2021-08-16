@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Microsoft.Extensions.Logging;
 
-namespace ShipCruises {
+namespace BlueWaterCruises {
 
     public class FileLogger : ILogger {
 

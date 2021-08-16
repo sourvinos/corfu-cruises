@@ -9,12 +9,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System;
-using ShipCruises.Features.Reservations;
-using ShipCruises.Features.Ships;
-using ShipCruises.Features.Manifest;
-using ShipCruises.Features.PickupPoints;
+using BlueWaterCruises.Features.Reservations;
+using BlueWaterCruises.Features.Ships;
+using BlueWaterCruises.Features.Manifest;
+using BlueWaterCruises.Features.PickupPoints;
+using BlueWaterCruises.Features.Customers;
+using BlueWaterCruises.Features.Destinations;
+using BlueWaterCruises.Features.Drivers;
+using BlueWaterCruises.Features.Genders;
+using BlueWaterCruises.Features.Nationalities;
+using BlueWaterCruises.Features.Occupants;
+using BlueWaterCruises.Features.Ports;
+using BlueWaterCruises.Features.Routes;
+using BlueWaterCruises.Features.Schedules;
+using BlueWaterCruises.Features.Invoicing;
+using BlueWaterCruises.Features.Embarkation;
 
-namespace ShipCruises {
+namespace BlueWaterCruises {
 
     public static class Extensions {
 

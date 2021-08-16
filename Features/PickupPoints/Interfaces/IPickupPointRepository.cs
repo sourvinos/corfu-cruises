@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShipCruises.Features.PickupPoints {
+namespace BlueWaterCruises.Features.PickupPoints {
 
     public interface IPickupPointRepository : IRepository<PickupPoint> {
 

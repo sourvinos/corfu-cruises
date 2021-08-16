@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ShipCruises.Features.Drivers;
+using BlueWaterCruises.Features.Drivers;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Drivers {
 
     public interface IDriverRepository : IRepository<Driver> { 
 

@@ -1,8 +1,8 @@
 using AutoMapper;
-using ShipCruises.Features.Reservations;
+using BlueWaterCruises.Features.Reservations;
 using System.Linq;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Embarkation {
 
     public class EmbarkationMappingProfile : Profile {
 

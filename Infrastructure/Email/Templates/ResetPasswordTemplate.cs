@@ -1,11 +1,10 @@
 using System.Text;
-using Microsoft.Extensions.Options;
 
-namespace ShipCruises {
+namespace BlueWaterCruises {
 
     public static class ResetPasswordTemplate {
 
-        public static string GetHtmlString(string displayName, string callbackUrl, ShipCruisesSettings settings) {
+        public static string GetHtmlString(string displayName, string callbackUrl, BlueWaterCruisesSettings settings) {
 
             var sb = new StringBuilder();
 
@@ -36,8 +35,8 @@ namespace ShipCruises {
                             </div>
                             <div class='group' id='questions'>
                                 <div class='text small'>Problems or questions? Call us at +30 26620 61400</div>
-                                <div class='text small'>or email at info@corfucruises.com</div>
-                                <div class='text small'>© Corfu Cruises 2021, Kavos - Corfu - Greece</div>
+                                <div class='text small'>or email at info@bluewatercruises.com</div>
+                                <div class='text small'>© Blue Water Cruises 2021, Corfu - Greece</div>
                             </div>
                             <div class='group' id='info'>
                                 <div class='text small'>If you didn't make this request, please disregard this email.</div>

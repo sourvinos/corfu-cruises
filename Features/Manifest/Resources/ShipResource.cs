@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ShipCruises.Features.Manifest {
+namespace BlueWaterCruises.Features.Manifest {
 
     public class ShipResource {
 

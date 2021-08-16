@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Schedules {
 
     public class ScheduleRepository : Repository<Schedule>, IScheduleRepository {
 

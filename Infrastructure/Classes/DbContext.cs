@@ -2,11 +2,20 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ShipCruises.Features.PickupPoints;
-using ShipCruises.Features.Reservations;
-using ShipCruises.Features.Ships;
+using BlueWaterCruises.Features.PickupPoints;
+using BlueWaterCruises.Features.Reservations;
+using BlueWaterCruises.Features.Ships;
+using BlueWaterCruises.Features.Customers;
+using BlueWaterCruises.Features.Destinations;
+using BlueWaterCruises.Features.Drivers;
+using BlueWaterCruises.Features.Genders;
+using BlueWaterCruises.Features.Nationalities;
+using BlueWaterCruises.Features.Occupants;
+using BlueWaterCruises.Features.Ports;
+using BlueWaterCruises.Features.Routes;
+using BlueWaterCruises.Features.Schedules;
 
-namespace ShipCruises {
+namespace BlueWaterCruises {
 
     public class DbContext : IdentityDbContext<IdentityUser> {
 

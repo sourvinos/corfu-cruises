@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ShipCruises.Features.Ships {
+namespace BlueWaterCruises.Features.Ships {
 
     public class Ship {
 

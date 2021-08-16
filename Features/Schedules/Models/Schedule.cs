@@ -1,6 +1,7 @@
-using System;
+using BlueWaterCruises.Features.Destinations;
+using BlueWaterCruises.Features.Ports;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Schedules {
 
     public class Schedule {
 

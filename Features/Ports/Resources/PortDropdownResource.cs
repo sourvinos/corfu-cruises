@@ -1,4 +1,4 @@
-namespace ShipCruises.Features.Ports {
+namespace BlueWaterCruises.Features.Ports {
 
     public class PortDropdownResource {
 

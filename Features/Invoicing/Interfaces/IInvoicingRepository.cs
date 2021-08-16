@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Invoicing {
 
     public interface IInvoicingRepository {
 

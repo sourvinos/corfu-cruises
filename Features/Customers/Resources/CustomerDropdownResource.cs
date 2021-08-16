@@ -1,4 +1,4 @@
-namespace ShipCruises.Features.Customers {
+namespace BlueWaterCruises.Features.Customers {
 
     public class CustomerDropdownResource {
 

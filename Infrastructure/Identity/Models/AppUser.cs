@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using BlueWaterCruises.Features.Customers;
 using Microsoft.AspNetCore.Identity;
 
-namespace ShipCruises {
+namespace BlueWaterCruises {
 
     public class AppUser : IdentityUser {
 

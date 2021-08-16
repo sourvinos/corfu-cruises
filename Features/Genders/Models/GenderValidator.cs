@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Genders {
 
     public class GenderValidator : AbstractValidator<Gender> {
 

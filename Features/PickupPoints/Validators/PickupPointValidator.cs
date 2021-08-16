@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace ShipCruises.Features.PickupPoints {
+namespace BlueWaterCruises.Features.PickupPoints {
 
     public class PickupPointValidator : AbstractValidator<PickupPoint> {
 

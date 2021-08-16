@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
-using ShipCruises.Features.Reservations;
+using BlueWaterCruises.Features.Reservations;
+using BlueWaterCruises.Features.Drivers;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Embarkation {
 
     public class EmbarkationRepository : Repository<Reservation>, IEmbarkationRepository {
 

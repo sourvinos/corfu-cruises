@@ -1,6 +1,6 @@
-using ShipCruises.Features.Reservations;
+using BlueWaterCruises.Features.Reservations;
 
-namespace ShipCruises {
+namespace BlueWaterCruises {
 
     public interface IEmailSender {
 

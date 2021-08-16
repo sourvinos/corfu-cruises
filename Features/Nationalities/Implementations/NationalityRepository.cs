@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Nationalities {
 
     public class NationalityRepository : Repository<Nationality>, INationalityRepository {
 

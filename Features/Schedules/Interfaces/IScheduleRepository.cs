@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Schedules {
 
     public interface IScheduleRepository : IRepository<Schedule> {
 

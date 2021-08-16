@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace ShipCruises.Features.PickupPoints {
+namespace BlueWaterCruises.Features.PickupPoints {
 
     public class PickupPointRepository : Repository<PickupPoint>, IPickupPointRepository {
 

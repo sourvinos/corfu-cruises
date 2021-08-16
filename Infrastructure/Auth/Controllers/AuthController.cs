@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ShipCruises {
+namespace BlueWaterCruises {
 
     [Route("api/[controller]")]
 

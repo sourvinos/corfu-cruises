@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ShipCruises.Features.Reservations {
+namespace BlueWaterCruises.Features.Reservations {
 
     public class Voucher {
 

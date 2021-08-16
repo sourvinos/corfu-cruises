@@ -1,6 +1,6 @@
 using System;
 
-namespace ShipCruises {
+namespace BlueWaterCruises {
 
     public class TokenResponse {
 

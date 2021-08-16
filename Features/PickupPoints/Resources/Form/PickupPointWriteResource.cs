@@ -1,4 +1,4 @@
-namespace ShipCruises.Features.PickupPoints {
+namespace BlueWaterCruises.Features.PickupPoints {
 
     public class PickupPointWriteResource {
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Ships {
 
     public interface IShipRouteRepository : IRepository<ShipRoute> {
 

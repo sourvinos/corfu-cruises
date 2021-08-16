@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Ships {
 
     public class ShipRouteRepository : Repository<ShipRoute>, IShipRouteRepository {
 

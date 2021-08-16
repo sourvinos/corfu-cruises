@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace ShipCruises {
+namespace BlueWaterCruises {
 
     [Route("api/[controller]")]
 

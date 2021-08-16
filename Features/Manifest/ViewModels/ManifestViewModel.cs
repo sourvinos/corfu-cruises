@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using ShipCruises.Features.Reservations;
+using BlueWaterCruises.Features.Ports;
+using BlueWaterCruises.Features.Reservations;
 
-namespace ShipCruises.Features.Manifest {
+namespace BlueWaterCruises.Features.Manifest {
 
     public class ManifestViewModel {
 

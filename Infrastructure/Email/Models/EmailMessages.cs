@@ -1,4 +1,4 @@
-namespace ShipCruises {
+namespace BlueWaterCruises {
 
     public static class EmailMessages {
 

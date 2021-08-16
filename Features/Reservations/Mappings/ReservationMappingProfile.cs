@@ -1,8 +1,7 @@
-using System.Collections.Generic;
 using AutoMapper;
-using ShipCruises.Features.PickupPoints;
+using BlueWaterCruises.Features.PickupPoints;
 
-namespace ShipCruises.Features.Reservations {
+namespace BlueWaterCruises.Features.Reservations {
 
     public class ReservationMappingProfile : Profile {
 

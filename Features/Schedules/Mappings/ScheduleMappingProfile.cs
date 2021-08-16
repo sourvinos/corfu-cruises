@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Schedules {
 
     public class ScheduleMappingProfile : Profile {
 

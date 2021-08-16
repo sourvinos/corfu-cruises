@@ -1,7 +1,7 @@
 using System.Linq;
 using AutoMapper;
 
-namespace ShipCruises.Features.Manifest {
+namespace BlueWaterCruises.Features.Manifest {
 
     public class ManifestMappingProfile : Profile {
 

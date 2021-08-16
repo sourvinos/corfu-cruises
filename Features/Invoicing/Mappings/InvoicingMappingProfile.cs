@@ -1,7 +1,7 @@
 using System.Linq;
 using AutoMapper;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Invoicing {
 
     public class InvoicingMappingProfile : Profile {
 

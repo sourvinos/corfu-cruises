@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using ShipCruises.Features.Reservations;
+using BlueWaterCruises.Features.Customers;
+using BlueWaterCruises.Features.Reservations;
 
-namespace ShipCruises {
+namespace BlueWaterCruises.Features.Invoicing {
 
     public class InvoiceIntermediateViewModel {
 

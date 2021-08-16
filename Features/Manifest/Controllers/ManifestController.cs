@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace ShipCruises.Features.Manifest {
+namespace BlueWaterCruises.Features.Manifest {
 
     // [Authorize]
     [Route("api/[controller]")]

@@ -1,6 +1,6 @@
-﻿namespace ShipCruises {
+﻿namespace BlueWaterCruises {
 
-    public class ShipCruisesSettings {
+    public class BlueWaterCruisesSettings {
 
         public string From { get; set; }
         public string SmtpClient { get; set; }
