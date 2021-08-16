@@ -1,4 +1,13 @@
-<div id="wrapper">
+<div id="list">
+
+    <div id="header">
+        <div id="navigation">
+            <mat-icon class="goBack" [routerLink]="['/reservations']">arrow_back</mat-icon>
+        </div>
+        <div @slideFromLeft id="title">
+            <h1>{{ onGetLabel('header') }} {{ onGetStoredDate() }}</h1>
+        </div>
+    </div>
 
     <div id="panelButtons">
         <button data-cy="summaryTab" mat-flat-button class="tab" id="summaryTab" [disabled]="activePanel=='summary'" (click)="onFocusSummaryPanel()">{{ onGetLabel('summaryTab') }}</button>

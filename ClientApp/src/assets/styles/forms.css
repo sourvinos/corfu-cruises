@@ -13,7 +13,7 @@
 #header {
     align-items: center;
     display: flex;
-    margin: 2rem 3rem 1rem 1rem;
+    margin: var(--header-margin-top) 1rem var(--header-margin-bottom) 1rem !important;
 }
 
 #header #navigation {

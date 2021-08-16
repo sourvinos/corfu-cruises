@@ -1,16 +1,15 @@
+import { HelperService } from './../../../../shared/services/helper.service'
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Location } from '@angular/common'
 import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-import { takeUntil } from 'rxjs/operators'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DriverPdfService } from '../../classes/services/driver-pdf.service'
 import { DriverService } from 'src/app/features/drivers/classes/driver.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -27,7 +26,7 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 @Component({
     selector: 'reservation-list',
     templateUrl: './reservation-list.component.html',
-    styleUrls: ['./reservation-list.component.css', '../../../../../assets/styles/summaries.css'],
+    styleUrls: ['../../../../../assets/styles/lists.css', './reservation-list.component.css', '../../../../../assets/styles/summaries.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
@@ -75,7 +74,6 @@ export class ReservationListComponent {
         this.setWindowTitle()
         this.addShortcuts()
         this.initPersonsSumArray()
-        this.subscribeToInteractionService()
         this.onFocusSummaryPanel()
     }
 
@@ -174,12 +172,17 @@ export class ReservationListComponent {
         document.getElementById('table-wrapper').style.display = 'none'
     }
 
+    public onGetStoredDate(): string {
+        const dashboard = JSON.parse(this.helperService.readItem('dashboard'))
+        return this.helperService.formatDateToLocale(dashboard.date)
+    }
+
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
     private goBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate(['/reservations'])
     }
 
     public onMustBeAdmin(): boolean {
@@ -299,22 +302,6 @@ export class ReservationListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private subscribeToInteractionService(): void {
-        this.interactionService.record.pipe(takeUntil(this.ngUnsubscribe)).subscribe(response => {
-            this.onEditRecord(response['id'])
-        })
-        this.interactionService.refreshReservationList.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
-            this.reservationService.get(this.date).subscribe(result => {
-                // this.queryResult = result
-                this.ngAfterViewInit()
-            })
-        })
-        this.interactionService.tableRow.subscribe(result => {
-            // this.reservationsFlat.splice(Number(result), 1)
-            this.updateTotals()
-        })
     }
 
     private updateTotals(): void {

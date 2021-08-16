@@ -597,6 +597,10 @@
         "feature": "reservationList",
         "labels": [
             {
+                "id": "header",
+                "description": "Rezervace pro "
+            },
+            {
                 "id": "summaryTab",
                 "description": "Souhrn"
             },

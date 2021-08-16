@@ -597,6 +597,10 @@
         "feature": "reservationList",
         "labels": [
             {
+                "id": "header",
+                "description": "Κρατήσεις για "
+            },
+            {
                 "id": "summaryTab",
                 "description": "Συνοπτικά"
             },

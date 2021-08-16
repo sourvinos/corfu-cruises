@@ -1,7 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { MatDialog } from '@angular/material/dialog'
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import { map, startWith, takeUntil } from 'rxjs/operators'
@@ -77,16 +76,9 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, public dialog: MatDialog) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService) {
         this.activatedRoute.params.subscribe(p => {
-            if (p.id) {
-                this.getRecord(p.id)
-            } else {
-                // setTimeout(() => { this.populateFormWithDefaultValues() }, 1000)
-                this.showModalForm().then(() => {
-                    // this.focus('destinationDescription')
-                })
-            }
+            if (p.id) { this.getRecord(p.id) }
         })
     }
 
@@ -410,14 +402,10 @@ export class ReservationFormComponent {
 
     private getRecord(id: number): void {
         this.reservationService.getSingle(id).subscribe(result => {
-            console.log(result)
-            this.showModalForm().then(() => {
-                this.populateFields(result)
-                this.onDoBarcodeJobs()
-            })
-        }, errorCode => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
-            this.mustStayOnTheList(false)
+            this.populateFields(result)
+            this.onDoBarcodeJobs()
+        }, errorFromInterceptor => {
+            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             this.onGoBack()
         })
     }

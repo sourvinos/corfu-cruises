@@ -18,7 +18,7 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 @Component({
     selector: 'reservation-wrapper',
     templateUrl: './reservation-wrapper.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './reservation-wrapper.component.css'],
+    styleUrls: ['../../../../../assets/styles/forms.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
@@ -125,7 +125,7 @@ export class ReservationWrapperComponent {
     }
 
     private navigateToList(): void {
-        this.router.navigate(['date/', moment(this.form.value.date).toISOString().substr(0, 10)], { relativeTo: this.activatedRoute })
+        this.router.navigate(['date', moment(this.form.value.date).toISOString().substr(0, 10)], { relativeTo: this.activatedRoute })
     }
 
     private populateFields(): void {

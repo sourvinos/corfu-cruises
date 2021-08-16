@@ -597,6 +597,10 @@
         "feature": "reservationList",
         "labels": [
             {
+                "id": "header",
+                "description": "Reservierungen für "
+            },
+            {
                 "id": "summaryTab",
                 "description": "Kurzbericht"
             },

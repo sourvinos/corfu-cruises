@@ -1,18 +1,13 @@
 :host {
     display: flex;
+    height: 100%;
     width: 100%;
 }
 
-#content {
-    height: 100%;
-}
-
-#wrapper {
+#header #navigation {
+    align-items: center;
     display: flex;
-    flex-direction: column;
-    flex: 1;
-    height: 100%;
-    overflow: hidden;
+    margin-right: 1rem;
 }
 
 #panelButtons {
