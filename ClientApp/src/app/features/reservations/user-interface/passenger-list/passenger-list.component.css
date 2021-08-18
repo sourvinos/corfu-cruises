@@ -1,15 +1,17 @@
 :host {
+    height: 100%;
     width: 100%;
+}
+
+#headerButtons {
+    margin-left: auto;
 }
 
 #passenger-list {
     display: flex;
     flex-direction: column;
     height: 100%;
-}
-
-#footer {
-    margin-top: auto !important;
+    margin-bottom: var(--gap);
 }
 
 .fa-trash-alt {

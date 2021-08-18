@@ -58,7 +58,9 @@
     --color-spinner-outer: #fe9f36;
     --color-spinner: #fe9f36;
     --color-summary-background: #97aaaf21;
-    --color-summary-header: #e6ba8a;
+    --color-summary-header-icon: #73b2c7;
+    --color-summary-header: #227c9d;
+    --color-summary-header-icon: #297d83;
     --color-summary-total: #e6ba8a;
     --color-table-badge-background: #cce8f9;
     --color-table-badge-color: #b56576;
@@ -76,5 +78,4 @@
     --color-text-selected: #f2d49266;
     --color-tooltip-background: #426f8a;
     --color-tooltip: #efefef;
-
 }

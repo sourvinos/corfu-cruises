@@ -1203,6 +1203,10 @@
                 "description": "Jméno"
             },
             {
+                "id": "headerActions",
+                "description": "Akce"
+            },
+            {
                 "id": "headerNationality",
                 "description": "Národnost"
             },
@@ -1270,6 +1274,10 @@
             {
                 "id": "saveButton",
                 "description": "ULOŽIT"
+            },
+            {
+                "id": "searchAutocompleteHint",
+                "description": "Vyberte ze seznamu"
             }
         ]
     },

@@ -15,12 +15,13 @@
 .summaryHeader {
     color: var(--color-summary-header);
     font-family: var(--font-family-master);
-    font-size: var(--font-size-label);
+    font-size: var(--font-size-summary-header);
+    font-weight: var(--font-weight-summary-header);
     padding-bottom: 1rem;
 }
 
 .summaryHeader i {
-    color: var(--color-button-primary);
+    color: var(--color-summary-header-icon);
 }
 
 .summaryContent .scrollable::-webkit-scrollbar-thumb {
@@ -45,6 +46,5 @@
 
 .summaryContent .item .total {
     color: var(--color-summary-total);
-    font-weight: bold;
     margin-left: 0.5rem;
 }

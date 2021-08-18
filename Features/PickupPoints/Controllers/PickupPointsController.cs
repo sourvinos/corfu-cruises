@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.PickupPoints {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class PickupPointsController : ControllerBase {

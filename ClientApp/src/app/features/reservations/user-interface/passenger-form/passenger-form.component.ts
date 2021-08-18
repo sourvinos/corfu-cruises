@@ -1,3 +1,4 @@
+import { NationalityDropdownResource } from './../../classes/resources/form/dropdown/nationality-dropdown-resource'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Component, Inject, NgZone } from '@angular/core'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
@@ -6,14 +7,13 @@ import moment from 'moment'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { Gender } from 'src/app/features/genders/classes/gender'
+
 import { GenderService } from 'src/app/features/genders/classes/gender.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { Nationality } from 'src/app/features/nationalities/classes/nationality'
 import { NationalityService } from 'src/app/features/nationalities/classes/nationality.service'
 import { ReservationService } from '../../classes/services/reservation.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
@@ -21,6 +21,7 @@ import { ValidationService } from 'src/app/shared/services/validation.service'
 import { environment } from 'src/environments/environment'
 import { map, startWith } from 'rxjs/operators'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { GenderDropdownResource } from '../../classes/resources/form/dropdown/gender-dropdown-resource'
 
 @Component({
     selector: 'passenger-form',
@@ -36,8 +37,8 @@ export class PassengerFormComponent {
     private feature = 'passengerForm'
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    public activeGenders: Observable<Gender[]>
-    public activeNationalities: Observable<Nationality[]>
+    public activeGenders: Observable<GenderDropdownResource[]>
+    public activeNationalities: Observable<NationalityDropdownResource[]>
     public environment = environment.production
     public form: FormGroup
     public input: InputTabStopDirective
@@ -49,7 +50,7 @@ export class PassengerFormComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.initForm()
+        this.buildForm()
         this.addShortcuts()
         this.populateDropDowns()
         this.populateFields(this.data)
@@ -164,7 +165,7 @@ export class PassengerFormComponent {
         return passenger
     }
 
-    private initForm(): void {
+    private buildForm(): void {
         this.form = this.formBuilder.group({
             id: this.data.id,
             reservationId: this.data.reservationId,

@@ -1,20 +1,20 @@
 .p-datatable table {
-    background-color: var(--color-common-background);
     border-spacing: 0;
     flex: 1;
     transition: all var(--change-theme-delay) ease;
 }
 
 .p-datatable-flex-scrollable .p-datatable-scrollable-body, .p-datatable-flex-scrollable .p-datatable-virtual-scrollable-body {
+    background-color: var(--color-common-background);
     overflow-x: hidden !important;
 }
 
 .p-datatable-scrollable-footer, .p-datatable-scrollable-header {
-    background-color: var(--color-table-header) !important;
+    background-color: var(--color-common-background) !important;
     overflow: visible !important;
 }
 
-.p-datatable .p-datatable-thead > tr > th {
+.p-datatable .p-datatable-thead>tr>th {
     background-color: var(--color-table-header) !important;
     border-right: 1px solid var(--color-table-column-seperator) !important;
     border-width: 0 1px 0 0 !important;
@@ -28,19 +28,18 @@
     transition: all var(--change-theme-delay) ease;
 }
 
-.p-datatable .p-datatable-tbody > tr {
+.p-datatable .p-datatable-tbody>tr {
     background-color: var(--color-common-background) !important;
     border: none !important;
-    outline-color: var(--color-common-background) !important;
     transition: all var(--change-theme-delay) ease;
 }
 
-.p-datatable .p-datatable-tbody > tr:focus-visible {
+.p-datatable .p-datatable-tbody>tr:focus-visible {
     outline: none !important;
     background-color: var(--color-table-row-highlight) !important;
 }
 
-.p-datatable .p-datatable-tbody > tr > td {
+.p-datatable .p-datatable-tbody>tr>td {
     border: none !important;
     color: var(--color-text-primary);
     font-family: var(--font-family-table);
@@ -52,7 +51,7 @@
     white-space: nowrap !important;
 }
 
-.p-datatable .p-datatable-tbody > tr.p-highlight > td {
+.p-datatable .p-datatable-tbody>tr.p-highlight>td {
     background-color: var(--color-table-row-highlight) !important;
 }
 
@@ -91,7 +90,7 @@
     box-shadow: none;
 }
 
-.p-datatable .p-datatable-thead > tr:nth-child(2) > th {
+.p-datatable .p-datatable-thead>tr:nth-child(2)>th {
     padding-bottom: 5px !important;
 }
 
@@ -103,4 +102,9 @@ div:not(.p-column-filter).p-column-filter-row:hover {
     color: var(--color-table-row-group) !important;
     font-size: var(--font-size-row-group) !important;
     font-weight: bold;
+}
+
+.p-datatable .p-datatable-tfoot>tr>td {
+    background: none;
+    border: none;
 }

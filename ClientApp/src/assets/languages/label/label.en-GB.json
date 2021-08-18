@@ -1203,6 +1203,10 @@
                 "description": "Firstname"
             },
             {
+                "id": "headerActions",
+                "description": "Actions"
+            },
+            {
                 "id": "headerNationality",
                 "description": "Nationality"
             },
@@ -1270,6 +1274,10 @@
             {
                 "id": "saveButton",
                 "description": "OK"
+            },
+            {
+                "id": "searchAutocompleteHint",
+                "description": "Select from the list"
             }
         ]
     },

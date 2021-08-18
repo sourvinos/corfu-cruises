@@ -1,5 +1,5 @@
 #table-wrapper {
-    height: 100%;
+    height: inherit;
     overflow: hidden;
     padding: 0;
 }

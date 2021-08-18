@@ -36,6 +36,7 @@ import { VoucherService } from '../../classes/services/voucher.service'
 import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 import { PortDropdownResource } from '../../classes/resources/form/dropdown/port-dropdown-resource'
+import moment from 'moment'
 
 @Component({
     selector: 'reservation-form',
@@ -75,23 +76,20 @@ export class ReservationFormComponent {
     public filteredShips: Observable<DriverDropdownResource[]>
     public filteredPorts: Observable<PortDropdownResource[]>
 
+
+
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService) {
-        this.activatedRoute.params.subscribe(p => {
-            if (p.id) {
-                this.getRecord(p.id)
-            }
-        })
-    }
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.initForm()
+        this.buildForm()
         this.addShortcuts()
         this.populateDropDowns()
+        this.initForm()
         this.getCustomer()
     }
 
@@ -143,6 +141,7 @@ export class ReservationFormComponent {
         return subject ? subject.description : undefined
 
     }
+
     public onPickupPointFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
@@ -288,6 +287,11 @@ export class ReservationFormComponent {
         })
     }
 
+    public onUpdatePort(value: PickupPointDropdownResource): void {
+        console.log('Port', value)
+        this.form.patchValue({ port: { "id": value.port.id, "description": value.port.description } })
+    }
+
     // private sendVoucher(): void {
     //     this.reservationService.emailVoucher(this.mapObjectToVoucher()).subscribe(() => {
     //         this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
@@ -382,10 +386,21 @@ export class ReservationFormComponent {
         })
     }
 
-    private getRecord(id: number): void {
+    private getRecord(id: number): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.reservationService.getSingle(id).toPromise().then(
+                (response: any) => {
+                    console.log('2. Getting record', response)
+                    resolve(response)
+                }, (errorFromInterceptor: number) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                })
+        })
+        return promise
         this.reservationService.getSingle(id).subscribe(result => {
-            console.log(result)
-            this.populateFields(result)
+            console.log('2. Getting record', result)
+            return result
+            // this.populateFields(result)
             // this.onDoBarcodeJobs()
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
@@ -402,7 +417,8 @@ export class ReservationFormComponent {
         }
     }
 
-    private initForm(): void {
+    private buildForm(): void {
+        console.log('1. Building Form')
         this.form = this.formBuilder.group({
             reservationId: '',
             date: this.helperService.formatDateToISO(JSON.parse(this.helperService.readItem('dashboard')).date),
@@ -423,6 +439,19 @@ export class ReservationFormComponent {
             userId: this.helperService.readItem('userId'),
             uri: '',
             passengers: []
+        })
+    }
+
+    private initForm(): void {
+        this.activatedRoute.params.subscribe(p => {
+            if (p.id) {
+                this.getRecord(p.id).then((result: ReservationReadResource) => {
+                    this.populateFields(result)
+                    this.onDoBarcodeJobs()
+                })
+            } else {
+                this.populateFormWithDefaultValues()
+            }
         })
     }
 
@@ -534,7 +563,7 @@ export class ReservationFormComponent {
     }
 
     private populateFields(result: ReservationReadResource): void {
-        console.log('Populating', result)
+        console.log('3. Populating the record', result)
         this.form.setValue({
             reservationId: result.reservationId,
             date: result.date,
@@ -559,21 +588,14 @@ export class ReservationFormComponent {
     }
 
     private populateFormWithDefaultValues(): void {
+        console.log('2. Setting defaults')
+        const criteria = JSON.parse(this.helperService.readItem('dashboard'))
         this.form.patchValue({
             reservationId: '',
-            date: this.helperService.readItem('date'),
-            destinationId: 0, destinationDescription: '',
-            pickupPointId: 0, pickupPointDescription: '',
-            ticketNo: '',
-            adults: 0,
-            kids: 0,
-            free: 0,
-            totalPersons: 0,
-            portId: 1, portDescription: '',
-            shipId: 1, shipDescription: '',
-            remarks: '',
-            uri: '',
-            userId: this.helperService.readItem('userId'),
+            date: moment(criteria.date).toISOString(),
+            driver: { "id": 1, "description": '' },
+            port: { "id": 1, "description": '' },
+            ship: { "id": 1, "description": '' },
             passengers: []
         })
     }
@@ -617,10 +639,6 @@ export class ReservationFormComponent {
 
     private showScheduleNotFound(): void {
         this.dialogService.open('errorColor', this.messageSnackbarService.noScheduleFoundWithDetails(), ['ok'])
-    }
-
-    private async showModalForm(): Promise<void> {
-        document.getElementById('reservationFormModal').style.visibility = 'visible'
     }
 
     private showSnackbar(message: string, type: string): void {

@@ -53,6 +53,7 @@ input:disabled {
     border-top: 20px solid transparent;
     font-size: var(--font-size-input-height) !important;
     padding-top: 4px !important;
+    width: 100% !important;
 }
 
 .mat-form-field-infix span {
@@ -78,7 +79,6 @@ input:disabled {
 input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:active, input:-webkit-autofill:hover {
     font-size: var(--font-size-input) !important;
 }
-
 
 /* Not focused - Not error */
 
@@ -114,7 +114,6 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
     color: var(--color-text-primary) !important;
 }
 
-
 /* Focused not error */
 
 .mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label {
@@ -148,7 +147,6 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 .mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
     color: var(--color-text-secondary) !important;
 }
-
 
 /* Error */
 

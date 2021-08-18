@@ -16,8 +16,8 @@ namespace BlueWaterCruises.Features.Reservations {
             RuleFor(x => x.PortId).NotEmpty();
             RuleFor(x => x.UserId).NotEmpty().MaximumLength(128);
             RuleForEach(x => x.Passengers).ChildRules(passenger => {
-                passenger.RuleFor(x => x.Lastname).NotEmpty();
-                passenger.RuleFor(x => x.Firstname).NotEmpty();
+                passenger.RuleFor(x => x.Lastname).NotEmpty().MaximumLength(128);
+                passenger.RuleFor(x => x.Firstname).NotEmpty().MaximumLength(128);
                 passenger.RuleFor(x => x.Birthdate).NotEmpty();
                 passenger.RuleFor(x => x.Remarks).MaximumLength(128);
                 passenger.RuleFor(x => x.SpecialCare).MaximumLength(128);

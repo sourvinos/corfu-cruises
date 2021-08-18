@@ -18,6 +18,7 @@
     --font-weight-summary-header: 300;
     --font-weight-table-header: 300 !important;
     --font-weight-tooltip: 700;
+    --font-weight-summary-header: 300;
     /* Delays */
     --change-theme-delay: 0.3s;
     --change-component-theme-on-hover: 0.2s;
@@ -38,7 +39,6 @@
     --font-size-radio-button: 90%;
     --font-size-snackbar: 120%;
     --font-size-sum-persons: 110%;
-    --font-size-summary-block-item: 100%;
     --font-size-tab-label: 130%;
     --form-field-margin: 10px;
 }

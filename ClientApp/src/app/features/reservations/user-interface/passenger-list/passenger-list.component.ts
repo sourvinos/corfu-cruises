@@ -128,6 +128,7 @@ export class PassengerListComponent {
                 lastname: '',
                 firstname: '',
                 nationality: { 'id': 1, 'description': '' },
+                gender: { 'id': 1, 'description': '' },
                 birthdate: '',
                 specialCare: '',
                 remarks: '',
@@ -144,26 +145,6 @@ export class PassengerListComponent {
     private showPassengerForm(passenger?: any): void {
         if (passenger == undefined) {
             this.showEmptyForm()
-            // const dialog = this.dialog.open(PassengerFormComponent, {
-            //     data: {
-            //         id: 0,
-            //         reservationId: this.reservationId,
-            //         lastname: '',
-            //         firstname: '',
-            //         occupantId: 2,
-            //         nationalityId: 1, nationalityDescription: '',
-            //         genderId: 1, genderDescription: '',
-            //         birthdate: '',
-            //         specialCare: '',
-            //         remarks: '',
-            //         isCheckedIn: false
-            //     }
-            // })
-            // dialog.afterClosed().subscribe((result: any) => {
-            //     if (result) {
-            //         this.passengers.push(result)
-            //     }
-            // })
         }
         if (passenger != undefined) {
             this.populateForm(passenger)
