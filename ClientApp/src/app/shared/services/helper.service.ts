@@ -68,6 +68,7 @@ export class HelperService {
         elements.forEach(element => {
             array.push({ label: element, value: element })
         })
+        array.sort((a, b) => (a.label > b.label) ? 1 : -1)
         return array
     }
 

@@ -18,6 +18,7 @@ namespace BlueWaterCruises.Features.Nationalities {
             var records = await context
                 .Set<Nationality>()
                 .Where(x => x.IsActive)
+                .OrderBy(x => x.Description)
                 .ToListAsync();
             return mapper.Map<IEnumerable<Nationality>, IEnumerable<NationalityDropdownResource>>(records);
         }

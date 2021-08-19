@@ -15,8 +15,6 @@
         <div [class.hidden]="activePanel=='list'" class="selection">
             <div class="label">{{ onGetLabel(totals[0].description) }}</div>
             <div class="sum">{{ totals[0].sum }}</div>
-            <div class="label">{{ onGetLabel(totals[3].description) }}</div>
-            <div class="sum">{{ totals[1].sum }}</div>
         </div>
         <div [class.hidden]="activePanel=='summary'" id="totals">
             <div *ngFor="let item of totals | slice:0:3">
@@ -26,209 +24,214 @@
                 </div>
             </div>
         </div>
+        <div>
+            <button mat-flat-button class="primary" (click)="onClearFilters(table)">
+                <i class="pi pi-filter-slash"></i>
+            </button>
+        </div>
     </div>
 
-    <div id="summary-wrapper">
-        <div id="summary" [class.hidden]="activePanel=='list'" class="scrollable">
-            <div data-cy="summaryBlock" class="summaryBlock">
-                <div class="summaryHeader">
-                    <i class="fas fa-flag-checkered"></i><span>{{ onGetLabel('summaryHeaderDestinations') }}</span>
-                </div>
-                <div class="summaryContent scrollable">
-                    <div *ngFor="let item of records.personsPerDestination" class="item">
-                        <div class="description">{{ item.description }}</div>
-                        <div class="total">{{ item.persons }}</div>
-                    </div>
-                </div>
+    <div id="summary" [class.hidden]="activePanel=='list'" class="scrollable">
+        <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="summaryHeader">
+                <i class="fas fa-flag-checkered"></i><span>{{ onGetLabel('summaryHeaderDestinations') }}</span>
             </div>
-            <div data-cy="summaryBlock" class="summaryBlock">
-                <div class="summaryHeader">
-                    <i class="fas fa-user-tie"></i><span>{{ onGetLabel('summaryHeaderCustomers') }}</span>
-                </div>
-                <div class="summaryContent scrollable">
-                    <div *ngFor="let item of records.personsPerCustomer" class="item customer" [class.active]="item.isSelected" [id]="item.description">
-                        <div class="description">{{ item.description }}</div>
-                        <div class="total">{{ item.persons }}</div>
-                    </div>
-                </div>
-            </div>
-            <div data-cy="summaryBlock" class="summaryBlock">
-                <div class="summaryHeader">
-                    <i class="fas fa-route"></i><span>{{ onGetLabel('summaryHeaderRoutes') }}</span>
-                </div>
-                <div class="summaryContent scrollable">
-                    <div *ngFor="let item of records.personsPerRoute" class="item route" [class.activeItem]="item.isSelected" [id]="item.description">
-                        <div class="description">{{ item.description }}</div>
-                        <div class="total">{{ item.persons }}</div>
-                    </div>
-                </div>
-            </div>
-            <div data-cy="summaryBlock" class="summaryBlock">
-                <div class="summaryHeader">
-                    <i class="fas fa-bus"></i><span>{{ onGetLabel('summaryHeaderDrivers') }}</span>
-                </div>
-                <div class="summaryContent scrollable">
-                    <div *ngFor="let item of records.personsPerDriver" class="item driver" [class.active]="item.isSelected" [id]="item.description">
-                        <div class="description">{{ item.description }}</div>
-                        <div class="total">{{ item.persons }}</div>
-                    </div>
-                </div>
-            </div>
-            <div data-cy="summaryBlock" class="summaryBlock">
-                <div class="summaryHeader">
-                    <i class="fas fa-ship"></i><span>{{ onGetLabel('summaryHeaderPorts') }}</span>
-                </div>
-                <div class="summaryContent scrollable">
-                    <div data-cy="port" *ngFor="let item of records.personsPerPort" class="item port" [class.active]="item.isSelected" [id]="item.description">
-                        <div class="description">{{ item.description }}</div>
-                        <div class="total">{{ item.persons }}</div>
-                    </div>
-                </div>
-            </div>
-            <div data-cy="summaryBlock" class="summaryBlock">
-                <div class="summaryHeader">
-                    <i class="fas fa-anchor"></i>{{ onGetLabel('summaryHeaderShips') }}
-                </div>
-                <div class="summaryContent scrollable">
-                    <div data-cy="ship" *ngFor="let item of records.personsPerShip" class="item ship" [class.active]="item.isSelected" [id]="item.description">
-                        <div class="description">{{ item.description }}</div>
-                        <div class="total">{{ item.persons }}</div>
-                    </div>
+            <div class="summaryContent scrollable">
+                <div *ngFor="let item of records.personsPerDestination" class="item">
+                    <div class="description">{{ item.description }}</div>
+                    <div class="total">{{ item.persons }}</div>
                 </div>
             </div>
         </div>
-        <div id="table-wrapper">
-            <div id="listFormCombo" [class.hidden]="activePanel=='summary'">
-                <div id="reservationList">
-                    <div id="table-wrapper">
-                        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records.reservations" dataKey="reservationId" scrollHeight="flex" selectionMode="single" stateKey="reservation-list" stateStorage="local">
-                            <ng-template pTemplate="header">
-                                <tr>
-                                    <th style="width: 5%; border-top-left-radius: 10px;"></th>
-                                    <th style="width: 13%;" pSortableColumn="ticketNo">{{ onGetLabel('headerTicketNo') }}</th>
-                                    <th style="width: 10%;" pSortableColumn="destination">{{ onGetLabel('headerDestination') }}</th>
-                                    <th style="width: 10%;" pSortableColumn="route">{{ onGetLabel('headerRoute') }}</th>
-                                    <th style="width: 10%;" pSortableColumn="customer">{{ onGetLabel('headerCustomer') }}</th>
-                                    <th style="width: 10%;" pSortableColumn="pickupPoint">{{ onGetLabel('headerPickupPoint') }}</th>
-                                    <th style="width: 3%;" pSortableColumn="adults">{{ onGetLabel('headerAdults') }}</th>
-                                    <th style="width: 3%;" pSortableColumn="kids">{{ onGetLabel('headerKids') }}</th>
-                                    <th style="width: 3%;" pSortableColumn="free">{{ onGetLabel('headerFree') }}</th>
-                                    <th style="width: 3%;" pSortableColumn="total">{{ onGetLabel('headerTotal') }}</th>
-                                    <th style="width: 10%;" pSortableColumn="driver">{{ onGetLabel('headerDriver') }}</th>
-                                    <th style="width: 10%;" pSortableColumn="port">{{ onGetLabel('headerPort') }}</th>
-                                    <th style="width: 10%; border-top-right-radius: 10px;" pSortableColumn="ship">{{ onGetLabel('headerShip') }}</th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        <p-columnFilter type="boolean"></p-columnFilter>
-                                    </th>
-                                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
-                                    <th>
-                                        <p-columnFilter field="destinationDescription" matchMode="equals" [showMenu]="false">
-                                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                <p-dropdown [ngModel]="value" [options]="destinations" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
-                                                    <ng-template let-option pTemplate="item">
-                                                        <span>{{ option.label }}</span>
-                                                    </ng-template>
-                                                </p-dropdown>
-                                            </ng-template>
-                                        </p-columnFilter>
-                                    </th>
-                                    <th>
-                                        <p-columnFilter field="routeAbbreviation" matchMode="equals" [showMenu]="false">
-                                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                <p-dropdown [ngModel]="value" [options]="routes" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
-                                                    <ng-template let-option pTemplate="item">
-                                                        <span>{{ option.label }}</span>
-                                                    </ng-template>
-                                                </p-dropdown>
-                                            </ng-template>
-                                        </p-columnFilter>
-                                    </th>
-                                    <th>
-                                        <p-columnFilter field="customerDescription" matchMode="equals" [showMenu]="false">
-                                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                <p-dropdown [ngModel]="value" [options]="customers" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
-                                                    <ng-template let-option pTemplate="item">
-                                                        <span>{{ option.label }}</span>
-                                                    </ng-template>
-                                                </p-dropdown>
-                                            </ng-template>
-                                        </p-columnFilter>
-                                    </th>
-                                    <th>
-                                        <p-columnFilter field="pickupPointDescription" matchMode="equals" [showMenu]="false">
-                                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                <p-dropdown [ngModel]="value" [options]="pickupPoints" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
-                                                    <ng-template let-option pTemplate="item">
-                                                        <span>{{ option.label }}</span>
-                                                    </ng-template>
-                                                </p-dropdown>
-                                            </ng-template>
-                                        </p-columnFilter>
-                                    </th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th>
-                                        <p-columnFilter field="driverDescription" matchMode="equals" [showMenu]="false">
-                                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                <p-dropdown [ngModel]="value" [options]="drivers" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
-                                                    <ng-template let-option pTemplate="item">
-                                                        <span>{{ option.label }}</span>
-                                                    </ng-template>
-                                                </p-dropdown>
-                                            </ng-template>
-                                        </p-columnFilter>
-                                    </th>
-                                    <th>
-                                        <p-columnFilter field="portDescription" matchMode="equals" [showMenu]="false">
-                                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                <p-dropdown [ngModel]="value" [options]="ports" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
-                                                    <ng-template let-option pTemplate="item">
-                                                        <span>{{ option.label }}</span>
-                                                    </ng-template>
-                                                </p-dropdown>
-                                            </ng-template>
-                                        </p-columnFilter>
-                                    </th>
-                                    <th>
-                                        <p-columnFilter field="shipDescription" matchMode="equals" [showMenu]="false">
-                                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                <p-dropdown [ngModel]="value" [options]="ships" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
-                                                    <ng-template let-option pTemplate="item">
-                                                        <span>{{ option.label }}</span>
-                                                    </ng-template>
-                                                </p-dropdown>
-                                            </ng-template>
-                                        </p-columnFilter>
-                                    </th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-rowData>
-                                <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.reservationId)">
-                                    <td style="width: 5%;"></td>
-                                    <td style="width: 13%;">{{ rowData.ticketNo }}</td>
-                                    <td style="width: 10%;">{{ rowData.destinationDescription }}</td>
-                                    <td style="width: 10%;">{{ rowData.routeAbbreviation }}</td>
-                                    <td style="width: 10%;">{{ rowData.customerDescription }}</td>
-                                    <td style="width: 10%;">{{ rowData.pickupPointDescription }}</td>
-                                    <td style="width: 3%; text-align: right;">{{ rowData.adults }}</td>
-                                    <td style="width: 3%; text-align: right;">{{ rowData.kids }}</td>
-                                    <td style="width: 3%; text-align: right;">{{ rowData.free }}</td>
-                                    <td style="width: 3%; text-align: right;">{{ rowData.totalPersons }}</td>
-                                    <td style="width: 10%;">{{ rowData.driverDescription }}</td>
-                                    <td style="width: 10%;">{{ rowData.portDescription }}</td>
-                                    <td style="width: 10%;">{{ rowData.shipDescription }}</td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </div>
+        <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="summaryHeader">
+                <i class="fas fa-user-tie"></i><span>{{ onGetLabel('summaryHeaderCustomers') }}</span>
+            </div>
+            <div class="summaryContent scrollable">
+                <div *ngFor="let item of records.personsPerCustomer" class="item customer" [class.active]="item.isSelected" [id]="item.description">
+                    <div class="description">{{ item.description }}</div>
+                    <div class="total">{{ item.persons }}</div>
                 </div>
-                <div id="reservationFormModal">
-                    <router-outlet></router-outlet>
+            </div>
+        </div>
+        <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="summaryHeader">
+                <i class="fas fa-route"></i><span>{{ onGetLabel('summaryHeaderRoutes') }}</span>
+            </div>
+            <div class="summaryContent scrollable">
+                <div *ngFor="let item of records.personsPerRoute" class="item route" [class.activeItem]="item.isSelected" [id]="item.description">
+                    <div class="description">{{ item.description }}</div>
+                    <div class="total">{{ item.persons }}</div>
                 </div>
+            </div>
+        </div>
+        <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="summaryHeader">
+                <i class="fas fa-bus"></i><span>{{ onGetLabel('summaryHeaderDrivers') }}</span>
+            </div>
+            <div class="summaryContent scrollable">
+                <div *ngFor="let item of records.personsPerDriver" class="item driver" [class.active]="item.isSelected" [id]="item.description">
+                    <div class="description">{{ item.description }}</div>
+                    <div class="total">{{ item.persons }}</div>
+                </div>
+            </div>
+        </div>
+        <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="summaryHeader">
+                <i class="fas fa-ship"></i><span>{{ onGetLabel('summaryHeaderPorts') }}</span>
+            </div>
+            <div class="summaryContent scrollable">
+                <div data-cy="port" *ngFor="let item of records.personsPerPort" class="item port" [class.active]="item.isSelected" [id]="item.description">
+                    <div class="description">{{ item.description }}</div>
+                    <div class="total">{{ item.persons }}</div>
+                </div>
+            </div>
+        </div>
+        <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="summaryHeader">
+                <i class="fas fa-anchor"></i>{{ onGetLabel('summaryHeaderShips') }}
+            </div>
+            <div class="summaryContent scrollable">
+                <div data-cy="ship" *ngFor="let item of records.personsPerShip" class="item ship" [class.active]="item.isSelected" [id]="item.description">
+                    <div class="description">{{ item.description }}</div>
+                    <div class="total">{{ item.persons }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="table-wrapper">
+        <div id="listFormCombo" [class.hidden]="activePanel=='summary'">
+            <div id="reservationList">
+                <div id="table-wrapper">
+                    <p-table #table (onFilter)="onFilter($event)" (onHeaderCheckboxToggle)="onToggleVisibleRows()" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [autoLayout]="false" [(selection)]="selectedRecords" [scrollable]="true" [value]="records.reservations" dataKey="reservationId" scrollHeight="flex" selectionMode="multiple" stateKey="reservation-list" stateStorage="local">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 5%; border-top-left-radius: 10px;"></th>
+                                <th style="width: 13%;" pSortableColumn="ticketNo">{{ onGetLabel('headerTicketNo') }}</th>
+                                <th style="width: 10%;" pSortableColumn="destination">{{ onGetLabel('headerDestination') }}</th>
+                                <th style="width: 10%;" pSortableColumn="route">{{ onGetLabel('headerRoute') }}</th>
+                                <th style="width: 10%;" pSortableColumn="customer">{{ onGetLabel('headerCustomer') }}</th>
+                                <th style="width: 10%;" pSortableColumn="pickupPoint">{{ onGetLabel('headerPickupPoint') }}</th>
+                                <th style="width: 3%;" pSortableColumn="adults">{{ onGetLabel('headerAdults') }}</th>
+                                <th style="width: 3%;" pSortableColumn="kids">{{ onGetLabel('headerKids') }}</th>
+                                <th style="width: 3%;" pSortableColumn="free">{{ onGetLabel('headerFree') }}</th>
+                                <th style="width: 3%;" pSortableColumn="total">{{ onGetLabel('headerTotal') }}</th>
+                                <th style="width: 10%;" pSortableColumn="driver">{{ onGetLabel('headerDriver') }}</th>
+                                <th style="width: 10%;" pSortableColumn="port">{{ onGetLabel('headerPort') }}</th>
+                                <th style="width: 10%; border-top-right-radius: 10px;" pSortableColumn="ship">{{ onGetLabel('headerShip') }}</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                </th>
+                                <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
+                                <th>
+                                    <p-columnFilter field="destinationDescription" matchMode="equals" [showMenu]="false">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-dropdown [ngModel]="value" [options]="destinations" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                                                <ng-template let-option pTemplate="item">
+                                                    <span>{{ option.label }}</span>
+                                                </ng-template>
+                                            </p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </th>
+                                <th>
+                                    <p-columnFilter field="routeAbbreviation" matchMode="equals" [showMenu]="false">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-dropdown [ngModel]="value" [options]="routes" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                                                <ng-template let-option pTemplate="item">
+                                                    <span>{{ option.label }}</span>
+                                                </ng-template>
+                                            </p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </th>
+                                <th>
+                                    <p-columnFilter field="customerDescription" matchMode="equals" [showMenu]="false">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-dropdown [ngModel]="value" [options]="customers" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                                                <ng-template let-option pTemplate="item">
+                                                    <span>{{ option.label }}</span>
+                                                </ng-template>
+                                            </p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </th>
+                                <th>
+                                    <p-columnFilter field="pickupPointDescription" matchMode="equals" [showMenu]="false">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-dropdown [ngModel]="value" [options]="pickupPoints" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                                                <ng-template let-option pTemplate="item">
+                                                    <span>{{ option.label }}</span>
+                                                </ng-template>
+                                            </p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>
+                                    <p-columnFilter field="driverDescription" matchMode="equals" [showMenu]="false">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-dropdown [ngModel]="value" [options]="drivers" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                                                <ng-template let-option pTemplate="item">
+                                                    <span>{{ option.label }}</span>
+                                                </ng-template>
+                                            </p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </th>
+                                <th>
+                                    <p-columnFilter field="portDescription" matchMode="equals" [showMenu]="false">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-dropdown [ngModel]="value" [options]="ports" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                                                <ng-template let-option pTemplate="item">
+                                                    <span>{{ option.label }}</span>
+                                                </ng-template>
+                                            </p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </th>
+                                <th>
+                                    <p-columnFilter field="shipDescription" matchMode="equals" [showMenu]="false">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-dropdown [ngModel]="value" [options]="ships" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                                                <ng-template let-option pTemplate="item">
+                                                    <span>{{ option.label }}</span>
+                                                </ng-template>
+                                            </p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData>
+                            <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.reservationId)">
+                                <td style="width: 5%; text-align: center;">
+                                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                                </td>
+                                <td style="width: 13%;">{{ rowData.ticketNo }}</td>
+                                <td style="width: 10%;">{{ rowData.destinationDescription }}</td>
+                                <td style="width: 10%;">{{ rowData.routeAbbreviation }}</td>
+                                <td style="width: 10%;">{{ rowData.customerDescription }}</td>
+                                <td style="width: 10%;">{{ rowData.pickupPointDescription }}</td>
+                                <td style="width: 3%; text-align: right;">{{ rowData.adults }}</td>
+                                <td style="width: 3%; text-align: right;">{{ rowData.kids }}</td>
+                                <td style="width: 3%; text-align: right;">{{ rowData.free }}</td>
+                                <td style="width: 3%; text-align: right;">{{ rowData.totalPersons }}</td>
+                                <td style="width: 10%;">{{ rowData.driverDescription }}</td>
+                                <td style="width: 10%;">{{ rowData.portDescription }}</td>
+                                <td style="width: 10%;">{{ rowData.shipDescription }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <div id="reservationFormModal">
+                <router-outlet></router-outlet>
             </div>
         </div>
     </div>

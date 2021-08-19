@@ -18,6 +18,7 @@ namespace BlueWaterCruises.Features.Drivers {
             var records = await context
                 .Set<Driver>()
                 .Where(x => x.IsActive)
+                .OrderBy(x => x.Description)
                 .ToListAsync();
             return mapper.Map<IEnumerable<Driver>, IEnumerable<DriverDropdownResource>>(records);
         }

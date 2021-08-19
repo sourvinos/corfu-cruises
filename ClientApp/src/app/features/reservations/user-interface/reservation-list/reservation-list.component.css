@@ -13,16 +13,13 @@
 #panelButtons {
     align-items: center;
     display: flex;
-    margin-bottom: 1rem;
+    margin: 0 calc(5rem - var(--gap)) 1rem 0;
 }
 
 #panelButtons .selection {
     margin-left: auto;
     margin-right: 1rem;
-}
-
-#summary-wrapper {
-    height: 100%;
+    padding-top: 4px;
 }
 
 #summary {
@@ -66,7 +63,6 @@
 }
 
 #panelButtons button {
-    border-radius: 0;
     color: var(--color-text-primary) !important;
     font-size: var(--font-size-panel-buttons) !important;
     font-weight: 200 !important;
@@ -87,6 +83,7 @@
 }
 
 #totals {
+    align-items: center;
     display: flex;
     font-family: var(--font-family-master);
     font-weight: var(--font-weight-totals);

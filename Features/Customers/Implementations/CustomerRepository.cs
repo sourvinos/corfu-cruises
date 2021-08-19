@@ -18,6 +18,7 @@ namespace BlueWaterCruises.Features.Customers {
             var records = await context
                 .Set<Customer>()
                 .Where(x => x.IsActive)
+                .OrderBy(x => x.Description)
                 .ToListAsync();
             return mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerDropdownResource>>(records);
         }

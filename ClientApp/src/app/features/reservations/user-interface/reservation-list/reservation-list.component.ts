@@ -51,8 +51,10 @@ export class ReservationListComponent {
     private mustRefreshReservationList = true
     public activePanel: string
     public records = new ReservationGroupResource()
+    public selectedRecords = []
     public totals: any[] = []
     private baseUrl = '/reservations'
+    public filterCount: number
 
 
     //#endregion
@@ -88,15 +90,11 @@ export class ReservationListComponent {
         // this.addActiveClassToSummaryItems()
         // this.filterByCriteria()
         // this.initCheckedPersons()
-        this.updateTotals()
+        // this.updateTotals()
+        setTimeout(() => {
+            // this.onFilter()
+        }, 1000)
         // this.updateParentCheckboxes()
-    }
-
-    ngDoCheck(): void {
-        if (this.mustRefreshReservationList) {
-            this.mustRefreshReservationList = false
-            this.ngAfterViewInit()
-        }
     }
 
     ngOnDestroy(): void {
@@ -155,8 +153,20 @@ export class ReservationListComponent {
         }
     }
 
+    public onClearFilters(table: { clear: () => void }): void {
+        table.clear()
+    }
+
     public onCreatePdf(): void {
         this.pdfService.createReport(this.records.reservations, this.getDriversFromLocalStorage(), this.date)
+    }
+
+    public onFilter(event?: { filteredValue: any[] }): void {
+        setTimeout(() => {
+            this.totals[0].sum = this.records.persons
+            this.totals[1].sum = event.filteredValue.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
+            this.totals[2].sum = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
+        }, 500)
     }
 
     public onFocusListPanel(): void {
@@ -201,6 +211,18 @@ export class ReservationListComponent {
         })
     }
 
+    public onRowSelect(event: any): void {
+        this.totals[2].sum += event.data.totalPersons
+    }
+
+    public onRowUnselect(event: any): void {
+        this.totals[2].sum -= event.data.totalPersons
+    }
+
+    public onToggleVisibleRows(): void {
+        this.totals[2].sum = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
+    }
+
     //#endregion
 
     //#region private methods
@@ -228,10 +250,7 @@ export class ReservationListComponent {
         })
     }
 
-
-
     private determinePanelToFocus(): void {
-        console.log('2. focusing')
         const panelToFocus = this.helperService.readItem('focusOnTheList')
         if (panelToFocus == 'true') {
             this.onFocusListPanel()
@@ -247,10 +266,6 @@ export class ReservationListComponent {
     private getDriversFromLocalStorage(): any {
         const localStorageData = JSON.parse(this.helperService.readItem('reservations'))
         return JSON.parse(localStorageData.drivers)
-    }
-
-    private initCheckedPersons(): void {
-        this.interactionService.setCheckedTotalPersons(0)
     }
 
     private initPersonsSumArray(): void {
@@ -306,13 +321,12 @@ export class ReservationListComponent {
     }
 
     private updateTotals(): void {
-        // this.totals[0].sum = this.queryResult.persons
+        // this.totals[0].sum = this.records.persons
         // this.totals[1].sum = this.queryResultClone.reservations.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
         // this.interactionService.checked.pipe(takeUntil(this.ngUnsubscribe)).subscribe(result => {
         // this.totals[2].sum = result
         // })
     }
-
 
     private populateDropdowns(): void {
         this.destinations = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'destinationDescription')

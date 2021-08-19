@@ -288,7 +288,6 @@ export class ReservationFormComponent {
     }
 
     public onUpdatePort(value: PickupPointDropdownResource): void {
-        console.log('Port', value)
         this.form.patchValue({ port: { "id": value.port.id, "description": value.port.description } })
     }
 
@@ -390,22 +389,12 @@ export class ReservationFormComponent {
         const promise = new Promise((resolve) => {
             this.reservationService.getSingle(id).toPromise().then(
                 (response: any) => {
-                    console.log('2. Getting record', response)
                     resolve(response)
                 }, (errorFromInterceptor: number) => {
                     this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 })
         })
         return promise
-        this.reservationService.getSingle(id).subscribe(result => {
-            console.log('2. Getting record', result)
-            return result
-            // this.populateFields(result)
-            // this.onDoBarcodeJobs()
-        }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            this.onGoBack()
-        })
     }
 
     private getRowIndex(recordId: string): number {
@@ -418,7 +407,6 @@ export class ReservationFormComponent {
     }
 
     private buildForm(): void {
-        console.log('1. Building Form')
         this.form = this.formBuilder.group({
             reservationId: '',
             date: this.helperService.formatDateToISO(JSON.parse(this.helperService.readItem('dashboard')).date),
@@ -563,7 +551,6 @@ export class ReservationFormComponent {
     }
 
     private populateFields(result: ReservationReadResource): void {
-        console.log('3. Populating the record', result)
         this.form.setValue({
             reservationId: result.reservationId,
             date: result.date,
@@ -588,7 +575,6 @@ export class ReservationFormComponent {
     }
 
     private populateFormWithDefaultValues(): void {
-        console.log('2. Setting defaults')
         const criteria = JSON.parse(this.helperService.readItem('dashboard'))
         this.form.patchValue({
             reservationId: '',
@@ -610,7 +596,6 @@ export class ReservationFormComponent {
 
     public onSave(): void {
         const reservation: ReservationWriteResource = this.mapObject()
-        console.log('Saving', reservation)
         if (reservation.reservationId == null) {
             this.reservationService.add(reservation).subscribe(() => {
                 this.resetForm()

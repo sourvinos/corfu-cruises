@@ -18,10 +18,11 @@ namespace BlueWaterCruises.Features.Destinations {
             var records = await context
                 .Set<Destination>()
                 .Where(x => x.IsActive)
+                .OrderBy(x => x.Description)
                 .ToListAsync();
             return mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationDropdownResource>>(records);
         }
-        
+
     }
 
 }
