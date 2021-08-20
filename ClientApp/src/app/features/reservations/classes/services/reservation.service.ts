@@ -26,21 +26,21 @@ export class ReservationService extends DataService {
         return this.http.get<any>(this.url + '/getForDateAndDestinationAndPort/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId).toPromise()
     }
 
-    assignToDriver(driverId: string, ids: string[]): Observable<any> {
-        let params = new HttpParams().set('driverId', driverId).set('id', ids[0])
-        ids.forEach((element, index) => {
+    assignToDriver(driverId: string, records: any[]): Observable<any> {
+        let params = new HttpParams().set('driverId', driverId).set('id', records[0].reservationId)
+        records.forEach((element, index) => {
             if (index > 0) {
-                params = params.append('id', element)
+                params = params.append('id', element.reservationId)
             }
         })
         return this.http.patch(this.url + '/assignToDriver?', null, { params: params })
     }
 
-    assignToShip(shipId: string, ids: string[]): Observable<any> {
-        let params = new HttpParams().set('shipId', shipId).set('id', ids[0])
-        ids.forEach((element, index) => {
+    assignToShip(shipId: string, records: any[]): Observable<any> {
+        let params = new HttpParams().set('shipId', shipId).set('id', records[0].reservationId)
+        records.forEach((element, index) => {
             if (index > 0) {
-                params = params.append('id', element)
+                params = params.append('id', element.reservationId)
             }
         })
         return this.http.patch(this.url + '/assignToShip?', null, { params: params })

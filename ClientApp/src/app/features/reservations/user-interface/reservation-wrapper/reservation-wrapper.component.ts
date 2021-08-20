@@ -65,7 +65,8 @@ export class ReservationWrapperComponent {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
         this.unlisten()
-        this.removeSelectedIdsFromLocalStorage()
+        
+        this.clearLocalStorage()
     }
 
     //#endregion
@@ -137,8 +138,9 @@ export class ReservationWrapperComponent {
         }
     }
 
-    private removeSelectedIdsFromLocalStorage(): void {
+    private clearLocalStorage(): void {
         localStorage.removeItem('selectedIds')
+        localStorage.removeItem('reservation-list')
     }
 
     private setWindowTitle(): void {

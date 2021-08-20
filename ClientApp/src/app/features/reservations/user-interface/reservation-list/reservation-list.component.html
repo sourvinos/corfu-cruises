@@ -24,8 +24,8 @@
                 </div>
             </div>
         </div>
-        <div>
-            <button mat-flat-button class="primary" (click)="onClearFilters(table)">
+        <div [class.hidden]="activePanel=='summary'">
+            <button mat-flat-button class="primary" (click)="onResetTable(table)">
                 <i class="pi pi-filter-slash"></i>
             </button>
         </div>
@@ -99,6 +99,7 @@
             </div>
         </div>
     </div>
+
     <div id="table-wrapper">
         <div id="listFormCombo" [class.hidden]="activePanel=='summary'">
             <div id="reservationList">
@@ -209,10 +210,8 @@
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData>
-                            <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.reservationId)">
-                                <td style="width: 5%; text-align: center;">
-                                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
-                                </td>
+                            <tr [class.ui-state-highlight]="rowData == highlighted" (click)="highlighted = rowData" (dblclick)="onEditRecord(rowData.reservationId)">
+                                <td style="width: 5%; text-align: center;"><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
                                 <td style="width: 13%;">{{ rowData.ticketNo }}</td>
                                 <td style="width: 10%;">{{ rowData.destinationDescription }}</td>
                                 <td style="width: 10%;">{{ rowData.routeAbbreviation }}</td>

@@ -11,7 +11,7 @@ import { ReservationFormResolver } from '../resolvers/reservation-form.resolver'
 
 const routes: Routes = [
     { path: '', component: ReservationWrapperComponent, canActivate: [AuthGuardService] },
-    { path: 'date/:date', component: ReservationListComponent, canActivate: [AuthGuardService], resolve: { reservationList: ReservationListResolver } },
+    { path: 'date/:date', component: ReservationListComponent, canActivate: [AuthGuardService], resolve: { reservationList: ReservationListResolver }, runGuardsAndResolvers: 'always' },
     { path: 'new', component: ReservationFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard] },
     { path: ':id', component: ReservationFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard], resolve: { customerForm: ReservationFormResolver } }
 ]

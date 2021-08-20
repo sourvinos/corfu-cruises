@@ -1,7 +1,5 @@
-import { HelperService } from './../../../../shared/services/helper.service'
-import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router'
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component } from '@angular/core'
-import { Location } from '@angular/common'
 import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
@@ -10,12 +8,12 @@ import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DriverPdfService } from '../../classes/services/driver-pdf.service'
 import { DriverService } from 'src/app/features/drivers/classes/driver.service'
-import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { HelperService } from './../../../../shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ReservationGroupResource } from '../../classes/resources/list/reservation-group-resource'
-import { ReservationService } from '../../classes/services/reservation.service'
+import { ReservationService } from './../../classes/services/reservation.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToVesselComponent } from '../reservation-to-vessel/reservation-to-vessel-form.component'
 import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
@@ -34,38 +32,32 @@ export class ReservationListComponent {
 
     //#region variables
 
+    private baseUrl = '/reservations'
+    private date: string
     private ngUnsubscribe = new Subject<void>()
     private resolver = 'reservationList'
     private unlisten: Unlisten
     private windowTitle = 'Reservations'
-    public feature = 'reservationList'
-    public destinations = []
-    public routes = []
-    public customers = []
-    public pickupPoints = []
-    public drivers = []
-    public ports = []
-    public ships = []
-
-    private date: string
-    private mustRefreshReservationList = true
     public activePanel: string
+    public customers = []
+    public destinations = []
+    public drivers = []
+    public feature = 'reservationList'
+    public highlighted: any
+    public pickupPoints = []
+    public ports = []
     public records = new ReservationGroupResource()
+    public routes = []
     public selectedRecords = []
+    public ships = []
     public totals: any[] = []
-    private baseUrl = '/reservations'
-    public filterCount: number
-
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private reservationService: ReservationService, private buttonClickService: ButtonClickService, private driverService: DriverService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: DriverPdfService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
-        this.activatedRoute.params.subscribe((params: Params) => this.date = params['date'])
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private driverService: DriverService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: DriverPdfService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
-            if (navigation instanceof NavigationEnd && this.date !== '' && this.router.url.split('/').length === 4) {
-                this.mustRefreshReservationList = true
+            if (navigation instanceof NavigationEnd) {
                 this.loadRecords()
-                this.populateDropdowns()
                 this.onFocusSummaryPanel()
             }
         })
@@ -75,26 +67,16 @@ export class ReservationListComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
+        this.populateDropdowns()
         this.addShortcuts()
         this.initPersonsSumArray()
         this.onFocusSummaryPanel()
     }
 
     ngAfterViewInit(): void {
-        // if (this.isDataInLocalStorage()) {
-        //     this.updateSelectedArraysFromLocalStorage()
-        // } else {
-        //     this.updateSelectedArraysFromInitialResults()
-        //     this.saveSelectedItemsToLocalStorage()
-        // }
-        // this.addActiveClassToSummaryItems()
-        // this.filterByCriteria()
-        // this.initCheckedPersons()
-        // this.updateTotals()
         setTimeout(() => {
-            // this.onFilter()
+            this.updateTotals()
         }, 1000)
-        // this.updateParentCheckboxes()
     }
 
     ngOnDestroy(): void {
@@ -109,6 +91,7 @@ export class ReservationListComponent {
 
     public onAssignToDriver(): void {
         if (this.isAnyRowSelected()) {
+            this.saveSelectedIds()
             const dialogRef = this.dialog.open(ReservationToDriverComponent, {
                 height: '350px',
                 width: '550px',
@@ -120,11 +103,11 @@ export class ReservationListComponent {
             })
             dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
-                    // this.reservationService.assignToDriver(result, this.records.reservations).subscribe(() => {
-                    this.removeSelectedIdsFromLocalStorage()
-                    this.navigateToList()
-                    this.showSnackbar(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'info')
-                    // })
+                    this.reservationService.assignToDriver(result, this.selectedRecords).subscribe(() => {
+                        this.removeSelectedIdsFromLocalStorage()
+                        this.navigateToList()
+                        this.showSnackbar(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'info')
+                    })
                 }
             })
         }
@@ -132,6 +115,7 @@ export class ReservationListComponent {
 
     public onAssignToShip(): void {
         if (this.isAnyRowSelected()) {
+            this.saveSelectedIds()
             const dialogRef = this.dialog.open(ReservationToVesselComponent, {
                 height: '350px',
                 width: '550px',
@@ -143,22 +127,30 @@ export class ReservationListComponent {
             })
             dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
-                    // this.reservationService.assignToShip(result, this.records.reservations).subscribe(() => {
-                    this.removeSelectedIdsFromLocalStorage()
-                    this.navigateToList()
-                    this.showSnackbar(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'info')
-                    // })
+                    this.reservationService.assignToShip(result, this.selectedRecords).subscribe(() => {
+                        this.removeSelectedIdsFromLocalStorage()
+                        this.navigateToList()
+                        this.showSnackbar(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'info')
+                    })
                 }
             })
         }
     }
 
-    public onClearFilters(table: { clear: () => void }): void {
-        table.clear()
+    public onEditRecord(id: string): void {
+        this.router.navigate([this.baseUrl, id])
+    }
+
+    public onResetTable(table: { reset: () => void }): void {
+        this.resetTable(table)
+        this.clearCheckboxes()
+        this.clearHighlights()
+        this.emptySelectedRecords()
+        this.updateTotals()
     }
 
     public onCreatePdf(): void {
-        this.pdfService.createReport(this.records.reservations, this.getDriversFromLocalStorage(), this.date)
+        this.pdfService.createReport(this.records.reservations, this.drivers, this.onGetStoredDate())
     }
 
     public onFilter(event?: { filteredValue: any[] }): void {
@@ -192,10 +184,6 @@ export class ReservationListComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    private goBack(): void {
-        this.router.navigate(['/reservations'])
-    }
-
     public onMustBeAdmin(): boolean {
         return this.isAdmin()
     }
@@ -213,14 +201,17 @@ export class ReservationListComponent {
 
     public onRowSelect(event: any): void {
         this.totals[2].sum += event.data.totalPersons
+        console.log(this.selectedRecords)
     }
 
     public onRowUnselect(event: any): void {
         this.totals[2].sum -= event.data.totalPersons
+        console.log(this.selectedRecords)
     }
 
     public onToggleVisibleRows(): void {
         this.totals[2].sum = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
+        console.log(this.selectedRecords)
     }
 
     //#endregion
@@ -250,6 +241,20 @@ export class ReservationListComponent {
         })
     }
 
+    private clearCheckboxes(): void {
+        const items = document.querySelectorAll('.pi-check')
+        items.forEach(item => {
+            item.classList.remove('pi', 'pi-check')
+        })
+    }
+
+    private clearHighlights(): void {
+        const item = document.querySelectorAll('tr.p-highlight')
+        item.forEach(item => {
+            item.classList.remove('p-highlight')
+        })
+    }
+
     private determinePanelToFocus(): void {
         const panelToFocus = this.helperService.readItem('focusOnTheList')
         if (panelToFocus == 'true') {
@@ -259,8 +264,8 @@ export class ReservationListComponent {
         }
     }
 
-    public onEditRecord(id: number): void {
-        this.router.navigate([this.baseUrl, id])
+    private emptySelectedRecords(): void {
+        this.selectedRecords = []
     }
 
     private getDriversFromLocalStorage(): any {
@@ -286,11 +291,10 @@ export class ReservationListComponent {
     }
 
     private isAnyRowSelected(): boolean {
-        if (this.totals[2].sum === 0) {
+        if (this.selectedRecords.length == 0) {
             this.showSnackbar(this.messageSnackbarService.noRecordsSelected(), 'error')
             return false
         }
-        this.records = JSON.parse(this.helperService.readItem('selectedIds'))
         return true
     }
 
@@ -298,6 +302,7 @@ export class ReservationListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -305,27 +310,13 @@ export class ReservationListComponent {
     }
 
     private navigateToList(): void {
-        this.router.navigate(['reservations/date/', this.helperService.readItem('date')])
+        const criteria = JSON.parse(this.helperService.readItem('dashboard'))
+        const date = this.helperService.formatDateToISO(criteria.date)
+        this.router.navigate(['reservations/date/', date])
     }
 
-    private removeSelectedIdsFromLocalStorage(): void {
-        localStorage.removeItem('selectedIds')
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
-    }
-
-    private updateTotals(): void {
-        // this.totals[0].sum = this.records.persons
-        // this.totals[1].sum = this.queryResultClone.reservations.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
-        // this.interactionService.checked.pipe(takeUntil(this.ngUnsubscribe)).subscribe(result => {
-        // this.totals[2].sum = result
-        // })
+    private goBack(): void {
+        this.router.navigate(['/reservations'])
     }
 
     private populateDropdowns(): void {
@@ -337,6 +328,36 @@ export class ReservationListComponent {
         this.drivers = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'driverDescription')
         this.ports = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'portDescription')
         this.ships = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'shipDescription')
+    }
+
+    private removeSelectedIdsFromLocalStorage(): void {
+        localStorage.removeItem('selectedIds')
+    }
+
+    private resetTable(table: { reset: () => void }): void {
+        table.reset()
+    }
+
+    private saveSelectedIds(): void {
+        const ids = []
+        this.selectedRecords.forEach(record => {
+            ids.push(record.reservationId)
+        })
+        this.helperService.saveItem('selectedIds', JSON.stringify(ids))
+    }
+
+    private setWindowTitle(): void {
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+    }
+
+    private showSnackbar(message: string, type: string): void {
+        this.snackbarService.open(message, type)
+    }
+
+    private updateTotals(): void {
+        this.totals[0].sum = this.records.persons
+        this.totals[1].sum = this.records.reservations.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
+        this.totals[2].sum = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
     }
 
     //#endregion

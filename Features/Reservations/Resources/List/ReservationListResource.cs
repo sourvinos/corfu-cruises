@@ -11,6 +11,8 @@ namespace BlueWaterCruises.Features.Reservations {
         public int Free { get; set; }
         public int TotalPersons { get; set; }
         public string TicketNo { get; set; }
+        public string Time { get; set; }
+        public string Remarks { get; set; }
 
         public string CustomerDescription { get; set; }
         public string DestinationAbbreviation { get; set; }

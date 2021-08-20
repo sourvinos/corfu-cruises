@@ -11,16 +11,16 @@ export class DriverPdfService {
     public createReport(reservations: any[], drivers: any[], date: string): void {
         const array = this.sort(reservations)
         drivers.forEach(driver => {
-            const filteredArray = array.filter((x: { driver: any }) => x.driver === driver)
+            const filteredArray = array.filter((x: { driverDescription: any }) => x.driverDescription === driver.value)
             const dd = {
                 pageMargins: [50, 40, 50, 50],
                 pageOrientation: 'landscape',
                 defaultStyle: { fontSize: 8 },
-                header: this.createPageHeader(driver, date),
+                header: this.createPageHeader(driver.value, date),
                 footer: this.createPageFooter(),
-                content: this.table(filteredArray, ['time', 'pickupPoint', 'adults', 'kids', 'free', 'totalPersons', 'customer', 'remarks', 'destinationAbbreviation'], ['center', 'left', 'right', 'right', 'right', 'right', 'left', 'left', 'center'], driver)
+                content: this.table(filteredArray, ['time', 'pickupPointDescription', 'adults', 'kids', 'free', 'totalPersons', 'customerDescription', 'remarks', 'destinationAbbreviation'], ['center', 'left', 'right', 'right', 'right', 'right', 'left', 'left', 'center'], driver)
             }
-            this.createPdf(dd, driver)
+            this.createPdf(dd, driver.value)
         })
     }
 
@@ -51,11 +51,11 @@ export class DriverPdfService {
         let pickupPointCount = 0
         let pickupPointPersons: number[] = [0, 0, 0, 0]
         let driverPersons: number[] = [0, 0, 0, 0]
-        let pickupPointDescription = data[0].pickupPoint
+        let pickupPointDescription = data[0].pickupPointDescription
         body.push(this.createTableHeaders())
         data.forEach(((row) => {
             let dataRow = []
-            if (row.pickupPoint === pickupPointDescription) {
+            if (row.pickupPointDescription === pickupPointDescription) {
                 const { pickupPointCount: x, total: z } = this.addPersonsToPickupPoint(pickupPointCount, pickupPointPersons, row)
                 pickupPointCount = x
                 pickupPointPersons = z
@@ -65,7 +65,7 @@ export class DriverPdfService {
                     dataRow = []
                 }
                 pickupPointCount = 1
-                pickupPointDescription = row.pickupPoint
+                pickupPointDescription = row.pickupPointDescription
                 pickupPointPersons = this.initPickupPointPersons(pickupPointPersons, row)
             }
             driverPersons = this.addPersonsToDriver(driverPersons, row)
@@ -161,7 +161,9 @@ export class DriverPdfService {
 
     private replaceZerosWithBlanks(columns: any[], row: { [x: string]: { toString: () => any } }, dataRow: any[], align: any[]): any {
         columns.forEach((element, index) => {
-            if (row[element].toString() === '0') { row[element] = '' }
+            if (row[element].toString() === '0') {
+                row[element] = ''
+            }
             dataRow.push({ text: row[element].toString(), alignment: align[index].toString(), color: '#000000', noWrap: false, })
         })
         return dataRow

@@ -108,3 +108,7 @@ div:not(.p-column-filter).p-column-filter-row:hover {
     background: none;
     border: none;
 }
+
+.ui-state-highlight td {
+    background: var(--color-table-row-highlight) !important;
+}

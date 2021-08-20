@@ -9,7 +9,8 @@ namespace BlueWaterCruises.Features.Reservations {
         public ReservationMappingProfile() {
             // List
             CreateMap<Reservation, ReservationListResource>()
-                .ForMember(x => x.RouteAbbreviation, x => x.MapFrom(r => r.PickupPoint.Route.Abbreviation));
+                .ForMember(x => x.RouteAbbreviation, x => x.MapFrom(r => r.PickupPoint.Route.Abbreviation))
+                .ForMember(x => x.Time, x => x.MapFrom(r => r.PickupPoint.Time));
             // Read
             CreateMap<Reservation, ReservationReadResource>()
                 .ForMember(x => x.PickupPoint, x => x.MapFrom(r => new PickupPointDropdownResource {
