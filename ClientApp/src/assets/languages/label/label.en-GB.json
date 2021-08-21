@@ -351,7 +351,7 @@
             },
             {
                 "id": "searchLabel",
-                "description": "Search"
+                "description": "SEARCH"
             },
             {
                 "id": "searchHint",
@@ -433,7 +433,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "Search"
+                "description": "SEARCH"
             }
         ]
     },
@@ -646,7 +646,7 @@
             },
             {
                 "id": "newButton",
-                "description": "New"
+                "description": "NEW"
             },
             {
                 "id": "total",
@@ -1113,11 +1113,11 @@
             },
             {
                 "id": "searchButton",
-                "description": "Search"
+                "description": "SEARCH"
             },
             {
                 "id": "newButton",
-                "description": "New"
+                "description": "NEW"
             },
             {
                 "id": "menu",
@@ -1130,7 +1130,7 @@
         "labels": [
             {
                 "id": "newButton",
-                "description": "New"
+                "description": "NEW"
             },
             {
                 "id": "availabilityHeader",
@@ -1442,7 +1442,7 @@
             },
             {
                 "id": "searchLabel",
-                "description": "Search"
+                "description": "SEARCH"
             },
             {
                 "id": "searchHint",
@@ -1450,7 +1450,7 @@
             },
             {
                 "id": "newButton",
-                "description": "New"
+                "description": "NEW"
             },
             {
                 "id": "headerDescription",
@@ -1508,7 +1508,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "Search"
+                "description": "SEARCH"
             }
         ]
     },

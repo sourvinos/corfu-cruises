@@ -13,7 +13,7 @@
 #panelButtons {
     align-items: center;
     display: flex;
-    margin: 0 calc(5rem - var(--gap)) 1rem 0;
+    margin: 0 calc(4rem - var(--gap)) 1rem 0;
 }
 
 #panelButtons .selection {
@@ -96,7 +96,7 @@
     align-items: baseline;
     display: flex;
     font-family: var(--font-family-master);
-    font-size: var(--font-size-table-row);
+    font-size: var(--font-size-totals);
     margin-left: 1rem;
     text-align: right;
 }

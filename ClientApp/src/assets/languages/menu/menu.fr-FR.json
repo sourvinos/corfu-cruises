@@ -4,7 +4,7 @@
         "labels": [
             {
                 "id": "home",
-                "description": "(FR) Home"
+                "description": "Page d'accueil"
             },
             {
                 "id": "passengers",
@@ -16,7 +16,7 @@
             },
             {
                 "id": "manifest",
-                "description": "Situation de bateau"
+                "description": "Manifeste du navire"
             },
             {
                 "id": "reservations",
@@ -28,11 +28,11 @@
             },
             {
                 "id": "invoicing",
-                "description": "Prix"
+                "description": "Facturation"
             },
             {
                 "id": "tables",
-                "description": "Tableaux"
+                "description": "Tables"
             },
             {
                 "id": "customers",
@@ -72,27 +72,27 @@
             },
             {
                 "id": "vessels",
-                "description": "Bateaux"
+                "description": "Navires"
             },
             {
                 "id": "vesselManagement",
-                "description": "(FR) Management"
+                "description": "Gestion"
             },
             {
                 "id": "vesselOwners",
-                "description": "(FR) Owners"
+                "description": "Armateurs"
             },
             {
                 "id": "vesselRegistrars",
-                "description": "(FR) Registrars"
+                "description": "Registraires"
             },
             {
                 "id": "vesselRoutes",
-                "description": "(FR) Routes"
+                "description": "Itinéraires"
             },
             {
                 "id": "vesselCrews",
-                "description": "(FR) Crews"
+                "description": "Équipages"
             },
             {
                 "id": "logout",
@@ -104,7 +104,7 @@
             },
             {
                 "id": "editAccount",
-                "description": "(FR) Edit"
+                "description": "Éditer"
             }
         ]
     }

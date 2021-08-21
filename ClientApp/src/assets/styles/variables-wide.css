@@ -2,18 +2,20 @@
     * {
         --content-padding-left: 16rem;
         --font-size-button: 110%;
-        --font-size-checkbox-label: 160%;
         --font-size-header: 250%;
         --font-size-input-hint: 90%;
         --font-size-input: 100%;
-        --font-size-label: 105%;
+        --font-size-label: 110%;
         --font-size-logo: 220%;
+        --font-size-menu-items: 130%;
         --font-size-panel-buttons: 130%;
+        --font-size-radio-button: 110%;
         --font-size-row-group: 130%;
-        --font-size-summary-block-item: 110%;
-        --font-size-summary-header: 150%;
+        --font-size-summary-block-item: 120%;
+        --font-size-summary-header: 160%;
         --font-size-table-header: 110%;
         --font-size-table-row: 100%;
+        --font-size-totals: 118%;
         --footer-right-margin: 3rem;
         --gap: 2rem;
         --header-margin-bottom: 1.3125rem;

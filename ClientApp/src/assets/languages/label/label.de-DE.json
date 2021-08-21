@@ -433,7 +433,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "Suchen"
+                "description": "SUCHEN"
             }
         ]
     },
@@ -1113,7 +1113,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "Suchen"
+                "description": "SUCHEN"
             },
             {
                 "id": "newButton",
@@ -1360,7 +1360,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "SUCHE"
+                "description": "SUCHEN"
             }
         ]
     },
@@ -1508,7 +1508,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "Suchen"
+                "description": "SUCHEN"
             }
         ]
     },

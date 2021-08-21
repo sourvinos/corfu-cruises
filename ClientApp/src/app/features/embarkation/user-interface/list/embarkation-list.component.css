@@ -19,7 +19,8 @@
 }
 
 #header #embarkationFilter {
-    margin-left: auto;
+    display: flex;
+    margin: 0 calc(4rem - var(--gap)) 0 auto;
 }
 
 #header #embarkationFilter .mat-radio-button {

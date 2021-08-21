@@ -433,7 +433,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "Αναζήτηση"
+                "description": "ΑΝΑΖΗΤΗΣΗ"
             }
         ]
     },
@@ -1113,7 +1113,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "Συνεχεια"
+                "description": "ΑΝΑΖΗΤΗΣΗ"
             },
             {
                 "id": "newButton",
@@ -1508,7 +1508,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "Αναζητηση"
+                "description": "ΑΝΑΖΗΤΗΣΗ"
             }
         ]
     },

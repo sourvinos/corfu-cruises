@@ -4,7 +4,7 @@
         "labels": [
             {
                 "id": "home",
-                "description": "(DE) Home"
+                "description": "Startseite"
             },
             {
                 "id": "passengers",
@@ -76,35 +76,35 @@
             },
             {
                 "id": "vesselManagement",
-                "description": "(DE) Management"
+                "description": "Verwaltung"
             },
             {
                 "id": "vesselOwners",
-                "description": "(DE) Owners"
+                "description": "Schiffseigner"
             },
             {
                 "id": "vesselRegistrars",
-                "description": "(DE) Registrars"
+                "description": "Registrare"
             },
             {
                 "id": "vesselRoutes",
-                "description": "(DE) Routes"
+                "description": "Routen"
             },
             {
                 "id": "vesselCrews",
-                "description": "(DE) Crews"
+                "description": "Besatzungen"
             },
             {
                 "id": "logout",
-                "description": "(DE) Logout"
+                "description": "Ausloggen"
             },
             {
                 "id": "myAccount",
-                "description": "(DE) My account"
+                "description": "Mein Konto"
             },
             {
                 "id": "editAccount",
-                "description": "(DE) Edit"
+                "description": "Bearbeiten"
             }
         ]
     }

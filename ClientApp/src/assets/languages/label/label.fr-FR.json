@@ -107,7 +107,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Destination"
+                "description": "Destinations"
             },
             {
                 "id": "headerIsActive",
@@ -351,7 +351,7 @@
             },
             {
                 "id": "searchLabel",
-                "description": "Recherche"
+                "description": "RECHERCHE"
             },
             {
                 "id": "searchHint",
@@ -433,7 +433,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "Recherche"
+                "description": "RECHERCHE"
             }
         ]
     },
@@ -1442,7 +1442,7 @@
             },
             {
                 "id": "searchLabel",
-                "description": "Recherche"
+                "description": "RECHERCHE"
             },
             {
                 "id": "searchHint",
@@ -1508,7 +1508,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "Recherche"
+                "description": "RECHERCHE"
             }
         ]
     },

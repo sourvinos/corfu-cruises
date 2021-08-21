@@ -2,18 +2,20 @@
     * {
         --content-padding-left: 13rem;
         --font-size-button: 100%;
-        --font-size-checkbox-label: 110%;
         --font-size-header: 180%;
         --font-size-input-hint: 80%;
         --font-size-input: 85%;
         --font-size-label: 100%;
         --font-size-logo: 200%;
+        --font-size-menu-items: 100%;
         --font-size-panel-buttons: 110%;
+        --font-size-radio-button: 90%;
         --font-size-row-group: 110%;
         --font-size-summary-block-item: 95%;
         --font-size-summary-header: 110%;
         --font-size-table-header: 100%;
         --font-size-table-row: 80%;
+        --font-size-totals: 100%;
         --footer-right-margin: 4rem;
         --gap: 1rem;
         --header-margin-bottom: 0.75rem;
