@@ -33,69 +33,105 @@
 
     <div id="summary" [class.hidden]="activePanel=='list'" class="scrollable">
         <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="before">
+                <i class="pi pi-arrow-circle-up" *ngIf="upArrow[0]" (click)="scrollToTop('destinations')"></i>
+            </div>
             <div class="summaryHeader">
                 <i class="fas fa-flag-checkered"></i><span>{{ onGetLabel('summaryHeaderDestinations') }}</span>
             </div>
-            <div class="summaryContent scrollable">
+            <div class="summaryContent scrollable" id="destinations" (scroll)="onWindowScroll(0, $event)">
                 <div *ngFor="let item of records.personsPerDestination" class="item">
                     <div class="description">{{ item.description }}</div>
                     <div class="total">{{ item.persons }}</div>
                 </div>
             </div>
+            <div class="after">
+                <i class="pi pi-arrow-circle-down" *ngIf="downArrow[0]" (click)="scrollToBottom('destinations')"></i>
+            </div>
         </div>
         <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="before">
+                <i class="pi pi-arrow-circle-up" *ngIf="upArrow[1]" (click)="scrollToTop('customers')"></i>
+            </div>
             <div class="summaryHeader">
                 <i class="fas fa-user-tie"></i><span>{{ onGetLabel('summaryHeaderCustomers') }}</span>
             </div>
-            <div class="summaryContent scrollable">
+            <div class="summaryContent scrollable" id="customers" (scroll)="onWindowScroll(1, $event)">
                 <div *ngFor="let item of records.personsPerCustomer" class="item customer" [class.active]="item.isSelected" [id]="item.description">
                     <div class="description">{{ item.description }}</div>
                     <div class="total">{{ item.persons }}</div>
                 </div>
             </div>
+            <div class="after">
+                <i class="pi pi-arrow-circle-down" *ngIf="downArrow[1]" (click)="scrollToBottom('customers')"></i>
+            </div>
         </div>
         <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="before">
+                <i class="pi pi-arrow-circle-up" *ngIf="upArrow[2]" (click)="scrollToTop('routes')"></i>
+            </div>
             <div class="summaryHeader">
                 <i class="fas fa-route"></i><span>{{ onGetLabel('summaryHeaderRoutes') }}</span>
             </div>
-            <div class="summaryContent scrollable">
+            <div class="summaryContent scrollable" id="routes" (scroll)="onWindowScroll(2, $event)">
                 <div *ngFor="let item of records.personsPerRoute" class="item route" [class.activeItem]="item.isSelected" [id]="item.description">
                     <div class="description">{{ item.description }}</div>
                     <div class="total">{{ item.persons }}</div>
                 </div>
             </div>
+            <div class="after">
+                <i class="pi pi-arrow-circle-down" *ngIf="downArrow[2]" (click)="scrollToBottom('routes')"></i>
+            </div>
         </div>
         <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="before">
+                <i class="pi pi-arrow-circle-up" *ngIf="upArrow[3]" (click)="scrollToTop('drivers')"></i>
+            </div>
             <div class="summaryHeader">
                 <i class="fas fa-bus"></i><span>{{ onGetLabel('summaryHeaderDrivers') }}</span>
             </div>
-            <div class="summaryContent scrollable">
+            <div class="summaryContent scrollable" id="drivers" (scroll)="onWindowScroll(3, $event)">
                 <div *ngFor="let item of records.personsPerDriver" class="item driver" [class.active]="item.isSelected" [id]="item.description">
                     <div class="description">{{ item.description }}</div>
                     <div class="total">{{ item.persons }}</div>
                 </div>
             </div>
+            <div class="after">
+                <i class="pi pi-arrow-circle-down" *ngIf="downArrow[3]" (click)="scrollToBottom('drivers')"></i>
+            </div>
         </div>
         <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="before">
+                <i class="pi pi-arrow-circle-up" *ngIf="upArrow[4]" (click)="scrollToTop('ports')"></i>
+            </div>
             <div class="summaryHeader">
                 <i class="fas fa-ship"></i><span>{{ onGetLabel('summaryHeaderPorts') }}</span>
             </div>
-            <div class="summaryContent scrollable">
+            <div class="summaryContent scrollable" id="ports" (scroll)="onWindowScroll(4, $event)">
                 <div data-cy="port" *ngFor="let item of records.personsPerPort" class="item port" [class.active]="item.isSelected" [id]="item.description">
                     <div class="description">{{ item.description }}</div>
                     <div class="total">{{ item.persons }}</div>
                 </div>
             </div>
+            <div class="after">
+                <i class="pi pi-arrow-circle-down" *ngIf="downArrow[4]" (click)="scrollToBottom('ports')"></i>
+            </div>
         </div>
         <div data-cy="summaryBlock" class="summaryBlock">
+            <div class="before">
+                <i class="pi pi-arrow-circle-up" *ngIf="upArrow[5]" (click)="scrollToTop('ships')"></i>
+            </div>
             <div class="summaryHeader">
                 <i class="fas fa-anchor"></i>{{ onGetLabel('summaryHeaderShips') }}
             </div>
-            <div class="summaryContent scrollable">
+            <div class="summaryContent scrollable" id="ships" (scroll)="onWindowScroll(5, $event)">
                 <div data-cy="ship" *ngFor="let item of records.personsPerShip" class="item ship" [class.active]="item.isSelected" [id]="item.description">
                     <div class="description">{{ item.description }}</div>
                     <div class="total">{{ item.persons }}</div>
                 </div>
+            </div>
+            <div class="after">
+                <i class="pi pi-arrow-circle-down" *ngIf="downArrow[5]" (click)="scrollToBottom('ships')"></i>
             </div>
         </div>
     </div>
@@ -211,7 +247,9 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData>
                             <tr [class.ui-state-highlight]="rowData == highlighted" (click)="highlighted = rowData" (dblclick)="onEditRecord(rowData.reservationId)">
-                                <td style="width: 5%; text-align: center;"><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
+                                <td style="width: 5%; text-align: center;">
+                                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                                </td>
                                 <td style="width: 13%;">{{ rowData.ticketNo }}</td>
                                 <td style="width: 10%;">{{ rowData.destinationDescription }}</td>
                                 <td style="width: 10%;">{{ rowData.routeAbbreviation }}</td>

@@ -51,6 +51,8 @@ export class ReservationListComponent {
     public selectedRecords = []
     public ships = []
     public totals: any[] = []
+    public downArrow: boolean[] = []
+    public upArrow: boolean[] = []
 
     //#endregion
 
@@ -74,9 +76,13 @@ export class ReservationListComponent {
     }
 
     ngAfterViewInit(): void {
-        setTimeout(() => {
-            this.updateTotals()
-        }, 1000)
+        this.updateTotals()
+        this.showDownArrow(0, 'destinations')
+        this.showDownArrow(1, 'customers')
+        this.showDownArrow(2, 'routes')
+        this.showDownArrow(3, 'drivers')
+        this.showDownArrow(4, 'ports')
+        this.showDownArrow(5, 'ships')
     }
 
     ngOnDestroy(): void {
@@ -199,19 +205,31 @@ export class ReservationListComponent {
         })
     }
 
+    public scrollToBottom(element: string): void {
+        const el = document.getElementById(element)
+        el.scrollTop = Math.max(0, el.scrollHeight - el.offsetHeight)
+    }
+
+    public scrollToTop(element: string): void {
+        const el = document.getElementById(element)
+        el.scrollTop = Math.max(0, 0)
+    }
+
     public onRowSelect(event: any): void {
         this.totals[2].sum += event.data.totalPersons
-        console.log(this.selectedRecords)
     }
 
     public onRowUnselect(event: any): void {
         this.totals[2].sum -= event.data.totalPersons
-        console.log(this.selectedRecords)
     }
 
     public onToggleVisibleRows(): void {
         this.totals[2].sum = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
-        console.log(this.selectedRecords)
+    }
+
+    public onWindowScroll(index: string | number, event?: { target: { scrollTop: number; clientHeight: any; scrollHeight: number } }): void {
+        this.upArrow[index] = event.target.scrollTop > 0 ? true : false
+        this.downArrow[index] = event.target.clientHeight + event.target.scrollTop < event.target.scrollHeight ? true : false
     }
 
     //#endregion
@@ -302,7 +320,6 @@ export class ReservationListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
-            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -350,14 +367,23 @@ export class ReservationListComponent {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
 
+    private showDownArrow(index: number, element: string): void {
+        const div = document.getElementById(element)
+        Promise.resolve(null).then(() => {
+            this.downArrow[index] = div.clientHeight + div.scrollTop < div.scrollHeight ? true : false
+        })
+    }
+
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
     }
 
     private updateTotals(): void {
-        this.totals[0].sum = this.records.persons
-        this.totals[1].sum = this.records.reservations.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
-        this.totals[2].sum = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
+        Promise.resolve(null).then(() => {
+            this.totals[0].sum = this.records.persons
+            this.totals[1].sum = this.records.reservations.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
+            this.totals[2].sum = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
+        })
     }
 
     //#endregion

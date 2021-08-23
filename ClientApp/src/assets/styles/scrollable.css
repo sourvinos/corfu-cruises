@@ -7,10 +7,11 @@
     scroll-behavior: smooth;
     scrollbar-color: var(--color-button-secondary) var(--color-common-background);
     scrollbar-width: thin;
+    width: 100%;
 }
 
 .scrollable::-webkit-scrollbar, .mat-tab-body-content::-webkit-scrollbar {
-    width: 2px !important;
+    width: 0 !important;
 }
 
 .scrollable::-webkit-scrollbar-track, .mat-tab-body-content::-webkit-scrollbar-track {

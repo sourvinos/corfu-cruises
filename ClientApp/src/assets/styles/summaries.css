@@ -1,4 +1,5 @@
 .summaryBlock {
+    align-items: center;
     background-color: var(--color-summary-background) !important;
     border-radius: 20px;
     box-shadow: none;
@@ -8,7 +9,7 @@
     height: auto;
     overflow-x: clip;
     overflow-y: auto;
-    padding: 1.5rem;
+    padding: 1rem 1.5rem;
     transition: background-color var(--change-theme-delay) ease;
 }
 
@@ -18,6 +19,7 @@
     font-size: var(--font-size-summary-header);
     font-weight: var(--font-weight-summary-header);
     padding-bottom: 1rem;
+    width: 100%;
 }
 
 .summaryHeader i {
@@ -46,5 +48,5 @@
 
 .summaryContent .item .total {
     color: var(--color-summary-total);
-    margin: 0 0.5rem 0 0.5rem;
+    margin: 0 0 0 0.5rem;
 }

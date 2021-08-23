@@ -117,3 +117,24 @@
 .fas {
     margin-right: 0.5rem;
 }
+
+.pi-arrow-circle-up, .pi-arrow-circle-down {
+    background-color: var(--color-summary-background);
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.before {
+    margin-top: -40px;
+    position: absolute;
+}
+
+.after {
+    bottom: calc((var(--gap) * 2 + 37px - 19px));
+    position: absolute;
+}
+
+.pi {
+    font-size: 2rem;
+}
