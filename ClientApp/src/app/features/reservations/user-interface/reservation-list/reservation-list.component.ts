@@ -24,7 +24,8 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 @Component({
     selector: 'reservation-list',
     templateUrl: './reservation-list.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './reservation-list.component.css', '../../../../../assets/styles/summaries.css'],
+    // styleUrls: ['../../../../../assets/styles/lists.css', './reservation-list.component.css', '../../../../../assets/styles/summaries.css'],
+    styleUrls: ['../../../../../assets/styles/lists.css', './reservation-list.component.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
@@ -77,12 +78,12 @@ export class ReservationListComponent {
 
     ngAfterViewInit(): void {
         this.updateTotals()
-        this.showDownArrow(0, 'destinations')
-        this.showDownArrow(1, 'customers')
-        this.showDownArrow(2, 'routes')
-        this.showDownArrow(3, 'drivers')
-        this.showDownArrow(4, 'ports')
-        this.showDownArrow(5, 'ships')
+        // this.showDownArrow(0, 'destinations')
+        // this.showDownArrow(1, 'customers')
+        // this.showDownArrow(2, 'routes')
+        // this.showDownArrow(3, 'drivers')
+        // this.showDownArrow(4, 'ports')
+        // this.showDownArrow(5, 'ships')
     }
 
     ngOnDestroy(): void {

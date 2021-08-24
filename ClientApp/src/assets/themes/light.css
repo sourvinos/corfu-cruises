@@ -39,7 +39,7 @@
     --color-map-tooltip-background: #e3f2fd;
     --color-map-tooltip-color: #000000;
     --color-menu-background-hover: #cce8f9;
-    --color-menu-background: #e1f1fa;
+    --color-menu-background: #bcf1ff;
     --color-menu-sub-items-background: #00000008;
     --color-menu-sub-items: #44a3a9;
     --color-menu-text-hover: #072d31;
@@ -57,10 +57,9 @@
     --color-spinner-inner: #ffe85c;
     --color-spinner-outer: #fe9f36;
     --color-spinner: #fe9f36;
-    --color-summary-background: #97aaaf21;
+    --color-summary-background: #bcf1ff;
     --color-summary-header-icon: #73b2c7;
     --color-summary-header: #227c9d;
-    --color-summary-header-icon: #297d83;
     --color-summary-total: #e6ba8a;
     --color-table-badge-background: #cce8f9;
     --color-table-badge-color: #b56576;

@@ -1,3 +1,10 @@
+:host {
+    display: flex;
+    height: 100%;
+    overflow-y: auto;
+    width: 100%;
+}
+
 .summaryBlock {
     align-items: center;
     background-color: var(--color-summary-background) !important;
@@ -6,10 +13,10 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    height: auto;
+    height: 100%;
     overflow-x: clip;
     overflow-y: auto;
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
     transition: background-color var(--change-theme-delay) ease;
 }
 
@@ -49,4 +56,35 @@
 .summaryContent .item .total {
     color: var(--color-summary-total);
     margin: 0 0 0 0.5rem;
+}
+
+.fas {
+    margin-right: 0.5rem;
+}
+
+.pi-arrow-circle-up, .pi-arrow-circle-down {
+    background-color: var(--color-summary-background);
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.before, .after {
+    margin: 0;
+    text-align: center;
+    position: relative;
+}
+
+.before {
+    margin-top: -40px;
+    position: absolute;
+}
+
+.after {
+    bottom: calc((var(--gap) * 2 + 37px - 24px));
+    position: absolute;
+}
+
+.pi {
+    font-size: 2rem;
 }
