@@ -10,7 +10,7 @@
     --color-button-embarkation-checkout: #ffb6c1;
     --color-button-icon: #ededed;
     --color-button-primary-hover: #226c7b;
-    --color-button-primary: #6ba2ad;
+    --color-button-primary: #427da9;
     --color-button-secondary: #426176;
     --color-button-text: #ededed;
     --color-calendar-legend: #efefef;
@@ -30,7 +30,7 @@
     --color-embarkation-reservation-icon: #8bd0de;
     --color-headers: #efe7ce;
     --color-icon-remarks-warning: #fcff29;
-    --color-logo-image: #efe7ce;
+    --color-logo-image: #7cc6ff;
     --color-logo-text: #cce3ff;
     --color-manifest-list-crew-icon: #cce3ff;
     --color-manifest-list-passenger-icon: #ffb32c;
@@ -40,6 +40,7 @@
     --color-map-tooltip-color: #000000;
     --color-menu-background-hover: #6390ab4a;
     --color-menu-background: #657171;
+    --color-menu-icons: #efe7ce;
     --color-menu-sub-items-background: #a6d5fa0f;
     --color-menu-sub-items: #c0f3c4;
     --color-menu-text-hover: #ffffff;
@@ -60,11 +61,11 @@
     --color-summary-background: #555f64;
     --color-summary-header-icon: #efe7ce;
     --color-summary-header: #e6ba8a;
+    --color-summary-scroll-icon: #efe7ce;
     --color-summary-total: #e6ba8a;
     --color-table-badge-background: #7c8084;
     --color-table-badge-color: #ffe85c;
     --color-table-column-seperator: #4c565a;
-    --color-table-expand-row: #a6d5fa;
     --color-table-filter-border: #8d8d8d;
     --color-table-header: #657171;
     --color-table-invoice-customerdescription: #fe9f36;

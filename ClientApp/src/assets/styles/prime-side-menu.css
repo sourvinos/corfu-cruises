@@ -75,7 +75,6 @@
 }
 
 .p-panelmenu .p-panelmenu-panel .p-panelmenu-header .p-panelmenu-icon {
-    color: var(--color-button-primary) !important;
     display: none;
 }
 
@@ -85,7 +84,7 @@
 }
 
 .p-panelmenu .p-panelmenu-header>a .p-menuitem-icon {
-    color: var(--color-button-primary);
+    color: var(--color-menu-icons) !important;
     height: 16px !important;
     text-align: center;
     width: 20px !important;

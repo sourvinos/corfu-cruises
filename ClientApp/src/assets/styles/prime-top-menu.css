@@ -35,7 +35,7 @@
 }
 
 .p-menubar .p-menuitem-link .p-menuitem-icon {
-    color: var(--color-button-primary) !important;
+    color: var(--color-menu-icons) !important;
     height: 16px;
     width: 16px;
 }
@@ -99,5 +99,5 @@
 }
 
 .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-submenu-icon {
-    color: var(--color-table-expand-row) !important;
+    color: var(--color-menu-icons) !important;
 }

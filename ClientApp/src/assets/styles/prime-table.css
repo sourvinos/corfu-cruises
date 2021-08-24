@@ -77,7 +77,7 @@
 }
 
 .p-button.p-button-icon-only.p-button-rounded {
-    color: var(--color-table-expand-row);
+    color: var(--color-menu-icons);
     height: auto;
     padding: 0;
 }

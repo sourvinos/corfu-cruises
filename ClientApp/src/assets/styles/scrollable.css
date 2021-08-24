@@ -5,8 +5,6 @@
     overflow-x: hidden;
     overflow-y: auto !important;
     scroll-behavior: smooth;
-    scrollbar-color: var(--color-button-secondary) var(--color-common-background);
-    scrollbar-width: thin;
     width: 100%;
 }
 
