@@ -5,7 +5,7 @@ namespace BlueWaterCruises.Features.Routes {
 
     public interface IRouteRepository : IRepository<Route> {
 
-        Task<IList<Route>> Get();
+        Task<IEnumerable<RouteListResource>> Get();
         new Task<Route> GetById(int routeId);
 
     }

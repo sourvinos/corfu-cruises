@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Routes {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class RoutesController : ControllerBase {
@@ -22,7 +22,7 @@ namespace BlueWaterCruises.Features.Routes {
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Route>> Get() {
+        public async Task<IEnumerable<RouteListResource>> Get() {
             return await repo.Get();
         }
 
@@ -66,7 +66,7 @@ namespace BlueWaterCruises.Features.Routes {
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public IActionResult PutRoute([FromRoute] int id, [FromBody] Route record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -88,7 +88,7 @@ namespace BlueWaterCruises.Features.Routes {
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRoute([FromRoute] int id) {
             Route record = await repo.GetById(id);
             if (record == null) {

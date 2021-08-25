@@ -350,24 +350,24 @@
                 "description": "Routes"
             },
             {
-                "id": "searchLabel",
-                "description": "SEARCH"
+                "id": "headerIsActive",
+                "description": "Active"
             },
             {
-                "id": "searchHint",
-                "description": "Global search"
+                "id": "headerIsTransfer",
+                "description": "Transfer"
+            },
+            {
+                "id": "headerAbbreviation",
+                "description": "Abbr."
+            },
+            {
+                "id": "headerDescription",
+                "description": "Description"
             },
             {
                 "id": "newButton",
                 "description": "NEW"
-            },
-            {
-                "id": "headerAbbreviation",
-                "description": "ABBR."
-            },
-            {
-                "id": "headerDescription",
-                "description": "DESCRIPTION"
             }
         ]
     },

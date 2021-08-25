@@ -350,24 +350,24 @@
                 "description": "Διαδρομές"
             },
             {
-                "id": "searchLabel",
-                "description": "Αναζήτηση"
+                "id": "headerIsActive",
+                "description": "Ενεργή"
             },
             {
-                "id": "searchHint",
-                "description": "Με βάση οτιδήποτε"
+                "id": "headerIsTransfer",
+                "description": "Μεταφορά"
+            },
+            {
+                "id": "headerAbbreviation",
+                "description": "Συντ."
+            },
+            {
+                "id": "headerDescription",
+                "description": "Περιγραφή"
             },
             {
                 "id": "newButton",
                 "description": "ΝΕΑ"
-            },
-            {
-                "id": "headerAbbreviation",
-                "description": "ΣΥΝΤ."
-            },
-            {
-                "id": "headerDescription",
-                "description": "ΠΕΡΙΓΡΑΦΗ"
             }
         ]
     },

@@ -350,24 +350,24 @@
                 "description": "Routen"
             },
             {
-                "id": "searchLabel",
-                "description": "Suchen"
+                "id": "headerIsActive",
+                "description": "Aktiv"
             },
             {
-                "id": "searchHint",
-                "description": "Alle suchen"
+                "id": "headerIsTransfer",
+                "description": "Transfer"
+            },
+            {
+                "id": "headerAbbreviation",
+                "description": "Abk."
+            },
+            {
+                "id": "headerDescription",
+                "description": "Beschreibung"
             },
             {
                 "id": "newButton",
                 "description": "NEUE"
-            },
-            {
-                "id": "headerAbbreviation",
-                "description": "ABK."
-            },
-            {
-                "id": "headerDescription",
-                "description": "BESCHREIBUNG"
             }
         ]
     },

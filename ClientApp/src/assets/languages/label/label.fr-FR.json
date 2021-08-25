@@ -350,24 +350,24 @@
                 "description": "Routes"
             },
             {
-                "id": "searchLabel",
-                "description": "RECHERCHE"
+                "id": "headerIsActive",
+                "description": "Actif"
             },
             {
-                "id": "searchHint",
-                "description": "Tout rechercher"
+                "id": "headerIsTransfer",
+                "description": "Transfert"
+            },
+            {
+                "id": "headerAbbreviation",
+                "description": "Abr."
+            },
+            {
+                "id": "headerDescription",
+                "description": "Description"
             },
             {
                 "id": "newButton",
                 "description": "NOUVELLE"
-            },
-            {
-                "id": "headerAbbreviation",
-                "description": "ABR."
-            },
-            {
-                "id": "headerDescription",
-                "description": "DESCRIPTION"
             }
         ]
     },
@@ -1533,7 +1533,7 @@
             },
             {
                 "id": "headerIsTransfer",
-                "description": "Μεταφορα"
+                "description": "Transfert"
             },
             {
                 "id": "headerKids",

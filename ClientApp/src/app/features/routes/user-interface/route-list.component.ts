@@ -28,33 +28,27 @@ export class RouteListComponent {
     @ViewChild('table') table: Table | undefined
 
     private baseUrl = '/routes'
-    private localStorageSearchTerm = 'route-list-search-term'
     private ngUnsubscribe = new Subject<void>()
-    private records: Route[] = []
     private resolver = 'routeList'
     private unlisten: Unlisten
     private windowTitle = 'Routes'
     public feature = 'routeList'
-    public filteredRecords: Route[] = []
     public newUrl = this.baseUrl + '/new'
-    public searchTerm = ''
-    public selectedRecord: Route
+    public records: Route[] = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService,  private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.getFilterFromStorage()
         this.loadRecords()
         this.addShortcuts()
     }
 
     ngOnDestroy(): void {
-        this.updateStorageWithFilter()
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
         this.unlisten()
@@ -63,11 +57,6 @@ export class RouteListComponent {
     //#endregion
 
     //#region public methods
-
-    public onFilter($event: any, stringVal: any): void {
-        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
-        this.updateStorageWithFilter()
-    }
 
     public onEditRecord(record: Route): void {
         this.router.navigate([this.baseUrl, record.id])
@@ -83,11 +72,8 @@ export class RouteListComponent {
 
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'goBack')
-            },
-            'Alt.S': () => {
-                this.focus('searchTerm')
+            'Escape': () => {
+                this.goBack()
             },
             'Alt.N': (event: KeyboardEvent) => {
                 this.buttonClickService.clickOnButton(event, 'new')
@@ -98,14 +84,6 @@ export class RouteListComponent {
         })
     }
 
-    private focus(element: string): void {
-        this.helperService.setFocus(element)
-    }
-
-    private getFilterFromStorage(): void {
-        this.searchTerm = this.helperService.readItem(this.localStorageSearchTerm)
-    }
-
     private goBack(): void {
         this.router.navigate(['/'])
     }
@@ -114,7 +92,6 @@ export class RouteListComponent {
         const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.list
-            this.filteredRecords = this.records
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -127,10 +104,6 @@ export class RouteListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private updateStorageWithFilter(): void {
-        this.helperService.saveItem(this.localStorageSearchTerm, this.searchTerm)
     }
 
     //#endregion

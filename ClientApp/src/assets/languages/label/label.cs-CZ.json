@@ -350,24 +350,24 @@
                 "description": "Trasy"
             },
             {
-                "id": "searchLabel",
-                "description": "VYHLEDÁVÁNÍ"
+                "id": "headerIsActive",
+                "description": "Aktiv"
             },
             {
-                "id": "searchHint",
-                "description": "Globální vyhledávání"
+                "id": "headerIsTransfer",
+                "description": "Transfer"
+            },
+            {
+                "id": "headerAbbreviation",
+                "description": "Zkr."
+            },
+            {
+                "id": "headerDescription",
+                "description": "Popis"
             },
             {
                 "id": "newButton",
                 "description": "NOVÁ"
-            },
-            {
-                "id": "headerAbbreviation",
-                "description": "ZKR."
-            },
-            {
-                "id": "headerDescription",
-                "description": "POPIS"
             }
         ]
     },
