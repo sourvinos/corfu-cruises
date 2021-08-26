@@ -1,13 +1,12 @@
-import { PickupPointService } from 'src/app/features/pickupPoints/classes/pickupPoint.service'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
+import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-import { ActivatedRoute, Router } from '@angular/router'
-import { forkJoin, Subject, Subscription } from 'rxjs'
+import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DialogIndexComponent } from 'src/app/shared/components/dialog-index/dialog-index.component'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -16,10 +15,13 @@ import { MapComponent } from 'src/app/shared/components/map/map.component'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { PickupPointService } from 'src/app/features/pickupPoints/classes/pickupPoint.service'
+import { Port } from '../../ports/classes/port'
 import { PortService } from 'src/app/features/ports/classes/port.service'
 import { Route } from '../classes/route'
 import { RouteService } from '../classes/route.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { ValidationService } from 'src/app/shared/services/validation.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -35,6 +37,7 @@ export class RouteFormComponent {
     //#region variables
 
     private feature = 'routeForm'
+    private flatForm: FormGroup
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
     private url = '/routes'
@@ -49,7 +52,8 @@ export class RouteFormComponent {
 
     public activePanel: string
     public pickupPoints = []
-    public ports: any
+    public ports = []
+    public filteredPorts: Observable<Port[]>
 
     //#endregion
 
@@ -70,12 +74,8 @@ export class RouteFormComponent {
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
-        this.populateDropDowns()
+        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
         this.onFocusFormPanel()
-    }
-
-    ngAfterViewInit(): void {
-        this.focus('abbreviation')
     }
 
     ngOnDestroy(): void {
@@ -138,30 +138,18 @@ export class RouteFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
+    public portFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
     public onGoBack(): void {
         this.router.navigate([this.url])
     }
 
-    public onLookupIndex(lookupArray: any[], title: string, formFields: any[], fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[], value: { target: any }): void {
-        let filteredArray = []
-        lookupArray.filter(x => {
-            filteredArray = this.helperService.pushItemToFilteredArray(x, fields[1], value, filteredArray)
-        })
-        if (filteredArray.length === 0) {
-            this.clearFields(null, formFields[0], formFields[1])
-        }
-        if (filteredArray.length === 1) {
-            const [...elements] = filteredArray
-            this.patchFields(elements[0], fields)
-        }
-        if (filteredArray.length > 1) {
-            this.showModalIndex(filteredArray, title, fields, headers, widths, visibility, justify, types)
-        }
-    }
-
     public onSave(): void {
-        if (this.form.value.id === 0) {
-            this.routeService.add(this.form.value).subscribe(() => {
+        if (this.form.value.id === 0 || this.form.value.id === null) {
+            this.flattenForm()
+            this.routeService.add(this.flatForm.value).subscribe(() => {
                 this.resetForm()
                 this.onGoBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -169,7 +157,8 @@ export class RouteFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
             })
         } else {
-            this.routeService.update(this.form.value.id, this.form.value).subscribe(() => {
+            this.flattenForm()
+            this.routeService.update(this.flatForm.value.id, this.flatForm.value).subscribe(() => {
                 this.resetForm()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
                 this.onGoBack()
@@ -180,8 +169,11 @@ export class RouteFormComponent {
     }
 
     public onUpdateCoordinates(element: any): void {
+        console.log('Coordinates', element)
         this.pickupPointService.updateCoordinates(element[0], element[1]).subscribe(() => {
             this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+        }, errorCode => {
+            this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
         })
     }
 
@@ -220,13 +212,24 @@ export class RouteFormComponent {
         })
     }
 
-    private clearFields(result: any, id: any, description: any): void {
-        this.form.patchValue({ [id]: result ? result.id : '' })
-        this.form.patchValue({ [description]: result ? result.description : '' })
+    private filterArray(array: string, field: string, value: any): any[] {
+        if (typeof value !== 'object') {
+            const filtervalue = value.toLowerCase()
+            return this[array].filter((element) =>
+                element[field].toLowerCase().startsWith(filtervalue))
+        }
     }
 
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
+    private flattenForm(): void {
+        this.flatForm = this.formBuilder.group({
+            id: this.form.value.id,
+            portId: this.form.value.port.id,
+            abbreviation: this.form.value.abbreviation,
+            description: this.form.value.description,
+            isTransfer: this.form.value.isTransfer,
+            isActive: this.form.value.isActive,
+            userId: this.form.value.userId
+        })
     }
 
     private getPickupPoints(id: string): void {
@@ -251,34 +254,25 @@ export class RouteFormComponent {
             id: 0,
             abbreviation: ['', [Validators.required, Validators.maxLength(10)]],
             description: ['', [Validators.required, Validators.maxLength(128)]],
-            portId: ['', Validators.required], portDescription: ['', Validators.required],
+            port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             isTransfer: true,
             isActive: true,
             userId: this.helperService.readItem('userId')
         })
     }
 
-    private patchFields(result: any, fields: any[]): void {
-        if (result) {
-            Object.entries(result).forEach(([key, value]) => {
-                this.form.patchValue({ [key]: value })
-            })
-        } else {
-            fields.forEach(field => {
-                this.form.patchValue({ [field]: '' })
-            })
-        }
-    }
-
-    private populateDropDowns(): Subscription {
-        const sources = []
-        sources.push(this.portService.getAllActive())
-        return forkJoin(sources).subscribe(
-            result => {
-                this.ports = result[0]
-                this.renameObjects()
-            }
-        )
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+        const promise = new Promise((resolve) => {
+            service.getAllActive().toPromise().then(
+                (response: any) => {
+                    this[table] = response
+                    resolve(this[table])
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                }, (errorFromInterceptor: number) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                })
+        })
+        return promise
     }
 
     private populateFields(result: Route): void {
@@ -286,27 +280,10 @@ export class RouteFormComponent {
             id: result.id,
             abbreviation: result.abbreviation,
             description: result.description,
-            portId: result.port.id,
-            portDescription: result.port.description,
+            port: { "id": result.port.id, "description": result.port.description },
             isTransfer: result.isTransfer,
             isActive: result.isActive,
             userId: this.helperService.readItem('userId')
-        })
-    }
-
-    private renameKey(obj: any, oldKey: string, newKey: string): void {
-        if (oldKey !== newKey) {
-            Object.defineProperty(obj, newKey, Object.getOwnPropertyDescriptor(obj, oldKey))
-            delete obj[oldKey]
-        }
-    }
-
-    private renameObjects(): void {
-        this.ports.forEach((obj: any) => {
-            this.renameKey(obj, 'id', 'portId')
-            this.renameKey(obj, 'description', 'portDescription')
-            this.renameKey(obj, 'isActive', 'portIsActive')
-            this.renameKey(obj, 'userId', 'portUserId')
         })
     }
 
@@ -316,26 +293,6 @@ export class RouteFormComponent {
 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
-    }
-
-    private showModalIndex(elements: any, title: string, fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[]): void {
-        const dialog = this.dialog.open(DialogIndexComponent, {
-            height: '685px',
-            data: {
-                records: elements,
-                title: title,
-                fields: fields,
-                headers: headers,
-                widths: widths,
-                visibility: visibility,
-                justify: justify,
-                types: types,
-                highlightFirstRow: true
-            }
-        })
-        dialog.afterClosed().subscribe((result) => {
-            this.patchFields(result, fields)
-        })
     }
 
     private showSnackbar(message: string, type: string): void {
@@ -359,12 +316,8 @@ export class RouteFormComponent {
         return this.form.get('description')
     }
 
-    get portId(): AbstractControl {
-        return this.form.get('portId')
-    }
-
-    get portDescription(): AbstractControl {
-        return this.form.get('portDescription')
+    get port(): AbstractControl {
+        return this.form.get('port')
     }
 
     //#endregion

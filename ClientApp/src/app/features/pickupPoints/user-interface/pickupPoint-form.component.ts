@@ -236,16 +236,10 @@ export class PickupPointFormComponent {
             isActive: this.form.value.isActive,
             userId: this.form.value.userId
         })
-        console.log(this.flatForm.value)
-    }
-
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
     }
 
     private getRecord(id: number): void {
         this.pickupPointService.getSingle(id).subscribe(result => {
-            console.log(result)
             this.populateFields(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
@@ -341,6 +335,5 @@ export class PickupPointFormComponent {
     }
 
     //#endregion
-
 
 }

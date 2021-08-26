@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,12 @@ namespace BlueWaterCruises.Features.Routes {
 
         private readonly IRouteRepository repo;
         private readonly ILogger<RoutesController> logger;
+        private readonly IMapper mapper;
 
-        public RoutesController(IRouteRepository repo, ILogger<RoutesController> logger) {
+        public RoutesController(IRouteRepository repo, ILogger<RoutesController> logger, IMapper mapper) {
             this.repo = repo;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         [HttpGet]
@@ -33,7 +36,7 @@ namespace BlueWaterCruises.Features.Routes {
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRoute(int id) {
-            Route record = await repo.GetById(id);
+            RouteReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -44,11 +47,11 @@ namespace BlueWaterCruises.Features.Routes {
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]        
-        public IActionResult PostRoute([FromBody] Route record) {
+        // [Authorize(Roles = "Admin")]
+        public IActionResult PostRoute([FromBody] RouteWriteResource record) {
             if (ModelState.IsValid) {
                 try {
-                    repo.Create(record);
+                    repo.Create(mapper.Map<RouteWriteResource, Route>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordCreated()
                     });
@@ -67,10 +70,10 @@ namespace BlueWaterCruises.Features.Routes {
 
         [HttpPut("{id}")]
         // [Authorize(Roles = "Admin")]
-        public IActionResult PutRoute([FromRoute] int id, [FromBody] Route record) {
+        public IActionResult PutRoute([FromRoute] int id, [FromBody] RouteWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
-                    repo.Update(record);
+                    repo.Update(mapper.Map<RouteWriteResource, Route>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });
@@ -90,7 +93,7 @@ namespace BlueWaterCruises.Features.Routes {
         [HttpDelete("{id}")]
         // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRoute([FromRoute] int id) {
-            Route record = await repo.GetById(id);
+            Route record = await repo.GetSingleToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {

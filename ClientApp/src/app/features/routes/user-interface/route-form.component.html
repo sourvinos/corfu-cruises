@@ -29,8 +29,11 @@
                     <mat-error *ngIf="description.hasError('maxlength')">{{ onGetHint('maxLength', description.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input data-cy="portDescription" type="text" matInput [placeholder]="onGetLabel('port')" formControlName="portDescription" data-tabindex="3" id="portDescription" [inputTabStop]="input" (change)="onLookupIndex(ports, 'ports', ['portId', 'portDescription', ''], ['portId', 'portDescription', ''], ['portId', 'portDescription', ''], ['1px', '440px', '56px'], ['none'], ['center', 'left', 'center'], ['', '', ''], $event)">
-                    <mat-error *ngIf="portDescription.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                    <mat-label>{{ onGetLabel("port") }}</mat-label>
+                    <input matInput formControlName="port" [matAutocomplete]="ports" data-tabindex="3" [inputTabStop]="input">
+                    <mat-error *ngIf="port.hasError('required')">{{ onGetHint('required') }}</mat-error>
+                    <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                    <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
                 </mat-form-field>
                 <mat-slide-toggle data-cy="isTransfer" formControlName="isTransfer">{{ onGetLabel('isTransfer') }}</mat-slide-toggle>
                 <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
@@ -52,3 +55,9 @@
     </div>
 
 </div>
+
+<mat-autocomplete autoActiveFirstOption #ports="matAutocomplete" [displayWith]="portFields">
+    <mat-option *ngFor="let option of filteredPorts | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>

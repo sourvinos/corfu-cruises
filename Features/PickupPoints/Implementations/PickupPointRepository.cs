@@ -37,6 +37,14 @@ namespace BlueWaterCruises.Features.PickupPoints {
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointDropdownResource>>(pickupPoints);
         }
 
+        public async Task<IEnumerable<PickupPoint>> GetForRoute(int routeId) {
+            var pickupPoints = await context.PickupPoints
+                .Where(x => x.RouteId == routeId)
+                .AsNoTracking()
+                .ToListAsync();
+            return pickupPoints;
+        }
+
         public new async Task<PickupPointReadResource> GetById(int pickupPointId) {
             var pickupPoint = await context.PickupPoints
                 .Include(x => x.Route)

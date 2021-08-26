@@ -2,6 +2,10 @@
     flex-direction: column;
 }
 
+#panelButtons {
+    margin-bottom: auto;
+}
+
 #panelButtons button {
     border-radius: 0;
     color: var(--color-text-primary) !important;
@@ -9,13 +13,12 @@
 }
 
 #form {
-    height: 100%;
-    width: 100%;
+    margin-bottom: auto;
 }
 
 #map-outer-wrapper {
     height: 100%;
-    padding-top: 1rem;
+    padding: 1rem 0 var(--gap) 0;
     width: 100%;
 }
 

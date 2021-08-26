@@ -155,12 +155,6 @@ export class RegistrarFormComponent {
         }
     }
 
-    public onUpdateCoordinates(element: any): void {
-        this.pickupPointService.updateCoordinates(element[0], element[1]).subscribe(() => {
-            this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-        })
-    }
-
     //#endregion
 
     //#region private methods
