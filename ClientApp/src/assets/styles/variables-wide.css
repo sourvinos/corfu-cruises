@@ -1,7 +1,8 @@
 @media only screen and (min-width: 1441px) {
     * {
-        --content-padding-left: 16rem;
+        --content-padding-left: 17rem;
         --font-size-button: 110%;
+        --font-size-checkbox: 120%;
         --font-size-header: 250%;
         --font-size-input-hint: 90%;
         --font-size-input: 100%;
@@ -16,11 +17,13 @@
         --font-size-table-header: 110%;
         --font-size-table-row: 100%;
         --font-size-totals: 118%;
+        --font-weight-checkbox: 400 !important;
+        --font-weight-menu-items: 300;
         --footer-right-margin: 3rem;
         --gap: 2rem;
         --header-margin-bottom: 1.3125rem;
         --header-margin-top: 1rem;
-        --side-bar-width: 12rem;
+        --side-bar-width: 13rem;
         --top-bar-height: 102px;
     }
 }

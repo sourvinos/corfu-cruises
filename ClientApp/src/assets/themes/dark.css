@@ -5,13 +5,15 @@
     --color-autocomplete: #ededed;
     --color-border-item-active: #f2d492;
     --color-border-item-inactive: #576971;
-    --color-button-delete: #f28482;
     --color-button-embarkation-checkin: #98fb98;
     --color-button-embarkation-checkout: #ffb6c1;
     --color-button-icon: #ededed;
-    --color-button-primary-hover: #226c7b;
-    --color-button-primary: #427da9;
+    --color-button-primary: #10a7c4;
+    --color-button-primary-hover: #2a74a2;
     --color-button-secondary: #426176;
+    --color-button-secondary-hover: #6299be;
+    --color-button-delete: #f28482;
+    --color-button-delete-hover: #e35c59;
     --color-button-text: #ededed;
     --color-calendar-legend: #efefef;
     --color-checkbox-checked: #55828b;
@@ -30,7 +32,7 @@
     --color-embarkation-reservation-icon: #8bd0de;
     --color-headers: #efe7ce;
     --color-icon-remarks-warning: #fcff29;
-    --color-logo-image: #7cc6ff;
+    --color-logo-image: #efe7ce;
     --color-logo-text: #cce3ff;
     --color-manifest-list-crew-icon: #cce3ff;
     --color-manifest-list-passenger-icon: #ffb32c;

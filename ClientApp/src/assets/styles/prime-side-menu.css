@@ -14,12 +14,12 @@
 .p-panelmenu .p-menuitem-text {
     color: var(--color-text-primary) !important;
     font-size: var(--font-size-menu-items) !important;
-    font-weight: var(--font-weight-menu-sub-items) !important;
+    font-weight: var(--font-weight-menu-items) !important;
 }
 
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-menuitem-text {
     color: var(--color-menu-sub-items) !important;
-    font-weight: var(--font-weight-menu-sub-items);
+    font-weight: var(--font-weight-menu-items);
 }
 
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:not(.p-disabled):hover>span {
