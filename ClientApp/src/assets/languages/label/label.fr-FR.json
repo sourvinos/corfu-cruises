@@ -1100,28 +1100,8 @@
                 "description": "Programme"
             },
             {
-                "id": "searchLabelDestination",
-                "description": "Destination"
-            },
-            {
-                "id": "searchLabelPort",
-                "description": "Portι"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "Selectionner dans la liste"
-            },
-            {
-                "id": "searchButton",
-                "description": "Continue"
-            },
-            {
                 "id": "newButton",
                 "description": "Nouvel utilisateur"
-            },
-            {
-                "id": "menu",
-                "description": "Explication des couleurs"
             }
         ]
     },

@@ -4,51 +4,51 @@
         "labels": [
             {
                 "id": 1,
-                "description":"janvier"
+                "description":"Janvier"
             },
             {
                 "id": 2,
-                "description": "fevrier"
+                "description": "Février"
             },
             {
                 "id": 3,
-                "description": "mars"
+                "description": "Mars"
             },
             {
                 "id": 4,
-                "description": "avril"
+                "description": "Avril"
             },
             {
                 "id": 5,
-                "description": "mai"
+                "description": "Mai"
             },
             {
                 "id": 6,
-                "description": "juin"
+                "description": "Juin"
             },
             {
                 "id": 7,
-                "description": "juillet"
+                "description": "Juillet"
             },
             {
                 "id": 8,
-                "description": "aout"
+                "description": "Août"
             },
             {
                 "id": 9,
-                "description": "septembre"
+                "description": "Septembre"
             },
             {
                 "id": 10,
-                "description": "octobre"
+                "description": "Octobre"
             },
             {
                 "id": 11,
-                "description": "novembre"
+                "description": "Novembre"
             },
             {
                 "id": 12,
-                "description": "decembre"
+                "description": "Décembre"
             }
         ]
     },

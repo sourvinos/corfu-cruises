@@ -15,15 +15,15 @@ import { MessageCalendarService } from 'src/app/shared/services/messages-calenda
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { ScheduleResource } from '../classes/schedule-resource'
-import { ScheduleService } from '../classes/schedule.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
+import { ScheduleResource } from '../../classes/schedule-resource'
+import { ScheduleService } from '../../classes/schedule.service'
 
 @Component({
     selector: 'schedule-create-form',
     templateUrl: './schedule-create-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css', './schedule-create-form.component.css']
+    styleUrls: ['../../../../../assets/styles/forms.css', './schedule-create-form.component.css']
 })
 
 export class ScheduleCreateFormComponent {

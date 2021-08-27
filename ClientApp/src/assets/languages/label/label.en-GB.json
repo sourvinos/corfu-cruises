@@ -1100,28 +1100,8 @@
                 "description": "Schedule"
             },
             {
-                "id": "searchLabelDestination",
-                "description": "Destination"
-            },
-            {
-                "id": "searchLabelPort",
-                "description": "Port"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "Select from the list"
-            },
-            {
-                "id": "searchButton",
-                "description": "SEARCH"
-            },
-            {
                 "id": "newButton",
                 "description": "NEW"
-            },
-            {
-                "id": "menu",
-                "description": "Colour Legend"
             }
         ]
     },

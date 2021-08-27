@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core'
 // Custom
-import { CalendarComponent } from '../user-interface/calendar.component'
-import { CalendarLegendComponent } from '../user-interface/calendar-legend.component'
-import { ScheduleCreateFormComponent } from '../user-interface/schedule-create-form.component'
 import { ScheduleRoutingModule } from './schedule.routing.module'
-import { ScheduleWrapperComponent } from '../user-interface/schedule-wrapper.component'
 import { SharedModule } from '../../../shared/modules/shared.module'
+import { CalendarWrapperComponent } from '../user-interface/list/calendar-wrapper.component'
+import { ScheduleCreateFormComponent } from '../user-interface/form/schedule-create-form.component'
+import { CalendarComponent } from '../user-interface/list/calendar.component'
 
 @NgModule({
     declarations: [
-        ScheduleWrapperComponent,
+        CalendarWrapperComponent,
         ScheduleCreateFormComponent,
-        CalendarComponent,
-        CalendarLegendComponent
+        CalendarComponent
     ],
     imports: [
         ScheduleRoutingModule,

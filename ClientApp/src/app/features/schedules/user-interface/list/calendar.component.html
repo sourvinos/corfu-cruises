@@ -9,7 +9,7 @@
     <div id="wrapper-calendar">
         <ol>
             <div *ngFor="let weekDay of weekDays" class="day-name">{{ onGetWeekday(weekDay) }}</div>
-            <li class="days" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'" *ngFor="let day of monthSelect;let first = first" (dblclick)="onCanProceed($event, day)">
+            <li class="days" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'" *ngFor="let day of monthSelect;let first = first">
                 <span>{{day?.value}}</span>
             </li>
         </ol>

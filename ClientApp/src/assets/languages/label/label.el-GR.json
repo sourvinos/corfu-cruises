@@ -1097,31 +1097,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Προγραμμα"
-            },
-            {
-                "id": "searchLabelDestination",
-                "description": "Προορισμός"
-            },
-            {
-                "id": "searchLabelPort",
-                "description": "Λιμανι"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "Επιλέξτε από τη λίστα"
-            },
-            {
-                "id": "searchButton",
-                "description": "ΑΝΑΖΗΤΗΣΗ"
+                "description": "Πρόγραμμα"
             },
             {
                 "id": "newButton",
-                "description": "Νεο"
-            },
-            {
-                "id": "menu",
-                "description": "Επεξηγηση Χρωματων"
+                "description": "ΝΕΟ"
             }
         ]
     },

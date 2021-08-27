@@ -1100,28 +1100,8 @@
                 "description": "Zeitplan"
             },
             {
-                "id": "searchLabelDestination",
-                "description": "Ziel"
-            },
-            {
-                "id": "searchLabelPort",
-                "description": "Hafen"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "Aus der Liste auswählen"
-            },
-            {
-                "id": "searchButton",
-                "description": "SUCHEN"
-            },
-            {
                 "id": "newButton",
                 "description": "NEU"
-            },
-            {
-                "id": "menu",
-                "description": "Farblegende"
             }
         ]
     },

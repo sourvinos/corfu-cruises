@@ -1100,28 +1100,8 @@
                 "description": "Plán"
             },
             {
-                "id": "searchLabelDestination",
-                "description": "Destinace"
-            },
-            {
-                "id": "searchLabelPort",
-                "description": "Přístav"
-            },
-            {
-                "id": "searchDropdownHint",
-                "description": "Vyberte ze seznamu"
-            },
-            {
-                "id": "searchButton",
-                "description": "VYHLEDÁVÁNÍ"
-            },
-            {
                 "id": "newButton",
                 "description": "NOVÝ"
-            },
-            {
-                "id": "menu",
-                "description": "Barevná legenda"
             }
         ]
     },
