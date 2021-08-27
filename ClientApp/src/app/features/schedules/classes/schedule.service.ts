@@ -15,8 +15,8 @@ export class ScheduleService extends DataService {
 
     //#region public methods
 
-    public getForDate(date: string): Promise<boolean> {
-        return this.http.get<boolean>(this.url + '/getForDate/date/' + date).toPromise()
+    public isSchedule(date: string): Promise<boolean> {
+        return this.http.get<boolean>(this.url + '/isSchedule/date/' + date).toPromise()
     }
 
     public getAllActive(): Observable<Schedule[]> {

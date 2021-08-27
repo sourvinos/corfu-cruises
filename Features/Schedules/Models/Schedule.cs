@@ -13,8 +13,8 @@ namespace BlueWaterCruises.Features.Schedules {
         public bool IsActive { get; set; }
         public string UserId { get; set; }
 
-        public Port Port { get; set; }
         public Destination Destination { get; set; }
+        public Port Port { get; set; }
 
     }
 

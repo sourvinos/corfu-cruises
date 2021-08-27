@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace BlueWaterCruises.Features.Schedules {
             return await context.Schedules.Include(p => p.Port).Include(p => p.Destination).ToListAsync();
         }
 
-        public Boolean GetForDate(string date) {
+        public Boolean IsSchedule(string date) {
             var schedule = context.Schedules
                 .Where(x => x.Date == date)
                 .ToList();
@@ -85,6 +86,29 @@ namespace BlueWaterCruises.Features.Schedules {
                 context.RemoveRange(idsToDelete);
                 context.SaveChanges();
             }
+        }
+
+        public IEnumerable<ScheduleResource> GetForDate(string date) {
+            var dailySchedule = context.Schedules
+                .Include(x => x.Destination)
+                .Include(x => x.Port)
+                .Where(x => x.Date != date)
+                .AsEnumerable()
+                .GroupBy(x => new { x.Date })
+                .Select(x => new ScheduleResource {
+                    Date = x.Key.Date,
+                    Destinations = x.GroupBy(x => new { x.Destination.Id, x.Destination.Description })
+                        .Select(x => new DestinationResource {
+                            Id = x.Key.Id,
+                            Description = x.Key.Description,
+                            Ports = x.GroupBy(x => new { x.Port.Id, x.Port.Description, x.MaxPersons }).Select(x => new PortResource {
+                                Id = x.Key.Id,
+                                Description = x.Key.Description,
+                                MaxPersons = x.Key.MaxPersons
+                            })
+                        }).ToList()
+                }).ToList();
+            return dailySchedule;
         }
 
     }

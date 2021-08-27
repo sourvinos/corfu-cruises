@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Schedules {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class SchedulesController : ControllerBase {
@@ -32,8 +32,8 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpGet("[action]/date/{date}")]
-        public Boolean GetForDate(string date) {
-            return repo.GetForDate(date);
+        public Boolean IsSchedule(string date) {
+            return repo.IsSchedule(date);
         }
 
         [HttpGet("[action]/destinationId/{destinationId}")]
@@ -64,7 +64,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public IActionResult PostSchedule([FromBody] List<Schedule> records) {
             if (ModelState.IsValid) {
                 try {
@@ -86,7 +86,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public IActionResult PutSchedule([FromRoute] int id, [FromBody] Schedule record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -108,7 +108,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteSchedule([FromRoute] int id) {
             Schedule record = await repo.GetById(id);
             if (record == null) {
@@ -133,6 +133,11 @@ namespace BlueWaterCruises.Features.Schedules {
         [HttpPost("range")]
         public void DeleteRangeSchedule([FromBody] List<Schedule> schedules) {
             repo.RemoveRange(schedules);
+        }
+
+        [HttpGet("[action]/date/{date}")]
+        public IEnumerable<ScheduleResource> GetForDate(string date) {
+            return repo.GetForDate(date);
         }
 
     }

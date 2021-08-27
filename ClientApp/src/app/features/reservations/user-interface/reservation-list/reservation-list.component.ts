@@ -196,7 +196,7 @@ export class ReservationListComponent {
     }
 
     public onNew(): void {
-        this.scheduleService.getForDate(this.date).then(result => {
+        this.scheduleService.isSchedule(this.date).then(result => {
             if (result) {
                 document.getElementById('listTab').click()
                 this.router.navigate([this.baseUrl, 'new'])
