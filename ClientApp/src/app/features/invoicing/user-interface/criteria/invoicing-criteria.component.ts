@@ -5,41 +5,32 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import moment from 'moment'
-
+// Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
-    selector: 'invoicing-wrapper',
-    templateUrl: './invoicing-wrapper.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './invoicing-wrapper.component.css'],
+    selector: 'invoicing-criteria',
+    templateUrl: './invoicing-criteria.component.html',
+    styleUrls: ['../../../../../assets/styles/forms.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
-export class InvoicingWrapperComponent {
+export class InvoicingCriteriaComponent {
 
     //#region variables
 
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
     private windowTitle = 'Invoicing'
-    public feature = 'invoicingWrapper'
-
-    //#endregion
-
-    //#region particular variables
-
-    private dateInISO = ''
-    private mustRefreshReservationList = true
-    public dateIn = ''
+    public feature = 'invoicingCriteria'
     public form: FormGroup
-    public records: string[] = []
-    public environment = environment.production
+    public input: InputTabStopDirective
 
     //#endregion
 
@@ -52,24 +43,13 @@ export class InvoicingWrapperComponent {
         this.initForm()
         this.addShortcuts()
         this.getLocale()
-    }
-
-    ngAfterViewInit(): void {
-        this.focus('dateIn')
-    }
-
-    ngDoCheck(): void {
-        if (this.mustRefreshReservationList) {
-            this.mustRefreshReservationList = false
-            this.ngAfterViewInit()
-        }
+        this.populateFields()
     }
 
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
         this.unlisten()
-        this.removeSelectedIdsFromLocalStorage()
     }
 
     //#endregion
@@ -84,16 +64,9 @@ export class InvoicingWrapperComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onGoBack(): void {
-        this.router.navigate(['/'])
-    }
-
-    public onLoadReservations(): void {
-        this.clearSelectedArraysFromLocalStorage()
-        if (this.checkValidDate()) {
-            this.updateLocalStorageWithDate()
-            this.navigateToList()
-        }
+    public onDoJobs(): void {
+        this.storeCriteria()
+        this.navigateToList()
     }
 
     //#endregion
@@ -104,7 +77,8 @@ export class InvoicingWrapperComponent {
         this.unlisten = this.keyboardShortcutsService.listen({
             'Escape': () => {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.onGoBack()
+                    this.removeCriteria()
+                    this.goBack()
                 }
             },
             'Alt.S': (event: KeyboardEvent) => {
@@ -116,50 +90,43 @@ export class InvoicingWrapperComponent {
         })
     }
 
-    private checkValidDate(): boolean {
-        const date = (<HTMLInputElement>document.getElementById('dateIn')).value
-        if (moment(moment(date, 'DD/MM/YYYY')).isValid()) {
-            this.dateInISO = moment(date, 'DD/MM/YYYY').toISOString(true)
-            this.dateInISO = moment(this.dateInISO).format('YYYY-MM-DD')
-            return true
-        } else {
-            this.dateInISO = ''
-            return false
-        }
-    }
-
-    private clearSelectedArraysFromLocalStorage(): void {
-        localStorage.removeItem('reservations')
-    }
-
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
-    }
-
     private getLocale(): void {
         this.dateAdapter.setLocale(this.helperService.readItem("language"))
     }
 
+    private goBack(): void {
+        this.router.navigate(['/'])
+    }
+
     private initForm(): void {
         this.form = this.formBuilder.group({
-            dateIn: ['2021-05-01', [Validators.required]]
+            date: ['', [Validators.required]]
         })
     }
 
     private navigateToList(): void {
-        this.router.navigate(['date/', this.dateInISO], { relativeTo: this.activatedRoute })
+        this.router.navigate(['date', moment(this.form.value.date).toISOString().substr(0, 10)], { relativeTo: this.activatedRoute })
     }
 
-    private removeSelectedIdsFromLocalStorage(): void {
-        localStorage.removeItem('selectedIds')
+    private populateFields(): void {
+        if (this.helperService.readItem('invoicingCriteria')) {
+            const criteria = JSON.parse(this.helperService.readItem('invoicingCriteria'))
+            this.form.setValue({
+                date: moment(criteria.date).toISOString()
+            })
+        }
+    }
+
+    private removeCriteria(): void {
+        this.helperService.removeItem('invoicingCriteria')
     }
 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
 
-    private updateLocalStorageWithDate(): void {
-        this.helperService.saveItem('date', this.dateInISO)
+    private storeCriteria(): void {
+        this.helperService.saveItem('invoicingCriteria', JSON.stringify(this.form.value))
     }
 
     //#endregion
@@ -167,7 +134,7 @@ export class InvoicingWrapperComponent {
     //#region getters
 
     get date(): AbstractControl {
-        return this.form.get('dateIn')
+        return this.form.get('date')
     }
 
     //#endregion    

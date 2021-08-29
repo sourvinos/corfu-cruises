@@ -50,7 +50,7 @@
 #footer {
     display: flex;
     justify-content: space-between;
-    margin: auto var(--footer-right-margin) var(--gap) 0;
+    margin: var(--gap) var(--footer-right-margin) var(--gap) 0;
 }
 
 #footer #buttons {

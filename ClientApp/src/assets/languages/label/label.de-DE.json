@@ -1472,7 +1472,7 @@
         ]
     },
     {
-        "feature": "invoicingWrapper",
+        "feature": "invoicingCriteria",
         "labels": [
             {
                 "id": "header",
@@ -1483,7 +1483,7 @@
                 "description": "Datum"
             },
             {
-                "id": "searchHint",
+                "id": "searchDateHint",
                 "description": "Einschiffungsdatum"
             },
             {

@@ -1472,18 +1472,18 @@
         ]
     },
     {
-        "feature": "invoicingWrapper",
+        "feature": "invoicingCriteria",
         "labels": [
             {
                 "id": "header",
-                "description": "Τιμολογηση"
+                "description": "Τιμολόγηση"
             },
             {
                 "id": "searchLabel",
                 "description": "Date"
             },
             {
-                "id": "searchHint",
+                "id": "searchDateHint",
                 "description": "Donnez Date"
             },
             {
