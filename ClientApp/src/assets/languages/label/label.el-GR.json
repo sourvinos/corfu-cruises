@@ -1476,15 +1476,15 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Τιμολογηση"
+                "description": "Τιμολόγηση"
             },
             {
                 "id": "searchLabel",
-                "description": "Ημερομηνια"
+                "description": "Ημερομηνία"
             },
             {
                 "id": "searchDateHint",
-                "description": "Δώστε Ημερ/νία"
+                "description": "Ημερ/νία αναχώρησης"
             },
             {
                 "id": "searchButton",
@@ -1496,48 +1496,52 @@
         "feature": "invoicingList",
         "labels": [
             {
-                "id": "headerAdults",
-                "description": "Ε"
+                "id": "header",
+                "description": "Τιμολόγηση"
             },
             {
-                "id": "headerCustomerDescription",
-                "description": "Πελατης"
-            },
-            {
-                "id": "headerDestinationDescription",
+                "id": "headerDestination",
                 "description": "Προορισμός"
             },
             {
-                "id": "headerFree",
-                "description": "Δ"
-            },
-            {
-                "id": "headerIsTransfer",
-                "description": "Μεταφορα"
-            },
-            {
-                "id": "headerKids",
-                "description": "Π"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Παρατηρησεις"
-            },
-            {
-                "id": "reservationId",
-                "description": "Id"
-            },
-            {
-                "id": "headerShipDescription",
-                "description": "Πλοιο"
+                "id": "headerShip",
+                "description": "Πλοίο"
             },
             {
                 "id": "headerTicketNo",
                 "description": "Αρ. εισιτηρίου"
             },
             {
+                "id": "headerIsTransfer",
+                "description": "Μεταφορά"
+            },
+            {
+                "id": "headerAdults",
+                "description": "Ε"
+            },
+            {
+                "id": "headerKids",
+                "description": "Π"
+            },
+            {
+                "id": "headerFree",
+                "description": "Δ"
+            },
+            {
                 "id": "headerTotalPersons",
-                "description": "Σ"
+                "description": "Σύνολο"
+            },
+            {
+                "id": "headerRemarks",
+                "description": "Παρατηρήσεις"
+            },
+            {
+                "id": "headerTotals",
+                "description": "Σύνολα"
+            },
+            {
+                "id": "exportAllButton",
+                "description": "ΕΞΑΓΩΓΗ ΟΛΩΝ ΣΕ PDF"
             }
         ]
     },

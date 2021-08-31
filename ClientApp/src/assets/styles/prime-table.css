@@ -5,8 +5,11 @@
 }
 
 .p-datatable-flex-scrollable .p-datatable-scrollable-body, .p-datatable-flex-scrollable .p-datatable-virtual-scrollable-body {
-    background-color: var(--color-common-background);
     overflow-x: hidden !important;
+}
+
+.p-datatable-flex-scrollable:hover ::-webkit-scrollbar-thumb {
+    background-color: var(--color-scrollbar) !important;
 }
 
 .p-datatable-scrollable-footer, .p-datatable-scrollable-header {
@@ -99,7 +102,7 @@ div:not(.p-column-filter).p-column-filter-row:hover {
     background-color: var(--color-menu-background-hover);
 }
 
-.rowGroup {
+.rowGroup, .rowGroup>td {
     color: var(--color-table-row-group) !important;
     font-size: var(--font-size-row-group) !important;
     font-weight: bold;

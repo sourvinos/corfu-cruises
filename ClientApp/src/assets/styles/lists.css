@@ -17,7 +17,8 @@
 }
 
 #header #navigation {
-    margin-left: 0;
+    display: flex;
+    margin: auto 1rem auto 0;
 }
 
 #header #title {

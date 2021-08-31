@@ -169,7 +169,6 @@ export class RouteFormComponent {
     }
 
     public onUpdateCoordinates(element: any): void {
-        console.log('Coordinates', element)
         this.pickupPointService.updateCoordinates(element[0], element[1]).subscribe(() => {
             this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
         }, errorCode => {

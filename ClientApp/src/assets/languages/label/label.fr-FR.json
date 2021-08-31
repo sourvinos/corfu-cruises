@@ -1476,7 +1476,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Τιμολόγηση"
+                "description": "Facturation"
             },
             {
                 "id": "searchLabel",
@@ -1496,48 +1496,52 @@
         "feature": "invoicingList",
         "labels": [
             {
-                "id": "headerAdults",
-                "description": "Ε"
+                "id": "header",
+                "description": "Facturation"
             },
             {
-                "id": "headerCustomerDescription",
-                "description": "Client"
-            },
-            {
-                "id": "headerDestinationDescription",
+                "id": "headerDestination",
                 "description": "Destination"
             },
             {
-                "id": "headerFree",
-                "description": "Δ"
-            },
-            {
-                "id": "headerIsTransfer",
-                "description": "Transfert"
-            },
-            {
-                "id": "headerKids",
-                "description": "Π"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "ΠRemarques"
-            },
-            {
-                "id": "reservationId",
-                "description": "Id"
-            },
-            {
-                "id": "headerShipDescription",
-                "description": " bateau"
+                "id": "headerShip",
+                "description": "Navire"
             },
             {
                 "id": "headerTicketNo",
                 "description": "Billet"
             },
             {
+                "id": "headerIsTransfer",
+                "description": "Transfert"
+            },
+            {
+                "id": "headerAdults",
+                "description": "A"
+            },
+            {
+                "id": "headerKids",
+                "description": "G"
+            },
+            {
+                "id": "headerFree",
+                "description": "L"
+            },
+            {
                 "id": "headerTotalPersons",
-                "description": "Σ"
+                "description": "Total"
+            },
+            {
+                "id": "headerRemarks",
+                "description": "Remarques"
+            },
+            {
+                "id": "headerTotals",
+                "description": "Totaux"
+            },
+            {
+                "id": "exportAllButton",
+                "description": "EXPORTER TOUT AU FORMAT PDF"
             }
         ]
     },

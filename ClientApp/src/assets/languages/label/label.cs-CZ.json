@@ -1496,39 +1496,15 @@
         "feature": "invoicingList",
         "labels": [
             {
-                "id": "headerAdults",
-                "description": "Do"
+                "id": "header",
+                "description": "Fakturace"
             },
             {
-                "id": "headerCustomerDescription",
-                "description": "Zákazníci"
-            },
-            {
-                "id": "headerDestinationDescription",
+                "id": "headerDestination",
                 "description": "Destinace"
             },
             {
-                "id": "headerFree",
-                "description": "Z"
-            },
-            {
-                "id": "headerIsTransfer",
-                "description": "Převod"
-            },
-            {
-                "id": "headerKids",
-                "description": "Dí"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Poznámky"
-            },
-            {
-                "id": "reservationId",
-                "description": "Id"
-            },
-            {
-                "id": "headerShipDescription",
+                "id": "headerShip",
                 "description": "Plavidlo"
             },
             {
@@ -1536,8 +1512,36 @@
                 "description": "Číslo lístku"
             },
             {
+                "id": "headerIsTransfer",
+                "description": "Převod"
+            },
+            {
+                "id": "headerAdults",
+                "description": "Do"
+            },
+            {
+                "id": "headerKids",
+                "description": "Dí"
+            },
+            {
+                "id": "headerFree",
+                "description": "Z"
+            },
+            {
                 "id": "headerTotalPersons",
-                "description": "C"
+                "description": "Celkový"
+            },
+            {
+                "id": "headerRemarks",
+                "description": "Poznámky"
+            },
+            {
+                "id": "headerTotals",
+                "description": "Celkem"
+            },
+            {
+                "id": "exportAllButton",
+                "description": "EXPORTOVAT VŠE DO PDF"
             }
         ]
     },

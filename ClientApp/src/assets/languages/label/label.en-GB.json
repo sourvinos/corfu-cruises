@@ -1496,48 +1496,52 @@
         "feature": "invoicingList",
         "labels": [
             {
-                "id": "headerAdults",
-                "description": "A"
+                "id": "header",
+                "description": "Invoicing"
             },
             {
-                "id": "headerCustomerDescription",
-                "description": "Customer"
-            },
-            {
-                "id": "headerDestinationDescription",
+                "id": "headerDestination",
                 "description": "Destination"
             },
             {
-                "id": "headerFree",
-                "description": "F"
+                "id": "headerShip",
+                "description": "Ship"
+            },
+            {
+                "id": "headerTicketNo",
+                "description": "Ticket No"
             },
             {
                 "id": "headerIsTransfer",
                 "description": "Transfer"
             },
             {
+                "id": "headerAdults",
+                "description": "A"
+            },
+            {
                 "id": "headerKids",
                 "description": "K"
+            },
+            {
+                "id": "headerFree",
+                "description": "F"
+            },
+            {
+                "id": "headerTotalPersons",
+                "description": "Total"
             },
             {
                 "id": "headerRemarks",
                 "description": "Remarks"
             },
             {
-                "id": "reservationId",
-                "description": "Id"
+                "id": "headerTotals",
+                "description": "Totals"
             },
             {
-                "id": "headerShipDescription",
-                "description": "Ship"
-            },
-            {
-                "id": "headerTicketNo",
-                "description": "Ticket"
-            },
-            {
-                "id": "headerTotalPersons",
-                "description": "T"
+                "id": "exportAllButton",
+                "description": "EXPORT ALL TO PDF"
             }
         ]
     },

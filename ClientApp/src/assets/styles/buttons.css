@@ -16,6 +16,7 @@ button.primary {
 }
 
 button.primary:hover {
+    color: var(--color);
     background-color: var(--color-button-primary-hover) !important;
 }
 

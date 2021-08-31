@@ -1,4 +1,4 @@
-import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router'
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
@@ -7,7 +7,6 @@ import { ButtonClickService } from 'src/app/shared/services/button-click.service
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InvoicingPdfService } from '../../classes/services/invoicing-pdf.service'
 import { InvoicingService } from '../../classes/services/invoicing.service'
-import { InvoicingViewModel } from './../../classes/view-models/invoicing-view-model'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -17,7 +16,7 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 @Component({
     selector: 'invoicing-list',
     templateUrl: './invoicing-list.component.html',
-    styleUrls: ['./invoicing-list.component.css', '../../../../shared/components/table/custom-table.component.css'],
+    styleUrls: ['../../../../../assets/styles/lists.css', './invoicing-list.component.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
@@ -25,36 +24,21 @@ export class InvoicingListComponent {
 
     //#region variables
 
-    private date: string
     private ngUnsubscribe = new Subject<void>()
     private resolver = 'invoicingList'
     private unlisten: Unlisten
     private windowTitle = 'Invoicing'
+    public downArrow: boolean
     public feature = 'invoicingList'
-    public highlightFirstRow = false
-    public queryResult: InvoicingViewModel[]
-    public sortColumn: string
-    public sortOrder: string
+    public records: any
 
     //#endregion
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private buttonClickService: ButtonClickService,
-        private helperService: HelperService,
-        private invoicingService: InvoicingService,
-        private keyboardShortcutsService: KeyboardShortcuts,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageSnackbarService,
-        private invoicingPdfService:InvoicingPdfService,
-        private router: Router,
-        private snackbarService: SnackbarService,
-        private titleService: Title
-    ) {
-        this.activatedRoute.params.subscribe((params: Params) => this.date = params['dateIn'])
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private invoicingService: InvoicingService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private invoicingPdfService: InvoicingPdfService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
         this.router.events.subscribe((navigation) => {
-            if (navigation instanceof NavigationEnd && this.date !== '' && this.router.url.split('/').length === 4) {
+            if (navigation instanceof NavigationEnd) {
                 this.loadRecords()
+                this.showCriteria()
             }
         })
     }
@@ -76,11 +60,17 @@ export class InvoicingListComponent {
 
     //#region public methods
 
-    public doPdfTasks(date: string, customerId: number): void {
+    public onPdfTask(date: string, customerId: number): void {
         this.invoicingService.getByDateAndCustomer(date, customerId).subscribe(result => {
             this.invoicingPdfService.doInvoiceTasks(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+        })
+    }
+
+    public onPdfTasks(): void {
+        this.records.forEach((record: { date: string; customerResource: { id: number } }) => {
+            this.onPdfTask(record.date, record.customerResource.id)
         })
     }
 
@@ -115,11 +105,20 @@ export class InvoicingListComponent {
     private loadRecords(): void {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
-            this.queryResult = listResolved.result
-            console.log(this.queryResult)
+            this.records = listResolved.result
         } else {
             this.onGoBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
+        }
+    }
+
+    private showCriteria(): void {
+        if (this.helperService.readItem('invoicingCriteria')) {
+            const criteria = JSON.parse(this.helperService.readItem('invoicingCriteria'))
+            console.log(criteria)
+            // this.form.setValue({
+            //     date: moment(criteria.date).toISOString()
+            // })
         }
     }
 

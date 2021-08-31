@@ -24,7 +24,6 @@ export class SummaryComponent {
 
     ngAfterViewInit(): void {
         this.showDownArrow(this.index, this.id)
-        console.log(this.header)
     }
 
     public onGetLabel(id: string): string {
@@ -52,4 +51,5 @@ export class SummaryComponent {
             this.downArrow[index] = div.clientHeight + div.scrollTop < div.scrollHeight ? true : false
         })
     }
+
 }

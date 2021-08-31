@@ -1496,39 +1496,15 @@
         "feature": "invoicingList",
         "labels": [
             {
-                "id": "headerAdults",
-                "description": "E"
+                "id": "header",
+                "description": "Fakturierung"
             },
             {
-                "id": "headerCustomerDescription",
-                "description": "K"
-            },
-            {
-                "id": "headerDestinationDescription",
+                "id": "headerDestination",
                 "description": "Ziel"
             },
             {
-                "id": "headerFree",
-                "description": "G"
-            },
-            {
-                "id": "headerIsTransfer",
-                "description": "Transfer"
-            },
-            {
-                "id": "headerKids",
-                "description": "K"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Bemerkungen"
-            },
-            {
-                "id": "reservationId",
-                "description": "Id"
-            },
-            {
-                "id": "headerShipDescription",
+                "id": "headerShip",
                 "description": "Schiff"
             },
             {
@@ -1536,8 +1512,36 @@
                 "description": "Ticketnummer"
             },
             {
-                "id": "headerTotalPersons",
+                "id": "headerIsTransfer",
+                "description": "Transfer"
+            },
+            {
+                "id": "headerAdults",
+                "description": "E"
+            },
+            {
+                "id": "headerKids",
+                "description": "K"
+            },
+            {
+                "id": "headerFree",
                 "description": "G"
+            },
+            {
+                "id": "headerTotalPersons",
+                "description": "Gesamt"
+            },
+            {
+                "id": "headerRemarks",
+                "description": "Bemerkungen"
+            },
+            {
+                "id": "headerTotals",
+                "description": "Summen"
+            },
+            {
+                "id": "exportAllButton",
+                "description": "ALLES ALS PDF EXPORTIEREN"
             }
         ]
     },

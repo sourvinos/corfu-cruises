@@ -233,7 +233,6 @@ export class ShipFormComponent {
             isActive: this.form.value.isActive,
             userId: this.form.value.userId
         })
-        console.log(this.flatForm.value)
     }
 
     private focus(field: string): void {
@@ -242,7 +241,6 @@ export class ShipFormComponent {
 
     private getRecord(id: number): void {
         this.shipService.getSingle(id).subscribe(result => {
-            console.log(result)
             this.populateFields(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')

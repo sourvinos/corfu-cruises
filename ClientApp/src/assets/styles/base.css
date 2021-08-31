@@ -238,5 +238,5 @@ p.instructions {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--color-scrollbar) !important;
+    background-color: var(--color-common-background) !important;
 }
