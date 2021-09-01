@@ -1,4 +1,4 @@
-export class ReservationsViewModel {
+export class ReservationViewModel {
 
     reservationId: string
     destinationDescription: string

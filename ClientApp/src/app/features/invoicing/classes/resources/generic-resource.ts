@@ -1,4 +1,4 @@
-export class CustomerResource {
+export class GenericResource {
 
     id: number
     description: string

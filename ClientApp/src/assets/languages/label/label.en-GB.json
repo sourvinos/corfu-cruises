@@ -1487,6 +1487,22 @@
                 "description": "Select or enter date"
             },
             {
+                "id": "customer",
+                "description": "Customer"
+            },
+            {
+                "id": "destination",
+                "description": "Destination"
+            },
+            {
+                "id": "vessel",
+                "description": "Vessel"
+            },
+            {
+                "id": "searchAutocompleteHint",
+                "description": "Select from the list"
+            },
+            {
                 "id": "searchButton",
                 "description": "SEARCH"
             }
@@ -1542,6 +1558,10 @@
             {
                 "id": "exportAllButton",
                 "description": "EXPORT ALL TO PDF"
+            },
+            {
+                "id": "no-results",
+                "description": "We found nothing!"
             }
         ]
     },

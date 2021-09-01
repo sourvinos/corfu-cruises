@@ -28,7 +28,6 @@ export class InvoicingListComponent {
     private resolver = 'invoicingList'
     private unlisten: Unlisten
     private windowTitle = 'Invoicing'
-    public downArrow: boolean
     public feature = 'invoicingList'
     public records: any
 
@@ -60,8 +59,8 @@ export class InvoicingListComponent {
 
     //#region public methods
 
-    public onPdfTask(date: string, customerId: number): void {
-        this.invoicingService.getByDateAndCustomer(date, customerId).subscribe(result => {
+    public onPdfTask(date: string, customerId): void {
+        this.invoicingService.get(date, customerId, 0, 0).subscribe(result => {
             this.invoicingPdfService.doInvoiceTasks(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
@@ -69,7 +68,7 @@ export class InvoicingListComponent {
     }
 
     public onPdfTasks(): void {
-        this.records.forEach((record: { date: string; customerResource: { id: number } }) => {
+        this.records.forEach((record: any) => {
             this.onPdfTask(record.date, record.customerResource.id)
         })
     }
@@ -79,7 +78,7 @@ export class InvoicingListComponent {
     }
 
     public onGoBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate(['/invoicing'])
     }
 
     //#endregion

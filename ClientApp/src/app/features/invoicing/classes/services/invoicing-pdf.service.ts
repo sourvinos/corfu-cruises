@@ -4,8 +4,8 @@ import pdfFonts from 'pdfmake/build/vfs_fonts'
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 // Custom
 import { HelperService } from './../../../../shared/services/helper.service'
+import { InvoicingTransferGroupViewModel } from '../view-models/invoicing-transfer-group-view-model'
 import { InvoicingViewModel } from '../view-models/invoicing-view-model'
-import { IsTransferGroupViewModel } from '../view-models/isTransferGroup-view-model'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 
 @Injectable({ providedIn: 'root' })
@@ -130,7 +130,7 @@ export class InvoicingPdfService {
         return body
     }
 
-    private isTransferGroupTotal(data: IsTransferGroupViewModel): any {
+    private isTransferGroupTotal(data: InvoicingTransferGroupViewModel): any {
         return {
             table: {
                 widths: [40, 30, 30, 30, 30],
@@ -144,7 +144,7 @@ export class InvoicingPdfService {
         }
     }
 
-    private buildIsTransferGroupTotal(data: IsTransferGroupViewModel): void {
+    private buildIsTransferGroupTotal(data: InvoicingTransferGroupViewModel): void {
         const body: any = []
         const dataRow = []
         dataRow.push({ alignment: 'center', text: 'TOTAL', margin: [0, 5, 0, 0] })

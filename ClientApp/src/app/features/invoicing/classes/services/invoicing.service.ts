@@ -13,12 +13,8 @@ export class InvoicingService extends DataService {
         super(http, '/api/invoicing')
     }
 
-    getByDate(date: string): Observable<InvoicingViewModel> {
-        return this.http.get<InvoicingViewModel>(this.url + '/date/' + date)
-    }
-
-    getByDateAndCustomer(date: string, customerId: number): Observable<InvoicingViewModel> {
-        return this.http.get<InvoicingViewModel>(this.url + '/date/' + date + '/customer/' + customerId)
+    get(date: string, customerId: number, destinationId: number, vesselId: number): Observable<InvoicingViewModel> {
+        return this.http.get<InvoicingViewModel>(this.url + '/date/' + date + '/customer/' + customerId + '/destination/' + destinationId + '/vessel/' + vesselId)
     }
 
 }

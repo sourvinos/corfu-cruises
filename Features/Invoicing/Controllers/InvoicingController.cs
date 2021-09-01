@@ -23,16 +23,10 @@ namespace BlueWaterCruises.Features.Invoicing {
             this.mapper = mapper;
         }
 
-        [HttpGet("date/{date}")]
+        [HttpGet("date/{date}/customer/{customerId}/destination/{destinationId}/vessel/{vesselId}")]
         // [Authorize(Roles = "Admin")]
-        public IEnumerable<InvoiceViewModel> Get(string date) {
-            return this.repo.Get(date);
-        }
-
-        [HttpGet("date/{date}/customer/{customerId}")]
-        // [Authorize(Roles = "Admin")]
-        public IEnumerable<InvoiceViewModel> GetByDateAndCustomer(string date,int customerId) {
-            return this.repo.GetByDateAndCustomer(date,customerId);
+        public IEnumerable<InvoiceViewModel> Get(string date, string customerId, string destinationId, string vesselId) {
+            return this.repo.Get(date, customerId, destinationId, vesselId);
         }
 
     }

@@ -1487,6 +1487,22 @@
                 "description": "Ημερ/νία αναχώρησης"
             },
             {
+                "id": "customer",
+                "description": "Πελάτης"
+            },
+            {
+                "id": "destination",
+                "description": "Προορισμός"
+            },
+            {
+                "id": "vessel",
+                "description": "Πλοίο"
+            },
+            {
+                "id": "searchAutocompleteHint",
+                "description": "Επιλέξτε από τη λίστα"
+            },
+            {
                 "id": "searchButton",
                 "description": "ΑΝΑΖΗΤΗΣΗ"
             }
@@ -1542,6 +1558,10 @@
             {
                 "id": "exportAllButton",
                 "description": "ΕΞΑΓΩΓΗ ΟΛΩΝ ΣΕ PDF"
+            },
+            {
+                "id": "no-results",
+                "description": "Δεν βρήκαμε τίποτα!"
             }
         ]
     },

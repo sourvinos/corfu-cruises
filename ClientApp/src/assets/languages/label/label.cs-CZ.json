@@ -1487,6 +1487,22 @@
                 "description": "Vyplňte nebo vyberte datum"
             },
             {
+                "id": "customer",
+                "description": "Zákazník"
+            },
+            {
+                "id": "destination",
+                "description": "Destinace"
+            },
+            {
+                "id": "vessel",
+                "description": "Plavidlo"
+            },
+            {
+                "id": "searchAutocompleteHint",
+                "description": "Vyberte ze seznamu"
+            },
+            {
                 "id": "searchButton",
                 "description": "VYHLEDÁVÁNÍ"
             }
@@ -1542,6 +1558,10 @@
             {
                 "id": "exportAllButton",
                 "description": "EXPORTOVAT VŠE DO PDF"
+            },
+            {
+                "id": "no-results",
+                "description": "Nic nalezeno!"
             }
         ]
     },

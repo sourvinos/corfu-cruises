@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Ships {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class ShipsController : ControllerBase {
@@ -31,8 +31,8 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<Ship>> GetActive() {
-            return await repo.GetActive(x => x.IsActive);
+        public async Task<IEnumerable<ShipDropdownResource>> GetActiveForDropdown() {
+            return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
@@ -70,7 +70,7 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public IActionResult PutShip([FromRoute] int id, [FromBody] ShipWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -92,7 +92,7 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteShip([FromRoute] int id) {
             Ship record = await repo.GetByIdToDelete(id);
             if (record == null) {

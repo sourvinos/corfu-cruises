@@ -259,7 +259,6 @@ export class EditUserFormComponent {
     }
 
     private patchFields(result: any, fields: any[]): void {
-        2
         if (result) {
             Object.entries(result).forEach(([key, value]) => {
                 this.form.patchValue({ [key]: value })

@@ -1,4 +1,4 @@
-export class IsTransferGroupViewModel {
+export class InvoicingTransferGroupViewModel {
 
     isTransfer: boolean
     adults: number

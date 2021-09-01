@@ -9,84 +9,92 @@
         </div>
     </div>
 
-    <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" id="table" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="invoicing-list" stateStorage="local">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="width: 20%; border-top-left-radius: 10px;">{{ onGetLabel("headerDestination") }}</th>
-                    <th style="width: 20%;">{{ onGetLabel("headerShip") }}</th>
-                    <th style="width: 10%;">{{ onGetLabel("headerTicketNo") }}</th>
-                    <th style="width: 10%;">{{ onGetLabel("headerIsTransfer") }}</th>
-                    <th style="width: 5%;">{{ onGetLabel("headerAdults") }}</th>
-                    <th style="width: 5%;">{{ onGetLabel("headerKids") }}</th>
-                    <th style="width: 5%;">{{ onGetLabel("headerFree") }}</th>
-                    <th style="width: 6%;">{{ onGetLabel("headerTotalPersons") }}</th>
-                    <th style="width: 20%; border-top-right-radius: 10px;">{{ onGetLabel("headerRemarks") }}</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowData>
-                <tr>
-                    <td colspan="2" class="rowGroup clickable" (click)="onPdfTask(rowData.date, rowData.customerResource.id)">
-                        <i class="pi pi-file-pdf"></i><span>{{ rowData.customerResource.description }}</span>
-                    </td>
-                    <td style="width: 20%;"></td>
-                    <td style="width: 10%;"></td>
-                    <td style="width: 10%;"></td>
-                    <td style="width: 5%;"></td>
-                    <td style="width: 5%;"></td>
-                    <td style="width: 5%;"></td>
-                    <td style="width: 6%;"></td>
-                    <td style="width: 20%;"></td>
-                </tr>
-                <tr [pSelectableRow]="rowData.reservations[i]" *ngFor="let x of rowData.reservations, let i = index">
-                    <td style="width: 20%;">{{ rowData.reservations[i].destinationDescription }}</td>
-                    <td style="width: 20%;">{{ rowData.reservations[i].shipDescription }}</td>
-                    <td style="width: 10%;">{{ rowData.reservations[i].ticketNo }}</td>
-                    <td style="text-align: center; width: 10%;">
-                        <i class="pi" [ngClass]="{'icon-green pi-check': rowData.reservations[i].isTransfer, 'icon-red pi-times': !rowData.reservations[i].isTransfer}"></i>
-                    </td>
-                    <td style="text-align: right; width: 5%;">{{ rowData.reservations[i].adults }}</td>
-                    <td style="text-align: right; width: 5%;">{{ rowData.reservations[i].kids }}</td>
-                    <td style="text-align: right; width: 5%;">{{ rowData.reservations[i].free }}</td>
-                    <td style="text-align: right; width: 6%;">{{ rowData.reservations[i].totalPersons }}</td>
-                    <td style="width: 20%;">{{ rowData.reservations[i].remarks }}</td>
-                </tr>
-                <tr>
-                    <th colspan="3"></th>
-                    <th colspan="5" class="total-header">{{ onGetLabel("headerTotals") }}</th>
-                    <th colspan="1"></th>
-                </tr>
-                <tr class="subtotal" *ngFor="let x of rowData.isTransferGroup, let i = index">
-                    <td style="width: 20%;"></td>
-                    <td style="width: 20%;"></td>
-                    <td style="width: 20%;"></td>
-                    <td style="text-align: center; width: 3rem;">
-                        <i class="pi" [ngClass]="{'icon-green pi-check': rowData.isTransferGroup[i].isTransfer, 'icon-red pi-times': !rowData.isTransferGroup[i].isTransfer}"></i>
-                    <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroup[i].adults }}</td>
-                    <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroup[i].kids }}</td>
-                    <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroup[i].free }}</td>
-                    <td style="text-align: right; width: 4rem;">{{ rowData.isTransferGroup[i].totalPersons }}</td>
-                    <td style="width: 10%;"></td>
-                </tr>
-                <tr class="rowGroup">
-                    <td style="width: 10%;"></td>
-                    <td style="width: 20%;"></td>
-                    <td style="width: 20%;"></td>
-                    <td style="width: 3rem;"></td>
-                    <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroupTotal.adults }}</td>
-                    <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroupTotal.kids }}</td>
-                    <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroupTotal.free }}</td>
-                    <td style="text-align: right; width: 4rem;">{{ rowData.isTransferGroupTotal.totalPersons }}</td>
-                    <td style="width: 10%;"></td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
-
-    <div id="footer">
-        <div @slideFromRight id="buttons">
-            <button data-cy="new" mat-flat-button class="primary" (click)="onPdfTasks()">{{ onGetLabel("exportAllButton") }}</button>
+    <ng-container *ngIf="records.length > 0">
+        <div id="table-wrapper">
+            <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" id="table" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="invoicing-list" stateStorage="local">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 20%; border-top-left-radius: 10px;">{{ onGetLabel("headerDestination") }}</th>
+                        <th style="width: 20%;">{{ onGetLabel("headerShip") }}</th>
+                        <th style="width: 10%;">{{ onGetLabel("headerTicketNo") }}</th>
+                        <th style="width: 10%;">{{ onGetLabel("headerIsTransfer") }}</th>
+                        <th style="width: 5%;">{{ onGetLabel("headerAdults") }}</th>
+                        <th style="width: 5%;">{{ onGetLabel("headerKids") }}</th>
+                        <th style="width: 5%;">{{ onGetLabel("headerFree") }}</th>
+                        <th style="width: 6%;">{{ onGetLabel("headerTotalPersons") }}</th>
+                        <th style="width: 20%; border-top-right-radius: 10px;">{{ onGetLabel("headerRemarks") }}</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr>
+                        <td colspan="2" class="rowGroup clickable" (click)="onPdfTask(rowData.date, rowData.customerResource.id)">
+                            <i class="pi pi-file-pdf"></i><span>{{ rowData.customerResource.description }}</span>
+                        </td>
+                        <td style="width: 20%;"></td>
+                        <td style="width: 10%;"></td>
+                        <td style="width: 10%;"></td>
+                        <td style="width: 5%;"></td>
+                        <td style="width: 5%;"></td>
+                        <td style="width: 5%;"></td>
+                        <td style="width: 6%;"></td>
+                        <td style="width: 20%;"></td>
+                    </tr>
+                    <tr [pSelectableRow]="rowData.reservations[i]" *ngFor="let x of rowData.reservations, let i = index">
+                        <td style="width: 20%;">{{ rowData.reservations[i].destinationDescription }}</td>
+                        <td style="width: 20%;">{{ rowData.reservations[i].shipDescription }}</td>
+                        <td style="width: 10%;">{{ rowData.reservations[i].ticketNo }}</td>
+                        <td style="text-align: center; width: 10%;">
+                            <i class="pi" [ngClass]="{'icon-green pi-check': rowData.reservations[i].isTransfer, 'icon-red pi-times': !rowData.reservations[i].isTransfer}"></i>
+                        </td>
+                        <td style="text-align: right; width: 5%;">{{ rowData.reservations[i].adults }}</td>
+                        <td style="text-align: right; width: 5%;">{{ rowData.reservations[i].kids }}</td>
+                        <td style="text-align: right; width: 5%;">{{ rowData.reservations[i].free }}</td>
+                        <td style="text-align: right; width: 6%;">{{ rowData.reservations[i].totalPersons }}</td>
+                        <td style="width: 20%;">{{ rowData.reservations[i].remarks }}</td>
+                    </tr>
+                    <tr>
+                        <th colspan="3"></th>
+                        <th colspan="5" class="total-header">{{ onGetLabel("headerTotals") }}</th>
+                        <th colspan="1"></th>
+                    </tr>
+                    <tr class="subtotal" *ngFor="let x of rowData.isTransferGroup, let i = index">
+                        <td style="width: 20%;"></td>
+                        <td style="width: 20%;"></td>
+                        <td style="width: 20%;"></td>
+                        <td style="text-align: center; width: 3rem;">
+                            <i class="pi" [ngClass]="{'icon-green pi-check': rowData.isTransferGroup[i].isTransfer, 'icon-red pi-times': !rowData.isTransferGroup[i].isTransfer}"></i>
+                        <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroup[i].adults }}</td>
+                        <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroup[i].kids }}</td>
+                        <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroup[i].free }}</td>
+                        <td style="text-align: right; width: 4rem;">{{ rowData.isTransferGroup[i].totalPersons }}</td>
+                        <td style="width: 10%;"></td>
+                    </tr>
+                    <tr class="rowGroup">
+                        <td style="width: 10%;"></td>
+                        <td style="width: 20%;"></td>
+                        <td style="width: 20%;"></td>
+                        <td style="width: 3rem;"></td>
+                        <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroupTotal.adults }}</td>
+                        <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroupTotal.kids }}</td>
+                        <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroupTotal.free }}</td>
+                        <td style="text-align: right; width: 4rem;">{{ rowData.isTransferGroupTotal.totalPersons }}</td>
+                        <td style="width: 10%;"></td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
-    </div>
+        <div id="footer">
+            <div @slideFromRight id="buttons">
+                <button data-cy="new" mat-flat-button class="primary" (click)="onPdfTasks()">{{ onGetLabel("exportAllButton") }}</button>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="records.length == 0">
+        <div id="image-wrapper">
+            <img src="assets/images/background/no-results.png">
+            <h1>{{ onGetLabel("no-results") }}</h1>
+        </div>
+    </ng-container>
 
 </div>

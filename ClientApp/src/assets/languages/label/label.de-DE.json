@@ -674,7 +674,7 @@
             },
             {
                 "id": "headerDestination",
-                "description": "Ziel"
+                "description": "Reiseziel"
             },
             {
                 "id": "headerRoute",
@@ -739,7 +739,7 @@
             },
             {
                 "id": "destination",
-                "description": "Ziel"
+                "description": "Reiseziel"
             },
             {
                 "id": "customer",
@@ -1147,7 +1147,7 @@
             },
             {
                 "id": "destination",
-                "description": "Ziel"
+                "description": "Reiseziel"
             },
             {
                 "id": "port",
@@ -1328,7 +1328,7 @@
             },
             {
                 "id": "destination",
-                "description": "Ziel"
+                "description": "Reiseziel"
             },
             {
                 "id": "port",
@@ -1487,6 +1487,22 @@
                 "description": "Einschiffungsdatum"
             },
             {
+                "id": "customer",
+                "description": "Kunde"
+            },
+            {
+                "id": "destination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "vessel",
+                "description": "Schiff"
+            },
+            {
+                "id": "searchAutocompleteHint",
+                "description": "Aus der Liste auswählen"
+            },
+            {
                 "id": "searchButton",
                 "description": "SUCHEN"
             }
@@ -1501,7 +1517,7 @@
             },
             {
                 "id": "headerDestination",
-                "description": "Ziel"
+                "description": "Reiseziel"
             },
             {
                 "id": "headerShip",
@@ -1542,6 +1558,10 @@
             {
                 "id": "exportAllButton",
                 "description": "ALLES ALS PDF EXPORTIEREN"
+            },
+            {
+                "id": "no-results",
+                "description": "Nichts gefunden!"
             }
         ]
     },
@@ -1603,7 +1623,7 @@
             },
             {
                 "id": "destination",
-                "description": "Ziel"
+                "description": "Reiseziel"
             },
             {
                 "id": "port",

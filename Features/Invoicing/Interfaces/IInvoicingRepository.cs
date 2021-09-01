@@ -4,8 +4,7 @@ namespace BlueWaterCruises.Features.Invoicing {
 
     public interface IInvoicingRepository {
 
-        IEnumerable<InvoiceViewModel> Get(string date);
-        IEnumerable<InvoiceViewModel> GetByDateAndCustomer(string date, int customerId);
+        IEnumerable<InvoiceViewModel> Get(string date, string customerId, string destinationId, string vesselId);
 
     }
 

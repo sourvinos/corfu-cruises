@@ -1,13 +1,13 @@
-import { CustomerResource } from './customer-resource'
-import { IsTransferGroupViewModel } from './isTransferGroup-view-model'
-import { ReservationsViewModel } from './reservation-view-model'
+import { GenericResource } from '../resources/generic-resource'
+import { InvoicingTransferGroupViewModel } from './invoicing-transfer-group-view-model'
+import { ReservationViewModel } from './reservation-view-model'
 
 export class InvoicingViewModel {
 
     date: string
-    customerResource: CustomerResource
-    reservations: ReservationsViewModel[]
-    isTransferGroup: IsTransferGroupViewModel[]
-    isTransferGroupTotal: IsTransferGroupViewModel
+    customerResource: GenericResource
+    reservations: ReservationViewModel[]
+    isTransferGroup: InvoicingTransferGroupViewModel[]
+    isTransferGroupTotal: InvoicingTransferGroupViewModel
 
 }
