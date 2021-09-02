@@ -104,7 +104,6 @@ div:not(.p-column-filter).p-column-filter-row:hover {
 
 .rowGroup, .rowGroup>td {
     color: var(--color-table-row-group) !important;
-    font-size: var(--font-size-row-group) !important;
     font-weight: bold;
 }
 

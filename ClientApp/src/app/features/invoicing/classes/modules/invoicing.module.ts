@@ -8,7 +8,7 @@ import { SharedModule } from 'src/app/shared/modules/shared.module'
 @NgModule({
     declarations: [
         InvoicingCriteriaComponent,
-        InvoicingListComponent,
+        InvoicingListComponent
     ],
     imports: [
         SharedModule,

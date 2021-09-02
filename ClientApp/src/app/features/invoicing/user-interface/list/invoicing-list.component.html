@@ -5,7 +5,7 @@
             <mat-icon class="goBack" [routerLink]="['/invoicing']">arrow_back</mat-icon>
         </div>
         <div @slideFromLeft id="title">
-            <h1>{{ onGetLabel('header') }}</h1>
+            <h1>{{ getLabel('header') }}{{ getDate() }}</h1>
         </div>
     </div>
 
@@ -14,20 +14,20 @@
             <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" id="table" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="invoicing-list" stateStorage="local">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 20%; border-top-left-radius: 10px;">{{ onGetLabel("headerDestination") }}</th>
-                        <th style="width: 20%;">{{ onGetLabel("headerShip") }}</th>
-                        <th style="width: 10%;">{{ onGetLabel("headerTicketNo") }}</th>
-                        <th style="width: 10%;">{{ onGetLabel("headerIsTransfer") }}</th>
-                        <th style="width: 5%;">{{ onGetLabel("headerAdults") }}</th>
-                        <th style="width: 5%;">{{ onGetLabel("headerKids") }}</th>
-                        <th style="width: 5%;">{{ onGetLabel("headerFree") }}</th>
-                        <th style="width: 6%;">{{ onGetLabel("headerTotalPersons") }}</th>
-                        <th style="width: 20%; border-top-right-radius: 10px;">{{ onGetLabel("headerRemarks") }}</th>
+                        <th style="width: 20%; border-top-left-radius: 10px;">{{ getLabel("headerDestination") }}</th>
+                        <th style="width: 20%;">{{ getLabel("headerShip") }}</th>
+                        <th style="width: 10%;">{{ getLabel("headerTicketNo") }}</th>
+                        <th style="width: 10%;">{{ getLabel("headerIsTransfer") }}</th>
+                        <th style="width: 5%;">{{ getLabel("headerAdults") }}</th>
+                        <th style="width: 5%;">{{ getLabel("headerKids") }}</th>
+                        <th style="width: 5%;">{{ getLabel("headerFree") }}</th>
+                        <th style="width: 6%;">{{ getLabel("headerTotalPersons") }}</th>
+                        <th style="width: 20%; border-top-right-radius: 10px;">{{ getLabel("headerRemarks") }}</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
                     <tr>
-                        <td colspan="2" class="rowGroup clickable" (click)="onPdfTask(rowData.date, rowData.customerResource.id)">
+                        <td colspan="2" class="rowGroup clickable" (click)="exportSingleCustomer(rowData.date, rowData.customerResource.id)">
                             <i class="pi pi-file-pdf"></i><span>{{ rowData.customerResource.description }}</span>
                         </td>
                         <td style="width: 20%;"></td>
@@ -54,7 +54,7 @@
                     </tr>
                     <tr>
                         <th colspan="3"></th>
-                        <th colspan="5" class="total-header">{{ onGetLabel("headerTotals") }}</th>
+                        <th colspan="5" class="total-header">{{ getLabel("headerTotals") }}</th>
                         <th colspan="1"></th>
                     </tr>
                     <tr class="subtotal" *ngFor="let x of rowData.isTransferGroup, let i = index">
@@ -85,7 +85,7 @@
         </div>
         <div id="footer">
             <div @slideFromRight id="buttons">
-                <button data-cy="new" mat-flat-button class="primary" (click)="onPdfTasks()">{{ onGetLabel("exportAllButton") }}</button>
+                <button data-cy="new" mat-flat-button class="primary" (click)="exportAllCustomers()">{{ getLabel("exportAllButton") }}</button>
             </div>
         </div>
     </ng-container>
@@ -93,7 +93,7 @@
     <ng-container *ngIf="records.length == 0">
         <div id="image-wrapper">
             <img src="assets/images/background/no-results.png">
-            <h1>{{ onGetLabel("no-results") }}</h1>
+            <h1>{{ getLabel("no-results") }}</h1>
         </div>
     </ng-container>
 

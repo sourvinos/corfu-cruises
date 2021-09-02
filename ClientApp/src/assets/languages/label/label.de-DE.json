@@ -1513,7 +1513,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Fakturierung"
+                "description": "Fakturierung für "
             },
             {
                 "id": "headerDestination",

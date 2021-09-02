@@ -37,7 +37,6 @@ export class InvoicingListComponent {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.loadRecords()
-                this.showCriteria()
             }
         })
     }
@@ -59,7 +58,13 @@ export class InvoicingListComponent {
 
     //#region public methods
 
-    public onPdfTask(date: string, customerId): void {
+    public exportAllCustomers(): void {
+        this.records.forEach((record: any) => {
+            this.exportSingleCustomer(record.date, record.customerResource.id)
+        })
+    }
+
+    public exportSingleCustomer(date: string, customerId: number): void {
         this.invoicingService.get(date, customerId, 0, 0).subscribe(result => {
             this.invoicingPdfService.doInvoiceTasks(result)
         }, errorFromInterceptor => {
@@ -67,18 +72,14 @@ export class InvoicingListComponent {
         })
     }
 
-    public onPdfTasks(): void {
-        this.records.forEach((record: any) => {
-            this.onPdfTask(record.date, record.customerResource.id)
-        })
+    public getDate(): string {
+        if (this.helperService.readItem('invoicing-criteria')) {
+            return (this.helperService.formatDateToLocale(JSON.parse(this.helperService.readItem('invoicing-criteria')).date))
+        }
     }
 
-    public onGetLabel(id: string): string {
+    public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
-    }
-
-    public onGoBack(): void {
-        this.router.navigate(['/invoicing'])
     }
 
     //#endregion
@@ -89,11 +90,8 @@ export class InvoicingListComponent {
         this.unlisten = this.keyboardShortcutsService.listen({
             'Escape': () => {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.onGoBack()
+                    this.goBack()
                 }
-            },
-            'Alt.S': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'search')
             }
         }, {
             priority: 2,
@@ -101,23 +99,17 @@ export class InvoicingListComponent {
         })
     }
 
+    private goBack(): void {
+        this.router.navigate(['/invoicing'])
+    }
+
     private loadRecords(): void {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
         } else {
-            this.onGoBack()
+            this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
-        }
-    }
-
-    private showCriteria(): void {
-        if (this.helperService.readItem('invoicingCriteria')) {
-            const criteria = JSON.parse(this.helperService.readItem('invoicingCriteria'))
-            console.log(criteria)
-            // this.form.setValue({
-            //     date: moment(criteria.date).toISOString()
-            // })
         }
     }
 
