@@ -1,4 +1,4 @@
-import { Component } from "@angular/core"
+import { Component, EventEmitter, Output } from "@angular/core"
 import moment, { utc } from 'moment'
 // Custom
 import { MessageCalendarService } from "src/app/shared/services/messages-calendar.service"
@@ -13,7 +13,9 @@ export class CalendarComponent {
 
     // #region variables
 
+    @Output() event = new EventEmitter()
     public dateSelect: any
+    public isoDate = []
     public monthSelect: any[]
     public startDate: any
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -32,16 +34,20 @@ export class CalendarComponent {
 
     //#region public methods
 
-    public onChangeMonth(flag: number): void {
+    public changeMonth(flag: number): void {
         this.navigateToMonth(flag)
     }
 
-    public onGetMonthAndYear(): string {
+    public getMonthAndYear(): string {
         return this.messageCalendarService.getDescription('months', this.startDate.month() + 1) + ' ' + this.startDate.year()
     }
 
-    public onGetWeekday(id: string): string {
+    public getWeekday(id: string): string {
         return this.messageCalendarService.getDescription('weekdays', id)
+    }
+
+    public selectDay(day: any): void {
+        console.log('Day selected', day)
     }
 
     //#endregion
@@ -50,6 +56,7 @@ export class CalendarComponent {
 
     private getDaysFromDate(month: number, year: number): void {
         this.startDate = utc(`${year}/${month}/01`)
+        this.isoDate = []
         const endDate = this.startDate.clone().endOf('month')
         const diffDays = endDate.diff(this.startDate, 'days', true)
         const numberDays = Math.round(diffDays)
@@ -57,6 +64,7 @@ export class CalendarComponent {
         const arrayDays = Object.keys([...Array(numberDays)]).map((a: any) => {
             a = parseInt(a) + 1
             const dayObject = moment(`${year}-${month}-${a}`)
+            this.isoDate.push(dayObject.format("YYYY-MM-DD"))
             return {
                 name: dayObject.format("dddd"),
                 value: a,
@@ -74,6 +82,10 @@ export class CalendarComponent {
             const nextDate = this.dateSelect.clone().add(1, "month")
             this.getDaysFromDate(nextDate.format("MM"), nextDate.format("YYYY"))
         }
+    }
+
+    public sendDayToParent(date: string): void {
+        this.event.emit(date)
     }
 
     //#endregion

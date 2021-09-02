@@ -2,15 +2,15 @@
 
     <div id="header">
         <div @slideFromLeft id="title">
-            <h1>{{ onGetLabel('header') }}</h1>
+            <h1>{{ getLabel('header') }}</h1>
         </div>
     </div>
 
-    <calendar></calendar>
+    <calendar (event)=doTaskFromChild($event)></calendar>
 
     <div id="footer">
         <div @slideFromRight id="buttons">
-            <button mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ onGetLabel('newButton') }}</button>
+            <button mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ getLabel('newButton') }}</button>
         </div>
     </div>
 

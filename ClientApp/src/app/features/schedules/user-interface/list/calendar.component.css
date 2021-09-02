@@ -46,6 +46,10 @@ li {
     cursor: pointer;
 }
 
+li>span.isoDate {
+    display: none;
+}
+
 .month {
     font-family: var(--font-family-master);
 }

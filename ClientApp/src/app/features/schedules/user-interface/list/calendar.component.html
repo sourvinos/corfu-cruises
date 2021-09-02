@@ -1,16 +1,17 @@
 <div id="calendar">
 
     <div id="header-calendar">
-        <span class="material-icons" (click)="onChangeMonth(-1)">chevron_left</span>
-        <h2 class="monthAndYear">{{ onGetMonthAndYear() }}</h2>
-        <span class="material-icons" (click)="onChangeMonth(1)">chevron_right</span>
+        <span class="material-icons" (click)="changeMonth(-1)">chevron_left</span>
+        <h2 class="monthAndYear">{{ getMonthAndYear() }}</h2>
+        <span class="material-icons" (click)="changeMonth(1)">chevron_right</span>
     </div>
 
     <div id="wrapper-calendar">
         <ol>
-            <div *ngFor="let weekDay of weekDays" class="day-name">{{ onGetWeekday(weekDay) }}</div>
-            <li class="days" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'" *ngFor="let day of monthSelect;let first = first">
-                <span>{{day?.value}}</span>
+            <div *ngFor="let weekDay of weekDays" class="day-name">{{ getWeekday(weekDay) }}</div>
+            <li class="days" *ngFor="let day of monthSelect;let first = first" (click)="sendDayToParent(isoDate[day.value - 1])" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
+                <span>{{ day?.value }}</span>
+                <span class="isoDate">{{ isoDate[day.value - 1] }}</span>
             </li>
         </ol>
     </div>
