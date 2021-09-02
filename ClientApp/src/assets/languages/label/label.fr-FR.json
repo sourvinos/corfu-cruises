@@ -1869,7 +1869,7 @@
                 "description": "Nom et prénom"
             },
             {
-                "id": "shipDescription",
+                "id": "vessel",
                 "description": "Navire"
             },
             {

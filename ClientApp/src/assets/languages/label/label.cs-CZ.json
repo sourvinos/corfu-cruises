@@ -1869,7 +1869,7 @@
                 "description": "Celé jméno"
             },
             {
-                "id": "shipDescription",
+                "id": "vessel",
                 "description": "Plavidlo"
             },
             {

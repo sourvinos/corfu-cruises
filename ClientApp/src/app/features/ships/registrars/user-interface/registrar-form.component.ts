@@ -2,12 +2,12 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
+import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-import { forkJoin, Subject, Subscription } from 'rxjs'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DialogIndexComponent } from 'src/app/shared/components/dialog-index/dialog-index.component'
 import { DialogService } from 'src/app/shared/services/dialog.service'
+import { GenericResource } from './../../../invoicing/classes/resources/generic-resource'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -19,6 +19,8 @@ import { Registrar } from '../classes/registrar'
 import { RegistrarService } from '../classes/registrar.service'
 import { ShipService } from '../../base/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { ValidationService } from 'src/app/shared/services/validation.service'
+import { map, startWith } from 'rxjs/operators'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -35,16 +37,18 @@ export class RegistrarFormComponent {
     private feature = 'registrarForm'
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '/registrars'
+    private url = '/shipRegistrars'
     private windowTitle = 'Route'
     public form: FormGroup
     public input: InputTabStopDirective
+    private flatForm: FormGroup
 
     //#endregion
 
     //#region particular variables
 
-    public ships: any
+    public ships = []
+    public filteredShips: Observable<GenericResource[]>
 
     //#endregion
 
@@ -62,7 +66,7 @@ export class RegistrarFormComponent {
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
-        this.populateDropDowns()
+        this.populateDropDown(this.shipService, 'ships', 'filteredShips', 'ship', 'description')
     }
 
     ngAfterViewInit(): void {
@@ -118,26 +122,10 @@ export class RegistrarFormComponent {
         this.router.navigate([this.url])
     }
 
-    public onLookupIndex(lookupArray: any[], title: string, formFields: any[], fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[], value: { target: any }): void {
-        let filteredArray = []
-        lookupArray.filter(x => {
-            filteredArray = this.helperService.pushItemToFilteredArray(x, fields[1], value, filteredArray)
-        })
-        if (filteredArray.length === 0) {
-            this.clearFields(null, formFields[0], formFields[1])
-        }
-        if (filteredArray.length === 1) {
-            const [...elements] = filteredArray
-            this.patchFields(elements[0], fields)
-        }
-        if (filteredArray.length > 1) {
-            this.showModalIndex(filteredArray, title, fields, headers, widths, visibility, justify, types)
-        }
-    }
-
     public onSave(): void {
-        if (this.form.value.id === 0) {
-            this.registrarService.add(this.form.value).subscribe(() => {
+        if (this.form.value.id === 0 || this.form.value.id === null) {
+            this.flattenForm()
+            this.registrarService.add(this.flatForm.value).subscribe(() => {
                 this.resetForm()
                 this.onGoBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -145,7 +133,8 @@ export class RegistrarFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
             })
         } else {
-            this.registrarService.update(this.form.value.id, this.form.value).subscribe(() => {
+            this.flattenForm()
+            this.registrarService.update(this.flatForm.value.id, this.flatForm.value).subscribe(() => {
                 this.resetForm()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
                 this.onGoBack()
@@ -153,6 +142,10 @@ export class RegistrarFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
             })
         }
+    }
+
+    public shipFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
     }
 
     //#endregion
@@ -190,9 +183,27 @@ export class RegistrarFormComponent {
         })
     }
 
-    private clearFields(result: any, id: any, description: any): void {
-        this.form.patchValue({ [id]: result ? result.id : '' })
-        this.form.patchValue({ [description]: result ? result.description : '' })
+    private filterArray(array: string, field: string, value: any): any[] {
+        if (typeof value !== 'object') {
+            const filtervalue = value.toLowerCase()
+            return this[array].filter((element) =>
+                element[field].toLowerCase().startsWith(filtervalue))
+        }
+    }
+
+    private flattenForm(): void {
+        this.flatForm = this.formBuilder.group({
+            id: this.form.value.id,
+            shipId: this.form.value.ship.id,
+            fullName: this.form.value.fullname,
+            phones: this.form.value.phones,
+            email: this.form.value.email,
+            fax: this.form.value.fax,
+            address: this.form.value.address,
+            isPrimary: this.form.value.isPrimary,
+            isActive: this.form.value.isActive,
+            userId: this.form.value.userId
+        })
     }
 
     private focus(field: string): void {
@@ -201,6 +212,7 @@ export class RegistrarFormComponent {
 
     private getRecord(id: number): void {
         this.registrarService.getSingle(id).subscribe(result => {
+            console.log(result)
             this.populateFields(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
@@ -211,7 +223,7 @@ export class RegistrarFormComponent {
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: 0,
-            shipId: ['', Validators.required], shipDescription: ['', Validators.required],
+            ship: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             fullname: ['', [Validators.required, Validators.maxLength(128)]],
             phones: ['', Validators.maxLength(128)],
             email: ['', [Validators.maxLength(128), Validators.email]],
@@ -223,35 +235,11 @@ export class RegistrarFormComponent {
         })
     }
 
-    private patchFields(result: any, fields: any[]): void {
-        if (result) {
-            Object.entries(result).forEach(([key, value]) => {
-                this.form.patchValue({ [key]: value })
-            })
-        } else {
-            fields.forEach(field => {
-                this.form.patchValue({ [field]: '' })
-            })
-        }
-    }
-
-    private populateDropDowns(): Subscription {
-        const sources = []
-        sources.push(this.shipService.getAllActive())
-        return forkJoin(sources).subscribe(
-            result => {
-                this.ships = result[0]
-                this.renameObjects()
-            }
-        )
-    }
-
     private populateFields(result: Registrar): void {
         this.form.setValue({
             id: result.id,
             fullname: result.fullname,
-            shipId: result.shipId,
-            shipDescription: result.shipDescription,
+            ship: { "id": result.ship.id, "description": result.ship.description },
             phones: result.phones,
             email: result.email,
             fax: result.fax,
@@ -262,20 +250,18 @@ export class RegistrarFormComponent {
         })
     }
 
-    private renameKey(obj: any, oldKey: string, newKey: string): void {
-        if (oldKey !== newKey) {
-            Object.defineProperty(obj, newKey, Object.getOwnPropertyDescriptor(obj, oldKey))
-            delete obj[oldKey]
-        }
-    }
-
-    private renameObjects(): void {
-        this.ships.forEach((obj: any) => {
-            this.renameKey(obj, 'id', 'shipId')
-            this.renameKey(obj, 'description', 'shipDescription')
-            this.renameKey(obj, 'isActive', 'shipIsActive')
-            this.renameKey(obj, 'userId', 'shipUserId')
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+        const promise = new Promise((resolve) => {
+            service.getAllActive().toPromise().then(
+                (response: any) => {
+                    this[table] = response
+                    resolve(this[table])
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                }, (errorFromInterceptor: number) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                })
         })
+        return promise
     }
 
     private resetForm(): void {
@@ -284,26 +270,6 @@ export class RegistrarFormComponent {
 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
-    }
-
-    private showModalIndex(elements: any, title: string, fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[]): void {
-        const dialog = this.dialog.open(DialogIndexComponent, {
-            height: '685px',
-            data: {
-                records: elements,
-                title: title,
-                fields: fields,
-                headers: headers,
-                widths: widths,
-                visibility: visibility,
-                justify: justify,
-                types: types,
-                highlightFirstRow: true
-            }
-        })
-        dialog.afterClosed().subscribe((result) => {
-            this.patchFields(result, fields)
-        })
     }
 
     private showSnackbar(message: string, type: string): void {
@@ -323,12 +289,8 @@ export class RegistrarFormComponent {
         return this.form.get('fullname')
     }
 
-    get shipId(): AbstractControl {
-        return this.form.get('shipId')
-    }
-
-    get shipDescription(): AbstractControl {
-        return this.form.get('shipDescription')
+    get ship(): AbstractControl {
+        return this.form.get('ship')
     }
 
     get phones(): AbstractControl {

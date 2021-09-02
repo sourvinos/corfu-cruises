@@ -1869,7 +1869,7 @@
                 "description": "Vollständiger Name"
             },
             {
-                "id": "shipDescription",
+                "id": "vessel",
                 "description": "Schiff"
             },
             {

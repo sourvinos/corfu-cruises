@@ -1869,7 +1869,7 @@
                 "description": "Πληρες ονομα"
             },
             {
-                "id": "shipDescription",
+                "id": "vessel",
                 "description": "Πλοιο"
             },
             {
