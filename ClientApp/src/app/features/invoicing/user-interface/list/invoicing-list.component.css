@@ -1,3 +1,14 @@
+#criteriaLabels {
+    margin-left: auto;
+}
+
+#criteriaLabels span {
+    color: var(--color-headers);
+    font-family: var(--font-family-master);
+    font-size: var(--font-size-criterial-labels);
+    font-weight: var(--font-weight-header);
+}
+
 .total-header {
     background-color: var(--color-table-row-group-header);
     color: var(--color-text-primary);
@@ -41,10 +52,10 @@
     flex-direction: column;
     height: 100%;
     justify-content: center;
+    margin-bottom: calc(var(--gap) * 4);
     width: 100%;
 }
 
-#image-wrapper img {
-    height: 50%;
-    width: 50%;
+#image-wrapper span {
+    font-size: 8rem;
 }

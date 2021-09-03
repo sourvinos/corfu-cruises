@@ -5,7 +5,10 @@
             <mat-icon class="goBack" [routerLink]="['/invoicing']">arrow_back</mat-icon>
         </div>
         <div @slideFromLeft id="title">
-            <h1>{{ getLabel('header') }}{{ getDate() }}</h1>
+            <h1>{{ getLabel('header') }}</h1>
+        </div>
+        <div id="criteriaLabels" *ngIf="records.length > 0">
+            <span>{{ criteriaLabels }}</span>
         </div>
     </div>
 
@@ -92,7 +95,7 @@
 
     <ng-container *ngIf="records.length == 0">
         <div id="image-wrapper">
-            <img src="assets/images/background/no-results.png">
+            <span>🎃</span>
             <h1>{{ getLabel("no-results") }}</h1>
         </div>
     </ng-container>

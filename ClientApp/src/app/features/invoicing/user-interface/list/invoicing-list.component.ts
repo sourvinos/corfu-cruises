@@ -30,6 +30,7 @@ export class InvoicingListComponent {
     private windowTitle = 'Invoicing'
     public feature = 'invoicingList'
     public records: any
+    public criteriaLabels: string
 
     //#endregion
 
@@ -46,6 +47,7 @@ export class InvoicingListComponent {
     ngOnInit(): void {
         this.setWindowTitle()
         this.addShortcuts()
+        this.updateCriteriaLabels()
     }
 
     ngOnDestroy(): void {
@@ -111,6 +113,17 @@ export class InvoicingListComponent {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }
+    }
+
+    private updateCriteriaLabels(): void {
+        const criteria = JSON.parse(this.helperService.readItem('invoicing-criteria'))
+        // console.log(this.helperService.formatDateToLocale(criteria.date) + ' ' + criteria.destination.description)
+        this.criteriaLabels =
+            '🗓️ ' + this.helperService.formatDateToLocale(criteria.date) + ' ' +
+            '🙎‍♂️ ' + criteria.customer.description + ' ' +
+            '🏁 ' + criteria.destination.description + ' ' +
+            '🛳️ ' + criteria.vessel.description + ' '
+        console.log(this.criteriaLabels)
     }
 
     private setWindowTitle(): void {

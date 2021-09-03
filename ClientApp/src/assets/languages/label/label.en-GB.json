@@ -1513,7 +1513,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Invoicing for "
+                "description": "Invoicing"
             },
             {
                 "id": "headerDestination",
