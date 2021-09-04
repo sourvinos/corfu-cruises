@@ -1,31 +1,27 @@
-.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label {
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label {
     color: var(--color-text-secondary);
 }
 
-.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label span {
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label span {
     color: var(--color-text-secondary);
 }
 
-.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
     color: var(--color-text-secondary);
 }
 
-.mat-focused .mat-form-field-wrapper .mat-form-field-underline .mat-form-field-ripple {
-    background-color: var(--color-text-secondary) !important;
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-underline .mat-form-field-ripple {
+    background-color: var(--color-text-secondary);
 }
 
-.mat-focused .mat-form-field-wrapper .mat-form-field-subscript-wrapper div .mat-hint {
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-subscript-wrapper div .mat-hint {
     color: var(--color-text-secondary);
 }
 
-.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix .mat-icon {
-    color: var(--color-text-secondary) !important;
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
+    color: var(--color-text-secondary);
 }
 
-.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper {
-    color: var(--color-text-secondary) !important;
-}
-
-.mat-focused .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
-    color: var(--color-text-secondary) !important;
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper {
+    color: var(--color-text-secondary);
 }

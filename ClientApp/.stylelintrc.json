@@ -10,7 +10,6 @@
             }
         ],
         "color-hex-length": "long",
-        "comment-empty-line-before": "never",
         "comment-no-empty": null,
         "indentation": 4,
         "no-missing-end-of-source-newline": null,
