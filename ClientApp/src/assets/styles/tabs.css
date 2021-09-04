@@ -1,5 +1,8 @@
 .mat-tab-body-content {
+    display: flex !important;
     flex-direction: column;
+    padding: 0;
+    width: 100%;
 }
 
 .mat-tab-label {
@@ -7,6 +10,7 @@
     color: var(--color-text-primary);
     font-family: var(--font-family-master);
     font-weight: var(--font-weight-header);
+    min-width: 50px !important;
 }
 
 .mat-ink-bar {
@@ -17,12 +21,6 @@
 .mat-tab-body-wrapper {
     flex: 1 !important;
     margin: var(--gap) 0 var(--gap) 0;
-}
-
-.mat-tab-body-content {
-    display: flex !important;
-    padding: 0;
-    width: 100%;
 }
 
 .mat-tab-nav-bar, .mat-tab-header {
@@ -41,10 +39,6 @@
 }
 
 .mat-tab {
-    min-width: 50px !important;
-}
-
-.mat-tab-label {
     min-width: 50px !important;
 }
 

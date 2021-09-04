@@ -17,7 +17,7 @@
     overflow: visible !important;
 }
 
-.p-datatable .p-datatable-thead>tr>th {
+.p-datatable .p-datatable-thead > tr > th {
     background-color: var(--color-table-header) !important;
     border-right: 1px solid var(--color-table-column-seperator) !important;
     border-width: 0 1px 0 0 !important;
@@ -31,18 +31,27 @@
     transition: all var(--change-theme-delay) ease;
 }
 
-.p-datatable .p-datatable-tbody>tr {
+.p-datatable .p-datatable-tbody > tr {
     background-color: var(--color-common-background) !important;
     border: none !important;
     transition: all var(--change-theme-delay) ease;
 }
 
-.p-datatable .p-datatable-tbody>tr:focus-visible {
+.p-datatable .p-datatable-tbody > tr:focus-visible {
     outline: none !important;
     background-color: var(--color-table-row-highlight) !important;
 }
 
-.p-datatable .p-datatable-tbody>tr>td {
+.rowGroup > td {
+    color: var(--color-table-row-group) !important;
+    font-weight: bold;
+}
+
+.ui-state-highlight td {
+    background: var(--color-table-row-highlight) !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
     border: none !important;
     color: var(--color-text-primary);
     font-family: var(--font-family-table);
@@ -54,7 +63,12 @@
     white-space: nowrap !important;
 }
 
-.p-datatable .p-datatable-tbody>tr.p-highlight>td {
+.p-datatable .p-datatable-tfoot > tr > td {
+    background: none;
+    border: none;
+}
+
+.p-datatable .p-datatable-tbody > tr.p-highlight > td {
     background-color: var(--color-table-row-highlight) !important;
 }
 
@@ -94,7 +108,7 @@
     box-shadow: none;
 }
 
-.p-datatable .p-datatable-thead>tr:nth-child(2)>th {
+.p-datatable .p-datatable-thead > tr:nth-child(2) > th {
     padding-bottom: 5px !important;
 }
 
@@ -102,16 +116,7 @@ div:not(.p-column-filter).p-column-filter-row:hover {
     background-color: var(--color-menu-background-hover);
 }
 
-.rowGroup, .rowGroup>td {
+.rowGroup {
     color: var(--color-table-row-group) !important;
     font-weight: bold;
-}
-
-.p-datatable .p-datatable-tfoot>tr>td {
-    background: none;
-    border: none;
-}
-
-.ui-state-highlight td {
-    background: var(--color-table-row-highlight) !important;
 }

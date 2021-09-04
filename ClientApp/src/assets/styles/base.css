@@ -3,9 +3,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import url('https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp');
-
-/*  */
-
 @import "~leaflet/dist/leaflet.css";
 @import "autocomplete.css";
 @import "buttons.css";
@@ -13,7 +10,10 @@
 @import "datepicker.css";
 @import "dialogs.css";
 @import "headers.css";
-@import "inputs.css";
+@import "input-error.css";
+@import "input-focused-not-error.css";
+@import "input-not-focused-not-error.css";
+@import "input.css";
 @import "loader.css";
 @import "prime-checkbox.css";
 @import "prime-dropdown.css";
@@ -30,8 +30,6 @@
 @import "variables-narrow.css";
 @import "variables-wide.css";
 @import "variables.css";
-
-/*  */
 
 * {
     box-sizing: border-box !important;
@@ -191,7 +189,7 @@ p.instructions {
 }
 
 .mat-calendar-body-label {
-    padding: 0 0 1rem 0!important;
+    padding: 0 0 1rem 0 !important;
 }
 
 .mat-calendar-period-button {
@@ -229,7 +227,7 @@ p.instructions {
     font-weight: var(--font-weight-tooltip);
 }
 
-.tooltip-background {
+.tooltip-background > a {
     background: var(--color-tooltip-background);
 }
 

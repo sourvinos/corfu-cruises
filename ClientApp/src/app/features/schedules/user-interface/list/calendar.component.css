@@ -46,7 +46,7 @@ li {
     cursor: pointer;
 }
 
-li>span.isoDate {
+li > span.isoDate {
     display: none;
 }
 

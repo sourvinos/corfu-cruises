@@ -16,11 +16,11 @@
     justify-content: space-between;
 }
 
-.mat-option-text>span:not(:last-child) {
+.mat-option-text > span:not(:last-child) {
     width: 10rem !important;
 }
 
-.mat-option-text>span:last-child {
+.mat-option-text > span:last-child {
     width: 3rem !important;
 }
 

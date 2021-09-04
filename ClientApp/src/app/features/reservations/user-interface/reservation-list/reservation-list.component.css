@@ -16,6 +16,15 @@
     margin: 0 calc(5rem - var(--gap)) 1rem 0;
 }
 
+.selection {
+    align-items: baseline;
+    display: flex;
+    font-family: var(--font-family-master);
+    font-size: var(--font-size-totals);
+    margin-left: 1rem;
+    text-align: right;
+}
+
 #panelButtons .selection {
     margin-left: auto;
     margin-right: 1rem;
@@ -25,7 +34,7 @@
 #summary {
     column-gap: 0.5rem;
     display: grid;
-    grid-template-columns: repeat(6, minmax(0px, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     transition: background-color var(--change-theme-delay) ease;
     height: 100%;
     overflow-y: hidden;
@@ -91,15 +100,6 @@
     font-weight: var(--font-weight-totals);
     justify-content: flex-end;
     margin-left: auto;
-    text-align: right;
-}
-
-.selection {
-    align-items: baseline;
-    display: flex;
-    font-family: var(--font-family-master);
-    font-size: var(--font-size-totals);
-    margin-left: 1rem;
     text-align: right;
 }
 

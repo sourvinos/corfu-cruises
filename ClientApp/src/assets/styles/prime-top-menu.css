@@ -23,6 +23,16 @@
     background: url('/assets/images/flags/fr-FR.svg') center no-repeat !important;
 }
 
+.p-menubar .p-menuitem-link .p-menuitem-text {
+    color: var(--color-text-primary) !important;
+    font-size: var(--font-size-menu-items) !important;
+    font-weight: var(--font-weight-menu-items) !important;
+}
+
+.p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text {
+    color: var(--color-text-primary);
+}
+
 .p-hidden {
     display: none !important;
 }
@@ -34,48 +44,42 @@
     transition: color var(--change-component-theme-on-hover) ease;
 }
 
-.p-menubar .p-menuitem-link .p-menuitem-icon {
-    color: var(--color-menu-icons) !important;
-    height: 16px;
-    width: 16px;
+.p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text {
+    color: var(--color-text-primary);
 }
 
 .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
     color: var(--color-text-primary);
 }
 
-.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover {
-    background-color: var(--color-menu-background-hover);
-}
-
-.p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text, .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
+.p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
     color: var(--color-text-primary);
 }
 
-.p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link, .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover {
+.p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link {
     background-color: var(--color-menu-background-hover);
-}
-
-.p-menubar .p-menuitem-link .p-menuitem-text {
-    color: var(--color-text-primary) !important;
-    font-size: var(--font-size-menu-items) !important;
-    font-weight: var(--font-weight-menu-items) !important;
 }
 
 .p-menubar .p-menuitem-link:not(.p-disabled):hover {
     color: var(--color-text-primary);
 }
 
-.p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text {
-    color: var(--color-menu-text-hover);
-}
-
-.p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text {
-    color: var(--color-text-primary);
-}
-
-.p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link {
+.p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link {
     background-color: var(--color-menu-background-hover);
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover {
+    background-color: var(--color-menu-background-hover);
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover {
+    background-color: var(--color-menu-background-hover);
+}
+
+.p-menubar .p-menuitem-link .p-menuitem-icon {
+    color: var(--color-menu-icons) !important;
+    height: 16px;
+    width: 16px;
 }
 
 .p-menubar .p-menuitem.p-menuitem-active {

@@ -13,24 +13,18 @@
     margin-bottom: 0 !important;
 }
 
-
-/* Slider On */
+.mat-slide-toggle-bar {
+    background-color: var(--color-slider-bar-inactive) !important;
+}
 
 .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
     background-color: var(--color-slider-bar-active) !important;
 }
 
-.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
-    background-color: var(--color-slider-thumb-active) !important;
-}
-
-
-/* Slider Off */
-
-.mat-slide-toggle-bar {
-    background-color: var(--color-slider-bar-inactive) !important;
-}
-
 .mat-slide-toggle-thumb {
     background-color: var(--color-slider-thumb-inactive) !important;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: var(--color-slider-thumb-active) !important;
 }

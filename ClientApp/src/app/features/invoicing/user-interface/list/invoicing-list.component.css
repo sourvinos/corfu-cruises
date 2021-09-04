@@ -34,16 +34,16 @@
     color: var(--color-table-row-group-hover) !important;
 }
 
-.clickable:hover>.pi-file-pdf {
-    color: var(--color-table-row-group-hover) !important;
-}
-
 .pi-file-pdf {
     margin-right: 0.5rem;
     color: var(--color-table-sort-icon) !important;
     font-size: 1.5rem !important;
     font-weight: 100;
     transition: all var(--change-theme-delay) ease;
+}
+
+.clickable:hover > .pi-file-pdf {
+    color: var(--color-table-row-group-hover) !important;
 }
 
 #image-wrapper {

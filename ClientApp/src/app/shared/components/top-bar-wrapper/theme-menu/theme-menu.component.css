@@ -30,26 +30,26 @@ label:hover {
 
 .fa-sun {
     color: #ffeb6f;
-    transition: .3s;
+    transition: 0.3s;
 }
 
 .fa-moon {
     color: #ffffff;
-    transition: .3s;
+    transition: 0.3s;
 }
 
-#switch-button:checked~label>.fa-moon {
+#switch-button:checked ~ label > .fa-moon {
     opacity: 0;
 }
 
-#switch-button:checked~label>.fa-sun {
+#switch-button:checked ~ label > .fa-sun {
     opacity: 1;
 }
 
-#switch-button:not(:checked)~label>.fa-moon {
+#switch-button:not(:checked) ~ label > .fa-moon {
     opacity: 1;
 }
 
-#switch-button:not(:checked)~label>.fa-sun {
+#switch-button:not(:checked) ~ label > .fa-sun {
     opacity: 0;
 }

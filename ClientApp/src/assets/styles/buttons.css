@@ -58,7 +58,7 @@ button.tab {
     padding-bottom: 5px;
 }
 
-button.tab>span.mat-button-wrapper {
+button.tab > span.mat-button-wrapper {
     border-bottom: 1px solid var(--color-common-background);
 }
 
@@ -66,7 +66,7 @@ button.tab:first-child {
     margin-right: 1rem;
 }
 
-button.tab.active>span.mat-button-wrapper {
+button.tab.active > span.mat-button-wrapper {
     border-bottom: 1px solid var(--color-selected-tab);
     padding-bottom: 5px;
 }
@@ -106,10 +106,6 @@ button:not(:disabled) {
 
 .arrow-right {
     margin-left: auto;
-}
-
-.mat-icon {
-    color: var(--color-button-icon) !important;
 }
 
 .goBack:hover {
