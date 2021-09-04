@@ -1,3 +1,4 @@
+import idleService from '@kurtz1993/idle-service'
 import { Component } from '@angular/core'
 import { MenuItem } from 'primeng/api/menuitem'
 import { Observable, Subject } from 'rxjs'
@@ -48,7 +49,7 @@ export class SideMenuComponent {
         this.topItems = [
             {
                 label: this.getLabel(menuItems, 'home'),
-                icon: 'fas fa-home',    
+                icon: 'fas fa-home',
                 routerLink: ['/']
             },
             {
@@ -98,7 +99,10 @@ export class SideMenuComponent {
             {
                 label: this.getLabel(menuItems, 'logout'),
                 icon: 'fas fa-power-off',
-                command: (): void => this.accountService.logout()
+                command: (): void => {
+                    this.accountService.logout()
+                    idleService.stop()
+                }
             }
 
         ]

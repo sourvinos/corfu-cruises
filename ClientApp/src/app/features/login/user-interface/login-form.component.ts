@@ -1,9 +1,9 @@
+import idleService, { IdleEvents } from '@kurtz1993/idle-service'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-import { UserIdleService } from 'angular-user-idle'
 // Custom
 import { AccountService } from '../../../shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
@@ -46,7 +46,7 @@ export class LoginFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private deviceDetectorService: DeviceDetectorService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userIdleService: UserIdleService) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private deviceDetectorService: DeviceDetectorService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -94,7 +94,7 @@ export class LoginFormComponent {
         const form = this.form.value
         this.accountService.login(form.username, form.password).subscribe(() => {
             this.goHome()
-            this.startTimer()
+            this.configureIdle()
         }, error => {
             this.showError(error)
         })
@@ -116,6 +116,22 @@ export class LoginFormComponent {
             priority: 1,
             inputs: true
         })
+    }
+
+    private configureIdle(): void {
+
+        idleService.configure({
+            timeToIdle: 10,
+            timeToTimeout: 5,
+            autoResume: true,
+            listenFor: 'click mousemove',
+        })
+
+        idleService.on(IdleEvents.UserHasTimedOut, () => {
+            this.accountService.logout()
+        })
+
+        idleService.start()
     }
 
     private focus(field: string): void {
@@ -151,16 +167,6 @@ export class LoginFormComponent {
 
     private showSnackbar(message: string | string[], type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private startTimer(): void {
-        this.userIdleService.startWatching()
-        this.userIdleService.onTimerStart().subscribe()
-        this.userIdleService.onTimeout().subscribe(() => {
-            this.userIdleService.resetTimer()
-            this.accountService.logout()
-            this.userIdleService.stopWatching()
-        })
     }
 
     //#endregion

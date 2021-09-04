@@ -1,3 +1,4 @@
+import idleService from '@kurtz1993/idle-service'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { MenuItem } from 'primeng/api'
@@ -59,13 +60,16 @@ export class TopMenuComponent {
                 items: [
                     {
                         label: this.getLabel(menuItems, 'editAccount'),
-                        icon:'fas fa-pen-alt',
+                        icon: 'fas fa-pen-alt',
                         command: (): void => { this.editUser() }
                     },
                     {
                         label: this.getLabel(menuItems, 'logout'),
                         icon: 'fas fa-power-off',
-                        command: (): void => this.accountService.logout()
+                        command: (): void => {
+                            this.accountService.logout()
+                            idleService.stop()
+                        }
                     }]
             },
             {

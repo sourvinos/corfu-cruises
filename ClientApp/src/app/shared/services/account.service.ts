@@ -1,11 +1,9 @@
+import { BehaviorSubject, Observable } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
-import { UserIdleService } from 'angular-user-idle'
-import { BehaviorSubject, Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { ConnectedUserService } from './connected-user.service'
-import { HelperService } from './helper.service'
+// Custom
 import { InteractionService } from './interaction.service'
 
 @Injectable({ providedIn: 'root' })
@@ -25,7 +23,7 @@ export class AccountService {
 
     //#endregion
 
-    constructor(private interactionService: InteractionService, private connectedUserService: ConnectedUserService, private helperService: HelperService, private httpClient: HttpClient, private router: Router, private userIdleService: UserIdleService) { }
+    constructor(private interactionService: InteractionService, private httpClient: HttpClient, private router: Router) { }
 
     //#region public methods
 
@@ -64,7 +62,6 @@ export class AccountService {
     public logout(): void {
         this.setLoginStatus(false)
         this.clearLocalStorage()
-        this.resetTimer()
         this.refreshMenus()
         this.navigateToLogin()
     }
@@ -125,11 +122,6 @@ export class AccountService {
 
     private refreshMenus(): void {
         this.interactionService.mustRefreshMenus()
-    }
-
-    private resetTimer(): void {
-        this.userIdleService.stopWatching()
-        this.userIdleService.resetTimer()
     }
 
     private setLocalStorage(response: any): void {

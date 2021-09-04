@@ -28,7 +28,6 @@ import { ScheduleModule } from '../features/schedules/classes/schedule.module'
 import { ShipModule } from '../features/ships/base/classes/ship.module'
 import { ShipOwnerModule } from '../features/ships/owners/classes/base/ship-owner.module'
 import { ShipRouteModule } from '../features/ships/routes/classes/shipRoute.module'
-import { UserIdleModule } from 'angular-user-idle'
 import { UserModule } from '../features/users/classes/user.module'
 
 // Components
@@ -89,8 +88,7 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         ShipModule,
         ShipOwnerModule,
         ShipRouteModule,
-        UserModule,
-        UserIdleModule.forRoot({ idle: 3600, timeout: 60, ping: 60 })
+        UserModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
