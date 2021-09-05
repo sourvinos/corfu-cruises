@@ -32,7 +32,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpGet("[action]/date/{date}")]
-        public Boolean IsSchedule(string date) {
+        public Boolean IsSchedule(DateTime date) {
             return repo.IsSchedule(date);
         }
 
@@ -42,12 +42,12 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpGet("[action]/date/{date}/destinationId/{destinationId}")]
-        public ScheduleReadResource GetForDateAndDestination(string date, int destinationId) {
+        public ScheduleReadResource GetForDateAndDestination(DateTime date, int destinationId) {
             return repo.GetForDateAndDestination(date, destinationId);
         }
 
         [HttpGet("[action]/date/{date}/destinationId/{destinationId}/portId/{portId}")]
-        public ScheduleReadResource GetForDateAndDestinationAndPort(string date, int destinationId, int portId) {
+        public ScheduleReadResource GetForDateAndDestinationAndPort(DateTime date, int destinationId, int portId) {
             return repo.GetForDateAndDestinationAndPort(date, destinationId, portId);
         }
 
@@ -135,9 +135,9 @@ namespace BlueWaterCruises.Features.Schedules {
             repo.RemoveRange(schedules);
         }
 
-        [HttpGet("[action]/date/{date}")]
-        public IEnumerable<ScheduleResource> GetForDate(string date) {
-            return repo.GetForDate(date);
+        [HttpGet("from/{fromdate}/to/{todate}")]
+        public IEnumerable<ScheduleResource> GetForPeriod(string fromDate, string toDate) {
+            return repo.GetForPeriod(fromDate, toDate);
         }
 
     }

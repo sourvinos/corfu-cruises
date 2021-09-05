@@ -134,6 +134,12 @@ namespace BlueWaterCruises {
             services.AddTransient<IValidator<ShipRoute>, ShipRouteValidator>();
         }
 
+        public static string DateToString(DateTime date) {
+            string day = "0" + date.Day.ToString();
+            string month = "0" + date.Month.ToString();
+            return date.Year.ToString() + "-" + month.Substring(month.Length - 2, 2) + "-" + day.Substring(day.Length - 2, 2);
+        }
+
     }
 
 }

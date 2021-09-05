@@ -1,16 +1,17 @@
 h1 {
     color: var(--color-headers) !important;
     font-family: var(--font-family-master) !important;
-    font-size: var(--font-size-header) !important;
+    font-size: var(--font-size-h1) !important;
     font-weight: var(--font-weight-header) !important;
     margin: 0 !important;
     padding: 0 !important;
     transition: color var(--change-component-theme-on-hover) ease;
 }
 
-h2, h3 {
+h2 {
     color: var(--color-headers) !important;
     font-family: var(--font-family-master) !important;
+    font-size: var(--font-size-h2) !important;
     font-weight: var(--font-weight-header) !important;
     margin: 0 !important;
     padding: 0 !important;

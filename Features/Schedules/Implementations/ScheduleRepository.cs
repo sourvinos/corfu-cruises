@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +19,7 @@ namespace BlueWaterCruises.Features.Schedules {
             return await context.Schedules.Include(p => p.Port).Include(p => p.Destination).ToListAsync();
         }
 
-        public Boolean IsSchedule(string date) {
+        public Boolean IsSchedule(DateTime date) {
             var schedule = context.Schedules
                 .Where(x => x.Date == date)
                 .ToList();
@@ -36,11 +35,11 @@ namespace BlueWaterCruises.Features.Schedules {
             return mapper.Map<IList<Schedule>, IList<ScheduleReadResource>>(schedules);
         }
 
-        public ScheduleReadResource GetForDateAndDestination(string date, int destinationId) {
+        public ScheduleReadResource GetForDateAndDestination(DateTime date, int destinationId) {
             int maxPersons = 0;
             maxPersons = context.Schedules.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.MaxPersons);
             var schedule = new ScheduleReadResource {
-                Date = date,
+                Date = date.ToShortDateString(),
                 DestinationId = destinationId,
                 PortId = null,
                 MaxPersons = maxPersons
@@ -48,11 +47,11 @@ namespace BlueWaterCruises.Features.Schedules {
             return schedule;
         }
 
-        public ScheduleReadResource GetForDateAndDestinationAndPort(string date, int destinationId, int portId) {
+        public ScheduleReadResource GetForDateAndDestinationAndPort(DateTime date, int destinationId, int portId) {
             int maxPersons = 0;
             maxPersons = context.Schedules.Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId).Sum(x => x.MaxPersons);
             var schedule = new ScheduleReadResource {
-                Date = date,
+                Date = date.ToShortDateString(),
                 DestinationId = destinationId,
                 PortId = portId,
                 MaxPersons = maxPersons
@@ -88,15 +87,16 @@ namespace BlueWaterCruises.Features.Schedules {
             }
         }
 
-        public IEnumerable<ScheduleResource> GetForDate(string date) {
+        public IEnumerable<ScheduleResource> GetForPeriod(string fromDate, string toDate) {
             var dailySchedule = context.Schedules
                 .Include(x => x.Destination)
                 .Include(x => x.Port)
-                .Where(x => x.Date != date)
+                .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
+                .OrderBy(x => x.Date).ThenBy(x => x.Destination.Description).ThenBy(x => !x.Port.IsPrimary)
                 .AsEnumerable()
-                .GroupBy(x => new { x.Date })
+                .GroupBy(x => x.Date)
                 .Select(x => new ScheduleResource {
-                    Date = x.Key.Date,
+                    Date = Extensions.DateToString(x.Key.Date),
                     Destinations = x.GroupBy(x => new { x.Destination.Id, x.Destination.Description })
                         .Select(x => new DestinationResource {
                             Id = x.Key.Id,

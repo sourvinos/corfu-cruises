@@ -121,8 +121,8 @@ export class LoginFormComponent {
     private configureIdle(): void {
 
         idleService.configure({
-            timeToIdle: 10,
-            timeToTimeout: 5,
+            timeToIdle: 3600,
+            timeToTimeout: 60,
             autoResume: true,
             listenFor: 'click mousemove',
         })

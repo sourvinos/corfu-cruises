@@ -14,6 +14,7 @@ export class CalendarComponent {
     // #region variables
 
     @Output() event = new EventEmitter()
+
     public dateSelect: any
     public isoDate = []
     public monthSelect: any[]
@@ -44,6 +45,10 @@ export class CalendarComponent {
 
     public getWeekday(id: string): string {
         return this.messageCalendarService.getDescription('weekdays', id)
+    }
+
+    public sendDayToParent(date: string): void {
+        this.event.emit(date)
     }
 
     public selectDay(day: any): void {
@@ -82,10 +87,6 @@ export class CalendarComponent {
             const nextDate = this.dateSelect.clone().add(1, "month")
             this.getDaysFromDate(nextDate.format("MM"), nextDate.format("YYYY"))
         }
-    }
-
-    public sendDayToParent(date: string): void {
-        this.event.emit(date)
     }
 
     //#endregion
