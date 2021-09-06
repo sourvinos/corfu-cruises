@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 // Custom
 import { AuthGuardService } from 'src/app/shared/services/auth-guard.service'
-import { CalendarWrapperComponent } from '../user-interface/list/calendar-wrapper.component'
+import { CalendarWrapperComponent } from '../user-interface/calendar/calendar-wrapper.component'
 import { CanDeactivateGuard } from 'src/app/shared/services/can-deactivate-guard.service'
 import { ScheduleCreateFormComponent } from '../user-interface/form/schedule-create-form.component'
 

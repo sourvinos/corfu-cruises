@@ -90,7 +90,7 @@
     width: 20px !important;
 }
 
-.p-panelmenu .p-panelmenu-header > a .p-menuitem-icon:before {
+.p-panelmenu .p-panelmenu-header > a .p-menuitem-icon::before {
     height: 16px !important;
     width: 20px !important;
 }

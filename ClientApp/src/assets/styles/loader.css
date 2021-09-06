@@ -28,7 +28,7 @@
     margin-top: 0.5rem !important;
 }
 
-.progress-line, .progress-line:before {
+.progress-line, .progress-line::before {
     height: 0.1875rem;
     width: 30rem;
 }
@@ -40,7 +40,7 @@
     margin: 2rem 0;
 }
 
-.progress-line:before {
+.progress-line::before {
     background-color: #ffa500;
     content: '';
     animation: running-progress 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;

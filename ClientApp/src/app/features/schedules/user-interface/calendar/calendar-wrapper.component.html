@@ -1,11 +1,5 @@
 <div id="list">
 
-    <div id="header">
-        <div @slideFromLeft id="title">
-            <h1>{{ getLabel('header') }}</h1>
-        </div>
-    </div>
-
     <calendar (event)=doTaskFromChild($event)></calendar>
 
     <div id="footer">

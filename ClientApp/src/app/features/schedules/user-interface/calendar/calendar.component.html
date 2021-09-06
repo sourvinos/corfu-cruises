@@ -1,0 +1,24 @@
+<div id="calendar">
+
+    <div id="header">
+        <div @slideFromLeft id="title">
+            <h1>{{ getLabel('header') }}</h1>
+        </div>
+        <div id="month-selector">
+            <span class="material-icons" (click)="changeMonth(-1)">chevron_left</span>
+            <h2 class="monthAndYear">{{ getMonthAndYear() }}</h2>
+            <span class="material-icons" (click)="changeMonth(1)">chevron_right</span>
+        </div>
+    </div>
+
+    <div id="wrapper-calendar">
+        <ol>
+            <div *ngFor="let weekDay of weekDays" class="day-name">{{ getWeekday(weekDay) }}</div>
+            <li class="days" *ngFor="let day of monthSelect;let first = first" (click)="sendDayToParent(days[day.value - 1])" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
+                <span [ngClass]="dayHasSchedule(days[day.value - 1]) ? 'hasSchedule' : 'noSchedule'">{{ day?.value }}</span>
+                <span class="isoDate">{{ days[day.value - 1] }}</span>
+            </li>
+        </ol>
+    </div>
+
+</div>

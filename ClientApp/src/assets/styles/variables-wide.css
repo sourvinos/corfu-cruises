@@ -2,6 +2,8 @@
     * {
         --content-padding-left: 17rem;
         --font-size-button: 110%;
+        --font-size-calendar-date-has-schedule: 200%;
+        --font-size-calendar-day: 140%;
         --font-size-checkbox: 120%;
         --font-size-criterial-labels: 130%;
         --font-size-h1: 250%;

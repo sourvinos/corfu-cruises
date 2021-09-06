@@ -7,7 +7,7 @@
     --color-border-item-inactive: #576971;
     --color-button-delete-hover: #e35c59;
     --color-button-delete: #f28482;
-    --color-button-embarkation-checkin: #98fb98;
+    --color-button-embarkation-checkin: #efe7ce;
     --color-button-embarkation-checkout: #ffb6c1;
     --color-button-icon: #ededed;
     --color-button-primary-hover: #35ccea;
@@ -15,6 +15,8 @@
     --color-button-secondary-hover: #84a2b9;
     --color-button-secondary: #426176;
     --color-button-text: #ededed;
+    --color-calendar-date-has-schedule: #edfaa6;
+    --color-calendar-date-no-schedule: #a5a5a5;
     --color-calendar-legend: #efefef;
     --color-checkbox-checked: #55828b;
     --color-checkbox-indeterminate: #185258;

@@ -43,6 +43,10 @@ export class ScheduleService extends DataService {
         return this.http.post<any[]>(this.url + '/range/', formData)
     }
 
+    public getForPeriod(fromDate: string, toDate: string): Promise<any> {
+        return this.http.get<any>(this.url + '/from/' + fromDate + '/to/' + toDate).toPromise()
+    }
+
     //#endregion
 
 }

@@ -39,8 +39,8 @@
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
                         "allowedCommonJsDependencies": [
-                            "chart.js",
-                            "qrcode"
+                            "qrcode",
+                            "@kurtz1993/idle-service"
                         ],
                         "outputPath": "dist/ClientApp",
                         "index": "src/index.html",

@@ -5,6 +5,7 @@
     --font-family-menu: "Noto Sans";
     --font-family-table: "Ubuntu Condensed";
     /* Font weights */
+    --font-weight-calendar-day: 300;
     --font-weight-dialog-content: 300 !important;
     --font-weight-header: 300 !important;
     --font-weight-input-label: 300 !important;
