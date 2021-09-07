@@ -14,9 +14,8 @@
     <div id="wrapper-calendar">
         <ol>
             <div *ngFor="let weekDay of weekDays" class="day-name">{{ getWeekday(weekDay) }}</div>
-            <li class="days" *ngFor="let day of monthSelect;let first = first" (click)="sendDayToParent(days[day.value - 1])" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
-                <span [ngClass]="dayHasSchedule(days[day.value - 1]) ? 'hasSchedule' : 'noSchedule'">{{ day?.value }}</span>
-                <span class="isoDate">{{ days[day.value - 1] }}</span>
+            <li class="days" *ngFor="let day of monthSelect;let first = first" [ngClass]="hasDateSchedule(days[day.value - 1]) ? 'hasSchedule' : 'noSchedule'" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
+                <span class="day" [ngClass]="isToday(days[day.value - 1]) ? 'today' : 'notToday'">{{ day?.value }}</span>
             </li>
         </ol>
     </div>

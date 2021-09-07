@@ -24,7 +24,7 @@ export class CalendarWrapperComponent {
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
     private windowTitle = 'Schedules'
-    public feature = 'scheduleWrapper'
+    public feature = 'calendarWrapper'
     public newUrl = this.baseUrl + '/new'
 
     //#endregion

@@ -1,5 +1,7 @@
 :host {
+    align-items: center;
     display: flex;
+    flex-direction: column;
     height: 100%;
     justify-content: center;
     width: 100%;
@@ -9,7 +11,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 80%;
+    width: 100%;
 }
 
 #header {
@@ -30,6 +32,12 @@ h2 {
     padding: 0;
 }
 
+.material-icons {
+    color: var(--color-text-primary);
+    cursor: pointer;
+    padding: 0 1rem;
+}
+
 #wrapper-calendar {
     display: flex;
     flex-direction: column;
@@ -45,10 +53,6 @@ ol {
     list-style: none;
     margin: 0;
     padding: 0;
-}
-
-li > span.isoDate {
-    display: none;
 }
 
 .month {
@@ -72,29 +76,37 @@ li > span.isoDate {
 
 .days {
     align-items: center;
+    border-radius: 0.5rem;
     color: var(--color-text-primary);
     display: flex;
+    flex-direction: column;
     font-family: var(--font-family-master);
     justify-content: center;
+    transition: 0.3s;
 }
 
-.days span {
+.days span.day {
     font-size: var(--font-size-calendar-day);
     font-weight: var(--font-weight-calendar-day);
 }
 
-.days span.hasSchedule {
+.days.hasSchedule span.day {
     color: var(--color-calendar-date-has-schedule);
-    cursor: pointer;
-    font-size: 200%;
+    font-size: var(--font-size-calendar-date-has-schedule);
 }
 
-.days span.noSchedule {
+.days.noSchedule span.day {
     color: var(--color-calendar-date-no-schedule);
 }
 
-.material-icons {
-    color: var(--color-text-primary);
+.days.hasSchedule:hover {
+    background-color: var(--color-calendar-date-has-schedule-hover);
     cursor: pointer;
-    padding: 0 1rem;
+}
+
+.today {
+    color: var(--color-calendar-today) !important;
+    font-size: var(--font-size-calendar-today) !important;
+    line-height: 2.5rem;
+    margin: -18px;
 }

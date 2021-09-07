@@ -1093,12 +1093,8 @@
         ]
     },
     {
-        "feature": "scheduleWrapper",
+        "feature": "calendarWrapper",
         "labels": [
-            {
-                "id": "header",
-                "description": "Plán"
-            },
             {
                 "id": "newButton",
                 "description": "NOVÝ"
@@ -1106,35 +1102,11 @@
         ]
     },
     {
-        "feature": "scheduleList",
+        "feature": "calendar",
         "labels": [
             {
-                "id": "newButton",
-                "description": "NOVÝ"
-            },
-            {
-                "id": "availabilityHeader",
-                "description": "Dostupnost"
-            },
-            {
-                "id": "high",
-                "description": "Vysoká"
-            },
-            {
-                "id": "average",
-                "description": "Průměrná "
-            },
-            {
-                "id": "limited",
-                "description": "Omezený"
-            },
-            {
-                "id": "extremely-limited",
-                "description": "Extrémně omezená"
-            },
-            {
-                "id": "none",
-                "description": "Žádný"
+                "id": "header",
+                "description": "Plán"
             }
         ]
     },
@@ -1562,43 +1534,6 @@
             {
                 "id": "no-results",
                 "description": "Nic nalezeno!"
-            }
-        ]
-    },
-    {
-        "feature": "calendarLegend",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Barevná legenda"
-            },
-            {
-                "id": "sub-header",
-                "description": "Každá barva představuje dostupná sedadla"
-            },
-            {
-                "id": "plenty",
-                "description": "Spousta"
-            },
-            {
-                "id": "some",
-                "description": "Některá"
-            },
-            {
-                "id": "limited",
-                "description": "Omezený"
-            },
-            {
-                "id": "extremely-limited",
-                "description": "Extrémně omezená"
-            },
-            {
-                "id": "none",
-                "description": "Žádný"
-            },
-            {
-                "id": "closeButton",
-                "description": "Zavřít"
             }
         ]
     },

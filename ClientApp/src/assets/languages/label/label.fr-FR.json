@@ -1093,12 +1093,8 @@
         ]
     },
     {
-        "feature": "scheduleWrapper",
+        "feature": "calendarWrapper",
         "labels": [
-            {
-                "id": "header",
-                "description": "Programme"
-            },
             {
                 "id": "newButton",
                 "description": "Nouvel utilisateur"
@@ -1106,35 +1102,11 @@
         ]
     },
     {
-        "feature": "scheduleList",
+        "feature": "calendar",
         "labels": [
             {
-                "id": "newButton",
-                "description": "Nouvel utilisateur"
-            },
-            {
-                "id": "availabilityHeader",
-                "description": "Disponibilite"
-            },
-            {
-                "id": "high",
-                "description": "Haute"
-            },
-            {
-                "id": "average",
-                "description": "Moyenne"
-            },
-            {
-                "id": "limited",
-                "description": "Limite"
-            },
-            {
-                "id": "extremely-limited",
-                "description": "Tres Limite"
-            },
-            {
-                "id": "none",
-                "description": "Zero"
+                "id": "header",
+                "description": "Horaire"
             }
         ]
     },
@@ -1562,43 +1534,6 @@
             {
                 "id": "no-results",
                 "description": "Rien n'a été trouvé!"
-            }
-        ]
-    },
-    {
-        "feature": "calendarLegend",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Explication des couleurs"
-            },
-            {
-                "id": "sub-header",
-                "description": "Chaque couleur correspond aux places libres"
-            },
-            {
-                "id": "plenty",
-                "description": "Beaucoup"
-            },
-            {
-                "id": "some",
-                "description": "Quelques"
-            },
-            {
-                "id": "limited",
-                "description": "Peu"
-            },
-            {
-                "id": "extremely-limited",
-                "description": "Tres limitees"
-            },
-            {
-                "id": "none",
-                "description": "Aucune"
-            },
-            {
-                "id": "closeButton",
-                "description": "Cloture"
             }
         ]
     },

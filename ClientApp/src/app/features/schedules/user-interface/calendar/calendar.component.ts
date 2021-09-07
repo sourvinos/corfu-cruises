@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from "@angular/core"
+import { Component } from "@angular/core"
 import moment, { utc } from 'moment'
 // Custom
 import { MessageCalendarService } from "src/app/shared/services/messages-calendar.service"
@@ -17,14 +17,13 @@ export class CalendarComponent {
 
     // #region variables
 
-    @Output() event = new EventEmitter()
-
-    public dateSelect: any
-    public feature = 'scheduleWrapper'
+    private dateSelect: any
+    private daysWithSchedule = []
+    private startDate: any
     public days = []
-    public daysWithSchedule = []
+    public feature = 'calendar'
     public monthSelect: any[]
-    public startDate: any
+    public selectedDate: any
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
     // #endregion 
@@ -47,13 +46,8 @@ export class CalendarComponent {
         this.getScheduleForMonth()
     }
 
-    public dayHasSchedule(date: string): boolean {
-        const x = JSON.stringify(this.daysWithSchedule)
-        if (x.includes(date)) {
-            console.log(x)
-            return true
-        }
-        return false
+    public hasDateSchedule(date: string): boolean {
+        return this.daysWithSchedule.find(x => x.date == date)
     }
 
     public getLabel(id: string): string {
@@ -68,8 +62,13 @@ export class CalendarComponent {
         return this.messageCalendarService.getDescription('weekdays', id)
     }
 
-    public sendDayToParent(date: string): void {
-        this.event.emit(date)
+    public getScheduleForSelectedDate(date: string): any {
+        this.selectedDate = this.daysWithSchedule.find(x => x.date == date)
+        document.getElementById('selectedDate').style.display = 'flex'
+    }
+
+    public isToday(day: any): boolean {
+        return day == new Date().toISOString().substr(0, 10)
     }
 
     //#endregion

@@ -1093,12 +1093,8 @@
         ]
     },
     {
-        "feature": "scheduleWrapper",
+        "feature": "calendarWrapper",
         "labels": [
-            {
-                "id": "header",
-                "description": "Schedule"
-            },
             {
                 "id": "newButton",
                 "description": "NEW"
@@ -1106,35 +1102,11 @@
         ]
     },
     {
-        "feature": "scheduleList",
+        "feature": "calendar",
         "labels": [
             {
-                "id": "newButton",
-                "description": "NEW"
-            },
-            {
-                "id": "availabilityHeader",
-                "description": "Availability"
-            },
-            {
-                "id": "high",
-                "description": "High"
-            },
-            {
-                "id": "average",
-                "description": "Average"
-            },
-            {
-                "id": "limited",
-                "description": "Limited"
-            },
-            {
-                "id": "extremely-limited",
-                "description": "Extremely limited"
-            },
-            {
-                "id": "none",
-                "description": "None"
+                "id": "header",
+                "description": "Schedule"
             }
         ]
     },
@@ -1562,43 +1534,6 @@
             {
                 "id": "no-results",
                 "description": "We found nothing!"
-            }
-        ]
-    },
-    {
-        "feature": "calendarLegend",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Colour Legend"
-            },
-            {
-                "id": "sub-header",
-                "description": "Each Colour Represents the Available Seats"
-            },
-            {
-                "id": "plenty",
-                "description": "Plenty"
-            },
-            {
-                "id": "some",
-                "description": "Some"
-            },
-            {
-                "id": "limited",
-                "description": "Limited"
-            },
-            {
-                "id": "extremely-limited",
-                "description": "Extremely Limited"
-            },
-            {
-                "id": "none",
-                "description": "None"
-            },
-            {
-                "id": "closeButton",
-                "description": "Close"
             }
         ]
     },

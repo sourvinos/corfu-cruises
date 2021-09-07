@@ -1093,12 +1093,8 @@
         ]
     },
     {
-        "feature": "scheduleWrapper",
+        "feature": "calendarWrapper",
         "labels": [
-            {
-                "id": "header",
-                "description": "Πρόγραμμα"
-            },
             {
                 "id": "newButton",
                 "description": "ΝΕΟ"
@@ -1106,35 +1102,11 @@
         ]
     },
     {
-        "feature": "scheduleList",
+        "feature": "calendar",
         "labels": [
             {
-                "id": "newButton",
-                "description": "Νεο"
-            },
-            {
-                "id": "availabilityHeader",
-                "description": "Διαθεσιμοτητα"
-            },
-            {
-                "id": "high",
-                "description": "Υψηλη"
-            },
-            {
-                "id": "average",
-                "description": "Μετρια"
-            },
-            {
-                "id": "limited",
-                "description": "Περιορισμενη"
-            },
-            {
-                "id": "extremely-limited",
-                "description": "Εξαιρετικα περιορισμενη"
-            },
-            {
-                "id": "none",
-                "description": "Μηδενικη"
+                "id": "header",
+                "description": "Πρόγραμμα"
             }
         ]
     },
@@ -1562,43 +1534,6 @@
             {
                 "id": "no-results",
                 "description": "Δεν βρήκαμε τίποτα!"
-            }
-        ]
-    },
-    {
-        "feature": "calendarLegend",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Επεξηγηση Χρωματων"
-            },
-            {
-                "id": "sub-header",
-                "description": "Καθε χρωμα αντιστοιχει στις ελευθερες θεσεις"
-            },
-            {
-                "id": "plenty",
-                "description": "Αφθονες"
-            },
-            {
-                "id": "some",
-                "description": "Μερικες"
-            },
-            {
-                "id": "limited",
-                "description": "Λιγες"
-            },
-            {
-                "id": "extremely-limited",
-                "description": "Ελαχιστες"
-            },
-            {
-                "id": "none",
-                "description": "Καμμια"
-            },
-            {
-                "id": "closeButton",
-                "description": "Κλεισιμο"
             }
         ]
     },
