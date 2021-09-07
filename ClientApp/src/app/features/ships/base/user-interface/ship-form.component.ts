@@ -1,11 +1,10 @@
+import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Title } from '@angular/platform-browser'
-import { ActivatedRoute, Router } from '@angular/router'
 import { Observable, Subject } from 'rxjs'
+import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DialogIndexComponent } from 'src/app/shared/components/dialog-index/dialog-index.component'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -20,7 +19,6 @@ import { ShipReadResource } from '../classes/ship-read-resource'
 import { ShipService } from '../classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { environment } from 'src/environments/environment'
 import { map, startWith } from 'rxjs/operators'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -41,7 +39,6 @@ export class ShipFormComponent {
     private unlisten: Unlisten
     private url = '/ships'
     private windowTitle = 'Ship'
-    public environment = environment.production
     public form: FormGroup
     public input: InputTabStopDirective
 
@@ -49,7 +46,6 @@ export class ShipFormComponent {
 
     //#region particular variables
 
-    public activePanel: string
     public shipOwners = []
     public filteredShipOwners: Observable<ShipOwner[]>
 
@@ -128,23 +124,6 @@ export class ShipFormComponent {
         this.router.navigate([this.url])
     }
 
-    public onLookupIndex(lookupArray: any[], title: string, formFields: any[], fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[], value: { target: any }): void {
-        let filteredArray = []
-        lookupArray.filter(x => {
-            filteredArray = this.helperService.pushItemToFilteredArray(x, fields[1], value, filteredArray)
-        })
-        if (filteredArray.length === 0) {
-            this.clearFields(null, formFields[0], formFields[1])
-        }
-        if (filteredArray.length === 1) {
-            const [...elements] = filteredArray
-            this.patchFields(elements[0], fields)
-        }
-        if (filteredArray.length > 1) {
-            this.showModalIndex(filteredArray, title, fields, headers, widths, visibility, justify, types)
-        }
-    }
-
     public onSave(): void {
         if (this.form.value.id === 0 || this.form.value.id === null) {
             this.flattenForm()
@@ -206,11 +185,6 @@ export class ShipFormComponent {
         })
     }
 
-    private clearFields(result: any, id: any, description: any): void {
-        this.form.patchValue({ [id]: result ? result.id : '' })
-        this.form.patchValue({ [description]: result ? result.description : '' })
-    }
-
     private filterArray(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
@@ -270,18 +244,6 @@ export class ShipFormComponent {
         })
     }
 
-    private patchFields(result: any, fields: any[]): void {
-        if (result) {
-            Object.entries(result).forEach(([key, value]) => {
-                this.form.patchValue({ [key]: value })
-            })
-        } else {
-            fields.forEach(field => {
-                this.form.patchValue({ [field]: '' })
-            })
-        }
-    }
-
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
         const promise = new Promise((resolve) => {
             service.getAllActive().toPromise().then(
@@ -318,26 +280,6 @@ export class ShipFormComponent {
 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
-    }
-
-    private showModalIndex(elements: any, title: string, fields: any[], headers: any[], widths: any[], visibility: any[], justify: any[], types: any[]): void {
-        const dialog = this.dialog.open(DialogIndexComponent, {
-            height: '685px',
-            data: {
-                records: elements,
-                title: title,
-                fields: fields,
-                headers: headers,
-                widths: widths,
-                visibility: visibility,
-                justify: justify,
-                types: types,
-                highlightFirstRow: true
-            }
-        })
-        dialog.afterClosed().subscribe((result) => {
-            this.patchFields(result, fields)
-        })
     }
 
     private showSnackbar(message: string, type: string): void {
