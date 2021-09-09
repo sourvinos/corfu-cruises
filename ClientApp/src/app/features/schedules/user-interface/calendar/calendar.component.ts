@@ -5,6 +5,7 @@ import { MessageCalendarService } from "src/app/shared/services/messages-calenda
 import { MessageLabelService } from "src/app/shared/services/messages-label.service"
 import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { Day } from "../../classes/day"
 
 @Component({
     selector: 'calendar',
@@ -20,7 +21,7 @@ export class CalendarComponent {
     private dateSelect: any
     private daysWithSchedule = []
     private startDate: any
-    public days = []
+    public days: Day[]
     public feature = 'calendar'
     public monthSelect: any[]
     public selectedDate: any
@@ -34,7 +35,9 @@ export class CalendarComponent {
 
     ngOnInit(): void {
         this.getDaysFromDate(moment().month() + 1, moment().year())
-        this.getScheduleForMonth()
+        this.getScheduleForMonth().then(() => {
+            this.updateDaysWithSchedule()
+        })
     }
 
     //#endregion 
@@ -44,10 +47,6 @@ export class CalendarComponent {
     public changeMonth(flag: number): void {
         this.navigateToMonth(flag)
         this.getScheduleForMonth()
-    }
-
-    public hasDateSchedule(date: string): boolean {
-        return this.daysWithSchedule.find(x => x.date == date)
     }
 
     public getLabel(id: string): string {
@@ -64,11 +63,27 @@ export class CalendarComponent {
 
     public getScheduleForSelectedDate(date: string): any {
         this.selectedDate = this.daysWithSchedule.find(x => x.date == date)
-        document.getElementById('selectedDate').style.display = 'flex'
+        return this.selectedDate
+    }
+
+    public hasDateSchedule(date: string): boolean {
+        return this.daysWithSchedule.find(x => x.date == date)
+    }
+
+    public hideSchedule(id: any): void {
+        document.getElementById(id).style.display = 'none'
     }
 
     public isToday(day: any): boolean {
-        return day == new Date().toISOString().substr(0, 10)
+        return day.date == new Date().toISOString().substr(0, 10)
+    }
+
+    public showSchedule(id: any): void {
+        if (this.hasDateSchedule(id)) {
+            document.getElementById(id).style.display = 'flex'
+            document.getElementById(id).style.position = 'relative'
+            // document.getElementById(id).style.transform = 'scale(2,2)'
+        }
     }
 
     //#endregion
@@ -85,7 +100,9 @@ export class CalendarComponent {
         const arrayDays = Object.keys([...Array(numberDays)]).map((a: any) => {
             a = parseInt(a) + 1
             const dayObject = moment(`${year}-${month}-${a}`, 'YYYY-MM-DD')
-            this.days.push(dayObject.format("YYYY-MM-DD"))
+            const day = new Day()
+            day.date = dayObject.format("YYYY-MM-DD")
+            this.days.push(day)
             return {
                 name: dayObject.format("dddd"),
                 value: a,
@@ -93,6 +110,7 @@ export class CalendarComponent {
             }
         })
         this.monthSelect = arrayDays
+        console.log('1. Calendar', this.days)
     }
 
     private navigateToMonth(flag: number): void {
@@ -105,10 +123,24 @@ export class CalendarComponent {
         }
     }
 
-    private getScheduleForMonth(): void {
-        this.scheduleService.getForPeriod(this.days[0], this.days[this.days.length - 1]).then(response => {
-            this.daysWithSchedule = response
+    private getScheduleForMonth(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.scheduleService.getForPeriod(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
+                this.daysWithSchedule = response
+                resolve(this.daysWithSchedule)
+                console.log('2. Schedule', this.daysWithSchedule)
+            })
         })
+        return promise
+    }
+
+    private updateDaysWithSchedule(): void {
+        this.daysWithSchedule.forEach(day => {
+            const x = this.days.find(x => x.date == day.date)
+            this.days[this.days.indexOf(x)].destinations = day.destinations
+            console.log('3', this.days.indexOf(x))
+        })
+        console.log('4', this.days)
     }
 
     //#endregion

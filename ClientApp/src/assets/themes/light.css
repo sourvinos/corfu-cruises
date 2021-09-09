@@ -15,11 +15,13 @@
     --color-button-secondary-hover: #a9bc3c;
     --color-button-secondary: #dbea58;
     --color-button-text: #3c5565;
-    --color-calendar-date-has-schedule-hover: #d0e3f1;
-    --color-calendar-date-has-schedule: #00a1ff;
     --color-calendar-date-no-schedule: #a5a5a5;
+    --color-calendar-destination: #000000;
+    --color-calendar-destination: #69a5d2;
+    --color-calendar-has-schedule-background-hover: #bceffb;
+    --color-calendar-has-schedule-background: #e1f1fa;
     --color-calendar-legend: #efefef;
-    --color-calendar-today: #ff46a4;
+    --color-calendar-today: #ff0000;
     --color-checkbox-checked: #426f8a;
     --color-checkbox-indeterminate: #426f8a;
     --color-common-background: #ebf6ff;

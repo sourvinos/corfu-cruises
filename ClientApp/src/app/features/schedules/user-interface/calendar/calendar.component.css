@@ -27,12 +27,12 @@
     justify-content: center;
 }
 
-h2 {
+#month-selector #monthAndYear {
     margin-bottom: 4px;
     padding: 0;
 }
 
-.material-icons {
+#month-selector .material-icons {
     color: var(--color-text-primary);
     cursor: pointer;
     padding: 0 1rem;
@@ -55,58 +55,76 @@ ol {
     padding: 0;
 }
 
-.month {
-    font-family: var(--font-family-master);
-}
-
-.first-day {
-    grid-column-start: var(--first-day-start, 0);
-}
-
-.day-name {
+.weekday-name {
     align-items: center;
     background: var(--color-table-header);
     color: var(--color-text-primary);
     display: flex;
     font-family: var(--font-family-master);
-    height: fit-content;
     justify-content: center;
     padding: 0.5rem;
 }
 
 .days {
-    align-items: center;
     border-radius: 0.5rem;
+    border-radius: 5px;
     color: var(--color-text-primary);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     font-family: var(--font-family-master);
-    justify-content: center;
-    transition: 0.3s;
-}
-
-.days span.day {
-    font-size: var(--font-size-calendar-day);
     font-weight: var(--font-weight-calendar-day);
+    justify-content: center;
+    margin: 1px;
+    padding: 1rem;
 }
 
-.days.hasSchedule span.day {
-    color: var(--color-calendar-date-has-schedule);
-    font-size: var(--font-size-calendar-date-has-schedule);
+.days .left {
+    align-items: center;
+    display: flex;
+    font-size: var(--font-size-calendar-day-left);
+    justify-content: center;
+    padding-right: 1rem;
 }
 
-.days.noSchedule span.day {
-    color: var(--color-calendar-date-no-schedule);
+.days .right {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--font-size-calendar-day-right);
+    justify-content: center;
+    width: 100%;
+}
+
+.days.hasSchedule {
+    background-color: var(--color-calendar-has-schedule-background);
+    border-radius: 1rem;
+    transition: all 0.3s;
 }
 
 .days.hasSchedule:hover {
-    background-color: var(--color-calendar-date-has-schedule-hover);
+    background-color: var(--color-calendar-has-schedule-background-hover);
+    cursor: pointer;
+    display: inline-flex;
+    transform-origin: center;
+    transform: scale(1.5);
+}
+
+.days.noSchedule .left {
+    color: var(--color-calendar-date-no-schedule);
+}
+
+.destination {
+    color: var(--color-calendar-destination);
+}
+
+.port {
+    display: flex;
+    justify-content: space-between;
+}
+
+.destination:hover {
     cursor: pointer;
 }
 
 .today {
     color: var(--color-calendar-today) !important;
-    font-size: var(--font-size-calendar-today) !important;
-    line-height: 2.5rem;
-    margin: -18px;
 }

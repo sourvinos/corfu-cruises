@@ -6,16 +6,27 @@
         </div>
         <div id="month-selector">
             <span class="material-icons" (click)="changeMonth(-1)">chevron_left</span>
-            <h2 class="monthAndYear">{{ getMonthAndYear() }}</h2>
+            <h2 id="monthAndYear">{{ getMonthAndYear() }}</h2>
             <span class="material-icons" (click)="changeMonth(1)">chevron_right</span>
         </div>
     </div>
 
     <div id="wrapper-calendar">
         <ol>
-            <div *ngFor="let weekDay of weekDays" class="day-name">{{ getWeekday(weekDay) }}</div>
-            <li class="days" *ngFor="let day of monthSelect;let first = first" [ngClass]="hasDateSchedule(days[day.value - 1]) ? 'hasSchedule' : 'noSchedule'" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
-                <span class="day" [ngClass]="isToday(days[day.value - 1]) ? 'today' : 'notToday'">{{ day?.value }}</span>
+            <div *ngFor="let weekDay of weekDays" class="weekday-name">{{ getWeekday(weekDay) }}</div>
+            <li class="days" *ngFor="let day of monthSelect;let first = first" [ngClass]="hasDateSchedule(days[day.value - 1].date) ? 'hasSchedule' : 'noSchedule'" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
+                <div class="left">
+                    <div class="day" [ngClass]="isToday(days[day.value - 1]) ? 'today' : 'notToday'">{{ day?.value }}</div>
+                </div>
+                <div class="right">
+                    <div *ngFor="let destination of days[day.value - 1].destinations">
+                        <span class="destination">{{ destination.description }}</span>
+                        <div class="port"*ngFor="let port of destination.ports">
+                            <span>{{ port.description }}</span>
+                            <span>{{ port.maxPersons }}</span>
+                        </div>
+                    </div>
+                </div>
             </li>
         </ol>
     </div>
