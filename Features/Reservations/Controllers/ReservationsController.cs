@@ -153,6 +153,11 @@ namespace BlueWaterCruises.Features.Reservations {
             }
         }
 
+        [HttpGet("from/{fromdate}/to/{todate}")]
+        public IEnumerable<ReservationResource> GetForPeriod(string fromDate, string toDate) {
+            return repo.GetForPeriod(fromDate, toDate);
+        }
+
     }
 
 }

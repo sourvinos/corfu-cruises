@@ -13,7 +13,7 @@ namespace BlueWaterCruises.Features.Reservations {
 
         public Guid ReservationId { get; set; }
 
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public int Adults { get; set; }
         public int Kids { get; set; }
         public int Free { get; set; }

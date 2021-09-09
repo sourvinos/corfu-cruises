@@ -15,6 +15,8 @@ namespace BlueWaterCruises.Features.Reservations {
         void AssignToShip(int shipId, string[] ids);
         bool IsKeyUnique(ReservationWriteResource record);
 
+        IEnumerable<ReservationResource> GetForPeriod(string fromDate, string toDate);
+
     }
 
 }
