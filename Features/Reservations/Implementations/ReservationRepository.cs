@@ -159,8 +159,8 @@ namespace BlueWaterCruises.Features.Reservations {
             return isAdmin;
         }
 
-       public IEnumerable<ReservationResource> GetForPeriod(string fromDate, string toDate) {
-            var dailySchedule = context.Reservations
+        public IEnumerable<ReservationResource> GetForPeriod(string fromDate, string toDate) {
+            var response = context.Reservations
                 .Include(x => x.Destination)
                 .Include(x => x.Port)
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
@@ -180,7 +180,7 @@ namespace BlueWaterCruises.Features.Reservations {
                             })
                         }).ToList()
                 }).ToList();
-            return dailySchedule;
+            return response;
         }
 
     }

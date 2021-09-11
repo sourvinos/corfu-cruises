@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlueWaterCruises.Features.Schedules {
@@ -10,9 +11,11 @@ namespace BlueWaterCruises.Features.Schedules {
     public class ScheduleRepository : Repository<Schedule>, IScheduleRepository {
 
         private readonly IMapper mapper;
+        private readonly UserManager<AppUser> userManager;
 
-        public ScheduleRepository(DbContext context, IMapper mapper) : base(context) {
+        public ScheduleRepository(DbContext context, IMapper mapper, UserManager<AppUser> userManager) : base(context) {
             this.mapper = mapper;
+            this.userManager = userManager;
         }
 
         public async Task<IList<Schedule>> Get() {
@@ -29,8 +32,7 @@ namespace BlueWaterCruises.Features.Schedules {
         public async Task<IList<ScheduleReadResource>> GetForDestination(int destinationId) {
             var schedules = await context.Schedules
                 .Where(x => x.DestinationId == destinationId)
-                .OrderBy(p => p.Date)
-                    .ThenBy(p => p.PortId)
+                .OrderBy(p => p.Date).ThenBy(p => p.PortId)
                 .ToListAsync();
             return mapper.Map<IList<Schedule>, IList<ScheduleReadResource>>(schedules);
         }
@@ -87,28 +89,64 @@ namespace BlueWaterCruises.Features.Schedules {
             }
         }
 
-        public IEnumerable<ScheduleResource> GetForPeriod(string fromDate, string toDate) {
-            var dailySchedule = context.Schedules
-                .Include(x => x.Destination)
-                .Include(x => x.Port)
+        public IEnumerable<ScheduleReservationGroup> DoTasks(string fromDate, string toDate) {
+            var schedule = this.GetScheduleForPeriod(fromDate, toDate);
+            var reservations = this.GetReservationsForPeriod(fromDate, toDate);
+            var joinedSheduleReservation = this.CalculateAvailability(schedule, reservations);
+            return joinedSheduleReservation;
+        }
+
+        private IEnumerable<ScheduleResource> GetScheduleForPeriod(string fromDate, string toDate) {
+            var response = context.Schedules
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
-                .OrderBy(x => x.Date).ThenBy(x => x.Destination.Description).ThenBy(x => !x.Port.IsPrimary)
-                .AsEnumerable()
-                .GroupBy(x => x.Date)
+                .OrderBy(x => x.Date).ThenBy(x => x.DestinationId).ThenBy(x => x.PortId)
                 .Select(x => new ScheduleResource {
-                    Date = Extensions.DateToString(x.Key.Date),
-                    Destinations = x.GroupBy(x => new { x.Destination.Id, x.Destination.Description })
-                        .Select(x => new DestinationResource {
-                            Id = x.Key.Id,
-                            Description = x.Key.Description,
-                            Ports = x.GroupBy(x => new { x.Port.Id, x.Port.Description, x.MaxPersons }).Select(x => new PortResource {
-                                Id = x.Key.Id,
-                                Description = x.Key.Description,
-                                MaxPersons = x.Key.MaxPersons
-                            })
-                        }).ToList()
-                }).ToList();
-            return dailySchedule;
+                    Date = x.Date.ToString(),
+                    DestinationId = x.DestinationId,
+                    DestinationDescription = x.Destination.Description,
+                    PortId = x.PortId,
+                    PortDescription = x.Port.Description,
+                    MaxPersons = x.MaxPersons
+                })
+                .ToList();
+            return response;
+        }
+
+        private IEnumerable<ReservationResource> GetReservationsForPeriod(string fromDate, string toDate) {
+            var response = context.Reservations
+                .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
+                .OrderBy(x => x.Date).ThenBy(x => x.DestinationId).ThenBy(x => x.PortId)
+                .GroupBy(x => new { x.Date, x.DestinationId, x.PortId })
+                .Select(x => new ReservationResource {
+                    Date = x.Key.Date.ToString(),
+                    DestinationId = x.Key.DestinationId,
+                    PortId = x.Key.PortId,
+                    TotalPersons = x.Sum(x => x.TotalPersons)
+                });
+            return response;
+        }
+
+        private IEnumerable<ScheduleReservationGroup> CalculateAvailability(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations) {
+            foreach (var item in schedule) {
+                var x = reservations.FirstOrDefault(x => x.Date == item.Date.ToString() && x.DestinationId == item.DestinationId && x.PortId == item.PortId);
+                item.Persons = x != null ? x.TotalPersons : 0;
+            }
+            var response = schedule
+                .GroupBy(x => x.Date)
+                .Select(x => new ScheduleReservationGroup {
+                    Date = x.Key,
+                    Destinations = x.GroupBy(x => new { x.DestinationId, x.DestinationDescription }).Select(x => new DestinationResource {
+                        Id = x.Key.DestinationId,
+                        Description = x.Key.DestinationDescription,
+                        Ports = x.GroupBy(x => new { x.PortId, x.PortDescription, x.MaxPersons, x.Persons }).Select(x => new PortResource {
+                            Id = x.Key.PortId,
+                            Description = x.Key.PortDescription,
+                            MaxPersons = x.Key.MaxPersons,
+                            Persons = x.Sum(x => x.Persons)
+                        })
+                    })
+                });
+            return response;
         }
 
     }

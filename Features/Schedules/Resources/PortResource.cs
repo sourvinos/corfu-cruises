@@ -5,6 +5,7 @@ namespace BlueWaterCruises.Features.Schedules {
         public int Id { get; set; }
         public string Description { get; set; }
         public int MaxPersons { get; set; }
+        public int Persons { get; set; }
 
     }
 

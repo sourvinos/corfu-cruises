@@ -1,0 +1,22 @@
+PENDING
+--------
+BOARDING ALL TOGETHER BUTTON
+USERNAME FILTER
+NATIONALITY => COUNTRY
+TIMEOUT LOGOUT
+FROM - TO DATE ERROR MESSAGE
+as no tracking
+stored procedures
+resolution notifier
+auth controllers
+
+ΛΙΣΤΑ ΕΦΟΡΙΑΣ
+ΙΔΙΑ ΛΙΜΕΝΑΡΧΕΙΟ + ΑΡ. ΕΙΣΙΤΗΡΙΟΥ - ΠΕΛΑΤΗΣ - ΟΧΙ ΕΘΝΙΚΟΤΗΤΑ - ΠΑΡΑΤΗΡΗΣΕΙΣ - ΕΙΔΙΚΗ ΦΡΟΝΤΙΔΑ
+
+
+wide
+
+1920
+1680
+1600
+1440

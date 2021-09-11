@@ -136,8 +136,8 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpGet("from/{fromdate}/to/{todate}")]
-        public IEnumerable<ScheduleResource> GetForPeriod(string fromDate, string toDate) {
-            return repo.GetForPeriod(fromDate, toDate);
+        public IEnumerable<ScheduleReservationGroup> GetForPeriod(string fromDate, string toDate) {
+            return repo.DoTasks(fromDate, toDate);
         }
 
     }

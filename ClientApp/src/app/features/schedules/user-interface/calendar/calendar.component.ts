@@ -1,11 +1,12 @@
 import { Component } from "@angular/core"
 import moment, { utc } from 'moment'
 // Custom
+import { Day } from "../../classes/day"
 import { MessageCalendarService } from "src/app/shared/services/messages-calendar.service"
 import { MessageLabelService } from "src/app/shared/services/messages-label.service"
+import { ReservationService } from "src/app/features/reservations/classes/services/reservation.service"
 import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { Day } from "../../classes/day"
 
 @Component({
     selector: 'calendar',
@@ -19,6 +20,7 @@ export class CalendarComponent {
     // #region variables
 
     private dateSelect: any
+    private daysWithReservations = []
     private daysWithSchedule = []
     private startDate: any
     public days: Day[]
@@ -29,14 +31,16 @@ export class CalendarComponent {
 
     // #endregion 
 
-    constructor(private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private scheduleService: ScheduleService) { }
+    constructor(private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private reservationService: ReservationService, private scheduleService: ScheduleService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.getDaysFromDate(moment().month() + 1, moment().year())
         this.getScheduleForMonth().then(() => {
-            this.updateDaysWithSchedule()
+            this.getReservationsForMonth().then(() => {
+                this.updateDaysWithSchedule()
+            })
         })
     }
 
@@ -46,7 +50,11 @@ export class CalendarComponent {
 
     public changeMonth(flag: number): void {
         this.navigateToMonth(flag)
-        this.getScheduleForMonth()
+        this.getScheduleForMonth().then(() => {
+            this.getReservationsForMonth().then(() => {
+                this.updateDaysWithSchedule()
+            })
+        })
     }
 
     public getLabel(id: string): string {
@@ -123,6 +131,17 @@ export class CalendarComponent {
         }
     }
 
+    private getReservationsForMonth(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.reservationService.getForPeriod(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
+                this.daysWithReservations = response
+                resolve(this.daysWithReservations)
+                console.log('3. Reservations', this.daysWithReservations)
+            })
+        })
+        return promise
+    }
+
     private getScheduleForMonth(): Promise<any> {
         const promise = new Promise((resolve) => {
             this.scheduleService.getForPeriod(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
@@ -134,11 +153,18 @@ export class CalendarComponent {
         return promise
     }
 
+    private updateDaysWithReservations(): void {
+        this.daysWithReservations.forEach(day => {
+            const x = this.days.find(x => x.date == day.date)
+            this.days[this.days.indexOf(x)].destinations = day.destinations
+        })
+        console.log('4', this.days)
+    }
+
     private updateDaysWithSchedule(): void {
         this.daysWithSchedule.forEach(day => {
             const x = this.days.find(x => x.date == day.date)
             this.days[this.days.indexOf(x)].destinations = day.destinations
-            console.log('3', this.days.indexOf(x))
         })
         console.log('4', this.days)
     }

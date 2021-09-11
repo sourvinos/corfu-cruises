@@ -28,7 +28,8 @@ namespace BlueWaterCruises.Features.Invoicing {
                     && ((customerId != "all") ? x.CustomerId == Int32.Parse(customerId) : true)
                     && ((destinationId != "all") ? x.DestinationId == Int32.Parse(destinationId) : true)
                     && ((vesselId != "all") ? x.ShipId == Int32.Parse(vesselId) : true))
-                .AsEnumerable().GroupBy(x => new { x.Date, x.Customer })
+                .AsEnumerable()
+                .GroupBy(x => new { x.Date, x.Customer })
                 .Select(x => new InvoiceIntermediateViewModel {
                     Date = Convert.ToDateTime(x.Key.Date),
                     Customer = x.Key.Customer,

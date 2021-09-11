@@ -1,12 +1,16 @@
-using System.Collections.Generic;
+using System;
 
 namespace BlueWaterCruises.Features.Schedules {
 
     public class ScheduleResource {
 
         public string Date { get; set; }
-
-        public IEnumerable<DestinationResource> Destinations { get; set; }
+        public int DestinationId { get; set; }
+        public string DestinationDescription { get; set; }
+        public int PortId { get; set; }
+        public string PortDescription { get; set; }
+        public int MaxPersons { get; set; }
+        public int Persons { get; set; }
 
     }
 

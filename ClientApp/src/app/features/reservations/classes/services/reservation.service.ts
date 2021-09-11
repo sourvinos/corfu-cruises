@@ -46,4 +46,8 @@ export class ReservationService extends DataService {
         return this.http.patch(this.url + '/assignToShip?', null, { params: params })
     }
 
+    public getForPeriod(fromDate: string, toDate: string): Promise<any> {
+        return this.http.get<any>(this.url + '/from/' + fromDate + '/to/' + toDate).toPromise()
+    }
+
 }

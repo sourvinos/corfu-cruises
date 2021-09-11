@@ -15,7 +15,7 @@ namespace BlueWaterCruises.Features.Schedules {
         List<Schedule> Create(List<Schedule> entity);
         void RemoveRange(List<Schedule> schedules);
 
-        IEnumerable<ScheduleResource> GetForPeriod(string fromDate, string toDate);
+        IEnumerable<ScheduleReservationGroup> DoTasks(string fromDate, string toDate);
 
     }
 

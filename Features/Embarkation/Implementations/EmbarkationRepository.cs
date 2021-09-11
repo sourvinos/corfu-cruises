@@ -28,7 +28,13 @@ namespace BlueWaterCruises.Features.Embarkation {
             int passengers = reservations.SelectMany(c => c.Passengers).Count();
             int boarded = reservations.SelectMany(c => c.Passengers).Where(x => x.IsCheckedIn).Count();
             int remaining = passengers - boarded;
-            var groupPerDriver = context.Reservations.Include(x => x.Driver).Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId).GroupBy(x => new { x.Driver.Description }).Select(x => new Driver { Description = x.Key.Description }).OrderBy(o => o.Description);
+            var groupPerDriver = context.Reservations.Include(x => x.Driver)
+                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId)
+                .GroupBy(x => new { x.Driver.Description })
+                .Select(x => new Driver {
+                    Description = x.Key.Description
+                })
+                .OrderBy(o => o.Description);
             var mainResult = new EmbarkationMainResult<Reservation> {
                 TotalPersons = totalPersons,
                 MissingNames = totalPersons - passengers,
