@@ -20,7 +20,6 @@ export class CalendarComponent {
     // #region variables
 
     private dateSelect: any
-    private daysWithReservations = []
     private daysWithSchedule = []
     private startDate: any
     public days: Day[]
@@ -38,9 +37,7 @@ export class CalendarComponent {
     ngOnInit(): void {
         this.getDaysFromDate(moment().month() + 1, moment().year())
         this.getScheduleForMonth().then(() => {
-            this.getReservationsForMonth().then(() => {
-                this.updateDaysWithSchedule()
-            })
+            this.updateCalendar()
         })
     }
 
@@ -51,9 +48,7 @@ export class CalendarComponent {
     public changeMonth(flag: number): void {
         this.navigateToMonth(flag)
         this.getScheduleForMonth().then(() => {
-            this.getReservationsForMonth().then(() => {
-                this.updateDaysWithSchedule()
-            })
+            this.updateCalendar()
         })
     }
 
@@ -131,17 +126,6 @@ export class CalendarComponent {
         }
     }
 
-    private getReservationsForMonth(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            this.reservationService.getForPeriod(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
-                this.daysWithReservations = response
-                resolve(this.daysWithReservations)
-                console.log('3. Reservations', this.daysWithReservations)
-            })
-        })
-        return promise
-    }
-
     private getScheduleForMonth(): Promise<any> {
         const promise = new Promise((resolve) => {
             this.scheduleService.getForPeriod(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
@@ -153,20 +137,11 @@ export class CalendarComponent {
         return promise
     }
 
-    private updateDaysWithReservations(): void {
-        this.daysWithReservations.forEach(day => {
-            const x = this.days.find(x => x.date == day.date)
-            this.days[this.days.indexOf(x)].destinations = day.destinations
-        })
-        console.log('4', this.days)
-    }
-
-    private updateDaysWithSchedule(): void {
+    private updateCalendar(): void {
         this.daysWithSchedule.forEach(day => {
             const x = this.days.find(x => x.date == day.date)
             this.days[this.days.indexOf(x)].destinations = day.destinations
         })
-        console.log('4', this.days)
     }
 
     //#endregion

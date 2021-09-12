@@ -1,9 +1,11 @@
 export class PortResource {
 
     id: number
+    abbreviation: string
     description: string
-    maxPersons: number
-    persons: number
+    max: number
+    reservations: number
+    empty: number
 
 }
 

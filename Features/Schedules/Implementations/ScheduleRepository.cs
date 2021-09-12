@@ -104,8 +104,10 @@ namespace BlueWaterCruises.Features.Schedules {
                     Date = x.Date.ToString(),
                     DestinationId = x.DestinationId,
                     DestinationDescription = x.Destination.Description,
+                    DestinationAbbreviation = x.Destination.Abbreviation,
                     PortId = x.PortId,
                     PortDescription = x.Port.Description,
+                    PortAbbreviation = x.Port.Abbreviation,
                     IsPortPrimary = x.Port.IsPrimary,
                     MaxPersons = x.MaxPersons
                 });
@@ -135,15 +137,17 @@ namespace BlueWaterCruises.Features.Schedules {
                 .GroupBy(x => x.Date)
                 .Select(x => new ScheduleReservationGroup {
                     Date = x.Key,
-                    Destinations = x.GroupBy(x => new { x.DestinationId, x.DestinationDescription })
+                    Destinations = x.GroupBy(x => new { x.DestinationId, x.DestinationAbbreviation, x.DestinationDescription })
                     .Select(x => new DestinationResource {
                         Id = x.Key.DestinationId,
+                        Abbreviation = x.Key.DestinationAbbreviation,
                         Description = x.Key.DestinationDescription,
-                        Ports = x.GroupBy(x => new { x.PortId, x.Date, x.DestinationId, x.PortDescription, x.IsPortPrimary, x.MaxPersons })
+                        Ports = x.GroupBy(x => new { x.PortId, x.Date, x.DestinationId, x.PortAbbreviation, x.PortDescription, x.IsPortPrimary, x.MaxPersons })
                         .Select(x => new PortResource {
                             Id = x.Key.PortId,
+                            Abbreviation = x.Key.PortAbbreviation,
                             Description = x.Key.PortDescription,
-                            IsPortPrimary = x.Key.IsPortPrimary,
+                            IsPrimary = x.Key.IsPortPrimary,
                             Max = x.Key.MaxPersons,
                             Reservations = x.Sum(x => x.Persons),
                             Empty = CalculateEmpty(schedule, x.Key.Date, x.Key.DestinationId, x.Key.MaxPersons, x.Sum(x => x.Persons), x.Key.IsPortPrimary)

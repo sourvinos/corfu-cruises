@@ -61,8 +61,9 @@ ol {
     color: var(--color-text-primary);
     display: flex;
     font-family: var(--font-family-master);
+    height: max-content;
     justify-content: center;
-    padding: 0.5rem;
+    padding: 0.3rem;
 }
 
 .days {
@@ -87,11 +88,20 @@ ol {
 }
 
 .days .right {
+    font-size: var(--font-size-calendar-day-right);
+    width: 100%;
+}
+
+.days .right .destinations {
     display: flex;
     flex-direction: column;
-    font-size: var(--font-size-calendar-day-right);
-    justify-content: center;
+    height: 100%;
     width: 100%;
+}
+
+.days .right .destinations button {
+    margin-top: auto !important;
+    margin-left: auto !important;
 }
 
 .days.hasSchedule {

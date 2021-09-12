@@ -19,12 +19,15 @@
                     <div class="day" [ngClass]="isToday(days[day.value - 1]) ? 'today' : 'notToday'">{{ day?.value }}</div>
                 </div>
                 <div class="right">
-                    <div *ngFor="let destination of days[day.value - 1].destinations">
+                    <div class="destinations" *ngFor="let destination of days[day.value - 1].destinations">
                         <span class="destination">{{ destination.description }}</span>
-                        <div class="port"*ngFor="let port of destination.ports">
+                        <div class="port" *ngFor="let port of destination.ports">
                             <span>{{ port.description }}</span>
-                            <span>{{ port.maxPersons }}</span>
+                            <span>{{ port.empty }}</span>
                         </div>
+                        <button mat-mini-fab>
+                            <span class="material-icons">add</span>
+                        </button>
                     </div>
                 </div>
             </li>
