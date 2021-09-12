@@ -92,8 +92,8 @@ namespace BlueWaterCruises.Features.Schedules {
         public IEnumerable<ScheduleReservationGroup> DoTasks(string fromDate, string toDate) {
             var schedule = this.GetScheduleForPeriod(fromDate, toDate);
             var reservations = this.GetReservationsForPeriod(fromDate, toDate);
-            var joinedSheduleReservation = this.CalculateAvailability(schedule, reservations);
-            return joinedSheduleReservation;
+            var calendarData = this.UpdateCalendarData(this.GetScheduleForPeriod(fromDate, toDate), this.GetReservationsForPeriod(fromDate, toDate));
+            return calendarData;
         }
 
         private IEnumerable<ScheduleResource> GetScheduleForPeriod(string fromDate, string toDate) {
@@ -106,10 +106,10 @@ namespace BlueWaterCruises.Features.Schedules {
                     DestinationDescription = x.Destination.Description,
                     PortId = x.PortId,
                     PortDescription = x.Port.Description,
+                    IsPortPrimary = x.Port.IsPrimary,
                     MaxPersons = x.MaxPersons
-                })
-                .ToList();
-            return response;
+                });
+            return response.ToList();
         }
 
         private IEnumerable<ReservationResource> GetReservationsForPeriod(string fromDate, string toDate) {
@@ -123,10 +123,10 @@ namespace BlueWaterCruises.Features.Schedules {
                     PortId = x.Key.PortId,
                     TotalPersons = x.Sum(x => x.TotalPersons)
                 });
-            return response;
+            return response.ToList();
         }
 
-        private IEnumerable<ScheduleReservationGroup> CalculateAvailability(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations) {
+        private IEnumerable<ScheduleReservationGroup> UpdateCalendarData(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations) {
             foreach (var item in schedule) {
                 var x = reservations.FirstOrDefault(x => x.Date == item.Date.ToString() && x.DestinationId == item.DestinationId && x.PortId == item.PortId);
                 item.Persons = x != null ? x.TotalPersons : 0;
@@ -135,18 +135,39 @@ namespace BlueWaterCruises.Features.Schedules {
                 .GroupBy(x => x.Date)
                 .Select(x => new ScheduleReservationGroup {
                     Date = x.Key,
-                    Destinations = x.GroupBy(x => new { x.DestinationId, x.DestinationDescription }).Select(x => new DestinationResource {
+                    Destinations = x.GroupBy(x => new { x.DestinationId, x.DestinationDescription })
+                    .Select(x => new DestinationResource {
                         Id = x.Key.DestinationId,
                         Description = x.Key.DestinationDescription,
-                        Ports = x.GroupBy(x => new { x.PortId, x.PortDescription, x.MaxPersons, x.Persons }).Select(x => new PortResource {
+                        Ports = x.GroupBy(x => new { x.PortId, x.Date, x.DestinationId, x.PortDescription, x.IsPortPrimary, x.MaxPersons })
+                        .Select(x => new PortResource {
                             Id = x.Key.PortId,
                             Description = x.Key.PortDescription,
-                            MaxPersons = x.Key.MaxPersons,
-                            Persons = x.Sum(x => x.Persons)
+                            IsPortPrimary = x.Key.IsPortPrimary,
+                            Max = x.Key.MaxPersons,
+                            Reservations = x.Sum(x => x.Persons),
+                            Empty = CalculateEmpty(schedule, x.Key.Date, x.Key.DestinationId, x.Key.MaxPersons, x.Sum(x => x.Persons), x.Key.IsPortPrimary)
                         })
                     })
                 });
-            return response;
+            return response.ToList();
+        }
+
+        private int CalculateEmpty(IEnumerable<ScheduleResource> schedule, string date, int destinationId, int max, int persons, bool isPortPrimary) {
+            if (isPortPrimary) {
+                var empty = max - persons;
+                return empty;
+            } else {
+                var primaryPort = schedule.FirstOrDefault(x => x.Date == date && x.DestinationId == destinationId && x.IsPortPrimary);
+                if (primaryPort != null) {
+                    var emptyForPrimaryPort = primaryPort.MaxPersons - primaryPort.Persons;
+                    var empty = emptyForPrimaryPort + max - persons;
+                    return empty;
+                } else {
+                    var empty = max - persons;
+                    return empty;
+                }
+            }
         }
 
     }

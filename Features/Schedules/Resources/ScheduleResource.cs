@@ -9,6 +9,7 @@ namespace BlueWaterCruises.Features.Schedules {
         public string DestinationDescription { get; set; }
         public int PortId { get; set; }
         public string PortDescription { get; set; }
+        public bool IsPortPrimary { get; set; }
         public int MaxPersons { get; set; }
         public int Persons { get; set; }
 
