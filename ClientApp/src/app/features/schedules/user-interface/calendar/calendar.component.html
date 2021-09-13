@@ -12,23 +12,34 @@
     </div>
 
     <div id="wrapper-calendar">
-        <ol>
+        <ol id="boo">
             <div *ngFor="let weekDay of weekDays" class="weekday-name">{{ getWeekday(weekDay) }}</div>
             <li class="days" *ngFor="let day of monthSelect;let first = first" [ngClass]="hasDateSchedule(days[day.value - 1].date) ? 'hasSchedule' : 'noSchedule'" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
                 <div class="left">
+                    ({{ day?.indexWeek }})
                     <div class="day" [ngClass]="isToday(days[day.value - 1]) ? 'today' : 'notToday'">{{ day?.value }}</div>
                 </div>
                 <div class="right">
                     <div class="destinations" *ngFor="let destination of days[day.value - 1].destinations">
-                        <span class="destination">{{ destination.description }}</span>
-                        <div class="port" *ngFor="let port of destination.ports">
-                            <span>{{ port.description }}</span>
-                            <span>{{ port.empty }}</span>
-                        </div>
-                        <button mat-mini-fab>
-                            <span class="material-icons">add</span>
-                        </button>
+                        <div>{{ destination.description }}</div>
+                        <div>{{ destination.empty }}</div>
                     </div>
+                    <div class="destinations-on-hover">
+                        <p>Hover</p>
+                    </div>
+                    <!-- <div class="destinations-on-hover">
+                        <div *ngFor="let destination of days[day.value - 1].destinations">
+                            <div>{{ destination.description }}</div>
+                            <div>{{ destination.empty }}</div>
+                            <div class="port" *ngFor="let port of destination.ports">
+                                <span>{{ port.description }}</span>
+                                <span>{{ port.empty }}</span>
+                            </div>
+                            <button mat-mini-fab>
+                                <span class="material-icons">add</span>
+                            </button>
+                        </div>
+                    </div> -->
                 </div>
             </li>
         </ol>

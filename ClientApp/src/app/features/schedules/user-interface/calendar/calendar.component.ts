@@ -19,6 +19,7 @@ export class CalendarComponent {
 
     // #region variables
 
+    private myIndex = 0
     private dateSelect: any
     private daysWithSchedule = []
     private startDate: any
@@ -106,6 +107,11 @@ export class CalendarComponent {
             const day = new Day()
             day.date = dayObject.format("YYYY-MM-DD")
             this.days.push(day)
+            if (this.myIndex == 0) {
+                this.myIndex = dayObject.isoWeekday()
+            }
+            // this.myIndex = this.myIndex == 0 ? dayObject.isoWeekday() : this.myIndex
+            // console.log('INDEX', this.myIndex)
             return {
                 name: dayObject.format("dddd"),
                 value: a,
@@ -113,10 +119,11 @@ export class CalendarComponent {
             }
         })
         this.monthSelect = arrayDays
-        console.log('1. Calendar', this.days)
+        // console.log('1. Calendar', this.days)
     }
 
     private navigateToMonth(flag: number): void {
+        this.myIndex = 0
         if (flag < 0) {
             const prevDate = this.dateSelect.clone().subtract(1, "month")
             this.getDaysFromDate(prevDate.format("MM"), prevDate.format("YYYY"))
@@ -131,7 +138,7 @@ export class CalendarComponent {
             this.scheduleService.getForPeriod(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
                 this.daysWithSchedule = response
                 resolve(this.daysWithSchedule)
-                console.log('2. Schedule', this.daysWithSchedule)
+                // console.log('2. Schedule', this.daysWithSchedule)
             })
         })
         return promise
@@ -142,6 +149,9 @@ export class CalendarComponent {
             const x = this.days.find(x => x.date == day.date)
             this.days[this.days.indexOf(x)].destinations = day.destinations
         })
+        const squaresGrid = document.getElementById("boo")
+        console.log(Math.round((this.days.length + this.myIndex) / 7))
+        squaresGrid.style.gridTemplateRows = "30px repeat(" + Math.round((this.days.length + this.myIndex) / 7) + ", 1fr)"
     }
 
     //#endregion

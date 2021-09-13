@@ -137,11 +137,12 @@ namespace BlueWaterCruises.Features.Schedules {
                 .GroupBy(x => x.Date)
                 .Select(x => new ScheduleReservationGroup {
                     Date = x.Key,
-                    Destinations = x.GroupBy(x => new { x.DestinationId, x.DestinationAbbreviation, x.DestinationDescription })
+                    Destinations = x.GroupBy(x => new { x.Date, x.DestinationId, x.DestinationAbbreviation, x.DestinationDescription })
                     .Select(x => new DestinationResource {
                         Id = x.Key.DestinationId,
                         Abbreviation = x.Key.DestinationAbbreviation,
                         Description = x.Key.DestinationDescription,
+                        Empty = CalculateEmptyForAllPorts(schedule, reservations, x.Key.Date, x.Key.DestinationId),
                         Ports = x.GroupBy(x => new { x.PortId, x.Date, x.DestinationId, x.PortAbbreviation, x.PortDescription, x.IsPortPrimary, x.MaxPersons })
                         .Select(x => new PortResource {
                             Id = x.Key.PortId,
@@ -150,14 +151,20 @@ namespace BlueWaterCruises.Features.Schedules {
                             IsPrimary = x.Key.IsPortPrimary,
                             Max = x.Key.MaxPersons,
                             Reservations = x.Sum(x => x.Persons),
-                            Empty = CalculateEmpty(schedule, x.Key.Date, x.Key.DestinationId, x.Key.MaxPersons, x.Sum(x => x.Persons), x.Key.IsPortPrimary)
+                            Empty = CalculateEmptyForPort(schedule, x.Key.Date, x.Key.DestinationId, x.Key.MaxPersons, x.Sum(x => x.Persons), x.Key.IsPortPrimary)
                         })
                     })
                 });
             return response.ToList();
         }
 
-        private int CalculateEmpty(IEnumerable<ScheduleResource> schedule, string date, int destinationId, int max, int persons, bool isPortPrimary) {
+        private int CalculateEmptyForAllPorts(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations, string date, int destinationId) {
+            var maxPersons = schedule.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.MaxPersons);
+            var persons = reservations.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.TotalPersons);
+            return maxPersons - persons;
+        }
+
+        private int CalculateEmptyForPort(IEnumerable<ScheduleResource> schedule, string date, int destinationId, int max, int persons, bool isPortPrimary) {
             if (isPortPrimary) {
                 var empty = max - persons;
                 return empty;

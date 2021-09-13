@@ -7,6 +7,7 @@ namespace BlueWaterCruises.Features.Schedules {
         public int Id { get; set; }
         public string Abbreviation { get; set; }
         public string Description { get; set; }
+        public int Empty { get; set; }
         public IEnumerable<PortResource> Ports { get; set; }
 
     }
