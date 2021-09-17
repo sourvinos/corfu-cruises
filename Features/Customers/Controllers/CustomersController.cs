@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Customers {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class CustomersController : ControllerBase {

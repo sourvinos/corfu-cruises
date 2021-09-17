@@ -145,10 +145,6 @@
     width: 100%;
 }
 
-.popup .details .destination:hover > .left .add-reservation {
-    font-weight: bold;
-}
-
 .popup .details .destination {
     align-items: center;
     cursor: pointer;
@@ -166,6 +162,10 @@
 .popup .details .destination .left .add-reservation {
     color: var(--color-calendar-popup-add-reservation);
     line-height: 0;
+}
+
+.popup .details .destination:hover > .left .add-reservation {
+    font-weight: bold;
 }
 
 .popup .details .destination .right {

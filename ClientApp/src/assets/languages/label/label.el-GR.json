@@ -475,19 +475,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Χρηστης"
+                "description": "Χρήστης"
             },
             {
                 "id": "userName",
-                "description": "Ονομα"
+                "description": "Όνομα"
             },
             {
                 "id": "displayName",
-                "description": "Εμφανιζομενο Ονομα"
+                "description": "Εμφανιζόμενο όνομα"
             },
             {
                 "id": "customer",
-                "description": "Συνδεδεμενος Πελατης"
+                "description": "Συνδεδεμένος πελάτης"
             },
             {
                 "id": "email",
@@ -495,11 +495,11 @@
             },
             {
                 "id": "isAdmin",
-                "description": "Διαχειριστης"
+                "description": "Διαχειριστής"
             },
             {
                 "id": "isActive",
-                "description": "Ενεργος"
+                "description": "Ενεργός"
             },
             {
                 "id": "deleteButton",
@@ -507,11 +507,7 @@
             },
             {
                 "id": "changePasswordButton",
-                "description": "Αλλαγη κωδικου"
-            },
-            {
-                "id": "sendEmailToUser",
-                "description": "Αποστολη email"
+                "description": "ΑΛΛΑΓΗ ΚΩΔΙΚΟΥ"
             },
             {
                 "id": "saveButton",

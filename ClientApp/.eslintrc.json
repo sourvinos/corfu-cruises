@@ -34,15 +34,7 @@
             "warn",
             "off"
         ],
-        "@at-rule-empty-line-before": [
-            "warn",
-            "never"
-        ],
         "blockless-after-blockless": [
-            "warn",
-            "never"
-        ],
-        "comment-empty-line-before": [
             "warn",
             "never"
         ],

@@ -64,7 +64,7 @@ export class UserListComponent {
     //#region public methods
 
     public onEditRecord(id: number): void {
-        this.router.navigate([this.baseUrl, id])
+        this.router.navigate([this.baseUrl, id], { queryParams: { returnUrl: '/users' } })
     }
 
     public onFilter($event: any, stringVal: any): void {

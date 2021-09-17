@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using BlueWaterCruises.Features.Customers;
 using Microsoft.AspNetCore.Identity;
 

@@ -510,10 +510,6 @@
                 "description": "Change password"
             },
             {
-                "id": "sendEmailToUser",
-                "description": "Send email"
-            },
-            {
                 "id": "saveButton",
                 "description": "SAVE"
             }

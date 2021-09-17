@@ -13,6 +13,18 @@
         "selector-combinator-space-after": "always",
         "selector-combinator-space-before": "always",
         "selector-list-comma-newline-after": "never-multi-line",
-        "selector-pseudo-element-colon-notation": "double"
+        "selector-pseudo-element-colon-notation": "double",
+        "at-rule-empty-line-before": [
+            "never",
+            {
+                "ignore": [
+                    "after-comment",
+                    "first-nested",
+                    "inside-block",
+                    "blockless-after-same-name-blockless",
+                    "blockless-after-blockless"
+                ]
+            }
+        ]
     }
 }

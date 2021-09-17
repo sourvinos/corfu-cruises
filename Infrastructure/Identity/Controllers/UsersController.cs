@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises {
 
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class UsersController : ControllerBase {
@@ -25,7 +26,7 @@ namespace BlueWaterCruises {
             this.userManager = userManager;
         }
 
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IEnumerable<UserListViewModel>> Get() {
             return await userManager.Users.Select(u => new UserListViewModel {
@@ -38,7 +39,6 @@ namespace BlueWaterCruises {
             }).OrderBy(o => o.UserName).AsNoTracking().ToListAsync();
         }
 
-        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id) {
             AppUser record = await userManager.Users.Include(x => x.Customer).Where(x => x.Id == id).SingleOrDefaultAsync();
@@ -61,7 +61,6 @@ namespace BlueWaterCruises {
             return StatusCode(200, vm);
         }
 
-        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser([FromRoute] string id, [FromBody] UserViewModel vm) {
             if (id == vm.Id && ModelState.IsValid) {
@@ -83,7 +82,7 @@ namespace BlueWaterCruises {
 
         }
 
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id) {
             AppUser record = await userManager.FindByIdAsync(id);
@@ -106,7 +105,7 @@ namespace BlueWaterCruises {
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
         public IActionResult SendLoginCredentials([FromBody] LoginCredentialsViewModel model) {
             string baseUrl = $"{Request.Scheme}://{Request.Host.Value}{Request.PathBase.Value}";

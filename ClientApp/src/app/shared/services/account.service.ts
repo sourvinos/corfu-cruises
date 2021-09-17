@@ -92,7 +92,6 @@ export class AccountService {
         this.clearLocalStorageItems([
             'date',
             'displayName',
-            'editUserCaller',
             'expiration',
             'jwt',
             'refreshToken',

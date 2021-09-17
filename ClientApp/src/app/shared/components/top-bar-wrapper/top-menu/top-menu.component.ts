@@ -121,8 +121,7 @@ export class TopMenuComponent {
         this.accountService.currentUserId.subscribe((result: any) => {
             userId = result
         })
-        this.updateStorageWithCallerForm()
-        this.router.navigate(['/users', userId])
+        this.router.navigate(['/users', userId], { queryParams: { returnUrl: '/' } })
     }
 
     private getLanguageIcon(): string {
@@ -177,10 +176,6 @@ export class TopMenuComponent {
 
     private updateDateAdapter(): void {
         this.dateAdapter.setLocale(this.helperService.readItem("language"))
-    }
-
-    private updateStorageWithCallerForm(): void {
-        this.helperService.saveItem('editUserCaller', 'menu')
     }
 
     //#endregion

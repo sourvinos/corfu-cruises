@@ -510,10 +510,6 @@
                 "description": "Kennwort ändern"
             },
             {
-                "id": "sendEmailToUser",
-                "description": "E-Mail senden"
-            },
-            {
                 "id": "saveButton",
                 "description": "SPEICHERN"
             }

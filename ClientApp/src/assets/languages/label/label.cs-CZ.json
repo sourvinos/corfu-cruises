@@ -510,10 +510,6 @@
                 "description": "ZMĚNIT HESLO"
             },
             {
-                "id": "sendEmailToUser",
-                "description": "POSLAT E-MAIL"
-            },
-            {
                 "id": "saveButton",
                 "description": "ULOŽIT"
             }
