@@ -34,6 +34,7 @@ export class ReservationListComponent {
     //#region variables
 
     private baseUrl = '/reservations'
+    private returnUrl = ''
     private date: string
     private ngUnsubscribe = new Subject<void>()
     private resolver = 'reservationList'
@@ -62,6 +63,8 @@ export class ReservationListComponent {
             if (navigation instanceof NavigationEnd) {
                 this.loadRecords()
                 this.onFocusSummaryPanel()
+                this.onGetStoredDate()
+
             }
         })
     }
@@ -157,7 +160,7 @@ export class ReservationListComponent {
     }
 
     public onCreatePdf(): void {
-        this.pdfService.createReport(this.records.reservations, this.drivers, this.onGetStoredDate())
+        this.pdfService.createReport(this.records.reservations, this.drivers, this.date)
     }
 
     public onFilter(event?: { filteredValue: any[] }): void {
@@ -182,9 +185,9 @@ export class ReservationListComponent {
         document.getElementById('table-wrapper').style.display = 'none'
     }
 
-    public onGetStoredDate(): string {
+    public onGetStoredDate(): void {
         const dashboard = JSON.parse(this.helperService.readItem('dashboard'))
-        return this.helperService.formatDateToLocale(dashboard.date)
+        this.date = this.helperService.formatDateToISO(dashboard.date)
     }
 
     public onGetLabel(id: string): string {
@@ -199,7 +202,7 @@ export class ReservationListComponent {
         this.scheduleService.isSchedule(this.date).then(result => {
             if (result) {
                 document.getElementById('listTab').click()
-                this.router.navigate([this.baseUrl, 'new'])
+                this.router.navigate([this.baseUrl, 'new'], { queryParams: { returnUrl: 'reservations/date/' + this.date } })
             } else {
                 this.showSnackbar(this.messageSnackbarService.noScheduleFound(), 'error')
             }

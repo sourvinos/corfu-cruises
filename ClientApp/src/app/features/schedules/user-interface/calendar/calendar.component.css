@@ -7,7 +7,7 @@
     width: 100%;
 }
 
-#calendar {
+#list {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -32,7 +32,7 @@
     padding: 0;
 }
 
-#month-selector .material-icons {
+#month-selector .arrows {
     color: var(--color-text-primary);
     cursor: pointer;
     padding: 0 1rem;
@@ -44,11 +44,10 @@
     height: 100%;
 }
 
-ol {
-    background-color: var(--color-common-background);
+#calendar {
     display: grid;
+    gap: 5px;
     grid-template-columns: repeat(7, 1fr);
-    /* grid-template-rows: 30px repeat(5, 1fr); */
     height: 100%;
     list-style: none;
     margin: 0;
@@ -61,98 +60,159 @@ ol {
     color: var(--color-text-primary);
     display: flex;
     font-family: var(--font-family-master);
+    font-size: var(--font-size-calendar-weekday);
     height: max-content;
     justify-content: center;
     padding: 0.3rem;
 }
 
 .days {
+    align-items: center;
+    background-color: var(--color-calendar-days-no-schedule-background);
     border-radius: 0.5rem;
     color: var(--color-text-primary);
     display: flex;
     flex-direction: row;
-    font-family: var(--font-family-master);
-    font-weight: var(--font-weight-calendar-day);
+    font-family: "Montserrat", sans-serif;
+    height: 100%;
     justify-content: center;
     margin: 1px;
 }
 
-.days .left {
-    align-items: center;
-    border-radius: 0.5rem 0 0 0.5rem;
-    display: flex;
-    font-size: var(--font-size-calendar-day-left);
-    justify-content: center;
-    padding: 0 1rem 0 1rem;
+.days.hasSchedule {
+    cursor: pointer;
+    background-color: var(--color-calendar-days-schedule-background);
 }
 
-.days .right {
-    font-size: var(--font-size-calendar-day-right);
+.date {
+    border-radius: 0.5rem;
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.date .day {
+    align-items: center;
+    background-color: var(--color-calendar-day-background);
+    border-radius: 0.5rem 0 0 0.5rem;
+    display: flex;
+    font-family: "Montserrat", sans-serif;
+    font-size: var(--font-size-calendar-day);
+    justify-content: center;
+    max-width: var(--font-size-calendar-day-width);
+    min-width: var(--font-size-calendar-day-width);
+}
+
+.date .destinations {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--font-size-calendar-destinations);
+    padding: 1rem;
+}
+
+.today {
+    border: 1px solid var(--color-calendar-today);
+    color: var(--color-calendar-today) !important;
+    padding: 1rem;
+}
+
+.popup {
+    border-radius: 0.5rem;
+    display: none;
+    flex-direction: row;
+    height: 0;
+    opacity: 0;
+    padding: 0;
+    width: 0;
+    z-index: 0;
+}
+
+.popup .day {
+    align-items: center;
+    background-color: var(--color-calendar-day-background);
+    border-radius: 0.5rem 0 0 0.5rem;
+    display: flex;
+    font-family: "Montserrat", sans-serif;
+    font-size: var(--font-size-calendar-popup-day);
+    justify-content: center;
+    width: 4.5rem;
+}
+
+.popup .details {
+    background-color: var(--color-calendar-popup-details);
+    border-radius: 0 0.5rem 0.5rem 0;
     padding: 1rem;
     width: 100%;
 }
 
-.days .right .destinations {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.popup .details .destination:hover > .left .add-reservation {
+    font-weight: bold;
 }
 
-.destinations-on-hover {
+.popup .details .destination {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    font-size: var(--font-size-calendar-popup-destinations);
+    font-weight: 300;
+    gap: 1rem;
+    margin: 0.5rem 0 0.5rem 0;
+}
+
+.popup .details .destination .left {
+    line-height: 0;
+}
+
+.popup .details .destination .left .add-reservation {
+    color: var(--color-calendar-popup-add-reservation);
+    line-height: 0;
+}
+
+.popup .details .destination .right {
+    width: 100%;
+}
+
+.popup .details .destination .right .destination-description {
+    color: var(--color-calendar-popup-destination);
+}
+
+.popup .details .destination .right .ports {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-size-calendar-popup-ports);
+    font-weight: 30;
+}
+
+.popup .details .ports .empty {
+    font-family: "Roboto Mono", sans-serif;
+    font-size: var(--font-size-calendar-popup-ports-empty);
+}
+
+.days.hasSchedule:hover > .date {
     display: none;
 }
 
-.days .right .destinations .empty {
-    padding-left: 0.5rem;
-}
-
-.days .right .destinations button {
-    margin-top: auto !important;
-    margin-left: auto !important;
-}
-
-.days.hasSchedule {
-    background-color: var(--color-calendar-has-schedule-background);
-    transition: all 0.3s;
-}
-
-.days.hasSchedule .left {
-    background-color: #c4c4c433;
-}
-
-.days.hasSchedule:hover {
-    background-color: var(--color-calendar-has-schedule-background-hover);
-    cursor: pointer;
-    display: inline-flex;
-    transform-origin: center;
-    transform: scale(1.5);
-}
-
-.days.hasSchedule:hover .right .destinations {
-    display: hidden;
-}
-
-.days.hasSchedule:hover .right .destinations-on-hover {
+.days.hasSchedule:hover > .popup {
+    animation: fade-in 0.3s;
+    cursor: default;
     display: flex;
+    height: 200px;
+    opacity: 0.90;
+    overflow: visible;
+    position: absolute;
+    transition: height 0.3s, opacity 0.3s, width 0.3s;
+    width: 340px;
 }
 
-.days.noSchedule .left {
-    color: var(--color-calendar-date-no-schedule);
-}
+@keyframes fade-in {
+    from {
+        display: none;
+        opacity: 0;
+    }
 
-.destination {
-    color: var(--color-calendar-destination);
-    display: flex;
-}
-
-.port {
-    display: flex;
-}
-
-.destination:hover {
-    cursor: pointer;
-}
-
-.today {
-    color: var(--color-calendar-today) !important;
+    to {
+        display: flex;
+        opacity: 0.90;
+    }
 }

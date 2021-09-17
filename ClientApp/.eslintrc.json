@@ -22,8 +22,30 @@
         "**/cypress"
     ],
     "rules": {
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@custom-property-empty-line-before": [
+            "warn",
+            "never"
+        ],
+        "@typescript-eslint/explicit-module-boundary-types": [
+            "warn",
+            "off"
+        ],
+        "@typescript-eslint/no-explicit-any": [
+            "warn",
+            "off"
+        ],
+        "@at-rule-empty-line-before": [
+            "warn",
+            "never"
+        ],
+        "blockless-after-blockless": [
+            "warn",
+            "never"
+        ],
+        "comment-empty-line-before": [
+            "warn",
+            "never"
+        ],
         "semi": [
             "warn",
             "never"

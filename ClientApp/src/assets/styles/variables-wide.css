@@ -2,9 +2,14 @@
     * {
         --content-padding-left: 17rem;
         --font-size-button: 110%;
-        --font-size-calendar-date-has-schedule: 200%;
-        --font-size-calendar-day-left: 150%;
-        --font-size-calendar-day-right: 100%;
+        --font-size-calendar-day: 120%;
+        --font-size-calendar-day-width: 3rem;
+        --font-size-calendar-destinations: 80%;
+        --font-size-calendar-popup-day: 150%;
+        --font-size-calendar-popup-destinations: 100%;
+        --font-size-calendar-popup-ports-empty: 100%;
+        --font-size-calendar-popup-ports: 90%;
+        --font-size-calendar-weekday: 120%;
         --font-size-checkbox: 120%;
         --font-size-criterial-labels: 130%;
         --font-size-h1: 250%;

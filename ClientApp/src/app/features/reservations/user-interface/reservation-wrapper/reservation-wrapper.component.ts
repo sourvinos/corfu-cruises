@@ -65,7 +65,6 @@ export class ReservationWrapperComponent {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
         this.unlisten()
-        
         this.clearLocalStorage()
     }
 

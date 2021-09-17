@@ -52,7 +52,6 @@ export class ReservationFormComponent {
     private feature = 'reservationForm'
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '/reservations'
     private windowTitle = 'Reservation'
     public environment = environment.production
     public form: FormGroup
@@ -62,12 +61,10 @@ export class ReservationFormComponent {
 
     //#region particular variables
 
-    // public destinations: any
     public barcode = "0"
     public errorCorrectionLevel: "M"
     public margin = 4
     public width = 128
-    private savedTotalPersons = 0
 
     public filteredDestinations: Observable<Destination[]>
     public filteredCustomers: Observable<CustomerDropdownResource[]>
@@ -75,8 +72,6 @@ export class ReservationFormComponent {
     public filteredDrivers: Observable<DriverDropdownResource[]>
     public filteredShips: Observable<DriverDropdownResource[]>
     public filteredPorts: Observable<PortDropdownResource[]>
-
-
 
     //#endregion
 
@@ -220,7 +215,7 @@ export class ReservationFormComponent {
     }
 
     public onGoBack(): void {
-        this.router.navigate([this.url + '/date/2021-05-01'])
+        this.router.navigate([this.activatedRoute.snapshot.queryParams['returnUrl']])
     }
 
     public onDoPreSaveTasks(): void {
@@ -632,10 +627,6 @@ export class ReservationFormComponent {
 
     private mustStayOnTheList(mustStayOnTheList: boolean): void {
         this.helperService.saveItem('focusOnTheList', mustStayOnTheList.toString())
-    }
-
-    private updateTotalPersons(result: { totalPersons: number }): void {
-        this.savedTotalPersons = result.totalPersons
     }
 
     //#endregion

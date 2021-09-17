@@ -4,9 +4,9 @@ import moment, { utc } from 'moment'
 import { Day } from "../../classes/day"
 import { MessageCalendarService } from "src/app/shared/services/messages-calendar.service"
 import { MessageLabelService } from "src/app/shared/services/messages-label.service"
-import { ReservationService } from "src/app/features/reservations/classes/services/reservation.service"
 import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { Router } from "@angular/router"
 
 @Component({
     selector: 'calendar',
@@ -19,7 +19,6 @@ export class CalendarComponent {
 
     // #region variables
 
-    private myIndex = 0
     private dateSelect: any
     private daysWithSchedule = []
     private startDate: any
@@ -31,7 +30,7 @@ export class CalendarComponent {
 
     // #endregion 
 
-    constructor(private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private reservationService: ReservationService, private scheduleService: ScheduleService) { }
+    constructor(private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private router: Router, private scheduleService: ScheduleService) { }
 
     //#region lifecycle hooks
 
@@ -39,6 +38,7 @@ export class CalendarComponent {
         this.getDaysFromDate(moment().month() + 1, moment().year())
         this.getScheduleForMonth().then(() => {
             this.updateCalendar()
+            this.fixCalendarHeight()
         })
     }
 
@@ -50,6 +50,7 @@ export class CalendarComponent {
         this.navigateToMonth(flag)
         this.getScheduleForMonth().then(() => {
             this.updateCalendar()
+            this.fixCalendarHeight()
         })
     }
 
@@ -65,17 +66,8 @@ export class CalendarComponent {
         return this.messageCalendarService.getDescription('weekdays', id)
     }
 
-    public getScheduleForSelectedDate(date: string): any {
-        this.selectedDate = this.daysWithSchedule.find(x => x.date == date)
-        return this.selectedDate
-    }
-
     public hasDateSchedule(date: string): boolean {
         return this.daysWithSchedule.find(x => x.date == date)
-    }
-
-    public hideSchedule(id: any): void {
-        document.getElementById(id).style.display = 'none'
     }
 
     public isToday(day: any): boolean {
@@ -84,15 +76,46 @@ export class CalendarComponent {
 
     public showSchedule(id: any): void {
         if (this.hasDateSchedule(id)) {
-            document.getElementById(id).style.display = 'flex'
-            document.getElementById(id).style.position = 'relative'
-            // document.getElementById(id).style.transform = 'scale(2,2)'
+            document.getElementById(id).style.transform = 'scale(2,2)'
+            document.getElementById(id).style.zIndex = '1'
+            document.getElementById(id).style.width = '120%'
+            // document.getElementById(id).style.display = 'flex'
         }
+    }
+
+    public hideSchedule(id: any): void {
+        if (this.hasDateSchedule(id)) {
+            document.getElementById(id).style.transform = 'scale(1,1)'
+            document.getElementById(id).style.zIndex = '0'
+            document.getElementById(id).style.width = '100%'
+            // document.getElementById(id).style.display = 'none'
+        }
+    }
+
+    public newReservation(): void {
+        this.router.navigate(['/reservations/new'], { queryParams: { returnUrl: 'schedules' } })
     }
 
     //#endregion
 
     //#region private methods
+
+    private calculateWeekCount(year: number, month: number): number {
+        const firstOfMonth = new Date(year, month - 1, 1)
+        let day = firstOfMonth.getDay() || 6
+        day = day === 1 ? 0 : day
+        if (day) {
+            day--
+        }
+        let diff = 7 - day
+        const lastOfMonth = new Date(year, month, 0)
+        const lastDate = lastOfMonth.getDate()
+        if (lastOfMonth.getDay() === 1) {
+            diff--
+        }
+        const result = Math.ceil((lastDate - diff) / 7)
+        return result + 1
+    }
 
     private getDaysFromDate(month: number, year: number): void {
         this.startDate = utc(`${year}-${month}-01`, 'YYYY-MM-DD')
@@ -107,11 +130,6 @@ export class CalendarComponent {
             const day = new Day()
             day.date = dayObject.format("YYYY-MM-DD")
             this.days.push(day)
-            if (this.myIndex == 0) {
-                this.myIndex = dayObject.isoWeekday()
-            }
-            // this.myIndex = this.myIndex == 0 ? dayObject.isoWeekday() : this.myIndex
-            // console.log('INDEX', this.myIndex)
             return {
                 name: dayObject.format("dddd"),
                 value: a,
@@ -119,11 +137,9 @@ export class CalendarComponent {
             }
         })
         this.monthSelect = arrayDays
-        // console.log('1. Calendar', this.days)
     }
 
     private navigateToMonth(flag: number): void {
-        this.myIndex = 0
         if (flag < 0) {
             const prevDate = this.dateSelect.clone().subtract(1, "month")
             this.getDaysFromDate(prevDate.format("MM"), prevDate.format("YYYY"))
@@ -138,10 +154,15 @@ export class CalendarComponent {
             this.scheduleService.getForPeriod(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
                 this.daysWithSchedule = response
                 resolve(this.daysWithSchedule)
-                // console.log('2. Schedule', this.daysWithSchedule)
+                console.log(this.daysWithSchedule)
             })
         })
         return promise
+    }
+
+    private fixCalendarHeight(): void {
+        const calendar = document.getElementById("calendar")
+        calendar.style.gridTemplateRows = "30px repeat(" + this.calculateWeekCount(this.dateSelect.format('YYYY'), this.dateSelect.format('MM')) + ", 1fr)"
     }
 
     private updateCalendar(): void {
@@ -149,9 +170,6 @@ export class CalendarComponent {
             const x = this.days.find(x => x.date == day.date)
             this.days[this.days.indexOf(x)].destinations = day.destinations
         })
-        const squaresGrid = document.getElementById("boo")
-        console.log(Math.round((this.days.length + this.myIndex) / 7))
-        squaresGrid.style.gridTemplateRows = "30px repeat(" + Math.round((this.days.length + this.myIndex) / 7) + ", 1fr)"
     }
 
     //#endregion
