@@ -1,15 +1,15 @@
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector'
 import { fancyAnimation } from '../../../shared/animations/animations'
 import { Location } from '@angular/common'
-import { Component } from "@angular/core"
-import { Title } from "@angular/platform-browser"
-import { Router } from "@angular/router"
-import { Subject } from "rxjs"
-import { slideFromLeft, slideFromRight } from "src/app/shared/animations/animations"
-import { ButtonClickService } from "src/app/shared/services/button-click.service"
-import { HelperService } from "src/app/shared/services/helper.service"
-import { KeyboardShortcuts, Unlisten } from "src/app/shared/services/keyboard-shortcuts.service"
-import { MessageLabelService } from "src/app/shared/services/messages-label.service"
+import { Component } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+import { Subject } from 'rxjs'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
+import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import creditsJson from '../../../../assets/credits/credits.json'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 
@@ -65,7 +65,7 @@ export class CreditsComponent {
     }
 
     public onGotoExternalLink(url: string): void {
-        window.open(url, "_blank")
+        window.open(url, '_blank')
     }
 
     public onShowDeviceInfo(): void {

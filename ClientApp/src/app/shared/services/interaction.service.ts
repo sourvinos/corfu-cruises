@@ -9,20 +9,14 @@ export class InteractionService {
 
     private _record = new Subject<string[]>()
     private _reservation = new Subject<string[]>()
-    private _checked = new Subject<number>()
     private _refreshReservationList = new Subject<any>()
-    private _refreshEmbarkationList = new Subject<any>()
     private _tableRow = new Subject()
-    private _calendarNavigation = new Subject<any>()
     private _refreshMenus = new Subject<any>()
 
     public record = this._record.asObservable()
     public reservation = this._reservation.asObservable()
-    public checked = this._checked.asObservable()
     public refreshReservationList = this._refreshReservationList.asObservable()
-    public refreshEmbarkationList = this._refreshEmbarkationList.asObservable()
     public tableRow = this._tableRow.asObservable()
-    public calendarNavigation = this._calendarNavigation.asObservable()
     public refreshMenus = this._refreshMenus.asObservable()
 
     //#endregion
@@ -43,44 +37,6 @@ export class InteractionService {
         this._refreshReservationList.next()
     }
 
-    /** 
-     * Caller(s):
-     *  custom-table.component.ts
-     *
-     * Subscriber(s):
-     *  customer-list.ts
-     *  destination-list.ts
-     *  driver-list.ts
-     *  pickupPoint-list.ts
-     *  port-list.ts
-     *  route-list.ts
-     *  user-list.ts
-     *
-     * Description:
-     *  The caller(s) send the selected item so that the subscribers call the edit method
-     *
-    */
-    public sendObject(record: any): void {
-        this._record.next(record)
-    }
-
-    /**
-     * Caller(s):
-     *  reservation-list.ts
-     *  custom-table.ts
-     *
-     * Subscriber(s):
-     *  reservation-list.ts
-     *
-     * Description:
-     *  The callers send the sum of checked persons so that the subscriber can display it
-     *
-     * @param total
-     */
-    public setCheckedTotalPersons(total: number): void {
-        this._checked.next(total)
-    }
-
     /**
      * Caller(s):
      *  reservation-form.component.ts
@@ -95,36 +51,7 @@ export class InteractionService {
         this._tableRow.next(rowIndex)
     }
 
-    /**
-     * Caller(s):
-     *  embarkation-list.component.ts
-     * 
-     * Subscriber(s):
-     *  embarkation-criteria.component.ts
-     * 
-     * Description:
-     *  The caller tells the subscriber to read from the database after each embarkation is saved
-     */
-    public mustRefreshEmbarkationList(): void {
-        this._refreshEmbarkationList.next()
-    }
-
-    /**
-     * Caller(s):
-     *  calendar.component.ts
-     * 
-     * Subscriber(s):
-     *  schedule-wrapper.component.ts
-     * 
-     * Description:
-     *  The caller tells the subscriber to move to the next or previous month
-     */
-
-    public changeCalendarMonth(month: any): void {
-        this._calendarNavigation.next(month)
-    }
-
-    /**
+        /**
      * Caller(s):
      *  account.service.ts
      * 

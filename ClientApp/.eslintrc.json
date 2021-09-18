@@ -1,47 +1,33 @@
 {
     "env": {
         "browser": true,
-        "es2020": true
+        "es2021": true
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:cypress/recommended"
+        "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 11,
+        "ecmaVersion": 12,
         "sourceType": "module"
     },
     "plugins": [
         "@typescript-eslint"
     ],
-    "ignorePatterns": [
-        "**/dist",
-        "**/cypress"
-    ],
     "rules": {
-        "@custom-property-empty-line-before": [
+        "@typescript-eslint/no-explicit-any": "",
+        "indent": [
             "warn",
-            "never"
+            4
         ],
-        "@typescript-eslint/explicit-module-boundary-types": [
+        "quotes": [
             "warn",
-            "off"
-        ],
-        "@typescript-eslint/no-explicit-any": [
-            "warn",
-            "off"
-        ],
-        "blockless-after-blockless": [
-            "warn",
-            "never"
+            "single"
         ],
         "semi": [
             "warn",
             "never"
-        ],
-        "@typescript-eslint/explicit-function-return-type": "warn"
+        ]
     }
 }

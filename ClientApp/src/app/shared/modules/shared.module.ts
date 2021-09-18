@@ -4,9 +4,7 @@ import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { ZXingScannerModule } from '@zxing/ngx-scanner'
 // Custom
-import { CustomTableComponent } from '../components/table/custom-table.component'
 import { DialogAlertComponent } from '../components/dialog-alert/dialog-alert.component'
-import { DialogIndexComponent } from '../components/dialog-index/dialog-index.component'
 import { FormatNumberPipe } from '../pipes/format-number.pipe'
 import { InputFormatDirective } from 'src/app/shared/directives/input-format.directive'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -21,9 +19,7 @@ import { NgQrScannerModule } from 'angular2-qrscanner'
 
 @NgModule({
     declarations: [
-        CustomTableComponent,
         DialogAlertComponent,
-        DialogIndexComponent,
         FormatNumberPipe,
         InputFormatDirective,
         InputTabStopDirective,
@@ -42,7 +38,6 @@ import { NgQrScannerModule } from 'angular2-qrscanner'
     ],
     exports: [
         CommonModule,
-        CustomTableComponent,
         FormatNumberPipe,
         FormsModule,
         InputFormatDirective,
@@ -54,11 +49,9 @@ import { NgQrScannerModule } from 'angular2-qrscanner'
         QRCodeComponent,
         ReactiveFormsModule,
         RouterModule
-        // ZXingScannerModule
     ],
     entryComponents: [
         DialogAlertComponent,
-        DialogIndexComponent,
         SnackbarComponent
     ]
 })
