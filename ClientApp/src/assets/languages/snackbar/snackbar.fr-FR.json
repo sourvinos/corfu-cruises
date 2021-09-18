@@ -72,7 +72,7 @@
             },
             {
                 "id": "emailSent",
-                "message": "Un e-mail d'instructions a été envoyé"
+                "message": "Un email d'instructions a été envoyé"
             },
             {
                 "id": "formIsDirty",
@@ -140,7 +140,7 @@
             },
             {
                 "id": "emptyEmail",
-                "message": "L' adresse e-mail ne peut pas être vide"
+                "message": "L' adresse email ne peut pas être vide"
             }
         ]
     }

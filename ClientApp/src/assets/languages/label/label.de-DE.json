@@ -556,7 +556,7 @@
             },
             {
                 "id": "sendLoginCredentials",
-                "description": "An E-Mail senden"
+                "description": "AN Email SENDEN"
             },
             {
                 "id": "saveButton",
@@ -779,7 +779,7 @@
             },
             {
                 "id": "email",
-                "description": "E-Mail"
+                "description": "Email"
             },
             {
                 "id": "phones",
@@ -803,7 +803,7 @@
             },
             {
                 "id": "sendVoucherButton",
-                "description": "An E-Mail senden"
+                "description": "An Email senden"
             },
             {
                 "id": "saveButton",
@@ -820,7 +820,7 @@
             },
             {
                 "id": "email",
-                "description": "E-Mail"
+                "description": "Email"
             },
             {
                 "id": "submitButton",
@@ -828,7 +828,7 @@
             },
             {
                 "id": "weNeedYourEmail",
-                "description": "Geben Sie uns Ihre E-Mail-Adresse und wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts"
+                "description": "Geben Sie uns Ihre Email-Adresse und wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts"
             }
         ]
     },
@@ -1673,7 +1673,7 @@
             },
             {
                 "id": "email",
-                "description": "E-Mail"
+                "description": "Email"
             },
             {
                 "id": "isActive",
@@ -1809,7 +1809,7 @@
             },
             {
                 "id": "email",
-                "description": "E-Mail"
+                "description": "Email"
             },
             {
                 "id": "fax",

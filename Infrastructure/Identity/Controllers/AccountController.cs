@@ -23,7 +23,7 @@ namespace BlueWaterCruises {
             this.emailSender = emailSender;
         }
 
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel formData) {
             if (ModelState.IsValid) {

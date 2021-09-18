@@ -520,15 +520,15 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Χρηστης"
+                "description": "Χρήστης"
             },
             {
                 "id": "userName",
-                "description": "Χρηστης"
+                "description": "Όνομα"
             },
             {
                 "id": "displayName",
-                "description": "Εμφανιζομενο ονομα"
+                "description": "Εμφανιζόμενο όνομα"
             },
             {
                 "id": "email",
@@ -536,27 +536,27 @@
             },
             {
                 "id": "password",
-                "description": "Κωδικος"
+                "description": "Κωδικός"
             },
             {
                 "id": "confirmPassword",
-                "description": "Επιβεβαιωση Κωδικου"
+                "description": "Επιβεβαίωση κωδικού"
             },
             {
                 "id": "customer",
-                "description": "Συνδεδεμενος Πελατης"
+                "description": "Συνδεδεμένος πελάτης"
             },
             {
                 "id": "isAdmin",
-                "description": "Διαχειριστης"
+                "description": "Διαχειριστής"
             },
             {
                 "id": "isActive",
-                "description": "Ενεργος"
+                "description": "Ενεργός"
             },
             {
                 "id": "sendLoginCredentials",
-                "description": "Αποστολη στο email"
+                "description": "ΑΠΟΣΤΟΛΗ ΣΤΟ EMAIL"
             },
             {
                 "id": "saveButton",

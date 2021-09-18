@@ -556,7 +556,7 @@
             },
             {
                 "id": "sendLoginCredentials",
-                "description": "Send to email"
+                "description": "SEND TO EMAIL"
             },
             {
                 "id": "saveButton",

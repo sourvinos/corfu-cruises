@@ -556,7 +556,7 @@
             },
             {
                 "id": "sendLoginCredentials",
-                "description": "Envoyer a l' email"
+                "description": "ENVOYER A L' EMAIL"
             },
             {
                 "id": "saveButton",
@@ -1809,7 +1809,7 @@
             },
             {
                 "id": "email",
-                "description": "E-Mail"
+                "description": "Email"
             },
             {
                 "id": "fax",

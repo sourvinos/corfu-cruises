@@ -491,7 +491,7 @@
             },
             {
                 "id": "email",
-                "description": "E-Mail"
+                "description": "Email"
             },
             {
                 "id": "isAdmin",
@@ -532,7 +532,7 @@
             },
             {
                 "id": "email",
-                "description": "E-Mail"
+                "description": "Email"
             },
             {
                 "id": "password",
@@ -556,7 +556,7 @@
             },
             {
                 "id": "sendLoginCredentials",
-                "description": "Odeslat na e-mail"
+                "description": "ODESLAT NA EMAIL"
             },
             {
                 "id": "saveButton",
@@ -779,7 +779,7 @@
             },
             {
                 "id": "email",
-                "description": "E-Mail"
+                "description": "EMail"
             },
             {
                 "id": "phones",
@@ -803,7 +803,7 @@
             },
             {
                 "id": "sendVoucherButton",
-                "description": "ODESLAT NA E-MAIL"
+                "description": "ODESLAT NA EMAIL"
             },
             {
                 "id": "saveButton",
@@ -820,7 +820,7 @@
             },
             {
                 "id": "email",
-                "description": "E-Mail"
+                "description": "Email"
             },
             {
                 "id": "submitButton",
@@ -828,7 +828,7 @@
             },
             {
                 "id": "weNeedYourEmail",
-                "description": "Dejte nám svoji e-mailovou adresu a my vám pošleme postup jak obnovit vaše heslo."
+                "description": "Sdělte nám svůj e -mail a my vám zašleme pokyny k obnovení hesla."
             }
         ]
     },
@@ -1673,7 +1673,7 @@
             },
             {
                 "id": "email",
-                "description": "E-Mail"
+                "description": "Email"
             },
             {
                 "id": "isActive",
@@ -1809,7 +1809,7 @@
             },
             {
                 "id": "email",
-                "description": "E-Mail"
+                "description": "Email"
             },
             {
                 "id": "fax",
