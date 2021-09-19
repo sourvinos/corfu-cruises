@@ -10,6 +10,7 @@ import { ButtonClickService } from 'src/app/shared/services/button-click.service
 import { CustomerDropdownResource } from '../../reservations/classes/resources/form/dropdown/customer-dropdown-resource'
 import { CustomerService } from '../../customers/classes/customer.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
+import { DisableToogleDirective } from 'src/app/shared/directives/mat-slide-toggle.directive'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from '../../../shared/services/keyboard-shortcuts.service'
@@ -20,7 +21,6 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { User } from 'src/app/features/account/classes/user'
 import { UserService } from '../classes/user.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -42,13 +42,14 @@ export class EditUserFormComponent {
 
     //#endregion
 
-
     //#region public variables
 
     public filteredCustomers: Observable<CustomerDropdownResource[]>
     public form: FormGroup
     public input: InputTabStopDirective
+    public variable: DisableToogleDirective
     public isAdmin: boolean
+    public returnUrl: string
 
     //#endregion
 
@@ -68,6 +69,7 @@ export class EditUserFormComponent {
         this.populateDropDowns()
         this.initForm()
         this.getUserRole()
+        this.getReturnUrl()
     }
 
     ngOnDestroy(): void {
@@ -129,7 +131,7 @@ export class EditUserFormComponent {
     }
 
     public onGoBack(): void {
-        this.router.navigate([this.activatedRoute.snapshot.queryParams['returnUrl']])
+        this.router.navigate([this.returnUrl])
     }
 
     public onSave(): void {
@@ -207,6 +209,10 @@ export class EditUserFormComponent {
                 })
         })
         return promise
+    }
+
+    private getReturnUrl(): void {
+        this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl']
     }
 
     private initForm(): void {

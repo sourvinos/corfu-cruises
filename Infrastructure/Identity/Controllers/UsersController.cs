@@ -132,7 +132,6 @@ namespace BlueWaterCruises {
             await userManager.RemoveFromRolesAsync(user, roles);
             await userManager.AddToRoleAsync(user, user.IsAdmin ? "admin" : "user");
         }
-
     }
 
 }
