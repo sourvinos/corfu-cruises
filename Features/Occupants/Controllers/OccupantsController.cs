@@ -44,7 +44,7 @@ namespace BlueWaterCruises.Features.Occupants {
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult PostOccupant([FromBody] Occupant record) {
             if (ModelState.IsValid) {
                 try {
@@ -66,7 +66,7 @@ namespace BlueWaterCruises.Features.Occupants {
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult PutOccupant([FromRoute] int id, [FromBody] Occupant record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -88,7 +88,7 @@ namespace BlueWaterCruises.Features.Occupants {
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteOccupant([FromRoute] int id) {
             Occupant record = await repo.GetById(id);
             if (record == null) {

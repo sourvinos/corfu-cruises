@@ -14,24 +14,24 @@
     <div id="content">
         <form id="form" data-cy="form" [formGroup]="form" autocomplete="off">
             <mat-form-field>
-                <input data-cy="userName" type="text" matInput [placeholder]="onGetLabel('userName')" formControlName="userName" data-tabindex="1" id="userName" [inputTabStop]="input">
+                <input [inputTabStop]="input" [placeholder]="onGetLabel('userName')" data-cy="userName" data-tabindex="1" formControlName="userName" id="userName" matInput>
                 <mat-error *ngIf="userName.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-error *ngIf="userName.hasError('maxlength')">{{ onGetHint('maxLength', userName.errors.maxlength.requiredLength) }}</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input data-cy="displayName" type="text" matInput [placeholder]="onGetLabel('displayName')" formControlName="displayName" data-tabindex="2" id="displayName" [inputTabStop]="input">
+                <input [inputTabStop]="input" [placeholder]="onGetLabel('displayName')" data-cy="displayName" data-tabindex="2" formControlName="displayName" id="displayName" matInput>
                 <mat-error *ngIf="displayname.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-error *ngIf="displayname.hasError('maxlength')">{{ onGetHint('maxLength', displayname.errors.maxlength.requiredLength) }}</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ onGetLabel("customer") }}</mat-label>
-                <input matInput formControlName="customer" [matAutocomplete]="customers" data-tabindex="3" [inputTabStop]="input">
+                <input [inputTabStop]="input" [matAutocomplete]="customers" [readonly]=!isAdmin data-cy="customer" data-tabindex="3" formControlName="customer" matInput type="text">
                 <mat-error *ngIf="customer.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-error *ngIf="!customer.hasError('required') && customer.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
             </mat-form-field>
             <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
             <mat-form-field>
-                <input data-cy="email" type="email" matInput [placeholder]="onGetLabel('email')" formControlName="email" data-tabindex="4" id="email" [inputTabStop]="input">
+                <input [inputTabStop]="input" [placeholder]="onGetLabel('email')" [readonly]=!isAdmin data-cy="email" data-tabindex="4" formControlName="email" id="email" matInput type="email">
                 <mat-error *ngIf="email.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-error *ngIf="email.hasError('email')">{{ onGetHint('invalid') }}</mat-error>
             </mat-form-field>
@@ -43,9 +43,9 @@
 
     <div id="footer">
         <div @slideFromRight id="buttons">
-            <button *ngIf="onMustBeAdmin()" data-cy="delete" mat-flat-button class="delete" id="delete" (click)="onDelete()">{{ onGetLabel('deleteButton') }}</button>
-            <button data-cy="changePassword" mat-flat-button class="secondary" id="changePassword" (click)="onChangePassword()">{{ onGetLabel('changePasswordButton') }}</button>
-            <button data-cy="save" mat-flat-button class="primary" id="save" (click)="onSave()" [disabled]="!form.valid">{{ onGetLabel('saveButton') }}</button>
+            <button (click)="onDelete()" [disabled]=!isAdmin class="delete" data-cy="delete" id="delete" mat-flat-button>{{ onGetLabel('deleteButton') }}</button>
+            <button (click)="onChangePassword()" class="secondary" data-cy="changePassword" id="changePassword" mat-flat-button>{{ onGetLabel('changePasswordButton') }}</button>
+            <button (click)="onSave()" [disabled]=!form.valid class="primary" data-cy="save" id="save" mat-flat-button>{{ onGetLabel('saveButton') }}</button>
         </div>
     </div>
 

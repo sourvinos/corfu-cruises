@@ -439,11 +439,7 @@ export class ReservationFormComponent {
     }
 
     private isAdmin(): boolean {
-        let isAdmin = false
-        this.accountService.currentUserRole.subscribe(result => {
-            isAdmin = result.toLowerCase() == 'admin'
-        })
-        return isAdmin
+        return true
     }
 
     private isGuid(reservationId: string): any {

@@ -119,18 +119,15 @@ export class LoginFormComponent {
     }
 
     private configureIdle(): void {
-
         idleService.configure({
             timeToIdle: 3600,
             timeToTimeout: 60,
             autoResume: true,
             listenFor: 'click mousemove',
         })
-
         idleService.on(IdleEvents.UserHasTimedOut, () => {
             this.accountService.logout()
         })
-
         idleService.start()
     }
 

@@ -177,7 +177,7 @@
 
     <div id="footer">
         <div @slideFromLeft id="utility-buttons">
-            <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="onMustBeAdmin() && this.activePanel == 'list'">
+            <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="IsAdmin() && this.activePanel == 'list'">
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu" class="primary">

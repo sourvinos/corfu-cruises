@@ -44,7 +44,7 @@ namespace BlueWaterCruises.Features.Nationalities {
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult PostNationality([FromBody] Nationality record) {
             if (ModelState.IsValid) {
                 try {
@@ -66,7 +66,7 @@ namespace BlueWaterCruises.Features.Nationalities {
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult PutNationality([FromRoute] int id, [FromBody] Nationality record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -88,7 +88,7 @@ namespace BlueWaterCruises.Features.Nationalities {
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteNationality([FromRoute] int id) {
             Nationality record = await repo.GetById(id);
             if (record == null) {

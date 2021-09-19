@@ -14,7 +14,6 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageMenuService } from 'src/app/shared/services/messages-menu.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { MessageTableService } from 'src/app/shared/services/messages-table.service'
 
 @Component({
     selector: 'top-menu',
@@ -31,7 +30,7 @@ export class TopMenuComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private interactionService: InteractionService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageMenuService: MessageMenuService, private messageSnackbarService: MessageSnackbarService, private messageTableService: MessageTableService, private router: Router) { }
+    constructor(private accountService: AccountService, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private interactionService: InteractionService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageMenuService: MessageMenuService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -158,7 +157,6 @@ export class TopMenuComponent {
         this.messageLabelService.getMessages()
         this.messageMenuService.getMessages()
         this.messageSnackbarService.getMessages()
-        this.messageTableService.getMessages()
         this.interactionService.mustRefreshMenus()
     }
 

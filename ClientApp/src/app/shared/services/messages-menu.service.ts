@@ -18,7 +18,7 @@ export class MessageMenuService {
 
     public getDescription(response: any[], feature: string, id: string): string {
         let returnValue = ''
-        if (response.length > 0) {
+        if (response != undefined) {
             response.filter((f: { feature: string; labels: any[] }) => {
                 if (f.feature === feature) {
                     f.labels.filter(l => {

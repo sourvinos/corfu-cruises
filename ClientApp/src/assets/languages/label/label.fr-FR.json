@@ -507,7 +507,7 @@
             },
             {
                 "id": "changePasswordButton",
-                "description": "Changer mot de passe"
+                "description": "CHANGER LE MOT DE PASSE"
             },
             {
                 "id": "saveButton",

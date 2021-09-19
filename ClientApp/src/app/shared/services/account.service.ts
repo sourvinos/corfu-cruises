@@ -18,8 +18,8 @@ export class AccountService {
     private urlRegister = '/api/account/register'
     private urlResetPassword = '/api/account/resetPassword'
     private urlToken = '/api/auth/auth'
+    private urlIsAdmin = '/api/account/isAdmin'
     private userId = new BehaviorSubject<string>(localStorage.getItem('userId'))
-    private userRole = new BehaviorSubject<string>(localStorage.getItem('userRole'))
 
     //#endregion
 
@@ -43,6 +43,14 @@ export class AccountService {
                     this.setLocalStorage(response)
                     this.refreshMenus()
                 }
+                return <any>response
+            })
+        )
+    }
+
+    public isAdmin(id: string): Observable<any> {
+        return this.httpClient.get<any>(this.urlIsAdmin + '/' + id).pipe(
+            map(response => {
                 return <any>response
             })
         )
@@ -105,7 +113,8 @@ export class AccountService {
             'selectedIds',
             'reservations',
             'loginStatus',
-            'userRole'
+            'userRole',
+            "userId"
         ])
     }
 
@@ -129,7 +138,6 @@ export class AccountService {
         localStorage.setItem('jwt', response.response.token)
         localStorage.setItem('loginStatus', '1')
         localStorage.setItem('refreshToken', response.response.refresh_token)
-        localStorage.setItem('userRole', response.response.roles)
         localStorage.setItem('userId', response.response.userId)
     }
 
@@ -139,7 +147,6 @@ export class AccountService {
 
     private setUserData(): void {
         this.displayName.next(localStorage.getItem('displayName'))
-        this.userRole.next(localStorage.getItem('userRole'))
         this.userId.next(localStorage.getItem('userId'))
     }
 
@@ -153,10 +160,6 @@ export class AccountService {
 
     get isLoggedIn(): Observable<boolean> {
         return this.loginStatus.asObservable()
-    }
-
-    get currentUserRole(): Observable<string> {
-        return this.userRole.asObservable()
     }
 
     get currentUserId(): any {

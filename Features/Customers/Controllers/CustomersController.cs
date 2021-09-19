@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Customers {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class CustomersController : ControllerBase {
@@ -44,7 +44,7 @@ namespace BlueWaterCruises.Features.Customers {
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult PostCustomer([FromBody] Customer record) {
             if (ModelState.IsValid) {
                 try {
@@ -66,7 +66,7 @@ namespace BlueWaterCruises.Features.Customers {
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult PutCustomer([FromRoute] int id, [FromBody] Customer record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -88,7 +88,7 @@ namespace BlueWaterCruises.Features.Customers {
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteCustomer([FromRoute] int id) {
             Customer record = await repo.GetById(id);
             if (record == null) {

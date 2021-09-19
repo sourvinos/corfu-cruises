@@ -44,7 +44,7 @@ namespace BlueWaterCruises.Features.Genders {
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult PostGender([FromBody] Gender record) {
             if (ModelState.IsValid) {
                 try {
@@ -66,7 +66,7 @@ namespace BlueWaterCruises.Features.Genders {
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult PutGender([FromRoute] int id, [FromBody] Gender record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -88,7 +88,7 @@ namespace BlueWaterCruises.Features.Genders {
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteGender([FromRoute] int id) {
             Gender record = await repo.GetById(id);
             if (record == null) {

@@ -44,7 +44,7 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpPost]
-        // [Authorize(Roles = "Admin")]        
+        // [Authorize(Roles = "admin")]        
         public IActionResult PostShipRoute([FromBody] ShipRoute record) {
             if (ModelState.IsValid) {
                 try {
@@ -66,7 +66,7 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "admin")]
         public IActionResult PutShipRoute([FromRoute] int id, [FromBody] ShipRoute record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -88,7 +88,7 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteShipRoute([FromRoute] int id) {
             ShipRoute record = await repo.GetById(id);
             if (record == null) {

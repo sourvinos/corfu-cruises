@@ -47,7 +47,7 @@ namespace BlueWaterCruises.Features.Routes {
         }
 
         [HttpPost]
-        // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "admin")]
         public IActionResult PostRoute([FromBody] RouteWriteResource record) {
             if (ModelState.IsValid) {
                 try {
@@ -69,7 +69,7 @@ namespace BlueWaterCruises.Features.Routes {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "admin")]
         public IActionResult PutRoute([FromRoute] int id, [FromBody] RouteWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -91,7 +91,7 @@ namespace BlueWaterCruises.Features.Routes {
         }
 
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteRoute([FromRoute] int id) {
             Route record = await repo.GetSingleToDelete(id);
             if (record == null) {

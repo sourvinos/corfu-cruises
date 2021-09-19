@@ -64,7 +64,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpPost]
-        // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "admin")]
         public IActionResult PostSchedule([FromBody] List<Schedule> records) {
             if (ModelState.IsValid) {
                 try {
@@ -86,7 +86,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "admin")]
         public IActionResult PutSchedule([FromRoute] int id, [FromBody] Schedule record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -108,7 +108,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteSchedule([FromRoute] int id) {
             Schedule record = await repo.GetById(id);
             if (record == null) {

@@ -24,7 +24,7 @@ namespace BlueWaterCruises.Features.Invoicing {
         }
 
         [HttpGet("date/{date}/customer/{customerId}/destination/{destinationId}/vessel/{vesselId}")]
-        // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "admin")]
         public IEnumerable<InvoiceViewModel> Get(string date, string customerId, string destinationId, string vesselId) {
             return this.repo.Get(date, customerId, destinationId, vesselId);
         }

@@ -20,7 +20,7 @@ export class MessageSnackbarService {
 
     public getDescription(feature: string, id: string): string {
         let returnValue = ''
-        if (this.messages.length > 0) {
+        if (this.messages != undefined) {
             this.messages.filter((f: { feature: string; labels: any[] }) => {
                 if (f.feature === feature) {
                     f.labels.filter(l => {

@@ -122,19 +122,6 @@ export class SideMenuComponent {
 
     private updateVariables(): void {
         this.loginStatus = this.accountService.isLoggedIn
-        this.userRole = this.accountService.currentUserRole
-    }
-
-    //#endregion
-
-    //#region getters
-
-    get isConnectedUserAdmin(): boolean {
-        let isAdmin = false
-        this.userRole.subscribe(result => {
-            isAdmin = result == 'Admin' ? true : false
-        })
-        return isAdmin
     }
 
     //#endregion

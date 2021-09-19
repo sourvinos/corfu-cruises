@@ -32,24 +32,23 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 
 export class EditUserFormComponent {
 
-    //#region variables
+    //#region private variables
 
     private feature = 'editUserForm'
     private flatForm: FormGroup
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '/users'
     private windowTitle = 'User'
-    public environment = environment.production
-    public form: FormGroup
-    public input: InputTabStopDirective
 
     //#endregion
 
-    //#region particular variables
 
-    public customers: any
+    //#region public variables
+
     public filteredCustomers: Observable<CustomerDropdownResource[]>
+    public form: FormGroup
+    public input: InputTabStopDirective
+    public isAdmin: boolean
 
     //#endregion
 
@@ -65,13 +64,10 @@ export class EditUserFormComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.initForm()
         this.addShortcuts()
         this.populateDropDowns()
-    }
-
-    ngAfterViewInit(): void {
-        this.focus('userName')
+        this.initForm()
+        this.getUserRole()
     }
 
     ngOnDestroy(): void {
@@ -136,10 +132,6 @@ export class EditUserFormComponent {
         this.router.navigate([this.activatedRoute.snapshot.queryParams['returnUrl']])
     }
 
-    public onMustBeAdmin(): boolean {
-        return this.isAdmin()
-    }
-
     public onSave(): void {
         this.flattenForm()
         this.userService.update(this.flatForm.value.id, this.flatForm.value).subscribe(() => {
@@ -162,24 +154,9 @@ export class EditUserFormComponent {
                     this.buttonClickService.clickOnButton(event, 'goBack')
                 }
             },
-            'Alt.C': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'abort')
-                } else {
-                    this.buttonClickService.clickOnButton(event, 'changePassword')
-                }
-            },
-            'Alt.D': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'delete')
-            },
             'Alt.S': (event: KeyboardEvent) => {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
                     this.buttonClickService.clickOnButton(event, 'save')
-                }
-            },
-            'Alt.O': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'ok')
                 }
             }
         }, {
@@ -191,20 +168,20 @@ export class EditUserFormComponent {
     private filterArray(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
-            return this[array].filter((element) =>
+            return this[array].filter((element: { [x: string]: string }) =>
                 element[field].toLowerCase().startsWith(filtervalue))
         }
     }
 
     private flattenForm(): void {
         this.flatForm = this.formBuilder.group({
-            id: this.form.value.id,
-            userName: this.form.value.userName,
-            displayName: this.form.value.displayName,
-            customerId: this.form.value.customer.id,
-            email: this.form.value.email,
-            isAdmin: this.form.value.isAdmin,
-            isActive: this.form.value.isActive
+            id: this.form.getRawValue().id,
+            userName: this.form.getRawValue().userName,
+            displayName: this.form.getRawValue().displayName,
+            customerId: this.form.getRawValue().customer.id,
+            email: this.form.getRawValue().email,
+            isAdmin: this.form.getRawValue().isAdmin,
+            isActive: this.form.getRawValue().isActive
         })
     }
 
@@ -221,24 +198,27 @@ export class EditUserFormComponent {
         })
     }
 
+    private getUserRole(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.accountService.isAdmin(this.helperService.readItem('userId')).toPromise().then(
+                (response) => {
+                    this.isAdmin = response.isAdmin
+                    resolve(this.isAdmin)
+                })
+        })
+        return promise
+    }
+
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: '',
             userName: ['', [Validators.required, Validators.maxLength(32)]],
             displayName: ['', [Validators.required, Validators.maxLength(32)]],
-            customer: [{ value: '', disabled: !this.isAdmin() }, [Validators.required, ValidationService.RequireAutocomplete]],
-            email: [{ value: '', disabled: !this.isAdmin() }, [Validators.required, Validators.email, Validators.maxLength(128)]],
-            isAdmin: [{ value: false, disabled: !this.isAdmin() }],
-            isActive: [{ value: true, disabled: !this.isAdmin() }]
+            customer: [{ value: '' }, [Validators.required, ValidationService.RequireAutocomplete]],
+            email: [{ value: '' }, [Validators.required, Validators.email, Validators.maxLength(128)]],
+            isAdmin: [{ value: false }],
+            isActive: [{ value: true }]
         })
-    }
-
-    private isAdmin(): boolean {
-        let isAdmin = false
-        this.accountService.currentUserRole.subscribe(result => {
-            isAdmin = result.toLowerCase() == 'admin'
-        })
-        return isAdmin
     }
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {

@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class UsersController : ControllerBase {
@@ -26,7 +26,7 @@ namespace BlueWaterCruises {
             this.userManager = userManager;
         }
 
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<IEnumerable<UserListViewModel>> Get() {
             return await userManager.Users.Select(u => new UserListViewModel {
@@ -82,7 +82,7 @@ namespace BlueWaterCruises {
 
         }
 
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id) {
             AppUser record = await userManager.FindByIdAsync(id);
@@ -105,7 +105,7 @@ namespace BlueWaterCruises {
             }
         }
 
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         [HttpPost("[action]")]
         public IActionResult SendLoginCredentials([FromBody] LoginCredentialsViewModel model) {
             string baseUrl = $"{Request.Scheme}://{Request.Host.Value}{Request.PathBase.Value}";
@@ -130,7 +130,7 @@ namespace BlueWaterCruises {
         private async Task UpdateRole(AppUser user) {
             var roles = await userManager.GetRolesAsync(user);
             await userManager.RemoveFromRolesAsync(user, roles);
-            await userManager.AddToRoleAsync(user, user.IsAdmin ? "Admin" : "User");
+            await userManager.AddToRoleAsync(user, user.IsAdmin ? "admin" : "user");
         }
 
     }

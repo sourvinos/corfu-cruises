@@ -194,8 +194,8 @@ export class ReservationListComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onMustBeAdmin(): boolean {
-        return this.isAdmin()
+    public IsAdmin(): boolean {
+        return true
     }
 
     public onNew(): void {
@@ -302,14 +302,6 @@ export class ReservationListComponent {
             { description: 'selected', sum: 0 },
             { description: 'filtered', sum: 0 }
         )
-    }
-
-    private isAdmin(): boolean {
-        let isAdmin = false
-        this.accountService.currentUserRole.subscribe(result => {
-            isAdmin = result.toLowerCase() == 'admin'
-        })
-        return isAdmin
     }
 
     private isAnyRowSelected(): boolean {

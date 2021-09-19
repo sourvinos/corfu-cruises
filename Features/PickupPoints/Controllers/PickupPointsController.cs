@@ -52,7 +52,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
         }
 
         [HttpPost]
-        // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "admin")]
         public IActionResult PostPickupPoint([FromBody] PickupPointWriteResource record) {
             if (ModelState.IsValid) {
                 try {
@@ -74,7 +74,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "admin")]
         public IActionResult PutPickupPoint([FromRoute] int id, [FromBody] PickupPointWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -97,7 +97,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
         }
 
         [HttpPatch("{pickupPointId}")]
-        // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "admin")]
         public async Task<IActionResult> PatchPickupPoint([FromQuery(Name="pickupPointId")] int pickupPointId, [FromQuery(Name = "coordinates")] string coordinates) {
             PickupPointReadResource record = await repo.GetById(pickupPointId);
             if (record == null) {
@@ -124,7 +124,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
         }
 
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeletePickupPoint([FromRoute] int id) {
             PickupPoint record = await repo.GetByIdToDelete(id);
             if (record == null) {
