@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { NgModule } from '@angular/core'
 import { NgQrScannerModule } from 'angular2-qrscanner'
-import { QRCodeModule } from 'angularx-qrcode'
+import { QRCodeModule } from 'angular2-qrcode'
 import { RouterModule } from '@angular/router'
 import { ZXingScannerModule } from '@zxing/ngx-scanner'
 // Custom

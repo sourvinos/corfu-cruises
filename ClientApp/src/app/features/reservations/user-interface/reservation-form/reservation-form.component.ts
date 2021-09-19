@@ -61,10 +61,9 @@ export class ReservationFormComponent {
 
     //#region particular variables
 
-    public barcode = "0"
-    public errorCorrectionLevel: "M"
-    public margin = 4
-    public width = 128
+    public value = "0"
+    public size = 128
+    public level: "M"
 
     public filteredDestinations: Observable<Destination[]>
     public filteredCustomers: Observable<CustomerDropdownResource[]>
@@ -355,8 +354,8 @@ export class ReservationFormComponent {
 
     private createBarcodeFromTicketNo(): Promise<any> {
         return new Promise((resolve) => {
-            this.barcode = this.form.value.ticketNo == '' ? '9999' : this.form.value.ticketNo
-            resolve(this.barcode)
+            this.value = this.form.value.ticketNo == '' ? '9999' : this.form.value.ticketNo
+            resolve(this.value)
         })
     }
 
