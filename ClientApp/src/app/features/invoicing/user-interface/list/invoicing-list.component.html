@@ -8,7 +8,10 @@
             <h1>{{ getLabel('header') }}</h1>
         </div>
         <div id="criteriaLabels" *ngIf="records.length > 0">
-            <span>{{ criteriaLabels }}</span>
+            <span class="material-icons-two-tone">today</span><span>{{ criteriaLabels[0] }}</span>
+            <span class="material-icons-two-tone">people_alt</span><span>{{ criteriaLabels[1] }}</span>
+            <span class="material-icons-two-tone">my_location</span><span>{{ criteriaLabels[2] }}</span>
+            <span class="material-icons-two-tone">directions_boat</span><span>{{ criteriaLabels[3] }}</span>
         </div>
     </div>
 

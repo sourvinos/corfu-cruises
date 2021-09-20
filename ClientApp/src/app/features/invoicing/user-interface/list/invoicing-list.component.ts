@@ -30,7 +30,7 @@ export class InvoicingListComponent {
     private windowTitle = 'Invoicing'
     public feature = 'invoicingList'
     public records: any
-    public criteriaLabels: string
+    public criteriaLabels = []
 
     //#endregion
 
@@ -117,13 +117,10 @@ export class InvoicingListComponent {
 
     private updateCriteriaLabels(): void {
         const criteria = JSON.parse(this.helperService.readItem('invoicing-criteria'))
-        // console.log(this.helperService.formatDateToLocale(criteria.date) + ' ' + criteria.destination.description)
-        this.criteriaLabels =
-            '🗓️ ' + this.helperService.formatDateToLocale(criteria.date) + ' ' +
-            '🙎‍♂️ ' + criteria.customer.description + ' ' +
-            '🏁 ' + criteria.destination.description + ' ' +
-            '🛳️ ' + criteria.vessel.description + ' '
-        console.log(this.criteriaLabels)
+        this.criteriaLabels[0] = this.helperService.formatDateToLocale(criteria.date)
+        this.criteriaLabels[1] = criteria.customer.description
+        this.criteriaLabels[2] = criteria.destination.description
+        this.criteriaLabels[3] = criteria.vessel.description
     }
 
     private setWindowTitle(): void {

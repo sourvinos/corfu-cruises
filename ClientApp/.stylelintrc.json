@@ -13,6 +13,7 @@
         "selector-combinator-space-after": "always",
         "selector-combinator-space-before": "always",
         "selector-list-comma-newline-after": "never-multi-line",
+        "selector-list-comma-space-after": "always",
         "selector-pseudo-element-colon-notation": "double",
         "at-rule-empty-line-before": [
             "never",

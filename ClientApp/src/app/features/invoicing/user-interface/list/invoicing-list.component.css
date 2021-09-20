@@ -1,12 +1,15 @@
 #criteriaLabels {
+    align-items: center;
+    display: flex;
+    font-family: var(--font-family-master);
+    font-size: var(--font-size-criterial-labels);
+    font-weight: var(--font-weight-header);
     margin-left: auto;
 }
 
 #criteriaLabels span {
     color: var(--color-headers);
-    font-family: var(--font-family-master);
-    font-size: var(--font-size-criterial-labels);
-    font-weight: var(--font-weight-header);
+    margin: 0 0.3125rem 0 0.3125rem;
 }
 
 .total-header {
@@ -18,7 +21,7 @@
     transition: all var(--change-theme-delay) ease;
 }
 
-.subtotal td {
+.subtotal td, .rowGroup td {
     color: var(--color-table-row-subgroup);
     font-size: var(--font-size-row-subgroup);
     transition: all var(--change-theme-delay) ease;

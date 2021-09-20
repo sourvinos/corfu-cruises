@@ -32,6 +32,7 @@
 }
 
 .summaryHeader > span {
+    color: var(--color-tooltip-background) !important;
     margin-right: 0.5rem;
 }
 
