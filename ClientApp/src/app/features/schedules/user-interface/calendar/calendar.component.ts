@@ -1,12 +1,12 @@
-import { Component } from "@angular/core"
+import { Component } from '@angular/core'
 import moment, { utc } from 'moment'
 // Custom
-import { Day } from "../../classes/day"
-import { MessageCalendarService } from "src/app/shared/services/messages-calendar.service"
-import { MessageLabelService } from "src/app/shared/services/messages-label.service"
+import { Day } from '../../classes/day'
+import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
+import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { Router } from "@angular/router"
+import { Router } from '@angular/router'
 
 @Component({
     selector: 'calendar',
@@ -128,10 +128,10 @@ export class CalendarComponent {
             a = parseInt(a) + 1
             const dayObject = moment(`${year}-${month}-${a}`, 'YYYY-MM-DD')
             const day = new Day()
-            day.date = dayObject.format("YYYY-MM-DD")
+            day.date = dayObject.format('YYYY-MM-DD')
             this.days.push(day)
             return {
-                name: dayObject.format("dddd"),
+                name: dayObject.format('dddd'),
                 value: a,
                 indexWeek: dayObject.isoWeekday()
             }
@@ -141,11 +141,11 @@ export class CalendarComponent {
 
     private navigateToMonth(flag: number): void {
         if (flag < 0) {
-            const prevDate = this.dateSelect.clone().subtract(1, "month")
-            this.getDaysFromDate(prevDate.format("MM"), prevDate.format("YYYY"))
+            const prevDate = this.dateSelect.clone().subtract(1, 'month')
+            this.getDaysFromDate(prevDate.format('MM'), prevDate.format('YYYY'))
         } else {
-            const nextDate = this.dateSelect.clone().add(1, "month")
-            this.getDaysFromDate(nextDate.format("MM"), nextDate.format("YYYY"))
+            const nextDate = this.dateSelect.clone().add(1, 'month')
+            this.getDaysFromDate(nextDate.format('MM'), nextDate.format('YYYY'))
         }
     }
 
@@ -161,8 +161,8 @@ export class CalendarComponent {
     }
 
     private fixCalendarHeight(): void {
-        const calendar = document.getElementById("calendar")
-        calendar.style.gridTemplateRows = "30px repeat(" + this.calculateWeekCount(this.dateSelect.format('YYYY'), this.dateSelect.format('MM')) + ", 1fr)"
+        const calendar = document.getElementById('calendar')
+        calendar.style.gridTemplateRows = '30px repeat(' + this.calculateWeekCount(this.dateSelect.format('YYYY'), this.dateSelect.format('MM')) + ', 1fr)'
     }
 
     private updateCalendar(): void {

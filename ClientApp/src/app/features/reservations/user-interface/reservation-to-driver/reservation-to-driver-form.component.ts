@@ -52,7 +52,7 @@ export class ReservationToDriverComponent {
     //#region private methods
 
     private populateDropDowns(): void {
-        this.data.drivers.subscribe((result: any) => {
+        this.data.subscribe((result: any) => {
             this.drivers = result.sort((a: { description: number; }, b: { description: number; }) => (a.description > b.description) ? 1 : -1)
         })
     }

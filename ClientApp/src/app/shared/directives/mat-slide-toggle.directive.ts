@@ -1,5 +1,5 @@
-import { Directive, Input } from "@angular/core"
-import { MatSlideToggle } from "@angular/material/slide-toggle"
+import { Directive, Input } from '@angular/core'
+import { MatSlideToggle } from '@angular/material/slide-toggle'
 
 @Directive({ selector: '[disableToogle]' })
 

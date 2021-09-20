@@ -57,7 +57,7 @@ export class ThemeMenuComponent {
     }
 
     private readTheme(): string {
-        return this.helperService.readItem("theme") == '' ? this.saveTheme() : this.helperService.readItem("theme")
+        return this.helperService.readItem('theme') == '' ? this.saveTheme() : this.helperService.readItem('theme')
     }
 
     private saveTheme(): string {

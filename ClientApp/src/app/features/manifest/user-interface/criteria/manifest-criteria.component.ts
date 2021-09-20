@@ -139,7 +139,7 @@ export class ManifestCriteriaComponent {
     }
 
     private getLocale(): void {
-        this.dateAdapter.setLocale(this.helperService.readItem("language"))
+        this.dateAdapter.setLocale(this.helperService.readItem('language'))
     }
 
     private goBack(): void {

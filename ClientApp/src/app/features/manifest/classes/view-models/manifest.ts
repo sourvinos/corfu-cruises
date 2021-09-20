@@ -1,5 +1,5 @@
-import { Guid } from "guid-typescript"
-import { ManifestPassenger } from "./manifest-passenger"
+import { Guid } from 'guid-typescript'
+import { ManifestPassenger } from './manifest-passenger'
 
 export class Manifest {
 

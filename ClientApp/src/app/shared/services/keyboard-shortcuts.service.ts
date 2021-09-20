@@ -131,7 +131,7 @@ export class KeyboardShortcuts {
         const isInputEvent = this.isEventFromInput(event)
         let handler: Handler
         for (const listener of this.listeners) {
-            if (handler = listener.bindings[key]) {
+            if (handler == listener.bindings[key]) {
                 if (!isInputEvent || listener.inputs) {
                     const result = this.zone.runGuarded(
                         (): boolean | void => {

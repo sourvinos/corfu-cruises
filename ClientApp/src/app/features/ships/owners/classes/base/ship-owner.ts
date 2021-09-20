@@ -1,4 +1,4 @@
-import { KeyValuePair } from "src/app/shared/classes/keyValuePair"
+import { KeyValuePair } from 'src/app/shared/classes/keyValuePair'
 
 export class ShipOwner extends KeyValuePair {
 

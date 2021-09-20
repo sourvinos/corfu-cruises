@@ -239,7 +239,7 @@ export class RegistrarFormComponent {
         this.form.setValue({
             id: result.id,
             fullname: result.fullname,
-            ship: { "id": result.ship.id, "description": result.ship.description },
+            ship: { 'id': result.ship.id, 'description': result.ship.description },
             phones: result.phones,
             email: result.email,
             fax: result.fax,

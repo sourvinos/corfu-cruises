@@ -1,5 +1,5 @@
-import { Guid } from "guid-typescript"
-import { Passenger } from "./passenger"
+import { Guid } from 'guid-typescript'
+import { Passenger } from './passenger'
 
 export class Reservation {
 

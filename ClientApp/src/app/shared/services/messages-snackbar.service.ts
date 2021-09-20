@@ -45,31 +45,31 @@ export class MessageSnackbarService {
         return promise
     }
 
-    public accountNotConfirmed(): string { return this.getDescription(this.feature, "accountNotConfirmed") }
-    public askConfirmationToAbortEditing(): string { return this.getDescription(this.feature, "askConfirmationToAbortEditing") }
-    public askConfirmationToDelete(): string { return this.getDescription(this.feature, "askConfirmationToDelete") }
-    public authenticationFailed(): string { return this.getDescription(this.feature, "authenticationFailed") }
-    public emailSent(): string { return this.getDescription(this.feature, "emailSent") }
-    public formIsDirty(): string { return this.getDescription(this.feature, "formIsDirty") }
-    public noVideoDevicesFound(): string { return this.getDescription(this.feature, "noVideoDevicesFound") }
-    public noRecordsSelected(): string { return this.getDescription(this.feature, "noRecordsSelected") }
-    public passwordChanged(): string { return this.getDescription(this.feature, "passwordChanged") }
-    public recordCreated(): string { return this.getDescription(this.feature, "recordCreated") }
-    public fileCreated(): string { return this.getDescription(this.feature, "fileCreated") }
-    public recordDeleted(): string { return this.getDescription(this.feature, "recordDeleted") }
-    public noScheduleFound(): string { return this.getDescription(this.feature, "noScheduleFound") }
-    public fullyBooked(): string { return this.getDescription(this.feature, "fullyBooked") }
-    public noResults(): string { return this.getDescription(this.feature, "noResults") }
-    public recordUpdated(): string { return this.getDescription(this.feature, "recordUpdated") }
-    public selectedRecordsHaveBeenProcessed(): string { return this.getDescription(this.feature, "selectedRecordsHaveBeenProcessed") }
-    public unableToResetPassword(): string { return this.getDescription(this.feature, "unableToResetPassword") }
-    public invalidModel(): string { return this.getDescription(this.feature, "invalidModel") }
-    public noScheduleFoundWithDetails(): string { return this.getDescription(this.feature, "noScheduleFoundWithDetails") }
-    public isOverbooking(): string { return this.getDescription(this.feature, "isOverbooking") }
-    public wrongPassengerCount(): string { return this.getDescription(this.feature, "wrongPassengerCount") }
-    public emptyEmail(): string { return this.getDescription(this.feature, "emptyEmail") }
-    public fileNotCreated(): string { return this.getDescription(this.feature, "fileNotCreated") }
-    public pending(): string { return this.getDescription(this.feature, "pending") }
+    public accountNotConfirmed(): string { return this.getDescription(this.feature, 'accountNotConfirmed') }
+    public askConfirmationToAbortEditing(): string { return this.getDescription(this.feature, 'askConfirmationToAbortEditing') }
+    public askConfirmationToDelete(): string { return this.getDescription(this.feature, 'askConfirmationToDelete') }
+    public authenticationFailed(): string { return this.getDescription(this.feature, 'authenticationFailed') }
+    public emailSent(): string { return this.getDescription(this.feature, 'emailSent') }
+    public formIsDirty(): string { return this.getDescription(this.feature, 'formIsDirty') }
+    public noVideoDevicesFound(): string { return this.getDescription(this.feature, 'noVideoDevicesFound') }
+    public noRecordsSelected(): string { return this.getDescription(this.feature, 'noRecordsSelected') }
+    public passwordChanged(): string { return this.getDescription(this.feature, 'passwordChanged') }
+    public recordCreated(): string { return this.getDescription(this.feature, 'recordCreated') }
+    public fileCreated(): string { return this.getDescription(this.feature, 'fileCreated') }
+    public recordDeleted(): string { return this.getDescription(this.feature, 'recordDeleted') }
+    public noScheduleFound(): string { return this.getDescription(this.feature, 'noScheduleFound') }
+    public fullyBooked(): string { return this.getDescription(this.feature, 'fullyBooked') }
+    public noResults(): string { return this.getDescription(this.feature, 'noResults') }
+    public recordUpdated(): string { return this.getDescription(this.feature, 'recordUpdated') }
+    public selectedRecordsHaveBeenProcessed(): string { return this.getDescription(this.feature, 'selectedRecordsHaveBeenProcessed') }
+    public unableToResetPassword(): string { return this.getDescription(this.feature, 'unableToResetPassword') }
+    public invalidModel(): string { return this.getDescription(this.feature, 'invalidModel') }
+    public noScheduleFoundWithDetails(): string { return this.getDescription(this.feature, 'noScheduleFoundWithDetails') }
+    public isOverbooking(): string { return this.getDescription(this.feature, 'isOverbooking') }
+    public wrongPassengerCount(): string { return this.getDescription(this.feature, 'wrongPassengerCount') }
+    public emptyEmail(): string { return this.getDescription(this.feature, 'emptyEmail') }
+    public fileNotCreated(): string { return this.getDescription(this.feature, 'fileNotCreated') }
+    public pending(): string { return this.getDescription(this.feature, 'pending') }
 
     public filterError(errorCode: number, feature = 'snackbarMessages'): string {
         let returnValue = ''

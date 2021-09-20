@@ -220,7 +220,7 @@ export class PickupPointFormComponent {
     private filterArray(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
-            return this[array].filter((element) =>
+            return this[array].filter((element: { [x: string]: string }) =>
                 element[field].toLowerCase().startsWith(filtervalue))
         }
     }
@@ -283,7 +283,7 @@ export class PickupPointFormComponent {
     private populateFields(result: PickupPoint): void {
         this.form.setValue({
             id: result.id,
-            route: { "id": result.route.id, "abbreviation": result.route.abbreviation },
+            route: { 'id': result.route.id, 'abbreviation': result.route.abbreviation },
             description: result.description,
             exactPoint: result.exactPoint,
             time: result.time,

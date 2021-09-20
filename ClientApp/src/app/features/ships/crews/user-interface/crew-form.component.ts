@@ -212,7 +212,7 @@ export class CrewFormComponent {
     }
 
     private getLocale(): void {
-        this.dateAdapter.setLocale(this.helperService.readItem("language"))
+        this.dateAdapter.setLocale(this.helperService.readItem('language'))
     }
 
     private getRecord(id: number): void {
@@ -262,9 +262,9 @@ export class CrewFormComponent {
             lastname: result.lastname,
             firstname: result.firstname,
             birthdate: result.birthdate,
-            ship: { "id": result.ship.id, "description": result.ship.description },
-            nationality: { "id": result.nationality.id, "description": result.nationality.description },
-            gender: { "id": result.gender.id, "description": result.gender.description },
+            ship: { 'id': result.ship.id, 'description': result.ship.description },
+            nationality: { 'id': result.nationality.id, 'description': result.nationality.description },
+            gender: { 'id': result.gender.id, 'description': result.gender.description },
             isActive: result.isActive,
             userId: this.helperService.readItem('userId')
         })

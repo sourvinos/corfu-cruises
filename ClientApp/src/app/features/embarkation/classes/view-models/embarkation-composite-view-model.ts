@@ -1,4 +1,4 @@
-import { Embarkation } from "./embarkation"
+import { Embarkation } from './embarkation'
 
 export class EmbarkationCompositeViewModel {
 

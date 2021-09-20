@@ -1,4 +1,4 @@
-import { DestinationResource } from "./destination-resource"
+import { DestinationResource } from './destination-resource'
 
 export class Day {
 

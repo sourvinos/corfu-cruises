@@ -18,10 +18,10 @@ export class HelperService {
 
     public createJsonFile(data: any): void {
         const theJSON = JSON.stringify(data)
-        const uri = "data:application/json;charset=UTF-8," + encodeURIComponent(theJSON)
+        const uri = 'data:application/json;charset=UTF-8,' + encodeURIComponent(theJSON)
         const a = document.createElement('a')
         a.href = uri
-        a.innerHTML = "Right-click and choose 'save as...'"
+        a.innerHTML = 'Right-click and choose \'save as...\''
         document.body.appendChild(a)
     }
 

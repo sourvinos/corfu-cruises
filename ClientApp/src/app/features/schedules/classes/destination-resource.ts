@@ -1,4 +1,4 @@
-import { PortResource } from "./port-resource"
+import { PortResource } from './port-resource'
 
 export class DestinationResource {
 

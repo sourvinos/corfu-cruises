@@ -22,6 +22,7 @@ import { environment } from 'src/environments/environment'
 import { map, startWith } from 'rxjs/operators'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 import { GenderDropdownResource } from '../../classes/resources/form/dropdown/gender-dropdown-resource'
+import { Passenger } from '../../classes/models/passenger'
 
 @Component({
     selector: 'passenger-form',
@@ -45,7 +46,7 @@ export class PassengerFormComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private buttonClickService: ButtonClickService, private dialogRef: MatDialogRef<PassengerFormComponent>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private reservationService: ReservationService, private snackbarService: SnackbarService, public dialog: MatDialog) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: Passenger, private buttonClickService: ButtonClickService, private dialogRef: MatDialogRef<PassengerFormComponent>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private reservationService: ReservationService, private snackbarService: SnackbarService, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
@@ -150,17 +151,17 @@ export class PassengerFormComponent {
 
     private flattenPassenger(form: FormGroup): any {
         const passenger = {
-            "id": form.value.id,
-            "reservationId": form.value.reservationId,
-            "lastname": form.value.lastname,
-            "firstname": form.value.firstname,
-            "occupantId": 2,
-            "birthdate": moment(form.value.birthdate).format('YYYY-MM-DD'),
-            "nationality": form.value.nationality,
-            "gender": form.value.gender,
-            "specialCare": form.value.specialCare,
-            "remarks": form.value.remarks,
-            "isCheckedIn": form.value.isCheckedIn
+            'id': form.value.id,
+            'reservationId': form.value.reservationId,
+            'lastname': form.value.lastname,
+            'firstname': form.value.firstname,
+            'occupantId': 2,
+            'birthdate': moment(form.value.birthdate).format('YYYY-MM-DD'),
+            'nationality': form.value.nationality,
+            'gender': form.value.gender,
+            'specialCare': form.value.specialCare,
+            'remarks': form.value.remarks,
+            'isCheckedIn': form.value.isCheckedIn
         }
         return passenger
     }
@@ -199,7 +200,7 @@ export class PassengerFormComponent {
         this.populateDropDown(this.genderService, 'genders', 'activeGenders', 'gender', 'description')
     }
 
-    private populateFields(result: any): void {
+    private populateFields(result: Passenger): void {
         this.form.setValue({
             id: result.id,
             reservationId: result.reservationId,

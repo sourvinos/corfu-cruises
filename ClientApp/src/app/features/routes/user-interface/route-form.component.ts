@@ -280,7 +280,7 @@ export class RouteFormComponent {
             id: result.id,
             abbreviation: result.abbreviation,
             description: result.description,
-            port: { "id": result.port.id, "description": result.port.description },
+            port: { 'id': result.port.id, 'description': result.port.description },
             isTransfer: result.isTransfer,
             isActive: result.isActive,
             userId: this.helperService.readItem('userId')

@@ -42,7 +42,7 @@ export class FormatNumberPipe implements PipeTransform {
     //#region private methods
 
     private getLanguage(): string {
-        return this.helperService.readItem("language") == '' ? 'el-GR' : this.helperService.readItem("language")
+        return this.helperService.readItem('language') == '' ? 'el-GR' : this.helperService.readItem('language')
     }
 
     private setSeperators(): string[] {

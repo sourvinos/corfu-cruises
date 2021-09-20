@@ -51,7 +51,7 @@ export class InteractionService {
         this._tableRow.next(rowIndex)
     }
 
-        /**
+    /**
      * Caller(s):
      *  account.service.ts
      * 

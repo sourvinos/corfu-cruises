@@ -1,4 +1,4 @@
-import { Embarkation } from "../view-models/embarkation"
+import { Embarkation } from '../view-models/embarkation'
 
 export class EmbarkationListResolved {
 

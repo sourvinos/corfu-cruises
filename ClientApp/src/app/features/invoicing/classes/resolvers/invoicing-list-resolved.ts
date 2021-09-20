@@ -1,4 +1,4 @@
-import { InvoicingViewModel } from "../view-models/invoicing-view-model"
+import { InvoicingViewModel } from '../view-models/invoicing-view-model'
 
 export class InvoicingListResolved {
 

@@ -219,11 +219,11 @@ export class ReservationListComponent {
         el.scrollTop = Math.max(0, 0)
     }
 
-    public onRowSelect(event: any): void {
+    public onRowSelect(event: { data: { totalPersons: any } }): void {
         this.totals[2].sum += event.data.totalPersons
     }
 
-    public onRowUnselect(event: any): void {
+    public onRowUnselect(event: { data: { totalPersons: number } }): void {
         this.totals[2].sum -= event.data.totalPersons
     }
 
@@ -275,15 +275,6 @@ export class ReservationListComponent {
         item.forEach(item => {
             item.classList.remove('p-highlight')
         })
-    }
-
-    private determinePanelToFocus(): void {
-        const panelToFocus = this.helperService.readItem('focusOnTheList')
-        if (panelToFocus == 'true') {
-            this.onFocusListPanel()
-        } else {
-            this.onFocusSummaryPanel()
-        }
     }
 
     private emptySelectedRecords(): void {

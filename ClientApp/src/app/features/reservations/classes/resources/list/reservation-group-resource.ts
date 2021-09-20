@@ -1,4 +1,4 @@
-import { ReservationListResource } from "./reservation-list-resource"
+import { ReservationListResource } from './reservation-list-resource'
 
 export class ReservationGroupResource {
 

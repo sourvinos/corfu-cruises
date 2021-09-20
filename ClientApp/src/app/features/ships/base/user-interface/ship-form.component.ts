@@ -262,7 +262,7 @@ export class ShipFormComponent {
         this.form.setValue({
             id: result.id,
             description: result.description,
-            shipOwner: { "id": result.shipOwner.id, "description": result.shipOwner.description },
+            shipOwner: { 'id': result.shipOwner.id, 'description': result.shipOwner.description },
             imo: result.imo,
             flag: result.flag,
             registryNo: result.registryNo,

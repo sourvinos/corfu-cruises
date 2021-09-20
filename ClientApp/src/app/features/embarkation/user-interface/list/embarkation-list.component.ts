@@ -173,7 +173,7 @@ export class EmbarkationListComponent {
     }
 
     private getLocale(): void {
-        this.dateAdapter.setLocale(this.helperService.readItem("language"))
+        this.dateAdapter.setLocale(this.helperService.readItem('language'))
     }
 
     private loadRecords(): void {

@@ -114,7 +114,7 @@ export class AccountService {
             'reservations',
             'loginStatus',
             'userRole',
-            "userId"
+            'userId'
         ])
     }
 

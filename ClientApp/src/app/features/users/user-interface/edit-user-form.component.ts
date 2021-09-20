@@ -250,7 +250,7 @@ export class EditUserFormComponent {
             id: result.id,
             userName: result.userName,
             displayName: result.displayName,
-            customer: { "id": result.customerId, "description": result.customerDescription },
+            customer: { 'id': result.customerId, 'description': result.customerDescription },
             email: result.email,
             isAdmin: result.isAdmin,
             isActive: result.isActive

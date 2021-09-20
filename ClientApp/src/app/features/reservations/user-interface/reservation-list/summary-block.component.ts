@@ -30,17 +30,17 @@ export class SummaryComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onWindowScroll(index, event?: { target: { scrollTop: number; clientHeight: any; scrollHeight: number } }): void {
+    public onWindowScroll(index: string | number, event?: { target: { scrollTop: number; clientHeight: any; scrollHeight: number } }): void {
         this.upArrow[index] = event.target.scrollTop > 0 ? true : false
         this.downArrow[index] = event.target.clientHeight + event.target.scrollTop < event.target.scrollHeight ? true : false
     }
 
-    public scrollToTop(element): void {
+    public scrollToTop(element: string): void {
         const el = document.getElementById(element)
         el.scrollTop = Math.max(0, 0)
     }
 
-    public scrollToBottom(element): void {
+    public scrollToBottom(element: string): void {
         const el = document.getElementById(element)
         el.scrollTop = Math.max(0, el.scrollHeight - el.offsetHeight)
     }

@@ -167,12 +167,12 @@ export class ScheduleCreateFormComponent {
         this.schedulesResource = []
         this.form.value.daysToInsert.forEach((day: any) => {
             this.schedulesResource.push({
-                "date": day,
-                "portId": this.form.value.portId,
-                "destinationId": this.form.value.destinationId,
-                "maxPersons": this.form.value.maxPersons,
-                "isActive": true,
-                "userId": this.helperService.readItem('userId')
+                'date': day,
+                'portId': this.form.value.portId,
+                'destinationId': this.form.value.destinationId,
+                'maxPersons': this.form.value.maxPersons,
+                'isActive': true,
+                'userId': this.helperService.readItem('userId')
             })
         })
     }
@@ -181,12 +181,12 @@ export class ScheduleCreateFormComponent {
         this.schedulesResource = []
         this.daysToDelete.forEach((day: string) => {
             this.schedulesResource.push({
-                "date": day.substring(4, day.length),
-                "portId": this.form.value.portId,
-                "destinationId": this.form.value.destinationId,
-                "maxPersons": this.form.value.maxPersons,
-                "isActive": true,
-                "userId": this.helperService.readItem('userId')
+                'date': day.substring(4, day.length),
+                'portId': this.form.value.portId,
+                'destinationId': this.form.value.destinationId,
+                'maxPersons': this.form.value.maxPersons,
+                'isActive': true,
+                'userId': this.helperService.readItem('userId')
             })
         })
     }
@@ -230,7 +230,7 @@ export class ScheduleCreateFormComponent {
     }
 
     private getLocale(): void {
-        this.dateAdapter.setLocale(this.helperService.readItem("language"))
+        this.dateAdapter.setLocale(this.helperService.readItem('language'))
     }
 
     private initForm(): void {

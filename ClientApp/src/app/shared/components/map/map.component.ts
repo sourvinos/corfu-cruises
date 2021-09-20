@@ -1,5 +1,5 @@
 import * as L from 'leaflet'
-import "leaflet.markercluster"
+import 'leaflet.markercluster'
 import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { PickupPoint } from 'src/app/features/pickupPoints/classes/pickupPoint'
 import { environment } from 'src/environments/environment'

@@ -124,12 +124,12 @@ export class TopMenuComponent {
     }
 
     private getLanguageIcon(): string {
-        const flag = this.helperService.readItem("language") == '' ? this.doLanguageTasks('en-GB') : this.helperService.readItem("language")
+        const flag = this.helperService.readItem('language') == '' ? this.doLanguageTasks('en-GB') : this.helperService.readItem('language')
         return 'flag ' + flag
     }
 
     private getLanguageLabel(): string {
-        const flag = this.helperService.readItem("language") == '' ? this.doLanguageTasks('en-GB') : this.helperService.readItem("language")
+        const flag = this.helperService.readItem('language') == '' ? this.doLanguageTasks('en-GB') : this.helperService.readItem('language')
         switch (flag) {
             case 'el-GR': return 'Γλώσσα'
             case 'en-GB': return 'Language'
@@ -173,7 +173,7 @@ export class TopMenuComponent {
     }
 
     private updateDateAdapter(): void {
-        this.dateAdapter.setLocale(this.helperService.readItem("language"))
+        this.dateAdapter.setLocale(this.helperService.readItem('language'))
     }
 
     //#endregion

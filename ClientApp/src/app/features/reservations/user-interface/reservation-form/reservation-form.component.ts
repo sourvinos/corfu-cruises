@@ -61,9 +61,9 @@ export class ReservationFormComponent {
 
     //#region particular variables
 
-    public value = "0"
+    public value = '0'
     public size = 128
-    public level: "M"
+    public level: 'M'
 
     public filteredDestinations: Observable<Destination[]>
     public filteredCustomers: Observable<CustomerDropdownResource[]>
@@ -282,7 +282,7 @@ export class ReservationFormComponent {
     }
 
     public onUpdatePort(value: PickupPointDropdownResource): void {
-        this.form.patchValue({ port: { "id": value.port.id, "description": value.port.description } })
+        this.form.patchValue({ port: { 'id': value.port.id, 'description': value.port.description } })
     }
 
     // private sendVoucher(): void {
@@ -345,7 +345,7 @@ export class ReservationFormComponent {
         const promise = new Promise((resolve) => {
             setTimeout(() => {
                 const myCanvas = <HTMLCanvasElement>document.getElementsByTagName('canvas')[0]
-                const dataURI = myCanvas.toDataURL("image/png")
+                const dataURI = myCanvas.toDataURL('image/png')
                 resolve(dataURI)
             }, 1000)
         })
@@ -544,12 +544,12 @@ export class ReservationFormComponent {
         this.form.setValue({
             reservationId: result.reservationId,
             date: result.date,
-            destination: { "id": result.destination.id, "description": result.destination.description },
-            customer: { "id": result.customer.id, "description": result.customer.description },
-            pickupPoint: { "id": result.pickupPoint.id, "description": result.pickupPoint.description },
-            driver: { "id": result.driver.id, "description": result.driver.description },
-            ship: { "id": result.ship.id, "description": result.ship.description },
-            port: { "id": result.port.id, "description": result.port.description },
+            destination: { 'id': result.destination.id, 'description': result.destination.description },
+            customer: { 'id': result.customer.id, 'description': result.customer.description },
+            pickupPoint: { 'id': result.pickupPoint.id, 'description': result.pickupPoint.description },
+            driver: { 'id': result.driver.id, 'description': result.driver.description },
+            ship: { 'id': result.ship.id, 'description': result.ship.description },
+            port: { 'id': result.port.id, 'description': result.port.description },
             adults: result.adults,
             kids: result.kids,
             free: result.free,
@@ -569,9 +569,9 @@ export class ReservationFormComponent {
         this.form.patchValue({
             reservationId: '',
             date: moment(criteria.date).toISOString(),
-            driver: { "id": 1, "description": '' },
-            port: { "id": 1, "description": '' },
-            ship: { "id": 1, "description": '' },
+            driver: { 'id': 1, 'description': '' },
+            port: { 'id': 1, 'description': '' },
+            ship: { 'id': 1, 'description': '' },
             passengers: []
         })
     }

@@ -1,4 +1,4 @@
-import { VoucherPassenger } from "./voucher-passenger"
+import { VoucherPassenger } from './voucher-passenger'
 
 export class VoucherViewModel {
 
