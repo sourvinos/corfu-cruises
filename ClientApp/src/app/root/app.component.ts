@@ -34,7 +34,7 @@ export class AppComponent {
         this.positionSpinner()
     }
 
-    @HostListener('window::beforeunload', ['$event']) beforeUnloadHander(): any {
+    @HostListener('window:beforeunload', ['$event']) beforeUnloadHander(): any {
         this.accountService.logout()
     }
 
