@@ -32,12 +32,12 @@
     </div>
 
     <div id="summary" [class.hidden]="activePanel=='list'">
-        <summary-block [records]="records.personsPerDestination" [index]=0 [id]="destinations" [header]="'summaryHeaderDestinations'"></summary-block>
-        <summary-block [records]="records.personsPerCustomer" [index]=1 [id]="customers" [header]="'summaryHeaderCustomers'"></summary-block>
-        <summary-block [records]="records.personsPerRoute" [index]=2 [id]="routes" [header]="'summaryHeaderRoutes'"></summary-block>
-        <summary-block [records]="records.personsPerDriver" [index]=3 [id]="drivers" [header]="'summaryHeaderDrivers'"></summary-block>
-        <summary-block [records]="records.personsPerPort" [index]=4 [id]="ports" [header]="'summaryHeaderPorts'"></summary-block>
-        <summary-block [records]="records.personsPerShip" [index]=5 [id]="ships" [header]="'summaryHeaderShips'"></summary-block>
+        <summary-block [records]="records.personsPerDestination" [index]=0 [id]="destinations" [header]="'summaryHeaderDestinations'" [icon]="'my_location'"></summary-block>
+        <summary-block [records]="records.personsPerCustomer" [index]=1 [id]="customers" [header]="'summaryHeaderCustomers'" [icon]="'people_outline'"></summary-block>
+        <summary-block [records]="records.personsPerRoute" [index]=2 [id]="routes" [header]="'summaryHeaderRoutes'" [icon]="'route'"></summary-block>
+        <summary-block [records]="records.personsPerDriver" [index]=3 [id]="drivers" [header]="'summaryHeaderDrivers'" [icon]="'directions_bus'"></summary-block>
+        <summary-block [records]="records.personsPerPort" [index]=4 [id]="ports" [header]="'summaryHeaderPorts'" [icon]="'anchor'"></summary-block>
+        <summary-block [records]="records.personsPerShip" [index]=5 [id]="ships" [header]="'summaryHeaderShips'" [icon]="'directions_boat'"></summary-block>
     </div>
 
     <div id="table-wrapper">
@@ -151,7 +151,9 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData>
                             <tr [class.ui-state-highlight]="rowData == highlighted" (click)="highlighted = rowData" (dblclick)="onEditRecord(rowData.reservationId)">
-                                <td style="width: 5%; text-align: center;"><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
+                                <td style="width: 5%; text-align: center;">
+                                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                                </td>
                                 <td style="width: 13%;">{{ rowData.ticketNo }}</td>
                                 <td style="width: 10%;">{{ rowData.destinationDescription }}</td>
                                 <td style="width: 10%;">{{ rowData.routeAbbreviation }}</td>

@@ -3,7 +3,7 @@
         <i class="pi pi-arrow-circle-up" *ngIf="upArrow[index]" (click)="scrollToTop(id)"></i>
     </div>
     <div class="summaryHeader">
-        <i class="fas fa-flag-checkered"></i><span>{{ onGetLabel(header) }}</span>
+        <span class="material-icons-two-tone">{{ icon }}</span><span>{{ onGetLabel(header) }}</span>
     </div>
     <div (scroll)="onWindowScroll(index, $event)" [id]="id" class="summaryContent scrollable">
         <div *ngFor="let item of records" class="item">

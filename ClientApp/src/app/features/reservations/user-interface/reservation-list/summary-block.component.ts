@@ -13,6 +13,7 @@ export class SummaryComponent {
     @Input() index: any
     @Input() id: any
     @Input() header: any
+    @Input() icon: any
 
     public upArrow: boolean[] = []
     public downArrow: boolean[] = []
@@ -45,7 +46,7 @@ export class SummaryComponent {
         el.scrollTop = Math.max(0, el.scrollHeight - el.offsetHeight)
     }
 
-    private showDownArrow(index, element): void {
+    private showDownArrow(index: string | number, element: string): void {
         const div = document.getElementById(element)
         Promise.resolve(null).then(() => {
             this.downArrow[index] = div.clientHeight + div.scrollTop < div.scrollHeight ? true : false

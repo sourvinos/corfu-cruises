@@ -24,7 +24,6 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 @Component({
     selector: 'reservation-list',
     templateUrl: './reservation-list.component.html',
-    // styleUrls: ['../../../../../assets/styles/lists.css', './reservation-list.component.css', '../../../../../assets/styles/summaries.css'],
     styleUrls: ['../../../../../assets/styles/lists.css', './reservation-list.component.css'],
     animations: [slideFromLeft, slideFromRight]
 })
@@ -324,6 +323,7 @@ export class ReservationListComponent {
     }
 
     private populateDropdowns(): void {
+        console.log(this.records.reservations)
         this.destinations = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'destinationDescription')
         this.routes = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'routeAbbreviation')
         this.routes = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'routeAbbreviation')
