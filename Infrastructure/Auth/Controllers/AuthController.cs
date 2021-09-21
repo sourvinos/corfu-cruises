@@ -91,7 +91,8 @@ namespace BlueWaterCruises {
                 refresh_token = refreshToken,
                 roles = roles.FirstOrDefault(),
                 userId = user.Id,
-                displayName = user.DisplayName
+                displayName = user.DisplayName,
+                CustomerId = user.CustomerId
             };
         }
 

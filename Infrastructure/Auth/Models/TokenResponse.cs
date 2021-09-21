@@ -10,6 +10,7 @@ namespace BlueWaterCruises {
         public  string roles { get; set; }
         public string userId { get; set; }
         public string displayName { get; set; }
+        public int CustomerId { get; set; }
 
     }
 
