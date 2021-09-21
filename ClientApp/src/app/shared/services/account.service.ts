@@ -98,11 +98,14 @@ export class AccountService {
 
     private clearLocalStorage(): void {
         this.clearLocalStorageItems([
+            'customerId',
             'date',
             'displayName',
             'expiration',
             'jwt',
+            'loginStatus',
             'refreshToken',
+            'reservations',
             'searchTermCustomer',
             'searchTermDestination',
             'searchTermDriver',
@@ -111,9 +114,6 @@ export class AccountService {
             'searchTermRoute',
             'searchTermUser',
             'selectedIds',
-            'reservations',
-            'loginStatus',
-            'userRole',
             'userId'
         ])
     }
@@ -139,6 +139,7 @@ export class AccountService {
         localStorage.setItem('loginStatus', '1')
         localStorage.setItem('refreshToken', response.response.refresh_token)
         localStorage.setItem('userId', response.response.userId)
+        localStorage.setItem('customerId', response.response.customerId)
     }
 
     private setLoginStatus(status: boolean): void {
