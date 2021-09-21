@@ -13,6 +13,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from '../../../shared/services/snackbar.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { LazyLoadEvent } from 'primeng/api'
 
 @Component({
     selector: 'customer-list',
@@ -35,6 +36,7 @@ export class CustomerListComponent {
     public feature = 'customerList'
     public newUrl = this.baseUrl + '/new'
     public records: Customer[] = []
+    public virtualRecords: Customer[] = []
 
     //#endregion
 
@@ -92,6 +94,7 @@ export class CustomerListComponent {
         const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.list
+            this.virtualRecords = listResolved.list
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -104,6 +107,13 @@ export class CustomerListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
+    }
+
+    public loadCustomersLazy(event: LazyLoadEvent) {
+        const loadedCustomers = this.records.slice(event.first, (event.first + event.rows))
+        Array.prototype.splice.apply(this.virtualRecords, [...[event.first, event.rows], ...loadedCustomers])
+        this.virtualRecords = [...this.virtualRecords]
+        console.log(this.virtualRecords)
     }
 
     //#endregion

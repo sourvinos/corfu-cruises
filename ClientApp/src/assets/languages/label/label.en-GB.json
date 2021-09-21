@@ -646,7 +646,7 @@
             },
             {
                 "id": "total",
-                "description": "All"
+                "description": "Total persons"
             },
             {
                 "id": "displayed",
@@ -655,10 +655,6 @@
             {
                 "id": "selected",
                 "description": "Selected"
-            },
-            {
-                "id": "filtered",
-                "description": "Filtered"
             },
             {
                 "id": "headerSelected",

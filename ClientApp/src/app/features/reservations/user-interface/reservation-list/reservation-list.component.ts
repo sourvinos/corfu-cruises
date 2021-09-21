@@ -1,11 +1,9 @@
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { Component, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
-import { AccountService } from 'src/app/shared/services/account.service'
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DriverPdfService } from '../../classes/services/driver-pdf.service'
 import { DriverService } from 'src/app/features/drivers/classes/driver.service'
 import { HelperService } from './../../../../shared/services/helper.service'
@@ -20,6 +18,7 @@ import { ScheduleService } from 'src/app/features/schedules/classes/schedule.ser
 import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { Table } from 'primeng/table'
 
 @Component({
     selector: 'reservation-list',
@@ -33,9 +32,8 @@ export class ReservationListComponent {
     //#region variables
 
     private baseUrl = '/reservations'
-    private returnUrl = ''
-    private date: string
     private ngUnsubscribe = new Subject<void>()
+    private isoDate = ''
     private resolver = 'reservationList'
     private unlisten: Unlisten
     private windowTitle = 'Reservations'
@@ -51,41 +49,25 @@ export class ReservationListComponent {
     public routes = []
     public selectedRecords = []
     public ships = []
+    public today: string
     public totals: any[] = []
-    public downArrow: boolean[] = []
-    public upArrow: boolean[] = []
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private driverService: DriverService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: DriverPdfService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
-        this.router.events.subscribe((navigation) => {
-            if (navigation instanceof NavigationEnd) {
-                this.loadRecords()
-                this.onFocusSummaryPanel()
-                this.onGetStoredDate()
+    @ViewChild('table') table: Table | undefined
 
-            }
-        })
-    }
+    constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: DriverPdfService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
+        this.initPersonTotals()
+        this.loadRecords()
+        this.updateTotals()
         this.populateDropdowns()
         this.addShortcuts()
-        this.initPersonsSumArray()
-        this.onFocusSummaryPanel()
-    }
-
-    ngAfterViewInit(): void {
-        this.updateTotals()
-        // this.showDownArrow(0, 'destinations')
-        // this.showDownArrow(1, 'customers')
-        // this.showDownArrow(2, 'routes')
-        // this.showDownArrow(3, 'drivers')
-        // this.showDownArrow(4, 'ports')
-        // this.showDownArrow(5, 'ships')
+        this.getStoredDate()
     }
 
     ngOnDestroy(): void {
@@ -98,7 +80,7 @@ export class ReservationListComponent {
 
     //#region public methods
 
-    public onAssignToDriver(): void {
+    public assignToDriver(): void {
         if (this.isAnyRowSelected()) {
             this.saveSelectedIds()
             const dialogRef = this.dialog.open(ReservationToDriverComponent, {
@@ -114,7 +96,6 @@ export class ReservationListComponent {
                 if (result !== undefined) {
                     this.reservationService.assignToDriver(result, this.selectedRecords).subscribe(() => {
                         this.removeSelectedIdsFromLocalStorage()
-                        this.navigateToList()
                         this.showSnackbar(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'info')
                     })
                 }
@@ -122,7 +103,7 @@ export class ReservationListComponent {
         }
     }
 
-    public onAssignToShip(): void {
+    public assignToShip(): void {
         if (this.isAnyRowSelected()) {
             this.saveSelectedIds()
             const dialogRef = this.dialog.open(ReservationToVesselComponent, {
@@ -138,7 +119,6 @@ export class ReservationListComponent {
                 if (result !== undefined) {
                     this.reservationService.assignToShip(result, this.selectedRecords).subscribe(() => {
                         this.removeSelectedIdsFromLocalStorage()
-                        this.navigateToList()
                         this.showSnackbar(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'info')
                     })
                 }
@@ -146,23 +126,7 @@ export class ReservationListComponent {
         }
     }
 
-    public onEditRecord(id: string): void {
-        this.router.navigate([this.baseUrl, id])
-    }
-
-    public onResetTable(table: { reset: () => void }): void {
-        this.resetTable(table)
-        this.clearCheckboxes()
-        this.clearHighlights()
-        this.emptySelectedRecords()
-        this.updateTotals()
-    }
-
-    public onCreatePdf(): void {
-        this.pdfService.createReport(this.records.reservations, this.drivers, this.date)
-    }
-
-    public onFilter(event?: { filteredValue: any[] }): void {
+    public calculateTotals(event?: { filteredValue: any[] }): void {
         setTimeout(() => {
             this.totals[0].sum = this.records.persons
             this.totals[1].sum = event.filteredValue.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
@@ -170,69 +134,50 @@ export class ReservationListComponent {
         }, 500)
     }
 
-    public onFocusListPanel(): void {
-        this.activePanel = 'list'
-        document.getElementById('summaryTab').classList.remove('active')
-        document.getElementById('listTab').classList.add('active')
-        document.getElementById('table-wrapper').style.display = 'block'
+    public createPdf(): void {
+        this.pdfService.createReport(this.records.reservations, this.drivers, this.today)
     }
 
-    public onFocusSummaryPanel(): void {
-        this.activePanel = 'summary'
-        document.getElementById('summaryTab').classList.add('active')
-        document.getElementById('listTab').classList.remove('active')
-        document.getElementById('table-wrapper').style.display = 'none'
+    public doResetTableTasks(table: { reset: () => void }): void {
+        this.clearFilterTextboxes()
+        this.resetTable(table)
+        this.clearCheckboxes()
+        this.clearSelectedRecords()
+        this.updateTotals()
     }
 
-    public onGetStoredDate(): void {
-        const dashboard = JSON.parse(this.helperService.readItem('dashboard'))
-        this.date = this.helperService.formatDateToISO(dashboard.date)
+    public editRecord(id: string): void {
+        this.router.navigate([this.baseUrl, id], { queryParams: { returnUrl: this.baseUrl + '/date/' + this.isoDate } })
     }
 
-    public onGetLabel(id: string): string {
+    public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public IsAdmin(): boolean {
+    public isAdmin(): boolean {
         return true
     }
 
-    public onNew(): void {
-        this.scheduleService.isSchedule(this.date).then(result => {
+    public newRecord(): void {
+        this.scheduleService.isSchedule(this.today).then(result => {
             if (result) {
-                document.getElementById('listTab').click()
-                this.router.navigate([this.baseUrl, 'new'], { queryParams: { returnUrl: 'reservations/date/' + this.date } })
+                this.router.navigate([this.baseUrl, 'new'], { queryParams: { returnUrl: 'reservations/date/' + this.isoDate } })
             } else {
                 this.showSnackbar(this.messageSnackbarService.noScheduleFound(), 'error')
             }
         })
     }
 
-    public scrollToBottom(element: string): void {
-        const el = document.getElementById(element)
-        el.scrollTop = Math.max(0, el.scrollHeight - el.offsetHeight)
-    }
-
-    public scrollToTop(element: string): void {
-        const el = document.getElementById(element)
-        el.scrollTop = Math.max(0, 0)
-    }
-
-    public onRowSelect(event: { data: { totalPersons: any } }): void {
+    public rowSelect(event: { data: { totalPersons: any } }): void {
         this.totals[2].sum += event.data.totalPersons
     }
 
-    public onRowUnselect(event: { data: { totalPersons: number } }): void {
+    public rowUnselect(event: { data: { totalPersons: number } }): void {
         this.totals[2].sum -= event.data.totalPersons
     }
 
-    public onToggleVisibleRows(): void {
+    public toggleVisibleRows(): void {
         this.totals[2].sum = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
-    }
-
-    public onWindowScroll(index: string | number, event?: { target: { scrollTop: number; clientHeight: any; scrollHeight: number } }): void {
-        this.upArrow[index] = event.target.scrollTop > 0 ? true : false
-        this.downArrow[index] = event.target.clientHeight + event.target.scrollTop < event.target.scrollHeight ? true : false
     }
 
     //#endregion
@@ -244,18 +189,6 @@ export class ReservationListComponent {
             'Escape': () => {
                 this.goBack()
             },
-            'Alt.A': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'assignToDriver')
-            },
-            'Alt.C': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'createPdf')
-            },
-            'Alt.N': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'new')
-            },
-            'Alt.S': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'search')
-            }
         }, {
             priority: 2,
             inputs: true
@@ -269,28 +202,28 @@ export class ReservationListComponent {
         })
     }
 
-    private clearHighlights(): void {
-        const item = document.querySelectorAll('tr.p-highlight')
-        item.forEach(item => {
-            item.classList.remove('p-highlight')
+    private clearFilterTextboxes(): void {
+        const boxes = document.querySelectorAll<HTMLInputElement>('.p-inputtext[type="text"]')
+        boxes.forEach(box => {
+            box.value = ''
         })
     }
 
-    private emptySelectedRecords(): void {
+    private clearSelectedRecords(): void {
         this.selectedRecords = []
     }
 
-    private getDriversFromLocalStorage(): any {
-        const localStorageData = JSON.parse(this.helperService.readItem('reservations'))
-        return JSON.parse(localStorageData.drivers)
+    private getStoredDate(): void {
+        const dashboard = JSON.parse(this.helperService.readItem('dashboard'))
+        this.today = this.helperService.formatDateToLocale(dashboard.date)
+        this.isoDate = this.helperService.formatDateToISO(dashboard.date)
     }
 
-    private initPersonsSumArray(): void {
+    private initPersonTotals(): void {
         this.totals.push(
             { description: 'total', sum: 0 },
             { description: 'displayed', sum: 0 },
-            { description: 'selected', sum: 0 },
-            { description: 'filtered', sum: 0 }
+            { description: 'selected', sum: 0 }
         )
     }
 
@@ -312,18 +245,11 @@ export class ReservationListComponent {
         }
     }
 
-    private navigateToList(): void {
-        const criteria = JSON.parse(this.helperService.readItem('dashboard'))
-        const date = this.helperService.formatDateToISO(criteria.date)
-        this.router.navigate(['reservations/date/', date])
-    }
-
     private goBack(): void {
-        this.router.navigate(['/reservations'])
+        this.router.navigate([this.baseUrl])
     }
 
     private populateDropdowns(): void {
-        console.log(this.records.reservations)
         this.destinations = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'destinationDescription')
         this.routes = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'routeAbbreviation')
         this.routes = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'routeAbbreviation')
@@ -338,8 +264,9 @@ export class ReservationListComponent {
         localStorage.removeItem('selectedIds')
     }
 
-    private resetTable(table: { reset: () => void }): void {
+    private resetTable(table: { reset: any }): void {
         table.reset()
+        this.table.filter('', 'ticketNo', 'contains')
     }
 
     private saveSelectedIds(): void {
@@ -352,13 +279,6 @@ export class ReservationListComponent {
 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
-    }
-
-    private showDownArrow(index: number, element: string): void {
-        const div = document.getElementById(element)
-        Promise.resolve(null).then(() => {
-            this.downArrow[index] = div.clientHeight + div.scrollTop < div.scrollHeight ? true : false
-        })
     }
 
     private showSnackbar(message: string, type: string): void {

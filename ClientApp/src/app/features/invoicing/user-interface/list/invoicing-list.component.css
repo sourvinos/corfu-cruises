@@ -2,7 +2,7 @@
     align-items: center;
     display: flex;
     font-family: var(--font-family-master);
-    font-size: var(--font-size-criterial-labels);
+    font-size: var(--font-size-criteria-labels);
     font-weight: var(--font-weight-header);
     margin-left: auto;
 }

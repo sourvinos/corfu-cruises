@@ -11,7 +11,7 @@
         --font-size-calendar-popup-ports: 90%;
         --font-size-calendar-weekday: 120%;
         --font-size-checkbox: 120%;
-        --font-size-criterial-labels: 130%;
+        --font-size-criteria-labels: 130%;
         --font-size-h1: 250%;
         --font-size-h2: 200%;
         --font-size-input-hint: 90%;
@@ -25,8 +25,7 @@
         --font-size-summary-block-item: 120%;
         --font-size-summary-header: 160%;
         --font-size-table-header: 110%;
-        --font-size-table-row: 110%;
-        --font-size-totals: 118%;
+        --font-size-table-row: 95%;
         --font-weight-checkbox: 400 !important;
         --font-weight-menu-items: 300;
         --footer-right-margin: 3rem;

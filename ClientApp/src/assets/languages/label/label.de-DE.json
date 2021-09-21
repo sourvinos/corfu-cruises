@@ -646,19 +646,15 @@
             },
             {
                 "id": "total",
-                "description": "Alle"
+                "description": "Gesamtpersonen"
             },
             {
                 "id": "displayed",
-                "description": "Angezeigt"
+                "description": "Angezeigte"
             },
             {
                 "id": "selected",
-                "description": "Ausgewählt"
-            },
-            {
-                "id": "filtered",
-                "description": "Gefiltert"
+                "description": "Ausgewählte"
             },
             {
                 "id": "headerSelected",

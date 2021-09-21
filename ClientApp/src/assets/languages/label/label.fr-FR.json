@@ -646,19 +646,15 @@
             },
             {
                 "id": "total",
-                "description": "Ensemble"
+                "description": "Nombre total"
             },
             {
                 "id": "displayed",
-                "description": "Apparus"
+                "description": "Montrées"
             },
             {
                 "id": "selected",
-                "description": "Selectionnees"
-            },
-            {
-                "id": "filtered",
-                "description": "Filtrees"
+                "description": "sélectionnées"
             },
             {
                 "id": "headerSelected",

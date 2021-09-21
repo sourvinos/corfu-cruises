@@ -32,7 +32,6 @@
 }
 
 .summaryHeader > span {
-    color: var(--color-tooltip-background) !important;
     margin-right: 0.5rem;
 }
 
@@ -65,7 +64,7 @@
     margin-right: 0.5rem;
 }
 
-.pi-arrow-circle-up,.pi-arrow-circle-down {
+.pi-arrow-circle-up, .pi-arrow-circle-down {
     background-color: var(--color-summary-background);
     border-radius: 50%;
     color: var(--color-summary-scroll-icon);
@@ -73,7 +72,7 @@
     padding: 0.5rem;
 }
 
-.before,.after {
+.before, .after {
     margin: 0;
     text-align: center;
     position: relative;

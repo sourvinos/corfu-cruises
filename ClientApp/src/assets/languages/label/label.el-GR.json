@@ -646,7 +646,7 @@
             },
             {
                 "id": "total",
-                "description": "Σύνολο"
+                "description": "Σύνολο ατόμων"
             },
             {
                 "id": "displayed",
@@ -654,11 +654,7 @@
             },
             {
                 "id": "selected",
-                "description": "Επιλεγμένες"
-            },
-            {
-                "id": "filtered",
-                "description": "Φιλτραρισμένες"
+                "description": "Επιλεγμένα"
             },
             {
                 "id": "headerSelected",

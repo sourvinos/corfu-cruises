@@ -646,7 +646,7 @@
             },
             {
                 "id": "total",
-                "description": "Celkem"
+                "description": "Celkem osob"
             },
             {
                 "id": "displayed",
@@ -655,10 +655,6 @@
             {
                 "id": "selected",
                 "description": "Vybrané"
-            },
-            {
-                "id": "filtered",
-                "description": "Filtrovaný"
             },
             {
                 "id": "headerSelected",
