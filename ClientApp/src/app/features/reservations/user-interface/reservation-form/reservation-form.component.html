@@ -22,6 +22,10 @@
         </div>
     </div>
 
+    <div id="capture">
+        <qr-Code [value]="url" [size]="size" [level]="level"></qr-Code>
+    </div>
+
     <div id="content">
         <mat-tab-group>
             <form id="form" [formGroup]="form" autocomplete="off">
@@ -102,25 +106,25 @@
                         <passenger-list [passengers]="form.value.passengers" [reservationId]="form.value.reservationId"></passenger-list>
                     </ng-template>
                 </mat-tab>
-                <mat-tab label="Misc">
+                <mat-tab label="{{ onGetLabel('tabMoreInfo') }}">
                     <ng-template matTabContent>
                         <mat-form-field>
                             <mat-label>{{ onGetLabel("driver") }}</mat-label>
-                            <input matInput formControlName="driver" [matAutocomplete]="drivers">
+                            <input matInput formControlName="driver" [matAutocomplete]="drivers" readonly>
                             <mat-error *ngIf="driver.hasError('required')">{{ onGetHint('required') }}</mat-error>
                             <mat-error *ngIf="!driver.hasError('required') && driver.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
                             <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>{{ onGetLabel("ship") }}</mat-label>
-                            <input matInput formControlName="ship" [matAutocomplete]="ships">
+                            <input matInput formControlName="ship" [matAutocomplete]="ships" readonly>
                             <mat-error *ngIf="ship.hasError('required')">{{ onGetHint('required') }}</mat-error>
                             <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
                             <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>{{ onGetLabel("port") }}</mat-label>
-                            <input matInput formControlName="port" [matAutocomplete]="ports">
+                            <input matInput formControlName="port" [matAutocomplete]="ports" readonly>
                             <mat-error *ngIf="port.hasError('required')">{{ onGetHint('required') }}</mat-error>
                             <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
                             <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
@@ -130,8 +134,6 @@
             </form>
         </mat-tab-group>
     </div>
-
-    <qrCode hidden [value]="value" [size]="size" [level]="level"></qrCode>
 
     <div id="footer">
         <div id="buttons">

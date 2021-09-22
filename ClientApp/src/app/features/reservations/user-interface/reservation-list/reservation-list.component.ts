@@ -159,13 +159,7 @@ export class ReservationListComponent {
     }
 
     public newRecord(): void {
-        this.scheduleService.isSchedule(this.today).then(result => {
-            if (result) {
-                this.router.navigate([this.baseUrl, 'new'], { queryParams: { returnUrl: 'reservations/date/' + this.isoDate } })
-            } else {
-                this.showSnackbar(this.messageSnackbarService.noScheduleFound(), 'error')
-            }
-        })
+        this.router.navigate([this.baseUrl, 'new'], { queryParams: { returnUrl: 'reservations/date/' + this.isoDate } })
     }
 
     public rowSelect(event: { data: { totalPersons: any } }): void {

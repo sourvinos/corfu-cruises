@@ -100,9 +100,7 @@ export class VoucherService extends DataService {
                             width: 'auto',
                             table: {
                                 body: [
-                                    [
-                                        { image: voucher.qrcode, fit: [120, 120] }
-                                    ]
+                                    [{ qr: voucher.qr, width: 200 }]
                                 ],
                                 heights: 130
                             },

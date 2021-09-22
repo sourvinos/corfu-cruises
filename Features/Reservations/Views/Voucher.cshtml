@@ -105,13 +105,11 @@
                 </thead>
                 <tbody>
                     @foreach (var passenger in Model.Passengers)
-
                     {
                         <tr>
                             <td class="text">@passenger.Lastname</td>
                             <td class="text">@passenger.Firstname</td>
                         </tr>
-
                     }
                     <tr id="last-row">
                         <td colspan="2" class="text center">Total passengers: @Model.Passengers.Count()</td>
@@ -121,7 +119,7 @@
         </div>
 
         <div id="barcode">
-            <img src="@Model.Uri" width='200px' height='200px' alt="QR code">
+            <img src="@Model.ImageBase64">
         </div>
 
         <div id="social">

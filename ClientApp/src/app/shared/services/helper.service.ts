@@ -38,8 +38,9 @@ export class HelperService {
     }
 
     public formatDateToISO(date: string): string {
-        const value = moment(date)
-        return value.format('YYYY-MM-DD')
+        // const value = moment(date)
+        // return value.format('YYYY-MM-DD')
+        return date.substr(0, 10)
     }
 
     public getApplicationTitle(): any {

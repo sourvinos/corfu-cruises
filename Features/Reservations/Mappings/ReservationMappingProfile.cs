@@ -16,6 +16,8 @@ namespace BlueWaterCruises.Features.Reservations {
                 .ForMember(x => x.PickupPoint, x => x.MapFrom(r => new PickupPointDropdownResource {
                     Id = r.PickupPoint.Id,
                     Description = r.PickupPoint.Description,
+                    ExactPoint = r.PickupPoint.ExactPoint,
+                    Time = r.PickupPoint.Time,
                     Port = new PortDropdownResource {
                         Id = r.PickupPoint.Route.Port.Id,
                         Description = r.PickupPoint.Route.Port.Description

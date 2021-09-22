@@ -8,7 +8,7 @@ export class VoucherViewModel {
     pickupPointExactPoint: string
     pickupPointTime: string
     remarks: string
-    qrcode: string
+    qr: string
     passengers: VoucherPassenger[]
 
 }
