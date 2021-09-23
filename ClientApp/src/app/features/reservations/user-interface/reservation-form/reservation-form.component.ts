@@ -60,9 +60,7 @@ export class ReservationFormComponent {
 
     //#region particular variables
 
-    public url = '0'
-    public size = 128
-    public level: 'M'
+    public barcode = { 'ticketNo': '', 'size': 128, 'level': 'M' }
 
     public filteredDestinations: Observable<Destination[]>
     public filteredCustomers: Observable<CustomerDropdownResource[]>
@@ -169,8 +167,8 @@ export class ReservationFormComponent {
         return this.mapPassengers().length == this.form.value.totalPersons && this.form.value.totalPersons > 0
     }
 
-    public onDoBarcodeJobs(): void {
-        this.createQRFromTicketNo().then(() => {
+    public doBarcodeTasks(): void {
+        this.createBarcodeFromTicketNo().then(() => {
             this.convertCanvasToBase64()
         })
     }
@@ -218,89 +216,9 @@ export class ReservationFormComponent {
         this.router.navigate([this.activatedRoute.snapshot.queryParams['returnUrl']])
     }
 
-    public onDoPreSaveTasks(): void {
-        let maxPersons = 0
-        let primaryPortMaxPersons = 0
-        let secondaryPortMaxPersons = 0
-        let reservationsPrimaryPort = 0
-        let reservationsSecondaryPort = 0
-        let overSecondaryPort = 0
-        this.scheduleService.getForDateAndDestination(this.form.value.date, this.form.value.destinationId).then(a => {
-            maxPersons = a.maxPersons
-            console.log('Max Persons', maxPersons)
-            if (maxPersons == 0) {
-                this.showScheduleNotFound()
-            } else {
-                this.scheduleService.getForDateAndDestinationAndPort(this.form.value.date, this.form.value.destinationId, 2).then(b => {
-                    primaryPortMaxPersons = b.maxPersons
-                    console.log('Primary port max persons', primaryPortMaxPersons)
-                    this.scheduleService.getForDateAndDestinationAndPort(this.form.value.date, this.form.value.destinationId, 3).then(c => {
-                        secondaryPortMaxPersons = c.maxPersons
-                        console.log('Secondary port max persons', secondaryPortMaxPersons)
-                        this.reservationService.getByDateDestinationPort(this.form.value.date, this.form.value.destinationId, 2).then(e => {
-                            reservationsPrimaryPort = e.totalPersons
-                            console.log('Primary port reservations', reservationsPrimaryPort)
-                            this.reservationService.getByDateDestinationPort(this.form.value.date, this.form.value.destinationId, 3).then(d => {
-                                reservationsSecondaryPort = d.totalPersons
-                                console.log('Secondary port reservations', reservationsSecondaryPort)
-                                if (reservationsSecondaryPort > secondaryPortMaxPersons) {
-                                    overSecondaryPort = reservationsSecondaryPort - secondaryPortMaxPersons
-                                    reservationsPrimaryPort += overSecondaryPort
-                                    console.log('Secondary has overbooking, transfering to primary', reservationsSecondaryPort - secondaryPortMaxPersons)
-                                    console.log('Primary port reservations', reservationsPrimaryPort)
-                                    if (reservationsPrimaryPort + reservationsSecondaryPort - overSecondaryPort + this.form.value.totalPersons > maxPersons) {
-                                        this.showSnackbar(this.messageSnackbarService.isOverbooking(), 'error')
-                                        console.log('STOP! OVERBOOKING')
-                                    } else {
-                                        console.log('OK. Continue')
-                                        this.onSave()
-                                    }
-                                } else {
-                                    if (this.form.value.portId == 2) {
-                                        if (reservationsPrimaryPort + this.form.value.totalPersons > primaryPortMaxPersons) {
-                                            this.showSnackbar(this.messageSnackbarService.isOverbooking(), 'error')
-                                            console.log('STOP! OVERBOOKING PRIMARY')
-                                        } else {
-                                            console.log('OK. Continue on primary')
-                                            this.onSave()
-                                        }
-                                    } else {
-                                        if (reservationsPrimaryPort + reservationsSecondaryPort + this.form.value.totalPersons > maxPersons) {
-                                            this.showSnackbar(this.messageSnackbarService.isOverbooking(), 'error')
-                                            console.log('STOP! OVERBOOKING')
-                                        } else {
-                                            console.log('OK. Continue')
-                                            this.onSave()
-                                        }
-                                    }
-                                }
-                            })
-                        })
-                    })
-                })
-            }
-        })
-    }
-
     public onUpdatePort(value: PickupPointDropdownResource): void {
         this.form.patchValue({ port: { 'id': value.port.id, 'description': value.port.description } })
     }
-
-    // private sendVoucher(): void {
-    //     this.reservationService.emailVoucher(this.mapObjectToVoucher()).subscribe(() => {
-    //         this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
-    //     }, () => {
-    //         this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
-    //     })
-    // }
-
-    // public onPrintVoucher(): void {
-    //     this.reservationService.printVoucher(this.mapObjectToVoucher()).subscribe(() => {
-    //         this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
-    //     }, () => {
-    //         this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
-    //     })
-    // }
 
     //#endregion
 
@@ -313,48 +231,30 @@ export class ReservationFormComponent {
                     this.buttonClickService.clickOnButton(event, 'goBack')
                 }
             },
-            'Alt.D': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'delete')
-            },
             'Alt.S': (event: KeyboardEvent) => {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
                     if (this.onCalculateTotalPersons())
                         this.buttonClickService.clickOnButton(event, 'save')
                 }
-            },
-            'Alt.C': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'abort')
-                }
-            },
-            'Alt.O': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'ok')
-                }
-            },
-            'Ctrl.Right': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'mat-tab-label-0-1')
             }
         }, {
-            priority: 3,
+            priority: 1,
             inputs: true
         })
     }
 
     private convertCanvasToBase64(): void {
         setTimeout(() => {
-            html2canvas(document.querySelector('#capture')).then(canvas => {
-                console.log(canvas.toDataURL())
+            html2canvas(document.querySelector('#qr-code')).then(canvas => {
                 this.form.patchValue({ imageBase64: canvas.toDataURL() })
             })
-        }, 1000)
+        }, 500)
     }
 
-    private createQRFromTicketNo(): Promise<any> {
+    private createBarcodeFromTicketNo(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.url = this.form.value.ticketNo
-            console.log('URL for qrcode input', this.url)
-            resolve(this.url)
+            this.barcode.ticketNo = this.form.value.ticketNo
+            resolve(this.ticketNo)
         })
         return promise
     }
@@ -380,7 +280,7 @@ export class ReservationFormComponent {
     private getRecord(id: number): void {
         this.reservationService.getSingle(id).subscribe(result => {
             this.populateFields(result)
-            this.onDoBarcodeJobs()
+            this.doBarcodeTasks()
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             this.onGoBack()

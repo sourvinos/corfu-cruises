@@ -1,28 +1,25 @@
-import { NationalityDropdownResource } from './../../classes/resources/form/dropdown/nationality-dropdown-resource'
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Component, Inject, NgZone } from '@angular/core'
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Observable, Subject } from 'rxjs'
 import moment from 'moment'
 // Custom
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-
+import { GenderDropdownResource } from '../../classes/resources/form/dropdown/gender-dropdown-resource'
 import { GenderService } from 'src/app/features/genders/classes/gender.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { NationalityDropdownResource } from './../../classes/resources/form/dropdown/nationality-dropdown-resource'
 import { NationalityService } from 'src/app/features/nationalities/classes/nationality.service'
+import { Passenger } from '../../classes/models/passenger'
 import { ReservationService } from '../../classes/services/reservation.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { environment } from 'src/environments/environment'
 import { map, startWith } from 'rxjs/operators'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import { GenderDropdownResource } from '../../classes/resources/form/dropdown/gender-dropdown-resource'
-import { Passenger } from '../../classes/models/passenger'
 
 @Component({
     selector: 'passenger-form',
@@ -40,18 +37,17 @@ export class PassengerFormComponent {
     private unlisten: Unlisten
     public activeGenders: Observable<GenderDropdownResource[]>
     public activeNationalities: Observable<NationalityDropdownResource[]>
-    public environment = environment.production
     public form: FormGroup
     public input: InputTabStopDirective
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: Passenger, private buttonClickService: ButtonClickService, private dialogRef: MatDialogRef<PassengerFormComponent>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private reservationService: ReservationService, private snackbarService: SnackbarService, public dialog: MatDialog) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: Passenger, private dialogRef: MatDialogRef<PassengerFormComponent>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private reservationService: ReservationService, private snackbarService: SnackbarService, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.buildForm()
+        this.initForm()
         this.addShortcuts()
         this.populateDropDowns()
         this.populateFields(this.data)
@@ -67,6 +63,18 @@ export class PassengerFormComponent {
 
     //#region public methods
 
+    public dropdownFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public getHint(id: string, minmax = 0): string {
+        return this.messageHintService.getDescription(id, minmax)
+    }
+
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
+    }
+
     public onDelete(): void {
         this.dialogService.open('warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
@@ -81,22 +89,6 @@ export class PassengerFormComponent {
         })
     }
 
-    public onDropdownGenderFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public onDropdownNationalityFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public onGetHint(id: string, minmax = 0): string {
-        return this.messageHintService.getDescription(id, minmax)
-    }
-
-    public onGetLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
-    }
-
     public onGoBack(): void {
         this.form.reset()
         this.ngZone.run(() => {
@@ -106,8 +98,7 @@ export class PassengerFormComponent {
 
     public onSave(): void {
         this.ngZone.run(() => {
-            const passenger = this.flattenPassenger(this.form)
-            this.dialogRef.close(passenger)
+            this.dialogRef.close(this.flattenPassenger(this.form))
         })
     }
 
@@ -122,29 +113,16 @@ export class PassengerFormComponent {
                     this.onGoBack()
                 }
             },
-            'Alt.D': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'delete')
-            },
-            'Alt.C': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'abort')
-                }
-            },
-            'Alt.O': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'ok')
-                }
-            }
         }, {
             priority: 3,
             inputs: true
         })
     }
 
-    private filterArray(array: string, field: string, value: any): any[] {
+    private filterDropdownArray(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
-            return this[array].filter((element) =>
+            return this[array].filter((element: { [x: string]: string }) =>
                 element[field].toLowerCase().startsWith(filtervalue))
         }
     }
@@ -166,7 +144,7 @@ export class PassengerFormComponent {
         return passenger
     }
 
-    private buildForm(): void {
+    private initForm(): void {
         this.form = this.formBuilder.group({
             id: this.data.id,
             reservationId: this.data.reservationId,
@@ -187,7 +165,7 @@ export class PassengerFormComponent {
                 (response: any) => {
                     this[table] = response
                     resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterDropdownArray(table, modelProperty, value)))
                 }, (errorFromInterceptor: number) => {
                     this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 })

@@ -2,7 +2,9 @@
     margin-left: auto;
 }
 
-#qrCode {
-    width: 100px;
+#qr-code {
     height: 100px;
+    position: absolute;
+    width: 100px;
+    z-index: -1;
 }

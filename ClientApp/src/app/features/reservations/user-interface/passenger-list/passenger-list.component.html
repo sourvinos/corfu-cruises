@@ -15,7 +15,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
-                <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
+                <tr [pSelectableRow]="rowData" (dblclick)="editRecord(rowData)">
                     <td style="width: 50%;">{{ rowData.lastname }}</td>
                     <td style="width: 45%;">{{ rowData.firstname }}</td>
                     <td style="width: 5%; text-align: center;" (click)="onDeleteRow(rowData)">

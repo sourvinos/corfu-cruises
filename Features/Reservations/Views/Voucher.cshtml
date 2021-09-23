@@ -53,6 +53,11 @@
 
         #barcode {
             margin: auto 0 2rem 0;
+            width: 100%;
+        }
+
+        #barcode img {
+            width: 200px;
         }
     </style>
 </head>
@@ -105,11 +110,25 @@
                 </thead>
                 <tbody>
                     @foreach (var passenger in Model.Passengers)
+
+
+
+
+
+
+
                     {
                         <tr>
                             <td class="text">@passenger.Lastname</td>
                             <td class="text">@passenger.Firstname</td>
                         </tr>
+
+
+
+
+
+
+
                     }
                     <tr id="last-row">
                         <td colspan="2" class="text center">Total passengers: @Model.Passengers.Count()</td>

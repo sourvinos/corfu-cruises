@@ -16,14 +16,7 @@
             <button mat-mini-fab (click)="onDoVoucherTasksClient()">
                 <mat-icon>print</mat-icon>
             </button>
-            <button mat-mini-fab class="delete-fab" (click)="onDelete()" *ngIf="form.value.id !== 0 && onMustBeAdmin()">
-                <mat-icon>delete</mat-icon>
-            </button>
         </div>
-    </div>
-
-    <div id="capture">
-        <qr-Code [value]="url" [size]="size" [level]="level"></qr-Code>
     </div>
 
     <div id="content">
@@ -59,7 +52,7 @@
                             </div>
                             <div id="group-field">
                                 <mat-form-field>
-                                    <input type="text" matInput [placeholder]="onGetLabel('ticketNo')" formControlName="ticketNo" data-tabindex="4" id="ticketNo" [inputTabStop]="input" (keyup)="onDoBarcodeJobs()">
+                                    <input type="text" matInput [placeholder]="onGetLabel('ticketNo')" formControlName="ticketNo" data-tabindex="4" id="ticketNo" [inputTabStop]="input" (keyup)="doBarcodeTasks()">
                                     <mat-error *ngIf="ticketNo.hasError('required')">{{ onGetHint('required') }}</mat-error>
                                     <mat-error *ngIf="ticketNo.hasError('maxlength')">{{ onGetHint('maxLength', ticketNo.errors.maxlength.requiredLength) }}</mat-error>
                                 </mat-form-field>
@@ -98,7 +91,7 @@
                                 </mat-form-field>
                             </div>
                         </form>
-                        <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
+                        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
                     </ng-template>
                 </mat-tab>
                 <mat-tab label="{{ onGetLabel('tabPassengers') }}">
@@ -136,9 +129,14 @@
     </div>
 
     <div id="footer">
-        <div id="buttons">
+        <div @slideFromRight id="buttons">
+            <button mat-flat-button class="delete" *ngIf="form.value.id !== 0 && onMustBeAdmin()" id="delete" (click)="onDelete()">{{ onGetLabel('deleteButton') }}</button>
             <button mat-flat-button class="primary" (click)="onSave()" [disabled]="!form.valid">{{ onGetLabel('saveButton') }}</button>
         </div>
+    </div>
+
+    <div id="qr-code">
+        <qr-Code [value]="barcode.ticketNo" [size]="barcode.size" [level]="barcode.level"></qr-Code>
     </div>
 
 </div>

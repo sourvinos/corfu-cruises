@@ -715,19 +715,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Κρατηση"
+                "description": "Κράτηση"
             },
             {
                 "id": "tabGeneral",
-                "description": "Γενικα"
+                "description": "Γενικά"
             },
             {
                 "id": "tabPassengers",
-                "description": "Επιβατες"
+                "description": "Επιβάτες"
             },
             {
                 "id": "tabMoreInfo",
-                "description": "Λοιπα"
+                "description": "Λοιπά"
             },
             {
                 "id": "destination",
@@ -735,11 +735,11 @@
             },
             {
                 "id": "customer",
-                "description": "Πελατης"
+                "description": "Πελάτης"
             },
             {
                 "id": "pickupPoint",
-                "description": "Σημειο παραλαβης"
+                "description": "Σημείο παραλαβής"
             },
             {
                 "id": "ticketNo",
@@ -747,31 +747,31 @@
             },
             {
                 "id": "adults",
-                "description": "Ενηλικες"
+                "description": "Ενήλικες"
             },
             {
                 "id": "kids",
-                "description": "Παιδια"
+                "description": "Παιδιά"
             },
             {
                 "id": "free",
-                "description": "Δωρεαν"
+                "description": "Δωρεάν"
             },
             {
                 "id": "totalPersons",
-                "description": "Συνολο"
+                "description": "Σύνολο"
             },
             {
                 "id": "driver",
-                "description": "Οδηγος"
+                "description": "Οδηγός"
             },
             {
                 "id": "port",
-                "description": "Λιμανι"
+                "description": "Λιμάνι"
             },
             {
                 "id": "ship",
-                "description": "Πλοιο"
+                "description": "Πλοίο"
             },
             {
                 "id": "email",
@@ -779,15 +779,15 @@
             },
             {
                 "id": "phones",
-                "description": "Τηλεφωνα"
+                "description": "Τηλέφωνα"
             },
             {
                 "id": "remarks",
-                "description": "Παρατηρησεις"
+                "description": "Παρατηρήσεις"
             },
             {
                 "id": "abortButton",
-                "description": "Ακυρο"
+                "description": "ΑΚΥΡΟ"
             },
             {
                 "id": "deleteButton",
@@ -795,11 +795,11 @@
             },
             {
                 "id": "printVoucherButton",
-                "description": "Εκτυπωση"
+                "description": "ΕΚΤΥΠΩΣΗ"
             },
             {
                 "id": "sendVoucherButton",
-                "description": "Αποστολη στο email"
+                "description": "ΑΠΟΣΤΟΛΗ ΣΕ EMAIL"
             },
             {
                 "id": "saveButton",
@@ -1140,11 +1140,11 @@
         "labels": [
             {
                 "id": "headerLastname",
-                "description": "Επωνυμο"
+                "description": "Επώνυμο"
             },
             {
                 "id": "headerFirstname",
-                "description": "Ονομα"
+                "description": "Όνομα"
             },
             {
                 "id": "headerActions",
@@ -1181,39 +1181,39 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Επιβατης"
+                "description": "Επιβάτης"
             },
             {
                 "id": "lastname",
-                "description": "Επωνυμο"
+                "description": "Επώνυμο"
             },
             {
                 "id": "firstname",
-                "description": "Ονομα"
+                "description": "Όνομα"
             },
             {
                 "id": "nationality",
-                "description": "Εθνικοτητα"
+                "description": "Εθνικότητα"
             },
             {
                 "id": "birthdate",
-                "description": "Ημερ/νια γεννησης"
+                "description": "Ημερ/νία γέννησης"
             },
             {
                 "id": "gender",
-                "description": "Φυλο"
+                "description": "Φύλο"
             },
             {
                 "id": "specialCare",
-                "description": "Ειδικη φροντιδα"
+                "description": "Ειδική φροντίδα"
             },
             {
                 "id": "remarks",
-                "description": "Παρατηρησεις"
+                "description": "Παρατηρήσεις"
             },
             {
                 "id": "isCheckedIn",
-                "description": "Εχει επιβιβαστει"
+                "description": "Έχει επιβιβαστεί"
             },
             {
                 "id": "saveButton",

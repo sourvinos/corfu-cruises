@@ -3,8 +3,6 @@ import { Guid } from 'guid-typescript'
 import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 // Custom
-import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { Passenger } from '../../classes/models/passenger'
 import { PassengerFormComponent } from '../passenger-form/passenger-form.component'
@@ -25,26 +23,19 @@ export class PassengerListComponent {
     @Input() passengers: Passenger[] = []
     @Input() reservationId: Guid
     private ngUnsubscribe = new Subject<void>()
-    private unlisten: Unlisten
     public feature = 'passengerList'
-    public highlightFirstRow = false
 
     //#endregion
 
-    constructor(public dialog: MatDialog, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService) { }
+    constructor(public dialog: MatDialog, private messageLabelService: MessageLabelService) { }
 
     //#region lifecycle hooks
-
-    ngOnInit(): void {
-        this.addShortcuts()
-        // this.subscribeToInteractionService()
-    }
 
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
-        this.unlisten()
     }
+
     //#endregion
 
     //#region public methods
@@ -52,9 +43,10 @@ export class PassengerListComponent {
     public onDeleteRow(record: Passenger): void {
         const index = this.passengers.indexOf(record)
         this.passengers.splice(index, 1)
+        console.log(index, this.passengers)
     }
 
-    public onEditRecord(record: Passenger): void {
+    public editRecord(record: Passenger): void {
         this.showPassengerForm(record)
     }
 
@@ -69,25 +61,6 @@ export class PassengerListComponent {
     //#endregion
 
     //#region private methods
-
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': () => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    console.log('...')
-                }
-            }
-        }, {
-            priority: 2,
-            inputs: true
-        })
-    }
-
-    // private subscribeToInteractionService(): void {
-    //     this.interactionService.reservation.pipe(takeUntil(this.ngUnsubscribe)).subscribe(response => {
-    //         this.editRecord(response)
-    //     })
-    // }
 
     private populateForm(passenger: Passenger): void {
         const dialog = this.dialog.open(PassengerFormComponent, {
@@ -138,6 +111,7 @@ export class PassengerListComponent {
         dialog.afterClosed().subscribe((result: any) => {
             if (result) {
                 this.passengers.push(result)
+                this.passengers = [...this.passengers]
             }
         })
     }
