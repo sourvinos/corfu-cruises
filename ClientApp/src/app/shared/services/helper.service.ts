@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 import { Router } from '@angular/router'
-import moment from 'moment'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
@@ -16,15 +15,6 @@ export class HelperService {
 
     //#region public methods
 
-    public createJsonFile(data: any): void {
-        const theJSON = JSON.stringify(data)
-        const uri = 'data:application/json;charset=UTF-8,' + encodeURIComponent(theJSON)
-        const a = document.createElement('a')
-        a.href = uri
-        a.innerHTML = 'Right-click and choose \'save as...\''
-        document.body.appendChild(a)
-    }
-
     public deviceDetector(): string {
         return 'desktop'
     }
@@ -38,29 +28,11 @@ export class HelperService {
     }
 
     public formatDateToISO(date: string): string {
-        // const value = moment(date)
-        // return value.format('YYYY-MM-DD')
         return date.substr(0, 10)
     }
 
     public getApplicationTitle(): any {
         return this.appName
-    }
-
-    public getElementOuterHeight(element: string): any {
-        let height = document.getElementById(element).offsetHeight
-        const style = getComputedStyle(document.getElementById(element))
-        height += parseInt(style.marginTop) + parseInt(style.marginBottom)
-        height -= 32
-        return height + 'px'
-    }
-
-    public findElementById(element: string): boolean {
-        const x = document.getElementById(element)
-        if (typeof (x) != 'undefined' && x != null) {
-            return true
-        }
-        return false
     }
 
     public populateTableFiltersDropdowns(records: any[], field: string): any[] {
@@ -71,19 +43,6 @@ export class HelperService {
         })
         array.sort((a, b) => (a.label > b.label) ? 1 : -1)
         return array
-    }
-
-
-    public pushItemToFilteredArray(x: { [x: string]: string }, key: string | number, value: { target: any }, targetArray: any[]): any[] {
-        if (value.target.value.startsWith('*')) {
-            if (x[key].toUpperCase().includes(this.removeLeadingAsteriskFromString(value.target.value).toUpperCase())) {
-                targetArray.push(x)
-            }
-        }
-        if (x[key].toUpperCase().startsWith(value.target.value.toUpperCase())) {
-            targetArray.push(x)
-        }
-        return targetArray
     }
 
     public readLanguage(): string {
@@ -119,10 +78,6 @@ export class HelperService {
     //#endregion
 
     //#region private methods
-
-    private removeLeadingAsteriskFromString(value: string): string {
-        return value.substr(1, value.length)
-    }
 
     private getDefaultLanguage(): string {
         localStorage.setItem('language', 'en-GB')
