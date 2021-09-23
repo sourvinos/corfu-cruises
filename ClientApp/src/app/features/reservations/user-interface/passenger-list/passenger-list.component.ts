@@ -2,11 +2,11 @@ import { Component, Input, ViewChild } from '@angular/core'
 import { Guid } from 'guid-typescript'
 import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
+import { Table } from 'primeng/table'
 // Custom
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { Passenger } from '../../classes/models/passenger'
 import { PassengerFormComponent } from '../passenger-form/passenger-form.component'
-import { Table } from 'primeng/table'
 
 @Component({
     selector: 'passenger-list',
@@ -40,18 +40,18 @@ export class PassengerListComponent {
 
     //#region public methods
 
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
+    }
+
     public onDeleteRow(record: Passenger): void {
         const index = this.passengers.indexOf(record)
         this.passengers.splice(index, 1)
         console.log(index, this.passengers)
     }
 
-    public editRecord(record: Passenger): void {
+    public onEditRecord(record: Passenger): void {
         this.showPassengerForm(record)
-    }
-
-    public onGetLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
     }
 
     public onNew(): void {

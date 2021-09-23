@@ -36,6 +36,7 @@ import { VoucherService } from '../../classes/services/voucher.service'
 import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 import html2canvas from 'html2canvas'
+import { AccountService } from 'src/app/shared/services/account.service'
 
 @Component({
     selector: 'reservation-form',
@@ -55,6 +56,7 @@ export class ReservationFormComponent {
     public environment = environment.production
     public form: FormGroup
     public input: InputTabStopDirective
+    public isAdmin: boolean
 
     //#endregion
 
@@ -71,7 +73,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService) {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
                 this.getRecord(p.id)
@@ -83,10 +85,11 @@ export class ReservationFormComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.initForm()
-        this.populateFormWithDefaultValues()
         this.addShortcuts()
         this.populateDropDowns()
+        this.initForm()
+        this.populateFormWithDefaultValues()
+        this.getUserRole()
         this.getCustomer()
     }
 
@@ -159,10 +162,6 @@ export class ReservationFormComponent {
         })
     }
 
-    public onMustBeAdmin(): boolean {
-        return this.isAdmin()
-    }
-
     public correctPassengerCount(): boolean {
         return this.mapPassengers().length == this.form.value.totalPersons && this.form.value.totalPersons > 0
     }
@@ -204,11 +203,11 @@ export class ReservationFormComponent {
         })
     }
 
-    public onGetHint(id: string, minmax = 0): string {
+    public getHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
     }
 
-    public onGetLabel(id: string): string {
+    public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
@@ -296,6 +295,18 @@ export class ReservationFormComponent {
         }
     }
 
+    private getUserRole(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.accountService.isAdmin(this.helperService.readItem('userId')).toPromise().then(
+                (response) => {
+                    this.isAdmin = response.isAdmin
+                    resolve(this.isAdmin)
+                })
+        })
+        return promise
+    }
+
+
     private initForm(): void {
         this.form = this.formBuilder.group({
             reservationId: '',
@@ -318,10 +329,6 @@ export class ReservationFormComponent {
             imageBase64: '',
             passengers: []
         })
-    }
-
-    private isAdmin(): boolean {
-        return true
     }
 
     private isGuid(reservationId: string): any {
