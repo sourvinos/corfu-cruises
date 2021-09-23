@@ -3,8 +3,10 @@ import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-import { map, startWith, takeUntil } from 'rxjs/operators'
+import { map, startWith } from 'rxjs/operators'
+import html2canvas from 'html2canvas'
 // Custom
+import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerDropdownResource } from '../../classes/resources/form/dropdown/customer-dropdown-resource'
 import { CustomerService } from 'src/app/features/customers/classes/customer.service'
@@ -15,7 +17,6 @@ import { DriverDropdownResource } from '../../classes/resources/form/dropdown/dr
 import { DriverService } from 'src/app/features/drivers/classes/driver.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
-import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -27,16 +28,12 @@ import { PortService } from 'src/app/features/ports/classes/port.service'
 import { ReservationReadResource } from '../../classes/resources/form/reservation/reservation-read-resource'
 import { ReservationService } from '../../classes/services/reservation.service'
 import { ReservationWriteResource } from '../../classes/resources/form/reservation/reservation-write-resource'
-import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
 import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { UserService } from 'src/app/features/users/classes/user.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
 import { VoucherService } from '../../classes/services/voucher.service'
-import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import html2canvas from 'html2canvas'
-import { AccountService } from 'src/app/shared/services/account.service'
 
 @Component({
     selector: 'reservation-form',
@@ -53,7 +50,6 @@ export class ReservationFormComponent {
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
     private windowTitle = 'Reservation'
-    public environment = environment.production
     public form: FormGroup
     public input: InputTabStopDirective
     public isAdmin: boolean
@@ -63,7 +59,6 @@ export class ReservationFormComponent {
     //#region particular variables
 
     public barcode = { 'ticketNo': '', 'size': 128, 'level': 'M' }
-
     public filteredDestinations: Observable<Destination[]>
     public filteredCustomers: Observable<CustomerDropdownResource[]>
     public filteredPickupPoints: Observable<PickupPointDropdownResource[]>
@@ -73,7 +68,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService,  private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService) {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
                 this.getRecord(p.id)
@@ -91,12 +86,6 @@ export class ReservationFormComponent {
         this.populateFormWithDefaultValues()
         this.getUserRole()
         this.getCustomer()
-    }
-
-    ngDoCheck(): void {
-        this.interactionService.record.pipe(takeUntil(this.ngUnsubscribe)).subscribe(response => {
-            this.form.patchValue({ passengers: response })
-        })
     }
 
     ngOnDestroy(): void {
@@ -122,54 +111,28 @@ export class ReservationFormComponent {
 
     //#region public methods
 
-    public onCalculateTotalPersons(): boolean {
+    public calculateTotalPersons(): boolean {
         const totalPersons = parseInt(this.form.value.adults, 10) + parseInt(this.form.value.kids, 10) + parseInt(this.form.value.free, 10)
         this.form.patchValue({ totalPersons: Number(totalPersons) ? totalPersons : 0 })
         return totalPersons > 0 ? true : false
     }
 
-    public onCustomerFields(subject: { description: any }): any {
+    public dropdownFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
-    }
-
-    public onDestinationFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public onDriverFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-
-    }
-
-    public onPickupPointFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public onShipFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public onPortFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public onEmailVoucher(): void {
-        this.voucherService.createVoucherOnServer(this.form.value).subscribe(() => {
-            this.voucherService.emailVoucher(this.form.value.email)
-            this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
-        }, () => {
-            this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
-        })
-    }
-
-    public correctPassengerCount(): boolean {
-        return this.mapPassengers().length == this.form.value.totalPersons && this.form.value.totalPersons > 0
     }
 
     public doBarcodeTasks(): void {
         this.createBarcodeFromTicketNo().then(() => {
             this.convertCanvasToBase64()
         })
+    }
+
+    public getHint(id: string, minmax = 0): string {
+        return this.messageHintService.getDescription(id, minmax)
+    }
+
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
     }
 
     public onDoVoucherTasksClient(): void {
@@ -195,7 +158,6 @@ export class ReservationFormComponent {
                     this.resetForm()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
                     this.onGoBack()
-                    this.interactionService.removeTableRow(this.getRowIndex(this.form.value.reservationId))
                 }, errorFromInterceptor => {
                     this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 })
@@ -203,19 +165,32 @@ export class ReservationFormComponent {
         })
     }
 
-    public getHint(id: string, minmax = 0): string {
-        return this.messageHintService.getDescription(id, minmax)
-    }
-
-    public getLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
-    }
-
     public onGoBack(): void {
         this.router.navigate([this.activatedRoute.snapshot.queryParams['returnUrl']])
     }
 
-    public onUpdatePort(value: PickupPointDropdownResource): void {
+    public onSave(): void {
+        const reservation: ReservationWriteResource = this.mapObject()
+        if (reservation.reservationId == null) {
+            this.reservationService.add(reservation).subscribe(() => {
+                this.resetForm()
+                this.onGoBack()
+                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+            }, errorCode => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            })
+        } else {
+            this.reservationService.update(this.form.value.reservationId, reservation).subscribe(() => {
+                this.resetForm()
+                this.onGoBack()
+                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+            }, errorCode => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            })
+        }
+    }
+
+    public updatePort(value: PickupPointDropdownResource): void {
         this.form.patchValue({ port: { 'id': value.port.id, 'description': value.port.description } })
     }
 
@@ -232,7 +207,7 @@ export class ReservationFormComponent {
             },
             'Alt.S': (event: KeyboardEvent) => {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    if (this.onCalculateTotalPersons())
+                    if (this.calculateTotalPersons())
                         this.buttonClickService.clickOnButton(event, 'save')
                 }
             }
@@ -286,15 +261,6 @@ export class ReservationFormComponent {
         })
     }
 
-    private getRowIndex(recordId: string): number {
-        const table = <HTMLTableElement>document.querySelector('table')
-        for (let i = 0; i < table.rows.length; i++) {
-            if (table.rows[i].cells[1].innerText == recordId) {
-                return i - 1
-            }
-        }
-    }
-
     private getUserRole(): Promise<any> {
         const promise = new Promise((resolve) => {
             this.accountService.isAdmin(this.helperService.readItem('userId')).toPromise().then(
@@ -305,7 +271,6 @@ export class ReservationFormComponent {
         })
         return promise
     }
-
 
     private initForm(): void {
         this.form = this.formBuilder.group({
@@ -467,33 +432,8 @@ export class ReservationFormComponent {
         this.form.reset()
     }
 
-    public onSave(): void {
-        const reservation: ReservationWriteResource = this.mapObject()
-        if (reservation.reservationId == null) {
-            this.reservationService.add(reservation).subscribe(() => {
-                this.resetForm()
-                this.onGoBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
-            })
-        } else {
-            this.reservationService.update(this.form.value.reservationId, reservation).subscribe(() => {
-                this.resetForm()
-                this.onGoBack()
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
-            })
-        }
-    }
-
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
-    }
-
-    private showScheduleNotFound(): void {
-        this.dialogService.open('errorColor', this.messageSnackbarService.noScheduleFoundWithDetails(), ['ok'])
     }
 
     private showSnackbar(message: string, type: string): void {

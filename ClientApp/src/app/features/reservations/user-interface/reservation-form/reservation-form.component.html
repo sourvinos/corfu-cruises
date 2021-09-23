@@ -55,17 +55,17 @@
                                     <mat-error *ngIf="ticketNo.hasError('maxlength')">{{ getHint('maxLength', ticketNo.errors.maxlength.requiredLength) }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input type="number" matInput [placeholder]="getLabel('adults')" formControlName="adults" data-tabindex="5" id="adults" [inputTabStop]="input" class="number" (keyup)="onCalculateTotalPersons()">
+                                    <input type="number" matInput [placeholder]="getLabel('adults')" formControlName="adults" data-tabindex="5" id="adults" [inputTabStop]="input" class="number" (keyup)="calculateTotalPersons()">
                                     <mat-error *ngIf="adults.hasError('required')">{{ getHint('required') }}</mat-error>
                                     <mat-error *ngIf="!adults.hasError('required') && adults.hasError('min') || adults.hasError('max')">{{ getHint('invalid') }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input type="number" matInput [placeholder]="getLabel('kids')" formControlName="kids" data-tabindex="6" id="kids" [inputTabStop]="input" class="number" (keyup)="onCalculateTotalPersons()">
+                                    <input type="number" matInput [placeholder]="getLabel('kids')" formControlName="kids" data-tabindex="6" id="kids" [inputTabStop]="input" class="number" (keyup)="calculateTotalPersons()">
                                     <mat-error *ngIf="kids.hasError('required')">{{ getHint('required') }}</mat-error>
                                     <mat-error *ngIf="!kids.hasError('required') && kids.hasError('min') || kids.hasError('max')">{{ getHint('invalid') }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input type="number" matInput [placeholder]="getLabel('free')" formControlName="free" data-tabindex="7" id="free" [inputTabStop]="input" class="number" (keyup)="onCalculateTotalPersons()">
+                                    <input type="number" matInput [placeholder]="getLabel('free')" formControlName="free" data-tabindex="7" id="free" [inputTabStop]="input" class="number" (keyup)="calculateTotalPersons()">
                                     <mat-error *ngIf="free.hasError('required')">{{ getHint('required') }}</mat-error>
                                     <mat-error *ngIf="!free.hasError('required') && free.hasError('min') || free.hasError('max')">{{ getHint('invalid') }}</mat-error>
                                 </mat-form-field>
@@ -139,37 +139,37 @@
 
 </div>
 
-<mat-autocomplete autoActiveFirstOption #destinations="matAutocomplete" [displayWith]="onDestinationFields">
+<mat-autocomplete autoActiveFirstOption #destinations="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of filteredDestinations | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #customers="matAutocomplete" [displayWith]="onCustomerFields">
+<mat-autocomplete autoActiveFirstOption #customers="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of filteredCustomers | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #drivers="matAutocomplete" [displayWith]="onDriverFields">
+<mat-autocomplete autoActiveFirstOption #drivers="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of filteredDrivers | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #ships="matAutocomplete" [displayWith]="onShipFields">
+<mat-autocomplete autoActiveFirstOption #ships="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of filteredShips | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #ports="matAutocomplete" [displayWith]="onPortFields">
+<mat-autocomplete autoActiveFirstOption #ports="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of filteredPorts | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #pickupPoints="matAutocomplete" [displayWith]="onPickupPointFields" (optionSelected)="onUpdatePort($event.option.value)">
+<mat-autocomplete autoActiveFirstOption #pickupPoints="matAutocomplete" [displayWith]="dropdownFields" (optionSelected)="updatePort($event.option.value)">
     <mat-option *ngFor="let option of filteredPickupPoints | async" [value]="option">
         <span>{{ option.description }}</span>
         <span>{{ option.exactPoint }}</span>
