@@ -22,9 +22,30 @@ namespace BlueWaterCruises.Features.Schedules {
             return await context.Schedules.Include(p => p.Port).Include(p => p.Destination).ToListAsync();
         }
 
-        public Boolean IsSchedule(DateTime date) {
+        public Boolean DayHasSchedule(DateTime date) {
             var schedule = context.Schedules
                 .Where(x => x.Date == date)
+                .ToList();
+            return schedule.Count() != 0;
+        }
+
+        public Boolean DayHasScheduleForDestination(DateTime date, int destinationId) {
+            var schedule = context.Schedules
+                .Where(x => x.Date == date && x.DestinationId == destinationId)
+                .ToList();
+            return schedule.Count() != 0;
+        }
+
+        public Boolean PortHasDepartures(DateTime date, int destinationId, int portId) {
+            var schedule = context.Schedules
+                .Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId)
+                .ToList();
+            return schedule.Count() != 0;
+        }
+
+        public Boolean PortHasVacancy(DateTime date, int destinationId, int portId) {
+            var schedule = context.Schedules
+                .Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId)
                 .ToList();
             return schedule.Count() != 0;
         }

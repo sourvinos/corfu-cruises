@@ -33,7 +33,7 @@ namespace BlueWaterCruises.Features.Schedules {
 
         [HttpGet("[action]/date/{date}")]
         public Boolean IsSchedule(DateTime date) {
-            return repo.IsSchedule(date);
+            return repo.DayHasSchedule(date);
         }
 
         [HttpGet("[action]/destinationId/{destinationId}")]

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BlueWaterCruises.Features.Schedules;
 
 namespace BlueWaterCruises.Features.Reservations {
 
@@ -14,8 +15,8 @@ namespace BlueWaterCruises.Features.Reservations {
         void AssignToDriver(int driverId, string[] ids);
         void AssignToShip(int shipId, string[] ids);
         bool IsKeyUnique(ReservationWriteResource record);
-
         IEnumerable<ReservationResource> GetForPeriod(string fromDate, string toDate);
+        int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo);
 
     }
 

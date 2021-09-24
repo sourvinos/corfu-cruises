@@ -30,6 +30,10 @@ namespace BlueWaterCruises {
         public static string InvalidModel() { return "The model is invalid"; }
         public static string EmailNotSent() { return "Email not sent"; }
         public static string DuplicateRecord() { return "Duplicate records are not allowed"; }
+        public static string DayHasNoSchedule() { return "For this day nothing is scheduled"; }
+        public static string DayHasNoScheduleForDestination() { return "For this day and destination nothing is scheduled"; }
+        public static string PortHasNoDepartures() { return "For this day and destination, nothing is scheduled to depart from the given port"; }
+        public static string PortHasNoVacancy() { return "Overbooking in not allowed"; }
 
         #endregion
 

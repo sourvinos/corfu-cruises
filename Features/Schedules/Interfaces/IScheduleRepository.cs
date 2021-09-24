@@ -7,7 +7,10 @@ namespace BlueWaterCruises.Features.Schedules {
     public interface IScheduleRepository : IRepository<Schedule> {
 
         Task<IList<Schedule>> Get();
-        Boolean IsSchedule(DateTime date);
+        Boolean DayHasSchedule(DateTime date);
+        Boolean DayHasScheduleForDestination(DateTime date, int destinationId);
+        Boolean PortHasDepartures(DateTime date, int destinationId, int portId);
+        Boolean PortHasVacancy(DateTime date, int destinationId, int portId);
         Task<IList<ScheduleReadResource>> GetForDestination(int destinationId);
         ScheduleReadResource GetForDateAndDestination(DateTime date, int destinationId);
         ScheduleReadResource GetForDateAndDestinationAndPort(DateTime date, int destinationId, int portId);
