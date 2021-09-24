@@ -118,6 +118,5 @@
 </div>
 
 <div id="video">
-    <qr-scanner [debug]="false" [canvasWidth]="300" [canvasHeight]="320" [stopAfterScan]="true" [updateTime]="500"></qr-scanner>
-    <button mat-flat-button class="secondary" id="scanCloseButton" (click)="onHideScanner()">{{ onGetLabel('scanCloseButton') }}</button>
+    <zxing-scanner [enable]="scannerEnabled" (scanSuccess)="doSomething($event)" (hasDevices)="hasDevices()" (camerasFound)="camerasFound()"></zxing-scanner>    <button mat-flat-button class="secondary" id="scanCloseButton" (click)="onHideScanner()">{{ onGetLabel('scanCloseButton') }}</button>
 </div>

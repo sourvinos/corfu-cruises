@@ -1,5 +1,5 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
+import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
@@ -11,7 +11,6 @@ import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
-import { QrScannerComponent } from 'angular2-qrscanner'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -33,13 +32,13 @@ export class EmbarkationListComponent {
     public feature = 'embarkationList'
     public filteredRecords: EmbarkationCompositeViewModel
     public records: EmbarkationCompositeViewModel
-    public searchTerm: string
 
     private temp = []
     public customers = []
     public drivers = []
 
-    @ViewChild(QrScannerComponent, { static: false }) qrScannerComponent: QrScannerComponent
+    public scannerEnabled: boolean
+    public searchTerm: string
 
     //#endregion
 
@@ -96,37 +95,31 @@ export class EmbarkationListComponent {
     }
 
     public onHideScanner(): void {
+        this.scannerEnabled = false
         document.getElementById('video').style.display = 'none'
     }
 
     public onShowScanner(): void {
-        this.positionVideo()
-        this.qrScannerComponent.getMediaDevices().then(devices => {
-            const videoDevices: MediaDeviceInfo[] = []
-            for (const device of devices) {
-                if (device.kind.toString() === 'videoinput') {
-                    videoDevices.push(device)
-                }
-            }
-            if (videoDevices.length > 0) {
-                let choosenDev: MediaDeviceInfo
-                for (const dev of videoDevices) {
-                    if (dev.label.includes('front')) {
-                        choosenDev = dev
-                        break
-                    }
-                }
-                if (choosenDev) {
-                    this.qrScannerComponent.chooseCamera.next(choosenDev)
-                } else {
-                    this.qrScannerComponent.chooseCamera.next(videoDevices[0])
-                }
-            }
-        })
-        this.qrScannerComponent.capturedQr.subscribe((result: any) => {
-            this.onHideScanner()
-            this.filterByTicketNo(result)
-        })
+        console.log('Showing scanner window')
+        this.searchTerm = ''
+        this.scannerEnabled = true
+        setTimeout(() => {
+            this.positionVideo()
+        }, 1000)
+    }
+
+    public doSomething(event: string): void {
+        this.scannerEnabled = false
+        document.getElementById('video').style.display = 'none'
+        this.filterByTicketNo(event)
+    }
+
+    public hasDevices(): void {
+        console.log('Devices found')
+    }
+
+    public camerasFound(): void {
+        console.log('Camera list')
     }
 
     //#endregion

@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { NgModule } from '@angular/core'
-import { NgQrScannerModule } from 'angular2-qrscanner'
-import { QRCodeModule } from 'angular2-qrcode'
 import { RouterModule } from '@angular/router'
 import { ZXingScannerModule } from '@zxing/ngx-scanner'
+import { QRCodeModule } from 'angular2-qrcode'
 // Custom
 import { DialogAlertComponent } from '../components/dialog-alert/dialog-alert.component'
 import { DisableToogleDirective } from '../directives/mat-slide-toggle.directive'
@@ -40,15 +39,16 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
     ],
     exports: [
         CommonModule,
+        FormsModule,
+        MaterialModule,
+        PrimeNgModule,
+        QRCodeModule,
+        ZXingScannerModule,
         DisableToogleDirective,
         FormatNumberPipe,
-        FormsModule,
         InputFormatDirective,
         InputTabStopDirective,
         MapComponent,
-        MaterialModule,
-        NgQrScannerModule,
-        PrimeNgModule,
         QRCodeComponent,
         ReactiveFormsModule,
         RouterModule
