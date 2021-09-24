@@ -50,36 +50,11 @@ namespace BlueWaterCruises.Features.Schedules {
             return schedule.Count() != 0;
         }
 
-        public async Task<IList<ScheduleReadResource>> GetForDestination(int destinationId) {
-            var schedules = await context.Schedules
-                .Where(x => x.DestinationId == destinationId)
-                .OrderBy(p => p.Date).ThenBy(p => p.PortId)
-                .ToListAsync();
-            return mapper.Map<IList<Schedule>, IList<ScheduleReadResource>>(schedules);
-        }
-
-        public ScheduleReadResource GetForDateAndDestination(DateTime date, int destinationId) {
-            int maxPersons = 0;
-            maxPersons = context.Schedules.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.MaxPersons);
-            var schedule = new ScheduleReadResource {
-                Date = date.ToShortDateString(),
-                DestinationId = destinationId,
-                PortId = null,
-                MaxPersons = maxPersons
-            };
-            return schedule;
-        }
-
-        public ScheduleReadResource GetForDateAndDestinationAndPort(DateTime date, int destinationId, int portId) {
-            int maxPersons = 0;
-            maxPersons = context.Schedules.Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId).Sum(x => x.MaxPersons);
-            var schedule = new ScheduleReadResource {
-                Date = date.ToShortDateString(),
-                DestinationId = destinationId,
-                PortId = portId,
-                MaxPersons = maxPersons
-            };
-            return schedule;
+         public IEnumerable<ScheduleReservationGroup> DoCalendarTasks(string fromDate, string toDate) {
+            var schedule = this.GetScheduleForPeriod(fromDate, toDate);
+            var reservations = this.GetReservationsForPeriod(fromDate, toDate);
+            var calendarData = this.UpdateCalendarData(this.GetScheduleForPeriod(fromDate, toDate), this.GetReservationsForPeriod(fromDate, toDate));
+            return calendarData;
         }
 
         public new async Task<Schedule> GetById(int ScheduleId) {
@@ -109,14 +84,7 @@ namespace BlueWaterCruises.Features.Schedules {
                 context.SaveChanges();
             }
         }
-
-        public IEnumerable<ScheduleReservationGroup> DoTasks(string fromDate, string toDate) {
-            var schedule = this.GetScheduleForPeriod(fromDate, toDate);
-            var reservations = this.GetReservationsForPeriod(fromDate, toDate);
-            var calendarData = this.UpdateCalendarData(this.GetScheduleForPeriod(fromDate, toDate), this.GetReservationsForPeriod(fromDate, toDate));
-            return calendarData;
-        }
-
+ 
         private IEnumerable<ScheduleResource> GetScheduleForPeriod(string fromDate, string toDate) {
             var response = context.Schedules
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))

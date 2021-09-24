@@ -19,6 +19,37 @@ namespace BlueWaterCruises.Features.Reservations {
             this.userManager = userManager;
         }
 
+        public IEnumerable<ReservationResource> GetForPeriod(string fromDate, string toDate) {
+            var response = context.Reservations
+                .Include(x => x.Destination)
+                .Include(x => x.Port)
+                .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
+                .OrderBy(x => x.Date).ThenBy(x => x.Destination.Description).ThenBy(x => !x.Port.IsPrimary)
+                .AsEnumerable()
+                .GroupBy(x => x.Date)
+                .Select(x => new ReservationResource {
+                    Date = Extensions.DateToString(x.Key.Date),
+                    Destinations = x.GroupBy(x => new { x.Destination.Id, x.Destination.Description })
+                        .Select(x => new DestinationResource {
+                            Id = x.Key.Id,
+                            Description = x.Key.Description,
+                            Ports = x.GroupBy(x => new { x.Port.Id, x.Port.Description }).Select(x => new PortResource {
+                                Id = x.Key.Id,
+                                Description = x.Key.Description,
+                                Persons = x.Select(r => r.TotalPersons).Sum()
+                            })
+                        }).ToList()
+                }).ToList();
+            return response;
+        }
+
+        public async Task<Reservation> GetSingleToDelete(string id) {
+            var reservation = await context.Reservations
+                .Include(x => x.Passengers)
+                .FirstAsync(x => x.ReservationId.ToString() == id);
+            return reservation;
+        }
+
         public async Task<ReservationGroupResource<ReservationListResource>> GetForDate(string date) {
             var reservations = await context.Reservations
                 .Include(x => x.Customer)
@@ -48,35 +79,6 @@ namespace BlueWaterCruises.Features.Reservations {
             return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
         }
 
-        public IEnumerable<MainResult> GetForDestination(int destinationId) {
-            var totalReservationsPerDestination = context.Reservations
-                .Where(x => x.DestinationId == destinationId)
-                .AsEnumerable()
-                .GroupBy(x => new { x.Date })
-                .Select(x => new MainResult {
-                    Date = Convert.ToDateTime(x.Key.Date),
-                    DestinationId = destinationId,
-                    PortPersons = x.GroupBy(z => z.PortId).Select(z => new PortPersons {
-                        PortId = z.Key,
-                        Persons = z.Sum(x => x.TotalPersons)
-                    }).OrderBy(x => x.PortId)
-                }).OrderBy(x => x.Date);
-            return totalReservationsPerDestination;
-        }
-
-        public ReservationTotalPersons GetForDateAndDestinationAndPort(string date, int destinationId, int portId) {
-            var totalPersons = context.Reservations
-                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.PortId == portId)
-                .Sum(x => x.TotalPersons);
-            var reservationTotalPersons = new ReservationTotalPersons {
-                Date = date,
-                DestinationId = destinationId,
-                PortId = portId,
-                TotalPersons = totalPersons
-            };
-            return reservationTotalPersons;
-        }
-
         public async Task<ReservationReadResource> GetSingle(string id) {
             var reservation = await context.Reservations
                 .Include(x => x.Customer)
@@ -92,11 +94,11 @@ namespace BlueWaterCruises.Features.Reservations {
             return mapper.Map<Reservation, ReservationReadResource>(reservation);
         }
 
-        public async Task<Reservation> GetSingleToDelete(string id) {
-            var reservation = await context.Reservations
-                .Include(x => x.Passengers)
-                .FirstAsync(x => x.ReservationId.ToString() == id);
-            return reservation;
+        public bool IsKeyUnique(ReservationWriteResource record) {
+            if (context.Reservations.Count(x => x.Date == Convert.ToDateTime(record.Date) && x.DestinationId == record.DestinationId && x.CustomerId == record.CustomerId && x.TicketNo.ToUpper() == record.TicketNo.ToUpper()) == 0) {
+                return true;
+            }
+            return false;
         }
 
         public bool Update(string id, Reservation updatedRecord) {
@@ -111,6 +113,23 @@ namespace BlueWaterCruises.Features.Reservations {
                 transaction.Rollback();
                 return false;
             }
+        }
+
+        public int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
+            switch (true) {
+                case var x when x = !scheduleRepo.DayHasSchedule(DateTime.Parse(record.Date)):
+                    return 432;
+                case var x when x = !scheduleRepo.DayHasScheduleForDestination(DateTime.Parse(record.Date), record.DestinationId):
+                    return 430;
+                case var x when x = !scheduleRepo.PortHasDepartures(DateTime.Parse(record.Date), record.DestinationId, record.PortId):
+                    return 427;
+                case var x when x = !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.DestinationId, record.PortId, record.Adults + record.Kids + record.Free):
+                    return 433;
+                case var x when x = !this.IsKeyUnique(record):
+                    return 409;
+                default:
+                    return 200;
+            };
         }
 
         public void AssignToDriver(int driverId, string[] ids) {
@@ -135,11 +154,6 @@ namespace BlueWaterCruises.Features.Reservations {
             context.SaveChanges();
         }
 
-        private void RemovePassengers(IEnumerable<Passenger> passengers) {
-            context.Passengers.RemoveRange(passengers);
-            context.SaveChanges();
-        }
-
         private void AddPassengers(Reservation updatedRecord) {
             var records = new List<Passenger>();
             foreach (var record in updatedRecord.Passengers) {
@@ -149,56 +163,9 @@ namespace BlueWaterCruises.Features.Reservations {
             context.SaveChanges();
         }
 
-        public bool IsKeyUnique(ReservationWriteResource record) {
-            if (context.Reservations.Count(x => x.Date == Convert.ToDateTime(record.Date) && x.DestinationId == record.DestinationId && x.CustomerId == record.CustomerId && x.TicketNo.ToUpper() == record.TicketNo.ToUpper()) == 0) {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsUserAdmin(bool isAdmin) {
-            return isAdmin;
-        }
-
-        public IEnumerable<ReservationResource> GetForPeriod(string fromDate, string toDate) {
-            var response = context.Reservations
-                .Include(x => x.Destination)
-                .Include(x => x.Port)
-                .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
-                .OrderBy(x => x.Date).ThenBy(x => x.Destination.Description).ThenBy(x => !x.Port.IsPrimary)
-                .AsEnumerable()
-                .GroupBy(x => x.Date)
-                .Select(x => new ReservationResource {
-                    Date = Extensions.DateToString(x.Key.Date),
-                    Destinations = x.GroupBy(x => new { x.Destination.Id, x.Destination.Description })
-                        .Select(x => new DestinationResource {
-                            Id = x.Key.Id,
-                            Description = x.Key.Description,
-                            Ports = x.GroupBy(x => new { x.Port.Id, x.Port.Description }).Select(x => new PortResource {
-                                Id = x.Key.Id,
-                                Description = x.Key.Description,
-                                Persons = x.Select(r => r.TotalPersons).Sum()
-                            })
-                        }).ToList()
-                }).ToList();
-            return response;
-        }
-
-        public int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
-            switch (true) {
-                case var x when x = !scheduleRepo.DayHasSchedule(DateTime.Parse(record.Date)):
-                    return 432;
-                case var x when x = !scheduleRepo.DayHasScheduleForDestination(DateTime.Parse(record.Date), record.DestinationId):
-                    return 430;
-                case var x when x = !scheduleRepo.PortHasDepartures(DateTime.Parse(record.Date), record.DestinationId, record.PortId):
-                    return 427;
-                case var x when x = !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.DestinationId, record.PortId, record.Adults + record.Kids + record.Free):
-                    return 433;
-                case var x when x = !this.IsKeyUnique(record):
-                    return 409;
-                default:
-                    return 200;
-            };
+        private void RemovePassengers(IEnumerable<Passenger> passengers) {
+            context.Passengers.RemoveRange(passengers);
+            context.SaveChanges();
         }
 
         private bool PortHasVacancy(IScheduleRepository scheduleRepo, string fromDate, string toDate, int destinationId, int portId, int reservationPersons) {
@@ -207,7 +174,7 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         private int GetPortMaxPersons(IScheduleRepository scheduleRepo, string fromDate, string toDate, int destinationId, int portId) {
-            IEnumerable<ScheduleReservationGroup> schedule = scheduleRepo.DoTasks(fromDate, toDate).ToList();
+            IEnumerable<ScheduleReservationGroup> schedule = scheduleRepo.DoCalendarTasks(fromDate, toDate).ToList();
             var port = schedule.Select(x => x.Destinations.SingleOrDefault(x => x.Id == destinationId).Ports.SingleOrDefault(x => x.Id == portId)).Select(x => new { MaxPersons = x.Empty }).ToList();
             return port[0].MaxPersons;
         }

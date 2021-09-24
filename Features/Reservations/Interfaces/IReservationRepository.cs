@@ -6,17 +6,15 @@ namespace BlueWaterCruises.Features.Reservations {
 
     public interface IReservationRepository : IRepository<Reservation> {
 
-        Task<ReservationGroupResource<ReservationListResource>> GetForDate(string date);
-        IEnumerable<MainResult> GetForDestination(int destinationId);
-        ReservationTotalPersons GetForDateAndDestinationAndPort(string date, int destinationId, int portId);
-        Task<ReservationReadResource> GetSingle(string id);
+        IEnumerable<ReservationResource> GetForPeriod(string fromDate, string toDate);
         Task<Reservation> GetSingleToDelete(string id);
+        Task<ReservationGroupResource<ReservationListResource>> GetForDate(string date);
+        Task<ReservationReadResource> GetSingle(string id);
+        bool IsKeyUnique(ReservationWriteResource record);
         bool Update(string id, Reservation updatedRecord);
+        int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo);
         void AssignToDriver(int driverId, string[] ids);
         void AssignToShip(int shipId, string[] ids);
-        bool IsKeyUnique(ReservationWriteResource record);
-        IEnumerable<ReservationResource> GetForPeriod(string fromDate, string toDate);
-        int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo);
 
     }
 

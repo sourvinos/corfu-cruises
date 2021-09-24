@@ -27,20 +27,14 @@ namespace BlueWaterCruises.Features.Reservations {
             this.mapper = mapper;
         }
 
+        [HttpGet("from/{fromdate}/to/{todate}")]
+        public IEnumerable<ReservationResource> GetForPeriod(string fromDate, string toDate) {
+            return reservationRepo.GetForPeriod(fromDate, toDate);
+        }
+
         [HttpGet("date/{date}")]
         public async Task<ReservationGroupResource<ReservationListResource>> GetForDate(string date) {
             return await this.reservationRepo.GetForDate(date);
-        }
-
-        [HttpGet("[action]/destinationId/{destinationId}")]
-        public IEnumerable<MainResult> GetForDestination(int destinationId) {
-            var records = reservationRepo.GetForDestination(destinationId);
-            return records;
-        }
-
-        [HttpGet("[action]/date/{date}/destinationId/{destinationId}/portId/{portId}")]
-        public ReservationTotalPersons GetForDateAndDestinationAndPort(string date, int destinationId, int portId) {
-            return reservationRepo.GetForDateAndDestinationAndPort(date, destinationId, portId);
         }
 
         [HttpGet("{id}")]
@@ -153,11 +147,6 @@ namespace BlueWaterCruises.Features.Reservations {
                     response = ApiMessages.RecordNotSaved()
                 });
             }
-        }
-
-        [HttpGet("from/{fromdate}/to/{todate}")]
-        public IEnumerable<ReservationResource> GetForPeriod(string fromDate, string toDate) {
-            return reservationRepo.GetForPeriod(fromDate, toDate);
         }
 
         private IActionResult GetErrorMessage(int errorCode) {

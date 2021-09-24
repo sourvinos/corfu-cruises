@@ -1,29 +1,20 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
+// Custom
 import { DataService } from 'src/app/shared/services/data.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { ReservationGroupResource } from '../resources/list/reservation-group-resource'
-import { ReservationByDate } from '../view-models/reservation-by-date'
 
 @Injectable({ providedIn: 'root' })
 
 export class ReservationService extends DataService {
 
-    constructor(http: HttpClient, private helperService: HelperService) {
+    constructor(http: HttpClient) {
         super(http, '/api/reservations')
     }
 
     get(date: string): Observable<ReservationGroupResource> {
         return this.http.get<ReservationGroupResource>(this.url + '/date/' + date)
-    }
-
-    getByDate(destinationId: number): Promise<any> {
-        return this.http.get<ReservationByDate>(this.url + '/getForDestination' + '/destinationId/' + destinationId).toPromise()
-    }
-
-    getByDateDestinationPort(date: string, destinationId: number, portId: number): Promise<any> {
-        return this.http.get<any>(this.url + '/getForDateAndDestinationAndPort/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId).toPromise()
     }
 
     assignToDriver(driverId: string, records: any[]): Observable<any> {
@@ -44,10 +35,6 @@ export class ReservationService extends DataService {
             }
         })
         return this.http.patch(this.url + '/assignToShip?', null, { params: params })
-    }
-
-    public getForPeriod(fromDate: string, toDate: string): Promise<any> {
-        return this.http.get<any>(this.url + '/from/' + fromDate + '/to/' + toDate).toPromise()
     }
 
 }

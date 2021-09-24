@@ -79,7 +79,6 @@ export class CalendarComponent {
             document.getElementById(id).style.transform = 'scale(2,2)'
             document.getElementById(id).style.zIndex = '1'
             document.getElementById(id).style.width = '120%'
-            // document.getElementById(id).style.display = 'flex'
         }
     }
 
@@ -88,7 +87,6 @@ export class CalendarComponent {
             document.getElementById(id).style.transform = 'scale(1,1)'
             document.getElementById(id).style.zIndex = '0'
             document.getElementById(id).style.width = '100%'
-            // document.getElementById(id).style.display = 'none'
         }
     }
 
