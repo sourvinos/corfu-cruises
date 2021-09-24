@@ -7,30 +7,30 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table (onLazyLoad)="loadCustomersLazy($event)" [autoLayout]="false" [lazy]="true" [lazy]="true" [scrollable]="true" [value]="virtualRecords" [virtualRowHeight]="35" [virtualScroll]="true" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="customer-list" stateStorage="local">
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="destination-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ onGetLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
-                    <th style="width: 50%;" pSortableColumn="description">{{ onGetLabel('headerName') }}<p-sortIcon field="description"></p-sortIcon></th>
-                    <th style="width: 20%;" pSortableColumn="email">{{ onGetLabel('headerEmail') }}<p-sortIcon field="email"></p-sortIcon></th>
-                    <th style="width: 18%; border-top-right-radius: 10px;" pSortableColumn="phones">{{ onGetLabel('headerPhones') }}<p-sortIcon field="phones"></p-sortIcon>
+                    <th style="min-width: 12%; max-width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ onGetLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th style="min-width: 50%; max-width: 50%;" pSortableColumn="description">{{ onGetLabel('headerName') }}<p-sortIcon field="description"></p-sortIcon></th>
+                    <th style="min-width: 20%; max-width: 20%;" pSortableColumn="email">{{ onGetLabel('headerEmail') }}<p-sortIcon field="email"></p-sortIcon></th>
+                    <th style="min-width: 18%; max-width: 18%; border-top-right-radius: 10px;" pSortableColumn="phones">{{ onGetLabel('headerPhones') }}<p-sortIcon field="phones"></p-sortIcon>
                     </th>
                 </tr>
                 <tr>
-                    <th><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
-                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
-                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'email', 'contains')" [value]="$any(table).filters['email']?.value"></th>
-                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'phones', 'contains')" [value]="$any(table).filters['phones']?.value"></th>
+                    <th style="min-width: 12%; max-width: 12%;"><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
+                    <th style="min-width: 50%; max-width: 50%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
+                    <th style="min-width: 20%; max-width: 20%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'email', 'contains')" [value]="$any(table).filters['email']?.value"></th>
+                    <th style="min-width: 18%; max-width: 18%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'phones', 'contains')" [value]="$any(table).filters['phones']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
-                    <td style="width: 12%; text-align: center;">
+                    <td style="min-width: 12%; max-width: 12%; justify-content: center;">
                         <i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i>
                     </td>
-                    <td style="width: 50%;">{{ rowData.description }}</td>
-                    <td style="width: 20%;">{{ rowData.email }}</td>
-                    <td style="width: 18%;">{{ rowData.phones }}</td>
+                    <td style="min-width: 50%; max-width: 50%;">{{ rowData.description }}</td>
+                    <td style="min-width: 20%; max-width: 20%;">{{ rowData.email }}</td>
+                    <td style="min-width: 18%; max-width: 18%;">{{ rowData.phones }}</td>
                 </tr>
             </ng-template>
         </p-table>
