@@ -7,29 +7,21 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table (onFilter)="onFilter($event)" [autoLayout]="false" [customSort]="true" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" stateKey="registrar-list" stateStorage="local">
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="registrar-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 10%; border-top-left-radius: 10px;">{{ onGetLabel('headerIsActive') }}</th>
-                    <th style="width: 90%; border-top-right-radius: 10px;">{{ onGetLabel('headerFullname') }}</th>
+                    <th style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;">{{ onGetLabel('headerIsActive') }}</th>
+                    <th style="min-width: 90%; max-width: 90%; border-top-right-radius: 10px;">{{ onGetLabel('headerFullname') }}</th>
                 </tr>
                 <tr>
-                    <th>
-                        <p-columnFilter type="boolean" field="isActive"></p-columnFilter>
-                    </th>
-                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'fullname', 'contains')" [value]="$any(table).filters['fullname']?.value"></th>
+                    <th style="min-width: 10%; max-width: 10%;"><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
+                    <th style="min-width: 90%; max-width: 90%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'fullname', 'contains')" [value]="$any(table).filters['fullname']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                <tr *ngIf="rowGroupMetadata[rowData.shipDescription].index === rowIndex">
-                    <td style="width: 10%;"></td>
-                    <td style="width: 90%;" class="rowGroup">{{ rowData.shipDescription }}</td>
-                </tr>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
-                    <td style="width: 10%; padding: 5px !important; text-align: center;">
-                        <i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i>
-                    </td>
-                    <td style="width: 90%;">{{ rowData.fullname }}</td>
+                    <td style="min-width: 10%; max-width: 10%; padding: 5px !important; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
+                    <td style="min-width: 90%; max-width: 90%;">{{ rowData.fullname }}</td>
                 </tr>
             </ng-template>
         </p-table>

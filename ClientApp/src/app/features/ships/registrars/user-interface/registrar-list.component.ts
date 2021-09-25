@@ -33,7 +33,7 @@ export class RegistrarListComponent {
     private windowTitle = 'Registrars'
     public feature = 'registrarList'
     public newUrl = this.baseUrl + '/new'
-    public records: []
+    public records: any[] = []
     public rowGroupMetadata: any
 
     //#endregion
@@ -96,6 +96,7 @@ export class RegistrarListComponent {
         const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.list
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
