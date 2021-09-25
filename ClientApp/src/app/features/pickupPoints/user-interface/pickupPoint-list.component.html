@@ -17,9 +17,7 @@
                     <th style="min-width: 10%; max-width: 10%; border-top-right-radius: 10px;">{{ onGetLabel('headerTime') }}</th>
                 </tr>
                 <tr>
-                    <th style="min-width: 10%; max-width: 10%;">
-                        <p-columnFilter type="boolean" field="isActive"></p-columnFilter>
-                    </th>
+                    <th style="min-width: 10%; max-width: 10%;"><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
                     <th style="min-width: 15%; max-width: 15%;">
                         <p-columnFilter style="width: 100%;" field="routeAbbreviation" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -38,9 +36,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
-                    <td style="min-width: 10%; max-width: 10%; justify-content: center;">
-                        <i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i>
-                    </td>
+                    <td style="min-width: 10%; max-width: 10%; padding: 5px !important; text-align: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
                     <td style="min-width: 15%; max-width: 15%; justify-content: center;">{{ rowData.routeAbbreviation }}</td>
                     <td style="min-width: 35%; max-width: 35%;">{{ rowData.description }}</td>
                     <td style="min-width: 30%; max-width: 30%;">{{ rowData.exactPoint }}</td>

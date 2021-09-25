@@ -1845,6 +1845,10 @@
                 "description": "Aktivní"
             },
             {
+                "id": "headerShipDescription",
+                "description": "Plavidlo"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Příjmení"
             },

@@ -1845,6 +1845,10 @@
                 "description": "Ενεργό"
             },
             {
+                "id": "headerShipDescription",
+                "description": "Πλοίο"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Επώνυμο"
             },

@@ -1845,6 +1845,10 @@
                 "description": "Actif"
             },
             {
+                "id": "headerShipDescription",
+                "description": "Navire"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Nom de famille"
             },

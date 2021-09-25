@@ -1845,6 +1845,10 @@
                 "description": "Active"
             },
             {
+                "id": "headerShipDescription",
+                "description": "Ship"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Lastname"
             },

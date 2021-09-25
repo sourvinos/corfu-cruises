@@ -33,7 +33,9 @@ export class CrewListComponent {
     private windowTitle = 'Crews'
     public feature = 'crewList'
     public newUrl = this.baseUrl + '/new'
-    public records: []
+    public records: any[] = []
+
+    public ships = []
     public rowGroupMetadata: any
 
     //#endregion
@@ -45,6 +47,7 @@ export class CrewListComponent {
     ngOnInit(): void {
         this.setWindowTitle()
         this.loadRecords()
+        this.getDistinctShips()
         this.addShortcuts()
     }
 
@@ -92,6 +95,14 @@ export class CrewListComponent {
         })
     }
 
+    private getDistinctShips(): void {
+        let array = []
+        array = [... new Set(this.records.map(x => x.shipDescription))]
+        array.forEach(element => {
+            this.ships.push({ label: element, value: element })
+        })
+    }
+
     private goBack(): void {
         this.router.navigate(['/'])
     }
@@ -100,6 +111,7 @@ export class CrewListComponent {
         const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.list
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
