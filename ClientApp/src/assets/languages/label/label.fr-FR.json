@@ -1719,35 +1719,35 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(FR) Route"
+                "description": "Itinéraire"
             },
             {
                 "id": "description",
-                "description": "(FR) Description"
+                "description": "Description"
             },
             {
                 "id": "fromPort",
-                "description": "(FR) Departure port"
+                "description": "Port de départ"
             },
             {
                 "id": "fromTime",
-                "description": "(FR) Time"
+                "description": "Heure de départ"
             },
             {
                 "id": "viaPort",
-                "description": "(FR) Intermediate port"
+                "description": "Par les ports"
             },
             {
                 "id": "viaTime",
-                "description": "(FR) Time"
+                "description": "Heure d'arrivée"
             },
             {
                 "id": "toPort",
-                "description": "(FR) Destination port"
+                "description": "Le port de destination"
             },
             {
                 "id": "toTime",
-                "description": "(FR) Time"
+                "description": "Heure d'arrivée"
             },
             {
                 "id": "isActive",

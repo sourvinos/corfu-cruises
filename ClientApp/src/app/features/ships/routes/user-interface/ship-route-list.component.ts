@@ -1,7 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
+import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
-import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
@@ -24,8 +23,6 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 export class ShipRouteListComponent {
 
     //#region variables
-
-    @ViewChild('table') table: Table | undefined
 
     private baseUrl = '/shipRoutes'
     private ngUnsubscribe = new Subject<void>()
@@ -58,12 +55,12 @@ export class ShipRouteListComponent {
 
     //#region public methods
 
-    public onEditRecord(id: number): void {
-        this.router.navigate([this.baseUrl, id])
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onGetLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
+    public onEditRecord(id: number): void {
+        this.router.navigate([this.baseUrl, id])
     }
 
     //#endregion

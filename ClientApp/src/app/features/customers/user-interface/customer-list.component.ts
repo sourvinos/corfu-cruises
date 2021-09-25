@@ -1,11 +1,10 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
+import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
-import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { Customer } from '../classes/customer'
+import { CustomerListResource } from '../classes/customer-list-resource'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from '../../../shared/classes/list-resolved'
@@ -25,8 +24,6 @@ export class CustomerListComponent {
 
     //#region variables
 
-    @ViewChild('table') table: Table | undefined
-
     private baseUrl = '/customers'
     private ngUnsubscribe = new Subject<void>()
     private resolver = 'customerList'
@@ -34,7 +31,7 @@ export class CustomerListComponent {
     private windowTitle = 'Customers'
     public feature = 'customerList'
     public newUrl = this.baseUrl + '/new'
-    public records: Customer[] = []
+    public records: CustomerListResource[] = []
 
     //#endregion
 
@@ -58,12 +55,12 @@ export class CustomerListComponent {
 
     //#region public methods
 
-    public onEditRecord(record: Customer): void {
-        this.router.navigate([this.baseUrl, record.id])
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onGetLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
+    public onEditRecord(id: number): void {
+        this.router.navigate([this.baseUrl, id])
     }
 
     //#endregion

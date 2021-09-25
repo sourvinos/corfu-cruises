@@ -1731,23 +1731,23 @@
             },
             {
                 "id": "fromTime",
-                "description": "Zeit"
+                "description": "Abreisezeit"
             },
             {
                 "id": "viaPort",
-                "description": "Zwischenanschluss"
+                "description": "Zwischenhäfen"
             },
             {
                 "id": "viaTime",
-                "description": "Zeit"
+                "description": "Ankunftszeit"
             },
             {
                 "id": "toPort",
-                "description": "Ziel port"
+                "description": "Ankunftshafen"
             },
             {
                 "id": "toTime",
-                "description": "Zeit"
+                "description": "Ankunftszeit"
             },
             {
                 "id": "isActive",

@@ -1710,7 +1710,7 @@
             },
             {
                 "id": "newButton",
-                "description": "NOVÝ"
+                "description": "NEW"
             }
         ]
     },
@@ -1735,7 +1735,7 @@
             },
             {
                 "id": "fromTime",
-                "description": "Time"
+                "description": "Departure time"
             },
             {
                 "id": "viaPort",
@@ -1743,7 +1743,7 @@
             },
             {
                 "id": "viaTime",
-                "description": "Time"
+                "description": "Arrival time"
             },
             {
                 "id": "toPort",
@@ -1751,7 +1751,7 @@
             },
             {
                 "id": "toTime",
-                "description": "Time"
+                "description": "Arrival time"
             },
             {
                 "id": "deleteButton",

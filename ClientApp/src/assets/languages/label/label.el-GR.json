@@ -1719,7 +1719,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Διαδρομη"
+                "description": "Διαδρομή"
             },
             {
                 "id": "isActive",
@@ -1727,31 +1727,31 @@
             },
             {
                 "id": "fromPort",
-                "description": "Λιμανι αναχωρησης"
+                "description": "Λιμάνι αναχώρησης"
             },
             {
                 "id": "fromTime",
-                "description": "Ωρα"
+                "description": "Ώρα αναχώρησης"
             },
             {
                 "id": "viaPort",
-                "description": "Ενδιαμεσοι λιμενες προσεγγισης"
+                "description": "Ενδιάμεσοι λιμένες προσέγγισης"
             },
             {
                 "id": "viaTime",
-                "description": "Ωρα"
+                "description": "Ώρες προσεγγίσεων"
             },
             {
                 "id": "toPort",
-                "description": "Λιμενας προορισμου"
+                "description": "Λιμένας τελικού προορισμού"
             },
             {
                 "id": "toTime",
-                "description": "Ωρα"
+                "description": "Ώρα άφιξης"
             },
             {
                 "id": "isActive",
-                "description": "Ενεργη"
+                "description": "Ενεργή"
             },
             {
                 "id": "deleteButton",

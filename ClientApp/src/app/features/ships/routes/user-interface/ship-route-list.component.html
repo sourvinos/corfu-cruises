@@ -2,36 +2,32 @@
 
     <div id="header">
         <div @slideFromLeft id="title">
-            <h1>{{ onGetLabel('header') }}</h1>
+            <h1>{{ getLabel('header') }}</h1>
         </div>
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" scrollHeight="flex" selectionMode="single" sortField="none" sortMode="single" stateKey="ship-route-list" stateStorage="local">
+        <p-table #table [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortField="none" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 10%; border-top-left-radius: 10px;">{{ onGetLabel('headerIsActive') }}</th>
-                    <th style="width: 30%;">{{ onGetLabel('headerFromPort') }}</th>
-                    <th style="width: 30%;">{{ onGetLabel('headerViaPort') }}</th>
-                    <th style="width: 30%; border-top-right-radius: 10px;">{{ onGetLabel('headerToPort') }}</th>
+                    <th style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th style="min-width: 30%; max-width: 30%;" pSortableColumn="fromPort">{{ getLabel('headerFromPort') }}<p-sortIcon field="fromPort"></p-sortIcon></th>
+                    <th style="min-width: 30%; max-width: 30%;" pSortableColumn="viaPort">{{ getLabel('headerViaPort') }}<p-sortIcon field="viaPort"></p-sortIcon></th>
+                    <th style="min-width: 30%; max-width: 30%; border-top-right-radius: 10px;" pSortableColumn="toPort">{{ getLabel('headerToPort') }}<p-sortIcon field="toPort"></p-sortIcon></th>
                 </tr>
                 <tr>
-                    <th>
-                        <p-columnFilter type="boolean" field="isActive"></p-columnFilter>
-                    </th>
-                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'fromPort', 'contains')" [value]="$any(table).filters['fromPort']?.value"></th>
-                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'viaPort', 'contains')" [value]="$any(table).filters['viaPort']?.value"></th>
-                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'toPort', 'contains')" [value]="$any(table).filters['toPort']?.value"></th>
+                    <th style="min-width: 10%; max-width: 10%;"><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
+                    <th style="min-width: 30%; max-width: 30%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'fromPort', 'contains')" [value]="$any(table).filters['fromPort']?.value"></th>
+                    <th style="min-width: 30%; max-width: 30%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'viaPort', 'contains')" [value]="$any(table).filters['viaPort']?.value"></th>
+                    <th style="min-width: 30%; max-width: 30%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'toPort', 'contains')" [value]="$any(table).filters['toPort']?.value"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
-                    <td style="width: 10%; padding: 5px !important; text-align: center;">
-                        <i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i>
-                    </td>
-                    <td style="width: 30%;">{{ rowData.fromPort }}</td>
-                    <td style="width: 30%;">{{ rowData.viaPort }}</td>
-                    <td style="width: 30%;">{{ rowData.toPort }}</td>
+                    <td style="min-width: 10%; max-width: 10%; padding: 5px !important; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
+                    <td style="min-width: 30%; max-width: 30%;">{{ rowData.fromPort }}</td>
+                    <td style="min-width: 30%; max-width: 30%;">{{ rowData.viaPort }}</td>
+                    <td style="min-width: 30%; max-width: 30%;">{{ rowData.toPort }}</td>
                 </tr>
             </ng-template>
         </p-table>
@@ -39,7 +35,7 @@
 
     <div id="footer">
         <div @slideFromRight id="buttons">
-            <button mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ onGetLabel('newButton') }}</button>
+            <button mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ getLabel('newButton') }}</button>
         </div>
     </div>
 
