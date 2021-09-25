@@ -7,19 +7,21 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table (onFilter)="onFilter($event)" [autoLayout]="false" [customSort]="true" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" stateKey="pickupPoint-list" stateStorage="local">
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 10%; border-top-left-radius: 10px;">{{ onGetLabel('headerIsActive') }}</th>
-                    <th style="width: 15%;">{{ onGetLabel('headerRouteAbbreviation') }}</th>
-                    <th style="width: 35%;">{{ onGetLabel('headerDescription') }}</th>
-                    <th style="width: 30%;">{{ onGetLabel('headerExactPoint') }}</th>
-                    <th style="width: 10%; border-top-right-radius: 10px;">{{ onGetLabel('headerTime') }}</th>
+                    <th style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;">{{ onGetLabel('headerIsActive') }}</th>
+                    <th style="min-width: 15%; max-width: 15%;">{{ onGetLabel('headerRouteAbbreviation') }}</th>
+                    <th style="min-width: 35%; max-width: 35%;">{{ onGetLabel('headerDescription') }}</th>
+                    <th style="min-width: 30%; max-width: 30%;">{{ onGetLabel('headerExactPoint') }}</th>
+                    <th style="min-width: 10%; max-width: 10%; border-top-right-radius: 10px;">{{ onGetLabel('headerTime') }}</th>
                 </tr>
                 <tr>
-                    <th><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
-                    <th>
-                        <p-columnFilter field="routeAbbreviation" matchMode="equals" [showMenu]="false">
+                    <th style="min-width: 10%; max-width: 10%;">
+                        <p-columnFilter type="boolean" field="isActive"></p-columnFilter>
+                    </th>
+                    <th style="min-width: 15%; max-width: 15%;">
+                        <p-columnFilter style="width: 100%;" field="routeAbbreviation" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                 <p-dropdown [ngModel]="value" [options]="routes" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
                                     <ng-template let-option pTemplate="item">
@@ -29,33 +31,20 @@
                             </ng-template>
                         </p-columnFilter>
                     </th>
-                    <th>
-                        <input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value">
-                    </th>
-                    <th>
-                        <input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'exactPoint', 'contains')" [value]="$any(table).filters['exactPoint']?.value">
-                    </th>
-                    <th>
-                        <input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'time', 'contains')" [value]="$any(table).filters['time']?.value">
-                    </th>
+                    <th style="min-width: 35%; max-width: 35%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
+                    <th style="min-width: 30%; max-width: 30%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'exactPoint', 'contains')" [value]="$any(table).filters['exactPoint']?.value"></th>
+                    <th style="min-width: 10%; max-width: 10%;"><input type="text" class="p-inputtext center" (input)="table.filter($event.target.value, 'time', 'contains')" [value]="$any(table).filters['time']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                <tr *ngIf="rowGroupMetadata[rowData.routeAbbreviation].index === rowIndex">
-                    <td style="width: 10%;"></td>
-                    <td style="width: 15%;"></td>
-                    <td style="width: 35%;" class="rowGroup">{{ rowData.routeAbbreviation }}</td>
-                    <td style="width: 30%;"></td>
-                    <td style="width: 10%;"></td>
-                </tr>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
-                    <td style="width: 10%; text-align: center;">
+                    <td style="min-width: 10%; max-width: 10%; justify-content: center;">
                         <i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i>
                     </td>
-                    <td style="width: 15%; text-align: center;">{{ rowData.routeAbbreviation }}</td>
-                    <td style="width: 35%;">{{ rowData.description }}</td>
-                    <td style="width: 30%;">{{ rowData.exactPoint }}</td>
-                    <td style="width: 10%; text-align: center;">{{ rowData.time }}</td>
+                    <td style="min-width: 15%; max-width: 15%; justify-content: center;">{{ rowData.routeAbbreviation }}</td>
+                    <td style="min-width: 35%; max-width: 35%;">{{ rowData.description }}</td>
+                    <td style="min-width: 30%; max-width: 30%;">{{ rowData.exactPoint }}</td>
+                    <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ rowData.time }}</td>
                 </tr>
             </ng-template>
         </p-table>
