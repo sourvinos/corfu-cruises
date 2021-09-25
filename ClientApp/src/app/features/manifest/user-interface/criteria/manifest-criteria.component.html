@@ -64,25 +64,25 @@
 
 </div>
 
-<mat-autocomplete autoActiveFirstOption #destinations="matAutocomplete" [displayWith]="destinationFields">
+<mat-autocomplete autoActiveFirstOption #destinations="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of filteredDestinations | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #ports="matAutocomplete" [displayWith]="portFields">
+<mat-autocomplete autoActiveFirstOption #ports="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of filteredPorts | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #vessels="matAutocomplete" [displayWith]="vesselFields">
+<mat-autocomplete autoActiveFirstOption #vessels="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of filteredVessels | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #routes="matAutocomplete" [displayWith]="routeFields">
+<mat-autocomplete autoActiveFirstOption #routes="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of filteredRoutes | async" [value]="option">
         {{ option.description }}
     </mat-option>

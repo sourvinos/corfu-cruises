@@ -10,9 +10,10 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { Port } from '../classes/port'
+import { Port } from '../classes/models/port'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { PortListResource } from '../classes/resources/port-list-resource'
 
 @Component({
     selector: 'port-list',
@@ -34,7 +35,7 @@ export class PortListComponent {
     private windowTitle = 'Ports'
     public feature = 'portList'
     public newUrl = this.baseUrl + '/new'
-    public records: Port[] = []
+    public records: PortListResource[] = []
 
     //#endregion
 

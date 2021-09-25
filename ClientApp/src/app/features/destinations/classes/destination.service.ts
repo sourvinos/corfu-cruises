@@ -1,8 +1,9 @@
-import { DataService } from 'src/app/shared/services/data.service'
-import { Destination } from './destination'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
+// Custom
+import { DataService } from 'src/app/shared/services/data.service'
+import { DestinationDropdownResource } from './../../reservations/classes/resources/form/dropdown/destination-dropdown-resource'
 
 @Injectable({ providedIn: 'root' })
 
@@ -14,12 +15,8 @@ export class DestinationService extends DataService {
 
     //#region public methods
 
-    public getCount(): Observable<number> {
-        return this.http.get<number>('/api/destinations/getCount/')
-    }
-
-    public getAllActive(): Observable<Destination[]> {
-        return this.http.get<Destination[]>('/api/destinations/getActiveForDropdown')
+    public getActiveForDropdown(): Observable<DestinationDropdownResource[]> {
+        return this.http.get<DestinationDropdownResource[]>('/api/destinations/getActiveForDropdown')
     }
 
     //#endregion

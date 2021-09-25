@@ -16,10 +16,10 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { Port } from 'src/app/features/ports/classes/port'
-import { PortService } from 'src/app/features/ports/classes/port.service'
-import { Ship } from 'src/app/features/ships/base/classes/ship'
-import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
+import { Port } from 'src/app/features/ports/classes/models/port'
+import { PortService } from 'src/app/features/ports/classes/services/port.service'
+import { Ship } from 'src/app/features/ships/base/classes/models/ship'
+import { ShipService } from 'src/app/features/ships/base/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
@@ -75,15 +75,7 @@ export class EmbarkationCriteriaComponent {
 
     //#region public methods
 
-    public destinationFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public portFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public shipFields(subject: { description: any }): any {
+    public dropdownFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
 
@@ -152,7 +144,7 @@ export class EmbarkationCriteriaComponent {
 
     private populateDropDown(service: string, table: string, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
         const promise = new Promise((resolve) => {
-            this[service].getAllActive().toPromise().then(
+            this[service].getActiveForDropdown().toPromise().then(
                 (response: any) => {
                     this[table] = response
                     resolve(this[table])

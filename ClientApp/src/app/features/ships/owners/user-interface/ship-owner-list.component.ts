@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
-import { ShipOwnerResource } from './../../base/classes/ship-owner-resource'
+import { ShipOwnerResource } from '../../base/classes/resources/ship-owner-resource'
 import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'

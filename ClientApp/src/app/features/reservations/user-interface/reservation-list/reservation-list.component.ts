@@ -15,7 +15,7 @@ import { ReservationService } from './../../classes/services/reservation.service
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToVesselComponent } from '../reservation-to-vessel/reservation-to-vessel-form.component'
 import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
-import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
+import { ShipService } from 'src/app/features/ships/base/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { Table } from 'primeng/table'
@@ -110,7 +110,7 @@ export class ReservationListComponent {
                 height: '350px',
                 width: '550px',
                 data: {
-                    ships: this.shipService.getAllActive(),
+                    ships: this.shipService.getActiveForDropdown(),
                     actions: ['abort', 'ok']
                 },
                 panelClass: 'dialog'

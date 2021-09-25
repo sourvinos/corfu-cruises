@@ -7,7 +7,7 @@ import { Title } from '@angular/platform-browser'
 import moment from 'moment'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { CustomerService } from 'src/app/features/customers/classes/customer.service'
+import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
 import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
 import { GenericResource } from '../../classes/resources/generic-resource'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -16,7 +16,7 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
+import { ShipService } from 'src/app/features/ships/base/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { map, startWith } from 'rxjs/operators'
@@ -149,7 +149,7 @@ export class InvoicingCriteriaComponent {
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
         const promise = new Promise((resolve) => {
-            service.getAllActive().toPromise().then(
+            service.getAllActiveForFropdown().toPromise().then(
                 (response: any) => {
                     this[table] = response
                     this[table].unshift({ 'id': 'all', 'description': '[⭐]' })

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,14 @@ namespace BlueWaterCruises.Features.Ships {
             return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<ShipRouteListResource>>(shiproutes);
         }
 
+         public async Task<IEnumerable<ShipRouteDropdownResource>> GetActiveForDropdown() {
+            var records = await context
+                .Set<ShipRoute>()
+                .Where(x => x.IsActive)
+                .OrderBy(x => x.Description)
+                .ToListAsync();
+            return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<ShipRouteDropdownResource>>(records);
+        }
 
     }
 

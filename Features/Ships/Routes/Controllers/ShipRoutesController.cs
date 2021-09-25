@@ -27,8 +27,8 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<ShipRoute>> GetActive() {
-            return await repo.GetActive(x => x.IsActive);
+        public async Task<IEnumerable<ShipRouteDropdownResource>> GetActiveForDropdown() {
+            return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]

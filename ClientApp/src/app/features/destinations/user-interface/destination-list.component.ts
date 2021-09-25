@@ -1,11 +1,9 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
+import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
-import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { Destination } from '../classes/destination'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
@@ -13,6 +11,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { DestinationListResource } from '../classes/destination-list-resource'
 
 @Component({
     selector: 'destination-list',
@@ -25,8 +24,6 @@ export class DestinationListComponent {
 
     //#region variables
 
-    @ViewChild('table') table: Table | undefined
-
     private baseUrl = '/destinations'
     private ngUnsubscribe = new Subject<void>()
     private resolver = 'destinationList'
@@ -34,7 +31,7 @@ export class DestinationListComponent {
     private windowTitle = 'Destinations'
     public feature = 'destinationList'
     public newUrl = this.baseUrl + '/new'
-    public records: Destination[] = []
+    public records: DestinationListResource[] = []
 
     //#endregion
 
@@ -58,12 +55,12 @@ export class DestinationListComponent {
 
     //#region public methods
 
-    public onEditRecord(record: Destination): void {
-        this.router.navigate([this.baseUrl, record.id])
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onGetLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
+    public onEditRecord(id: number): void {
+        this.router.navigate([this.baseUrl, id])
     }
 
     //#endregion

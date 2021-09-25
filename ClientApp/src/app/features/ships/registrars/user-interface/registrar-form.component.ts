@@ -17,7 +17,7 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { PickupPointService } from 'src/app/features/pickupPoints/classes/pickupPoint.service'
 import { Registrar } from '../classes/registrar'
 import { RegistrarService } from '../classes/registrar.service'
-import { ShipService } from '../../base/classes/ship.service'
+import { ShipService } from '../../base/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { map, startWith } from 'rxjs/operators'

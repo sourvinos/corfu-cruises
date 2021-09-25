@@ -16,12 +16,12 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { Port } from 'src/app/features/ports/classes/port'
-import { PortService } from 'src/app/features/ports/classes/port.service'
-import { Ship } from 'src/app/features/ships/base/classes/ship'
-import { ShipRoute } from 'src/app/features/ships/routes/classes/shipRoute'
-import { ShipRouteService } from 'src/app/features/ships/routes/classes/shipRoute.service'
-import { ShipService } from 'src/app/features/ships/base/classes/ship.service'
+import { Port } from 'src/app/features/ports/classes/models/port'
+import { PortService } from 'src/app/features/ports/classes/services/port.service'
+import { Ship } from 'src/app/features/ships/base/classes/models/ship'
+import { ShipRoute } from 'src/app/features/ships/routes/classes/models/shipRoute'
+import { ShipRouteService } from 'src/app/features/ships/routes/classes/services/shipRoute.service'
+import { ShipService } from 'src/app/features/ships/base/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
@@ -80,19 +80,7 @@ export class ManifestCriteriaComponent {
 
     //#region public methods
 
-    public destinationFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public portFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public vesselFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public routeFields(subject: { description: any }): any {
+    public dropdownFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
 
@@ -167,7 +155,7 @@ export class ManifestCriteriaComponent {
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
         const promise = new Promise((resolve) => {
-            service.getAllActive().toPromise().then(
+            service.getActiveForDropdown().toPromise().then(
                 (response: any) => {
                     this[table] = response
                     resolve(this[table])
