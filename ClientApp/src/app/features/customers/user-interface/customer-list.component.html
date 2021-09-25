@@ -25,9 +25,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
-                    <td style="min-width: 12%; max-width: 12%; justify-content: center;">
-                        <i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i>
-                    </td>
+                    <td style="min-width: 12%; max-width: 12%; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
                     <td style="min-width: 50%; max-width: 50%;">{{ rowData.description }}</td>
                     <td style="min-width: 20%; max-width: 20%;">{{ rowData.email }}</td>
                     <td style="min-width: 18%; max-width: 18%;">{{ rowData.phones }}</td>

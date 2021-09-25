@@ -10,45 +10,27 @@
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="filteredRecords" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="user-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 12%; border-top-left-radius: 10px;" pSortableColumn="isAdmin">{{ onGetLabel('headerIsActive') }}
-                        <p-sortIcon field="isActive"></p-sortIcon>
-                    </th>
-                    <th style="width: 12%;" pSortableColumn="isAdmin">{{ onGetLabel('headerIsAdmin') }}
-                        <p-sortIcon field="isAdmin"></p-sortIcon>
-                    </th>
-                    <th style="width: 30%;" pSortableColumn="userName">{{ onGetLabel('headerUsername') }}
-                        <p-sortIcon field="userName"></p-sortIcon>
-                    </th>
-                    <th style="width: 20%;" pSortableColumn="displayName">{{ onGetLabel('headerDisplayname') }}
-                        <p-sortIcon field="displayName"></p-sortIcon>
-                    </th>
-                    <th style="width: 26%; border-top-right-radius: 10px;" pSortableColumn="email">{{ onGetLabel('headerEmail') }}
-                        <p-sortIcon field="email"></p-sortIcon>
-                    </th>
+                    <th style="min-width: 12%; max-width: 12%; border-top-left-radius: 10px;" pSortableColumn="isAdmin">{{ onGetLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th style="min-width: 12%; max-width: 12%;" pSortableColumn="isAdmin">{{ onGetLabel('headerIsAdmin') }}<p-sortIcon field="isAdmin"></p-sortIcon></th>
+                    <th style="min-width: 30%; max-width: 30%;" pSortableColumn="userName">{{ onGetLabel('headerUsername') }}<p-sortIcon field="userName"></p-sortIcon></th>
+                    <th style="min-width: 20%; max-width: 20%;" pSortableColumn="displayName">{{ onGetLabel('headerDisplayname') }}<p-sortIcon field="displayName"></p-sortIcon></th>
+                    <th style="min-width: 26%; max-width: 26%; border-top-right-radius: 10px;" pSortableColumn="email">{{ onGetLabel('headerEmail') }}<p-sortIcon field="email"></p-sortIcon></th>
                 </tr>
                 <tr>
-                    <th>
-                        <p-columnFilter type="boolean" field="isActive"></p-columnFilter>
-                    </th>
-                    <th>
-                        <p-columnFilter type="boolean" field="isAdmin"></p-columnFilter>
-                    </th>
-                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'userName', 'contains')" [value]="$any(table).filters['userName']?.value"></th>
-                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'displayName', 'contains')" [value]="$any(table).filters['displayName']?.value"></th>
-                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'email', 'contains')" [value]="$any(table).filters['email']?.value"></th>
+                    <th style="min-width: 12%; max-width: 12%;"><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
+                    <th style="min-width: 12%; max-width: 12%;"><p-columnFilter type="boolean" field="isAdmin"></p-columnFilter></th>
+                    <th style="min-width: 30%; max-width: 30%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'userName', 'contains')" [value]="$any(table).filters['userName']?.value"></th>
+                    <th style="min-width: 20%; max-width: 20%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'displayName', 'contains')" [value]="$any(table).filters['displayName']?.value"></th>
+                    <th style="min-width: 26%; max-width: 26%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'email', 'contains')" [value]="$any(table).filters['email']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
-                    <td style="width: 12%; text-align: center;">
-                        <i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i>
-                    </td>
-                    <td style="width: 12%; text-align: center;">
-                        <i class="pi" [ngClass]="{'icon-green pi-check': rowData.isAdmin, 'icon-red pi-times': !rowData.isAdmin}"></i>
-                    </td>
-                    <td style="width: 30%; padding: 5px !important;">{{ rowData.userName }}</td>
-                    <td style="width: 20%; padding: 5px !important;">{{ rowData.displayName }}</td>
-                    <td style="width: 26%; padding: 5px !important;">{{ rowData.email }}</td>
+                    <td style="min-width: 12%; max-width: 12%; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
+                    <td style="min-width: 12%; max-width: 12%; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isAdmin, 'icon-red pi-times': !rowData.isAdmin}"></i></td>
+                    <td style="min-width: 30%; max-width: 30%; padding: 5px !important;">{{ rowData.userName }}</td>
+                    <td style="min-width: 20%; max-width: 20%; padding: 5px !important;">{{ rowData.displayName }}</td>
+                    <td style="min-width: 26%; max-width: 26%; padding: 5px !important;">{{ rowData.email }}</td>
                 </tr>
             </ng-template>
         </p-table>
