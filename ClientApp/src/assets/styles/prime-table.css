@@ -17,6 +17,10 @@
     overflow: visible !important;
 }
 
+.p-datatable-flex-scrollable .p-datatable-wrapper .p-datatable-table .p-datatable-thead tr th * {
+    width: 100% !important;
+}
+
 .p-datatable .p-datatable-thead > tr > th {
     background-color: var(--color-table-header) !important;
     border-right: 1px solid var(--color-table-column-seperator) !important;

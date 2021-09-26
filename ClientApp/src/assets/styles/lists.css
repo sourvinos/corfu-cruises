@@ -8,6 +8,7 @@
     overflow: hidden;
     padding: 0 var(--gap) 0 var(--content-padding-left);
     transition: background-color var(--change-theme-delay) ease;
+    width: 100%;
 }
 
 #header {

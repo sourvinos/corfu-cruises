@@ -694,7 +694,7 @@
             },
             {
                 "id": "headerTotal",
-                "description": "T"
+                "description": "Total"
             },
             {
                 "id": "headerDriver",
@@ -702,7 +702,7 @@
             },
             {
                 "id": "headerPort",
-                "description": "Hafen"
+                "description": "Häfen"
             },
             {
                 "id": "headerShip",

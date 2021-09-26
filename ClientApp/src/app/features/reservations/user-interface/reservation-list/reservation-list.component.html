@@ -23,26 +23,26 @@
             <p-table #table (onFilter)="calculateTotals($event)" (onHeaderCheckboxToggle)="toggleVisibleRows()" (onRowSelect)="rowSelect($event)" (onRowUnselect)="rowUnselect($event)" [autoLayout]="false" [(selection)]="selectedRecords" [scrollable]="true" [value]="records.reservations" dataKey="reservationId" scrollHeight="flex" selectionMode="multiple" stateKey="reservation-list" stateStorage="local">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 5%; border-top-left-radius: 10px;"></th>
-                        <th style="width: 13%;" pSortableColumn="ticketNo">{{ getLabel('headerTicketNo') }}</th>
-                        <th style="width: 10%;" pSortableColumn="destination">{{ getLabel('headerDestination') }}</th>
-                        <th style="width: 10%;" pSortableColumn="route">{{ getLabel('headerRoute') }}</th>
-                        <th style="width: 10%;" pSortableColumn="customer">{{ getLabel('headerCustomer') }}</th>
-                        <th style="width: 10%;" pSortableColumn="pickupPoint">{{ getLabel('headerPickupPoint') }}</th>
-                        <th style="width: 3%;" pSortableColumn="adults">{{ getLabel('headerAdults') }}</th>
-                        <th style="width: 3%;" pSortableColumn="kids">{{ getLabel('headerKids') }}</th>
-                        <th style="width: 3%;" pSortableColumn="free">{{ getLabel('headerFree') }}</th>
-                        <th style="width: 3%;" pSortableColumn="total">{{ getLabel('headerTotal') }}</th>
-                        <th style="width: 10%;" pSortableColumn="driver">{{ getLabel('headerDriver') }}</th>
-                        <th style="width: 10%;" pSortableColumn="port">{{ getLabel('headerPort') }}</th>
-                        <th style="width: 10%; border-top-right-radius: 10px;" pSortableColumn="ship">{{ getLabel('headerShip') }}</th>
+                        <th style="min-width: 5%; max-width: 5%; border-top-left-radius: 10px;"></th>
+                        <th style="min-width: 10%; max-width: 10%;">{{ getLabel('headerTicketNo') }}</th>
+                        <th style="min-width: 10%; max-width: 10%;">{{ getLabel('headerDestination') }}</th>
+                        <th style="min-width: 10%; max-width: 10%;">{{ getLabel('headerRoute') }}</th>
+                        <th style="min-width: 10%; max-width: 10%;">{{ getLabel('headerCustomer') }}</th>
+                        <th style="min-width: 10%; max-width: 10%;">{{ getLabel('headerPickupPoint') }}</th>
+                        <th style="min-width: 3%; max-width: 3%;">{{ getLabel('headerAdults') }}</th>
+                        <th style="min-width: 3%; max-width: 3%;">{{ getLabel('headerKids') }}</th>
+                        <th style="min-width: 3%; max-width: 3%;">{{ getLabel('headerFree') }}</th>
+                        <th style="min-width: 6%; max-width: 6%;">{{ getLabel('headerTotal') }}</th>
+                        <th style="min-width: 10%; max-width: 10%;">{{ getLabel('headerDriver') }}</th>
+                        <th style="min-width: 10%; max-width: 10%;">{{ getLabel('headerPort') }}</th>
+                        <th style="min-width: 10%; max-width: 10%; border-top-right-radius: 10px;">{{ getLabel('headerShip') }}</th>
                     </tr>
                     <tr>
-                        <th>
+                        <th style="min-width: 5%; max-width: 5%;">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
-                        <th>
+                        <th style="min-width: 10%; max-width: 10%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
+                        <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter field="destinationDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="destinations" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
@@ -53,7 +53,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th>
+                        <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter field="routeAbbreviation" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="routes" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
@@ -64,7 +64,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th>
+                        <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter field="customerDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="customers" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
@@ -75,7 +75,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th>
+                        <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter field="pickupPointDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="pickupPoints" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
@@ -86,11 +86,11 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
+                        <th style="min-width: 3%; max-width: 3%;">
+                        <th style="min-width: 3%; max-width: 3%;">
+                        <th style="min-width: 3%; max-width: 3%;">
                         <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>
+                        <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter field="driverDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="drivers" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
@@ -101,7 +101,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th>
+                        <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter field="portDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="ports" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
@@ -112,7 +112,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th>
+                        <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter field="shipDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="ships" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
@@ -127,21 +127,21 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
                     <tr [class.ui-state-highlight]="rowData == highlighted" (click)="highlighted = rowData" (dblclick)="editRecord(rowData.reservationId)">
-                        <td style="width: 5%; text-align: center;">
+                        <td style="width: 5%; max-width: 5%; justify-content: center;">
                             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
                         </td>
-                        <td style="width: 13%;">{{ rowData.ticketNo }}</td>
-                        <td style="width: 10%;">{{ rowData.destinationDescription }}</td>
-                        <td style="width: 10%;">{{ rowData.routeAbbreviation }}</td>
-                        <td style="width: 10%;">{{ rowData.customerDescription }}</td>
-                        <td style="width: 10%;">{{ rowData.pickupPointDescription }}</td>
-                        <td style="width: 3%; text-align: right;">{{ rowData.adults }}</td>
-                        <td style="width: 3%; text-align: right;">{{ rowData.kids }}</td>
-                        <td style="width: 3%; text-align: right;">{{ rowData.free }}</td>
-                        <td style="width: 3%; text-align: right;">{{ rowData.totalPersons }}</td>
-                        <td style="width: 10%;">{{ rowData.driverDescription }}</td>
-                        <td style="width: 10%;">{{ rowData.portDescription }}</td>
-                        <td style="width: 10%;">{{ rowData.shipDescription }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.ticketNo }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.destinationDescription }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.routeAbbreviation }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.customerDescription }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.pickupPointDescription }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.adults }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.kids }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.free }}</td>
+                        <td style="min-width: 6%; max-width: 6%; justify-content: flex-end;">{{ rowData.totalPersons }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.driverDescription }}</td>
+                        <td style="min-width: 10; max-width: 10%;">{{ rowData.portDescription }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.shipDescription }}</td>
                     </tr>
                 </ng-template>
             </p-table>

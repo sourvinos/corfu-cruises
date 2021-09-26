@@ -646,7 +646,7 @@
             },
             {
                 "id": "total",
-                "description": "Nombre total"
+                "description": "Total"
             },
             {
                 "id": "displayed",
@@ -682,19 +682,19 @@
             },
             {
                 "id": "headerAdults",
-                "description": "Ε"
+                "description": "A"
             },
             {
                 "id": "headerKids",
-                "description": "Π"
+                "description": "E"
             },
             {
                 "id": "headerFree",
-                "description": "Δ"
+                "description": "G"
             },
             {
                 "id": "headerTotal",
-                "description": "Σ"
+                "description": "Total"
             },
             {
                 "id": "headerDriver",
@@ -1517,7 +1517,7 @@
             },
             {
                 "id": "headerTotals",
-                "description": "Totaux"
+                "description": "Total"
             },
             {
                 "id": "exportAllButton",
