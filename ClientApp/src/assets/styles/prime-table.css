@@ -17,8 +17,8 @@
     overflow: visible !important;
 }
 
-.p-datatable-flex-scrollable .p-datatable-wrapper .p-datatable-table .p-datatable-thead tr th * {
-    width: 100% !important;
+.p-datatable-flex-scrollable .p-datatable-wrapper {
+    overflow-x: hidden;
 }
 
 .p-datatable .p-datatable-thead > tr > th {

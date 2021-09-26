@@ -43,7 +43,7 @@
                         </th>
                         <th style="min-width: 10%; max-width: 10%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
                         <th style="min-width: 10%; max-width: 10%;">
-                            <p-columnFilter field="destinationDescription" matchMode="equals" [showMenu]="false">
+                            <p-columnFilter style="width: 100%;" field="destinationDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="destinations" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
@@ -54,7 +54,7 @@
                             </p-columnFilter>
                         </th>
                         <th style="min-width: 10%; max-width: 10%;">
-                            <p-columnFilter field="routeAbbreviation" matchMode="equals" [showMenu]="false">
+                            <p-columnFilter style="width: 100%;" field="routeAbbreviation" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="routes" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
@@ -65,7 +65,7 @@
                             </p-columnFilter>
                         </th>
                         <th style="min-width: 10%; max-width: 10%;">
-                            <p-columnFilter field="customerDescription" matchMode="equals" [showMenu]="false">
+                            <p-columnFilter style="width: 100%;" field="customerDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="customers" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
@@ -76,7 +76,7 @@
                             </p-columnFilter>
                         </th>
                         <th style="min-width: 10%; max-width: 10%;">
-                            <p-columnFilter field="pickupPointDescription" matchMode="equals" [showMenu]="false">
+                            <p-columnFilter style="width: 100%;" field="pickupPointDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="pickupPoints" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
@@ -91,7 +91,7 @@
                         <th style="min-width: 3%; max-width: 3%;">
                         <th></th>
                         <th style="min-width: 10%; max-width: 10%;">
-                            <p-columnFilter field="driverDescription" matchMode="equals" [showMenu]="false">
+                            <p-columnFilter style="width: 100%;" field="driverDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="drivers" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
@@ -102,7 +102,7 @@
                             </p-columnFilter>
                         </th>
                         <th style="min-width: 10%; max-width: 10%;">
-                            <p-columnFilter field="portDescription" matchMode="equals" [showMenu]="false">
+                            <p-columnFilter style="width: 100%;" field="portDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="ports" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
@@ -113,7 +113,7 @@
                             </p-columnFilter>
                         </th>
                         <th style="min-width: 10%; max-width: 10%;">
-                            <p-columnFilter field="shipDescription" matchMode="equals" [showMenu]="false">
+                            <p-columnFilter style="width: 100%;" field="shipDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="ships" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
