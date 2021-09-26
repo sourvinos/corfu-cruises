@@ -7,8 +7,8 @@
     --color-border-item-inactive: #d5dee2;
     --color-button-delete-hover: #e35c59;
     --color-button-delete: #f28482;
-    --color-button-embarkation-checkin: #42e442;
-    --color-button-embarkation-checkout: #f18393;
+    --color-button-embarkation-ok: #42e442;
+    --color-button-embarkation-pending: #f18393;
     --color-button-icon: #227c9d;
     --color-button-primary-hover: #0fc2ea;
     --color-button-primary: #6dd9f1;
@@ -32,7 +32,7 @@
     --color-datepicker-days: #ededed;
     --color-datepicker-month: #ffe85c;
     --color-dropdown-background: #e3f5f5;
-    --color-dropdown-icons: #ffffff;
+    --color-dropdown-icons: #9ae4f5;
     --color-embarkation-list-icons: #6ba2ad;
     --color-embarkation-list-ticketNo: #b56576;
     --color-embarkation-reservation-icon: #8bd0de;

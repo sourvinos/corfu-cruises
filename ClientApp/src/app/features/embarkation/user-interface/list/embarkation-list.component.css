@@ -27,12 +27,12 @@
     z-index: 1;
 }
 
-.fa-arrow-circle-down, .fa-check-circle {
-    color: var(--color-button-embarkation-checkin) !important;
+.fa-arrow-circle-down {
+    color: var(--color-button-embarkation-pending) !important;
 }
 
-.fa-arrow-circle-up, .fa-clock {
-    color: var(--color-button-embarkation-checkout) !important;
+.fa-check {
+    color: var(--color-button-embarkation-ok) !important;
 }
 
 .fa-exclamation-triangle {

@@ -7,8 +7,8 @@
     --color-border-item-inactive: #576971;
     --color-button-delete-hover: #e35c59;
     --color-button-delete: #f28482;
-    --color-button-embarkation-checkin: #efe7ce;
-    --color-button-embarkation-checkout: #ffb6c1;
+    --color-button-embarkation-ok: #aff3b4;
+    --color-button-embarkation-pending: #ffbf79;
     --color-button-icon: #ededed;
     --color-button-primary-hover: #35ccea;
     --color-button-primary: #10a7c4;
