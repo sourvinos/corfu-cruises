@@ -54,9 +54,7 @@ export class InvoicingCriteriaComponent {
         this.initForm()
         this.addShortcuts()
         this.getLocale()
-        this.populateDropDown(this.customerService, 'customers', 'filteredCustomers', 'customer', 'description')
-        this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
-        this.populateDropDown(this.vesselService, 'vessels', 'filteredVessels', 'vessel', 'description')
+        this.populateDropdowns()
         this.populateFields()
     }
 
@@ -149,7 +147,7 @@ export class InvoicingCriteriaComponent {
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
         const promise = new Promise((resolve) => {
-            service.getAllActiveForFropdown().toPromise().then(
+            service.getActiveForDropdown().toPromise().then(
                 (response: any) => {
                     this[table] = response
                     this[table].unshift({ 'id': 'all', 'description': '[⭐]' })
@@ -160,6 +158,12 @@ export class InvoicingCriteriaComponent {
                 })
         })
         return promise
+    }
+
+    private populateDropdowns(): void {
+        this.populateDropDown(this.customerService, 'customers', 'filteredCustomers', 'customer', 'description')
+        this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
+        this.populateDropDown(this.vesselService, 'vessels', 'filteredVessels', 'vessel', 'description')
     }
 
     private populateFields(): void {
@@ -181,7 +185,6 @@ export class InvoicingCriteriaComponent {
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
-
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)

@@ -229,7 +229,7 @@ export class EditUserFormComponent {
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
         const promise = new Promise((resolve) => {
-            service.getAllActive().toPromise().then(
+            service.getActiveForDropdown().toPromise().then(
                 (response: any) => {
                     this[table] = response
                     resolve(this[table])
