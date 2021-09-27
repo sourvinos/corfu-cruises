@@ -21,7 +21,6 @@ Cypress.Commands.add('readRouteRecord', () => {
     cy.server()
     cy.route('GET', Cypress.config().baseUrl + '/api/ports/getActive', 'fixture:ports/ports.json').as('getPorts')
     cy.route('GET', Cypress.config().baseUrl + '/api/routes/19', 'fixture:routes/route.json').as('getRoute')
-    cy.wait(500)
     cy.get('[data-cy=searchTerm]').clear().type('nisaki').should('have.value', 'nisaki')
     cy.get('.button-row-menu').eq(0).click({ force: true })
     cy.get('[data-cy=editButton]').first().click()

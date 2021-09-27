@@ -1,5 +1,7 @@
 declare namespace Cypress {
-    interface Chainable<Subject> {
+
+    interface Chainable<> {
         login(): any
     }
+
 }

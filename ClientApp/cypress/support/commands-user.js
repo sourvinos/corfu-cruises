@@ -6,8 +6,8 @@ Cypress.Commands.add('gotoUserList', () => {
     cy.get('[data-cy=usersMenu]').click()
     cy.wait('@getUsers').its('status').should('eq', 200)
     cy.url().should('eq', Cypress.config().baseUrl + '/users')
-    cy.setLocalStorage("userRole", 'Admin');
-    cy.setLocalStorage("editUserCaller", 'list');
+    cy.setLocalStorage('userRole', 'Admin')
+    cy.setLocalStorage('editUserCaller', 'list')
 })
 
 Cypress.Commands.add('gotoEmptyUserForm', () => {
@@ -18,7 +18,6 @@ Cypress.Commands.add('gotoEmptyUserForm', () => {
 Cypress.Commands.add('readUserRecord', () => {
     cy.server()
     cy.route('GET', Cypress.config().baseUrl + '/api/users/8d204972-9982-491e-aeec-7ce2dcbd56c5', 'fixture:users/user.json').as('getUser')
-    cy.wait(500)
     cy.get('[data-cy=searchTerm]').clear().type('gatopoulidis').should('have.value', 'gatopoulidis')
     cy.get('.button-row-menu').eq(0).click({ force: true })
     cy.get('[data-cy=editButton]').first().click()

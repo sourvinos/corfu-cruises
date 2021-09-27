@@ -6,22 +6,20 @@ Cypress.Commands.add('login', () => {
         method: 'POST',
         body: {
             username: 'sourvinos',
-            password: '46929e6c-ee70-447a-ba35-542b4be14746',
-            grantType: "password"
+            password: '46929e6c-ee70-447a-ba35-542b4be14741',
+            grantType: 'password'
         }
     }).its('body.response').then(response => {
         cy.setLocalStorage('jwt', response.token)
         cy.setLocalStorage('refresh_token', response.refresh_token)
         cy.setLocalStorage('expiration', response.expiration)
-        cy.setLocalStorage('roles', response.roles)
         cy.setLocalStorage('userId', response.userId)
         cy.setLocalStorage('displayName', response.displayName)
-        cy.setLocalStorage('language', 'el-GR')
-        cy.setLocalStorage('theme', 'light')
-        cy.setLocalStorage('userRole', 'Admin')
+        cy.setLocalStorage('language', 'en-GB')
+        cy.setLocalStorage('theme', 'dark')
         cy.setLocalStorage('loginStatus', '1')
     })
-    cy.visit("https://localhost:5010")
+    cy.visit('https://localhost:5001')
     cy.saveLocalStorage()
 })
 

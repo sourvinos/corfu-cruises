@@ -7,7 +7,7 @@
         "phones": "",
         "personInCharge": "",
         "email": "",
-        "isActive": true,
+        "isActive": false,
         "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
     },
     {
@@ -40,7 +40,7 @@
         "phones": "",
         "personInCharge": "",
         "email": "",
-        "isActive": true,
+        "isActive": false,
         "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
     },
     {
@@ -73,7 +73,7 @@
         "phones": "2661076768",
         "personInCharge": "",
         "email": "vangeliskar@yahoo.gr",
-        "isActive": true,
+        "isActive": false,
         "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
     },
     {

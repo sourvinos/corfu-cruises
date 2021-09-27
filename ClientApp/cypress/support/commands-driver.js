@@ -17,7 +17,6 @@ Cypress.Commands.add('gotoEmptyDriverForm', () => {
 Cypress.Commands.add('readDriverRecord', () => {
     cy.server()
     cy.route('GET', Cypress.config().baseUrl + '/api/drivers/1', 'fixture:drivers/driver.json').as('getDriver')
-    cy.wait(500)
     cy.get('[data-cy=searchTerm]').clear().type('stamatis').should('have.value', 'stamatis')
     cy.get('.button-row-menu').eq(0).click({ force: true })
     cy.get('[data-cy=editButton]').first().click()

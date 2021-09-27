@@ -16,27 +16,56 @@ context('Customers', () => {
 
         it('The table has an exact number of rows and columns', () => {
             cy.get('[data-cy=row]').should('have.length', 10)
-            cy.get('[data-cy=column]').should('have.length', 6)
+            cy.get('[data-cy=column]').should('have.length', 4)
         })
 
-        it('Filter the table by typing in the search box', () => {
-            cy.wait(500)
-            cy.get('[data-cy=searchTerm]').type('travel')
+        it('Filter the table by active records', () => {
+            cy.get('[data-cy=filter-active]').click()
+            cy.get('[data-cy=row]').should(rows => {
+                expect(rows).to.have.length(7)
+            })
+        })
+
+        it('Filter the table by inactive records', () => {
+            cy.get('[data-cy=filter-active]').click()
             cy.get('[data-cy=row]').should(rows => {
                 expect(rows).to.have.length(3)
             })
         })
 
-        it('Clear the filter when the "X" is clicked', () => {
-            cy.get('[data-cy=clearFilter').click()
-            cy.get('[data-cy=searchTerm]').should('have.text', '')
-            cy.get('[data-cy=row]').should((rows) => {
+        it('Clear active records filter', () => {
+            cy.get('[data-cy=filter-active]').click()
+            cy.get('[data-cy=row]').should(rows => {
                 expect(rows).to.have.length(10)
             })
         })
 
+        it('Filter the table by description', () => {
+            cy.get('[data-cy=filter-description]').click().type('travel')
+            cy.get('[data-cy=row]').should((rows) => {
+                expect(rows).to.have.length(3)
+            })
+            cy.get('[data-cy=filter-description]').clear()
+        })
+
+        it('Filter the table by email', () => {
+            cy.get('[data-cy=filter-email]').click().type('vangeliskar@yahoo.gr')
+            cy.get('[data-cy=row]').should((rows) => {
+                expect(rows).to.have.length(1)
+            })
+            cy.get('[data-cy=filter-email]').clear()
+        })
+
+        it('Filter the table by phone', () => {
+            cy.get('[data-cy=filter-phones]').click().type('76768')
+            cy.get('[data-cy=row]').should((rows) => {
+                expect(rows).to.have.length(1)
+            })
+            cy.get('[data-cy=filter-phones]').clear()
+        })
+
         it('Goto the home page', () => {
-            cy.get('[data-cy=goBack]').click()
+            cy.get('.vertical-menu > .p-panelmenu > :nth-child(1) > .p-component > .p-panelmenu-header-link').click()
             cy.url().should('eq', Cypress.config().baseUrl + '/')
         })
 
@@ -46,7 +75,7 @@ context('Customers', () => {
 
     })
 
-    describe('Create', () => {
+    describe.skip('Create', () => {
 
         beforeEach(() => {
             cy.restoreLocalStorage()
@@ -85,7 +114,7 @@ context('Customers', () => {
 
     })
 
-    describe('Update', () => {
+    describe.skip('Update', () => {
 
         beforeEach(() => {
             cy.restoreLocalStorage()
@@ -116,7 +145,7 @@ context('Customers', () => {
 
     })
 
-    describe('Delete', () => {
+    describe.skip('Delete', () => {
 
         beforeEach(() => {
             cy.restoreLocalStorage()
@@ -154,7 +183,7 @@ context('Customers', () => {
 
     })
 
-    describe('Validate', () => {
+    describe.skip('Validate', () => {
 
         beforeEach(() => {
             cy.restoreLocalStorage()

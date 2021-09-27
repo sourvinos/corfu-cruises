@@ -17,7 +17,6 @@ Cypress.Commands.add('gotoEmptyDestinationForm', () => {
 Cypress.Commands.add('readDestinationRecord', () => {
     cy.server()
     cy.route('GET', Cypress.config().baseUrl + '/api/destinations/2', 'fixture:destinations/destination.json').as('getDestination')
-    cy.wait(500)
     cy.get('[data-cy=searchTerm]').clear().type('paxos').should('have.value', 'paxos')
     cy.get('.button-row-menu').eq(0).click({ force: true })
     cy.get('[data-cy=editButton]').first().click()

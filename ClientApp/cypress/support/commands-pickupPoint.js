@@ -27,7 +27,6 @@ Cypress.Commands.add('gotoEmptyPickupPointForm', () => {
 Cypress.Commands.add('readPickupPointRecord', () => {
     cy.server()
     cy.route('GET', Cypress.config().baseUrl + '/api/pickupPoints/1700', 'fixture:pickupPoints/pickupPoint.json').as('getPickupPoint')
-    cy.wait(500)
     cy.get('[data-cy=searchTerm]').clear().type('kaminaki')
     cy.get('.button-row-menu').eq(0).click({ force: true })
     cy.get('[data-cy=editButton]').first().click()

@@ -17,7 +17,6 @@ Cypress.Commands.add('gotoEmptyPortForm', () => {
 Cypress.Commands.add('readPortRecord', () => {
     cy.server()
     cy.route('GET', Cypress.config().baseUrl + '/api/ports/1', 'fixture:ports/port.json').as('getPort')
-    cy.wait(500)
     cy.get('[data-cy=searchTerm]').clear().type('corfu').should('have.value', 'corfu')
     cy.get('.button-row-menu').eq(0).click({ force: true })
     cy.get('[data-cy=editButton]').first().click()

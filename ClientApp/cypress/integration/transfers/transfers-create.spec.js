@@ -75,7 +75,7 @@ context('Transfers', () => {
 
         it('Save and display a snackbar', () => {
             cy.server()
-            cy.route('POST', 'https://localhost:5010/api/transfers', 'fixture:transfers/transfer.json').as('saveTransfer')
+            cy.route('POST', 'https://localhost:5001/api/transfers', 'fixture:transfers/transfer.json').as('saveTransfer')
             cy.get('[data-cy=save]').click()
             cy.wait('@saveTransfer').its('status').should('eq', 200)
             cy.get('[data-cy=customSnackbar]')
