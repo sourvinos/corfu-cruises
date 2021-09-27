@@ -641,6 +641,10 @@
                 "description": "Create PDF for drivers"
             },
             {
+                "id": "createPdfReportButton",
+                "description": "Create PDF with list"
+            },
+            {
                 "id": "newButton",
                 "description": "NEW"
             },

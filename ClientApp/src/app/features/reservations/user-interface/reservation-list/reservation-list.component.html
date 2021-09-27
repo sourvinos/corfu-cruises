@@ -150,12 +150,13 @@
 
     <div id="footer">
         <div @slideFromLeft id="utility-buttons">
-            <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="isAdmin() && this.activePanel == 'list'">
+            <p-speedDial [model]="items" direction="right"></p-speedDial>
+            <!-- <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu" class="primary">
                 <ng-container *ngTemplateOutlet="contextMenu"></ng-container>
-            </mat-menu>
+            </mat-menu> -->
         </div>
         <div @slideFromRight id="buttons">
             <button data-cy="new" mat-flat-button class="primary" id="new" (click)="newRecord()">{{ getLabel('newButton') }}</button>

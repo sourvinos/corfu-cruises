@@ -641,6 +641,10 @@
                 "description": "Vytvořit PDF"
             },
             {
+                "id": "createPdfReportButton",
+                "description": "Create PDF with list"
+            },
+            {
                 "id": "newButton",
                 "description": "NOVÝ"
             },

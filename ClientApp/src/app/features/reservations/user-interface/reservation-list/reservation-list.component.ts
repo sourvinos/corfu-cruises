@@ -14,17 +14,18 @@ import { ReservationGroupResource } from '../../classes/resources/list/reservati
 import { ReservationService } from './../../classes/services/reservation.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToVesselComponent } from '../reservation-to-vessel/reservation-to-vessel-form.component'
-import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
 import { ShipService } from 'src/app/features/ships/base/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { Table } from 'primeng/table'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { MenuItem, MessageService } from 'primeng/api'
 
 @Component({
     selector: 'reservation-list',
     templateUrl: './reservation-list.component.html',
     styleUrls: ['../../../../../assets/styles/lists.css', './reservation-list.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    animations: [slideFromLeft, slideFromRight],
+    providers: [MessageService]
 })
 
 export class ReservationListComponent {
@@ -51,12 +52,13 @@ export class ReservationListComponent {
     public ships = []
     public today: string
     public totals: any[] = []
+    public items: MenuItem[]
 
     //#endregion
 
     @ViewChild('table') table: Table | undefined
 
-    constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: DriverPdfService, private reservationService: ReservationService, private router: Router, private scheduleService: ScheduleService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) { }
+    constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageService: MessageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private driverPDFService: DriverPdfService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
@@ -68,6 +70,7 @@ export class ReservationListComponent {
         this.populateDropdowns()
         this.addShortcuts()
         this.getStoredDate()
+        this.createSpeedDial()
     }
 
     ngOnDestroy(): void {
@@ -135,7 +138,7 @@ export class ReservationListComponent {
     }
 
     public createPdf(): void {
-        this.pdfService.createReport(this.records.reservations, this.drivers, this.today)
+        this.driverPDFService.createDriverReport(this.records.reservations, this.drivers, this.today)
     }
 
     public doResetTableTasks(table: { reset: () => void }): void {
@@ -205,6 +208,16 @@ export class ReservationListComponent {
 
     private clearSelectedRecords(): void {
         this.selectedRecords = []
+    }
+
+    private createSpeedDial(): void {
+        this.items = [
+            { icon: 'pi pi-pencil', command: () => { this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' }) } },
+            { icon: 'pi pi-refresh', command: () => { this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' }) } },
+            { icon: 'pi pi-trash', command: () => { this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' }) } },
+            { icon: 'pi pi-upload', routerLink: ['/fileupload'] },
+            { icon: 'pi pi-external-link', url: 'http://angular.io' }
+        ]
     }
 
     private getStoredDate(): void {

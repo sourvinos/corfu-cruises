@@ -8,7 +8,7 @@ export class DriverPdfService {
 
     //#region public methods
 
-    public createReport(reservations: any[], drivers: any[], date: string): void {
+    public createDriverReport(reservations: any[], drivers: any[], date: string): void {
         const array = this.sort(reservations)
         drivers.forEach(driver => {
             const filteredArray = array.filter((x: { driverDescription: any }) => x.driverDescription === driver.value)

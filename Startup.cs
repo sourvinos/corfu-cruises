@@ -65,7 +65,7 @@ namespace BlueWaterCruises {
             app.UseSpa(spa => {
                 spa.Options.SourcePath = "ClientApp";
                 if (env.IsDevelopment()) {
-                    spa.Options.StartupTimeout = new TimeSpan(days: 0, hours: 0, minutes: 5, seconds: 0);
+                    spa.Options.StartupTimeout = new TimeSpan(days: 0, hours: 0, minutes: 15, seconds: 0);
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
