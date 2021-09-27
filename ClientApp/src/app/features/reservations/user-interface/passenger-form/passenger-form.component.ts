@@ -35,8 +35,8 @@ export class PassengerFormComponent {
     private feature = 'passengerForm'
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    public activeGenders: Observable<GenderDropdownResource[]>
-    public activeNationalities: Observable<NationalityDropdownResource[]>
+    public filteredGenders: Observable<GenderDropdownResource[]>
+    public filteredNationalities: Observable<NationalityDropdownResource[]>
     public form: FormGroup
     public input: InputTabStopDirective
 
@@ -161,7 +161,7 @@ export class PassengerFormComponent {
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
         const promise = new Promise((resolve) => {
-            service.getAllActive().toPromise().then(
+            service.getActiveForDropdown().toPromise().then(
                 (response: any) => {
                     this[table] = response
                     resolve(this[table])
@@ -174,8 +174,8 @@ export class PassengerFormComponent {
     }
 
     private populateDropDowns(): void {
-        this.populateDropDown(this.nationalityService, 'nationalities', 'activeNationalities', 'nationality', 'description')
-        this.populateDropDown(this.genderService, 'genders', 'activeGenders', 'gender', 'description')
+        this.populateDropDown(this.nationalityService, 'nationalities', 'filteredNationalities', 'nationality', 'description')
+        this.populateDropDown(this.genderService, 'genders', 'filteredGenders', 'gender', 'description')
     }
 
     private populateFields(result: Passenger): void {

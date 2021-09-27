@@ -70,13 +70,13 @@
 </div>
 
 <mat-autocomplete autoActiveFirstOption #nationalities="matAutocomplete" [displayWith]="dropdownFields">
-    <mat-option *ngFor="let option of activeNationalities | async" [value]="option">
+    <mat-option *ngFor="let option of filteredNationalities | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
 <mat-autocomplete autoActiveFirstOption #genders="matAutocomplete" [displayWith]="dropdownFields">
-    <mat-option *ngFor="let option of activeGenders | async" [value]="option">
+    <mat-option *ngFor="let option of filteredGenders | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>

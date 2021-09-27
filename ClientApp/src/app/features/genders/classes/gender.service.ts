@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
+// Custom
 import { DataService } from 'src/app/shared/services/data.service'
 import { Gender } from './gender'
 
@@ -14,8 +15,8 @@ export class GenderService extends DataService {
 
     //#region public methods
 
-    getAllActive(): Observable<Gender[]> {
-        return this.http.get<Gender[]>('/api/genders/getActive')
+    getActiveForDropdown(): Observable<Gender[]> {
+        return this.http.get<Gender[]>('/api/genders/getActiveForDropdown')
     }
 
     //#endregion

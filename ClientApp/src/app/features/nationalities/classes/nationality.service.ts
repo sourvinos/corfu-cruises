@@ -1,10 +1,10 @@
-// Base
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { DataService } from 'src/app/shared/services/data.service'
-import { Nationality } from './nationality'
+import { NationalityDropdownResource } from './../../reservations/classes/resources/form/dropdown/nationality-dropdown-resource'
+
 
 @Injectable({ providedIn: 'root' })
 
@@ -16,8 +16,8 @@ export class NationalityService extends DataService {
 
     //#region public methods
 
-    getAllActive(): Observable<Nationality[]> {
-        return this.http.get<Nationality[]>('/api/nationalities/getActiveForDropdown')
+    getActiveForDropdown(): Observable<NationalityDropdownResource[]> {
+        return this.http.get<NationalityDropdownResource[]>('/api/nationalities/getActiveForDropdown')
     }
 
     //#endregion

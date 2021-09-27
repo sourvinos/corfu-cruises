@@ -1,6 +1,6 @@
-namespace BlueWaterCruises.Features.Drivers {
+namespace BlueWaterCruises.Features.Occupants {
 
-    public class DriverResource {
+    public class OccupantDropdownResource {
 
         public int Id { get; set; }
         public string Description { get; set; }

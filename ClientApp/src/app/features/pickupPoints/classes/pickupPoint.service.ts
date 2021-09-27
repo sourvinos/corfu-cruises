@@ -12,7 +12,7 @@ export class PickupPointService extends DataService {
         super(http, '/api/pickupPoints')
     }
 
-    getAllActive(): Observable<PickupPoint[]> {
+    getActiveForDropdown(): Observable<PickupPoint[]> {
         return this.http.get<PickupPoint[]>('/api/pickupPoints/getActiveForDropdown')
     }
 

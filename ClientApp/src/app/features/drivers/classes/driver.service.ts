@@ -14,7 +14,7 @@ export class DriverService extends DataService {
 
     //#region public methods
 
-    getAllActive(): Observable<Driver[]> {
+    getActiveForDropdown(): Observable<Driver[]> {
         return this.http.get<Driver[]>('/api/drivers/getActiveForDropdown')
     }
 

@@ -1,6 +1,6 @@
-namespace BlueWaterCruises.Features.Ports {
+namespace BlueWaterCruises.Features.Genders {
 
-    public class PortResource {
+    public class GenderDropdownResource {
 
         public int Id { get; set; }
         public string Description { get; set; }

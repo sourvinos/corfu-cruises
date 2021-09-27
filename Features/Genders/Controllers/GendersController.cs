@@ -27,8 +27,8 @@ namespace BlueWaterCruises.Features.Genders {
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<Gender>> GetActive() {
-            return await repo.GetActive(x => x.IsActive);
+        public async Task<IEnumerable<GenderDropdownResource>> GetActiveForDropdown() {
+            return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]

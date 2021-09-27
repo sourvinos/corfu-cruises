@@ -87,7 +87,7 @@ export class ReservationListComponent {
                 height: '350px',
                 width: '550px',
                 data: {
-                    drivers: this.driverService.getAllActive(),
+                    drivers: this.driverService.getActiveForDropdown(),
                     actions: ['abort', 'ok']
                 },
                 panelClass: 'dialog'
