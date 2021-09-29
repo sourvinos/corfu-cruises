@@ -25,7 +25,7 @@ const appRoutes: Routes = [
     { path: 'pickupPoints', loadChildren: (): any => import('../features/pickupPoints/classes/pickupPoint.module').then(m => m.PickupPointModule) },
     { path: 'ports', loadChildren: (): any => import('../features/ports/classes/modules/port.module').then(m => m.PortModule) },
     { path: 'reservations', loadChildren: (): any => import('../features/reservations/classes/modules/reservation.module').then(m => m.ReservationModule) },
-    { path: 'routes', loadChildren: (): any => import('../features/routes/classes/route.module').then(m => m.RouteModule) },
+    { path: 'routes', loadChildren: (): any => import('../features/routes/classes/modules/route.module').then(m => m.RouteModule) },
     { path: 'schedules', loadChildren: (): any => import('../features/schedules/classes/schedule.module').then(m => m.ScheduleModule) },
     { path: 'shipCrews', loadChildren: (): any => import('../features/ships/crews/classes/crew.module').then(m => m.CrewModule) },
     { path: 'shipOwners', loadChildren: (): any => import('../features/ships/owners/classes/base/ship-owner.module').then(m => m.ShipOwnerModule) },

@@ -29,9 +29,9 @@ namespace BlueWaterCruises.Features.Routes {
             return await repo.Get();
         }
 
-        [HttpGet("[action]")]
-        public async Task<IEnumerable<Route>> GetActive() {
-            return await repo.GetActive(x => x.IsActive);
+       [HttpGet("[action]")]
+        public async Task<IEnumerable<RouteDropdownResource>> GetActiveForDropdown() {
+            return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]

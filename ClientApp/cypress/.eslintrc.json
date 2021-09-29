@@ -2,6 +2,9 @@
     "plugins": [
         "cypress"
     ],
+    "rules": {
+        "cypress/no-assigning-return-values": "null"
+    },
     "extends": [
         "plugin:cypress/recommended"
     ]

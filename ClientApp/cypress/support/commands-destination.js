@@ -1,11 +1,10 @@
 import 'cypress-localstorage-commands'
 
 Cypress.Commands.add('gotoDestinationList', () => {
-    cy.server()
-    cy.route('GET', Cypress.config().baseUrl + '/api/destinations', 'fixture:destinations/destinations.json').as('getDestinations')
-    cy.get('[data-cy=tablesMenu]').click()
-    cy.get('[data-cy=destinationsMenu]').click()
-    cy.wait('@getDestinations').its('status').should('eq', 200)
+    cy.intercept('GET', Cypress.config().baseUrl + '/api/destinations', { fixture:'destinations/destinations.json' }).as('getDestinations')
+    cy.get(':nth-child(4) > .p-component > #undefined_header').click()
+    cy.get(':nth-child(4) > .p-toggleable-content > #undefined_content > .ng-tns-c209-1 > .ng-trigger > :nth-child(2) > .p-menuitem-link').click()
+    cy.wait('@getDestinations').its('response.statusCode').should('eq', 200)
     cy.url().should('eq', Cypress.config().baseUrl + '/destinations')
 })
 
@@ -15,14 +14,9 @@ Cypress.Commands.add('gotoEmptyDestinationForm', () => {
 })
 
 Cypress.Commands.add('readDestinationRecord', () => {
-    cy.server()
-    cy.route('GET', Cypress.config().baseUrl + '/api/destinations/2', 'fixture:destinations/destination.json').as('getDestination')
-    cy.get('[data-cy=searchTerm]').clear().type('paxos').should('have.value', 'paxos')
-    cy.get('.button-row-menu').eq(0).click({ force: true })
-    cy.get('[data-cy=editButton]').first().click()
-    cy.wait('@getDestination').its('status').should('eq', 200)
-    cy.url().should('eq', Cypress.config().baseUrl + '/destinations/2').then(() => {
-        cy.expect(localStorage.getItem('searchTermDestination')).to.eq('paxos')
-        cy.clearLocalStorage('searchTermDestination')
-    })
+    cy.intercept('GET', Cypress.config().baseUrl + '/api/destinations/2', { fixture:'destinations/destination.json' }).as('getDestination')
+    cy.get('.p-datatable-tbody > :nth-child(1)').click()
+    cy.get('.p-datatable-tbody > :nth-child(1)').dblclick()
+    cy.wait('@getDestination').its('response.statusCode').should('eq', 200)
+    cy.url().should('eq', Cypress.config().baseUrl + '/destinations/2')
 })

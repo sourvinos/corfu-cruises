@@ -1,24 +1,10 @@
 {
-    "id": 1700,
-    "description": "KAMINAKI",
+    "id": 1,
+    "routeId": 1,
+    "description": "SAN ANTONIO = ADONIS KALAMI",
     "exactPoint": "MAIN ROAD",
-    "time": "06:55",
-    "coordinates": "39.792619046820356,19.706992786104887",
+    "time": "06:45",
+    "coordinates": "39.62781231702968,19.902030742889246",
     "isActive": true,
-    "userId": "b6401c3e-7683-49bc-bb7f-8be3b2fd2210",
-    "routeId": 19,
-    "route": {
-        "id": 19,
-        "description": "NISAKI",
-        "fullDescription": "NISAKI - CORFU PORT",
-        "isActive": true,
-        "userId": "b6401c3e-7683-49bc-bb7f-8be3b2fd2210",
-        "portId": 1,
-        "port": {
-            "id": 1,
-            "description": "CORFU PORT",
-            "isActive": true,
-            "userId": "b6401c3e-7683-49bc-bb7f-8be3b2fd2210"
-        }
-    }
+    "userId": "25439d25-4e36-409d-b9d3-9fb41c289541"
 }

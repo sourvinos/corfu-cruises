@@ -1,11 +1,11 @@
 {
-    "id": 22,
-    "description": "LORD TRAVEL",
+    "id": 5,
+    "description": "PACHIS TRAVEL",
     "profession": "ΓΡΑΦΕΙΟ ΓΕΝΙΚΟΥ ΤΟΥΡΙΣΜΟΥ",
-    "address": "ΕΘΝΙΚΗ ΛΕΥΚΙΜΜΗΣ 38 - ΚΕΡΚΥΡΑ",
-    "phones": "0661.91617",
-    "personInCharge": "KALOUDIS VASILIS",
+    "address": "ΓΚΙΛΦΟΡΔ 7-ΚΕΡΚΥΡΑ",
+    "phones": "",
+    "personInCharge": "",
     "email": "",
-    "isActive": true,
+    "isActive": false,
     "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
 }

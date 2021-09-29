@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { RouteService } from './route.service'
+import { RouteService } from '../services/route.service'
 
 @Injectable({ providedIn: 'root' })
 

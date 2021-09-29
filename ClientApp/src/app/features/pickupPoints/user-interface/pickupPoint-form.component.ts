@@ -15,8 +15,8 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { PickupPoint } from '../classes/pickupPoint'
 import { PickupPointService } from '../classes/pickupPoint.service'
-import { Route } from '../../routes/classes/route'
-import { RouteService } from 'src/app/features/routes/classes/route.service'
+import { Route } from '../../routes/classes/models/route'
+import { RouteService } from 'src/app/features/routes/classes/services/route.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from '../../../shared/services/validation.service'
 import { environment } from 'src/environments/environment'
@@ -69,8 +69,9 @@ export class PickupPointFormComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.initForm()
         this.addShortcuts()
+        this.populateDropDowns()
+        this.initForm()
         this.populateDropDown(this.routeService, 'routes', 'filteredRoutes', 'route', 'abbreviation')
         this.onFocusFormPanel()
     }
@@ -145,7 +146,6 @@ export class PickupPointFormComponent {
 
     public onSave(): void {
         if (this.form.value.id === 0 || this.form.value.id === null) {
-            this.enableField(this.form, 'coordinates')
             this.flattenForm()
             this.pickupPointService.add(this.flatForm.value).subscribe(() => {
                 this.resetForm()
@@ -155,7 +155,6 @@ export class PickupPointFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
             })
         } else {
-            this.enableField(this.form, 'coordinates')
             this.flattenForm()
             this.pickupPointService.update(this.flatForm.value.id, this.flatForm.value).subscribe(() => {
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
@@ -260,7 +259,7 @@ export class PickupPointFormComponent {
             description: ['', [Validators.required, Validators.maxLength(128)]],
             exactPoint: ['', [Validators.required, Validators.maxLength(128)]],
             time: ['', [Validators.required, ValidationService.isTime]],
-            coordinates: [{ value: '', disabled: true }],
+            coordinates: [''],
             isActive: true,
             userId: this.helperService.readItem('userId')
         })
@@ -278,6 +277,10 @@ export class PickupPointFormComponent {
                 })
         })
         return promise
+    }
+
+    private populateDropDowns(): void {
+        this.populateDropDown(this.routeService, 'routes', 'filteredRoutes', 'route', 'abbreviation')
     }
 
     private populateFields(result: PickupPoint): void {

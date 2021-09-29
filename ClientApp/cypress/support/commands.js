@@ -48,19 +48,14 @@ Cypress.Commands.add('formShouldBeValid', (element) => {
         .should('not.have.class', 'ng-invalid')
 })
 
-Cypress.Commands.add('elementShouldBeInvalid', (element) => {
-    cy.get('[data-cy=' + element + ']')
-        .should('have.attr', 'aria-invalid', 'true')
-})
-
 Cypress.Commands.add('elementShouldBeValid', (element) => {
     cy.get('[data-cy=' + element + ']')
         .should('not.have.class', 'aria-invalid', 'false')
 })
 
-Cypress.Commands.add('buttonShouldBeDisabled', (button) => {
-    cy.get('[data-cy=' + button + ']')
-        .should('have.attr', 'disabled')
+Cypress.Commands.add('elementShouldBeInvalid', (element) => {
+    cy.get('[data-cy=' + element + ']')
+        .should('have.attr', 'aria-invalid', 'true')
 })
 
 Cypress.Commands.add('buttonShouldBeEnabled', (button) => {
@@ -68,10 +63,24 @@ Cypress.Commands.add('buttonShouldBeEnabled', (button) => {
         .should('not.have.attr', 'disabled')
 })
 
+Cypress.Commands.add('buttonShouldBeDisabled', (button) => {
+    cy.get('[data-cy=' + button + ']')
+        .should('have.attr', 'disabled')
+})
+
 Cypress.Commands.add('clickOnDeleteAndAbort', () => {
     cy.get('[data-cy=delete]').click()
     cy.get('.mat-dialog-container')
     cy.get('[data-cy=dialog-abort]').click()
+})
+
+Cypress.Commands.add('goHome', () => {
+    cy.get('[data-cy=companyLogo]').click()
+    cy.url().should('eq', Cypress.config().baseUrl + '/')
+})
+
+Cypress.Commands.add('clearField', (element) => {
+    cy.get('[data-cy=' + element + ']').clear()
 })
 
 function createRandomLetters(length) {

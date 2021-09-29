@@ -2,7 +2,7 @@
 
     <div id="header">
         <div id="navigation">
-            <mat-icon data-cy="goBack"class="goBack" [routerLink]="['/pickupPoints']">arrow_back</mat-icon>
+            <mat-icon data-cy="goBack" class="goBack" [routerLink]="['/pickupPoints']">arrow_back</mat-icon>
         </div>
         <div @slideFromLeft id="title">
             <h1>{{ onGetLabel('header') }}</h1>
@@ -11,15 +11,15 @@
 
     <div id="content">
         <div id="panelButtons">
-            <button mat-flat-button class="tab" id="formTab" [disabled]="activePanel=='form'" (click)="onFocusFormPanel()">{{ onGetLabel('formTab') }}</button>
-            <button mat-flat-button class="tab" id="mapTab" [disabled]="activePanel=='map'" (click)="onFocusMapPanel()">{{ onGetLabel('mapTab') }}</button>
+            <button data-cy="form-button" mat-flat-button class="tab" id="formTab" [disabled]="activePanel=='form'" (click)="onFocusFormPanel()">{{ onGetLabel('formTab') }}</button>
+            <button data-cy="map-button" mat-flat-button class="tab" id="mapTab" [disabled]="activePanel=='map'" (click)="onFocusMapPanel()">{{ onGetLabel('mapTab') }}</button>
         </div>
         <div id="form" [class.hidden]="activePanel=='map'">
             <form data-cy="form" [formGroup]="form" autocomplete="off">
                 <div id="group-field">
                     <mat-form-field>
                         <mat-label>{{ onGetLabel("route") }}</mat-label>
-                        <input matInput formControlName="route" [matAutocomplete]="routes" data-tabindex="1" [inputTabStop]="input">
+                        <input data-cy="route-description" type="text" matInput formControlName="route" [matAutocomplete]="routes" data-tabindex="1" [inputTabStop]="input">
                         <mat-error *ngIf="route.hasError('required')">{{ onGetHint('required') }}</mat-error>
                         <mat-error *ngIf="!route.hasError('required') && route.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
                         <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
@@ -43,7 +43,7 @@
                     </mat-form-field>
                 </div>
                 <mat-form-field>
-                    <input type="text" matInput [placeholder]="onGetLabel('coordinates')" formControlName="coordinates" id="coordinates">
+                    <input data-cy="coordinates" type="text" matInput [placeholder]="onGetLabel('coordinates')" formControlName="coordinates" id="coordinates" readonly>
                 </mat-form-field>
                 <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
             </form>
