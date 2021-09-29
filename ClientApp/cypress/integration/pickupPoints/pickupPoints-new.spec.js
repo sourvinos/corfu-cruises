@@ -17,7 +17,7 @@ context('Pickup points', () => {
         })
 
         it('Enter only the required fields', () => {
-            cy.typeNotRandomChars('route-description', 'NISAKI').elementShouldBeValid('route-description')
+            cy.typeNotRandomChars('route-abbreviation', 'NISAKI').elementShouldBeValid('route-abbreviation')
             cy.typeRandomChars('description', 20).elementShouldBeValid('description')
             cy.typeRandomChars('exactPoint', 15).elementShouldBeValid('exactPoint')
             cy.typeNotRandomChars('time', '18:45').elementShouldBeValid('time')

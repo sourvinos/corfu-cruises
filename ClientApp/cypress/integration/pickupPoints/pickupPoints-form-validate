@@ -10,22 +10,20 @@ context('Pickup points', () => {
             cy.restoreLocalStorage()
         })
 
-        it('Select a route from the dropdown', () => {
-            cy.populateRoutesDropdown()
-            cy.selectRouteFromDropdown()
-        })
-
         it('Goto an empty form', () => {
+            cy.gotoPickupPointList()
             cy.gotoEmptyPickupPointForm()
         })
 
-        it('Populate route description', () => {
-            cy.get('[data-cy=routeDescription]').type('NISAKI', { force: true })
-        })
-
         it('Correct number of fields', () => {
+            cy.get('[data-cy=goBack]').should('have.length', 1)
             cy.get('[data-cy=form]').find('.mat-form-field').should('have.length', 5)
             cy.get('[data-cy=form]').find('.mat-slide-toggle').should('have.length', 1)
+            cy.get('[data-cy=save]').should('have.length', 1)
+        })
+
+        it('Route is not valid when valuw is not in dropdown', () => {
+            cy.typeRandomChars('route-abbreviation', 10).elementShouldBeInvalid('route-abbreviation')
         })
 
         it('Description is not valid when blank', () => {
@@ -69,33 +67,28 @@ context('Pickup points', () => {
             cy.get('[data-cy=goBack]').click()
             cy.get('.mat-dialog-container')
             cy.get('[data-cy=dialog-abort]').click()
-            cy.url().should('eq', Cypress.config().baseUrl + '/pickupPoints/routeId/19/pickupPoint/new')
+            cy.url().should('eq', Cypress.config().baseUrl + '/pickupPoints/new')
         })
 
         it('Choose to abort when the back icon is clicked', () => {
             cy.server()
-            cy.route('GET', Cypress.config().baseUrl + '/api/pickupPoints/routeId/19', 'fixture:pickupPoints/pickupPoints.json').as('getPickupPoints')
+            cy.route('GET', Cypress.config().baseUrl + '/api/pickupPoints', 'fixture:pickupPoints/pickupPoints.json').as('getPickupPoints')
             cy.get('[data-cy=goBack]').click()
             cy.get('.mat-dialog-container')
             cy.get('[data-cy=dialog-ok]').click()
             cy.wait('@getPickupPoints').its('status').should('eq', 200)
-            cy.url().should('eq', Cypress.config().baseUrl + '/pickupPoints/routeId/19')
-        })
-
-        it('Goto the list', () => {
-            cy.get('[data-cy=goBack]').click()
             cy.url().should('eq', Cypress.config().baseUrl + '/pickupPoints')
         })
 
         it('Goto the home page', () => {
-            cy.get('[data-cy=goBack]').click()
+            cy.goHome()
             cy.url().should('eq', Cypress.config().baseUrl + '/')
         })
 
         afterEach(() => {
             cy.saveLocalStorage()
         })
-        
+
     })
 
     after(() => {

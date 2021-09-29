@@ -1,6 +1,9 @@
 {
     "id": 1,
-    "routeId": 1,
+    "route": {
+        "id": 1,
+        "abbreviation": "NISAKI"
+    },
     "description": "SAN ANTONIO = ADONIS KALAMI",
     "exactPoint": "MAIN ROAD",
     "time": "06:45",
