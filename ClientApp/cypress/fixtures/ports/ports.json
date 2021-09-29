@@ -2,12 +2,14 @@
     {
         "id": 1,
         "description": "CORFU PORT",
+        "isPrimary": true,
         "isActive": true,
         "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
     },
     {
         "id": 2,
         "description": "LEFKIMMI PORT",
+        "isPrimary": false,
         "isActive": true,
         "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
     }

@@ -96,7 +96,6 @@ namespace BlueWaterCruises.Features.Schedules {
                     DestinationAbbreviation = x.Destination.Abbreviation,
                     PortId = x.PortId,
                     PortDescription = x.Port.Description,
-                    PortAbbreviation = x.Port.Abbreviation,
                     IsPortPrimary = x.Port.IsPrimary,
                     MaxPersons = x.MaxPersons
                 });
