@@ -1,28 +1,58 @@
 [
     {
-        "id": 19,
+        "id": 1,
         "abbreviation": "NISAKI",
-        "description": "NISAKI - CORFU PORT",
-        "isActive": true,
-        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
-        "port": {
-            "id": 1,
-            "description": "CORFU PORT",
-            "isActive": true,
-            "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
-        }
+        "description": "NISAKI - KALAMI - BARBATI - DASIA - GOUVIA - CORFU PORT",
+        "isTransfer": true,
+        "isActive": false
     },
     {
-        "id": 20,
+        "id": 2,
         "abbreviation": "SOUTH",
-        "description": "TOWN - LEFKIMMI",
-        "isActive": true,
-        "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da",
-        "port": {
-            "id": 2,
-            "description": "LEFKIMMI PORT",
-            "isActive": false,
-            "userId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
-        }
+        "description": "TOWN - ΠΕΡΑΜΑ - ΜΕΣΣΟΓΓΗ - ΛΕΥΚΙΜΜΗ",
+        "isTransfer": true,
+        "isActive": true
+    },
+    {
+        "id": 3,
+        "abbreviation": "WEST",
+        "description": "PALEO - ERMONES - GLYFADA - PELEKA - AG.GORDIS - CORFU PORT",
+        "isTransfer": true,
+        "isActive": true
+    },
+    {
+        "id": 4,
+        "abbreviation": "ACH-SID",
+        "description": "ACHARAVI - RODA - SIDARI - CORFU PORT",
+        "isTransfer": true,
+        "isActive": true
+    },
+    {
+        "id": 5,
+        "abbreviation": "KAVOS",
+        "description": "KAVOS",
+        "isTransfer": true,
+        "isActive": true
+    },
+    {
+        "id": 6,
+        "abbreviation": "LP",
+        "description": "NO TRANSFER - LEFKIMMI PORT",
+        "isTransfer": false,
+        "isActive": true
+    },
+    {
+        "id": 7,
+        "abbreviation": "PAGOI",
+        "description": "AG.STEFANOS - ARILLAS - PAGOI - CORFU PORT",
+        "isTransfer": true,
+        "isActive": true
+    },
+    {
+        "id": 8,
+        "abbreviation": "CP",
+        "description": "NO TRANSFER - CORFU PORT",
+        "isTransfer": false,
+        "isActive": true
     }
 ]

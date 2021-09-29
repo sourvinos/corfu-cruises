@@ -30,7 +30,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>{{ onGetLabel("port") }}</mat-label>
-                    <input matInput formControlName="port" [matAutocomplete]="ports" data-tabindex="3" [inputTabStop]="input">
+                    <input matInput data-cy="port-description" type="text" formControlName="port" [matAutocomplete]="ports" data-tabindex="3" [inputTabStop]="input">
                     <mat-error *ngIf="port.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
                     <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>

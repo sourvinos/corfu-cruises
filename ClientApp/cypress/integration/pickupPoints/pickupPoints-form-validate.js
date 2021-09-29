@@ -22,7 +22,7 @@ context('Pickup points', () => {
             cy.get('[data-cy=save]').should('have.length', 1)
         })
 
-        it('Route is not valid when valuw is not in dropdown', () => {
+        it('Route is not valid when value is not in dropdown', () => {
             cy.typeRandomChars('route-abbreviation', 10).elementShouldBeInvalid('route-abbreviation')
         })
 
