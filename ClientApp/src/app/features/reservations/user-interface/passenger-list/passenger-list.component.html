@@ -1,32 +1,30 @@
 <div id="passenger-list">
 
     <div *ngIf="passengers" id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="passengers" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="passenger-list" stateStorage="local">
+        <p-table #table [scrollable]="true" [value]="passengers" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 50%; border-top-left-radius: 10px;" pSortableColumn="lastname">{{ getLabel('headerLastname') }}<p-sortIcon field="lastname"></p-sortIcon></th>
-                    <th style="width: 45%;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
-                    <th style="width: 5%; border-top-right-radius: 10px;"></th>
+                    <th data-cy="column" style="min-width: 50%; max-width: 50%; border-top-left-radius: 10px;" pSortableColumn="lastname">{{ getLabel('headerLastname') }}<p-sortIcon field="lastname"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 45%; max-width: 45%;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 5%; max-width: 5%; border-top-right-radius: 10px;"></th>
                 </tr>
                 <tr>
-                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
-                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
-                    <th></th>
+                    <th style="min-width: 50%; max-width: 50%;" ><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
+                    <th style="min-width: 45%; max-width: 45%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
+                    <th style="min-width: 5%; max-width: 5%;"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
-                <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
-                    <td style="width: 50%;">{{ rowData.lastname }}</td>
-                    <td style="width: 45%;">{{ rowData.firstname }}</td>
-                    <td style="width: 5%; text-align: center;" (click)="onDeleteRow(rowData)">
-                        <i class="far fa-trash-alt"></i>
-                    </td>
+                <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
+                    <td style="min-width: 50%; max-width: 50%;">{{ rowData.lastname }}</td>
+                    <td style="min-width: 45%; max-width: 45%;">{{ rowData.firstname }}</td>
+                    <td data-cy="deleteRow" style="min-width: 5%; max-width: 5%; justify-content: center;" (click)="onDeleteRow(rowData)"><i class="far fa-trash-alt"></i></td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
                 <tr>
                     <td style="text-align: right;" colspan="3">
-                        <button mat-mini-fab (click)="onNew()">
+                        <button data-cy="newPerson" mat-mini-fab (click)="onNew()">
                             <mat-icon>person_add</mat-icon>
                         </button>
                     </td>

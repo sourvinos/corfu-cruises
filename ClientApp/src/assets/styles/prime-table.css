@@ -4,6 +4,10 @@
     transition: all var(--change-theme-delay) ease;
 }
 
+.p-datatable-tbody {
+    height: 100% !important;
+}
+
 .p-datatable-flex-scrollable .p-datatable-scrollable-body, .p-datatable-flex-scrollable .p-datatable-virtual-scrollable-body {
     overflow-x: hidden !important;
 }
@@ -71,6 +75,7 @@
 .p-datatable .p-datatable-tfoot > tr > td {
     background: none;
     border: none;
+    justify-content: flex-end;
 }
 
 .p-datatable .p-datatable-tbody > tr.p-highlight > td {
