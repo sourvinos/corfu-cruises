@@ -234,3 +234,8 @@ _Pvt_Extensions
 appsettings.json
 /Logs
 /Vouchers
+
+# Cypress
+**/videos
+**/screenshots
+**/snapshots

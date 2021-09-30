@@ -27,7 +27,7 @@ namespace BlueWaterCruises.Features.Ports {
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<PortDropdownResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 

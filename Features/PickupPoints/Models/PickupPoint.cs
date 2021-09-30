@@ -2,11 +2,9 @@
 
 namespace BlueWaterCruises.Features.PickupPoints {
 
-    public class PickupPoint {
+    public class PickupPoint : SimpleResource {
 
-        public int Id { get; set; }
         public int RouteId { get; set; }
-        public string Description { get; set; }
         public string ExactPoint { get; set; }
         public string Time { get; set; }
         public string Coordinates { get; set; }

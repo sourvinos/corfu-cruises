@@ -27,7 +27,7 @@ namespace BlueWaterCruises.Features.Destinations {
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<DestinationDropdownResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 

@@ -30,7 +30,7 @@ namespace BlueWaterCruises.Features.Routes {
         }
 
        [HttpGet("[action]")]
-        public async Task<IEnumerable<RouteDropdownResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 

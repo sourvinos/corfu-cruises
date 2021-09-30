@@ -9,9 +9,9 @@ namespace BlueWaterCruises.Features.Ships {
         public bool IsActive { get; set; }
         public string UserId { get; set; }
 
-        public ShipResource Ship { get; set; }
-        public GenderResource Gender { get; set; }
-        public NationalityResource Nationality { get; set; }
+        public SimpleResource Ship { get; set; }
+        public SimpleResource Gender { get; set; }
+        public SimpleResource Nationality { get; set; }
 
     }
 

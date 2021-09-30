@@ -1,6 +1,6 @@
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises {
 
-    public class ShipOwnerDropdownResource {
+    public class SimpleResource {
 
         public int Id { get; set; }
         public string Description { get; set; }

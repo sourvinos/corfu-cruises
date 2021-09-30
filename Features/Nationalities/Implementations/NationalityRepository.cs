@@ -14,13 +14,13 @@ namespace BlueWaterCruises.Features.Nationalities {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<NationalityDropdownResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             var records = await context
                 .Set<Nationality>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Nationality>, IEnumerable<NationalityDropdownResource>>(records);
+            return mapper.Map<IEnumerable<Nationality>, IEnumerable<SimpleResource>>(records);
         }
 
     }

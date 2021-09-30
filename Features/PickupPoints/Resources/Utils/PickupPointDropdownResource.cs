@@ -2,14 +2,12 @@ using BlueWaterCruises.Features.Ports;
 
 namespace BlueWaterCruises.Features.PickupPoints {
 
-    public class PickupPointDropdownResource {
+    public class PickupPointDropdownResource : SimpleResource {
 
-        public int Id { get; set; }
-        public string Description { get; set; }
         public string ExactPoint { get; set; }
         public string Time { get; set; }
 
-        public PortDropdownResource Port { get; set; }
+        public SimpleResource Port { get; set; }
 
     }
 

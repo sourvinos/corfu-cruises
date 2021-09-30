@@ -5,7 +5,7 @@ namespace BlueWaterCruises.Features.Nationalities {
 
     public interface INationalityRepository : IRepository<Nationality> {
 
-        Task<IEnumerable<NationalityDropdownResource>> GetActiveForDropdown();
+        Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
 
     }
 

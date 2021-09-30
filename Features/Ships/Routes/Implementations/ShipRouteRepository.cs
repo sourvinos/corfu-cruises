@@ -20,13 +20,13 @@ namespace BlueWaterCruises.Features.Ships {
             return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<ShipRouteListResource>>(shiproutes);
         }
 
-         public async Task<IEnumerable<ShipRouteDropdownResource>> GetActiveForDropdown() {
+         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             var records = await context
                 .Set<ShipRoute>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .ToListAsync();
-            return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<ShipRouteDropdownResource>>(records);
+            return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<SimpleResource>>(records);
         }
 
     }

@@ -6,7 +6,7 @@ namespace BlueWaterCruises.Features.Drivers {
 
     public interface IDriverRepository : IRepository<Driver> { 
 
-        Task<IEnumerable<DriverDropdownResource>> GetActiveForDropdown();
+        Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
         Task<int> GetDefault();
         
     }

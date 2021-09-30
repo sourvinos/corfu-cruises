@@ -5,7 +5,7 @@ namespace BlueWaterCruises.Features.Destinations {
 
     public interface IDestinationRepository : IRepository<Destination> {
 
-        Task<IEnumerable<DestinationDropdownResource>> GetActiveForDropdown();
+        Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
 
     }
 

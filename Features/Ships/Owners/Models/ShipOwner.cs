@@ -1,9 +1,7 @@
 namespace BlueWaterCruises.Features.Ships {
 
-    public class ShipOwner {
+    public class ShipOwner : SimpleResource {
 
-        public int Id { get; set; }
-        public string Description { get; set; }
         public string Profession { get; set; }
         public string Address { get; set; }
         public string TaxNo { get; set; }

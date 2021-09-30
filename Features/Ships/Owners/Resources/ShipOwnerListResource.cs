@@ -1,9 +1,7 @@
 namespace BlueWaterCruises.Features.Ships {
 
-    public class ShipOwnerListResource {
+    public class ShipOwnerListResource : SimpleResource {
 
-        public int Id { get; set; }
-        public string Description { get; set; }
         public bool IsActive { get; set; }
 
     }

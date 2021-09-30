@@ -14,13 +14,13 @@ namespace BlueWaterCruises.Features.Drivers {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<DriverDropdownResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             var records = await context
                 .Set<Driver>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Driver>, IEnumerable<DriverDropdownResource>>(records);
+            return mapper.Map<IEnumerable<Driver>, IEnumerable<SimpleResource>>(records);
         }
 
         public async Task<int> GetDefault() {

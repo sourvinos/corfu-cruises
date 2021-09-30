@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
-using BlueWaterCruises.Features.Customers;
-using BlueWaterCruises.Features.Destinations;
-using BlueWaterCruises.Features.Drivers;
 using BlueWaterCruises.Features.PickupPoints;
-using BlueWaterCruises.Features.Ports;
 
 namespace BlueWaterCruises.Features.Reservations {
 
@@ -22,12 +18,12 @@ namespace BlueWaterCruises.Features.Reservations {
         public string Phones { get; set; }
         public string Remarks { get; set; }
 
-        public CustomerDropdownResource Customer { get; set; }
-        public DestinationDropdownResource Destination { get; set; }
+        public SimpleResource Customer { get; set; }
+        public SimpleResource Destination { get; set; }
         public PickupPointDropdownResource PickupPoint { get; set; }
-        public DriverDropdownResource Driver { get; set; }
-        public ShipDropdownResource Ship { get; set; }
-        public PortDropdownResource Port { get; set; }
+        public SimpleResource Driver { get; set; }
+        public SimpleResource Ship { get; set; }
+        public SimpleResource Port { get; set; }
 
         public UserResource User { get; set; }
 

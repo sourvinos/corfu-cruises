@@ -18,7 +18,7 @@ namespace BlueWaterCruises.Features.Reservations {
                     Description = r.PickupPoint.Description,
                     ExactPoint = r.PickupPoint.ExactPoint,
                     Time = r.PickupPoint.Time,
-                    Port = new PortDropdownResource {
+                    Port = new SimpleResource {
                         Id = r.PickupPoint.Route.Port.Id,
                         Description = r.PickupPoint.Route.Port.Description
                     }

@@ -10,7 +10,7 @@ context('Pickup points', () => {
             cy.restoreLocalStorage()
         })
 
-        it('Goto the list', () => {
+        it.only('Goto the list', () => {
             cy.gotoPickupPointList()
         })
 
@@ -40,15 +40,15 @@ context('Pickup points', () => {
             })
         })
 
-        it('Filter the table by route', () => {
-            cy.get('[data-cy=filter-route-abbreviation]').click()
-            cy.get('[ng-reflect-label="SOUTH"] > .p-dropdown-item').click()
+        it.only('Filter the table by route', () => {
+            // cy.get('p-dropdown-panel p-component').click().find('span').contains('SOUTH').click();
+            cy.get('[data-cy=filter-route-abbreviation]').click().should('be.visible').get('li > span').contains('SOUTH')
+            // cy.get('[data-cy=row]').should((rows) => {
+            // expect(rows).to.have.length(1)
+            // })
+            // cy.get('.p-dropdown-clear-icon').click()
             cy.get('[data-cy=row]').should((rows) => {
                 expect(rows).to.have.length(1)
-            })
-            cy.get('.p-dropdown-clear-icon').click()
-            cy.get('[data-cy=row]').should((rows) => {
-                expect(rows).to.have.length(2)
             })
         })
 

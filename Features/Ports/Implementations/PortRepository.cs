@@ -14,13 +14,13 @@ namespace BlueWaterCruises.Features.Ports {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<PortDropdownResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             var records = await context
                 .Set<Port>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Port>, IEnumerable<PortDropdownResource>>(records);
+            return mapper.Map<IEnumerable<Port>, IEnumerable<SimpleResource>>(records);
         }
 
     }

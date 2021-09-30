@@ -2,10 +2,7 @@ using System.Collections.Generic;
 
 namespace BlueWaterCruises.Features.Reservations {
 
-    public class DestinationResource {
-
-        public int Id { get; set; }
-        public string Description { get; set; }
+    public class DestinationResource : SimpleResource {
 
         public IEnumerable<PortResource> Ports { get; set; }
 

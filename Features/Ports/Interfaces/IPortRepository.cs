@@ -5,7 +5,7 @@ namespace BlueWaterCruises.Features.Ports {
 
     public interface IPortRepository : IRepository<Port> {
 
-        Task<IEnumerable<PortDropdownResource>> GetActiveForDropdown();
+        Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
 
     }
 

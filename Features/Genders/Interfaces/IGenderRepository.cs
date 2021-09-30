@@ -5,7 +5,7 @@ namespace BlueWaterCruises.Features.Genders {
 
     public interface IGenderRepository : IRepository<Gender> {
 
-        Task<IEnumerable<GenderDropdownResource>> GetActiveForDropdown();
+        Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
 
     }
 

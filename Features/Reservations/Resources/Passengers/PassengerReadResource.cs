@@ -15,8 +15,8 @@ namespace BlueWaterCruises.Features.Reservations {
         public string SpecialCare { get; set; }
         public bool IsCheckedIn { get; set; }
 
-        public NationalityResource Nationality { get; set; }
-        public GenderResource Gender { get; set; }
+        public SimpleResource Nationality { get; set; }
+        public SimpleResource Gender { get; set; }
 
     }
 

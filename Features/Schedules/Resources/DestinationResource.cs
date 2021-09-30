@@ -2,11 +2,9 @@ using System.Collections.Generic;
 
 namespace BlueWaterCruises.Features.Schedules {
 
-    public class DestinationResource {
+    public class DestinationResource : SimpleResource {
 
-        public int Id { get; set; }
         public string Abbreviation { get; set; }
-        public string Description { get; set; }
         public int Empty { get; set; }
         public IEnumerable<PortResource> Ports { get; set; }
 

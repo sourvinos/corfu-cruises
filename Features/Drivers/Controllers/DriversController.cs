@@ -39,7 +39,7 @@ namespace BlueWaterCruises.Features.Drivers {
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<DriverDropdownResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 

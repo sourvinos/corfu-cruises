@@ -27,7 +27,7 @@ namespace BlueWaterCruises.Features.Nationalities {
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<NationalityDropdownResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 

@@ -14,13 +14,13 @@ namespace BlueWaterCruises.Features.Customers {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<CustomerDropdownResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             var records = await context
                 .Set<Customer>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerDropdownResource>>(records);
+            return mapper.Map<IEnumerable<Customer>, IEnumerable<SimpleResource>>(records);
         }
 
     }

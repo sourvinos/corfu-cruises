@@ -5,7 +5,7 @@ namespace BlueWaterCruises.Features.Customers {
 
     public interface ICustomerRepository : IRepository<Customer> {
 
-        Task<IEnumerable<CustomerDropdownResource>> GetActiveForDropdown();
+        Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
 
     }
 

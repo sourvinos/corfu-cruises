@@ -6,7 +6,7 @@ namespace BlueWaterCruises.Features.Ships {
     public interface IShipRouteRepository : IRepository<ShipRoute> {
 
         Task<IEnumerable<ShipRouteListResource>> Get();
-        Task<IEnumerable<ShipRouteDropdownResource>> GetActiveForDropdown();
+        Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
 
     }
 

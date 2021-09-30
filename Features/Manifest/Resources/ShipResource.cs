@@ -2,9 +2,8 @@ using System.Collections.Generic;
 
 namespace BlueWaterCruises.Features.Manifest {
 
-    public class ShipResource {
+    public class ShipResource : SimpleResource {
 
-        public string Description { get; set; }
         public string IMO { get; set; }
         public string Flag { get; set; }
         public string RegistryNo { get; set; }

@@ -30,7 +30,7 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<ShipOwnerDropdownResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 

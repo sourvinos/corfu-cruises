@@ -1,9 +1,7 @@
 namespace BlueWaterCruises.Features.Drivers {
 
-    public class Driver {
+    public class Driver : SimpleResource {
 
-        public int Id { get; set; }
-        public string Description { get; set; }
         public string Phones { get; set; }
         public bool IsActive { get; set; }
         public string UserId { get; set; }
