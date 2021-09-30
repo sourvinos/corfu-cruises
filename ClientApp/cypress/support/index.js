@@ -6,6 +6,7 @@ import './commands-gender'
 import './commands-pickupPoint'
 import './commands-port'
 import './commands-route'
+import './commands-ship-base'
 import './commands-transfer'
 import './commands-user'
 

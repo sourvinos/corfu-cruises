@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { DataService } from 'src/app/shared/services/data.service'
-import { ShipOwner } from '../base/ship-owner'
+import { ShipOwnerDropdownResource } from '../resources/shipOwner-dropdown-resource'
 
 @Injectable({ providedIn: 'root' })
 
@@ -13,8 +13,8 @@ export class ShipOwnerService extends DataService {
         super(http, '/api/shipOwners')
     }
 
-    getAllActive(): Observable<ShipOwner[]> {
-        return this.http.get<ShipOwner[]>('/api/shipOwners/getActive')
+    public getActiveForDropdown(): Observable<ShipOwnerDropdownResource[]> {
+        return this.http.get<ShipOwnerDropdownResource[]>('/api/shipOwners/getActiveForDropdown')
     }
 
 }

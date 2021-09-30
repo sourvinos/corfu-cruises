@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "description": "CAPTAIN BILL",
+        "ownerDescription": "MY COMPANY",
+        "imo": "12345",
+        "isActive": true
+    },
+    {
+        "id": 2,
+        "description": "DIONISIOS",
+        "ownerDescription": "ANOTHER COMPANY",
+        "imo": "74589",
+        "isActive": true
+    },
+    {
+        "id": 3,
+        "description": "PAXOS STAR",
+        "ownerDescription": "MY COMPANY",
+        "imo": "63214",
+        "isActive": false
+    }
+]

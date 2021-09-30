@@ -30,8 +30,8 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<ShipOwnerListResource>> GetActive() {
-            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerListResource>>(await repo.GetActive(x => x.IsActive));
+        public async Task<IEnumerable<ShipOwnerDropdownResource>> GetActiveForDropdown() {
+            return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
