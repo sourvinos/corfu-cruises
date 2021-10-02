@@ -48,7 +48,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
         public new async Task<PickupPointReadResource> GetById(int pickupPointId) {
             var pickupPoint = await context.PickupPoints
                 .Include(x => x.Route)
-                    .SingleOrDefaultAsync(m => m.Id == pickupPointId);
+                .SingleOrDefaultAsync(m => m.Id == pickupPointId);
             return mapper.Map<PickupPoint, PickupPointReadResource>(pickupPoint);
         }
 

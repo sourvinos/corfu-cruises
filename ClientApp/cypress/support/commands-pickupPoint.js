@@ -14,9 +14,9 @@ Cypress.Commands.add('gotoEmptyPickupPointForm', () => {
 })
 
 Cypress.Commands.add('readPickupPointRecord', () => {
-    cy.intercept('GET', Cypress.config().baseUrl + '/api/pickupPoints/1', { fixture:'pickupPoints/pickupPoint.json' }).as('getPickupPoint')
+    cy.intercept('GET', Cypress.config().baseUrl + '/api/pickupPoints/51', { fixture:'pickupPoints/pickupPoint.json' }).as('getPickupPoint')
     cy.get('.p-datatable-tbody > :nth-child(1)').click()
     cy.get('.p-datatable-tbody > :nth-child(1)').dblclick()
     cy.wait('@getPickupPoint').its('response.statusCode').should('eq', 200)
-    cy.url().should('eq', Cypress.config().baseUrl + '/pickupPoints/1')
+    cy.url().should('eq', Cypress.config().baseUrl + '/pickupPoints/51')
 })

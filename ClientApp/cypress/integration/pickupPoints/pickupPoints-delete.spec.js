@@ -17,12 +17,12 @@ context('Pickup Points', () => {
 
         it('Ask to delete and abort', () => {
             cy.clickOnDeleteAndAbort()
-            cy.url().should('eq', Cypress.config().baseUrl + '/pickupPoints/1')
+            cy.url().should('eq', Cypress.config().baseUrl + '/pickupPoints/51')
         })
 
         it('Ask to delete and continue', () => {
             cy.intercept('GET', Cypress.config().baseUrl + '/api/pickupPoints', { fixture:'pickupPoints/pickupPoints.json' }).as('getpickupPoints')
-            cy.intercept('DELETE', Cypress.config().baseUrl + '/api/pickupPoints/1', { fixture:'pickupPoints/pickupPoint.json' }).as('deletePickupPoint')
+            cy.intercept('DELETE', Cypress.config().baseUrl + '/api/pickupPoints/51', { fixture:'pickupPoints/pickupPoint.json' }).as('deletePickupPoint')
             cy.get('[data-cy=delete]').click()
             cy.get('.mat-dialog-container')
             cy.get('[data-cy=dialog-ok]').click()

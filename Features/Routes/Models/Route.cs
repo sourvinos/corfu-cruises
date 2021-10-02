@@ -12,8 +12,6 @@ namespace BlueWaterCruises.Features.Routes {
 
         public Port Port { get; set; }
 
-        public AppUser User { get; set; }
-
     }
 
 }

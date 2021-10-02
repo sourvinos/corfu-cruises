@@ -16,7 +16,8 @@ namespace BlueWaterCruises.Features.PickupPoints {
                 .ForMember(x => x.Time, x => x.MapFrom(x => x.Time))
                 .ForMember(x => x.Port, x => x.MapFrom(x => new { x.Route.Port.Id, x.Route.Port.Description }));
             // Read
-            CreateMap<PickupPoint, PickupPointReadResource>();
+            CreateMap<PickupPoint, PickupPointReadResource>()
+                .ForMember(x => x.Route, x => x.MapFrom(x => new { x.Route.Id, x.Route.Abbreviation }));
             // Write
             CreateMap<PickupPointWriteResource, PickupPoint>();
         }

@@ -17,7 +17,7 @@ context('Pickup points', () => {
 
         it('Update record', () => {
             cy.intercept('GET', Cypress.config().baseUrl + '/api/pickupPoints', { fixture:'pickupPoints/pickupPoints.json' }).as('getPickupPoints')
-            cy.intercept('PUT', Cypress.config().baseUrl + '/api/pickupPoints/1', { fixture:'pickupPoints/pickupPoint.json' }).as('savePickupPoint')
+            cy.intercept('PUT', Cypress.config().baseUrl + '/api/pickupPoints/51', { fixture:'pickupPoints/pickupPoint.json' }).as('savePickupPoint')
             cy.get('[data-cy=save]').click()
             cy.wait('@savePickupPoint').its('response.statusCode').should('eq', 200)
             cy.url().should('eq', Cypress.config().baseUrl + '/pickupPoints')

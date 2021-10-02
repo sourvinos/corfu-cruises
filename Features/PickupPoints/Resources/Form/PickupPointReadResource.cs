@@ -1,5 +1,3 @@
-using BlueWaterCruises.Features.Routes;
-
 namespace BlueWaterCruises.Features.PickupPoints {
 
     public class PickupPointReadResource : SimpleResource {
@@ -9,7 +7,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
         public string Coordinates { get; set; }
         public bool IsActive { get; set; }
 
-        public SimpleResource Route { get; set; }
+        public RouteDropdownResource Route { get; set; }
 
     }
 

@@ -21,7 +21,7 @@
                     <th style="min-width: 15%; max-width: 15%;">
                         <p-columnFilter style="width: 100%;" field="routeAbbreviation" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown data-cy="filter-route-abbreviation" [ngModel]="value" [options]="routes" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                <p-dropdown data-cy="filter-route" [ngModel]="value" [options]="routes" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                     <ng-template let-option pTemplate="item">
                                         <span>{{ option.label }}</span>
                                     </ng-template>
