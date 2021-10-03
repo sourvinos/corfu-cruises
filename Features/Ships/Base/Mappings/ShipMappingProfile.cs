@@ -8,6 +8,7 @@ namespace BlueWaterCruises.Features.Ships {
             CreateMap<Ship, ShipListResource>()
                 .ForMember(r => r.OwnerDescription, x => x.MapFrom(x => x.ShipOwner.Description));
             CreateMap<Ship, ShipReadResource>();
+            CreateMap<Ship, SimpleResource>();
             CreateMap<ShipWriteResource, Ship>();
         }
 

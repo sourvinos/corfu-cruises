@@ -1,3 +1,4 @@
+using System;
 using BlueWaterCruises.Features.Genders;
 using BlueWaterCruises.Features.Nationalities;
 
@@ -8,7 +9,7 @@ namespace BlueWaterCruises.Features.Ships {
         public int Id { get; set; }
         public string Lastname { get; set; }
         public string Firstname { get; set; }
-        public string Birthdate { get; set; }
+        public DateTime Birthdate { get; set; }
         public bool IsActive { get; set; }
         public string UserId { get; set; }
 

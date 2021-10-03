@@ -7,7 +7,7 @@ namespace BlueWaterCruises.Features.Ships {
 
         Task<IEnumerable<CrewListResource>> Get();
         Task<Crew> GetByIdToDelete(int id);
-        new Task<CrewResource> GetById(int id);
+        new Task<CrewReadResource> GetById(int id);
 
     }
 

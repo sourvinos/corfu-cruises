@@ -36,7 +36,7 @@ namespace BlueWaterCruises.Features.Ships {
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetΒyId(int id) {
-            CrewResource record = await repo.GetById(id);
+            CrewReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -47,7 +47,7 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")]
         public IActionResult Post([FromBody] CrewWriteResource record) {
             if (ModelState.IsValid) {
                 try {
@@ -69,7 +69,7 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")]
         public IActionResult Put([FromRoute] int id, [FromBody] CrewWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {

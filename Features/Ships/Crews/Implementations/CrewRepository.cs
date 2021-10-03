@@ -28,13 +28,13 @@ namespace BlueWaterCruises.Features.Ships {
             return mapper.Map<IEnumerable<Crew>, IEnumerable<CrewListResource>>(crews);
         }
 
-        public new async Task<CrewResource> GetById(int crewId) {
+        public new async Task<CrewReadResource> GetById(int crewId) {
             var crew = await context.Crews
                 .Include(x => x.Ship)
                 .Include(x => x.Gender)
                 .Include(p => p.Nationality)
                 .SingleOrDefaultAsync(m => m.Id == crewId);
-            return mapper.Map<Crew, CrewResource>(crew);
+            return mapper.Map<Crew, CrewReadResource>(crew);
         }
 
         public async Task<Crew> GetByIdToDelete(int id) {

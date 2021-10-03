@@ -1,3 +1,5 @@
+using System;
+
 namespace BlueWaterCruises.Features.Ships {
 
     public class CrewWriteResource {

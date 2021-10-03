@@ -47,11 +47,8 @@ export class CrewFormComponent {
     public form: FormGroup
     public input: InputTabStopDirective
 
-    public ships: ShipResource[] = []
     public shipArray: Observable<ShipResource[]>
-    public nationalities: NationalityResource[] = []
     public nationalityArray: Observable<NationalityResource[]>
-    public genders: GenderResource[] = []
     public genderArray: Observable<GenderResource[]>
 
     //#endregion
@@ -74,7 +71,6 @@ export class CrewFormComponent {
         this.populateDropDown(this.shipService, 'ships', 'shipArray', 'ship', 'description')
         this.populateDropDown(this.nationalityService, 'nationalities', 'nationalityArray', 'nationality', 'description')
         this.populateDropDown(this.genderService, 'genders', 'genderArray', 'gender', 'description')
-
     }
 
     ngAfterViewInit(): void {
