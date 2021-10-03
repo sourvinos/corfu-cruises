@@ -70,6 +70,7 @@ export class CrewFormComponent {
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
+        this.getLocale()
         this.populateDropDown(this.shipService, 'ships', 'shipArray', 'ship', 'description')
         this.populateDropDown(this.nationalityService, 'nationalities', 'nationalityArray', 'nationality', 'description')
         this.populateDropDown(this.genderService, 'genders', 'genderArray', 'gender', 'description')
@@ -78,10 +79,6 @@ export class CrewFormComponent {
 
     ngAfterViewInit(): void {
         this.focus('lastname')
-    }
-
-    ngDoCheck(): void {
-        this.getLocale()
     }
 
     ngOnDestroy(): void {
@@ -138,15 +135,7 @@ export class CrewFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public shipFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public nationalityFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public genderFields(subject: { description: any }): any {
+    public dropdownFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
 
@@ -198,7 +187,7 @@ export class CrewFormComponent {
             id: this.form.value.id,
             lastname: this.form.value.lastname,
             firstname: this.form.value.firstname,
-            birthdate: this.helperService.formatDateToISO(this.form.value.birthdate),
+            birthdate: this.form.value.birthdate,
             shipId: this.form.value.ship.id,
             nationalityId: this.form.value.nationality.id,
             genderId: this.form.value.gender.id,
@@ -233,7 +222,7 @@ export class CrewFormComponent {
             id: 0,
             lastname: ['', [Validators.required, Validators.maxLength(128)]],
             firstname: ['', [Validators.required, Validators.maxLength(128)]],
-            birthdate: ['', [Validators.required, Validators.maxLength(10)]],
+            birthdate: ['', [Validators.required]],
             ship: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             nationality: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             gender: ['', [Validators.required, ValidationService.RequireAutocomplete]],

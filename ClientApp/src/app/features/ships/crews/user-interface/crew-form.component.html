@@ -2,7 +2,7 @@
 
     <div id="header">
         <div id="navigation">
-            <mat-icon class="goBack" [routerLink]="['/shipCrews']">arrow_back</mat-icon>
+            <mat-icon data-cy="goBack" class="goBack" [routerLink]="['/shipCrews']">arrow_back</mat-icon>
         </div>
         <div @slideFromLeft id="title">
             <h1>{{ onGetLabel('header') }}</h1>
@@ -24,7 +24,7 @@
             </div>
             <div id="group-field">
                 <mat-form-field>
-                    <input type="text" matInput [placeholder]="onGetLabel('birthdate')" formControlName="birthdate" data-tabindex="3" id="birthdate" autocomplete="off" [inputTabStop]="input" [matDatepicker]="picker">
+                    <input data-cy="birthdate" [inputFormat]="'date'" [matDatepicker]="picker" [inputTabStop]="input" [placeholder]="onGetLabel('birthdate')" autocomplete="off" data-tabindex="3" formControlName="birthdate" id="birthdate" matInput type="text">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="birthdate.hasError('required')">{{ onGetHint('required') }}</mat-error>
@@ -32,7 +32,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>{{ onGetLabel("vessel") }}</mat-label>
-                    <input matInput formControlName="ship" [matAutocomplete]="ships" data-tabindex="4" [inputTabStop]="input">
+                    <input data-cy="ship" matInput formControlName="ship" [matAutocomplete]="ships" data-tabindex="4" [inputTabStop]="input">
                     <mat-error *ngIf="ship.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
                     <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
@@ -41,14 +41,14 @@
             <div id="group-field">
                 <mat-form-field>
                     <mat-label>{{ onGetLabel("nationality") }}</mat-label>
-                    <input matInput formControlName="nationality" [matAutocomplete]="nationalities" data-tabindex="5" [inputTabStop]="input">
+                    <input data-cy="nationality" matInput formControlName="nationality" [matAutocomplete]="nationalities" data-tabindex="5" [inputTabStop]="input">
                     <mat-error *ngIf="nationality.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-error *ngIf="!nationality.hasError('required') && nationality.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
                     <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>{{ onGetLabel("gender") }}</mat-label>
-                    <input matInput formControlName="gender" [matAutocomplete]="genders" data-tabindex="6" [inputTabStop]="input">
+                    <input data-cy="gender" matInput formControlName="gender" [matAutocomplete]="genders" data-tabindex="6" [inputTabStop]="input">
                     <mat-error *ngIf="gender.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-error *ngIf="!gender.hasError('required') && gender.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
                     <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
@@ -56,7 +56,7 @@
             </div>
             <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
         </form>
-        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+        <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
     </div>
 
     <div id="footer">
@@ -68,19 +68,19 @@
 
 </div>
 
-<mat-autocomplete autoActiveFirstOption #ships="matAutocomplete" [displayWith]="shipFields">
+<mat-autocomplete autoActiveFirstOption #ships="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of shipArray | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #nationalities="matAutocomplete" [displayWith]="nationalityFields">
+<mat-autocomplete autoActiveFirstOption #nationalities="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of nationalityArray | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #genders="matAutocomplete" [displayWith]="genderFields">
+<mat-autocomplete autoActiveFirstOption #genders="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of genderArray | async" [value]="option">
         {{ option.description }}
     </mat-option>

@@ -27,8 +27,8 @@ export class HelperService {
         return new Date(date).toLocaleDateString(this.readItem('language'), { day: '2-digit', month: '2-digit', year: 'numeric' })
     }
 
-    public formatDateToISO(date: string): string {
-        return date.substr(0, 10)
+    public formatDateToISO(date: any): string {
+        return date.format().substr(0, 10)
     }
 
     public getApplicationTitle(): any {

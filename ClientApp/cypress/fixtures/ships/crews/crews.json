@@ -1,0 +1,66 @@
+[
+    {
+        "id": 1,
+        "lastname": "ΒΙΤΟΥΛΑΔΙΤΗΣ",
+        "firstname": "ΔΑΜΙΑΝΟΣ",
+        "birthdate": "1986-09-18",
+        "isActive": true,
+        "shipDescription": "CAPTAIN BILL"
+    },
+    {
+        "id": 2,
+        "lastname": "ΒΙΤΟΥΛΑΔΙΤΗΣ",
+        "firstname": "ΔΑΜΙΑΝΟΣ",
+        "birthdate": "1987-09-17",
+        "isActive": false,
+        "shipDescription": "CAPTAIN BILL"
+    },
+    {
+        "id": 3,
+        "lastname": "ΘΕΟΔΟΤΟΣ",
+        "firstname": "ΑΝΤΩΝΙΟΣ",
+        "birthdate": "1992-07-13",
+        "isActive": true,
+        "shipDescription": "CAPTAIN BILL"
+    },
+    {
+        "id": 4,
+        "lastname": "ΚΑΝΤΑΣ",
+        "firstname": "ΕΥΑΓΓΕΛΟΣ",
+        "birthdate": "1967-10-13",
+        "isActive": true,
+        "shipDescription": "CAPTAIN BILL"
+    },
+    {
+        "id": 5,
+        "lastname": "ΠΑΝΔΗΣ",
+        "firstname": "ΑΛΜΠΕΡΤΟΣ",
+        "birthdate": "1992-03-07",
+        "isActive": false,
+        "shipDescription": "CAPTAIN BILL"
+    },
+    {
+        "id": 6,
+        "lastname": "ΚΟΥΡΗΣ",
+        "firstname": "ΧΡΗΣΤΟΣ!",
+        "birthdate": "1963-06-27",
+        "isActive": true,
+        "shipDescription": "PAXOS STAR"
+    },
+    {
+        "id": 7,
+        "lastname": "ΣΑΜΟΙΛΗΣ",
+        "firstname": "ΣΠΥΡΙΔΩΝ",
+        "birthdate": "1981-07-10",
+        "isActive": false,
+        "shipDescription": "PAXOS STAR"
+    },
+    {
+        "id": 8,
+        "lastname": "ΣΠΑΤΟΥΛΑΣ",
+        "firstname": "ΝΙΚΟΛΑΟΣ",
+        "birthdate": "1980-02-11",
+        "isActive": true,
+        "shipDescription": "PAXOS STAR"
+    }
+]

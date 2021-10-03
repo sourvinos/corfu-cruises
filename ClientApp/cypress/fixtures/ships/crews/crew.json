@@ -1,0 +1,19 @@
+{
+    "id": 1,
+    "lastname": "ΒΙΤΟΥΛΑΔΙΤΗΣ",
+    "firstname": "ΔΑΜΙΑΝΟΣ",
+    "birthdate": "1986-09-18",
+    "ship": {
+        "id": 2,
+        "description": "CAPTAIN BILL"
+    },
+    "nationality": {
+        "id": 84,
+        "description": "GREECE"
+    },
+    "gender": {
+        "id": 2,
+        "description": "MALE"
+    },
+    "isActive": true
+}
