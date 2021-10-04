@@ -19,7 +19,7 @@ context('Routes', () => {
         it('Give only the required fields', () => {
             cy.typeRandomChars('abbreviation', 5).elementShouldBeValid('abbreviation')
             cy.typeRandomChars('description', 12).elementShouldBeValid('description')
-            cy.typeNotRandomChars('port-description', 'corfu').elementShouldBeValid('abbreviation')
+            cy.typeNotRandomChars('port-description', 'corfu').elementShouldBeValid('port-description')
             cy.buttonShouldBeEnabled('save')
         })
 
