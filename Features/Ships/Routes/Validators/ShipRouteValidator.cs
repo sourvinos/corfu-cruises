@@ -11,7 +11,7 @@ namespace BlueWaterCruises.Features.Ships {
             RuleFor(x => x.ViaPort).NotNull().MaximumLength(128);
             RuleFor(x => x.ViaTime).NotNull().MaximumLength(5);
             RuleFor(x => x.ToPort).NotNull().NotEmpty().MaximumLength(128);
-            RuleFor(x => x.ToTime).NotNull().MaximumLength(5);;
+            RuleFor(x => x.ToTime).NotNull().NotEmpty().MaximumLength(5);
             RuleFor(x => x.IsActive).NotNull();
             RuleFor(x => x.UserId).NotNull().NotEmpty().MaximumLength(36);
         }

@@ -2,7 +2,7 @@
 
     <div id="header">
         <div id="navigation">
-            <button class="goBack" id="goBack" [routerLink]="['/shipRoutes']" mat-mini-fab>
+            <button  data-cy="goBack" [routerLink]="['/shipRoutes']" class="goBack" id="goBack" mat-mini-fab>
                 <mat-icon>arrow_back</mat-icon>
             </button>
         </div>
@@ -12,55 +12,55 @@
     </div>
 
     <div id="content">
-        <form id="form" [formGroup]="form" autocomplete="off">
+        <form data-cy="form" id="form" [formGroup]="form" autocomplete="off">
             <mat-form-field>
-                <input type="text" matInput [placeholder]="onGetLabel('description')" formControlName="description" data-tabindex="1" id="description" [inputTabStop]="input">
+                <input data-cy="description" type="text" matInput [placeholder]="onGetLabel('description')" formControlName="description" data-tabindex="1" id="description" [inputTabStop]="input">
                 <mat-error *ngIf="description.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-error *ngIf="description.hasError('maxlength')">{{ onGetHint('maxLength', description.errors.maxlength.requiredLength) }}</mat-error>
             </mat-form-field>
             <div id="group-field">
                 <mat-form-field>
-                    <input type="text" matInput [placeholder]="onGetLabel('fromPort')" formControlName="fromPort" data-tabindex="2" id="fromPort" [inputTabStop]="input">
+                    <input data-cy="fromPort" type="text" matInput [placeholder]="onGetLabel('fromPort')" formControlName="fromPort" data-tabindex="2" id="fromPort" [inputTabStop]="input">
                     <mat-error *ngIf="fromPort.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-error *ngIf="fromPort.hasError('maxlength')">{{ onGetHint('maxLength', fromPort.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input type="text" matInput [placeholder]="onGetLabel('fromTime')" formControlName="fromTime" data-tabindex="3" id="fromTime" [inputTabStop]="input">
+                    <input data-cy="fromTime" type="text" matInput [placeholder]="onGetLabel('fromTime')" formControlName="fromTime" data-tabindex="3" id="fromTime" [inputTabStop]="input">
                     <mat-error *ngIf="fromTime.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-error *ngIf="!fromTime.hasError('required') && !fromTime.hasError('isTime')">{{ onGetHint('invalid') }}</mat-error>
                 </mat-form-field>
             </div>
             <div id="group-field">
                 <mat-form-field>
-                    <input type="text" matInput [placeholder]="onGetLabel('viaPort')" formControlName="viaPort" data-tabindex="4" id="viaPort" [inputTabStop]="input">
+                    <input data-cy="viaPort" type="text" matInput [placeholder]="onGetLabel('viaPort')" formControlName="viaPort" data-tabindex="4" id="viaPort" [inputTabStop]="input">
                     <mat-error *ngIf="viaPort.hasError('maxlength')">{{ onGetHint('maxLength', viaPort.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input type="text" matInput [placeholder]="onGetLabel('viaTime')" formControlName="viaTime" data-tabindex="5" id="viaTime" [inputTabStop]="input">
+                    <input data-cy="viaTime" type="text" matInput [placeholder]="onGetLabel('viaTime')" formControlName="viaTime" data-tabindex="5" id="viaTime" [inputTabStop]="input">
                     <mat-error *ngIf="!viaTime.hasError('required') && !viaTime.hasError('isTime')">{{ onGetHint('invalid') }}</mat-error>
                 </mat-form-field>
             </div>
             <div id="group-field">
                 <mat-form-field>
-                    <input type="text" matInput [placeholder]="onGetLabel('toPort')" formControlName="toPort" data-tabindex="6" id="toPort" [inputTabStop]="input">
+                    <input data-cy="toPort" type="text" matInput [placeholder]="onGetLabel('toPort')" formControlName="toPort" data-tabindex="6" id="toPort" [inputTabStop]="input">
                     <mat-error *ngIf="toPort.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-error *ngIf="toPort.hasError('maxlength')">{{ onGetHint('maxLength', toPort.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input type="text" matInput [placeholder]="onGetLabel('toTime')" formControlName="toTime" data-tabindex="7" id="toTime" [inputTabStop]="input">
+                    <input data-cy="toTime" type="text" matInput [placeholder]="onGetLabel('toTime')" formControlName="toTime" data-tabindex="7" id="toTime" [inputTabStop]="input">
                     <mat-error *ngIf="toTime.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-error *ngIf="!toTime.hasError('required') && !toTime.hasError('isTime')">{{ onGetHint('invalid') }}</mat-error>
                 </mat-form-field>
             </div>
-            <mat-slide-toggle formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
+            <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
         </form>
         <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
     </div>
 
     <div id="footer">
         <div @slideFromRight id="buttons">
-            <button mat-flat-button class="delete" *ngIf="form.value.id !== 0" id="delete" (click)="onDelete()">{{ onGetLabel('deleteButton') }}</button>
-            <button mat-flat-button class="primary" [disabled]="!form.valid" id="save" (click)="onSave()">{{ onGetLabel('saveButton') }}</button>
+            <button data-cy="delete" mat-flat-button class="delete" *ngIf="form.value.id !== 0" id="delete" (click)="onDelete()">{{ onGetLabel('deleteButton') }}</button>
+            <button data-cy="save" mat-flat-button class="primary" [disabled]="!form.valid" id="save" (click)="onSave()">{{ onGetLabel('saveButton') }}</button>
         </div>
     </div>
 
