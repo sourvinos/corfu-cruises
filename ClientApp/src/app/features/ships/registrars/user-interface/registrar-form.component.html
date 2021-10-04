@@ -21,7 +21,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>{{ onGetLabel("ship") }}</mat-label>
-                    <input matInput formControlName="ship" [matAutocomplete]="ships" data-tabindex="2" [inputTabStop]="input">
+                    <input matInput data-cy="ship-description" formControlName="ship" [matAutocomplete]="ships" data-tabindex="2" [inputTabStop]="input">
                     <mat-error *ngIf="ship.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
                     <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>

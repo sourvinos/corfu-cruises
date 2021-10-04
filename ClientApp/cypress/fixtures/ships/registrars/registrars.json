@@ -1,0 +1,22 @@
+[
+	{
+		"id": 1,
+		"fullname": "Maria",
+		"isActive": true
+	},
+	{
+		"id": 2,
+		"fullname": "Nicky",
+		"isActive": false
+	},
+	{
+		"id": 3,
+		"fullname": "Diamantina",
+		"isActive": true
+	},
+	{
+		"id": 4,
+		"fullname": "Sofia",
+		"isActive": false
+	}
+]

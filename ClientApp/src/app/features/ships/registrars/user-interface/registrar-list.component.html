@@ -10,16 +10,16 @@
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="registrar-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;">{{ onGetLabel('headerIsActive') }}</th>
-                    <th style="min-width: 90%; max-width: 90%; border-top-right-radius: 10px;">{{ onGetLabel('headerFullname') }}</th>
+                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;">{{ onGetLabel('headerIsActive') }}</th>
+                    <th data-cy="column" style="min-width: 90%; max-width: 90%; border-top-right-radius: 10px;">{{ onGetLabel('headerFullname') }}</th>
                 </tr>
                 <tr>
-                    <th style="min-width: 10%; max-width: 10%;"><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
-                    <th style="min-width: 90%; max-width: 90%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'fullname', 'contains')" [value]="$any(table).filters['fullname']?.value"></th>
+                    <th style="min-width: 10%; max-width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
+                    <th style="min-width: 90%; max-width: 90%;"><input data-cy="filter-fullname" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'fullname', 'contains')" [value]="$any(table).filters['fullname']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
+                <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
                     <td style="min-width: 10%; max-width: 10%; padding: 5px !important; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
                     <td style="min-width: 90%; max-width: 90%;">{{ rowData.fullname }}</td>
                 </tr>
@@ -29,7 +29,7 @@
 
     <div id="footer">
         <div @slideFromRight id="buttons">
-            <button mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ onGetLabel('newButton') }}</button>
+            <button data-cy="new" mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ onGetLabel('newButton') }}</button>
         </div>
     </div>
 

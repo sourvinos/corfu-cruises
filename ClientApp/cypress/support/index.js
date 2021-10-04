@@ -9,6 +9,7 @@ import './commands-route'
 import './commands-ship-base'
 import './commands-crew'
 import './commands-owner'
+import './commands-registrar'
 import './commands-transfer'
 import './commands-user'
 
