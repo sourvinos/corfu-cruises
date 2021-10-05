@@ -20,7 +20,7 @@ namespace BlueWaterCruises.Features.Reservations {
 
         public SimpleResource Customer { get; set; }
         public SimpleResource Destination { get; set; }
-        public PickupPointDropdownResource PickupPoint { get; set; }
+        public PickupPointWithPortDropdownResource PickupPoint { get; set; }
         public SimpleResource Driver { get; set; }
         public SimpleResource Ship { get; set; }
         public SimpleResource Port { get; set; }

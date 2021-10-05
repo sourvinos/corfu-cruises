@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using BlueWaterCruises.Features.Reservations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,13 +31,8 @@ namespace BlueWaterCruises.Features.PickupPoints {
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<PickupPointDropdownResource>> GetActiveForDropdown() {
-            return await repo.GetActiveForDropdown();
-        }
-
-        [HttpGet("routeId/{routeId}")]
-        public async Task<IEnumerable<PickupPoint>> GetForRoute(int routeId) {
-            return await repo.GetForRoute(routeId);
+        public async Task<IEnumerable<PickupPointWithPortDropdownResource>> GetActiveWithPortForDropdown() {
+            return await repo.GetActiveWithPortForDropdown();
         }
 
         [HttpGet("{id}")]

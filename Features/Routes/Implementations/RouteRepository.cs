@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using BlueWaterCruises.Features.PickupPoints;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlueWaterCruises.Features.Routes {
@@ -21,13 +22,13 @@ namespace BlueWaterCruises.Features.Routes {
             return mapper.Map<IEnumerable<Route>, IEnumerable<RouteListResource>>(routes);
         }
 
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<RouteDropdownResource>> GetActiveForDropdown() {
             var records = await context
                 .Set<Route>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Abbreviation)
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Route>, IEnumerable<SimpleResource>>(records);
+            return mapper.Map<IEnumerable<Route>, IEnumerable<RouteDropdownResource>>(records);
         }
 
         public new async Task<RouteReadResource> GetById(int routeId) {

@@ -1,4 +1,5 @@
 using AutoMapper;
+using BlueWaterCruises.Features.Reservations;
 
 namespace BlueWaterCruises.Features.PickupPoints {
 
@@ -8,8 +9,8 @@ namespace BlueWaterCruises.Features.PickupPoints {
             // List
             CreateMap<PickupPoint, PickupPointListResource>()
                 .ForMember(x => x.RouteAbbreviation, x => x.MapFrom(x => x.Route.Abbreviation));
-            // Dropdowns
-            CreateMap<PickupPoint, PickupPointDropdownResource>()
+            // Dropdown
+            CreateMap<PickupPoint, PickupPointWithPortDropdownResource>()
                 .ForMember(x => x.Id, x => x.MapFrom(x => x.Id))
                 .ForMember(x => x.Description, x => x.MapFrom(x => x.Description))
                 .ForMember(x => x.ExactPoint, x => x.MapFrom(x => x.ExactPoint))

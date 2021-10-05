@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using BlueWaterCruises.Features.Reservations;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlueWaterCruises.Features.PickupPoints {
@@ -25,7 +26,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointListResource>>(pickupPoints);
         }
 
-        public async Task<IEnumerable<PickupPointDropdownResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<PickupPointWithPortDropdownResource>> GetActiveWithPortForDropdown() {
             var pickupPoints = await context.PickupPoints
                 .Include(x => x.Route)
                     .ThenInclude(y => y.Port)
@@ -34,15 +35,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
                     .ThenBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointDropdownResource>>(pickupPoints);
-        }
-
-        public async Task<IEnumerable<PickupPoint>> GetForRoute(int routeId) {
-            var pickupPoints = await context.PickupPoints
-                .Where(x => x.RouteId == routeId)
-                .AsNoTracking()
-                .ToListAsync();
-            return pickupPoints;
+            return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointWithPortDropdownResource>>(pickupPoints);
         }
 
         public new async Task<PickupPointReadResource> GetById(int pickupPointId) {

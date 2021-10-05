@@ -15,13 +15,13 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { PickupPoint } from '../classes/pickupPoint'
 import { PickupPointService } from '../classes/pickupPoint.service'
-import { Route } from '../../routes/classes/models/route'
 import { RouteService } from 'src/app/features/routes/classes/services/route.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from '../../../shared/services/validation.service'
 import { environment } from 'src/environments/environment'
 import { map, startWith } from 'rxjs/operators'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { RouteDropdownResource } from '../../routes/classes/resources/route-dropdown-resource'
 
 @Component({
     selector: 'pickuppoint-form',
@@ -49,7 +49,7 @@ export class PickupPointFormComponent {
     //#region particular variables
 
     public activePanel: string
-    public filteredRoutes: Observable<Route[]>
+    public filteredRoutes: Observable<RouteDropdownResource[]>
     public pickupPoints = []
 
     //#endregion
@@ -269,6 +269,7 @@ export class PickupPointFormComponent {
         const promise = new Promise((resolve) => {
             service.getActiveForDropdown().toPromise().then(
                 (response: any) => {
+                    console.log(response)
                     this[table] = response
                     resolve(this[table])
                     this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))

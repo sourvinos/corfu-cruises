@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using BlueWaterCruises.Features.PickupPoints;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +31,7 @@ namespace BlueWaterCruises.Features.Routes {
         }
 
        [HttpGet("[action]")]
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<RouteDropdownResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
