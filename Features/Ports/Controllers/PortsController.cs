@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Ports {
 
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
 
     public class PortsController : ControllerBase {
@@ -44,7 +44,7 @@ namespace BlueWaterCruises.Features.Ports {
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")]
         public IActionResult PostPort([FromBody] Port record) {
             if (ModelState.IsValid) {
                 try {
@@ -66,7 +66,7 @@ namespace BlueWaterCruises.Features.Ports {
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")]
         public IActionResult PutPort([FromRoute] int id, [FromBody] Port record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -88,7 +88,7 @@ namespace BlueWaterCruises.Features.Ports {
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeletePort([FromRoute] int id) {
             Port record = await repo.GetById(id);
             if (record == null) {
