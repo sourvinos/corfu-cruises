@@ -52,7 +52,6 @@ export class ReservationWrapperComponent {
         this.initForm()
         this.addShortcuts()
         this.getLocale()
-        this.populateFields()
     }
 
     ngDoCheck(): void {
@@ -73,8 +72,7 @@ export class ReservationWrapperComponent {
     //#region public methods
 
     public onDoJobs(): void {
-        this.clearSelectedArraysFromLocalStorage()
-        this.storeCriteria()
+        this.storeDate()
         this.navigateToList()
     }
 
@@ -110,10 +108,6 @@ export class ReservationWrapperComponent {
         })
     }
 
-    private clearSelectedArraysFromLocalStorage(): void {
-        localStorage.removeItem('reservations')
-    }
-
     private getLocale(): void {
         this.dateAdapter.setLocale(this.helperService.readItem('language'))
     }
@@ -125,16 +119,7 @@ export class ReservationWrapperComponent {
     }
 
     private navigateToList(): void {
-        this.router.navigate(['date', moment(this.form.value.date).toISOString().substr(0, 10)], { relativeTo: this.activatedRoute })
-    }
-
-    private populateFields(): void {
-        if (this.helperService.readItem('dashboard')) {
-            const criteria = JSON.parse(this.helperService.readItem('dashboard'))
-            this.form.setValue({
-                date: moment(criteria.date).toISOString()
-            })
-        }
+        this.router.navigate(['date', this.helperService.readItem('date')], { relativeTo: this.activatedRoute })
     }
 
     private clearLocalStorage(): void {
@@ -146,8 +131,8 @@ export class ReservationWrapperComponent {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
 
-    private storeCriteria(): void {
-        this.helperService.saveItem('dashboard', JSON.stringify(this.form.value))
+    private storeDate(): void {
+        this.helperService.saveItem('date', moment(this.form.value.date).toISOString().substr(0, 10))
     }
 
     //#endregion

@@ -4,5 +4,5 @@
 }
 
 #footer {
-    margin: var(--gap) 0 var(--gap) 0 !important;
+    margin: var(--gap) 0 var(--gap) auto !important;
 }

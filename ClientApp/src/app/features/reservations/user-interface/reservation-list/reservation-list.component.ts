@@ -32,6 +32,8 @@ export class ReservationListComponent {
 
     //#region variables
 
+    @ViewChild('table') table: Table | undefined
+
     private baseUrl = '/reservations'
     private ngUnsubscribe = new Subject<void>()
     private isoDate = ''
@@ -56,8 +58,6 @@ export class ReservationListComponent {
 
     //#endregion
 
-    @ViewChild('table') table: Table | undefined
-
     constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageService: MessageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private driverPDFService: DriverPdfService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
@@ -69,8 +69,7 @@ export class ReservationListComponent {
         this.updateTotals()
         this.populateDropdowns()
         this.addShortcuts()
-        this.getStoredDate()
-        this.createSpeedDial()
+        this.updateDates()
     }
 
     ngOnDestroy(): void {
@@ -210,22 +209,6 @@ export class ReservationListComponent {
         this.selectedRecords = []
     }
 
-    private createSpeedDial(): void {
-        this.items = [
-            { icon: 'pi pi-pencil', command: () => { this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' }) } },
-            { icon: 'pi pi-refresh', command: () => { this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' }) } },
-            { icon: 'pi pi-trash', command: () => { this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' }) } },
-            { icon: 'pi pi-upload', routerLink: ['/fileupload'] },
-            { icon: 'pi pi-external-link', url: 'http://angular.io' }
-        ]
-    }
-
-    private getStoredDate(): void {
-        const dashboard = JSON.parse(this.helperService.readItem('dashboard'))
-        this.today = this.helperService.formatDateToLocale(dashboard.date)
-        this.isoDate = this.helperService.formatDateToISO(dashboard.date)
-    }
-
     private initPersonTotals(): void {
         this.totals.push(
             { description: 'total', sum: 0 },
@@ -269,6 +252,11 @@ export class ReservationListComponent {
 
     private removeSelectedIdsFromLocalStorage(): void {
         localStorage.removeItem('selectedIds')
+    }
+
+    private updateDates(): void {
+        this.isoDate = this.helperService.readItem('date')
+        this.today = this.helperService.formatDateToLocale(this.helperService.readItem('date'))
     }
 
     private resetTable(table: { reset: any }): void {

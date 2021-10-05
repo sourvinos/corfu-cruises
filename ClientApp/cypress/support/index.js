@@ -8,10 +8,10 @@ import './commands-owner'
 import './commands-pickupPoint'
 import './commands-port'
 import './commands-registrar'
+import './commands-reservation'
 import './commands-route'
 import './commands-ship-base'
 import './commands-ship-route'
-import './commands-transfer'
 import './commands-user'
 
 Cypress.on('uncaught:exception', () => {

@@ -68,10 +68,10 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService,  private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService) {
-        this.activatedRoute.params.subscribe(p => {
-            if (p.id) {
-                this.getRecord(p.id)
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService) {
+        this.activatedRoute.params.subscribe(params => {
+            if (params.id) {
+                this.getRecord(params.id)
             }
         })
     }
@@ -275,7 +275,7 @@ export class ReservationFormComponent {
     private initForm(): void {
         this.form = this.formBuilder.group({
             reservationId: '',
-            date: this.helperService.formatDateToISO(JSON.parse(this.helperService.readItem('dashboard')).date),
+            date: this.helperService.readItem('date'),
             destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             customer: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             pickupPoint: ['', [Validators.required, ValidationService.RequireAutocomplete]],
@@ -304,7 +304,7 @@ export class ReservationFormComponent {
         const form = this.form.value
         const reservation = {
             'reservationId': this.isGuid(form.reservationId),
-            'date': this.helperService.formatDateToISO(form.date),
+            'date': form.date,
             'destinationId': form.destination.id,
             'customerId': form.customer.id,
             'pickupPointId': form.pickupPoint.id,
@@ -336,7 +336,6 @@ export class ReservationFormComponent {
             'qr': form.ticketNo,
             'passengers': this.mapVoucherPassengers()
         }
-        console.log('To send', voucher)
         return voucher
     }
 

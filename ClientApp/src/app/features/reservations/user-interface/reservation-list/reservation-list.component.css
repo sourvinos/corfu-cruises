@@ -10,17 +10,6 @@
     margin-right: 1rem;
 }
 
-#footer {
-    justify-content: space-between;
-}
-
-#footer #buttons {
-    align-items: flex-end;
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-}
-
 #totals {
     align-items: center;
     display: flex;
@@ -41,4 +30,9 @@
     color: var(--color-text-secondary);
     font-size: var(--font-size-sum-persons);
     font-weight: var(--font-weight-sum-persons);
+}
+
+#footer {
+    justify-content: space-between;
+    margin: var(--gap) var(--footer-right-margin) var(--gap) var(--gap);
 }

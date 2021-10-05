@@ -2,6 +2,11 @@
     margin-left: auto;
 }
 
+#footer {
+    justify-content: space-between;
+    margin: var(--gap) var(--footer-right-margin) var(--gap) var(--gap);
+}
+
 #qr-code {
     height: 100px;
     position: absolute;
