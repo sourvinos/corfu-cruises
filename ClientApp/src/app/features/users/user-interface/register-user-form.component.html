@@ -70,7 +70,7 @@
     </div>
 
     <div id="footer">
-        <div @slideFromRight id="buttons">
+        <div @slideFromRight class="button-group">
             <button data-cy="save" mat-flat-button class="secondary" (click)="onSendLoginCredentials()" [disabled]="!form.valid">{{ onGetLabel('sendLoginCredentials') }}</button>
             <button data-cy="save" mat-flat-button class="primary" (click)="onSave()" [disabled]="!form.valid">{{ onGetLabel('saveButton') }}</button>
         </div>

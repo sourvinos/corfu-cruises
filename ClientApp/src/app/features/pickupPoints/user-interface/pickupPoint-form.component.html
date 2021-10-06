@@ -47,7 +47,7 @@
                 </mat-form-field>
                 <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
             </form>
-            <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
+            <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
         </div>
         <div id="map-outer-wrapper" [class.hidden]="activePanel=='form'">
             <div *ngIf="pickupPoints" id="map-wrapper">
@@ -57,7 +57,7 @@
     </div>
 
     <div id="footer">
-        <div @slideFromRight id="buttons">
+        <div @slideFromRight class="button-group">
             <button data-cy="delete" mat-flat-button class="delete" *ngIf="form.value.id !== 0" id="delete" (click)="onDelete()">{{ onGetLabel('deleteButton') }}</button>
             <button data-cy="save" mat-flat-button class="primary" [disabled]="!form.valid" id="save" (click)="onSave()">{{ onGetLabel('saveButton') }}</button>
         </div>

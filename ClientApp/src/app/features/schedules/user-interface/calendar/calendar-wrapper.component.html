@@ -3,7 +3,7 @@
     <calendar (event)=doTaskFromChild($event)></calendar>
 
     <div id="footer">
-        <div @slideFromRight id="buttons">
+        <div @slideFromRight class="button-group">
             <button mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ getLabel('newButton') }}</button>
         </div>
     </div>

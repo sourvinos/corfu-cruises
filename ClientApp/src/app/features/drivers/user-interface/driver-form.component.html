@@ -28,7 +28,7 @@
     </div>
 
     <div id="footer">
-        <div @slideFromRight id="buttons">
+        <div @slideFromRight class="button-group">
             <button data-cy="delete" mat-flat-button class="delete" *ngIf="form.value.id !== 0" id="delete" (click)="onDelete()">{{ onGetLabel('deleteButton') }}</button>
             <button data-cy="save" mat-flat-button class="primary" [disabled]="!form.valid" id="save" (click)="onSave()">{{ onGetLabel('saveButton') }}</button>
         </div>

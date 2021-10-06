@@ -1,12 +1,9 @@
 PENDING
 --------
 BOARDING ALL TOGETHER BUTTON
-USERNAME FILTER
 NATIONALITY => COUNTRY
-TIMEOUT LOGOUT
 FROM - TO DATE ERROR MESSAGE
 as no tracking
-stored procedures
 resolution notifier
 auth controllers
 

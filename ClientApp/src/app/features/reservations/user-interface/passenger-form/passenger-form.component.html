@@ -62,7 +62,7 @@
     <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
 
     <div id="footer">
-        <div id="buttons">
+        <div >
             <button data-cy="save" mat-flat-button class="primary" [disabled]="!form.valid" id="save" (click)="onSave()">{{ getLabel('saveButton') }}</button>
         </div>
     </div>

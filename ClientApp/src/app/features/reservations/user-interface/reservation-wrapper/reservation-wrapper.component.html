@@ -20,7 +20,7 @@
     </div>
 
     <div id="footer">
-        <div @slideFromRight id="buttons">
+        <div @slideFromRight class="button-group">
             <button data-cy="doJobs" mat-flat-button class="primary" [disabled]="!form.valid" id="search" (click)="onDoJobs()">{{ onGetLabel('searchButton') }}</button>
         </div>
     </div>
