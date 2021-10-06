@@ -1,7 +1,0 @@
-{
-    "baseUrl": "https://localhost:5001",
-    "defaultCommandTimeout": 10000,
-    "viewportHeight": 1000,
-    "viewportWidth": 1367,
-    "video": false
-}
