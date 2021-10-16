@@ -4,23 +4,23 @@
 }
 
 .flag.cs-CZ {
-    background: url('/assets/images/flags/cs-CZ.svg') center no-repeat !important;
+    background: url('/assets/images/languages/cs-CZ.svg') center no-repeat !important;
 }
 
 .flag.de-DE {
-    background: url('/assets/images/flags/de-DE.svg') center no-repeat !important;
+    background: url('/assets/images/languages/de-DE.svg') center no-repeat !important;
 }
 
 .flag.el-GR {
-    background: url('/assets/images/flags/el-GR.svg') center no-repeat !important;
+    background: url('/assets/images/languages/el-GR.svg') center no-repeat !important;
 }
 
 .flag.en-GB {
-    background: url('/assets/images/flags/en-GB.svg') center no-repeat !important;
+    background: url('/assets/images/languages/en-GB.svg') center no-repeat !important;
 }
 
 .flag.fr-FR {
-    background: url('/assets/images/flags/fr-FR.svg') center no-repeat !important;
+    background: url('/assets/images/languages/fr-FR.svg') center no-repeat !important;
 }
 
 .p-menubar .p-menuitem-link .p-menuitem-text {

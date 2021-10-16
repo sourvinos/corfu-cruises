@@ -104,15 +104,6 @@ button:not(:disabled) {
     font-weight: 600;
 }
 
-.arrow-down {
-    margin-left: 0.5rem;
-    width: 0.7rem;
-}
-
-.arrow-right {
-    margin-left: auto;
-}
-
 .goBack:hover {
     cursor: pointer;
 }
