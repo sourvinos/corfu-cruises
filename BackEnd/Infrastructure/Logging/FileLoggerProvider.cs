@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 namespace BlueWaterCruises {
 
     [ProviderAlias("File")]
-    
+
     public class FileLoggerProvider : ILoggerProvider {
 
         public readonly FileLoggerOptions Options;

@@ -15,11 +15,11 @@ namespace BlueWaterCruises {
 
     public class AuthController : ControllerBase {
 
-        private readonly DbContext db;
+        private readonly AppDbContext db;
         private readonly TokenSettings settings;
         private readonly UserManager<AppUser> userManager;
 
-        public AuthController(DbContext db, IOptions<TokenSettings> settings, UserManager<AppUser> userManager) {
+        public AuthController(AppDbContext db, IOptions<TokenSettings> settings, UserManager<AppUser> userManager) {
             this.db = db;
             this.settings = settings.Value;
             this.userManager = userManager;

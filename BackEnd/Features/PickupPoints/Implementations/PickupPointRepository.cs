@@ -11,12 +11,12 @@ namespace BlueWaterCruises.Features.PickupPoints {
 
         private readonly IMapper mapper;
 
-        public PickupPointRepository(DbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public PickupPointRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
             this.mapper = mapper;
         }
 
         public async Task<IEnumerable<PickupPointListResource>> Get() {
-            var pickupPoints = await context.PickupPoints
+            var pickupPoints = await context.Set<PickupPoint>()
                 .Include(x => x.Route)
                 .OrderBy(o => o.Route.Abbreviation)
                     .ThenBy(o => o.Time)
@@ -27,7 +27,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
         }
 
         public async Task<IEnumerable<PickupPointWithPortDropdownResource>> GetActiveWithPortForDropdown() {
-            var pickupPoints = await context.PickupPoints
+            var pickupPoints = await context.Set<PickupPoint>()
                 .Include(x => x.Route)
                     .ThenInclude(y => y.Port)
                 .Where(x => x.IsActive)
@@ -39,18 +39,20 @@ namespace BlueWaterCruises.Features.PickupPoints {
         }
 
         public new async Task<PickupPointReadResource> GetById(int pickupPointId) {
-            var pickupPoint = await context.PickupPoints
+            var pickupPoint = await context.Set<PickupPoint>()
                 .Include(x => x.Route)
                 .SingleOrDefaultAsync(m => m.Id == pickupPointId);
             return mapper.Map<PickupPoint, PickupPointReadResource>(pickupPoint);
         }
 
         public async Task<PickupPoint> GetByIdToDelete(int pickupPointId) {
-            return await context.PickupPoints.SingleOrDefaultAsync(m => m.Id == pickupPointId);
+            return await context.Set<PickupPoint>()
+                .SingleOrDefaultAsync(m => m.Id == pickupPointId);
         }
 
         public void UpdateCoordinates(int pickupPointId, string coordinates) {
-            var pickupPoints = context.PickupPoints.Where(x => x.Id == pickupPointId).ToList();
+            var pickupPoints = context.Set<PickupPoint>()
+                .Where(x => x.Id == pickupPointId).ToList();
             pickupPoints.ForEach(a => a.Coordinates = coordinates);
             context.SaveChanges();
         }

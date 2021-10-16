@@ -11,20 +11,20 @@ namespace BlueWaterCruises.Features.Routes {
 
         private readonly IMapper mapper;
 
-        public RouteRepository(DbContext context, IMapper mapper) : base(context) {
+        public RouteRepository(AppDbContext context, IMapper mapper) : base(context) {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<RouteListResource>> Get() {
-            var routes = await context.Routes
+        public async Task<IEnumerable<Route>> Get() {
+            var routes = await context.Set<Route>()
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Route>, IEnumerable<RouteListResource>>(routes);
+            return routes;
+            // return mapper.Map<IEnumerable<Route>, IEnumerable<RouteListResource>>(routes);
         }
 
         public async Task<IEnumerable<RouteDropdownResource>> GetActiveForDropdown() {
-            var records = await context
-                .Set<Route>()
+            var records = await context.Set<Route>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Abbreviation)
                 .ToListAsync();
@@ -32,14 +32,14 @@ namespace BlueWaterCruises.Features.Routes {
         }
 
         public new async Task<RouteReadResource> GetById(int routeId) {
-            var route = await context.Routes
+            var route = await context.Set<Route>()
                 .Include(x => x.Port)
                 .SingleOrDefaultAsync(m => m.Id == routeId);
             return mapper.Map<Route, RouteReadResource>(route);
         }
 
         public async Task<Route> GetSingleToDelete(int id) {
-            var route = await context.Routes
+            var route = await context.Set<Route>()
                 .Include(x => x.Port)
                 .FirstAsync(x => x.Id == id);
             return route;

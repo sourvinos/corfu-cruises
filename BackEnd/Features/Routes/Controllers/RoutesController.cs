@@ -26,7 +26,7 @@ namespace BlueWaterCruises.Features.Routes {
         }
 
         [HttpGet]
-        public async Task<IEnumerable<RouteListResource>> Get() {
+        public async Task<IEnumerable<Route>> Get() {
             return await repo.Get();
         }
 

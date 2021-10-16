@@ -14,14 +14,12 @@ namespace BlueWaterCruises.Features.Manifest {
         private readonly IEmailSender emailSender;
         private readonly ILogger<ManifestController> logger;
         private readonly IMapper mapper;
-        private readonly DbContext context;
 
-        public ManifestController(IManifestRepository repo, IEmailSender emailSender, ILogger<ManifestController> logger, IMapper mapper, DbContext context) {
+        public ManifestController(IManifestRepository repo, IEmailSender emailSender, ILogger<ManifestController> logger, IMapper mapper) {
             this.repo = repo;
             this.emailSender = emailSender;
             this.logger = logger;
             this.mapper = mapper;
-            this.context = context;
         }
 
         [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/vesselId/{vesselId}")]

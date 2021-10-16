@@ -10,8 +10,18 @@ namespace BlueWaterCruises.Features.Customers {
 
         private readonly IMapper mapper;
 
-        public CustomerRepository(DbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public CustomerRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
             this.mapper = mapper;
+        }
+
+        public async Task<IEnumerable<CustomerListResource>> Get() {
+            var customers = await context.Set<Customer>()
+                .Where(x => x.Id != 1)
+                .OrderBy(o => o.Description)
+                .AsNoTracking()
+                .ToListAsync();
+            return mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerListResource>>(customers);
+            // return customers;
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
@@ -21,6 +31,16 @@ namespace BlueWaterCruises.Features.Customers {
                 .OrderBy(x => x.Description)
                 .ToListAsync();
             return mapper.Map<IEnumerable<Customer>, IEnumerable<SimpleResource>>(records);
+        }
+
+        public new async Task<CustomerReadResource> GetById(int id) {
+            var customer = await context.Set<Customer>()
+                .SingleOrDefaultAsync(m => m.Id == id);
+            return mapper.Map<Customer, CustomerReadResource>(customer);
+        }
+
+        public async Task<Customer> GetByIdToDelete(int id) {
+            return await context.Set<Customer>().SingleOrDefaultAsync(m => m.Id == id);
         }
 
     }

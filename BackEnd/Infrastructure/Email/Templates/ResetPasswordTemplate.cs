@@ -4,7 +4,7 @@ namespace BlueWaterCruises {
 
     public static class ResetPasswordTemplate {
 
-        public static string GetHtmlString(string displayName, string callbackUrl, BlueWaterCruisesSettings settings) {
+        public static string GetHtmlString(string displayName, string callbackUrl, EmailSettings settings) {
 
             var sb = new StringBuilder();
 

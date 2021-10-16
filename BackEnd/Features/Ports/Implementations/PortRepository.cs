@@ -10,13 +10,12 @@ namespace BlueWaterCruises.Features.Ports {
 
         private readonly IMapper mapper;
 
-        public PortRepository(DbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public PortRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
             this.mapper = mapper;
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            var records = await context
-                .Set<Port>()
+            var records = await context.Set<Port>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .ToListAsync();

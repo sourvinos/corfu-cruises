@@ -11,9 +11,9 @@ namespace BlueWaterCruises {
     public class EmailSender : IEmailSender {
 
         private readonly IWebHostEnvironment env;
-        private readonly BlueWaterCruisesSettings settings;
+        private readonly EmailSettings settings;
 
-        public EmailSender(IWebHostEnvironment env, IOptions<BlueWaterCruisesSettings> settings) {
+        public EmailSender(IWebHostEnvironment env, IOptions<EmailSettings> settings) {
             this.env = env;
             this.settings = settings.Value;
         }
@@ -127,7 +127,7 @@ namespace BlueWaterCruises {
 
         private string UpdateResetPasswordWithVariables(string displayName, string callbackUrl) {
 
-            var response = ResetPasswordTemplate.GetHtmlString(displayName, callbackUrl,settings);
+            var response = ResetPasswordTemplate.GetHtmlString(displayName, callbackUrl, settings);
 
             var updatedResponse = response
                 .Replace("[displayName]", displayName)

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises.Features.ShipRoutes {
 
     public class ShipRouteValidator : AbstractValidator<ShipRoute> {
 

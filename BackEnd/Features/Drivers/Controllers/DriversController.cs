@@ -56,7 +56,7 @@ namespace BlueWaterCruises.Features.Drivers {
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")]
         public IActionResult PostDriver([FromBody] Driver record) {
             if (ModelState.IsValid) {
                 try {
@@ -78,7 +78,7 @@ namespace BlueWaterCruises.Features.Drivers {
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")]
         public IActionResult PutDriver([FromRoute] int id, [FromBody] Driver record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -100,7 +100,7 @@ namespace BlueWaterCruises.Features.Drivers {
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteDriver([FromRoute] int id) {
             Driver record = await repo.GetById(id);
             if (record == null) {

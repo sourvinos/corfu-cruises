@@ -2,21 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "pwa-chrome",
-            "request": "launch",
-            "name": "Front-End",
-            "url": "https://localhost:5001",
-            "webRoot": "${workspaceFolder}/ClientApp",
-            "skipFiles": [
-                "node_modules/**/*.js"
-            ]
-        },
-        {
             "name": "Back-End",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/net5.0/BlueWaterCruises.dll",
+            "program": "${workspaceFolder}/bin/Debug/net5.0/BackEnd.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,

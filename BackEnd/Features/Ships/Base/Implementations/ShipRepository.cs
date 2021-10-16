@@ -10,18 +10,20 @@ namespace BlueWaterCruises.Features.Ships {
 
         private readonly IMapper mapper;
 
-        public ShipRepository(DbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public ShipRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
             this.mapper = mapper;
         }
 
         public async Task<IEnumerable<ShipListResource>> Get() {
-            var ships = await context.Ships.Include(x => x.ShipOwner).Where(x => x.Id > 1).ToListAsync();
+            var ships = await context.Set<Ship>()
+                .Include(x => x.ShipOwner)
+                .Where(x => x.Id > 1)
+                .ToListAsync();
             return mapper.Map<IEnumerable<Ship>, IEnumerable<ShipListResource>>(ships);
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            var records = await context
-                .Set<Ship>()
+            var records = await context.Set<Ship>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .ToListAsync();
@@ -29,12 +31,15 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         public new async Task<ShipReadResource> GetById(int shipId) {
-            var ship = await context.Ships.Include(x => x.ShipOwner).SingleOrDefaultAsync(m => m.Id == shipId);
+            var ship = await context.Set<Ship>()
+                .Include(x => x.ShipOwner)
+                .SingleOrDefaultAsync(m => m.Id == shipId);
             return mapper.Map<Ship, ShipReadResource>(ship);
         }
 
         public async Task<Ship> GetByIdToDelete(int shipId) {
-            return await context.Ships.SingleOrDefaultAsync(m => m.Id == shipId);
+            return await context.Set<Ship>()
+                .SingleOrDefaultAsync(m => m.Id == shipId);
         }
 
     }

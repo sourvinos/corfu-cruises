@@ -14,13 +14,13 @@ namespace BlueWaterCruises.Features.Reservations {
         private readonly IMapper mapper;
         private readonly UserManager<AppUser> userManager;
 
-        public ReservationRepository(DbContext appDbContext, IMapper mapper, UserManager<AppUser> userManager) : base(appDbContext) {
+        public ReservationRepository(AppDbContext appDbContext, IMapper mapper, UserManager<AppUser> userManager) : base(appDbContext) {
             this.mapper = mapper;
             this.userManager = userManager;
         }
 
         public IEnumerable<ReservationResource> GetForPeriod(string fromDate, string toDate) {
-            var response = context.Reservations
+            var response = context.Set<Reservation>()
                 .Include(x => x.Destination)
                 .Include(x => x.Port)
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
@@ -28,7 +28,7 @@ namespace BlueWaterCruises.Features.Reservations {
                 .AsEnumerable()
                 .GroupBy(x => x.Date)
                 .Select(x => new ReservationResource {
-                    Date = Extensions.DateToString(x.Key.Date),
+                    Date = DateConversions.DateTimeToISOString(x.Key.Date),
                     Destinations = x.GroupBy(x => new { x.Destination.Id, x.Destination.Description })
                         .Select(x => new DestinationResource {
                             Id = x.Key.Id,
@@ -38,20 +38,22 @@ namespace BlueWaterCruises.Features.Reservations {
                                 Description = x.Key.Description,
                                 Persons = x.Select(r => r.TotalPersons).Sum()
                             })
-                        }).ToList()
-                }).ToList();
+                        })
+                        .ToList()
+                })
+                .ToList();
             return response;
         }
 
         public async Task<Reservation> GetSingleToDelete(string id) {
-            var reservation = await context.Reservations
+            var reservation = await context.Set<Reservation>()
                 .Include(x => x.Passengers)
                 .FirstAsync(x => x.ReservationId.ToString() == id);
             return reservation;
         }
 
         public async Task<ReservationGroupResource<ReservationListResource>> GetForDate(string date) {
-            var reservations = await context.Reservations
+            var reservations = await context.Set<Reservation>()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
@@ -59,13 +61,14 @@ namespace BlueWaterCruises.Features.Reservations {
                 .Include(x => x.Ship)
                 .Include(x => x.User)
                 .Where(x => x.Date == Convert.ToDateTime(date))
-                .OrderBy(x => x.Date).ToListAsync();
-            var PersonsPerCustomer = context.Reservations.Include(x => x.Customer).Where(x => x.Date == Convert.ToDateTime(date)).GroupBy(x => new { x.Customer.Description }).Select(x => new PersonsPerCustomer { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var PersonsPerDestination = context.Reservations.Include(x => x.Destination).Where(x => x.Date == Convert.ToDateTime(date)).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var PersonsPerRoute = context.Reservations.Include(x => x.PickupPoint.Route).Where(x => x.Date == Convert.ToDateTime(date)).GroupBy(x => new { x.PickupPoint.Route.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var PersonsPerDriver = context.Reservations.Include(x => x.Driver).Where(x => x.Date == Convert.ToDateTime(date)).OrderBy(o => o.Driver.Description).GroupBy(x => new { x.Driver.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var PersonsPerPort = context.Reservations.Include(x => x.PickupPoint.Route.Port).Where(x => x.Date == Convert.ToDateTime(date)).OrderBy(o => o.PickupPoint.Route.Port.Description).GroupBy(x => new { x.PickupPoint.Route.Port.Description }).Select(x => new PersonsPerPort { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var totalPersonsPerShip = context.Reservations.Include(x => x.Ship).Where(x => x.Date == Convert.ToDateTime(date)).OrderBy(o => o.Ship.Description).GroupBy(x => new { x.Ship.Description }).Select(x => new PersonsPerShip { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+                .OrderBy(x => x.Date)
+                .ToListAsync();
+            var PersonsPerCustomer = context.Set<Reservation>().Include(x => x.Customer).Where(x => x.Date == Convert.ToDateTime(date)).GroupBy(x => new { x.Customer.Description }).Select(x => new PersonsPerCustomer { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var PersonsPerDestination = context.Set<Reservation>().Include(x => x.Destination).Where(x => x.Date == Convert.ToDateTime(date)).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var PersonsPerRoute = context.Set<Reservation>().Include(x => x.PickupPoint.Route).Where(x => x.Date == Convert.ToDateTime(date)).GroupBy(x => new { x.PickupPoint.Route.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var PersonsPerDriver = context.Set<Reservation>().Include(x => x.Driver).Where(x => x.Date == Convert.ToDateTime(date)).OrderBy(o => o.Driver.Description).GroupBy(x => new { x.Driver.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var PersonsPerPort = context.Set<Reservation>().Include(x => x.PickupPoint.Route.Port).Where(x => x.Date == Convert.ToDateTime(date)).OrderBy(o => o.PickupPoint.Route.Port.Description).GroupBy(x => new { x.PickupPoint.Route.Port.Description }).Select(x => new PersonsPerPort { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var totalPersonsPerShip = context.Set<Reservation>().Include(x => x.Ship).Where(x => x.Date == Convert.ToDateTime(date)).OrderBy(o => o.Ship.Description).GroupBy(x => new { x.Ship.Description }).Select(x => new PersonsPerShip { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
                 Reservations = reservations.ToList(),
@@ -80,7 +83,7 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         public async Task<ReservationReadResource> GetSingle(string id) {
-            var reservation = await context.Reservations
+            var reservation = await context.Set<Reservation>()
                 .Include(x => x.Customer)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
                 .Include(x => x.Destination)
@@ -95,7 +98,7 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         public bool IsKeyUnique(ReservationWriteResource record) {
-            if (context.Reservations.Count(x => x.Date == Convert.ToDateTime(record.Date) && x.DestinationId == record.DestinationId && x.CustomerId == record.CustomerId && x.TicketNo.ToUpper() == record.TicketNo.ToUpper()) == 0) {
+            if (context.Set<Reservation>().Count(x => x.Date == Convert.ToDateTime(record.Date) && x.DestinationId == record.DestinationId && x.CustomerId == record.CustomerId && x.TicketNo.ToUpper() == record.TicketNo.ToUpper()) == 0) {
                 return true;
             }
             return false;
@@ -133,19 +136,25 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         public void AssignToDriver(int driverId, string[] ids) {
-            var reservations = context.Reservations.Where(x => ids.Contains(x.ReservationId.ToString())).ToList();
+            var reservations = context.Set<Reservation>()
+                .Where(x => ids.Contains(x.ReservationId.ToString()))
+                .ToList();
             reservations.ForEach(a => a.DriverId = driverId);
             context.SaveChanges();
         }
 
         public void AssignToShip(int shipId, string[] ids) {
-            var records = context.Reservations.Where(x => ids.Contains(x.ReservationId.ToString())).ToList();
+            var records = context.Set<Reservation>()
+                .Where(x => ids.Contains(x.ReservationId.ToString()))
+                .ToList();
             records.ForEach(a => a.ShipId = shipId);
             context.SaveChanges();
         }
 
         private IEnumerable<Passenger> GetPassengersForReservation(string id) {
-            var passengers = context.Passengers.Where(x => x.ReservationId.ToString() == id).ToList();
+            var passengers = context.Set<Passenger>()
+                .Where(x => x.ReservationId.ToString() == id)
+                .ToList();
             return passengers;
         }
 
@@ -159,12 +168,12 @@ namespace BlueWaterCruises.Features.Reservations {
             foreach (var record in updatedRecord.Passengers) {
                 records.Add(record);
             };
-            context.Passengers.AddRange(records);
+            context.Set<Passenger>().AddRange(records);
             context.SaveChanges();
         }
 
         private void RemovePassengers(IEnumerable<Passenger> passengers) {
-            context.Passengers.RemoveRange(passengers);
+            context.Set<Passenger>().RemoveRange(passengers);
             context.SaveChanges();
         }
 

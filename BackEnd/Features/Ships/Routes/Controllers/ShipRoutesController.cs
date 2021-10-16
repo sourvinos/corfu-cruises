@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises.Features.ShipRoutes {
 
     // [Authorize]
     [Route("api/[controller]")]

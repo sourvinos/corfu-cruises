@@ -70,10 +70,10 @@ namespace BlueWaterCruises {
             var sb = new StringBuilder();
             sb.AppendLine();
             sb.Append("\t");
-            sb.Append("Controller: " + context.ActionDescriptor.ControllerName);
+            sb.Append("Controller: " + (context.ActionDescriptor == null ? "Unit testing" : context.ActionDescriptor.ControllerName) + "");
             sb.AppendLine();
             sb.Append("\t");
-            sb.Append("Action: " + context.ActionDescriptor.ActionName);
+            sb.Append("Action: " + (context.ActionDescriptor == null ? "Unit testing" : context.ActionDescriptor.ActionName) + "");
             return sb.ToString();
         }
 

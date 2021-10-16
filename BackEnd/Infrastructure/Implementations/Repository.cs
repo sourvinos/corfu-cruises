@@ -9,9 +9,9 @@ namespace BlueWaterCruises {
 
     public class Repository<T> : IRepository<T> where T : class {
 
-        protected readonly DbContext context;
+        protected readonly AppDbContext context;
 
-        public Repository(DbContext context) {
+        public Repository(AppDbContext context) {
             this.context = context;
         }
 

@@ -10,13 +10,12 @@ namespace BlueWaterCruises.Features.Drivers {
 
         private readonly IMapper mapper;
 
-        public DriverRepository(DbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public DriverRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
             this.mapper = mapper;
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            var records = await context
-                .Set<Driver>()
+            var records = await context.Set<Driver>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .ToListAsync();
@@ -24,7 +23,9 @@ namespace BlueWaterCruises.Features.Drivers {
         }
 
         public async Task<int> GetDefault() {
-            var record = await context.Drivers.Where(x => x.Id == 1).SingleAsync();
+            var record = await context.Set<Driver>()
+                .Where(x => x.Id == 1)
+                .SingleAsync();
             return record.Id;
         }
 

@@ -9,14 +9,13 @@ namespace BlueWaterCruises.Features.Ships {
     public class CrewRepository : Repository<Crew>, ICrewRepository {
 
         private readonly IMapper mapper;
-        public CrewRepository(DbContext context) : base(context) { }
 
-        public CrewRepository(DbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public CrewRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
             this.mapper = mapper;
         }
 
         public async Task<IEnumerable<CrewListResource>> Get() {
-            var crews = await context.Crews
+            var crews = await context.Set<Crew>()
                 .Include(x => x.Ship)
                 .Include(x => x.Gender)
                 .Include(p => p.Nationality)
@@ -29,7 +28,7 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         public new async Task<CrewReadResource> GetById(int crewId) {
-            var crew = await context.Crews
+            var crew = await context.Set<Crew>()
                 .Include(x => x.Ship)
                 .Include(x => x.Gender)
                 .Include(p => p.Nationality)
@@ -38,7 +37,8 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         public async Task<Crew> GetByIdToDelete(int id) {
-            return await context.Crews.SingleOrDefaultAsync(m => m.Id == id);
+            return await context.Set<Crew>()
+                .SingleOrDefaultAsync(m => m.Id == id);
         }
 
     }

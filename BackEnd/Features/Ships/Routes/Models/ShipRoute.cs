@@ -1,4 +1,4 @@
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises.Features.ShipRoutes {
 
     public class ShipRoute : SimpleResource {
 
@@ -10,6 +10,8 @@ namespace BlueWaterCruises.Features.Ships {
         public string ToTime { get; set; }
         public bool IsActive { get; set; }
         public string UserId { get; set; }
+
+        public AppUser User { get; set; }
 
     }
 

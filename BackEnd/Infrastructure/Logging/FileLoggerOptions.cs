@@ -6,5 +6,5 @@ namespace BlueWaterCruises {
         public virtual string FolderPath { get; set; }
 
     }
-    
+
 }

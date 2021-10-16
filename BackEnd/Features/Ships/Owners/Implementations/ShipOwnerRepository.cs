@@ -10,13 +10,12 @@ namespace BlueWaterCruises.Features.Ships {
 
         private readonly IMapper mapper;
 
-        public ShipOwnerRepository(DbContext context, IMapper mapper) : base(context) {
+        public ShipOwnerRepository(AppDbContext context, IMapper mapper) : base(context) {
             this.mapper = mapper;
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            var records = await context
-                .Set<ShipOwner>()
+            var records = await context.Set<ShipOwner>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .ToListAsync();

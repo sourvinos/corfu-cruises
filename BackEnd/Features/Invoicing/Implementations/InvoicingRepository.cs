@@ -1,24 +1,22 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using BlueWaterCruises.Features.Reservations;
-using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlueWaterCruises.Features.Invoicing {
 
-    public class InvoicingRepository : IInvoicingRepository {
+    public class InvoicingRepository : Repository<InvoicingRepository>, IInvoicingRepository {
 
-        private readonly DbContext context;
         private readonly IMapper mapper;
 
-        public InvoicingRepository(DbContext appDbContext, IMapper mapper) {
-            this.context = appDbContext;
+        public InvoicingRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
             this.mapper = mapper;
         }
 
         public IEnumerable<InvoiceViewModel> Get(string date, string customerId, string destinationId, string vesselId) {
-            var result = context.Reservations
+            var result = context.Set<Reservation>()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Ship)

@@ -6,7 +6,7 @@ namespace BlueWaterCruises.Features.Routes {
 
     public interface IRouteRepository : IRepository<Route> {
 
-        Task<IEnumerable<RouteListResource>> Get();
+        Task<IEnumerable<Route>> Get();
         Task<IEnumerable<RouteDropdownResource>> GetActiveForDropdown();
         new Task<RouteReadResource> GetById(int routeId);
         Task<Route> GetSingleToDelete(int id);

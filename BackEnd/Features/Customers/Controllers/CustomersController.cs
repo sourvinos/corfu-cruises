@@ -22,8 +22,8 @@ namespace BlueWaterCruises.Features.Customers {
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Customer>> Get() {
-            return await repo.Get(x => x.Id != 0);
+        public async Task<IEnumerable<CustomerListResource>> Get() {
+            return await repo.Get();
         }
 
         [HttpGet("[action]")]
@@ -33,7 +33,7 @@ namespace BlueWaterCruises.Features.Customers {
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomer(int id) {
-            Customer record = await repo.GetById(id);
+            var record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -90,7 +90,7 @@ namespace BlueWaterCruises.Features.Customers {
         [HttpDelete("{id}")]
         // [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteCustomer([FromRoute] int id) {
-            Customer record = await repo.GetById(id);
+            Customer record = await repo.GetByIdToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {

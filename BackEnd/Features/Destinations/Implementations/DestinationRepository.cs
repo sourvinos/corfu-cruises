@@ -10,13 +10,12 @@ namespace BlueWaterCruises.Features.Destinations {
 
         private readonly IMapper mapper;
 
-        public DestinationRepository(DbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public DestinationRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
             this.mapper = mapper;
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            var records = await context
-                .Set<Destination>()
+            var records = await context.Set<Destination>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .ToListAsync();

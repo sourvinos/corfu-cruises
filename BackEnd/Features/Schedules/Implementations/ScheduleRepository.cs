@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using BlueWaterCruises.Features.Reservations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,38 +14,38 @@ namespace BlueWaterCruises.Features.Schedules {
         private readonly IMapper mapper;
         private readonly UserManager<AppUser> userManager;
 
-        public ScheduleRepository(DbContext context, IMapper mapper, UserManager<AppUser> userManager) : base(context) {
+        public ScheduleRepository(AppDbContext context, IMapper mapper, UserManager<AppUser> userManager) : base(context) {
             this.mapper = mapper;
             this.userManager = userManager;
         }
 
         public async Task<IList<Schedule>> Get() {
-            return await context.Schedules.Include(p => p.Port).Include(p => p.Destination).ToListAsync();
+            return await context.Set<Schedule>().Include(p => p.Port).Include(p => p.Destination).ToListAsync();
         }
 
         public Boolean DayHasSchedule(DateTime date) {
-            var schedule = context.Schedules
+            var schedule = context.Set<Schedule>()
                 .Where(x => x.Date == date)
                 .ToList();
             return schedule.Count() != 0;
         }
 
         public Boolean DayHasScheduleForDestination(DateTime date, int destinationId) {
-            var schedule = context.Schedules
+            var schedule = context.Set<Schedule>()
                 .Where(x => x.Date == date && x.DestinationId == destinationId)
                 .ToList();
             return schedule.Count() != 0;
         }
 
         public Boolean PortHasDepartures(DateTime date, int destinationId, int portId) {
-            var schedule = context.Schedules
+            var schedule = context.Set<Schedule>()
                 .Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId)
                 .ToList();
             return schedule.Count() != 0;
         }
 
         public Boolean PortHasVacancy(DateTime date, int destinationId, int portId) {
-            var schedule = context.Schedules
+            var schedule = context.Set<Schedule>()
                 .Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId)
                 .ToList();
             return schedule.Count() != 0;
@@ -58,7 +59,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         public new async Task<Schedule> GetById(int ScheduleId) {
-            return await context.Schedules
+            return await context.Set<Schedule>()
                 .Include(p => p.Port)
                 .Include(p => p.Destination)
                 .SingleOrDefaultAsync(m => m.Id == ScheduleId);
@@ -73,7 +74,7 @@ namespace BlueWaterCruises.Features.Schedules {
         public void RemoveRange(List<Schedule> schedules) {
             List<Schedule> idsToDelete = new List<Schedule>();
             foreach (var item in schedules) {
-                var idToDelete = context.Schedules
+                var idToDelete = context.Set<Schedule>()
                     .FirstOrDefault(x => x.Date == item.Date && x.DestinationId == item.DestinationId && x.PortId == item.PortId);
                 if (idToDelete != null) {
                     idsToDelete.Add(idToDelete);
@@ -86,7 +87,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
  
         private IEnumerable<ScheduleResource> GetScheduleForPeriod(string fromDate, string toDate) {
-            var response = context.Schedules
+            var response = context.Set<Schedule>()
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
                 .OrderBy(x => x.Date).ThenBy(x => x.DestinationId).ThenBy(x => x.PortId)
                 .Select(x => new ScheduleResource {
@@ -103,7 +104,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         private IEnumerable<ReservationResource> GetReservationsForPeriod(string fromDate, string toDate) {
-            var response = context.Reservations
+            var response = context.Set<Reservation>()
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
                 .OrderBy(x => x.Date).ThenBy(x => x.DestinationId).ThenBy(x => x.PortId)
                 .GroupBy(x => new { x.Date, x.DestinationId, x.PortId })

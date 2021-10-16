@@ -6,6 +6,8 @@ namespace BlueWaterCruises.Features.Customers {
 
         public CustomerMappingProfile() {
             CreateMap<Customer, SimpleResource>();
+            CreateMap<Customer, CustomerListResource>();
+            CreateMap<Customer, CustomerReadResource>();
         }
 
     }

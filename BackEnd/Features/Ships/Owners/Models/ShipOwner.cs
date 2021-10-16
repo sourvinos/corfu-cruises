@@ -11,6 +11,8 @@ namespace BlueWaterCruises.Features.Ships {
         public bool IsActive { get; set; }
         public string UserId { get; set; }
 
+        public AppUser User { get; set; }
+
     }
 
 }

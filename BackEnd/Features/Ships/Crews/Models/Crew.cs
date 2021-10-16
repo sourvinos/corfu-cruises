@@ -17,6 +17,7 @@ namespace BlueWaterCruises.Features.Ships {
         public int GenderId { get; set; }
         public int NationalityId { get; set; }
 
+        public AppUser User { get; set; }
         public Ship Ship { get; set; }
         public Gender Gender { get; set; }
         public Nationality Nationality { get; set; }

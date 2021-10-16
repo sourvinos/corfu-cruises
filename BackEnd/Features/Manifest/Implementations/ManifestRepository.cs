@@ -7,7 +7,7 @@ namespace BlueWaterCruises.Features.Manifest {
 
         private readonly IMapper mapper;
 
-        public ManifestRepository(DbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public ManifestRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
             this.mapper = mapper;
         }
 

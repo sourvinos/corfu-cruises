@@ -10,13 +10,12 @@ namespace BlueWaterCruises.Features.Genders {
 
         private readonly IMapper mapper;
 
-        public GenderRepository(DbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public GenderRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
             this.mapper = mapper;
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            var records = await context
-                .Set<Gender>()
+            var records = await context.Set<Gender>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .ToListAsync();

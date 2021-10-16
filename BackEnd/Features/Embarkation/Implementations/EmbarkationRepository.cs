@@ -13,12 +13,12 @@ namespace BlueWaterCruises.Features.Embarkation {
 
         private readonly IMapper mapper;
 
-        public EmbarkationRepository(DbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public EmbarkationRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
             this.mapper = mapper;
         }
 
         public async Task<EmbarkationMainResultResource<EmbarkationResource>> Get(string date, int destinationId, int portId, int shipId) {
-            var reservations = await context.Reservations
+            var reservations = await context.Set<Reservation>()
                 .Include(x => x.Customer)
                 .Include(x => x.Driver)
                 .Include(x => x.Passengers)
@@ -28,7 +28,7 @@ namespace BlueWaterCruises.Features.Embarkation {
             int passengers = reservations.SelectMany(c => c.Passengers).Count();
             int boarded = reservations.SelectMany(c => c.Passengers).Where(x => x.IsCheckedIn).Count();
             int remaining = passengers - boarded;
-            var groupPerDriver = context.Reservations.Include(x => x.Driver)
+            var groupPerDriver = context.Set<Reservation>().Include(x => x.Driver)
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId)
                 .GroupBy(x => new { x.Driver.Description })
                 .Select(x => new Driver {
@@ -48,7 +48,7 @@ namespace BlueWaterCruises.Features.Embarkation {
         }
 
         public bool DoEmbarkation(int id) {
-            Passenger passenger = context.Passengers.Where(x => x.Id == id).FirstOrDefault();
+            Passenger passenger = context.Set<Passenger>().Where(x => x.Id == id).FirstOrDefault();
             if (passenger != null) {
                 passenger.IsCheckedIn = !passenger.IsCheckedIn;
                 context.SaveChanges();

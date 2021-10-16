@@ -41,7 +41,7 @@ namespace BlueWaterCruises {
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id) {
-            AppUser record = await userManager.Users.Include(x => x.Customer).Where(x => x.Id == id).SingleOrDefaultAsync();
+            AppUser record = await userManager.Users.Where(x => x.Id == id).SingleOrDefaultAsync();
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -53,7 +53,6 @@ namespace BlueWaterCruises {
                 UserName = record.UserName,
                 DisplayName = record.DisplayName,
                 CustomerId = record.CustomerId,
-                CustomerDescription = record.Customer.Description,
                 Email = record.Email,
                 IsAdmin = record.IsAdmin,
                 IsActive = record.IsActive
