@@ -1,147 +1,39 @@
 [
-  {
-    "feature": "snackbarMessages",
-    "labels": [
-      {
-        "error": 400,
-        "id": "invalidModel",
-        "message": "Something went not so well"
-      },
-      {
-        "error": 401,
-        "id": "authenticationFailed",
-        "message": "Authentication failed"
-      },
-      {
-        "error": 403,
-        "id": "authorizationFailed",
-        "message": "This action requires higher authorization level"
-      },
-      {
-        "error": 404,
-        "id": "recordNotFound",
-        "message": "This record can not be found"
-      },
-      {
-        "error": 409,
-        "id": "duplicateRecord",
-        "message": "This record in not unique"
-      },
-      {
-        "error": 490,
-        "id": "unableToSaveRecord",
-        "message": "This record could not be saved"
-      },
-      {
-        "error": 491,
-        "id": "recordInUse",
-        "message": "This record is in use and can not be deleted"
-      },
-      {
-        "error": 492,
-        "id": "unableToRegisterUser",
-        "message": "A user with these details can not be created"
-      },
-      {
-        "error": 493,
-        "id": "fileNotCreated",
-        "message": "The file was not created"
-      },
-      {
-        "error": 494,
-        "id": "unableToChangePassword",
-        "message": "The password can not be changed"
-      },
-      {
-        "error": 495,
-        "id": "accountNotConfirmed",
-        "message": "This account is pending email confirmation"
-      },
-      {
-        "error": 499,
-        "id": "redAlert",
-        "message": "Something very bad happened. Logout immediately"
-      },
-      {
-        "id": "askConfirmationToAbortEditing",
-        "message": "If you continue, all changes will be lost"
-      },
-      {
-        "id": "askConfirmationToDelete",
-        "message": "If you continue, this record will be lost for ever"
-      },
-      {
-        "id": "emailSent",
-        "message": "An email was sent with instructions"
-      },
-      {
-        "id": "formIsDirty",
-        "message": "Before you continue, all changes must be saved"
-      },
-      {
-        "id": "fullyBooked",
-        "message": "Sorry, we are fully booked"
-      },
-      {
-        "id": "noRecordsSelected",
-        "message": "You have not selected any records"
-      },
-      {
-        "id": "noResults",
-        "message": "We didn't find anything"
-      },
-      {
-        "id": "noScheduleFound",
-        "message": "We don't have any trips for this day"
-      },
-      {
-        "id": "noScheduleFoundWithDetails",
-        "message": "We don't have a trip for the selected date and destination"
-      },
-      {
-        "id": "noVideoDevicesFound",
-        "message": "There are no cameras on your device"
-      },
-      {
-        "id": "passwordChanged",
-        "message": "The password was changed, you must login again"
-      },
-      {
-        "id": "recordCreated",
-        "message": "A record was created"
-      },
-      {
-        "id": "recordDeleted",
-        "message": "This record was deleted"
-      },
-      {
-        "id": "recordUpdated",
-        "message": "This record was updated"
-      },
-      {
-        "id": "fileCreated",
-        "message": "The file was created"
-      },
-      {
-        "id": "selectedRecordsHaveBeenProcessed",
-        "message": "All selected records have been updated"
-      },
-      {
-        "id": "unableToResetPassword",
-        "message": "The password can not be reset"
-      },
-      {
-        "id": "isOverbooking",
-        "message": "This reservation will cause overbooking"
-      },
-      {
-        "id": "wrongPassengerCount",
-        "message": "The number of passengers must be equal to total persons"
-      },
-      {
-        "id": "emptyEmail",
-        "message": "The email can not be empty"
-      }
-    ]
-  }
+    {
+        "feature": "snackbarMessages",
+        "labels": [
+            { "error": 400, "id": "invalidModel", "message": "Something went not so well" },
+            { "error": 401, "id": "authenticationFailed", "message": "Authentication failed" },
+            { "error": 403, "id": "authorizationFailed", "message": "This action requires higher authorization level" },
+            { "error": 404, "id": "recordNotFound", "message": "This record can not be found" },
+            { "error": 409, "id": "duplicateRecord", "message": "This record in not unique" },
+            { "error": 427, "id": "portHasNoDepartures", "message": "For this day and destination, nothing is scheduled to depart from the given port" },
+            { "error": 430, "id": "dayHasNoScheduleForDestination", "message": "Nothing is scheduled for the selected day and destination" },
+            { "error": 432, "id": "dayHasNoSchedule", "message": "Nothing is scheduled for the selected day" },
+            { "error": 433, "id": "overbookingIsNotAllowed", "message": "This reservation will cause overbooking" },
+            { "error": 490, "id": "unableToSaveRecord", "message": "This record could not be saved" },
+            { "error": 491, "id": "recordInUse", "message": "This record is in use and can not be deleted" },
+            { "error": 492, "id": "unableToRegisterUser", "message": "A user with these details can not be created" },
+            { "error": 493, "id": "fileNotCreated", "message": "The file was not created" },
+            { "error": 494, "id": "unableToChangePassword", "message": "The password can not be changed" },
+            { "error": 495, "id": "accountNotConfirmed", "message": "This account is pending email confirmation" },
+            { "error": 499, "id": "redAlert", "message": "Something very bad happened. Logout immediately" },
+            { "id": "askConfirmationToAbortEditing", "message": "If you continue, all changes will be lost" },
+            { "id": "askConfirmationToDelete", "message": "If you continue, this record will be lost for ever" },
+            { "id": "emailSent", "message": "An email was sent with instructions" },
+            { "id": "emptyEmail", "message": "The email can not be empty" },
+            { "id": "fileCreated", "message": "The file was created" },
+            { "id": "formIsDirty", "message": "Before you continue, all changes must be saved" },
+            { "id": "noRecordsSelected", "message": "You have not selected any records" },
+            { "id": "noResults", "message": "We didn't find anything" },
+            { "id": "noVideoDevicesFound", "message": "There are no cameras on your device" },
+            { "id": "passwordChanged", "message": "The password was changed, you must login again" },
+            { "id": "recordCreated", "message": "A record was created" },
+            { "id": "recordDeleted", "message": "This record was deleted" },
+            { "id": "recordUpdated", "message": "This record was updated" },
+            { "id": "selectedRecordsHaveBeenProcessed", "message": "All selected records have been updated" },
+            { "id": "unableToResetPassword", "message": "The password can not be reset" },
+            { "id": "wrongPassengerCount", "message": "The number of passengers must be equal to total persons" }
+        ]
+    }
 ]

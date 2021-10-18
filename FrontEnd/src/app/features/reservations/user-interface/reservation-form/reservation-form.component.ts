@@ -34,6 +34,8 @@ import { UserService } from 'src/app/features/users/classes/user.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
 import { VoucherService } from '../../classes/services/voucher.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { OkIconService } from '../../classes/services/ok-icon.service'
+import { WarningIconService } from '../../classes/services/warning-icon.service'
 
 @Component({
     selector: 'reservation-form',
@@ -68,7 +70,32 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService) {
+    constructor(
+        private accountService: AccountService,
+        private activatedRoute: ActivatedRoute,
+        private buttonClickService: ButtonClickService,
+        private customerService: CustomerService,
+        private destinationService: DestinationService,
+        private dialogService: DialogService,
+        private driverService: DriverService,
+        private formBuilder: FormBuilder,
+        private helperService: HelperService,
+        private keyboardShortcutsService: KeyboardShortcuts,
+        private messageHintService: MessageHintService,
+        private messageLabelService: MessageLabelService,
+        private messageSnackbarService: MessageSnackbarService,
+        private okIconService: OkIconService,
+        private pickupPointService: PickupPointService,
+        private portService: PortService,
+        private reservationService: ReservationService,
+        private router: Router,
+        private shipService: ShipService,
+        private snackbarService: SnackbarService,
+        private titleService: Title,
+        private userService: UserService,
+        private voucherService: VoucherService,
+        private warningIconService: WarningIconService
+    ) {
         this.activatedRoute.params.subscribe(params => {
             if (params.id) {
                 this.getRecord(params.id)
@@ -176,16 +203,16 @@ export class ReservationFormComponent {
                 this.resetForm()
                 this.onGoBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            }, errorFromInterceptor => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
             this.reservationService.update(this.form.value.reservationId, reservation).subscribe(() => {
                 this.resetForm()
                 this.onGoBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            }, errorFromInterceptor => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         }
     }
@@ -251,8 +278,17 @@ export class ReservationFormComponent {
         })
     }
 
+    private getValidPassengerIcon(isValid: boolean): string {
+        if (isValid) {
+            return this.okIconService.getIcon()
+        } else {
+            return this.warningIconService.getIcon()
+        }
+    }
+
     private getRecord(id: number): void {
         this.reservationService.getSingle(id).subscribe(result => {
+            console.log(result)
             this.populateFields(result)
             this.doBarcodeTasks()
         }, errorFromInterceptor => {
@@ -327,15 +363,24 @@ export class ReservationFormComponent {
     private mapObjectToVoucher(): any {
         const form = this.form.value
         const voucher = {
-            'date': this.helperService.formatDateToISO(form.date),
+            'date': this.helperService.formatDateToLocale(form.date),
             'destinationDescription': form.destination.description,
+            'customerDescription': form.customer.description,
             'pickupPointDescription': form.pickupPoint.description,
             'pickupPointExactPoint': form.pickupPoint.exactPoint,
             'pickupPointTime': form.pickupPoint.time,
+            'adults': form.adults,
+            'kids': form.kids,
+            'free': form.free,
+            'totalPersons': form.totalPersons,
+            'driverDescription': form.driver.description,
+            'ticketNo': form.ticketNo,
             'remarks': form.remarks,
+            'validPassengerIcon': this.getValidPassengerIcon(this.validatePassengerCount(form.totalPersons, form.passengers)),
             'qr': form.ticketNo,
             'passengers': this.mapVoucherPassengers()
         }
+        console.log(voucher)
         return voucher
     }
 
@@ -397,7 +442,7 @@ export class ReservationFormComponent {
     private populateFields(result: ReservationReadResource): void {
         this.form.setValue({
             reservationId: result.reservationId,
-            date: result.date,
+            date: this.helperService.formatDateToISO(result.date),
             destination: { 'id': result.destination.id, 'description': result.destination.description },
             customer: { 'id': result.customer.id, 'description': result.customer.description },
             pickupPoint: { 'id': result.pickupPoint.id, 'description': result.pickupPoint.description, 'exactPoint': result.pickupPoint.exactPoint, 'time': result.pickupPoint.time },
@@ -442,6 +487,14 @@ export class ReservationFormComponent {
     private unsubscribe(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
+    }
+
+    private validatePassengerCount(reservationPersons: any, passengerCount: any): boolean {
+        if (reservationPersons == passengerCount.length) {
+            return true
+        } else {
+            return false
+        }
     }
 
     //#endregion

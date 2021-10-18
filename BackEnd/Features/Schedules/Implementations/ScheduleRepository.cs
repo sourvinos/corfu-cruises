@@ -51,10 +51,10 @@ namespace BlueWaterCruises.Features.Schedules {
             return schedule.Count() != 0;
         }
 
-         public IEnumerable<ScheduleReservationGroup> DoCalendarTasks(string fromDate, string toDate) {
+        public IEnumerable<ScheduleReservationGroup> DoCalendarTasks(string fromDate, string toDate, Guid? reservationId) {
             var schedule = this.GetScheduleForPeriod(fromDate, toDate);
-            var reservations = this.GetReservationsForPeriod(fromDate, toDate);
-            var calendarData = this.UpdateCalendarData(this.GetScheduleForPeriod(fromDate, toDate), this.GetReservationsForPeriod(fromDate, toDate));
+            var reservations = this.GetReservationsForPeriod(fromDate, toDate, reservationId);
+            var calendarData = this.UpdateCalendarData(this.GetScheduleForPeriod(fromDate, toDate), this.GetReservationsForPeriod(fromDate, toDate, reservationId));
             return calendarData;
         }
 
@@ -85,7 +85,7 @@ namespace BlueWaterCruises.Features.Schedules {
                 context.SaveChanges();
             }
         }
- 
+
         private IEnumerable<ScheduleResource> GetScheduleForPeriod(string fromDate, string toDate) {
             var response = context.Set<Schedule>()
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
@@ -103,9 +103,9 @@ namespace BlueWaterCruises.Features.Schedules {
             return response.ToList();
         }
 
-        private IEnumerable<ReservationResource> GetReservationsForPeriod(string fromDate, string toDate) {
+        private IEnumerable<ReservationResource> GetReservationsForPeriod(string fromDate, string toDate, Guid? reservationId) {
             var response = context.Set<Reservation>()
-                .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
+                .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate) && x.ReservationId != reservationId)
                 .OrderBy(x => x.Date).ThenBy(x => x.DestinationId).ThenBy(x => x.PortId)
                 .GroupBy(x => new { x.Date, x.DestinationId, x.PortId })
                 .Select(x => new ReservationResource {

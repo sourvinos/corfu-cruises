@@ -37,7 +37,15 @@ export class JwtInterceptor {
                                 case 404:
                                     return throwError(404)
                                 case 409:
-                                    return throwError(409)
+                                    return throwError(409) // duplicate record (date, destination, customer, ticket no)
+                                case 427:
+                                    return throwError(427) // we don't have a departure for the selected date, destination and port
+                                case 430:
+                                    return throwError(430) // we don't have a trip for the selected date and destination
+                                case 432:
+                                    return throwError(432) // we don't have any trips for this day
+                                case 433:
+                                    return throwError(433) // no vacancy for port
                                 case 490:
                                     return throwError(490) // unableToSaveRecord
                                 case 491:

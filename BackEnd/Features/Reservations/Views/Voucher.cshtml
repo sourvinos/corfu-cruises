@@ -71,7 +71,6 @@
         </div>
 
         <div class="group">
-            <div class="text">Dear guest,</div>
             <div class="text">Your reservation for</div>
             <div class="text large bold">@Model.DestinationDescription</div>
             <div class="text">is confirmed!</div>
@@ -85,7 +84,7 @@
                 <tbody>
                     <tr>
                         <td class="text">Date</td>
-                        <td class="text">@Model.Date.ToString("ddd, dd MMM yyyy")</td>
+                        <td class="text">@Model.Date.ToString("dd MMM yyyy")</td>
                     </tr>
                     <tr>
                         <td class="text">Pickup point</td>
@@ -109,26 +108,11 @@
                     <td colspan="2" class="text center bold">Passenger details</td>
                 </thead>
                 <tbody>
-                    @foreach (var passenger in Model.Passengers)
-
-
-
-
-
-
-
-                    {
+                    @foreach (var passenger in Model.Passengers) {
                         <tr>
                             <td class="text">@passenger.Lastname</td>
                             <td class="text">@passenger.Firstname</td>
                         </tr>
-
-
-
-
-
-
-
                     }
                     <tr id="last-row">
                         <td colspan="2" class="text center">Total passengers: @Model.Passengers.Count()</td>
@@ -137,8 +121,8 @@
             </table>
         </div>
 
-        <div id="barcode">
-            <img src="@Model.ImageBase64">
+        <div id="barcode" style="width: 400px;">
+            <img src="@Model.BarCode" width="100%" height="50px">
         </div>
 
         <div id="social">
@@ -150,7 +134,7 @@
         <div class="group">
             <div class="text small">Problems or questions? Call us at +30 26620 61400</div>
             <div class="text small">or email at info@corfucruises.com</div>
-            <div class="text small">© Blue Water Cruises 2021, Corfu - Greece</div>
+            <div class="text small">© Corfu Cruises 2021, Corfu - Greece</div>
             <div class="text small">Do not reply to this email.</div>
         </div>
 

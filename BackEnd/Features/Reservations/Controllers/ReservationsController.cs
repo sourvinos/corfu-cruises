@@ -41,7 +41,7 @@ namespace BlueWaterCruises.Features.Reservations {
         public async Task<IActionResult> GetSingle(string id) {
             var record = await reservationRepo.GetSingle(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                LoggerExtensions.LogException(id.ToString(), logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -79,14 +79,14 @@ namespace BlueWaterCruises.Features.Reservations {
         public IActionResult Put([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             if (id == record.ReservationId.ToString() && ModelState.IsValid) {
                 try {
-                    if (reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record))) {
+                    var response = reservationRepo.IsValid(record, scheduleRepo);
+                    if (response == 200) {
+                        reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
                         return StatusCode(200, new {
                             response = ApiMessages.RecordUpdated()
                         });
                     } else {
-                        return StatusCode(409, new {
-                            response = ApiMessages.DuplicateRecord()
-                        });
+                        return this.GetErrorMessage(response);
                     }
                 } catch (DbUpdateException exception) {
                     LoggerExtensions.LogException(0, logger, ControllerContext, record, exception);

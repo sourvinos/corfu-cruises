@@ -1,4 +1,3 @@
-import { environment } from 'src/environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
@@ -23,6 +22,7 @@ export class VoucherService extends DataService {
     //#region public methods
 
     public createVoucherOnClient(voucher: VoucherViewModel): void {
+        console.log('Service', voucher)
         const rows = []
         rows.push([{ text: '' }, { text: '' }])
         rows.push([{ text: 'Passengers', colSpan: 2, alignment: 'center', fontSize: 18 }])
@@ -30,7 +30,7 @@ export class VoucherService extends DataService {
             rows.push([{ text: passenger.lastname, style: 'paddingLeft' }, { text: passenger.firstname }])
         }
         const dd = {
-            pageMargins: [130, 50, 130, 200],
+            pageMargins: [130, 30, 130, 250],
             content: [
                 {
                     table: {
@@ -45,13 +45,12 @@ export class VoucherService extends DataService {
                 {
                     table: {
                         body: [
-                            [{ text: 'Dear guest,', alignment: 'center' }],
                             [{ text: 'Your reservation for', alignment: 'center' }],
-                            [{ text: voucher.destinationDescription, alignment: 'center', fontSize: 20 }],
+                            [{ text: voucher.destinationDescription, alignment: 'center', fontSize: 20, color: '#060770' }],
                             [{ text: 'is confirmed!', alignment: 'center' }]
                         ],
                         widths: ['100%'],
-                        heights: [20, 10, 20, 30],
+                        heights: [10, 20, 10],
                     },
                     layout: 'noBorders'
                 },
@@ -60,12 +59,27 @@ export class VoucherService extends DataService {
                         headerRows: 0,
                         body: [
                             [{ text: '' }, { text: '' }],
-                            [{ text: 'Pickup details', colSpan: 2, alignment: 'center', fontSize: 18 }],
+                            [{ text: 'Details', colSpan: 2, alignment: 'center', fontSize: 18 }],
+                            [{ text: 'Ticket No', style: 'paddingLeft' }, { text: voucher.ticketNo }],
+                            [{ text: 'Customer', style: 'paddingLeft' }, { text: voucher.customerDescription }],
+                            [{ text: 'Remarks', style: 'paddingLeft' }, { text: voucher.remarks }],
+                        ],
+                        widths: ['50%', '50%'],
+                        heights: [0, 15, 15, 15, 15],
+                    },
+                    layout: 'lightHorizontalLines'
+                },
+                {
+                    table: {
+                        headerRows: 0,
+                        body: [
+                            [{ text: '' }, { text: '' }],
+                            [{ text: 'Pickup details', colSpan: 2, alignment: 'center', fontSize: 18, foreground: 'darkslategray' }],
                             [{ text: 'Date', style: 'paddingLeft' }, { text: voucher.date }],
+                            [{ text: 'Driver', style: 'paddingLeft' }, { text: voucher.driverDescription }],
                             [{ text: 'Pickup point', style: 'paddingLeft' }, { text: voucher.pickupPointDescription }],
                             [{ text: 'Exact point', style: 'paddingLeft' }, { text: voucher.pickupPointExactPoint }],
                             [{ text: 'Time', style: 'paddingLeft' }, { text: voucher.pickupPointTime }],
-                            [{ text: 'Remarks', style: 'paddingLeft' }, { text: voucher.remarks }],
                         ],
                         widths: ['50%', '50%'],
                         heights: [0, 20, 15, 15, 15, 15],
@@ -80,38 +94,25 @@ export class VoucherService extends DataService {
                     },
                     layout: 'lightHorizontalLines'
                 },
-                {
-                    table: {
-                        headerRows: 0,
-                        body: [
-                            [{ text: '' }],
-                            [{ text: 'Number of passengers: ' + voucher.passengers.length, alignment: 'center', style: 'paddingTop' }]
-                        ],
-                        widths: '100%'
-                    },
-                    layout: 'lightHorizontalLines'
-                }
             ],
             footer: {
-                stack: [{
-                    columns: [
-                        { width: '*', text: '' },
-                        {
-                            width: 'auto',
-                            table: {
-                                body: [
-                                    [{ qr: voucher.qr, width: 200 }]
-                                ],
-                                heights: 130
-                            },
-                            layout: 'noBorders'
+                columns: [
+                    { width: '*', text: '' },
+                    {
+                        width: 'auto',
+                        table: {
+                            body: [
+                                [{ image: voucher.validPassengerIcon, fit: [32, 32], alignment: 'center' }],
+                                [{ text: 'Adults: ' + voucher.adults + ' ' + 'Kids: ' + voucher.kids + ' ' + 'Free: ' + voucher.free + ' ' + 'Total persons: ' + voucher.totalPersons, alignment: 'center' }],
+                                [{ qr: voucher.qr, alignment: 'center', width: 200, style: ['paddingTop'], foreground: 'darkslategray' }],
+                                [{ text: 'Problems or questions? Call us at +30 26620 61400', alignment: 'center', style: ['small', 'paddingTop'] }],
+                                [{ text: 'or email at info@corfucruises.com', alignment: 'center', style: 'small' }],
+                                [{ text: '© Corfu Cruises 2021, Corfu - Greece', alignment: 'center', style: 'small' }],
+                            ],
                         },
-                        { width: '*', text: '' }
-                    ]
-                },
-                { text: environment.emailFooter.lineA, alignment: 'center', style: ['small'] },
-                { text: environment.emailFooter.lineB, alignment: 'center', style: ['small'] },
-                { text: environment.emailFooter.lineC, alignment: 'center', style: ['small'] }
+                        layout: 'noBorders'
+                    },
+                    { width: '*', text: '' }
                 ]
             },
             styles: {

@@ -232,8 +232,8 @@ _Pvt_Extensions
 
 # Custom
 appsettings.json
-/Logs
-/Vouchers
+**/logs
+**/vouchers
 
 # Cypress
 **/videos

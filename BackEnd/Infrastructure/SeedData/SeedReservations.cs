@@ -13,7 +13,7 @@ public static class SeedDatabaseReservations {
         if (context.Reservations.Count() == 0) {
             List<Reservation> reservations = new();
             for (int i = 1; i <= 500; i++) {
-                Schedule schedule = context.Schedules.SingleOrDefault(x => x.Id == Helpers.CreateRandomInteger(context.Schedules.Count(), context.Schedules.Count()));
+                Schedule schedule = context.Schedules.SingleOrDefault(x => x.Id == Helpers.CreateRandomInteger(1, context.Schedules.Count() + 1));
                 List<Route> routes = context.Routes.Where(x => x.PortId == schedule.PortId).ToList();
                 Route route = routes.Skip(Helpers.CreateRandomInteger(0, routes.Count())).Take(1).FirstOrDefault();
                 List<PickupPoint> pickupPoints = context.PickupPoints.Where(x => x.RouteId == route.Id).ToList();
@@ -45,4 +45,4 @@ public static class SeedDatabaseReservations {
         }
     }
 
- }
+}

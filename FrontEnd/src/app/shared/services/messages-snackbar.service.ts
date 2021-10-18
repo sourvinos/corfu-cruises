@@ -57,15 +57,11 @@ export class MessageSnackbarService {
     public recordCreated(): string { return this.getDescription(this.feature, 'recordCreated') }
     public fileCreated(): string { return this.getDescription(this.feature, 'fileCreated') }
     public recordDeleted(): string { return this.getDescription(this.feature, 'recordDeleted') }
-    public noScheduleFound(): string { return this.getDescription(this.feature, 'noScheduleFound') }
-    public fullyBooked(): string { return this.getDescription(this.feature, 'fullyBooked') }
     public noResults(): string { return this.getDescription(this.feature, 'noResults') }
     public recordUpdated(): string { return this.getDescription(this.feature, 'recordUpdated') }
     public selectedRecordsHaveBeenProcessed(): string { return this.getDescription(this.feature, 'selectedRecordsHaveBeenProcessed') }
     public unableToResetPassword(): string { return this.getDescription(this.feature, 'unableToResetPassword') }
     public invalidModel(): string { return this.getDescription(this.feature, 'invalidModel') }
-    public noScheduleFoundWithDetails(): string { return this.getDescription(this.feature, 'noScheduleFoundWithDetails') }
-    public isOverbooking(): string { return this.getDescription(this.feature, 'isOverbooking') }
     public wrongPassengerCount(): string { return this.getDescription(this.feature, 'wrongPassengerCount') }
     public emptyEmail(): string { return this.getDescription(this.feature, 'emptyEmail') }
     public fileNotCreated(): string { return this.getDescription(this.feature, 'fileNotCreated') }

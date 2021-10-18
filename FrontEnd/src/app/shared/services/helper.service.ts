@@ -28,7 +28,7 @@ export class HelperService {
     }
 
     public formatDateToISO(date: any): string {
-        return date.format().substr(0, 10)
+        return date.substring(0, 10)
     }
 
     public getApplicationTitle(): any {

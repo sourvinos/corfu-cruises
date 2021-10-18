@@ -39,8 +39,8 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpGet("from/{fromdate}/to/{todate}")]
-        public IEnumerable<ScheduleReservationGroup> GetForPeriod(string fromDate, string toDate) {
-            return repo.DoCalendarTasks(fromDate, toDate);
+        public IEnumerable<ScheduleReservationGroup> GetForPeriod(string fromDate, string toDate, Guid? reservationId) {
+            return repo.DoCalendarTasks(fromDate, toDate, reservationId);
         }
 
         [HttpGet("[action]/date/{date}")]

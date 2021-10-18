@@ -2,146 +2,38 @@
     {
         "feature": "snackbarMessages",
         "labels": [
-            {
-                "error": 400,
-                "id": "invalidModel",
-                "message": "Modele invalide"
-            },
-            {
-                "error": 401,
-                "id": "authenticationFailed",
-                "message": "La combinaison utilisateur/mot de passe est faux"
-            },
-            {
-                "error": 403,
-                "id": "authorizationFailed",
-                "message": "Cette operation necessite une autorisation de niveau superieur"
-            },
-            {
-                "error": 404,
-                "id": "recordNotFound",
-                "message": "L'enregistrement n'est pas trouve"
-            },
-            {
-                "error": 409,
-                "id": "duplicateRecord",
-                "message": "L'enregistrement n'est pas unique"
-            },
-            {
-                "error": 490,
-                "id": "unableToSaveRecord",
-                "message": "L'enregistrement n'a pas ete sauve"
-            },
-            {
-                "error": 491,
-                "id": "recordInUse",
-                "message": "L'enregistrement est en cours d'utilisation et ne peut pas être supprimé"
-            },
-            {
-                "error": 492,
-                "id": "unableToRegisterUser",
-                "message": "L'utilisateur avec ces informations ne peut pas être créé"
-            },
-            {
-                "error": 493,
-                "id": "fileNotCreated",
-                "message": "(FR) The file was not created"
-            },
-            {
-                "error": 494,
-                "id": "unableToChangePassword",
-                "message": "Le mot de passe ne peut pas changer"
-            },
-            {
-                "error": 495,
-                "id": "accountNotConfirmed",
-                "message": "L'enregistrement de l'utilisateur n'a pas encore été confirmé"
-            },
-            {
-                "error": 499,
-                "id": "redAlert",
-                "message": "Quelque chose s'est très mal passé. déconnecter immédiatement"
-            },
-            {
-                "id": "askConfirmationToAbortEditing",
-                "message": "Si vous continuez, les modifications seront perdues"
-            },
-            {
-                "id": "askConfirmationToDelete",
-                "message": "Si vous continuez, l'enregistrement sera supprimé pour toujours"
-            },
-            {
-                "id": "emailSent",
-                "message": "Un email d'instructions a été envoyé"
-            },
-            {
-                "id": "formIsDirty",
-                "message": "Avant de continuer, les modifications doivent être enregistrées"
-            },
-            {
-                "id": "fullyBooked",
-                "message": "Nous sommes désolés, il n'y a pas de places disponibles"
-            },
-            {
-                "id": "noRecordsSelected",
-                "message": "Vous n'avez pas sélectionné d'inscriptions"
-            },
-            {
-                "id": "noResults",
-                "message": "Avec ces critères, nous n'avons rien trouvé"
-            },
-            {
-                "id": "noScheduleFound",
-                "message": "Aucune excursion n'est prevue pour ce jour"
-            },
-            {
-                "id": "noScheduleFoundWithDetails",
-                "message": "Il n' y a pas d'excursions pour la date et la destination sélectionnées"
-            },
-            {
-                "id": "noVideoDevicesFound",
-                "message": "Aucune caméra trouvée sur votre appareil"
-            },
-            {
-                "id": "passwordChanged",
-                "message": "Mot de passe modifié, vous devez vous reconnecter"
-            },
-            {
-                "id": "recordCreated",
-                "message": "L'enregistrement a été créé"
-            },
-            {
-                "id": "recordDeleted",
-                "message": "L' enregistrement  a ete supprimee"
-            },
-            {
-                "id": "recordUpdated",
-                "message": "(FR) Η εγγραφη ενημερωθηκε"
-            },
-            {
-                "id": "fileCreated",
-                "message": "(FR) The file was created"
-            },
-            {
-                "id": "selectedRecordsHaveBeenProcessed",
-                "message": "Tous les enregistrements sont mis a jour"
-            },
-            {
-                "id": "unableToResetPassword",
-                "message": "Impossible de réinitialiser le mot de passe"
-            },
-            {
-                "id": "isOverbooking",
-                "message": "Cette réservation créera une surréservation de passagers"
-            },
-            {
-                "id": "wrongPassengerCount",
-                "message": "Le nombre de passagers ne correspond pas au nombre total de personnes"
-            },
-            {
-                "id": "emptyEmail",
-                "message": "L' adresse email ne peut pas être vide"
-            }
+            { "error": 400, "id": "invalidModel", "message": "Modele invalide" },
+            { "error": 401, "id": "authenticationFailed", "message": "La combinaison utilisateur/mot de passe est faux" },
+            { "error": 403, "id": "authorizationFailed", "message": "Cette operation necessite une autorisation de niveau superieur" },
+            { "error": 404, "id": "recordNotFound", "message": "L'enregistrement n'est pas trouve" },
+            { "error": 409, "id": "duplicateRecord", "message": "L'enregistrement n'est pas unique" },
+            { "error": 427, "id": "portHasNoDepartures", "message": "(FR) For this day and destination, nothing is scheduled to depart from the given port" },
+            { "error": 430, "id": "dayHasNoScheduleForDestination", "message": "(FR) Nothing is scheduled for the selected day and destination" },
+            { "error": 432, "id": "dayHasNoSchedule", "message": "(FR) Nothing is scheduled for the selected day" },
+            { "error": 433, "id": "overbookingIsNotAllowed", "message": "(FR) This reservation will cause overbooking" },
+            { "error": 490, "id": "unableToSaveRecord", "message": "L'enregistrement n'a pas ete sauve" },
+            { "error": 491, "id": "recordInUse", "message": "L'enregistrement est en cours d'utilisation et ne peut pas être supprimé" },
+            { "error": 492, "id": "unableToRegisterUser", "message": "L'utilisateur avec ces informations ne peut pas être créé" },
+            { "error": 493, "id": "fileNotCreated", "message": "(FR) The file was not created" },
+            { "error": 494, "id": "unableToChangePassword", "message": "Le mot de passe ne peut pas changer" },
+            { "error": 495, "id": "accountNotConfirmed", "message": "L'enregistrement de l'utilisateur n'a pas encore été confirmé" },
+            { "error": 499, "id": "redAlert", "message": "Quelque chose s'est très mal passé. déconnecter immédiatement" },
+            { "id": "askConfirmationToAbortEditing", "message": "Si vous continuez, les modifications seront perdues" },
+            { "id": "askConfirmationToDelete", "message": "Si vous continuez, l'enregistrement sera supprimé pour toujours" },
+            { "id": "emailSent", "message": "Un email d'instructions a été envoyé" },
+            { "id": "emptyEmail", "message": "L' adresse email ne peut pas être vide" },
+            { "id": "fileCreated", "message": "(FR) The file was created" },
+            { "id": "formIsDirty", "message": "Avant de continuer, les modifications doivent être enregistrées" },
+            { "id": "noRecordsSelected", "message": "Vous n'avez pas sélectionné d'inscriptions" },
+            { "id": "noResults", "message": "Avec ces critères, nous n'avons rien trouvé" },
+            { "id": "noVideoDevicesFound", "message": "Aucune caméra trouvée sur votre appareil" },
+            { "id": "passwordChanged", "message": "Mot de passe modifié, vous devez vous reconnecter" },
+            { "id": "recordCreated", "message": "L'enregistrement a été créé" },            
+            { "id": "recordDeleted", "message": "L' enregistrement  a ete supprimee" },
+            { "id": "recordUpdated", "message": "(FR) Η εγγραφη ενημερωθηκε" },
+            { "id": "selectedRecordsHaveBeenProcessed", "message": "Tous les enregistrements sont mis a jour" },
+            { "id": "unableToResetPassword", "message": "Impossible de réinitialiser le mot de passe" },
+            { "id": "wrongPassengerCount", "message": "Le nombre de passagers ne correspond pas au nombre total de personnes" }
         ]
     }
 ]
