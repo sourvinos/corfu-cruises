@@ -746,6 +746,14 @@
                 "description": "Abholpunkt"
             },
             {
+                "id": "exactPoint",
+                "description": "Genauer Punkt"
+            },
+            {
+                "id": "time",
+                "description": "Zeit"
+            },
+            {
                 "id": "ticketNo",
                 "description": "Ticketnummer"
             },

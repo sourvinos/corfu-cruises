@@ -70,32 +70,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(
-        private accountService: AccountService,
-        private activatedRoute: ActivatedRoute,
-        private buttonClickService: ButtonClickService,
-        private customerService: CustomerService,
-        private destinationService: DestinationService,
-        private dialogService: DialogService,
-        private driverService: DriverService,
-        private formBuilder: FormBuilder,
-        private helperService: HelperService,
-        private keyboardShortcutsService: KeyboardShortcuts,
-        private messageHintService: MessageHintService,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageSnackbarService,
-        private okIconService: OkIconService,
-        private pickupPointService: PickupPointService,
-        private portService: PortService,
-        private reservationService: ReservationService,
-        private router: Router,
-        private shipService: ShipService,
-        private snackbarService: SnackbarService,
-        private titleService: Title,
-        private userService: UserService,
-        private voucherService: VoucherService,
-        private warningIconService: WarningIconService
-    ) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
         this.activatedRoute.params.subscribe(params => {
             if (params.id) {
                 this.getRecord(params.id)
@@ -217,8 +192,12 @@ export class ReservationFormComponent {
         }
     }
 
-    public updatePort(value: PickupPointDropdownResource): void {
-        this.form.patchValue({ port: { 'id': value.port.id, 'description': value.port.description } })
+    public updateFieldsAfterPickupPointSelection(value: PickupPointDropdownResource): void {
+        this.form.patchValue({
+            exactPoint: value.exactPoint,
+            time: value.time,
+            port: { 'id': value.port.id, 'description': value.port.description }
+        })
     }
 
     //#endregion
@@ -288,7 +267,6 @@ export class ReservationFormComponent {
 
     private getRecord(id: number): void {
         this.reservationService.getSingle(id).subscribe(result => {
-            console.log(result)
             this.populateFields(result)
             this.doBarcodeTasks()
         }, errorFromInterceptor => {
@@ -315,6 +293,8 @@ export class ReservationFormComponent {
             destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             customer: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             pickupPoint: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            exactPoint: '',
+            time: '',
             adults: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             kids: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             free: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
@@ -380,7 +360,6 @@ export class ReservationFormComponent {
             'qr': form.ticketNo,
             'passengers': this.mapVoucherPassengers()
         }
-        console.log(voucher)
         return voucher
     }
 
@@ -446,6 +425,8 @@ export class ReservationFormComponent {
             destination: { 'id': result.destination.id, 'description': result.destination.description },
             customer: { 'id': result.customer.id, 'description': result.customer.description },
             pickupPoint: { 'id': result.pickupPoint.id, 'description': result.pickupPoint.description, 'exactPoint': result.pickupPoint.exactPoint, 'time': result.pickupPoint.time },
+            exactPoint: result.pickupPoint.exactPoint,
+            time: result.pickupPoint.time,
             driver: { 'id': result.driver.id, 'description': result.driver.description },
             ship: { 'id': result.ship.id, 'description': result.ship.description },
             port: { 'id': result.port.id, 'description': result.port.description },

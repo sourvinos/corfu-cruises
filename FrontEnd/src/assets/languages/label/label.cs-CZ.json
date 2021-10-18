@@ -746,6 +746,14 @@
                 "description": "Nástupní místo"
             },
             {
+                "id": "exactPoint",
+                "description": "Přesné místo"
+            },
+            {
+                "id": "time",
+                "description": "Čas"
+            },
+            {
                 "id": "ticketNo",
                 "description": "Číslo lístku"
             },

@@ -746,6 +746,14 @@
                 "description": "Σημείο παραλαβής"
             },
             {
+                "id": "exactPoint",
+                "description": "Ακριβές σημείο"
+            },
+            {
+                "id": "time",
+                "description": "Ώρα"
+            },
+            {
                 "id": "ticketNo",
                 "description": "Αρ. εισιτηρίου"
             },

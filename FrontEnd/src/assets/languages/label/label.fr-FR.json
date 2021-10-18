@@ -746,6 +746,14 @@
                 "description": "Point de collecte"
             },
             {
+                "id": "exactPoint",
+                "description": "Point de rendez-vous precis"
+            },
+            {
+                "id": "time",
+                "description": "Heure"
+            },
+            {
                 "id": "ticketNo",
                 "description": "Billet"
             },

@@ -746,6 +746,14 @@
                 "description": "Pickup point"
             },
             {
+                "id": "exactPoint",
+                "description": "Exact point"
+            },
+            {
+                "id": "time",
+                "description": "Time"
+            },
+            {
                 "id": "ticketNo",
                 "description": "Ticket"
             },

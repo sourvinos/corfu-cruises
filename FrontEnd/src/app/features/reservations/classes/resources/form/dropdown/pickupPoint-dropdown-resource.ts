@@ -9,5 +9,4 @@ export class PickupPointDropdownResource {
     
     port: PortDropdownResource
 
-
 }
