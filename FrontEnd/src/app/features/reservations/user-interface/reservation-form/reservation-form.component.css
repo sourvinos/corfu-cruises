@@ -13,3 +13,10 @@
     width: 100px;
     z-index: -1;
 }
+
+#passenger-check-total-icon {
+    align-items: center;
+    display: flex;
+    margin-bottom: 4px;
+    margin-left: 5px;
+}

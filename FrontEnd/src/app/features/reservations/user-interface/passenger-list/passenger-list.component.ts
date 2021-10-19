@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core'
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core'
 import { Guid } from 'guid-typescript'
 import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
@@ -22,6 +22,7 @@ export class PassengerListComponent {
 
     @Input() passengers: Passenger[] = []
     @Input() reservationId: Guid
+    @Output() outputPassengerCount = new EventEmitter()
     private ngUnsubscribe = new Subject<void>()
     public feature = 'passengerList'
 
@@ -47,7 +48,7 @@ export class PassengerListComponent {
     public onDeleteRow(record: Passenger): void {
         const index = this.passengers.indexOf(record)
         this.passengers.splice(index, 1)
-        console.log(index, this.passengers)
+        this.outputPassengerCount.emit(this.passengers.length)
     }
 
     public onEditRecord(record: Passenger): void {
@@ -112,6 +113,7 @@ export class PassengerListComponent {
             if (result) {
                 this.passengers.push(result)
                 this.passengers = [...this.passengers]
+                this.outputPassengerCount.emit(this.passengers.length)
             }
         })
     }

@@ -24,7 +24,8 @@ namespace BlueWaterCruises.Features.Reservations {
                         Description = r.PickupPoint.Route.Port.Description
                     }
                 }));
-            CreateMap<Passenger, PassengerReadResource>();
+            CreateMap<Passenger, PassengerReadResource>()
+                .ForMember(x => x.Birthdate, x => x.MapFrom(x => DateConversions.DateTimeToISOString(x.Birthdate)));
             // Write
             CreateMap<ReservationWriteResource, Reservation>();
             CreateMap<PassengerWriteResource, Passenger>();

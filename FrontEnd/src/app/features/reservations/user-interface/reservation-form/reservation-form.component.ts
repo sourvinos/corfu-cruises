@@ -67,6 +67,7 @@ export class ReservationFormComponent {
     public filteredDrivers: Observable<DriverDropdownResource[]>
     public filteredShips: Observable<DriverDropdownResource[]>
     public filteredPorts: Observable<PortDropdownResource[]>
+    public passengerDifferenceIcon: string
 
     //#endregion
 
@@ -113,7 +114,12 @@ export class ReservationFormComponent {
 
     //#region public methods
 
-    public calculateTotalPersons(): boolean {
+    public doCalculatePersonsTasks(): void {
+        this.calculateTotalPersons()
+        this.checkTotalPersonsAgainstPassengerCount()
+    }
+
+    private calculateTotalPersons(): boolean {
         const totalPersons = parseInt(this.form.value.adults, 10) + parseInt(this.form.value.kids, 10) + parseInt(this.form.value.free, 10)
         this.form.patchValue({ totalPersons: Number(totalPersons) ? totalPersons : 0 })
         return totalPersons > 0 ? true : false
@@ -135,6 +141,29 @@ export class ReservationFormComponent {
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public checkTotalPersonsAgainstPassengerCount(element?: any): boolean {
+        const passengerDifference = this.form.value.totalPersons - (element != null ? element : this.form.value.passengers.length)
+        switch (true) {
+            case passengerDifference == 0:
+                this.passengerDifferenceIcon = '✔️'
+                return true
+            case passengerDifference < 0:
+                this.passengerDifferenceIcon = '⛔'
+                return false
+            case passengerDifference > 0:
+                this.passengerDifferenceIcon = '⚠️'
+                return true
+        }
+    }
+
+    public updateFieldsAfterPickupPointSelection(value: PickupPointDropdownResource): void {
+        this.form.patchValue({
+            exactPoint: value.exactPoint,
+            time: value.time,
+            port: { 'id': value.port.id, 'description': value.port.description }
+        })
     }
 
     public onDoVoucherTasksClient(): void {
@@ -190,14 +219,6 @@ export class ReservationFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         }
-    }
-
-    public updateFieldsAfterPickupPointSelection(value: PickupPointDropdownResource): void {
-        this.form.patchValue({
-            exactPoint: value.exactPoint,
-            time: value.time,
-            port: { 'id': value.port.id, 'description': value.port.description }
-        })
     }
 
     //#endregion
@@ -257,7 +278,7 @@ export class ReservationFormComponent {
         })
     }
 
-    private getValidPassengerIcon(isValid: boolean): string {
+    private getValidPassengerIconForVoucher(isValid: boolean): string {
         if (isValid) {
             return this.okIconService.getIcon()
         } else {
@@ -269,6 +290,7 @@ export class ReservationFormComponent {
         this.reservationService.getSingle(id).subscribe(result => {
             this.populateFields(result)
             this.doBarcodeTasks()
+            this.checkTotalPersonsAgainstPassengerCount()
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             this.onGoBack()
@@ -356,7 +378,7 @@ export class ReservationFormComponent {
             'driverDescription': form.driver.description,
             'ticketNo': form.ticketNo,
             'remarks': form.remarks,
-            'validPassengerIcon': this.getValidPassengerIcon(this.validatePassengerCount(form.totalPersons, form.passengers)),
+            'validPassengerIcon': this.getValidPassengerIconForVoucher(this.validatePassengerCountForVoucher(form.totalPersons, form.passengers)),
             'qr': form.ticketNo,
             'passengers': this.mapVoucherPassengers()
         }
@@ -470,7 +492,7 @@ export class ReservationFormComponent {
         this.ngUnsubscribe.unsubscribe()
     }
 
-    private validatePassengerCount(reservationPersons: any, passengerCount: any): boolean {
+    private validatePassengerCountForVoucher(reservationPersons: any, passengerCount: any): boolean {
         if (reservationPersons == passengerCount.length) {
             return true
         } else {

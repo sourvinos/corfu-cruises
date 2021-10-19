@@ -55,22 +55,23 @@
                                     <mat-error *ngIf="ticketNo.hasError('maxlength')">{{ getHint('maxLength', ticketNo.errors.maxlength.requiredLength) }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input data-cy="adults" (keyup)="calculateTotalPersons()" [inputTabStop]="input" [placeholder]="getLabel('adults')" class="number" data-tabindex="5" formControlName="adults" matInput type="number">
+                                    <input data-cy="adults" (keyup)="doCalculatePersonsTasks()" [inputTabStop]="input" [placeholder]="getLabel('adults')" class="number" data-tabindex="5" formControlName="adults" matInput type="number">
                                     <mat-error *ngIf="adults.hasError('required')">{{ getHint('required') }}</mat-error>
                                     <mat-error *ngIf="!adults.hasError('required') && adults.hasError('min') || adults.hasError('max')">{{ getHint('invalid') }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input data-cy="kids" (keyup)="calculateTotalPersons()" [inputTabStop]="input" [placeholder]="getLabel('kids')" class="number" data-tabindex="6" formControlName="kids" matInput type="number">
+                                    <input data-cy="kids" (keyup)="doCalculatePersonsTasks()" [inputTabStop]="input" [placeholder]="getLabel('kids')" class="number" data-tabindex="6" formControlName="kids" matInput type="number">
                                     <mat-error *ngIf="kids.hasError('required')">{{ getHint('required') }}</mat-error>
                                     <mat-error *ngIf="!kids.hasError('required') && kids.hasError('min') || kids.hasError('max')">{{ getHint('invalid') }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input data-cy="free" (keyup)="calculateTotalPersons()" [inputTabStop]="input" [placeholder]="getLabel('free')" class="number" data-tabindex="7" formControlName="free" matInput type="number">
+                                    <input data-cy="free" (keyup)="doCalculatePersonsTasks()" [inputTabStop]="input" [placeholder]="getLabel('free')" class="number" data-tabindex="7" formControlName="free" matInput type="number">
                                     <mat-error *ngIf="free.hasError('required')">{{ getHint('required') }}</mat-error>
                                     <mat-error *ngIf="!free.hasError('required') && free.hasError('min') || free.hasError('max')">{{ getHint('invalid') }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
                                     <input data-cy="totalPersons" [placeholder]="getLabel('totalPersons')" formControlName="totalPersons" matInput type="number">
+                                    <span id="passenger-check-total-icon">{{ passengerDifferenceIcon }}</span>
                                 </mat-form-field>
                             </div>
                             <div id="group-field">
@@ -94,7 +95,7 @@
                 </mat-tab>
                 <mat-tab label="{{ getLabel('tabPassengers') }}">
                     <ng-template matTabContent>
-                        <passenger-list [passengers]="form.value.passengers" [reservationId]="form.value.reservationId"></passenger-list>
+                        <passenger-list [passengers]="form.value.passengers" [reservationId]="form.value.reservationId" (outputPassengerCount)="checkTotalPersonsAgainstPassengerCount($event)"></passenger-list>
                     </ng-template>
                 </mat-tab>
                 <mat-tab label="{{ getLabel('tabMoreInfo') }}">
@@ -137,7 +138,7 @@
         </div>
         <div @slideFromRight class="button-group">
             <button mat-flat-button (click)="onDelete()" *ngIf="form.value.id !== 0 && isAdmin" class="delete" id="delete">{{ getLabel('deleteButton') }}</button>
-            <button data-cy="save" mat-flat-button (click)="onSave()" [disabled]="!form.valid" class="primary">{{ getLabel('saveButton') }}</button>
+            <button data-cy="save" mat-flat-button (click)="onSave()" [disabled]="!form.valid || !checkTotalPersonsAgainstPassengerCount()" class="primary">{{ getLabel('saveButton') }}</button>
         </div>
     </div>
 

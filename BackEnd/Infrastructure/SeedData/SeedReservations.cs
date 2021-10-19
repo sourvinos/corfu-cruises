@@ -12,8 +12,8 @@ public static class SeedDatabaseReservations {
     public static void SeedReservations(AppDbContext context) {
         if (context.Reservations.Count() == 0) {
             List<Reservation> reservations = new();
-            for (int i = 1; i <= 500; i++) {
-                Schedule schedule = context.Schedules.SingleOrDefault(x => x.Id == Helpers.CreateRandomInteger(1, context.Schedules.Count() + 1));
+            for (int i = 1; i <= 50; i++) {
+                Schedule schedule = context.Schedules.Skip(Helpers.CreateRandomInteger(0, context.Schedules.Count())).Take(1).FirstOrDefault();
                 List<Route> routes = context.Routes.Where(x => x.PortId == schedule.PortId).ToList();
                 Route route = routes.Skip(Helpers.CreateRandomInteger(0, routes.Count())).Take(1).FirstOrDefault();
                 List<PickupPoint> pickupPoints = context.PickupPoints.Where(x => x.RouteId == route.Id).ToList();
@@ -26,16 +26,16 @@ public static class SeedDatabaseReservations {
                         Kids = Helpers.CreateRandomInteger(1, 3),
                         Free = Helpers.CreateRandomInteger(1, 2),
                         TicketNo = Helpers.CreateRandomTicketNo(5),
-                        Email = Helpers.CreateRandomName() + "@" + Helpers.CreateRandomEmail(),
-                        Phones = "",
-                        CustomerId = Helpers.CreateRandomInteger(1, 10),
+                        Email = Helpers.CreateRandomEmail(),
+                        Phones = Helpers.CreateRandomPhones(),
+                        CustomerId = context.Customers.Skip(Helpers.CreateRandomInteger(0, context.Customers.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
                         DestinationId = schedule.DestinationId,
-                        DriverId = Helpers.CreateRandomInteger(1, 4),
+                        DriverId = context.Drivers.Skip(Helpers.CreateRandomInteger(0, context.Drivers.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
                         PickupPointId = pickupPoint.Id,
                         PortId = schedule.PortId,
-                        ShipId = Helpers.CreateRandomInteger(1, 2),
+                        ShipId = context.Ships.Skip(Helpers.CreateRandomInteger(0, context.Ships.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
                         Remarks = Helpers.CreateRandomString(i),
-                        UserId = context.Users.Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault()
+                        UserId = context.Users.Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).FirstOrDefault()
                     };
                     reservations.Add(reservation);
                 }
