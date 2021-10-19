@@ -5,7 +5,11 @@ namespace BlueWaterCruises {
     public static class Cors {
 
         public static void AddCors(IServiceCollection services) {
-            services.AddCors();
+            services.AddCors(opt => {
+                opt.AddDefaultPolicy(builder => {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
         }
 
     }

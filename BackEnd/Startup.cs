@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -25,7 +26,11 @@ namespace BlueWaterCruises {
             // Static
             Identity.AddIdentity(services);
             Authentication.AddAuthentication(Configuration, services);
-            Cors.AddCors(services);
+            services.AddCors(opt => {
+                opt.AddDefaultPolicy(builder => {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
             Interfaces.AddInterfaces(services);
             ModelValidations.AddModelValidation(services);
             // Base
@@ -45,14 +50,23 @@ namespace BlueWaterCruises {
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext context) {
-            app.UseStaticFiles();
             if (env.IsDevelopment()) {
                 app.UseCors(options => options.WithOrigins("https://localhost:4200").AllowAnyMethod().AllowAnyHeader());
                 app.UseDeveloperExceptionPage();
             } else {
+                app.UseCors(options => options.WithOrigins("https://localhost:444").AllowAnyMethod().AllowAnyHeader());
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+            app.Use(async (context, next) => {
+                await next();
+                if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value)) {
+                    context.Request.Path = "/index.html";
+                    await next();
+                }
+            });
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

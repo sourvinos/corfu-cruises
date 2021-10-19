@@ -4,7 +4,6 @@
         <TargetFramework>net5.0</TargetFramework>
         <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
         <IsPackable>false</IsPackable>
-        <UserSecretsId>8ed50324-bf19-4348-82e5-963811228a6f</UserSecretsId>
         <BuildServerSideRenderer>false</BuildServerSideRenderer>
     </PropertyGroup>
 
