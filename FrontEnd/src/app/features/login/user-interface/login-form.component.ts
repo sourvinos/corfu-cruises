@@ -153,6 +153,9 @@ export class LoginFormComponent {
 
     private showError(error: any): void {
         switch (error.status) {
+            case 0:
+                this.showSnackbar(this.messageSnackbarService.noContactWithServer(), 'error')
+                break
             case 401:
                 this.showSnackbar(this.messageSnackbarService.authenticationFailed(), 'error')
                 break

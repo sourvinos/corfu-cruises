@@ -28,6 +28,8 @@ export class JwtInterceptor {
                     if (this.isUserLoggedIn()) {
                         if (err instanceof HttpErrorResponse) {
                             switch ((<HttpErrorResponse>err).status) {
+                                case 0:
+                                    return throwError(500) // no contact with api
                                 case 400:
                                     return throwError(400) // invalidModel
                                 case 401:
@@ -56,6 +58,8 @@ export class JwtInterceptor {
                                     return throwError(493) // unableToCreateFile
                                 case 494:
                                     return throwError(494) // unableToChangePassword
+                                case 500:
+                                    return throwError(500) // no contact with api
                             }
                         } else {
                             return throwError(this.handleError)
