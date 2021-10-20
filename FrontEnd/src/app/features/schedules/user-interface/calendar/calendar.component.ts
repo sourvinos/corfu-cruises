@@ -1,12 +1,13 @@
 import { Component } from '@angular/core'
 import moment, { utc } from 'moment'
+import { Router } from '@angular/router'
 // Custom
 import { Day } from '../../classes/day'
+import { HelperService } from './../../../../shared/services/helper.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { Router } from '@angular/router'
 
 @Component({
     selector: 'calendar',
@@ -30,7 +31,13 @@ export class CalendarComponent {
 
     // #endregion 
 
-    constructor(private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private router: Router, private scheduleService: ScheduleService) { }
+    constructor(
+        private helperService: HelperService,
+        private messageCalendarService: MessageCalendarService,
+        private messageLabelService: MessageLabelService,
+        private router: Router,
+        private scheduleService: ScheduleService
+    ) { }
 
     //#region lifecycle hooks
 
@@ -90,7 +97,8 @@ export class CalendarComponent {
         }
     }
 
-    public newReservation(): void {
+    public newReservationTasks(destination: any): void {
+        this.helperService.saveItem('newReservationFromSchedule', JSON.stringify(destination))
         this.router.navigate(['/reservations/new'], { queryParams: { returnUrl: 'schedules' } })
     }
 
@@ -152,7 +160,6 @@ export class CalendarComponent {
             this.scheduleService.getForPeriod(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
                 this.daysWithSchedule = response
                 resolve(this.daysWithSchedule)
-                console.log(this.daysWithSchedule)
             })
         })
         return promise

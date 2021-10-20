@@ -87,6 +87,7 @@ export class ReservationFormComponent {
         this.populateDropDowns()
         this.initForm()
         this.populateFormWithDefaultValues()
+        this.patchFieldsWithStoredValues()
         this.getUserRole()
         this.getCustomer()
     }
@@ -415,6 +416,15 @@ export class ReservationFormComponent {
             passengers.push(passenger)
         })
         return passengers
+    }
+
+    private patchFieldsWithStoredValues(): void {
+        const destination = JSON.parse(this.helperService.readItem('newReservationFromSchedule'))
+        if (destination) {
+            this.form.patchValue({
+                destination: { 'id': destination.id, 'description': destination.description }
+            })
+        }
     }
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
