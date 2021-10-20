@@ -1,5 +1,6 @@
+// ng build --configuration=production
 export const environment = {
-    apiUrl: 'https://localhost/api',
+    apiUrl: 'https://localhost:1701/api',
     appName: 'Blue Water Cruises',
     emailFooter: {
         lineA: 'Problems or questions? Call us at +30 26620 61400',

@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises {
 
@@ -49,15 +50,22 @@ namespace BlueWaterCruises {
             services.Configure<TokenSettings>(options => Configuration.GetSection("TokenSettings").Bind(options));
         }
 
+        public void ConfigureDevelopment(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext context, ILogger<Startup> logger) {
+            logger.LogInformation("RUNNING IN DEVELOPMENT");
+            app.UseCors(options => options.WithOrigins("https://localhost:4200").AllowAnyMethod().AllowAnyHeader());
+            app.UseDeveloperExceptionPage();
+            Configure(app, env, userManager, roleManager, context);
+        }
+
+        public void ConfigureProduction(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext context, ILogger<Startup> logger) {
+            logger.LogInformation("RUNNING IN PRODUCTION");
+            app.UseCors(options => options.WithOrigins("https://localhost:1701").AllowAnyMethod().AllowAnyHeader());
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
+            Configure(app, env, userManager, roleManager, context);
+        }
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext context) {
-            if (env.IsDevelopment()) {
-                app.UseCors(options => options.WithOrigins("https://localhost:4200").AllowAnyMethod().AllowAnyHeader());
-                app.UseDeveloperExceptionPage();
-            } else {
-                app.UseCors(options => options.WithOrigins("https://localhost:444").AllowAnyMethod().AllowAnyHeader());
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-            }
             app.Use(async (context, next) => {
                 await next();
                 if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value)) {
@@ -76,7 +84,7 @@ namespace BlueWaterCruises {
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
             });
-            SeedDatabaseMaster.SeedDatabase(roleManager, userManager, context);
+            // SeedDatabaseMaster.SeedDatabase(roleManager, userManager, context);
         }
 
     }
