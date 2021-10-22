@@ -79,7 +79,6 @@ namespace BlueWaterCruises {
             app.UseHttpsRedirection();
             app.UseHttpsRedirection();
             app.UseEndpoints(endpoints => { endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}"); });
-            SeedDatabaseMaster.SeedDatabase(roleManager, userManager, context);
         }
 
     }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +17,12 @@ namespace BlueWaterCruises.Features.Schedules {
 
         private readonly IScheduleRepository repo;
         private readonly ILogger<SchedulesController> logger;
+        private readonly IMapper mapper;
 
-        public SchedulesController(IScheduleRepository repo, ILogger<SchedulesController> logger) {
+        public SchedulesController(IScheduleRepository repo, ILogger<SchedulesController> logger, IMapper mapper) {
             this.repo = repo;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         [HttpGet]
@@ -50,15 +54,15 @@ namespace BlueWaterCruises.Features.Schedules {
 
         [HttpPost]
         // [Authorize(Roles = "admin")]
-        public IActionResult PostSchedule([FromBody] List<Schedule> records) {
+        public IActionResult PostSchedule([FromBody] List<ScheduleWriteResource> records) {
             if (ModelState.IsValid) {
                 try {
-                    repo.Create(records);
+                    repo.Create(mapper.Map<List<ScheduleWriteResource>, List<Schedule>>(records));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordCreated()
                     });
                 } catch (Exception exception) {
-                    LoggerExtensions.LogException(0, logger, ControllerContext, records, exception);
+                    LoggerExtensions.LogArrayException(0, logger, ControllerContext, (records as IEnumerable<object>).Cast<object>().ToList(), exception);
                     return StatusCode(490, new {
                         response = ApiMessages.RecordNotSaved()
                     });

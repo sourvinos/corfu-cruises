@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -17,6 +18,15 @@ namespace BlueWaterCruises {
             builder.Services.AddSingleton<ILoggerProvider, FileLoggerProvider>();
             builder.Services.Configure(configure);
             return builder;
+        }
+
+        public static void LogArrayException(int id, ILogger logger, ControllerContext context, List<Object> records, Exception exception) {
+            if (exception is DbUpdateException) {
+                foreach (var record in records) {
+                    LogDatabaseError(record, logger, context, exception);
+                }
+                return;
+            }
         }
 
         public static void LogException(int id, ILogger logger, ControllerContext context, Object record, Exception exception) {

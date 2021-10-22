@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AutoMapper;
 
 namespace BlueWaterCruises.Features.Schedules {
@@ -6,6 +7,7 @@ namespace BlueWaterCruises.Features.Schedules {
 
         public ScheduleMappingProfile() {
             CreateMap<Schedule, ScheduleReadResource>();
+            CreateMap<ScheduleWriteResource, Schedule>();
         }
 
     }

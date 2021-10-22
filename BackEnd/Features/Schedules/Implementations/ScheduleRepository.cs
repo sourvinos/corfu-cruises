@@ -65,10 +65,10 @@ namespace BlueWaterCruises.Features.Schedules {
                 .SingleOrDefaultAsync(m => m.Id == ScheduleId);
         }
 
-        public List<Schedule> Create(List<Schedule> entity) {
-            context.AddRange(entity);
+        public List<Schedule> Create(List<Schedule> entities) {
+            context.AddRange(entities);
             context.SaveChanges();
-            return entity;
+            return entities;
         }
 
         public void RemoveRange(List<Schedule> schedules) {
