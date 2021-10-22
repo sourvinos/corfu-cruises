@@ -1,7 +1,6 @@
-import { Component, Inject } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { DateAdapter } from '@angular/material/core'
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import moment from 'moment'
@@ -19,6 +18,7 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
 import { ScheduleResource } from '../../classes/schedule-resource'
 import { ScheduleService } from '../../classes/schedule.service'
+import { ValidationService } from 'src/app/shared/services/validation.service'
 
 @Component({
     selector: 'schedule-create-form',
@@ -50,7 +50,7 @@ export class ScheduleCreateFormComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private buttonClickService: ButtonClickService, private messageCalendarService: MessageCalendarService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private scheduleService: ScheduleService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog,) { }
+    constructor(private buttonClickService: ButtonClickService, private messageCalendarService: MessageCalendarService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private scheduleService: ScheduleService, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -61,24 +61,22 @@ export class ScheduleCreateFormComponent {
         this.getLocale()
     }
 
-    ngAfterViewInit(): void {
-        this.patchFields()
-    }
-
     ngOnDestroy(): void {
         this.unsubscribe()
         this.unlisten()
     }
 
-    canDeactivate(): void {
+    canDeactivate(): boolean {
         if (this.form.dirty) {
             this.dialogService.open('warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
-                    this.dialog.closeAll()
+                    this.resetForm()
+                    this.onGoBack()
+                    return true
                 }
             })
         } else {
-            this.dialog.closeAll()
+            return true
         }
     }
 
@@ -108,7 +106,7 @@ export class ScheduleCreateFormComponent {
             this.buildScheduleObjects()
             this.scheduleService.addRange(this.schedulesResource).subscribe(() => {
                 this.resetForm()
-                this.dialog.closeAll()
+                this.onGoBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
             }, errorCode => {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
@@ -236,10 +234,8 @@ export class ScheduleCreateFormComponent {
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: 0,
-            destinationId: [this.data.destinationId, Validators.required],
-            destinationDescription: [{ value: this.data.destinationDescription, disabled: true }],
-            portId: [this.data.portId, Validators.required],
-            portDescription: [{ value: this.data.portDescription, disabled: true }],
+            destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             fromDate: ['', Validators.required],
             toDate: ['', Validators.required],
             periodToDelete: [''],
@@ -247,15 +243,6 @@ export class ScheduleCreateFormComponent {
             maxPersons: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             isActive: true,
             userId: this.helperService.readItem('userId')
-        })
-    }
-
-    private patchFields(): void {
-        this.form.patchValue({
-            destinationId: this.data.destinationId,
-            destinationDescription: this.data.destinationDescription,
-            portId: this.data.portId,
-            portDescription: this.data.portDescription
         })
     }
 

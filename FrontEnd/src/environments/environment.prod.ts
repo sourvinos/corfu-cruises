@@ -1,11 +1,12 @@
-// ng build --configuration=production
+// ng build --output-path="\some directory\wwwroot"--configuration=production
 export const environment = {
-    apiUrl: 'https://localhost:1701/api',
-    appName: 'Blue Water Cruises',
+    apiUrl: 'https://appcorfucruises.com/api',
+    clientUrl: 'https://appcorfucruises.com',
+    appName: 'Corfu Cruises',
     emailFooter: {
         lineA: 'Problems or questions? Call us at +30 26620 61400',
-        lineB: 'or email at info@bluewatercruises.com',
-        lineC: '© Blue Water Cruises 2021, Corfu - Greece'
+        lineB: 'or email at info@corfucruises.com',
+        lineC: '© Corfu Cruises 2021, Corfu - Greece'
     },
     isWideScreen: 1920,
     leaflet: {

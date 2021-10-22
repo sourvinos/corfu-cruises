@@ -832,7 +832,7 @@
             },
             {
                 "id": "submitButton",
-                "description": "Soumission"
+                "description": "SOUMISSION"
             },
             {
                 "id": "weNeedYourEmail",
@@ -845,15 +845,15 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Reinitialiser le mot de passe"
+                "description": "Créer un nouveau mot de passe"
             },
             {
                 "id": "password",
-                "description": "Mot de passe"
+                "description": "Nouveau mot de passe"
             },
             {
                 "id": "confirmPassword",
-                "description": "Confirmer le mot de passe"
+                "description": "Confirmer le nouveau mot de passe"
             },
             {
                 "id": "saveButton",

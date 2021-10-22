@@ -832,7 +832,7 @@
             },
             {
                 "id": "submitButton",
-                "description": "Submit"
+                "description": "SUBMIT"
             },
             {
                 "id": "weNeedYourEmail",
@@ -845,15 +845,15 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Reset password"
+                "description": "Create new password"
             },
             {
                 "id": "password",
-                "description": "Password"
+                "description": "New password"
             },
             {
                 "id": "confirmPassword",
-                "description": "Confirm password"
+                "description": "Confirm new password"
             },
             {
                 "id": "saveButton",

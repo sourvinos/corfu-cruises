@@ -112,6 +112,7 @@ export class ForgotPasswordFormComponent {
     private initForm(): void {
         this.form = this.formBuilder.group({
             email: ['', [Validators.required, Validators.email]],
+            returnUrl: '',
             language: ['']
         })
     }
@@ -119,6 +120,7 @@ export class ForgotPasswordFormComponent {
     private populateFields(): void {
         this.form.setValue({
             email: environment.login.email,
+            returnUrl: environment.clientUrl,
             language: this.helperService.readItem('language'),
         })
     }

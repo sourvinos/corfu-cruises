@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -10,12 +9,13 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises {
 
     public class Startup {
+
+        readonly string allowSpecificOrigins = "";
 
         public IConfiguration Configuration { get; }
 
@@ -23,13 +23,23 @@ namespace BlueWaterCruises {
             Configuration = configuration;
         }
 
+        public void ConfigureDevelopmentServices(IServiceCollection services) {
+            services.AddDbContextFactory<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("LocalConnection"), new MySqlServerVersion(new Version(8, 0, 19))));
+            ConfigureServices(services);
+        }
+
+        public void ConfigureProductionServices(IServiceCollection services) {
+            services.AddDbContextFactory<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("RemoteConnection"), new MySqlServerVersion(new Version(8, 0, 19))));
+            ConfigureServices(services);
+        }
+
         public void ConfigureServices(IServiceCollection services) {
             // Static
             Identity.AddIdentity(services);
             Authentication.AddAuthentication(Configuration, services);
-            services.AddCors(opt => {
-                opt.AddDefaultPolicy(builder => {
-                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            services.AddCors(options => {
+                options.AddPolicy(name: allowSpecificOrigins, builder => {
+                    builder.WithOrigins("https://localhost:4200", "https://www.appcorfucruises.com");
                 });
             });
             Interfaces.AddInterfaces(services);
@@ -38,53 +48,38 @@ namespace BlueWaterCruises {
             services.Configure<RazorViewEngineOptions>(option => option.ViewLocationExpanders.Add(new ViewLocationExpander()));
             services.AddAntiforgery(options => { options.Cookie.Name = "_af"; options.Cookie.HttpOnly = true; options.Cookie.SecurePolicy = CookieSecurePolicy.Always; options.HeaderName = "X-XSRF-TOKEN"; });
             services.AddAutoMapper(typeof(Startup));
-            services.AddDbContextFactory<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("LocalConnection"), new MySqlServerVersion(new Version(8, 0, 19))));
-            // services.AddDbContext<AppDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
-            services.AddControllersWithViews()
-                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
-                .AddFluentValidation();
+            services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore).AddFluentValidation();
             services.AddDbContext<AppDbContext>();
             services.AddEmailSenders();
             services.Configure<CookiePolicyOptions>(options => { options.CheckConsentNeeded = context => true; options.MinimumSameSitePolicy = SameSiteMode.None; });
-            services.Configure<EmailSettings>(options => Configuration.GetSection("BlueWaterCruises").Bind(options));
+            services.Configure<EmailSettings>(options => Configuration.GetSection("ShipCruises").Bind(options));
             services.Configure<TokenSettings>(options => Configuration.GetSection("TokenSettings").Bind(options));
         }
 
         public void ConfigureDevelopment(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext context, ILogger<Startup> logger) {
-            logger.LogInformation("RUNNING IN DEVELOPMENT");
-            app.UseCors(options => options.WithOrigins("https://localhost:4200").AllowAnyMethod().AllowAnyHeader());
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseDeveloperExceptionPage();
             Configure(app, env, userManager, roleManager, context);
         }
 
         public void ConfigureProduction(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext context, ILogger<Startup> logger) {
-            logger.LogInformation("RUNNING IN PRODUCTION");
-            app.UseCors(options => options.WithOrigins("https://localhost:1701").AllowAnyMethod().AllowAnyHeader());
-            app.UseExceptionHandler("/Error");
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHsts();
             Configure(app, env, userManager, roleManager, context);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext context) {
-            app.Use(async (context, next) => {
-                await next();
-                if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value)) {
-                    context.Request.Path = "/index.html";
-                    await next();
-                }
-            });
+            app.UseStatusCodePagesWithReExecute("/");
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseCors(allowSpecificOrigins);
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseHttpsRedirection();
-            app.UseStatusCodePages();
             app.UseHttpsRedirection();
-            app.UseEndpoints(endpoints => {
-                endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
-            });
-            // SeedDatabaseMaster.SeedDatabase(roleManager, userManager, context);
+            app.UseEndpoints(endpoints => { endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}"); });
+            SeedDatabaseMaster.SeedDatabase(roleManager, userManager, context);
         }
 
     }

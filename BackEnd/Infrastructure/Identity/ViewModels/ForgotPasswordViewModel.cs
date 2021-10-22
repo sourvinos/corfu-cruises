@@ -11,6 +11,9 @@ namespace BlueWaterCruises {
         [Required(ErrorMessage = "Language is required")]
         public string Language { get; set; }
 
+        [Required(ErrorMessage = "Return url is required")]
+        public string ReturnUrl { get; set; }
+
     }
 
 }

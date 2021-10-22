@@ -845,15 +845,15 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Obnovit heslo"
+                "description": "Vytvořte nové heslo"
             },
             {
                 "id": "password",
-                "description": "Heslo"
+                "description": "Nové heslo"
             },
             {
                 "id": "confirmPassword",
-                "description": "Potvrdit heslo"
+                "description": "Potvrďte nové heslo"
             },
             {
                 "id": "saveButton",

@@ -25,7 +25,7 @@ namespace BlueWaterCruises {
             var htmlContent = "";
             var body = EmailMessages.FirstLoginCredentials(model.Language);
 
-            htmlContent += "<h1 style = 'font-weight: 500;'><span style = 'color: #0078d7;'>Blue Water</span><span style = 'color: #5db2ff;'> Cruises</span></h1>";
+            htmlContent += "<h1 style = 'font-weight: 500;'><span style = 'color: #0078d7;'>Corfu</span><span style = 'color: #5db2ff;'> Cruises</span></h1>";
             htmlContent += "<p>" + body[0] + model.DisplayName + "!" + "</p>";
             htmlContent += "<p>" + body[1] + "</p>";
             htmlContent += "<p>" + body[2] + model.UserName + "</p>";
@@ -41,7 +41,7 @@ namespace BlueWaterCruises {
             htmlContent += "<p>" + body[8] + "</p>";
             htmlContent += "<br>";
             htmlContent += "<p>" + body[9] + "</p>";
-            htmlContent += "<p>Blue Water Cruises " + DateTime.Now.ToString("yyyy") + "</p>";
+            htmlContent += "<p>Corfu Cruises " + DateTime.Now.ToString("yyyy") + "</p>";
 
             message.From.Add(new MailboxAddress(settings.From, settings.Username));
             message.To.Add(new MailboxAddress(model.DisplayName, model.Email));

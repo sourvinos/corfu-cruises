@@ -14,6 +14,7 @@ export class AccountService {
     //#region variables
 
     private readonly apiUrl = environment.apiUrl
+    private readonly clientUrl = environment.clientUrl
     private displayName = new BehaviorSubject<string>(localStorage.getItem('displayName'))
     private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus())
     private urlForgotPassword = this.apiUrl + '/account/forgotPassword'

@@ -18,7 +18,7 @@
         },
         {
             "id": "passwordsNoMatch",
-            "description": "Heslo a potvrďte heslo nesouhlasí."
+            "description": "Nové heslo a potvrzení nového hesla se neshodují"
         },
         {
             "id": "spacesNotAllowed",

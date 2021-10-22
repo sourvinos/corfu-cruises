@@ -18,7 +18,7 @@
         },
         {
             "id": "passwordsNoMatch",
-            "description": "Password and confirm password do not match"
+            "description": "New password and confirm new password do not match"
         },
         {
             "id": "spacesNotAllowed",

@@ -18,7 +18,7 @@
         },
         {
             "id": "passwordsNoMatch",
-            "description": "(DE) Password and confirm password do not match"
+            "description": "Neues Passwort und neues Passwort bestätigen stimmen nicht überein"
         },
         {
             "id": "spacesNotAllowed",

@@ -824,7 +824,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Απωλεια κωδικου"
+                "description": "Απώλεια κωδικού"
             },
             {
                 "id": "email",
@@ -832,11 +832,11 @@
             },
             {
                 "id": "submitButton",
-                "description": "Υποβολη"
+                "description": "ΥΠΟΒΟΛΗ"
             },
             {
                 "id": "weNeedYourEmail",
-                "description": "Δώστε μας το email σας και θα σας στειλουμε οδηγιες για να δημιουργησετε νεο κωδικο"
+                "description": "Δώστε μας το email σας και θα σας στείλουμε οδηγίες για να δημιουργήσετε νέο κωδικό"
             }
         ]
     },
@@ -845,15 +845,15 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Επαναφορα κωδικου"
+                "description": "Δημιουργία νέου κωδικού"
             },
             {
                 "id": "password",
-                "description": "Κωδικος"
+                "description": "Νέος κωδικός"
             },
             {
                 "id": "confirmPassword",
-                "description": "Επιβεβαιωση κωδικου"
+                "description": "Επιβεβαίωση νέου κωδικού"
             },
             {
                 "id": "saveButton",

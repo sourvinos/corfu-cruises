@@ -20,7 +20,7 @@ export class CalendarWrapperComponent {
 
     //#region variables
 
-    private baseUrl = '/reservations'
+    private baseUrl = '/schedules'
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
     private windowTitle = 'Schedules'
@@ -50,10 +50,6 @@ export class CalendarWrapperComponent {
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
-    }
-
-    public doTaskFromChild(date: string): void {
-        alert('Date from child ' + date)
     }
 
     //#endregion
