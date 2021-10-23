@@ -32,7 +32,7 @@ namespace BlueWaterCruises.Features.Schedules {
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSchedule(int id) {
-            Schedule record = await repo.GetById(id);
+            ScheduleReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -99,7 +99,7 @@ namespace BlueWaterCruises.Features.Schedules {
         [HttpDelete("{id}")]
         // [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteSchedule([FromRoute] int id) {
-            Schedule record = await repo.GetById(id);
+            Schedule record = await repo.GetSingleToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {

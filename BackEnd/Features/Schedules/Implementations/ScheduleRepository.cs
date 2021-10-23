@@ -66,11 +66,12 @@ namespace BlueWaterCruises.Features.Schedules {
             return calendarData;
         }
 
-        public new async Task<Schedule> GetById(int ScheduleId) {
-            return await context.Set<Schedule>()
+        new public async Task<ScheduleReadResource> GetById(int ScheduleId) {
+            var record = await context.Set<Schedule>()
                 .Include(p => p.Port)
                 .Include(p => p.Destination)
                 .SingleOrDefaultAsync(m => m.Id == ScheduleId);
+            return mapper.Map<Schedule, ScheduleReadResource>(record);
         }
 
         public List<Schedule> Create(List<Schedule> entities) {
@@ -176,6 +177,12 @@ namespace BlueWaterCruises.Features.Schedules {
                     return empty;
                 }
             }
+        }
+
+        public async Task<Schedule> GetSingleToDelete(int id) {
+            var record = await context.Set<Schedule>()
+                .FirstAsync(x => x.Id == id);
+            return record;
         }
 
     }

@@ -1,0 +1,49 @@
+<div id="form-wrapper">
+
+    <div id="header">
+        <div id="navigation">
+            <button data-cy="goBack" class="goBack" id="goBack" [routerLink]="['/schedules']" mat-mini-fab>
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+        <div @slideFromLeft id="title">
+            <h1>{{ getLabel('header') }}</h1>
+        </div>
+    </div>
+
+    <div id="content">
+        <div id="form" [class.hidden]="activePanel=='map'">
+            <form data-cy="form" [formGroup]='form' autocomplete='off'>
+                <mat-form-field>
+                    <mat-label>{{ getLabel("destination") }}</mat-label>
+                    <input matInput data-cy="destination-description" type="text" formControlName="destination" [matAutocomplete]="destinations" data-tabindex="2" [inputTabStop]="input">
+                    <mat-error *ngIf="destination.hasError('required')">{{ getHint('required') }}</mat-error>
+                    <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
+                    <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
+                </mat-form-field>
+                <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ getLabel('isActive') }}</mat-slide-toggle>
+            </form>
+            <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div @slideFromRight class="button-group">
+            <button data-cy="delete" mat-flat-button class="delete" *ngIf="form.value.id !== 0" id="delete" (click)="onDelete()">{{ getLabel('deleteButton') }}</button>
+            <button data-cy="save" mat-flat-button class="primary" [disabled]="!form.valid" id="save" (click)="onSave()">{{ getLabel('saveButton') }}</button>
+        </div>
+    </div>
+
+</div>
+
+<mat-autocomplete autoActiveFirstOption #destinations="matAutocomplete" [displayWith]="destinationFields">
+    <mat-option *ngFor="let option of filteredDestinations | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete autoActiveFirstOption #ports="matAutocomplete" [displayWith]="portFields">
+    <mat-option *ngFor="let option of filteredPorts | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
