@@ -21,7 +21,6 @@ namespace BlueWaterCruises.Features.Customers {
                 .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerListResource>>(customers);
-            // return customers;
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {

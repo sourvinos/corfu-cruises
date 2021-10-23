@@ -19,8 +19,16 @@ namespace BlueWaterCruises.Features.Schedules {
             this.userManager = userManager;
         }
 
-        public async Task<IList<Schedule>> Get() {
-            return await context.Set<Schedule>().Include(p => p.Port).Include(p => p.Destination).ToListAsync();
+        public async Task<IEnumerable<ScheduleListResource>> Get() {
+            var schedules = await context.Set<Schedule>()
+                .Include(x => x.Destination)
+                .Include(x => x.Port)
+                .OrderBy(x => x.Date)
+                    .ThenBy(x => x.Destination.Description)
+                        .ThenBy(x => x.Port.Description)
+                .AsNoTracking()
+                .ToListAsync();
+            return mapper.Map<IEnumerable<Schedule>, IEnumerable<ScheduleListResource>>(schedules);
         }
 
         public Boolean DayHasSchedule(DateTime date) {

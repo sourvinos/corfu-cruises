@@ -12,7 +12,7 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 @Component({
     selector: 'calendar-wrapper',
     templateUrl: './calendar-wrapper.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css'],
+    styleUrls: ['../../../../../assets/styles/lists.css','../../../../../assets/styles/forms.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
@@ -25,6 +25,7 @@ export class CalendarWrapperComponent {
     private unlisten: Unlisten
     private windowTitle = 'Schedules'
     public feature = 'calendarWrapper'
+    public listUrl = this.baseUrl + '/list'
     public newUrl = this.baseUrl + '/new'
 
     //#endregion

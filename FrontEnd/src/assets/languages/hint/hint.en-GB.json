@@ -27,6 +27,10 @@
         {
             "id": "otherErrors",
             "description": "This field has errors"
+        },
+        {
+            "id": "invalidPeriod",
+            "description": "The period is not valid"
         }
     ]
 }

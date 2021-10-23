@@ -1,11 +1,14 @@
 import { Component } from '@angular/core'
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { DateAdapter } from '@angular/material/core'
-import { Subject } from 'rxjs'
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
+import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
+import { map, startWith } from 'rxjs/operators'
 import moment from 'moment'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { DestinationDropdownResource } from 'src/app/features/reservations/classes/resources/form/dropdown/destination-dropdown-resource'
+import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -14,27 +17,31 @@ import { MessageCalendarService } from 'src/app/shared/services/messages-calenda
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { PortDropdownResource } from 'src/app/features/reservations/classes/resources/form/dropdown/port-dropdown-resource'
+import { PortService } from 'src/app/features/ports/classes/services/port.service'
+import { Router } from '@angular/router'
+import { ScheduleService } from '../../classes/calendar/schedule.service'
+import { ScheduleWriteResource } from '../../classes/form/schedule-write-resource'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { environment } from 'src/environments/environment'
-import { ScheduleResource } from '../../classes/schedule-resource'
-import { ScheduleService } from '../../classes/schedule.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
-    selector: 'schedule-create-form',
-    templateUrl: './schedule-create-form.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './schedule-create-form.component.css']
+    selector: 'new-schedule',
+    templateUrl: './new-schedule.component.html',
+    styleUrls: ['../../../../../assets/styles/forms.css', './new-schedule.component.css'],
+    animations: [slideFromLeft, slideFromRight]
 })
 
-export class ScheduleCreateFormComponent {
+export class NewScheduleComponent {
 
     //#region variables
 
     private feature = 'scheduleCreateForm'
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
+    private url = '/schedules'
     private windowTitle = 'Schedule'
-    public environment = environment.production
     public form: FormGroup
     public input: InputTabStopDirective
 
@@ -44,13 +51,15 @@ export class ScheduleCreateFormComponent {
 
     private daysToDelete = []
     private daysToInsert = []
-    private schedulesResource: ScheduleResource[] = []
+    private scheduleWriteResource: ScheduleWriteResource[] = []
     public selectedWeekDays = []
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    public filteredDestinations: Observable<DestinationDropdownResource[]>
+    public filteredPorts: Observable<PortDropdownResource[]>
 
     //#endregion
 
-    constructor(private buttonClickService: ButtonClickService, private messageCalendarService: MessageCalendarService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private scheduleService: ScheduleService, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private scheduleService: ScheduleService, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -58,6 +67,8 @@ export class ScheduleCreateFormComponent {
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
+        this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
+        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
         this.getLocale()
     }
 
@@ -84,11 +95,11 @@ export class ScheduleCreateFormComponent {
 
     //#region public methods
 
-    public onGetHint(id: string, minmax = 0): string {
+    public getHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
     }
 
-    public onGetLabel(id: string): string {
+    public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
@@ -97,14 +108,14 @@ export class ScheduleCreateFormComponent {
     }
 
     public onGoBack(): void {
-        this.canDeactivate()
+        this.router.navigate([this.url])
     }
 
     public onSave(): void {
         this.buildScheduleObjectsToDelete()
-        this.scheduleService.deleteRange(this.schedulesResource).subscribe(() => {
-            this.buildScheduleObjects()
-            this.scheduleService.addRange(this.schedulesResource).subscribe(() => {
+        this.scheduleService.deleteRange(this.scheduleWriteResource).subscribe(() => {
+            this.buildScheduleObjectsToCreate()
+            this.scheduleService.addRange(this.scheduleWriteResource).subscribe(() => {
                 this.resetForm()
                 this.onGoBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -124,6 +135,10 @@ export class ScheduleCreateFormComponent {
     public onUpdateArrays(): void {
         this.createPeriodToDelete()
         this.createDaysToInsert()
+    }
+
+    public dropdownFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
     }
 
     //#endregion
@@ -161,13 +176,13 @@ export class ScheduleCreateFormComponent {
         })
     }
 
-    private buildScheduleObjects(): any {
-        this.schedulesResource = []
+    private buildScheduleObjectsToCreate(): any {
+        this.scheduleWriteResource = []
         this.form.value.daysToInsert.forEach((day: any) => {
-            this.schedulesResource.push({
+            this.scheduleWriteResource.push({
                 'date': day,
-                'portId': this.form.value.portId,
-                'destinationId': this.form.value.destinationId,
+                'destinationId': this.form.value.destination.id,
+                'portId': this.form.value.port.id,
                 'maxPersons': this.form.value.maxPersons,
                 'isActive': true,
                 'userId': this.helperService.readItem('userId')
@@ -176,14 +191,14 @@ export class ScheduleCreateFormComponent {
     }
 
     private buildScheduleObjectsToDelete(): void {
-        this.schedulesResource = []
+        this.scheduleWriteResource = []
         this.daysToDelete.forEach((day: string) => {
-            this.schedulesResource.push({
+            this.scheduleWriteResource.push({
                 'date': day.substring(4, day.length),
-                'portId': this.form.value.portId,
-                'destinationId': this.form.value.destinationId,
-                'maxPersons': this.form.value.maxPersons,
-                'isActive': true,
+                'portId': this.form.value.port.id,
+                'destinationId': this.form.value.destination.id,
+                'maxPersons': 0,
+                'isActive': false,
                 'userId': this.helperService.readItem('userId')
             })
         })
@@ -223,8 +238,12 @@ export class ScheduleCreateFormComponent {
         }
     }
 
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
+    private filterArray(array: string, field: string, value: any): any[] {
+        if (typeof value !== 'object') {
+            const filtervalue = value.toLowerCase()
+            return this[array].filter((element) =>
+                element[field].toLowerCase().startsWith(filtervalue))
+        }
     }
 
     private getLocale(): void {
@@ -244,6 +263,20 @@ export class ScheduleCreateFormComponent {
             isActive: true,
             userId: this.helperService.readItem('userId')
         })
+    }
+
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+        const promise = new Promise((resolve) => {
+            service.getActiveForDropdown().toPromise().then(
+                (response: any) => {
+                    this[table] = response
+                    resolve(this[table])
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                }, (errorFromInterceptor: number) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                })
+        })
+        return promise
     }
 
     private resetForm(): void {
@@ -283,6 +316,14 @@ export class ScheduleCreateFormComponent {
     //#endregion
 
     //#region getters
+
+    get destination(): AbstractControl {
+        return this.form.get('destination')
+    }
+
+    get port(): AbstractControl {
+        return this.form.get('port')
+    }
 
     get fromDate(): AbstractControl {
         return this.form.get('fromDate')

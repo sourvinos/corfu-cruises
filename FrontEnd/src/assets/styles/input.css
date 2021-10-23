@@ -74,7 +74,7 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 }
 
 .mat-date-range-input {
-    margin-top: 0.9rem !important;
+    margin-top: 0 !important;
 }
 
 .mat-form-field-type-mat-date-range-input .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {

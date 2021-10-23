@@ -1100,6 +1100,10 @@
         "feature": "calendarWrapper",
         "labels": [
             {
+                "id": "listButton",
+                "description": "EDIT SCHEDULES"
+            },
+            {
                 "id": "newButton",
                 "description": "NEW"
             }
@@ -1119,7 +1123,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "New Schedule"
+                "description": "New schedule"
             },
             {
                 "id": "destination",
@@ -1135,11 +1139,7 @@
             },
             {
                 "id": "maxPersons",
-                "description": "Max capacity"
-            },
-            {
-                "id": "invalidPeriod",
-                "description": "The period is not valid"
+                "description": "Maximum number of passengers"
             },
             {
                 "id": "saveButton",
@@ -1920,6 +1920,39 @@
             {
                 "id": "saveButton",
                 "description": "SAVE"
+            }
+        ]
+    },
+    {
+        "feature": "scheduleList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Schedules"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Active"
+            },
+            {
+                "id": "headerDate",
+                "description": "Date"
+            },
+            {
+                "id": "headerDestinationDescription",
+                "description": "Destination"
+            },
+            {
+                "id": "headerPortDescription",
+                "description": "Port"
+            },
+            {
+                "id": "headerMaxPersons",
+                "description": "Maximum capacity"
+            },
+            {
+                "id": "newButton",
+                "description": "NEW"
             }
         ]
     }

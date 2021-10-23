@@ -1100,6 +1100,10 @@
         "feature": "calendarWrapper",
         "labels": [
             {
+                "id": "listButton",
+                "description": "ZEITPLÄNE BEARBEITEN"
+            },
+            {
                 "id": "newButton",
                 "description": "NEU"
             }
@@ -1119,7 +1123,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Neuer Zeitplan"
+                "description": "Neue Terminplanung"
             },
             {
                 "id": "destination",
@@ -1135,11 +1139,7 @@
             },
             {
                 "id": "maxPersons",
-                "description": "Maximale Kapazität"
-            },
-            {
-                "id": "invalidPeriod",
-                "description": "Der Zeitraum ist nicht gültig"
+                "description": "Maximale Personenzahl"
             },
             {
                 "id": "saveButton",
@@ -1920,6 +1920,39 @@
             {
                 "id": "saveButton",
                 "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "scheduleList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Zeitpläne"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "headerDate",
+                "description": "Datum"
+            },
+            {
+                "id": "headerDestinationDescription",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "headerPortDescription",
+                "description": "Hafen"
+            },
+            {
+                "id": "headerMaxPersons",
+                "description": "Maximale Personenzahl"
+            },
+            {
+                "id": "newButton",
+                "description": "NEUE"
             }
         ]
     }

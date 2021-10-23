@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { ScheduleService } from './schedule.service'
+import { ScheduleService } from '../calendar/schedule.service'
 
 @Injectable({ providedIn: 'root' })
 

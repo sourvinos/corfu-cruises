@@ -27,6 +27,10 @@
         {
             "id": "otherErrors",
             "description": "Le champ a des fautes"
+        },
+        {
+            "id": "invalidPeriod",
+            "description": "l' espace n'est pas correcte"
         }
     ]
 }

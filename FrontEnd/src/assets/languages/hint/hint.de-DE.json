@@ -27,6 +27,10 @@
         {
             "id": "otherErrors",
             "description": "(DE) This field has errors"
+        },
+        {
+            "id": "invalidPeriod",
+            "description": "Der Zeitraum ist nicht gültig"
         }
     ]
 }

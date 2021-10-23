@@ -27,6 +27,10 @@
         {
             "id": "otherErrors",
             "description": "Toto pole je chybné."
+        },
+        {
+            "id": "invalidPeriod",
+            "description": "Období data není platné"
         }
     ]
 }

@@ -1100,6 +1100,10 @@
         "feature": "calendarWrapper",
         "labels": [
             {
+                "id": "listButton",
+                "description": "ΕΠΕΞΕΡΓΑΣΙΑ ΕΓΓΡΑΦΩΝ"
+            },
+            {
                 "id": "newButton",
                 "description": "ΝΕΟ"
             }
@@ -1119,7 +1123,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Νεο προγραμμα"
+                "description": "Νέο πρόγραμμα"
             },
             {
                 "id": "destination",
@@ -1127,19 +1131,15 @@
             },
             {
                 "id": "port",
-                "description": "Λιμανι"
+                "description": "Λιμάνι"
             },
             {
                 "id": "dateRange",
-                "description": "Διαστημα"
+                "description": "Διάστημα"
             },
             {
                 "id": "maxPersons",
-                "description": "Μεγιστη χωρητικοτητα"
-            },
-            {
-                "id": "invalidPeriod",
-                "description": "Το διαστημα δεν ειναι σωστο"
+                "description": "Μέγιστος αριθμός επιβατών"
             },
             {
                 "id": "saveButton",
@@ -1920,6 +1920,39 @@
             {
                 "id": "saveButton",
                 "description": "ΑΠΟΘΗΚΕΥΣΗ"
+            }
+        ]
+    },
+    {
+        "feature": "scheduleList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Πρόγραμμα"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Ενεργό"
+            },
+            {
+                "id": "headerDate",
+                "description": "Ημερομηνία"
+            },
+            {
+                "id": "headerDestinationDescription",
+                "description": "Προορισμός"
+            },
+            {
+                "id": "headerPortDescription",
+                "description": "Λιμάνι"
+            },
+            {
+                "id": "headerMaxPersons",
+                "description": "Μέγιστη χωρητικότητα"
+            },
+            {
+                "id": "newButton",
+                "description": "NEO"
             }
         ]
     }

@@ -1,0 +1,73 @@
+<div id="form-wrapper">
+
+    <div id="header">
+        <div id="navigation">
+            <button [routerLink]="['/schedules']" class="goBack" data-cy="goBack" id="goBack" mat-mini-fab>
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+        <div @slideFromLeft id="title">
+            <h1>{{ getLabel('header') }}</h1>
+        </div>
+    </div>
+
+    <div id="content">
+        <form data-cy="form" id="form" [formGroup]="form" autocomplete="off">
+            <mat-form-field>
+                <mat-label>{{ getLabel("destination") }}</mat-label>
+                <input data-cy="destination-description" [inputTabStop]="input" [matAutocomplete]="destinations" data-tabindex="1" formControlName="destination" matInput type="text">
+                <mat-error *ngIf="destination.hasError('required')">{{ getHint('required') }}</mat-error>
+                <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
+                <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ getLabel("port") }}</mat-label>
+                <input data-cy="port-description" [inputTabStop]="input" [matAutocomplete]="ports" data-tabindex="2" formControlName="port" matInput type="text">
+                <mat-error *ngIf="port.hasError('required')">{{ getHint('required') }}</mat-error>
+                <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
+                <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ getLabel('dateRange') }}</mat-label>
+                <mat-date-range-input [formGroup]="form" [rangePicker]="picker">
+                    <input data-cy="fromDate" (dateInput)="onUpdateArrays()" [inputFormat]="'date'" [inputFormat]="'date'" [inputTabStop]="input" autocomplete="off" class="center" data-tabindex="3" formControlName="fromDate" id="fromDate" matInput matStartDate>
+                    <input data-cy="toDate" (dateInput)="onUpdateArrays()" [inputFormat]="'date'" [inputFormat]="'date'" [inputTabStop]="input" autocomplete="off" class="center" data-tabindex="4" formControlName="toDate" id="toDate" matEndDate matInput>
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-error *ngIf="fromDate.hasError('required') || toDate.hasError('required')">{{ getHint('required') }}</mat-error>
+                <mat-error *ngIf="fromDate.hasError('matStartDateInvalid') || toDate.hasError('matEndDateInvalid')">{{ getHint('invalidPeriod') }}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input data-cy="maxPersons" type="number" matInput [inputTabStop]="input" [placeholder]="getLabel('maxPersons')" class="number" data-tabindex="5" formControlName="maxPersons" id="maxPersons">
+                <mat-error *ngIf="maxPersons.hasError('required')">{{ getHint('required') }}</mat-error>
+                <mat-error *ngIf="!maxPersons.hasError('required') && maxPersons.hasError('min') || maxPersons.hasError('max')">{{ getHint('invalid') }}</mat-error>
+            </mat-form-field>
+            <div id="weekdays">
+                <div *ngFor="let weekDay of weekDays" [id]="weekDay" class="selectable" (click)="onToggleItem(weekDay, selectedWeekDays)">
+                    <div class="description">{{ onGetWeekday(weekDay) }}</div>
+                </div>
+            </div>
+        </form>
+        <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
+    </div>
+
+    <div id="footer">
+        <div>
+            <button data-cy="save" mat-flat-button class="primary" [disabled]="!form.valid" id="save" (click)="onSave()">{{ getLabel('saveButton') }}</button>
+        </div>
+    </div>
+
+</div>
+
+<mat-autocomplete autoActiveFirstOption #destinations="matAutocomplete" [displayWith]="dropdownFields">
+    <mat-option *ngFor="let option of filteredDestinations | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete autoActiveFirstOption #ports="matAutocomplete" [displayWith]="dropdownFields">
+    <mat-option *ngFor="let option of filteredPorts | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>

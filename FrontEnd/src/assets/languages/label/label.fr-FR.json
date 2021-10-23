@@ -1100,6 +1100,10 @@
         "feature": "calendarWrapper",
         "labels": [
             {
+                "id": "listButton",
+                "description": "MODIFIER LES HORAIRES"
+            },
+            {
                 "id": "newButton",
                 "description": "Nouvel utilisateur"
             }
@@ -1119,7 +1123,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Nouvel utilisateur Programme"
+                "description": "Nouveau programme"
             },
             {
                 "id": "destination",
@@ -1135,11 +1139,7 @@
             },
             {
                 "id": "maxPersons",
-                "description": "Haute capacite d'espace"
-            },
-            {
-                "id": "invalidPeriod",
-                "description": "l' espace n'est pas correcte"
+                "description": "Capacité maximale"
             },
             {
                 "id": "saveButton",
@@ -1920,6 +1920,39 @@
             {
                 "id": "saveButton",
                 "description": "ENREGISTRER"
+            }
+        ]
+    },
+    {
+        "feature": "scheduleList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Schedules"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Actif"
+            },
+            {
+                "id": "headerDate",
+                "description": "Date"
+            },
+            {
+                "id": "headerDestinationDescription",
+                "description": "Destination"
+            },
+            {
+                "id": "headerPortDescription",
+                "description": "Port"
+            },
+            {
+                "id": "headerMaxPersons",
+                "description": "Capacité maximale"
+            },
+            {
+                "id": "newButton",
+                "description": "NOUVEAU"
             }
         ]
     }

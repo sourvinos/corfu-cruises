@@ -1,24 +1,3 @@
-#form-wrapper {
-    background-image: none;
-}
-
-#content {
-    flex-direction: column;
-}
-
-#header {
-    margin: 0 1rem 2rem 1rem;
-}
-
-#footer {
-    margin: 2rem 1rem 0 1rem;
-}
-
-#form {
-    height: 100%;
-    width: 100%;
-}
-
 #weekdays {
     display: flex;
     justify-content: space-between;

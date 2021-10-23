@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { ActivatedRouteSnapshot } from '@angular/router'
-import { ScheduleService } from './schedule.service'
+import { ScheduleService } from '../calendar/schedule.service'
 
 @Injectable({ providedIn: 'root' })
 

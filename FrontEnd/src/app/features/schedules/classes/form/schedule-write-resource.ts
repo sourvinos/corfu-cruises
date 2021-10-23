@@ -1,8 +1,9 @@
-export class ScheduleResource {
+export class ScheduleWriteResource {
 
+    id?: number
     date: string
-    portId: number
     destinationId: number
+    portId: number
     maxPersons: number
     isActive: boolean
     userId: string

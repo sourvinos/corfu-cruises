@@ -1,5 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
+import { Location } from '@angular/common'
 import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
@@ -14,40 +15,42 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
-    selector: 'crew-list',
-    templateUrl: './crew-list.component.html',
+    selector: 'pickuppoint-list',
+    templateUrl: './schedule-list.component.html',
     styleUrls: ['../../../../../assets/styles/lists.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
-export class CrewListComponent {
+export class ScheduleListComponent {
 
     //#region variables
 
     @ViewChild('table') table: Table | undefined
 
-    private baseUrl = '/shipCrews'
+    private baseUrl = this.location.path()
     private ngUnsubscribe = new Subject<void>()
-    private resolver = 'crewList'
+    private resolver = 'scheduleList'
     private unlisten: Unlisten
-    private windowTitle = 'Crews'
-    public feature = 'crewList'
+    private windowTitle = 'Schedules'
+    public feature = 'scheduleList'
     public newUrl = this.baseUrl + '/new'
     public records: any[] = []
 
-    public ships = []
+    public destinations = []
+    public ports = []
     public rowGroupMetadata: any
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
         this.loadRecords()
-        this.getDistinctShips()
+        this.getDistinctRecords('destinations', 'destinationDescription')
+        this.getDistinctRecords('ports', 'portDescription')
         this.addShortcuts()
     }
 
@@ -65,7 +68,7 @@ export class CrewListComponent {
         this.router.navigate([this.baseUrl, id])
     }
 
-    public onFilter(event: any): void {
+    public onFilter(event: { filteredValue: string | any[] }): void {
         this.updateRowGroupMetaData(event.filteredValue)
     }
 
@@ -95,11 +98,11 @@ export class CrewListComponent {
         })
     }
 
-    private getDistinctShips(): void {
+    private getDistinctRecords(table: string, field: string): void {
         let array = []
-        array = [... new Set(this.records.map(x => x.shipDescription))]
+        array = [... new Set(this.records.map(x => x[field]))]
         array.forEach(element => {
-            this.ships.push({ label: element, value: element })
+            this[table].push({ label: element, value: element })
         })
     }
 
@@ -132,17 +135,17 @@ export class CrewListComponent {
         if (data) {
             for (let i = 0; i < data.length; i++) {
                 const rowData = data[i]
-                const shipDescription = rowData.shipDescription
+                const routeAbbreviation = rowData.routeAbbreviation
                 if (i == 0) {
-                    this.rowGroupMetadata[shipDescription] = { index: 0, size: 1 }
+                    this.rowGroupMetadata[routeAbbreviation] = { index: 0, size: 1 }
                 }
                 else {
                     const previousRowData = data[i - 1]
-                    const previousRowGroup = previousRowData.shipDescription
-                    if (shipDescription === previousRowGroup)
-                        this.rowGroupMetadata[shipDescription].size++
+                    const previousRowGroup = previousRowData.routeAbbreviation
+                    if (routeAbbreviation === previousRowGroup)
+                        this.rowGroupMetadata[routeAbbreviation].size++
                     else
-                        this.rowGroupMetadata[shipDescription] = { index: i, size: 1 }
+                        this.rowGroupMetadata[routeAbbreviation] = { index: i, size: 1 }
                 }
             }
         }

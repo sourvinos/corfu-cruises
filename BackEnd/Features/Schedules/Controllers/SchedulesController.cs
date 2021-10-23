@@ -26,7 +26,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Schedule>> Get() {
+        public async Task<IEnumerable<ScheduleListResource>> Get() {
             return await repo.Get();
         }
 
@@ -53,7 +53,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpPost]
-        // [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")] 
         public IActionResult PostSchedule([FromBody] List<ScheduleWriteResource> records) {
             if (ModelState.IsValid) {
                 try {

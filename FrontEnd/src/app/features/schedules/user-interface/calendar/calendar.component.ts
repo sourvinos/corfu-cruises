@@ -2,11 +2,11 @@ import { Component } from '@angular/core'
 import moment, { utc } from 'moment'
 import { Router } from '@angular/router'
 // Custom
-import { Day } from '../../classes/day'
+import { Day } from '../../classes/calendar/day'
 import { HelperService } from './../../../../shared/services/helper.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { ScheduleService } from 'src/app/features/schedules/classes/schedule.service'
+import { ScheduleService } from 'src/app/features/schedules/classes/calendar/schedule.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({

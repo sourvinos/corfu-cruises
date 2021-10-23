@@ -1100,6 +1100,10 @@
         "feature": "calendarWrapper",
         "labels": [
             {
+                "id": "listButton",
+                "description": "UPRAVIT ROZVRHY"
+            },
+            {
                 "id": "newButton",
                 "description": "NOVÝ"
             }
@@ -1119,7 +1123,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "NOVÝ Schedule"
+                "description": "Nový rozvrh"
             },
             {
                 "id": "destination",
@@ -1135,11 +1139,7 @@
             },
             {
                 "id": "maxPersons",
-                "description": "Maximální kapacita"
-            },
-            {
-                "id": "invalid",
-                "description": "Období data není platné"
+                "description": "Maximální počet osob"
             },
             {
                 "id": "saveButton",
@@ -1920,6 +1920,39 @@
             {
                 "id": "saveButton",
                 "description": "ULOŽIT"
+            }
+        ]
+    },
+    {
+        "feature": "scheduleList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Jízdní řády"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Aktivní"
+            },
+            {
+                "id": "headerDate",
+                "description": "Datum"
+            },
+            {
+                "id": "headerDestinationDescription",
+                "description": "Destinace"
+            },
+            {
+                "id": "headerPortDescription",
+                "description": "Přístav"
+            },
+            {
+                "id": "headerMaxPersons",
+                "description": "Maximální kapacita"
+            },
+            {
+                "id": "newButton",
+                "description": "NOVÝ"
             }
         ]
     }
