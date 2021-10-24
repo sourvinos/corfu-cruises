@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using BlueWaterCruises.Features.PickupPoints;
 
 namespace BlueWaterCruises.Features.Reservations {
 
@@ -24,8 +22,6 @@ namespace BlueWaterCruises.Features.Reservations {
         public SimpleResource Driver { get; set; }
         public SimpleResource Ship { get; set; }
         public SimpleResource Port { get; set; }
-
-        public UserResource User { get; set; }
 
         public List<PassengerReadResource> Passengers { get; set; }
 

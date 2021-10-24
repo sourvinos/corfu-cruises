@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using BlueWaterCruises.Features.Schedules;
@@ -27,19 +26,14 @@ namespace BlueWaterCruises.Features.Reservations {
             this.mapper = mapper;
         }
 
-        [HttpGet("from/{fromdate}/to/{todate}")]
-        public IEnumerable<ReservationResource> GetForPeriod(string fromDate, string toDate) {
-            return reservationRepo.GetForPeriod(fromDate, toDate);
-        }
-
         [HttpGet("date/{date}")]
-        public async Task<ReservationGroupResource<ReservationListResource>> GetForDate(string date) {
-            return await this.reservationRepo.GetForDate(date);
+        public async Task<ReservationGroupResource<ReservationListResource>> Get(string date) {
+            return await this.reservationRepo.Get(date);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSingle(string id) {
-            var record = await reservationRepo.GetSingle(id);
+        public async Task<IActionResult> GetById(string id) {
+            var record = await reservationRepo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id.ToString(), logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -103,7 +97,7 @@ namespace BlueWaterCruises.Features.Reservations {
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] string id) {
-            var record = await reservationRepo.GetSingleToDelete(id);
+            var record = await reservationRepo.GetByIdToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {

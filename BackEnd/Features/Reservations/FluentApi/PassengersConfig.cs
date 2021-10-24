@@ -7,6 +7,7 @@ namespace BlueWaterCruises.FluentApi {
     internal class PassengersConfig : IEntityTypeConfiguration<Passenger> {
 
         public void Configure(EntityTypeBuilder<Passenger> entity) {
+            // Fields
             entity.Property(p => p.ReservationId).HasMaxLength(36).IsRequired(true);
             entity.Property(p => p.Lastname).HasMaxLength(128).IsRequired(true);
             entity.Property(p => p.Firstname).HasMaxLength(128).IsRequired(true);
@@ -18,6 +19,7 @@ namespace BlueWaterCruises.FluentApi {
             entity.Property(p => p.NationalityId).IsRequired(true);
             entity.Property(p => p.OccupantId).IsRequired(true);
             entity.Property(p => p.GenderId).IsRequired(true);
+            // FK Constraints
             entity.HasOne(x => x.Nationality).WithMany(x => x.Passengers).HasForeignKey(x => x.NationalityId).IsRequired().OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(x => x.Occupant).WithMany(x => x.Passengers).HasForeignKey(x => x.OccupantId).IsRequired().OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(x => x.Gender).WithMany(x => x.Passengers).HasForeignKey(x => x.GenderId).IsRequired().OnDelete(DeleteBehavior.Restrict);

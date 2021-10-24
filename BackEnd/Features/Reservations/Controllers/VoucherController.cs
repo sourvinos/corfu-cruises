@@ -64,11 +64,6 @@ namespace BlueWaterCruises.Features.Reservations {
 
         }
 
-        [HttpGet("[action]")]
-        public IActionResult PrintVoucher([FromBody] Voucher voucher) {
-            return Ok();
-        }
-
         [HttpPost("[action]")]
         public IActionResult EmailVoucher([FromBody] Voucher voucher) {
             if (ModelState.IsValid) {

@@ -1,6 +1,4 @@
 using AutoMapper;
-using BlueWaterCruises.Features.PickupPoints;
-using BlueWaterCruises.Features.Ports;
 
 namespace BlueWaterCruises.Features.Reservations {
 
@@ -11,7 +9,7 @@ namespace BlueWaterCruises.Features.Reservations {
             CreateMap<Reservation, ReservationListResource>()
                 .ForMember(x => x.RouteAbbreviation, x => x.MapFrom(r => r.PickupPoint.Route.Abbreviation))
                 .ForMember(x => x.Time, x => x.MapFrom(r => r.PickupPoint.Time));
-            // Read
+            // Read reservation
             CreateMap<Reservation, ReservationReadResource>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateConversions.DateTimeToISOString(x.Date)))
                 .ForMember(x => x.PickupPoint, x => x.MapFrom(r => new PickupPointWithPortDropdownResource {
@@ -24,10 +22,12 @@ namespace BlueWaterCruises.Features.Reservations {
                         Description = r.PickupPoint.Route.Port.Description
                     }
                 }));
+            // Read passenger
             CreateMap<Passenger, PassengerReadResource>()
                 .ForMember(x => x.Birthdate, x => x.MapFrom(x => DateConversions.DateTimeToISOString(x.Birthdate)));
-            // Write
+            // Write reservation
             CreateMap<ReservationWriteResource, Reservation>();
+            // Write passenger
             CreateMap<PassengerWriteResource, Passenger>();
         }
 

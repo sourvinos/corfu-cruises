@@ -22,7 +22,6 @@ namespace BlueWaterCruises.Features.Reservations {
         public string RouteAbbreviation { get; set; }
         public string PortDescription { get; set; }
         public string ShipDescription { get; set; }
-        public string User { get; set; }
 
     }
 
