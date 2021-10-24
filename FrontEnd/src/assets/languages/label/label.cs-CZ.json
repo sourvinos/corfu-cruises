@@ -1955,5 +1955,42 @@
                 "description": "NOVÝ"
             }
         ]
+    },
+    {
+        "feature": "scheduleEditForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Upravit rozvrh"
+            },
+            {
+                "id": "date",
+                "description": "Datum"
+            },
+            {
+                "id": "destination",
+                "description": "Destinace"
+            },
+            {
+                "id": "port",
+                "description": "Přístav"
+            },
+            {
+                "id": "maxPersons",
+                "description": "Maximální kapacita"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktivní"
+            },
+            {
+                "id": "deleteButton",
+                "description": "SMAZAT"
+            },
+            {
+                "id": "saveButton",
+                "description": "ULOŽIT"
+            }
+        ]
     }
 ]

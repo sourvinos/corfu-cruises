@@ -16,7 +16,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
 import { ScheduleService } from '../../classes/calendar/schedule.service'
@@ -24,6 +23,8 @@ import { PortService } from 'src/app/features/ports/classes/services/port.servic
 import { ScheduleReadResource } from '../../classes/form/schedule-read-resource'
 import { DestinationDropdownResource } from 'src/app/features/reservations/classes/resources/form/dropdown/destination-dropdown-resource'
 import { PortDropdownResource } from 'src/app/features/ports/classes/resources/port-dropdown-resource'
+import moment from 'moment'
+import { DateAdapter } from '@angular/material/core'
 
 @Component({
     selector: 'edit-schedule',
@@ -36,13 +37,12 @@ export class EditScheduleComponent {
 
     //#region variables
 
-    private feature = 'routeForm'
+    private feature = 'scheduleEditForm'
     private flatForm: FormGroup
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '/routes'
-    private windowTitle = 'Route'
-    public environment = environment.production
+    private url = '/schedules/list'
+    private windowTitle = ''
     public form: FormGroup
     public input: InputTabStopDirective
 
@@ -50,8 +50,6 @@ export class EditScheduleComponent {
 
     //#region particular variables
 
-    public activePanel: string
-    public pickupPoints = []
     public destinations = []
     public ports = []
     public filteredDestinations: Observable<DestinationDropdownResource[]>
@@ -62,6 +60,7 @@ export class EditScheduleComponent {
     constructor(
         private activatedRoute: ActivatedRoute,
         private buttonClickService: ButtonClickService,
+        private dateAdapter: DateAdapter<any>,
         private destinationService: DestinationService,
         private dialogService: DialogService,
         private formBuilder: FormBuilder,
@@ -90,6 +89,7 @@ export class EditScheduleComponent {
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
+        this.getLocale()
         this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
         this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
     }
@@ -219,12 +219,17 @@ export class EditScheduleComponent {
     private flattenForm(): void {
         this.flatForm = this.formBuilder.group({
             id: this.form.value.id,
+            date: moment(this.form.value.date).format('YYYY-MM-DD'),
             destinationId: this.form.value.destination.id,
             portId: this.form.value.port.id,
             maxPersons: this.form.value.maxPersons,
             isActive: this.form.value.isActive,
             userId: this.form.value.userId
         })
+    }
+
+    private getLocale(): void {
+        this.dateAdapter.setLocale(this.helperService.readItem('language'))
     }
 
     private getRecord(id: number): void {
@@ -266,9 +271,10 @@ export class EditScheduleComponent {
     private populateFields(result: ScheduleReadResource): void {
         this.form.setValue({
             id: result.id,
-            date: result.date,
+            date: moment(result.date).format('YYYY-MM-DD'),
             destination: { 'id': result.destination.id, 'description': result.destination.description },
             port: { 'id': result.port.id, 'description': result.port.description },
+            maxPersons: result.maxPersons,
             isActive: result.isActive,
             userId: this.helperService.readItem('userId')
         })
@@ -305,6 +311,10 @@ export class EditScheduleComponent {
 
     get port(): AbstractControl {
         return this.form.get('port')
+    }
+
+    get maxPersons(): AbstractControl {
+        return this.form.get('maxPersons')
     }
 
     //#endregion

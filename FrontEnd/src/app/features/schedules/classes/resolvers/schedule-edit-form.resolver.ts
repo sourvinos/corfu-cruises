@@ -1,19 +1,21 @@
-import { Injectable } from '@angular/core'
 import { ActivatedRouteSnapshot } from '@angular/router'
+import { Injectable } from '@angular/core'
+// Custom
 import { ScheduleService } from '../calendar/schedule.service'
 
 @Injectable({ providedIn: 'root' })
 
-export class ScheduleCreateFormResolver {
+export class ScheduleEditFormResolver {
 
     constructor(private routeService: ScheduleService) { }
 
     resolve(schedule: ActivatedRouteSnapshot): any {
         const response = this.routeService.getSingle(schedule.params.id)
-        if (response)
+        if (response) {
             response.subscribe(() => {
                 return response
             })
+        }
     }
 
 }

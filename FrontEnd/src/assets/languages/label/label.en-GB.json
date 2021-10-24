@@ -1955,5 +1955,42 @@
                 "description": "NEW"
             }
         ]
+    },
+    {
+        "feature": "scheduleEditForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Edit schedule"
+            },
+            {
+                "id": "date",
+                "description": "Date"
+            },
+            {
+                "id": "destination",
+                "description": "Destination"
+            },
+            {
+                "id": "port",
+                "description": "Port"
+            },
+            {
+                "id": "maxPersons",
+                "description": "Maximum capacity"
+            },
+            {
+                "id": "isActive",
+                "description": "Active"
+            },
+            {
+                "id": "deleteButton",
+                "description": "DELETE"
+            },
+            {
+                "id": "saveButton",
+                "description": "SAVE"
+            }
+        ]
     }
 ]

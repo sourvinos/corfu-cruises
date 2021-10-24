@@ -1139,7 +1139,7 @@
             },
             {
                 "id": "maxPersons",
-                "description": "Μέγιστος αριθμός επιβατών"
+                "description": "Μέγιστη χωρητικότητα"
             },
             {
                 "id": "saveButton",
@@ -1953,6 +1953,43 @@
             {
                 "id": "newButton",
                 "description": "NEO"
+            }
+        ]
+    },
+    {
+        "feature": "scheduleEditForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Μεταβολή προγράμματος"
+            },
+            {
+                "id": "date",
+                "description": "Ημερομηνία"
+            },
+            {
+                "id": "destination",
+                "description": "Προορισμός"
+            },
+            {
+                "id": "port",
+                "description": "Λιμάνι"
+            },
+            {
+                "id": "maxPersons",
+                "description": "Μέγιστη χωρητικότητα"
+            },
+            {
+                "id": "isActive",
+                "description": "Ενεργό"
+            },
+            {
+                "id": "deleteButton",
+                "description": "ΔΙΑΓΡΑΦΗ"
+            },
+            {
+                "id": "saveButton",
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     }

@@ -27,7 +27,7 @@ export class ScheduleListComponent {
 
     @ViewChild('table') table: Table | undefined
 
-    private baseUrl = this.location.path()
+    private baseUrl = '/schedules'
     private ngUnsubscribe = new Subject<void>()
     private resolver = 'scheduleList'
     private unlisten: Unlisten
@@ -65,7 +65,7 @@ export class ScheduleListComponent {
     //#region public methods
 
     public onEditRecord(id: number): void {
-        this.router.navigate([this.baseUrl, id])
+        this.router.navigate([this.baseUrl + '/list', id])
     }
 
     public onFilter(event: { filteredValue: string | any[] }): void {

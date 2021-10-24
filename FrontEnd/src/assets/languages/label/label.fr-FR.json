@@ -1105,7 +1105,7 @@
             },
             {
                 "id": "newButton",
-                "description": "Nouvel utilisateur"
+                "description": "NOUVEAU PROGRAMME"
             }
         ]
     },
@@ -1435,7 +1435,7 @@
             },
             {
                 "id": "isActive",
-                "description": "Active"
+                "description": "Actif"
             },
             {
                 "id": "deleteButton",
@@ -1953,6 +1953,43 @@
             {
                 "id": "newButton",
                 "description": "NOUVEAU"
+            }
+        ]
+    },
+    {
+        "feature": "scheduleEditForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Modifier l'horaire"
+            },
+            {
+                "id": "date",
+                "description": "Date"
+            },
+            {
+                "id": "destination",
+                "description": "Destination"
+            },
+            {
+                "id": "port",
+                "description": "Port"
+            },
+            {
+                "id": "maxPersons",
+                "description": "Capacité maximale"
+            },
+            {
+                "id": "isActive",
+                "description": "Actif"
+            },
+            {
+                "id": "deleteButton",
+                "description": "SUPPRIMER"
+            },
+            {
+                "id": "saveButton",
+                "description": "ENREGISTRER"
             }
         ]
     }

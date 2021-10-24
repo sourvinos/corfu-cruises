@@ -1955,5 +1955,42 @@
                 "description": "NEUE"
             }
         ]
+    },
+    {
+        "feature": "scheduleEditForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Zeitplan bearbeiten"
+            },
+            {
+                "id": "date",
+                "description": "Datum"
+            },
+            {
+                "id": "destination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "port",
+                "description": "Hafen"
+            },
+            {
+                "id": "maxPersons",
+                "description": "Maximale Personenzahl"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
     }
 ]

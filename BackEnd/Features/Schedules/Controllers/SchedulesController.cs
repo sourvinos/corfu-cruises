@@ -76,10 +76,10 @@ namespace BlueWaterCruises.Features.Schedules {
 
         [HttpPut("{id}")]
         // [Authorize(Roles = "admin")]
-        public IActionResult PutSchedule([FromRoute] int id, [FromBody] Schedule record) {
+        public IActionResult PutSchedule([FromRoute] int id, [FromBody] ScheduleWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
-                    repo.Update(record);
+                    repo.Update(mapper.Map<ScheduleWriteResource, Schedule>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });
