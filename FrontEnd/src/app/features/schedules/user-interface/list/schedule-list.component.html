@@ -18,7 +18,17 @@
                 </tr>
                 <tr>
                     <th style="min-width: 10%; max-width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
-                    <th style="min-width: 15%; max-width: 15%;"><input data-cy="filter-date" type="text" class="p-inputtext center" (input)="table.filter($event.target.value, 'date', 'contains')" [value]="$any(table).filters['date']?.value"></th>
+                    <th style="min-width: 15%; max-width: 15%;">
+                        <p-columnFilter style="width: 100%;" field="date" matchMode="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown data-cy="filter-date" [ngModel]="value" [options]="dates" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span>{{ option.label }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
                     <th style="min-width: 35%; max-width: 35%;">
                         <p-columnFilter style="width: 100%;" field="destinationDescription" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">

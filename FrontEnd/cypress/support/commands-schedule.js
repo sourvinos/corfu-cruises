@@ -7,6 +7,13 @@ Cypress.Commands.add('gotoScheduleCalendar', () => {
     cy.url().should('eq', Cypress.config().homeUrl + '/schedules')
 })
 
+Cypress.Commands.add('gotoScheduleList', () => {
+    cy.intercept('GET', Cypress.config().apiUrl + '/schedules', { fixture:'schedules/schedules.json' }).as('getSchedules')
+    cy.get('[data-cy=list]').click()
+    cy.wait('@getSchedules').its('response.statusCode').should('eq', 200)
+    cy.url().should('eq', Cypress.config().homeUrl + '/schedules/list')
+})
+
 Cypress.Commands.add('gotoEmptyScheduleForm', () => {
     cy.get('[data-cy=new]').click()
     cy.url().should('eq', Cypress.config().homeUrl + '/schedules/new')

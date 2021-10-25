@@ -36,6 +36,7 @@ export class ScheduleListComponent {
     public newUrl = this.baseUrl + '/new'
     public records: any[] = []
 
+    public dates = []
     public destinations = []
     public ports = []
     public rowGroupMetadata: any
@@ -51,6 +52,7 @@ export class ScheduleListComponent {
         this.loadRecords()
         this.getDistinctRecords('destinations', 'destinationDescription')
         this.getDistinctRecords('ports', 'portDescription')
+        this.getDistinctDateRecords('dates', 'date')
         this.addShortcuts()
     }
 
@@ -103,6 +105,13 @@ export class ScheduleListComponent {
         array = [... new Set(this.records.map(x => x[field]))]
         array.forEach(element => {
             this[table].push({ label: element, value: element })
+        })
+    }
+    private getDistinctDateRecords(table: string, field: string): void {
+        let array = []
+        array = [... new Set(this.records.map(x => x[field]))]
+        array.forEach(element => {
+            this[table].push({ label: this.helperService.formatDateToLocale(element), value: element })
         })
     }
 
