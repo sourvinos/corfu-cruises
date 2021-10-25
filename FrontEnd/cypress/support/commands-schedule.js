@@ -12,3 +12,11 @@ Cypress.Commands.add('gotoEmptyScheduleForm', () => {
     cy.get('[data-cy=new]').click()
     cy.url().should('eq', Cypress.config().homeUrl + '/schedules/new')
 })
+
+Cypress.Commands.add('readScheduleRecord', () => {
+    cy.intercept('GET', Cypress.config().apiUrl + '/schedules/1', { fixture:'schedules/schedule.json' }).as('getSchedule')
+    cy.get('.p-datatable-tbody > :nth-child(1)').click()
+    cy.get('.p-datatable-tbody > :nth-child(1)').dblclick()
+    cy.wait('@getSchedule').its('response.statusCode').should('eq', 200)
+    cy.url().should('eq', Cypress.config().homeUrl + '/schedules/1')
+})

@@ -247,7 +247,7 @@ export class EditScheduleComponent {
             date: ['', [Validators.required, Validators.maxLength(10)]],
             destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
-            maxPersons: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
+            maxPersons: [0, [Validators.required, Validators.min(1), Validators.max(999)]],
             isActive: true,
             userId: this.helperService.readItem('userId')
         })

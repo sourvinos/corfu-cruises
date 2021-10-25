@@ -1,8 +1,14 @@
 {
     "id": 1,
-    "date": "2021-10-01",
-    "destinationDescription": "PAXOS - ANTIPAXOS",
-    "portDescription": "CORFU PORT",
+    "date": "2021-10-1",
+    "destination": {
+        "id": 1,
+        "description": "PAXOS - ANTIPAXOS"
+    },
+    "port": {
+        "id": 2,
+        "description": "CORFU PORT"
+    },
     "maxPersons": 185,
     "isActive": true
 }
