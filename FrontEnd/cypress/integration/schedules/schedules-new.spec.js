@@ -11,7 +11,7 @@ context('Schedules', () => {
         })
 
         it('Goto an empty form', () => {
-            cy.gotoScheduleCalendar()
+            cy.gotoScheduleList()
             cy.gotoEmptyScheduleForm()
             cy.buttonShouldBeDisabled('save')
         })

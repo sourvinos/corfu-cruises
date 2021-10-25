@@ -259,7 +259,7 @@ export class NewScheduleComponent {
             toDate: ['', Validators.required],
             periodToDelete: [''],
             daysToInsert: ['', Validators.required],
-            maxPersons: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
+            maxPersons: [0, [Validators.required, Validators.min(1), Validators.max(999)]],
             isActive: true,
             userId: this.helperService.readItem('userId')
         })

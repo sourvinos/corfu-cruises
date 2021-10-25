@@ -41,7 +41,7 @@ export class EditScheduleComponent {
     private flatForm: FormGroup
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '/schedules/list'
+    private url = '/schedules'
     private windowTitle = ''
     public form: FormGroup
     public input: InputTabStopDirective
@@ -234,7 +234,6 @@ export class EditScheduleComponent {
 
     private getRecord(id: number): void {
         this.scheduleService.getSingle(id).subscribe(result => {
-            console.log(result)
             this.populateFields(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')

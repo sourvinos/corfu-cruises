@@ -48,9 +48,9 @@ export class TopMenuComponent {
     private buildMenu(menuItems: any): void {
         this.menuItems = [
             {
-                label: this.getLabel(menuItems, 'schedules'),
+                label: this.getLabel(menuItems, 'calendar'),
                 icon: 'fas fa-calendar',
-                routerLink: ['/schedules'],
+                routerLink: ['schedules/calendar'],
                 visible: this.isUserLoggedIn()
             },
             {

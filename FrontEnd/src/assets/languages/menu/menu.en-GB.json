@@ -105,6 +105,10 @@
             {
                 "id": "editAccount",
                 "description": "Edit"
+            },
+            {
+                "id": "calendar",
+                "description": "Calendar"
             }
         ]
     }

@@ -11,7 +11,6 @@ context('Schedules', () => {
         })
 
         it('Goto the list', () => {
-            cy.gotoScheduleCalendar()
             cy.gotoScheduleList()
         })
 

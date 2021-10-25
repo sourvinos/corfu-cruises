@@ -105,6 +105,10 @@
             {
                 "id": "editAccount",
                 "description": "(CZ) Edit"
+            },
+            {
+                "id": "calendar",
+                "description": "Kalendář"
             }
         ]
     }

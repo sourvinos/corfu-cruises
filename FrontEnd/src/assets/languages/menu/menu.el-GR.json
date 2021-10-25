@@ -105,6 +105,10 @@
             {
                 "id": "editAccount",
                 "description": "Επεξεργασία"
+            },
+            {
+                "id": "calendar",
+                "description": "Ημερολόγιο"
             }
         ]
     }

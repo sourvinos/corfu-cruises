@@ -1,18 +1,20 @@
 import { Component } from '@angular/core'
-import moment, { utc } from 'moment'
 import { Router } from '@angular/router'
+import moment, { utc } from 'moment'
 // Custom
 import { Day } from '../../classes/calendar/day'
 import { HelperService } from './../../../../shared/services/helper.service'
+import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { ScheduleService } from 'src/app/features/schedules/classes/calendar/schedule.service'
+import { Subject } from 'rxjs'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'calendar',
     templateUrl: './calendar.component.html',
-    styleUrls: ['./calendar.component.css'],
+    styleUrls: ['../../../../../assets/styles/lists.css', './calendar.component.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
@@ -22,7 +24,9 @@ export class CalendarComponent {
 
     private dateSelect: any
     private daysWithSchedule = []
+    private ngUnsubscribe = new Subject<void>()
     private startDate: any
+    private unlisten: Unlisten
     public days: Day[]
     public feature = 'calendar'
     public monthSelect: any[]
@@ -31,13 +35,7 @@ export class CalendarComponent {
 
     // #endregion 
 
-    constructor(
-        private helperService: HelperService,
-        private messageCalendarService: MessageCalendarService,
-        private messageLabelService: MessageLabelService,
-        private router: Router,
-        private scheduleService: ScheduleService
-    ) { }
+    constructor(private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private router: Router, private scheduleService: ScheduleService) { }
 
     //#region lifecycle hooks
 
@@ -47,19 +45,18 @@ export class CalendarComponent {
             this.updateCalendar()
             this.fixCalendarHeight()
         })
+        this.addShortcuts()
+    }
+
+    ngOnDestroy(): void {
+        this.ngUnsubscribe.next()
+        this.ngUnsubscribe.unsubscribe()
+        this.unlisten()
     }
 
     //#endregion 
 
     //#region public methods
-
-    public changeMonth(flag: number): void {
-        this.navigateToMonth(flag)
-        this.getScheduleForMonth().then(() => {
-            this.updateCalendar()
-            this.fixCalendarHeight()
-        })
-    }
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
@@ -97,7 +94,15 @@ export class CalendarComponent {
         }
     }
 
-    public newReservationTasks(destination: any): void {
+    public onChangeMonth(flag: number): void {
+        this.navigateToMonth(flag)
+        this.getScheduleForMonth().then(() => {
+            this.updateCalendar()
+            this.fixCalendarHeight()
+        })
+    }
+
+    public onDoReservationTasks(destination: any): void {
         this.helperService.saveItem('newReservationFromSchedule', JSON.stringify(destination))
         this.router.navigate(['/reservations/new'], { queryParams: { returnUrl: 'schedules' } })
     }
@@ -105,6 +110,17 @@ export class CalendarComponent {
     //#endregion
 
     //#region private methods
+
+    private addShortcuts(): void {
+        this.unlisten = this.keyboardShortcutsService.listen({
+            'Escape': () => {
+                this.goBack()
+            }
+        }, {
+            priority: 0,
+            inputs: true
+        })
+    }
 
     private calculateWeekCount(year: number, month: number): number {
         const firstOfMonth = new Date(year, month - 1, 1)
@@ -163,6 +179,10 @@ export class CalendarComponent {
             })
         })
         return promise
+    }
+
+    private goBack(): void {
+        this.router.navigate(['/'])
     }
 
     private fixCalendarHeight(): void {

@@ -67,7 +67,7 @@ export class ScheduleListComponent {
     //#region public methods
 
     public onEditRecord(id: number): void {
-        this.router.navigate([this.baseUrl + '/list', id])
+        this.router.navigate([this.baseUrl, id])
     }
 
     public onFilter(event: { filteredValue: string | any[] }): void {
