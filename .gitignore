@@ -231,6 +231,7 @@ _Pvt_Extensions
 .fake/
 
 # Custom
+FrontEnd/package-lock.json
 appsettings.json
 **/logs
 **/vouchers

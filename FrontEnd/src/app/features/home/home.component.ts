@@ -1,5 +1,7 @@
+// Base
 import { Component } from '@angular/core'
 import { Title } from '@angular/platform-browser'
+// Custom
 import { HelperService } from '../../shared/services/helper.service'
 
 @Component({
@@ -14,7 +16,6 @@ export class HomeComponent {
 
     private windowTitle = 'Home'
     public companyLogo: any
-    public theme = ''
 
     //#endregion
 
@@ -25,7 +26,6 @@ export class HomeComponent {
     ngOnInit(): void {
         this.getAppName()
         this.setWindowTitle()
-        // this.getTheme()
     }
 
     //#endregion
@@ -34,10 +34,6 @@ export class HomeComponent {
 
     private getAppName(): void {
         this.companyLogo = this.helperService.getApplicationTitle().split(' ')
-    }
-
-    private getTheme(): void {
-        this.theme = localStorage.getItem('theme')
     }
 
     private setWindowTitle(): void {
