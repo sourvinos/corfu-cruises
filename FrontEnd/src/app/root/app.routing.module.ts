@@ -1,6 +1,6 @@
 // Base
 import { NgModule } from '@angular/core'
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router'
+import { NoPreloading, RouterModule, Routes } from '@angular/router'
 
 // Components
 import { CreditsComponent } from '../features/credits/user-interface/credits.component'
@@ -14,25 +14,25 @@ import { AuthGuardService } from '../shared/services/auth-guard.service'
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuardService], pathMatch: 'full' },
     { path: 'login', component: LoginFormComponent },
-    { path: 'account', loadChildren: (): any => import('../features/account/classes/account.module').then(m => m.AccountModule) },
-    { path: 'embarkation', loadChildren: (): any => import('../features/embarkation/classes/modules/embarkation.module').then(m => m.EmbarkationModule) },
-    { path: 'customers', loadChildren: (): any => import('../features/customers/classes/modules/customer.module').then(m => m.CustomerModule) },
-    { path: 'destinations', loadChildren: (): any => import('../features/destinations/classes/destination.module').then(m => m.DestinationModule) },
-    { path: 'drivers', loadChildren: (): any => import('../features/drivers/classes/driver.module').then(m => m.DriverModule) },
-    { path: 'genders', loadChildren: (): any => import('../features/genders/classes/gender.module').then(m => m.GenderModule) },
-    { path: 'invoicing', loadChildren: (): any => import('../features/invoicing/classes/modules/invoicing.module').then(m => m.InvoicingModule) },
-    { path: 'manifest', loadChildren: (): any => import('../features/manifest/classes/modules/manifest.module').then(m => m.ManifestModule) },
-    { path: 'pickupPoints', loadChildren: (): any => import('../features/pickupPoints/classes/pickupPoint.module').then(m => m.PickupPointModule) },
-    { path: 'ports', loadChildren: (): any => import('../features/ports/classes/modules/port.module').then(m => m.PortModule) },
-    { path: 'reservations', loadChildren: (): any => import('../features/reservations/classes/modules/reservation.module').then(m => m.ReservationModule) },
-    { path: 'routes', loadChildren: (): any => import('../features/routes/classes/modules/route.module').then(m => m.RouteModule) },
-    { path: 'schedules', loadChildren: (): any => import('../features/schedules/classes/modules/schedule.module').then(m => m.ScheduleModule) },
-    { path: 'shipCrews', loadChildren: (): any => import('../features/ships/crews/classes/crew.module').then(m => m.CrewModule) },
-    { path: 'shipOwners', loadChildren: (): any => import('../features/ships/owners/classes/base/ship-owner.module').then(m => m.ShipOwnerModule) },
-    { path: 'shipRegistrars', loadChildren: (): any => import('../features/ships/registrars/classes/registrar.module').then(m => m.RegistrarModule) },
-    { path: 'shipRoutes', loadChildren: (): any => import('../features/ships/routes/classes/modules/shipRoute.module').then(m => m.ShipRouteModule) },
-    { path: 'ships', loadChildren: (): any => import('../features/ships/base/classes/modules/ship.module').then(m => m.ShipModule) },
-    { path: 'users', loadChildren: (): any => import('../features/users/classes/user.module').then(m => m.UserModule) },
+    { path: 'account', loadChildren: () => import('../features/account/classes/account.module').then(m => m.AccountModule) },
+    { path: 'embarkation', loadChildren: () => import('../features/embarkation/classes/modules/embarkation.module').then(m => m.EmbarkationModule) },
+    { path: 'customers', loadChildren: () => import('../features/customers/classes/modules/customer.module').then(m => m.CustomerModule) },
+    { path: 'destinations', loadChildren: () => import('../features/destinations/classes/destination.module').then(m => m.DestinationModule) },
+    { path: 'drivers', loadChildren: () => import('../features/drivers/classes/driver.module').then(m => m.DriverModule) },
+    { path: 'genders', loadChildren: () => import('../features/genders/classes/gender.module').then(m => m.GenderModule) },
+    { path: 'invoicing', loadChildren: () => import('../features/invoicing/classes/modules/invoicing.module').then(m => m.InvoicingModule) },
+    { path: 'manifest', loadChildren: () => import('../features/manifest/classes/modules/manifest.module').then(m => m.ManifestModule) },
+    { path: 'pickupPoints', loadChildren: () => import('../features/pickupPoints/classes/pickupPoint.module').then(m => m.PickupPointModule) },
+    { path: 'ports', loadChildren: () => import('../features/ports/classes/modules/port.module').then(m => m.PortModule) },
+    { path: 'reservations', loadChildren: () => import('../features/reservations/classes/modules/reservation.module').then(m => m.ReservationModule) },
+    { path: 'routes', loadChildren: () => import('../features/routes/classes/modules/route.module').then(m => m.RouteModule) },
+    { path: 'schedules', loadChildren: () => import('../features/schedules/classes/modules/schedule.module').then(m => m.ScheduleModule) },
+    { path: 'shipCrews', loadChildren: () => import('../features/ships/crews/classes/crew.module').then(m => m.CrewModule) },
+    { path: 'shipOwners', loadChildren: () => import('../features/ships/owners/classes/base/ship-owner.module').then(m => m.ShipOwnerModule) },
+    { path: 'shipRegistrars', loadChildren: () => import('../features/ships/registrars/classes/registrar.module').then(m => m.RegistrarModule) },
+    { path: 'shipRoutes', loadChildren: () => import('../features/ships/routes/classes/modules/shipRoute.module').then(m => m.ShipRouteModule) },
+    { path: 'ships', loadChildren: () => import('../features/ships/base/classes/modules/ship.module').then(m => m.ShipModule) },
+    { path: 'users', loadChildren: () => import('../features/users/classes/user.module').then(m => m.UserModule) },
     { path: 'credits', component: CreditsComponent },
     { path: '**', component: EmptyPageComponent }
 ]
@@ -43,7 +43,7 @@ const appRoutes: Routes = [
     imports: [
         RouterModule.forRoot(appRoutes, {
             onSameUrlNavigation: 'reload',
-            preloadingStrategy: PreloadAllModules
+            preloadingStrategy: NoPreloading
         })
     ],
     exports: [
