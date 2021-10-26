@@ -18,15 +18,11 @@ input.mat-input-element {
     margin-top: 5px !important;
 }
 
-input[type=text], input[type=email], input[type=number], input[type=password], input.mat-form-field-autofill-control {
+input[type="text"], input[type="email"], input[type="number"], input[type="password"], input.mat-form-field-autofill-control {
     caret-color: var(--color-text-secondary);
     cursor: text !important;
     font-size: var(--font-size-input) !important;
     outline: none;
-}
-
-input[type=number] {
-    -moz-appearance: textfield;
 }
 
 input:disabled {

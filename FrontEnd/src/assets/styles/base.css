@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-@import url('https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp");
 @import "~leaflet/dist/leaflet.css";
 @import "autocomplete.css";
 @import "buttons.css";
@@ -116,7 +116,7 @@ p.instructions {
     border: none;
     font-size: var(--font-size-map-tooltip);
     margin: -1.8rem 2.3rem;
-    opacity: 1 !important;
+    opacity: 100% !important;
     padding: 1rem 1rem 1.2rem 1rem;
 }
 
@@ -136,7 +136,7 @@ p.instructions {
 
 .leaflet-tooltip-top::before {
     border-top-color: var(--color-map-tooltip-background);
-    opacity: 1;
+    opacity: 100%;
 }
 
 .leaflet-tooltip-bottom::before, .leaflet-tooltip-top::before {
@@ -150,7 +150,7 @@ p.instructions {
     color: white;
     display: flex;
     justify-content: center;
-    opacity: 0.8;
+    opacity: 80%;
 }
 
 .mat-tab-body.mat-tab-body-active {
@@ -196,11 +196,7 @@ p.instructions {
 }
 
 .mat-drawer-backdrop.mat-drawer-shown {
-    background-color: rgba(255, 255, 255, 0);
-}
-
-.dateWithSchedule {
-    font-size: var(--font-size-calendar-date);
+    background-color: #ffffff00;
 }
 
 .mat-tooltip {

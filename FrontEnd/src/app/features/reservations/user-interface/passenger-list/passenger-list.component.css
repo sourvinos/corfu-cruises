@@ -3,10 +3,6 @@
     width: 100%;
 }
 
-#headerButtons {
-    margin-left: auto;
-}
-
 #passenger-list {
     display: flex;
     flex-direction: column;

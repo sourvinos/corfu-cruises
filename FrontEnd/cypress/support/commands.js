@@ -15,7 +15,7 @@ Cypress.Commands.add('login', () => {
         cy.setLocalStorage('expiration', response.expiration)
         cy.setLocalStorage('userId', response.userId)
         cy.setLocalStorage('displayName', response.displayName)
-        cy.setLocalStorage('language', 'en-GB')
+        cy.setLocalStorage('language', 'en-gb')
         cy.setLocalStorage('theme', 'dark')
         cy.setLocalStorage('loginStatus', '1')
     })

@@ -3,7 +3,7 @@
     justify-content: space-between;
 }
 
-.activeItem {
+.active-item {
     border: 0 !important;
     border-bottom: 5px solid var(--color-border-item-active) !important;
 }

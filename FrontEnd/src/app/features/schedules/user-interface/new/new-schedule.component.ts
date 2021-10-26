@@ -293,17 +293,17 @@ export class NewScheduleComponent {
 
     private toggleActiveItem(item: string, lookupArray: string[]): void {
         const element = document.getElementById(item)
-        if (element.classList.contains('activeItem')) {
+        if (element.classList.contains('active-item')) {
             for (let i = 0; i < lookupArray.length; i++) {
                 if ((lookupArray)[i] === item) {
                     lookupArray.splice(i, 1)
                     i--
-                    element.classList.remove('activeItem')
+                    element.classList.remove('active-item')
                     break
                 }
             }
         } else {
-            element.classList.add('activeItem')
+            element.classList.add('active-item')
             lookupArray.push(item)
         }
     }

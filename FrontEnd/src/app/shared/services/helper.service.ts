@@ -80,8 +80,8 @@ export class HelperService {
     //#region private methods
 
     private getDefaultLanguage(): string {
-        localStorage.setItem('language', 'en-GB')
-        return 'en-GB'
+        localStorage.setItem('language', 'en-gb')
+        return 'en-gb'
     }
 
     //#endregion

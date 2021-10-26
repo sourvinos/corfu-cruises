@@ -1,10 +1,10 @@
-import idleService from '@kurtz1993/idle-service'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { MenuItem } from 'primeng/api'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
+import idleService from '@kurtz1993/idle-service'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -72,33 +72,33 @@ export class TopMenuComponent {
                     }]
             },
             {
-                label: this.getLanguageLabel(),
+                label: '',
                 icon: this.getLanguageIcon(),
                 items: [
                     {
                         label: 'Ελληνικά',
-                        icon: 'flag el-GR',
-                        command: (): string => this.doLanguageTasks('el-GR')
+                        icon: 'flag el-gr',
+                        command: (): string => this.doLanguageTasks('el-gr')
                     },
                     {
                         label: 'English',
-                        icon: 'flag en-GB',
-                        command: (): string => this.doLanguageTasks('en-GB')
+                        icon: 'flag en-gb',
+                        command: (): string => this.doLanguageTasks('en-gb')
                     },
                     {
                         label: 'Deutsch',
-                        icon: 'flag de-DE',
-                        command: (): string => this.doLanguageTasks('de-DE')
+                        icon: 'flag de-de',
+                        command: (): string => this.doLanguageTasks('de-de')
                     },
                     {
                         label: 'Český',
-                        icon: 'flag cs-CZ',
-                        command: (): string => this.doLanguageTasks('cs-CZ')
+                        icon: 'flag cs-cz',
+                        command: (): string => this.doLanguageTasks('cs-cz')
                     },
                     {
                         label: 'Française',
-                        icon: 'flag fr-FR',
-                        command: (): string => this.doLanguageTasks('fr-FR')
+                        icon: 'flag fr-fr',
+                        command: (): string => this.doLanguageTasks('fr-fr')
                     },
                 ]
             }
@@ -124,16 +124,16 @@ export class TopMenuComponent {
     }
 
     private getLanguageIcon(): string {
-        const flag = this.helperService.readItem('language') == '' ? this.doLanguageTasks('en-GB') : this.helperService.readItem('language')
+        const flag = this.helperService.readItem('language') == '' ? this.doLanguageTasks('en-gb') : this.helperService.readItem('language')
         return 'flag ' + flag
     }
 
     private getLanguageLabel(): string {
-        const flag = this.helperService.readItem('language') == '' ? this.doLanguageTasks('en-GB') : this.helperService.readItem('language')
+        const flag = this.helperService.readItem('language') == '' ? this.doLanguageTasks('en-gb') : this.helperService.readItem('language')
         switch (flag) {
-            case 'el-GR': return 'Γλώσσα'
-            case 'en-GB': return 'Language'
-            case 'de-DE': return 'Sprache'
+            case 'el-gr': return 'Γλώσσα'
+            case 'en-gb': return 'Language'
+            case 'de-de': return 'Sprache'
             case 'cs-CZ': return 'Jazyk'
             case 'fr-FR': return 'Langue'
         }

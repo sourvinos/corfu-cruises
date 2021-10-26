@@ -51,7 +51,7 @@
     background-color: var(--color-table-row-highlight) !important;
 }
 
-.rowGroup > td {
+.row-group > td {
     color: var(--color-table-row-group) !important;
     font-weight: bold;
 }
@@ -126,7 +126,7 @@ div:not(.p-column-filter).p-column-filter-row:hover {
     background-color: var(--color-menu-background-hover);
 }
 
-.rowGroup {
+.row-group {
     color: var(--color-table-row-group) !important;
     font-weight: bold;
 }

@@ -4,7 +4,7 @@ namespace BlueWaterCruises {
 
         public static string[] FirstLoginCredentials(string language) {
             switch (language) {
-                case "cs-CZ":
+                case "cs-cz":
                     return new[] {
                         "(CZ) Hello, ",
                         "(CZ) Use the following credentials to login:",
@@ -18,7 +18,7 @@ namespace BlueWaterCruises {
                         "(CZ) Best regards,",
                         "(CZ) Login credentials"
                      };
-                case "de-DE":
+                case "de-de":
                     return new[] {
                         "(DE) Hello, ",
                         "(DE) Use the following credentials to login:",
@@ -29,7 +29,7 @@ namespace BlueWaterCruises {
                         "(DE) Best regards,",
                         "(DE) Login credentials"
                      };
-                case "el-GR":
+                case "el-gr":
                     return new[] {
                         "Γεια σας, ",
                         "Χρησιμοποιηστε τα παρακατω στοιχεια για να συνδεθειτε:",
@@ -40,7 +40,7 @@ namespace BlueWaterCruises {
                         "Με φιλικους χαιρετισμους,",
                         "Στοιχεια συνδεσης"
                     };
-                case "en-GB":
+                case "en-gb":
                     return new[] {
                         "Hello, ",
                         "Use the following credentials to login:",
@@ -51,7 +51,7 @@ namespace BlueWaterCruises {
                         "Best regards,",
                         "Login credentials"
                      };
-                case "fr-FR":
+                case "fr-fr":
                     return new[] {
                         "Salut, ",
                         "Utilisez les informations d'identification suivantes pour vous connecter:",
@@ -78,7 +78,7 @@ namespace BlueWaterCruises {
 
         public static string[] ResetPassword(string language) {
             switch (language) {
-                case "cs-CZ":
+                case "cs-cz":
                     return new[] {
                         "(CZ) Hello, ",
                         "(CZ) You have requested a password reset.",
@@ -91,7 +91,7 @@ namespace BlueWaterCruises {
                         "(CZ) Kind regards,",
                         "(CZ) Password reset"
                     };
-                case "de-DE":
+                case "de-de":
                     return new[] {
                         "(DE) Hello, ",
                         "(DE) You have requested a password reset.",
@@ -104,7 +104,7 @@ namespace BlueWaterCruises {
                         "(DE) Kind regards,",
                         "(DE) Password reset"
                     };
-                case "el-GR":
+                case "el-gr":
                     return new[] {
                         "Γεια σας, ",
                         "Εχετε ζητησει επαναφορα κωδικου.",
@@ -117,7 +117,7 @@ namespace BlueWaterCruises {
                         "Με φιλικους χαιρετισμους,",
                         "Επαναφορα κωδικου"
                     };
-                case "en-GB":
+                case "en-gb":
                     return new[] {
                         "Hello, ",
                         "You have requested a password reset.",

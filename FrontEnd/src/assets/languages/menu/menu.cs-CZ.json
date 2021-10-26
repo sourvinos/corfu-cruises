@@ -4,7 +4,7 @@
         "labels": [
             {
                 "id": "home",
-                "description": "(CZ) Home"
+                "description": "Domovská stránka"
             },
             {
                 "id": "passengers",
@@ -76,23 +76,23 @@
             },
             {
                 "id": "vesselManagement",
-                "description": "(CZ) Management"
+                "description": "Řízení"
             },
             {
                 "id": "vesselOwners",
-                "description": "(CZ) Owners"
+                "description": "Vlastníci"
             },
             {
                 "id": "vesselRegistrars",
-                "description": "(CZ) Registrars"
+                "description": "Registrátoři"
             },
             {
                 "id": "vesselRoutes",
-                "description": "(CZ) Routes"
+                "description": "Trasy"
             },
             {
                 "id": "vesselCrews",
-                "description": "(CZ) Crews"
+                "description": "Posádky"
             },
             {
                 "id": "logout",
@@ -104,7 +104,7 @@
             },
             {
                 "id": "editAccount",
-                "description": "(CZ) Edit"
+                "description": "Upravit"
             },
             {
                 "id": "calendar",

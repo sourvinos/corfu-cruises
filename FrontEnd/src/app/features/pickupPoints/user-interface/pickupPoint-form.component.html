@@ -10,7 +10,7 @@
     </div>
 
     <div id="content">
-        <div id="panelButtons">
+        <div id="panel-buttons">
             <button data-cy="form-button" mat-flat-button class="tab" id="formTab" [disabled]="activePanel=='form'" (click)="onFocusFormPanel()">{{ onGetLabel('formTab') }}</button>
             <button data-cy="map-button" mat-flat-button class="tab" id="mapTab" [disabled]="activePanel=='map'" (click)="onFocusMapPanel()">{{ onGetLabel('mapTab') }}</button>
         </div>

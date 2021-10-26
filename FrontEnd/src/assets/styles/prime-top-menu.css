@@ -3,24 +3,24 @@
     width: 23px !important;
 }
 
-.flag.cs-CZ {
-    background: url('/assets/images/languages/cs-CZ.svg') center no-repeat !important;
+.flag.cs-cz {
+    background: url("/assets/images/languages/cs-cz.svg") center no-repeat !important;
 }
 
-.flag.de-DE {
-    background: url('/assets/images/languages/de-DE.svg') center no-repeat !important;
+.flag.de-de {
+    background: url("/assets/images/languages/de-de.svg") center no-repeat !important;
 }
 
-.flag.el-GR {
-    background: url('/assets/images/languages/el-GR.svg') center no-repeat !important;
+.flag.el-gr {
+    background: url("/assets/images/languages/el-gr.svg") center no-repeat !important;
 }
 
-.flag.en-GB {
-    background: url('/assets/images/languages/en-GB.svg') center no-repeat !important;
+.flag.en-gb {
+    background: url("/assets/images/languages/en-gb.svg") center no-repeat !important;
 }
 
-.flag.fr-FR {
-    background: url('/assets/images/languages/fr-FR.svg') center no-repeat !important;
+.flag.fr-fr {
+    background: url("/assets/images/languages/fr-fr.svg") center no-repeat !important;
 }
 
 .p-menubar .p-menuitem-link .p-menuitem-text {

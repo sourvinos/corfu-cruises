@@ -2,11 +2,11 @@
     flex-direction: column;
 }
 
-#panelButtons {
+#panel-buttons {
     margin-bottom: auto;
 }
 
-#panelButtons button {
+#panel-buttons button {
     border-radius: 0;
     color: var(--color-text-primary) !important;
     font-size: var(--font-size-panel-buttons) !important;

@@ -55,6 +55,6 @@ export class AppComponent {
         document.getElementById('spinner').style.top = (document.getElementById('wrapper').clientHeight / 2) - 40 + 'px'
     }
 
-    //#endregion
 
+    //#endregion
 }

@@ -2,7 +2,7 @@
     flex-direction: column;
 }
 
-#panelButtons button {
+#panel-buttons button {
     border-radius: 0;
     color: var(--color-text-primary) !important;
     font-size: var(--font-size-panel-buttons) !important;

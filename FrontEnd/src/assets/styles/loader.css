@@ -35,18 +35,17 @@
 
 .progress-line {
     background-color: #734230;
-    display: -webkit-flex;
     display: flex;
     margin: 2rem 0;
 }
 
 .progress-line::before {
     background-color: #ffa500;
-    content: '';
+    content: "";
     animation: running-progress 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-@-webkit-keyframes running-progress {
+@keyframes running-progress {
     0% {
         margin-left: 0;
         margin-right: 100%;

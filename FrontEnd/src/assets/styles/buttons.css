@@ -39,12 +39,12 @@ button.delete:hover {
 }
 
 button.transparent {
-    background-color: rgba(0, 0, 0, 0.001) !important;
+    background-color: #00000000 !important;
     color: var(--color-text-primary) !important;
 }
 
 button.transparent.inverted {
-    background-color: rgba(0, 0, 0, 0.001) !important;
+    background-color: #00000000 !important;
     color: var(--color-button-text) !important;
 }
 
@@ -104,6 +104,6 @@ button:not(:disabled) {
     font-weight: 600;
 }
 
-.goBack:hover {
+.go-back:hover {
     cursor: pointer;
 }
