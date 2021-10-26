@@ -284,11 +284,11 @@
             },
             {
                 "id": "formTab",
-                "description": "ΦΟΡΜΑ"
+                "description": "Στοιχεία"
             },
             {
                 "id": "mapTab",
-                "description": "ΧΑΡΤΗΣ"
+                "description": "Χάρτης"
             }
         ]
     },

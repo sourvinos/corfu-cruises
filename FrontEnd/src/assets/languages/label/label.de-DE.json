@@ -284,11 +284,11 @@
             },
             {
                 "id": "formTab",
-                "description": "FORMULAR"
+                "description": "Einzelheiten"
             },
             {
                 "id": "mapTab",
-                "description": "KARTE"
+                "description": "Karte"
             }
         ]
     },
