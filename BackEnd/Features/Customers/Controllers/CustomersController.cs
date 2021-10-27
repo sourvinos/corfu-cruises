@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,17 +9,20 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Customers {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class CustomersController : ControllerBase {
 
         private readonly ICustomerRepository repo;
         private readonly ILogger<CustomersController> logger;
+        private readonly IMapper mapper;
 
-        public CustomersController(ICustomerRepository repo, ILogger<CustomersController> logger) {
+        public CustomersController(ICustomerRepository repo, ILogger<CustomersController> logger, IMapper mapper) {
             this.repo = repo;
             this.logger = logger;
+            this.mapper = mapper;
+
         }
 
         [HttpGet]
@@ -45,10 +49,10 @@ namespace BlueWaterCruises.Features.Customers {
 
         [HttpPost]
         // [Authorize(Roles = "admin")]
-        public IActionResult PostCustomer([FromBody] Customer record) {
+        public IActionResult PostCustomer([FromBody] CustomerWriteResource record) {
             if (ModelState.IsValid) {
                 try {
-                    repo.Create(record);
+                    repo.Create(mapper.Map<CustomerWriteResource, Customer>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordCreated()
                     });

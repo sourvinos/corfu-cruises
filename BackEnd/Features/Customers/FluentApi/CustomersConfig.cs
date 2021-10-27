@@ -2,7 +2,7 @@ using BlueWaterCruises.Features.Customers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlueWaterCruises.FluentApi {
+namespace BlueWaterCruises.Features.Customers {
 
     internal class CustomersConfig : IEntityTypeConfiguration<Customer> {
 

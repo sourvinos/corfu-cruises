@@ -16,7 +16,6 @@ namespace BlueWaterCruises.Features.Customers {
 
         public async Task<IEnumerable<CustomerListResource>> Get() {
             var customers = await context.Set<Customer>()
-                .Where(x => x.Id != 1)
                 .OrderBy(o => o.Description)
                 .AsNoTracking()
                 .ToListAsync();
@@ -24,17 +23,17 @@ namespace BlueWaterCruises.Features.Customers {
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            var records = await context
-                .Set<Customer>()
+            var records = await context.Set<Customer>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
+                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<Customer>, IEnumerable<SimpleResource>>(records);
         }
 
         public new async Task<CustomerReadResource> GetById(int id) {
             var customer = await context.Set<Customer>()
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .SingleAsync(m => m.Id == id);
             return mapper.Map<Customer, CustomerReadResource>(customer);
         }
 

@@ -1,6 +1,7 @@
 using System;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -25,6 +26,9 @@ namespace BlueWaterCruises {
 
         public void ConfigureDevelopmentServices(IServiceCollection services) {
             services.AddDbContextFactory<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("LocalConnection"), new MySqlServerVersion(new Version(8, 0, 19))));
+            services.AddAuthorization(x => {
+                x.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAssertion(_ => true).Build();
+            });
             ConfigureServices(services);
         }
 

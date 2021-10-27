@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using BlueWaterCruises.Features.Reservations;
+﻿namespace BlueWaterCruises.Features.Customers {
 
-namespace BlueWaterCruises.Features.Customers {
-
-    public class Customer  {
+    public class CustomerWriteResource {
 
         public int Id { get; set; }
         public string Description { get; set; }
@@ -14,10 +11,6 @@ namespace BlueWaterCruises.Features.Customers {
         public string Email { get; set; }
         public bool IsActive { get; set; }
         public string UserId { get; set; }
-        
-        public AppUser User { get; set; }
-
-        public List<Reservation> Reservations { get; set; }
 
     }
 

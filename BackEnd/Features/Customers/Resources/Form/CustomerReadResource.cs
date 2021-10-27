@@ -1,7 +1,9 @@
 ﻿namespace BlueWaterCruises.Features.Customers {
 
-    public class CustomerReadResource : SimpleResource {
+    public class CustomerReadResource {
 
+        public int Id { get; set; }
+        public string Description { get; set; }
         public string Profession { get; set; }
         public string Address { get; set; }
         public string Phones { get; set; }

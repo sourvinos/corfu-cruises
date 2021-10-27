@@ -12,7 +12,7 @@ namespace BlueWaterCruises.Features.Customers {
             RuleFor(x => x.PersonInCharge).MaximumLength(128);
             RuleFor(x => x.Email).Must(BeEmptyOrValidEmailAddress).MaximumLength(128);
             RuleFor(x => x.IsActive).NotEmpty();
-            RuleFor(x => x.UserId).NotEmpty().MaximumLength(128);
+            RuleFor(x => x.UserId).NotEmpty();
         }
 
         private bool BeEmptyOrValidEmailAddress(string email) {
