@@ -11,10 +11,10 @@ namespace BlueWaterCruises.Features.Schedules {
         Boolean DayHasSchedule(DateTime date);
         Boolean DayHasScheduleForDestination(DateTime date, int destinationId);
         Boolean PortHasDepartures(DateTime date, int destinationId, int portId);
-        new Task<ScheduleReadResource> GetById(int ScheduleId);
+        new Task<ScheduleReadResource> GetById(int scheduleId);
         List<Schedule> Create(List<Schedule> entity);
         Task<Schedule> GetSingleToDelete(int id);
-        void RemoveRange(List<Schedule> schedules);
+        void DeleteRange(List<Schedule> schedules);
 
     }
 

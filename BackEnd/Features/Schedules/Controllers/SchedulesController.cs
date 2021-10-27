@@ -36,7 +36,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSchedule(int id) {
+        public async Task<IActionResult> GetById(int id) {
             ScheduleReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
@@ -121,7 +121,7 @@ namespace BlueWaterCruises.Features.Schedules {
 
         [HttpPost("range")]
         public void DeleteRangeSchedule([FromBody] List<Schedule> schedules) {
-            repo.RemoveRange(schedules);
+            repo.DeleteRange(schedules);
         }
 
     }

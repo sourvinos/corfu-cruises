@@ -59,11 +59,11 @@ namespace BlueWaterCruises.Features.Schedules {
             return schedule.Count() != 0;
         }
 
-        new public async Task<ScheduleReadResource> GetById(int ScheduleId) {
+        new public async Task<ScheduleReadResource> GetById(int scheduleId) {
             var record = await context.Set<Schedule>()
                 .Include(p => p.Port)
                 .Include(p => p.Destination)
-                .SingleOrDefaultAsync(m => m.Id == ScheduleId);
+                .SingleOrDefaultAsync(m => m.Id == scheduleId);
             return mapper.Map<Schedule, ScheduleReadResource>(record);
         }
 
@@ -79,7 +79,7 @@ namespace BlueWaterCruises.Features.Schedules {
             return record;
         }
 
-        public void RemoveRange(List<Schedule> schedules) {
+        public void DeleteRange(List<Schedule> schedules) {
             List<Schedule> idsToDelete = new List<Schedule>();
             foreach (var item in schedules) {
                 var idToDelete = context.Set<Schedule>()

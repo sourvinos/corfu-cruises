@@ -15,7 +15,11 @@ export class ScheduleService extends DataService {
 
     //#region public methods
 
-    public getForPeriod(fromDate: string, toDate: string): Promise<any> {
+    public getForList(): Observable<any> {
+        return this.http.get<any>(this.url+'/getForList')
+    }
+
+    public getForCalendar(fromDate: string, toDate: string): Promise<any> {
         return this.http.get<any>(this.url + '/getForCalendar/from/' + fromDate + '/to/' + toDate).toPromise()
     }
 
