@@ -19,7 +19,7 @@ namespace BlueWaterCruises.Features.Schedules {
             this.userManager = userManager;
         }
 
-        public async Task<IEnumerable<ScheduleListResource>> Get() {
+        public async Task<IEnumerable<ScheduleListResource>> GetForList() {
             var schedules = await context.Set<Schedule>()
                 .Include(x => x.Destination)
                 .Include(x => x.Port)
@@ -29,6 +29,13 @@ namespace BlueWaterCruises.Features.Schedules {
                 .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<Schedule>, IEnumerable<ScheduleListResource>>(schedules);
+        }
+
+        public IEnumerable<ScheduleReservationGroup> DoCalendarTasks(string fromDate, string toDate, Guid? reservationId) {
+            var schedule = this.GetScheduleForPeriod(fromDate, toDate);
+            var reservations = this.GetReservationsForPeriod(fromDate, toDate, reservationId);
+            var calendarData = this.UpdateCalendarData(this.GetScheduleForPeriod(fromDate, toDate), this.GetReservationsForPeriod(fromDate, toDate, reservationId));
+            return calendarData;
         }
 
         public Boolean DayHasSchedule(DateTime date) {
@@ -52,20 +59,6 @@ namespace BlueWaterCruises.Features.Schedules {
             return schedule.Count() != 0;
         }
 
-        public Boolean PortHasVacancy(DateTime date, int destinationId, int portId) {
-            var schedule = context.Set<Schedule>()
-                .Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId)
-                .ToList();
-            return schedule.Count() != 0;
-        }
-
-        public IEnumerable<ScheduleReservationGroup> DoCalendarTasks(string fromDate, string toDate, Guid? reservationId) {
-            var schedule = this.GetScheduleForPeriod(fromDate, toDate);
-            var reservations = this.GetReservationsForPeriod(fromDate, toDate, reservationId);
-            var calendarData = this.UpdateCalendarData(this.GetScheduleForPeriod(fromDate, toDate), this.GetReservationsForPeriod(fromDate, toDate, reservationId));
-            return calendarData;
-        }
-
         new public async Task<ScheduleReadResource> GetById(int ScheduleId) {
             var record = await context.Set<Schedule>()
                 .Include(p => p.Port)
@@ -78,6 +71,12 @@ namespace BlueWaterCruises.Features.Schedules {
             context.AddRange(entities);
             context.SaveChanges();
             return entities;
+        }
+
+        public async Task<Schedule> GetSingleToDelete(int id) {
+            var record = await context.Set<Schedule>()
+                .FirstAsync(x => x.Id == id);
+            return record;
         }
 
         public void RemoveRange(List<Schedule> schedules) {
@@ -141,10 +140,9 @@ namespace BlueWaterCruises.Features.Schedules {
                         Abbreviation = x.Key.DestinationAbbreviation,
                         Description = x.Key.DestinationDescription,
                         Empty = CalculateEmptyForAllPorts(schedule, reservations, x.Key.Date, x.Key.DestinationId),
-                        Ports = x.GroupBy(x => new { x.PortId, x.Date, x.DestinationId, x.PortAbbreviation, x.PortDescription, x.IsPortPrimary, x.MaxPersons })
+                        Ports = x.GroupBy(x => new { x.PortId, x.Date, x.DestinationId, x.PortDescription, x.IsPortPrimary, x.MaxPersons })
                         .Select(x => new PortResource {
                             Id = x.Key.PortId,
-                            Abbreviation = x.Key.PortAbbreviation,
                             Description = x.Key.PortDescription,
                             IsPrimary = x.Key.IsPortPrimary,
                             Max = x.Key.MaxPersons,
@@ -177,12 +175,6 @@ namespace BlueWaterCruises.Features.Schedules {
                     return empty;
                 }
             }
-        }
-
-        public async Task<Schedule> GetSingleToDelete(int id) {
-            var record = await context.Set<Schedule>()
-                .FirstAsync(x => x.Id == id);
-            return record;
         }
 
     }

@@ -17,7 +17,7 @@ export class DataService {
     }
 
     public getAll(): Observable<any[]> {
-        return this.http.get<any[]>(this.url)
+        return this.http.get<any[]>(this.url + '/getForList')
     }
 
     public getSingle(id: string | number): Observable<any> {

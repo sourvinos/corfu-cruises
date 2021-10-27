@@ -25,9 +25,14 @@ namespace BlueWaterCruises.Features.Schedules {
             this.mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<ScheduleListResource>> Get() {
-            return await repo.Get();
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<ScheduleListResource>> GetForList() {
+            return await repo.GetForList();
+        }
+
+        [HttpGet("[action]/from/{fromdate}/to/{todate}")]
+        public IEnumerable<ScheduleReservationGroup> GetForCalendar(string fromDate, string toDate, Guid? reservationId) {
+            return repo.DoCalendarTasks(fromDate, toDate, reservationId);
         }
 
         [HttpGet("{id}")]
@@ -40,11 +45,6 @@ namespace BlueWaterCruises.Features.Schedules {
                 });
             }
             return StatusCode(200, record);
-        }
-
-        [HttpGet("from/{fromdate}/to/{todate}")]
-        public IEnumerable<ScheduleReservationGroup> GetForPeriod(string fromDate, string toDate, Guid? reservationId) {
-            return repo.DoCalendarTasks(fromDate, toDate, reservationId);
         }
 
         [HttpGet("[action]/date/{date}")]
