@@ -134,33 +134,33 @@ namespace BlueWaterCruises.Features.Schedules {
                 .GroupBy(x => x.Date)
                 .Select(x => new ScheduleReservationGroup {
                     Date = x.Key,
-                    Destinations = x.GroupBy(x => new { x.Date, x.DestinationId, x.DestinationAbbreviation, x.DestinationDescription })
+                    Destinations = x.GroupBy(x => new { x.Date, x.DestinationId, x.DestinationDescription })
                     .Select(x => new DestinationResource {
                         Id = x.Key.DestinationId,
-                        Abbreviation = x.Key.DestinationAbbreviation,
                         Description = x.Key.DestinationDescription,
-                        Empty = CalculateEmptyForAllPorts(schedule, reservations, x.Key.Date, x.Key.DestinationId),
+                        PassengerCount = CalculatePassengerCountForDestination(reservations, x.Key.Date, x.Key.DestinationId),
+                        AvailableSeats = CalculateAvailableSeatsForAllPorts(schedule, reservations, x.Key.Date, x.Key.DestinationId),
                         Ports = x.GroupBy(x => new { x.PortId, x.Date, x.DestinationId, x.PortDescription, x.IsPortPrimary, x.MaxPersons })
                         .Select(x => new PortResource {
                             Id = x.Key.PortId,
                             Description = x.Key.PortDescription,
                             IsPrimary = x.Key.IsPortPrimary,
-                            Max = x.Key.MaxPersons,
-                            Reservations = x.Sum(x => x.Persons),
-                            Empty = CalculateEmptyForPort(schedule, x.Key.Date, x.Key.DestinationId, x.Key.MaxPersons, x.Sum(x => x.Persons), x.Key.IsPortPrimary)
+                            MaxPassengers = x.Key.MaxPersons,
+                            PassengerCount = x.Sum(x => x.Persons),
+                            AvailableSeats = CalculateAvailableSeatsForPort(schedule, x.Key.Date, x.Key.DestinationId, x.Key.MaxPersons, x.Sum(x => x.Persons), x.Key.IsPortPrimary)
                         })
                     })
                 });
             return response.ToList();
         }
 
-        private int CalculateEmptyForAllPorts(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations, string date, int destinationId) {
-            var maxPersons = schedule.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.MaxPersons);
-            var persons = reservations.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.TotalPersons);
-            return maxPersons - persons;
+        private int CalculateAvailableSeatsForAllPorts(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations, string date, int destinationId) {
+            var maxPersons = this.CalculateMaxPersons(schedule, date, destinationId);
+            var passengers = this.CalculatePassengerCountForDestination(reservations, date, destinationId);
+            return maxPersons - passengers;
         }
 
-        private int CalculateEmptyForPort(IEnumerable<ScheduleResource> schedule, string date, int destinationId, int max, int persons, bool isPortPrimary) {
+        private int CalculateAvailableSeatsForPort(IEnumerable<ScheduleResource> schedule, string date, int destinationId, int max, int persons, bool isPortPrimary) {
             if (isPortPrimary) {
                 var empty = max - persons;
                 return empty;
@@ -175,6 +175,14 @@ namespace BlueWaterCruises.Features.Schedules {
                     return empty;
                 }
             }
+        }
+
+        private int CalculatePassengerCountForDestination(IEnumerable<ReservationResource> reservations, string date, int destinationId) {
+            return reservations.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.TotalPersons);
+        }
+
+        private int CalculateMaxPersons(IEnumerable<ScheduleResource> schedule, string date, int destinationId) {
+            return schedule.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.MaxPersons);
         }
 
     }
