@@ -417,27 +417,6 @@
         ]
     },
     {
-        "feature": "reservationWrapper",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Reservations"
-            },
-            {
-                "id": "searchLabel",
-                "description": "Date"
-            },
-            {
-                "id": "searchHint",
-                "description": "Select or enter date"
-            },
-            {
-                "id": "searchButton",
-                "description": "SEARCH"
-            }
-        ]
-    },
-    {
         "feature": "userList",
         "labels": [
             {
@@ -1990,6 +1969,15 @@
             {
                 "id": "saveButton",
                 "description": "SAVE"
+            }
+        ]
+    },
+    {
+        "feature": "calendarReservations",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Reservations"
             }
         ]
     }

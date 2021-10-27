@@ -417,27 +417,6 @@
         ]
     },
     {
-        "feature": "reservationWrapper",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Reservations"
-            },
-            {
-                "id": "searchLabel",
-                "description": "Date"
-            },
-            {
-                "id": "searchHint",
-                "description": "Donnez Date"
-            },
-            {
-                "id": "searchButton",
-                "description": "RECHERCHE"
-            }
-        ]
-    },
-    {
         "feature": "userList",
         "labels": [
             {
@@ -1990,6 +1969,15 @@
             {
                 "id": "saveButton",
                 "description": "ENREGISTRER"
+            }
+        ]
+    },
+    {
+        "feature": "calendarReservations",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Reservations"
             }
         ]
     }

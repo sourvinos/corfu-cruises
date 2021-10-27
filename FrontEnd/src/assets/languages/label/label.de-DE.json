@@ -417,27 +417,6 @@
         ]
     },
     {
-        "feature": "reservationWrapper",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Reservierungen"
-            },
-            {
-                "id": "searchLabel",
-                "description": "Datum"
-            },
-            {
-                "id": "searchHint",
-                "description": "Reservierungsdatum"
-            },
-            {
-                "id": "searchButton",
-                "description": "SUCHEN"
-            }
-        ]
-    },
-    {
         "feature": "userList",
         "labels": [
             {
@@ -1990,6 +1969,15 @@
             {
                 "id": "saveButton",
                 "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "calendarReservations",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Reservierung"
             }
         ]
     }

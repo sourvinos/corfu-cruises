@@ -7,19 +7,19 @@ import { ReservationListComponent } from '../../user-interface/reservation-list/
 import { ReservationRoutingModule } from './reservation.routing.module'
 import { ReservationToDriverComponent } from './../../user-interface/reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToVesselComponent } from '../../user-interface/reservation-to-vessel/reservation-to-vessel-form.component'
-import { ReservationWrapperComponent } from '../../user-interface/reservation-wrapper/reservation-wrapper.component'
 import { SharedModule } from '../../../../shared/modules/shared.module'
 import { SummaryComponent } from '../../user-interface/reservation-list/summary-block.component'
+import { CalendarComponent } from '../../user-interface/calendar/calendar.component'
 
 @NgModule({
     declarations: [
-        ReservationToDriverComponent,
-        ReservationToVesselComponent,
-        ReservationFormComponent,
-        ReservationListComponent,
-        ReservationWrapperComponent,
+        CalendarComponent,
         PassengerFormComponent,
         PassengerListComponent,
+        ReservationFormComponent,
+        ReservationListComponent,
+        ReservationToDriverComponent,
+        ReservationToVesselComponent,
         SummaryComponent
     ],
     imports: [

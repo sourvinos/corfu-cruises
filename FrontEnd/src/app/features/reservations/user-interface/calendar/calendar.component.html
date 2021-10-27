@@ -1,0 +1,47 @@
+<div id="list">
+
+    <div id="header">
+        <div @slideFromLeft id="title">
+            <h1>{{ getLabel('header') }}</h1>
+        </div>
+        <div id="month-selector">
+            <span class="material-icons arrows" (click)="onChangeMonth(-1)">chevron_left</span>
+            <h2 id="month-and-year">{{ getMonthAndYear() }}</h2>
+            <span class="material-icons arrows" (click)="onChangeMonth(1)">chevron_right</span>
+        </div>
+    </div>
+
+    <div id="wrapper-calendar">
+        <ol id="calendar">
+            <div *ngFor="let weekDay of weekDays" class="weekday-name">{{ getWeekday(weekDay) }}</div>
+            <li class="days" [id]="days[day.value - 1].date" *ngFor="let day of monthSelect;let first = first" [ngClass]="hasDateSchedule(days[day.value - 1].date) ? 'has-schedule' : 'noSchedule'" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
+                <div class="date">
+                    <div class="day" [ngClass]="isToday(days[day.value - 1]) ? 'today' : 'notToday'">{{ day?.value }}</div>
+                    <div class="destinations">
+                        <div *ngFor="let destination of days[day.value - 1].destinations">
+                            {{ destination.description }}
+                        </div>
+                    </div>
+                </div>
+                <div class="popup" (click)="onShowReservationsForSelectedDay(days[day.value - 1].date)">
+                    <div class="day">{{ day?.value }}</div>
+                    <div class="details">
+                        <div class="destination" *ngFor="let destination of days[day.value - 1].destinations">
+                            <div class="right">
+                                <div class="destination-description">
+                                    {{ destination.description }}
+                                    <div class="destination-count">{{ destination.passengerCount }}</div>
+                                </div>
+                                <div class="ports" *ngFor="let port of destination.ports">
+                                    <div>{{ port.description }}</div>
+                                    <div class="passenger-count">{{ port.passengerCount }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </div>
+
+</div>

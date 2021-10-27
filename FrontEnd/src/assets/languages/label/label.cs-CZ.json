@@ -417,27 +417,6 @@
         ]
     },
     {
-        "feature": "reservationWrapper",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Rezervace"
-            },
-            {
-                "id": "searchLabel",
-                "description": "Datum"
-            },
-            {
-                "id": "searchHint",
-                "description": "Vyplňte nebo vyberte datum"
-            },
-            {
-                "id": "searchButton",
-                "description": "VYHLEDÁVÁNÍ"
-            }
-        ]
-    },
-    {
         "feature": "userList",
         "labels": [
             {
@@ -1990,6 +1969,15 @@
             {
                 "id": "saveButton",
                 "description": "ULOŽIT"
+            }
+        ]
+    },
+    {
+        "feature": "calendarReservations",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Rezervace"
             }
         ]
     }

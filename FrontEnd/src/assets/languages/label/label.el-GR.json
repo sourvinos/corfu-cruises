@@ -417,27 +417,6 @@
         ]
     },
     {
-        "feature": "reservationWrapper",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Κρατήσεις"
-            },
-            {
-                "id": "searchLabel",
-                "description": "Ημερομηνία"
-            },
-            {
-                "id": "searchHint",
-                "description": "Δώστε Ημερ/νία"
-            },
-            {
-                "id": "searchButton",
-                "description": "ΑΝΑΖΗΤΗΣΗ"
-            }
-        ]
-    },
-    {
         "feature": "userList",
         "labels": [
             {
@@ -1990,6 +1969,15 @@
             {
                 "id": "saveButton",
                 "description": "ΑΠΟΘΗΚΕΥΣΗ"
+            }
+        ]
+    },
+    {
+        "feature": "calendarReservations",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Κρατήσεις"
             }
         ]
     }
