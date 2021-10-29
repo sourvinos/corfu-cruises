@@ -22,7 +22,6 @@ namespace BlueWaterCruises.Features.Customers {
             this.repo = repo;
             this.logger = logger;
             this.mapper = mapper;
-
         }
 
         [HttpGet]
