@@ -61,14 +61,14 @@ namespace BlueWaterCruises {
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext context) {
+            app.UseDefaultFiles();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseDefaultFiles();
             app.UseRouting();
             app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints => { endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}"); });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
     }
