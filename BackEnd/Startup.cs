@@ -16,9 +16,11 @@ namespace BlueWaterCruises {
     public class Startup {
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
 
-        public Startup(IConfiguration configuration) {
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment) {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public void ConfigureDevelopmentServices(IServiceCollection services) {
@@ -35,7 +37,7 @@ namespace BlueWaterCruises {
             // Extensions
             Cors.AddCors(services);
             Identity.AddIdentity(services);
-            Authentication.AddAuthentication(Configuration, services);
+            Authentication.AddAuthentication(Configuration, services, Environment);
             Interfaces.AddInterfaces(services);
             ModelValidations.AddModelValidation(services);
             // Base
