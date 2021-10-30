@@ -1,6 +1,7 @@
 using System;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -55,11 +56,13 @@ namespace BlueWaterCruises {
         public void ConfigureDevelopment(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext context, ILogger<Startup> logger) {
             app.UseDeveloperExceptionPage();
             Configure(app, env, userManager, roleManager, context);
+            app.UseEndpoints(endpoints => { endpoints.MapControllers().WithMetadata(new AllowAnonymousAttribute()); });
         }
 
         public void ConfigureProduction(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext context, ILogger<Startup> logger) {
             app.UseHsts();
             Configure(app, env, userManager, roleManager, context);
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext context) {
@@ -70,7 +73,6 @@ namespace BlueWaterCruises {
             app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
     }

@@ -37,13 +37,6 @@ namespace BlueWaterCruises {
                 })
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
                     configuration.Bind("CookieSettings", options));
-            services.AddAuthorization(options => {
-                if (environment.EnvironmentName == "Development") {
-                    options.DefaultPolicy = new AuthorizationPolicyBuilder()
-                        .RequireAssertion(_ => true)
-                        .Build();
-                }
-            });
         }
 
     }

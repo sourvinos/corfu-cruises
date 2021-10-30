@@ -25,16 +25,19 @@ namespace BlueWaterCruises.Features.Customers {
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<CustomerListResource>> Get() {
             return await repo.Get();
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "user")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "user")]
         public async Task<IActionResult> GetCustomer(int id) {
             var record = await repo.GetById(id);
             if (record == null) {
@@ -47,7 +50,7 @@ namespace BlueWaterCruises.Features.Customers {
         }
 
         [HttpPost]
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult PostCustomer([FromBody] CustomerWriteResource record) {
             if (ModelState.IsValid) {
                 try {
@@ -69,7 +72,7 @@ namespace BlueWaterCruises.Features.Customers {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult PutCustomer([FromRoute] int id, [FromBody] Customer record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -91,7 +94,7 @@ namespace BlueWaterCruises.Features.Customers {
         }
 
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteCustomer([FromRoute] int id) {
             Customer record = await repo.GetByIdToDelete(id);
             if (record == null) {
