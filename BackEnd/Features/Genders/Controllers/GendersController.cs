@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,32 +9,37 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Genders {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class GendersController : ControllerBase {
 
         private readonly IGenderRepository repo;
         private readonly ILogger<GendersController> logger;
+        private readonly IMapper mapper;
 
-        public GendersController(IGenderRepository repo, ILogger<GendersController> logger) {
+        public GendersController(IGenderRepository repo, ILogger<GendersController> logger, IMapper mapper) {
             this.repo = repo;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Gender>> Get() {
-            return await repo.Get(x => x.Id != 1);
+        [Authorize(Roles = "admin")]
+        public async Task<IEnumerable<GenderListResource>> Get() {
+            return await repo.Get();
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetGender(int id) {
-            Gender record = await repo.GetById(id);
+            GenderReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -44,11 +50,11 @@ namespace BlueWaterCruises.Features.Genders {
         }
 
         [HttpPost]
-        // [Authorize(Roles = "admin")]
-        public IActionResult PostGender([FromBody] Gender record) {
+        [Authorize(Roles = "admin")]
+        public IActionResult PostGender([FromBody] GenderWriteResource record) {
             if (ModelState.IsValid) {
                 try {
-                    repo.Create(record);
+                    repo.Create(mapper.Map<GenderWriteResource, Gender>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordCreated()
                     });
@@ -66,11 +72,11 @@ namespace BlueWaterCruises.Features.Genders {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "admin")]
-        public IActionResult PutGender([FromRoute] int id, [FromBody] Gender record) {
+        [Authorize(Roles = "admin")]
+        public IActionResult PutGender([FromRoute] int id, [FromBody] GenderWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
-                    repo.Update(record);
+                    repo.Update(mapper.Map<GenderWriteResource, Gender>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });
@@ -88,9 +94,9 @@ namespace BlueWaterCruises.Features.Genders {
         }
 
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteGender([FromRoute] int id) {
-            Gender record = await repo.GetById(id);
+            Gender record = await repo.GetByIdToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {

@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace BlueWaterCruises.Features.Genders {
 
-    public class GenderValidator : AbstractValidator<Gender> {
+    public class GenderValidator : AbstractValidator<GenderWriteResource> {
 
         public GenderValidator() {
             RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(128);
