@@ -31,13 +31,13 @@ namespace BlueWaterCruises.Features.Customers {
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "user")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetCustomer(int id) {
             var record = await repo.GetById(id);
             if (record == null) {
@@ -73,10 +73,10 @@ namespace BlueWaterCruises.Features.Customers {
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public IActionResult PutCustomer([FromRoute] int id, [FromBody] Customer record) {
+        public IActionResult PutCustomer([FromRoute] int id, [FromBody] CustomerWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
-                    repo.Update(record);
+                    repo.Update(mapper.Map<CustomerWriteResource, Customer>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });

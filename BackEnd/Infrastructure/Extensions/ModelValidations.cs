@@ -19,7 +19,7 @@ namespace BlueWaterCruises {
 
         public static void AddModelValidation(IServiceCollection services) {
             services.AddTransient<IValidator<Crew>, CrewValidator>();
-            services.AddTransient<IValidator<Customer>, CustomerValidator>();
+            services.AddTransient<IValidator<CustomerWriteResource>, CustomerValidator>();
             services.AddTransient<IValidator<Destination>, DestinationValidator>();
             services.AddTransient<IValidator<Driver>, DriverValidator>();
             services.AddTransient<IValidator<Gender>, GenderValidator>();
