@@ -10,7 +10,6 @@ namespace BlueWaterCruises.Features.Genders {
         new Task<GenderReadResource> GetById(int id);
         Task<Gender> GetByIdToDelete(int id);
 
-
     }
 
 }
