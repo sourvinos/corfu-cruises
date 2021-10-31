@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BlueWaterCruises.Features.Drivers;
 
 namespace BlueWaterCruises.Features.Drivers {
 
-    public interface IDriverRepository : IRepository<Driver> { 
+    public interface IDriverRepository : IRepository<Driver> {
 
+        Task<IEnumerable<DriverListResource>> Get();
         Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
-        Task<int> GetDefault();
-        
+        new Task<DriverReadResource> GetById(int id);
+        Task<Driver> GetByIdToDelete(int id);
+
     }
 
 }
