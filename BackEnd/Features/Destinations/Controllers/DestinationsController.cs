@@ -39,7 +39,7 @@ namespace BlueWaterCruises.Features.Destinations {
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetDestination(int id) {
-            var record = await repo.GetById(id);
+            DestinationReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
