@@ -15,7 +15,7 @@ namespace BlueWaterCruises.Features.Drivers {
         }
 
         public async Task<IEnumerable<DriverListResource>> Get() {
-            var records = await context.Drivers
+            List<Driver> records = await context.Drivers
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
@@ -23,7 +23,7 @@ namespace BlueWaterCruises.Features.Drivers {
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            var records = await context.Drivers
+            List<Driver> records = await context.Drivers
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
@@ -32,7 +32,7 @@ namespace BlueWaterCruises.Features.Drivers {
         }
 
         public new async Task<DriverReadResource> GetById(int id) {
-            var record = await context.Drivers
+            Driver record = await context.Drivers
                 .SingleOrDefaultAsync(x => x.Id == id);
             return mapper.Map<Driver, DriverReadResource>(record);
         }
@@ -40,13 +40,6 @@ namespace BlueWaterCruises.Features.Drivers {
         public async Task<Driver> GetByIdToDelete(int id) {
             return await context.Drivers
                 .SingleOrDefaultAsync(x => x.Id == id);
-        }
-
-        public async Task<int> GetDefault() {
-            var record = await context.Drivers
-                .Where(x => x.Id == 1)
-                .SingleAsync();
-            return record.Id;
         }
 
     }

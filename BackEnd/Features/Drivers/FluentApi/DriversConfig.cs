@@ -1,8 +1,7 @@
-using BlueWaterCruises.Features.Drivers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlueWaterCruises.FluentApi {
+namespace BlueWaterCruises.Features.Drivers {
 
     internal class DriversConfig : IEntityTypeConfiguration<Driver> {
 
