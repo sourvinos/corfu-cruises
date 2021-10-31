@@ -8,7 +8,7 @@ namespace BlueWaterCruises.Features.Destinations {
             RuleFor(x => x.Abbreviation).NotNull().NotEmpty().MaximumLength(5);
             RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(128);
             RuleFor(x => x.IsActive).NotNull();
-            RuleFor(x => x.UserId).NotNull().NotEmpty().MaximumLength(128);
+            RuleFor(x => x.UserId).NotNull();
         }
 
     }

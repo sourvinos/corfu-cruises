@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,32 +9,37 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Destinations {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class DestinationsController : ControllerBase {
 
         private readonly IDestinationRepository repo;
         private readonly ILogger<DestinationsController> logger;
+        private readonly IMapper mapper;
 
-        public DestinationsController(IDestinationRepository repo, ILogger<DestinationsController> logger) {
+        public DestinationsController(IDestinationRepository repo, ILogger<DestinationsController> logger, IMapper mapper) {
             this.repo = repo;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Destination>> Get() {
-            return await repo.Get(x => x.Id != 0);
+        [Authorize(Roles = "admin")]
+        public async Task<IEnumerable<DestinationListResource>> Get() {
+            return await repo.Get();
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetDestination(int id) {
-            Destination record = await repo.GetById(id);
+            var record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -44,11 +50,11 @@ namespace BlueWaterCruises.Features.Destinations {
         }
 
         [HttpPost]
-        // [Authorize(Roles = "admin")]
-        public IActionResult PostDestination([FromBody] Destination record) {
+        [Authorize(Roles = "admin")]
+        public IActionResult PostDestination([FromBody] DestinationWriteResource record) {
             if (ModelState.IsValid) {
                 try {
-                    repo.Create(record);
+                    repo.Create(mapper.Map<DestinationWriteResource, Destination>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordCreated()
                     });
@@ -66,11 +72,11 @@ namespace BlueWaterCruises.Features.Destinations {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "admin")]
-        public IActionResult PutDestinationAsync([FromRoute] int id, [FromBody] Destination record) {
+        [Authorize(Roles = "admin")]
+        public IActionResult PutDestination([FromRoute] int id, [FromBody] DestinationWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
-                    repo.Update(record);
+                    repo.Update(mapper.Map<DestinationWriteResource, Destination>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });
@@ -87,10 +93,10 @@ namespace BlueWaterCruises.Features.Destinations {
             });
         }
 
-        // [HttpDelete("{id}")]
+        [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteDestination([FromRoute] int id) {
-            Destination record = await repo.GetById(id);
+            Destination record = await repo.GetByIdToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
