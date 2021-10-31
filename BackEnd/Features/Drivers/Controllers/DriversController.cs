@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,44 +9,37 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Drivers {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class DriversController : ControllerBase {
 
         private readonly IDriverRepository repo;
         private readonly ILogger<DriversController> logger;
+        private readonly IMapper mapper;
 
-        public DriversController(IDriverRepository repo, ILogger<DriversController> logger) {
+        public DriversController(IDriverRepository repo, ILogger<DriversController> logger, IMapper mapper) {
             this.repo = repo;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Driver>> Get() {
-            return await repo.Get(x => x.Id > 1);
+        [Authorize(Roles = "admin")]
+        public async Task<IEnumerable<DriverListResource>> Get() {
+            return await repo.Get();
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetDefault() {
-            int id = await repo.GetDefault();
-            if (id == 0) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
-                return StatusCode(404, new {
-                    response = ApiMessages.RecordNotFound()
-                });
-            }
-            return StatusCode(200, id);
-        }
-
-        [HttpGet("[action]")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetDriver(int id) {
-            Driver record = await repo.GetById(id);
+            DriverReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -56,11 +50,11 @@ namespace BlueWaterCruises.Features.Drivers {
         }
 
         [HttpPost]
-        // [Authorize(Roles = "admin")]
-        public IActionResult PostDriver([FromBody] Driver record) {
+        [Authorize(Roles = "admin")]
+        public IActionResult PostDriver([FromBody] DriverWriteResource record) {
             if (ModelState.IsValid) {
                 try {
-                    repo.Create(record);
+                    repo.Create(mapper.Map<DriverWriteResource, Driver>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordCreated()
                     });
@@ -78,11 +72,11 @@ namespace BlueWaterCruises.Features.Drivers {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "admin")]
-        public IActionResult PutDriver([FromRoute] int id, [FromBody] Driver record) {
+        [Authorize(Roles = "admin")]
+        public IActionResult PutDriver([FromRoute] int id, [FromBody] DriverWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
-                    repo.Update(record);
+                    repo.Update(mapper.Map<DriverWriteResource, Driver>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });
@@ -100,9 +94,9 @@ namespace BlueWaterCruises.Features.Drivers {
         }
 
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteDriver([FromRoute] int id) {
-            Driver record = await repo.GetById(id);
+            Driver record = await repo.GetByIdToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
