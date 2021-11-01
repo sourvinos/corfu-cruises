@@ -1,8 +1,7 @@
-using BlueWaterCruises.Features.Occupants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlueWaterCruises.FluentApi {
+namespace BlueWaterCruises.Features.Occupants {
 
     internal class OccupantsConfig : IEntityTypeConfiguration<Occupant> {
 
@@ -12,7 +11,7 @@ namespace BlueWaterCruises.FluentApi {
             // Fields
             entity.Property(x => x.Description).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.IsActive).IsRequired(true);
-            entity.Property(x => x.UserId).HasMaxLength(36).IsRequired(true);
+            entity.Property(x => x.UserId).IsRequired(true);
             // FK Constraints
             entity.HasOne(x => x.User).WithMany(x => x.Occupants).HasForeignKey(x => x.UserId).IsRequired().OnDelete(DeleteBehavior.Restrict);
         }

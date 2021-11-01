@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,25 +16,30 @@ namespace BlueWaterCruises.Features.Occupants {
 
         private readonly IOccupantRepository repo;
         private readonly ILogger<OccupantsController> logger;
+        private readonly IMapper mapper;
 
-        public OccupantsController(IOccupantRepository repo, ILogger<OccupantsController> logger) {
+        public OccupantsController(IOccupantRepository repo, ILogger<OccupantsController> logger, IMapper mapper) {
             this.repo = repo;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Occupant>> Get() {
-            return await repo.Get(x => x.Id != 1);
+        [Authorize(Roles = "admin")]
+        public async Task<IEnumerable<OccupantListResource>> Get() {
+            return await repo.Get();
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<Occupant>> GetActive() {
-            return await repo.GetActive(x => x.IsActive);
+        [Authorize(Roles = "user, admin")]
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+            return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetOccupant(int id) {
-            Occupant record = await repo.GetById(id);
+            OccupantReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -45,10 +51,10 @@ namespace BlueWaterCruises.Features.Occupants {
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public IActionResult PostOccupant([FromBody] Occupant record) {
+        public IActionResult PostOccupant([FromBody] OccupantWriteResource record) {
             if (ModelState.IsValid) {
                 try {
-                    repo.Create(record);
+                    repo.Create(mapper.Map<OccupantWriteResource, Occupant>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordCreated()
                     });
@@ -67,10 +73,10 @@ namespace BlueWaterCruises.Features.Occupants {
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public IActionResult PutOccupant([FromRoute] int id, [FromBody] Occupant record) {
+        public IActionResult PutOccupant([FromRoute] int id, [FromBody] OccupantWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
-                    repo.Update(record);
+                    repo.Update(mapper.Map<OccupantWriteResource, Occupant>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });
@@ -90,7 +96,7 @@ namespace BlueWaterCruises.Features.Occupants {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteOccupant([FromRoute] int id) {
-            Occupant record = await repo.GetById(id);
+            Occupant record = await repo.GetByIdToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
