@@ -102,9 +102,10 @@ namespace BlueWaterCruises {
             var sb = new StringBuilder();
             sb.AppendLine();
             sb.Append("\t");
-            sb.Append("Error: " + exception.InnerException.Message);
+            sb.Append("Error: " + GrabDatabaseError(exception));
             return sb.ToString();
         }
+
         private static String GetIOError(Exception exception) {
             var sb = new StringBuilder();
             sb.AppendLine();
@@ -167,6 +168,15 @@ namespace BlueWaterCruises {
             logger.LogInformation("{caller} {record}",
                 GetControllerAndActionName(context),
                 GetObjectProperties(record));
+        }
+
+        private static string GrabDatabaseError(Exception exception) {
+            if (exception.InnerException != null) {
+                return exception.InnerException.Message;
+            } else {
+                return exception.Message;
+            }
+
         }
 
         #endregion

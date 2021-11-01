@@ -14,12 +14,32 @@ namespace BlueWaterCruises.Features.Nationalities {
             this.mapper = mapper;
         }
 
+        public async Task<IEnumerable<NationalityListResource>> Get() {
+            List<Nationality> records = await context.Nationalities
+                .OrderBy(x => x.Description)
+                .AsNoTracking()
+                .ToListAsync();
+            return mapper.Map<IEnumerable<Nationality>, IEnumerable<NationalityListResource>>(records);
+        }
+
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            var records = await context.Set<Nationality>()
+            List<Nationality> records = await context.Nationalities
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
+                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<Nationality>, IEnumerable<SimpleResource>>(records);
+        }
+
+        public new async Task<NationalityReadResource> GetById(int id) {
+            Nationality record = await context.Nationalities
+                .SingleOrDefaultAsync(m => m.Id == id);
+            return mapper.Map<Nationality, NationalityReadResource>(record);
+        }
+
+        public async Task<Nationality> GetByIdToDelete(int id) {
+            return await context.Nationalities
+                .SingleOrDefaultAsync(m => m.Id == id);
         }
 
     }

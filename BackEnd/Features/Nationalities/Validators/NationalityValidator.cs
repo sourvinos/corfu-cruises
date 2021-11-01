@@ -2,13 +2,13 @@ using FluentValidation;
 
 namespace BlueWaterCruises.Features.Nationalities {
 
-    public class NationalityValidator : AbstractValidator<Nationality> {
+    public class NationalityValidator : AbstractValidator<NationalityWriteResource> {
 
         public NationalityValidator() {
-            RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(128);
-            RuleFor(x => x.Code).NotNull().NotEmpty().MaximumLength(6);
+            RuleFor(x => x.Code).NotEmpty().MaximumLength(10);
+            RuleFor(x => x.Description).NotEmpty().MaximumLength(128);
             RuleFor(x => x.IsActive).NotNull();
-            RuleFor(x => x.UserId).NotNull().NotEmpty().MaximumLength(128);
+            RuleFor(x => x.UserId).NotNull();
         }
 
     }

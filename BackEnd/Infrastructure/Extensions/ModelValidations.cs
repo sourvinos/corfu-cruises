@@ -23,7 +23,7 @@ namespace BlueWaterCruises {
             services.AddTransient<IValidator<DestinationWriteResource>, DestinationValidator>();
             services.AddTransient<IValidator<DriverWriteResource>, DriverValidator>();
             services.AddTransient<IValidator<GenderWriteResource>, GenderValidator>();
-            services.AddTransient<IValidator<Nationality>, NationalityValidator>();
+            services.AddTransient<IValidator<NationalityWriteResource>, NationalityValidator>();
             services.AddTransient<IValidator<Occupant>, OccupantValidator>();
             services.AddTransient<IValidator<PickupPoint>, PickupPointValidator>();
             services.AddTransient<IValidator<Port>, PortValidator>();

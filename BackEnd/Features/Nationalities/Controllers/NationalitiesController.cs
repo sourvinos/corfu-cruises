@@ -9,32 +9,37 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Nationalities {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class NationalitiesController : ControllerBase {
 
         private readonly INationalityRepository repo;
         private readonly ILogger<NationalitiesController> logger;
+        private readonly IMapper mapper;
 
-        public NationalitiesController(INationalityRepository repo, ILogger<NationalitiesController> logger) {
+        public NationalitiesController(INationalityRepository repo, ILogger<NationalitiesController> logger, IMapper mapper) {
             this.repo = repo;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Nationality>> Get() {
-            return await repo.Get(x => x.Id != 1);
+        [Authorize(Roles = "admin")]
+        public async Task<IEnumerable<NationalityListResource>> Get() {
+            return await repo.Get();
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetNationality(int id) {
-            Nationality record = await repo.GetById(id);
+            NationalityReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -46,10 +51,10 @@ namespace BlueWaterCruises.Features.Nationalities {
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public IActionResult PostNationality([FromBody] Nationality record) {
+        public IActionResult PostNationality([FromBody] NationalityWriteResource record) {
             if (ModelState.IsValid) {
                 try {
-                    repo.Create(record);
+                    repo.Create(mapper.Map<NationalityWriteResource, Nationality>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordCreated()
                     });
@@ -68,15 +73,15 @@ namespace BlueWaterCruises.Features.Nationalities {
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public IActionResult PutNationality([FromRoute] int id, [FromBody] Nationality record) {
+        public IActionResult PutNationality([FromRoute] int id, [FromBody] NationalityWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
-                    repo.Update(record);
+                    repo.Update(mapper.Map<NationalityWriteResource, Nationality>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });
                 } catch (DbUpdateException exception) {
-                    LoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
+                    LoggerExtensions.LogException(id, logger, ControllerContext, record, exception);
                     return StatusCode(490, new {
                         response = ApiMessages.RecordNotSaved()
                     });
@@ -91,7 +96,7 @@ namespace BlueWaterCruises.Features.Nationalities {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteNationality([FromRoute] int id) {
-            Nationality record = await repo.GetById(id);
+            Nationality record = await repo.GetByIdToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
