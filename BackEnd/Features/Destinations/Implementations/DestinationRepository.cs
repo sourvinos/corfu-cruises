@@ -15,7 +15,7 @@ namespace BlueWaterCruises.Features.Destinations {
         }
 
         public async Task<IEnumerable<DestinationListResource>> Get() {
-            var records = await context.Destinations
+            List<Destination> records = await context.Destinations
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
@@ -23,7 +23,7 @@ namespace BlueWaterCruises.Features.Destinations {
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            var records = await context.Destinations
+            List<Destination> records = await context.Destinations
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
@@ -32,7 +32,7 @@ namespace BlueWaterCruises.Features.Destinations {
         }
 
         public new async Task<DestinationReadResource> GetById(int id) {
-            var record = await context.Destinations
+            Destination record = await context.Destinations
                 .SingleOrDefaultAsync(x => x.Id == id);
             return mapper.Map<Destination, DestinationReadResource>(record);
         }
