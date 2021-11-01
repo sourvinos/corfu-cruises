@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +21,11 @@ namespace BlueWaterCruises {
         public Startup(IConfiguration configuration, IWebHostEnvironment environment) {
             Configuration = configuration;
             Environment = environment;
+        }
+
+        public void ConfigureTestingServices(IServiceCollection services) {
+            services.AddDbContextFactory<AppDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+            ConfigureServices(services);
         }
 
         public void ConfigureDevelopmentServices(IServiceCollection services) {
@@ -52,6 +58,12 @@ namespace BlueWaterCruises {
             services.Configure<CookiePolicyOptions>(options => { options.CheckConsentNeeded = context => true; options.MinimumSameSitePolicy = SameSiteMode.None; });
             services.Configure<EmailSettings>(options => Configuration.GetSection("ShipCruises").Bind(options));
             services.Configure<TokenSettings>(options => Configuration.GetSection("TokenSettings").Bind(options));
+        }
+
+        public void ConfigureTesting(IApplicationBuilder app, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager, AppDbContext context) {
+            Configure(app);
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            SeedDatabaseMaster.SeedDatabase(roleManager, userManager, context);
         }
 
         public void ConfigureDevelopment(IApplicationBuilder app) {
