@@ -2,7 +2,7 @@ using BlueWaterCruises.Features.Routes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlueWaterCruises.FluentApi {
+namespace BlueWaterCruises.Features.Routes {
 
     internal class RoutesConfig : IEntityTypeConfiguration<Route> {
 
@@ -15,7 +15,7 @@ namespace BlueWaterCruises.FluentApi {
             entity.Property(x => x.Abbreviation).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.IsTransfer).IsRequired(true);
             entity.Property(x => x.IsActive).IsRequired(true);
-            entity.Property(x => x.UserId).HasMaxLength(36).IsRequired(true);
+            entity.Property(x => x.UserId).IsRequired(true);
             // FK Constraints
             entity.HasOne(x => x.User).WithMany(x => x.Routes).HasForeignKey(x => x.UserId).IsRequired().OnDelete(DeleteBehavior.Restrict);
         }

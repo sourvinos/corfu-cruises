@@ -29,7 +29,7 @@ namespace BlueWaterCruises {
             services.AddTransient<IValidator<PortWriteResource>, PortValidator>();
             services.AddTransient<IValidator<RegisterViewModel>, RegisterValidator>();
             services.AddTransient<IValidator<Reservation>, ReservationValidator>();
-            services.AddTransient<IValidator<Route>, RouteValidator>();
+            services.AddTransient<IValidator<RouteWriteResource>, RouteValidator>();
             services.AddTransient<IValidator<Schedule>, ScheduleValidator>();
             services.AddTransient<IValidator<Ship>, ShipValidator>();
         }
