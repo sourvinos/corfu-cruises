@@ -1,17 +1,22 @@
+using System.Text.RegularExpressions;
 using FluentValidation;
 
 namespace BlueWaterCruises.Features.PickupPoints {
 
-    public class PickupPointValidator : AbstractValidator<PickupPoint> {
+    public class PickupPointValidator : AbstractValidator<PickupPointWriteResource> {
 
         public PickupPointValidator() {
-            RuleFor(x => x.RouteId).NotNull().NotEmpty();
-            RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(128);
-            RuleFor(x => x.ExactPoint).NotNull().NotEmpty().MaximumLength(128);
-            RuleFor(x => x.Time).NotNull().NotEmpty().MaximumLength(5);
-            RuleFor(x => x.Coordinates).NotNull().NotEmpty().MaximumLength(128);
+            RuleFor(x => x.RouteId).NotEmpty();
+            RuleFor(x => x.Description).NotEmpty().MaximumLength(128);
+            RuleFor(x => x.ExactPoint).NotEmpty().MaximumLength(128);
+            RuleFor(x => x.Time).Must(IsTime);
+            RuleFor(x => x.Coordinates).NotEmpty().MaximumLength(128);
             RuleFor(x => x.IsActive).NotNull();
-            RuleFor(x => x.UserId).NotNull().NotEmpty().MaximumLength(128);
+            RuleFor(x => x.UserId).NotNull();
+        }
+
+        private bool IsTime(string time) {
+            return new Regex(@"^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$").IsMatch(time);
         }
 
     }

@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.PickupPoints {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class PickupPointsController : ControllerBase {
@@ -26,17 +26,20 @@ namespace BlueWaterCruises.Features.PickupPoints {
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<PickupPointListResource>> Get() {
             return await repo.Get();
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<PickupPointWithPortDropdownResource>> GetActiveWithPortForDropdown() {
             return await repo.GetActiveWithPortForDropdown();
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id) {
+        [Authorize(Roles = "user, admin")]
+        public async Task<IActionResult> GetPickupPoint(int id) {
             PickupPointReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
@@ -48,7 +51,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
         }
 
         [HttpPost]
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult PostPickupPoint([FromBody] PickupPointWriteResource record) {
             if (ModelState.IsValid) {
                 try {
@@ -70,12 +73,11 @@ namespace BlueWaterCruises.Features.PickupPoints {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult PutPickupPoint([FromRoute] int id, [FromBody] PickupPointWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
-                    var pickupPoint = mapper.Map<PickupPointWriteResource, PickupPoint>(record);
-                    repo.Update(pickupPoint);
+                    repo.Update(mapper.Map<PickupPointWriteResource, PickupPoint>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });
@@ -92,22 +94,22 @@ namespace BlueWaterCruises.Features.PickupPoints {
             });
         }
 
-        [HttpPatch("{pickupPointId}")]
-        // [Authorize(Roles = "admin")]
-        public async Task<IActionResult> PatchPickupPoint([FromQuery(Name="pickupPointId")] int pickupPointId, [FromQuery(Name = "coordinates")] string coordinates) {
-            PickupPointReadResource record = await repo.GetById(pickupPointId);
+        [HttpPatch("{id}")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> PatchPickupPoint([FromQuery(Name = "id")] int id, [FromQuery(Name = "coordinates")] string coordinates) {
+            PickupPointReadResource record = await repo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(pickupPointId, logger, ControllerContext, null, null);
+                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
             }
-            if (pickupPointId == record.Id && ModelState.IsValid) {
+            if (id == record.Id && ModelState.IsValid) {
                 try {
-                    repo.UpdateCoordinates(pickupPointId, coordinates);
+                    repo.UpdateCoordinates(id, coordinates);
                     return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
                 } catch (DbUpdateException exception) {
-                    LoggerExtensions.LogException(pickupPointId, logger, ControllerContext, null, exception);
+                    LoggerExtensions.LogException(id, logger, ControllerContext, null, exception);
                     return StatusCode(490, new {
                         response = ApiMessages.RecordNotSaved()
                     });
@@ -120,7 +122,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
         }
 
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeletePickupPoint([FromRoute] int id) {
             PickupPoint record = await repo.GetByIdToDelete(id);
             if (record == null) {

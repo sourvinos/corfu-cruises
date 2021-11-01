@@ -16,20 +16,20 @@ namespace BlueWaterCruises.Features.PickupPoints {
         }
 
         public async Task<IEnumerable<PickupPointListResource>> Get() {
-            var pickupPoints = await context.Set<PickupPoint>()
+            List<PickupPoint> pickupPoints = await context.Set<PickupPoint>()
                 .Include(x => x.Route)
-                .OrderBy(o => o.Route.Abbreviation)
-                    .ThenBy(o => o.Time)
-                        .ThenBy(o => o.Description)
+                .OrderBy(x => x.Route.Abbreviation)
+                    .ThenBy(x => x.Time)
+                        .ThenBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointListResource>>(pickupPoints);
         }
 
         public async Task<IEnumerable<PickupPointWithPortDropdownResource>> GetActiveWithPortForDropdown() {
-            var pickupPoints = await context.Set<PickupPoint>()
+            List<PickupPoint> pickupPoints = await context.Set<PickupPoint>()
                 .Include(x => x.Route)
-                    .ThenInclude(y => y.Port)
+                    .ThenInclude(x => x.Port)
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Time)
                     .ThenBy(x => x.Description)
@@ -38,22 +38,22 @@ namespace BlueWaterCruises.Features.PickupPoints {
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointWithPortDropdownResource>>(pickupPoints);
         }
 
-        public new async Task<PickupPointReadResource> GetById(int pickupPointId) {
-            var pickupPoint = await context.Set<PickupPoint>()
+        public new async Task<PickupPointReadResource> GetById(int id) {
+            PickupPoint pickupPoint = await context.Set<PickupPoint>()
                 .Include(x => x.Route)
-                .SingleOrDefaultAsync(m => m.Id == pickupPointId);
+                .SingleOrDefaultAsync(x => x.Id == id);
             return mapper.Map<PickupPoint, PickupPointReadResource>(pickupPoint);
         }
 
-        public async Task<PickupPoint> GetByIdToDelete(int pickupPointId) {
+        public async Task<PickupPoint> GetByIdToDelete(int id) {
             return await context.Set<PickupPoint>()
-                .SingleOrDefaultAsync(m => m.Id == pickupPointId);
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public void UpdateCoordinates(int pickupPointId, string coordinates) {
-            var pickupPoints = context.Set<PickupPoint>()
-                .Where(x => x.Id == pickupPointId).ToList();
-            pickupPoints.ForEach(a => a.Coordinates = coordinates);
+        public void UpdateCoordinates(int id, string coordinates) {
+            List<PickupPoint> pickupPoints = context.Set<PickupPoint>()
+                .Where(x => x.Id == id).ToList();
+            pickupPoints.ForEach(x => x.Coordinates = coordinates);
             context.SaveChanges();
         }
 
