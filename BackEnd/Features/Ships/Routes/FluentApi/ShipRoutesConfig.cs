@@ -1,8 +1,7 @@
-using BlueWaterCruises.Features.ShipRoutes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlueWaterCruises.FluentApi {
+namespace BlueWaterCruises.Features.ShipRoutes {
 
     internal class ShipRoutesConfig : IEntityTypeConfiguration<ShipRoute> {
 
@@ -18,7 +17,7 @@ namespace BlueWaterCruises.FluentApi {
             entity.Property(x => x.ToPort).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.ToTime).HasMaxLength(5).IsRequired(true);
             entity.Property(x => x.IsActive).IsRequired(true);
-            entity.Property(x => x.UserId).HasMaxLength(36).IsRequired(true);
+            entity.Property(x => x.UserId).IsRequired(true);
             // FK Constraints
             entity.HasOne(x => x.User).WithMany(x => x.ShipRoutes).HasForeignKey(x => x.UserId).IsRequired().OnDelete(DeleteBehavior.Restrict);
         }

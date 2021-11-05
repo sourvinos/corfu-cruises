@@ -15,17 +15,32 @@ namespace BlueWaterCruises.Features.ShipRoutes {
         }
 
         public async Task<IEnumerable<ShipRouteListResource>> Get() {
-            var shiproutes = await context.Set<ShipRoute>()
+            List<ShipRoute> records = await context.ShipRoutes
+                .OrderBy(x => x.FromTime)
+                    .ThenBy(x => x.ViaTime)
+                        .ThenBy(x => x.ToTime)
+                .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<ShipRouteListResource>>(shiproutes);
+            return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<ShipRouteListResource>>(records);
         }
 
-         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            var records = await context.Set<ShipRoute>()
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+            List<ShipRoute> records = await context.ShipRoutes
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .ToListAsync();
             return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<SimpleResource>>(records);
+        }
+
+        public new async Task<ShipRouteReadResource> GetById(int id) {
+            ShipRoute record = await context.ShipRoutes
+                .SingleOrDefaultAsync(x => x.Id == id);
+            return mapper.Map<ShipRoute, ShipRouteReadResource>(record);
+        }
+
+        public async Task<ShipRoute> GetByIdToDelete(int id) {
+            return await context.ShipRoutes
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
     }

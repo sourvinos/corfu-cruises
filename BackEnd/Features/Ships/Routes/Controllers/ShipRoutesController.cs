@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,32 +9,37 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.ShipRoutes {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class ShipRoutesController : ControllerBase {
 
         private readonly IShipRouteRepository repo;
         private readonly ILogger<ShipRoutesController> logger;
+        private readonly IMapper mapper;
 
-        public ShipRoutesController(IShipRouteRepository repo, ILogger<ShipRoutesController> logger) {
+        public ShipRoutesController(IShipRouteRepository repo, ILogger<ShipRoutesController> logger, IMapper mapper) {
             this.repo = repo;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<ShipRouteListResource>> Get() {
             return await repo.Get();
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetShipRoute(int id) {
-            ShipRoute record = await repo.GetById(id);
+            ShipRouteReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -44,11 +50,11 @@ namespace BlueWaterCruises.Features.ShipRoutes {
         }
 
         [HttpPost]
-        // [Authorize(Roles = "admin")]        
-        public IActionResult PostShipRoute([FromBody] ShipRoute record) {
+        [Authorize(Roles = "admin")]
+        public IActionResult PostShipRoute([FromBody] ShipRouteWriteResource record) {
             if (ModelState.IsValid) {
                 try {
-                    repo.Create(record);
+                    repo.Create(mapper.Map<ShipRouteWriteResource, ShipRoute>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordCreated()
                     });
@@ -66,11 +72,11 @@ namespace BlueWaterCruises.Features.ShipRoutes {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "admin")]
-        public IActionResult PutShipRoute([FromRoute] int id, [FromBody] ShipRoute record) {
+        [Authorize(Roles = "admin")]
+        public IActionResult PutShipRoute([FromRoute] int id, [FromBody] ShipRouteWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
-                    repo.Update(record);
+                    repo.Update(mapper.Map<ShipRouteWriteResource, ShipRoute>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });
@@ -88,9 +94,9 @@ namespace BlueWaterCruises.Features.ShipRoutes {
         }
 
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteShipRoute([FromRoute] int id) {
-            ShipRoute record = await repo.GetById(id);
+            ShipRoute record = await repo.GetByIdToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {

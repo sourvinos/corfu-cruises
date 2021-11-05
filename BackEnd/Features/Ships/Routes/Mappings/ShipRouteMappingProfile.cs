@@ -6,6 +6,9 @@ namespace BlueWaterCruises.Features.ShipRoutes {
 
         public ShipRouteMappingProfile() {
             CreateMap<ShipRoute, ShipRouteListResource>();
+            CreateMap<ShipRoute, SimpleResource>();
+            CreateMap<ShipRoute, ShipRouteReadResource>();
+            CreateMap<ShipRouteWriteResource, ShipRoute>();
         }
 
     }

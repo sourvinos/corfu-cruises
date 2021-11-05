@@ -11,6 +11,7 @@ using BlueWaterCruises.Features.Registrars;
 using BlueWaterCruises.Features.Reservations;
 using BlueWaterCruises.Features.Routes;
 using BlueWaterCruises.Features.Schedules;
+using BlueWaterCruises.Features.ShipRoutes;
 using BlueWaterCruises.Features.Ships;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +36,7 @@ namespace BlueWaterCruises {
             services.AddTransient<IValidator<RouteWriteResource>, RouteValidator>();
             services.AddTransient<IValidator<Schedule>, ScheduleValidator>();
             services.AddTransient<IValidator<Ship>, ShipValidator>();
+            services.AddTransient<IValidator<ShipRouteWriteResource>, ShipRouteValidator>();
         }
 
 
