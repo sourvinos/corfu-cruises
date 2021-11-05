@@ -1,10 +1,9 @@
-using BlueWaterCruises.Features.Routes;
-
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises.Features.Registrars {
 
     public class RegistrarReadResource {
 
         public int Id { get; set; }
+        public SimpleResource Ship { get; set; }
         public string Fullname { get; set; }
         public string Phones { get; set; }
         public string Email { get; set; }
@@ -13,8 +12,6 @@ namespace BlueWaterCruises.Features.Ships {
         public bool IsPrimary { get; set; }
         public bool IsActive { get; set; }
         public string UserId { get; set; }
-
-        public SimpleResource Ship { get; set; }
 
     }
 

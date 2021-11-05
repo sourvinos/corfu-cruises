@@ -1,8 +1,7 @@
-using BlueWaterCruises.Features.Ships;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlueWaterCruises.FluentApi {
+namespace BlueWaterCruises.Features.Registrars {
 
     internal class RegistrarsConfig : IEntityTypeConfiguration<Registrar> {
 

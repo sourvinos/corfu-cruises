@@ -1,4 +1,6 @@
-namespace BlueWaterCruises.Features.Ships {
+using BlueWaterCruises.Features.Ships;
+
+namespace BlueWaterCruises.Features.Registrars {
 
     public class Registrar {
 
@@ -13,8 +15,8 @@ namespace BlueWaterCruises.Features.Ships {
         public bool IsActive { get; set; }
         public string UserId { get; set; }
 
-        public AppUser User { get; set; }
         public Ship Ship { get; set; }
+        public AppUser User { get; set; }
 
     }
 

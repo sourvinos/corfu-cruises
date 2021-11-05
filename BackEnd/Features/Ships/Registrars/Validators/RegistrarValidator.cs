@@ -1,19 +1,19 @@
 using FluentValidation;
 
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises.Features.Registrars {
 
-    public class RegistrarValidator : AbstractValidator<Registrar> {
+    public class RegistrarValidator : AbstractValidator<RegistrarWriteResource> {
 
         public RegistrarValidator() {
-            RuleFor(x => x.ShipId).NotNull().NotEmpty();
-            RuleFor(x => x.Fullname).NotNull().NotEmpty().MaximumLength(128);
-            RuleFor(x => x.Phones).NotNull().MaximumLength(128);
-            RuleFor(x => x.Email).NotNull().EmailAddress().MaximumLength(128);
-            RuleFor(x => x.Fax).NotNull().MaximumLength(128);
-            RuleFor(x => x.Address).NotNull().MaximumLength(128);
+            RuleFor(x => x.ShipId).NotNull();
+            RuleFor(x => x.Fullname).NotEmpty().MaximumLength(128);
+            RuleFor(x => x.Phones).NotEmpty().MaximumLength(128);
+            RuleFor(x => x.Email).NotEmpty().EmailAddress().MaximumLength(128);
+            RuleFor(x => x.Fax).NotEmpty().MaximumLength(128);
+            RuleFor(x => x.Address).NotEmpty().MaximumLength(128);
             RuleFor(x => x.IsPrimary).NotNull();
             RuleFor(x => x.IsActive).NotNull();
-            RuleFor(x => x.UserId).NotNull().NotEmpty().MaximumLength(36);
+            RuleFor(x => x.UserId).NotNull();
         }
 
     }

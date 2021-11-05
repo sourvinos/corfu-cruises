@@ -7,6 +7,7 @@ using BlueWaterCruises.Features.Nationalities;
 using BlueWaterCruises.Features.Occupants;
 using BlueWaterCruises.Features.PickupPoints;
 using BlueWaterCruises.Features.Ports;
+using BlueWaterCruises.Features.Registrars;
 using BlueWaterCruises.Features.Reservations;
 using BlueWaterCruises.Features.Routes;
 using BlueWaterCruises.Features.Schedules;
@@ -29,6 +30,7 @@ namespace BlueWaterCruises {
             services.AddTransient<IValidator<PickupPointWriteResource>, PickupPointValidator>();
             services.AddTransient<IValidator<PortWriteResource>, PortValidator>();
             services.AddTransient<IValidator<RegisterViewModel>, RegisterValidator>();
+            services.AddTransient<IValidator<RegistrarWriteResource>, RegistrarValidator>();
             services.AddTransient<IValidator<Reservation>, ReservationValidator>();
             services.AddTransient<IValidator<RouteWriteResource>, RouteValidator>();
             services.AddTransient<IValidator<Schedule>, ScheduleValidator>();

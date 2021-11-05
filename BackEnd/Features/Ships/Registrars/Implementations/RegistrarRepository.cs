@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises.Features.Registrars {
 
     public class RegistrarRepository : Repository<Registrar>, IRegistrarRepository {
 
@@ -14,23 +15,26 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         async Task<IEnumerable<RegistrarListResource>> IRegistrarRepository.Get() {
-            var Registrars = await context.Set<Registrar>()
+            List<Registrar> records = await context.Registrars
                 .Include(x => x.Ship)
+                .OrderBy(x => x.Ship.Description)
+                    .ThenBy(x => !x.IsPrimary)
+                        .ThenBy(x => x.Fullname)
+                .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Registrar>, IEnumerable<RegistrarListResource>>(Registrars);
+            return mapper.Map<IEnumerable<Registrar>, IEnumerable<RegistrarListResource>>(records);
         }
 
-        public new async Task<RegistrarReadResource> GetById(int registrarId) {
-            var registrar = await context.Set<Registrar>()
+        public new async Task<RegistrarReadResource> GetById(int id) {
+            Registrar record = await context.Registrars
                 .Include(x => x.Ship)
-                .SingleOrDefaultAsync(m => m.Id == registrarId);
-            return mapper.Map<Registrar, RegistrarReadResource>(registrar);
+                .SingleOrDefaultAsync(x => x.Id == id);
+            return mapper.Map<Registrar, RegistrarReadResource>(record);
         }
 
-       public  async Task<Registrar> GetByIdToDelete(int registrarId) {
-            var registrar = await context.Set<Registrar>()
-                .SingleOrDefaultAsync(m => m.Id == registrarId);
-            return registrar;
+        public async Task<Registrar> GetByIdToDelete(int id) {
+            return await context.Registrars
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
     }

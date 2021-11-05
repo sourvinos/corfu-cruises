@@ -10,6 +10,7 @@ using BlueWaterCruises.Features.Nationalities;
 using BlueWaterCruises.Features.Occupants;
 using BlueWaterCruises.Features.PickupPoints;
 using BlueWaterCruises.Features.Ports;
+using BlueWaterCruises.Features.Registrars;
 using BlueWaterCruises.Features.Reservations;
 using BlueWaterCruises.Features.Routes;
 using BlueWaterCruises.Features.Schedules;

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises.Features.Registrars {
 
     public interface IRegistrarRepository : IRepository<Registrar> {
 

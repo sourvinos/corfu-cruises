@@ -1,4 +1,4 @@
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises.Features.Registrars {
 
     public class RegistrarWriteResource {
 

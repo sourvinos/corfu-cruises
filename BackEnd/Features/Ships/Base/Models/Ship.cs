@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BlueWaterCruises.Features.Crews;
+using BlueWaterCruises.Features.Registrars;
 using BlueWaterCruises.Features.Reservations;
 
 namespace BlueWaterCruises.Features.Ships {
