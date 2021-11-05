@@ -39,7 +39,7 @@ namespace BlueWaterCruises.Features.Customers {
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetCustomer(int id) {
-            var record = await repo.GetById(id);
+            CustomerReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
