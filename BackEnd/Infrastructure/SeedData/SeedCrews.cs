@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BlueWaterCruises;
+using BlueWaterCruises.Features.Crews;
 using BlueWaterCruises.Features.Ships;
 
 public static class SeedDatabaseCrews {

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises.Features.Crews {
 
     public class CrewRepository : Repository<Crew>, ICrewRepository {
 
@@ -15,30 +15,31 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         public async Task<IEnumerable<CrewListResource>> Get() {
-            var crews = await context.Set<Crew>()
+            List<Crew> records = await context.Crews
                 .Include(x => x.Ship)
                 .Include(x => x.Gender)
-                .Include(p => p.Nationality)
+                .Include(x => x.Nationality)
                 .OrderBy(x => x.Ship.Description)
                     .ThenBy(x => x.Lastname)
                         .ThenBy(x => x.Firstname)
                             .ThenBy(x => x.Birthdate)
+                .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Crew>, IEnumerable<CrewListResource>>(crews);
+            return mapper.Map<IEnumerable<Crew>, IEnumerable<CrewListResource>>(records);
         }
 
-        public new async Task<CrewReadResource> GetById(int crewId) {
-            var crew = await context.Set<Crew>()
+        public new async Task<CrewReadResource> GetById(int id) {
+            Crew record = await context.Crews
                 .Include(x => x.Ship)
                 .Include(x => x.Gender)
-                .Include(p => p.Nationality)
-                .SingleOrDefaultAsync(m => m.Id == crewId);
-            return mapper.Map<Crew, CrewReadResource>(crew);
+                .Include(x => x.Nationality)
+                .SingleOrDefaultAsync(x => x.Id == id);
+            return mapper.Map<Crew, CrewReadResource>(record);
         }
 
         public async Task<Crew> GetByIdToDelete(int id) {
-            return await context.Set<Crew>()
-                .SingleOrDefaultAsync(m => m.Id == id);
+            return await context.Crews
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
     }

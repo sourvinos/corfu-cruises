@@ -1,3 +1,4 @@
+using BlueWaterCruises.Features.Crews;
 using BlueWaterCruises.Features.Customers;
 using BlueWaterCruises.Features.Destinations;
 using BlueWaterCruises.Features.Drivers;
@@ -18,7 +19,7 @@ namespace BlueWaterCruises {
     public static class ModelValidations {
 
         public static void AddModelValidation(IServiceCollection services) {
-            services.AddTransient<IValidator<Crew>, CrewValidator>();
+            services.AddTransient<IValidator<CrewWriteResource>, CrewValidator>();
             services.AddTransient<IValidator<CustomerWriteResource>, CustomerValidator>();
             services.AddTransient<IValidator<DestinationWriteResource>, DestinationValidator>();
             services.AddTransient<IValidator<DriverWriteResource>, DriverValidator>();

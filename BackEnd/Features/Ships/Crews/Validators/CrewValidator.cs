@@ -1,16 +1,18 @@
 using FluentValidation;
 
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises.Features.Crews {
 
-    public class CrewValidator : AbstractValidator<Crew> {
+    public class CrewValidator : AbstractValidator<CrewWriteResource> {
 
         public CrewValidator() {
-            RuleFor(x => x.Lastname).NotNull().NotEmpty().MaximumLength(128);
-            RuleFor(x => x.Firstname).NotNull().NotEmpty().MaximumLength(128);
+            RuleFor(x => x.ShipId).NotNull();
+            RuleFor(x => x.NationalityId).NotNull();
+            RuleFor(x => x.GenderId).NotNull();
+            RuleFor(x => x.Lastname).NotEmpty().MaximumLength(128);
+            RuleFor(x => x.Firstname).NotEmpty().MaximumLength(128);
             RuleFor(x => x.Birthdate).NotEmpty();
-            RuleFor(x => x.NationalityId).NotNull().NotEmpty();
             RuleFor(x => x.IsActive).NotNull();
-            RuleFor(x => x.UserId).NotNull().NotEmpty().MaximumLength(128);
+            RuleFor(x => x.UserId).NotNull();
         }
 
     }

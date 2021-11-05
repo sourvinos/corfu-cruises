@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises.Features.Crews {
 
     public class CrewMappingProfile : Profile {
 

@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises.Features.Crews {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class CrewsController : ControllerBase {
@@ -25,16 +25,13 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<CrewListResource>> Get() {
             return await repo.Get();
         }
 
-        [HttpGet("[action]")]
-        public async Task<IEnumerable<Crew>> GetActive() {
-            return await repo.GetActive(x => x.IsActive);
-        }
-
         [HttpGet("{id}")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetΒyId(int id) {
             CrewReadResource record = await repo.GetById(id);
             if (record == null) {
@@ -47,7 +44,7 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpPost]
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult Post([FromBody] CrewWriteResource record) {
             if (ModelState.IsValid) {
                 try {
@@ -69,7 +66,7 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult Put([FromRoute] int id, [FromBody] CrewWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
