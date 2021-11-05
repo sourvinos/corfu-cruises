@@ -6,6 +6,9 @@ namespace BlueWaterCruises.Features.Ships {
 
         public ShipOwnerMappingProfile() {
             CreateMap<ShipOwner, ShipOwnerListResource>();
+            CreateMap<ShipOwner, ShipOwnerReadResource>();
+            CreateMap<ShipOwner, SimpleResource>();
+            CreateMap<ShipOwnerWriteResource, ShipOwner>();
         }
 
     }

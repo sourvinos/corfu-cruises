@@ -9,14 +9,14 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Ships {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class ShipOwnersController : ControllerBase {
 
-        private readonly IMapper mapper;
         private readonly IShipOwnerRepository repo;
         private readonly ILogger<ShipOwnersController> logger;
+        private readonly IMapper mapper;
 
         public ShipOwnersController(IShipOwnerRepository repo, ILogger<ShipOwnersController> logger, IMapper mapper) {
             this.repo = repo;
@@ -25,18 +25,21 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<ShipOwnerListResource>> Get() {
-            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerListResource>>(await repo.Get(x => x.Id > 1));
+            return await repo.Get();
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetShipOwner(int id) {
-            ShipOwner record = await repo.GetById(id);
+            ShipOwnerReadResource record = await repo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -47,11 +50,11 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpPost]
-        // [Authorize(Roles = "admin")]
-        public IActionResult PostShipOwner([FromBody] ShipOwner record) {
+        [Authorize(Roles = "admin")]
+        public IActionResult PostShipOwner([FromBody] ShipOwnerWriteResource record) {
             if (ModelState.IsValid) {
                 try {
-                    repo.Create(record);
+                    repo.Create(mapper.Map<ShipOwnerWriteResource, ShipOwner>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordCreated()
                     });
@@ -69,11 +72,11 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "admin")]
-        public IActionResult PutShipOwner([FromRoute] int id, [FromBody] ShipOwner record) {
+        [Authorize(Roles = "admin")]
+        public IActionResult PutShipOwner([FromRoute] int id, [FromBody] ShipOwnerWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
-                    repo.Update(record);
+                    repo.Update(mapper.Map<ShipOwnerWriteResource, ShipOwner>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });
@@ -91,9 +94,9 @@ namespace BlueWaterCruises.Features.Ships {
         }
 
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteShipOwner([FromRoute] int id) {
-            ShipOwner record = await repo.GetById(id);
+            ShipOwner record = await repo.GetByIdToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
                 return StatusCode(404, new {

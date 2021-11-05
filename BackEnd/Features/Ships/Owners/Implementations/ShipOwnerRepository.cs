@@ -14,12 +14,32 @@ namespace BlueWaterCruises.Features.Ships {
             this.mapper = mapper;
         }
 
+        public async Task<IEnumerable<ShipOwnerListResource>> Get() {
+            List<ShipOwner> records = await context.ShipOwners
+                .OrderBy(x => x.Description)
+                .AsNoTracking()
+                .ToListAsync();
+            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerListResource>>(records);
+        }
+
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            var records = await context.Set<ShipOwner>()
+            List<ShipOwner> records = await context.ShipOwners
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
+                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<SimpleResource>>(records);
+        }
+
+        public new async Task<ShipOwnerReadResource> GetById(int id) {
+            ShipOwner record = await context.ShipOwners
+                .SingleOrDefaultAsync(x => x.Id == id);
+            return mapper.Map<ShipOwner, ShipOwnerReadResource>(record);
+        }
+
+        public async Task<ShipOwner> GetByIdToDelete(int id) {
+            return await context.ShipOwners
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
     }
