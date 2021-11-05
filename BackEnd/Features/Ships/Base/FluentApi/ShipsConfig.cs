@@ -2,7 +2,7 @@ using BlueWaterCruises.Features.Ships;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlueWaterCruises.FluentApi {
+namespace BlueWaterCruises.Features.Ships {
 
     internal class ShipsConfig : IEntityTypeConfiguration<Ship> {
 
@@ -19,7 +19,7 @@ namespace BlueWaterCruises.FluentApi {
             entity.Property(x => x.ManagerInGreece).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.Agent).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.IsActive).IsRequired(true);
-            entity.Property(x => x.UserId).HasMaxLength(36).IsRequired(true);
+            entity.Property(x => x.UserId).IsRequired(true);
             // FK Constraints
             entity.HasOne(x => x.User).WithMany(x => x.Ships).HasForeignKey(x => x.UserId).IsRequired().OnDelete(DeleteBehavior.Restrict);
         }
