@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using BlueWaterCruises.Features.PickupPoints;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlueWaterCruises.Features.Routes {

@@ -1,4 +1,3 @@
-using BlueWaterCruises.Features.Ships;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

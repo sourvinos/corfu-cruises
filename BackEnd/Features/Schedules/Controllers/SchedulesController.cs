@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Schedules {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class SchedulesController : ControllerBase {
@@ -26,16 +26,19 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<ScheduleListResource>> GetForList() {
             return await repo.GetForList();
         }
 
         [HttpGet("[action]/from/{fromdate}/to/{todate}")]
+        [Authorize(Roles = "user, admin")]
         public IEnumerable<ScheduleReservationGroup> GetForCalendar(string fromDate, string toDate, Guid? reservationId) {
             return repo.DoCalendarTasks(fromDate, toDate, reservationId);
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetById(int id) {
             ScheduleReadResource record = await repo.GetById(id);
             if (record == null) {
@@ -48,12 +51,13 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpGet("[action]/date/{date}")]
+        [Authorize(Roles = "user, admin")]
         public Boolean IsSchedule(DateTime date) {
             return repo.DayHasSchedule(date);
         }
 
         [HttpPost]
-        // [Authorize(Roles = "admin")] 
+        [Authorize(Roles = "admin")] 
         public IActionResult PostSchedule([FromBody] List<ScheduleWriteResource> records) {
             if (ModelState.IsValid) {
                 try {
@@ -75,7 +79,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult PutSchedule([FromRoute] int id, [FromBody] ScheduleWriteResource record) {
             if (id == record.Id && ModelState.IsValid) {
                 try {
@@ -97,7 +101,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteSchedule([FromRoute] int id) {
             Schedule record = await repo.GetSingleToDelete(id);
             if (record == null) {
@@ -120,6 +124,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpPost("range")]
+        [Authorize(Roles = "admin")]
         public void DeleteRangeSchedule([FromBody] List<Schedule> schedules) {
             repo.DeleteRange(schedules);
         }

@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace BlueWaterCruises {
+
     public class ConfirmEmailViewModel {
 
         [Required]

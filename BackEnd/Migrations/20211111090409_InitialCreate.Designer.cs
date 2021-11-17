@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEnd.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211018143235_Initial")]
-    partial class Initial
+    [Migration("20211111090409_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,6 +18,54 @@ namespace BackEnd.Migrations
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.10");
+
+            modelBuilder.Entity("BlueWaterCruises.Features.Crews.Crew", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Birthdate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Firstname")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<int>("GenderId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<int>("NationalityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShipId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GenderId");
+
+                    b.HasIndex("NationalityId");
+
+                    b.HasIndex("ShipId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Crews");
+                });
 
             modelBuilder.Entity("BlueWaterCruises.Features.Customers.Customer", b =>
                 {
@@ -60,8 +108,7 @@ namespace BackEnd.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -91,8 +138,7 @@ namespace BackEnd.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -122,8 +168,7 @@ namespace BackEnd.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -148,8 +193,7 @@ namespace BackEnd.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -179,8 +223,7 @@ namespace BackEnd.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -205,8 +248,7 @@ namespace BackEnd.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -249,8 +291,7 @@ namespace BackEnd.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -280,14 +321,67 @@ namespace BackEnd.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Ports");
+                });
+
+            modelBuilder.Entity("BlueWaterCruises.Features.Registrars.Registrar", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<string>("Fax")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<string>("Fullname")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsPrimary")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Phones")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<int>("ShipId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShipId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Registrars");
                 });
 
             modelBuilder.Entity("BlueWaterCruises.Features.Reservations.Passenger", b =>
@@ -450,8 +544,7 @@ namespace BackEnd.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -536,8 +629,7 @@ namespace BackEnd.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ViaPort")
                         .IsRequired()
@@ -554,109 +646,6 @@ namespace BackEnd.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ShipRoutes");
-                });
-
-            modelBuilder.Entity("BlueWaterCruises.Features.Ships.Crew", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Birthdate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Firstname")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
-
-                    b.Property<int>("GenderId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Lastname")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
-
-                    b.Property<int>("NationalityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ShipId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GenderId");
-
-                    b.HasIndex("NationalityId");
-
-                    b.HasIndex("ShipId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Crews");
-                });
-
-            modelBuilder.Entity("BlueWaterCruises.Features.Ships.Registrar", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
-
-                    b.Property<string>("Fax")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
-
-                    b.Property<string>("Fullname")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("IsPrimary")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Phones")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
-
-                    b.Property<int>("ShipId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShipId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Registrars");
                 });
 
             modelBuilder.Entity("BlueWaterCruises.Features.Ships.Ship", b =>
@@ -708,8 +697,7 @@ namespace BackEnd.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -766,8 +754,7 @@ namespace BackEnd.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -1027,6 +1014,41 @@ namespace BackEnd.Migrations
                     b.HasDiscriminator().HasValue("AppUser");
                 });
 
+            modelBuilder.Entity("BlueWaterCruises.Features.Crews.Crew", b =>
+                {
+                    b.HasOne("BlueWaterCruises.Features.Genders.Gender", "Gender")
+                        .WithMany()
+                        .HasForeignKey("GenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BlueWaterCruises.Features.Nationalities.Nationality", "Nationality")
+                        .WithMany()
+                        .HasForeignKey("NationalityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BlueWaterCruises.Features.Ships.Ship", "Ship")
+                        .WithMany("Crew")
+                        .HasForeignKey("ShipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BlueWaterCruises.AppUser", "User")
+                        .WithMany("Crews")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Gender");
+
+                    b.Navigation("Nationality");
+
+                    b.Navigation("Ship");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("BlueWaterCruises.Features.Customers.Customer", b =>
                 {
                     b.HasOne("BlueWaterCruises.AppUser", "User")
@@ -1119,6 +1141,25 @@ namespace BackEnd.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BlueWaterCruises.Features.Registrars.Registrar", b =>
+                {
+                    b.HasOne("BlueWaterCruises.Features.Ships.Ship", "Ship")
+                        .WithMany("Registrars")
+                        .HasForeignKey("ShipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BlueWaterCruises.AppUser", "User")
+                        .WithMany("Registrars")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Ship");
 
                     b.Navigation("User");
                 });
@@ -1270,60 +1311,6 @@ namespace BackEnd.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("BlueWaterCruises.Features.Ships.Crew", b =>
-                {
-                    b.HasOne("BlueWaterCruises.Features.Genders.Gender", "Gender")
-                        .WithMany()
-                        .HasForeignKey("GenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BlueWaterCruises.Features.Nationalities.Nationality", "Nationality")
-                        .WithMany()
-                        .HasForeignKey("NationalityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BlueWaterCruises.Features.Ships.Ship", "Ship")
-                        .WithMany("Crew")
-                        .HasForeignKey("ShipId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BlueWaterCruises.AppUser", "User")
-                        .WithMany("Crews")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Gender");
-
-                    b.Navigation("Nationality");
-
-                    b.Navigation("Ship");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("BlueWaterCruises.Features.Ships.Registrar", b =>
-                {
-                    b.HasOne("BlueWaterCruises.Features.Ships.Ship", "Ship")
-                        .WithMany("Registrars")
-                        .HasForeignKey("ShipId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BlueWaterCruises.AppUser", "User")
-                        .WithMany("Registrars")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Ship");
 
                     b.Navigation("User");
                 });

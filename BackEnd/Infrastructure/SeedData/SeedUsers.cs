@@ -1,24 +1,75 @@
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using BlueWaterCruises;
 using Microsoft.AspNetCore.Identity;
 
 public static class SeedDatabaseUsers {
 
-    public static async void SeedUsers(UserManager<AppUser> userManager) {
+    public static void SeedUsers(UserManager<AppUser> userManager) {
         if (userManager.Users.Count() == 0) {
-            var users = new List<AppUser> {
-                new AppUser { Id = "e7e014fd-5608-4936-866e-ec11fc8c16da", UserName = "sourvinos", EmailConfirmed = true, Email = "johnsourvinos@hotmail.com", DisplayName = "Sourvinos", IsAdmin = true, CustomerId = 1, IsActive = true, PasswordHash = new PasswordHasher<AppUser>().HashPassword(new AppUser(), "PasswordWouldBeHere") },
-                new AppUser { Id = "72229c75-b9b5-4fe8-8ebe-d02322809650", UserName = "user", EmailConfirmed = true, Email = "gatopoulidis@gmail.com", DisplayName = "User", IsAdmin = false, CustomerId = 1, IsActive = true, PasswordHash = new PasswordHasher<AppUser>().HashPassword(new AppUser(), "PasswordWouldBeHere") },
-                new AppUser { Id = "544c9930-ad76-4aa9-bb1c-8dd193508e05", UserName = "nikoleta", EmailConfirmed = true, Email = "nikoleta@gmail.com", DisplayName = "Nikoleta", IsAdmin = false, CustomerId = 1, IsActive = true, PasswordHash = new PasswordHasher<AppUser>().HashPassword(new AppUser(), "PasswordWouldBeHere") },
-                new AppUser { Id = "4fcd7909-0569-45d9-8b78-2b24a7368e19", UserName = "maria", EmailConfirmed = true, Email = "maria@gmail.com", DisplayName = "Maria", IsAdmin = true, CustomerId = 1, IsActive = true, PasswordHash = new PasswordHasher<AppUser>().HashPassword(new AppUser(), "PasswordWouldBeHere") },
-                new AppUser { Id = "7b8326ad-468f-4dbd-bf6d-820343d9e828", UserName = "matoula", EmailConfirmed = true, Email = "matoula@gmail.com", DisplayName = "Matoula", IsAdmin = false, CustomerId = 1, IsActive = true, PasswordHash = new PasswordHasher<AppUser>().HashPassword(new AppUser(), "PasswordWouldBeHere") }
+            // Admin = 0, Active = 0
+            AppUser marios = new AppUser {
+                Id = "4fcd7909-0569-45d9-8b78-2b24a7368e19",
+                UserName = "marios",
+                EmailConfirmed = true,
+                Email = "marios@outlook.com",
+                DisplayName = "Marios",
+                IsAdmin = false,
+                CustomerId = 1,
+                IsActive = false,
+                SecurityStamp = Guid.NewGuid().ToString()
             };
-            foreach (var user in users) {
-                var result = await userManager.CreateAsync(user);
-                if (result.Succeeded) {
-                    await userManager.AddToRoleAsync(user, user.IsAdmin ? "Admin" : "User");
-                }
+            IdentityResult resultForMarios = userManager.CreateAsync(marios, "2b24a7368e19").Result;
+            if (resultForMarios.Succeeded) {
+                userManager.AddToRoleAsync(marios, marios.IsAdmin ? "admin" : "user").Wait();
+            }
+            // Admin = 0, Active = 1
+            AppUser matoula = new AppUser {
+                Id = "7b8326ad-468f-4dbd-bf6d-820343d9e828",
+                UserName = "matoula",
+                EmailConfirmed = true,
+                Email = "matoula@aol.com",
+                DisplayName = "Matoula",
+                IsAdmin = false,
+                CustomerId = 2,
+                IsActive = true,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+            IdentityResult resultForMatoula = userManager.CreateAsync(matoula, "820343d9e828").Result;
+            if (resultForMatoula.Succeeded) {
+                userManager.AddToRoleAsync(matoula, matoula.IsAdmin ? "admin" : "user").Wait();
+            }
+            // Admin = 1, Active = 1
+            AppUser john = new AppUser {
+                Id = "e7e014fd-5608-4936-866e-ec11fc8c16da",
+                UserName = "john",
+                EmailConfirmed = true,
+                Email = "john@hotmail.com",
+                DisplayName = "John",
+                IsAdmin = true,
+                CustomerId = 1,
+                IsActive = true,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+            IdentityResult resultForJohn = userManager.CreateAsync(john, "ec11fc8c16da").Result;
+            if (resultForJohn.Succeeded) {
+                userManager.AddToRoleAsync(john, john.IsAdmin ? "admin" : "user").Wait();
+            }
+            // Admin = 1, Active = 0
+            AppUser nikoleta = new AppUser {
+                Id = "544c9930-ad76-4aa9-bb1c-8dd193508e05",
+                UserName = "nikoleta",
+                EmailConfirmed = true,
+                Email = "nikoleta@gmail.com",
+                DisplayName = "Nikoleta",
+                IsAdmin = true,
+                CustomerId = 1,
+                IsActive = false,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+            IdentityResult resultForNikoleta = userManager.CreateAsync(nikoleta, "8dd193508e05").Result;
+            if (resultForNikoleta.Succeeded) {
+                userManager.AddToRoleAsync(nikoleta, nikoleta.IsAdmin ? "admin" : "user").Wait();
             }
         }
     }

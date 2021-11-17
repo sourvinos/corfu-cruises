@@ -1,5 +1,3 @@
-using System;
-
 namespace BlueWaterCruises.Features.Schedules {
 
     public class ReservationResource {

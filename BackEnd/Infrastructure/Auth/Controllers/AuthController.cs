@@ -33,7 +33,9 @@ namespace BlueWaterCruises {
                 case "refresh_token":
                     return await RefreshToken(model);
                 default:
-                    return StatusCode(401, new { response = ApiMessages.AuthenticationFailed() });
+                    return StatusCode(401, new {
+                        response = ApiMessages.AuthenticationFailed()
+                    });
             }
         }
 
@@ -49,10 +51,20 @@ namespace BlueWaterCruises {
                 }
                 db.Tokens.Add(newRefreshToken);
                 await db.SaveChangesAsync();
-                var accessToken = await CreateAccessToken(user, newRefreshToken.Value);
-                return StatusCode(200, new { response = accessToken });
+                var response = await CreateAccessToken(user, newRefreshToken.Value);
+                return StatusCode(200, new TokenResponse {
+                    token = response.token,
+                    expiration = response.expiration,
+                    refresh_token = response.refresh_token,
+                    roles = response.roles,
+                    userId = response.userId,
+                    displayname = response.displayname,
+                    customerId = response.customerId
+                });
             }
-            return StatusCode(401, new { response = ApiMessages.AuthenticationFailed() });
+            return StatusCode(401, new {
+                response = ApiMessages.AuthenticationFailed()
+            });
         }
 
         private Token CreateRefreshToken(string clientId, string userId) {
@@ -91,8 +103,8 @@ namespace BlueWaterCruises {
                 refresh_token = refreshToken,
                 roles = roles.FirstOrDefault(),
                 userId = user.Id,
-                displayName = user.DisplayName,
-                CustomerId = user.CustomerId
+                displayname = user.DisplayName,
+                customerId = user.CustomerId
             };
         }
 

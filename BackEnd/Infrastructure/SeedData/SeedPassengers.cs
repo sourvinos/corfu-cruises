@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BlueWaterCruises;
@@ -7,16 +8,16 @@ public static class SeedDatabasePassengers {
 
     public static void SeedPassengers(AppDbContext context) {
         if (context.Passengers.Count() == 0) {
-            var reservationIds = context.Reservations.Select(x => x.ReservationId).ToList();
+            var reservationIds = context.Reservations.Select(x => x.ReservationId.ToString()).ToList();
             for (int i = 1; i <= reservationIds.Count(); i++) {
                 var customerCount = Helpers.CreateRandomPassengerCount(1, 5);
                 List<Passenger> passengers = new();
                 for (int x = 1; x <= customerCount; x++) {
                     var passenger = new Passenger {
-                        ReservationId = reservationIds[i - 1],
+                        ReservationId = Guid.Parse(reservationIds[i - 1]),
                         OccupantId = context.Occupants.Where(x => x.Description.ToLower() == "passenger").Select(x => x.Id).FirstOrDefault(),
-                        NationalityId = context.Nationalities.Skip(Helpers.CreateRandomInteger(0, context.Nationalities.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
-                        GenderId = context.Genders.Skip(Helpers.CreateRandomInteger(0, context.Genders.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
+                        NationalityId = context.Nationalities.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Nationalities.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
+                        GenderId = context.Genders.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Genders.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
                         Lastname = Helpers.CreateRandomName().Split(" ")[0],
                         Firstname = Helpers.CreateRandomName().Split(" ")[1],
                         Birthdate = Helpers.CreateRandomDate(),

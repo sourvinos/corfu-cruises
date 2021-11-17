@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BlueWaterCruises;
 using BlueWaterCruises.Features.Crews;
-using BlueWaterCruises.Features.Ships;
 
 public static class SeedDatabaseCrews {
 
@@ -15,10 +14,10 @@ public static class SeedDatabaseCrews {
                     Firstname = Helpers.CreateRandomName().Split(" ")[1],
                     Birthdate = Helpers.CreateRandomDate(),
                     IsActive = Helpers.ConvertToBoolean(Helpers.CreateRandomInteger(0, 10)),
-                    ShipId = context.Ships.Skip(Helpers.CreateRandomInteger(0, context.Ships.Count())).Take(1).Select(x => x.Id).SingleOrDefault(),
-                    GenderId = context.Genders.Skip(Helpers.CreateRandomInteger(0, context.Genders.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
-                    NationalityId = context.Nationalities.Skip(Helpers.CreateRandomInteger(0, context.Nationalities.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
-                    UserId = context.Users.Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault(),
+                    ShipId = context.Ships.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Ships.Count())).Take(1).Select(x => x.Id).SingleOrDefault(),
+                    GenderId = context.Genders.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Genders.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
+                    NationalityId = context.Nationalities.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Nationalities.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
+                    UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault(),
                 };
                 crews.Add(crew);
             }

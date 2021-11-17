@@ -9,9 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Customers {
 
-    [Authorize]
     [Route("api/[controller]")]
-
     public class CustomersController : ControllerBase {
 
         private readonly ICustomerRepository repo;
@@ -26,14 +24,28 @@ namespace BlueWaterCruises.Features.Customers {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<CustomerListResource>> Get() {
-            return await repo.Get();
+        public async Task<IActionResult> Get() {
+            IEnumerable<CustomerListResource> records = await repo.Get();
+            if (records == null) {
+                LoggerExtensions.LogException("", logger, ControllerContext, null, null);
+                return StatusCode(401, new {
+                    response = ApiMessages.AuthenticationFailed()
+                });
+            }
+            return StatusCode(200, records);
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            return await repo.GetActiveForDropdown();
+        public async Task<IActionResult> GetActiveForDropdown() {
+            IEnumerable<SimpleResource> records = await repo.GetActiveForDropdown();
+            if (records == null) {
+                LoggerExtensions.LogException("", logger, ControllerContext, null, null);
+                return StatusCode(401, new {
+                    response = ApiMessages.AuthenticationFailed()
+                });
+            }
+            return StatusCode(200, records);
         }
 
         [HttpGet("{id}")]
@@ -54,7 +66,7 @@ namespace BlueWaterCruises.Features.Customers {
         public IActionResult PostCustomer([FromBody] CustomerWriteResource record) {
             if (ModelState.IsValid) {
                 try {
-                    repo.Create(mapper.Map<CustomerWriteResource, Customer>(record));
+                    var newRecord = repo.Create(mapper.Map<CustomerWriteResource, Customer>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordCreated()
                     });

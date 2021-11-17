@@ -9,8 +9,8 @@ namespace BlueWaterCruises {
         public string refresh_token { get; set; }
         public string roles { get; set; }
         public string userId { get; set; }
-        public string displayName { get; set; }
-        public int CustomerId { get; set; }
+        public string displayname { get; set; }
+        public int customerId { get; set; }
 
     }
 

@@ -23,13 +23,13 @@ namespace BlueWaterCruises {
             Environment = environment;
         }
 
-        public void ConfigureTestingServices(IServiceCollection services) {
-            services.AddDbContextFactory<AppDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+        public void ConfigureDevelopmentServices(IServiceCollection services) {
+            services.AddDbContextFactory<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("LocalConnection"), new MySqlServerVersion(new Version(8, 0, 19))));
             ConfigureServices(services);
         }
 
-        public void ConfigureDevelopmentServices(IServiceCollection services) {
-            services.AddDbContextFactory<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("LocalConnection"), new MySqlServerVersion(new Version(8, 0, 19))));
+        public void ConfigureTestingServices(IServiceCollection services) {
+            services.AddDbContextFactory<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("LocalTestingConnection"), new MySqlServerVersion(new Version(8, 0, 19))));
             ConfigureServices(services);
         }
 
@@ -42,7 +42,7 @@ namespace BlueWaterCruises {
             // Extensions
             Cors.AddCors(services);
             Identity.AddIdentity(services);
-            Authentication.AddAuthentication(Configuration, services, Environment);
+            Authentication.AddAuthentication(Configuration, services);
             Interfaces.AddInterfaces(services);
             ModelValidations.AddModelValidation(services);
             // Base
@@ -50,26 +50,25 @@ namespace BlueWaterCruises {
             services.AddAntiforgery(options => { options.Cookie.Name = "_af"; options.Cookie.HttpOnly = true; options.Cookie.SecurePolicy = CookieSecurePolicy.Always; options.HeaderName = "X-XSRF-TOKEN"; });
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<AppDbContext>();
-            services
-                .AddControllersWithViews()
-                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
-                .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
+            services.AddControllersWithViews()
+                    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                    .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddEmailSenders();
             services.Configure<CookiePolicyOptions>(options => { options.CheckConsentNeeded = context => true; options.MinimumSameSitePolicy = SameSiteMode.None; });
             services.Configure<EmailSettings>(options => Configuration.GetSection("ShipCruises").Bind(options));
             services.Configure<TokenSettings>(options => Configuration.GetSection("TokenSettings").Bind(options));
         }
 
-        public void ConfigureTesting(IApplicationBuilder app, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager, AppDbContext context) {
-            Configure(app);
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-            SeedDatabaseMaster.SeedDatabase(roleManager, userManager, context);
-        }
-
         public void ConfigureDevelopment(IApplicationBuilder app) {
             app.UseDeveloperExceptionPage();
             Configure(app);
             app.UseEndpoints(endpoints => { endpoints.MapControllers().WithMetadata(new AllowAnonymousAttribute()); });
+        }
+
+        public void ConfigureTesting(IApplicationBuilder app, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager, AppDbContext context) {
+            app.UseDeveloperExceptionPage();
+            Configure(app);
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
         public void ConfigureProduction(IApplicationBuilder app) {
