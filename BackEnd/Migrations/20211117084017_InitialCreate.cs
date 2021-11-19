@@ -728,7 +728,7 @@ namespace BackEnd.Migrations
                 name: "Reservations",
                 columns: table => new
                 {
-                    ReservationId = table.Column<string>(type: "char(36)", maxLength: 36, nullable: false)
+                    ReservationId = table.Column<string>(type: "varchar(36)", maxLength: 36, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Date = table.Column<DateTime>(type: "date", maxLength: 10, nullable: false),
                     Adults = table.Column<int>(type: "int", nullable: false),
@@ -806,7 +806,7 @@ namespace BackEnd.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ReservationId = table.Column<string>(type: "char(36)", nullable: false)
+                    ReservationId = table.Column<string>(type: "varchar(36)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Lastname = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),

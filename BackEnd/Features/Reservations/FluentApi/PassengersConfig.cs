@@ -8,7 +8,7 @@ namespace BlueWaterCruises.FluentApi {
 
         public void Configure(EntityTypeBuilder<Passenger> entity) {
             // Fields
-            entity.Property(p => p.ReservationId).HasMaxLength(36).IsRequired(true);
+            entity.Property(p => p.ReservationId).HasColumnType("varchar").HasMaxLength(36).IsRequired(true);
             entity.Property(p => p.Lastname).HasMaxLength(128).IsRequired(true);
             entity.Property(p => p.Firstname).HasMaxLength(128).IsRequired(true);
             entity.Property(p => p.Birthdate).HasMaxLength(10);

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEnd.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211111090409_InitialCreate")]
+    [Migration("20211117084017_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -416,7 +416,7 @@ namespace BackEnd.Migrations
 
                     b.Property<string>("ReservationId")
                         .IsRequired()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("varchar(36)");
 
                     b.Property<string>("SpecialCare")
                         .HasColumnType("longtext");
@@ -439,7 +439,7 @@ namespace BackEnd.Migrations
                     b.Property<string>("ReservationId")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(36)
-                        .HasColumnType("char(36)");
+                        .HasColumnType("varchar(36)");
 
                     b.Property<int>("Adults")
                         .HasColumnType("int");

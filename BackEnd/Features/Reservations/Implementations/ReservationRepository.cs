@@ -19,7 +19,7 @@ namespace BlueWaterCruises.Features.Reservations {
             this.userManager = userManager;
         }
 
-        public async Task<ReservationGroupResource<ReservationListResource>> Get(string date) {
+        public async Task<ReservationGroupResource<ReservationListResource>> Get(string userId, string date) {
             var reservations = await context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
@@ -29,12 +29,13 @@ namespace BlueWaterCruises.Features.Reservations {
                 .Where(x => x.Date == Convert.ToDateTime(date))
                 .OrderBy(x => x.Date)
                 .ToListAsync();
-            var PersonsPerCustomer = context.Reservations.Include(x => x.Customer).Where(x => x.Date == Convert.ToDateTime(date)).GroupBy(x => new { x.Customer.Description }).Select(x => new PersonsPerCustomer { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var PersonsPerDestination = context.Reservations.Include(x => x.Destination).Where(x => x.Date == Convert.ToDateTime(date)).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var PersonsPerRoute = context.Reservations.Include(x => x.PickupPoint.Route).Where(x => x.Date == Convert.ToDateTime(date)).GroupBy(x => new { x.PickupPoint.Route.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var PersonsPerDriver = context.Reservations.Include(x => x.Driver).Where(x => x.Date == Convert.ToDateTime(date)).OrderBy(o => o.Driver.Description).GroupBy(x => new { x.Driver.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var PersonsPerPort = context.Reservations.Include(x => x.PickupPoint.Route.Port).Where(x => x.Date == Convert.ToDateTime(date)).OrderBy(o => o.PickupPoint.Route.Port.Description).GroupBy(x => new { x.PickupPoint.Route.Port.Description }).Select(x => new PersonsPerPort { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
-            var totalPersonsPerShip = context.Reservations.Include(x => x.Ship).Where(x => x.Date == Convert.ToDateTime(date)).OrderBy(o => o.Ship.Description).GroupBy(x => new { x.Ship.Description }).Select(x => new PersonsPerShip { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            reservations = reservations.If(await UserIsAdmin(userId) == false, x => x.Where(x => x.UserId == userId)).ToList();
+            var PersonsPerCustomer = reservations.OrderBy(x => x.Customer.Description).GroupBy(x => new { x.Customer.Description }).Select(x => new PersonsPerCustomer { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var PersonsPerDestination = reservations.OrderBy(x => x.Destination.Description).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var PersonsPerRoute = reservations.OrderBy(x => x.PickupPoint.Route.Description).GroupBy(x => new { x.PickupPoint.Route.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var PersonsPerDriver = reservations.OrderBy(x => x.Driver.Description).GroupBy(x => new { x.Driver.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var PersonsPerPort = reservations.OrderBy(x => x.PickupPoint.Route.Port.Description).GroupBy(x => new { x.PickupPoint.Route.Port.Description }).Select(x => new PersonsPerPort { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
+            var totalPersonsPerShip = reservations.OrderBy(x => x.Ship.Description).GroupBy(x => new { x.Ship.Description }).Select(x => new PersonsPerShip { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
                 Reservations = reservations.ToList(),
@@ -159,6 +160,11 @@ namespace BlueWaterCruises.Features.Reservations {
             IEnumerable<ScheduleReservationGroup> schedule = scheduleRepo.DoCalendarTasks(fromDate, toDate, reservationId).ToList();
             var port = schedule.Select(x => x.Destinations.SingleOrDefault(x => x.Id == destinationId).Ports.SingleOrDefault(x => x.Id == portId)).Select(x => new { MaxPersons = x.AvailableSeats }).ToList();
             return port[0].MaxPersons;
+        }
+
+        private async Task<bool> UserIsAdmin(string userId) {
+            var user = await userManager.FindByIdAsync(userId);
+            return user.IsAdmin;
         }
 
     }

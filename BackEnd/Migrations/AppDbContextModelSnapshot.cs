@@ -414,7 +414,7 @@ namespace BackEnd.Migrations
 
                     b.Property<string>("ReservationId")
                         .IsRequired()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("varchar(36)");
 
                     b.Property<string>("SpecialCare")
                         .HasColumnType("longtext");
@@ -437,7 +437,7 @@ namespace BackEnd.Migrations
                     b.Property<string>("ReservationId")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(36)
-                        .HasColumnType("char(36)");
+                        .HasColumnType("varchar(36)");
 
                     b.Property<int>("Adults")
                         .HasColumnType("int");

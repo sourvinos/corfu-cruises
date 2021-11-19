@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Reservations {
 
-    // [Authorize]
     [Route("api/[controller]")]
 
     public class ReservationsController : ControllerBase {
@@ -27,11 +26,13 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         [HttpGet("date/{date}")]
-        public async Task<ReservationGroupResource<ReservationListResource>> Get(string date) {
-            return await this.reservationRepo.Get(date);
+        [Authorize(Roles = "user, admin")]
+        public async Task<ReservationGroupResource<ReservationListResource>> Get([FromBody] User user, string date) {
+            return await this.reservationRepo.Get(user.UserId, date);
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetById(string id) {
             var record = await reservationRepo.GetById(id);
             if (record == null) {
@@ -44,6 +45,7 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         [HttpPost]
+        [Authorize(Roles = "user, admin")]
         public IActionResult Post([FromBody] ReservationWriteResource record) {
             if (ModelState.IsValid) {
                 try {
@@ -70,6 +72,7 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "user, admin")]
         public IActionResult Put([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             if (id == record.ReservationId.ToString() && ModelState.IsValid) {
                 try {
@@ -96,6 +99,7 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete([FromRoute] string id) {
             var record = await reservationRepo.GetByIdToDelete(id);
             if (record == null) {
@@ -118,6 +122,7 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         [HttpPatch("assignToDriver")]
+        [Authorize(Roles = "admin")]
         public IActionResult AssignToDriver(int driverId, [FromQuery(Name = "id")] string[] ids) {
             try {
                 reservationRepo.AssignToDriver(driverId, ids);
@@ -131,6 +136,7 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         [HttpPatch("assignToShip")]
+        [Authorize(Roles = "admin")]
         public IActionResult AssignToShip(int shipId, [FromQuery(Name = "id")] string[] ids) {
             try {
                 reservationRepo.AssignToShip(shipId, ids);

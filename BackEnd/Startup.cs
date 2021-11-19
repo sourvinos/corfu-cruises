@@ -68,6 +68,7 @@ namespace BlueWaterCruises {
         public void ConfigureTesting(IApplicationBuilder app, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager, AppDbContext context) {
             app.UseDeveloperExceptionPage();
             Configure(app);
+            // SeedDatabaseMaster.SeedDatabase(roleManager, userManager, context);
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
