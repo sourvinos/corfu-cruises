@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using BlueWaterCruises.Features.Reservations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace BlueWaterCruises.Features.Invoicing {
 
@@ -11,7 +12,7 @@ namespace BlueWaterCruises.Features.Invoicing {
 
         private readonly IMapper mapper;
 
-        public InvoicingRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public InvoicingRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
             this.mapper = mapper;
         }
 

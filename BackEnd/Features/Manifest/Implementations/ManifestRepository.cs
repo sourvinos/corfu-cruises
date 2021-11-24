@@ -1,5 +1,6 @@
 using AutoMapper;
 using BlueWaterCruises.Features.Reservations;
+using Microsoft.Extensions.Options;
 
 namespace BlueWaterCruises.Features.Manifest {
 
@@ -7,7 +8,7 @@ namespace BlueWaterCruises.Features.Manifest {
 
         private readonly IMapper mapper;
 
-        public ManifestRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public ManifestRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
             this.mapper = mapper;
         }
 

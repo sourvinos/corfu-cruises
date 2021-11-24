@@ -1,11 +1,12 @@
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlueWaterCruises.Features.Reservations;
+using AutoMapper;
 using BlueWaterCruises.Features.Drivers;
-using System;
+using BlueWaterCruises.Features.Reservations;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace BlueWaterCruises.Features.Embarkation {
 
@@ -13,7 +14,7 @@ namespace BlueWaterCruises.Features.Embarkation {
 
         private readonly IMapper mapper;
 
-        public EmbarkationRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public EmbarkationRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
             this.mapper = mapper;
         }
 

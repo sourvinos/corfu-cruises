@@ -25,6 +25,9 @@ namespace BlueWaterCruises {
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
+        public AppDbContext() {
+        }
+
         #region DbSets
 
         public DbSet<Crew> Crews { get; set; }

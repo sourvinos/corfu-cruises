@@ -1,15 +1,16 @@
 using System;
 using System.IO;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace BlueWaterCruises {
 
     public class FileLogger : ILogger {
 
-        protected readonly FileLoggerProvider _fileLoggerProvider;
+        protected readonly FileLoggerProvider fileLoggerProvider;
 
         public FileLogger(FileLoggerProvider fileLoggerProvider) {
-            _fileLoggerProvider = fileLoggerProvider;
+            this.fileLoggerProvider = fileLoggerProvider;
         }
 
         public IDisposable BeginScope<TState>(TState state) {
@@ -32,7 +33,7 @@ namespace BlueWaterCruises {
                 return;
             }
 
-            var fullPathName = string.Format("{0}/{1}", _fileLoggerProvider.Options.FolderPath + Path.DirectorySeparatorChar, _fileLoggerProvider.Options.FilePath.Replace("{date}", DateTime.Now.ToString("yyyy-MM-dd")));
+            var fullPathName = string.Format("{0}/{1}", fileLoggerProvider.Options.FolderPath + Path.DirectorySeparatorChar, fileLoggerProvider.Options.FilePath.Replace("{date}", DateTime.Now.ToString("yyyy-MM-dd")));
             var logEntry = string.Format("{0} [{1}] {2} {3}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), logLevel.ToString(), formatter(state, exception), (exception != null ? "OOPS!" + exception : ""));
 
             using (var streamWriter = new StreamWriter(fullPathName, true)) {

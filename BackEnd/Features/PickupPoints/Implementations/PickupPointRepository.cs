@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BlueWaterCruises.Features.Reservations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace BlueWaterCruises.Features.PickupPoints {
 
@@ -11,7 +12,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
 
         private readonly IMapper mapper;
 
-        public PickupPointRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public PickupPointRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
             this.mapper = mapper;
         }
 

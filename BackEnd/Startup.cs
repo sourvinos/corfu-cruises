@@ -57,6 +57,7 @@ namespace BlueWaterCruises {
             services.Configure<CookiePolicyOptions>(options => { options.CheckConsentNeeded = context => true; options.MinimumSameSitePolicy = SameSiteMode.None; });
             services.Configure<EmailSettings>(options => Configuration.GetSection("ShipCruises").Bind(options));
             services.Configure<TokenSettings>(options => Configuration.GetSection("TokenSettings").Bind(options));
+            services.Configure<TestingEnvironment>(options => Configuration.GetSection("TestingEnvironment").Bind(options));
         }
 
         public void ConfigureDevelopment(IApplicationBuilder app) {
@@ -68,7 +69,6 @@ namespace BlueWaterCruises {
         public void ConfigureTesting(IApplicationBuilder app, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager, AppDbContext context) {
             app.UseDeveloperExceptionPage();
             Configure(app);
-            // SeedDatabaseMaster.SeedDatabase(roleManager, userManager, context);
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
@@ -78,7 +78,7 @@ namespace BlueWaterCruises {
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
-        public void Configure(IApplicationBuilder app) {
+        public virtual void Configure(IApplicationBuilder app) {
             app.UseDefaultFiles();
             app.UseHttpsRedirection();
             app.UseStaticFiles();

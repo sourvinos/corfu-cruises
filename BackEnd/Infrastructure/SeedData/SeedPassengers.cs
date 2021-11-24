@@ -21,8 +21,8 @@ public static class SeedDatabasePassengers {
                         Lastname = Helpers.CreateRandomName().Split(" ")[0],
                         Firstname = Helpers.CreateRandomName().Split(" ")[1],
                         Birthdate = Helpers.CreateRandomDate(),
-                        SpecialCare = Helpers.CreateRandomString(i),
-                        Remarks = Helpers.CreateRandomString(x),
+                        SpecialCare = Helpers.CreateRandomSentence(i),
+                        Remarks = Helpers.CreateRandomSentence(x),
                         IsCheckedIn = false
                     };
                     passengers.Add(passenger);

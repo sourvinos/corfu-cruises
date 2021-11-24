@@ -34,7 +34,7 @@ public static class SeedDatabaseReservations {
                         PickupPointId = pickupPoint.Id,
                         PortId = schedule.PortId,
                         ShipId = context.Ships.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Ships.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
-                        Remarks = Helpers.CreateRandomString(i),
+                        Remarks = Helpers.CreateRandomSentence(i),
                         UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).FirstOrDefault()
                     };
                     reservations.Add(reservation);

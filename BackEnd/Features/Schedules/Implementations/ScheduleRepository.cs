@@ -6,6 +6,7 @@ using AutoMapper;
 using BlueWaterCruises.Features.Reservations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace BlueWaterCruises.Features.Schedules {
 
@@ -14,7 +15,7 @@ namespace BlueWaterCruises.Features.Schedules {
         private readonly IMapper mapper;
         private readonly UserManager<AppUser> userManager;
 
-        public ScheduleRepository(AppDbContext context, IMapper mapper, UserManager<AppUser> userManager) : base(context) {
+        public ScheduleRepository(AppDbContext context, IMapper mapper, UserManager<AppUser> userManager, IOptions<TestingEnvironment> settings) : base(context, settings) {
             this.mapper = mapper;
             this.userManager = userManager;
         }

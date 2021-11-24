@@ -12,11 +12,9 @@ namespace BlueWaterCruises {
 
         public FileLoggerProvider(IOptions<FileLoggerOptions> options) {
             Options = options.Value;
-
             if (!Directory.Exists(Options.FolderPath)) {
                 Directory.CreateDirectory(Options.FolderPath);
             }
-
         }
 
         public ILogger CreateLogger(string categoryName) {

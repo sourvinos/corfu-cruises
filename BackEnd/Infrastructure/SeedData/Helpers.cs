@@ -6,7 +6,7 @@ namespace BlueWaterCruises {
 
     public static class Helpers {
 
-        public static string CreateRandomString(int i) {
+        public static string CreateRandomSentence(int i) {
             List<string> remarks = new() {
                 "food included",
                 "very fussy customer",

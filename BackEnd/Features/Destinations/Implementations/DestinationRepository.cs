@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace BlueWaterCruises.Features.Destinations {
 
@@ -10,7 +11,7 @@ namespace BlueWaterCruises.Features.Destinations {
 
         private readonly IMapper mapper;
 
-        public DestinationRepository(AppDbContext appDbContext, IMapper mapper) : base(appDbContext) {
+        public DestinationRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
             this.mapper = mapper;
         }
 

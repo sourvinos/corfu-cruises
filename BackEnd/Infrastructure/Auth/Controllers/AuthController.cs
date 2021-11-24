@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -37,6 +38,21 @@ namespace BlueWaterCruises {
                         response = ApiMessages.AuthenticationFailed()
                     });
             }
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult Logout([FromBody] User user) {
+            var tokens = db.Tokens.Where(x => x.UserId == user.UserId).ToList();
+            if (tokens != null) {
+                db.Tokens.RemoveRange(tokens);
+                db.SaveChanges();
+                return StatusCode(200, new {
+                    response = ApiMessages.LogoutSuccess()
+                });
+            }
+            return StatusCode(404, new {
+                response = ApiMessages.LogoutError()
+            });
         }
 
         private async Task<IActionResult> GenerateNewToken(TokenRequest model) {

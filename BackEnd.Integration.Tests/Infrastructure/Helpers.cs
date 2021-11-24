@@ -29,6 +29,10 @@ namespace BackEnd.IntegrationTests {
             return loginResult;
         }
 
+        public static async Task Logout(HttpClient httpClient, User user) {
+            await httpClient.PostAsync("api/auth/logout", new StringContent(JsonSerializer.Serialize(user), Encoding.UTF8, MediaTypeNames.Application.Json));
+        }
+
         public static string CreateRandomString(int length) {
             return new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", length).Select(s => s[random.Next(s.Length)]).ToArray());
         }

@@ -14,6 +14,7 @@ namespace BlueWaterCruises {
         public static string FileCreated() { return "File created."; }
         public static string RecordDeleted() { return "Record deleted."; }
         public static string RecordUpdated() { return "Record updated."; }
+        public static string LogoutSuccess() { return "Logout was successful."; }
 
         #endregion
 
@@ -34,6 +35,7 @@ namespace BlueWaterCruises {
         public static string DayHasNoScheduleForDestination() { return "For this day and destination nothing is scheduled"; }
         public static string PortHasNoDepartures() { return "For this day and destination, nothing is scheduled to depart from the given port"; }
         public static string PortHasNoVacancy() { return "Overbooking in not allowed"; }
+        public static string LogoutError() { return "The user is not logged in."; }
 
         #endregion
 
