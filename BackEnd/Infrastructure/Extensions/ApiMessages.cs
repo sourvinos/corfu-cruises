@@ -36,7 +36,8 @@ namespace BlueWaterCruises {
         public static string PortHasNoDepartures() { return "For this day and destination, nothing is scheduled to depart from the given port"; }
         public static string PortHasNoVacancy() { return "Overbooking in not allowed"; }
         public static string LogoutError() { return "The user is not logged in."; }
-
+        public static string NotOwnRecord() { return "This record belongs to another user."; }
+        
         #endregion
 
     }

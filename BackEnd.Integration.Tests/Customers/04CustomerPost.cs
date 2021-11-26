@@ -12,56 +12,69 @@ using Xunit;
 
 namespace BackEnd.IntegrationTests {
 
-    public class Customers04Post {
+    public class Customers04Post : IClassFixture<AppSettingsFixture> {
 
-        private HttpClient httpClient;
+        #region variables
+
+        private readonly AppSettingsFixture appsettingsFixture;
+        private readonly HttpClient httpClient;
         private readonly TestHostFixture testHostFixture = new TestHostFixture();
-        private string url { get; set; } = "api/customers";
+        private string baseUrl { get; set; }
+        private string url { get; set; } = "customers";
 
-        public Customers04Post() {
-            httpClient = testHostFixture.Client;
+        #endregion
+
+        public Customers04Post(AppSettingsFixture appsettings) {
+            this.appsettingsFixture = appsettings;
+            this.baseUrl = appsettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
+            this.httpClient = testHostFixture.Client;
         }
 
         [Fact]
-        public async Task Customers01Post_Unauthorized_When_Not_Logged_In() {
-            // check
+        public async Task _01_Unauthorized_When_Not_Logged_In() {
+            // arrange
             CustomerWriteResource customer = this.CreateCustomer(null);
-            var postResponse = await httpClient.PostAsync(this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // act
+            HttpResponseMessage postResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // assert
             Assert.Equal(HttpStatusCode.Unauthorized, postResponse.StatusCode);
         }
 
         [Fact]
-        public async Task Customers02Post_Unauthorized_When_Invalid_Credentials() {
-            // login
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
+        public async Task _02_Unauthorized_When_Invalid_Credentials() {
+            // arrange
+            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            // post
             CustomerWriteResource customer = this.CreateCustomer(loginResponse.userId);
-            var postResponse = await httpClient.PostAsync(this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // act
+            HttpResponseMessage postResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // assert
             Assert.Equal(HttpStatusCode.Unauthorized, postResponse.StatusCode);
         }
 
         [Fact]
-        public async Task Customers03Post_Forbidden_When_LoggedIn_User_Is_Not_Admin() {
-            // login
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
+        public async Task _03_Forbidden_When_User_Is_Not_An_Admin() {
+            // arrange
+            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            // post
             CustomerWriteResource customer = this.CreateCustomer(loginResponse.userId);
-            var postResponse = await httpClient.PostAsync(this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // act
+            HttpResponseMessage postResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // assert
             Assert.Equal(HttpStatusCode.Forbidden, postResponse.StatusCode);
             // cleanup
             await Helpers.Logout(httpClient, new User { UserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828" });
         }
 
         [Fact]
-        public async Task Customers04Post_OK_When_LoggedIn_User_Is_Admin() {
-            // login
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+        public async Task _04_Admins_Can_Create_A_Record() {
+            // arrange
+            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            // post
             CustomerWriteResource customer = this.CreateCustomer(loginResponse.userId);
-            var postResponse = await httpClient.PostAsync(this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // act
+            HttpResponseMessage postResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // assert
             Assert.Equal(HttpStatusCode.OK, postResponse.StatusCode);
             // cleanup
             await Helpers.Logout(httpClient, new User { UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" });

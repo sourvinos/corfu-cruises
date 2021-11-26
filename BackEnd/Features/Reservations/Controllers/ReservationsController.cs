@@ -33,15 +33,19 @@ namespace BlueWaterCruises.Features.Reservations {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IActionResult> GetById(string id) {
-            var record = await reservationRepo.GetById(id);
+        public async Task<IActionResult> GetById([FromBody] User user, string id) {
+            var record = await reservationRepo.GetById(user.UserId, id);
             if (record == null) {
                 LoggerExtensions.LogException(id.ToString(), logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
             };
-            return StatusCode(200, record);
+            return await reservationRepo.UserIsAdmin(user.UserId)
+                ? StatusCode(200, record)
+                : StatusCode(490, new {
+                    response = ApiMessages.NotOwnRecord()
+                });
         }
 
         [HttpPost]

@@ -50,7 +50,7 @@ namespace BlueWaterCruises.Features.Reservations {
             return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
         }
 
-        public async Task<ReservationReadResource> GetById(string id) {
+        public async Task<ReservationReadResource> GetById(string userId, string id) {
             var reservation = await context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
@@ -163,9 +163,9 @@ namespace BlueWaterCruises.Features.Reservations {
             return port[0].MaxPersons;
         }
 
-        private async Task<bool> UserIsAdmin(string userId) {
+        public async Task<bool> UserIsAdmin(string userId) {
             var user = await userManager.FindByIdAsync(userId);
-            return user.IsAdmin;
+            return user != null ? user.IsAdmin : false;
         }
 
     }

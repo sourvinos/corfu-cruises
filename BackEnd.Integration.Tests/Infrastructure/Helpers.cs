@@ -14,7 +14,7 @@ namespace BackEnd.IntegrationTests {
         private static Random random = new Random();
 
         public static TokenRequest CreateLoginCredentials(string username, string password, string grantType = "password") {
-            var credentials = new TokenRequest {
+            TokenRequest credentials = new TokenRequest {
                 Username = username,
                 Password = password,
                 GrantType = grantType
@@ -23,9 +23,9 @@ namespace BackEnd.IntegrationTests {
         }
 
         public static async Task<TokenResponse> Login(HttpClient httpClient, TokenRequest credentials) {
-            var loginResponse = await httpClient.PostAsync("api/auth/auth", new StringContent(JsonSerializer.Serialize(credentials), Encoding.UTF8, MediaTypeNames.Application.Json));
-            var loginResponseContent = await loginResponse.Content.ReadAsStringAsync();
-            var loginResult = JsonSerializer.Deserialize<TokenResponse>(loginResponseContent);
+            HttpResponseMessage loginResponse = await httpClient.PostAsync("api/auth/auth", new StringContent(JsonSerializer.Serialize(credentials), Encoding.UTF8, MediaTypeNames.Application.Json));
+            string loginResponseContent = await loginResponse.Content.ReadAsStringAsync();
+            TokenResponse loginResult = JsonSerializer.Deserialize<TokenResponse>(loginResponseContent);
             return loginResult;
         }
 
