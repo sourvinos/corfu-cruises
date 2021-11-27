@@ -14,10 +14,12 @@ namespace BlueWaterCruises.Features.Reservations {
 
         private readonly IMapper mapper;
         private readonly UserManager<AppUser> userManager;
+        private readonly TestingEnvironment settings;
 
         public ReservationRepository(AppDbContext appDbContext, IMapper mapper, UserManager<AppUser> userManager, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
             this.mapper = mapper;
             this.userManager = userManager;
+            this.settings = settings.Value;
         }
 
         public async Task<ReservationGroupResource<ReservationListResource>> Get(string userId, string date) {
@@ -50,7 +52,7 @@ namespace BlueWaterCruises.Features.Reservations {
             return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
         }
 
-        public async Task<ReservationReadResource> GetById(string userId, string id) {
+        public async Task<ReservationReadResource> GetById(string userId, string reservationId) {
             var reservation = await context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
@@ -61,7 +63,7 @@ namespace BlueWaterCruises.Features.Reservations {
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                 .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
                 .Include(x => x.Passengers).ThenInclude(x => x.Gender)
-                .SingleOrDefaultAsync(x => x.ReservationId.ToString() == id);
+                .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId);
             return mapper.Map<Reservation, ReservationReadResource>(reservation);
         }
 
@@ -85,7 +87,11 @@ namespace BlueWaterCruises.Features.Reservations {
                 UpdateReservation(updatedRecord);
                 RemovePassengers(GetPassengersForReservation(id));
                 AddPassengers(updatedRecord);
-                transaction.Commit();
+                if (settings.IsTesting) {
+                    transaction.Dispose();
+                } else {
+                    transaction.Commit();
+                }
                 return true;
             } catch (Exception) {
                 transaction.Rollback();
@@ -111,19 +117,31 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         public void AssignToDriver(int driverId, string[] ids) {
+            using var transaction = context.Database.BeginTransaction();
             var reservations = context.Reservations
                 .Where(x => ids.Contains(x.ReservationId.ToString()))
                 .ToList();
             reservations.ForEach(a => a.DriverId = driverId);
             context.SaveChanges();
+            if (settings.IsTesting) {
+                transaction.Dispose();
+            } else {
+                transaction.Commit();
+            }
         }
 
         public void AssignToShip(int shipId, string[] ids) {
+            using var transaction = context.Database.BeginTransaction();
             var records = context.Reservations
                 .Where(x => ids.Contains(x.ReservationId.ToString()))
                 .ToList();
             records.ForEach(a => a.ShipId = shipId);
             context.SaveChanges();
+            if (settings.IsTesting) {
+                transaction.Dispose();
+            } else {
+                transaction.Commit();
+            }
         }
 
         private IEnumerable<Passenger> GetPassengersForReservation(string id) {

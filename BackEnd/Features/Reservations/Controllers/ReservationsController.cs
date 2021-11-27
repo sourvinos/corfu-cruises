@@ -41,11 +41,11 @@ namespace BlueWaterCruises.Features.Reservations {
                     response = ApiMessages.RecordNotFound()
                 });
             };
-            return await reservationRepo.UserIsAdmin(user.UserId)
-                ? StatusCode(200, record)
-                : StatusCode(490, new {
-                    response = ApiMessages.NotOwnRecord()
-                });
+            return await reservationRepo.UserIsAdmin(user.UserId) || (user.UserId == record.UserId)
+                ? StatusCode(200, new { response = record })
+                    : StatusCode(490, new {
+                        response = ApiMessages.NotOwnRecord()
+                    });
         }
 
         [HttpPost]

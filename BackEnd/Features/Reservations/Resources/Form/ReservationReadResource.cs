@@ -15,6 +15,7 @@ namespace BlueWaterCruises.Features.Reservations {
         public string Email { get; set; }
         public string Phones { get; set; }
         public string Remarks { get; set; }
+        public string UserId { get; set; }
 
         public SimpleResource Customer { get; set; }
         public SimpleResource Destination { get; set; }
