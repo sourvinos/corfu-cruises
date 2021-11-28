@@ -30,7 +30,7 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _01_Unauthorized_When_Not_Logged_In() {
             // act
-            HttpResponseMessage deleteResponse = await httpClient.DeleteAsync(this.baseUrl + this.urlNotInUse);
+            var deleteResponse = await httpClient.DeleteAsync(this.baseUrl + this.urlNotInUse);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, deleteResponse.StatusCode);
         }
@@ -38,10 +38,10 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _02_Unauthorized_When_Invalid_Credentials() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
             // act
-            HttpResponseMessage deleteResponse = await httpClient.DeleteAsync(this.baseUrl + this.urlNotInUse);
+            var deleteResponse = await httpClient.DeleteAsync(this.baseUrl + this.urlNotInUse);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, deleteResponse.StatusCode);
         }
@@ -49,10 +49,10 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _03_Forbidden_When_User_Is_Not_An_Admin() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
             // act
-            HttpResponseMessage deleteResponse = await httpClient.DeleteAsync(this.baseUrl + this.urlNotInUse);
+            var deleteResponse = await httpClient.DeleteAsync(this.baseUrl + this.urlNotInUse);
             // assert
             Assert.Equal(HttpStatusCode.Forbidden, deleteResponse.StatusCode);
             // cleanup
@@ -62,10 +62,10 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _04_Admins_Can_Not_Delete_A_Record_When_In_Use() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
             // act
-            HttpResponseMessage deleteResponse = await httpClient.DeleteAsync(this.baseUrl + this.urlInUse);
+            var deleteResponse = await httpClient.DeleteAsync(this.baseUrl + this.urlInUse);
             // assert
             Assert.Equal((HttpStatusCode)491, deleteResponse.StatusCode);
             // cleanup
@@ -75,10 +75,10 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _05_Admins_Can_Delete_A_Record_When_Not_In_Use() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
             // act
-            HttpResponseMessage deleteResponse = await httpClient.DeleteAsync(this.baseUrl + this.urlNotInUse);
+            var deleteResponse = await httpClient.DeleteAsync(this.baseUrl + this.urlNotInUse);
             // assert
             Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
             // cleanup

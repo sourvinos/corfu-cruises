@@ -21,9 +21,9 @@ namespace BackEnd.IntegrationTests {
         private readonly HttpClient httpClient;
         private readonly TestHostFixture testHostFixture = new TestHostFixture();
         private string baseUrl { get; set; }
-        private string adminUrl { get; set; } = "reservations/689051b9-df9e-4c68-91f6-1d093c1bf46c"; // Belongs to user ...6da which is an admin
-        private string notAdminUrl { get; set; } = "reservations/c4db7af5-5310-4f58-be17-83997d99a037"; // Belongs to user ...828 which is not an admin
-        private string recordNotExists { get; set; } = "reservations/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
+        private string myAdminReservation { get; set; } = "reservations/689051b9-df9e-4c68-91f6-1d093c1bf46c"; // Belongs to user ...6da which is an admin
+        private string mySimpleUserReservation { get; set; } = "reservations/c4db7af5-5310-4f58-be17-83997d99a037"; // Belongs to user ...828 which is not an admin
+        private string recordNotExists { get; set; } = "reservations/eab4c9a0-05eb-4880-874a-eaf0a12fefe9";
 
         #endregion
 
@@ -36,7 +36,7 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _01_Unauthorized_When_Not_Logged_In() {
             // act
-            HttpResponseMessage actionResponse = await httpClient.GetAsync(this.baseUrl + this.adminUrl);
+            var actionResponse = await httpClient.GetAsync(this.baseUrl + this.myAdminReservation);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -44,10 +44,11 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _02_Unauthorized_When_Invalid_Credentials() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            var request = Helpers.CreateRequest(this.baseUrl, "user-does-not-exist", this.recordNotExists);
             // act
-            HttpResponseMessage actionResponse = await httpClient.GetAsync(this.baseUrl + adminUrl);
+            var actionResponse = await httpClient.SendAsync(request);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -55,10 +56,14 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _03_NotFound_When_Record_Does_Not_Exist() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            var request = Helpers.CreateRequest(this.baseUrl, "7b8326ad-468f-4dbd-bf6d-820343d9e828", this.recordNotExists);
             // act
-            HttpResponseMessage actionResponse = await httpClient.GetAsync(this.baseUrl + this.recordNotExists);
+            var actionResponse = await httpClient.SendAsync(request);
+            var records = JsonSerializer.Deserialize<ReservationReadResource>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions {
+                PropertyNameCaseInsensitive = true
+            });
             // assert
             Assert.Equal(HttpStatusCode.NotFound, actionResponse.StatusCode);
             // cleanup
@@ -68,16 +73,12 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _05_Simple_Users_Can_Not_Read_Records_From_Other_Users() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            HttpRequestMessage request = new HttpRequestMessage {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(this.baseUrl + this.adminUrl),
-                Content = new StringContent(JsonSerializer.Serialize(new User { UserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828" }), Encoding.UTF8, MediaTypeNames.Application.Json)
-            };
+            var request = Helpers.CreateRequest(this.baseUrl, "7b8326ad-468f-4dbd-bf6d-820343d9e828", this.myAdminReservation);
             // act
-            HttpResponseMessage actionResponse = await httpClient.SendAsync(request);
-            ReservationGroupResource<ReservationListResource> records = JsonSerializer.Deserialize<ReservationGroupResource<ReservationListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions {
+            var actionResponse = await httpClient.SendAsync(request);
+            var records = JsonSerializer.Deserialize<ReservationReadResource>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions {
                 PropertyNameCaseInsensitive = true
             });
             // assert
@@ -89,16 +90,12 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _06_Simple_Users_Can_Read_Their_Own_Records() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            HttpRequestMessage request = new HttpRequestMessage {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(this.baseUrl + this.notAdminUrl),
-                Content = new StringContent(JsonSerializer.Serialize(new User { UserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828" }), Encoding.UTF8, MediaTypeNames.Application.Json)
-            };
+            var request = Helpers.CreateRequest(this.baseUrl, "7b8326ad-468f-4dbd-bf6d-820343d9e828", this.mySimpleUserReservation);
             // act
-            HttpResponseMessage actionResponse = await httpClient.SendAsync(request);
-            ReservationGroupResource<ReservationListResource> records = JsonSerializer.Deserialize<ReservationGroupResource<ReservationListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions {
+            var actionResponse = await httpClient.SendAsync(request);
+            var records = JsonSerializer.Deserialize<ReservationReadResource>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions {
                 PropertyNameCaseInsensitive = true
             });
             // assert
@@ -108,18 +105,14 @@ namespace BackEnd.IntegrationTests {
         }
 
         [Fact]
-        public async Task _04_Admins_Can_Read_Records_From_Other_Users() {
+        public async Task _04_Admins_Can_Read_Records_From_All_Users() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            HttpRequestMessage request = new HttpRequestMessage {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(this.notAdminUrl),
-                Content = new StringContent(JsonSerializer.Serialize(new User { UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" }), Encoding.UTF8, MediaTypeNames.Application.Json)
-            };
+            var request = Helpers.CreateRequest(this.baseUrl, "7b8326ad-468f-4dbd-bf6d-820343d9e828", this.mySimpleUserReservation);
             // act
-            HttpResponseMessage actionResponse = await httpClient.SendAsync(request);
-            ReservationReadResource records = JsonSerializer.Deserialize<ReservationReadResource>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var actionResponse = await httpClient.SendAsync(request);
+            var records = JsonSerializer.Deserialize<ReservationReadResource>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
             Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup

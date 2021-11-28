@@ -35,7 +35,7 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _01_Unauthorized_When_Not_Logged_In() {
             // act
-            HttpResponseMessage actionResponse = await httpClient.GetAsync(this.baseUrl + this.url);
+            var actionResponse = await httpClient.GetAsync(this.baseUrl + this.url);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -43,10 +43,11 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _02_Unauthorized_When_Invalid_Credentials() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            var request = Helpers.CreateRequest(this.baseUrl, "user-does-not-exist", this.url);
             // act
-            HttpResponseMessage actionResponse = await httpClient.GetAsync(this.baseUrl + this.url);
+            var actionResponse = await httpClient.SendAsync(request);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -56,16 +57,12 @@ namespace BackEnd.IntegrationTests {
         [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da")]
         public async Task _03_Logged_In_Users_Can_Get_Active_Records(string user, string password, string userId) {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(user, password));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(user, password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            HttpRequestMessage request = new HttpRequestMessage {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(this.baseUrl + this.url),
-                Content = new StringContent(JsonSerializer.Serialize(new User { UserId = userId }), Encoding.UTF8, MediaTypeNames.Application.Json)
-            };
+            var request = Helpers.CreateRequest(this.baseUrl, "7b8326ad-468f-4dbd-bf6d-820343d9e828", this.url);
             // act
-            HttpResponseMessage actionResponse = await httpClient.GetAsync(this.baseUrl + this.url);
-            List<SimpleResource> records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var actionResponse = await httpClient.SendAsync(request);
+            var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
             Assert.Equal(11, records.Count());
             // cleanup

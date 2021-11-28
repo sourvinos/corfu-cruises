@@ -37,6 +37,15 @@ namespace BackEnd.IntegrationTests {
             return new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", length).Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
+        public static HttpRequestMessage CreateRequest(string baseUrl, string userId, string url) {
+            var request = new HttpRequestMessage {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(baseUrl + url),
+                Content = new StringContent(JsonSerializer.Serialize(new User { UserId = userId }), Encoding.UTF8, MediaTypeNames.Application.Json)
+            };
+            return request;
+        }
+
     }
 
 }

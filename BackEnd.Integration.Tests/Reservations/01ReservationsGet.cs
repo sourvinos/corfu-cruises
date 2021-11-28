@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -34,7 +35,7 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _01_Unauthorized_When_Not_Logged_In() {
             // act
-            HttpResponseMessage actionResponse = await httpClient.GetAsync(this.baseUrl + this.url);
+            var actionResponse = await httpClient.GetAsync(this.baseUrl + this.url);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -42,29 +43,27 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _02_Unauthorized_When_Invalid_Credentials() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            var request = Helpers.CreateRequest(this.baseUrl, "user-does-not-exist", this.url);
             // act
-            HttpResponseMessage actionResponse = await httpClient.GetAsync(this.baseUrl + this.url);
+            var actionResponse = await httpClient.SendAsync(request);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
 
         [Fact]
-        public async Task _03_Admins_Can_List_Records_From_Other_Users() {
+        public async Task _03_Admins_Can_List_Records_From_All_Users() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            HttpRequestMessage request = new HttpRequestMessage {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(this.baseUrl + this.url),
-                Content = new StringContent(JsonSerializer.Serialize(new User { UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" }), Encoding.UTF8, MediaTypeNames.Application.Json)
-            };
+            var request = Helpers.CreateRequest(this.baseUrl, "e7e014fd-5608-4936-866e-ec11fc8c16da", this.url);
             // act
-            HttpResponseMessage actionResponse = await httpClient.SendAsync(request);
-            ReservationGroupResource<ReservationListResource> records = JsonSerializer.Deserialize<ReservationGroupResource<ReservationListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var actionResponse = await httpClient.SendAsync(request);
+            var records = JsonSerializer.Deserialize<ReservationGroupResource<ReservationListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
-             Assert.Equal(113, records.Persons);
+            Assert.Equal(22, records.Reservations.Count());
+            Assert.Equal(110, records.Persons);
             // cleanup
             await Helpers.Logout(httpClient, new User { UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" });
         }
@@ -72,18 +71,15 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _04_Simple_Users_Can_List_Only_Their_Own_Records() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            HttpRequestMessage request = new HttpRequestMessage {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(this.baseUrl + this.url),
-                Content = new StringContent(JsonSerializer.Serialize(new User { UserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828" }), Encoding.UTF8, MediaTypeNames.Application.Json)
-            };
+            var request = Helpers.CreateRequest(this.baseUrl, "7b8326ad-468f-4dbd-bf6d-820343d9e828", this.url);
             // act
-            HttpResponseMessage actionResponse = await httpClient.SendAsync(request);
-            ReservationGroupResource<ReservationListResource> records = JsonSerializer.Deserialize<ReservationGroupResource<ReservationListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var actionResponse = await httpClient.SendAsync(request);
+            var records = JsonSerializer.Deserialize<ReservationGroupResource<ReservationListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
-             Assert.Equal(43, records.Persons);
+            Assert.Equal(8, records.Reservations.Count());
+            Assert.Equal(43, records.Persons);
             // cleanup
             await Helpers.Logout(httpClient, new User { UserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828" });
         }

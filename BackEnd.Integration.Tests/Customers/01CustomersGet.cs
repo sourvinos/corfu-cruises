@@ -36,7 +36,7 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _01_Unauthorized_When_Not_Logged_In() {
             // act
-            HttpResponseMessage actionResponse = await httpClient.GetAsync(this.baseUrl + this.url);
+            var actionResponse = await httpClient.GetAsync(this.baseUrl + this.url);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -44,10 +44,11 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _02_Unauthorized_When_Invalid_Credentials() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            var request = Helpers.CreateRequest(this.baseUrl, "user-does-not-exist", this.url);
             // act
-            HttpResponseMessage actionResponse = await httpClient.GetAsync(this.baseUrl + this.url);
+            var actionResponse = await httpClient.SendAsync(request);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -55,10 +56,11 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _03_Forbidden_When_User_Is_Not_An_Admin() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            var request = Helpers.CreateRequest(this.baseUrl, "7b8326ad-468f-4dbd-bf6d-820343d9e828", this.url);
             // act
-            HttpResponseMessage actionResponse = await httpClient.GetAsync(this.baseUrl + this.url);
+            var actionResponse = await httpClient.SendAsync(request);
             // assert
             Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
             // cleanup
@@ -68,16 +70,12 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _04_Admins_Can_List_Records() {
             // arrange
-            TokenResponse loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            HttpRequestMessage request = new HttpRequestMessage {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(this.baseUrl + this.url),
-                Content = new StringContent(JsonSerializer.Serialize(new User { UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" }), Encoding.UTF8, MediaTypeNames.Application.Json)
-            };
+            var request = Helpers.CreateRequest(this.baseUrl, "e7e014fd-5608-4936-866e-ec11fc8c16da", this.url);
             // act
-            HttpResponseMessage actionResponse = await httpClient.SendAsync(request);
-            List<CustomerListResource> records = JsonSerializer.Deserialize<List<CustomerListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var actionResponse = await httpClient.SendAsync(request);
+            var records = JsonSerializer.Deserialize<List<CustomerListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
             Assert.Equal(20, records.Count());
             // cleanup
