@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -70,11 +71,7 @@ namespace BackEnd.IntegrationTests {
         }
 
         [Theory]
-        [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 432, "2021-10-04", 1, 1, 5, 1, "TicketNo")] // we don't go anywhere on this day
-        [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 430, "2021-10-02", 1, 1, 3, 1, "TicketNo")] // we don't go to Paxos on this day (we only go to Blue Lagoon)
-        [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 427, "2021-10-02", 3, 2, 3, 1, "TicketNo")] // we don't go to Blue Lagoon from Lefkimmi on this day (we only go from Corfu)
-        [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 433, "2021-10-01", 1, 1, 127, 1, "TicketNo")] // overbooking for primary port is not allowed
-        [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 433, "2021-10-01", 1, 2, 288, 1, "TicketNo")] // overbooking for secondary port greater the the max persons is not allowed
+        [MemberData(nameof(Data))]
         public async Task _04_Logged_In_Users_Can_Not_Create_A_Record_When_Inputs_Are_Invalid(string user, string password, string userId, int expectedError, string date, int destinationId, int portId, int adults, int customerId, string ticketNo) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(user, password));
@@ -122,6 +119,14 @@ namespace BackEnd.IntegrationTests {
                 UserId = "4fcd7909-0569-45d9-8b78-2b24a7368e19"
             };
         }
+
+        public static IEnumerable<object[]> Data => new List<object[]> {
+            new object[] { "john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 432, "2021-10-04", 1, 1, 5, 1, "BLS001" }, // we don't go anywhere on this day
+            new object[] { "john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 430, "2021-10-02", 1, 1, 3, 1, "BLS001" }, // we don't go to Paxos on this day (we only go to Blue Lagoon)
+            new object[] { "john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 427, "2021-10-02", 3, 2, 3, 1, "BLS001" }, // we don't go to Blue Lagoon from Lefkimmi on this day (we only go from Corfu)
+            new object[] { "john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 433, "2021-10-01", 1, 1, 127, 1, "BLS001" }, // overbooking for primary port is not allowed
+            new object[] { "john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 433, "2021-10-01", 1, 2, 288, 1, "BLS001" }, // overbooking for secondary port greater the the max persons is not allowed
+        };
 
     }
 

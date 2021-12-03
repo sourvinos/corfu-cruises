@@ -40,6 +40,24 @@ public static class SeedDatabaseReservations {
                     reservations.Add(reservation);
                 }
             }
+            reservations.Add(new Reservation {
+                ReservationId = Guid.NewGuid(),
+                Date = new DateTime(2021, 10, 10),
+                Adults = 5,
+                Kids = 3,
+                Free = 1,
+                TicketNo = Helpers.CreateRandomTicketNo(5),
+                Email = Helpers.CreateRandomEmail(),
+                Phones = Helpers.CreateRandomPhones(),
+                CustomerId = 1,
+                DestinationId = 1,
+                DriverId = context.Drivers.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Drivers.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
+                PickupPointId = 124,
+                PortId = 1,
+                ShipId = context.Ships.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Ships.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
+                Remarks = Helpers.CreateRandomSentence(1),
+                UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).FirstOrDefault()
+            });
             context.AddRange(reservations);
             context.SaveChanges();
         }

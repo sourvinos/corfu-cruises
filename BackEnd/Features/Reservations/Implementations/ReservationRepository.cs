@@ -177,7 +177,9 @@ namespace BlueWaterCruises.Features.Reservations {
 
         private int GetPortMaxPersons(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId) {
             IEnumerable<ScheduleReservationGroup> schedule = scheduleRepo.DoCalendarTasks(fromDate, toDate, reservationId).ToList();
-            var port = schedule.Select(x => x.Destinations.SingleOrDefault(x => x.Id == destinationId).Ports.SingleOrDefault(x => x.Id == portId)).Select(x => new { MaxPersons = x.AvailableSeats }).ToList();
+            var port = schedule.Select(x => x.Destinations.SingleOrDefault(x => x.Id == destinationId).Ports.SingleOrDefault(x => x.Id == portId)).Select(x => new {
+                MaxPersons = x.AvailableSeats
+            }).ToList();
             return port[0].MaxPersons;
         }
 
