@@ -33,31 +33,22 @@ namespace BackEnd.IntegrationTests {
             this.httpClient = testHostFixture.Client;
         }
 
-        // [Fact]
-        // public async Task _01_Unauthorized_When_Not_Logged_In() {
-        //     // arrange
-        //     var record = this.CreateRecord(null, "");
-        //     // act
-        //     var actionResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
-        //     // assert
-        //     Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
-        // }
-
-        // [Fact]
-        // public async Task _02_Unauthorized_When_Invalid_Credentials() {
-        //     // arrange
-        //     var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
-        //     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-        //     var record = this.CreateRecord(loginResponse.userId);
-        //     // act
-        //     HttpResponseMessage postResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
-        //     // assert
-        //     Assert.Equal(HttpStatusCode.Unauthorized, postResponse.StatusCode);
-        // }
+        [Theory]
+        [ClassData(typeof(InvalidCredentials))]
+        public async Task _01_Unauthorized_When_Invalid_Credentials(ReservationTest reservation) {
+            // arrange
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            var record = this.CreateRecord(loginResponse.userId, reservation.Date, reservation.DestinationId, reservation.PortId, reservation.CustomerId, reservation.Adults, reservation.Kids, reservation.Free, reservation.TicketNo);
+            // act
+            HttpResponseMessage postResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // assert
+            Assert.Equal(HttpStatusCode.Unauthorized, postResponse.StatusCode);
+        }
 
         [Theory]
         [ClassData(typeof(ReservationsWithoutErrors))]
-        public async Task _03_Logged_In_Users_Can_Create_Records(ReservationTest reservation) {
+        public async Task _02_Logged_In_Users_Can_Create_Records(ReservationTest reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
@@ -72,7 +63,7 @@ namespace BackEnd.IntegrationTests {
 
         [Theory]
         [ClassData(typeof(ReservationsWithErrors))]
-        public async Task _04_Logged_In_Users_Can_Not_Create_A_Record_When_Inputs_Are_Invalid(ReservationTest reservation) {
+        public async Task _03_Logged_In_Users_Can_Not_Create_Records_When_Inputs_Are_Invalid(ReservationTest reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
