@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -32,80 +33,65 @@ namespace BackEnd.IntegrationTests {
             this.httpClient = testHostFixture.Client;
         }
 
-        [Fact]
-        public async Task _01_Unauthorized_When_Not_Logged_In() {
-            // arrange
-            var record = this.CreateRecord(null, "");
-            // act
-            var actionResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
-            // assert
-            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
-        }
+        // [Fact]
+        // public async Task _01_Unauthorized_When_Not_Logged_In() {
+        //     // arrange
+        //     var record = this.CreateRecord(null, "");
+        //     // act
+        //     var actionResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
+        //     // assert
+        //     Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+        // }
 
-        [Fact]
-        public async Task _02_Unauthorized_When_Invalid_Credentials() {
-            // arrange
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var record = this.CreateRecord(loginResponse.userId);
-            // act
-            HttpResponseMessage postResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
-            // assert
-            Assert.Equal(HttpStatusCode.Unauthorized, postResponse.StatusCode);
-        }
+        // [Fact]
+        // public async Task _02_Unauthorized_When_Invalid_Credentials() {
+        //     // arrange
+        //     var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
+        //     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+        //     var record = this.CreateRecord(loginResponse.userId);
+        //     // act
+        //     HttpResponseMessage postResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
+        //     // assert
+        //     Assert.Equal(HttpStatusCode.Unauthorized, postResponse.StatusCode);
+        // }
 
         [Theory]
-        [InlineData("matoula", "820343d9e828", "7b8326ad-468f-4dbd-bf6d-820343d9e828")]
-        [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da")]
-        public async Task _03_Logged_In_Users_Can_Create_A_Record(string user, string password, string userId) {
+        [ClassData(typeof(ReservationsWithoutErrors))]
+        public async Task _03_Logged_In_Users_Can_Create_Records(ReservationTest reservation) {
             // arrange
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(user, password));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var record = this.CreateRecord(loginResponse.userId);
+            var record = this.CreateRecord(loginResponse.userId, reservation.Date, reservation.DestinationId, reservation.PortId, reservation.CustomerId, reservation.Adults, reservation.Kids, reservation.Free, reservation.TicketNo);
             // act
             var actionResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
             Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = userId });
+            await Helpers.Logout(httpClient, new User { UserId = reservation.UserId });
         }
 
         [Theory]
-        [MemberData(nameof(Data))]
-        public async Task _04_Logged_In_Users_Can_Not_Create_A_Record_When_Inputs_Are_Invalid(string user, string password, string userId, int expectedError, string date, int destinationId, int portId, int adults, int customerId, string ticketNo) {
+        [ClassData(typeof(ReservationsWithErrors))]
+        public async Task _04_Logged_In_Users_Can_Not_Create_A_Record_When_Inputs_Are_Invalid(ReservationTest reservation) {
             // arrange
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(user, password));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var record = this.CreateRecord(loginResponse.userId, date, destinationId, portId, adults, customerId, ticketNo);
+            var record = this.CreateRecord(loginResponse.userId, reservation.Date, reservation.DestinationId, reservation.PortId, reservation.CustomerId, reservation.Adults, reservation.Kids, reservation.Free, reservation.TicketNo);
             // act
             var actionResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
-            Assert.Equal((HttpStatusCode)expectedError, actionResponse.StatusCode);
+            Assert.Equal((HttpStatusCode)reservation.ExpectedError, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = userId });
+            await Helpers.Logout(httpClient, new User { UserId = reservation.UserId });
         }
 
-        [Fact]
-        public async Task _05_Logged_In_Users_Can_Not_Create_A_Duplicate_Record() {
-            // arrange
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var record = this.CreateRecord(loginResponse.userId, "2021-10-01", 1, 1, 3, 14, "EZFHG");
-            // act
-            var actionResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
-            // assert
-            Assert.Equal((HttpStatusCode)409, actionResponse.StatusCode);
-            // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" });
-        }
-
-        private ReservationWriteResource CreateRecord(string userId, string date = "2021-10-01", int destinationId = 1, int portId = 1, int adults = 3, int customerId = 1, string ticketNo = "BLM1254") {
+        private ReservationWriteResource CreateRecord(string userId, string date, int destinationId, int portId, int customerId, int adults, int kids, int free, string ticketNo) {
             return new ReservationWriteResource {
                 ReservationId = Guid.NewGuid(),
                 Date = date,
                 Adults = adults,
-                Kids = 2,
-                Free = 1,
+                Kids = kids,
+                Free = free,
                 TicketNo = ticketNo,
                 Email = "email@server.com",
                 Phones = "9641 414 533",
@@ -116,17 +102,9 @@ namespace BackEnd.IntegrationTests {
                 PortId = portId,
                 ShipId = 1,
                 Remarks = "TESTING RESERVATION",
-                UserId = "4fcd7909-0569-45d9-8b78-2b24a7368e19"
+                UserId = userId
             };
         }
-
-        public static IEnumerable<object[]> Data => new List<object[]> {
-            new object[] { "john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 432, "2021-10-04", 1, 1, 5, 1, "BLS001" }, // we don't go anywhere on this day
-            new object[] { "john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 430, "2021-10-02", 1, 1, 3, 1, "BLS001" }, // we don't go to Paxos on this day (we only go to Blue Lagoon)
-            new object[] { "john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 427, "2021-10-02", 3, 2, 3, 1, "BLS001" }, // we don't go to Blue Lagoon from Lefkimmi on this day (we only go from Corfu)
-            new object[] { "john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 433, "2021-10-01", 1, 1, 127, 1, "BLS001" }, // overbooking for primary port is not allowed
-            new object[] { "john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 433, "2021-10-01", 1, 2, 288, 1, "BLS001" }, // overbooking for secondary port greater the the max persons is not allowed
-        };
 
     }
 
