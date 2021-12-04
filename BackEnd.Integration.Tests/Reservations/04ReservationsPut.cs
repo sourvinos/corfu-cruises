@@ -21,11 +21,6 @@ namespace BackEnd.IntegrationTests {
         private readonly HttpClient httpClient;
         private readonly TestHostFixture testHostFixture = new TestHostFixture();
         private string baseUrl { get; set; }
-        private string recordCreatedByLoggedInAdmin { get; set; } = "reservations/4d9fb197-b3e2-4834-b150-153896418591";
-        private string recordCreatedByAnotherAdmin { get; set; } = "reservations/313587b0-247b-4e66-bded-235ed7434403";
-        private string recordCreatedByLoggedInSimpleUser { get; set; } = "reservations/1de37e96-2df2-49f9-a241-b274d59d7466";
-        private string recordCreatedByAnotherSimpleUser { get; set; } = "reservations/84514d35-c7af-415a-ba1c-d5671c34f694";
-        private string fakeRecord { get; set; } = "reservations/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
 
         #endregion
 
@@ -35,72 +30,72 @@ namespace BackEnd.IntegrationTests {
             this.httpClient = testHostFixture.Client;
         }
 
-        [Fact]
-        public async Task _01_Unauthorized_When_Not_Logged_In() {
+        [Theory]
+        [ClassData(typeof(InvalidCredentials))]
+        public async Task _01_Unauthorized_When_Invalid_Credentials(ReservationTest reservation) {
             // arrange
-            var record = this.CreateRecord("no-user-id", "b00b42a5-e458-4954-b19d-efe9c63323b4", "2021-10-01", 1, 1, 1, 5);
-            // act
-            HttpResponseMessage actionResponse = await httpClient.PutAsync(this.baseUrl + this.fakeRecord, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
-            // assert
-            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
-        }
-
-        [Fact]
-        public async Task _02_Unauthorized_When_Invalid_Credentials() {
-            // arrange
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var record = this.CreateRecord("no-user-id", "b00b42a5-e458-4954-b19d-efe9c63323b4", "2021-10-01", 1, 1, 1, 5);
+            var record = this.CreateRecord(reservation.ReservationId, loginResponse.userId, reservation.Date, reservation.DestinationId, reservation.PortId, reservation.CustomerId, reservation.Adults, reservation.Kids, reservation.Free, reservation.TicketNo);
             // act
-            var actionResponse = await httpClient.PutAsync(this.baseUrl + this.fakeRecord, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
+            var actionResponse = await httpClient.PutAsync(this.baseUrl + "/reservations/" + reservation.ReservationId, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
 
         [Theory]
-        [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 200, "4d9fb197-b3e2-4834-b150-153896418591", "2021-10-01", 1, 1, 1, 5)] // admins can update their own records
-        [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 200, "4c9946db-cb7c-4fa8-9c8c-69a49f946dc8", "2021-10-01", 1, 1, 1, 5)] // admins can update records from other admins
-        [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 200, "5ca60aad-dc06-46ca-8689-9021d1595741", "2021-10-10", 1, 1, 1, 5)] // admins can update records from simple users
-        public async Task _03_Logged_In_Admins_Can_Update_Records_From_All_Users(string user, string password, string userId, int expectedError, string reservationId, string date, int destinationId, int customerId, int portId, int adults) {
+        [ClassData(typeof(AdminsCanUpdateRecordsOwnedByAnyUser))]
+        public async Task _02_Admins_Can_Update_Records_Owned_By_Any_User(ReservationTest reservation) {
             // arrange
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(user, password));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var record = this.CreateRecord(loginResponse.userId, reservationId, date, destinationId, customerId, portId, adults);
+            var record = this.CreateRecord(reservation.ReservationId, loginResponse.userId, reservation.Date, reservation.DestinationId, reservation.PortId, reservation.CustomerId, reservation.Adults, reservation.Kids, reservation.Free, reservation.TicketNo);
             // act
-            var actionResponse = await httpClient.PutAsync(this.baseUrl + "reservations/" + reservationId, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
+            var actionResponse = await httpClient.PutAsync(this.baseUrl + "/reservations/" + reservation.ReservationId, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
-            Assert.Equal((HttpStatusCode)expectedError, actionResponse.StatusCode);
+            Assert.Equal((HttpStatusCode)reservation.ExpectedError, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = userId });
+            await Helpers.Logout(httpClient, new User { UserId = reservation.UserId });
         }
 
         [Theory]
-        [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 432, "1b4aae93-584d-4688-9efe-862a85e83654", "2021-10-04", 1, 1, 1, 5)] // we don't go anywhere on this day
-        [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 430, "1b4aae93-584d-4688-9efe-862a85e83654", "2021-10-02", 1, 1, 3, 1)] // we don't go to Paxos on this day (we only go to Blue Lagoon)
-        [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 427, "1b4aae93-584d-4688-9efe-862a85e83654", "2021-10-02", 3, 1, 3, 1)] // we don't go to Blue Lagoon from Lefkimmi on this day (we only go from Corfu)
-        [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 433, "1b4aae93-584d-4688-9efe-862a85e83654", "2021-10-01", 1, 1, 1, 127)] // overbooking for primary port is not allowed
-        [InlineData("john", "ec11fc8c16da", "e7e014fd-5608-4936-866e-ec11fc8c16da", 433, "5ca60aad-dc06-46ca-8689-9021d1595741", "2021-10-10", 1, 1, 1, 15)] // admins can not update records if result causes overbooking
-        public async Task _04_Logged_In_Admins_Can_Not_Update_Records_When_Inputs_Are_Invalid(string user, string password, string userId, int expectedError, string reservationId, string date, int destinationId, int customerId, int portId, int adults) {
+        [ClassData(typeof(SimpleUsersCanUpdateTheirOwnRecords))]
+        public async Task _03_Simple_Users_Can_Update_Their_Own_Records(ReservationTest reservation) {
             // arrange
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(user, password));
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var record = this.CreateRecord(loginResponse.userId, reservationId, date, destinationId, customerId, portId, adults);
+            var record = this.CreateRecord(reservation.ReservationId, loginResponse.userId, reservation.Date, reservation.DestinationId, reservation.PortId, reservation.CustomerId, reservation.Adults, reservation.Kids, reservation.Free, reservation.TicketNo);
             // act
-            var actionResponse = await httpClient.PutAsync(this.baseUrl + "reservations/" + reservationId, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
+            var actionResponse = await httpClient.PutAsync(this.baseUrl + "/reservations/" + reservation.ReservationId, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
-            Assert.Equal((HttpStatusCode)expectedError, actionResponse.StatusCode);
+            Assert.Equal((HttpStatusCode)reservation.ExpectedError, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = userId });
+            await Helpers.Logout(httpClient, new User { UserId = reservation.UserId });
         }
 
-        private ReservationWriteResource CreateRecord(string userId, string reservationId, string date, int destinationId, int customerId, int portId, int adults) {
+        [Theory]
+        [ClassData(typeof(SimpleUsersCanNotUpdateRecordsOwnedByOtherUsers))]
+        public async Task _04_Simple_Users_Can_Not_Update_Records_Owned_By_Other_Users(ReservationTest reservation) {
+            // arrange
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            var record = this.CreateRecord(reservation.ReservationId, loginResponse.userId, reservation.Date, reservation.DestinationId, reservation.PortId, reservation.CustomerId, reservation.Adults, reservation.Kids, reservation.Free, reservation.TicketNo);
+            // act
+            var actionResponse = await httpClient.PutAsync(this.baseUrl + "/reservations/" + reservation.ReservationId, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // assert
+            Assert.Equal((HttpStatusCode)reservation.ExpectedError, actionResponse.StatusCode);
+            // cleanup
+            await Helpers.Logout(httpClient, new User { UserId = reservation.UserId });
+        }
+
+        private ReservationWriteResource CreateRecord(Guid reservationId, string userId, string date, int destinationId, int portId, int customerId, int adults, int kids, int free, string ticketNo) {
             return new ReservationWriteResource {
-                ReservationId = Guid.Parse(reservationId),
+                ReservationId = reservationId,
                 Date = date,
                 Adults = adults,
                 Kids = 2,
                 Free = 1,
-                TicketNo = "FRS01",
+                TicketNo = ticketNo,
                 Email = "email@server.com",
                 Phones = "9641 414 533",
                 CustomerId = customerId,

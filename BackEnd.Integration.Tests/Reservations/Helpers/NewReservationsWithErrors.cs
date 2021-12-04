@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 namespace BackEnd.IntegrationTests {
 
-    public class ReservationsWithErrors : IEnumerable<object[]> {
+    // https://stackoverflow.com/questions/22093843/pass-complex-parameters-to-theory
+    
+    public class NewReservationsWithErrors : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -122,7 +124,7 @@ namespace BackEnd.IntegrationTests {
         }
 
         private object[] Duplicate_Records_Are_Not_Allowed() {
-            // Date, DestinationId, CustomeId, TicketNo
+            // Checking for Date, DestinationId, CustomeId, TicketNo
             return new object[] {
                 new ReservationTest {
                     Username = "john",
@@ -133,7 +135,7 @@ namespace BackEnd.IntegrationTests {
                     DestinationId = 1, // PAXOS
                     CustomerId = 14, // WILLMS - VOLKMAN
                     PortId = 2, // LEFKIMMI
-                    Adults = 2, 
+                    Adults = 2,
                     Kids = 0,
                     Free = 0,
                     TicketNo = "EZFHG"

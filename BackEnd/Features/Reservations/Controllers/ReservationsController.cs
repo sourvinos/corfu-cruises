@@ -10,7 +10,6 @@ using Microsoft.Extensions.Logging;
 namespace BlueWaterCruises.Features.Reservations {
 
     [Route("api/[controller]")]
-
     public class ReservationsController : ControllerBase {
 
         private readonly IReservationRepository reservationRepo;
@@ -33,7 +32,7 @@ namespace BlueWaterCruises.Features.Reservations {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IActionResult> GetById([FromBody] User user, string id) {
+        public async Task<IActionResult> GetReservation([FromBody] User user, string id) {
             var record = await reservationRepo.GetById(user.UserId, id);
             if (record == null) {
                 LoggerExtensions.LogException(id.ToString(), logger, ControllerContext, null, null);
@@ -50,7 +49,7 @@ namespace BlueWaterCruises.Features.Reservations {
 
         [HttpPost]
         [Authorize(Roles = "user, admin")]
-        public IActionResult Post([FromBody] ReservationWriteResource record) {
+        public IActionResult PostReservation([FromBody] ReservationWriteResource record) {
             if (ModelState.IsValid) {
                 try {
                     var response = reservationRepo.IsValid(record, scheduleRepo);
@@ -77,22 +76,28 @@ namespace BlueWaterCruises.Features.Reservations {
 
         [HttpPut("{id}")]
         [Authorize(Roles = "user, admin")]
-        public IActionResult Put([FromRoute] string id, [FromBody] ReservationWriteResource record) {
+        public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             if (id == record.ReservationId.ToString() && ModelState.IsValid) {
-                try {
-                    var response = reservationRepo.IsValid(record, scheduleRepo);
-                    if (response == 200) {
-                        reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
-                        return StatusCode(200, new {
-                            response = ApiMessages.RecordUpdated()
+                if (await reservationRepo.UserIsAdmin(record.UserId) || await reservationRepo.UserOwnsRecord(record)) {
+                    try {
+                        var response = reservationRepo.IsValid(record, scheduleRepo);
+                        if (response == 200) {
+                            reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
+                            return StatusCode(200, new {
+                                response = ApiMessages.RecordUpdated()
+                            });
+                        } else {
+                            return this.GetErrorMessage(response);
+                        }
+                    } catch (DbUpdateException exception) {
+                        LoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
+                        return StatusCode(490, new {
+                            response = ApiMessages.RecordNotSaved()
                         });
-                    } else {
-                        return this.GetErrorMessage(response);
                     }
-                } catch (DbUpdateException exception) {
-                    LoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
-                    return StatusCode(490, new {
-                        response = ApiMessages.RecordNotSaved()
+                } else {
+                    return StatusCode(401, new {
+                        response = ApiMessages.NotOwnRecord()
                     });
                 }
             }
@@ -104,7 +109,7 @@ namespace BlueWaterCruises.Features.Reservations {
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Delete([FromRoute] string id) {
+        public async Task<IActionResult> DeleteReservation([FromRoute] string id) {
             var record = await reservationRepo.GetByIdToDelete(id);
             if (record == null) {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
@@ -169,7 +174,7 @@ namespace BlueWaterCruises.Features.Reservations {
                     return StatusCode(490, new { Response = ApiMessages.RecordNotSaved() });
             }
         }
-
+ 
     }
 
 }

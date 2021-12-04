@@ -1,9 +1,6 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Mime;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using BlueWaterCruises;
@@ -71,7 +68,7 @@ namespace BackEnd.IntegrationTests {
         }
 
         [Fact]
-        public async Task _05_Simple_Users_Can_Not_Read_Records_From_Other_Users() {
+        public async Task _05_Simple_Users_Can_Not_Read_Records_Owned_By_Other_Users() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);

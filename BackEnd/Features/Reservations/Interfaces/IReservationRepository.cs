@@ -9,6 +9,7 @@ namespace BlueWaterCruises.Features.Reservations {
         Task<ReservationReadResource> GetById(string userId, string id);
         Task<Reservation> GetByIdToDelete(string id);
         Task<bool> UserIsAdmin(string userId);
+        Task<bool> UserOwnsRecord(ReservationWriteResource record);
         bool IsKeyUnique(ReservationWriteResource record);
         bool Update(string id, Reservation updatedRecord);
         int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo);

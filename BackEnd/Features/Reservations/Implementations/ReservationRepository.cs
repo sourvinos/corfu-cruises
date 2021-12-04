@@ -188,6 +188,13 @@ namespace BlueWaterCruises.Features.Reservations {
             return user != null ? user.IsAdmin : false;
         }
 
+        public Task<bool> UserOwnsRecord(ReservationWriteResource record) {
+            return Task.Run(async () => {
+                var reservation = await context.Reservations.SingleOrDefaultAsync(x => x.ReservationId == record.ReservationId);
+                return reservation.UserId == record.UserId;
+            });
+
+        }
     }
 
 }

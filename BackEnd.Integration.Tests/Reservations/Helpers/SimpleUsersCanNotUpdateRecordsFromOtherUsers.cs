@@ -4,21 +4,23 @@ using System.Collections.Generic;
 
 namespace BackEnd.IntegrationTests {
 
-    public class InvalidCredentials : IEnumerable<object[]> {
+    // https://stackoverflow.com/questions/22093843/pass-complex-parameters-to-theory
+
+    public class SimpleUsersCanNotUpdateRecordsOwnedByOtherUsers : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return this.Invalid_Credentials();
+            yield return this.Simple_Users_Can_Not_Update_Records_Owned_By_Other_Users();
         }
 
-        private object[] Invalid_Credentials() {
+        private object[] Simple_Users_Can_Not_Update_Records_Owned_By_Other_Users() {
             return new object[] {
                 new ReservationTest {
-                    ReservationId = Guid.Parse("4d9fb197-b3e2-4834-b150-153896418591"),
-                    Username = "user-does-not-exist",
-                    Password = "not-a-valid-password",
-                    UserId = "not-a-valid-userId",
+                    ReservationId = Guid.Parse("38895436-1c25-4d0b-bc31-cac6a20d523e"),
+                    Username = "matoula",
+                    Password = "820343d9e828",
+                    UserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828",
                     ExpectedError = 401,
                     Date = "2021-10-01",
                     DestinationId = 1,

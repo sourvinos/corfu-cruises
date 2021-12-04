@@ -1,3 +1,5 @@
+using System;
+
 namespace BackEnd.IntegrationTests {
 
     public class ReservationTest {
@@ -6,6 +8,7 @@ namespace BackEnd.IntegrationTests {
         public string Password { get; set; }
         public string UserId { get; set; }
         public int ExpectedError { get; set; }
+        public Guid ReservationId { get; set; }
         public string Date { get; set; }
         public int DestinationId { get; set; }
         public int CustomerId { get; set; }
