@@ -1,4 +1,7 @@
 using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +24,16 @@ namespace BlueWaterCruises {
                 })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
+        }
+
+        public static string GetConnectedUserId(IHttpContextAccessor httpContextAccessor) {
+            return httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        }
+
+        public static Task<bool> IsUserAdmin(IHttpContextAccessor httpContextAccessor) {
+            return Task.Run(() => {
+                return httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role).Value == "admin" ? true : false;
+            });
         }
 
     }

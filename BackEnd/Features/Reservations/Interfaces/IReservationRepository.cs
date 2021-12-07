@@ -5,11 +5,10 @@ namespace BlueWaterCruises.Features.Reservations {
 
     public interface IReservationRepository : IRepository<Reservation> {
 
-        Task<ReservationGroupResource<ReservationListResource>> Get(string date, string userId);
-        Task<ReservationReadResource> GetById(string userId, string id);
+        Task<ReservationGroupResource<ReservationListResource>> Get(string date);
+        Task<ReservationReadResource> GetById(string id);
         Task<Reservation> GetByIdToDelete(string id);
-        Task<bool> UserIsAdmin(string userId);
-        Task<bool> UserOwnsRecord(ReservationWriteResource record);
+        Task<bool> DoesUserOwnRecord(string reservationId);
         bool IsKeyUnique(ReservationWriteResource record);
         bool Update(string id, Reservation updatedRecord);
         int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo);

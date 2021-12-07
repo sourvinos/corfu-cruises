@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using BlueWaterCruises.Features.Schedules;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -15,14 +17,16 @@ namespace BlueWaterCruises.Features.Reservations {
         private readonly IMapper mapper;
         private readonly UserManager<AppUser> userManager;
         private readonly TestingEnvironment settings;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public ReservationRepository(AppDbContext appDbContext, IMapper mapper, UserManager<AppUser> userManager, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
+        public ReservationRepository(AppDbContext appDbContext, IMapper mapper, UserManager<AppUser> userManager, IOptions<TestingEnvironment> settings, IHttpContextAccessor httpContextAccessor) : base(appDbContext, settings) {
             this.mapper = mapper;
             this.userManager = userManager;
             this.settings = settings.Value;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<ReservationGroupResource<ReservationListResource>> Get(string userId, string date) {
+        public async Task<ReservationGroupResource<ReservationListResource>> Get(string date) {
             var reservations = await context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
@@ -32,7 +36,7 @@ namespace BlueWaterCruises.Features.Reservations {
                 .Where(x => x.Date == Convert.ToDateTime(date))
                 .OrderBy(x => x.Date)
                 .ToListAsync();
-            reservations = reservations.If(await UserIsAdmin(userId) == false, x => x.Where(x => x.UserId == userId)).ToList();
+            reservations = reservations.If(await Identity.IsUserAdmin(httpContextAccessor) == false, x => x.Where(x => x.UserId == Identity.GetConnectedUserId(httpContextAccessor))).ToList();
             var PersonsPerCustomer = reservations.OrderBy(x => x.Customer.Description).GroupBy(x => new { x.Customer.Description }).Select(x => new PersonsPerCustomer { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
             var PersonsPerDestination = reservations.OrderBy(x => x.Destination.Description).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
             var PersonsPerRoute = reservations.OrderBy(x => x.PickupPoint.Route.Description).GroupBy(x => new { x.PickupPoint.Route.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
@@ -52,7 +56,7 @@ namespace BlueWaterCruises.Features.Reservations {
             return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
         }
 
-        public async Task<ReservationReadResource> GetById(string userId, string reservationId) {
+        public async Task<ReservationReadResource> GetById(string reservationId) {
             var reservation = await context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
@@ -183,18 +187,12 @@ namespace BlueWaterCruises.Features.Reservations {
             return port[0].MaxPersons;
         }
 
-        public async Task<bool> UserIsAdmin(string userId) {
-            var user = await userManager.FindByIdAsync(userId);
-            return user != null ? user.IsAdmin : false;
-        }
-
-        public Task<bool> UserOwnsRecord(ReservationWriteResource record) {
-            return Task.Run(async () => {
-                var reservation = await context.Reservations.SingleOrDefaultAsync(x => x.ReservationId == record.ReservationId);
-                return reservation.UserId == record.UserId;
+        public Task<bool> DoesUserOwnRecord(string userId) {
+            return Task.Run(() => {
+                return httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value == userId;
             });
-
         }
+
     }
 
 }

@@ -20,7 +20,7 @@ namespace BackEnd.IntegrationTests {
                     ReservationId = Guid.Parse("38895436-1c25-4d0b-bc31-cac6a20d523e"),
                     Username = "matoula",
                     Password = "820343d9e828",
-                    UserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828",
+                    UserId = "4fcd7909-0569-45d9-8b78-2b24a7368e19",
                     ExpectedError = 401,
                     Date = "2021-10-01",
                     DestinationId = 1,

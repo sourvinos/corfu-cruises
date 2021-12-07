@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BlueWaterCruises.Features.Schedules;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -12,39 +13,45 @@ namespace BlueWaterCruises.Features.Reservations {
     [Route("api/[controller]")]
     public class ReservationsController : ControllerBase {
 
-        private readonly IReservationRepository reservationRepo;
-        private readonly IScheduleRepository scheduleRepo;
+        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly ILogger<ReservationsController> logger;
         private readonly IMapper mapper;
+        private readonly IReservationRepository reservationRepo;
+        private readonly IScheduleRepository scheduleRepo;
 
-        public ReservationsController(IReservationRepository reservationRepo, IScheduleRepository scheduleRepo, ILogger<ReservationsController> logger, IMapper mapper) {
-            this.reservationRepo = reservationRepo;
-            this.scheduleRepo = scheduleRepo;
+        public ReservationsController(IHttpContextAccessor httpContextAccessor, ILogger<ReservationsController> logger, IMapper mapper, IReservationRepository reservationRepo, IScheduleRepository scheduleRepo) {
+            this.httpContextAccessor = httpContextAccessor;
             this.logger = logger;
             this.mapper = mapper;
+            this.reservationRepo = reservationRepo;
+            this.scheduleRepo = scheduleRepo;
         }
 
         [HttpGet("date/{date}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationGroupResource<ReservationListResource>> Get([FromBody] User user, string date) {
-            return await this.reservationRepo.Get(user.UserId, date);
+        public async Task<ReservationGroupResource<ReservationListResource>> Get([FromRoute] string date) {
+            return await this.reservationRepo.Get(date);
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IActionResult> GetReservation([FromBody] User user, string id) {
-            var record = await reservationRepo.GetById(user.UserId, id);
+        public async Task<IActionResult> GetReservation(string id) {
+            var record = await reservationRepo.GetById(id);
             if (record == null) {
                 LoggerExtensions.LogException(id.ToString(), logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
             };
-            return await reservationRepo.UserIsAdmin(user.UserId) || (user.UserId == record.UserId)
-                ? StatusCode(200, new { response = record })
-                    : StatusCode(490, new {
-                        response = ApiMessages.NotOwnRecord()
-                    });
+            if (await Identity.IsUserAdmin(httpContextAccessor) || await reservationRepo.DoesUserOwnRecord(record.UserId)) {
+                return StatusCode(200, new {
+                    response = record
+                });
+            } else {
+                return StatusCode(490, new {
+                    response = ApiMessages.NotOwnRecord()
+                });
+            }
         }
 
         [HttpPost]
@@ -54,7 +61,7 @@ namespace BlueWaterCruises.Features.Reservations {
                 try {
                     var response = reservationRepo.IsValid(record, scheduleRepo);
                     if (response == 200) {
-                        reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
+                        reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(this.AttachUserIdToNewRecord(record)));
                         return StatusCode(200, new {
                             response = ApiMessages.RecordCreated()
                         });
@@ -78,7 +85,7 @@ namespace BlueWaterCruises.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             if (id == record.ReservationId.ToString() && ModelState.IsValid) {
-                if (await reservationRepo.UserIsAdmin(record.UserId) || await reservationRepo.UserOwnsRecord(record)) {
+                if (await Identity.IsUserAdmin(httpContextAccessor) || await reservationRepo.DoesUserOwnRecord(record.UserId)) {
                     try {
                         var response = reservationRepo.IsValid(record, scheduleRepo);
                         if (response == 200) {
@@ -149,7 +156,9 @@ namespace BlueWaterCruises.Features.Reservations {
         public IActionResult AssignToShip(int shipId, [FromQuery(Name = "id")] string[] ids) {
             try {
                 reservationRepo.AssignToShip(shipId, ids);
-                return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
+                return StatusCode(200, new {
+                    response = ApiMessages.RecordUpdated()
+                });
             } catch (DbUpdateException exception) {
                 LoggerExtensions.LogException(shipId, logger, ControllerContext, null, exception);
                 return StatusCode(490, new {
@@ -174,7 +183,12 @@ namespace BlueWaterCruises.Features.Reservations {
                     return StatusCode(490, new { Response = ApiMessages.RecordNotSaved() });
             }
         }
- 
+
+        private ReservationWriteResource AttachUserIdToNewRecord(ReservationWriteResource reservation) {
+            reservation.UserId = Identity.GetConnectedUserId(httpContextAccessor);
+            return reservation;
+        }
+
     }
 
 }

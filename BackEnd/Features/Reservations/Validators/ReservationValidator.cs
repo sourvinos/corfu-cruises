@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace BlueWaterCruises.Features.Reservations {
 
-    public class ReservationValidator : AbstractValidator<Reservation> {
+    public class ReservationValidator : AbstractValidator<ReservationWriteResource> {
 
         public ReservationValidator() {
             RuleFor(x => x.Date).NotEmpty();
@@ -14,7 +14,6 @@ namespace BlueWaterCruises.Features.Reservations {
             RuleFor(x => x.CustomerId).NotEmpty();
             RuleFor(x => x.PickupPointId).NotEmpty();
             RuleFor(x => x.PortId).NotEmpty();
-            RuleFor(x => x.UserId).NotEmpty().MaximumLength(128);
             RuleForEach(x => x.Passengers).ChildRules(passenger => {
                 passenger.RuleFor(x => x.Lastname).NotEmpty().MaximumLength(128);
                 passenger.RuleFor(x => x.Firstname).NotEmpty().MaximumLength(128);

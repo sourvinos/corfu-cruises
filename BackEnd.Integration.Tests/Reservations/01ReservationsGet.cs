@@ -1,10 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Mime;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using BlueWaterCruises;
@@ -22,7 +19,7 @@ namespace BackEnd.IntegrationTests {
         private readonly HttpClient httpClient;
         private readonly TestHostFixture testHostFixture = new TestHostFixture();
         private string baseUrl { get; set; }
-        private string url { get; set; } = "reservations/date/2021-10-01";
+        private string url { get; set; } = "/reservations/date/2021-10-01";
 
         #endregion
 
@@ -78,8 +75,8 @@ namespace BackEnd.IntegrationTests {
             var actionResponse = await httpClient.SendAsync(request);
             var records = JsonSerializer.Deserialize<ReservationGroupResource<ReservationListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
-            Assert.Equal(8, records.Reservations.Count());
-            Assert.Equal(43, records.Persons);
+            Assert.Equal(7, records.Reservations.Count());
+            Assert.Equal(36, records.Persons);
             // cleanup
             await Helpers.Logout(httpClient, new User { UserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828" });
         }

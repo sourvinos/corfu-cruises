@@ -18,9 +18,9 @@ namespace BackEnd.IntegrationTests {
         private readonly HttpClient httpClient;
         private readonly TestHostFixture testHostFixture = new TestHostFixture();
         private string baseUrl { get; set; }
-        private string myAdminReservation { get; set; } = "reservations/689051b9-df9e-4c68-91f6-1d093c1bf46c"; // Belongs to user ...6da which is an admin
-        private string mySimpleUserReservation { get; set; } = "reservations/c4db7af5-5310-4f58-be17-83997d99a037"; // Belongs to user ...828 which is not an admin
-        private string recordNotExists { get; set; } = "reservations/eab4c9a0-05eb-4880-874a-eaf0a12fefe9";
+        private string myAdminReservation { get; set; } = "/reservations/689051b9-df9e-4c68-91f6-1d093c1bf46c"; // Belongs to user ...6da which is an admin
+        private string mySimpleUserReservation { get; set; } = "/reservations/c4db7af5-5310-4f58-be17-83997d99a037"; // Belongs to user ...828 which is not an admin
+        private string recordNotExists { get; set; } = "/reservations/eab4c9a0-05eb-4880-874a-eaf0a12fefe9";
 
         #endregion
 
