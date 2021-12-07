@@ -16,7 +16,7 @@ namespace BackEnd.IntegrationTests {
 
         private object[] Simple_Users_Can_Update_Their_Own_Records() {
             return new object[] {
-                new ReservationTest {
+                new ReservationWrite {
                     ReservationId = Guid.Parse("5ca60aad-dc06-46ca-8689-9021d1595741"),
                     Username = "matoula",
                     Password = "820343d9e828",

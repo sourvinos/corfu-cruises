@@ -117,22 +117,29 @@ namespace BlueWaterCruises.Features.Reservations {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteReservation([FromRoute] string id) {
-            var record = await reservationRepo.GetByIdToDelete(id);
-            if (record == null) {
+            if (await Identity.IsUserAdmin(httpContextAccessor)) {
+                var record = await reservationRepo.GetByIdToDelete(id);
+                if (record == null) {
+                    LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                    return StatusCode(404, new {
+                        response = ApiMessages.RecordNotFound()
+                    });
+                }
+                try {
+                    reservationRepo.Delete(record);
+                    return StatusCode(200, new {
+                        response = ApiMessages.RecordDeleted()
+                    });
+                } catch (DbUpdateException exception) {
+                    LoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
+                    return StatusCode(491, new {
+                        response = ApiMessages.RecordInUse()
+                    });
+                }
+            } else {
                 LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
-                return StatusCode(404, new {
-                    response = ApiMessages.RecordNotFound()
-                });
-            }
-            try {
-                reservationRepo.Delete(record);
-                return StatusCode(200, new {
-                    response = ApiMessages.RecordDeleted()
-                });
-            } catch (DbUpdateException exception) {
-                LoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
-                return StatusCode(491, new {
-                    response = ApiMessages.RecordInUse()
+                return StatusCode(403, new {
+                    response = ApiMessages.InsufficientUserRights()
                 });
             }
         }

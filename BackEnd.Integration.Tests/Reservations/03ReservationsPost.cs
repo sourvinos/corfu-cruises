@@ -33,7 +33,7 @@ namespace BackEnd.IntegrationTests {
 
         [Theory]
         [ClassData(typeof(InvalidCredentials))]
-        public async Task _01_Unauthorized_When_Invalid_Credentials(ReservationTest reservation) {
+        public async Task _01_Unauthorized_When_Invalid_Credentials(ReservationWrite reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
@@ -46,7 +46,7 @@ namespace BackEnd.IntegrationTests {
 
         [Theory]
         [ClassData(typeof(NewReservationsWithoutErrors))]
-        public async Task _02_Users_Can_Create_Records(ReservationTest reservation) {
+        public async Task _02_Users_Can_Create_Records(ReservationWrite reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
@@ -61,7 +61,7 @@ namespace BackEnd.IntegrationTests {
 
         [Theory]
         [ClassData(typeof(NewReservationsWithErrors))]
-        public async Task _03_Users_Can_Not_Create_Records_When_Schedule_Criteria_Are_Invalid(ReservationTest reservation) {
+        public async Task _03_Users_Can_Not_Create_Records_When_Schedule_Criteria_Are_Invalid(ReservationWrite reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);

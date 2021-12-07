@@ -20,7 +20,7 @@ namespace BackEnd.IntegrationTests {
 
         private object[] We_Dont_Go_Anywhere_On_2021_10_04() {
             return new object[] {
-                new ReservationTest {
+                new ReservationWrite {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
@@ -37,7 +37,7 @@ namespace BackEnd.IntegrationTests {
 
         private object[] We_Dont_Go_To_Paxos_On_2021_10_02() {
             return new object[] {
-                new ReservationTest {
+                new ReservationWrite {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
@@ -56,7 +56,7 @@ namespace BackEnd.IntegrationTests {
 
         private object[] We_Dont_Go_To_Blue_Lagoon_From_Lefkimmi_On_2021_10_02() {
             return new object[] {
-                new ReservationTest {
+                new ReservationWrite {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
@@ -81,7 +81,7 @@ namespace BackEnd.IntegrationTests {
             // According to the reservations: Persons = 59
             // Free seats = 126
             return new object[] {
-                new ReservationTest {
+                new ReservationWrite {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
@@ -106,7 +106,7 @@ namespace BackEnd.IntegrationTests {
             // According to the reservations: Persons = 59 (Corfu) + 51 (Lefkimmi) = 110
             // Free seats = 290
             return new object[] {
-                new ReservationTest {
+                new ReservationWrite {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
@@ -126,7 +126,7 @@ namespace BackEnd.IntegrationTests {
         private object[] Duplicate_Records_Are_Not_Allowed() {
             // Checking for Date, DestinationId, CustomeId, TicketNo
             return new object[] {
-                new ReservationTest {
+                new ReservationWrite {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",

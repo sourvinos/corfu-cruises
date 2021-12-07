@@ -32,7 +32,7 @@ namespace BackEnd.IntegrationTests {
 
         [Theory]
         [ClassData(typeof(InvalidCredentials))]
-        public async Task _01_Unauthorized_When_Invalid_Credentials(ReservationTest reservation) {
+        public async Task _01_Unauthorized_When_Invalid_Credentials(ReservationWrite reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
@@ -45,7 +45,7 @@ namespace BackEnd.IntegrationTests {
 
         [Theory]
         [ClassData(typeof(AdminsCanUpdateRecordsOwnedByAnyUser))]
-        public async Task _02_Admins_Can_Update_Records_Owned_By_Any_User(ReservationTest reservation) {
+        public async Task _02_Admins_Can_Update_Records_Owned_By_Any_User(ReservationWrite reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
@@ -60,7 +60,7 @@ namespace BackEnd.IntegrationTests {
 
         [Theory]
         [ClassData(typeof(SimpleUsersCanUpdateTheirOwnRecords))]
-        public async Task _03_Simple_Users_Can_Update_Their_Own_Records(ReservationTest reservation) {
+        public async Task _03_Simple_Users_Can_Update_Their_Own_Records(ReservationWrite reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
@@ -75,7 +75,7 @@ namespace BackEnd.IntegrationTests {
 
         [Theory]
         [ClassData(typeof(SimpleUsersCanNotUpdateRecordsOwnedByOtherUsers))]
-        public async Task _04_Simple_Users_Can_Not_Update_Records_Owned_By_Other_Users(ReservationTest reservation) {
+        public async Task _04_Simple_Users_Can_Not_Update_Records_Owned_By_Other_Users(ReservationWrite reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);

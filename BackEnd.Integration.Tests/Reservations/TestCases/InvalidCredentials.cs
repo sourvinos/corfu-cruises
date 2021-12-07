@@ -14,7 +14,7 @@ namespace BackEnd.IntegrationTests {
 
         private object[] Invalid_Credentials() {
             return new object[] {
-                new ReservationTest {
+                new ReservationWrite {
                     ReservationId = Guid.Parse("4d9fb197-b3e2-4834-b150-153896418591"),
                     Username = "user-does-not-exist",
                     Password = "not-a-valid-password",

@@ -18,7 +18,7 @@ namespace BackEnd.IntegrationTests {
 
         private object[] Admins_Can_Update_Their_Own_Records() {
             return new object[] {
-                new ReservationTest {
+                new ReservationWrite {
                     ReservationId = Guid.Parse("039e8f53-0ced-4974-bee6-3173f9cf02bd"),
                     Username = "john",
                     Password = "ec11fc8c16da",
@@ -36,7 +36,7 @@ namespace BackEnd.IntegrationTests {
 
         private object[] Admins_Can_Update_Records_Owned_By_Other_Admins() {
             return new object[] {
-                new ReservationTest {
+                new ReservationWrite {
                     ReservationId = Guid.Parse("4c9946db-cb7c-4fa8-9c8c-69a49f946dc8"),
                     Username = "john",
                     Password = "ec11fc8c16da",
@@ -54,7 +54,7 @@ namespace BackEnd.IntegrationTests {
 
         private object[] Admins_Can_Update_Records_Owned_By_Simple_Users() {
             return new object[] {
-                new ReservationTest {
+                new ReservationWrite {
                     ReservationId = Guid.Parse("5ca60aad-dc06-46ca-8689-9021d1595741"),
                     Username = "john",
                     Password = "ec11fc8c16da",

@@ -2,7 +2,7 @@ using System;
 
 namespace BackEnd.IntegrationTests {
 
-    public class ReservationTest {
+    public class ReservationWrite {
 
         public string Username { get; set; }
         public string Password { get; set; }

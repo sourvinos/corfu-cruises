@@ -37,7 +37,8 @@ namespace BlueWaterCruises {
         public static string PortHasNoVacancy() { return "Overbooking in not allowed"; }
         public static string LogoutError() { return "The user is not logged in."; }
         public static string NotOwnRecord() { return "This record belongs to another user."; }
-        
+        public static string InsufficientUserRights() { return "This action requires higher authorization level"; }
+
         #endregion
 
     }
