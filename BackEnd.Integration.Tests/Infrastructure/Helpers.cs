@@ -37,7 +37,7 @@ namespace BackEnd.IntegrationTests {
             return new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", length).Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        public static HttpRequestMessage CreateRequest(string baseUrl, string userId, string url) {
+        public static HttpRequestMessage CreateRequest(string baseUrl, string url, string userId) {
             var request = new HttpRequestMessage {
                 Method = HttpMethod.Get,
                 RequestUri = new Uri(baseUrl + url),

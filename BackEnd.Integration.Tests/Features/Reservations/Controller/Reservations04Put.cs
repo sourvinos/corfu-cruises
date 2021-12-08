@@ -21,6 +21,9 @@ namespace BackEnd.IntegrationTests {
         private readonly HttpClient httpClient;
         private readonly TestHostFixture testHostFixture = new TestHostFixture();
         private string baseUrl { get; set; }
+        private string dummyUrl { get; set; } = "/reservations/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
+        private string dummyReservationId = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
+        private string dummyUserId = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
 
         #endregion
 
@@ -30,37 +33,46 @@ namespace BackEnd.IntegrationTests {
             this.httpClient = testHostFixture.Client;
         }
 
-        [Theory]
-        [ClassData(typeof(InvalidCredentials))]
-        public async Task _01_Unauthorized_When_Invalid_Credentials(ReservationWrite reservation) {
+        [Fact]
+        public async Task _01_Unauthorized_When_Not_Logged_In() {
             // arrange
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var record = this.CreateRecord(reservation.ReservationId, loginResponse.userId, reservation.Date, reservation.DestinationId, reservation.PortId, reservation.CustomerId, reservation.Adults, reservation.Kids, reservation.Free, reservation.TicketNo);
+            var record = this.CreateRecord(this.dummyReservationId, this.dummyUserId);
             // act
-            var actionResponse = await httpClient.PutAsync(this.baseUrl + "/reservations/" + reservation.ReservationId, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
+            var actionResponse = await httpClient.PutAsync(this.baseUrl + this.dummyUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // assert
+            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+        }
+
+        [Fact]
+        public async Task _02_Unauthorized_When_Invalid_Credentials() {
+            // arrange
+            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            var record = this.CreateRecord(this.dummyReservationId, loginResponse.userId);
+            // act
+            var actionResponse = await httpClient.PutAsync(this.baseUrl + this.dummyUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
 
         [Theory]
-        [ClassData(typeof(AdminsCanUpdateRecordsOwnedByAnyUser))]
-        public async Task _02_Admins_Can_Update_Records_Owned_By_Any_User(ReservationWrite reservation) {
+        [ClassData(typeof(SimpleUserCanNotUpdateNotOwnedRecord))]
+        public async Task _03_Simple_User_Can_Not_Update_Not_Owned_Record(Reservation reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var record = this.CreateRecord(reservation.ReservationId, loginResponse.userId, reservation.Date, reservation.DestinationId, reservation.PortId, reservation.CustomerId, reservation.Adults, reservation.Kids, reservation.Free, reservation.TicketNo);
+            var record = this.CreateRecord(reservation.ReservationId, reservation.UserId, reservation.Date, reservation.DestinationId, reservation.PortId, reservation.CustomerId, reservation.Adults, reservation.Kids, reservation.Free, reservation.TicketNo);
             // act
             var actionResponse = await httpClient.PutAsync(this.baseUrl + "/reservations/" + reservation.ReservationId, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
-            Assert.Equal((HttpStatusCode)reservation.ExpectedError, actionResponse.StatusCode);
+            Assert.Equal((HttpStatusCode)reservation.ExpectedResponseCode, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = reservation.UserId });
+            await Helpers.Logout(httpClient, new User { UserId = loginResponse.userId });
         }
 
         [Theory]
-        [ClassData(typeof(SimpleUsersCanUpdateTheirOwnRecords))]
-        public async Task _03_Simple_Users_Can_Update_Their_Own_Records(ReservationWrite reservation) {
+        [ClassData(typeof(SimpleUserCanUpdateOwnRecord))]
+        public async Task _04_Simple_User_Can_Update_Own_Record(Reservation reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
@@ -68,14 +80,14 @@ namespace BackEnd.IntegrationTests {
             // act
             var actionResponse = await httpClient.PutAsync(this.baseUrl + "/reservations/" + reservation.ReservationId, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
-            Assert.Equal((HttpStatusCode)reservation.ExpectedError, actionResponse.StatusCode);
+            Assert.Equal((HttpStatusCode)reservation.ExpectedResponseCode, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = reservation.UserId });
+            await Helpers.Logout(httpClient, new User { UserId = loginResponse.userId });
         }
 
         [Theory]
-        [ClassData(typeof(SimpleUsersCanNotUpdateRecordsOwnedByOtherUsers))]
-        public async Task _04_Simple_Users_Can_Not_Update_Records_Owned_By_Other_Users(ReservationWrite reservation) {
+        [ClassData(typeof(AdminCanUpdateRecordOwnedByAnyone))]
+        public async Task _05_Admin_Can_Update_Record_Owned_By_Anyone(Reservation reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
@@ -83,14 +95,14 @@ namespace BackEnd.IntegrationTests {
             // act
             var actionResponse = await httpClient.PutAsync(this.baseUrl + "/reservations/" + reservation.ReservationId, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
-            Assert.Equal((HttpStatusCode)reservation.ExpectedError, actionResponse.StatusCode);
+            Assert.Equal((HttpStatusCode)reservation.ExpectedResponseCode, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = reservation.UserId });
+            await Helpers.Logout(httpClient, new User { UserId = loginResponse.userId });
         }
 
-        private ReservationWriteResource CreateRecord(Guid reservationId, string userId, string date, int destinationId, int portId, int customerId, int adults, int kids, int free, string ticketNo) {
+        private ReservationWriteResource CreateRecord(string reservationId, string userId, string date = "2021-10-01", int destinationId = 1, int portId = 1, int customerId = 1, int adults = 1, int kids = 0, int free = 0, string ticketNo = "xxxxxx") {
             return new ReservationWriteResource {
-                ReservationId = reservationId,
+                ReservationId = Guid.Parse(reservationId),
                 Date = date,
                 Adults = adults,
                 Kids = 2,

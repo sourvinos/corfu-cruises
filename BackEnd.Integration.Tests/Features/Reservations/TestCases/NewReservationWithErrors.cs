@@ -3,9 +3,7 @@ using System.Collections.Generic;
 
 namespace BackEnd.IntegrationTests {
 
-    // https://stackoverflow.com/questions/22093843/pass-complex-parameters-to-theory
-    
-    public class NewReservationsWithErrors : IEnumerable<object[]> {
+    public class NewReservationWithErrors : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -20,11 +18,11 @@ namespace BackEnd.IntegrationTests {
 
         private object[] We_Dont_Go_Anywhere_On_2021_10_04() {
             return new object[] {
-                new ReservationWrite {
+                new Reservation {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
-                    ExpectedError = 432,
+                    ExpectedResponseCode = 432,
                     Date = "2021-10-04",
                     DestinationId = 1, // PAXOS
                     CustomerId = 1, // SKILES, CUMMERATA AND NICOLAS
@@ -37,11 +35,11 @@ namespace BackEnd.IntegrationTests {
 
         private object[] We_Dont_Go_To_Paxos_On_2021_10_02() {
             return new object[] {
-                new ReservationWrite {
+                new Reservation {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
-                    ExpectedError = 430,
+                    ExpectedResponseCode = 430,
                     Date = "2021-10-02",
                     DestinationId = 1, // PAXOS
                     CustomerId = 1, // SKILES, CUMMERATA AND NICOLAS
@@ -56,11 +54,11 @@ namespace BackEnd.IntegrationTests {
 
         private object[] We_Dont_Go_To_Blue_Lagoon_From_Lefkimmi_On_2021_10_02() {
             return new object[] {
-                new ReservationWrite {
+                new Reservation {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
-                    ExpectedError = 427,
+                    ExpectedResponseCode = 427,
                     Date = "2021-10-02",
                     DestinationId = 3, // BLUE LAGOON
                     CustomerId = 1, // SKILES, CUMMERATA AND NICOLAS
@@ -79,18 +77,18 @@ namespace BackEnd.IntegrationTests {
             // Port: Corfu (1)
             // According to the schedule: Max persons = 185
             // According to the reservations: Persons = 59
-            // Free seats = 126
+            // Free seats = 185 - 59 = 126
             return new object[] {
-                new ReservationWrite {
+                new Reservation {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
-                    ExpectedError = 433,
+                    ExpectedResponseCode = 433,
                     Date = "2021-10-01",
                     DestinationId = 1, // PAXOS
                     CustomerId = 1, // SKILES, CUMMERATA AND NICOLAS
                     PortId = 1, // CORFU
-                    Adults = 127, // Overbooking
+                    Adults = 150, // Overbooking
                     Kids = 0,
                     Free = 0,
                     TicketNo = "xxxx"
@@ -104,18 +102,18 @@ namespace BackEnd.IntegrationTests {
             // Port: Lefkimmi (2)
             // According to the schedule: Max persons = 185 (Corfu) + 215 (Lefkimmi) = 400
             // According to the reservations: Persons = 59 (Corfu) + 51 (Lefkimmi) = 110
-            // Free seats = 290
+            // Free seats = 400 - 110 = 290
             return new object[] {
-                new ReservationWrite {
+                new Reservation {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
-                    ExpectedError = 433,
+                    ExpectedResponseCode = 433,
                     Date = "2021-10-01",
                     DestinationId = 1, // PAXOS
                     CustomerId = 1, // SKILES, CUMMERATA AND NICOLAS
                     PortId = 2, // LEFKIMMI
-                    Adults = 291, // Overbooking
+                    Adults = 300, // Overbooking
                     Kids = 0,
                     Free = 0,
                     TicketNo = "xxxx"
@@ -126,11 +124,11 @@ namespace BackEnd.IntegrationTests {
         private object[] Duplicate_Records_Are_Not_Allowed() {
             // Checking for Date, DestinationId, CustomeId, TicketNo
             return new object[] {
-                new ReservationWrite {
+                new Reservation {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
-                    ExpectedError = 409,
+                    ExpectedResponseCode = 409,
                     Date = "2021-10-01",
                     DestinationId = 1, // PAXOS
                     CustomerId = 14, // WILLMS - VOLKMAN

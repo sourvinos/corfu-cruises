@@ -12,7 +12,7 @@ using Xunit;
 
 namespace BackEnd.IntegrationTests {
 
-    public class Customers04Post : IClassFixture<AppSettingsFixture> {
+    public class Customers05Put : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -20,11 +20,11 @@ namespace BackEnd.IntegrationTests {
         private readonly HttpClient httpClient;
         private readonly TestHostFixture testHostFixture = new TestHostFixture();
         private string baseUrl { get; set; }
-        private string url { get; set; } = "customers";
+        private string url { get; set; } = "customers/1";
 
         #endregion
 
-        public Customers04Post(AppSettingsFixture appsettings) {
+        public Customers05Put(AppSettingsFixture appsettings) {
             this.appsettingsFixture = appsettings;
             this.baseUrl = appsettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             this.httpClient = testHostFixture.Client;
@@ -33,21 +33,21 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task _01_Unauthorized_When_Not_Logged_In() {
             // act
-            var postResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(this.CreateCustomer(null)), Encoding.UTF8, MediaTypeNames.Application.Json));
+            var putResponse = await httpClient.PutAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(this.CreateCustomer(null)), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
-            Assert.Equal(HttpStatusCode.Unauthorized, postResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.Unauthorized, putResponse.StatusCode);
         }
 
         [Fact]
         public async Task _02_Unauthorized_When_Invalid_Credentials() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
-            var customer = this.CreateCustomer(loginResponse.userId);
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            var customer = this.CreateCustomer(loginResponse.userId);
             // act
-            var postResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
+            var putResponse = await httpClient.PutAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
-            Assert.Equal(HttpStatusCode.Unauthorized, postResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.Unauthorized, putResponse.StatusCode);
         }
 
         [Fact]
@@ -57,29 +57,30 @@ namespace BackEnd.IntegrationTests {
             var customer = this.CreateCustomer(loginResponse.userId);
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
             // act
-            var postResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
+            var putResponse = await httpClient.PutAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
-            Assert.Equal(HttpStatusCode.Forbidden, postResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.Forbidden, putResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828" });
+            await Helpers.Logout(httpClient, new User { UserId = loginResponse.userId });
         }
 
         [Fact]
-        public async Task _04_Admins_Can_Create_A_Record() {
+        public async Task _04_Admins_Can_Update_A_Record() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             var customer = this.CreateCustomer(loginResponse.userId);
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
             // act
-            var postResponse = await httpClient.PostAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
+            var putResponse = await httpClient.PutAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
-            Assert.Equal(HttpStatusCode.OK, postResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, putResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" });
+            await Helpers.Logout(httpClient, new User { UserId = loginResponse.userId });
         }
 
         private CustomerWriteResource CreateCustomer(string userId) {
             return new CustomerWriteResource {
+                Id = 1,
                 Description = Helpers.CreateRandomString(15),
                 Profession = Helpers.CreateRandomString(10),
                 Address = Helpers.CreateRandomString(35),
