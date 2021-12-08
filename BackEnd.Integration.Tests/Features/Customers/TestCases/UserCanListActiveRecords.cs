@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BackEnd.IntegrationTests {
 
-    public class UserCanListActiveRecords : IEnumerable<object[]> {
+    public class UserCanGetRecord : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

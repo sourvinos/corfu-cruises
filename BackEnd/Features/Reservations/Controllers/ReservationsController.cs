@@ -107,11 +107,12 @@ namespace BlueWaterCruises.Features.Reservations {
                         response = ApiMessages.NotOwnRecord()
                     });
                 }
+            } else {
+                LoggerExtensions.LogException(0, logger, ControllerContext, record, null);
+                return StatusCode(400, new {
+                    response = ApiMessages.InvalidModel()
+                });
             }
-            LoggerExtensions.LogException(0, logger, ControllerContext, record, null);
-            return StatusCode(400, new {
-                response = ApiMessages.InvalidModel()
-            });
         }
 
         [HttpDelete("{id}")]

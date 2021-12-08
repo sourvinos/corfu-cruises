@@ -14,6 +14,7 @@ namespace BackEnd.IntegrationTests {
         private object[] Simple_User_Can_Not_Update_Not_Owned_Record() {
             return new object[] {
                 new Reservation {
+                    FeatureUrl = "/reservations/",
                     ReservationId = "38895436-1c25-4d0b-bc31-cac6a20d523e",
                     Username = "matoula",
                     Password = "820343d9e828",

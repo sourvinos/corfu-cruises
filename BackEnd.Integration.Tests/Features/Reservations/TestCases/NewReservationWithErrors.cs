@@ -19,6 +19,7 @@ namespace BackEnd.IntegrationTests {
         private object[] We_Dont_Go_Anywhere_On_2021_10_04() {
             return new object[] {
                 new Reservation {
+                    FeatureUrl = "/reservations/",
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
@@ -36,6 +37,7 @@ namespace BackEnd.IntegrationTests {
         private object[] We_Dont_Go_To_Paxos_On_2021_10_02() {
             return new object[] {
                 new Reservation {
+                    FeatureUrl = "/reservations/",
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
@@ -55,6 +57,7 @@ namespace BackEnd.IntegrationTests {
         private object[] We_Dont_Go_To_Blue_Lagoon_From_Lefkimmi_On_2021_10_02() {
             return new object[] {
                 new Reservation {
+                    FeatureUrl = "/reservations/",
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
@@ -80,6 +83,7 @@ namespace BackEnd.IntegrationTests {
             // Free seats = 185 - 59 = 126
             return new object[] {
                 new Reservation {
+                    FeatureUrl = "/reservations/",
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
@@ -105,6 +109,7 @@ namespace BackEnd.IntegrationTests {
             // Free seats = 400 - 110 = 290
             return new object[] {
                 new Reservation {
+                    FeatureUrl = "/reservations/",
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
@@ -125,6 +130,7 @@ namespace BackEnd.IntegrationTests {
             // Checking for Date, DestinationId, CustomeId, TicketNo
             return new object[] {
                 new Reservation {
+                    FeatureUrl = "/reservations/",
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",

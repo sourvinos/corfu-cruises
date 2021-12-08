@@ -14,6 +14,7 @@ namespace BackEnd.IntegrationTests {
         private object[] Simple_User_Can_Update_Own_Record() {
             return new object[] {
                 new Reservation {
+                    FeatureUrl = "/reservations/",
                     ReservationId = "5ca60aad-dc06-46ca-8689-9021d1595741",
                     Username = "matoula",
                     Password = "820343d9e828",

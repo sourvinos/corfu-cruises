@@ -20,8 +20,7 @@ namespace BackEnd.IntegrationTests {
         private string baseUrl { get; set; }
         private string adminUrl { get; set; } = "/reservations/689051b9-df9e-4c68-91f6-1d093c1bf46c";
         private string simpleUserUrl { get; set; } = "/reservations/c4db7af5-5310-4f58-be17-83997d99a037";
-        private string nonExistentUrl { get; set; } = "/reservations/eab4c9a0-05eb-4880-874a-eaf0a12fefe9";
-        private string nonExistentUserId = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
+        private string dummyUrl { get; set; } = "/reservations/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
 
         #endregion
 
@@ -32,19 +31,19 @@ namespace BackEnd.IntegrationTests {
         }
 
         [Fact]
-        public async Task _01_Unauthorized_When_Not_Logged_In() {
+        public async Task _01_Unauthorized_Not_Logged_In() {
             // act
-            var actionResponse = await httpClient.GetAsync(this.baseUrl + this.adminUrl);
+            var actionResponse = await httpClient.GetAsync(this.baseUrl + this.dummyUrl);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
 
         [Fact]
-        public async Task _02_Unauthorized_When_Invalid_Credentials() {
+        public async Task _02_Unauthorized_Invalid_Credentials() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var request = Helpers.CreateRequest(this.baseUrl, this.nonExistentUrl, this.nonExistentUserId);
+            var request = Helpers.CreateRequest(this.baseUrl, this.dummyUrl);
             // act
             var actionResponse = await httpClient.SendAsync(request);
             // assert
@@ -52,11 +51,11 @@ namespace BackEnd.IntegrationTests {
         }
 
         [Fact]
-        public async Task _03_NotFound_When_Record_Does_Not_Exist() {
+        public async Task _03_Not_Found_When_Not_Exists() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var request = Helpers.CreateRequest(this.baseUrl, this.nonExistentUrl, loginResponse.userId);
+            var request = Helpers.CreateRequest(this.baseUrl, this.dummyUrl, loginResponse.userId);
             // act
             var actionResponse = await httpClient.SendAsync(request);
             // assert
@@ -66,7 +65,7 @@ namespace BackEnd.IntegrationTests {
         }
 
         [Fact]
-        public async Task _04_Simple_User_Can_Not_Read_Not_Owned_Record() {
+        public async Task _04_Simple_Users_Can_Not_Read_Not_Owned_Records() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
@@ -83,7 +82,7 @@ namespace BackEnd.IntegrationTests {
         }
 
         [Fact]
-        public async Task _05_Simple_User_Can_Read_Own_Record() {
+        public async Task _05_Simple_Users_Can_Read_Owned_Records() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
@@ -100,14 +99,16 @@ namespace BackEnd.IntegrationTests {
         }
 
         [Fact]
-        public async Task _06_Admin_Can_Read_Record_Owned_By_Anyone() {
+        public async Task _06_Admins_Can_Read_Records_Owned_By_Anyone() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
             var request = Helpers.CreateRequest(this.baseUrl, this.adminUrl, loginResponse.userId);
             // act
             var actionResponse = await httpClient.SendAsync(request);
-            var records = JsonSerializer.Deserialize<ReservationReadResource>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var records = JsonSerializer.Deserialize<ReservationReadResource>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions {
+                PropertyNameCaseInsensitive = true
+            });
             // assert
             Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup

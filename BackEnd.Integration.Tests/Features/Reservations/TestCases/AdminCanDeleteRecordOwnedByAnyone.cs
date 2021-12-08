@@ -16,6 +16,7 @@ namespace BackEnd.IntegrationTests {
         private object[] Admin_Can_Delete_Own_Record() {
             return new object[] {
                 new ReservationBase {
+                    FeatureUrl = "/reservations/",
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
@@ -28,6 +29,7 @@ namespace BackEnd.IntegrationTests {
         private object[] Admin_Can_Delete_Record_Owned_By_Other_Admin() {
             return new object[] {
                 new ReservationBase {
+                    FeatureUrl = "/reservations/",
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
@@ -40,6 +42,7 @@ namespace BackEnd.IntegrationTests {
         private object[] Admin_Can_Delete_Record_Owned_By_Simple_User() {
             return new object[] {
                 new ReservationBase {
+                    FeatureUrl = "/reservations/",
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",

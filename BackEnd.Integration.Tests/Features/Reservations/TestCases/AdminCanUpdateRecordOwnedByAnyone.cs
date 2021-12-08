@@ -16,6 +16,7 @@ namespace BackEnd.IntegrationTests {
         private object[] Admin_Can_Update_Own_Record() {
             return new object[] {
                 new Reservation {
+                    FeatureUrl = "/reservations/",
                     ReservationId = "039e8f53-0ced-4974-bee6-3173f9cf02bd",
                     Username = "john",
                     Password = "ec11fc8c16da",
@@ -34,6 +35,7 @@ namespace BackEnd.IntegrationTests {
         private object[] Admin_Can_Update_Record_Owned_By_Other_Admin() {
             return new object[] {
                 new Reservation {
+                    FeatureUrl = "/reservations/",
                     ReservationId = "4c9946db-cb7c-4fa8-9c8c-69a49f946dc8",
                     Username = "john",
                     Password = "ec11fc8c16da",
@@ -52,6 +54,7 @@ namespace BackEnd.IntegrationTests {
         private object[] Admin_Can_Update_Record_Owned_By_Simple_User() {
             return new object[] {
                 new Reservation {
+                    FeatureUrl = "/reservations/",
                     ReservationId = "5ca60aad-dc06-46ca-8689-9021d1595741",
                     Username = "john",
                     Password = "ec11fc8c16da",

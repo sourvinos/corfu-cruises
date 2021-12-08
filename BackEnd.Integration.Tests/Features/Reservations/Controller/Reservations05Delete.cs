@@ -16,9 +16,10 @@ namespace BackEnd.IntegrationTests {
         private readonly HttpClient httpClient;
         private readonly TestHostFixture testHostFixture = new TestHostFixture();
         private string baseUrl { get; set; }
-        private string dummyUrl { get; set; } = "/reservations/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
+        private string dummyUrl { get; set; } = "/reservations/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
         private string nonExistentUrl { get; set; } = "/reservations/eab4c9a0-05eb-4880-874a-eaf0a12fefe9";
         private string nonExistentUserId = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
+        private string simpleUserUrl { get; set; } = "/reservations/c4db7af5-5310-4f58-be17-83997d99a037";
 
         #endregion
 
@@ -29,7 +30,7 @@ namespace BackEnd.IntegrationTests {
         }
 
         [Fact]
-        public async Task _01_Unauthorized_When_Not_Logged_In() {
+        public async Task _01_Unauthorized_Not_Logged_In() {
             // act
             var actionResponse = await httpClient.DeleteAsync(this.baseUrl + this.dummyUrl);
             // assert
@@ -37,11 +38,11 @@ namespace BackEnd.IntegrationTests {
         }
 
         [Fact]
-        public async Task _02_Unauthorized_When_Invalid_Credentials() {
+        public async Task _02_Unauthorized_Invalid_Credentials() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var request = Helpers.CreateRequest(this.baseUrl, this.nonExistentUrl, this.nonExistentUserId);
+            var request = Helpers.CreateRequest(this.baseUrl, this.dummyUrl);
             // act
             var actionResponse = await httpClient.SendAsync(request);
             // assert
@@ -49,11 +50,11 @@ namespace BackEnd.IntegrationTests {
         }
 
         [Fact]
-        public async Task _03_NotFound_When_Record_Does_Not_Exist() {
+        public async Task _03_Not_Found_When_Not_Exists() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var request = Helpers.CreateRequest(this.baseUrl, this.nonExistentUrl, loginResponse.userId);
+            var request = Helpers.CreateRequest(this.baseUrl, this.dummyUrl, loginResponse.userId);
             // act
             var actionResponse = await httpClient.SendAsync(request);
             // assert
@@ -63,12 +64,12 @@ namespace BackEnd.IntegrationTests {
         }
 
         [Fact]
-        public async Task _03_Simple_User_Can_Not_Delete_Record() {
+        public async Task _03_Simple_Users_Can_Not_Delete_Records() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
             // act
-            var actionResponse = await httpClient.DeleteAsync(this.baseUrl + nonExistentUrl);
+            var actionResponse = await httpClient.DeleteAsync(this.baseUrl + this.simpleUserUrl);
             // assert
             Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
             // cleanup
@@ -77,12 +78,12 @@ namespace BackEnd.IntegrationTests {
 
         [Theory]
         [ClassData(typeof(AdminCanDeleteRecordOwnedByAnyone))]
-        public async Task _04_Admin_Can_Delete_Record_Owned_By_Anyone(ReservationBase reservation) {
+        public async Task _04_Admins_Can_Delete_Records_Owned_By_Anyone(ReservationBase reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
             // act
-            var actionResponse = await httpClient.DeleteAsync(this.baseUrl + "/reservations/" + reservation.ReservationId);
+            var actionResponse = await httpClient.DeleteAsync(this.baseUrl + reservation.FeatureUrl + reservation.ReservationId);
             // assert
             Assert.Equal((HttpStatusCode)reservation.ExpectedResponseCode, actionResponse.StatusCode);
             // cleanup
