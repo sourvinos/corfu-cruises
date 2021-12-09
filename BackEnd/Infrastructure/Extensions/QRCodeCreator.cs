@@ -1,0 +1,26 @@
+using System;
+using System.Drawing;
+using System.IO;
+using QRCoder;
+
+namespace BlueWaterCruises {
+
+    public static class QrCodeCreator {
+
+        public static byte[] CreateQrCode(string textToConvert) {
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(textToConvert, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            return BitmapToBytes(qrCode.GetGraphic(20));
+        }
+
+        private static Byte[] BitmapToBytes(Bitmap bitmap) {
+            using (MemoryStream stream = new MemoryStream()) {
+                bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                return stream.ToArray();
+            }
+        }
+
+    }
+
+}

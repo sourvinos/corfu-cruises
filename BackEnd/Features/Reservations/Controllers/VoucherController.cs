@@ -1,3 +1,8 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -5,10 +10,6 @@ using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
 using SelectPdf;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlueWaterCruises.Features.Reservations {
 
@@ -27,11 +28,13 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> CreateVoucher([FromBody] Voucher voucher) {
+        [Authorize(Roles = "user, admin")]
+        public async Task<IActionResult> Create([FromBody] Voucher voucher) {
 
             using (var stringWriter = new StringWriter()) {
 
                 voucher.Logo = Logo.GetLogo();
+                voucher.BarCode = "data:image/png;base64," + Convert.ToBase64String(QrCodeCreator.CreateQrCode(voucher.TicketNo));
                 voucher.Facebook = Facebook.GetLogo();
                 voucher.YouTube = YouTube.GetLogo();
                 voucher.Instagram = Instagram.GetLogo();
@@ -53,6 +56,7 @@ namespace BlueWaterCruises.Features.Reservations {
                     return StatusCode(200, new {
                         response = ApiMessages.FileCreated()
                     });
+
                 } catch (Exception exception) {
                     LoggerExtensions.LogException(0, logger, ControllerContext, voucher, exception);
                     return StatusCode(493, new {
@@ -65,7 +69,8 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         [HttpPost("[action]")]
-        public IActionResult EmailVoucher([FromBody] Voucher voucher) {
+        [Authorize(Roles = "user, admin")]
+        public IActionResult Email([FromBody] Voucher voucher) {
             if (ModelState.IsValid) {
                 try {
                     var response = emailSender.SendVoucher(voucher).Message;

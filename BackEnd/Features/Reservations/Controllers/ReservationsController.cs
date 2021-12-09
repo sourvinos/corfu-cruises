@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace BlueWaterCruises.Features.Reservations {
 
     [Route("api/[controller]")]
+
     public class ReservationsController : ControllerBase {
 
         private readonly IHttpContextAccessor httpContextAccessor;

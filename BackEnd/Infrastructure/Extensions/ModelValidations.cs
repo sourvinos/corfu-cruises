@@ -37,6 +37,7 @@ namespace BlueWaterCruises {
             services.AddTransient<IValidator<Schedule>, ScheduleValidator>();
             services.AddTransient<IValidator<Ship>, ShipValidator>();
             services.AddTransient<IValidator<ShipRouteWriteResource>, ShipRouteValidator>();
+            services.AddTransient<IValidator<Voucher>, VoucherValidator>();
         }
 
     }
