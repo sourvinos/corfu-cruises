@@ -42,8 +42,8 @@ namespace BackEnd.IntegrationTests {
         public async Task _02_Unauthorized_Invalid_Credentials() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var customer = this.CreateCustomer(loginResponse.userId);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            var customer = this.CreateCustomer(loginResponse.UserId);
             // act
             var putResponse = await httpClient.PutAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
@@ -54,28 +54,28 @@ namespace BackEnd.IntegrationTests {
         public async Task _03_Simple_Users_Can_Not_Update_Records() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
-            var customer = this.CreateCustomer(loginResponse.userId);
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            var customer = this.CreateCustomer(loginResponse.UserId);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
             var putResponse = await httpClient.PutAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
             Assert.Equal(HttpStatusCode.Forbidden, putResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = loginResponse.userId });
+            await Helpers.Logout(httpClient, new User { UserId = loginResponse.UserId });
         }
 
         [Fact]
         public async Task _04_Admins_Can_Update_Records() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
-            var customer = this.CreateCustomer(loginResponse.userId);
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            var customer = this.CreateCustomer(loginResponse.UserId);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
             var putResponse = await httpClient.PutAsync(this.baseUrl + this.url, new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
             Assert.Equal(HttpStatusCode.OK, putResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = loginResponse.userId });
+            await Helpers.Logout(httpClient, new User { UserId = loginResponse.UserId });
         }
 
         private CustomerWriteResource CreateCustomer(string userId) {

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using AutoMapper;
 
 namespace BlueWaterCruises.Features.Ships {
 
@@ -41,7 +41,7 @@ namespace BlueWaterCruises.Features.Ships {
         public async Task<IActionResult> GetShip(int id) {
             ShipReadResource record = await repo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -98,7 +98,7 @@ namespace BlueWaterCruises.Features.Ships {
         public async Task<IActionResult> DeleteShip([FromRoute] int id) {
             Ship record = await repo.GetByIdToDelete(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });

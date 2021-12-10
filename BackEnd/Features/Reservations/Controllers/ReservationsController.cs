@@ -39,11 +39,11 @@ namespace BlueWaterCruises.Features.Reservations {
         public async Task<IActionResult> GetReservation(string id) {
             var record = await reservationRepo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(id.ToString(), logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
-            };
+            }
             if (await Identity.IsUserAdmin(httpContextAccessor) || await reservationRepo.DoesUserOwnRecord(record.UserId)) {
                 return StatusCode(200, new {
                     response = record
@@ -122,7 +122,7 @@ namespace BlueWaterCruises.Features.Reservations {
             if (await Identity.IsUserAdmin(httpContextAccessor)) {
                 var record = await reservationRepo.GetByIdToDelete(id);
                 if (record == null) {
-                    LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                    id.LogException(logger, ControllerContext, null, null);
                     return StatusCode(404, new {
                         response = ApiMessages.RecordNotFound()
                     });
@@ -139,7 +139,7 @@ namespace BlueWaterCruises.Features.Reservations {
                     });
                 }
             } else {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(403, new {
                     response = ApiMessages.InsufficientUserRights()
                 });
@@ -153,7 +153,7 @@ namespace BlueWaterCruises.Features.Reservations {
                 reservationRepo.AssignToDriver(driverId, ids);
                 return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
             } catch (DbUpdateException exception) {
-                LoggerExtensions.LogException(driverId, logger, ControllerContext, null, exception);
+                driverId.LogException(logger, ControllerContext, null, exception);
                 return StatusCode(490, new {
                     response = ApiMessages.RecordNotSaved()
                 });
@@ -169,7 +169,7 @@ namespace BlueWaterCruises.Features.Reservations {
                     response = ApiMessages.RecordUpdated()
                 });
             } catch (DbUpdateException exception) {
-                LoggerExtensions.LogException(shipId, logger, ControllerContext, null, exception);
+                shipId.LogException(logger, ControllerContext, null, exception);
                 return StatusCode(490, new {
                     response = ApiMessages.RecordNotSaved()
                 });
@@ -177,20 +177,14 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         private IActionResult GetErrorMessage(int errorCode) {
-            switch (errorCode) {
-                case 432:
-                    return StatusCode(432, new { response = ApiMessages.DayHasNoSchedule() });
-                case 430:
-                    return StatusCode(430, new { response = ApiMessages.DayHasNoScheduleForDestination() });
-                case 427:
-                    return StatusCode(427, new { response = ApiMessages.PortHasNoDepartures() });
-                case 433:
-                    return StatusCode(433, new { response = ApiMessages.PortHasNoVacancy() });
-                case 409:
-                    return StatusCode(409, new { response = ApiMessages.DuplicateRecord() });
-                default:
-                    return StatusCode(490, new { Response = ApiMessages.RecordNotSaved() });
-            }
+            return errorCode switch {
+                432 => StatusCode(432, new { response = ApiMessages.DayHasNoSchedule() }),
+                430 => StatusCode(430, new { response = ApiMessages.DayHasNoScheduleForDestination() }),
+                427 => StatusCode(427, new { response = ApiMessages.PortHasNoDepartures() }),
+                433 => StatusCode(433, new { response = ApiMessages.PortHasNoVacancy() }),
+                409 => StatusCode(409, new { response = ApiMessages.DuplicateRecord() }),
+                _ => StatusCode(490, new { Response = ApiMessages.RecordNotSaved() }),
+            };
         }
 
         private ReservationWriteResource AttachUserIdToNewRecord(ReservationWriteResource reservation) {

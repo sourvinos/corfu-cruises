@@ -12,7 +12,6 @@ using Microsoft.IdentityModel.Tokens;
 namespace BlueWaterCruises {
 
     [Route("api/[controller]")]
-
     public class AuthController : ControllerBase {
 
         private readonly AppDbContext db;
@@ -27,16 +26,13 @@ namespace BlueWaterCruises {
 
         [HttpPost("[action]")]
         public async Task<IActionResult> Auth([FromBody] TokenRequest model) {
-            switch (model.GrantType) {
-                case "password":
-                    return await GenerateNewToken(model);
-                case "refresh_token":
-                    return await RefreshToken(model);
-                default:
-                    return StatusCode(401, new {
-                        response = ApiMessages.AuthenticationFailed()
-                    });
-            }
+            return model.GrantType switch {
+                "password" => await GenerateNewToken(model),
+                "refresh_token" => await RefreshToken(model),
+                _ => StatusCode(401, new {
+                    response = ApiMessages.AuthenticationFailed()
+                }),
+            };
         }
 
         [HttpPost("[action]")]
@@ -56,7 +52,7 @@ namespace BlueWaterCruises {
 
         private async Task<IActionResult> GenerateNewToken(TokenRequest model) {
             var user = await userManager.FindByNameAsync(model.Username);
-            if (user != null && user.IsActive && await userManager.CheckPasswordAsync(user, model.Password)) {
+            if (user?.IsActive == true && await userManager.CheckPasswordAsync(user, model.Password)) {
                 var newRefreshToken = CreateRefreshToken(settings.ClientId, user.Id);
                 var oldRefreshTokens = db.Tokens.Where(rt => rt.UserId == user.Id);
                 if (oldRefreshTokens != null) {
@@ -68,13 +64,13 @@ namespace BlueWaterCruises {
                 await db.SaveChangesAsync();
                 var response = await CreateAccessToken(user, newRefreshToken.Value);
                 return StatusCode(200, new TokenResponse {
-                    token = response.token,
-                    expiration = response.expiration,
-                    refresh_token = response.refresh_token,
-                    roles = response.roles,
-                    userId = response.userId,
-                    displayname = response.displayname,
-                    customerId = response.customerId
+                    Token = response.Token,
+                    Expiration = response.Expiration,
+                    Refresh_token = response.Refresh_token,
+                    Roles = response.Roles,
+                    UserId = response.UserId,
+                    Displayname = response.Displayname,
+                    CustomerId = response.CustomerId
                 });
             }
             return StatusCode(401, new {
@@ -82,7 +78,7 @@ namespace BlueWaterCruises {
             });
         }
 
-        private Token CreateRefreshToken(string clientId, string userId) {
+        private static Token CreateRefreshToken(string clientId, string userId) {
             return new Token() {
                 ClientId = clientId,
                 UserId = userId,
@@ -113,19 +109,19 @@ namespace BlueWaterCruises {
             var newtoken = tokenHandler.CreateToken(tokenDescriptor);
             var encodedToken = tokenHandler.WriteToken(newtoken);
             return new TokenResponse() {
-                token = encodedToken,
-                expiration = newtoken.ValidTo,
-                refresh_token = refreshToken,
-                roles = roles.FirstOrDefault(),
-                userId = user.Id,
-                displayname = user.DisplayName,
-                customerId = user.CustomerId
+                Token = encodedToken,
+                Expiration = newtoken.ValidTo,
+                Refresh_token = refreshToken,
+                Roles = roles.FirstOrDefault(),
+                UserId = user.Id,
+                Displayname = user.DisplayName,
+                CustomerId = user.CustomerId
             };
         }
 
         private async Task<IActionResult> RefreshToken(TokenRequest model) {
             try {
-                var refreshToken = db.Tokens.FirstOrDefault(t => t.ClientId == settings.ClientId && t.Value == model.RefreshToken.ToString());
+                var refreshToken = db.Tokens.FirstOrDefault(t => t.ClientId == settings.ClientId && t.Value == model.RefreshToken);
                 if (refreshToken == null) return StatusCode(401, new { response = ApiMessages.AuthenticationFailed() });
                 if (refreshToken.ExpiryTime < DateTime.UtcNow) return StatusCode(401, new { response = ApiMessages.AuthenticationFailed() });
                 var user = await userManager.FindByIdAsync(refreshToken.UserId);

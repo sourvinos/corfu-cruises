@@ -41,7 +41,7 @@ namespace BlueWaterCruises.Features.Ports {
         public async Task<IActionResult> GetPort(int id) {
             PortReadResource record = await repo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -98,7 +98,7 @@ namespace BlueWaterCruises.Features.Ports {
         public async Task<IActionResult> DeletePort([FromRoute] int id) {
             Port record = await repo.GetByIdToDelete(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });

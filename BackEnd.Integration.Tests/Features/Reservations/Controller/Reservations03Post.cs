@@ -42,7 +42,7 @@ namespace BackEnd.IntegrationTests {
         public async Task _02_Unauthorized_Invalid_Credentials(Reservation reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             var record = this.CreateRecord(reservation);
             // act
             var actionResponse = await httpClient.PostAsync(this.baseUrl + reservation.FeatureUrl, Helpers.ConvertObjectToJson(record));
@@ -55,14 +55,14 @@ namespace BackEnd.IntegrationTests {
         public async Task _03_Can_Not_Create_When_Invalid_Schedule(Reservation reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             var record = this.CreateRecord(reservation);
             // act
             var actionResponse = await httpClient.PostAsync(this.baseUrl + reservation.FeatureUrl, Helpers.ConvertObjectToJson(record));
             // assert
             Assert.Equal((HttpStatusCode)reservation.ExpectedResponseCode, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = loginResponse.userId });
+            await Helpers.Logout(httpClient, new User { UserId = loginResponse.UserId });
         }
 
         [Theory]
@@ -70,14 +70,14 @@ namespace BackEnd.IntegrationTests {
         public async Task _04_Users_Can_Create_Records(Reservation reservation) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             var record = this.CreateRecord(reservation);
             // act
             var actionResponse = await httpClient.PostAsync(this.baseUrl + reservation.FeatureUrl, Helpers.ConvertObjectToJson(record));
             // assert
             Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = loginResponse.userId });
+            await Helpers.Logout(httpClient, new User { UserId = loginResponse.UserId });
         }
 
         private ReservationWriteResource CreateRecord(Reservation reservation) {

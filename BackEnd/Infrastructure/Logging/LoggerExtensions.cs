@@ -20,7 +20,7 @@ namespace BlueWaterCruises {
             return builder;
         }
 
-        public static void LogArrayException(int id, ILogger logger, ControllerContext context, List<Object> records, Exception exception) {
+        public static void LogArrayException(this ILogger logger, ControllerContext context, List<Object> records, Exception exception) {
             if (exception is DbUpdateException) {
                 foreach (var record in records) {
                     LogDatabaseError(record, logger, context, exception);
@@ -29,7 +29,7 @@ namespace BlueWaterCruises {
             }
         }
 
-        public static void LogException(int id, ILogger logger, ControllerContext context, Object record, Exception exception) {
+        public static void LogException(this int id, ILogger logger, ControllerContext context, Object record, Exception exception) {
             if (record == null) {
                 LogRecordNotFound(id, logger, context);
                 return;
@@ -43,17 +43,17 @@ namespace BlueWaterCruises {
                 return;
             }
             if (exception is IOException) {
-                LogIOError(record, logger, context, exception);
+                LogIOError(logger, context, exception);
                 return;
             }
-            if (exception is System.Exception) {
-                LogSystemError(record, logger, context, exception.Message);
+            if (exception is not null) {
+                LogSystemError(logger, context, exception.Message);
                 return;
             }
 
         }
 
-        public static void LogException(string id, ILogger logger, ControllerContext context, Object record, Exception exception) {
+        public static void LogException(this string id, ILogger logger, ControllerContext context, Object record, Exception exception) {
             if (record == null) {
                 LogRecordNotFound(id, logger, context);
                 return;
@@ -64,11 +64,10 @@ namespace BlueWaterCruises {
             }
             if (exception is DbUpdateException) {
                 LogDatabaseError(record, logger, context, exception);
-                return;
             }
         }
 
-        public static void LogInfo(ILogger logger, ControllerContext context, Object record) {
+        public static void LogInfo(this ILogger logger, ControllerContext context, Object record) {
             LogRecordSaved(record, logger, context);
         }
 
@@ -76,24 +75,24 @@ namespace BlueWaterCruises {
 
         #region Private methods
 
-        private static String GetControllerAndActionName(ControllerContext context) {
+        private static string GetControllerAndActionName(ControllerContext context) {
             var sb = new StringBuilder();
             sb.AppendLine();
-            sb.Append("\t");
-            sb.Append("Controller: " + (context.ActionDescriptor == null ? "Unit testing" : context.ActionDescriptor.ControllerName) + "");
+            sb.Append('\t');
+            sb.Append("Controller: ").Append(context.ActionDescriptor == null ? "Unit testing" : context.ActionDescriptor.ControllerName).Append("");
             sb.AppendLine();
-            sb.Append("\t");
-            sb.Append("Action: " + (context.ActionDescriptor == null ? "Unit testing" : context.ActionDescriptor.ActionName) + "");
+            sb.Append('\t');
+            sb.Append("Action: ").Append(context.ActionDescriptor == null ? "Unit testing" : context.ActionDescriptor.ActionName).Append("");
             return sb.ToString();
         }
 
-        private static String GetObjectProperties(Object myObject) {
+        private static string GetObjectProperties(Object myObject) {
             var sb = new StringBuilder();
             PropertyInfo[] properties = myObject.GetType().GetProperties();
             foreach (PropertyInfo p in properties) {
                 sb.AppendLine();
-                sb.Append("\t");
-                sb.Append(string.Format(" - {0}: {1}", p.Name, p.GetValue(myObject, null)));
+                sb.Append('\t');
+                sb.AppendFormat(" - {0}: {1}", p.Name, p.GetValue(myObject, null));
             }
             return sb.ToString();
         }
@@ -101,32 +100,32 @@ namespace BlueWaterCruises {
         private static String GetDatabaseError(Exception exception) {
             var sb = new StringBuilder();
             sb.AppendLine();
-            sb.Append("\t");
-            sb.Append("Error: " + GrabDatabaseError(exception));
+            sb.Append('\t');
+            sb.Append("Error: ").Append(GrabDatabaseError(exception));
             return sb.ToString();
         }
 
         private static String GetIOError(Exception exception) {
             var sb = new StringBuilder();
             sb.AppendLine();
-            sb.Append("\t");
-            sb.Append("Error: " + exception.Message);
+            sb.Append('\t');
+            sb.Append("Error: ").Append(exception.Message);
             return sb.ToString();
         }
 
         private static String GetSystemError(string message) {
             var sb = new StringBuilder();
             sb.AppendLine();
-            sb.Append("\t");
-            sb.Append("Error: " + message);
+            sb.Append('\t');
+            sb.Append("Error: ").Append(message);
             return sb.ToString();
         }
 
         private static String GetSimpleDescription(String description) {
             var sb = new StringBuilder();
             sb.AppendLine();
-            sb.Append("\t");
-            sb.Append("Error: " + description);
+            sb.Append('\t');
+            sb.Append("Error: ").Append(description);
             return sb.ToString();
         }
 
@@ -137,13 +136,13 @@ namespace BlueWaterCruises {
                 GetObjectProperties(record));
         }
 
-        private static void LogIOError(Object record, ILogger logger, ControllerContext context, Exception exception) {
+        private static void LogIOError(ILogger logger, ControllerContext context, Exception exception) {
             logger.LogError("{caller} {error} {record}",
                 GetControllerAndActionName(context),
                 GetIOError(exception), "");
         }
 
-        private static void LogSystemError(Object record, ILogger logger, ControllerContext context, string message) {
+        private static void LogSystemError(ILogger logger, ControllerContext context, string message) {
             logger.LogError("{caller} {error} {record}",
                 GetControllerAndActionName(context),
                 GetSystemError(message), "");

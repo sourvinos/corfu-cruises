@@ -41,7 +41,7 @@ namespace BlueWaterCruises.Features.Occupants {
         public async Task<IActionResult> GetOccupant(int id) {
             OccupantReadResource record = await repo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -98,7 +98,7 @@ namespace BlueWaterCruises.Features.Occupants {
         public async Task<IActionResult> DeleteOccupant([FromRoute] int id) {
             Occupant record = await repo.GetByIdToDelete(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });

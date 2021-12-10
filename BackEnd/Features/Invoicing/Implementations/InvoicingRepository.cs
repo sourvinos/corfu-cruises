@@ -24,9 +24,9 @@ namespace BlueWaterCruises.Features.Invoicing {
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route)
                 .OrderBy(x => x.Date).ThenBy(x => x.Customer.Description).ThenBy(x => !x.PickupPoint.Route.IsTransfer)
                 .Where(x => x.Date == Convert.ToDateTime(date)
-                    && ((customerId != "all") ? x.CustomerId == Int32.Parse(customerId) : true)
-                    && ((destinationId != "all") ? x.DestinationId == Int32.Parse(destinationId) : true)
-                    && ((vesselId != "all") ? x.ShipId == Int32.Parse(vesselId) : true))
+                    && ((customerId == "all") || x.CustomerId == Int32.Parse(customerId))
+                    && ((destinationId == "all") || x.DestinationId == Int32.Parse(destinationId))
+                    && ((vesselId == "all") || x.ShipId == Int32.Parse(vesselId)))
                 .AsEnumerable()
                 .GroupBy(x => new { x.Date, x.Customer })
                 .Select(x => new InvoiceIntermediateViewModel {
@@ -44,7 +44,7 @@ namespace BlueWaterCruises.Features.Invoicing {
             return mapper.Map<IEnumerable<InvoiceIntermediateViewModel>, IEnumerable<InvoiceViewModel>>(result);
         }
 
-        public List<IsTransferGroupViewModel> GroupReservationsByIsTransfer(List<Reservation> reservations) {
+        public static List<IsTransferGroupViewModel> GroupReservationsByIsTransfer(List<Reservation> reservations) {
             var result = reservations
                     .GroupBy(r => r.PickupPoint.Route.IsTransfer)
                     .Select(g => new IsTransferGroupViewModel {

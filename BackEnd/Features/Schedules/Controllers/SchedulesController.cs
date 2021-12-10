@@ -42,7 +42,7 @@ namespace BlueWaterCruises.Features.Schedules {
         public async Task<IActionResult> GetById(int id) {
             ScheduleReadResource record = await repo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -57,7 +57,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")] 
+        [Authorize(Roles = "admin")]
         public IActionResult PostSchedule([FromBody] List<ScheduleWriteResource> records) {
             if (ModelState.IsValid) {
                 try {
@@ -66,7 +66,7 @@ namespace BlueWaterCruises.Features.Schedules {
                         response = ApiMessages.RecordCreated()
                     });
                 } catch (Exception exception) {
-                    LoggerExtensions.LogArrayException(0, logger, ControllerContext, (records as IEnumerable<object>).Cast<object>().ToList(), exception);
+                    logger.LogArrayException(ControllerContext, (records as IEnumerable<object>).ToList(), exception);
                     return StatusCode(490, new {
                         response = ApiMessages.RecordNotSaved()
                     });
@@ -105,7 +105,7 @@ namespace BlueWaterCruises.Features.Schedules {
         public async Task<IActionResult> DeleteSchedule([FromRoute] int id) {
             Schedule record = await repo.GetSingleToDelete(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });

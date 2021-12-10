@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace BlueWaterCruises {
 
@@ -25,7 +24,7 @@ namespace BlueWaterCruises {
 
             if (!IsEnabled(logLevel)) {
                 return;
-            };
+            }
 
             if (eventId == 10000 || eventId == 20102) {
                 // 10000: "Microsoft.EntityFrameworkCore.Update.SaveChangesFailed"
@@ -34,11 +33,10 @@ namespace BlueWaterCruises {
             }
 
             var fullPathName = string.Format("{0}/{1}", fileLoggerProvider.Options.FolderPath + Path.DirectorySeparatorChar, fileLoggerProvider.Options.FilePath.Replace("{date}", DateTime.Now.ToString("yyyy-MM-dd")));
-            var logEntry = string.Format("{0} [{1}] {2} {3}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), logLevel.ToString(), formatter(state, exception), (exception != null ? "OOPS!" + exception : ""));
+            var logEntry = string.Format("{0} [{1}] {2} {3}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), logLevel.ToString(), formatter(state, exception), exception != null ? "OOPS!" + exception : "");
 
-            using (var streamWriter = new StreamWriter(fullPathName, true)) {
-                streamWriter.WriteLine(logEntry);
-            }
+            using var streamWriter = new StreamWriter(fullPathName, true);
+            streamWriter.WriteLine(logEntry);
 
         }
 

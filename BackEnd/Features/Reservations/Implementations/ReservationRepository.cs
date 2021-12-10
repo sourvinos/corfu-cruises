@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BlueWaterCruises.Features.Schedules;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -15,13 +14,11 @@ namespace BlueWaterCruises.Features.Reservations {
     public class ReservationRepository : Repository<Reservation>, IReservationRepository {
 
         private readonly IMapper mapper;
-        private readonly UserManager<AppUser> userManager;
         private readonly TestingEnvironment settings;
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public ReservationRepository(AppDbContext appDbContext, IMapper mapper, UserManager<AppUser> userManager, IOptions<TestingEnvironment> settings, IHttpContextAccessor httpContextAccessor) : base(appDbContext, settings) {
+        public ReservationRepository(AppDbContext appDbContext, IMapper mapper,  IOptions<TestingEnvironment> settings, IHttpContextAccessor httpContextAccessor) : base(appDbContext, settings) {
             this.mapper = mapper;
-            this.userManager = userManager;
             this.settings = settings.Value;
             this.httpContextAccessor = httpContextAccessor;
         }
@@ -36,7 +33,7 @@ namespace BlueWaterCruises.Features.Reservations {
                 .Where(x => x.Date == Convert.ToDateTime(date))
                 .OrderBy(x => x.Date)
                 .ToListAsync();
-            reservations = reservations.If(await Identity.IsUserAdmin(httpContextAccessor) == false, x => x.Where(x => x.UserId == Identity.GetConnectedUserId(httpContextAccessor))).ToList();
+            reservations = reservations.If(!await Identity.IsUserAdmin(httpContextAccessor), x => x.Where(x => x.UserId == Identity.GetConnectedUserId(httpContextAccessor))).ToList();
             var PersonsPerCustomer = reservations.OrderBy(x => x.Customer.Description).GroupBy(x => new { x.Customer.Description }).Select(x => new PersonsPerCustomer { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
             var PersonsPerDestination = reservations.OrderBy(x => x.Destination.Description).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
             var PersonsPerRoute = reservations.OrderBy(x => x.PickupPoint.Route.Description).GroupBy(x => new { x.PickupPoint.Route.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(s => s.TotalPersons) }).OrderBy(o => o.Description);
@@ -79,10 +76,7 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         public bool IsKeyUnique(ReservationWriteResource record) {
-            if (context.Reservations.Count(x => x.Date == Convert.ToDateTime(record.Date) && x.ReservationId != record.ReservationId && x.DestinationId == record.DestinationId && x.CustomerId == record.CustomerId && x.TicketNo.ToUpper() == record.TicketNo.ToUpper()) == 0) {
-                return true;
-            }
-            return false;
+            return context.Reservations.Any(x => x.Date == Convert.ToDateTime(record.Date) && x.ReservationId != record.ReservationId && x.DestinationId == record.DestinationId && x.CustomerId == record.CustomerId && string.Equals(x.TicketNo, record.TicketNo, StringComparison.OrdinalIgnoreCase));
         }
 
         public bool Update(string id, Reservation updatedRecord) {
@@ -104,19 +98,13 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         public int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
-            switch (true) {
-                case var x when x = !scheduleRepo.DayHasSchedule(DateTime.Parse(record.Date)):
-                    return 432;
-                case var x when x = !scheduleRepo.DayHasScheduleForDestination(DateTime.Parse(record.Date), record.DestinationId):
-                    return 430;
-                case var x when x = !scheduleRepo.PortHasDepartures(DateTime.Parse(record.Date), record.DestinationId, record.PortId):
-                    return 427;
-                case var x when x = !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, record.PortId, record.Adults + record.Kids + record.Free):
-                    return 433;
-                case var x when x = !this.IsKeyUnique(record):
-                    return 409;
-                default:
-                    return 200;
+            return true switch {
+                var x when x == !scheduleRepo.DayHasSchedule(DateTime.Parse(record.Date)) => 432,
+                var x when x == !scheduleRepo.DayHasScheduleForDestination(DateTime.Parse(record.Date), record.DestinationId) => 430,
+                var x when x == !scheduleRepo.PortHasDepartures(DateTime.Parse(record.Date), record.DestinationId, record.PortId) => 427,
+                var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, record.PortId, record.Adults + record.Kids + record.Free) => 433,
+                var x when x == !this.IsKeyUnique(record) => 409,
+                _ => 200,
             };
         }
 
@@ -164,7 +152,7 @@ namespace BlueWaterCruises.Features.Reservations {
             var records = new List<Passenger>();
             foreach (var record in updatedRecord.Passengers) {
                 records.Add(record);
-            };
+            }
             context.Set<Passenger>().AddRange(records);
             context.SaveChanges();
         }
@@ -174,12 +162,12 @@ namespace BlueWaterCruises.Features.Reservations {
             context.SaveChanges();
         }
 
-        private bool PortHasVacancy(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId, int reservationPersons) {
-            int maxPersons = this.GetPortMaxPersons(scheduleRepo, fromDate, toDate, reservationId, destinationId, portId);
+        private static bool PortHasVacancy(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId, int reservationPersons) {
+            int maxPersons = GetPortMaxPersons(scheduleRepo, fromDate, toDate, reservationId, destinationId, portId);
             return maxPersons >= reservationPersons;
         }
 
-        private int GetPortMaxPersons(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId) {
+        private static int GetPortMaxPersons(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId) {
             IEnumerable<ScheduleReservationGroup> schedule = scheduleRepo.DoCalendarTasks(fromDate, toDate, reservationId).ToList();
             var port = schedule.Select(x => x.Destinations.SingleOrDefault(x => x.Id == destinationId).Ports.SingleOrDefault(x => x.Id == portId)).Select(x => new {
                 MaxPersons = x.AvailableSeats
@@ -188,9 +176,7 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         public Task<bool> DoesUserOwnRecord(string userId) {
-            return Task.Run(() => {
-                return httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value == userId;
-            });
+            return Task.Run(() => httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value == userId);
         }
 
     }

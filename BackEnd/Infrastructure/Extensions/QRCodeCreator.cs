@@ -8,17 +8,16 @@ namespace BlueWaterCruises {
     public static class QrCodeCreator {
 
         public static byte[] CreateQrCode(string textToConvert) {
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeGenerator qrGenerator = new();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(textToConvert, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
+            QRCode qrCode = new(qrCodeData);
             return BitmapToBytes(qrCode.GetGraphic(20));
         }
 
         private static Byte[] BitmapToBytes(Bitmap bitmap) {
-            using (MemoryStream stream = new MemoryStream()) {
-                bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-                return stream.ToArray();
-            }
+            using MemoryStream stream = new();
+            bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+            return stream.ToArray();
         }
 
     }

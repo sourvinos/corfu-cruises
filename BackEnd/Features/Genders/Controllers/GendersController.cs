@@ -11,7 +11,6 @@ namespace BlueWaterCruises.Features.Genders {
 
     [Authorize]
     [Route("api/[controller]")]
-
     public class GendersController : ControllerBase {
 
         private readonly IGenderRepository repo;
@@ -41,7 +40,7 @@ namespace BlueWaterCruises.Features.Genders {
         public async Task<IActionResult> GetGender(int id) {
             GenderReadResource record = await repo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -98,7 +97,7 @@ namespace BlueWaterCruises.Features.Genders {
         public async Task<IActionResult> DeleteGender([FromRoute] int id) {
             Gender record = await repo.GetByIdToDelete(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });

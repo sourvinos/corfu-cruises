@@ -4,7 +4,7 @@ namespace BlueWaterCruises.Features.Manifest {
 
     public class PassengerResource {
 
-        public int id { get; set; }
+        public int Id { get; set; }
         public Guid ReservationId { get; set; }
         public string Lastname { get; set; }
         public string Firstname { get; set; }

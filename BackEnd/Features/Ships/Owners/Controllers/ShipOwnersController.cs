@@ -41,7 +41,7 @@ namespace BlueWaterCruises.Features.Ships {
         public async Task<IActionResult> GetShipOwner(int id) {
             ShipOwnerReadResource record = await repo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -98,7 +98,7 @@ namespace BlueWaterCruises.Features.Ships {
         public async Task<IActionResult> DeleteShipOwner([FromRoute] int id) {
             ShipOwner record = await repo.GetByIdToDelete(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });

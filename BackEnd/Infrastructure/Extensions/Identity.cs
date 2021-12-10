@@ -31,9 +31,7 @@ namespace BlueWaterCruises {
         }
 
         public static Task<bool> IsUserAdmin(IHttpContextAccessor httpContextAccessor) {
-            return Task.Run(() => {
-                return httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role).Value == "admin" ? true : false;
-            });
+            return Task.Run(() => httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role).Value == "admin");
         }
 
     }

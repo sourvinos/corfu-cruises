@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
-using BlueWaterCruises;
 using BlueWaterCruises.Features.Nationalities;
 
-public static class SeedDatabaseNationalities {
+namespace BlueWaterCruises {
 
-    public static void SeedNationalities(AppDbContext context) {
-        if (context.Nationalities.Count() == 0) {
-            var nationalities = new List<Nationality> {
+    public static class SeedDatabaseNationalities {
+
+        public static void SeedNationalities(AppDbContext context) {
+            if (!context.Nationalities.Any()) {
+                var nationalities = new List<Nationality> {
                 new Nationality { Code = "af", Description = "AFGHANISTAN", IsActive = true, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault() },
                 new Nationality { Code = "ax", Description = "ÅLAND ISLANDS", IsActive = true, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault() },
                 new Nationality { Code = "al", Description = "ALBANIA", IsActive = true, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault() },
@@ -263,9 +264,11 @@ public static class SeedDatabaseNationalities {
                 new Nationality { Code = "sx", Description = "SINT MAARTEN", IsActive = true, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).OrderBy(x=>x.Id).Select(x => x.Id).SingleOrDefault() },
                 new Nationality { Code = "tv", Description = "TUVALU", IsActive = true, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).OrderBy(x=>x.Id).Select(x => x.Id).SingleOrDefault() }
             };
-            context.AddRange(nationalities);
-            context.SaveChanges();
+                context.AddRange(nationalities);
+                context.SaveChanges();
+            }
         }
+
     }
 
 }

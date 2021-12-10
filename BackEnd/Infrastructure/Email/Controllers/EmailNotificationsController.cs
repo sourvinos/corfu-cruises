@@ -5,13 +5,13 @@ namespace BlueWaterCruises {
 
     public class EmailNotificationsController : Controller {
 
-        private IWebHostEnvironment _hostingEnv;
+        private readonly IWebHostEnvironment _hostingEnv;
 
         public EmailNotificationsController(IWebHostEnvironment env) {
             _hostingEnv = env;
         }
 
-        public IActionResult ActivationError(string userId, string token) {
+        public IActionResult ActivationError() {
             return View(_hostingEnv);
         }
 

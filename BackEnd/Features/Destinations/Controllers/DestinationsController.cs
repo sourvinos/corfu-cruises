@@ -11,7 +11,6 @@ namespace BlueWaterCruises.Features.Destinations {
 
     [Authorize]
     [Route("api/[controller]")]
-
     public class DestinationsController : ControllerBase {
 
         private readonly IDestinationRepository repo;
@@ -41,7 +40,7 @@ namespace BlueWaterCruises.Features.Destinations {
         public async Task<IActionResult> GetDestination(int id) {
             DestinationReadResource record = await repo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -98,7 +97,7 @@ namespace BlueWaterCruises.Features.Destinations {
         public async Task<IActionResult> DeleteDestination([FromRoute] int id) {
             Destination record = await repo.GetByIdToDelete(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });

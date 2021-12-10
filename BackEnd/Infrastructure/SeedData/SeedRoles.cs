@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 
-public static class SeedDatabaseRoles {
+namespace BlueWaterCruises {
 
-    public static void SeedRoles(RoleManager<IdentityRole> roleManager) {
-        if (roleManager.Roles.Count() == 0) {
-            var roles = new List<IdentityRole> {
+    public static class SeedDatabaseRoles {
+
+        public static void SeedRoles(RoleManager<IdentityRole> roleManager) {
+            if (!roleManager.Roles.Any()) {
+                var roles = new List<IdentityRole> {
                 new IdentityRole {
                     Id = "23497d7f-804b-4245-9e7b-ac8db606d454",
                     Name = "admin",
@@ -20,10 +22,12 @@ public static class SeedDatabaseRoles {
                     NormalizedName = "USER"
                 }
             };
-            foreach (var role in roles) {
-                roleManager.CreateAsync(role).Wait();
+                foreach (var role in roles) {
+                    roleManager.CreateAsync(role).Wait();
+                }
             }
         }
+
     }
 
 }

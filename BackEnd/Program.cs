@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace BlueWaterCruises {
 
-    public class Program {
+    public static class Program {
 
         public static void Main(string[] args) {
             CreateHostBuilder(args).Build().Run();
@@ -13,11 +13,8 @@ namespace BlueWaterCruises {
 
         public static IHostBuilder CreateHostBuilder(string[] args) {
             return Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder => {
-                webBuilder.ConfigureLogging((context, logging) => {
-                    logging.FileLogger(options => {
-                        context.Configuration.GetSection("Logging").GetSection("File").GetSection("Options").Bind(options);
-                    });
-                })
+                webBuilder.ConfigureLogging((context, logging) =>
+                    logging.FileLogger(options => context.Configuration.GetSection("Logging").GetSection("File").GetSection("Options").Bind(options)))
                 .UseStartup<Startup>();
             });
         }

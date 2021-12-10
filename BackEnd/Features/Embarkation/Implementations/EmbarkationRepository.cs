@@ -26,8 +26,8 @@ namespace BlueWaterCruises.Features.Embarkation {
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId)
                 .ToListAsync();
             int totalPersons = reservations.Sum(x => x.TotalPersons);
-            int passengers = reservations.SelectMany(c => c.Passengers).Count();
-            int boarded = reservations.SelectMany(c => c.Passengers).Where(x => x.IsCheckedIn).Count();
+            int passengers = reservations.Sum(c => c.Passengers.Count);
+            int boarded = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);
             int remaining = passengers - boarded;
             var groupPerDriver = context.Set<Reservation>().Include(x => x.Driver)
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId)

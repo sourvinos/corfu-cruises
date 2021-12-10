@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BlueWaterCruises {
 
@@ -15,12 +14,12 @@ namespace BlueWaterCruises {
                 "pay on board 20euros",
                 "pets pay half price"
             };
-            return (10 % i == 0) ? remarks[new Random().Next(remarks.Count())].ToUpper() : "";
+            return (10 % i == 0) ? remarks[new Random().Next(remarks.Count)].ToUpper() : "";
         }
 
         public static DateTime CreateRandomDate() {
-            Random x = new Random();
-            DateTime start = new DateTime(1960, 1, 1);
+            Random x = new();
+            DateTime start = new(1960, 1, 1);
             int range = (DateTime.Today - start).Days;
             return start.AddDays(x.Next(range));
         }
@@ -128,16 +127,16 @@ namespace BlueWaterCruises {
                 "TRUE Silvestri",
                 "Lavon Searles",
             };
-            return names[new Random().Next(names.Count())].ToUpper();
+            return names[new Random().Next(names.Count)].ToUpper();
         }
 
         public static int CreateRandomInteger(int min, int max) {
-            Random rand = new Random();
+            Random rand = new();
             return rand.Next(min, max);
         }
 
         public static int CreateRandomPassengerCount(int min, int max) {
-            Random rand = new Random();
+            Random rand = new();
             return rand.Next(min, max);
         }
 
@@ -194,11 +193,11 @@ namespace BlueWaterCruises {
                 "thora.rutherford90@hotmail.com",
                 "lizeth_jones@hotmail.com",
             };
-            return emails[new Random().Next(emails.Count())].ToUpper();
+            return emails[new Random().Next(emails.Count)].ToUpper();
         }
 
         public static string CreateRandomTicketNo(int length) {
-            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             var random = new Random();
             var ticket = new char[length];
             for (int i = 0; i < ticket.Length; i++) {
@@ -208,7 +207,7 @@ namespace BlueWaterCruises {
         }
 
         public static bool ConvertToBoolean(int i) {
-            return i % 2 == 0 ? false : true;
+            return i % 2 != 0;
         }
 
         public static string CreateRandomAddress() {
@@ -264,7 +263,7 @@ namespace BlueWaterCruises {
                 "571 Lindsey Island, Apt. 220, 91380-5078, North Gay",
                 "187 Leffler Estate, Suite 243, 57997-0869, Hilllview",
             };
-            return addresses[new Random().Next(addresses.Count())].ToUpper();
+            return addresses[new Random().Next(addresses.Count)].ToUpper();
         }
 
         public static string CreateRandomCustomers() {
@@ -329,7 +328,7 @@ namespace BlueWaterCruises {
                 "Beer Inc",
                 "Crooks Inc",
             };
-            return customers[new Random().Next(customers.Count())].ToUpper();
+            return customers[new Random().Next(customers.Count)].ToUpper();
         }
 
         public static string CreateRandomPhones() {
@@ -365,7 +364,7 @@ namespace BlueWaterCruises {
                 "505-635-2346",
                 "582-400-6729",
             };
-            return phones[new Random().Next(phones.Count())].ToUpper();
+            return phones[new Random().Next(phones.Count)].ToUpper();
         }
 
         public static string CreateRandomPersonsInCharge() {
@@ -401,7 +400,7 @@ namespace BlueWaterCruises {
                 "Giles",
                 "Dale",
             };
-            return personsInCharge[new Random().Next(personsInCharge.Count())].ToUpper();
+            return personsInCharge[new Random().Next(personsInCharge.Count)].ToUpper();
         }
 
         public static string CreateRandomOccupations() {
@@ -457,7 +456,7 @@ namespace BlueWaterCruises {
                 "gaming manager",
                 "locksmith",
             };
-            return occupations[new Random().Next(occupations.Count())].ToUpper();
+            return occupations[new Random().Next(occupations.Count)].ToUpper();
         }
 
         public static string CreateRandomDrivers() {
@@ -472,16 +471,15 @@ namespace BlueWaterCruises {
                 "Alise Pape",
                 "Jaliah Brenneman ",
             };
-            return drivers[new Random().Next(drivers.Count())].ToUpper();
+            return drivers[new Random().Next(drivers.Count)].ToUpper();
         }
 
         public static List<string> CreateGenders() {
-            List<string> genders = new() {
+            return (List<string>)(new() {
                 "male",
                 "female",
                 "other",
-            };
-            return genders;
+            });
         }
 
     }

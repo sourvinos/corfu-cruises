@@ -6,10 +6,10 @@ namespace BlueWaterCruises.Features.Schedules {
 
         public ScheduleMappingProfile() {
             CreateMap<Schedule, ScheduleReadResource>()
-                .ForMember(x => x.Date, x => x.MapFrom(x => DateConversions.DateTimeToISOString(x.Date)));;;
+                .ForMember(x => x.Date, x => x.MapFrom(x => DateConversions.DateTimeToISOString(x.Date)));
             CreateMap<Schedule, ScheduleListResource>()
-                .ForMember(x => x.Date, x => x.MapFrom(x => DateConversions.DateTimeToISOString(x.Date)));;
-            CreateMap<ScheduleWriteResource, Schedule>();                
+                .ForMember(x => x.Date, x => x.MapFrom(x => DateConversions.DateTimeToISOString(x.Date)));
+            CreateMap<ScheduleWriteResource, Schedule>();
         }
 
     }

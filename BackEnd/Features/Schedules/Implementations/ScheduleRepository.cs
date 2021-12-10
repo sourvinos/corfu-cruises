@@ -13,11 +13,9 @@ namespace BlueWaterCruises.Features.Schedules {
     public class ScheduleRepository : Repository<Schedule>, IScheduleRepository {
 
         private readonly IMapper mapper;
-        private readonly UserManager<AppUser> userManager;
 
-        public ScheduleRepository(AppDbContext context, IMapper mapper, UserManager<AppUser> userManager, IOptions<TestingEnvironment> settings) : base(context, settings) {
+        public ScheduleRepository(AppDbContext context, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, settings) {
             this.mapper = mapper;
-            this.userManager = userManager;
         }
 
         public async Task<IEnumerable<ScheduleListResource>> GetForList() {
@@ -33,9 +31,9 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         public IEnumerable<ScheduleReservationGroup> DoCalendarTasks(string fromDate, string toDate, Guid? reservationId) {
-            var schedule = this.GetScheduleForPeriod(fromDate, toDate);
-            var reservations = this.GetReservationsForPeriod(fromDate, toDate, reservationId);
-            var calendarData = this.UpdateCalendarData(this.GetScheduleForPeriod(fromDate, toDate), this.GetReservationsForPeriod(fromDate, toDate, reservationId));
+            this.GetScheduleForPeriod(fromDate, toDate);
+            this.GetReservationsForPeriod(fromDate, toDate, reservationId);
+            var calendarData = UpdateCalendarData(this.GetScheduleForPeriod(fromDate, toDate), this.GetReservationsForPeriod(fromDate, toDate, reservationId));
             return calendarData;
         }
 
@@ -43,21 +41,21 @@ namespace BlueWaterCruises.Features.Schedules {
             var schedule = context.Set<Schedule>()
                 .Where(x => x.Date == date)
                 .ToList();
-            return schedule.Count() != 0;
+            return schedule.Count != 0;
         }
 
         public Boolean DayHasScheduleForDestination(DateTime date, int destinationId) {
             var schedule = context.Set<Schedule>()
                 .Where(x => x.Date == date && x.DestinationId == destinationId)
                 .ToList();
-            return schedule.Count() != 0;
+            return schedule.Count != 0;
         }
 
         public Boolean PortHasDepartures(DateTime date, int destinationId, int portId) {
             var schedule = context.Set<Schedule>()
                 .Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId)
                 .ToList();
-            return schedule.Count() != 0;
+            return schedule.Count != 0;
         }
 
         new public async Task<ScheduleReadResource> GetById(int scheduleId) {
@@ -81,7 +79,7 @@ namespace BlueWaterCruises.Features.Schedules {
         }
 
         public void DeleteRange(List<Schedule> schedules) {
-            List<Schedule> idsToDelete = new List<Schedule>();
+            List<Schedule> idsToDelete = new();
             foreach (var item in schedules) {
                 var idToDelete = context.Set<Schedule>()
                     .FirstOrDefault(x => x.Date == item.Date && x.DestinationId == item.DestinationId && x.PortId == item.PortId);
@@ -89,7 +87,7 @@ namespace BlueWaterCruises.Features.Schedules {
                     idsToDelete.Add(idToDelete);
                 }
             }
-            if (idsToDelete.Count() > 0) {
+            if (idsToDelete.Count > 0) {
                 context.RemoveRange(idsToDelete);
                 context.SaveChanges();
             }
@@ -126,10 +124,10 @@ namespace BlueWaterCruises.Features.Schedules {
             return response.ToList();
         }
 
-        private IEnumerable<ScheduleReservationGroup> UpdateCalendarData(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations) {
+        private static IEnumerable<ScheduleReservationGroup> UpdateCalendarData(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations) {
             foreach (var item in schedule) {
-                var x = reservations.FirstOrDefault(x => x.Date == item.Date.ToString() && x.DestinationId == item.DestinationId && x.PortId == item.PortId);
-                item.Persons = x != null ? x.TotalPersons : 0;
+                var x = reservations.FirstOrDefault(x => x.Date == item.Date && x.DestinationId == item.DestinationId && x.PortId == item.PortId);
+                item.Persons = (x?.TotalPersons) ?? 0;
             }
             var response = schedule
                 .GroupBy(x => x.Date)
@@ -155,13 +153,13 @@ namespace BlueWaterCruises.Features.Schedules {
             return response.ToList();
         }
 
-        private int CalculateAvailableSeatsForAllPorts(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations, string date, int destinationId) {
-            var maxPersons = this.CalculateMaxPersons(schedule, date, destinationId);
-            var passengers = this.CalculatePassengerCountForDestination(reservations, date, destinationId);
+        private static int CalculateAvailableSeatsForAllPorts(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations, string date, int destinationId) {
+            var maxPersons = CalculateMaxPersons(schedule, date, destinationId);
+            var passengers = CalculatePassengerCountForDestination(reservations, date, destinationId);
             return maxPersons - passengers;
         }
 
-        private int CalculateAvailableSeatsForPort(IEnumerable<ScheduleResource> schedule, string date, int destinationId, int max, int persons, bool isPortPrimary) {
+        private static int CalculateAvailableSeatsForPort(IEnumerable<ScheduleResource> schedule, string date, int destinationId, int max, int persons, bool isPortPrimary) {
             if (isPortPrimary) {
                 var empty = max - persons;
                 return empty;
@@ -178,11 +176,11 @@ namespace BlueWaterCruises.Features.Schedules {
             }
         }
 
-        private int CalculatePassengerCountForDestination(IEnumerable<ReservationResource> reservations, string date, int destinationId) {
+        private static int CalculatePassengerCountForDestination(IEnumerable<ReservationResource> reservations, string date, int destinationId) {
             return reservations.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.TotalPersons);
         }
 
-        private int CalculateMaxPersons(IEnumerable<ScheduleResource> schedule, string date, int destinationId) {
+        private static int CalculateMaxPersons(IEnumerable<ScheduleResource> schedule, string date, int destinationId) {
             return schedule.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.MaxPersons);
         }
 

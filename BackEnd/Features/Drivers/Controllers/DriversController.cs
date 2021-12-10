@@ -11,7 +11,6 @@ namespace BlueWaterCruises.Features.Drivers {
 
     [Authorize]
     [Route("api/[controller]")]
-
     public class DriversController : ControllerBase {
 
         private readonly IDriverRepository repo;
@@ -41,7 +40,7 @@ namespace BlueWaterCruises.Features.Drivers {
         public async Task<IActionResult> GetDriver(int id) {
             DriverReadResource record = await repo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -98,7 +97,7 @@ namespace BlueWaterCruises.Features.Drivers {
         public async Task<IActionResult> DeleteDriver([FromRoute] int id) {
             Driver record = await repo.GetByIdToDelete(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });

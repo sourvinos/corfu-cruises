@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
-using BlueWaterCruises;
 using BlueWaterCruises.Features.PickupPoints;
 
-public static class SeedDatabasePickupPoints {
+namespace BlueWaterCruises {
 
-    public static void SeedPickupPoints(AppDbContext context) {
-        if (context.PickupPoints.Count() == 0) {
-            var pickupPoints = new List<PickupPoint> {
+    public static class SeedDatabasePickupPoints {
+
+        public static void SeedPickupPoints(AppDbContext context) {
+            if (!context.PickupPoints.Any()) {
+                var pickupPoints = new List<PickupPoint> {
                 new PickupPoint { Description = "RESTIA SUITES", RouteId = 4, ExactPoint = "MAIN ROAD", Time = "06:55", Coordinates = "39.80549315087046,19.829987078349387", IsActive = true, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault() },
                 new PickupPoint { Description = "ARION HOTEL", RouteId = 1, ExactPoint = "MAIN ROAD", Time = "08:10", Coordinates = "39.6085812288308,19.92480039596558", IsActive = true, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault() },
                 new PickupPoint { Description = "PALEO DISCO", RouteId = 3, ExactPoint = "MAIN ROAD", Time = "07:00", Coordinates = "", IsActive = true, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault() },
@@ -347,9 +348,11 @@ public static class SeedDatabasePickupPoints {
                 new PickupPoint { Description = "CORFU TOWN NEW PORT", RouteId = 8, ExactPoint = "-", Time = "08:30", Coordinates = "39.62781231702968,19.902030742889246", IsActive = true, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault() },
                 new PickupPoint { Description = "GOLDEN MARE BARBATI", RouteId = 1, ExactPoint = "MAIN ROAD BUS STOP", Time = "07:15", Coordinates = "39.72041639309584,19.874197840690616", IsActive = true, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault() },
             };
-            context.AddRange(pickupPoints);
-            context.SaveChanges();
+                context.AddRange(pickupPoints);
+                context.SaveChanges();
+            }
         }
+
     }
 
 }

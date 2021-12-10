@@ -41,7 +41,7 @@ namespace BlueWaterCruises.Features.Nationalities {
         public async Task<IActionResult> GetNationality(int id) {
             NationalityReadResource record = await repo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -81,7 +81,7 @@ namespace BlueWaterCruises.Features.Nationalities {
                         response = ApiMessages.RecordUpdated()
                     });
                 } catch (DbUpdateException exception) {
-                    LoggerExtensions.LogException(id, logger, ControllerContext, record, exception);
+                    id.LogException(logger, ControllerContext, record, exception);
                     return StatusCode(490, new {
                         response = ApiMessages.RecordNotSaved()
                     });
@@ -98,7 +98,7 @@ namespace BlueWaterCruises.Features.Nationalities {
         public async Task<IActionResult> DeleteNationality([FromRoute] int id) {
             Nationality record = await repo.GetByIdToDelete(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });

@@ -3,9 +3,8 @@ namespace BlueWaterCruises {
     public static class EmailMessages {
 
         public static string[] FirstLoginCredentials(string language) {
-            switch (language) {
-                case "cs-cz":
-                    return new[] {
+            return language switch {
+                "cs-cz" => new[] {
                         "(CZ) Hello, ",
                         "(CZ) Use the following credentials to login:",
                         "(CZ) User: " ,
@@ -17,9 +16,8 @@ namespace BlueWaterCruises {
                         "(CZ) Thank you for using our online platform.",
                         "(CZ) Best regards,",
                         "(CZ) Login credentials"
-                     };
-                case "de-de":
-                    return new[] {
+                     },
+                "de-de" => new[] {
                         "(DE) Hello, ",
                         "(DE) Use the following credentials to login:",
                         "(DE) User: " ,
@@ -28,9 +26,8 @@ namespace BlueWaterCruises {
                         "(DE) Thank you for using our online platform.",
                         "(DE) Best regards,",
                         "(DE) Login credentials"
-                     };
-                case "el-gr":
-                    return new[] {
+                     },
+                "el-gr" => new[] {
                         "Γεια σας, ",
                         "Χρησιμοποιηστε τα παρακατω στοιχεια για να συνδεθειτε:",
                         "Χρηστης: " ,
@@ -39,9 +36,8 @@ namespace BlueWaterCruises {
                         "Ευχαριστουμε που χρησιμοποιειτε την online πλατφορμα μας.",
                         "Με φιλικους χαιρετισμους,",
                         "Στοιχεια συνδεσης"
-                    };
-                case "en-gb":
-                    return new[] {
+                    },
+                "en-gb" => new[] {
                         "Hello, ",
                         "Use the following credentials to login:",
                         "User: " ,
@@ -50,9 +46,8 @@ namespace BlueWaterCruises {
                         "Thank you for using our online platform.",
                         "Best regards,",
                         "Login credentials"
-                     };
-                case "fr-fr":
-                    return new[] {
+                     },
+                "fr-fr" => new[] {
                         "Salut, ",
                         "Utilisez les informations d'identification suivantes pour vous connecter:",
                         "Nom d'utilisateur: " ,
@@ -61,9 +56,8 @@ namespace BlueWaterCruises {
                         "Thank you for using our online platform.",
                         "Cordiales salutations,",
                         "Login credentials"
-                     };
-                default:
-                    return new[] {
+                     },
+                _ => new[] {
                         "Hello, ",
                         "Use the following credentials to login:",
                         "User: " ,
@@ -72,14 +66,13 @@ namespace BlueWaterCruises {
                         "Thank you for using our online platform.",
                         "Best regards,",
                         "Login credentials"
-                    };
-            }
+                    },
+            };
         }
 
         public static string[] ResetPassword(string language) {
-            switch (language) {
-                case "cs-cz":
-                    return new[] {
+            return language switch {
+                "cs-cz" => new[] {
                         "(CZ) Hello, ",
                         "(CZ) You have requested a password reset.",
                         "(CZ) Click the following link to set a new password:",
@@ -90,9 +83,8 @@ namespace BlueWaterCruises {
                         "(CZ) Thank you for using our online platform.",
                         "(CZ) Kind regards,",
                         "(CZ) Password reset"
-                    };
-                case "de-de":
-                    return new[] {
+                    },
+                "de-de" => new[] {
                         "(DE) Hello, ",
                         "(DE) You have requested a password reset.",
                         "(DE) Click the following link to set a new password:",
@@ -103,9 +95,8 @@ namespace BlueWaterCruises {
                         "(DE) Thank you for using our online platform.",
                         "(DE) Kind regards,",
                         "(DE) Password reset"
-                    };
-                case "el-gr":
-                    return new[] {
+                    },
+                "el-gr" => new[] {
                         "Γεια σας, ",
                         "Εχετε ζητησει επαναφορα κωδικου.",
                         "Καντε κλικ στον παρακατω συνδεσμο για να καταχωρησετε νεο κωδικο:",
@@ -116,9 +107,8 @@ namespace BlueWaterCruises {
                         "Ευχαριστουμε που χρησιμοποιειτε την online πλατφορμα μας.",
                         "Με φιλικους χαιρετισμους,",
                         "Επαναφορα κωδικου"
-                    };
-                case "en-gb":
-                    return new[] {
+                    },
+                "en-gb" => new[] {
                         "Hello, ",
                         "You have requested a password reset.",
                         "Click the following link to set a new password:",
@@ -129,9 +119,8 @@ namespace BlueWaterCruises {
                         "Thank you for using our online platform.",
                         "Kind regards,",
                         "Password reset"
-                    };
-                default:
-                    return new[] {
+                    },
+                _ => new[] {
                         "Hello, ",
                         "You have requested a password reset.",
                         "Click the following link to set a new password:",
@@ -142,8 +131,8 @@ namespace BlueWaterCruises {
                         "Thank you for using our online platform.",
                         "Kind regards,",
                         "Password reset"
-                    };
-            }
+                    },
+            };
         }
 
     }

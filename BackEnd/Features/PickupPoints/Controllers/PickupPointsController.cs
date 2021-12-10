@@ -42,7 +42,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
         public async Task<IActionResult> GetPickupPoint(int id) {
             PickupPointReadResource record = await repo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -99,7 +99,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
         public async Task<IActionResult> PatchPickupPoint([FromQuery(Name = "id")] int id, [FromQuery(Name = "coordinates")] string coordinates) {
             PickupPointReadResource record = await repo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -109,7 +109,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
                     repo.UpdateCoordinates(id, coordinates);
                     return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
                 } catch (DbUpdateException exception) {
-                    LoggerExtensions.LogException(id, logger, ControllerContext, null, exception);
+                    id.LogException(logger, ControllerContext, null, exception);
                     return StatusCode(490, new {
                         response = ApiMessages.RecordNotSaved()
                     });
@@ -126,7 +126,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
         public async Task<IActionResult> DeletePickupPoint([FromRoute] int id) {
             PickupPoint record = await repo.GetByIdToDelete(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });

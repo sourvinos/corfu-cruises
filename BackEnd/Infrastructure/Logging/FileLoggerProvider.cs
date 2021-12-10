@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -8,7 +9,7 @@ namespace BlueWaterCruises {
 
     public class FileLoggerProvider : ILoggerProvider {
 
-        public readonly FileLoggerOptions Options;
+        public FileLoggerOptions Options;
 
         public FileLoggerProvider(IOptions<FileLoggerOptions> options) {
             Options = options.Value;
@@ -21,7 +22,18 @@ namespace BlueWaterCruises {
             return new FileLogger(this);
         }
 
-        public void Dispose() { }
+        public void Dispose() {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing) {
+            if (disposing) {
+                if (Options != null) {
+                    Options = null;
+                }
+            }
+        }
 
     }
 

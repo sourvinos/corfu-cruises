@@ -53,14 +53,14 @@ namespace BlueWaterCruises {
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
-            this.ApplyConfigurations(modelBuilder);
+            ApplyConfigurations(modelBuilder);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));
         }
 
-        private void ApplyConfigurations(ModelBuilder modelBuilder) {
+        private static void ApplyConfigurations(ModelBuilder modelBuilder) {
             modelBuilder.ApplyConfiguration(new CrewsConfig());
             modelBuilder.ApplyConfiguration(new CustomersConfig());
             modelBuilder.ApplyConfiguration(new DestinationsConfig());

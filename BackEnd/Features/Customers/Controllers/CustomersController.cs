@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace BlueWaterCruises.Features.Customers {
 
     [Route("api/[controller]")]
+
     public class CustomersController : ControllerBase {
 
         private readonly ICustomerRepository repo;
@@ -53,7 +54,7 @@ namespace BlueWaterCruises.Features.Customers {
         public async Task<IActionResult> GetCustomer(int id) {
             CustomerReadResource record = await repo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -110,7 +111,7 @@ namespace BlueWaterCruises.Features.Customers {
         public async Task<IActionResult> DeleteCustomer([FromRoute] int id) {
             Customer record = await repo.GetByIdToDelete(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });

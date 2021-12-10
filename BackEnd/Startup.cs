@@ -1,3 +1,4 @@
+#region usings
 using System;
 using AutoMapper;
 using FluentValidation.AspNetCore;
@@ -5,11 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+#endregion
 
 namespace BlueWaterCruises {
 
@@ -54,7 +55,7 @@ namespace BlueWaterCruises {
                     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                     .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddEmailSenders();
-            services.Configure<CookiePolicyOptions>(options => { options.CheckConsentNeeded = context => true; options.MinimumSameSitePolicy = SameSiteMode.None; });
+            services.Configure<CookiePolicyOptions>(options => { options.CheckConsentNeeded = _ => true; options.MinimumSameSitePolicy = SameSiteMode.None; });
             services.Configure<EmailSettings>(options => Configuration.GetSection("ShipCruises").Bind(options));
             services.Configure<TokenSettings>(options => Configuration.GetSection("TokenSettings").Bind(options));
             services.Configure<TestingEnvironment>(options => Configuration.GetSection("TestingEnvironment").Bind(options));
@@ -63,19 +64,19 @@ namespace BlueWaterCruises {
         public void ConfigureDevelopment(IApplicationBuilder app) {
             app.UseDeveloperExceptionPage();
             Configure(app);
-            app.UseEndpoints(endpoints => { endpoints.MapControllers().WithMetadata(new AllowAnonymousAttribute()); });
+            app.UseEndpoints(endpoints => endpoints.MapControllers().WithMetadata(new AllowAnonymousAttribute()));
         }
 
-        public void ConfigureTesting(IApplicationBuilder app, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager, AppDbContext context) {
+        public void ConfigureTesting(IApplicationBuilder app) {
             app.UseDeveloperExceptionPage();
             Configure(app);
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
 
         public void ConfigureProduction(IApplicationBuilder app) {
             app.UseHsts();
             Configure(app);
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
 
         public virtual void Configure(IApplicationBuilder app) {

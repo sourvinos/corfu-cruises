@@ -31,39 +31,37 @@ namespace BlueWaterCruises.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> Create([FromBody] Voucher voucher) {
 
-            using (var stringWriter = new StringWriter()) {
+            using var stringWriter = new StringWriter();
 
-                voucher.Logo = Logo.GetLogo();
-                voucher.BarCode = "data:image/png;base64," + Convert.ToBase64String(QrCodeCreator.CreateQrCode(voucher.TicketNo));
-                voucher.Facebook = Facebook.GetLogo();
-                voucher.YouTube = YouTube.GetLogo();
-                voucher.Instagram = Instagram.GetLogo();
+            voucher.Logo = Logo.GetLogo();
+            voucher.BarCode = "data:image/png;base64," + Convert.ToBase64String(QrCodeCreator.CreateQrCode(voucher.TicketNo));
+            voucher.Facebook = Facebook.GetLogo();
+            voucher.YouTube = YouTube.GetLogo();
+            voucher.Instagram = Instagram.GetLogo();
 
-                var viewResult = compositeViewEngine.FindView(ControllerContext, "Voucher", false);
-                var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary()) { Model = voucher };
-                var viewContext = new ViewContext(ControllerContext, viewResult.View, viewDictionary, TempData, stringWriter, new HtmlHelperOptions());
-                var htmlToPdf = new HtmlToPdf(1000, 1414);
+            var viewResult = compositeViewEngine.FindView(ControllerContext, "Voucher", false);
+            var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary()) { Model = voucher };
+            var viewContext = new ViewContext(ControllerContext, viewResult.View, viewDictionary, TempData, stringWriter, new HtmlHelperOptions());
+            var htmlToPdf = new HtmlToPdf(1000, 1414);
 
-                await viewResult.View.RenderAsync(viewContext);
+            await viewResult.View.RenderAsync(viewContext);
 
-                var pdf = htmlToPdf.ConvertHtmlString(stringWriter.ToString());
-                var pdfBytes = pdf.Save();
+            var pdf = htmlToPdf.ConvertHtmlString(stringWriter.ToString());
+            var pdfBytes = pdf.Save();
 
-                try {
-                    using (var streamWriter = new StreamWriter("Vouchers\\Voucher" + voucher.TicketNo + ".pdf")) {
-                        await streamWriter.BaseStream.WriteAsync(pdfBytes, 0, pdfBytes.Length);
-                    }
-                    return StatusCode(200, new {
-                        response = ApiMessages.FileCreated()
-                    });
-
-                } catch (Exception exception) {
-                    LoggerExtensions.LogException(0, logger, ControllerContext, voucher, exception);
-                    return StatusCode(493, new {
-                        response = ApiMessages.FileNotCreated()
-                    });
+            try {
+                using (var streamWriter = new StreamWriter("Vouchers\\Voucher" + voucher.TicketNo + ".pdf")) {
+                    await streamWriter.BaseStream.WriteAsync(pdfBytes.AsMemory(0, pdfBytes.Length));
                 }
+                return StatusCode(200, new {
+                    response = ApiMessages.FileCreated()
+                });
 
+            } catch (Exception exception) {
+                LoggerExtensions.LogException(0, logger, ControllerContext, voucher, exception);
+                return StatusCode(493, new {
+                    response = ApiMessages.FileNotCreated()
+                });
             }
 
         }
@@ -75,7 +73,9 @@ namespace BlueWaterCruises.Features.Reservations {
                 try {
                     var response = emailSender.SendVoucher(voucher).Message;
                     if (response == "OK") {
-                        return StatusCode(200, new { response = ApiMessages.EmailInstructions() });
+                        return StatusCode(200, new {
+                            response = ApiMessages.EmailInstructions()
+                        });
                     } else {
                         throw new Exception(response);
                     }
@@ -86,7 +86,9 @@ namespace BlueWaterCruises.Features.Reservations {
                     });
                 }
             }
-            return StatusCode(400, new { response = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage) });
+            return StatusCode(400, new {
+                response = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage)
+            });
         }
 
     }

@@ -18,5 +18,5 @@ namespace BlueWaterCruises.Features.Customers {
         public List<Reservation> Reservations { get; set; }
 
     }
- 
+
 }

@@ -4,13 +4,13 @@ namespace BlueWaterCruises {
 
     public class TokenResponse {
 
-        public string token { get; set; }
-        public DateTime expiration { get; set; }
-        public string refresh_token { get; set; }
-        public string roles { get; set; }
-        public string userId { get; set; }
-        public string displayname { get; set; }
-        public int customerId { get; set; }
+        public string Token { get; set; }
+        public DateTime Expiration { get; set; }
+        public string Refresh_token { get; set; }
+        public string Roles { get; set; }
+        public string UserId { get; set; }
+        public string Displayname { get; set; }
+        public int CustomerId { get; set; }
 
     }
 

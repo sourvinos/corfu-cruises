@@ -1,25 +1,21 @@
-using AutoMapper;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
 
 namespace BlueWaterCruises.Features.Embarkation {
 
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
-
     public class EmbarkationsController : ControllerBase {
 
         private readonly IEmbarkationRepository repo;
         private readonly ILogger<EmbarkationsController> logger;
-        private readonly IMapper mapper;
 
-        public EmbarkationsController(IEmbarkationRepository repo, ILogger<EmbarkationsController> logger, IMapper mapper) {
+        public EmbarkationsController(IEmbarkationRepository repo, ILogger<EmbarkationsController> logger) {
             this.repo = repo;
             this.logger = logger;
-            this.mapper = mapper;
         }
 
         [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/shipId/{shipId}")]
@@ -36,7 +32,7 @@ namespace BlueWaterCruises.Features.Embarkation {
                     throw new DbUpdateException();
                 }
             } catch (DbUpdateException exception) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, exception);
+                id.LogException(logger, ControllerContext, null, exception);
                 return StatusCode(490, new {
                     response = ApiMessages.RecordNotSaved()
                 });

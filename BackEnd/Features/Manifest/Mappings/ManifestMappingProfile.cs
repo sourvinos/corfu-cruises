@@ -23,7 +23,7 @@ namespace BlueWaterCruises.Features.Manifest {
                         City = source.Ship.ShipOwner.City,
                         TaxNo = source.Ship.ShipOwner.TaxNo
                     },
-                    Registrars = source.Ship.Registrars.Select(registrar => new RegistrarResource {
+                    Registrars = source.Ship.Registrars.ConvertAll(registrar => new RegistrarResource {
                         Fullname = registrar.Fullname,
                         Phones = registrar.Phones,
                         Email = registrar.Email,
@@ -31,18 +31,18 @@ namespace BlueWaterCruises.Features.Manifest {
                         Address = registrar.Address,
                         IsPrimary = registrar.IsPrimary,
                         IsActive = registrar.IsActive
-                    }).ToList(),
-                    Crew = source.Ship.Crew.Select(crew => new ManifestCrewResource {
+                    }),
+                    Crew = source.Ship.Crew.ConvertAll(crew => new ManifestCrewResource {
                         Id = crew.Id,
                         Lastname = crew.Lastname,
                         Firstname = crew.Firstname,
                         Birthdate = crew.Birthdate,
                         IsActive = crew.IsActive,
                         OccupantDescription = "Crew",
-                    }).ToList(),
+                    }),
                 }))
                 .ForMember(x => x.Passengers, x => x.MapFrom(x => x.Passengers.Select(passenger => new PassengerResource {
-                    id = passenger.Id,
+                    Id = passenger.Id,
                     ReservationId = passenger.ReservationId,
                     Lastname = passenger.Lastname,
                     Firstname = passenger.Firstname,

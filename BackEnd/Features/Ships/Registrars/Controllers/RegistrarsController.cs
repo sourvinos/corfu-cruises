@@ -35,7 +35,7 @@ namespace BlueWaterCruises.Features.Registrars {
         public async Task<IActionResult> GetRegistrar(int id) {
             RegistrarReadResource record = await repo.GetById(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -92,7 +92,7 @@ namespace BlueWaterCruises.Features.Registrars {
         public async Task<IActionResult> Delete([FromRoute] int id) {
             Registrar record = await repo.GetByIdToDelete(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });

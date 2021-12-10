@@ -41,7 +41,7 @@ namespace BackEnd.IntegrationTests {
         public async Task _02_Unauthorized_Invalid_Credentials() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             var request = Helpers.CreateRequest(this.baseUrl, this.url);
             // act
             var actionResponse = await httpClient.SendAsync(request);
@@ -54,8 +54,8 @@ namespace BackEnd.IntegrationTests {
         public async Task _03_All_Users_Can_List_Active_Records(Login login) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
-            var request = Helpers.CreateRequest(this.baseUrl, this.url, loginResponse.userId);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            var request = Helpers.CreateRequest(this.baseUrl, this.url, loginResponse.UserId);
             // act
             var actionResponse = await httpClient.SendAsync(request);
             var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });

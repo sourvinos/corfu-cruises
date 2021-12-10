@@ -11,18 +11,15 @@ namespace BlueWaterCruises {
 
     [Authorize]
     [Route("api/[controller]")]
-
     public class UsersController : ControllerBase {
 
         private readonly IEmailSender emailSender;
         private readonly ILogger<UsersController> logger;
-        private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<AppUser> userManager;
 
-        public UsersController(IEmailSender emailSender, ILogger<UsersController> logger, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager) {
+        public UsersController(IEmailSender emailSender, ILogger<UsersController> logger, UserManager<AppUser> userManager) {
             this.emailSender = emailSender;
             this.logger = logger;
-            this.roleManager = roleManager;
             this.userManager = userManager;
         }
 
@@ -43,12 +40,12 @@ namespace BlueWaterCruises {
         public async Task<IActionResult> GetUser(string id) {
             AppUser record = await userManager.Users.Where(x => x.Id == id).SingleOrDefaultAsync();
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
             }
-            UserViewModel vm = new UserViewModel {
+            UserViewModel vm = new() {
                 Id = record.Id,
                 UserName = record.UserName,
                 DisplayName = record.DisplayName,
@@ -69,7 +66,7 @@ namespace BlueWaterCruises {
                     await UpdateRole(record);
                     return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
                 }
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -86,7 +83,7 @@ namespace BlueWaterCruises {
         public async Task<IActionResult> DeleteUser(string id) {
             AppUser record = await userManager.FindByIdAsync(id);
             if (record == null) {
-                LoggerExtensions.LogException(id, logger, ControllerContext, null, null);
+                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -131,7 +128,7 @@ namespace BlueWaterCruises {
             await userManager.RemoveFromRolesAsync(user, roles);
             await userManager.AddToRoleAsync(user, user.IsAdmin ? "admin" : "user");
         }
- 
+
     }
 
 }

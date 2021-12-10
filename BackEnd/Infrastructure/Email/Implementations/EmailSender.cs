@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Linq;
 using BlueWaterCruises.Features.Reservations;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
@@ -10,11 +9,9 @@ namespace BlueWaterCruises {
 
     public class EmailSender : IEmailSender {
 
-        private readonly IWebHostEnvironment env;
         private readonly EmailSettings settings;
 
-        public EmailSender(IWebHostEnvironment env, IOptions<EmailSettings> settings) {
-            this.env = env;
+        public EmailSender(IOptions<EmailSettings> settings) {
             this.settings = settings.Value;
         }
 
@@ -26,7 +23,7 @@ namespace BlueWaterCruises {
             var body = EmailMessages.FirstLoginCredentials(model.Language);
 
             htmlContent += "<h1 style = 'font-weight: 500;'><span style = 'color: #0078d7;'>Corfu</span><span style = 'color: #5db2ff;'> Cruises</span></h1>";
-            htmlContent += "<p>" + body[0] + model.DisplayName + "!" + "</p>";
+            htmlContent += "<p>" + body[0] + model.DisplayName + "!</p>";
             htmlContent += "<p>" + body[1] + "</p>";
             htmlContent += "<p>" + body[2] + model.UserName + "</p>";
             htmlContent += "<p>" + body[3] + model.Password + "</p>";
@@ -64,9 +61,9 @@ namespace BlueWaterCruises {
         public SendEmailResponse SendResetPasswordEmail(string displayName, string userEmail, string callbackUrl, string language) {
 
             var message = new MimeMessage();
-            var builder = new BodyBuilder();
-
-            builder.HtmlBody = this.UpdateResetPasswordWithVariables(displayName, callbackUrl);
+            var builder = new BodyBuilder {
+                HtmlBody = UpdateResetPasswordWithVariables(displayName, callbackUrl)
+            };
 
             message.Body = builder.ToMessageBody();
             message.From.Add(new MailboxAddress(settings.From, settings.Username));
@@ -125,9 +122,9 @@ namespace BlueWaterCruises {
 
         }
 
-        private string UpdateResetPasswordWithVariables(string displayName, string callbackUrl) {
+        private static string UpdateResetPasswordWithVariables(string displayName, string callbackUrl) {
 
-            var response = ResetPasswordTemplate.GetHtmlString(displayName, callbackUrl, settings);
+            var response = ResetPasswordTemplate.GetHtmlString();
 
             var updatedResponse = response
                 .Replace("[displayName]", displayName)

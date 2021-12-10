@@ -43,7 +43,7 @@ namespace BackEnd.IntegrationTests {
         public async Task _02_Unauthorized_Invalid_Credentials() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             var request = Helpers.CreateRequest(this.baseUrl, this.url);
             // act
             var actionResponse = await httpClient.SendAsync(request);
@@ -55,7 +55,7 @@ namespace BackEnd.IntegrationTests {
         public async Task _03_Simple_Users_Can_List_Only_Owned_Records() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             var request = Helpers.CreateRequest(this.baseUrl, this.url, this.simpleUserId);
             // act
             var actionResponse = await httpClient.SendAsync(request);
@@ -66,14 +66,14 @@ namespace BackEnd.IntegrationTests {
             Assert.Equal(7, records.Reservations.Count());
             Assert.Equal(36, records.Persons);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = loginResponse.userId });
+            await Helpers.Logout(httpClient, new User { UserId = loginResponse.UserId });
         }
 
         [Fact]
         public async Task _04_Admins_Can_List_Records_Owned_By_Anyone() {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.token);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             var request = Helpers.CreateRequest(this.baseUrl, this.url, this.adminId);
             // act
             var actionResponse = await httpClient.SendAsync(request);
@@ -82,7 +82,7 @@ namespace BackEnd.IntegrationTests {
             Assert.Equal(21, records.Reservations.Count());
             Assert.Equal(107, records.Persons);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = loginResponse.userId });
+            await Helpers.Logout(httpClient, new User { UserId = loginResponse.UserId });
         }
 
     }
