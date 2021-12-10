@@ -8,15 +8,15 @@ namespace BackEnd.IntegrationTests {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return this.We_Dont_Go_Anywhere_On_2021_10_04();
-            yield return this.We_Dont_Go_To_Paxos_On_2021_10_02();
-            yield return this.We_Dont_Go_To_Blue_Lagoon_From_Lefkimmi_On_2021_10_02();
-            yield return this.Overbooking_From_Primary_Port_Is_Not_Allowed();
-            yield return this.Overbooking_From_Secondary_Port_Is_Not_Allowed();
-            yield return this.Duplicate_Records_Are_Not_Allowed();
+            yield return We_Dont_Go_Anywhere_On_2021_10_04();
+            yield return We_Dont_Go_To_Paxos_On_2021_10_02();
+            yield return We_Dont_Go_To_Blue_Lagoon_From_Lefkimmi_On_2021_10_02();
+            yield return Overbooking_From_Primary_Port_Is_Not_Allowed();
+            yield return Overbooking_From_Secondary_Port_Is_Not_Allowed();
+            yield return Duplicate_Records_Are_Not_Allowed();
         }
 
-        private object[] We_Dont_Go_Anywhere_On_2021_10_04() {
+        private static object[] We_Dont_Go_Anywhere_On_2021_10_04() {
             return new object[] {
                 new Reservation {
                     FeatureUrl = "/reservations/",
@@ -34,7 +34,7 @@ namespace BackEnd.IntegrationTests {
             };
         }
 
-        private object[] We_Dont_Go_To_Paxos_On_2021_10_02() {
+        private static object[] We_Dont_Go_To_Paxos_On_2021_10_02() {
             return new object[] {
                 new Reservation {
                     FeatureUrl = "/reservations/",
@@ -54,7 +54,7 @@ namespace BackEnd.IntegrationTests {
             };
         }
 
-        private object[] We_Dont_Go_To_Blue_Lagoon_From_Lefkimmi_On_2021_10_02() {
+        private static object[] We_Dont_Go_To_Blue_Lagoon_From_Lefkimmi_On_2021_10_02() {
             return new object[] {
                 new Reservation {
                     FeatureUrl = "/reservations/",
@@ -74,7 +74,7 @@ namespace BackEnd.IntegrationTests {
             };
         }
 
-        private object[] Overbooking_From_Primary_Port_Is_Not_Allowed() {
+        private static object[] Overbooking_From_Primary_Port_Is_Not_Allowed() {
             // Date: 2021-10-01
             // Destination: Paxos (1)
             // Port: Corfu (1)
@@ -100,7 +100,7 @@ namespace BackEnd.IntegrationTests {
             };
         }
 
-        private object[] Overbooking_From_Secondary_Port_Is_Not_Allowed() {
+        private static object[] Overbooking_From_Secondary_Port_Is_Not_Allowed() {
             // Date: 2021-10-01
             // Destination: Paxos (1)
             // Port: Lefkimmi (2)
@@ -126,7 +126,7 @@ namespace BackEnd.IntegrationTests {
             };
         }
 
-        private object[] Duplicate_Records_Are_Not_Allowed() {
+        private static object[] Duplicate_Records_Are_Not_Allowed() {
             // Checking for Date, DestinationId, CustomeId, TicketNo
             return new object[] {
                 new Reservation {

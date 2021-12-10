@@ -8,10 +8,10 @@ namespace BackEnd.IntegrationTests {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return this.Simple_Users_Can_Not_Delete_Records();
+            yield return Simple_Users_Can_Not_Delete_Records();
         }
 
-        private object[] Simple_Users_Can_Not_Delete_Records() {
+        private static  object[] Simple_Users_Can_Not_Delete_Records() {
             return new object[] {
                 new ReservationBase {
                     ReservationId = "38895436-1c25-4d0b-bc31-cac6a20d523e",

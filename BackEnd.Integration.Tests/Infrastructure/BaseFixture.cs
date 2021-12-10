@@ -4,12 +4,12 @@ namespace BackEnd.IntegrationTests {
 
     public class BaseFixture : IClassFixture<AppSettingsFixture> {
 
-        public AppSettingsFixture appSettingsFixture { get; set; }
-        public string baseUrl { get; set; }
+        public AppSettingsFixture AppSettingsFixture { get; set; }
+        public string BaseUrl { get; set; }
 
         public BaseFixture(AppSettingsFixture appSettings) {
-            this.appSettingsFixture = appSettings;
-            this.baseUrl = appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
+            this.AppSettingsFixture = appSettings;
+            this.BaseUrl = AppSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
         }
 
     }

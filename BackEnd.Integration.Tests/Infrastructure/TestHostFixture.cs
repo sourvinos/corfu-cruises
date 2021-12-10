@@ -10,8 +10,8 @@ namespace BackEnd.IntegrationTests {
 
     public class TestHostFixture : IDisposable {
 
-        public HttpClient Client { get; }
-        public IServiceProvider ServiceProvider { get; }
+        public HttpClient Client ;
+        public IServiceProvider ServiceProvider;
         public IConfiguration configuration;
 
         public TestHostFixture() {
@@ -26,7 +26,7 @@ namespace BackEnd.IntegrationTests {
         }
 
         public void Dispose() {
-            Client.Dispose();
+            GC.SuppressFinalize(this);
         }
 
     }

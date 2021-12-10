@@ -8,11 +8,11 @@ namespace BackEnd.IntegrationTests {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return this.Simple_User_Can_List_Active_Records();
-            yield return this.Admin_Can_List_Active_Records();
+            yield return Simple_User_Can_List_Active_Records();
+            yield return Admin_Can_List_Active_Records();
         }
 
-        private object[] Simple_User_Can_List_Active_Records() {
+        private static object[] Simple_User_Can_List_Active_Records() {
             return new object[] {
                 new Login {
                     Username = "matoula",
@@ -22,7 +22,7 @@ namespace BackEnd.IntegrationTests {
             };
         }
 
-        private object[] Admin_Can_List_Active_Records() {
+        private static object[] Admin_Can_List_Active_Records() {
             return new object[] {
                 new Login {
                     Username = "john",

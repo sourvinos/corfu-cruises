@@ -8,11 +8,11 @@ namespace BackEnd.IntegrationTests {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return this.Admins_Can_Create_Reservations();
-            yield return this.Simple_Users_Can_Create_Reservations();
+            yield return Admins_Can_Create_Reservations();
+            yield return Simple_Users_Can_Create_Reservations();
         }
 
-        private object[] Admins_Can_Create_Reservations() {
+        private static object[] Admins_Can_Create_Reservations() {
             return new object[] {
                 new Reservation {
                     FeatureUrl = "/reservations/",
@@ -30,7 +30,7 @@ namespace BackEnd.IntegrationTests {
             };
         }
 
-        private object[] Simple_Users_Can_Create_Reservations() {
+        private static object[] Simple_Users_Can_Create_Reservations() {
             return new object[] {
                 new Reservation {
                     FeatureUrl = "/reservations/",

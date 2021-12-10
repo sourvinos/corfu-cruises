@@ -8,12 +8,12 @@ namespace BackEnd.IntegrationTests {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return this.Admin_Can_Delete_Own_Record();
-            yield return this.Admin_Can_Delete_Record_Owned_By_Other_Admin();
-            yield return this.Admin_Can_Delete_Record_Owned_By_Simple_User();
+            yield return Admin_Can_Delete_Own_Record();
+            yield return Admin_Can_Delete_Record_Owned_By_Other_Admin();
+            yield return Admin_Can_Delete_Record_Owned_By_Simple_User();
         }
 
-        private object[] Admin_Can_Delete_Own_Record() {
+        private static object[] Admin_Can_Delete_Own_Record() {
             return new object[] {
                 new ReservationBase {
                     FeatureUrl = "/reservations/",
@@ -26,7 +26,7 @@ namespace BackEnd.IntegrationTests {
             };
         }
 
-        private object[] Admin_Can_Delete_Record_Owned_By_Other_Admin() {
+        private static object[] Admin_Can_Delete_Record_Owned_By_Other_Admin() {
             return new object[] {
                 new ReservationBase {
                     FeatureUrl = "/reservations/",
@@ -39,7 +39,7 @@ namespace BackEnd.IntegrationTests {
             };
         }
 
-        private object[] Admin_Can_Delete_Record_Owned_By_Simple_User() {
+        private static object[] Admin_Can_Delete_Record_Owned_By_Simple_User() {
             return new object[] {
                 new ReservationBase {
                     FeatureUrl = "/reservations/",

@@ -6,7 +6,7 @@ namespace BackEnd.IntegrationTests {
 
     public class AppSettingsFixture : IDisposable {
 
-        public IConfigurationRoot Configuration { get; private set; }
+        public IConfigurationRoot Configuration;
 
         public AppSettingsFixture() {
             var builder = new ConfigurationBuilder()
@@ -17,7 +17,7 @@ namespace BackEnd.IntegrationTests {
         }
 
         public void Dispose() {
-            Configuration = null;
+            GC.SuppressFinalize(this);
         }
 
     }
