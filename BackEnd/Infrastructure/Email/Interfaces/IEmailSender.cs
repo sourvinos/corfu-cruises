@@ -1,4 +1,4 @@
-using BlueWaterCruises.Features.Reservations;
+using BlueWaterCruises.Features.Vouchers;
 
 namespace BlueWaterCruises {
 

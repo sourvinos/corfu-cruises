@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
-using BlueWaterCruises.Features.Reservations;
+using BlueWaterCruises.Features.Vouchers;
 using Microsoft.Extensions.Options;
 using MimeKit;
 

@@ -13,6 +13,7 @@ using BlueWaterCruises.Features.Routes;
 using BlueWaterCruises.Features.Schedules;
 using BlueWaterCruises.Features.ShipRoutes;
 using BlueWaterCruises.Features.Ships;
+using BlueWaterCruises.Features.Vouchers;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
