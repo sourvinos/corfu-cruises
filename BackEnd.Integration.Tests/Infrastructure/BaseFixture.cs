@@ -4,8 +4,8 @@ namespace BackEnd.IntegrationTests {
 
     public class BaseFixture : IClassFixture<AppSettingsFixture> {
 
-        public AppSettingsFixture AppSettingsFixture { get; set; }
-        public string BaseUrl { get; set; }
+        public AppSettingsFixture AppSettingsFixture;
+        public string BaseUrl;
 
         public BaseFixture(AppSettingsFixture appSettings) {
             this.AppSettingsFixture = appSettings;

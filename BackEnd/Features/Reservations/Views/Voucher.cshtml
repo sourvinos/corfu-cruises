@@ -71,31 +71,31 @@
         </div>
 
         <div class="group">
-            <div class="text">Your reservation for</div>
+            <div class="text">YOUR RESERVATION FOR</div>
             <div class="text large bold">@Model.DestinationDescription</div>
-            <div class="text">is confirmed!</div>
+            <div class="text">IS CONFIRMED!</div>
         </div>
 
         <div class="group table">
             <table>
                 <thead>
-                    <td colspan="2" class="text center bold">Pickup details</td>
+                    <td colspan="2" class="text center bold">PICKUP DETAILS</td>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="text">Date</td>
+                        <td class="text">DATE</td>
                         <td class="text">@Model.Date.ToString("dd MMM yyyy")</td>
                     </tr>
                     <tr>
-                        <td class="text">Pickup point</td>
+                        <td class="text">PICKUP POINT</td>
                         <td class="text">@Model.PickupPointDescription</td>
                     </tr>
                     <tr>
-                        <td class="text">Exact point</td>
+                        <td class="text">EXACT POINT</td>
                         <td class="text">@Model.PickupPointExactPoint</td>
                     </tr>
                     <tr>
-                        <td class="text">Time</td>
+                        <td class="text">TIME</td>
                         <td class="text">@Model.PickupPointTime</td>
                     </tr>
                 </tbody>
@@ -105,17 +105,20 @@
         <div class="group table">
             <table>
                 <thead>
-                    <td colspan="2" class="text center bold">Passenger details</td>
+                    <td colspan="2" class="text center bold">PASSENGER DETAILS</td>
                 </thead>
                 <tbody>
                     @foreach (var passenger in Model.Passengers) {
                         <tr>
-                            <td class="text">@passenger.Lastname</td>
                             <td class="text">@passenger.Firstname</td>
+                            <td class="text">@passenger.Lastname</td>
                         </tr>
                     }
-                    <tr id="last-row">
-                        <td colspan="2" class="text center">Total passengers: @Model.Passengers.Count()</td>
+                    <tr>
+                        <td colspan="2" class="text center">EXPECTED PASSENGERS: @Model.TotalPersons</td>
+                    </tr>
+                    <tr>
+                        <img src="@Model.ValidPassengerIcon" width="30px" height="30px" alt="Logo">
                     </tr>
                 </tbody>
             </table>

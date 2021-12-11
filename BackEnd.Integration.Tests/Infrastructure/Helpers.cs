@@ -11,7 +11,7 @@ namespace BackEnd.IntegrationTests {
 
     public static class Helpers {
 
-        private static readonly Random random = new();
+        private static readonly Random _random = new();
 
         public static TokenRequest CreateLoginCredentials(string username, string password, string grantType = "password") {
             return (TokenRequest)(new() {
@@ -32,7 +32,7 @@ namespace BackEnd.IntegrationTests {
         }
 
         public static string CreateRandomString(int length) {
-            return new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", length).Select(s => s[random.Next(s.Length)]).ToArray());
+            return new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", length).Select(s => s[_random.Next(s.Length)]).ToArray());
         }
 
         public static HttpRequestMessage CreateRequest(string baseUrl, string url, string userId = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx") {

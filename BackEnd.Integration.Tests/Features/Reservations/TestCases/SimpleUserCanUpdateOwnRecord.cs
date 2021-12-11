@@ -8,10 +8,10 @@ namespace BackEnd.IntegrationTests {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return Simple_User_Can_Update_Own_Record();
+            yield return Simple_Users_Can_Update_Own_Records();
         }
 
-        private static object[] Simple_User_Can_Update_Own_Record() {
+        private static object[] Simple_Users_Can_Update_Own_Records() {
             return new object[] {
                 new Reservation {
                     FeatureUrl = "/reservations/",

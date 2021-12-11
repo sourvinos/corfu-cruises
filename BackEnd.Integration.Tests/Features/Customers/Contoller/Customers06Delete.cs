@@ -12,26 +12,26 @@ namespace BackEnd.IntegrationTests {
 
         #region variables
 
-        private readonly AppSettingsFixture appsettingsFixture;
-        private readonly HttpClient httpClient;
-        private readonly TestHostFixture testHostFixture = new();
-        private string BaseUrl { get; }
-        private string UrlInUse { get; } = "/customers/1";
-        private string UrlNotInUse { get; } = "/customers/11";
-        private string DummyUrl { get; } = "/customers/999";
+        private readonly AppSettingsFixture _appSettingsFixture;
+        private readonly HttpClient _httpClient;
+        private readonly TestHostFixture _testHostFixture = new();
+        private readonly string _baseUrl;
+        private readonly string _dummyUrl = "/customers/999";
+        private readonly string _urlInUse = "/customers/1";
+        private readonly string _urlNotInUse = "/customers/11";
 
         #endregion
 
         public Customers06Delete(AppSettingsFixture appsettings) {
-            this.appsettingsFixture = appsettings;
-            this.BaseUrl = appsettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
-            this.httpClient = testHostFixture.Client;
+            _appSettingsFixture = appsettings;
+            _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
+            _httpClient = _testHostFixture.Client;
         }
 
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
             // act
-            var actionResponse = await httpClient.DeleteAsync(this.BaseUrl + this.UrlNotInUse);
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _urlNotInUse);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -39,10 +39,10 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task Unauthorized_Invalid_Credentials() {
             // arrange
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await httpClient.DeleteAsync(this.BaseUrl + this.UrlNotInUse);
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _urlNotInUse);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -50,54 +50,54 @@ namespace BackEnd.IntegrationTests {
         [Fact]
         public async Task Not_Found_When_Not_Exists() {
             // arrange
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(this.BaseUrl, this.DummyUrl, loginResponse.UserId);
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            var request = Helpers.CreateRequest(_baseUrl, _dummyUrl, loginResponse.UserId);
             // act
-            var actionResponse = await httpClient.SendAsync(request);
+            var actionResponse = await _httpClient.SendAsync(request);
             // assert
             Assert.Equal(HttpStatusCode.NotFound, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = loginResponse.UserId });
+            await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
         }
 
         [Fact]
         public async Task Simple_Users_Can_Not_Delete_Records() {
             // arrange
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await httpClient.DeleteAsync(this.BaseUrl + this.UrlNotInUse);
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _urlNotInUse);
             // assert
             Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = loginResponse.UserId });
+            await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
         }
 
         [Fact]
         public async Task Admins_Can_Not_Delete_Records_In_Use() {
             // arrange
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await httpClient.DeleteAsync(this.BaseUrl + this.UrlInUse);
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _urlInUse);
             // assert
             Assert.Equal((HttpStatusCode)491, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = loginResponse.UserId });
+            await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
         }
 
         [Fact]
         public async Task Admins_Can_Delete_Records_Not_In_Use() {
             // arrange
-            var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await httpClient.DeleteAsync(this.BaseUrl + this.UrlNotInUse);
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _urlNotInUse);
             // assert
             Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(httpClient, new User { UserId = loginResponse.UserId });
+            await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
         }
 
     }

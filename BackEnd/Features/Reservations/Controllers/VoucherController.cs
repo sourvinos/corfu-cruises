@@ -35,6 +35,7 @@ namespace BlueWaterCruises.Features.Reservations {
 
             voucher.Logo = Logo.GetLogo();
             voucher.BarCode = "data:image/png;base64," + Convert.ToBase64String(QrCodeCreator.CreateQrCode(voucher.TicketNo));
+            voucher.ValidPassengerIcon = IconToDisplay(voucher.TotalPersons, voucher.Passengers.Count);
             voucher.Facebook = Facebook.GetLogo();
             voucher.YouTube = YouTube.GetLogo();
             voucher.Instagram = Instagram.GetLogo();
@@ -89,6 +90,14 @@ namespace BlueWaterCruises.Features.Reservations {
             return StatusCode(400, new {
                 response = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage)
             });
+        }
+
+        private static string IconToDisplay(int expectedPersons, int actualPassengers) {
+            if (expectedPersons == actualPassengers) {
+                return OK.GetLogo();
+            } else {
+                return Warning.GetLogo();
+            }
         }
 
     }

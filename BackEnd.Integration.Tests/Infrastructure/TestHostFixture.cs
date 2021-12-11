@@ -12,7 +12,7 @@ namespace BackEnd.IntegrationTests {
 
         public HttpClient Client ;
         public IServiceProvider ServiceProvider;
-        public IConfiguration configuration;
+        public IConfiguration Configuration;
 
         public TestHostFixture() {
             var builder = Program.CreateHostBuilder(null)

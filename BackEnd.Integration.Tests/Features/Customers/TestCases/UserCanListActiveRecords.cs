@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace BackEnd.IntegrationTests {
 
-    public class UserCanGetRecord : IEnumerable<object[]> {
+    public class UsersCanListActiveRecords : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return Simple_User_Can_List_Active_Records();
-            yield return Admin_Can_List_Active_Records();
+            yield return Simple_Users_Can_List_Active_Records();
+            yield return Admins_Can_List_Active_Records();
         }
 
-        private static object[] Simple_User_Can_List_Active_Records() {
+        private static object[] Simple_Users_Can_List_Active_Records() {
             return new object[] {
                 new Login {
                     Username = "matoula",
@@ -22,7 +22,7 @@ namespace BackEnd.IntegrationTests {
             };
         }
 
-        private static object[] Admin_Can_List_Active_Records() {
+        private static object[] Admins_Can_List_Active_Records() {
             return new object[] {
                 new Login {
                     Username = "john",
