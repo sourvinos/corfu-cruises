@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Email {
 
     public static class AddEmailExtensions {
 

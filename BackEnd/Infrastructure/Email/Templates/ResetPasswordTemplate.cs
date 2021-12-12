@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Email {
 
     public static class ResetPasswordTemplate {
 

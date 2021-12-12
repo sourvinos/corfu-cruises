@@ -1,6 +1,6 @@
 using BlueWaterCruises.Features.Vouchers;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Email {
 
     public interface IEmailSender {
 
@@ -8,7 +8,7 @@ namespace BlueWaterCruises {
 
         SendEmailResponse SendResetPasswordEmail(string displayName, string userEmail, string callbackUrl, string language);
 
-        Response SendVoucher(Voucher voucher);
+        Response SendVoucher(VoucherEmail voucher);
 
     }
 

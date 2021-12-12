@@ -17,7 +17,7 @@ namespace BlueWaterCruises.Features.Reservations {
         private readonly TestingEnvironment settings;
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public ReservationRepository(AppDbContext appDbContext, IMapper mapper,  IOptions<TestingEnvironment> settings, IHttpContextAccessor httpContextAccessor) : base(appDbContext, settings) {
+        public ReservationRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings, IHttpContextAccessor httpContextAccessor) : base(appDbContext, settings) {
             this.mapper = mapper;
             this.settings = settings.Value;
             this.httpContextAccessor = httpContextAccessor;
@@ -76,7 +76,12 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         public bool IsKeyUnique(ReservationWriteResource record) {
-            return context.Reservations.Any(x => x.Date == Convert.ToDateTime(record.Date) && x.ReservationId != record.ReservationId && x.DestinationId == record.DestinationId && x.CustomerId == record.CustomerId && string.Equals(x.TicketNo, record.TicketNo, StringComparison.OrdinalIgnoreCase));
+            return !context.Reservations.Any(x =>
+                x.Date == Convert.ToDateTime(record.Date) &&
+                x.ReservationId != record.ReservationId &&
+                x.DestinationId == record.DestinationId &&
+                x.CustomerId == record.CustomerId &&
+                x.TicketNo.ToUpper() == record.TicketNo.ToUpper());
         }
 
         public bool Update(string id, Reservation updatedRecord) {

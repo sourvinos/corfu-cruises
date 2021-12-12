@@ -5,7 +5,7 @@ using BlueWaterCruises.Features.Vouchers;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Email {
 
     public class EmailSender : IEmailSender {
 
@@ -81,7 +81,7 @@ namespace BlueWaterCruises {
 
         }
 
-        public Response SendVoucher(Voucher voucher) {
+        public Response SendVoucher(VoucherEmail voucher) {
 
             try {
 
@@ -123,14 +123,11 @@ namespace BlueWaterCruises {
         }
 
         private static string UpdateResetPasswordWithVariables(string displayName, string callbackUrl) {
-
             var response = ResetPasswordTemplate.GetHtmlString();
-
             var updatedResponse = response
                 .Replace("[displayName]", displayName)
                 .Replace("[callbackUrl]", callbackUrl);
             return updatedResponse;
-
         }
 
     }

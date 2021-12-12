@@ -1,5 +1,6 @@
 using System;
 using AutoMapper;
+using BlueWaterCruises.Infrastructure.Email;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;

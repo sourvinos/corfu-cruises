@@ -1,4 +1,4 @@
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Email {
 
     public static class EmailMessages {
 
