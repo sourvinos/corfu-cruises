@@ -1,4 +1,5 @@
 using AutoMapper;
+using BlueWaterCruises.Infrastructure.Classes;
 
 namespace BlueWaterCruises.Features.Destinations {
 

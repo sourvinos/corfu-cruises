@@ -1,6 +1,7 @@
-using BlueWaterCruises.Features.Ships;
+using BlueWaterCruises.Features.Ships.Base;
+using BlueWaterCruises.Infrastructure.Identity;
 
-namespace BlueWaterCruises.Features.Registrars {
+namespace BlueWaterCruises.Features.Ships.Registrars {
 
     public class Registrar {
 
@@ -16,6 +17,7 @@ namespace BlueWaterCruises.Features.Registrars {
         public string UserId { get; set; }
 
         public Ship Ship { get; set; }
+
         public AppUser User { get; set; }
 
     }

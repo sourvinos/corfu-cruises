@@ -2,13 +2,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlueWaterCruises.Infrastructure.Email;
+using BlueWaterCruises.Infrastructure.Extensions;
+using BlueWaterCruises.Infrastructure.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Identity {
 
     [Authorize]
     [Route("api/[controller]")]
@@ -72,7 +74,7 @@ namespace BlueWaterCruises {
                     response = ApiMessages.RecordNotFound()
                 });
             }
-            LoggerExtensions.LogException(0, logger, ControllerContext, vm, null);
+            FileLoggerExtensions.LogException(0, logger, ControllerContext, vm, null);
             return StatusCode(400, new {
                 response = ApiMessages.InvalidModel()
             });
@@ -95,7 +97,7 @@ namespace BlueWaterCruises {
                     response = ApiMessages.RecordDeleted()
                 });
             } catch (DbUpdateException exception) {
-                LoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
+                FileLoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
                 return StatusCode(491, new {
                     response = ApiMessages.RecordInUse()
                 });

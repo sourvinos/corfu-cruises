@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace BackEnd.IntegrationTests {
+namespace BackEnd.IntegrationTests.Customers {
 
     public class UsersCanListActiveRecords : IEnumerable<object[]> {
 

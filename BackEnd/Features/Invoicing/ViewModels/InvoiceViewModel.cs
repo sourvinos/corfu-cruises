@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using BlueWaterCruises.Features.Customers;
+using BlueWaterCruises.Infrastructure.Classes;
 
 namespace BlueWaterCruises.Features.Invoicing {
 

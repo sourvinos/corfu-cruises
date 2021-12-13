@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlueWaterCruises.Features.Crews {
+namespace BlueWaterCruises.Features.Ships.Crews {
 
     internal class CrewsConfig : IEntityTypeConfiguration<Crew> {
 

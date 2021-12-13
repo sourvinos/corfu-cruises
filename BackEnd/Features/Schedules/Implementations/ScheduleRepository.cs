@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BlueWaterCruises.Features.Reservations;
-using Microsoft.AspNetCore.Identity;
+using BlueWaterCruises.Infrastructure.Classes;
+using BlueWaterCruises.Infrastructure.Implementations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 

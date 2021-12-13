@@ -1,4 +1,5 @@
 using BlueWaterCruises.Features.Vouchers;
+using BlueWaterCruises.Infrastructure.Identity;
 
 namespace BlueWaterCruises.Infrastructure.Email {
 

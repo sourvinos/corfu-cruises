@@ -3,7 +3,7 @@ using System.IO;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Logging {
 
     [ProviderAlias("File")]
 

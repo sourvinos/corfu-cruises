@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace BackEnd.IntegrationTests {
+namespace BackEnd.IntegrationTests.Reservations {
 
     public class AdminCanDeleteRecordOwnedByAnyone : IEnumerable<object[]> {
 
@@ -20,7 +20,7 @@ namespace BackEnd.IntegrationTests {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
-                    ReservationId = "039e8f53-0ced-4974-bee6-3173f9cf02bd",
+                    ReservationId = "034464de-89bf-4828-b366-12671315dfba",
                     ExpectedResponseCode = 200
                 }
             };
@@ -33,7 +33,7 @@ namespace BackEnd.IntegrationTests {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
-                    ReservationId = "4c9946db-cb7c-4fa8-9c8c-69a49f946dc8",
+                    ReservationId = "3f12fe1e-56ad-45ff-894a-0e94d894875c",
                     ExpectedResponseCode = 200,
                 }
             };
@@ -46,7 +46,7 @@ namespace BackEnd.IntegrationTests {
                     Username = "john",
                     Password = "ec11fc8c16da",
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
-                    ReservationId = "5ca60aad-dc06-46ca-8689-9021d1595741",
+                    ReservationId = "6375f5ab-81ea-4d97-a9c6-f1c9de4c2c62",
                     ExpectedResponseCode = 200
                 }
             };

@@ -1,11 +1,17 @@
 using System;
 using AutoMapper;
+using BlueWaterCruises.Infrastructure.Auth;
+using BlueWaterCruises.Infrastructure.Classes;
 using BlueWaterCruises.Infrastructure.Email;
+using BlueWaterCruises.Infrastructure.Extensions;
+using BlueWaterCruises.Infrastructure.Identity;
+using BlueWaterCruises.Infrastructure.SeedData;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -39,13 +45,11 @@ namespace BlueWaterCruises {
         }
 
         public void ConfigureServices(IServiceCollection services) {
-            // Extensions
             Cors.AddCors(services);
             Identity.AddIdentity(services);
             Authentication.AddAuthentication(Configuration, services);
             Interfaces.AddInterfaces(services);
             ModelValidations.AddModelValidation(services);
-            // Base
             services.Configure<RazorViewEngineOptions>(options => options.ViewLocationExpanders.Add(new ViewLocationExpander()));
             services.AddAntiforgery(options => { options.Cookie.Name = "_af"; options.Cookie.HttpOnly = true; options.Cookie.SecurePolicy = CookieSecurePolicy.Always; options.HeaderName = "X-XSRF-TOKEN"; });
             services.AddAutoMapper(typeof(Startup));
@@ -66,7 +70,7 @@ namespace BlueWaterCruises {
             app.UseEndpoints(endpoints => endpoints.MapControllers().WithMetadata(new AllowAnonymousAttribute()));
         }
 
-        public void ConfigureTesting(IApplicationBuilder app) {
+        public void ConfigureTesting(IApplicationBuilder app, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager, AppDbContext context) {
             app.UseDeveloperExceptionPage();
             Configure(app);
             app.UseEndpoints(endpoints => endpoints.MapControllers());

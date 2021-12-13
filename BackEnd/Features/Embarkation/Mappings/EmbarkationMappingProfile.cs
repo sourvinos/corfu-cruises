@@ -1,6 +1,6 @@
+using System.Linq;
 using AutoMapper;
 using BlueWaterCruises.Features.Reservations;
-using System.Linq;
 
 namespace BlueWaterCruises.Features.Embarkation {
 

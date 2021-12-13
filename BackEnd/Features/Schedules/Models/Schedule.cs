@@ -1,6 +1,7 @@
 using System;
 using BlueWaterCruises.Features.Destinations;
 using BlueWaterCruises.Features.Ports;
+using BlueWaterCruises.Infrastructure.Identity;
 
 namespace BlueWaterCruises.Features.Schedules {
 
@@ -14,9 +15,10 @@ namespace BlueWaterCruises.Features.Schedules {
         public bool IsActive { get; set; }
         public string UserId { get; set; }
 
-        public AppUser User { get; set; }
         public Destination Destination { get; set; }
         public Port Port { get; set; }
+
+        public AppUser User { get; set; }
 
     }
 

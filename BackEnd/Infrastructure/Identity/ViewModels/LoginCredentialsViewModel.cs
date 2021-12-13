@@ -1,4 +1,4 @@
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Identity {
 
     public class LoginCredentialsViewModel {
 

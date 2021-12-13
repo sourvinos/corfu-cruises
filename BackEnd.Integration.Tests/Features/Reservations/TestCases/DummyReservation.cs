@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace BackEnd.IntegrationTests {
+namespace BackEnd.IntegrationTests.Reservations {
 
     public class DummyReservation : IEnumerable<object[]> {
 

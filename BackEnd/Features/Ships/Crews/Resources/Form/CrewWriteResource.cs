@@ -1,4 +1,4 @@
-namespace BlueWaterCruises.Features.Crews {
+namespace BlueWaterCruises.Features.Ships.Crews {
 
     public class CrewWriteResource {
 

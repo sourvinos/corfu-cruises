@@ -1,4 +1,6 @@
-namespace BlueWaterCruises.Features.Ships {
+using BlueWaterCruises.Infrastructure.Classes;
+
+namespace BlueWaterCruises.Features.Ships.Base {
 
     public class ShipReadResource : SimpleResource {
 

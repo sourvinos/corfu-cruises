@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises.Features.Ships.Base {
 
     internal class ShipsConfig : IEntityTypeConfiguration<Ship> {
 

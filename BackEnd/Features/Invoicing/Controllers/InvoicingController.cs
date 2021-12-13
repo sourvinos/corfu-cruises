@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlueWaterCruises.Features.Invoicing {
 
-    // [Authorize]
     [Route("api/[controller]")]
-
     public class InvoicingController : ControllerBase {
 
         private readonly IInvoicingRepository repo;

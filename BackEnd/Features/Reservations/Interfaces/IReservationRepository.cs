@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using BlueWaterCruises.Features.Schedules;
+using BlueWaterCruises.Infrastructure.Interfaces;
 
 namespace BlueWaterCruises.Features.Reservations {
 

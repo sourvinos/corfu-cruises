@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using BlueWaterCruises.Infrastructure.Classes;
+using BlueWaterCruises.Infrastructure.Implementations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace BlueWaterCruises.Features.Crews {
+namespace BlueWaterCruises.Features.Ships.Crews {
 
     public class CrewRepository : Repository<Crew>, ICrewRepository {
 

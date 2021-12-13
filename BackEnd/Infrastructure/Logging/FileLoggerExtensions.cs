@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using BlueWaterCruises.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Logging {
 
-    public static class LoggerExtensions {
+    public static class FileLoggerExtensions {
 
         #region Public methods
 

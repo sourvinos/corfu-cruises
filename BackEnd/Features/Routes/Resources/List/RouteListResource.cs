@@ -1,3 +1,5 @@
+using BlueWaterCruises.Infrastructure.Classes;
+
 namespace BlueWaterCruises.Features.Routes {
 
     public class RouteListResource : SimpleResource {

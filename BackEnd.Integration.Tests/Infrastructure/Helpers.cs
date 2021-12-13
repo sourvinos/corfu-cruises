@@ -4,7 +4,8 @@ using System.Net.Http;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
-using BlueWaterCruises;
+using BlueWaterCruises.Infrastructure.Auth;
+using BlueWaterCruises.Infrastructure.Classes;
 using Newtonsoft.Json;
 
 namespace BackEnd.IntegrationTests {

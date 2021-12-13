@@ -1,4 +1,5 @@
 using AutoMapper;
+using BlueWaterCruises.Infrastructure.Extensions;
 
 namespace BlueWaterCruises.Features.Schedules {
 

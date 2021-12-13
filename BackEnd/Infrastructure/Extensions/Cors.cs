@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Extensions {
 
     public static class Cors {
 

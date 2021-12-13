@@ -1,14 +1,12 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text.Json;
 using System.Threading.Tasks;
-using BlueWaterCruises;
-using BlueWaterCruises.Features.Reservations;
+using BlueWaterCruises.Infrastructure.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
-namespace BackEnd.IntegrationTests {
+namespace BackEnd.IntegrationTests.Reservations {
 
     public class Reservations02GetById : IClassFixture<AppSettingsFixture> {
 
@@ -17,10 +15,10 @@ namespace BackEnd.IntegrationTests {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly string _adminUrl = "/reservations/689051b9-df9e-4c68-91f6-1d093c1bf46c";
+        private readonly string _adminUrl = "/reservations/034464de-89bf-4828-b366-12671315dfba";
         private readonly string _baseUrl;
-        private readonly string _dummyUrl = "/reservations/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
-        private readonly string _simpleUserUrl = "/reservations/c4db7af5-5310-4f58-be17-83997d99a037";
+        private readonly string _dummyUrl = "/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
+        private readonly string _simpleUserUrl = "/reservations/202c08b1-f364-4224-bb7a-fc7765fbbf8d";
 
         #endregion
 

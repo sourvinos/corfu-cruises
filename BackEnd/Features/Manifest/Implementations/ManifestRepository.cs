@@ -1,5 +1,7 @@
 using AutoMapper;
 using BlueWaterCruises.Features.Reservations;
+using BlueWaterCruises.Infrastructure.Classes;
+using BlueWaterCruises.Infrastructure.Implementations;
 using Microsoft.Extensions.Options;
 
 namespace BlueWaterCruises.Features.Manifest {

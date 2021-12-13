@@ -2,12 +2,12 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using BlueWaterCruises;
 using BlueWaterCruises.Features.Reservations;
+using BlueWaterCruises.Infrastructure.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
-namespace BackEnd.IntegrationTests {
+namespace BackEnd.IntegrationTests.Reservations {
 
     public class Reservations03Post : IClassFixture<AppSettingsFixture> {
 
@@ -84,13 +84,13 @@ namespace BackEnd.IntegrationTests {
             return new ReservationWriteResource {
                 Date = reservation.Date ?? "2021-10-01",
                 Adults = reservation.Adults,
-                Kids = 2,
-                Free = 1,
+                Kids = reservation.Kids,
+                Free = reservation.Free,
                 TicketNo = reservation.TicketNo ?? "xxxxx",
                 Email = "email@server.com",
                 Phones = "9641 414 533",
                 CustomerId = reservation.CustomerId == 0 ? 1 : reservation.CustomerId,
-                DestinationId = 1,
+                DestinationId = reservation.DestinationId == 0 ? 1 : reservation.DestinationId,
                 DriverId = 19,
                 PickupPointId = 124,
                 PortId = reservation.PortId,

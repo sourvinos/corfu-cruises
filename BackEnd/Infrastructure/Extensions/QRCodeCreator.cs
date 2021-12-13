@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using QRCoder;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Extensions {
 
     public static class QrCodeCreator {
 

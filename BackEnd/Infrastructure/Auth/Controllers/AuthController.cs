@@ -4,12 +4,15 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using BlueWaterCruises.Infrastructure.Classes;
+using BlueWaterCruises.Infrastructure.Extensions;
+using BlueWaterCruises.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Auth {
 
     [Route("api/[controller]")]
     public class AuthController : ControllerBase {

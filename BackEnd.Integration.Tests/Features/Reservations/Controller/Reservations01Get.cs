@@ -4,12 +4,12 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
-using BlueWaterCruises;
 using BlueWaterCruises.Features.Reservations;
+using BlueWaterCruises.Infrastructure.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
-namespace BackEnd.IntegrationTests {
+namespace BackEnd.IntegrationTests.Reservations {
 
     public class Reservations01Get : IClassFixture<AppSettingsFixture> {
 
@@ -63,8 +63,8 @@ namespace BackEnd.IntegrationTests {
                 PropertyNameCaseInsensitive = true
             });
             // assert
-            Assert.Equal(7, records.Reservations.Count());
-            Assert.Equal(36, records.Persons);
+            Assert.Equal(5, records.Reservations.Count());
+            Assert.Equal(23, records.Persons);
             // cleanup
             await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
         }
@@ -79,8 +79,8 @@ namespace BackEnd.IntegrationTests {
             var actionResponse = await _httpClient.SendAsync(request);
             var records = JsonSerializer.Deserialize<ReservationGroupResource<ReservationListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
-            Assert.Equal(21, records.Reservations.Count());
-            Assert.Equal(107, records.Persons);
+            Assert.Equal(27, records.Reservations.Count());
+            Assert.Equal(134, records.Persons);
             // cleanup
             await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
         }

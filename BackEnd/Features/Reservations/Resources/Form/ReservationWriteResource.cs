@@ -20,7 +20,7 @@ namespace BlueWaterCruises.Features.Reservations {
         public int Kids { get; set; }
         public int Free { get; set; }
         public string Remarks { get; set; }
-         public string UserId { get; set; }
+        public string UserId { get; set; }
 
         public List<PassengerWriteResource> Passengers { get; set; }
 

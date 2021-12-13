@@ -1,4 +1,3 @@
-using BlueWaterCruises.Features.Crews;
 using BlueWaterCruises.Features.Customers;
 using BlueWaterCruises.Features.Destinations;
 using BlueWaterCruises.Features.Drivers;
@@ -7,17 +6,19 @@ using BlueWaterCruises.Features.Nationalities;
 using BlueWaterCruises.Features.Occupants;
 using BlueWaterCruises.Features.PickupPoints;
 using BlueWaterCruises.Features.Ports;
-using BlueWaterCruises.Features.Registrars;
 using BlueWaterCruises.Features.Reservations;
 using BlueWaterCruises.Features.Routes;
 using BlueWaterCruises.Features.Schedules;
-using BlueWaterCruises.Features.ShipRoutes;
-using BlueWaterCruises.Features.Ships;
+using BlueWaterCruises.Features.Ships.Base;
+using BlueWaterCruises.Features.Ships.Crews;
+using BlueWaterCruises.Features.Ships.Registrars;
+using BlueWaterCruises.Features.Ships.ShipRoutes;
 using BlueWaterCruises.Features.Vouchers;
+using BlueWaterCruises.Infrastructure.Identity;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Extensions {
 
     public static class ModelValidations {
 

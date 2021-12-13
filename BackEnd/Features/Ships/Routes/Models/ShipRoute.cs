@@ -1,4 +1,7 @@
-namespace BlueWaterCruises.Features.ShipRoutes {
+using BlueWaterCruises.Infrastructure.Classes;
+using BlueWaterCruises.Infrastructure.Identity;
+
+namespace BlueWaterCruises.Features.Ships.ShipRoutes {
 
     public class ShipRoute : SimpleResource {
 

@@ -15,6 +15,6 @@ namespace BlueWaterCruises.Features.Invoicing {
 
         public IsTransferGroupViewModel IsTransferGroupTotal { get; set; }
 
-     }
+    }
 
 }

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using BlueWaterCruises.Features.Reservations;
+using BlueWaterCruises.Infrastructure.Classes;
+using BlueWaterCruises.Infrastructure.Identity;
 
 namespace BlueWaterCruises.Features.Nationalities {
 

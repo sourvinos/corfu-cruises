@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BlueWaterCruises.Infrastructure.Interfaces;
 
-namespace BlueWaterCruises.Features.Crews {
+namespace BlueWaterCruises.Features.Ships.Crews {
 
     public interface ICrewRepository : IRepository<Crew> {
 

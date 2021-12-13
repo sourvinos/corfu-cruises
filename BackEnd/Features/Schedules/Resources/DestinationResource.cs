@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BlueWaterCruises.Infrastructure.Classes;
 
 namespace BlueWaterCruises.Features.Schedules {
 

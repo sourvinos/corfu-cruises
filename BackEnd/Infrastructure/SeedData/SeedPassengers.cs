@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BlueWaterCruises.Features.Reservations;
+using BlueWaterCruises.Infrastructure.Classes;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.SeedData {
 
     public static class SeedDatabasePassengers {
 
         public static void SeedPassengers(AppDbContext context) {
-            if (context.Passengers.Any()) {
+            if (!context.Passengers.Any()) {
                 var reservationIds = context.Reservations.Select(x => x.ReservationId.ToString()).ToList();
                 for (int i = 1; i <= reservationIds.Count; i++) {
                     var customerCount = Helpers.CreateRandomPassengerCount(1, 5);
@@ -16,7 +17,7 @@ namespace BlueWaterCruises {
                     for (int x = 1; x <= customerCount; x++) {
                         var passenger = new Passenger {
                             ReservationId = Guid.Parse(reservationIds[i - 1]),
-                            OccupantId = context.Occupants.Where(x => string.Equals(x.Description, "passenger", StringComparison.OrdinalIgnoreCase)).Select(x => x.Id).FirstOrDefault(),
+                            OccupantId = context.Occupants.Where(x => x.Description.ToLower() == "passenger").Select(x => x.Id).FirstOrDefault(),
                             NationalityId = context.Nationalities.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Nationalities.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
                             GenderId = context.Genders.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Genders.Count())).Take(1).Select(x => x.Id).FirstOrDefault(),
                             Lastname = Helpers.CreateRandomName().Split(" ")[0],

@@ -1,4 +1,4 @@
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Extensions {
 
     public static class ApiMessages {
 

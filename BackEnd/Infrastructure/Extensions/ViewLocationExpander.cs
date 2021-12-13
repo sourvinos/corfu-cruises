@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Razor;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Extensions {
 
     public class ViewLocationExpander : IViewLocationExpander {
 

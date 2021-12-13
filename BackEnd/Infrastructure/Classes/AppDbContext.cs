@@ -1,5 +1,4 @@
-﻿using BlueWaterCruises.Features.Crews;
-using BlueWaterCruises.Features.Customers;
+﻿using BlueWaterCruises.Features.Customers;
 using BlueWaterCruises.Features.Destinations;
 using BlueWaterCruises.Features.Drivers;
 using BlueWaterCruises.Features.Genders;
@@ -7,19 +6,22 @@ using BlueWaterCruises.Features.Nationalities;
 using BlueWaterCruises.Features.Occupants;
 using BlueWaterCruises.Features.PickupPoints;
 using BlueWaterCruises.Features.Ports;
-using BlueWaterCruises.Features.Registrars;
 using BlueWaterCruises.Features.Reservations;
 using BlueWaterCruises.Features.Routes;
 using BlueWaterCruises.Features.Schedules;
-using BlueWaterCruises.Features.ShipRoutes;
-using BlueWaterCruises.Features.Ships;
+using BlueWaterCruises.Features.Ships.Base;
+using BlueWaterCruises.Features.Ships.Crews;
+using BlueWaterCruises.Features.Ships.Owners;
+using BlueWaterCruises.Features.Ships.Registrars;
+using BlueWaterCruises.Features.Ships.ShipRoutes;
 using BlueWaterCruises.FluentApi;
+using BlueWaterCruises.Infrastructure.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Classes {
 
     public class AppDbContext : IdentityDbContext<IdentityUser> {
 

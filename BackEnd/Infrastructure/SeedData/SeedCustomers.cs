@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using BlueWaterCruises.Features.Customers;
+using BlueWaterCruises.Infrastructure.Classes;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.SeedData {
 
     public static class SeedDatabaseCustomers {
 

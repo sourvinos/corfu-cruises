@@ -10,7 +10,7 @@ namespace BackEnd.IntegrationTests {
 
     public class TestHostFixture : IDisposable {
 
-        public HttpClient Client ;
+        public HttpClient Client;
         public IServiceProvider ServiceProvider;
         public IConfiguration Configuration;
 

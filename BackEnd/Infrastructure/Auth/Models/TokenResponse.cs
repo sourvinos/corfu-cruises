@@ -1,6 +1,6 @@
 using System;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Auth {
 
     public class TokenResponse {
 

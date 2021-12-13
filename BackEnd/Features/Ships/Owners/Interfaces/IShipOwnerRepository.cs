@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BlueWaterCruises.Infrastructure.Classes;
+using BlueWaterCruises.Infrastructure.Interfaces;
 
-namespace BlueWaterCruises.Features.Ships {
+namespace BlueWaterCruises.Features.Ships.Owners {
 
     public interface IShipOwnerRepository : IRepository<ShipOwner> {
 

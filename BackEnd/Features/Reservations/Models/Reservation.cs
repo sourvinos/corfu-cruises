@@ -5,7 +5,8 @@ using BlueWaterCruises.Features.Destinations;
 using BlueWaterCruises.Features.Drivers;
 using BlueWaterCruises.Features.PickupPoints;
 using BlueWaterCruises.Features.Ports;
-using BlueWaterCruises.Features.Ships;
+using BlueWaterCruises.Features.Ships.Base;
+using BlueWaterCruises.Infrastructure.Identity;
 
 namespace BlueWaterCruises.Features.Reservations {
 
@@ -37,9 +38,10 @@ namespace BlueWaterCruises.Features.Reservations {
         public PickupPoint PickupPoint { get; set; }
         public Port Port { get; set; }
         public Ship Ship { get; set; }
-        public AppUser User { get; set; }
 
         public List<Passenger> Passengers { get; set; }
+
+        public AppUser User { get; set; }
 
     }
 

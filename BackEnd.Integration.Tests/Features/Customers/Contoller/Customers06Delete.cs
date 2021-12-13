@@ -2,11 +2,11 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using BlueWaterCruises;
+using BlueWaterCruises.Infrastructure.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
-namespace BackEnd.IntegrationTests {
+namespace BackEnd.IntegrationTests.Customers {
 
     public class Customers06Delete : IClassFixture<AppSettingsFixture> {
 
@@ -18,7 +18,7 @@ namespace BackEnd.IntegrationTests {
         private readonly string _baseUrl;
         private readonly string _dummyUrl = "/customers/999";
         private readonly string _urlInUse = "/customers/1";
-        private readonly string _urlNotInUse = "/customers/11";
+        private readonly string _urlNotInUse = "/customers/4";
 
         #endregion
 

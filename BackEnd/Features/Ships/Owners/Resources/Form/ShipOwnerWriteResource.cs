@@ -1,4 +1,4 @@
-﻿namespace BlueWaterCruises.Features.Ships {
+﻿namespace BlueWaterCruises.Features.Ships.Owners {
 
     public class ShipOwnerWriteResource {
 

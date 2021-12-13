@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Identity {
 
     public class ResetPasswordViewModel {
 

@@ -1,3 +1,5 @@
+using BlueWaterCruises.Infrastructure.Classes;
+
 namespace BlueWaterCruises.Features.PickupPoints {
 
     public class PickupPointWriteResource : SimpleResource {

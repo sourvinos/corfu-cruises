@@ -1,4 +1,7 @@
-namespace BlueWaterCruises.Features.Ships {
+using BlueWaterCruises.Infrastructure.Classes;
+using BlueWaterCruises.Infrastructure.Identity;
+
+namespace BlueWaterCruises.Features.Ships.Owners {
 
     public class ShipOwner : SimpleResource {
 

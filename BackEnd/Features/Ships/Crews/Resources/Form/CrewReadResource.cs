@@ -1,4 +1,6 @@
-namespace BlueWaterCruises.Features.Crews {
+using BlueWaterCruises.Infrastructure.Classes;
+
+namespace BlueWaterCruises.Features.Ships.Crews {
 
     public class CrewReadResource {
 

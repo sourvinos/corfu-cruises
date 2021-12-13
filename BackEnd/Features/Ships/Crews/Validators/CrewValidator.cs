@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace BlueWaterCruises.Features.Crews {
+namespace BlueWaterCruises.Features.Ships.Crews {
 
     public class CrewValidator : AbstractValidator<CrewWriteResource> {
 

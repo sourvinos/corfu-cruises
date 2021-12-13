@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlueWaterCruises.Features.Registrars {
+namespace BlueWaterCruises.Features.Ships.Registrars {
 
     internal class RegistrarsConfig : IEntityTypeConfiguration<Registrar> {
 

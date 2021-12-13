@@ -1,8 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BlueWaterCruises.Infrastructure.Identity;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Auth {
 
     public class Token {
 

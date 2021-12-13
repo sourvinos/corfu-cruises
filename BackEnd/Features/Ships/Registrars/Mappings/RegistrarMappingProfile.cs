@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace BlueWaterCruises.Features.Registrars {
+namespace BlueWaterCruises.Features.Ships.Registrars {
 
     public class RegistrarMappingProfile : Profile {
 

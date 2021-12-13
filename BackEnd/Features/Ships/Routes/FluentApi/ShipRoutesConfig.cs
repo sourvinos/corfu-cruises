@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlueWaterCruises.Features.ShipRoutes {
+namespace BlueWaterCruises.Features.Ships.ShipRoutes {
 
     internal class ShipRoutesConfig : IEntityTypeConfiguration<ShipRoute> {
 

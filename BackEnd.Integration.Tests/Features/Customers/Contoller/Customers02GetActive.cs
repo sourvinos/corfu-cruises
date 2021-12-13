@@ -4,11 +4,11 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
-using BlueWaterCruises;
+using BlueWaterCruises.Infrastructure.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
-namespace BackEnd.IntegrationTests {
+namespace BackEnd.IntegrationTests.Customers {
 
     public class Customers02GetActive : IClassFixture<AppSettingsFixture> {
 

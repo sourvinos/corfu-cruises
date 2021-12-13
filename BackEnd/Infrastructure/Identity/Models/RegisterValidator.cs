@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Identity {
 
     public class RegisterValidator : AbstractValidator<RegisterViewModel> {
 

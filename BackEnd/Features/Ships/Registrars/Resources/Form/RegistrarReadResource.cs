@@ -1,4 +1,6 @@
-namespace BlueWaterCruises.Features.Registrars {
+using BlueWaterCruises.Infrastructure.Classes;
+
+namespace BlueWaterCruises.Features.Ships.Registrars {
 
     public class RegistrarReadResource {
 

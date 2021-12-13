@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using BlueWaterCruises.Features.Schedules;
+using BlueWaterCruises.Infrastructure.Extensions;
+using BlueWaterCruises.Infrastructure.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +13,6 @@ using Microsoft.Extensions.Logging;
 namespace BlueWaterCruises.Features.Reservations {
 
     [Route("api/[controller]")]
-
     public class ReservationsController : ControllerBase {
 
         private readonly IHttpContextAccessor httpContextAccessor;
@@ -70,13 +71,13 @@ namespace BlueWaterCruises.Features.Reservations {
                         return this.GetErrorMessage(response);
                     }
                 } catch (Exception exception) {
-                    LoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
+                    FileLoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
                     return StatusCode(490, new {
                         response = ApiMessages.RecordNotSaved()
                     });
                 }
             }
-            LoggerExtensions.LogException(0, logger, ControllerContext, record, null);
+            FileLoggerExtensions.LogException(0, logger, ControllerContext, record, null);
             return StatusCode(400, new {
                 response = ApiMessages.InvalidModel()
             });
@@ -98,7 +99,7 @@ namespace BlueWaterCruises.Features.Reservations {
                             return this.GetErrorMessage(response);
                         }
                     } catch (DbUpdateException exception) {
-                        LoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
+                        FileLoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
                         return StatusCode(490, new {
                             response = ApiMessages.RecordNotSaved()
                         });
@@ -109,7 +110,7 @@ namespace BlueWaterCruises.Features.Reservations {
                     });
                 }
             } else {
-                LoggerExtensions.LogException(0, logger, ControllerContext, record, null);
+                FileLoggerExtensions.LogException(0, logger, ControllerContext, record, null);
                 return StatusCode(400, new {
                     response = ApiMessages.InvalidModel()
                 });
@@ -133,7 +134,7 @@ namespace BlueWaterCruises.Features.Reservations {
                         response = ApiMessages.RecordDeleted()
                     });
                 } catch (DbUpdateException exception) {
-                    LoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
+                    FileLoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
                     return StatusCode(491, new {
                         response = ApiMessages.RecordInUse()
                     });

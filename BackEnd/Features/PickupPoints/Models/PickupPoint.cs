@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using BlueWaterCruises.Features.Reservations;
 using BlueWaterCruises.Features.Routes;
+using BlueWaterCruises.Infrastructure.Classes;
+using BlueWaterCruises.Infrastructure.Identity;
 
 namespace BlueWaterCruises.Features.PickupPoints {
 
@@ -13,10 +15,10 @@ namespace BlueWaterCruises.Features.PickupPoints {
         public bool IsActive { get; set; }
         public string UserId { get; set; }
 
-        public AppUser User { get; set; }
         public Route Route { get; set; }
-
         public List<Reservation> Reservations { get; set; }
+
+        public AppUser User { get; set; }
 
     }
 

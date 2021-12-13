@@ -1,8 +1,9 @@
 using System;
 using System.Linq;
+using BlueWaterCruises.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.SeedData {
 
     public static class SeedDatabaseUsers {
 

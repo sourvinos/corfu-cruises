@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BlueWaterCruises.Features.Reservations;
+using BlueWaterCruises.Infrastructure.Interfaces;
 
 namespace BlueWaterCruises.Features.PickupPoints {
 

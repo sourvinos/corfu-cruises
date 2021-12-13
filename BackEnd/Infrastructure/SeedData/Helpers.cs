@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.SeedData {
 
     public static class Helpers {
 

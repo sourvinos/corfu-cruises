@@ -1,9 +1,10 @@
 using System;
 using BlueWaterCruises.Features.Genders;
 using BlueWaterCruises.Features.Nationalities;
-using BlueWaterCruises.Features.Ships;
+using BlueWaterCruises.Features.Ships.Base;
+using BlueWaterCruises.Infrastructure.Identity;
 
-namespace BlueWaterCruises.Features.Crews {
+namespace BlueWaterCruises.Features.Ships.Crews {
 
     public class Crew {
 
@@ -20,6 +21,7 @@ namespace BlueWaterCruises.Features.Crews {
         public Ship Ship { get; set; }
         public Nationality Nationality { get; set; }
         public Gender Gender { get; set; }
+
         public AppUser User { get; set; }
 
     }

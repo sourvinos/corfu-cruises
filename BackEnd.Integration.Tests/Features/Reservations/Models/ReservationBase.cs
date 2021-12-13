@@ -1,4 +1,4 @@
-namespace BackEnd.IntegrationTests {
+namespace BackEnd.IntegrationTests.Reservations {
 
     public class ReservationBase : Login {
 

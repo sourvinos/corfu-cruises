@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace BackEnd.IntegrationTests {
+namespace BackEnd.IntegrationTests.Reservations {
 
     public class NewReservationWithErrors : IEnumerable<object[]> {
 
@@ -79,7 +79,7 @@ namespace BackEnd.IntegrationTests {
             // Destination: Paxos (1)
             // Port: Corfu (1)
             // According to the schedule: Max persons = 185
-            // According to the reservations: Persons = 59
+            // According to the reservations: Persons = 84
             // Free seats = 185 - 59 = 126
             return new object[] {
                 new Reservation {
@@ -92,7 +92,7 @@ namespace BackEnd.IntegrationTests {
                     DestinationId = 1, // PAXOS
                     CustomerId = 1, // SKILES, CUMMERATA AND NICOLAS
                     PortId = 1, // CORFU
-                    Adults = 150, // Overbooking
+                    Adults = 101, // Overbooking
                     Kids = 0,
                     Free = 0,
                     TicketNo = "xxxx"
@@ -105,8 +105,8 @@ namespace BackEnd.IntegrationTests {
             // Destination: Paxos (1)
             // Port: Lefkimmi (2)
             // According to the schedule: Max persons = 185 (Corfu) + 215 (Lefkimmi) = 400
-            // According to the reservations: Persons = 59 (Corfu) + 51 (Lefkimmi) = 110
-            // Free seats = 400 - 110 = 290
+            // According to the reservations: Corfu (84) + Lefkimmi (50) = 134
+            // Free seats = 400 - 134 = 266
             return new object[] {
                 new Reservation {
                     FeatureUrl = "/reservations/",
@@ -118,7 +118,7 @@ namespace BackEnd.IntegrationTests {
                     DestinationId = 1, // PAXOS
                     CustomerId = 1, // SKILES, CUMMERATA AND NICOLAS
                     PortId = 2, // LEFKIMMI
-                    Adults = 300, // Overbooking
+                    Adults = 267, // Overbooking
                     Kids = 0,
                     Free = 0,
                     TicketNo = "xxxx"
@@ -127,7 +127,7 @@ namespace BackEnd.IntegrationTests {
         }
 
         private static object[] Duplicate_Records_Are_Not_Allowed() {
-            // Checking for Date, DestinationId, CustomeId, TicketNo
+            // Checking for Date and DestinationId and CustomeId and TicketNo
             return new object[] {
                 new Reservation {
                     FeatureUrl = "/reservations/",
@@ -138,11 +138,11 @@ namespace BackEnd.IntegrationTests {
                     Date = "2021-10-01",
                     DestinationId = 1, // PAXOS
                     CustomerId = 14, // WILLMS - VOLKMAN
-                    PortId = 2, // LEFKIMMI
+                    PortId = 1, // CORFU
                     Adults = 2,
                     Kids = 0,
                     Free = 0,
-                    TicketNo = "EZFHG"
+                    TicketNo = "SBQRQ"
                 }
             };
         }

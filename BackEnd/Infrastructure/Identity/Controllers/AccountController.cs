@@ -3,15 +3,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlueWaterCruises.Infrastructure.Email;
+using BlueWaterCruises.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace BlueWaterCruises {
+namespace BlueWaterCruises.Infrastructure.Identity {
 
     [Route("api/[controller]")]
-
     public class AccountController : Controller {
 
         private readonly IEmailSender emailSender;

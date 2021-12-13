@@ -1,4 +1,6 @@
 using System.Threading.Tasks;
+using BlueWaterCruises.Infrastructure.Extensions;
+using BlueWaterCruises.Infrastructure.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +8,6 @@ using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Embarkation {
 
-    [Authorize]
     [Route("api/[controller]")]
     public class EmbarkationsController : ControllerBase {
 
@@ -19,11 +20,13 @@ namespace BlueWaterCruises.Features.Embarkation {
         }
 
         [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/shipId/{shipId}")]
+        [Authorize(Roles = "admin")]
         public async Task<EmbarkationMainResultResource<EmbarkationResource>> Get(string date, int destinationId, int portId, int shipId) {
             return await this.repo.Get(date, destinationId, portId, shipId);
         }
 
         [HttpPatch("doEmbarkation")]
+        [Authorize(Roles = "admin")]
         public IActionResult DoEmbarkation(int id) {
             try {
                 if (this.repo.DoEmbarkation(id)) {

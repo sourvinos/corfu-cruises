@@ -1,4 +1,4 @@
-namespace BlueWaterCruises.Features.ShipRoutes {
+namespace BlueWaterCruises.Features.Ships.ShipRoutes {
 
     public class ShipRouteListResource {
 
