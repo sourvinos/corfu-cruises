@@ -9,13 +9,14 @@ namespace BlueWaterCruises.Features.Routes {
 
         // PK
         public int Id { get; set; }
+        // FKs
+        public int PortId { get; set; }
         // Fields
         public string Description { get; set; }
         public string Abbreviation { get; set; }
         public bool IsTransfer { get; set; }
         public bool IsActive { get; set; }
         // FKs
-        public int PortId { get; set; }
         public string UserId { get; set; }
         // Navigation
         public Port Port { get; set; }

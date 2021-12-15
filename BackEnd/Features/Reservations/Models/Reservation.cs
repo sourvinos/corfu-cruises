@@ -14,16 +14,6 @@ namespace BlueWaterCruises.Features.Reservations {
 
         // PK
         public Guid ReservationId { get; set; }
-        // Fields
-        public DateTime Date { get; set; }
-        public int Adults { get; set; }
-        public int Kids { get; set; }
-        public int Free { get; set; }
-        public int TotalPersons { get; set; }
-        public string TicketNo { get; set; }
-        public string Email { get; set; }
-        public string Phones { get; set; }
-        public string Remarks { get; set; }
         // FKs
         public int CustomerId { get; set; }
         public int DestinationId { get; set; }
@@ -31,6 +21,17 @@ namespace BlueWaterCruises.Features.Reservations {
         public int PickupPointId { get; set; }
         public int PortId { get; set; }
         public int ShipId { get; set; }
+        // Fields
+        public DateTime Date { get; set; }
+        public string TicketNo { get; set; }
+        public int Adults { get; set; }
+        public int Kids { get; set; }
+        public int Free { get; set; }
+        public int TotalPersons { get; set; }
+        public string Email { get; set; }
+        public string Phones { get; set; }
+        public string Remarks { get; set; }
+        // FKs
         public string UserId { get; set; }
         // Navigation
         public Customer Customer { get; set; }

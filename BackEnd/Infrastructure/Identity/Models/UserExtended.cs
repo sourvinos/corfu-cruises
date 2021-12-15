@@ -36,7 +36,6 @@ namespace BlueWaterCruises.Infrastructure.Identity {
         public List<Gender> Genders { get; set; }
         public List<Nationality> Nationalities { get; set; }
         public List<Occupant> Occupants { get; set; }
-        public List<Passenger> Passengers { get; set; }
         public List<PickupPoint> PickupPoints { get; set; }
         public List<Port> Ports { get; set; }
         public List<Registrar> Registrars { get; set; }

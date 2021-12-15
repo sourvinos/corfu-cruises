@@ -9,13 +9,14 @@ namespace BlueWaterCruises.Features.Schedules {
 
         // PK
         public int Id { get; set; }
+        // FKs
+        public int DestinationId { get; set; }
+        public int PortId { get; set; }
         // Fields
         public DateTime Date { get; set; }
         public int MaxPersons { get; set; }
         public bool IsActive { get; set; }
         // FKs
-        public int DestinationId { get; set; }
-        public int PortId { get; set; }
         public string UserId { get; set; }
         // Navigation
         public Destination Destination { get; set; }

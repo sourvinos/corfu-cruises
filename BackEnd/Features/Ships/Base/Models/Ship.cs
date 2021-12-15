@@ -11,6 +11,8 @@ namespace BlueWaterCruises.Features.Ships.Base {
 
         // PK
         public int Id { get; set; }
+        // FKs
+        public int ShipOwnerId { get; set; }
         // Fields
         public string Description { get; set; }
         public string IMO { get; set; }
@@ -21,7 +23,6 @@ namespace BlueWaterCruises.Features.Ships.Base {
         public string Agent { get; set; }
         public bool IsActive { get; set; }
         // FKs
-        public int ShipOwnerId { get; set; }
         public string UserId { get; set; }
         // Navigation
         public ShipOwner ShipOwner { get; set; }

@@ -69,7 +69,7 @@ namespace BlueWaterCruises.Infrastructure.Auth {
                 return StatusCode(200, new TokenResponse {
                     Token = response.Token,
                     Expiration = response.Expiration,
-                    Refresh_token = response.Refresh_token,
+                    RefreshToken = response.RefreshToken,
                     Roles = response.Roles,
                     UserId = response.UserId,
                     Displayname = response.Displayname,
@@ -114,7 +114,7 @@ namespace BlueWaterCruises.Infrastructure.Auth {
             return new TokenResponse() {
                 Token = encodedToken,
                 Expiration = newtoken.ValidTo,
-                Refresh_token = refreshToken,
+                RefreshToken = refreshToken,
                 Roles = roles.FirstOrDefault(),
                 UserId = user.Id,
                 Displayname = user.DisplayName,

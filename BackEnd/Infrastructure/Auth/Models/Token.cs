@@ -1,35 +1,19 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using BlueWaterCruises.Infrastructure.Identity;
 
 namespace BlueWaterCruises.Infrastructure.Auth {
 
     public class Token {
 
-        [Key]
+        // PK
         public int Id { get; set; }
-
-        [Required]
+        // FKs
         public string ClientId { get; set; }
-
-        [Required]
-        public string Value { get; set; }
-
-        [Required]
-        public DateTime CreatedDate { get; set; }
-
-        [Required]
         public string UserId { get; set; }
-
-        [Required]
+        // Fields
+        public string Value { get; set; }
+        public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
-
-        [Required]
         public DateTime ExpiryTime { get; set; }
-
-        [ForeignKey("UserId")]
-        public virtual UserExtended User { get; set; }
 
     }
 

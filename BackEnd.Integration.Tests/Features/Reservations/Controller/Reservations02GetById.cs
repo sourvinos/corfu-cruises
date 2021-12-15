@@ -16,7 +16,7 @@ namespace BackEnd.IntegrationTests.Reservations {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _adminUrl = "/reservations/034464de-89bf-4828-b366-12671315dfba";
         private readonly string _baseUrl;
-        private readonly string _dummyUrl = "/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
+        private readonly string _dummyUrl = "/reservations/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
         private readonly string _simpleUserUrl = "/reservations/202c08b1-f364-4224-bb7a-fc7765fbbf8d";
 
         #endregion

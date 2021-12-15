@@ -7,6 +7,8 @@ namespace BlueWaterCruises.Features.Ships.Registrars {
 
         // PK
         public int Id { get; set; }
+        // FKs
+        public int ShipId { get; set; }
         // Fields
         public string Fullname { get; set; }
         public string Phones { get; set; }
@@ -16,7 +18,6 @@ namespace BlueWaterCruises.Features.Ships.Registrars {
         public bool IsPrimary { get; set; }
         public bool IsActive { get; set; }
         // FKs
-        public int ShipId { get; set; }
         public string UserId { get; set; }
         // Navigation
         public Ship Ship { get; set; }
