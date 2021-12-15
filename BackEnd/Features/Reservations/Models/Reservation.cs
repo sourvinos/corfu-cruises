@@ -39,7 +39,7 @@ namespace BlueWaterCruises.Features.Reservations {
         public PickupPoint PickupPoint { get; set; }
         public Port Port { get; set; }
         public Ship Ship { get; set; }
-        public AppUser User { get; set; }
+        public UserExtended User { get; set; }
         public List<Passenger> Passengers { get; set; }
 
     }

@@ -2,7 +2,6 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using BlueWaterCruises.Infrastructure.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
@@ -58,7 +57,7 @@ namespace BackEnd.IntegrationTests.Customers {
             // assert
             Assert.Equal(HttpStatusCode.NotFound, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
         [Fact]
@@ -71,7 +70,7 @@ namespace BackEnd.IntegrationTests.Customers {
             // assert
             Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
         [Fact]
@@ -84,7 +83,7 @@ namespace BackEnd.IntegrationTests.Customers {
             // assert
             Assert.Equal((HttpStatusCode)491, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
         [Fact]
@@ -97,7 +96,7 @@ namespace BackEnd.IntegrationTests.Customers {
             // assert
             Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
     }

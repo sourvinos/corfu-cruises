@@ -70,7 +70,7 @@ namespace BlueWaterCruises {
             app.UseEndpoints(endpoints => endpoints.MapControllers().WithMetadata(new AllowAnonymousAttribute()));
         }
 
-        public void ConfigureTesting(IApplicationBuilder app, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager, AppDbContext context) {
+        public void ConfigureTesting(IApplicationBuilder app, RoleManager<IdentityRole> roleManager, UserManager<UserExtended> userManager, AppDbContext context) {
             app.UseDeveloperExceptionPage();
             Configure(app);
             app.UseEndpoints(endpoints => endpoints.MapControllers());

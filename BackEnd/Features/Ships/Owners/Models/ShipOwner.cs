@@ -21,7 +21,7 @@ namespace BlueWaterCruises.Features.Ships.Owners {
         // FKs
         public string UserId { get; set; }
         // Navigation
-        public AppUser User { get; set; }
+        public UserExtended User { get; set; }
         public List<Ship> Ships { get; set; }
 
     }

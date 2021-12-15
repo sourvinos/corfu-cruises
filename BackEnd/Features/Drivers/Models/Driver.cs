@@ -15,7 +15,7 @@ namespace BlueWaterCruises.Features.Drivers {
         // FKs
         public string UserId { get; set; }
         // Navigation
-        public AppUser User { get; set; }
+        public UserExtended User { get; set; }
         public List<Reservation> Reservations { get; set; }
 
     }

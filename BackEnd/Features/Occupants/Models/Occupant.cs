@@ -14,7 +14,7 @@ namespace BlueWaterCruises.Features.Occupants {
         // FKs
         public string UserId { get; set; }
         // Navigation
-        public AppUser User { get; set; }
+        public UserExtended User { get; set; }
         public List<Passenger> Passengers { get; set; }
 
     }

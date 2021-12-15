@@ -18,9 +18,9 @@ namespace BlueWaterCruises.Infrastructure.Identity {
 
         private readonly IEmailSender emailSender;
         private readonly ILogger<UsersController> logger;
-        private readonly UserManager<AppUser> userManager;
+        private readonly UserManager<UserExtended> userManager;
 
-        public UsersController(IEmailSender emailSender, ILogger<UsersController> logger, UserManager<AppUser> userManager) {
+        public UsersController(IEmailSender emailSender, ILogger<UsersController> logger, UserManager<UserExtended> userManager) {
             this.emailSender = emailSender;
             this.logger = logger;
             this.userManager = userManager;
@@ -41,7 +41,7 @@ namespace BlueWaterCruises.Infrastructure.Identity {
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id) {
-            AppUser record = await userManager.Users.Where(x => x.Id == id).SingleOrDefaultAsync();
+            UserExtended record = await userManager.Users.Where(x => x.Id == id).SingleOrDefaultAsync();
             if (record == null) {
                 id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -63,7 +63,7 @@ namespace BlueWaterCruises.Infrastructure.Identity {
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser([FromRoute] string id, [FromBody] UserViewModel vm) {
             if (id == vm.Id && ModelState.IsValid) {
-                AppUser record = await userManager.FindByIdAsync(id);
+                UserExtended record = await userManager.FindByIdAsync(id);
                 if (record != null) {
                     await UpdateUser(record, vm);
                     await UpdateRole(record);
@@ -84,7 +84,7 @@ namespace BlueWaterCruises.Infrastructure.Identity {
         [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id) {
-            AppUser record = await userManager.FindByIdAsync(id);
+            UserExtended record = await userManager.FindByIdAsync(id);
             if (record == null) {
                 id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
@@ -116,7 +116,7 @@ namespace BlueWaterCruises.Infrastructure.Identity {
             return StatusCode(496, new { response = ApiMessages.EmailNotSent() });
         }
 
-        private async Task<IdentityResult> UpdateUser(AppUser user, UserViewModel vm) {
+        private async Task<IdentityResult> UpdateUser(UserExtended user, UserViewModel vm) {
             user.UserName = vm.UserName;
             user.DisplayName = vm.DisplayName;
             user.Email = vm.Email;
@@ -126,7 +126,7 @@ namespace BlueWaterCruises.Infrastructure.Identity {
             return await userManager.UpdateAsync(user);
         }
 
-        private async Task UpdateRole(AppUser user) {
+        private async Task UpdateRole(UserExtended user) {
             var roles = await userManager.GetRolesAsync(user);
             await userManager.RemoveFromRolesAsync(user, roles);
             await userManager.AddToRoleAsync(user, user.IsAdmin ? "admin" : "user");

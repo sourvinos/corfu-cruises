@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using BlueWaterCruises.Features.Reservations;
-using BlueWaterCruises.Infrastructure.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
@@ -62,7 +61,7 @@ namespace BackEnd.IntegrationTests.Reservations {
             // assert
             Assert.Equal((HttpStatusCode)reservation.ExpectedResponseCode, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
         [Theory]
@@ -77,7 +76,7 @@ namespace BackEnd.IntegrationTests.Reservations {
             // assert
             Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
         private static ReservationWriteResource CreateRecord(Reservation reservation) {

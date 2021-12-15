@@ -13,7 +13,7 @@ namespace BlueWaterCruises.Infrastructure.Extensions {
 
         public static void AddIdentity(IServiceCollection services) {
             services
-                .AddIdentity<AppUser, IdentityRole>(options => {
+                .AddIdentity<UserExtended, IdentityRole>(options => {
                     options.Password.RequireDigit = false;
                     options.Password.RequiredLength = 1;
                     options.Password.RequireNonAlphanumeric = false;

@@ -20,7 +20,7 @@ namespace BlueWaterCruises.Features.Ships.Registrars {
         public string UserId { get; set; }
         // Navigation
         public Ship Ship { get; set; }
-        public AppUser User { get; set; }
+        public UserExtended User { get; set; }
 
     }
 

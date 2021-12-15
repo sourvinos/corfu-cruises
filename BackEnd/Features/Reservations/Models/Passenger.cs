@@ -21,13 +21,11 @@ namespace BlueWaterCruises.Features.Reservations {
         public int NationalityId { get; set; }
         public int OccupantId { get; set; }
         public int GenderId { get; set; }
-        public string UserId { get; set; }
         public Guid ReservationId { get; set; }
         // Navigation
         public Nationality Nationality { get; set; }
         public Occupant Occupant { get; set; }
         public Gender Gender { get; set; }
-        public AppUser User { get; set; }
         public virtual Reservation Reservation { get; set; }
 
     }

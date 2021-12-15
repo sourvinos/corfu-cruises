@@ -5,7 +5,6 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
 using BlueWaterCruises.Features.Reservations;
-using BlueWaterCruises.Infrastructure.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
@@ -66,7 +65,7 @@ namespace BackEnd.IntegrationTests.Reservations {
             Assert.Equal(5, records.Reservations.Count());
             Assert.Equal(23, records.Persons);
             // cleanup
-            await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
         [Fact]
@@ -82,7 +81,7 @@ namespace BackEnd.IntegrationTests.Reservations {
             Assert.Equal(27, records.Reservations.Count());
             Assert.Equal(134, records.Persons);
             // cleanup
-            await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
     }

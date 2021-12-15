@@ -6,7 +6,6 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using BlueWaterCruises.Features.Customers;
-using BlueWaterCruises.Infrastructure.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
@@ -61,7 +60,7 @@ namespace BackEnd.IntegrationTests.Customers {
             // assert
             Assert.Equal(HttpStatusCode.Forbidden, putResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
         [Fact]
@@ -75,7 +74,7 @@ namespace BackEnd.IntegrationTests.Customers {
             // assert
             Assert.Equal(HttpStatusCode.OK, putResponse.StatusCode);
             // cleanup
-            await Helpers.Logout(_httpClient, new User { UserId = loginResponse.UserId });
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
         private static CustomerWriteResource CreateCustomer(string userId) {

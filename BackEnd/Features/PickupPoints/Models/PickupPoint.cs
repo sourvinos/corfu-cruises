@@ -20,7 +20,7 @@ namespace BlueWaterCruises.Features.PickupPoints {
         public string UserId { get; set; }
         // Navigation
         public Route Route { get; set; }
-        public AppUser User { get; set; }
+        public UserExtended User { get; set; }
         public List<Reservation> Reservations { get; set; }
 
     }

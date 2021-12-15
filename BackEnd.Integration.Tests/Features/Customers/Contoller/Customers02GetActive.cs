@@ -18,7 +18,7 @@ namespace BackEnd.IntegrationTests.Customers {
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _baseUrl;
-        private readonly string _url  = "/customers/getActiveForDropdown";
+        private readonly string _url = "/customers/getActiveForDropdown";
 
         #endregion
 
@@ -61,7 +61,7 @@ namespace BackEnd.IntegrationTests.Customers {
             // assert
             Assert.Equal(11, records.Count);
             // cleanup
-            await Helpers.Logout(_httpClient, new User { UserId = login.UserId });
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
     }

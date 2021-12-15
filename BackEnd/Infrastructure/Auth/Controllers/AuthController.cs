@@ -19,9 +19,9 @@ namespace BlueWaterCruises.Infrastructure.Auth {
 
         private readonly AppDbContext db;
         private readonly TokenSettings settings;
-        private readonly UserManager<AppUser> userManager;
+        private readonly UserManager<UserExtended> userManager;
 
-        public AuthController(AppDbContext db, IOptions<TokenSettings> settings, UserManager<AppUser> userManager) {
+        public AuthController(AppDbContext db, IOptions<TokenSettings> settings, UserManager<UserExtended> userManager) {
             this.db = db;
             this.settings = settings.Value;
             this.userManager = userManager;
@@ -39,8 +39,8 @@ namespace BlueWaterCruises.Infrastructure.Auth {
         }
 
         [HttpPost("[action]")]
-        public IActionResult Logout([FromBody] User user) {
-            var tokens = db.Tokens.Where(x => x.UserId == user.UserId).ToList();
+        public IActionResult Logout([FromBody] string userId) {
+            var tokens = db.Tokens.Where(x => x.UserId == userId).ToList();
             if (tokens != null) {
                 db.Tokens.RemoveRange(tokens);
                 db.SaveChanges();
@@ -91,7 +91,7 @@ namespace BlueWaterCruises.Infrastructure.Auth {
             };
         }
 
-        private async Task<TokenResponse> CreateAccessToken(AppUser user, string refreshToken) {
+        private async Task<TokenResponse> CreateAccessToken(UserExtended user, string refreshToken) {
             double tokenExpiryTime = Convert.ToDouble(settings.ExpireTime);
             var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(settings.Secret));
             var roles = await userManager.GetRolesAsync(user);

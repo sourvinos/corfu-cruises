@@ -6,7 +6,7 @@ namespace BlueWaterCruises.Infrastructure.SeedData {
 
     public static class SeedDatabaseMaster {
 
-        public static void SeedDatabase(RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager, AppDbContext context) {
+        public static void SeedDatabase(RoleManager<IdentityRole> roleManager, UserManager<UserExtended> userManager, AppDbContext context) {
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             SeedDatabaseRoles.SeedRoles(roleManager);

@@ -15,10 +15,10 @@ namespace BlueWaterCruises.Infrastructure.Identity {
     public class AccountController : Controller {
 
         private readonly IEmailSender emailSender;
-        private readonly SignInManager<AppUser> signInManager;
-        private readonly UserManager<AppUser> userManager;
+        private readonly SignInManager<UserExtended> signInManager;
+        private readonly UserManager<UserExtended> userManager;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IEmailSender emailSender) {
+        public AccountController(UserManager<UserExtended> userManager, SignInManager<UserExtended> signInManager, IEmailSender emailSender) {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.emailSender = emailSender;
@@ -28,7 +28,7 @@ namespace BlueWaterCruises.Infrastructure.Identity {
         [HttpPost("[action]")]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel formData) {
             if (ModelState.IsValid) {
-                var user = new AppUser {
+                var user = new UserExtended {
                     UserName = formData.Username,
                     DisplayName = formData.Displayname,
                     CustomerId = formData.CustomerId,

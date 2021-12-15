@@ -29,7 +29,7 @@ namespace BlueWaterCruises.Infrastructure.Auth {
         public DateTime ExpiryTime { get; set; }
 
         [ForeignKey("UserId")]
-        public virtual AppUser User { get; set; }
+        public virtual UserExtended User { get; set; }
 
     }
 

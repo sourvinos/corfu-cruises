@@ -20,7 +20,7 @@ namespace BlueWaterCruises.Features.Schedules {
         // Navigation
         public Destination Destination { get; set; }
         public Port Port { get; set; }
-        public AppUser User { get; set; }
+        public UserExtended User { get; set; }
 
     }
 

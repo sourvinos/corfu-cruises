@@ -5,7 +5,6 @@ using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using BlueWaterCruises.Infrastructure.Auth;
-using BlueWaterCruises.Infrastructure.Classes;
 using Newtonsoft.Json;
 
 namespace BackEnd.IntegrationTests {
@@ -28,8 +27,8 @@ namespace BackEnd.IntegrationTests {
             return JsonConvert.DeserializeObject<TokenResponse>(loginResponseContent);
         }
 
-        public static async Task Logout(HttpClient httpClient, User user) {
-            await httpClient.PostAsync("api/auth/logout", new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, MediaTypeNames.Application.Json));
+        public static async Task Logout(HttpClient httpClient, string userId) {
+            await httpClient.PostAsync("api/auth/logout", new StringContent(userId));
         }
 
         public static string CreateRandomString(int length) {
@@ -40,7 +39,7 @@ namespace BackEnd.IntegrationTests {
             return new HttpRequestMessage {
                 Method = HttpMethod.Get,
                 RequestUri = new Uri(baseUrl + url),
-                Content = new StringContent(JsonConvert.SerializeObject(new User { UserId = userId }), Encoding.UTF8, MediaTypeNames.Application.Json)
+                Content = new StringContent(userId)
             };
         }
 

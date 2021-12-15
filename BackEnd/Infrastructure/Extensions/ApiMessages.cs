@@ -2,9 +2,6 @@ namespace BlueWaterCruises.Infrastructure.Extensions {
 
     public static class ApiMessages {
 
-        // Only used by the API
-        // In normal program execution they will be replaced by Angular in the selected language
-
         #region Info
 
         public static string EmailInstructions() { return "An email was sent with instructions."; }

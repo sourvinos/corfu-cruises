@@ -5,7 +5,7 @@ namespace BlueWaterCruises.Infrastructure.SeedData {
 
     public static class SeedDatabaseUserRoles {
 
-        public static async void SeedUserRoles(UserManager<AppUser> userManager) {
+        public static async void SeedUserRoles(UserManager<UserExtended> userManager) {
             foreach (var user in userManager.Users) {
                 var result = await userManager.CreateAsync(user);
                 if (result.Succeeded) {

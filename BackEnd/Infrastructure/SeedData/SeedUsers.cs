@@ -7,10 +7,10 @@ namespace BlueWaterCruises.Infrastructure.SeedData {
 
     public static class SeedDatabaseUsers {
 
-        public static void SeedUsers(UserManager<AppUser> userManager) {
+        public static void SeedUsers(UserManager<UserExtended> userManager) {
             if (!userManager.Users.Any()) {
                 // Admin = 0, Active = 0
-                AppUser marios = new() {
+                UserExtended marios = new() {
                     Id = "4fcd7909-0569-45d9-8b78-2b24a7368e19",
                     UserName = "marios",
                     EmailConfirmed = true,
@@ -26,7 +26,7 @@ namespace BlueWaterCruises.Infrastructure.SeedData {
                     userManager.AddToRoleAsync(marios, marios.IsAdmin ? "admin" : "user").Wait();
                 }
                 // Admin = 0, Active = 1
-                AppUser matoula = new() {
+                UserExtended matoula = new() {
                     Id = "7b8326ad-468f-4dbd-bf6d-820343d9e828",
                     UserName = "matoula",
                     EmailConfirmed = true,
@@ -42,7 +42,7 @@ namespace BlueWaterCruises.Infrastructure.SeedData {
                     userManager.AddToRoleAsync(matoula, matoula.IsAdmin ? "admin" : "user").Wait();
                 }
                 // Admin = 1, Active = 1
-                AppUser john = new() {
+                UserExtended john = new() {
                     Id = "e7e014fd-5608-4936-866e-ec11fc8c16da",
                     UserName = "john",
                     EmailConfirmed = true,
@@ -58,7 +58,7 @@ namespace BlueWaterCruises.Infrastructure.SeedData {
                     userManager.AddToRoleAsync(john, john.IsAdmin ? "admin" : "user").Wait();
                 }
                 // Admin = 1, Active = 0
-                AppUser nikoleta = new() {
+                UserExtended nikoleta = new() {
                     Id = "544c9930-ad76-4aa9-bb1c-8dd193508e05",
                     UserName = "nikoleta",
                     EmailConfirmed = true,
