@@ -1,10 +1,11 @@
 using System.Collections.Generic;
-using BlueWaterCruises.Infrastructure.Classes;
 
 namespace BlueWaterCruises.Features.Manifest {
 
-    public class ShipResource : SimpleResource {
+    public class ShipResource {
 
+        public int Id { get; set; }
+        public string Description { get; set; }
         public string IMO { get; set; }
         public string Flag { get; set; }
         public string RegistryNo { get; set; }

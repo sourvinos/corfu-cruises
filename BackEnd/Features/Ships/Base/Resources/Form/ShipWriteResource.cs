@@ -1,9 +1,9 @@
-using BlueWaterCruises.Infrastructure.Classes;
-
 namespace BlueWaterCruises.Features.Ships.Base {
 
-    public class ShipWriteResource : SimpleResource {
+    public class ShipWriteResource {
 
+        public int Id { get; set; }
+        public string Description { get; set; }
         public int ShipOwnerId { get; set; }
         public string IMO { get; set; }
         public string Flag { get; set; }

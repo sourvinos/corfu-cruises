@@ -3,14 +3,16 @@ using BlueWaterCruises.Features.Reservations;
 using BlueWaterCruises.Features.Ships.Crews;
 using BlueWaterCruises.Features.Ships.Owners;
 using BlueWaterCruises.Features.Ships.Registrars;
-using BlueWaterCruises.Infrastructure.Classes;
 using BlueWaterCruises.Infrastructure.Identity;
 
 namespace BlueWaterCruises.Features.Ships.Base {
 
-    public class Ship : SimpleResource {
+    public class Ship {
 
-        public int ShipOwnerId { get; set; }
+        // PK
+        public int Id { get; set; }
+        // Fields
+        public string Description { get; set; }
         public string IMO { get; set; }
         public string Flag { get; set; }
         public string RegistryNo { get; set; }
@@ -18,14 +20,15 @@ namespace BlueWaterCruises.Features.Ships.Base {
         public string ManagerInGreece { get; set; }
         public string Agent { get; set; }
         public bool IsActive { get; set; }
+        // FKs
+        public int ShipOwnerId { get; set; }
         public string UserId { get; set; }
-
+        // Navigation
         public ShipOwner ShipOwner { get; set; }
-        public List<Registrar> Registrars { get; set; }
-        public List<Crew> Crews { get; set; }
-        public List<Reservation> Reservations { get; set; }
-
         public AppUser User { get; set; }
+        public List<Crew> Crews { get; set; }
+        public List<Registrar> Registrars { get; set; }
+        public List<Reservation> Reservations { get; set; }
 
     }
 

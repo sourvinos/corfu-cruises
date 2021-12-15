@@ -1,9 +1,9 @@
-using BlueWaterCruises.Infrastructure.Classes;
-
 namespace BlueWaterCruises.Features.Routes {
 
-    public class RouteWriteResource : SimpleResource {
+    public class RouteWriteResource {
 
+        public int Id { get; set; }
+        public string Description { get; set; }
         public int PortId { get; set; }
         public string Abbreviation { get; set; }
         public bool IsTransfer { get; set; }
