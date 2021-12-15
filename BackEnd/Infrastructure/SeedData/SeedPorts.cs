@@ -10,8 +10,8 @@ namespace BlueWaterCruises.Infrastructure.SeedData {
         public static void SeedPorts(AppDbContext context) {
             if (!context.Ports.Any()) {
                 List<Port> ports = new() {
-                    new Port { Id = 1, Description = "CORFU PORT", IsPrimary = true, IsActive = true, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault() },
-                    new Port { Id = 2, Description = "LEFKIMMI PORT", IsPrimary = false, IsActive = true, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault() }
+                    new Port { Id = 1, Description = "CORFU PORT", IsPrimary = true, IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" },
+                    new Port { Id = 2, Description = "LEFKIMMI PORT", IsPrimary = false, IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" }
                 };
                 context.AddRange(ports);
                 context.SaveChanges();

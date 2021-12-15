@@ -8,6 +8,8 @@ namespace BlueWaterCruises.Features.Ships.Owners {
         public void Configure(EntityTypeBuilder<ShipOwner> entity) {
             // PK
             entity.Property(x => x.Id).ValueGeneratedOnAdd();
+            // FKs
+            entity.Property(x => x.UserId).IsRequired(true);
             // Fields
             entity.Property(x => x.Description).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.Profession).HasMaxLength(128).IsRequired(true);
@@ -17,9 +19,8 @@ namespace BlueWaterCruises.Features.Ships.Owners {
             entity.Property(x => x.Phones).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.Email).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.IsActive).IsRequired(true);
-            entity.Property(x => x.UserId).IsRequired(true);
             // FK Constraints
-            entity.HasOne(x => x.User).WithMany(x => x.ShipOwners).HasForeignKey(x => x.UserId).IsRequired().OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.User).WithMany(x => x.ShipOwners).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
         }
 
     }

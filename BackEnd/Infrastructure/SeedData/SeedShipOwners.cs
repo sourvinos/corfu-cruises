@@ -10,7 +10,7 @@ namespace BlueWaterCruises.Infrastructure.SeedData {
         public static void SeedShipOwners(AppDbContext context) {
             if (!context.ShipOwners.Any()) {
                 List<ShipOwner> shipOwners = new() {
-                    new ShipOwner { Id = 1, Description = "MOBY DICK CRUISES", Profession = "SHIPPING COMPANY", Address = "KAVOS MAIN STREET", TaxNo = "EL 999999999", City = "KAVOS", Phones = "+30 26620 12345", Email = "email@server.com", IsActive = true, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault() }
+                    new ShipOwner { Id = 1, Description = "MOBY DICK CRUISES", Profession = "SHIPPING COMPANY", Address = "KAVOS MAIN STREET", TaxNo = "EL 999999999", City = "KAVOS", Phones = "+30 26620 12345", Email = "email@server.com", IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" }
                 };
                 context.AddRange(shipOwners);
                 context.SaveChanges();

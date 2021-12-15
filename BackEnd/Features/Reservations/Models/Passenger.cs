@@ -2,6 +2,7 @@ using System;
 using BlueWaterCruises.Features.Genders;
 using BlueWaterCruises.Features.Nationalities;
 using BlueWaterCruises.Features.Occupants;
+using BlueWaterCruises.Infrastructure.Identity;
 
 namespace BlueWaterCruises.Features.Reservations {
 
@@ -21,10 +22,12 @@ namespace BlueWaterCruises.Features.Reservations {
         public int NationalityId { get; set; }
         public int OccupantId { get; set; }
         public int GenderId { get; set; }
+        public string UserId { get; set; }
 
         public Nationality Nationality { get; set; }
         public Occupant Occupant { get; set; }
         public Gender Gender { get; set; }
+        public AppUser User { get; set; }
 
         public virtual Reservation Reservation { get; set; }
 

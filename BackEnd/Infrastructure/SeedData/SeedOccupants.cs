@@ -10,8 +10,8 @@ namespace BlueWaterCruises.Infrastructure.SeedData {
         public static void SeedOccupants(AppDbContext context) {
             if (!context.Occupants.Any()) {
                 List<Occupant> occupants = new() {
-                    new Occupant { Id = 1, Description = "CREW", IsActive = true, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault() },
-                    new Occupant { Id = 2, Description = "PASSENGER", IsActive = false, UserId = context.Users.OrderBy(x => x.Id).Skip(Helpers.CreateRandomInteger(0, context.Users.Count())).Take(1).Select(x => x.Id).SingleOrDefault() }
+                    new Occupant { Id = 1, Description = "CREW", IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" },
+                    new Occupant { Id = 2, Description = "PASSENGER", IsActive = false, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" }
                 };
                 context.AddRange(occupants);
                 context.SaveChanges();

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using BlueWaterCruises.Infrastructure.Classes;
 using BlueWaterCruises.Infrastructure.Interfaces;
 
-namespace BlueWaterCruises.Features.Ships.ShipRoutes {
+namespace BlueWaterCruises.Features.Ships.Routes {
 
     public interface IShipRouteRepository : IRepository<ShipRoute> {
 

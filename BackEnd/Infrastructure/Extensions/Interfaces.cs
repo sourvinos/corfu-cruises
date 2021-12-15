@@ -16,7 +16,7 @@ using BlueWaterCruises.Features.Ships.Base;
 using BlueWaterCruises.Features.Ships.Crews;
 using BlueWaterCruises.Features.Ships.Owners;
 using BlueWaterCruises.Features.Ships.Registrars;
-using BlueWaterCruises.Features.Ships.ShipRoutes;
+using BlueWaterCruises.Features.Ships.Routes;
 using BlueWaterCruises.Infrastructure.Auth;
 using Microsoft.Extensions.DependencyInjection;
 

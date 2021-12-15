@@ -74,6 +74,7 @@ namespace BlueWaterCruises {
             app.UseDeveloperExceptionPage();
             Configure(app);
             app.UseEndpoints(endpoints => endpoints.MapControllers());
+            SeedDatabaseMaster.SeedDatabase(roleManager, userManager, context);
         }
 
         public void ConfigureProduction(IApplicationBuilder app) {

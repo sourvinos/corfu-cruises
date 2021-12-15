@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace BlueWaterCruises.Features.Ships.ShipRoutes {
+namespace BlueWaterCruises.Features.Ships.Routes {
 
     [Route("api/[controller]")]
     public class ShipRoutesController : ControllerBase {

@@ -8,8 +8,10 @@ namespace BlueWaterCruises.Features.Ships.Registrars {
         public void Configure(EntityTypeBuilder<Registrar> entity) {
             // PK
             entity.Property(x => x.Id).ValueGeneratedOnAdd();
-            // Fields
+            // FKs
             entity.Property(x => x.ShipId).IsRequired(true);
+            entity.Property(x => x.UserId).HasMaxLength(36).IsRequired(true);
+            // Fields
             entity.Property(x => x.Fullname).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.Phones).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.Email).HasMaxLength(128).IsRequired(true);
@@ -17,9 +19,9 @@ namespace BlueWaterCruises.Features.Ships.Registrars {
             entity.Property(x => x.Address).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.IsPrimary).IsRequired(true);
             entity.Property(x => x.IsActive).IsRequired(true);
-            entity.Property(x => x.UserId).HasMaxLength(36).IsRequired(true);
             // FK Constraints
-            entity.HasOne(x => x.User).WithMany(x => x.Registrars).HasForeignKey(x => x.UserId).IsRequired().OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.Ship).WithMany(x => x.Registrars).HasForeignKey(x => x.ShipId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.User).WithMany(x => x.Registrars).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
         }
 
     }

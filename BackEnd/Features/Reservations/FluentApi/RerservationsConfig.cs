@@ -9,14 +9,16 @@ namespace BlueWaterCruises.FluentApi {
         public void Configure(EntityTypeBuilder<Reservation> entity) {
             // PK
             entity.Property(x => x.ReservationId).HasColumnType("varchar").HasMaxLength(36).IsRequired(true);
-            // Fields
-            entity.Property(x => x.Date).HasColumnType("date").HasMaxLength(10).IsRequired(true);
+            // FKs
             entity.Property(x => x.DestinationId).IsRequired(true);
             entity.Property(x => x.CustomerId).IsRequired(true);
             entity.Property(x => x.PickupPointId).IsRequired(true);
             entity.Property(x => x.ShipId).IsRequired(true);
             entity.Property(x => x.DriverId).IsRequired(true);
             entity.Property(x => x.PortId).IsRequired(true);
+            entity.Property(x => x.UserId).IsRequired(true);
+            // Fields
+            entity.Property(x => x.Date).HasColumnType("date").HasMaxLength(10).IsRequired(true);
             entity.Property(x => x.TicketNo).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.TotalPersons).HasComputedColumnSql("((`Adults` + `Kids`) + `Free`)", stored: false);
             entity.Property(x => x.Email).HasMaxLength(128);
@@ -25,15 +27,14 @@ namespace BlueWaterCruises.FluentApi {
             entity.Property(x => x.Kids).IsRequired(true);
             entity.Property(x => x.Free).IsRequired(true);
             entity.Property(x => x.Remarks).HasMaxLength(128);
-            entity.Property(x => x.UserId).IsRequired(true);
             // FK Constraints
-            entity.HasOne(x => x.Destination).WithMany(x => x.Reservations).HasForeignKey(x => x.DestinationId).IsRequired().OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(x => x.Customer).WithMany(x => x.Reservations).HasForeignKey(x => x.CustomerId).IsRequired().OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(x => x.PickupPoint).WithMany(x => x.Reservations).HasForeignKey(x => x.PickupPointId).IsRequired().OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(x => x.Ship).WithMany(x => x.Reservations).HasForeignKey(x => x.ShipId).IsRequired().OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(x => x.Driver).WithMany(x => x.Reservations).HasForeignKey(x => x.DriverId).IsRequired().OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(x => x.Port).WithMany(x => x.Reservations).HasForeignKey(x => x.PortId).IsRequired().OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(x => x.User).WithMany(x => x.Reservations).HasForeignKey(x => x.UserId).IsRequired().OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.Destination).WithMany(x => x.Reservations).HasForeignKey(x => x.DestinationId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.Customer).WithMany(x => x.Reservations).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.PickupPoint).WithMany(x => x.Reservations).HasForeignKey(x => x.PickupPointId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.Ship).WithMany(x => x.Reservations).HasForeignKey(x => x.ShipId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.Driver).WithMany(x => x.Reservations).HasForeignKey(x => x.DriverId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.Port).WithMany(x => x.Reservations).HasForeignKey(x => x.PortId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.User).WithMany(x => x.Reservations).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
         }
 
     }

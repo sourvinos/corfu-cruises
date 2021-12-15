@@ -13,7 +13,7 @@ using BlueWaterCruises.Features.Ships.Base;
 using BlueWaterCruises.Features.Ships.Crews;
 using BlueWaterCruises.Features.Ships.Owners;
 using BlueWaterCruises.Features.Ships.Registrars;
-using BlueWaterCruises.Features.Ships.ShipRoutes;
+using BlueWaterCruises.Features.Ships.Routes;
 using BlueWaterCruises.FluentApi;
 using BlueWaterCruises.Infrastructure.Auth;
 using Microsoft.AspNetCore.Identity;
@@ -26,9 +26,6 @@ namespace BlueWaterCruises.Infrastructure.Classes {
     public class AppDbContext : IdentityDbContext<IdentityUser> {
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-
-        public AppDbContext() {
-        }
 
         #region DbSets
 
@@ -70,6 +67,7 @@ namespace BlueWaterCruises.Infrastructure.Classes {
             modelBuilder.ApplyConfiguration(new GendersConfig());
             modelBuilder.ApplyConfiguration(new NationalitiesConfig());
             modelBuilder.ApplyConfiguration(new OccupantsConfig());
+            modelBuilder.ApplyConfiguration(new PassengersConfig());
             modelBuilder.ApplyConfiguration(new PickupPointsConfig());
             modelBuilder.ApplyConfiguration(new PortsConfig());
             modelBuilder.ApplyConfiguration(new RegistrarsConfig());

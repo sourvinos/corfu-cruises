@@ -12,7 +12,7 @@ using BlueWaterCruises.Features.Schedules;
 using BlueWaterCruises.Features.Ships.Base;
 using BlueWaterCruises.Features.Ships.Crews;
 using BlueWaterCruises.Features.Ships.Registrars;
-using BlueWaterCruises.Features.Ships.ShipRoutes;
+using BlueWaterCruises.Features.Ships.Routes;
 using BlueWaterCruises.Features.Vouchers;
 using BlueWaterCruises.Infrastructure.Identity;
 using FluentValidation;

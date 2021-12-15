@@ -14,7 +14,7 @@ using BlueWaterCruises.Features.Ships.Base;
 using BlueWaterCruises.Features.Ships.Crews;
 using BlueWaterCruises.Features.Ships.Owners;
 using BlueWaterCruises.Features.Ships.Registrars;
-using BlueWaterCruises.Features.Ships.ShipRoutes;
+using BlueWaterCruises.Features.Ships.Routes;
 using BlueWaterCruises.Infrastructure.Auth;
 using Microsoft.AspNetCore.Identity;
 
@@ -45,6 +45,7 @@ namespace BlueWaterCruises.Infrastructure.Identity {
         public List<Registrar> Registrars { get; set; }
         public List<ShipRoute> ShipRoutes { get; set; }
         public List<Reservation> Reservations { get; set; }
+        public List<Passenger> Passengers { get; set; }
 
     }
 

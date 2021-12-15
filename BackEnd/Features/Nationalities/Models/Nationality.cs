@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BlueWaterCruises.Features.Reservations;
+using BlueWaterCruises.Features.Ships.Crews;
 using BlueWaterCruises.Infrastructure.Classes;
 using BlueWaterCruises.Infrastructure.Identity;
 
@@ -13,6 +14,7 @@ namespace BlueWaterCruises.Features.Nationalities {
 
         public AppUser User { get; set; }
 
+        public List<Crew> Crews { get; set; }
         public List<Passenger> Passengers { get; set; }
 
     }

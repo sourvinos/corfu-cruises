@@ -22,7 +22,7 @@ namespace BlueWaterCruises.Features.Ships.Base {
 
         public ShipOwner ShipOwner { get; set; }
         public List<Registrar> Registrars { get; set; }
-        public List<Crew> Crew { get; set; }
+        public List<Crew> Crews { get; set; }
         public List<Reservation> Reservations { get; set; }
 
         public AppUser User { get; set; }

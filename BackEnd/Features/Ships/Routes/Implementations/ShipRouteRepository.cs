@@ -7,7 +7,7 @@ using BlueWaterCruises.Infrastructure.Implementations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace BlueWaterCruises.Features.Ships.ShipRoutes {
+namespace BlueWaterCruises.Features.Ships.Routes {
 
     public class ShipRouteRepository : Repository<ShipRoute>, IShipRouteRepository {
 

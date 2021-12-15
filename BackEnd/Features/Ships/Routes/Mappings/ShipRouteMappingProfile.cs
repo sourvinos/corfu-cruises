@@ -1,7 +1,7 @@
 using AutoMapper;
 using BlueWaterCruises.Infrastructure.Classes;
 
-namespace BlueWaterCruises.Features.Ships.ShipRoutes {
+namespace BlueWaterCruises.Features.Ships.Routes {
 
     public class ShipRouteMappingProfile : Profile {
 
