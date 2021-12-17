@@ -27,93 +27,70 @@ namespace BackEnd.IntegrationTests.Reservations {
         }
 
         [Theory]
-        [ClassData(typeof(DummyReservation))]
-        public async Task Unauthorized_Not_Logged_In(Reservation reservation) {
-            // arrange
-            var record = CreateRecord(reservation);
+        [ClassData(typeof(ExistingReservation))]
+        public async Task Unauthorized_Not_Logged_In(TestReservation record) {
             // act
-            var actionResponse = await _httpClient.PutAsync(_baseUrl + reservation.FeatureUrl + reservation.ReservationId, Helpers.ConvertObjectToJson(record));
+            var actionResponse = await _httpClient.PutAsync(_baseUrl + record.FeatureUrl + record.ReservationId, Helpers.ConvertObjectToJson(record));
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
 
         [Theory]
-        [ClassData(typeof(DummyReservation))]
-        public async Task Unauthorized_Invalid_Credentials(Reservation reservation) {
+        [ClassData(typeof(ExistingReservation))]
+        public async Task Unauthorized_Invalid_Credentials(TestReservation record) {
             // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var record = CreateRecord(reservation);
+            record.UserId = loginResponse.UserId;
             // act
-            var actionResponse = await _httpClient.PutAsync(_baseUrl + reservation.FeatureUrl + reservation.ReservationId, Helpers.ConvertObjectToJson(record));
+            var actionResponse = await _httpClient.PutAsync(_baseUrl + record.FeatureUrl + record.ReservationId, Helpers.ConvertObjectToJson(record));
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
 
         [Theory]
         [ClassData(typeof(SimpleUserCanNotUpdateNotOwnedRecord))]
-        public async Task Simple_Users_Can_Not_Update_Not_Owned_Records(Reservation reservation) {
+        public async Task Simple_Users_Can_Not_Update_Not_Owned(TestReservation record) {
             // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var record = CreateRecord(reservation);
+            record.UserId = loginResponse.UserId;
             // act
-            var actionResponse = await _httpClient.PutAsync(_baseUrl + reservation.FeatureUrl + reservation.ReservationId, Helpers.ConvertObjectToJson(record));
+            var actionResponse = await _httpClient.PutAsync(_baseUrl + record.FeatureUrl + record.ReservationId, Helpers.ConvertObjectToJson(record));
             // assert
-            Assert.Equal((HttpStatusCode)reservation.ExpectedResponseCode, actionResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
         [Theory]
         [ClassData(typeof(SimpleUserCanUpdateOwnRecord))]
-        public async Task Simple_Users_Can_Update_Own_Records(Reservation reservation) {
+        public async Task Simple_Users_Can_Update_Own(TestReservation record) {
             // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var record = CreateRecord(reservation);
+            record.UserId = loginResponse.UserId;
             // act
-            var actionResponse = await _httpClient.PutAsync(_baseUrl + reservation.FeatureUrl + reservation.ReservationId, Helpers.ConvertObjectToJson(record));
+            var actionResponse = await _httpClient.PutAsync(_baseUrl + record.FeatureUrl + record.ReservationId, Helpers.ConvertObjectToJson(record));
             // assert
-            Assert.Equal((HttpStatusCode)reservation.ExpectedResponseCode, actionResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
         [Theory]
         [ClassData(typeof(AdminCanUpdateRecordOwnedByAnyone))]
-        public async Task Admins_Can_Update_Records_Owned_By_Anyone(Reservation reservation) {
+        public async Task Admins_Can_Update_Owned_By_Anyone(TestReservation record) {
             // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(reservation.Username, reservation.Password));
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var record = CreateRecord(reservation);
+            record.UserId = loginResponse.UserId;
             // act
-            var actionResponse = await _httpClient.PutAsync(_baseUrl + reservation.FeatureUrl + reservation.ReservationId, Helpers.ConvertObjectToJson(record));
+            var actionResponse = await _httpClient.PutAsync(_baseUrl + record.FeatureUrl + record.ReservationId, Helpers.ConvertObjectToJson(record));
             // assert
-            Assert.Equal((HttpStatusCode)reservation.ExpectedResponseCode, actionResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
-        }
-
-        private static ReservationWriteResource CreateRecord(Reservation reservation) {
-            return new ReservationWriteResource {
-                ReservationId = Guid.Parse(reservation.ReservationId),
-                Date = reservation.Date ?? "2021-10-01",
-                Adults = reservation.Adults,
-                Kids = 2,
-                Free = 1,
-                TicketNo = reservation.TicketNo ?? "xxxxx",
-                Email = "email@server.com",
-                Phones = "9641 414 533",
-                CustomerId = reservation.CustomerId == 0 ? 1 : reservation.CustomerId,
-                DestinationId = 1,
-                DriverId = 19,
-                PickupPointId = 124,
-                PortId = reservation.PortId,
-                ShipId = 1,
-                Remarks = "TESTING RESERVATION",
-                UserId = reservation.UserId
-            };
         }
 
     }

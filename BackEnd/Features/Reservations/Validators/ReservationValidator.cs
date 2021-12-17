@@ -1,3 +1,4 @@
+using BlueWaterCruises.Infrastructure.Extensions;
 using FluentValidation;
 
 namespace BlueWaterCruises.Features.Reservations {
@@ -5,15 +6,18 @@ namespace BlueWaterCruises.Features.Reservations {
     public class ReservationValidator : AbstractValidator<ReservationWriteResource> {
 
         public ReservationValidator() {
-            RuleFor(x => x.Date).NotEmpty();
-            RuleFor(x => x.TicketNo).NotNull().MaximumLength(128);
-            RuleFor(x => x.Email).NotNull().EmailAddress().MaximumLength(128);
-            RuleFor(x => x.Phones).MaximumLength(128);
-            RuleFor(x => x.Remarks).MaximumLength(128);
-            RuleFor(x => x.DestinationId).NotEmpty();
+            // FKs
             RuleFor(x => x.CustomerId).NotEmpty();
+            RuleFor(x => x.DestinationId).NotEmpty();
             RuleFor(x => x.PickupPointId).NotEmpty();
             RuleFor(x => x.PortId).NotEmpty();
+            // Fields
+            RuleFor(x => x.Date).NotEmpty().MaximumLength(10);
+            RuleFor(x => x.Email).Must(BeEmptyOrValidEmailAddress).MaximumLength(128);
+            RuleFor(x => x.Phones).MaximumLength(128);
+            RuleFor(x => x.Remarks).MaximumLength(128);
+            RuleFor(x => x.TicketNo).NotEmpty().MaximumLength(128);
+            // Passengers
             RuleForEach(x => x.Passengers).ChildRules(passenger => {
                 passenger.RuleFor(x => x.Lastname).NotEmpty().MaximumLength(128);
                 passenger.RuleFor(x => x.Firstname).NotEmpty().MaximumLength(128);
@@ -21,6 +25,10 @@ namespace BlueWaterCruises.Features.Reservations {
                 passenger.RuleFor(x => x.Remarks).MaximumLength(128);
                 passenger.RuleFor(x => x.SpecialCare).MaximumLength(128);
             });
+        }
+
+        private bool BeEmptyOrValidEmailAddress(string email) {
+            return string.IsNullOrWhiteSpace(email) || CustomEmailValidator.IsValidEmail(email);
         }
 
     }

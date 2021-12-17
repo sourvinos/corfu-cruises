@@ -1,16 +1,19 @@
 using System;
 using System.Collections.Generic;
+using BlueWaterCruises.Features.Reservations;
 
-namespace BlueWaterCruises.Features.Reservations {
+namespace BackEnd.IntegrationTests.Reservations {
 
-    public class ReservationWriteResource {
+    public class TestReservation {
+
+        public string FeatureUrl { get; set; }
 
         public Guid? ReservationId { get; set; }
         public string Date { get; set; }
         public int CustomerId { get; set; }
         public int DestinationId { get; set; }
         public int DriverId { get; set; }
-        public int PickupPointId { get; set; }
+        public int PickuPointId { get; set; }
         public int PortId { get; set; }
         public int ShipId { get; set; }
         public string TicketNo { get; set; }
@@ -21,8 +24,7 @@ namespace BlueWaterCruises.Features.Reservations {
         public int Free { get; set; }
         public string Remarks { get; set; }
         public string UserId { get; set; }
-
-        public List<PassengerWriteResource> Passengers { get; set; }
+        public List<Passenger> Passengers { get; set; }
 
     }
 

@@ -51,7 +51,7 @@ namespace BackEnd.IntegrationTests.Reservations {
         }
 
         [Fact]
-        public async Task Simple_Users_Can_List_Only_Owned_Records() {
+        public async Task Simple_Users_Can_List_Only_Owned() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -69,7 +69,7 @@ namespace BackEnd.IntegrationTests.Reservations {
         }
 
         [Fact]
-        public async Task Admins_Can_List_Records_Owned_By_Anyone() {
+        public async Task Admins_Can_List_Owned_By_Anyone() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);

@@ -63,7 +63,8 @@ namespace BlueWaterCruises.Features.Reservations {
                 try {
                     var response = reservationRepo.IsValid(record, scheduleRepo);
                     if (response == 200) {
-                        reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(this.AttachUserIdToNewRecord(record)));
+                        AttachUserIdToRecord(record);
+                        reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                         return StatusCode(200, new {
                             response = ApiMessages.RecordCreated()
                         });
@@ -87,6 +88,7 @@ namespace BlueWaterCruises.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             if (id == record.ReservationId.ToString() && ModelState.IsValid) {
+                AttachUserIdToRecord(record);
                 if (await Identity.IsUserAdmin(httpContextAccessor) || await reservationRepo.DoesUserOwnRecord(record.UserId)) {
                     try {
                         var response = reservationRepo.IsValid(record, scheduleRepo);
@@ -111,7 +113,7 @@ namespace BlueWaterCruises.Features.Reservations {
                 }
             } else {
                 FileLoggerExtensions.LogException(0, logger, ControllerContext, record, null);
-                return StatusCode(400, new {
+                return StatusCode(402, new {
                     response = ApiMessages.InvalidModel()
                 });
             }
@@ -188,7 +190,7 @@ namespace BlueWaterCruises.Features.Reservations {
             };
         }
 
-        private ReservationWriteResource AttachUserIdToNewRecord(ReservationWriteResource reservation) {
+        private ReservationWriteResource AttachUserIdToRecord(ReservationWriteResource reservation) {
             reservation.UserId = Identity.GetConnectedUserId(httpContextAccessor);
             return reservation;
         }

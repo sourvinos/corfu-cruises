@@ -12,11 +12,11 @@ namespace BlueWaterCruises.Features.Customers {
             entity.Property(x => x.UserId).IsRequired(true);
             // Fields
             entity.Property(x => x.Description).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.Profession).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.Address).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.Phones).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.PersonInCharge).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.Email).HasMaxLength(128).IsRequired(true);
+            entity.Property(x => x.Profession).HasDefaultValue("").HasMaxLength(128);
+            entity.Property(x => x.Address).HasDefaultValue("").HasMaxLength(128);
+            entity.Property(x => x.Phones).HasDefaultValue("").HasMaxLength(128);
+            entity.Property(x => x.PersonInCharge).HasDefaultValue("").HasMaxLength(128);
+            entity.Property(x => x.Email).HasDefaultValue("").HasMaxLength(128);
             entity.Property(x => x.IsActive).IsRequired(true);
             // FK Constraints
             entity.HasOne(x => x.User).WithMany(x => x.Customers).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
