@@ -4,54 +4,54 @@ using BlueWaterCruises.Features.Reservations;
 
 namespace BackEnd.UnitTests.Reservations {
 
-    public class ValidateEmail : IEnumerable<object[]> {
+    public class InvalidDate : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return Email_First_Case();
-            yield return Email_Second_Case();
-            yield return Email_Third_Case();
-            yield return Email_Fourth_Case();
-            yield return Email_Can_Not_Be_Longer_Than_Maximum();
+            yield return Date_Can_Not_Be_Empty();
+            yield return Date_Can_Not_Be_Null();
+            yield return Date_Can_Not_Be_Longer_Than_Maximum();
+            yield return Date_Is_Invalid_When_Year_Is_Not_Leap();
+            yield return Date_Is_Invalid_When_Not_Greater_Than_Today();
         }
 
-        private static object[] Email_First_Case() {
+        private static object[] Date_Can_Not_Be_Empty() {
             return new object[] {
                 new ReservationWriteResource {
-                    Email = "ThisIsNotAnEmail"
+                    Date = ""
                 }
             };
         }
 
-        private static object[] Email_Second_Case() {
+        private static object[] Date_Can_Not_Be_Null() {
             return new object[] {
                 new ReservationWriteResource {
-                    Email = "ThisIsNotAnEmail@SomeServer."
+                    Date = null
                 }
             };
         }
 
-        private static object[] Email_Third_Case() {
+        private static object[] Date_Can_Not_Be_Longer_Than_Maximum() {
             return new object[] {
                 new ReservationWriteResource {
-                    Email = "ThisIsNotAnEmail@SomeServer@"
+                    Date = Helpers.CreateRandomString(11)
                 }
             };
         }
 
-        private static object[] Email_Fourth_Case() {
+        private static object[] Date_Is_Invalid_When_Year_Is_Not_Leap() {
             return new object[] {
                 new ReservationWriteResource {
-                    Email = "ThisIsNotAnEmail@SomeServer@.com."
+                    Date = "2021-02-29"
                 }
             };
         }
 
-        private static object[] Email_Can_Not_Be_Longer_Than_Maximum() {
+        private static object[] Date_Is_Invalid_When_Not_Greater_Than_Today() {
             return new object[] {
                 new ReservationWriteResource {
-                    Email = Helpers.CreateRandomString(129)
+                    Date = "2021-12-01"
                 }
             };
         }

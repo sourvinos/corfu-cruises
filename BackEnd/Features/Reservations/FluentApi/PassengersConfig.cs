@@ -1,14 +1,13 @@
-using BlueWaterCruises.Features.Reservations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlueWaterCruises.FluentApi {
+namespace BlueWaterCruises.Features.Reservations {
 
     internal class PassengersConfig : IEntityTypeConfiguration<Passenger> {
 
         public void Configure(EntityTypeBuilder<Passenger> entity) {
             // PK
-            entity.Property(x => x.ReservationId).HasColumnType("varchar").HasMaxLength(36).IsRequired(true);
+            entity.Property(x => x.ReservationId).IsFixedLength().HasMaxLength(36).IsRequired(true);
             // FKs
             entity.Property(x => x.GenderId).IsRequired(true);
             entity.Property(x => x.NationalityId).IsRequired(true);

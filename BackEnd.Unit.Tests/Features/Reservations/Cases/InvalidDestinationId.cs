@@ -4,7 +4,7 @@ using BlueWaterCruises.Features.Reservations;
 
 namespace BackEnd.UnitTests.Reservations {
 
-    public class ValidateDestinationId : IEnumerable<object[]> {
+    public class InvalidDestinationId : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

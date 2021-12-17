@@ -4,18 +4,18 @@ using BlueWaterCruises.Features.Reservations;
 
 namespace BackEnd.UnitTests.Reservations {
 
-    public class ValidateRemarks : IEnumerable<object[]> {
+    public class InvalidPickupPointId : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return Remarks_Can_Not_Be_Longer_Than_Maximum();
+            yield return PickupPointId_Can_Not_Be_Zero();
         }
 
-        private static object[] Remarks_Can_Not_Be_Longer_Than_Maximum() {
+        private static object[] PickupPointId_Can_Not_Be_Zero() {
             return new object[] {
                 new ReservationWriteResource {
-                    Remarks = Helpers.CreateRandomString(129)
+                    PickupPointId = 0
                 }
             };
         }
