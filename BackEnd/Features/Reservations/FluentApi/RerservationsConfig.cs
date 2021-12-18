@@ -17,7 +17,7 @@ namespace BlueWaterCruises.Features.Reservations {
             entity.Property(x => x.ShipId).IsRequired(true);
             entity.Property(x => x.UserId).IsRequired(true);
             // Fields
-            entity.Property(x => x.Date).HasColumnType("date").HasMaxLength(10).IsRequired(true);
+            entity.Property(x => x.Date).HasColumnType("date").IsRequired(true);
             entity.Property(x => x.TicketNo).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.Adults).HasDefaultValue(0).IsRequired(true);
             entity.Property(x => x.Kids).HasDefaultValue(0).IsRequired(true);

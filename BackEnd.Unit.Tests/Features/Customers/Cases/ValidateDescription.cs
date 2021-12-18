@@ -33,7 +33,7 @@ namespace BackEnd.UnitTests.Customers {
         private static object[] Description_Can_Not_Be_Longer_Than_Maximum() {
             return new object[] {
                 new CustomerWriteResource {
-                    Description = Helpers.CreateRandomString(129)
+                    Description = Helpers.GetLongString()
                 }
             };
         }

@@ -15,7 +15,7 @@ namespace BackEnd.UnitTests.Customers {
         private static object[] PersonInCharge_Can_Not_Be_Longer_Than_Maximum() {
             return new object[] {
                 new CustomerWriteResource {
-                    PersonInCharge = Helpers.CreateRandomString(129)
+                    PersonInCharge = Helpers.GetLongString()
                 }
             };
         }

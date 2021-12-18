@@ -15,7 +15,7 @@ namespace BackEnd.UnitTests.Customers {
         private static object[] Profession_Can_Not_Be_Longer_Than_Maximum() {
             return new object[] {
                 new CustomerWriteResource {
-                    Profession = Helpers.CreateRandomString(129)
+                    Profession = Helpers.GetLongString()
                 }
             };
         }

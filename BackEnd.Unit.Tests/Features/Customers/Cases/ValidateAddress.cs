@@ -15,7 +15,7 @@ namespace BackEnd.UnitTests.Customers {
         private static object[] Address_Can_Not_Be_Longer_Than_Maximum() {
             return new object[] {
                 new CustomerWriteResource {
-                    Address = Helpers.CreateRandomString(129)
+                    Address = Helpers.GetLongString()
                 }
             };
         }

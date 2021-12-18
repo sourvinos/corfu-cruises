@@ -11,8 +11,10 @@ namespace BlueWaterCruises.Features.Reservations {
             // FKs
             RuleFor(x => x.CustomerId).NotEmpty();
             RuleFor(x => x.DestinationId).NotEmpty();
+            RuleFor(x => x.DriverId).NotEmpty();
             RuleFor(x => x.PickupPointId).NotEmpty();
             RuleFor(x => x.PortId).NotEmpty();
+            RuleFor(x => x.ShipId).NotEmpty();
             // Fields
             RuleFor(x => x.Date).Must(BeValidDateAndGreaterThatToday);
             RuleFor(x => x.Email).Must(BeEmptyOrValidEmailAddress).MaximumLength(128);

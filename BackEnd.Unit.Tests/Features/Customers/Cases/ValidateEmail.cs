@@ -51,7 +51,7 @@ namespace BackEnd.UnitTests.Customers {
         private static object[] Email_Can_Not_Be_Longer_Than_Maximum() {
             return new object[] {
                 new CustomerWriteResource {
-                    Email = Helpers.CreateRandomString(129)
+                    Email = Helpers.GetLongString()
                 }
             };
         }

@@ -6,58 +6,62 @@ namespace BackEnd.UnitTests.Reservations {
 
     public class ReservationTests : IClassFixture<AppSettingsFixture> {
 
+        [Fact]
+        public void Invalid_CustomerId() {
+            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.CustomerId, 0);
+        }
+
+        [Fact]
+        public void Invalid_DestinationId() {
+            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.DestinationId, 0);
+        }
+
+        [Fact]
+        public void Invalid_DriverId() {
+            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.DriverId, 0);
+        }
+
+        [Fact]
+        public void Invalid_PickupPointId() {
+            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.PickupPointId, 0);
+        }
+
+        [Fact]
+        public void Invalid_PortId() {
+            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.PortId, 0);
+        }
+
+        [Fact]
+        public void Invalid_ShipId() {
+            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.ShipId, 0);
+        }
+
         [Theory]
         [ClassData(typeof(InvalidDate))]
-        public void Invalid_Date(ReservationWriteResource record) {
-            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.Date, record.Date);
-        }
-
-        [Theory]
-        [ClassData(typeof(InvalidEmail))]
-        public void Invalid_Email(ReservationWriteResource record) {
-            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.Email, record.Email);
-        }
-
-        [Theory]
-        [ClassData(typeof(InvalidPhones))]
-        public void Invalid_Phones(ReservationWriteResource record) {
-            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.Phones, record.Phones);
-        }
-
-        [Theory]
-        [ClassData(typeof(InvalidRemarks))]
-        public void Invalid_Remarks(ReservationWriteResource record) {
-            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.Remarks, record.Remarks);
+        public void Invalid_Date(string date) {
+            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.Date, date);
         }
 
         [Theory]
         [ClassData(typeof(InvalidTicketNo))]
-        public void Invalid_TicketNo(ReservationWriteResource record) {
-            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.TicketNo, record.TicketNo);
+        public void Invalid_TicketNo(string ticketNo) {
+            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.TicketNo, ticketNo);
         }
 
         [Theory]
-        [ClassData(typeof(InvalidCustomerId))]
-        public void Invalid_CustomerId(ReservationWriteResource record) {
-            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.CustomerId, record.CustomerId);
+        [ClassData(typeof(InvalidEmail))]
+        public void Invalid_Email(string email) {
+            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.Email, email);
         }
 
-        [Theory]
-        [ClassData(typeof(InvalidDestinationId))]
-        public void Invalid_DestinationId(ReservationWriteResource record) {
-            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.DestinationId, record.DestinationId);
+        [Fact]
+        public void Invalid_Phones() {
+            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.Phones, Helpers.GetLongString());
         }
 
-        [Theory]
-        [ClassData(typeof(InvalidPickupPointId))]
-        public void Invalid_PickupPointId(ReservationWriteResource record) {
-            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.PickupPointId, record.PickupPointId);
-        }
-
-        [Theory]
-        [ClassData(typeof(InvalidPortId))]
-        public void Invalid_PortId(ReservationWriteResource record) {
-            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.PortId, record.PortId);
+        [Fact]
+        public void Invalid_Remarks() {
+            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.Remarks, Helpers.GetLongString());
         }
 
     }

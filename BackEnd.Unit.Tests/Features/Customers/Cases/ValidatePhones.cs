@@ -15,7 +15,7 @@ namespace BackEnd.UnitTests.Customers {
         private static object[] Phones_Can_Not_Be_Longer_Than_Maximum() {
             return new object[] {
                 new CustomerWriteResource {
-                    Phones = Helpers.CreateRandomString(129)
+                    Phones = Helpers.GetLongString()
                 }
             };
         }

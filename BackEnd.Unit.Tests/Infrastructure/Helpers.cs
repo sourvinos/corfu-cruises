@@ -1,14 +1,9 @@
-using System;
-using System.Linq;
-
 namespace BackEnd.UnitTests {
 
     public static class Helpers {
 
-        private static readonly Random _random = new();
-
-        public static string CreateRandomString(int length) {
-            return new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", length).Select(s => s[_random.Next(s.Length)]).ToArray());
+        public static string GetLongString() {
+            return "YPxZejXuUpNAMHNCeZgVuIRxi5vKRuED1olwgOyLn1Z8UZ8WfSbzYCqotbzTm7i4GcRLMmexYaO5hSHmQKnGTONYXAyqw9n5iUyd6lf924Y6NWasIuJWCzAv7kaG6cOa7";
         }
 
     }
