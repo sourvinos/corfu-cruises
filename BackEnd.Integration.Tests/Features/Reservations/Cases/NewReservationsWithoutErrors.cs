@@ -36,20 +36,6 @@ namespace BackEnd.IntegrationTests.Reservations {
             };
         }
 
-        private static object[] Simple_Users_Can_Create_Reservations() {
-            return new object[] {
-                new TestReservation {
-                    FeatureUrl = "/reservations/",
-                    Date = "2021-10-01",
-                    DestinationId = 1,
-                    CustomerId = 1,
-                    PortId = 1,
-                    Adults = 3,
-                    TicketNo = "xxxx"
-                }
-            };
-        }
-
     }
 
 }

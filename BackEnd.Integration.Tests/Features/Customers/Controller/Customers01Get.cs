@@ -53,7 +53,7 @@ namespace BackEnd.IntegrationTests.Customers {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, _url, loginResponse.UserId);
+            var request = Helpers.CreateRequest(_baseUrl, _url);
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
@@ -67,7 +67,7 @@ namespace BackEnd.IntegrationTests.Customers {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, _url, loginResponse.UserId);
+            var request = Helpers.CreateRequest(_baseUrl, _url);
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             var records = JsonSerializer.Deserialize<List<CustomerListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });

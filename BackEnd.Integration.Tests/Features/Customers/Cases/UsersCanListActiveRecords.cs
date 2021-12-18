@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BackEnd.IntegrationTests.Customers {
 
-    public class UsersCanListActiveRecords : IEnumerable<object[]> {
+    public class UsersCanGetActiveForDropdown : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

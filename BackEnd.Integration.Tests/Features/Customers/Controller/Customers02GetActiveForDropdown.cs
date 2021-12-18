@@ -10,7 +10,7 @@ using Xunit;
 
 namespace BackEnd.IntegrationTests.Customers {
 
-    public class Customers02GetActive : IClassFixture<AppSettingsFixture> {
+    public class Customers02GetActiveForDropdown : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -22,7 +22,7 @@ namespace BackEnd.IntegrationTests.Customers {
 
         #endregion
 
-        public Customers02GetActive(AppSettingsFixture appsettings) {
+        public Customers02GetActiveForDropdown(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
@@ -49,12 +49,12 @@ namespace BackEnd.IntegrationTests.Customers {
         }
 
         [Theory]
-        [ClassData(typeof(UsersCanListActiveRecords))]
-        public async Task Users_Can_List_Active(Login login) {
+        [ClassData(typeof(UsersCanGetActiveForDropdown))]
+        public async Task Users_Can_Get_Active_For_Dropdown(Login login) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, _url, loginResponse.UserId);
+            var request = Helpers.CreateRequest(_baseUrl, _url);
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });

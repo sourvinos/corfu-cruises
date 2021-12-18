@@ -15,9 +15,6 @@ namespace BackEnd.IntegrationTests.Customers {
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _baseUrl;
-        private readonly string _nonExistentUrl = "/customers/999";
-        private readonly string _urlInUse = "/customers/1";
-        private readonly string _urlNotInUse = "/customers/4";
 
         #endregion
 
@@ -30,7 +27,7 @@ namespace BackEnd.IntegrationTests.Customers {
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _urlNotInUse);
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/customers/1");
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -41,7 +38,7 @@ namespace BackEnd.IntegrationTests.Customers {
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _urlNotInUse);
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/customers/1");
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -51,7 +48,7 @@ namespace BackEnd.IntegrationTests.Customers {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, _nonExistentUrl, loginResponse.UserId);
+            var request = Helpers.CreateRequest(_baseUrl, "/customers/99");
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
@@ -66,7 +63,7 @@ namespace BackEnd.IntegrationTests.Customers {
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _urlNotInUse);
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/customers/1");
             // assert
             Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
             // cleanup
@@ -79,7 +76,7 @@ namespace BackEnd.IntegrationTests.Customers {
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _urlInUse);
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/customers/1");
             // assert
             Assert.Equal((HttpStatusCode)491, actionResponse.StatusCode);
             // cleanup
@@ -92,7 +89,7 @@ namespace BackEnd.IntegrationTests.Customers {
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _urlNotInUse);
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/customers/4");
             // assert
             Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup
