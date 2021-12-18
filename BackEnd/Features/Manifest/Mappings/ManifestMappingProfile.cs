@@ -47,7 +47,7 @@ namespace BlueWaterCruises.Features.Manifest {
                     ReservationId = passenger.ReservationId,
                     Lastname = passenger.Lastname,
                     Firstname = passenger.Firstname,
-                    Birthdate = DateConversions.DateTimeToISOString(passenger.Birthdate),
+                    Birthdate = DateHelpers.DateTimeToISOString(passenger.Birthdate),
                     Remarks = passenger.Remarks,
                     SpecialCare = passenger.SpecialCare,
                     IsCheckedIn = passenger.IsCheckedIn,

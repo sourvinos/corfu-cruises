@@ -13,7 +13,7 @@ namespace BlueWaterCruises.Features.Reservations {
                 .ForMember(x => x.Time, x => x.MapFrom(r => r.PickupPoint.Time));
             // Read reservation
             CreateMap<Reservation, ReservationReadResource>()
-                .ForMember(x => x.Date, x => x.MapFrom(x => DateConversions.DateTimeToISOString(x.Date)))
+                .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Date)))
                 .ForMember(x => x.PickupPoint, x => x.MapFrom(r => new PickupPointWithPortDropdownResource {
                     Id = r.PickupPoint.Id,
                     Description = r.PickupPoint.Description,
@@ -26,7 +26,7 @@ namespace BlueWaterCruises.Features.Reservations {
                 }));
             // Read passenger
             CreateMap<Passenger, PassengerReadResource>()
-                .ForMember(x => x.Birthdate, x => x.MapFrom(x => DateConversions.DateTimeToISOString(x.Birthdate)));
+                .ForMember(x => x.Birthdate, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Birthdate)));
             // Write reservation
             CreateMap<ReservationWriteResource, Reservation>();
             // Write passenger

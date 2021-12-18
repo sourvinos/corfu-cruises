@@ -4,9 +4,13 @@ using System.Text.RegularExpressions;
 
 namespace BlueWaterCruises.Infrastructure.Extensions {
 
-    public static class CustomEmailValidator {
+    public static class EmailHelpers {
 
-        public static bool IsValidEmail(string email) {
+        public static bool BeEmptyOrValidEmailAddress(string email) {
+            return string.IsNullOrWhiteSpace(email) || IsValidEmail(email);
+        }
+
+        private static bool IsValidEmail(string email) {
             try {
                 email = Regex.Replace(email, "(@)(.+)$", DomainMapper, RegexOptions.None, TimeSpan.FromMilliseconds(200));
                 static string DomainMapper(Match match) {
