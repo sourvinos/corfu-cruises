@@ -11,11 +11,11 @@ namespace BlueWaterCruises.Features.Customers {
             RuleFor(x => x.Address).MaximumLength(128);
             RuleFor(x => x.Phones).MaximumLength(128);
             RuleFor(x => x.PersonInCharge).MaximumLength(128);
-            RuleFor(x => x.Email).Must(EmptyOrValidEmailAddress).MaximumLength(128);
+            RuleFor(x => x.Email).Must(BeEmptyOrValidEmailAddress).MaximumLength(128);
             RuleFor(x => x.IsActive).NotNull();
         }
 
-        private bool EmptyOrValidEmailAddress(string email) {
+        private bool BeEmptyOrValidEmailAddress(string email) {
             return string.IsNullOrWhiteSpace(email) || CustomEmailValidator.IsValidEmail(email);
         }
 
