@@ -15,9 +15,11 @@ namespace BlueWaterCruises.Features.Embarkation {
     public class EmbarkationRepository : Repository<Reservation>, IEmbarkationRepository {
 
         private readonly IMapper mapper;
+        private readonly TestingEnvironment settings;
 
         public EmbarkationRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
             this.mapper = mapper;
+            this.settings = settings.Value;
         }
 
         public async Task<EmbarkationMainResultResource<EmbarkationResource>> Get(string date, int destinationId, int portId, int shipId) {
@@ -51,10 +53,16 @@ namespace BlueWaterCruises.Features.Embarkation {
         }
 
         public bool DoEmbarkation(int id) {
-            Passenger passenger = context.Set<Passenger>().Where(x => x.Id == id).FirstOrDefault();
+            Passenger passenger = context.Passengers.Where(x => x.Id == id).FirstOrDefault();
             if (passenger != null) {
+                using var transaction = context.Database.BeginTransaction();
                 passenger.IsCheckedIn = !passenger.IsCheckedIn;
                 context.SaveChanges();
+                if (settings.IsTesting) {
+                    transaction.Dispose();
+                } else {
+                    transaction.Commit();
+                }
                 return true;
             } else {
                 return false;

@@ -29,10 +29,13 @@ namespace BlueWaterCruises.Features.Embarkation {
         [Authorize(Roles = "admin")]
         public IActionResult DoEmbarkation(int id) {
             try {
-                if (this.repo.DoEmbarkation(id)) {
+                if (repo.DoEmbarkation(id)) {
                     return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
                 } else {
-                    throw new DbUpdateException();
+                    id.LogException(logger, ControllerContext, null, null);
+                    return StatusCode(404, new {
+                        response = ApiMessages.RecordNotFound()
+                    });
                 }
             } catch (DbUpdateException exception) {
                 id.LogException(logger, ControllerContext, null, exception);
