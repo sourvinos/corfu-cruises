@@ -72,6 +72,20 @@ namespace BackEnd.IntegrationTests.Customers {
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
+        [Fact]
+        public async Task Admins_Can_Get_By_Id() {
+            // arrange
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            var request = Helpers.CreateRequest(_baseUrl, "/customers/1");
+            // act
+            var actionResponse = await _httpClient.SendAsync(request);
+            // assert
+            Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
+            // cleanup
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
+        }
+
     }
 
 }
