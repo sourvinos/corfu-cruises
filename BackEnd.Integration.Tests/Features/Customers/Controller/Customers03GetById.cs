@@ -45,6 +45,18 @@ namespace BackEnd.IntegrationTests.Customers {
         }
 
         [Fact]
+        public async Task Unauthorized_Inactive_Admins() {
+            // arrange
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("nikoleta", "8dd193508e05"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            var request = Helpers.CreateRequest(_baseUrl, "/customers/1");
+            // act
+            var actionResponse = await _httpClient.SendAsync(request);
+            // assert
+            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+        }
+
+        [Fact]
         public async Task Not_Found_When_Not_Exists() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
