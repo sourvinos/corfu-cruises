@@ -10,7 +10,7 @@ using BlueWaterCruises.Features.Reservations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
-namespace BackEnd.IntegrationTests.Reservations {
+namespace BackEnd.IntegrationTests.Invoicing {
 
     public class Invoicing01Get : IClassFixture<AppSettingsFixture> {
 
