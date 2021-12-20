@@ -51,6 +51,19 @@ namespace BackEnd.IntegrationTests.Customers {
 
         [Theory]
         [ClassData(typeof(ExistingCustomer))]
+        public async Task Unauthorized_Inactive_Admins(TestCustomer record) {
+            // arrange
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("nikoleta", "8dd193508e05"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            record.UserId = loginResponse.UserId;
+            // act
+            var actionResponse = await _httpClient.PutAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // assert
+            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+        }
+
+        [Theory]
+        [ClassData(typeof(ExistingCustomer))]
         public async Task Simple_Users_Can_Not_Update(TestCustomer record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
