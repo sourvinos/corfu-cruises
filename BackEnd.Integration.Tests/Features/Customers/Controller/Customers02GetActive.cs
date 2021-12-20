@@ -10,7 +10,7 @@ using Xunit;
 
 namespace BackEnd.IntegrationTests.Customers {
 
-    public class Customers02GetActiveForDropdown : IClassFixture<AppSettingsFixture> {
+    public class Customers02GetActive : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -22,7 +22,7 @@ namespace BackEnd.IntegrationTests.Customers {
 
         #endregion
 
-        public Customers02GetActiveForDropdown(AppSettingsFixture appsettings) {
+        public Customers02GetActive(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
@@ -49,7 +49,20 @@ namespace BackEnd.IntegrationTests.Customers {
         }
 
         [Theory]
-        [ClassData(typeof(UsersCanGetActiveForDropdown))]
+        [ClassData(typeof(InactiveUsersCanNotLogin))]
+        public async Task Unauthorized_Inactive_Users(Login login) {
+            // arrange
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            var request = Helpers.CreateRequest(_baseUrl, _url);
+            // act
+            var actionResponse = await _httpClient.SendAsync(request);
+            // assert
+            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+        }
+
+        [Theory]
+        [ClassData(typeof(ActiveUsersCanLogin))]
         public async Task Users_Can_Get_Active_For_Dropdown(Login login) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));

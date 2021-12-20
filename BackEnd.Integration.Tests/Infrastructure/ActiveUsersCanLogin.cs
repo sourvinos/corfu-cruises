@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace BackEnd.IntegrationTests.Customers {
+namespace BackEnd.IntegrationTests {
 
-    public class UsersCanGetActiveForDropdown : IEnumerable<object[]> {
+    public class ActiveUsersCanLogin : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return Simple_Users_Can_List_Active_Records();
-            yield return Admins_Can_List_Active_Records();
+            yield return Active_Simple_Users_Can_Login();
+            yield return Active_Admins_Can_Login();
         }
 
-        private static object[] Simple_Users_Can_List_Active_Records() {
+        private static object[] Active_Simple_Users_Can_Login() {
             return new object[] {
                 new Login {
                     Username = "matoula",
@@ -21,7 +21,7 @@ namespace BackEnd.IntegrationTests.Customers {
             };
         }
 
-        private static object[] Admins_Can_List_Active_Records() {
+        private static object[] Active_Admins_Can_Login() {
             return new object[] {
                 new Login {
                     Username = "john",
