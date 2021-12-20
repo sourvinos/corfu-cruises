@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using BlueWaterCruises.Features.Reservations;
 using BlueWaterCruises.Infrastructure.Classes;
+using BlueWaterCruises.Infrastructure.Extensions;
 using BlueWaterCruises.Infrastructure.Implementations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -32,7 +33,7 @@ namespace BlueWaterCruises.Features.Invoicing {
                 .AsEnumerable()
                 .GroupBy(x => new { x.Date, x.Customer })
                 .Select(x => new InvoiceIntermediateViewModel {
-                    Date = Convert.ToDateTime(x.Key.Date),
+                    Date = DateHelpers.DateTimeToISOString(x.Key.Date),
                     Customer = x.Key.Customer,
                     Reservations = x.ToList(),
                     IsTransferGroup = GroupReservationsByIsTransfer(x.ToList()),

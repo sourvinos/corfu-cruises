@@ -7,7 +7,7 @@ namespace BlueWaterCruises.Features.Invoicing {
 
     public class InvoiceIntermediateViewModel {
 
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public Customer Customer { get; set; }
 
         public List<Reservation> Reservations { get; set; }
