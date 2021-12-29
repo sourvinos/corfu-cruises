@@ -10,7 +10,6 @@ namespace BlueWaterCruises.Features.Routes {
             RuleFor(x => x.Description).NotEmpty().MaximumLength(128);
             RuleFor(x => x.IsTransfer).NotNull();
             RuleFor(x => x.IsActive).NotNull();
-            RuleFor(x => x.UserId).NotNull();
         }
 
     }

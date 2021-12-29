@@ -34,12 +34,6 @@ namespace BlueWaterCruises.Features.Nationalities {
             return mapper.Map<IEnumerable<Nationality>, IEnumerable<SimpleResource>>(records);
         }
 
-        public new async Task<NationalityReadResource> GetById(int id) {
-            Nationality record = await context.Nationalities
-                .SingleOrDefaultAsync(m => m.Id == id);
-            return mapper.Map<Nationality, NationalityReadResource>(record);
-        }
-
         public async Task<Nationality> GetByIdToDelete(int id) {
             return await context.Nationalities
                 .SingleOrDefaultAsync(m => m.Id == id);

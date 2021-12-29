@@ -34,12 +34,6 @@ namespace BlueWaterCruises.Features.Occupants {
             return mapper.Map<IEnumerable<Occupant>, IEnumerable<SimpleResource>>(records);
         }
 
-        public new async Task<OccupantReadResource> GetById(int id) {
-            Occupant record = await context.Occupants
-                .SingleOrDefaultAsync(m => m.Id == id);
-            return mapper.Map<Occupant, OccupantReadResource>(record);
-        }
-
         public async Task<Occupant> GetByIdToDelete(int id) {
             return await context.Occupants
                 .SingleOrDefaultAsync(m => m.Id == id);

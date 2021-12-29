@@ -1,4 +1,4 @@
-using BlueWaterCruises.Infrastructure.Extensions;
+using BlueWaterCruises.Infrastructure.Helpers;
 using FluentValidation;
 
 namespace BlueWaterCruises.Features.Customers {

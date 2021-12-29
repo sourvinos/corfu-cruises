@@ -5,9 +5,9 @@ using BlueWaterCruises.Infrastructure.Classes;
 using BlueWaterCruises.Infrastructure.Email;
 using BlueWaterCruises.Infrastructure.Extensions;
 using BlueWaterCruises.Infrastructure.Identity;
+using BlueWaterCruises.Infrastructure.Middleware;
 using BlueWaterCruises.Infrastructure.SeedData;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -54,6 +54,8 @@ namespace BlueWaterCruises {
             services.AddAntiforgery(options => { options.Cookie.Name = "_af"; options.Cookie.HttpOnly = true; options.Cookie.SecurePolicy = CookieSecurePolicy.Always; options.HeaderName = "X-XSRF-TOKEN"; });
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<AppDbContext>();
+            services.AddScoped<ModelValidationAttribute>();
+            // services.AddControllersWithViews(options => options.Filters.Add<HandleException>())
             services.AddControllersWithViews()
                     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                     .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
@@ -67,7 +69,7 @@ namespace BlueWaterCruises {
         public void ConfigureDevelopment(IApplicationBuilder app) {
             app.UseDeveloperExceptionPage();
             Configure(app);
-            app.UseEndpoints(endpoints => endpoints.MapControllers().WithMetadata(new AllowAnonymousAttribute()));
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
 
         public void ConfigureTesting(IApplicationBuilder app, RoleManager<IdentityRole> roleManager, UserManager<UserExtended> userManager, AppDbContext context) {
@@ -87,6 +89,7 @@ namespace BlueWaterCruises {
             app.UseDefaultFiles();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseRouting();
             app.UseCors();
             app.UseAuthentication();

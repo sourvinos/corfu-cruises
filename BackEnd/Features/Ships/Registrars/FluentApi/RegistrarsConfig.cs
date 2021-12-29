@@ -13,10 +13,10 @@ namespace BlueWaterCruises.Features.Ships.Registrars {
             entity.Property(x => x.UserId).HasMaxLength(36).IsRequired(true);
             // Fields
             entity.Property(x => x.Fullname).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.Phones).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.Email).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.Fax).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.Address).HasMaxLength(128).IsRequired(true);
+            entity.Property(x => x.Phones).HasDefaultValue("").HasMaxLength(128);
+            entity.Property(x => x.Email).HasDefaultValue("").HasMaxLength(128);
+            entity.Property(x => x.Fax).HasDefaultValue("").HasMaxLength(128);
+            entity.Property(x => x.Address).HasDefaultValue("").HasMaxLength(128);
             entity.Property(x => x.IsPrimary).IsRequired(true);
             entity.Property(x => x.IsActive).IsRequired(true);
             // FK Constraints

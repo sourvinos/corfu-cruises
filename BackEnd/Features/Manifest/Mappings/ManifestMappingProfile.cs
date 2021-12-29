@@ -1,6 +1,6 @@
 using System.Linq;
 using AutoMapper;
-using BlueWaterCruises.Infrastructure.Extensions;
+using BlueWaterCruises.Infrastructure.Helpers;
 
 namespace BlueWaterCruises.Features.Manifest {
 

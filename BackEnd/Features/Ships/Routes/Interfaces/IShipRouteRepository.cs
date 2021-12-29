@@ -9,7 +9,7 @@ namespace BlueWaterCruises.Features.Ships.Routes {
 
         Task<IEnumerable<ShipRouteListResource>> Get();
         Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
-        new Task<ShipRouteReadResource> GetById(int id);
+        // new Task<ShipRouteReadResource> GetById(int id);
         Task<ShipRoute> GetByIdToDelete(int id);
 
     }

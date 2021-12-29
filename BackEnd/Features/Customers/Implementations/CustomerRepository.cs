@@ -34,12 +34,6 @@ namespace BlueWaterCruises.Features.Customers {
             return mapper.Map<IEnumerable<Customer>, IEnumerable<SimpleResource>>(records);
         }
 
-        public new async Task<CustomerReadResource> GetById(int id) {
-            Customer record = await context.Customers
-                .SingleOrDefaultAsync(m => m.Id == id);
-            return mapper.Map<Customer, CustomerReadResource>(record);
-        }
-
         public async Task<Customer> GetByIdToDelete(int id) {
             return await context.Customers
                 .SingleOrDefaultAsync(m => m.Id == id);

@@ -1,28 +1,30 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using BlueWaterCruises.Infrastructure.Classes;
 using BlueWaterCruises.Infrastructure.Extensions;
-using BlueWaterCruises.Infrastructure.Logging;
+using BlueWaterCruises.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Ships.Owners {
 
     [Route("api/[controller]")]
     public class ShipOwnersController : ControllerBase {
 
+        #region variables
+
         private readonly IShipOwnerRepository repo;
-        private readonly ILogger<ShipOwnersController> logger;
+        private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
 
-        public ShipOwnersController(IShipOwnerRepository repo, ILogger<ShipOwnersController> logger, IMapper mapper) {
-            this.repo = repo;
-            this.logger = logger;
+        #endregion
+
+        public ShipOwnersController(IShipOwnerRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
+            this.httpContext = httpContext;
             this.mapper = mapper;
+            this.repo = repo;
         }
 
         [HttpGet]
@@ -39,82 +41,42 @@ namespace BlueWaterCruises.Features.Ships.Owners {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IActionResult> GetShipOwner(int id) {
-            ShipOwnerReadResource record = await repo.GetById(id);
-            if (record == null) {
-                id.LogException(logger, ControllerContext, null, null);
-                return StatusCode(404, new {
-                    response = ApiMessages.RecordNotFound()
-                });
-            }
-            return StatusCode(200, record);
+        public async Task<ShipOwnerReadResource> GetShipOwner(int id) {
+            return mapper.Map<ShipOwner, ShipOwnerReadResource>(await repo.GetById(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
+        [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult PostShipOwner([FromBody] ShipOwnerWriteResource record) {
-            if (ModelState.IsValid) {
-                try {
-                    repo.Create(mapper.Map<ShipOwnerWriteResource, ShipOwner>(record));
-                    return StatusCode(200, new {
-                        response = ApiMessages.RecordCreated()
-                    });
-                } catch (Exception exception) {
-                    FileLoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
-                    return StatusCode(490, new {
-                        response = ApiMessages.RecordNotSaved()
-                    });
-                }
-            }
-            FileLoggerExtensions.LogException(0, logger, ControllerContext, record, null);
-            return StatusCode(400, new {
-                response = ApiMessages.InvalidModel()
+            repo.Create(mapper.Map<ShipOwnerWriteResource, ShipOwner>(AttachUserIdToRecord(record)));
+            return StatusCode(200, new {
+                response = ApiMessages.RecordCreated()
             });
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public IActionResult PutShipOwner([FromRoute] int id, [FromBody] ShipOwnerWriteResource record) {
-            if (id == record.Id && ModelState.IsValid) {
-                try {
-                    repo.Update(mapper.Map<ShipOwnerWriteResource, ShipOwner>(record));
-                    return StatusCode(200, new {
-                        response = ApiMessages.RecordUpdated()
-                    });
-                } catch (DbUpdateException exception) {
-                    FileLoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
-                    return StatusCode(490, new {
-                        response = ApiMessages.RecordNotSaved()
-                    });
-                }
-            }
-            FileLoggerExtensions.LogException(0, logger, ControllerContext, record, null);
-            return StatusCode(400, new {
-                response = ApiMessages.InvalidModel()
+        [ServiceFilter(typeof(ModelValidationAttribute))]
+        public IActionResult PutShipOwner([FromBody] ShipOwnerWriteResource record) {
+            repo.Update(mapper.Map<ShipOwnerWriteResource, ShipOwner>(AttachUserIdToRecord(record)));
+            return StatusCode(200, new {
+                response = ApiMessages.RecordUpdated()
             });
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteShipOwner([FromRoute] int id) {
-            ShipOwner record = await repo.GetByIdToDelete(id);
-            if (record == null) {
-                id.LogException(logger, ControllerContext, null, null);
-                return StatusCode(404, new {
-                    response = ApiMessages.RecordNotFound()
-                });
-            }
-            try {
-                repo.Delete(record);
-                return StatusCode(200, new {
-                    response = ApiMessages.RecordDeleted()
-                });
-            } catch (DbUpdateException exception) {
-                FileLoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
-                return StatusCode(491, new {
-                    response = ApiMessages.RecordInUse()
-                });
-            }
+            repo.Delete(await repo.GetByIdToDelete(id));
+            return StatusCode(200, new {
+                response = ApiMessages.RecordDeleted()
+            });
+        }
+
+        private ShipOwnerWriteResource AttachUserIdToRecord(ShipOwnerWriteResource record) {
+            record.UserId = Identity.GetConnectedUserId(httpContext);
+            return record;
         }
 
     }

@@ -34,12 +34,6 @@ namespace BlueWaterCruises.Features.Genders {
             return mapper.Map<IEnumerable<Gender>, IEnumerable<SimpleResource>>(records);
         }
 
-        public new async Task<GenderReadResource> GetById(int id) {
-            Gender record = await context.Genders
-                .SingleOrDefaultAsync(x => x.Id == id);
-            return mapper.Map<Gender, GenderReadResource>(record);
-        }
-
         public async Task<Gender> GetByIdToDelete(int id) {
             return await context.Genders
                 .SingleOrDefaultAsync(x => x.Id == id);

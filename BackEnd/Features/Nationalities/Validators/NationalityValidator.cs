@@ -8,7 +8,6 @@ namespace BlueWaterCruises.Features.Nationalities {
             RuleFor(x => x.Code).NotEmpty().MaximumLength(10);
             RuleFor(x => x.Description).NotEmpty().MaximumLength(128);
             RuleFor(x => x.IsActive).NotNull();
-            RuleFor(x => x.UserId).NotNull();
         }
 
     }

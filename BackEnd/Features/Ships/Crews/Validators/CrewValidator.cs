@@ -12,7 +12,6 @@ namespace BlueWaterCruises.Features.Ships.Crews {
             RuleFor(x => x.Firstname).NotEmpty().MaximumLength(128);
             RuleFor(x => x.Birthdate).NotEmpty();
             RuleFor(x => x.IsActive).NotNull();
-            RuleFor(x => x.UserId).NotNull();
         }
 
     }

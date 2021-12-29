@@ -1,6 +1,8 @@
-﻿namespace BlueWaterCruises.Features.Drivers {
+﻿using BlueWaterCruises.Infrastructure.Interfaces;
 
-    public class DriverWriteResource {
+namespace BlueWaterCruises.Features.Drivers {
+
+    public class DriverWriteResource : IEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }

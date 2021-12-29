@@ -19,10 +19,10 @@ namespace BackEnd.IntegrationTests.Invoicing {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly string _adminId = "e7e014fd-5608-4936-866e-ec11fc8c16da";
         private readonly string _baseUrl;
-        private readonly string _simpleUserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828";
         private readonly string _url = "/invoicing/date/2021-10-01/customer/all/destination/all/vessel/all";
+        private readonly string _adminId = "e7e014fd-5608-4936-866e-ec11fc8c16da";
+        private readonly string _simpleUserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828";
 
         #endregion
 

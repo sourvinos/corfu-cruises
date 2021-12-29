@@ -34,12 +34,6 @@ namespace BlueWaterCruises.Features.Drivers {
             return mapper.Map<IEnumerable<Driver>, IEnumerable<SimpleResource>>(records);
         }
 
-        public new async Task<DriverReadResource> GetById(int id) {
-            Driver record = await context.Drivers
-                .SingleOrDefaultAsync(x => x.Id == id);
-            return mapper.Map<Driver, DriverReadResource>(record);
-        }
-
         public async Task<Driver> GetByIdToDelete(int id) {
             return await context.Drivers
                 .SingleOrDefaultAsync(x => x.Id == id);

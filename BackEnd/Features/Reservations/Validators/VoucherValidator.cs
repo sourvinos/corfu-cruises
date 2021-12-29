@@ -1,5 +1,5 @@
-using System.Text.RegularExpressions;
 using BlueWaterCruises.Features.Vouchers;
+using BlueWaterCruises.Infrastructure.Helpers;
 using FluentValidation;
 
 namespace BlueWaterCruises.Features.Reservations {
@@ -13,7 +13,7 @@ namespace BlueWaterCruises.Features.Reservations {
             RuleFor(x => x.CustomerDescription).NotNull().MaximumLength(128);
             RuleFor(x => x.PickupPointDescription).NotNull().MaximumLength(128);
             RuleFor(x => x.PickupPointExactPoint).NotNull().MaximumLength(128);
-            RuleFor(x => x.PickupPointTime).Must(IsTime);
+            RuleFor(x => x.PickupPointTime).Must(TimeValidator.IsTime);
             RuleFor(x => x.DriverDescription).NotNull().MaximumLength(128);
             RuleFor(x => x.Remarks).MaximumLength(128);
             RuleFor(x => x.Email).MaximumLength(128);
@@ -25,10 +25,6 @@ namespace BlueWaterCruises.Features.Reservations {
             RuleFor(x => x.Kids).NotEmpty();
             RuleFor(x => x.Free).NotEmpty();
             RuleFor(x => x.TotalPersons).NotEmpty();
-        }
-
-        private bool IsTime(string time) {
-            return new Regex("^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$").IsMatch(time);
         }
 
     }

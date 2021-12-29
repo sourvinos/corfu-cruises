@@ -1,6 +1,8 @@
-﻿namespace BlueWaterCruises.Features.Ships.Owners {
+﻿using BlueWaterCruises.Infrastructure.Interfaces;
 
-    public class ShipOwnerWriteResource {
+namespace BlueWaterCruises.Features.Ships.Owners {
+
+    public class ShipOwnerWriteResource : IEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using BlueWaterCruises.Infrastructure.Extensions;
+using BlueWaterCruises.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,11 +26,10 @@ namespace BlueWaterCruises.Infrastructure.Logging {
                 foreach (var record in records) {
                     LogDatabaseError(record, logger, context, exception);
                 }
-                return;
             }
         }
 
-        public static void LogException(this int id, ILogger logger, ControllerContext context, Object record, Exception exception) {
+        public static void LogExceptions(this int id, ILogger logger, ControllerContext context, Object record, Exception exception) {
             if (record == null) {
                 LogRecordNotFound(id, logger, context);
                 return;
@@ -54,16 +53,10 @@ namespace BlueWaterCruises.Infrastructure.Logging {
 
         }
 
-        public static void LogException(this string id, ILogger logger, ControllerContext context, Object record, Exception exception) {
-            if (record == null) {
-                LogRecordNotFound(id, logger, context);
-                return;
-            }
+        public static void LogException(this ILogger logger, ControllerContext context, Object record, Exception exception) {
             if (exception == null) {
                 LogInvalidModel(record, logger, context);
-                return;
-            }
-            if (exception is DbUpdateException) {
+            } else {
                 LogDatabaseError(record, logger, context, exception);
             }
         }
@@ -88,14 +81,17 @@ namespace BlueWaterCruises.Infrastructure.Logging {
         }
 
         private static string GetObjectProperties(Object myObject) {
-            var sb = new StringBuilder();
-            PropertyInfo[] properties = myObject.GetType().GetProperties();
-            foreach (PropertyInfo p in properties) {
-                sb.AppendLine();
-                sb.Append('\t');
-                sb.AppendFormat(" - {0}: {1}", p.Name, p.GetValue(myObject, null));
+            if (myObject != null) {
+                var sb = new StringBuilder();
+                PropertyInfo[] properties = myObject.GetType().GetProperties();
+                foreach (PropertyInfo p in properties) {
+                    sb.AppendLine();
+                    sb.Append('\t');
+                    sb.AppendFormat(" - {0}: {1}", p.Name, p.GetValue(myObject, null));
+                }
+                return sb.ToString();
             }
-            return sb.ToString();
+            return "";
         }
 
         private static String GetDatabaseError(Exception exception) {
@@ -156,9 +152,9 @@ namespace BlueWaterCruises.Infrastructure.Logging {
                 GetObjectProperties(record));
         }
 
-        private static void LogRecordNotFound(string id, ILogger logger, ControllerContext context) {
-            logger.LogError("{caller} {error}", GetControllerAndActionName(context), GetSimpleDescription($"Id {id} not found"));
-        }
+        // private static void LogRecordNotFound(string id, ILogger logger, ControllerContext context) {
+        //     logger.LogError("{caller} {error}", GetControllerAndActionName(context), GetSimpleDescription($"Id {id} not found"));
+        // }
 
         private static void LogRecordNotFound(int id, ILogger logger, ControllerContext context) {
             logger.LogError("{caller} {error}", GetControllerAndActionName(context), GetSimpleDescription($"Id {id} not found"));

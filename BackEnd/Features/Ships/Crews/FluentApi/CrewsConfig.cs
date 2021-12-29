@@ -16,7 +16,7 @@ namespace BlueWaterCruises.Features.Ships.Crews {
             // Fields
             entity.Property(x => x.Lastname).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.Firstname).HasMaxLength(128).IsRequired(true);
-            entity.Property(p => p.Birthdate).HasMaxLength(10);
+            entity.Property(p => p.Birthdate);
             entity.Property(x => x.IsActive).IsRequired(true);
             // FK Constraints
             entity.HasOne(x => x.Ship).WithMany(x => x.Crews).HasForeignKey(x => x.ShipId).OnDelete(DeleteBehavior.Restrict);

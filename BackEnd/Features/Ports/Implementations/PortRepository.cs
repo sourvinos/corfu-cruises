@@ -34,12 +34,6 @@ namespace BlueWaterCruises.Features.Ports {
             return mapper.Map<IEnumerable<Port>, IEnumerable<SimpleResource>>(records);
         }
 
-        public new async Task<PortReadResource> GetById(int id) {
-            Port record = await context.Ports
-                .SingleOrDefaultAsync(m => m.Id == id);
-            return mapper.Map<Port, PortReadResource>(record);
-        }
-
         public async Task<Port> GetByIdToDelete(int id) {
             return await context.Ports
                 .SingleOrDefaultAsync(m => m.Id == id);

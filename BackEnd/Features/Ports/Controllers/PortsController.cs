@@ -1,27 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using BlueWaterCruises.Infrastructure.Classes;
 using BlueWaterCruises.Infrastructure.Extensions;
-using BlueWaterCruises.Infrastructure.Logging;
+using BlueWaterCruises.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Ports {
 
     [Route("api/[controller]")]
     public class PortsController : ControllerBase {
 
+        #region variables
+
         private readonly IPortRepository repo;
-        private readonly ILogger<PortsController> logger;
+        private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
 
-        public PortsController(IPortRepository repo, ILogger<PortsController> logger, IMapper mapper) {
+        #endregion
+
+        public PortsController(IPortRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
+            this.httpContext = httpContext;
             this.repo = repo;
-            this.logger = logger;
             this.mapper = mapper;
         }
 
@@ -39,82 +41,42 @@ namespace BlueWaterCruises.Features.Ports {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IActionResult> GetPort(int id) {
-            PortReadResource record = await repo.GetById(id);
-            if (record == null) {
-                id.LogException(logger, ControllerContext, null, null);
-                return StatusCode(404, new {
-                    response = ApiMessages.RecordNotFound()
-                });
-            }
-            return StatusCode(200, record);
+        public async Task<PortReadResource> GetPort(int id) {
+            return mapper.Map<Port, PortReadResource>(await repo.GetById(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
+        [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult PostPort([FromBody] PortWriteResource record) {
-            if (ModelState.IsValid) {
-                try {
-                    repo.Create(mapper.Map<PortWriteResource, Port>(record));
-                    return StatusCode(200, new {
-                        response = ApiMessages.RecordCreated()
-                    });
-                } catch (Exception exception) {
-                    FileLoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
-                    return StatusCode(490, new {
-                        response = ApiMessages.RecordNotSaved()
-                    });
-                }
-            }
-            FileLoggerExtensions.LogException(0, logger, ControllerContext, record, null);
-            return StatusCode(400, new {
-                response = ApiMessages.InvalidModel()
+            repo.Create(mapper.Map<PortWriteResource, Port>(AttachUserIdToRecord(record)));
+            return StatusCode(200, new {
+                response = ApiMessages.RecordCreated()
             });
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public IActionResult PutPort([FromRoute] int id, [FromBody] PortWriteResource record) {
-            if (id == record.Id && ModelState.IsValid) {
-                try {
-                    repo.Update(mapper.Map<PortWriteResource, Port>(record));
-                    return StatusCode(200, new {
-                        response = ApiMessages.RecordUpdated()
-                    });
-                } catch (DbUpdateException exception) {
-                    FileLoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
-                    return StatusCode(490, new {
-                        response = ApiMessages.RecordNotSaved()
-                    });
-                }
-            }
-            FileLoggerExtensions.LogException(0, logger, ControllerContext, record, null);
-            return StatusCode(400, new {
-                response = ApiMessages.InvalidModel()
+        [ServiceFilter(typeof(ModelValidationAttribute))]
+        public IActionResult PutPort([FromBody] PortWriteResource record) {
+            repo.Update(mapper.Map<PortWriteResource, Port>(AttachUserIdToRecord(record)));
+            return StatusCode(200, new {
+                response = ApiMessages.RecordUpdated()
             });
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeletePort([FromRoute] int id) {
-            Port record = await repo.GetByIdToDelete(id);
-            if (record == null) {
-                id.LogException(logger, ControllerContext, null, null);
-                return StatusCode(404, new {
-                    response = ApiMessages.RecordNotFound()
-                });
-            }
-            try {
-                repo.Delete(record);
-                return StatusCode(200, new {
-                    response = ApiMessages.RecordDeleted()
-                });
-            } catch (DbUpdateException exception) {
-                FileLoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
-                return StatusCode(491, new {
-                    response = ApiMessages.RecordInUse()
-                });
-            }
+            repo.Delete(await repo.GetByIdToDelete(id));
+            return StatusCode(200, new {
+                response = ApiMessages.RecordDeleted()
+            });
+        }
+
+        private PortWriteResource AttachUserIdToRecord(PortWriteResource record) {
+            record.UserId = Identity.GetConnectedUserId(httpContext);
+            return record;
         }
 
     }

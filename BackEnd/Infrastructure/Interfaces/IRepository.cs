@@ -10,7 +10,7 @@ namespace BlueWaterCruises.Infrastructure.Interfaces {
         Task<IEnumerable<T>> Get(Expression<Func<T, bool>> expression);
         Task<IEnumerable<T>> GetActive(Expression<Func<T, bool>> expression);
         Task<T> GetById(int id);
-        T Create(T entity);
+        void Create(T entity);
         void Update(T entity);
         void Delete(T entity);
 

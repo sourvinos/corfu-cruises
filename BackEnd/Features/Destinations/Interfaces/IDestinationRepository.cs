@@ -9,7 +9,6 @@ namespace BlueWaterCruises.Features.Destinations {
 
         Task<IEnumerable<DestinationListResource>> Get();
         Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
-        new Task<DestinationReadResource> GetById(int id);
         Task<Destination> GetByIdToDelete(int id);
 
     }

@@ -3,7 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BlueWaterCruises.Infrastructure.Classes;
+using BlueWaterCruises.Infrastructure.Helpers;
 using BlueWaterCruises.Infrastructure.Implementations;
+using BlueWaterCruises.Infrastructure.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -25,11 +27,25 @@ namespace BlueWaterCruises.Features.Routes {
             return mapper.Map<IEnumerable<Route>, IEnumerable<RouteListResource>>(records);
         }
 
+        public async Task<IEnumerable<RouteWithPortListResource>> GetActiveForDropdown() {
+            List<Route> records = await context.Routes
+                .Include(x => x.Port)
+                .Where(x => x.IsActive)
+                .OrderBy(x => x.Description)
+                .AsNoTracking()
+                .ToListAsync();
+            return mapper.Map<IEnumerable<Route>, IEnumerable<RouteWithPortListResource>>(records);
+        }
+
         public new async Task<RouteReadResource> GetById(int id) {
             Route record = await context.Routes
                 .Include(x => x.Port)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            return mapper.Map<Route, RouteReadResource>(record);
+            if (record != null) {
+                return mapper.Map<Route, RouteReadResource>(record);
+            } else {
+                throw new RecordNotFound(ApiMessages.RecordNotFound());
+            }
         }
 
         public async Task<Route> GetByIdToDelete(int id) {

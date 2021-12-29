@@ -4,8 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using BlueWaterCruises.Infrastructure.Classes;
+using BlueWaterCruises.Infrastructure.Helpers;
 using BlueWaterCruises.Infrastructure.Interfaces;
+using BlueWaterCruises.Infrastructure.Middleware;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Options;
 
 namespace BlueWaterCruises.Infrastructure.Implementations {
@@ -29,45 +32,74 @@ namespace BlueWaterCruises.Infrastructure.Implementations {
         }
 
         public async Task<T> GetById(int id) {
-            return await context.Set<T>().FindAsync(id);
+            var record = await context.Set<T>().FindAsync(id);
+            if (record != null) {
+                return record;
+            } else {
+                throw new RecordNotFound(ApiMessages.RecordNotFound());
+            }
         }
 
-        public T Create(T entity) {
+        public void Create(T entity) {
             using var transaction = context.Database.BeginTransaction();
             context.Add(entity);
             Save();
-            if (settings.IsTesting) {
-                transaction.Dispose();
-            } else {
-                transaction.Commit();
-            }
-            return entity;
+            DisposeOrCommit(transaction);
         }
 
         public void Update(T entity) {
             using var transaction = context.Database.BeginTransaction();
             context.Entry(entity).State = EntityState.Modified;
-            Save();
-            if (settings.IsTesting) {
-                transaction.Dispose();
-            } else {
-                transaction.Commit();
+            try {
+                Save();
+                DisposeOrCommit(transaction);
+            } catch (DbUpdateConcurrencyException exception) {
+                exception.Entries.Single().Reload();
+                DisposeOrCommit(transaction);
+                // context.Entry(entity).State = EntityState.Unchanged;
+                // return false;
+                // context.SaveChanges();
+                // var e = exception.Entries.Single().GetDatabaseValues();
+                // if (e == null) {
+                // throw new InvalidOperationException(ApiMessages.RecordNotFound());
+                // Console.WriteLine("The entity being updated is already deleted by another user...");
+                // } else {
+                // Console.WriteLine("The entity being updated has already been updated by another user...");
             }
+            // DisposeOrCommit(transaction);
+            // return false;
         }
 
+
         public void Delete(T entity) {
-            using var transaction = context.Database.BeginTransaction();
-            context.Remove(entity);
-            Save();
-            if (settings.IsTesting) {
-                transaction.Dispose();
+            if (entity != null) {
+                using var transaction = context.Database.BeginTransaction();
+                try {
+                    RemoveEntity(entity);
+                    Save();
+                    DisposeOrCommit(transaction);
+                } catch (Exception) {
+                    throw new RecordIsInUse(ApiMessages.RecordIsInUse());
+                }
             } else {
-                transaction.Commit();
+                throw new RecordNotFound(ApiMessages.RecordNotFound());
             }
         }
 
         private void Save() {
             context.SaveChanges();
+        }
+
+        private void RemoveEntity(T entity) {
+            context.Remove(entity);
+        }
+
+        private void DisposeOrCommit(IDbContextTransaction transaction) {
+            if (settings.IsTesting) {
+                transaction.Dispose();
+            } else {
+                transaction.Commit();
+            }
         }
 
     }

@@ -136,13 +136,11 @@ export class AccountService {
     }
 
     private setLocalStorage(response: any): void {
-        localStorage.setItem('displayName', response.response.displayName)
-        localStorage.setItem('expiration', response.response.expiration)
-        localStorage.setItem('jwt', response.response.token)
+        localStorage.setItem('displayName', response.displayname)
+        localStorage.setItem('expiration', response.expiration)
+        localStorage.setItem('jwt', response.token)
         localStorage.setItem('loginStatus', '1')
-        localStorage.setItem('refreshToken', response.response.refresh_token)
-        localStorage.setItem('userId', response.response.userId)
-        localStorage.setItem('customerId', response.response.customerId)
+        localStorage.setItem('refreshToken', response.refreshToken)
     }
 
     private setLoginStatus(status: boolean): void {

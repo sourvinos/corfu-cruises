@@ -9,9 +9,7 @@ namespace BlueWaterCruises.Features.Ports {
 
         Task<IEnumerable<PortListResource>> Get();
         Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
-        new Task<PortReadResource> GetById(int id);
         Task<Port> GetByIdToDelete(int id);
-
 
     }
 

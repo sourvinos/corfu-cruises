@@ -4,7 +4,7 @@ using System.Linq;
 using AutoMapper;
 using BlueWaterCruises.Features.Reservations;
 using BlueWaterCruises.Infrastructure.Classes;
-using BlueWaterCruises.Infrastructure.Extensions;
+using BlueWaterCruises.Infrastructure.Helpers;
 using BlueWaterCruises.Infrastructure.Implementations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;

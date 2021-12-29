@@ -1,10 +1,7 @@
 using System.Threading.Tasks;
-using BlueWaterCruises.Infrastructure.Extensions;
-using BlueWaterCruises.Infrastructure.Logging;
+using BlueWaterCruises.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Embarkation {
 
@@ -12,11 +9,8 @@ namespace BlueWaterCruises.Features.Embarkation {
     public class EmbarkationsController : ControllerBase {
 
         private readonly IEmbarkationRepository repo;
-        private readonly ILogger<EmbarkationsController> logger;
-
-        public EmbarkationsController(IEmbarkationRepository repo, ILogger<EmbarkationsController> logger) {
+        public EmbarkationsController(IEmbarkationRepository repo) {
             this.repo = repo;
-            this.logger = logger;
         }
 
         [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/shipId/{shipId}")]
@@ -28,19 +22,11 @@ namespace BlueWaterCruises.Features.Embarkation {
         [HttpPatch("doEmbarkation")]
         [Authorize(Roles = "admin")]
         public IActionResult DoEmbarkation(int id) {
-            try {
-                if (repo.DoEmbarkation(id)) {
-                    return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
-                } else {
-                    id.LogException(logger, ControllerContext, null, null);
-                    return StatusCode(404, new {
-                        response = ApiMessages.RecordNotFound()
-                    });
-                }
-            } catch (DbUpdateException exception) {
-                id.LogException(logger, ControllerContext, null, exception);
-                return StatusCode(490, new {
-                    response = ApiMessages.RecordNotSaved()
+            if (repo.DoEmbarkation(id)) {
+                return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
+            } else {
+                return StatusCode(404, new {
+                    response = ApiMessages.RecordNotFound()
                 });
             }
         }

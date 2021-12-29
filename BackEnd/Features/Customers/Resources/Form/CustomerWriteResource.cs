@@ -1,6 +1,8 @@
-﻿namespace BlueWaterCruises.Features.Customers {
+﻿using BlueWaterCruises.Infrastructure.Interfaces;
 
-    public class CustomerWriteResource {
+namespace BlueWaterCruises.Features.Customers {
+
+    public class CustomerWriteResource : IEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }
@@ -10,7 +12,7 @@
         public string PersonInCharge { get; set; }
         public string Email { get; set; }
         public bool IsActive { get; set; }
-        public string UserId { get; set; }
+        public string UserId { get; set; } = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
 
     }
 

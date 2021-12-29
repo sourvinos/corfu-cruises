@@ -7,6 +7,7 @@ using AutoMapper;
 using BlueWaterCruises.Features.Schedules;
 using BlueWaterCruises.Infrastructure.Classes;
 using BlueWaterCruises.Infrastructure.Extensions;
+using BlueWaterCruises.Infrastructure.Helpers;
 using BlueWaterCruises.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;

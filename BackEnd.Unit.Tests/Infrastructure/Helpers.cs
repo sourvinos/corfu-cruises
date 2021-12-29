@@ -1,4 +1,4 @@
-namespace BackEnd.UnitTests {
+namespace BackEnd.UnitTests.Infrastructure {
 
     public static class Helpers {
 

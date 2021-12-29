@@ -1,7 +1,6 @@
-import { KeyValuePair } from 'src/app/shared/classes/keyValuePair'
+export class Customer {
 
-export class Customer extends KeyValuePair {
-
+    id: number
     description: string
     profession: string
     address: string
@@ -9,5 +8,5 @@ export class Customer extends KeyValuePair {
     personInCharge: string
     email: string
     isActive: boolean
-    
+
 }

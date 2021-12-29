@@ -8,7 +8,6 @@ namespace BlueWaterCruises.Features.Ports {
             RuleFor(x => x.Description).NotEmpty().MaximumLength(128);
             RuleFor(x => x.IsPrimary).NotNull();
             RuleFor(x => x.IsActive).NotNull();
-            RuleFor(x => x.UserId).NotNull();
         }
 
     }

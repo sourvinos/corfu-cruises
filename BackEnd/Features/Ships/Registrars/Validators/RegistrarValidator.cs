@@ -1,3 +1,4 @@
+using BlueWaterCruises.Infrastructure.Helpers;
 using FluentValidation;
 
 namespace BlueWaterCruises.Features.Ships.Registrars {
@@ -7,13 +8,12 @@ namespace BlueWaterCruises.Features.Ships.Registrars {
         public RegistrarValidator() {
             RuleFor(x => x.ShipId).NotNull();
             RuleFor(x => x.Fullname).NotEmpty().MaximumLength(128);
-            RuleFor(x => x.Phones).NotEmpty().MaximumLength(128);
-            RuleFor(x => x.Email).NotEmpty().EmailAddress().MaximumLength(128);
-            RuleFor(x => x.Fax).NotEmpty().MaximumLength(128);
-            RuleFor(x => x.Address).NotEmpty().MaximumLength(128);
+            RuleFor(x => x.Phones).MaximumLength(128);
+            RuleFor(x => x.Email).Must(EmailHelpers.BeEmptyOrValidEmailAddress).MaximumLength(128);
+            RuleFor(x => x.Fax).MaximumLength(128);
+            RuleFor(x => x.Address).MaximumLength(128);
             RuleFor(x => x.IsPrimary).NotNull();
             RuleFor(x => x.IsActive).NotNull();
-            RuleFor(x => x.UserId).NotNull();
         }
 
     }

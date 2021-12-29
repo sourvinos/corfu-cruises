@@ -71,7 +71,7 @@ namespace BackEnd.IntegrationTests.Customers {
         }
 
         [Fact]
-        public async Task Simple_Users_Can_Not_Get_By_Id() {
+        public async Task Simple_Users_Can_Get_By_Id() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -79,7 +79,7 @@ namespace BackEnd.IntegrationTests.Customers {
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
-            Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }

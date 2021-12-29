@@ -9,7 +9,6 @@ namespace BlueWaterCruises.Features.Ships.Owners {
 
         Task<IEnumerable<ShipOwnerListResource>> Get();
         Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
-        new Task<ShipOwnerReadResource> GetById(int id);
         Task<ShipOwner> GetByIdToDelete(int id);
 
     }

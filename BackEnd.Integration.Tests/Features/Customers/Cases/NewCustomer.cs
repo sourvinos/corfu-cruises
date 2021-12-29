@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,7 +11,7 @@ namespace BackEnd.IntegrationTests.Customers {
             yield return new object[] {
                 new TestCustomer {
                     FeatureUrl = "/customers/",
-                    Description = new Guid().ToString()
+                    Description = Helpers.CreateRandomString(128)
                 }
             };
         }

@@ -34,12 +34,6 @@ namespace BlueWaterCruises.Features.Destinations {
             return mapper.Map<IEnumerable<Destination>, IEnumerable<SimpleResource>>(records);
         }
 
-        public new async Task<DestinationReadResource> GetById(int id) {
-            Destination record = await context.Destinations
-                .SingleOrDefaultAsync(x => x.Id == id);
-            return mapper.Map<Destination, DestinationReadResource>(record);
-        }
-
         public async Task<Destination> GetByIdToDelete(int id) {
             return await context.Destinations
                 .SingleOrDefaultAsync(x => x.Id == id);

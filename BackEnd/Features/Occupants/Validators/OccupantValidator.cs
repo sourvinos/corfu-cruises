@@ -7,7 +7,6 @@ namespace BlueWaterCruises.Features.Occupants {
         public OccupantValidator() {
             RuleFor(x => x.Description).NotEmpty().MaximumLength(128);
             RuleFor(x => x.IsActive).NotNull();
-            RuleFor(x => x.UserId).NotNull();
         }
 
     }

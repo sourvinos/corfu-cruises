@@ -9,7 +9,6 @@ namespace BlueWaterCruises.Features.Drivers {
 
         Task<IEnumerable<DriverListResource>> Get();
         Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
-        new Task<DriverReadResource> GetById(int id);
         Task<Driver> GetByIdToDelete(int id);
 
     }

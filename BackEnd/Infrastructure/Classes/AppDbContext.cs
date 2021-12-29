@@ -16,6 +16,7 @@ using BlueWaterCruises.Features.Ships.Registrars;
 using BlueWaterCruises.Features.Ships.Routes;
 using BlueWaterCruises.FluentApi;
 using BlueWaterCruises.Infrastructure.Auth;
+using EntityFramework.Exceptions.MySQL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -57,6 +58,7 @@ namespace BlueWaterCruises.Infrastructure.Classes {
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));
+            optionsBuilder.UseExceptionProcessor();
         }
 
         private static void ApplyConfigurations(ModelBuilder modelBuilder) {

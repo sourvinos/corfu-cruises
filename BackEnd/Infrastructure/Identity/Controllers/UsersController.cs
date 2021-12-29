@@ -2,13 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlueWaterCruises.Infrastructure.Email;
-using BlueWaterCruises.Infrastructure.Extensions;
-using BlueWaterCruises.Infrastructure.Logging;
+using BlueWaterCruises.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Infrastructure.Identity {
 
@@ -17,12 +15,10 @@ namespace BlueWaterCruises.Infrastructure.Identity {
     public class UsersController : ControllerBase {
 
         private readonly IEmailSender emailSender;
-        private readonly ILogger<UsersController> logger;
         private readonly UserManager<UserExtended> userManager;
 
-        public UsersController(IEmailSender emailSender, ILogger<UsersController> logger, UserManager<UserExtended> userManager) {
+        public UsersController(IEmailSender emailSender, UserManager<UserExtended> userManager) {
             this.emailSender = emailSender;
-            this.logger = logger;
             this.userManager = userManager;
         }
 
@@ -43,7 +39,6 @@ namespace BlueWaterCruises.Infrastructure.Identity {
         public async Task<IActionResult> GetUser(string id) {
             UserExtended record = await userManager.Users.Where(x => x.Id == id).SingleOrDefaultAsync();
             if (record == null) {
-                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
@@ -69,12 +64,10 @@ namespace BlueWaterCruises.Infrastructure.Identity {
                     await UpdateRole(record);
                     return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
                 }
-                id.LogException(logger, ControllerContext, null, null);
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
             }
-            FileLoggerExtensions.LogException(0, logger, ControllerContext, vm, null);
             return StatusCode(400, new {
                 response = ApiMessages.InvalidModel()
             });
@@ -84,24 +77,10 @@ namespace BlueWaterCruises.Infrastructure.Identity {
         [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id) {
-            UserExtended record = await userManager.FindByIdAsync(id);
-            if (record == null) {
-                id.LogException(logger, ControllerContext, null, null);
-                return StatusCode(404, new {
-                    response = ApiMessages.RecordNotFound()
-                });
-            }
-            try {
-                IdentityResult result = await userManager.DeleteAsync(record);
-                return StatusCode(200, new {
-                    response = ApiMessages.RecordDeleted()
-                });
-            } catch (DbUpdateException exception) {
-                FileLoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
-                return StatusCode(491, new {
-                    response = ApiMessages.RecordInUse()
-                });
-            }
+            await userManager.DeleteAsync(await userManager.FindByIdAsync(id));
+            return StatusCode(200, new {
+                response = ApiMessages.RecordDeleted()
+            });
         }
 
         [Authorize(Roles = "admin")]

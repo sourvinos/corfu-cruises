@@ -1,5 +1,5 @@
 using AutoMapper;
-using BlueWaterCruises.Infrastructure.Extensions;
+using BlueWaterCruises.Infrastructure.Helpers;
 
 namespace BlueWaterCruises.Features.Ships.Crews {
 
@@ -13,7 +13,8 @@ namespace BlueWaterCruises.Features.Ships.Crews {
                 .ForMember(x => x.Ship, x => x.MapFrom(x => new { x.Ship.Id, x.Ship.Description }))
                 .ForMember(x => x.Nationality, x => x.MapFrom(x => new { x.Nationality.Id, x.Nationality.Description }))
                 .ForMember(x => x.Gender, x => x.MapFrom(x => new { x.Gender.Id, x.Gender.Description }));
-            CreateMap<CrewWriteResource, Crew>();
+            CreateMap<CrewWriteResource, Crew>()
+                .ForMember(x => x.Birthdate, x => x.MapFrom(x => x.Birthdate));
         }
 
     }

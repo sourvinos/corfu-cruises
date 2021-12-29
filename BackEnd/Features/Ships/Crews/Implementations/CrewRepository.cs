@@ -3,7 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BlueWaterCruises.Infrastructure.Classes;
+using BlueWaterCruises.Infrastructure.Helpers;
 using BlueWaterCruises.Infrastructure.Implementations;
+using BlueWaterCruises.Infrastructure.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -37,7 +39,11 @@ namespace BlueWaterCruises.Features.Ships.Crews {
                 .Include(x => x.Gender)
                 .Include(x => x.Nationality)
                 .SingleOrDefaultAsync(x => x.Id == id);
-            return mapper.Map<Crew, CrewReadResource>(record);
+            if (record != null) {
+                return mapper.Map<Crew, CrewReadResource>(record);
+            } else {
+                throw new RecordNotFound(ApiMessages.RecordNotFound());
+            }
         }
 
         public async Task<Crew> GetByIdToDelete(int id) {

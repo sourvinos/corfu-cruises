@@ -1,19 +1,19 @@
+using BlueWaterCruises.Infrastructure.Helpers;
 using FluentValidation;
 
 namespace BlueWaterCruises.Features.Ships.Owners {
 
-    public class ShipOwnerValidator : AbstractValidator<ShipOwner> {
+    public class ShipOwnerValidator : AbstractValidator<ShipOwnerWriteResource> {
 
         public ShipOwnerValidator() {
-            RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(128);
-            RuleFor(x => x.Profession).NotNull().MaximumLength(128);
-            RuleFor(x => x.Address).NotNull().MaximumLength(128);
-            RuleFor(x => x.TaxNo).NotNull().MaximumLength(128);
-            RuleFor(x => x.City).NotNull().MaximumLength(128);
-            RuleFor(x => x.Phones).NotNull().MaximumLength(128);
-            RuleFor(x => x.Email).NotNull().EmailAddress().MaximumLength(128);
+            RuleFor(x => x.Description).NotEmpty().MaximumLength(128);
+            RuleFor(x => x.Profession).MaximumLength(128);
+            RuleFor(x => x.Address).MaximumLength(128);
+            RuleFor(x => x.TaxNo).MaximumLength(128);
+            RuleFor(x => x.City).MaximumLength(128);
+            RuleFor(x => x.Phones).MaximumLength(128);
+            RuleFor(x => x.Email).Must(EmailHelpers.BeEmptyOrValidEmailAddress).MaximumLength(128);
             RuleFor(x => x.IsActive).NotNull();
-            RuleFor(x => x.UserId).NotNull().NotEmpty().MaximumLength(128);
         }
 
     }

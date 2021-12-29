@@ -73,10 +73,8 @@ namespace BlueWaterCruises.Features.Schedules {
             return entities;
         }
 
-        public async Task<Schedule> GetSingleToDelete(int id) {
-            var record = await context.Set<Schedule>()
-                .FirstAsync(x => x.Id == id);
-            return record;
+        public async Task<Schedule> GetByIdToDelete(int id) {
+            return await context.Set<Schedule>().FirstAsync(x => x.Id == id);
         }
 
         public void DeleteRange(List<Schedule> schedules) {

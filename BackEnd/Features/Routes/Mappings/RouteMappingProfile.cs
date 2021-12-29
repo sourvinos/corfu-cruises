@@ -6,6 +6,7 @@ namespace BlueWaterCruises.Features.Routes {
 
         public RouteMappingProfile() {
             CreateMap<RouteWriteResource, Route>();
+            CreateMap<Route, RouteWithPortListResource>();
         }
 
     }

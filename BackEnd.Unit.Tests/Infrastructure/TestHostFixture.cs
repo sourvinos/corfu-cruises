@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
-namespace BackEnd.UnitTests {
+namespace BackEnd.UnitTests.Infrastructure {
 
     public class TestHostFixture : IDisposable {
 

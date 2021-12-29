@@ -34,12 +34,6 @@ namespace BlueWaterCruises.Features.Ships.Owners {
             return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<SimpleResource>>(records);
         }
 
-        public new async Task<ShipOwnerReadResource> GetById(int id) {
-            ShipOwner record = await context.ShipOwners
-                .SingleOrDefaultAsync(x => x.Id == id);
-            return mapper.Map<ShipOwner, ShipOwnerReadResource>(record);
-        }
-
         public async Task<ShipOwner> GetByIdToDelete(int id) {
             return await context.ShipOwners
                 .SingleOrDefaultAsync(x => x.Id == id);

@@ -1,6 +1,8 @@
+using BlueWaterCruises.Infrastructure.Interfaces;
+
 namespace BlueWaterCruises.Features.Ships.Registrars {
 
-    public class RegistrarWriteResource {
+    public class RegistrarWriteResource : IEntity {
 
         public int Id { get; set; }
         public int ShipId { get; set; }

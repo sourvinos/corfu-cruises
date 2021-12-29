@@ -9,7 +9,6 @@ namespace BlueWaterCruises.Features.Occupants {
 
         Task<IEnumerable<OccupantListResource>> Get();
         Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
-        new Task<OccupantReadResource> GetById(int id);
         Task<Occupant> GetByIdToDelete(int id);
 
     }

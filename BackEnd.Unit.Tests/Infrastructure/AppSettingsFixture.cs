@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 
-namespace BackEnd.UnitTests {
+namespace BackEnd.UnitTests.Infrastructure {
 
     public class AppSettingsFixture : IDisposable {
 

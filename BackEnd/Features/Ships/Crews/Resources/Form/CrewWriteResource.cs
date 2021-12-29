@@ -1,6 +1,8 @@
+using BlueWaterCruises.Infrastructure.Interfaces;
+
 namespace BlueWaterCruises.Features.Ships.Crews {
 
-    public class CrewWriteResource {
+    public class CrewWriteResource : IEntity {
 
         public int Id { get; set; }
         public int ShipId { get; set; }
@@ -10,7 +12,7 @@ namespace BlueWaterCruises.Features.Ships.Crews {
         public string Firstname { get; set; }
         public string Birthdate { get; set; }
         public bool IsActive { get; set; }
-        public string UserId { get; set; }
+        public string UserId { get; set; } = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
 
     }
 

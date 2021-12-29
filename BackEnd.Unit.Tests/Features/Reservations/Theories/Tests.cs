@@ -1,3 +1,4 @@
+using BackEnd.UnitTests.Infrastructure;
 using BlueWaterCruises.Features.Reservations;
 using FluentValidation.TestHelper;
 using Xunit;
@@ -49,7 +50,7 @@ namespace BackEnd.UnitTests.Reservations {
         }
 
         [Theory]
-        [ClassData(typeof(InvalidEmail))]
+        [ClassData(typeof(ValidateEmail))]
         public void Invalid_Email(string email) {
             new ReservationValidator().ShouldHaveValidationErrorFor(model => model.Email, email);
         }

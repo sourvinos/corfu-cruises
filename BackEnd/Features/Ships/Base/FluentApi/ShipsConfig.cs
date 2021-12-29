@@ -13,12 +13,12 @@ namespace BlueWaterCruises.Features.Ships.Base {
             entity.Property(x => x.UserId).IsRequired(true);
             // Fields
             entity.Property(x => x.Description).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.IMO).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.Flag).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.RegistryNo).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.Manager).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.ManagerInGreece).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.Agent).HasMaxLength(128).IsRequired(true);
+            entity.Property(x => x.IMO).HasDefaultValue("").HasMaxLength(128);
+            entity.Property(x => x.Flag).HasDefaultValue("").HasMaxLength(128);
+            entity.Property(x => x.RegistryNo).HasDefaultValue("").HasMaxLength(128);
+            entity.Property(x => x.Manager).HasDefaultValue("").HasMaxLength(128);
+            entity.Property(x => x.ManagerInGreece).HasDefaultValue("").HasMaxLength(128);
+            entity.Property(x => x.Agent).HasDefaultValue("").HasMaxLength(128);
             entity.Property(x => x.IsActive).IsRequired(true);
             // FK Constraints
             entity.HasOne(x => x.ShipOwner).WithMany(x => x.Ships).HasForeignKey(x => x.ShipOwnerId).OnDelete(DeleteBehavior.Restrict);

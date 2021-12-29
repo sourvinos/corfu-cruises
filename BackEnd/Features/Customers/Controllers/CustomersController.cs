@@ -1,134 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using BlueWaterCruises.Infrastructure.Classes;
 using BlueWaterCruises.Infrastructure.Extensions;
-using BlueWaterCruises.Infrastructure.Logging;
+using BlueWaterCruises.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace BlueWaterCruises.Features.Customers {
 
     [Route("api/[controller]")]
     public class CustomersController : ControllerBase {
 
+        #region  variables
+
         private readonly ICustomerRepository repo;
-        private readonly ILogger<CustomersController> logger;
+        private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
 
-        public CustomersController(ICustomerRepository repo, ILogger<CustomersController> logger, IMapper mapper) {
-            this.repo = repo;
-            this.logger = logger;
+        #endregion
+
+        public CustomersController(ICustomerRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
+            this.httpContext = httpContext;
             this.mapper = mapper;
+            this.repo = repo;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Get() {
-            IEnumerable<CustomerListResource> records = await repo.Get();
-            if (records == null) {
-                FileLoggerExtensions.LogException("", logger, ControllerContext, null, null);
-                return StatusCode(401, new {
-                    response = ApiMessages.AuthenticationFailed()
-                });
-            }
-            return StatusCode(200, records);
+        public async Task<IEnumerable<CustomerListResource>> Get() {
+            return await repo.Get();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IActionResult> GetActiveForDropdown() {
-            IEnumerable<SimpleResource> records = await repo.GetActiveForDropdown();
-            if (records == null) {
-                FileLoggerExtensions.LogException("", logger, ControllerContext, null, null);
-                return StatusCode(401, new {
-                    response = ApiMessages.AuthenticationFailed()
-                });
-            }
-            return StatusCode(200, records);
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+            return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin")]
-        public async Task<IActionResult> GetCustomer(int id) {
-            CustomerReadResource record = await repo.GetById(id);
-            if (record == null) {
-                id.LogException(logger, ControllerContext, null, null);
-                return StatusCode(404, new {
-                    response = ApiMessages.RecordNotFound()
-                });
-            }
-            return StatusCode(200, record);
+        [Authorize(Roles = "user, admin")]
+        public async Task<CustomerReadResource> GetCustomer(int id) {
+            return mapper.Map<Customer, CustomerReadResource>(await repo.GetById(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
+        [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult PostCustomer([FromBody] CustomerWriteResource record) {
-            if (ModelState.IsValid) {
-                try {
-                    var newRecord = repo.Create(mapper.Map<CustomerWriteResource, Customer>(record));
-                    return StatusCode(200, new {
-                        response = ApiMessages.RecordCreated()
-                    });
-                } catch (Exception exception) {
-                    FileLoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
-                    return StatusCode(490, new {
-                        response = ApiMessages.RecordNotSaved()
-                    });
-                }
-            }
-            FileLoggerExtensions.LogException(0, logger, ControllerContext, record, null);
-            return StatusCode(400, new {
-                response = ApiMessages.InvalidModel()
+            repo.Create(mapper.Map<CustomerWriteResource, Customer>(AttachUserIdToRecord(record)));
+            return StatusCode(200, new {
+                response = ApiMessages.RecordCreated()
             });
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public IActionResult PutCustomer([FromRoute] int id, [FromBody] CustomerWriteResource record) {
-            if (id == record.Id && ModelState.IsValid) {
-                try {
-                    repo.Update(mapper.Map<CustomerWriteResource, Customer>(record));
-                    return StatusCode(200, new {
-                        response = ApiMessages.RecordUpdated()
-                    });
-                } catch (DbUpdateException exception) {
-                    FileLoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
-                    return StatusCode(490, new {
-                        response = ApiMessages.RecordNotSaved()
-                    });
-                }
-            }
-            FileLoggerExtensions.LogException(0, logger, ControllerContext, record, null);
-            return StatusCode(400, new {
-                response = ApiMessages.InvalidModel()
+        [ServiceFilter(typeof(ModelValidationAttribute))]
+        public IActionResult PutCustomer([FromBody] CustomerWriteResource record) {
+            repo.Update(mapper.Map<CustomerWriteResource, Customer>(AttachUserIdToRecord(record)));
+            return StatusCode(200, new {
+                response = ApiMessages.RecordUpdated()
             });
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteCustomer([FromRoute] int id) {
-            Customer record = await repo.GetByIdToDelete(id);
-            if (record == null) {
-                id.LogException(logger, ControllerContext, null, null);
-                return StatusCode(404, new {
-                    response = ApiMessages.RecordNotFound()
-                });
-            }
-            try {
-                repo.Delete(record);
-                return StatusCode(200, new {
-                    response = ApiMessages.RecordDeleted()
-                });
-            } catch (DbUpdateException exception) {
-                FileLoggerExtensions.LogException(0, logger, ControllerContext, record, exception);
-                return StatusCode(491, new {
-                    response = ApiMessages.RecordInUse()
-                });
-            }
+            repo.Delete(await repo.GetByIdToDelete(id));
+            return StatusCode(200, new {
+                response = ApiMessages.RecordDeleted()
+            });
+        }
+
+        private CustomerWriteResource AttachUserIdToRecord(CustomerWriteResource record) {
+            record.UserId = Identity.GetConnectedUserId(httpContext);
+            return record;
         }
 
     }
