@@ -19,19 +19,8 @@ namespace BackEnd.IntegrationTests.Reservations {
                     ReservationId = Guid.Parse("d32c6c0f-25b8-42fe-a6ad-9c1f913931c6"),
                     CustomerId = 3,
                     DestinationId = 1,
-                    DriverId = 10,
-                    PickuPointId = 82,
-                    PortId = 1,
-                    ShipId = 1,
+                    PickupPointId = 82,
                     Date = "2021-10-10",
-                    TicketNo = "NIOMS",
-                    Adults = 1,
-                    Kids = 1,
-                    Free = 1,
-                    Email = "PEARL53@YAHOO.COM",
-                    Phones = "602-793-7631",
-                    Remarks = "",
-                    UserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828"
                 }
             };
         }

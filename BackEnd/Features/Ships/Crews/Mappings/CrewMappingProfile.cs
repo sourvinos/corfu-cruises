@@ -1,5 +1,5 @@
 using AutoMapper;
-using BlueWaterCruises.Infrastructure.Helpers;
+using BlueWaterCruises.Infrastructure.Extensions;
 
 namespace BlueWaterCruises.Features.Ships.Crews {
 

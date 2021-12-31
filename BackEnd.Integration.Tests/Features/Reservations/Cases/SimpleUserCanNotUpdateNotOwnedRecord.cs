@@ -21,7 +21,6 @@ namespace BackEnd.IntegrationTests.Reservations {
                     Date = "2021-10-01",
                     DestinationId = 1,
                     CustomerId = 1,
-                    PortId = 1,
                     Adults = 3,
                     TicketNo = "xxxx"
                 }

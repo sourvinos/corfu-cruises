@@ -43,8 +43,12 @@ namespace BlueWaterCruises.Infrastructure.Implementations {
         public void Create(T entity) {
             using var transaction = context.Database.BeginTransaction();
             context.Add(entity);
-            Save();
-            DisposeOrCommit(transaction);
+            try {
+                Save();
+                DisposeOrCommit(transaction);
+            } catch (DbUpdateConcurrencyException) {
+                transaction.Dispose();
+            }
         }
 
         public void Update(T entity) {
@@ -55,19 +59,8 @@ namespace BlueWaterCruises.Infrastructure.Implementations {
                 DisposeOrCommit(transaction);
             } catch (DbUpdateConcurrencyException exception) {
                 exception.Entries.Single().Reload();
-                DisposeOrCommit(transaction);
-                // context.Entry(entity).State = EntityState.Unchanged;
-                // return false;
-                // context.SaveChanges();
-                // var e = exception.Entries.Single().GetDatabaseValues();
-                // if (e == null) {
-                // throw new InvalidOperationException(ApiMessages.RecordNotFound());
-                // Console.WriteLine("The entity being updated is already deleted by another user...");
-                // } else {
-                // Console.WriteLine("The entity being updated has already been updated by another user...");
+                transaction.Dispose();
             }
-            // DisposeOrCommit(transaction);
-            // return false;
         }
 
 

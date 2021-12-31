@@ -234,7 +234,6 @@ _Pvt_Extensions
 FrontEnd/package-lock.json
 appsettings.json
 **/logs
-**/vouchers
 
 # Cypress
 **/videos

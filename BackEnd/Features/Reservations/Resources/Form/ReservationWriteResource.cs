@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using BlueWaterCruises.Infrastructure.Interfaces;
 
 namespace BlueWaterCruises.Features.Reservations {
 
-    public class ReservationWriteResource {
+    public class ReservationWriteResource : IEntity {
 
+        public int Id { get; set; }
         public Guid? ReservationId { get; set; }
         public string Date { get; set; }
         public int CustomerId { get; set; }

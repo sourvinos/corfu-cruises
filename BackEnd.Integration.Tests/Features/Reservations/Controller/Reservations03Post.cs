@@ -50,8 +50,23 @@ namespace BackEnd.IntegrationTests.Reservations {
         }
 
         [Theory]
-        [ClassData(typeof(NewReservationWithErrors))]
-        public async Task Can_Not_Create_When_Invalid_Schedule(TestReservation record) {
+        [ClassData(typeof(NewAdminReservationWithErrors))]
+        public async Task Admins_Can_Not_Create_When_Invalid(TestReservation record) {
+            // arrange
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            record.UserId = loginResponse.UserId;
+            // act
+            var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, Helpers.ConvertObjectToJson(record));
+            // assert
+            Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
+            // cleanup
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
+        }
+
+        [Theory]
+        [ClassData(typeof(NewSimpleUserReservationWithErrors))]
+        public async Task Simple_Users_Can_Not_Create_When_Invalid(TestReservation record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -59,14 +74,14 @@ namespace BackEnd.IntegrationTests.Reservations {
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, Helpers.ConvertObjectToJson(record));
             // assert
-            Assert.Equal((HttpStatusCode)433, actionResponse.StatusCode);
+            Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
         [Theory]
         [ClassData(typeof(NewReservationsWithoutErrors))]
-        public async Task Users_Can_Create(TestReservation record) {
+        public async Task Admins_Can_Create_When_Valid(TestReservation record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);

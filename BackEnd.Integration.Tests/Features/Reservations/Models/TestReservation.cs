@@ -7,13 +7,14 @@ namespace BackEnd.IntegrationTests.Reservations {
     public class TestReservation {
 
         public string FeatureUrl { get; set; }
+        public int StatusCode { get; set; }
 
         public Guid? ReservationId { get; set; }
         public string Date { get; set; }
         public int CustomerId { get; set; }
         public int DestinationId { get; set; }
         public int DriverId { get; set; }
-        public int PickuPointId { get; set; }
+        public int PickupPointId { get; set; }
         public int PortId { get; set; }
         public int ShipId { get; set; }
         public string TicketNo { get; set; }

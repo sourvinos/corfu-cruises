@@ -39,4 +39,3 @@ namespace BlueWaterCruises.Infrastructure.Extensions {
     }
 
 }
-

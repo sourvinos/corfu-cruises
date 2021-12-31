@@ -55,7 +55,6 @@ namespace BlueWaterCruises {
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<AppDbContext>();
             services.AddScoped<ModelValidationAttribute>();
-            // services.AddControllersWithViews(options => options.Filters.Add<HandleException>())
             services.AddControllersWithViews()
                     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                     .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());

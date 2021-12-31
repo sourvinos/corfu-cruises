@@ -4,11 +4,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using BlueWaterCruises.Features.PickupPoints;
 using BlueWaterCruises.Features.Schedules;
 using BlueWaterCruises.Infrastructure.Classes;
 using BlueWaterCruises.Infrastructure.Extensions;
 using BlueWaterCruises.Infrastructure.Helpers;
 using BlueWaterCruises.Infrastructure.Implementations;
+using BlueWaterCruises.Infrastructure.Middleware;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -58,7 +60,7 @@ namespace BlueWaterCruises.Features.Reservations {
         }
 
         public async Task<ReservationReadResource> GetById(string reservationId) {
-            var reservation = await context.Reservations
+            var record = await context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
                 .Include(x => x.Destination)
@@ -69,7 +71,9 @@ namespace BlueWaterCruises.Features.Reservations {
                 .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
                 .Include(x => x.Passengers).ThenInclude(x => x.Gender)
                 .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId);
-            return mapper.Map<Reservation, ReservationReadResource>(reservation);
+            return record != null
+                ? mapper.Map<Reservation, ReservationReadResource>(record)
+                : throw new RecordNotFound(ApiMessages.RecordNotFound());
         }
 
         public async Task<Reservation> GetByIdToDelete(string id) {
@@ -108,6 +112,10 @@ namespace BlueWaterCruises.Features.Reservations {
 
         public int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
             return true switch {
+                var x when x == !IsValidCustomer(record) => 450,
+                var x when x == !IsValidDestination(record) => 451,
+                var x when x == !IsValidPickupPoint(record) => 452,
+                var x when x == !UserCanAddReservationInThePast(record.Date) => 431,
                 var x when x == !scheduleRepo.DayHasSchedule(DateTime.Parse(record.Date)) => 432,
                 var x when x == !scheduleRepo.DayHasScheduleForDestination(DateTime.Parse(record.Date), record.DestinationId) => 430,
                 var x when x == !scheduleRepo.PortHasDepartures(DateTime.Parse(record.Date), record.DestinationId, record.PortId) => 427,
@@ -186,6 +194,29 @@ namespace BlueWaterCruises.Features.Reservations {
 
         public Task<bool> DoesUserOwnRecord(string userId) {
             return Task.Run(() => httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value == userId);
+        }
+
+        public int GetPortIdFromPickupPointId(ReservationWriteResource record) {
+            PickupPoint pickupPoint = context.PickupPoints
+                .Include(x => x.Route)
+                .SingleOrDefault(x => x.Id == record.PickupPointId);
+            return pickupPoint.Route.PortId;
+        }
+
+        private bool UserCanAddReservationInThePast(string date) {
+            return Identity.IsUserAdmin(httpContextAccessor).Result || DateTime.Parse(date) > DateTime.Now;
+        }
+
+        private bool IsValidCustomer(ReservationWriteResource record) {
+            return context.Customers.SingleOrDefault(x => x.Id == record.CustomerId && x.IsActive) != null;
+        }
+
+        private bool IsValidDestination(ReservationWriteResource record) {
+            return context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId && x.IsActive) != null;
+        }
+
+        private bool IsValidPickupPoint(ReservationWriteResource record) {
+            return context.PickupPoints.SingleOrDefault(x => x.Id == record.PickupPointId && x.IsActive) != null;
         }
 
     }

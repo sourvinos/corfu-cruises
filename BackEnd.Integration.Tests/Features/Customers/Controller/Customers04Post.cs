@@ -34,7 +34,7 @@ namespace BackEnd.IntegrationTests.Customers {
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
-        }   
+        }
 
         [Theory]
         [ClassData(typeof(NewCustomer))]

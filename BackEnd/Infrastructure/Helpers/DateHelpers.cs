@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
+namespace BlueWaterCruises.Infrastructure.Extensions {
 
-namespace BlueWaterCruises.Infrastructure.Helpers {
 
     public static class DateHelpers {
 
@@ -11,12 +11,10 @@ namespace BlueWaterCruises.Infrastructure.Helpers {
             return date.Year.ToString() + "-" + month.Substring(month.Length - 2, 2) + "-" + day.Substring(day.Length - 2, 2);
         }
 
-        public static bool BeValidDateAndGreaterThatToday(string date) {
-            var isValidDate = DateTime.TryParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
-            return isValidDate && DateTime.Parse(date) > DateTime.Now;
+        public static bool BeValidDate(string date) {
+            return DateTime.TryParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
         }
 
     }
 
 }
-

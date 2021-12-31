@@ -36,6 +36,10 @@ namespace BlueWaterCruises.Infrastructure.Helpers {
         public static string NotOwnRecord() { return "This record belongs to another user."; }
         public static string InsufficientUserRights() { return "This action requires higher authorization level."; }
         public static string UnableToUpdateDatabase() { return "Unable to update database."; }
+        public static string UserCanNotAddReservationInThePast() { return "Reservations for past dates are not allowed."; }
+        public static string InvalidCustomerId() { return "Invalid Customer Id."; }
+        public static string InvalidDestinationId() { return "Invalid Destination Id."; }
+        public static string InvalidPickupPointId() { return "Invalid Pickup point Id."; }
 
         #endregion
 

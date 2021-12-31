@@ -31,7 +31,7 @@ namespace BlueWaterCruises.Features.Reservations {
         [HttpGet("date/{date}")]
         [Authorize(Roles = "user, admin")]
         public async Task<ReservationGroupResource<ReservationListResource>> Get([FromRoute] string date) {
-            return await this.reservationRepo.Get(date);
+            return await reservationRepo.Get(date);
         }
 
         [HttpGet("{id}")]
@@ -51,9 +51,11 @@ namespace BlueWaterCruises.Features.Reservations {
 
         [HttpPost]
         [Authorize(Roles = "user, admin")]
+        [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult PostReservation([FromBody] ReservationWriteResource record) {
             var response = reservationRepo.IsValid(record, scheduleRepo);
             if (response == 200) {
+                AttachPortIdToRecord(record);
                 AttachUserIdToRecord(record);
                 reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                 return StatusCode(200, new {
@@ -66,9 +68,11 @@ namespace BlueWaterCruises.Features.Reservations {
 
         [HttpPut("{id}")]
         [Authorize(Roles = "user, admin")]
+        [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             AttachUserIdToRecord(record);
             if (await Identity.IsUserAdmin(httpContextAccessor) || await reservationRepo.DoesUserOwnRecord(record.UserId)) {
+                AttachPortIdToRecord(record);
                 var response = reservationRepo.IsValid(record, scheduleRepo);
                 if (response == 200) {
                     reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
@@ -112,6 +116,10 @@ namespace BlueWaterCruises.Features.Reservations {
 
         private IActionResult GetErrorMessage(int errorCode) {
             return errorCode switch {
+                450 => StatusCode(450, new { response = ApiMessages.InvalidCustomerId() }),
+                451 => StatusCode(451, new { response = ApiMessages.InvalidDestinationId() }),
+                452 => StatusCode(452, new { response = ApiMessages.InvalidPickupPointId() }),
+                431 => StatusCode(431, new { response = ApiMessages.UserCanNotAddReservationInThePast() }),
                 432 => StatusCode(432, new { response = ApiMessages.DayHasNoSchedule() }),
                 430 => StatusCode(430, new { response = ApiMessages.DayHasNoScheduleForDestination() }),
                 427 => StatusCode(427, new { response = ApiMessages.PortHasNoDepartures() }),
@@ -121,9 +129,14 @@ namespace BlueWaterCruises.Features.Reservations {
             };
         }
 
-        private ReservationWriteResource AttachUserIdToRecord(ReservationWriteResource reservation) {
-            reservation.UserId = Identity.GetConnectedUserId(httpContextAccessor);
-            return reservation;
+        private ReservationWriteResource AttachUserIdToRecord(ReservationWriteResource record) {
+            record.UserId = Identity.GetConnectedUserId(httpContextAccessor);
+            return record;
+        }
+
+        private ReservationWriteResource AttachPortIdToRecord(ReservationWriteResource record) {
+            record.PortId = reservationRepo.GetPortIdFromPickupPointId(record);
+            return record;
         }
 
     }
