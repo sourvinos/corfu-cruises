@@ -100,11 +100,13 @@ namespace BlueWaterCruises.Features.Reservations {
                 AddPassengers(updatedRecord);
                 if (settings.IsTesting) {
                     transaction.Dispose();
-                } else {
+                }
+                else {
                     transaction.Commit();
                 }
                 return true;
-            } catch (Exception) {
+            }
+            catch (Exception) {
                 transaction.Rollback();
                 return false;
             }
@@ -118,8 +120,8 @@ namespace BlueWaterCruises.Features.Reservations {
                 var x when x == !UserCanAddReservationInThePast(record.Date) => 431,
                 var x when x == !scheduleRepo.DayHasSchedule(DateTime.Parse(record.Date)) => 432,
                 var x when x == !scheduleRepo.DayHasScheduleForDestination(DateTime.Parse(record.Date), record.DestinationId) => 430,
-                var x when x == !scheduleRepo.PortHasDepartures(DateTime.Parse(record.Date), record.DestinationId, record.PortId) => 427,
-                var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, record.PortId, record.Adults + record.Kids + record.Free) => 433,
+                var x when x == !scheduleRepo.PortHasDepartures(DateTime.Parse(record.Date), record.DestinationId, GetPortIdFromPickupPointId(record)) => 427,
+                var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsKeyUnique(record) => 409,
                 _ => 200,
             };
@@ -134,7 +136,8 @@ namespace BlueWaterCruises.Features.Reservations {
             context.SaveChanges();
             if (settings.IsTesting) {
                 transaction.Dispose();
-            } else {
+            }
+            else {
                 transaction.Commit();
             }
         }
@@ -148,7 +151,8 @@ namespace BlueWaterCruises.Features.Reservations {
             context.SaveChanges();
             if (settings.IsTesting) {
                 transaction.Dispose();
-            } else {
+            }
+            else {
                 transaction.Commit();
             }
         }

@@ -42,7 +42,8 @@ namespace BlueWaterCruises.Features.Reservations {
                 return StatusCode(200, new {
                     response = record
                 });
-            } else {
+            }
+            else {
                 return StatusCode(490, new {
                     response = ApiMessages.NotOwnRecord()
                 });
@@ -55,13 +56,14 @@ namespace BlueWaterCruises.Features.Reservations {
         public IActionResult PostReservation([FromBody] ReservationWriteResource record) {
             var response = reservationRepo.IsValid(record, scheduleRepo);
             if (response == 200) {
-                AttachPortIdToRecord(record);
-                AttachUserIdToRecord(record);
+                _ = AttachPortIdToRecord(record);
+                _ = AttachUserIdToRecord(record);
                 reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
-            } else {
+            }
+            else {
                 return GetErrorMessage(response);
             }
         }
@@ -72,17 +74,18 @@ namespace BlueWaterCruises.Features.Reservations {
         public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             AttachUserIdToRecord(record);
             if (await Identity.IsUserAdmin(httpContextAccessor) || await reservationRepo.DoesUserOwnRecord(record.UserId)) {
-                AttachPortIdToRecord(record);
                 var response = reservationRepo.IsValid(record, scheduleRepo);
                 if (response == 200) {
                     reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
                     return StatusCode(200, new {
                         response = ApiMessages.RecordUpdated()
                     });
-                } else {
+                }
+                else {
                     return this.GetErrorMessage(response);
                 }
-            } else {
+            }
+            else {
                 return StatusCode(401, new {
                     response = ApiMessages.NotOwnRecord()
                 });

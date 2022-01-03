@@ -72,7 +72,7 @@ namespace BackEnd.IntegrationTests.Drivers {
             var actionResponse = await _httpClient.SendAsync(request);
             var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
-            Assert.Equal(12, records.Count);
+            Assert.Equal(5, records.Count);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }

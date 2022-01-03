@@ -1,0 +1,55 @@
+[1mdiff --git a/BackEnd/Infrastructure/Auth/Controllers/AuthController.cs b/BackEnd/Infrastructure/Auth/Controllers/AuthController.cs[m
+[1mindex ac7209f..8e273f4 100644[m
+[1m--- a/BackEnd/Infrastructure/Auth/Controllers/AuthController.cs[m
+[1m+++ b/BackEnd/Infrastructure/Auth/Controllers/AuthController.cs[m
+[36m@@ -67,13 +67,11 @@[m [mnamespace BlueWaterCruises.Infrastructure.Auth {[m
+                 await db.SaveChangesAsync();[m
+                 var response = await CreateAccessToken(user, newRefreshToken.Value);[m
+                 return StatusCode(200, new TokenResponse {[m
+[31m-                    Token = response.Token,[m
+[31m-                    Expiration = response.Expiration,[m
+[31m-                    RefreshToken = response.RefreshToken,[m
+[31m-                    Roles = response.Roles,[m
+                     UserId = response.UserId,[m
+                     Displayname = response.Displayname,[m
+[31m-                    CustomerId = response.CustomerId[m
+[32m+[m[32m                    Token = response.Token,[m
+[32m+[m[32m                    RefreshToken = response.RefreshToken,[m
+[32m+[m[32m                    Expiration = response.Expiration,[m
+                 });[m
+             }[m
+             return StatusCode(401, new {[m
+[36m@@ -115,10 +113,7 @@[m [mnamespace BlueWaterCruises.Infrastructure.Auth {[m
+                 Token = encodedToken,[m
+                 Expiration = newtoken.ValidTo,[m
+                 RefreshToken = refreshToken,[m
+[31m-                Roles = roles.FirstOrDefault(),[m
+[31m-                UserId = user.Id,[m
+[31m-                Displayname = user.DisplayName,[m
+[31m-                CustomerId = user.CustomerId[m
+[32m+[m[32m                Displayname = user.DisplayName[m
+             };[m
+         }[m
+ [m
+[1mdiff --git a/BackEnd/Infrastructure/Auth/Models/TokenResponse.cs b/BackEnd/Infrastructure/Auth/Models/TokenResponse.cs[m
+[1mindex 6b3ddb5..2a94898 100644[m
+[1m--- a/BackEnd/Infrastructure/Auth/Models/TokenResponse.cs[m
+[1m+++ b/BackEnd/Infrastructure/Auth/Models/TokenResponse.cs[m
+[36m@@ -4,15 +4,11 @@[m [mnamespace BlueWaterCruises.Infrastructure.Auth {[m
+ [m
+     public class TokenResponse {[m
+ [m
+[31m-        // FKs[m
+[31m-        public int CustomerId { get; set; }[m
+         public string UserId { get; set; }[m
+[31m-        // Fields[m
+[31m-        public DateTime Expiration { get; set; }[m
+         public string Displayname { get; set; }[m
+[31m-        public string RefreshToken { get; set; }[m
+[31m-        public string Roles { get; set; }[m
+         public string Token { get; set; }[m
+[32m+[m[32m        public string RefreshToken { get; set; }[m
+[32m+[m[32m        public DateTime Expiration { get; set; }[m
+ [m
+     }[m
+ [m

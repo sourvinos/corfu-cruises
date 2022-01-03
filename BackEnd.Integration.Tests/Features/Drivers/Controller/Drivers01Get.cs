@@ -18,7 +18,7 @@ namespace BackEnd.IntegrationTests.Drivers {
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _baseUrl;
-        private readonly string _url = "/ships";
+        private readonly string _url = "/drivers";
 
         #endregion
 
@@ -82,9 +82,11 @@ namespace BackEnd.IntegrationTests.Drivers {
             var request = Helpers.CreateRequest(_baseUrl, _url);
             // act
             var actionResponse = await _httpClient.SendAsync(request);
-            var records = JsonSerializer.Deserialize<List<DriverListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var records = JsonSerializer.Deserialize<List<DriverListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions {
+                PropertyNameCaseInsensitive = true
+            });
             // assert
-            Assert.Equal(20, records.Count);
+            Assert.Equal(8, records.Count);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }

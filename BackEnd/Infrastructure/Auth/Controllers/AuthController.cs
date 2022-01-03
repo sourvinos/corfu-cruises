@@ -67,13 +67,11 @@ namespace BlueWaterCruises.Infrastructure.Auth {
                 await db.SaveChangesAsync();
                 var response = await CreateAccessToken(user, newRefreshToken.Value);
                 return StatusCode(200, new TokenResponse {
-                    Token = response.Token,
-                    Expiration = response.Expiration,
-                    RefreshToken = response.RefreshToken,
-                    Roles = response.Roles,
                     UserId = response.UserId,
                     Displayname = response.Displayname,
-                    CustomerId = response.CustomerId
+                    Token = response.Token,
+                    RefreshToken = response.RefreshToken,
+                    Expiration = response.Expiration,
                 });
             }
             return StatusCode(401, new {
@@ -112,13 +110,11 @@ namespace BlueWaterCruises.Infrastructure.Auth {
             var newtoken = tokenHandler.CreateToken(tokenDescriptor);
             var encodedToken = tokenHandler.WriteToken(newtoken);
             return new TokenResponse() {
-                Token = encodedToken,
-                Expiration = newtoken.ValidTo,
-                RefreshToken = refreshToken,
-                Roles = roles.FirstOrDefault(),
                 UserId = user.Id,
                 Displayname = user.DisplayName,
-                CustomerId = user.CustomerId
+                Token = encodedToken,
+                RefreshToken = refreshToken,
+                Expiration = newtoken.ValidTo,
             };
         }
 
@@ -135,7 +131,8 @@ namespace BlueWaterCruises.Infrastructure.Auth {
                 db.SaveChanges();
                 var token = await CreateAccessToken(user, rtNew.Value);
                 return StatusCode(200, new { response = token });
-            } catch {
+            }
+            catch {
                 return StatusCode(401, new { response = ApiMessages.AuthenticationFailed() });
             }
         }

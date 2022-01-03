@@ -14,6 +14,9 @@ namespace BackEnd.IntegrationTests.Reservations {
             yield return Overbooking_From_Primary_Port_Is_Not_Allowed();
             yield return Overbooking_From_Secondary_Port_Is_Not_Allowed();
             yield return Duplicate_Records_Are_Not_Allowed();
+            yield return Customer_Must_Exist_And_Be_Active();
+            yield return Destination_Must_Exist_And_Be_Active();
+            yield return PickupPoint_Must_Exist_And_Be_Active();
         }
 
         private static object[] We_Dont_Go_Anywhere_On_2021_10_04() {
@@ -109,11 +112,59 @@ namespace BackEnd.IntegrationTests.Reservations {
                     StatusCode = 409,
                     UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
                     Date = "2021-10-01",
-                    DestinationId = 1,
                     CustomerId = 14,
+                    DestinationId = 1,
                     PickupPointId = 285,
                     Adults = 2,
                     TicketNo = "SBQRQ"
+                }
+            };
+        }
+
+        private static object[] Customer_Must_Exist_And_Be_Active() {
+            return new object[] {
+                new TestReservation {
+                    FeatureUrl = "/reservations/",
+                    StatusCode = 450,
+                    UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
+                    Date = "2021-10-01",
+                    CustomerId = 5, // Inactive
+                    DestinationId = 1,
+                    PickupPointId = 285,
+                    Adults = 2,
+                    TicketNo = "xxxxx"
+                }
+            };
+        }
+
+        private static object[] Destination_Must_Exist_And_Be_Active() {
+            return new object[] {
+                new TestReservation {
+                    FeatureUrl = "/reservations/",
+                    StatusCode = 451,
+                    UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
+                    Date = "2021-10-01",
+                    CustomerId = 1,
+                    DestinationId = 99, // Does not exist
+                    PickupPointId = 285,
+                    Adults = 2,
+                    TicketNo = "xxxxx"
+                }
+            };
+        }
+
+        private static object[] PickupPoint_Must_Exist_And_Be_Active() {
+            return new object[] {
+                new TestReservation {
+                    FeatureUrl = "/reservations/",
+                    StatusCode = 452,
+                    UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da",
+                    Date = "2021-10-01",
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 11, // Inactive
+                    Adults = 2,
+                    TicketNo = "xxxxx"
                 }
             };
         }
