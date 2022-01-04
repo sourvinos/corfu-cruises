@@ -40,6 +40,8 @@ namespace BlueWaterCruises.Infrastructure.Helpers {
         public static string InvalidCustomerId() { return "Invalid Customer Id."; }
         public static string InvalidDestinationId() { return "Invalid Destination Id."; }
         public static string InvalidPickupPointId() { return "Invalid Pickup point Id."; }
+        public static string InvalidDriverId() { return "Invalid Driver Id."; }
+        public static string InvalidShipId() { return "Invalid Ship Id."; }
 
         #endregion
 

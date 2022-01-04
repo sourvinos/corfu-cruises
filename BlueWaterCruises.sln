@@ -4,7 +4,7 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackEnd", "BackEnd\BackEnd.csproj", "{2A9AF2DC-458C-4B0A-AC8A-29DCB50AB576}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackEnd.Integration.Tests", "BackEnd.Integration.Tests\BackEnd.Integration.Tests.csproj", "{D44813DC-E5A3-40E8-A675-76212120EDC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Integration.Tests", "API.Integration.Tests\API.Integration.Tests.csproj", "{D44813DC-E5A3-40E8-A675-76212120EDC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackEnd.Unit.Tests", "BackEnd.Unit.Tests\BackEnd.Unit.Tests.csproj", "{875D703C-1780-4331-9F1B-E29F7CB3B436}"
 EndProject

@@ -346,7 +346,7 @@ namespace BlueWaterCruises.Infrastructure.SeedData {
                     new PickupPoint { Id = 334, RouteId = 4, ExactPoint = "MAIN GATE", Time = "07:00", Coordinates = "39.799098477448595,19.82900040229109", IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da", Description = "ALMYROS VILLAS RESORT" },
                     new PickupPoint { Id = 335, RouteId = 3, ExactPoint = "PINK PALACE", Time = "07:45", Coordinates = "", IsActive = true, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05", Description = "PINK PALACE" },
                     new PickupPoint { Id = 336, RouteId = 1, ExactPoint = "M.ROAD", Time = "07:16", Coordinates = "39.70827616329067,19.843803048133854", IsActive = true, UserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828", Description = "MARILENA HOTEL" },
-                    new PickupPoint { Id = 337, RouteId = 1, ExactPoint = "M.ROAD", Time = "07:45", Coordinates = "39.64488649273263,19.859414564067084", IsActive = true, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05", Description = "PARAMITHOUPOLI" },
+                    new PickupPoint { Id = 337, RouteId = 1, ExactPoint = "M.ROAD", Time = "07:45", Coordinates = "39.64488649273263,19.859414564067084", IsActive = false, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05", Description = "PARAMITHOUPOLI" },
                     new PickupPoint { Id = 338, RouteId = 1, ExactPoint = "MAIN ROAD BUS STOP", Time = "07:15", Coordinates = "39.72041639309584,19.874197840690616", IsActive = true, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05", Description = "GOLDEN MARE BARBATI" }
                 };
                 context.AddRange(pickupPoints);

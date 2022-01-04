@@ -3,6 +3,8 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <IsPackable>false</IsPackable>
+        <AssemblyName>API.Integration.Tests</AssemblyName>
+        <RootNamespace>API.Integration.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

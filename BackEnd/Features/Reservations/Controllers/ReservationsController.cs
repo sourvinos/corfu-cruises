@@ -122,6 +122,7 @@ namespace BlueWaterCruises.Features.Reservations {
                 450 => StatusCode(450, new { response = ApiMessages.InvalidCustomerId() }),
                 451 => StatusCode(451, new { response = ApiMessages.InvalidDestinationId() }),
                 452 => StatusCode(452, new { response = ApiMessages.InvalidPickupPointId() }),
+                453 => StatusCode(453, new { response = ApiMessages.InvalidDriverId() }),
                 431 => StatusCode(431, new { response = ApiMessages.UserCanNotAddReservationInThePast() }),
                 432 => StatusCode(432, new { response = ApiMessages.DayHasNoSchedule() }),
                 430 => StatusCode(430, new { response = ApiMessages.DayHasNoScheduleForDestination() }),

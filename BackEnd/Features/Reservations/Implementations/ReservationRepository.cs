@@ -117,6 +117,8 @@ namespace BlueWaterCruises.Features.Reservations {
                 var x when x == !IsValidCustomer(record) => 450,
                 var x when x == !IsValidDestination(record) => 451,
                 var x when x == !IsValidPickupPoint(record) => 452,
+                var x when x == !IsValidDriver(record) => 453,
+                var x when x == !IsValidShip(record) => 454,
                 var x when x == !UserCanAddReservationInThePast(record.Date) => 431,
                 var x when x == !scheduleRepo.DayHasSchedule(DateTime.Parse(record.Date)) => 432,
                 var x when x == !scheduleRepo.DayHasScheduleForDestination(DateTime.Parse(record.Date), record.DestinationId) => 430,
@@ -221,6 +223,14 @@ namespace BlueWaterCruises.Features.Reservations {
 
         private bool IsValidPickupPoint(ReservationWriteResource record) {
             return context.PickupPoints.SingleOrDefault(x => x.Id == record.PickupPointId && x.IsActive) != null;
+        }
+
+        private bool IsValidDriver(ReservationWriteResource record) {
+            return context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive) != null;
+        }
+
+        private bool IsValidShip(ReservationWriteResource record) {
+            return context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
         }
 
     }
