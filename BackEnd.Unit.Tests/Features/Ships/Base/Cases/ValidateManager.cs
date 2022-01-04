@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BackEnd.UnitTests.Infrastructure;
-using BlueWaterCruises.Features.Ships.Base;
+using API.Features.Ships.Base;
 
 namespace BackEnd.UnitTests.Ships.Base {
 

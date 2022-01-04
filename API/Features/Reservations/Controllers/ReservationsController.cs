@@ -119,6 +119,7 @@ namespace API.Features.Reservations {
                 451 => StatusCode(451, new { response = ApiMessages.InvalidDestinationId() }),
                 452 => StatusCode(452, new { response = ApiMessages.InvalidPickupPointId() }),
                 453 => StatusCode(453, new { response = ApiMessages.InvalidDriverId() }),
+                454 => StatusCode(454, new { response = ApiMessages.InvalidShipId() }),
                 431 => StatusCode(431, new { response = ApiMessages.UserCanNotAddReservationInThePast() }),
                 432 => StatusCode(432, new { response = ApiMessages.DayHasNoSchedule() }),
                 430 => StatusCode(430, new { response = ApiMessages.DayHasNoScheduleForDestination() }),

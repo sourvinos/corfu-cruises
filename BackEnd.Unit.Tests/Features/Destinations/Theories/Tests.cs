@@ -1,5 +1,5 @@
 using BackEnd.UnitTests.Infrastructure;
-using BlueWaterCruises.Features.Destinations;
+using API.Features.Destinations;
 using FluentValidation.TestHelper;
 using Xunit;
 

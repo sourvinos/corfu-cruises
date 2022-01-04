@@ -10,7 +10,7 @@ namespace API.Infrastructure.SeedData {
         public static void SeedDrivers(AppDbContext context) {
             if (!context.Drivers.Any()) {
                 List<Driver> drivers = new() {
-                    new Driver { Id = 01, Description = "ALISE PAPE", Phones = "248-462-6749", IsActive = false, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" },
+                    new Driver { Id = 01, Description = "ALISE PAPE", Phones = "248-462-6749", IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" },
                     new Driver { Id = 02, Description = "ALIZA PERALTA", Phones = "505-574-7992", IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" },
                     new Driver { Id = 03, Description = "ARIN FLESHER", Phones = "582-282-1230", IsActive = true, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05" },
                     new Driver { Id = 04, Description = "GASTON SMITHERS", Phones = "406-933-0135", IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" },

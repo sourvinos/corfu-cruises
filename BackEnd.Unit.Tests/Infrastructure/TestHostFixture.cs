@@ -1,6 +1,6 @@
 using System;
 using System.Net.Http;
-using BlueWaterCruises;
+using API;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;

@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.IntegrationTests.Infrastructure;
-using BlueWaterCruises.Features.Embarkation;
+using API.Features.Embarkation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 

@@ -6,8 +6,8 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.IntegrationTests.Infrastructure;
-using BlueWaterCruises.Features.Invoicing;
-using BlueWaterCruises.Features.Reservations;
+using API.Features.Invoicing;
+using API.Features.Reservations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 

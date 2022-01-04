@@ -222,11 +222,17 @@ namespace API.Features.Reservations {
         }
 
         private bool IsValidDriver(ReservationWriteResource record) {
-            return context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive) != null;
+            if (record.DriverId != 0) {
+                return context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive) != null;
+            }
+            return true;
         }
 
         private bool IsValidShip(ReservationWriteResource record) {
-            return context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
+            if (record.ShipId != 0) {
+                return context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
+            }
+            return true;
         }
 
     }

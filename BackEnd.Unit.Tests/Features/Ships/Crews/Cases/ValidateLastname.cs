@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BackEnd.UnitTests.Infrastructure;
-using BlueWaterCruises.Features.Ships.Crews;
+using API.Features.Ships.Crews;
 
 namespace BackEnd.UnitTests.Ships.Crews {
 

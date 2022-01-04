@@ -11,10 +11,10 @@ namespace API.Features.Reservations {
             // FKs
             entity.Property(x => x.CustomerId).IsRequired(true);
             entity.Property(x => x.DestinationId).IsRequired(true);
-            entity.Property(x => x.DriverId).HasDefaultValue(1).IsRequired(true);
+            entity.Property(x => x.DriverId).HasDefaultValue(1);
             entity.Property(x => x.PickupPointId).IsRequired(true);
             entity.Property(x => x.PortId).IsRequired(true);
-            entity.Property(x => x.ShipId).HasDefaultValue(1).IsRequired(true);
+            entity.Property(x => x.ShipId).HasDefaultValue(1);
             entity.Property(x => x.UserId).IsRequired(true);
             // Fields
             entity.Property(x => x.Date).HasColumnType("date").IsRequired(true);

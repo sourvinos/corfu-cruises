@@ -5,8 +5,8 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.IntegrationTests.Infrastructure;
-using BlueWaterCruises.Features.Ships.Owners;
-using BlueWaterCruises.Features.Ships.Registrars;
+using API.Features.Ships.Owners;
+using API.Features.Ships.Registrars;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 

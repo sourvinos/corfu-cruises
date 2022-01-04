@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BackEnd.UnitTests.Infrastructure;
-using BlueWaterCruises.Features.Ships.Routes;
+using API.Features.Ships.Routes;
 
 namespace BackEnd.UnitTests.Ships.Routes {
 

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using BlueWaterCruises.Features.Reservations;
+using API.Features.Reservations;
 
 namespace API.IntegrationTests.Reservations {
 

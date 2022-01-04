@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BackEnd.UnitTests.Infrastructure;
-using BlueWaterCruises.Features.Customers;
+using API.Features.Customers;
 
 namespace BackEnd.UnitTests.Customers {
 
