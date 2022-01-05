@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.Features.Reservations;
 
 namespace API.IntegrationTests.Reservations {
 
@@ -22,7 +21,7 @@ namespace API.IntegrationTests.Reservations {
                     Date = "2025-01-01",
                     TicketNo = "xxxx",
                     Adults = 3,
-                    Passengers = new List<Passenger>()
+                    Passengers = new List<TestPassenger>()
                 }
             };
         }

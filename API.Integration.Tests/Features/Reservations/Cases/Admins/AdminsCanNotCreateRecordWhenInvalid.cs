@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using API.Features.Reservations;
 
 namespace API.IntegrationTests.Reservations {
 
@@ -27,6 +26,12 @@ namespace API.IntegrationTests.Reservations {
             yield return Ship_Must_Exist();
             yield return Ship_Must_Be_Active();
             yield return Passenger_Count_Is_Not_Correct();
+            yield return Nationality_Must_Exist();
+            yield return Nationality_Must_Be_Active();
+            yield return Gender_Must_Exist();
+            yield return Gender_Must_Be_Active();
+            yield return Occupant_Must_Exist();
+            yield return Occupant_Must_Be_Active();
         }
 
         private static object[] Nothing_For_This_Day() {
@@ -285,10 +290,118 @@ namespace API.IntegrationTests.Reservations {
                     Date = "2021-10-01",
                     TicketNo = "xxxx",
                     Adults = 2,
-                    Passengers = new List<Passenger>() {
-                        new Passenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = new DateTime(1992, 06, 12), NationalityId = 123, OccupantId = 2, GenderId = 3 },
-                        new Passenger { Lastname = "ALONA", Firstname = "CUTLER", Birthdate = new DateTime(1964, 04, 28), NationalityId = 127, OccupantId = 2, GenderId = 2 },
-                        new Passenger { Lastname = "LYA", Firstname = "TROWBRIDGE", Birthdate = new DateTime(2015, 01, 21), NationalityId = 211, OccupantId = 2, GenderId = 2 },
+                    Passengers = new List<TestPassenger>() {
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = new DateTime(1992, 06, 12), NationalityId = 123, OccupantId = 2, GenderId = 1 },
+                        new TestPassenger { Lastname = "ALONA", Firstname = "CUTLER", Birthdate = new DateTime(1964, 04, 28), NationalityId = 127, OccupantId = 2, GenderId = 2 },
+                        new TestPassenger { Lastname = "LYA", Firstname = "TROWBRIDGE", Birthdate = new DateTime(2015, 01, 21), NationalityId = 211, OccupantId = 2, GenderId = 1 },
+                    }
+                }
+            };
+        }
+
+        private static object[] Nationality_Must_Exist() {
+            return new object[]{
+                new TestReservation{
+                    FeatureUrl = "/reservations/",
+                    StatusCode = 456,
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 3,
+                    Date = "2021-10-01",
+                    TicketNo = "xxxx",
+                    Adults = 2,
+                    Passengers = new List<TestPassenger>() {
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = new DateTime(1992, 06, 12), NationalityId = 999, OccupantId = 2, GenderId = 3 },
+                    }
+                }
+            };
+        }
+
+        private static object[] Nationality_Must_Be_Active() {
+            return new object[]{
+                new TestReservation{
+                    FeatureUrl = "/reservations/",
+                    StatusCode = 456,
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 3,
+                    Date = "2021-10-01",
+                    TicketNo = "xxxx",
+                    Adults = 2,
+                    Passengers = new List<TestPassenger>() {
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = new DateTime(1992, 06, 12), NationalityId = 3, OccupantId = 2, GenderId = 3 },
+                    }
+                }
+            };
+        }
+
+        private static object[] Gender_Must_Exist() {
+            return new object[]{
+                new TestReservation{
+                    FeatureUrl = "/reservations/",
+                    StatusCode = 457,
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 3,
+                    Date = "2021-10-01",
+                    TicketNo = "xxxx",
+                    Adults = 2,
+                    Passengers = new List<TestPassenger>() {
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = new DateTime(1992, 06, 12), NationalityId = 1, OccupantId = 2, GenderId = 4 },
+                    }
+                }
+            };
+        }
+
+        private static object[] Gender_Must_Be_Active() {
+            return new object[]{
+                new TestReservation{
+                    FeatureUrl = "/reservations/",
+                    StatusCode = 457,
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 3,
+                    Date = "2021-10-01",
+                    TicketNo = "xxxx",
+                    Adults = 2,
+                    Passengers = new List<TestPassenger>() {
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = new DateTime(1992, 06, 12), NationalityId = 1, OccupantId = 2, GenderId = 3 },
+                    }
+                }
+            };
+        }
+
+        private static object[] Occupant_Must_Exist() {
+            return new object[]{
+                new TestReservation{
+                    FeatureUrl = "/reservations/",
+                    StatusCode = 458,
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 3,
+                    Date = "2021-10-01",
+                    TicketNo = "xxxx",
+                    Adults = 2,
+                    Passengers = new List<TestPassenger>() {
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = new DateTime(1992, 06, 12), NationalityId = 1, OccupantId = 4, GenderId = 1 },
+                    }
+                }
+            };
+        }
+
+        private static object[] Occupant_Must_Be_Active() {
+            return new object[]{
+                new TestReservation{
+                    FeatureUrl = "/reservations/",
+                    StatusCode = 458,
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 3,
+                    Date = "2021-10-01",
+                    TicketNo = "xxxx",
+                    Adults = 2,
+                    Passengers = new List<TestPassenger>() {
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = new DateTime(1992, 06, 12), NationalityId = 1, OccupantId = 3, GenderId = 1 },
                     }
                 }
             };

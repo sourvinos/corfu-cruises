@@ -129,6 +129,9 @@ namespace API.Features.Reservations {
                 var x when x == !IsValidDriver(record) => 453,
                 var x when x == !IsValidShip(record) => 454,
                 var x when x == !IsCorrectPassengerCount(record) => 455,
+                var x when x == !IsValidNationality(record) => 456,
+                var x when x == !IsValidGender(record) => 457,
+                var x when x == !IsValidOccupant(record) => 458,
                 var x when x == !UserCanAddReservationInThePast(record.Date) => 431,
                 var x when x == !scheduleRepo.DayHasSchedule(DateTime.Parse(record.Date)) => 432,
                 var x when x == !scheduleRepo.DayHasScheduleForDestination(DateTime.Parse(record.Date), record.DestinationId) => 430,
@@ -231,7 +234,45 @@ namespace API.Features.Reservations {
         }
 
         private static bool IsCorrectPassengerCount(ReservationWriteResource record) {
-            return record.Passengers.Count <= record.Adults + record.Kids + record.Free;
+            if (record.Passengers != null) {
+                if (record.Passengers.Count != 0) {
+                    return record.Passengers.Count <= record.Adults + record.Kids + record.Free;
+                }
+            }
+            return true;
+        }
+
+        private bool IsValidNationality(ReservationWriteResource record) {
+            if (record.Passengers != null) {
+                bool isValid = false;
+                foreach (var passenger in record.Passengers) {
+                    isValid = context.Nationalities.SingleOrDefault(x => x.Id == passenger.NationalityId && x.IsActive) != null;
+                }
+                return record.Passengers.Count == 0 || isValid;
+            }
+            return true;
+        }
+
+        private bool IsValidGender(ReservationWriteResource record) {
+            if (record.Passengers != null) {
+                bool isValid = false;
+                foreach (var passenger in record.Passengers) {
+                    isValid = context.Genders.SingleOrDefault(x => x.Id == passenger.GenderId && x.IsActive) != null;
+                }
+                return record.Passengers.Count == 0 || isValid;
+            }
+            return true;
+        }
+
+        private bool IsValidOccupant(ReservationWriteResource record) {
+            if (record.Passengers != null) {
+                bool isValid = false;
+                foreach (var passenger in record.Passengers) {
+                    isValid = context.Occupants.SingleOrDefault(x => x.Id == passenger.OccupantId && x.IsActive) != null;
+                }
+                return record.Passengers.Count == 0 || isValid;
+            }
+            return true;
         }
 
     }

@@ -1,3 +1,5 @@
+using System;
+
 namespace API.Infrastructure.Helpers {
 
     public static class ApiMessages {
@@ -43,6 +45,9 @@ namespace API.Infrastructure.Helpers {
         public static string InvalidDriverId() { return "Invalid Driver Id."; }
         public static string InvalidShipId() { return "Invalid Ship Id."; }
         public static string InvalidPassengerCount() { return "Total persons must be equal or greater than the passenger count."; }
+        public static string InvalidNationalityId() { return "Invalid or inactive nationality for at least one of the passengers."; }
+        public static string InvalidGenderId() { return "Invalid or inactive gender for at least one of the passengers."; }
+        public static string InvalidOccupantId() { return "Invalid or inactive occupant for at least one of the passengers."; }
 
         #endregion
 

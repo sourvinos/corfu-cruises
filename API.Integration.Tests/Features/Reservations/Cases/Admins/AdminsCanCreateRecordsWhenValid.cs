@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using API.Features.Reservations;
 
 namespace API.IntegrationTests.Reservations {
 
@@ -25,10 +24,10 @@ namespace API.IntegrationTests.Reservations {
                     TicketNo = "xxxx",
                     Adults = 2,
                     Kids = 1,
-                    Passengers = new List<Passenger>() {
-                        new Passenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = new DateTime(1992, 06, 12), NationalityId = 123, OccupantId = 2, GenderId = 3 },
-                        new Passenger { Lastname = "ALONA", Firstname = "CUTLER", Birthdate = new DateTime(1964, 04, 28), NationalityId = 127, OccupantId = 2, GenderId = 2 },
-                        new Passenger { Lastname = "LYA", Firstname = "TROWBRIDGE", Birthdate = new DateTime(2015, 01, 21), NationalityId = 211, OccupantId = 2, GenderId = 2 },
+                    Passengers = new List<TestPassenger>() {
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = new DateTime(1992, 06, 12), NationalityId = 123, OccupantId = 2, GenderId = 3 },
+                        new TestPassenger { Lastname = "ALONA", Firstname = "CUTLER", Birthdate = new DateTime(1964, 04, 28), NationalityId = 127, OccupantId = 2, GenderId = 2 },
+                        new TestPassenger { Lastname = "LYA", Firstname = "TROWBRIDGE", Birthdate = new DateTime(2015, 01, 21), NationalityId = 211, OccupantId = 2, GenderId = 2 },
                     }
                 }
             };
@@ -43,7 +42,7 @@ namespace API.IntegrationTests.Reservations {
                     PickupPointId = 3,
                     Date = "2025-01-01",
                     TicketNo = "xxxx",
-                    Passengers = new List<Passenger>()
+                    Passengers = new List<TestPassenger>()
                 }
             };
         }

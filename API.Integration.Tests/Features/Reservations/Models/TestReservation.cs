@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using API.Features.Reservations;
 
 namespace API.IntegrationTests.Reservations {
 
@@ -25,7 +24,8 @@ namespace API.IntegrationTests.Reservations {
         public int Free { get; set; }
         public string Remarks { get; set; }
         public string UserId { get; set; }
-        public List<Passenger> Passengers { get; set; }
+
+        public List<TestPassenger> Passengers { get; set; }
 
     }
 
