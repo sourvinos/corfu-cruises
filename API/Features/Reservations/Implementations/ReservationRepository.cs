@@ -83,6 +83,10 @@ namespace API.Features.Reservations {
             return reservation;
         }
 
+        public Task<bool> DoesUserOwnRecord(string userId) {
+            return Task.Run(() => httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value == userId);
+        }
+
         public bool IsKeyUnique(ReservationWriteResource record) {
             return !context.Reservations.Any(x =>
                 x.Date == Convert.ToDateTime(record.Date) &&
@@ -108,6 +112,13 @@ namespace API.Features.Reservations {
                 transaction.Rollback();
                 return false;
             }
+        }
+
+        public int GetPortIdFromPickupPointId(ReservationWriteResource record) {
+            PickupPoint pickupPoint = context.PickupPoints
+                .Include(x => x.Route)
+                .SingleOrDefault(x => x.Id == record.PickupPointId);
+            return pickupPoint.Route.PortId;
         }
 
         public int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
@@ -195,17 +206,6 @@ namespace API.Features.Reservations {
             return port[0].MaxPersons;
         }
 
-        public Task<bool> DoesUserOwnRecord(string userId) {
-            return Task.Run(() => httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value == userId);
-        }
-
-        public int GetPortIdFromPickupPointId(ReservationWriteResource record) {
-            PickupPoint pickupPoint = context.PickupPoints
-                .Include(x => x.Route)
-                .SingleOrDefault(x => x.Id == record.PickupPointId);
-            return pickupPoint.Route.PortId;
-        }
-
         private bool UserCanAddReservationInThePast(string date) {
             return Identity.IsUserAdmin(httpContextAccessor).Result || DateTime.Parse(date) > DateTime.Now;
         }
@@ -230,7 +230,7 @@ namespace API.Features.Reservations {
             return record.ShipId == 0 || context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
         }
 
-        public bool IsCorrectPassengerCount(ReservationWriteResource record) {
+        private static bool IsCorrectPassengerCount(ReservationWriteResource record) {
             return record.Passengers.Count <= record.Adults + record.Kids + record.Free;
         }
 

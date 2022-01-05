@@ -12,11 +12,10 @@ namespace API.Features.Reservations {
         Task<bool> DoesUserOwnRecord(string userId);
         bool IsKeyUnique(ReservationWriteResource record);
         bool Update(string id, Reservation updatedRecord);
+        int GetPortIdFromPickupPointId(ReservationWriteResource record);
         int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo);
         void AssignToDriver(int driverId, string[] ids);
         void AssignToShip(int shipId, string[] ids);
-        int GetPortIdFromPickupPointId(ReservationWriteResource record);
-        bool IsCorrectPassengerCount(ReservationWriteResource record);
 
     }
 
