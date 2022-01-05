@@ -117,6 +117,7 @@ namespace API.Features.Reservations {
                 var x when x == !IsValidPickupPoint(record) => 452,
                 var x when x == !IsValidDriver(record) => 453,
                 var x when x == !IsValidShip(record) => 454,
+                var x when x == !IsCorrectPassengerCount(record) => 455,
                 var x when x == !UserCanAddReservationInThePast(record.Date) => 431,
                 var x when x == !scheduleRepo.DayHasSchedule(DateTime.Parse(record.Date)) => 432,
                 var x when x == !scheduleRepo.DayHasScheduleForDestination(DateTime.Parse(record.Date), record.DestinationId) => 430,
@@ -222,17 +223,15 @@ namespace API.Features.Reservations {
         }
 
         private bool IsValidDriver(ReservationWriteResource record) {
-            if (record.DriverId != 0) {
-                return context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive) != null;
-            }
-            return true;
+            return record.DriverId == 0 || context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive) != null;
         }
 
         private bool IsValidShip(ReservationWriteResource record) {
-            if (record.ShipId != 0) {
-                return context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
-            }
-            return true;
+            return record.ShipId == 0 || context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
+        }
+
+        public bool IsCorrectPassengerCount(ReservationWriteResource record) {
+            return record.Passengers.Count <= record.Adults + record.Kids + record.Free;
         }
 
     }

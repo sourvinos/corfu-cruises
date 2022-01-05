@@ -42,6 +42,7 @@ namespace API.Infrastructure.Helpers {
         public static string InvalidPickupPointId() { return "Invalid Pickup point Id."; }
         public static string InvalidDriverId() { return "Invalid Driver Id."; }
         public static string InvalidShipId() { return "Invalid Ship Id."; }
+        public static string InvalidPassengerCount() { return "Total persons must be equal or greater than the passenger count."; }
 
         #endregion
 

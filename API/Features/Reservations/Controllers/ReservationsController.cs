@@ -55,8 +55,8 @@ namespace API.Features.Reservations {
         public IActionResult PostReservation([FromBody] ReservationWriteResource record) {
             var response = reservationRepo.IsValid(record, scheduleRepo);
             if (response == 200) {
-                _ = AttachPortIdToRecord(record);
-                _ = AttachUserIdToRecord(record);
+                AttachPortIdToRecord(record);
+                AttachUserIdToRecord(record);
                 reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
@@ -120,6 +120,7 @@ namespace API.Features.Reservations {
                 452 => StatusCode(452, new { response = ApiMessages.InvalidPickupPointId() }),
                 453 => StatusCode(453, new { response = ApiMessages.InvalidDriverId() }),
                 454 => StatusCode(454, new { response = ApiMessages.InvalidShipId() }),
+                455 => StatusCode(455, new { response = ApiMessages.InvalidPassengerCount() }),
                 431 => StatusCode(431, new { response = ApiMessages.UserCanNotAddReservationInThePast() }),
                 432 => StatusCode(432, new { response = ApiMessages.DayHasNoSchedule() }),
                 430 => StatusCode(430, new { response = ApiMessages.DayHasNoScheduleForDestination() }),

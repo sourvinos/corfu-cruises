@@ -16,6 +16,7 @@ namespace API.Features.Reservations {
         void AssignToDriver(int driverId, string[] ids);
         void AssignToShip(int shipId, string[] ids);
         int GetPortIdFromPickupPointId(ReservationWriteResource record);
+        bool IsCorrectPassengerCount(ReservationWriteResource record);
 
     }
 
