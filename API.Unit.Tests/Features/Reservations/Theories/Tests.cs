@@ -12,9 +12,10 @@ namespace API.UnitTests.Reservations {
             new ReservationValidator().ShouldHaveValidationErrorFor(model => model.CustomerId, 0);
         }
 
-        [Fact]
-        public void Invalid_DestinationId() {
-            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.DestinationId, 0);
+        [Theory]
+        [ClassData(typeof(InvalidDestinationId))]
+        public void Invalid_DestinationId(int destinationId) {
+            new ReservationValidator().ShouldHaveValidationErrorFor(model => model.DestinationId, destinationId);
         }
 
         [Fact]

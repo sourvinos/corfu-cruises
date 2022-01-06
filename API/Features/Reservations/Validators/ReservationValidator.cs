@@ -12,8 +12,8 @@ namespace API.Features.Reservations {
             RuleFor(x => x.DestinationId).NotEmpty();
             RuleFor(x => x.PickupPointId).NotEmpty();
             // Fields
-            RuleFor(x => x.Date).Must(DateHelpers.BeValidDate);
-            RuleFor(x => x.Email).Must(EmailHelpers.BeEmptyOrValidEmailAddress).MaximumLength(128);
+            RuleFor(x => x.Date).Must(DateHelpers.BeCorrectFormat).WithMessage(ApiMessages.DateWrongFormat());
+            RuleFor(x => x.Email).Must(EmailHelpers.BeEmptyOrValidEmailAddress).WithMessage(ApiMessages.EmailWrongFormat()).MaximumLength(128);
             RuleFor(x => x.Phones).MaximumLength(128);
             RuleFor(x => x.Remarks).MaximumLength(128);
             RuleFor(x => x.TicketNo).NotEmpty().MaximumLength(128);

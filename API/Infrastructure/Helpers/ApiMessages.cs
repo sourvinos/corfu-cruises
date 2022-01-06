@@ -29,6 +29,8 @@ namespace API.Infrastructure.Helpers {
         public static string FileNotCreated() { return "File not created."; }
         public static string InvalidModel() { return "The model is invalid."; }
         public static string EmailNotSent() { return "Email not sent."; }
+        public static string DateWrongFormat() { return "Date must be in 'YYYY-MM-DD' format"; }
+        public static string EmailWrongFormat() { return "Email is not in correct format"; }
         public static string DuplicateRecord() { return "Duplicate records are not allowed."; }
         public static string DayHasNoSchedule() { return "For this day nothing is scheduled."; }
         public static string DayHasNoScheduleForDestination() { return "For this day and destination nothing is scheduled."; }

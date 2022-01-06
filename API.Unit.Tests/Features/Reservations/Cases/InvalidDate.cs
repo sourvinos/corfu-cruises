@@ -10,6 +10,7 @@ namespace API.UnitTests.Reservations {
         public IEnumerator<object[]> GetEnumerator() {
             yield return Date_Can_Not_Be_Empty();
             yield return Date_Can_Not_Be_Null();
+            yield return Date_Can_Not_Be_In_Wrong_Format();
         }
 
         private static object[] Date_Can_Not_Be_Empty() {
@@ -18,6 +19,10 @@ namespace API.UnitTests.Reservations {
 
         private static object[] Date_Can_Not_Be_Null() {
             return new object[] { null };
+        }
+
+        private static object[] Date_Can_Not_Be_In_Wrong_Format() {
+            return new object[] { "01-01-2020" };
         }
 
     }

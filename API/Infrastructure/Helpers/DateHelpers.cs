@@ -11,7 +11,7 @@ namespace API.Infrastructure.Extensions {
             return date.Year.ToString() + "-" + month.Substring(month.Length - 2, 2) + "-" + day.Substring(day.Length - 2, 2);
         }
 
-        public static bool BeValidDate(string date) {
+        public static bool BeCorrectFormat(string date) {
             return DateTime.TryParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
         }
 
