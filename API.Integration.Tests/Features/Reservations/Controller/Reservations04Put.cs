@@ -48,8 +48,8 @@ namespace API.IntegrationTests.Reservations {
         }
 
         [Theory]
-        [ClassData(typeof(SimpleUsersCanNotUpdateNotOwnedRecords))]
-        public async Task Simple_Users_Can_Not_Update_Not_Owned(TestReservation record) {
+        [ClassData(typeof(SimpleUsersCanNotUpdate))]
+        public async Task Simple_Users_Can_Not_Update(TestReservation record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -57,29 +57,14 @@ namespace API.IntegrationTests.Reservations {
             // act
             var actionResponse = await _httpClient.PutAsync(_baseUrl + record.FeatureUrl + record.ReservationId, Helpers.ConvertObjectToJson(record));
             // assert
-            Assert.Equal(HttpStatusCode.BadRequest, actionResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
         [Theory]
-        [ClassData(typeof(SimpleUsersCanUpdateOwnRecords))]
-        public async Task Simple_Users_Can_Update_Own(TestReservation record) {
-            // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
-            // act
-            var actionResponse = await _httpClient.PutAsync(_baseUrl + record.FeatureUrl + record.ReservationId, Helpers.ConvertObjectToJson(record));
-            // assert
-            Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
-            // cleanup
-            await Helpers.Logout(_httpClient, loginResponse.UserId);
-        }
-
-        [Theory]
-        [ClassData(typeof(AdminsCanUpdateRecordsOwnedByAnyone))]
-        public async Task Admin_Can_Update_Record_Owned_By_Anyone(TestReservation record) {
+        [ClassData(typeof(AdminsCanUpdate))]
+        public async Task Admins_Can_Update(TestReservation record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);

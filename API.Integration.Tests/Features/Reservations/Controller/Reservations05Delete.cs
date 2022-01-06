@@ -75,8 +75,8 @@ namespace API.IntegrationTests.Reservations {
         }
 
         [Theory]
-        [ClassData(typeof(AdminsCanDeleteRecordsOwnedByAnyone))]
-        public async Task Admins_Can_Delete_Owned_By_Anyone(TestReservation record) {
+        [ClassData(typeof(AdminsCanDelete))]
+        public async Task Admins_Can_Delete(TestReservation record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace API.IntegrationTests.Reservations {
 
-    public class AdminsCanDeleteRecordsOwnedByAnyone : IEnumerable<object[]> {
+    public class AdminsCanDelete : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

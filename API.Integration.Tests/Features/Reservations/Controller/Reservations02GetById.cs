@@ -91,7 +91,7 @@ namespace API.IntegrationTests.Reservations {
         }
 
         [Fact]
-        public async Task Admins_Can_Read_Owned_By_Anyone() {
+        public async Task Admins_Can_Read() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);

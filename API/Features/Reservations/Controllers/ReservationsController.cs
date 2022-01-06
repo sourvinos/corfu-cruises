@@ -67,11 +67,11 @@ namespace API.Features.Reservations {
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             AttachUserIdToRecord(record);
-            if (await Identity.IsUserAdmin(httpContextAccessor) || await reservationRepo.DoesUserOwnRecord(record.UserId)) {
+            if (await Identity.IsUserAdmin(httpContextAccessor)) {
                 var response = reservationRepo.IsValid(record, scheduleRepo);
                 if (response == 200) {
                     reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
@@ -82,8 +82,8 @@ namespace API.Features.Reservations {
                     return this.GetErrorMessage(response);
                 }
             } else {
-                return StatusCode(401, new {
-                    response = ApiMessages.NotOwnRecord()
+                return StatusCode(403, new {
+                    response = ApiMessages.InsufficientUserRights()
                 });
             }
         }

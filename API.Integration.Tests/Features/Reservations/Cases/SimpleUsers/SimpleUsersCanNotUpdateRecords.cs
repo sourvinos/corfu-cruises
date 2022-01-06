@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace API.IntegrationTests.Reservations {
 
-    public class SimpleUsersCanNotUpdateNotOwnedRecords : IEnumerable<object[]> {
+    public class SimpleUsersCanNotUpdate : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return Simple_Users_Can_Not_Update_Not_Owned_Records();
+            yield return Simple_Users_Can_Not_Update_Records();
         }
 
-        private static object[] Simple_Users_Can_Not_Update_Not_Owned_Records() {
+        private static object[] Simple_Users_Can_Not_Update_Records() {
             return new object[] {
                 new TestReservation {
                     FeatureUrl = "/reservations/",
