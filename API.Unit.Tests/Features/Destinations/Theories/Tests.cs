@@ -9,14 +9,18 @@ namespace API.UnitTests.Destinations {
 
         [Theory]
         [ClassData(typeof(ValidateAbbreviation))]
-        public void Invalid_Abbreviation(DestinationWriteResource record) {
-            new DestinationValidator().ShouldHaveValidationErrorFor(model => model.Abbreviation, record.Abbreviation);
+        public void Invalid_Abbreviation(string abbreviation) {
+            new DestinationValidator()
+                .TestValidate(new DestinationWriteResource { Abbreviation = abbreviation })
+                .ShouldHaveValidationErrorFor(x => x.Abbreviation);
         }
 
         [Theory]
         [ClassData(typeof(ValidateDescription))]
-        public void Invalid_Description(DestinationWriteResource record) {
-            new DestinationValidator().ShouldHaveValidationErrorFor(model => model.Description, record.Description);
+        public void Invalid_Description(string description) {
+            new DestinationValidator()
+                .TestValidate(new DestinationWriteResource { Description = description })
+                .ShouldHaveValidationErrorFor(x => x.Description);
         }
 
     }

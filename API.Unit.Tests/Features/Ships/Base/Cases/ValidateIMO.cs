@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.Features.Ships.Base;
 using API.UnitTests.Infrastructure;
 
 namespace API.UnitTests.Ships.Base {
@@ -14,11 +13,7 @@ namespace API.UnitTests.Ships.Base {
         }
 
         private static object[] IMO_Can_Not_Be_Longer_Than_Maximum() {
-            return new object[] {
-                new ShipWriteResource {
-                    IMO = Helpers.GetLongString()
-                }
-            };
+            return new object[] { Helpers.GetLongString() };
         }
 
     }

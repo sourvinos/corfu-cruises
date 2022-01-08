@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.Features.Ships.Crews;
 using API.UnitTests.Infrastructure;
 
 namespace API.UnitTests.Ships.Crews {
@@ -16,27 +15,15 @@ namespace API.UnitTests.Ships.Crews {
         }
 
         private static object[] Lastname_Can_Not_Be_Null() {
-            return new object[] {
-                new CrewWriteResource {
-                    Lastname = null
-                }
-            };
+            return new object[] { null };
         }
 
         private static object[] Lastname_Can_Not_Be_Empty() {
-            return new object[] {
-                new CrewWriteResource {
-                    Lastname = ""
-                }
-            };
+            return new object[] { string.Empty };
         }
 
         private static object[] Lastname_Can_Not_Be_Longer_Than_Maximum() {
-            return new object[] {
-                new CrewWriteResource {
-                    Lastname = Helpers.GetLongString()
-                }
-            };
+            return new object[] { Helpers.GetLongString() };
         }
 
     }

@@ -9,44 +9,58 @@ namespace API.UnitTests.Ships.Owners {
 
         [Theory]
         [ClassData(typeof(ValidateDescription))]
-        public void Invalid_Description(ShipOwnerWriteResource record) {
-            new ShipOwnerValidator().ShouldHaveValidationErrorFor(model => model.Description, record.Description);
+        public void Invalid_Description(string description) {
+            new ShipOwnerValidator()
+                .TestValidate(new ShipOwnerWriteResource { Description = description })
+                .ShouldHaveValidationErrorFor(x => x.Description);
         }
 
         [Theory]
         [ClassData(typeof(ValidateProfession))]
-        public void Invalid_Profession(ShipOwnerWriteResource record) {
-            new ShipOwnerValidator().ShouldHaveValidationErrorFor(model => model.Profession, record.Profession);
+        public void Invalid_Profession(string profession) {
+            new ShipOwnerValidator()
+                .TestValidate(new ShipOwnerWriteResource { Profession = profession })
+                .ShouldHaveValidationErrorFor(x => x.Profession);
         }
 
         [Theory]
         [ClassData(typeof(ValidateAddress))]
-        public void Invalid_Address(ShipOwnerWriteResource record) {
-            new ShipOwnerValidator().ShouldHaveValidationErrorFor(model => model.Address, record.Address);
+        public void Invalid_Address(string address) {
+            new ShipOwnerValidator()
+                .TestValidate(new ShipOwnerWriteResource { Address = address })
+                .ShouldHaveValidationErrorFor(x => x.Address);
         }
 
         [Theory]
         [ClassData(typeof(ValidateTaxNo))]
-        public void Invalid_TaxNo(ShipOwnerWriteResource record) {
-            new ShipOwnerValidator().ShouldHaveValidationErrorFor(model => model.TaxNo, record.TaxNo);
+        public void Invalid_TaxNo(string taxNo) {
+            new ShipOwnerValidator()
+                .TestValidate(new ShipOwnerWriteResource { TaxNo = taxNo })
+                .ShouldHaveValidationErrorFor(x => x.TaxNo);
         }
 
         [Theory]
         [ClassData(typeof(ValidateCity))]
-        public void Invalid_City(ShipOwnerWriteResource record) {
-            new ShipOwnerValidator().ShouldHaveValidationErrorFor(model => model.City, record.City);
+        public void Invalid_City(string city) {
+            new ShipOwnerValidator()
+                .TestValidate(new ShipOwnerWriteResource { City = city })
+                .ShouldHaveValidationErrorFor(x => x.City);
         }
 
         [Theory]
         [ClassData(typeof(ValidatePhones))]
-        public void Invalid_Phones(ShipOwnerWriteResource record) {
-            new ShipOwnerValidator().ShouldHaveValidationErrorFor(model => model.Phones, record.Phones);
+        public void Invalid_Phones(string phones) {
+            new ShipOwnerValidator()
+                .TestValidate(new ShipOwnerWriteResource { Phones = phones })
+                .ShouldHaveValidationErrorFor(x => x.Phones);
         }
 
         [Theory]
         [ClassData(typeof(ValidateEmail))]
         public void Invalid_Email(string email) {
-            new ShipOwnerValidator().ShouldHaveValidationErrorFor(model => model.Email, email);
+            new ShipOwnerValidator()
+                .TestValidate(new ShipOwnerWriteResource { Email = email })
+                .ShouldHaveValidationErrorFor(x => x.Email);
         }
 
     }

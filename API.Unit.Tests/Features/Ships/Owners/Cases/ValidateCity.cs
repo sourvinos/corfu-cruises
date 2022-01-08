@@ -14,11 +14,7 @@ namespace API.UnitTests.Ships.Owners {
         }
 
         private static object[] City_Can_Not_Be_Longer_Than_Maximum() {
-            return new object[] {
-                new ShipOwnerWriteResource {
-                    City = Helpers.GetLongString()
-                }
-            };
+            return new object[] { Helpers.GetLongString() };
         }
 
     }

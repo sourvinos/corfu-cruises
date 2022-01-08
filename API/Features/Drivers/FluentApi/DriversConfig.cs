@@ -13,7 +13,7 @@ namespace API.Features.Drivers {
             // Fields
             entity.Property(x => x.Description).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.Phones).HasDefaultValue("").HasMaxLength(128);
-            entity.Property(x => x.IsActive).IsRequired(true);
+            entity.Property(x => x.IsActive);
             // FK Constraints
             entity.HasOne(x => x.User).WithMany(x => x.Drivers).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
         }

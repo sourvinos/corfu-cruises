@@ -11,8 +11,7 @@ namespace API.Features.Customers {
             RuleFor(x => x.Address).MaximumLength(128);
             RuleFor(x => x.Phones).MaximumLength(128);
             RuleFor(x => x.PersonInCharge).MaximumLength(128);
-            RuleFor(x => x.Email).Must(EmailHelpers.BeEmptyOrValidEmailAddress).MaximumLength(128);
-            RuleFor(x => x.IsActive).NotNull();
+            RuleFor(x => x.Email).Must(EmailHelpers.BeEmptyOrValidEmailAddress).WithMessage(ApiMessages.EmailHasWrongFormat()).MaximumLength(128);
         }
 
     }

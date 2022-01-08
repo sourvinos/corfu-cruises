@@ -9,14 +9,18 @@ namespace API.UnitTests.Ships.Crews {
 
         [Theory]
         [ClassData(typeof(ValidateLastname))]
-        public void Invalid_Lastname(CrewWriteResource record) {
-            new CrewValidator().ShouldHaveValidationErrorFor(model => model.Lastname, record.Lastname);
+        public void Invalid_Lastname(string lastname) {
+            new CrewValidator()
+                .TestValidate(new CrewWriteResource { Lastname = lastname })
+                .ShouldHaveValidationErrorFor(x => x.Lastname);
         }
 
         [Theory]
         [ClassData(typeof(ValidateFirstname))]
-        public void Invalid_Firstname(CrewWriteResource record) {
-            new CrewValidator().ShouldHaveValidationErrorFor(model => model.Firstname, record.Firstname);
+        public void Invalid_Firstname(string firstname) {
+            new CrewValidator()
+                .TestValidate(new CrewWriteResource { Firstname = firstname })
+                .ShouldHaveValidationErrorFor(x => x.Firstname);
         }
 
     }

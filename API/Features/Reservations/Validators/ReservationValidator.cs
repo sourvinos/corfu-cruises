@@ -8,12 +8,14 @@ namespace API.Features.Reservations {
 
         public ReservationValidator() {
             // FKs
-            RuleFor(x => x.CustomerId).NotEmpty();
-            RuleFor(x => x.DestinationId).NotEmpty();
-            RuleFor(x => x.PickupPointId).NotEmpty();
+            RuleFor(x => x.CustomerId).NotEmpty().WithMessage(ApiMessages.InvalidCustomerId());
+            RuleFor(x => x.DestinationId).NotEmpty().WithMessage(ApiMessages.InvalidDestinationId());
+            RuleFor(x => x.DriverId).NotEmpty().WithMessage(ApiMessages.InvalidDriverId());
+            RuleFor(x => x.PickupPointId).NotEmpty().WithMessage(ApiMessages.InvalidPickupPointId());
+            RuleFor(x => x.ShipId).NotEmpty().WithMessage(ApiMessages.InvalidShipId());
             // Fields
-            RuleFor(x => x.Date).Must(DateHelpers.BeCorrectFormat).WithMessage(ApiMessages.DateWrongFormat());
-            RuleFor(x => x.Email).Must(EmailHelpers.BeEmptyOrValidEmailAddress).WithMessage(ApiMessages.EmailWrongFormat()).MaximumLength(128);
+            RuleFor(x => x.Date).Must(DateHelpers.BeCorrectFormat).WithMessage(ApiMessages.DateHasWrongFormat());
+            RuleFor(x => x.Email).Must(EmailHelpers.BeEmptyOrValidEmailAddress).WithMessage(ApiMessages.EmailHasWrongFormat()).MaximumLength(128);
             RuleFor(x => x.Phones).MaximumLength(128);
             RuleFor(x => x.Remarks).MaximumLength(128);
             RuleFor(x => x.TicketNo).NotEmpty().MaximumLength(128);

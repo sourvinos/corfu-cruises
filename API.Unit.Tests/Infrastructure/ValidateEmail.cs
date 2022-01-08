@@ -8,26 +8,26 @@ namespace API.UnitTests.Infrastructure {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return Email_First_Case();
-            yield return Email_Second_Case();
-            yield return Email_Third_Case();
-            yield return Email_Fourth_Case();
+            yield return Email_Case_A();
+            yield return Email_Case_B();
+            yield return Email_Case_C();
+            yield return Email_Case_D();
             yield return Email_Can_Not_Be_Longer_Than_Maximum();
         }
 
-        private static object[] Email_First_Case() {
+        private static object[] Email_Case_A() {
             return new object[] { "ThisIsNotAnEmail" };
         }
 
-        private static object[] Email_Second_Case() {
+        private static object[] Email_Case_B() {
             return new object[] { "ThisIsNotAnEmail@SomeServer." };
         }
 
-        private static object[] Email_Third_Case() {
+        private static object[] Email_Case_C() {
             return new object[] { "ThisIsNotAnEmail@SomeServer@" };
         }
 
-        private static object[] Email_Fourth_Case() {
+        private static object[] Email_Case_D() {
             return new object[] { "ThisIsNotAnEmail@SomeServer@.com." };
         }
 

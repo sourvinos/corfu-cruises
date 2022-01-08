@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.Features.Customers;
 using API.UnitTests.Infrastructure;
 
 namespace API.UnitTests.Customers {
@@ -14,11 +13,7 @@ namespace API.UnitTests.Customers {
         }
 
         private static object[] Address_Can_Not_Be_Longer_Than_Maximum() {
-            return new object[] {
-                new CustomerWriteResource {
-                    Address = Helpers.GetLongString()
-                }
-            };
+            return new object[] { Helpers.GetLongString() };
         }
 
     }

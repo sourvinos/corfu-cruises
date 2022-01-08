@@ -13,7 +13,7 @@ namespace API.Features.Destinations {
             // Fields
             entity.Property(x => x.Abbreviation).HasMaxLength(5).IsRequired(true);
             entity.Property(x => x.Description).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.IsActive).IsRequired(true);
+            entity.Property(x => x.IsActive);
             // FK Constraints
             entity.HasOne(x => x.User).WithMany(x => x.Destinations).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
         }

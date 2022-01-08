@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.Features.Destinations;
 using API.UnitTests.Infrastructure;
 
 namespace API.UnitTests.Destinations {
@@ -16,27 +15,15 @@ namespace API.UnitTests.Destinations {
         }
 
         private static object[] Description_Can_Not_Be_Null() {
-            return new object[] {
-                new DestinationWriteResource {
-                    Description = null
-                }
-            };
+            return new object[] { null };
         }
 
         private static object[] Description_Can_Not_Be_Empty() {
-            return new object[] {
-                new DestinationWriteResource {
-                    Description = ""
-                }
-            };
+            return new object[] { string.Empty };
         }
 
         private static object[] Description_Can_Not_Be_Longer_Than_Maximum() {
-            return new object[] {
-                new DestinationWriteResource {
-                    Description = Helpers.GetLongString()
-                }
-            };
+            return new object[] { Helpers.GetLongString() };
         }
 
     }

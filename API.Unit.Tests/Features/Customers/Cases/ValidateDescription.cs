@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.Features.Customers;
 using API.UnitTests.Infrastructure;
 
 namespace API.UnitTests.Customers {
@@ -16,27 +15,15 @@ namespace API.UnitTests.Customers {
         }
 
         private static object[] Description_Can_Not_Be_Null() {
-            return new object[] {
-                new CustomerWriteResource {
-                    Description = null
-                }
-            };
+            return new object[] { null };
         }
 
         private static object[] Description_Can_Not_Be_Empty() {
-            return new object[] {
-                new CustomerWriteResource {
-                    Description = ""
-                }
-            };
+            return new object[] { string.Empty };
         }
 
         private static object[] Description_Can_Not_Be_Longer_Than_Maximum() {
-            return new object[] {
-                new CustomerWriteResource {
-                    Description = Helpers.GetLongString()
-                }
-            };
+            return new object[] { Helpers.GetLongString() };
         }
 
     }

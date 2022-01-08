@@ -1,5 +1,3 @@
-using System;
-
 namespace API.Infrastructure.Helpers {
 
     public static class ApiMessages {
@@ -29,8 +27,8 @@ namespace API.Infrastructure.Helpers {
         public static string FileNotCreated() { return "File not created."; }
         public static string InvalidModel() { return "The model is invalid."; }
         public static string EmailNotSent() { return "Email not sent."; }
-        public static string DateWrongFormat() { return "Date must be in 'YYYY-MM-DD' format"; }
-        public static string EmailWrongFormat() { return "Email is not in correct format"; }
+        public static string DateHasWrongFormat() { return "Date must be in 'YYYY-MM-DD' format"; }
+        public static string EmailHasWrongFormat() { return "Email is not in the correct format"; }
         public static string DuplicateRecord() { return "Duplicate records are not allowed."; }
         public static string DayHasNoSchedule() { return "For this day nothing is scheduled."; }
         public static string DayHasNoScheduleForDestination() { return "For this day and destination nothing is scheduled."; }
@@ -50,6 +48,9 @@ namespace API.Infrastructure.Helpers {
         public static string InvalidNationalityId() { return "Invalid or inactive nationality for at least one of the passengers."; }
         public static string InvalidGenderId() { return "Invalid or inactive gender for at least one of the passengers."; }
         public static string InvalidOccupantId() { return "Invalid or inactive occupant for at least one of the passengers."; }
+        public static string InvalidShipRouteFromTime() { return "From time is missing or invalid"; }
+        public static string InvalidShipRouteViaTime() { return "Via time is invalid"; }
+        public static string InvalidShipRouteToTime() { return "To time is missing or invalid"; }
 
         #endregion
 

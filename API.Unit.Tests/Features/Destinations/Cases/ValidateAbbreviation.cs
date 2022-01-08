@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.Features.Destinations;
-using API.UnitTests.Infrastructure;
 
 namespace API.UnitTests.Destinations {
 
@@ -10,16 +8,23 @@ namespace API.UnitTests.Destinations {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
+            yield return Abbreviation_Can_Not_Be_Null();
+            yield return Abbreviation_Can_Not_Be_Empty();
             yield return Abbreviation_Can_Not_Be_Longer_Than_Maximum();
         }
 
-        private static object[] Abbreviation_Can_Not_Be_Longer_Than_Maximum() {
-            return new object[] {
-                new DestinationWriteResource {
-                    Abbreviation = Helpers.GetLongString()
-                }
-            };
+        private static object[] Abbreviation_Can_Not_Be_Null() {
+            return new object[] { null };
         }
+
+        private static object[] Abbreviation_Can_Not_Be_Empty() {
+            return new object[] { string.Empty };
+        }
+
+        private static object[] Abbreviation_Can_Not_Be_Longer_Than_Maximum() {
+            return new object[] { "123456" };
+        }
+
 
     }
 

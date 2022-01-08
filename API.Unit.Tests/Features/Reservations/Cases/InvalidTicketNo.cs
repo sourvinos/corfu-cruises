@@ -15,7 +15,7 @@ namespace API.UnitTests.Reservations {
         }
 
         private static object[] TicketNo_Can_Not_Be_Empty() {
-            return new object[] { "" };
+            return new object[] { string.Empty };
         }
 
         private static object[] TicketNo_Can_Not_Be_Null() {

@@ -9,44 +9,58 @@ namespace API.UnitTests.Ships.Base {
 
         [Theory]
         [ClassData(typeof(ValidateDescription))]
-        public void Invalid_Description(ShipWriteResource record) {
-            new ShipValidator().ShouldHaveValidationErrorFor(model => model.Description, record.Description);
+        public void Invalid_Description(string description) {
+            new ShipValidator()
+                .TestValidate(new ShipWriteResource { Description = description })
+                .ShouldHaveValidationErrorFor(x => x.Description);
         }
 
         [Theory]
         [ClassData(typeof(ValidateIMO))]
-        public void Invalid_IMO(ShipWriteResource record) {
-            new ShipValidator().ShouldHaveValidationErrorFor(model => model.IMO, record.IMO);
+        public void Invalid_IMO(string imo) {
+            new ShipValidator()
+                .TestValidate(new ShipWriteResource { IMO = imo })
+                .ShouldHaveValidationErrorFor(x => x.IMO);
         }
 
         [Theory]
         [ClassData(typeof(ValidateFlag))]
-        public void Invalid_Flag(ShipWriteResource record) {
-            new ShipValidator().ShouldHaveValidationErrorFor(model => model.Flag, record.Flag);
+        public void Invalid_Flag(string flag) {
+            new ShipValidator()
+                .TestValidate(new ShipWriteResource { Flag = flag })
+                .ShouldHaveValidationErrorFor(x => x.Flag);
         }
 
         [Theory]
         [ClassData(typeof(ValidateRegistryNo))]
-        public void Invalid_RegistryNo(ShipWriteResource record) {
-            new ShipValidator().ShouldHaveValidationErrorFor(model => model.RegistryNo, record.RegistryNo);
+        public void Invalid_RegistryNo(string registryNo) {
+            new ShipValidator()
+                .TestValidate(new ShipWriteResource { RegistryNo = registryNo })
+                .ShouldHaveValidationErrorFor(x => x.RegistryNo);
         }
 
         [Theory]
         [ClassData(typeof(ValidateManager))]
-        public void Invalid_Manager(ShipWriteResource record) {
-            new ShipValidator().ShouldHaveValidationErrorFor(model => model.Manager, record.Manager);
+        public void Invalid_Manager(string manager) {
+            new ShipValidator()
+                .TestValidate(new ShipWriteResource { Manager = manager })
+                .ShouldHaveValidationErrorFor(x => x.Manager);
         }
 
         [Theory]
         [ClassData(typeof(ValidateManagerInGreece))]
-        public void Invalid_ManagerInGreece(ShipWriteResource record) {
-            new ShipValidator().ShouldHaveValidationErrorFor(model => model.ManagerInGreece, record.ManagerInGreece);
+        public void Invalid_ManagerInGreece(string managerInGreece) {
+            new ShipValidator()
+                .TestValidate(new ShipWriteResource { ManagerInGreece = managerInGreece })
+                .ShouldHaveValidationErrorFor(x => x.ManagerInGreece);
         }
 
         [Theory]
         [ClassData(typeof(ValidateAgent))]
-        public void Invalid_Agent(ShipWriteResource record) {
-            new ShipValidator().ShouldHaveValidationErrorFor(model => model.Agent, record.Agent);
+        public void Invalid_Agent(string agent) {
+            new ShipValidator()
+                .TestValidate(new ShipWriteResource { Agent = agent })
+                .ShouldHaveValidationErrorFor(x => x.Agent);
         }
 
     }
