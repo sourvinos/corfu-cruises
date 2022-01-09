@@ -17,7 +17,7 @@ namespace API.UnitTests.Drivers {
 
         [Theory]
         [ClassData(typeof(ValidatePhones))]
-        public void Invalid_Abbreviation(string phones) {
+        public void Invalid_Phones(string phones) {
             new DriverValidator()
                 .TestValidate(new DriverWriteResource { Phones = phones })
                 .ShouldHaveValidationErrorFor(x => x.Phones);
