@@ -17,7 +17,7 @@ namespace API.Infrastructure.Helpers {
                 return false;
             }
             try {
-                return Regex.IsMatch(time, "^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$");
+                return Regex.IsMatch(time, "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
             } catch (RegexMatchTimeoutException) {
                 return false;
             }

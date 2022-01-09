@@ -1,5 +1,4 @@
 using API.Features.Ships.Routes;
-using API.Infrastructure.Helpers;
 using API.UnitTests.Infrastructure;
 using FluentValidation.TestHelper;
 using Xunit;
@@ -25,7 +24,7 @@ namespace API.UnitTests.Ships.Routes {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateFromTime))]
+        [ClassData(typeof(ValidateTime))]
         public void Invalid_FromTime(string fromTime) {
             new ShipRouteValidator()
                 .TestValidate(new ShipRouteWriteResource { FromTime = fromTime })
@@ -57,7 +56,7 @@ namespace API.UnitTests.Ships.Routes {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateToTime))]
+        [ClassData(typeof(ValidateTime))]
         public void Invalid_ToTime(string toTime) {
             new ShipRouteValidator()
                 .TestValidate(new ShipRouteWriteResource { ToTime = toTime })
