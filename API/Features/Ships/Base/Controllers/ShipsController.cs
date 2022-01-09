@@ -44,7 +44,7 @@ namespace API.Features.Ships.Base {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult PostShip([FromBody] ShipWriteResource record) {
-            repo.Create(mapper.Map<ShipWriteResource, Ship>(record));
+            repo.Create(mapper.Map<ShipWriteResource, Ship>(AttachUserIdToRecord(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordCreated()
             });

@@ -51,6 +51,7 @@ namespace API.Infrastructure.Helpers {
         public static string InvalidShipRouteFromTime() { return "From time is missing or invalid"; }
         public static string InvalidShipRouteViaTime() { return "Via time is invalid"; }
         public static string InvalidShipRouteToTime() { return "To time is missing or invalid"; }
+        public static string FKNotFoundOrInactive(string fk) { return $"{fk} does not exist or is inactive"; }
 
         #endregion
 
