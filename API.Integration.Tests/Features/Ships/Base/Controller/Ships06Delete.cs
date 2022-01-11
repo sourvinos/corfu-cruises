@@ -8,6 +8,7 @@ using Xunit;
 
 namespace API.IntegrationTests.Ships.Base {
 
+    [Collection("Sequence")]
     public class Ships06Delete : IClassFixture<AppSettingsFixture> {
 
         #region variables
@@ -60,7 +61,7 @@ namespace API.IntegrationTests.Ships.Base {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, "/ships/99");
+            var request = Helpers.CreateRequest(_baseUrl, "/ships/4");
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
@@ -101,7 +102,7 @@ namespace API.IntegrationTests.Ships.Base {
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/ships/4");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/ships/3");
             // assert
             Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup

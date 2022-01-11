@@ -4,13 +4,14 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
-using API.IntegrationTests.Infrastructure;
 using API.Infrastructure.Classes;
+using API.IntegrationTests.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
 namespace API.IntegrationTests.Ships.Base {
 
+    [Collection("Sequence")]
     public class Ships02GetActive : IClassFixture<AppSettingsFixture> {
 
         #region variables
@@ -73,7 +74,7 @@ namespace API.IntegrationTests.Ships.Base {
             var actionResponse = await _httpClient.SendAsync(request);
             var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
-            Assert.Single(records);
+            Assert.Equal(2, records.Count);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }

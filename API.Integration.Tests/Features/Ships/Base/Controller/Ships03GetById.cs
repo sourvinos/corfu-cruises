@@ -8,6 +8,7 @@ using Xunit;
 
 namespace API.IntegrationTests.Ships.Base {
 
+    [Collection("Sequence")]
     public class Ships03GetById : IClassFixture<AppSettingsFixture> {
 
         #region variables

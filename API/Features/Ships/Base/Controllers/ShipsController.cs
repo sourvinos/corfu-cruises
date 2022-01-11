@@ -37,7 +37,7 @@ namespace API.Features.Ships.Base {
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
         public async Task<ShipReadResource> GetShip(int id) {
-            return await repo.GetById(id);
+            return mapper.Map<Ship, ShipReadResource>(await repo.GetById(id));
         }
 
         [HttpPost]

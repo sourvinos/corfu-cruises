@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
+using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
+using API.Infrastructure.Middleware;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -34,11 +36,15 @@ namespace API.Features.Ships.Base {
             return mapper.Map<IEnumerable<Ship>, IEnumerable<SimpleResource>>(records);
         }
 
-        public new async Task<ShipReadResource> GetById(int id) {
-            Ship record = await context.Ships
+        public new async Task<Ship> GetById(int id) {
+            var record = await context.Ships
                 .Include(x => x.ShipOwner)
                 .SingleOrDefaultAsync(x => x.Id == id);
-            return mapper.Map<Ship, ShipReadResource>(record);
+            if (record != null) {
+                return record;
+            } else {
+                throw new RecordNotFound(ApiMessages.RecordNotFound());
+            }
         }
 
         public async Task<Ship> GetByIdToDelete(int id) {

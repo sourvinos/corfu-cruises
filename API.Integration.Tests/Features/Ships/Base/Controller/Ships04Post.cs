@@ -11,6 +11,7 @@ using Xunit;
 
 namespace API.IntegrationTests.Ships.Base {
 
+    [Collection("Sequence")]
     public class Ships04Post : IClassFixture<AppSettingsFixture> {
 
         #region variables
@@ -29,7 +30,7 @@ namespace API.IntegrationTests.Ships.Base {
         }
 
         [Theory]
-        [ClassData(typeof(NewShip))]
+        [ClassData(typeof(NewMinimalRecord))]
         public async Task Unauthorized_Not_Logged_In(TestShip record) {
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
@@ -38,7 +39,7 @@ namespace API.IntegrationTests.Ships.Base {
         }
 
         [Theory]
-        [ClassData(typeof(NewShip))]
+        [ClassData(typeof(NewMinimalRecord))]
         public async Task Unauthorized_Invalid_Credentials(TestShip record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
@@ -51,7 +52,7 @@ namespace API.IntegrationTests.Ships.Base {
         }
 
         [Theory]
-        [ClassData(typeof(NewShip))]
+        [ClassData(typeof(NewMinimalRecord))]
         public async Task Unauthorized_Inactive_Admins(TestShip record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("nikoleta", "8dd193508e05"));
@@ -64,7 +65,7 @@ namespace API.IntegrationTests.Ships.Base {
         }
 
         [Theory]
-        [ClassData(typeof(NewShip))]
+        [ClassData(typeof(NewMinimalRecord))]
         public async Task Simple_Users_Can_Not_Create(TestShip record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
@@ -94,7 +95,7 @@ namespace API.IntegrationTests.Ships.Base {
         }
 
         [Theory]
-        [ClassData(typeof(AdminsCanCreateWhenValid))]
+        [ClassData(typeof(NewMinimalRecord))]
         public async Task Admins_Can_Create_When_Valid(TestShip record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
