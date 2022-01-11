@@ -1,3 +1,5 @@
+using API.Infrastructure.Extensions;
+using API.Infrastructure.Helpers;
 using FluentValidation;
 
 namespace API.Features.Ships.Crews {
@@ -5,13 +7,12 @@ namespace API.Features.Ships.Crews {
     public class CrewValidator : AbstractValidator<CrewWriteResource> {
 
         public CrewValidator() {
-            RuleFor(x => x.ShipId).NotNull();
-            RuleFor(x => x.NationalityId).NotNull();
-            RuleFor(x => x.GenderId).NotNull();
+            RuleFor(x => x.GenderId).NotEmpty();
+            RuleFor(x => x.NationalityId).NotEmpty();
+            RuleFor(x => x.ShipId).NotEmpty();
             RuleFor(x => x.Lastname).NotEmpty().MaximumLength(128);
             RuleFor(x => x.Firstname).NotEmpty().MaximumLength(128);
-            RuleFor(x => x.Birthdate).NotEmpty();
-            RuleFor(x => x.IsActive).NotNull();
+            RuleFor(x => x.Birthdate).Must(DateHelpers.BeCorrectFormat).WithMessage(ApiMessages.DateHasWrongFormat());
         }
 
     }

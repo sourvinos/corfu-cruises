@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace API.UnitTests.Reservations {
+namespace API.UnitTests.Infrastructure {
 
-    public class InvalidDate : IEnumerable<object[]> {
+    public class ValidateDate : IEnumerable<object[]> {
 
         // Valid format is YYYY-MM-DD
 
@@ -16,6 +16,7 @@ namespace API.UnitTests.Reservations {
             yield return Date_Can_Not_Be_In_Format_B();
             yield return Date_Can_Not_Be_In_Format_C();
             yield return Date_Can_Not_Be_In_Format_D();
+            yield return Date_Can_Not_Be_In_Format_E();
         }
 
         private static object[] Date_Can_Not_Be_Null() {
@@ -39,7 +40,11 @@ namespace API.UnitTests.Reservations {
         }
 
         private static object[] Date_Can_Not_Be_In_Format_D() {
-            return new object[] { "12/1/20" };
+            return new object[] { "2020/13/01" };
+        }
+
+        private static object[] Date_Can_Not_Be_In_Format_E() {
+            return new object[] { "2020-13-01" };
         }
 
     }

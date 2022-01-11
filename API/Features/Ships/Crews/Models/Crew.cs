@@ -11,9 +11,9 @@ namespace API.Features.Ships.Crews {
         // PK
         public int Id { get; set; }
         // FKs
-        public int ShipId { get; set; }
-        public int NationalityId { get; set; }
         public int GenderId { get; set; }
+        public int NationalityId { get; set; }
+        public int ShipId { get; set; }
         // Fields
         public string Lastname { get; set; }
         public string Firstname { get; set; }

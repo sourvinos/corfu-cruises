@@ -44,7 +44,7 @@ namespace API.UnitTests.Reservations {
         }
 
         [Theory]
-        [ClassData(typeof(InvalidDate))]
+        [ClassData(typeof(ValidateDate))]
         public void Invalid_Date(string date) {
             new ReservationValidator()
                 .TestValidate(new ReservationWriteResource { Date = date })
