@@ -8,6 +8,7 @@ using Xunit;
 
 namespace API.IntegrationTests.Ships.Crews {
 
+    [Collection("Sequence")]
     public class Crews06Delete : IClassFixture<AppSettingsFixture> {
 
         #region variables

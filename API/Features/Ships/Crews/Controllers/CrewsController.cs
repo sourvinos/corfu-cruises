@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using AutoMapper;
@@ -32,6 +33,12 @@ namespace API.Features.Ships.Crews {
             return await repo.Get();
         }
 
+        [HttpGet("[action]")]
+        [Authorize(Roles = "user, admin")]
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+            return await repo.GetActiveForDropdown();
+        }
+
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
         public async Task<CrewReadResource> GetCrew(int id) {
@@ -42,20 +49,30 @@ namespace API.Features.Ships.Crews {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult Post([FromBody] CrewWriteResource record) {
-            repo.Create(mapper.Map<CrewWriteResource, Crew>(AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordCreated()
-            });
+            var response = repo.IsValid(record);
+            if (response == 200) {
+                repo.Create(mapper.Map<CrewWriteResource, Crew>(AttachUserIdToRecord(record)));
+                return StatusCode(200, new {
+                    response = ApiMessages.RecordCreated()
+                });
+            } else {
+                return GetErrorMessage(response);
+            }
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult Put([FromBody] CrewWriteResource record) {
-            repo.Update(mapper.Map<CrewWriteResource, Crew>(AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
+            var response = repo.IsValid(record);
+            if (response == 200) {
+                repo.Update(mapper.Map<CrewWriteResource, Crew>(AttachUserIdToRecord(record)));
+                return StatusCode(200, new {
+                    response = ApiMessages.RecordUpdated()
+                });
+            } else {
+                return GetErrorMessage(response);
+            }
         }
 
         [HttpDelete("{id}")]
@@ -70,6 +87,12 @@ namespace API.Features.Ships.Crews {
         private CrewWriteResource AttachUserIdToRecord(CrewWriteResource record) {
             record.UserId = Identity.GetConnectedUserId(httpContext);
             return record;
+        }
+
+        private IActionResult GetErrorMessage(int errorCode) {
+            return errorCode switch {
+                _ => StatusCode(450, new { Response = ApiMessages.FKNotFoundOrInactive("Ship") }),
+            };
         }
 
     }

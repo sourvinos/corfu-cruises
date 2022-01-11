@@ -33,6 +33,15 @@ namespace API.Features.Ships.Crews {
             return mapper.Map<IEnumerable<Crew>, IEnumerable<CrewListResource>>(records);
         }
 
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+            List<Crew> records = await context.Crews
+                .Where(x => x.IsActive)
+                .OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ThenByDescending(x => x.Birthdate)
+                .AsNoTracking()
+                .ToListAsync();
+            return mapper.Map<IEnumerable<Crew>, IEnumerable<SimpleResource>>(records);
+        }
+
         public new async Task<CrewReadResource> GetById(int id) {
             Crew record = await context.Crews
                 .Include(x => x.Ship)
@@ -49,6 +58,17 @@ namespace API.Features.Ships.Crews {
         public async Task<Crew> GetByIdToDelete(int id) {
             return await context.Crews
                 .SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public int IsValid(CrewWriteResource record) {
+            return true switch {
+                var x when x == !IsValidShip(record) => 450,
+                _ => 200,
+            };
+        }
+
+        private bool IsValidShip(CrewWriteResource record) {
+            return context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
         }
 
     }

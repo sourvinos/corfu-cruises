@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
-using API.Features.Ships.Crews;
+using API.Infrastructure.Classes;
 using API.IntegrationTests.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
@@ -12,7 +12,7 @@ using Xunit;
 namespace API.IntegrationTests.Ships.Crews {
 
     [Collection("Sequence")]
-    public class Crews01Get : IClassFixture<AppSettingsFixture> {
+    public class Crews02GetActive : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -20,11 +20,11 @@ namespace API.IntegrationTests.Ships.Crews {
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _baseUrl;
-        private readonly string _url = "/crews";
+        private readonly string _url = "/crews/getActiveForDropdown";
 
         #endregion
 
-        public Crews01Get(AppSettingsFixture appsettings) {
+        public Crews02GetActive(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
@@ -50,10 +50,11 @@ namespace API.IntegrationTests.Ships.Crews {
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
 
-        [Fact]
-        public async Task Unauthorized_Inactive_Admins() {
+        [Theory]
+        [ClassData(typeof(InactiveUsersCanNotLogin))]
+        public async Task Unauthorized_Inactive_Users(Login login) {
             // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("nikoleta", "8dd193508e05"));
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             var request = Helpers.CreateRequest(_baseUrl, _url);
             // act
@@ -62,31 +63,18 @@ namespace API.IntegrationTests.Ships.Crews {
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
 
-        [Fact]
-        public async Task Simple_Users_Can_Not_List() {
+        [Theory]
+        [ClassData(typeof(ActiveUsersCanLogin))]
+        public async Task Users_Can_Get_Active_For_Dropdown(Login login) {
             // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             var request = Helpers.CreateRequest(_baseUrl, _url);
             // act
             var actionResponse = await _httpClient.SendAsync(request);
+            var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
-            Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
-            // cleanup
-            await Helpers.Logout(_httpClient, loginResponse.UserId);
-        }
-
-        [Fact]
-        public async Task Admins_Can_List() {
-            // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, _url);
-            // act
-            var actionResponse = await _httpClient.SendAsync(request);
-            var records = JsonSerializer.Deserialize<List<CrewListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            // assert
-            Assert.Equal(20, records.Count);
+            Assert.Equal(12, records.Count);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
