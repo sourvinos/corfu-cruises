@@ -46,6 +46,17 @@ namespace API.Features.Ships.Base {
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
+        public int IsValid(ShipWriteResource record) {
+            return true switch {
+                var x when x == !IsValidShipOwner(record) => 450,
+                _ => 200,
+            };
+        }
+
+        private bool IsValidShipOwner(ShipWriteResource record) {
+            return context.ShipOwners.SingleOrDefault(x => x.Id == record.ShipOwnerId && x.IsActive) != null;
+        }
+
     }
 
 }

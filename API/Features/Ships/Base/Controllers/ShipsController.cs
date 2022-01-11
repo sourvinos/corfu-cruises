@@ -44,20 +44,30 @@ namespace API.Features.Ships.Base {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult PostShip([FromBody] ShipWriteResource record) {
-            repo.Create(mapper.Map<ShipWriteResource, Ship>(AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordCreated()
-            });
+            var response = repo.IsValid(record);
+            if (response == 200) {
+                repo.Create(mapper.Map<ShipWriteResource, Ship>(AttachUserIdToRecord(record)));
+                return StatusCode(200, new {
+                    response = ApiMessages.RecordCreated()
+                });
+            } else {
+                return GetErrorMessage(response);
+            }
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult PutShip([FromBody] ShipWriteResource record) {
-            repo.Update(mapper.Map<ShipWriteResource, Ship>(AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
+            var response = repo.IsValid(record);
+            if (response == 200) {
+                repo.Update(mapper.Map<ShipWriteResource, Ship>(AttachUserIdToRecord(record)));
+                return StatusCode(200, new {
+                    response = ApiMessages.RecordUpdated()
+                });
+            } else {
+                return GetErrorMessage(response);
+            }
         }
 
         [HttpDelete("{id}")]
@@ -72,6 +82,12 @@ namespace API.Features.Ships.Base {
         private ShipWriteResource AttachUserIdToRecord(ShipWriteResource record) {
             record.UserId = Identity.GetConnectedUserId(httpContext);
             return record;
+        }
+
+        private IActionResult GetErrorMessage(int errorCode) {
+            return errorCode switch {
+                _ => StatusCode(450, new { Response = ApiMessages.FKNotFoundOrInactive("Ship owner") }),
+            };
         }
 
     }

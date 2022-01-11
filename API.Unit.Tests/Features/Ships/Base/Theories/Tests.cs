@@ -8,6 +8,14 @@ namespace API.UnitTests.Ships.Base {
     public class ShipTests : IClassFixture<AppSettingsFixture> {
 
         [Theory]
+        [ClassData(typeof(ValidateShipOwnerId))]
+        public void Invalid_ShipOwnerId(int shipOwnerId) {
+            new ShipValidator()
+                .TestValidate(new ShipWriteResource { ShipOwnerId = shipOwnerId })
+                .ShouldHaveValidationErrorFor(x => x.ShipOwnerId);
+        }
+
+        [Theory]
         [ClassData(typeof(ValidateDescription))]
         public void Invalid_Description(string description) {
             new ShipValidator()

@@ -32,7 +32,7 @@ namespace API.IntegrationTests.Reservations {
         [ClassData(typeof(InvalidCredentials))]
         public async Task Unauthorized_Not_Logged_In(TestReservation record) {
             // act
-            var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, Helpers.ConvertObjectToJson(record));
+            var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }

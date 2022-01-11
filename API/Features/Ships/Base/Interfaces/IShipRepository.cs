@@ -11,7 +11,7 @@ namespace API.Features.Ships.Base {
         Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
         Task<Ship> GetByIdToDelete(int shipId);
         new Task<ShipReadResource> GetById(int shipId);
-
+        int IsValid(ShipWriteResource record);
     }
 
 }

@@ -79,8 +79,23 @@ namespace API.IntegrationTests.Ships.Base {
         }
 
         [Theory]
-        [ClassData(typeof(NewShip))]
-        public async Task Admins_Can_Create(TestShip record) {
+        [ClassData(typeof(AdminsCanNotCreateWhenInvalid))]
+        public async Task Admins_Can_Not_Create_When_Invalid(TestShip record) {
+            // arrange
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            record.UserId = loginResponse.UserId;
+            // act
+            var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // assert
+            Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
+            // cleanup
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
+        }
+
+        [Theory]
+        [ClassData(typeof(AdminsCanCreateWhenValid))]
+        public async Task Admins_Can_Create_When_Valid(TestShip record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
