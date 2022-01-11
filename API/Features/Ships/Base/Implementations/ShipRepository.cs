@@ -36,12 +36,12 @@ namespace API.Features.Ships.Base {
             return mapper.Map<IEnumerable<Ship>, IEnumerable<SimpleResource>>(records);
         }
 
-        public new async Task<Ship> GetById(int id) {
+        public new async Task<ShipReadResource> GetById(int id) {
             var record = await context.Ships
                 .Include(x => x.ShipOwner)
                 .SingleOrDefaultAsync(x => x.Id == id);
             if (record != null) {
-                return record;
+                return mapper.Map<Ship, ShipReadResource>(record);
             } else {
                 throw new RecordNotFound(ApiMessages.RecordNotFound());
             }
