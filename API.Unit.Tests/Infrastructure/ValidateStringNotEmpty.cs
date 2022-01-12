@@ -1,23 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace API.UnitTests.Ships.Base {
+namespace API.UnitTests.Infrastructure {
 
-    public class ValidateShipOwnerId : IEnumerable<object[]> {
+    public class ValidateStringNotEmpty : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
             yield return Can_Not_Be_Null();
-            yield return Can_Not_Be_Zero();
+            yield return Can_Not_Be_Empty();
         }
 
         private static object[] Can_Not_Be_Null() {
             return new object[] { null };
         }
 
-        private static object[] Can_Not_Be_Zero() {
-            return new object[] { 0 };
+        private static object[] Can_Not_Be_Empty() {
+            return new object[] { string.Empty };
         }
 
     }

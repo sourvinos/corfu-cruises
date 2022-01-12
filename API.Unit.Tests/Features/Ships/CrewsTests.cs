@@ -32,7 +32,7 @@ namespace API.UnitTests.Ships.Crews {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateString))]
+        [ClassData(typeof(ValidateStringNotEmpty))]
         public void Invalid_Lastname(string lastname) {
             new CrewValidator()
                 .TestValidate(new CrewWriteResource { Lastname = lastname })
@@ -40,7 +40,7 @@ namespace API.UnitTests.Ships.Crews {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateString))]
+        [ClassData(typeof(ValidateStringNotEmpty))]
         public void Invalid_Firstname(string firstname) {
             new CrewValidator()
                 .TestValidate(new CrewWriteResource { Firstname = firstname })

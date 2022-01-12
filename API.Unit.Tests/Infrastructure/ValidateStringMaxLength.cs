@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.UnitTests.Infrastructure;
 
-namespace API.UnitTests.Ships.Base {
+namespace API.UnitTests.Infrastructure {
 
-    public class ValidateManagerInGreece : IEnumerable<object[]> {
+    public class ValidateStringMaxLength : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
