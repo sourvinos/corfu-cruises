@@ -12,7 +12,6 @@ namespace API.Infrastructure.Identity {
             RuleFor(x => x.Password).NotNull().NotEmpty().MaximumLength(128);
             RuleFor(x => x.ConfirmPassword).NotNull().NotEmpty().MaximumLength(128).Equal(x => x.Password);
             RuleFor(x => x.IsAdmin).NotNull();
-            RuleFor(x => x.IsActive).NotNull();
         }
 
     }

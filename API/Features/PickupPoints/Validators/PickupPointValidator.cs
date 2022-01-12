@@ -11,7 +11,6 @@ namespace API.Features.PickupPoints {
             RuleFor(x => x.ExactPoint).NotEmpty().MaximumLength(128);
             RuleFor(x => x.Time).Must(TimeValidator.IsTime);
             RuleFor(x => x.Coordinates).NotEmpty().MaximumLength(128);
-            RuleFor(x => x.IsActive).NotNull();
         }
 
     }

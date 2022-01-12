@@ -13,7 +13,6 @@ namespace API.Features.Ships.Owners {
             RuleFor(x => x.City).MaximumLength(128);
             RuleFor(x => x.Phones).MaximumLength(128);
             RuleFor(x => x.Email).Must(EmailHelpers.BeEmptyOrValidEmailAddress).MaximumLength(128);
-            RuleFor(x => x.IsActive).NotNull();
         }
 
     }

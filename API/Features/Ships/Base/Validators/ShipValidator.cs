@@ -13,7 +13,6 @@ namespace API.Features.Ships.Base {
             RuleFor(x => x.Manager).MaximumLength(128);
             RuleFor(x => x.ManagerInGreece).MaximumLength(128);
             RuleFor(x => x.Agent).MaximumLength(128);
-            RuleFor(x => x.IsActive).NotNull();
         }
 
     }

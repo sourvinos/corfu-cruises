@@ -13,7 +13,6 @@ namespace API.Features.Ships.Registrars {
             RuleFor(x => x.Fax).MaximumLength(128);
             RuleFor(x => x.Address).MaximumLength(128);
             RuleFor(x => x.IsPrimary).NotNull();
-            RuleFor(x => x.IsActive).NotNull();
         }
 
     }
