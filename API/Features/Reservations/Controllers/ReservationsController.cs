@@ -115,15 +115,15 @@ namespace API.Features.Reservations {
 
         private IActionResult GetErrorMessage(int errorCode) {
             return errorCode switch {
-                450 => StatusCode(450, new { response = ApiMessages.InvalidCustomerId() }),
-                451 => StatusCode(451, new { response = ApiMessages.InvalidDestinationId() }),
-                452 => StatusCode(452, new { response = ApiMessages.InvalidPickupPointId() }),
-                453 => StatusCode(453, new { response = ApiMessages.InvalidDriverId() }),
-                454 => StatusCode(454, new { response = ApiMessages.InvalidShipId() }),
+                450 => StatusCode(450, new { response = ApiMessages.FKNotFoundOrInactive("Customer Id") }),
+                451 => StatusCode(451, new { response = ApiMessages.FKNotFoundOrInactive("Destination Id") }),
+                452 => StatusCode(452, new { response = ApiMessages.FKNotFoundOrInactive("Pickup point Id") }),
+                453 => StatusCode(453, new { response = ApiMessages.FKNotFoundOrInactive("Driver Id") }),
+                454 => StatusCode(454, new { response = ApiMessages.FKNotFoundOrInactive("Ship Id") }),
                 455 => StatusCode(455, new { response = ApiMessages.InvalidPassengerCount() }),
-                456 => StatusCode(456, new { response = ApiMessages.InvalidNationalityId() }),
-                457 => StatusCode(457, new { response = ApiMessages.InvalidGenderId() }),
-                458 => StatusCode(458, new { response = ApiMessages.InvalidOccupantId() }),
+                456 => StatusCode(456, new { response = ApiMessages.FKNotFoundOrInactive("Nationality Id for at least one passenger") }),
+                457 => StatusCode(457, new { response = ApiMessages.FKNotFoundOrInactive("Gender Id for at least one passenger") }),
+                458 => StatusCode(458, new { response = ApiMessages.FKNotFoundOrInactive("Occupant Id for at least one passenger") }),
                 431 => StatusCode(431, new { response = ApiMessages.UserCanNotAddReservationInThePast() }),
                 432 => StatusCode(432, new { response = ApiMessages.DayHasNoSchedule() }),
                 430 => StatusCode(430, new { response = ApiMessages.DayHasNoScheduleForDestination() }),

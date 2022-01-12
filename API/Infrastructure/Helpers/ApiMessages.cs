@@ -37,17 +37,8 @@ namespace API.Infrastructure.Helpers {
         public static string LogoutError() { return "The user is not logged in."; }
         public static string NotOwnRecord() { return "This record belongs to another user."; }
         public static string InsufficientUserRights() { return "This action requires higher authorization level."; }
-        public static string UnableToUpdateDatabase() { return "Unable to update database."; }
         public static string UserCanNotAddReservationInThePast() { return "Reservations for past dates are not allowed."; }
-        public static string InvalidCustomerId() { return "Invalid Customer Id."; }
-        public static string InvalidDestinationId() { return "Invalid Destination Id."; }
-        public static string InvalidPickupPointId() { return "Invalid Pickup point Id."; }
-        public static string InvalidDriverId() { return "Invalid Driver Id."; }
-        public static string InvalidShipId() { return "Invalid Ship Id."; }
         public static string InvalidPassengerCount() { return "Total persons must be equal or greater than the passenger count."; }
-        public static string InvalidNationalityId() { return "Invalid or inactive nationality for at least one of the passengers."; }
-        public static string InvalidGenderId() { return "Invalid or inactive gender for at least one of the passengers."; }
-        public static string InvalidOccupantId() { return "Invalid or inactive occupant for at least one of the passengers."; }
         public static string InvalidShipRouteFromTime() { return "From time is missing or invalid"; }
         public static string InvalidShipRouteViaTime() { return "Via time is invalid"; }
         public static string InvalidShipRouteToTime() { return "To time is missing or invalid"; }
