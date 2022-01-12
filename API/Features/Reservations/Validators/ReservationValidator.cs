@@ -8,9 +8,9 @@ namespace API.Features.Reservations {
 
         public ReservationValidator() {
             // FKs
-            RuleFor(x => x.CustomerId).NotEmpty().WithMessage(ApiMessages.InvalidCustomerId());
-            RuleFor(x => x.DestinationId).NotEmpty().WithMessage(ApiMessages.InvalidDestinationId());
-            RuleFor(x => x.PickupPointId).NotEmpty().WithMessage(ApiMessages.InvalidPickupPointId());
+            RuleFor(x => x.CustomerId).NotEmpty().WithMessage(ApiMessages.FKNotFoundOrInactive("Customer Id"));
+            RuleFor(x => x.DestinationId).NotEmpty().WithMessage(ApiMessages.FKNotFoundOrInactive("Destination Id"));
+            RuleFor(x => x.PickupPointId).NotEmpty().WithMessage(ApiMessages.FKNotFoundOrInactive("Pickup point Id"));
             // Fields
             RuleFor(x => x.Date).Must(DateHelpers.BeCorrectFormat).WithMessage(ApiMessages.DateHasWrongFormat());
             RuleFor(x => x.Email).Must(EmailHelpers.BeEmptyOrValidEmailAddress).WithMessage(ApiMessages.EmailHasWrongFormat()).MaximumLength(128);
