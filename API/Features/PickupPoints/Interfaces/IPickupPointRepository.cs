@@ -9,7 +9,7 @@ namespace API.Features.PickupPoints {
 
         Task<IEnumerable<PickupPointListResource>> Get();
         Task<IEnumerable<PickupPointWithPortDropdownResource>> GetActiveWithPortForDropdown();
-        new Task<PickupPointReadResource> GetById(int pickupPointId);
+        new Task<PickupPoint> GetById(int pickupPointId);
         Task<PickupPoint> GetByIdToDelete(int pickupPointId);
         void UpdateCoordinates(int pickupPointId, string coordinates);
 

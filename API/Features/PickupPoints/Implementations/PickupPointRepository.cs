@@ -3,7 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
+using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
+using API.Infrastructure.Middleware;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -41,11 +43,15 @@ namespace API.Features.PickupPoints {
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointWithPortDropdownResource>>(pickupPoints);
         }
 
-        public new async Task<PickupPointReadResource> GetById(int id) {
-            PickupPoint pickupPoint = await context.Set<PickupPoint>()
+        public new async Task<PickupPoint> GetById(int id) {
+            var record = await context.Set<PickupPoint>()
                 .Include(x => x.Route)
                 .SingleOrDefaultAsync(x => x.Id == id);
-            return mapper.Map<PickupPoint, PickupPointReadResource>(pickupPoint);
+            if (record != null) {
+                return record;
+            } else {
+                throw new RecordNotFound(ApiMessages.RecordNotFound());
+            }
         }
 
         public async Task<PickupPoint> GetByIdToDelete(int id) {
