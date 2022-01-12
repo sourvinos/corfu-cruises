@@ -13,7 +13,7 @@ namespace API.Features.Customers {
     [Route("api/[controller]")]
     public class CustomersController : ControllerBase {
 
-        #region  variables
+        #region variables
 
         private readonly ICustomerRepository repo;
         private readonly IHttpContextAccessor httpContext;

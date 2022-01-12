@@ -93,7 +93,7 @@ namespace API.Features.Reservations {
                 x.ReservationId != record.ReservationId &&
                 x.DestinationId == record.DestinationId &&
                 x.CustomerId == record.CustomerId &&
-                x.TicketNo.ToUpper() == record.TicketNo.ToUpper());
+                string.Equals(x.TicketNo, record.TicketNo, StringComparison.OrdinalIgnoreCase));
         }
 
         public bool Update(string id, Reservation updatedRecord) {
