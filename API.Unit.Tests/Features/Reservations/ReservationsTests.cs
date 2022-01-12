@@ -8,39 +8,28 @@ namespace API.UnitTests.Reservations {
 
     public class ReservationTests : IClassFixture<AppSettingsFixture> {
 
-        [Fact]
-        public void Invalid_CustomerId() {
+        [Theory]
+        [ClassData(typeof(ValidateFK))]
+        public void Invalid_CustomerId(int customerId) {
             new ReservationValidator()
-                .TestValidate(new ReservationWriteResource { CustomerId = 0 })
+                .TestValidate(new ReservationWriteResource { CustomerId = customerId })
                 .ShouldHaveValidationErrorFor(x => x.CustomerId).WithErrorMessage(ApiMessages.InvalidCustomerId());
         }
 
-        [Fact]
-        public void Invalid_DestinationId() {
+        [Theory]
+        [ClassData(typeof(ValidateFK))]
+        public void Invalid_DestinationId(int destinationId) {
             new ReservationValidator()
-                .TestValidate(new ReservationWriteResource { DestinationId = 0 })
+                .TestValidate(new ReservationWriteResource { DestinationId = destinationId })
                 .ShouldHaveValidationErrorFor(x => x.DestinationId).WithErrorMessage(ApiMessages.InvalidDestinationId());
         }
 
-        [Fact]
-        public void Invalid_DriverId() {
+        [Theory]
+        [ClassData(typeof(ValidateFK))]
+        public void Invalid_PickupPointId(int pickupPointId) {
             new ReservationValidator()
-                .TestValidate(new ReservationWriteResource { DriverId = 0 })
-                .ShouldHaveValidationErrorFor(x => x.DriverId).WithErrorMessage(ApiMessages.InvalidDriverId());
-        }
-
-        [Fact]
-        public void Invalid_PickupPointId() {
-            new ReservationValidator()
-                .TestValidate(new ReservationWriteResource { PickupPointId = 0 })
+                .TestValidate(new ReservationWriteResource { PickupPointId = pickupPointId })
                 .ShouldHaveValidationErrorFor(x => x.PickupPointId).WithErrorMessage(ApiMessages.InvalidPickupPointId());
-        }
-
-        [Fact]
-        public void Invalid_ShipId() {
-            new ReservationValidator()
-               .TestValidate(new ReservationWriteResource { ShipId = 0 })
-               .ShouldHaveValidationErrorFor(x => x.ShipId).WithErrorMessage(ApiMessages.InvalidShipId());
         }
 
         [Theory]
@@ -52,7 +41,8 @@ namespace API.UnitTests.Reservations {
         }
 
         [Theory]
-        [ClassData(typeof(InvalidTicketNo))]
+        [ClassData(typeof(ValidateStringNotEmpty))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_TicketNo(string ticketNo) {
             new ReservationValidator()
                 .TestValidate(new ReservationWriteResource { TicketNo = ticketNo })
@@ -67,17 +57,19 @@ namespace API.UnitTests.Reservations {
                .ShouldHaveValidationErrorFor(x => x.Email);
         }
 
-        [Fact]
-        public void Invalid_Phones() {
+        [Theory]
+        [ClassData(typeof(ValidateStringMaxLength))]
+        public void Invalid_Phones(string phones) {
             new ReservationValidator()
-               .TestValidate(new ReservationWriteResource { Phones = Helpers.GetLongString() })
+               .TestValidate(new ReservationWriteResource { Phones = phones })
                .ShouldHaveValidationErrorFor(x => x.Phones);
         }
 
-        [Fact]
-        public void Invalid_Remarks() {
+        [Theory]
+        [ClassData(typeof(ValidateStringMaxLength))]
+        public void Invalid_Remarks(string remarks) {
             new ReservationValidator()
-               .TestValidate(new ReservationWriteResource { Remarks = Helpers.GetLongString() })
+               .TestValidate(new ReservationWriteResource { Remarks = remarks })
                .ShouldHaveValidationErrorFor(x => x.Remarks);
         }
 
