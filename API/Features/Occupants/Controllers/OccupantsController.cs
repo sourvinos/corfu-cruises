@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using AutoMapper;
@@ -12,9 +13,13 @@ namespace API.Features.Occupants {
     [Route("api/[controller]")]
     public class OccupantsController : ControllerBase {
 
+        #region variables
+
         private readonly IOccupantRepository repo;
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
+
+        #endregion
 
         public OccupantsController(IOccupantRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
             this.httpContext = httpContext;
@@ -30,8 +35,8 @@ namespace API.Features.Occupants {
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IActionResult> GetActiveForDropdown() {
-            return StatusCode(200, await repo.GetActiveForDropdown());
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+            return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
