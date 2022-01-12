@@ -8,7 +8,8 @@ namespace API.UnitTests.Customers {
     public class CustomerTests : IClassFixture<AppSettingsFixture> {
 
         [Theory]
-        [ClassData(typeof(ValidateDescription))]
+        [ClassData(typeof(ValidateStringNotEmpty))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Description(string description) {
             new CustomerValidator()
                 .TestValidate(new CustomerWriteResource { Description = description })
@@ -16,7 +17,7 @@ namespace API.UnitTests.Customers {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateProfession))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Profession(string profession) {
             new CustomerValidator()
                .TestValidate(new CustomerWriteResource { Profession = profession })
@@ -24,7 +25,7 @@ namespace API.UnitTests.Customers {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateAddress))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Address(string address) {
             new CustomerValidator()
                 .TestValidate(new CustomerWriteResource { Address = address })
@@ -32,7 +33,7 @@ namespace API.UnitTests.Customers {
         }
 
         [Theory]
-        [ClassData(typeof(ValidatePhones))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Phones(string phones) {
             new CustomerValidator()
                .TestValidate(new CustomerWriteResource { Phones = phones })
@@ -40,7 +41,7 @@ namespace API.UnitTests.Customers {
         }
 
         [Theory]
-        [ClassData(typeof(ValidatePersonInCharge))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_PersonInCharge(string personInCharge) {
             new CustomerValidator()
                 .TestValidate(new CustomerWriteResource { PersonInCharge = personInCharge })
