@@ -33,6 +33,7 @@ namespace API.UnitTests.Ships.Crews {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Lastname(string lastname) {
             new CrewValidator()
                 .TestValidate(new CrewWriteResource { Lastname = lastname })
@@ -41,6 +42,7 @@ namespace API.UnitTests.Ships.Crews {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Firstname(string firstname) {
             new CrewValidator()
                 .TestValidate(new CrewWriteResource { Firstname = firstname })
@@ -49,9 +51,9 @@ namespace API.UnitTests.Ships.Crews {
 
         [Theory]
         [ClassData(typeof(ValidateDate))]
-        public void Invalid_Birthdate(string date) {
+        public void Invalid_Birthdate(string birthdate) {
             new CrewValidator()
-                .TestValidate(new CrewWriteResource { Birthdate = date })
+                .TestValidate(new CrewWriteResource { Birthdate = birthdate })
                 .ShouldHaveValidationErrorFor(x => x.Birthdate);
         }
 

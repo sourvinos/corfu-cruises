@@ -8,6 +8,14 @@ namespace API.UnitTests.Ships.Registrars {
     public class RegistrarTests : IClassFixture<AppSettingsFixture> {
 
         [Theory]
+        [ClassData(typeof(ValidateFK))]
+        public void Invalid_ShipId(int shipId) {
+            new RegistrarValidator()
+                .TestValidate(new RegistrarWriteResource { ShipId = shipId })
+                .ShouldHaveValidationErrorFor(x => x.ShipId);
+        }
+
+        [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
         [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Fullname(string fullname) {
@@ -25,6 +33,14 @@ namespace API.UnitTests.Ships.Registrars {
         }
 
         [Theory]
+        [ClassData(typeof(ValidateEmail))]
+        public void Invalid_Email(string email) {
+            new RegistrarValidator()
+                .TestValidate(new RegistrarWriteResource { Email = email })
+                .ShouldHaveValidationErrorFor(x => x.Email);
+        }
+
+       [Theory]
         [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Fax(string fax) {
             new RegistrarValidator()
@@ -40,14 +56,6 @@ namespace API.UnitTests.Ships.Registrars {
                 .ShouldHaveValidationErrorFor(x => x.Address);
         }
 
-        [Theory]
-        [ClassData(typeof(ValidateEmail))]
-        public void Invalid_Email(string email) {
-            new RegistrarValidator()
-                .TestValidate(new RegistrarWriteResource { Email = email })
-                .ShouldHaveValidationErrorFor(x => x.Email);
-        }
-
-    }
+     }
 
 }
