@@ -3,9 +3,9 @@ using API.UnitTests.Infrastructure;
 using FluentValidation.TestHelper;
 using Xunit;
 
-namespace API.UnitTests.Ships.Crews {
+namespace API.UnitTests.Features.ShipCrews {
 
-    public class CrewsTests : IClassFixture<AppSettingsFixture> {
+    public class Crews : IClassFixture<AppSettingsFixture> {
 
         [Theory]
         [ClassData(typeof(ValidateFK))]

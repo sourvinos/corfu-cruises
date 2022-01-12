@@ -3,9 +3,9 @@ using API.UnitTests.Infrastructure;
 using FluentValidation.TestHelper;
 using Xunit;
 
-namespace API.UnitTests.Ships.Routes {
+namespace API.UnitTests.Features.ShipRoutes {
 
-    public class RoutesTests : IClassFixture<AppSettingsFixture> {
+    public class ShipRoutes : IClassFixture<AppSettingsFixture> {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]

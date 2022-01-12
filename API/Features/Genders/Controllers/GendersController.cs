@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using AutoMapper;
@@ -12,9 +13,13 @@ namespace API.Features.Genders {
     [Route("api/[controller]")]
     public class GendersController : ControllerBase {
 
+        #region variables
+
         private readonly IGenderRepository repo;
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
+
+        #endregion
 
         public GendersController(IGenderRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
             this.httpContext = httpContext;
@@ -30,8 +35,8 @@ namespace API.Features.Genders {
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IActionResult> GetActiveForDropdown() {
-            return StatusCode(200, await repo.GetActiveForDropdown());
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+            return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
@@ -54,7 +59,7 @@ namespace API.Features.Genders {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult PutGender([FromBody] GenderWriteResource record) {
-            repo.Update(mapper.Map<GenderWriteResource, Gender>(record));
+            repo.Update(mapper.Map<GenderWriteResource, Gender>(AttachUserIdToRecord(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordUpdated()
             });

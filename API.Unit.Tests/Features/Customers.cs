@@ -3,9 +3,9 @@ using API.UnitTests.Infrastructure;
 using FluentValidation.TestHelper;
 using Xunit;
 
-namespace API.UnitTests.Customers {
+namespace API.UnitTests.Features.Customers {
 
-    public class CustomerTests : IClassFixture<AppSettingsFixture> {
+    public class Customers : IClassFixture<AppSettingsFixture> {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]

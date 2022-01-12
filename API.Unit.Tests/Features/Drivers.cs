@@ -3,9 +3,9 @@ using API.UnitTests.Infrastructure;
 using FluentValidation.TestHelper;
 using Xunit;
 
-namespace API.UnitTests.Drivers {
+namespace API.UnitTests.Features.Drivers {
 
-    public class DriverTests : IClassFixture<AppSettingsFixture> {
+    public class Drivers : IClassFixture<AppSettingsFixture> {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]

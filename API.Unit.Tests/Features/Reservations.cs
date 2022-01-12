@@ -4,9 +4,9 @@ using API.UnitTests.Infrastructure;
 using FluentValidation.TestHelper;
 using Xunit;
 
-namespace API.UnitTests.Reservations {
+namespace API.UnitTests.Features.Reservations {
 
-    public class ReservationTests : IClassFixture<AppSettingsFixture> {
+    public class Reservations : IClassFixture<AppSettingsFixture> {
 
         [Theory]
         [ClassData(typeof(ValidateFK))]

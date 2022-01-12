@@ -12,7 +12,7 @@ namespace API.Features.Genders {
             entity.Property(x => x.UserId).IsRequired(true);
             // Fields
             entity.Property(x => x.Description).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.IsActive).IsRequired(true);
+            entity.Property(x => x.IsActive);
             // FK Constraints
             entity.HasOne(x => x.User).WithMany(x => x.Genders).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
         }

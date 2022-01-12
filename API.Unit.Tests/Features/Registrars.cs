@@ -3,9 +3,9 @@ using API.UnitTests.Infrastructure;
 using FluentValidation.TestHelper;
 using Xunit;
 
-namespace API.UnitTests.Ships.Registrars {
+namespace API.UnitTests.Features.Registrars {
 
-    public class RegistrarTests : IClassFixture<AppSettingsFixture> {
+    public class Registrars : IClassFixture<AppSettingsFixture> {
 
         [Theory]
         [ClassData(typeof(ValidateFK))]
