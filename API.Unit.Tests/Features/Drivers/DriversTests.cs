@@ -8,7 +8,8 @@ namespace API.UnitTests.Drivers {
     public class DriverTests : IClassFixture<AppSettingsFixture> {
 
         [Theory]
-        [ClassData(typeof(ValidateDescription))]
+        [ClassData(typeof(ValidateStringNotEmpty))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Description(string description) {
             new DriverValidator()
                 .TestValidate(new DriverWriteResource { Description = description })
@@ -16,7 +17,7 @@ namespace API.UnitTests.Drivers {
         }
 
         [Theory]
-        [ClassData(typeof(ValidatePhones))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Phones(string phones) {
             new DriverValidator()
                 .TestValidate(new DriverWriteResource { Phones = phones })
