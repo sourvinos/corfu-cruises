@@ -8,7 +8,8 @@ namespace API.UnitTests.Ships.Registrars {
     public class RegistrarTests : IClassFixture<AppSettingsFixture> {
 
         [Theory]
-        [ClassData(typeof(ValidateFullname))]
+        [ClassData(typeof(ValidateStringNotEmpty))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Fullname(string fullname) {
             new RegistrarValidator()
                 .TestValidate(new RegistrarWriteResource { Fullname = fullname })
@@ -16,7 +17,7 @@ namespace API.UnitTests.Ships.Registrars {
         }
 
         [Theory]
-        [ClassData(typeof(ValidatePhones))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Phones(string phones) {
             new RegistrarValidator()
                 .TestValidate(new RegistrarWriteResource { Phones = phones })
@@ -24,7 +25,7 @@ namespace API.UnitTests.Ships.Registrars {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateFax))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Fax(string fax) {
             new RegistrarValidator()
                 .TestValidate(new RegistrarWriteResource { Fax = fax })
@@ -32,7 +33,7 @@ namespace API.UnitTests.Ships.Registrars {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateAddress))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Address(string address) {
             new RegistrarValidator()
                 .TestValidate(new RegistrarWriteResource { Address = address })

@@ -8,7 +8,8 @@ namespace API.UnitTests.Ships.Routes {
     public class RoutesTests : IClassFixture<AppSettingsFixture> {
 
         [Theory]
-        [ClassData(typeof(ValidateDescription))]
+        [ClassData(typeof(ValidateStringNotEmpty))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Description(string description) {
             new ShipRouteValidator()
                 .TestValidate(new ShipRouteWriteResource { Description = description })
@@ -16,7 +17,8 @@ namespace API.UnitTests.Ships.Routes {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateFromPort))]
+        [ClassData(typeof(ValidateStringNotEmpty))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_FromPort(string fromPort) {
             new ShipRouteValidator()
                 .TestValidate(new ShipRouteWriteResource { FromPort = fromPort })
@@ -24,6 +26,7 @@ namespace API.UnitTests.Ships.Routes {
         }
 
         [Theory]
+        [ClassData(typeof(ValidateStringNotEmpty))]
         [ClassData(typeof(ValidateTime))]
         public void Invalid_FromTime(string fromTime) {
             new ShipRouteValidator()
@@ -32,7 +35,7 @@ namespace API.UnitTests.Ships.Routes {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateViaPort))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_ViaPort(string viaPort) {
             new ShipRouteValidator()
                 .TestValidate(new ShipRouteWriteResource { ViaPort = viaPort })
@@ -40,7 +43,7 @@ namespace API.UnitTests.Ships.Routes {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateViaTime))]
+        [ClassData(typeof(ValidateTime))]
         public void Invalid_ViaTime(string viaTime) {
             new ShipRouteValidator()
                 .TestValidate(new ShipRouteWriteResource { ViaTime = viaTime })
@@ -48,7 +51,8 @@ namespace API.UnitTests.Ships.Routes {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateToPort))]
+        [ClassData(typeof(ValidateStringNotEmpty))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_ToPort(string toPort) {
             new ShipRouteValidator()
                 .TestValidate(new ShipRouteWriteResource { ToPort = toPort })
@@ -56,6 +60,7 @@ namespace API.UnitTests.Ships.Routes {
         }
 
         [Theory]
+        [ClassData(typeof(ValidateStringNotEmpty))]
         [ClassData(typeof(ValidateTime))]
         public void Invalid_ToTime(string toTime) {
             new ShipRouteValidator()

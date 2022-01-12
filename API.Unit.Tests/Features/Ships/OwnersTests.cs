@@ -8,7 +8,8 @@ namespace API.UnitTests.Ships.Owners {
     public class ShipOwnerTests : IClassFixture<AppSettingsFixture> {
 
         [Theory]
-        [ClassData(typeof(ValidateDescription))]
+        [ClassData(typeof(ValidateStringNotEmpty))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Description(string description) {
             new ShipOwnerValidator()
                 .TestValidate(new ShipOwnerWriteResource { Description = description })
@@ -16,7 +17,7 @@ namespace API.UnitTests.Ships.Owners {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateProfession))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Profession(string profession) {
             new ShipOwnerValidator()
                 .TestValidate(new ShipOwnerWriteResource { Profession = profession })
@@ -24,7 +25,7 @@ namespace API.UnitTests.Ships.Owners {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateAddress))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Address(string address) {
             new ShipOwnerValidator()
                 .TestValidate(new ShipOwnerWriteResource { Address = address })
@@ -32,7 +33,7 @@ namespace API.UnitTests.Ships.Owners {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateTaxNo))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_TaxNo(string taxNo) {
             new ShipOwnerValidator()
                 .TestValidate(new ShipOwnerWriteResource { TaxNo = taxNo })
@@ -40,7 +41,7 @@ namespace API.UnitTests.Ships.Owners {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateCity))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_City(string city) {
             new ShipOwnerValidator()
                 .TestValidate(new ShipOwnerWriteResource { City = city })
@@ -48,7 +49,7 @@ namespace API.UnitTests.Ships.Owners {
         }
 
         [Theory]
-        [ClassData(typeof(ValidatePhones))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Phones(string phones) {
             new ShipOwnerValidator()
                 .TestValidate(new ShipOwnerWriteResource { Phones = phones })
