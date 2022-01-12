@@ -8,7 +8,8 @@ namespace API.UnitTests.Destinations {
     public class DestinationTests : IClassFixture<AppSettingsFixture> {
 
         [Theory]
-        [ClassData(typeof(ValidateAbbreviation))]
+        [ClassData(typeof(ValidateStringNotEmpty))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Abbreviation(string abbreviation) {
             new DestinationValidator()
                 .TestValidate(new DestinationWriteResource { Abbreviation = abbreviation })
@@ -16,7 +17,8 @@ namespace API.UnitTests.Destinations {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateDescription))]
+        [ClassData(typeof(ValidateStringNotEmpty))]
+        [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Description(string description) {
             new DestinationValidator()
                 .TestValidate(new DestinationWriteResource { Description = description })
