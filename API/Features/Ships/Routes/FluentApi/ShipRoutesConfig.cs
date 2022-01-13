@@ -13,11 +13,11 @@ namespace API.Features.Ships.Routes {
             // Fields
             entity.Property(x => x.Description).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.FromPort).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.FromTime).IsRequired(true);
+            entity.Property(x => x.FromTime).HasMaxLength(5).IsRequired(true);
             entity.Property(x => x.ViaPort).HasDefaultValue("").HasMaxLength(128);
-            entity.Property(x => x.ViaTime).HasDefaultValue("");
+            entity.Property(x => x.ViaTime).HasDefaultValue("").HasMaxLength(5);
             entity.Property(x => x.ToPort).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.ToTime).IsRequired(true);
+            entity.Property(x => x.ToTime).HasMaxLength(5).IsRequired(true);
             entity.Property(x => x.IsActive);
             // FK Constraints
             entity.HasOne(x => x.User).WithMany(x => x.ShipRoutes).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
