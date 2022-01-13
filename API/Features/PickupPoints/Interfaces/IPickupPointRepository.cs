@@ -11,6 +11,7 @@ namespace API.Features.PickupPoints {
         Task<IEnumerable<PickupPointWithPortDropdownResource>> GetActiveWithPortForDropdown();
         new Task<PickupPoint> GetById(int pickupPointId);
         Task<PickupPoint> GetByIdToDelete(int pickupPointId);
+        int IsValid(PickupPointWriteResource record);
         void UpdateCoordinates(int pickupPointId, string coordinates);
 
     }

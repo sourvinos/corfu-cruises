@@ -35,7 +35,7 @@ namespace API.Features.PickupPoints {
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<PickupPointWithPortDropdownResource>> GetActiveWithPortForDropdown() {
+        public async Task<IEnumerable<PickupPointWithPortDropdownResource>> GetActiveForDropdown() {
             return await repo.GetActiveWithPortForDropdown();
         }
 
@@ -49,20 +49,30 @@ namespace API.Features.PickupPoints {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult PostPickupPoint([FromBody] PickupPointWriteResource record) {
-            repo.Create(mapper.Map<PickupPointWriteResource, PickupPoint>(AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordCreated()
-            });
+            var response = repo.IsValid(record);
+            if (response == 200) {
+                repo.Create(mapper.Map<PickupPointWriteResource, PickupPoint>(AttachUserIdToRecord(record)));
+                return StatusCode(200, new {
+                    response = ApiMessages.RecordCreated()
+                });
+            } else {
+                return GetErrorMessage(response);
+            }
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult PutPickupPoint([FromBody] PickupPointWriteResource record) {
-            repo.Update(mapper.Map<PickupPointWriteResource, PickupPoint>(AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
+            var response = repo.IsValid(record);
+            if (response == 200) {
+                repo.Update(mapper.Map<PickupPointWriteResource, PickupPoint>(AttachUserIdToRecord(record)));
+                return StatusCode(200, new {
+                    response = ApiMessages.RecordUpdated()
+                });
+            } else {
+                return GetErrorMessage(response);
+            }
         }
 
         [HttpPatch("{id}")]
@@ -87,6 +97,13 @@ namespace API.Features.PickupPoints {
         private PickupPointWriteResource AttachUserIdToRecord(PickupPointWriteResource record) {
             record.UserId = Identity.GetConnectedUserId(httpContext);
             return record;
+        }
+
+        private IActionResult GetErrorMessage(int errorCode) {
+            return errorCode switch {
+                450 => StatusCode(450, new { response = ApiMessages.FKNotFoundOrInactive("Route Id") }),
+                _ => StatusCode(490, new { Response = ApiMessages.RecordNotSaved() }),
+            };
         }
 
     }

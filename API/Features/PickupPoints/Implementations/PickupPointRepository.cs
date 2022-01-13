@@ -33,11 +33,9 @@ namespace API.Features.PickupPoints {
 
         public async Task<IEnumerable<PickupPointWithPortDropdownResource>> GetActiveWithPortForDropdown() {
             List<PickupPoint> pickupPoints = await context.Set<PickupPoint>()
-                .Include(x => x.Route)
-                    .ThenInclude(x => x.Port)
+                .Include(x => x.Route).ThenInclude(x => x.Port)
                 .Where(x => x.IsActive)
-                .OrderBy(x => x.Time)
-                    .ThenBy(x => x.Description)
+                .OrderBy(x => x.Time).ThenBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointWithPortDropdownResource>>(pickupPoints);
@@ -64,6 +62,17 @@ namespace API.Features.PickupPoints {
                 .Where(x => x.Id == id).ToList();
             pickupPoints.ForEach(x => x.Coordinates = coordinates);
             context.SaveChanges();
+        }
+
+        public int IsValid(PickupPointWriteResource record) {
+            return true switch {
+                var x when x == !IsValidRoute(record) => 450,
+                _ => 200,
+            };
+        }
+
+        private bool IsValidRoute(PickupPointWriteResource record) {
+            return context.Routes.SingleOrDefault(x => x.Id == record.RouteId && x.IsActive) != null;
         }
 
     }

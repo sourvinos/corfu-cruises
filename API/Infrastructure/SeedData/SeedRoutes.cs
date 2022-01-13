@@ -18,6 +18,7 @@ namespace API.Infrastructure.SeedData {
                     new Route { Id = 6, PortId = 2, Abbreviation = "LP", IsTransfer = false, IsActive = true, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05", Description = "NO TRANSFER - LEFKIMMI PORT" },
                     new Route { Id = 7, PortId = 2, Abbreviation = "KAVOS", IsTransfer = true, IsActive = true, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05", Description = "KAVOS" },
                     new Route { Id = 8, PortId = 2, Abbreviation = "SOUTH", IsTransfer = true, IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da", Description = "TOWN - PERAMA - MESONGHI - LEFKIMMI" },
+                    new Route { Id = 9, PortId = 2, Abbreviation = "INR", IsTransfer = true, IsActive = false, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da", Description = "INACTIVE ROUTE" },
                 };
                 context.AddRange(routes);
                 context.SaveChanges();
