@@ -14,8 +14,8 @@ namespace API.Features.Routes {
             // Fields
             entity.Property(x => x.Description).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.Abbreviation).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.IsTransfer).IsRequired(true);
-            entity.Property(x => x.IsActive).IsRequired(true);
+            entity.Property(x => x.IsTransfer);
+            entity.Property(x => x.IsActive);
             // FK Constraints
             entity.HasOne(x => x.Port).WithMany(x => x.Routes).HasForeignKey(x => x.PortId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(x => x.User).WithMany(x => x.Routes).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
