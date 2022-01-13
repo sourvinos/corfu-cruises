@@ -43,6 +43,7 @@ namespace API.UnitTests.Features.PickupPoints {
         }
 
         [Theory]
+        [ClassData(typeof(ValidateStringNotEmpty))]
         [ClassData(typeof(ValidateStringMaxLength))]
         public void Invalid_Coordinates(string coordinates) {
             new PickupPointValidator()

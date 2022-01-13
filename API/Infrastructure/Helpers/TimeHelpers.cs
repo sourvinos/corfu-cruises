@@ -14,7 +14,7 @@ namespace API.Infrastructure.Helpers {
 
         private static bool IsValidTime(string time) {
             if (time == null) {
-                return false;
+                return false; // TODO: Shorten method
             }
             try {
                 return Regex.IsMatch(time, "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
