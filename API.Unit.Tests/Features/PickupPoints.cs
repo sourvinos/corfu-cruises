@@ -17,7 +17,7 @@ namespace API.UnitTests.Features.PickupPoints {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new PickupPointValidator()
                 .TestValidate(new PickupPointWriteResource { Description = description })
@@ -26,7 +26,7 @@ namespace API.UnitTests.Features.PickupPoints {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_ExactPoint(string exactPoint) {
             new PickupPointValidator()
                 .TestValidate(new PickupPointWriteResource { ExactPoint = exactPoint })
@@ -44,7 +44,7 @@ namespace API.UnitTests.Features.PickupPoints {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Coordinates(string coordinates) {
             new PickupPointValidator()
                 .TestValidate(new PickupPointWriteResource { Coordinates = coordinates })

@@ -17,7 +17,7 @@ namespace API.UnitTests.Features.Routes {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new RouteValidator()
                 .TestValidate(new RouteWriteResource { Description = description })
@@ -26,7 +26,7 @@ namespace API.UnitTests.Features.Routes {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Abbreviation(string abbreviation) {
             new RouteValidator()
                 .TestValidate(new RouteWriteResource { Abbreviation = abbreviation })

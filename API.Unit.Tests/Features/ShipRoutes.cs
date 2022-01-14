@@ -9,7 +9,7 @@ namespace API.UnitTests.Features.ShipRoutes {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new ShipRouteValidator()
                 .TestValidate(new ShipRouteWriteResource { Description = description })
@@ -18,7 +18,7 @@ namespace API.UnitTests.Features.ShipRoutes {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_FromPort(string fromPort) {
             new ShipRouteValidator()
                 .TestValidate(new ShipRouteWriteResource { FromPort = fromPort })
@@ -35,7 +35,7 @@ namespace API.UnitTests.Features.ShipRoutes {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_ViaPort(string viaPort) {
             new ShipRouteValidator()
                 .TestValidate(new ShipRouteWriteResource { ViaPort = viaPort })
@@ -52,7 +52,7 @@ namespace API.UnitTests.Features.ShipRoutes {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_ToPort(string toPort) {
             new ShipRouteValidator()
                 .TestValidate(new ShipRouteWriteResource { ToPort = toPort })

@@ -41,7 +41,7 @@ namespace API.UnitTests.Features.Reservations {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_TicketNo(string ticketNo) {
             new ReservationValidator()
                 .TestValidate(new ReservationWriteResource { TicketNo = ticketNo })
@@ -57,7 +57,7 @@ namespace API.UnitTests.Features.Reservations {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Phones(string phones) {
             new ReservationValidator()
                .TestValidate(new ReservationWriteResource { Phones = phones })
@@ -65,7 +65,7 @@ namespace API.UnitTests.Features.Reservations {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Remarks(string remarks) {
             new ReservationValidator()
                .TestValidate(new ReservationWriteResource { Remarks = remarks })

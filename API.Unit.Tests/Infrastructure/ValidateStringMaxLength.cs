@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace API.UnitTests.Infrastructure {
 
-    public class ValidateStringMaxLength : IEnumerable<object[]> {
+    public class ValidateStringNotLongerThanMaxLength : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

@@ -9,7 +9,7 @@ namespace API.UnitTests.Features.Genders {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new GenderValidator()
                 .TestValidate(new GenderWriteResource { Description = description })

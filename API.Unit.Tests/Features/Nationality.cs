@@ -9,7 +9,7 @@ namespace API.UnitTests.Features.Nationalities {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new NationalityValidator()
                 .TestValidate(new NationalityWriteResource { Description = description })
@@ -18,7 +18,7 @@ namespace API.UnitTests.Features.Nationalities {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Code(string code) {
             new NationalityValidator()
                 .TestValidate(new NationalityWriteResource { Code = code })

@@ -9,7 +9,7 @@ namespace API.UnitTests.Features.Ports {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new PortValidator()
                 .TestValidate(new PortWriteResource { Description = description })

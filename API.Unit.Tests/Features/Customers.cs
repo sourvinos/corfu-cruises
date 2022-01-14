@@ -9,7 +9,7 @@ namespace API.UnitTests.Features.Customers {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new CustomerValidator()
                 .TestValidate(new CustomerWriteResource { Description = description })
@@ -17,7 +17,7 @@ namespace API.UnitTests.Features.Customers {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Profession(string profession) {
             new CustomerValidator()
                .TestValidate(new CustomerWriteResource { Profession = profession })
@@ -25,7 +25,7 @@ namespace API.UnitTests.Features.Customers {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Address(string address) {
             new CustomerValidator()
                 .TestValidate(new CustomerWriteResource { Address = address })
@@ -33,7 +33,7 @@ namespace API.UnitTests.Features.Customers {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Phones(string phones) {
             new CustomerValidator()
                .TestValidate(new CustomerWriteResource { Phones = phones })
@@ -41,7 +41,7 @@ namespace API.UnitTests.Features.Customers {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_PersonInCharge(string personInCharge) {
             new CustomerValidator()
                 .TestValidate(new CustomerWriteResource { PersonInCharge = personInCharge })

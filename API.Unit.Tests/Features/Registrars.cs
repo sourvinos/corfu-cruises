@@ -17,7 +17,7 @@ namespace API.UnitTests.Features.Registrars {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Fullname(string fullname) {
             new RegistrarValidator()
                 .TestValidate(new RegistrarWriteResource { Fullname = fullname })
@@ -25,7 +25,7 @@ namespace API.UnitTests.Features.Registrars {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Phones(string phones) {
             new RegistrarValidator()
                 .TestValidate(new RegistrarWriteResource { Phones = phones })
@@ -41,7 +41,7 @@ namespace API.UnitTests.Features.Registrars {
         }
 
        [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Fax(string fax) {
             new RegistrarValidator()
                 .TestValidate(new RegistrarWriteResource { Fax = fax })
@@ -49,7 +49,7 @@ namespace API.UnitTests.Features.Registrars {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Address(string address) {
             new RegistrarValidator()
                 .TestValidate(new RegistrarWriteResource { Address = address })

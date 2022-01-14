@@ -9,7 +9,7 @@ namespace API.UnitTests.Features.Drivers {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new DriverValidator()
                 .TestValidate(new DriverWriteResource { Description = description })
@@ -17,7 +17,7 @@ namespace API.UnitTests.Features.Drivers {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Phones(string phones) {
             new DriverValidator()
                 .TestValidate(new DriverWriteResource { Phones = phones })

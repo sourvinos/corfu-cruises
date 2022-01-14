@@ -17,7 +17,7 @@ namespace API.UnitTests.Features.Ships {
 
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new ShipValidator()
                 .TestValidate(new ShipWriteResource { Description = description })
@@ -25,7 +25,7 @@ namespace API.UnitTests.Features.Ships {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_IMO(string imo) {
             new ShipValidator()
                 .TestValidate(new ShipWriteResource { IMO = imo })
@@ -33,7 +33,7 @@ namespace API.UnitTests.Features.Ships {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Flag(string flag) {
             new ShipValidator()
                 .TestValidate(new ShipWriteResource { Flag = flag })
@@ -41,7 +41,7 @@ namespace API.UnitTests.Features.Ships {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_RegistryNo(string registryNo) {
             new ShipValidator()
                 .TestValidate(new ShipWriteResource { RegistryNo = registryNo })
@@ -49,7 +49,7 @@ namespace API.UnitTests.Features.Ships {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Manager(string manager) {
             new ShipValidator()
                 .TestValidate(new ShipWriteResource { Manager = manager })
@@ -57,7 +57,7 @@ namespace API.UnitTests.Features.Ships {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_ManagerInGreece(string managerInGreece) {
             new ShipValidator()
                 .TestValidate(new ShipWriteResource { ManagerInGreece = managerInGreece })
@@ -65,7 +65,7 @@ namespace API.UnitTests.Features.Ships {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateStringMaxLength))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Agent(string agent) {
             new ShipValidator()
                 .TestValidate(new ShipWriteResource { Agent = agent })
