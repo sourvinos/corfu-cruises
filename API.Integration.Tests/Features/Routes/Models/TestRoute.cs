@@ -1,8 +1,9 @@
-using API.Infrastructure.Interfaces;
+namespace API.IntegrationTests.Routes {
 
-namespace API.Features.Routes {
+    public class TestRoute {
 
-    public class RouteWriteResource : IEntity {
+        public string FeatureUrl { get; set; }
+        public int StatusCode { get; set; }
 
         public int Id { get; set; }
         public int PortId { get; set; }

@@ -4,14 +4,15 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
-using API.IntegrationTests.Infrastructure;
 using API.Infrastructure.Classes;
+using API.IntegrationTests.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
-namespace API.IntegrationTests.Customers {
+namespace API.IntegrationTests.Routes {
 
-    public class Customers02GetActive : IClassFixture<AppSettingsFixture> {
+    [Collection("Sequence")]
+    public class Routes02GetActive : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -19,11 +20,11 @@ namespace API.IntegrationTests.Customers {
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _baseUrl;
-        private readonly string _url = "/customers/getActiveForDropdown";
+        private readonly string _url = "/routes/getActiveForDropdown";
 
         #endregion
 
-        public Customers02GetActive(AppSettingsFixture appsettings) {
+        public Routes02GetActive(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
@@ -73,7 +74,7 @@ namespace API.IntegrationTests.Customers {
             var actionResponse = await _httpClient.SendAsync(request);
             var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
-            Assert.Equal(19, records.Count);
+            Assert.Equal(8, records.Count);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }

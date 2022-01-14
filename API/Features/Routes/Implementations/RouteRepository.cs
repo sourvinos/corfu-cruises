@@ -52,6 +52,17 @@ namespace API.Features.Routes {
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
+        public int IsValid(RouteWriteResource record) {
+            return true switch {
+                var x when x == !IsValidPort(record) => 450,
+                _ => 200,
+            };
+        }
+
+        private bool IsValidPort(RouteWriteResource record) {
+            return context.Ports.SingleOrDefault(x => x.Id == record.PortId && x.IsActive) != null;
+        }
+
     }
 
 }

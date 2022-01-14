@@ -13,7 +13,7 @@ namespace API.Features.Routes {
             entity.Property(x => x.UserId).IsRequired(true);
             // Fields
             entity.Property(x => x.Description).HasMaxLength(128).IsRequired(true);
-            entity.Property(x => x.Abbreviation).HasMaxLength(128).IsRequired(true);
+            entity.Property(x => x.Abbreviation).HasMaxLength(10).IsRequired(true);
             entity.Property(x => x.IsTransfer);
             entity.Property(x => x.IsActive);
             // FK Constraints

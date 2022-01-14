@@ -11,6 +11,7 @@ namespace API.Features.Routes {
         Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
         new Task<RouteReadResource> GetById(int routeId);
         Task<Route> GetByIdToDelete(int id);
+        int IsValid(RouteWriteResource record);
 
     }
 

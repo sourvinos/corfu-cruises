@@ -6,9 +6,10 @@ using API.IntegrationTests.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
-namespace API.IntegrationTests.Customers {
+namespace API.IntegrationTests.Routes {
 
-    public class Customers06Delete : IClassFixture<AppSettingsFixture> {
+    [Collection("Sequence")]
+    public class Routes06Delete : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -19,7 +20,7 @@ namespace API.IntegrationTests.Customers {
 
         #endregion
 
-        public Customers06Delete(AppSettingsFixture appsettings) {
+        public Routes06Delete(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
@@ -28,7 +29,7 @@ namespace API.IntegrationTests.Customers {
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/customers/1");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/routes/1");
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -39,7 +40,7 @@ namespace API.IntegrationTests.Customers {
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/customers/1");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/routes/1");
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -50,7 +51,7 @@ namespace API.IntegrationTests.Customers {
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("nikoleta", "8dd193508e05"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/customers/4");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/routes/4");
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -60,7 +61,7 @@ namespace API.IntegrationTests.Customers {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, "/customers/99");
+            var request = Helpers.CreateRequest(_baseUrl, "/routes/999");
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
@@ -75,7 +76,7 @@ namespace API.IntegrationTests.Customers {
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/customers/4");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/routes/1");
             // assert
             Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
             // cleanup
@@ -88,7 +89,7 @@ namespace API.IntegrationTests.Customers {
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/customers/1");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/routes/1");
             // assert
             Assert.Equal((HttpStatusCode)491, actionResponse.StatusCode);
             // cleanup
@@ -101,7 +102,7 @@ namespace API.IntegrationTests.Customers {
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/customers/4");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/routes/9");
             // assert
             Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup

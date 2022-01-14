@@ -49,20 +49,30 @@ namespace API.Features.Routes {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult PostRoute([FromBody] RouteWriteResource record) {
-            repo.Create(mapper.Map<RouteWriteResource, Route>(AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordCreated()
-            });
+            var response = repo.IsValid(record);
+            if (response == 200) {
+                repo.Create(mapper.Map<RouteWriteResource, Route>(AttachUserIdToRecord(record)));
+                return StatusCode(200, new {
+                    response = ApiMessages.RecordCreated()
+                });
+            } else {
+                return GetErrorMessage(response);
+            }
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult PutRoute([FromBody] RouteWriteResource record) {
-            repo.Update(mapper.Map<RouteWriteResource, Route>(AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
+            var response = repo.IsValid(record);
+            if (response == 200) {
+                repo.Update(mapper.Map<RouteWriteResource, Route>(AttachUserIdToRecord(record)));
+                return StatusCode(200, new {
+                    response = ApiMessages.RecordUpdated()
+                });
+            } else {
+                return GetErrorMessage(response);
+            }
         }
 
         [HttpDelete("{id}")]
@@ -77,6 +87,12 @@ namespace API.Features.Routes {
         private RouteWriteResource AttachUserIdToRecord(RouteWriteResource record) {
             record.UserId = Identity.GetConnectedUserId(httpContext);
             return record;
+        }
+
+        private IActionResult GetErrorMessage(int errorCode) {
+            return errorCode switch {
+                _ => StatusCode(450, new { Response = ApiMessages.FKNotFoundOrInactive("Port") }),
+            };
         }
 
     }
