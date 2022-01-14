@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using API.Features.ShipsCrews;
 using API.Features.Customers;
 using API.Features.Destinations;
 using API.Features.Drivers;
@@ -11,7 +12,6 @@ using API.Features.Reservations;
 using API.Features.Routes;
 using API.Features.Schedules;
 using API.Features.Ships.Base;
-using API.Features.Ships.Crews;
 using API.Features.Ships.Owners;
 using API.Features.Ships.Registrars;
 using API.Features.Ships.Routes;
