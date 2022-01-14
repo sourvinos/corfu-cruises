@@ -8,6 +8,7 @@ using Xunit;
 
 namespace API.IntegrationTests.Reservations {
 
+    [Collection("Sequence")]
     public class Reservations02GetById : IClassFixture<AppSettingsFixture> {
 
         #region variables

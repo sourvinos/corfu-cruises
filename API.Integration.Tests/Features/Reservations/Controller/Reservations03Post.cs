@@ -11,6 +11,7 @@ using Xunit;
 
 namespace API.IntegrationTests.Reservations {
 
+    [Collection("Sequence")]
     public class Reservations03Post : IClassFixture<AppSettingsFixture> {
 
         #region variables

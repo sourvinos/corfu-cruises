@@ -1,5 +1,4 @@
 using API.Features.Reservations;
-using API.Infrastructure.Helpers;
 using API.UnitTests.Infrastructure;
 using FluentValidation.TestHelper;
 using Xunit;
@@ -13,8 +12,7 @@ namespace API.UnitTests.Features.Reservations {
         public void Invalid_CustomerId(int customerId) {
             new ReservationValidator()
                 .TestValidate(new ReservationWriteResource { CustomerId = customerId })
-                .ShouldHaveValidationErrorFor(x => x.CustomerId)
-                .WithErrorMessage(ApiMessages.FKNotFoundOrInactive("Customer Id"));
+                .ShouldHaveValidationErrorFor(x => x.CustomerId);
         }
 
         [Theory]
@@ -22,8 +20,7 @@ namespace API.UnitTests.Features.Reservations {
         public void Invalid_DestinationId(int destinationId) {
             new ReservationValidator()
                 .TestValidate(new ReservationWriteResource { DestinationId = destinationId })
-                .ShouldHaveValidationErrorFor(x => x.DestinationId)
-                .WithErrorMessage(ApiMessages.FKNotFoundOrInactive("Destination Id"));
+                .ShouldHaveValidationErrorFor(x => x.DestinationId);
         }
 
         [Theory]
@@ -31,8 +28,7 @@ namespace API.UnitTests.Features.Reservations {
         public void Invalid_PickupPointId(int pickupPointId) {
             new ReservationValidator()
                 .TestValidate(new ReservationWriteResource { PickupPointId = pickupPointId })
-                .ShouldHaveValidationErrorFor(x => x.PickupPointId)
-                .WithErrorMessage(ApiMessages.FKNotFoundOrInactive("Pickup point Id"));
+                .ShouldHaveValidationErrorFor(x => x.PickupPointId);
         }
 
         [Theory]
@@ -40,8 +36,7 @@ namespace API.UnitTests.Features.Reservations {
         public void Invalid_Date(string date) {
             new ReservationValidator()
                 .TestValidate(new ReservationWriteResource { Date = date })
-                .ShouldHaveValidationErrorFor(x => x.Date)
-                .WithErrorMessage(ApiMessages.DateHasWrongFormat());
+                .ShouldHaveValidationErrorFor(x => x.Date);
         }
 
         [Theory]
@@ -58,8 +53,7 @@ namespace API.UnitTests.Features.Reservations {
         public void Invalid_Email(string email) {
             new ReservationValidator()
                .TestValidate(new ReservationWriteResource { Email = email })
-               .ShouldHaveValidationErrorFor(x => x.Email)
-               .WithErrorMessage(ApiMessages.EmailHasWrongFormat());
+               .ShouldHaveValidationErrorFor(x => x.Email);
         }
 
         [Theory]

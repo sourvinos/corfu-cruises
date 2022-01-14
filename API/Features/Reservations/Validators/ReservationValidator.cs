@@ -8,9 +8,9 @@ namespace API.Features.Reservations {
 
         public ReservationValidator() {
             // FKs
-            RuleFor(x => x.CustomerId).NotEmpty().WithMessage(ApiMessages.FKNotFoundOrInactive("Customer Id"));
-            RuleFor(x => x.DestinationId).NotEmpty().WithMessage(ApiMessages.FKNotFoundOrInactive("Destination Id"));
-            RuleFor(x => x.PickupPointId).NotEmpty().WithMessage(ApiMessages.FKNotFoundOrInactive("Pickup point Id"));
+            RuleFor(x => x.CustomerId).NotEmpty();
+            RuleFor(x => x.DestinationId).NotEmpty();
+            RuleFor(x => x.PickupPointId).NotEmpty();
             // Fields
             RuleFor(x => x.Date).Must(DateHelpers.BeCorrectFormat).WithMessage(ApiMessages.DateHasWrongFormat());
             RuleFor(x => x.Email).Must(EmailHelpers.BeEmptyOrValidEmailAddress).WithMessage(ApiMessages.EmailHasWrongFormat()).MaximumLength(128);
@@ -19,9 +19,12 @@ namespace API.Features.Reservations {
             RuleFor(x => x.TicketNo).NotEmpty().MaximumLength(128);
             // Passengers
             RuleForEach(x => x.Passengers).ChildRules(passenger => {
+                passenger.RuleFor(x => x.GenderId).NotEmpty();
+                passenger.RuleFor(x => x.NationalityId).NotEmpty();
+                passenger.RuleFor(x => x.OccupantId).NotEmpty();
                 passenger.RuleFor(x => x.Lastname).NotEmpty().MaximumLength(128);
                 passenger.RuleFor(x => x.Firstname).NotEmpty().MaximumLength(128);
-                passenger.RuleFor(x => x.Birthdate).NotEmpty();
+                passenger.RuleFor(x => x.Birthdate).Must(DateHelpers.BeCorrectFormat).WithMessage(ApiMessages.DateHasWrongFormat());
                 passenger.RuleFor(x => x.Remarks).MaximumLength(128);
                 passenger.RuleFor(x => x.SpecialCare).MaximumLength(128);
             });
