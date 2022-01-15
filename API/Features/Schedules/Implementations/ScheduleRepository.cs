@@ -38,21 +38,21 @@ namespace API.Features.Schedules {
             return calendarData;
         }
 
-        public Boolean DayHasSchedule(DateTime date) {
+        public bool DayHasSchedule(DateTime date) {
             var schedule = context.Set<Schedule>()
                 .Where(x => x.Date == date)
                 .ToList();
             return schedule.Count != 0;
         }
 
-        public Boolean DayHasScheduleForDestination(DateTime date, int destinationId) {
+        public bool DayHasScheduleForDestination(DateTime date, int destinationId) {
             var schedule = context.Set<Schedule>()
                 .Where(x => x.Date == date && x.DestinationId == destinationId)
                 .ToList();
             return schedule.Count != 0;
         }
 
-        public Boolean PortHasDepartures(DateTime date, int destinationId, int portId) {
+        public bool PortHasDepartures(DateTime date, int destinationId, int portId) {
             var schedule = context.Set<Schedule>()
                 .Where(x => x.Date == date && x.DestinationId == destinationId && x.PortId == portId)
                 .ToList();
@@ -90,6 +90,13 @@ namespace API.Features.Schedules {
                 context.RemoveRange(idsToDelete);
                 context.SaveChanges();
             }
+        }
+
+        public int IsValid(List<ScheduleWriteResource> records) {
+            return true switch {
+                var x when x == !IsValidPort(records) => 450,
+                _ => 200,
+            };
         }
 
         private IEnumerable<ScheduleResource> GetScheduleForPeriod(string fromDate, string toDate) {
@@ -181,6 +188,17 @@ namespace API.Features.Schedules {
 
         private static int CalculateMaxPersons(IEnumerable<ScheduleResource> schedule, string date, int destinationId) {
             return schedule.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.MaxPersons);
+        }
+
+        private bool IsValidPort(List<ScheduleWriteResource> records) {
+            if (records != null) {
+                bool isValid = false;
+                foreach (var schedule in records) {
+                    isValid = context.Ports.SingleOrDefault(x => x.Id == schedule.PortId && x.IsActive) != null;
+                }
+                return records.Count == 0 || isValid;
+            }
+            return true;
         }
 
     }

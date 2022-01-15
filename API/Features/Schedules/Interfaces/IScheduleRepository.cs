@@ -9,13 +9,14 @@ namespace API.Features.Schedules {
 
         Task<IEnumerable<ScheduleListResource>> GetForList();
         IEnumerable<ScheduleReservationGroup> DoCalendarTasks(string fromDate, string toDate, Guid? reservationId);
-        Boolean DayHasSchedule(DateTime date);
-        Boolean DayHasScheduleForDestination(DateTime date, int destinationId);
-        Boolean PortHasDepartures(DateTime date, int destinationId, int portId);
+        bool DayHasSchedule(DateTime date);
+        bool DayHasScheduleForDestination(DateTime date, int destinationId);
+        bool PortHasDepartures(DateTime date, int destinationId, int portId);
         new Task<ScheduleReadResource> GetById(int scheduleId);
         List<Schedule> Create(List<Schedule> entity);
         Task<Schedule> GetByIdToDelete(int id);
         void DeleteRange(List<Schedule> schedules);
+        int IsValid(List<ScheduleWriteResource> records);
 
     }
 

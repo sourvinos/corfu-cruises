@@ -47,27 +47,33 @@ namespace API.Features.Schedules {
 
         [HttpGet("[action]/date/{date}")]
         [Authorize(Roles = "user, admin")]
-        public Boolean IsSchedule(DateTime date) {
+        public bool IsSchedule(DateTime date) {
             return repo.DayHasSchedule(date);
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         public IActionResult PostSchedule([FromBody] List<ScheduleWriteResource> records) {
-            repo.Create(mapper.Map<List<ScheduleWriteResource>, List<Schedule>>(records));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordCreated()
-            });
+            var response = repo.IsValid(records);
+            if (response == 200) {
+                AttachUserIdToRecord(records);
+                repo.Create(mapper.Map<List<ScheduleWriteResource>, List<Schedule>>(records));
+                return StatusCode(200, new {
+                    response = ApiMessages.RecordCreated()
+                });
+            } else {
+                return GetErrorMessage(response);
+            }
         }
 
-        [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
-        public IActionResult PutSchedule([FromBody] ScheduleWriteResource record) {
-            repo.Update(mapper.Map<ScheduleWriteResource, Schedule>(AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
-        }
+        // [HttpPut("{id}")]
+        // [Authorize(Roles = "admin")]
+        // public IActionResult PutSchedule([FromBody] ScheduleWriteResource record) {
+        //     repo.Update(mapper.Map<ScheduleWriteResource, Schedule>(AttachUserIdToRecord(record)));
+        //     return StatusCode(200, new {
+        //         response = ApiMessages.RecordUpdated()
+        //     });
+        // }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
@@ -84,9 +90,19 @@ namespace API.Features.Schedules {
             repo.DeleteRange(schedules);
         }
 
-        private ScheduleWriteResource AttachUserIdToRecord(ScheduleWriteResource record) {
-            record.UserId = Identity.GetConnectedUserId(httpContext);
-            return record;
+        private List<ScheduleWriteResource> AttachUserIdToRecord(List<ScheduleWriteResource> records) {
+            foreach (var record in records) {
+                record.UserId = Identity.GetConnectedUserId(httpContext);
+            }
+            return records;
+        }
+
+        private IActionResult GetErrorMessage(int errorCode) {
+            return errorCode switch {
+                450 => StatusCode(450, new { response = ApiMessages.FKNotFoundOrInactive("Port Id") }),
+                451 => StatusCode(451, new { response = ApiMessages.FKNotFoundOrInactive("Destination Id") }),
+                _ => StatusCode(490, new { Response = ApiMessages.RecordNotSaved() }),
+            };
         }
 
     }

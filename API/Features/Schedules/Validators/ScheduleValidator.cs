@@ -1,15 +1,17 @@
+using API.Infrastructure.Helpers;
 using FluentValidation;
 
 namespace API.Features.Schedules {
 
-    public class ScheduleValidator : AbstractValidator<Schedule> {
+    public class ScheduleValidator : AbstractValidator<ScheduleWriteResource> {
 
         public ScheduleValidator() {
-            RuleFor(x => x.PortId).NotNull().NotEmpty();
-            RuleFor(x => x.DestinationId).NotNull().NotEmpty();
-            RuleFor(x => x.Date).NotNull().NotEmpty();
+            // FKs
+            RuleFor(x => x.PortId).NotEmpty();
+            RuleFor(x => x.DestinationId).NotEmpty();
+            // Fields
+            RuleFor(x => x.Date).Must(DateHelpers.BeCorrectFormat).WithMessage(ApiMessages.DateHasWrongFormat());
             RuleFor(x => x.MaxPersons).NotNull().NotEmpty().InclusiveBetween(0, 999);
-            RuleFor(x => x.UserId).NotNull().NotEmpty().MaximumLength(128);
         }
 
     }
