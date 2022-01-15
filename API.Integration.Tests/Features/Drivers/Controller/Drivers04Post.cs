@@ -11,6 +11,7 @@ using Xunit;
 
 namespace API.IntegrationTests.Drivers {
 
+    [Collection("Sequence")]
     public class Drivers04Post : IClassFixture<AppSettingsFixture> {
 
         #region variables

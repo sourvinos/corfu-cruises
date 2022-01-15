@@ -8,7 +8,8 @@ using Xunit;
 
 namespace API.IntegrationTests.Vouchers {
 
-    public class Vouchers01Create : IClassFixture<AppSettingsFixture> {
+    [Collection("Sequence")]
+    public class Vouchers : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -19,7 +20,7 @@ namespace API.IntegrationTests.Vouchers {
 
         #endregion
 
-        public Vouchers01Create(AppSettingsFixture appsettings) {
+        public Vouchers(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;

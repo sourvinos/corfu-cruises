@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using API.Features.ShipsCrews;
 using API.Features.Customers;
 using API.Features.Destinations;
 using API.Features.Drivers;
@@ -8,13 +7,14 @@ using API.Features.Nationalities;
 using API.Features.Occupants;
 using API.Features.PickupPoints;
 using API.Features.Ports;
+using API.Features.Registrars;
 using API.Features.Reservations;
 using API.Features.Routes;
 using API.Features.Schedules;
-using API.Features.Ships.Base;
-using API.Features.Ships.Owners;
-using API.Features.Ships.Registrars;
-using API.Features.Ships.Routes;
+using API.Features.ShipCrews;
+using API.Features.ShipOwners;
+using API.Features.ShipRoutes;
+using API.Features.Ships;
 using API.Infrastructure.Auth;
 using Microsoft.AspNetCore.Identity;
 

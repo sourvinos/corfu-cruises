@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using API.Features.Ships.Routes;
+using API.Features.ShipRoutes;
 using API.Infrastructure.Classes;
 
 namespace API.Infrastructure.SeedData {

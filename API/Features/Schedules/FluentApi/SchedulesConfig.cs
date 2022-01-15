@@ -1,8 +1,7 @@
-using API.Features.Schedules;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace API.FluentApi {
+namespace API.Features.Schedules {
 
     internal class SchedulesConfig : IEntityTypeConfiguration<Schedule> {
 

@@ -4,13 +4,14 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
-using API.IntegrationTests.Infrastructure;
 using API.Infrastructure.Classes;
+using API.IntegrationTests.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
 namespace API.IntegrationTests.Drivers {
 
+    [Collection("Sequence")]
     public class Drivers02GetActive : IClassFixture<AppSettingsFixture> {
 
         #region variables
@@ -73,7 +74,7 @@ namespace API.IntegrationTests.Drivers {
             var actionResponse = await _httpClient.SendAsync(request);
             var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
-            Assert.Equal(5, records.Count);
+            Assert.Equal(6, records.Count);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }

@@ -4,13 +4,14 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
-using API.IntegrationTests.Infrastructure;
 using API.Features.Destinations;
+using API.IntegrationTests.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
 namespace API.IntegrationTests.Destinations {
 
+    [Collection("Sequence")]
     public class Destinations01Get : IClassFixture<AppSettingsFixture> {
 
         #region variables

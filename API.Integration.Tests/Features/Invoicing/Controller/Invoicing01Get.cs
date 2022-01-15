@@ -5,15 +5,15 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
-using API.IntegrationTests.Infrastructure;
 using API.Features.Invoicing;
-using API.Features.Reservations;
+using API.IntegrationTests.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
 namespace API.IntegrationTests.Invoicing {
 
-    public class Invoicing01Get : IClassFixture<AppSettingsFixture> {
+    [Collection("Sequence")]
+    public class Invoicing : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -27,7 +27,7 @@ namespace API.IntegrationTests.Invoicing {
 
         #endregion
 
-        public Invoicing01Get(AppSettingsFixture appsettings) {
+        public Invoicing(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
@@ -78,8 +78,8 @@ namespace API.IntegrationTests.Invoicing {
             var records = JsonSerializer.Deserialize<IEnumerable<InvoiceViewModel>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
             Assert.Equal(134, records.Sum(x => x.IsTransferGroup.Sum(x => x.TotalPersons)));
-            Assert.Equal(105, records.Sum(x => x.IsTransferGroup.Where(x => x.IsTransfer).Sum(x => x.TotalPersons)));
-            Assert.Equal(29, records.Sum(x => x.IsTransferGroup.Where(x => !x.IsTransfer).Sum(x => x.TotalPersons)));
+            Assert.Equal(86, records.Sum(x => x.IsTransferGroup.Where(x => x.IsTransfer).Sum(x => x.TotalPersons)));
+            Assert.Equal(48, records.Sum(x => x.IsTransferGroup.Where(x => !x.IsTransfer).Sum(x => x.TotalPersons)));
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }

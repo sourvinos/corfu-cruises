@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using API.Features.Ships.Base;
+using API.Features.Ships;
 using API.Infrastructure.Classes;
 
 namespace API.Infrastructure.SeedData {

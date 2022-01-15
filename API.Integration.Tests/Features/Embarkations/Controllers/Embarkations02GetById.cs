@@ -11,6 +11,7 @@ using Xunit;
 
 namespace API.IntegrationTests.Embarkations {
 
+    [Collection("Sequence")]
     public class Embarkations02GetById : IClassFixture<AppSettingsFixture> {
 
         #region variables

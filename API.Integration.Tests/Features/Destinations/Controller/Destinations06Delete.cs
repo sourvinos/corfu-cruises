@@ -8,6 +8,7 @@ using Xunit;
 
 namespace API.IntegrationTests.Destinations {
 
+    [Collection("Sequence")]
     public class Destinations06Delete : IClassFixture<AppSettingsFixture> {
 
         #region variables

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Extensions;
+using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;

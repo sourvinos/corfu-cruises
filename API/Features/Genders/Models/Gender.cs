@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using API.Features.ShipsCrews;
 using API.Features.Reservations;
+using API.Features.ShipCrews;
 using API.Infrastructure.Identity;
 
 namespace API.Features.Genders {

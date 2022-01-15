@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 
-namespace API.Infrastructure.Extensions {
+namespace API.Infrastructure.Helpers {
 
     public static class DateHelpers {
 

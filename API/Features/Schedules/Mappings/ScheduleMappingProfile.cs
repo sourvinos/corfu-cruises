@@ -1,4 +1,4 @@
-using API.Infrastructure.Extensions;
+using API.Infrastructure.Helpers;
 using AutoMapper;
 
 namespace API.Features.Schedules {

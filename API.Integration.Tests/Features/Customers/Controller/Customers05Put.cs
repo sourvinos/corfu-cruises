@@ -11,6 +11,7 @@ using Xunit;
 
 namespace API.IntegrationTests.Customers {
 
+    [Collection("Sequence")]
     public class Customers05Put : IClassFixture<AppSettingsFixture> {
 
         #region variables

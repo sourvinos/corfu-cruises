@@ -8,6 +8,7 @@ using Xunit;
 
 namespace API.IntegrationTests.PickupPoints {
 
+    [Collection("Sequence")]
     public class PickupPoints06Delete : IClassFixture<AppSettingsFixture> {
 
         #region variables

@@ -1,4 +1,4 @@
-using API.Features.Ships.Base;
+using API.Features.Ships;
 using API.UnitTests.Infrastructure;
 using FluentValidation.TestHelper;
 using Xunit;

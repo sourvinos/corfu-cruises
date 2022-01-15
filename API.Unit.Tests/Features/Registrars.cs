@@ -1,4 +1,4 @@
-using API.Features.Ships.Registrars;
+using API.Features.Registrars;
 using API.UnitTests.Infrastructure;
 using FluentValidation.TestHelper;
 using Xunit;
@@ -40,7 +40,7 @@ namespace API.UnitTests.Features.Registrars {
                 .ShouldHaveValidationErrorFor(x => x.Email);
         }
 
-       [Theory]
+        [Theory]
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Fax(string fax) {
             new RegistrarValidator()
@@ -56,6 +56,6 @@ namespace API.UnitTests.Features.Registrars {
                 .ShouldHaveValidationErrorFor(x => x.Address);
         }
 
-     }
+    }
 
 }

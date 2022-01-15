@@ -8,6 +8,7 @@ using Xunit;
 
 namespace API.IntegrationTests.Drivers {
 
+    [Collection("Sequence")]
     public class Drivers06Delete : IClassFixture<AppSettingsFixture> {
 
         #region variables

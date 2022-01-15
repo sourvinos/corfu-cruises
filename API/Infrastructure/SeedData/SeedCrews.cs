@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using API.Features.ShipsCrews;
+using API.Features.ShipCrews;
 using API.Infrastructure.Classes;
 
 namespace API.Infrastructure.SeedData {

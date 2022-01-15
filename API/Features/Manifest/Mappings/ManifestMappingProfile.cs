@@ -1,5 +1,5 @@
 using System.Linq;
-using API.Infrastructure.Extensions;
+using API.Infrastructure.Helpers;
 using AutoMapper;
 
 namespace API.Features.Manifest {
