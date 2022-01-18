@@ -27,13 +27,13 @@ namespace API.Features.Schedules {
             this.mapper = mapper;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet]
         [Authorize(Roles = "admin")]
         public async Task<IEnumerable<ScheduleListResource>> GetForList() {
             return await repo.GetForList();
         }
 
-        [HttpGet("[action]/from/{fromdate}/to/{todate}")]
+        [HttpGet("from/{fromdate}/to/{todate}")]
         [Authorize(Roles = "user, admin")]
         public IEnumerable<ScheduleReservationGroup> GetForCalendar(string fromDate, string toDate, Guid? reservationId) {
             return repo.DoCalendarTasks(fromDate, toDate, reservationId);

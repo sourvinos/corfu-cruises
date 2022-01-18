@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
+using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
+using API.Infrastructure.Middleware;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -23,19 +25,53 @@ namespace API.Features.Schedules {
             var schedules = await context.Set<Schedule>()
                 .Include(x => x.Destination)
                 .Include(x => x.Port)
-                .OrderBy(x => x.Date)
-                    .ThenBy(x => x.Destination.Description)
-                        .ThenBy(x => x.Port.Description)
+                .OrderBy(x => x.Date).ThenBy(x => x.Destination.Description).ThenBy(x => x.Port.Description)
                 .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<Schedule>, IEnumerable<ScheduleListResource>>(schedules);
         }
 
+        new public async Task<ScheduleReadResource> GetById(int scheduleId) {
+            var record = await context.Set<Schedule>()
+                .Include(p => p.Port)
+                .Include(p => p.Destination)
+                .SingleOrDefaultAsync(m => m.Id == scheduleId);
+            if (record != null) {
+                return mapper.Map<Schedule, ScheduleReadResource>(record);
+            } else {
+                throw new RecordNotFound(ApiMessages.RecordNotFound());
+            }
+        }
+
+        public async Task<Schedule> GetByIdToDelete(int id) {
+            return await context.Set<Schedule>().FirstAsync(x => x.Id == id);
+        }
+
+        public List<Schedule> Create(List<Schedule> entities) {
+            context.AddRange(entities);
+            context.SaveChanges();
+            return entities;
+        }
+
+        public void DeleteRange(List<Schedule> schedules) {
+            List<Schedule> idsToDelete = new();
+            foreach (var item in schedules) {
+                var idToDelete = context.Set<Schedule>()
+                    .FirstOrDefault(x => x.Date == item.Date && x.DestinationId == item.DestinationId && x.PortId == item.PortId);
+                if (idToDelete != null) {
+                    idsToDelete.Add(idToDelete);
+                }
+            }
+            if (idsToDelete.Count > 0) {
+                context.RemoveRange(idsToDelete);
+                context.SaveChanges();
+            }
+        }
+
         public IEnumerable<ScheduleReservationGroup> DoCalendarTasks(string fromDate, string toDate, Guid? reservationId) {
-            this.GetScheduleForPeriod(fromDate, toDate);
-            this.GetReservationsForPeriod(fromDate, toDate, reservationId);
-            var calendarData = UpdateCalendarData(this.GetScheduleForPeriod(fromDate, toDate), this.GetReservationsForPeriod(fromDate, toDate, reservationId));
-            return calendarData;
+            var schedules = this.GetScheduleForPeriod(fromDate, toDate);
+            var reservations = this.GetReservationsForPeriod(fromDate, toDate, reservationId);
+            return UpdateCalendarData(schedules, reservations);
         }
 
         public bool DayHasSchedule(DateTime date) {
@@ -59,42 +95,10 @@ namespace API.Features.Schedules {
             return schedule.Count != 0;
         }
 
-        new public async Task<ScheduleReadResource> GetById(int scheduleId) {
-            var record = await context.Set<Schedule>()
-                .Include(p => p.Port)
-                .Include(p => p.Destination)
-                .SingleOrDefaultAsync(m => m.Id == scheduleId);
-            return mapper.Map<Schedule, ScheduleReadResource>(record);
-        }
-
-        public List<Schedule> Create(List<Schedule> entities) {
-            context.AddRange(entities);
-            context.SaveChanges();
-            return entities;
-        }
-
-        public async Task<Schedule> GetByIdToDelete(int id) {
-            return await context.Set<Schedule>().FirstAsync(x => x.Id == id);
-        }
-
-        public void DeleteRange(List<Schedule> schedules) {
-            List<Schedule> idsToDelete = new();
-            foreach (var item in schedules) {
-                var idToDelete = context.Set<Schedule>()
-                    .FirstOrDefault(x => x.Date == item.Date && x.DestinationId == item.DestinationId && x.PortId == item.PortId);
-                if (idToDelete != null) {
-                    idsToDelete.Add(idToDelete);
-                }
-            }
-            if (idsToDelete.Count > 0) {
-                context.RemoveRange(idsToDelete);
-                context.SaveChanges();
-            }
-        }
-
         public int IsValid(List<ScheduleWriteResource> records) {
             return true switch {
                 var x when x == !IsValidPort(records) => 450,
+                var x when x == !IsValidDestination(records) => 451,
                 _ => 200,
             };
         }
@@ -195,6 +199,17 @@ namespace API.Features.Schedules {
                 bool isValid = false;
                 foreach (var schedule in records) {
                     isValid = context.Ports.SingleOrDefault(x => x.Id == schedule.PortId && x.IsActive) != null;
+                }
+                return records.Count == 0 || isValid;
+            }
+            return true;
+        }
+
+        private bool IsValidDestination(List<ScheduleWriteResource> records) {
+            if (records != null) {
+                bool isValid = false;
+                foreach (var schedule in records) {
+                    isValid = context.Destinations.SingleOrDefault(x => x.Id == schedule.DestinationId && x.IsActive) != null;
                 }
                 return records.Count == 0 || isValid;
             }
