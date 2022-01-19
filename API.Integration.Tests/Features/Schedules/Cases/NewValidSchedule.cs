@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.IntegrationTests.Schedules;
 
-namespace API.IntegrationTests.Routes {
+namespace API.IntegrationTests.Schedules {
 
     public class NewValidSchedule : IEnumerable<object[]> {
 
@@ -14,21 +13,11 @@ namespace API.IntegrationTests.Routes {
 
         private static object[] CreateValidSchedule() {
             return new object[] {
-                new TestSchedule {
+                new NewTestSchedule {
                     FeatureUrl = "/schedules/",
                     TestScheduleBody = new List<TestScheduleBody>() {
-                        new TestScheduleBody {
-                            PortId = 1,
-                            DestinationId = 1,
-                            Date = "2021-10-01",
-                            MaxPersons = 185
-                        },
-                        new TestScheduleBody {
-                            PortId = 1,
-                            DestinationId = 1,
-                            Date = "2021-10-02",
-                            MaxPersons = 185
-                        },
+                        new TestScheduleBody { DestinationId = 1, PortId = 1, Date = "2021-10-01", MaxPersons = 185 },
+                        new TestScheduleBody { DestinationId = 1, PortId = 1, Date = "2021-10-02", MaxPersons = 185 }
                     }
                 }
             };

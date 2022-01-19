@@ -43,6 +43,7 @@ namespace API.Infrastructure.Helpers {
         public static string InvalidShipRouteViaTime() { return "Via time is invalid"; }
         public static string InvalidShipRouteToTime() { return "To time is missing or invalid"; }
         public static string FKNotFoundOrInactive(string fk) { return $"{fk} does not exist or is inactive"; }
+        public static string InvalidMaxPersons() { return "Maximum persons must be between 1 and 999"; }
 
         #endregion
 

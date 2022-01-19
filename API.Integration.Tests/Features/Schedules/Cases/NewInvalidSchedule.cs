@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.IntegrationTests.Schedules;
 
-namespace API.IntegrationTests.Routes {
+namespace API.IntegrationTests.Schedules {
 
     public class NewInvalidSchedule : IEnumerable<object[]> {
 
@@ -17,7 +16,7 @@ namespace API.IntegrationTests.Routes {
 
         private static object[] Port_Must_Exist() {
             return new object[] {
-                new TestSchedule {
+                new NewTestSchedule {
                     FeatureUrl = "/schedules/",
                     StatusCode = 450,
                     TestScheduleBody = new List<TestScheduleBody>() {
@@ -40,7 +39,7 @@ namespace API.IntegrationTests.Routes {
 
         private static object[] Port_Must_Be_Active() {
             return new object[] {
-                new TestSchedule {
+                new NewTestSchedule {
                     FeatureUrl = "/schedules/",
                     StatusCode = 450,
                     TestScheduleBody = new List<TestScheduleBody>() {
@@ -63,7 +62,7 @@ namespace API.IntegrationTests.Routes {
 
         private static object[] Destination_Must_Exist() {
             return new object[] {
-                new TestSchedule {
+                new NewTestSchedule {
                     FeatureUrl = "/schedules/",
                     StatusCode = 451,
                     TestScheduleBody = new List<TestScheduleBody>() {
@@ -86,7 +85,7 @@ namespace API.IntegrationTests.Routes {
 
         private static object[] Destination_Must_Be_Active() {
             return new object[] {
-                new TestSchedule {
+                new NewTestSchedule {
                     FeatureUrl = "/schedules/",
                     StatusCode = 451,
                     TestScheduleBody = new List<TestScheduleBody>() {

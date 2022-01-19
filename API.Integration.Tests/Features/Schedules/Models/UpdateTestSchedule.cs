@@ -1,17 +1,9 @@
-using System.Collections.Generic;
-
 namespace API.IntegrationTests.Schedules {
 
-    public class TestSchedule {
+    public class UpdateTestSchedule {
 
         public string FeatureUrl { get; set; }
         public int StatusCode { get; set; }
-
-        public List<TestScheduleBody> TestScheduleBody { get; set; }
-
-    }
-
-    public class TestScheduleBody {
 
         public int Id { get; set; }
         public int DestinationId { get; set; }

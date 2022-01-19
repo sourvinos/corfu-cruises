@@ -95,10 +95,18 @@ namespace API.Features.Schedules {
             return schedule.Count != 0;
         }
 
-        public int IsValid(List<ScheduleWriteResource> records) {
+        public int IsValidOnNew(List<ScheduleWriteResource> records) {
             return true switch {
-                var x when x == !IsValidPort(records) => 450,
-                var x when x == !IsValidDestination(records) => 451,
+                var x when x == !IsValidPortOnNew(records) => 450,
+                var x when x == !IsValidDestinationOnNew(records) => 451,
+                _ => 200,
+            };
+        }
+
+        public int IsValidOnUpdate(ScheduleWriteResource record) {
+            return true switch {
+                var x when x == !IsValidDestinationOnUpdate(record) => 450,
+                var x when x == !IsValidPortOnUpdate(record) => 451,
                 _ => 200,
             };
         }
@@ -194,7 +202,7 @@ namespace API.Features.Schedules {
             return schedule.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.MaxPersons);
         }
 
-        private bool IsValidPort(List<ScheduleWriteResource> records) {
+        private bool IsValidPortOnNew(List<ScheduleWriteResource> records) {
             if (records != null) {
                 bool isValid = false;
                 foreach (var schedule in records) {
@@ -205,7 +213,11 @@ namespace API.Features.Schedules {
             return true;
         }
 
-        private bool IsValidDestination(List<ScheduleWriteResource> records) {
+        private bool IsValidPortOnUpdate(ScheduleWriteResource record) {
+            return record.PortId == 0 || context.Ports.SingleOrDefault(x => x.Id == record.PortId && x.IsActive) != null;
+        }
+
+        private bool IsValidDestinationOnNew(List<ScheduleWriteResource> records) {
             if (records != null) {
                 bool isValid = false;
                 foreach (var schedule in records) {
@@ -214,6 +226,10 @@ namespace API.Features.Schedules {
                 return records.Count == 0 || isValid;
             }
             return true;
+        }
+
+        private bool IsValidDestinationOnUpdate(ScheduleWriteResource record) {
+            return record.DestinationId == 0 || context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId && x.IsActive) != null;
         }
 
     }

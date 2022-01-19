@@ -53,10 +53,11 @@ namespace API.Features.Schedules {
 
         [HttpPost]
         [Authorize(Roles = "admin")]
+        [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult PostSchedule([FromBody] List<ScheduleWriteResource> records) {
-            var response = repo.IsValid(records);
+            var response = repo.IsValidOnNew(records);
             if (response == 200) {
-                AttachUserIdToRecord(records);
+                AttachUserIdToRecordOnNew(records);
                 repo.Create(mapper.Map<List<ScheduleWriteResource>, List<Schedule>>(records));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
@@ -66,14 +67,20 @@ namespace API.Features.Schedules {
             }
         }
 
-        // [HttpPut("{id}")]
-        // [Authorize(Roles = "admin")]
-        // public IActionResult PutSchedule([FromBody] ScheduleWriteResource record) {
-        //     repo.Update(mapper.Map<ScheduleWriteResource, Schedule>(AttachUserIdToRecord(record)));
-        //     return StatusCode(200, new {
-        //         response = ApiMessages.RecordUpdated()
-        //     });
-        // }
+        [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
+        [ServiceFilter(typeof(ModelValidationAttribute))]
+        public IActionResult PutSchedule([FromBody] ScheduleWriteResource record) {
+            var response = repo.IsValidOnUpdate(record);
+            if (response == 200) {
+                repo.Update(mapper.Map<ScheduleWriteResource, Schedule>(AttachUserIdToRecordOnUpdate(record)));
+                return StatusCode(200, new {
+                    response = ApiMessages.RecordUpdated()
+                });
+            } else {
+                return GetErrorMessage(response);
+            }
+        }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
@@ -90,11 +97,16 @@ namespace API.Features.Schedules {
             repo.DeleteRange(schedules);
         }
 
-        private List<ScheduleWriteResource> AttachUserIdToRecord(List<ScheduleWriteResource> records) {
+        private List<ScheduleWriteResource> AttachUserIdToRecordOnNew(List<ScheduleWriteResource> records) {
             foreach (var record in records) {
                 record.UserId = Identity.GetConnectedUserId(httpContext);
             }
             return records;
+        }
+
+        private ScheduleWriteResource AttachUserIdToRecordOnUpdate(ScheduleWriteResource record) {
+            record.UserId = Identity.GetConnectedUserId(httpContext);
+            return record;
         }
 
         private IActionResult GetErrorMessage(int errorCode) {

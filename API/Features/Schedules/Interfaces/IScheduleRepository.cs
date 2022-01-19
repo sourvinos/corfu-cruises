@@ -16,7 +16,8 @@ namespace API.Features.Schedules {
         List<Schedule> Create(List<Schedule> entity);
         Task<Schedule> GetByIdToDelete(int id);
         void DeleteRange(List<Schedule> schedules);
-        int IsValid(List<ScheduleWriteResource> records);
+        int IsValidOnNew(List<ScheduleWriteResource> records);
+        int IsValidOnUpdate(ScheduleWriteResource record);
 
     }
 
