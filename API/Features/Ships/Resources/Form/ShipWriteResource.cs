@@ -1,8 +1,6 @@
-using API.Infrastructure.Interfaces;
-
 namespace API.Features.Ships {
 
-    public class ShipWriteResource : IEntity {
+    public class ShipWriteResource {
 
         public int Id { get; set; }
         public string Description { get; set; }

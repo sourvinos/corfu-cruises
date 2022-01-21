@@ -208,7 +208,7 @@ namespace API.IntegrationTests.Reservations {
                     Date = "2021-10-01",
                     CustomerId = 1,
                     DestinationId = 1,
-                    PickupPointId = 337,
+                    PickupPointId = 336,
                     Adults = 2,
                     TicketNo = "xxxxx"
                 }
@@ -347,7 +347,7 @@ namespace API.IntegrationTests.Reservations {
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 1, OccupantId = 2, GenderId = 4 },
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 1, OccupantId = 2, GenderId = 5 },
                     }
                 }
             };

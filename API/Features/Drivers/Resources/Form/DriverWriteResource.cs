@@ -1,8 +1,6 @@
-﻿using API.Infrastructure.Interfaces;
+﻿namespace API.Features.Drivers {
 
-namespace API.Features.Drivers {
-
-    public class DriverWriteResource : IEntity {
+    public class DriverWriteResource {
 
         public int Id { get; set; }
         public string Description { get; set; }

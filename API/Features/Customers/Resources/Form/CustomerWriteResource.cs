@@ -1,8 +1,6 @@
-﻿using API.Infrastructure.Interfaces;
+﻿namespace API.Features.Customers {
 
-namespace API.Features.Customers {
-
-    public class CustomerWriteResource : IEntity {
+    public class CustomerWriteResource {
 
         public int Id { get; set; }
         public string Description { get; set; }

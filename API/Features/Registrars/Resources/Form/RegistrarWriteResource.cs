@@ -1,8 +1,6 @@
-using API.Infrastructure.Interfaces;
-
 namespace API.Features.Registrars {
 
-    public class RegistrarWriteResource : IEntity {
+    public class RegistrarWriteResource {
 
         public int Id { get; set; }
         public int ShipId { get; set; }

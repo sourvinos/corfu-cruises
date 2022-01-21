@@ -78,8 +78,8 @@ namespace API.IntegrationTests.Invoicing {
             var records = JsonSerializer.Deserialize<IEnumerable<InvoiceViewModel>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
             Assert.Equal(134, records.Sum(x => x.IsTransferGroup.Sum(x => x.TotalPersons)));
-            Assert.Equal(86, records.Sum(x => x.IsTransferGroup.Where(x => x.IsTransfer).Sum(x => x.TotalPersons)));
-            Assert.Equal(48, records.Sum(x => x.IsTransferGroup.Where(x => !x.IsTransfer).Sum(x => x.TotalPersons)));
+            Assert.Equal(96, records.Sum(x => x.IsTransferGroup.Where(x => x.IsTransfer).Sum(x => x.TotalPersons)));
+            Assert.Equal(38, records.Sum(x => x.IsTransferGroup.Where(x => !x.IsTransfer).Sum(x => x.TotalPersons)));
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }

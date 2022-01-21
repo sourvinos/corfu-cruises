@@ -1,8 +1,6 @@
-using API.Infrastructure.Interfaces;
-
 namespace API.Features.ShipCrews {
 
-    public class CrewWriteResource : IEntity {
+    public class CrewWriteResource {
 
         public int Id { get; set; }
         public int GenderId { get; set; }

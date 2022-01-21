@@ -1,8 +1,6 @@
-using API.Infrastructure.Interfaces;
-
 namespace API.Features.PickupPoints {
 
-    public class PickupPointWriteResource : IEntity {
+    public class PickupPointWriteResource {
 
         public int Id { get; set; }
         public int RouteId { get; set; }

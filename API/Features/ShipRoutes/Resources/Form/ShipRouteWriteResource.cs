@@ -1,8 +1,6 @@
-using API.Infrastructure.Interfaces;
-
 namespace API.Features.ShipRoutes {
 
-    public class ShipRouteWriteResource : IEntity {
+    public class ShipRouteWriteResource {
 
         public int Id { get; set; }
         public string Description { get; set; }

@@ -1,8 +1,6 @@
-using API.Infrastructure.Interfaces;
-
 namespace API.Features.Schedules {
 
-    public class ScheduleWriteResource : IEntity {
+    public class ScheduleWriteResource {
 
         public int Id { get; set; }
         public int DestinationId { get; set; }

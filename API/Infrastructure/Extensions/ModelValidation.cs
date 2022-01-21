@@ -1,5 +1,4 @@
 using System.Linq;
-using API.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

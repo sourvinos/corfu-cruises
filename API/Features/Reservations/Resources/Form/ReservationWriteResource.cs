@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using API.Infrastructure.Interfaces;
 
 namespace API.Features.Reservations {
 
-    public class ReservationWriteResource : IEntity {
+    public class ReservationWriteResource {
 
         public int Id { get; set; }
         public Guid? ReservationId { get; set; }

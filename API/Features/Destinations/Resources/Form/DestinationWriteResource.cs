@@ -1,8 +1,6 @@
-﻿using API.Infrastructure.Interfaces;
+﻿namespace API.Features.Destinations {
 
-namespace API.Features.Destinations {
-
-    public class DestinationWriteResource : IEntity {
+    public class DestinationWriteResource {
 
         public int Id { get; set; }
         public string Abbreviation { get; set; }

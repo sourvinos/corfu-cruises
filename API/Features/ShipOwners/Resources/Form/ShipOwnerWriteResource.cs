@@ -1,8 +1,6 @@
-﻿using API.Infrastructure.Interfaces;
+﻿namespace API.Features.ShipOwners {
 
-namespace API.Features.ShipOwners {
-
-    public class ShipOwnerWriteResource : IEntity {
+    public class ShipOwnerWriteResource {
 
         public int Id { get; set; }
         public string Description { get; set; }

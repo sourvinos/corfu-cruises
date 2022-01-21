@@ -1,8 +1,6 @@
-using API.Infrastructure.Interfaces;
-
 namespace API.Features.Routes {
 
-    public class RouteWriteResource : IEntity {
+    public class RouteWriteResource {
 
         public int Id { get; set; }
         public int PortId { get; set; }

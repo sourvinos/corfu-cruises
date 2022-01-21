@@ -1,8 +1,6 @@
-﻿using API.Infrastructure.Interfaces;
+﻿namespace API.Features.Genders {
 
-namespace API.Features.Genders {
-
-    public class GenderWriteResource : IEntity {
+    public class GenderWriteResource {
 
         public int Id { get; set; }
         public string Description { get; set; }
