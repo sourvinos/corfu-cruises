@@ -9,6 +9,7 @@ using API.Infrastructure.Implementations;
 using API.Infrastructure.Middleware;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Schedules {
@@ -16,9 +17,11 @@ namespace API.Features.Schedules {
     public class ScheduleRepository : Repository<Schedule>, IScheduleRepository {
 
         private readonly IMapper mapper;
+        private readonly TestingEnvironment settings;
 
         public ScheduleRepository(AppDbContext context, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, settings) {
             this.mapper = mapper;
+            this.settings = settings.Value;
         }
 
         public async Task<IEnumerable<ScheduleListResource>> GetForList() {
@@ -47,10 +50,15 @@ namespace API.Features.Schedules {
             return await context.Set<Schedule>().FirstAsync(x => x.Id == id);
         }
 
-        public List<Schedule> Create(List<Schedule> entities) {
+        public void Create(List<Schedule> entities) {
+            using var transaction = context.Database.BeginTransaction();
             context.AddRange(entities);
-            context.SaveChanges();
-            return entities;
+            try {
+                Save();
+                DisposeOrCommit(transaction);
+            } catch (DbUpdateConcurrencyException) {
+                transaction.Dispose();
+            }
         }
 
         public void DeleteRange(List<Schedule> schedules) {
@@ -230,6 +238,18 @@ namespace API.Features.Schedules {
 
         private bool IsValidDestinationOnUpdate(ScheduleWriteResource record) {
             return record.DestinationId == 0 || context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId && x.IsActive) != null;
+        }
+
+        private void Save() {
+            context.SaveChanges();
+        }
+
+        private void DisposeOrCommit(IDbContextTransaction transaction) {
+            if (settings.IsTesting) {
+                transaction.Dispose();
+            } else {
+                transaction.Commit();
+            }
         }
 
     }

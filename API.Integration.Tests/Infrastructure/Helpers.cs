@@ -43,7 +43,7 @@ namespace API.IntegrationTests.Infrastructure {
             };
         }
 
-        public static StringContent ConvertObjectToJson(Object record) {
+        public static StringContent ConvertObjectToJson(object record) {
             return new StringContent(JsonConvert.SerializeObject(record), Encoding.UTF8, MediaTypeNames.Application.Json);
         }
 

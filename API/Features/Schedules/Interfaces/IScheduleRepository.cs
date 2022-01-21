@@ -13,7 +13,7 @@ namespace API.Features.Schedules {
         bool DayHasScheduleForDestination(DateTime date, int destinationId);
         bool PortHasDepartures(DateTime date, int destinationId, int portId);
         new Task<ScheduleReadResource> GetById(int scheduleId);
-        List<Schedule> Create(List<Schedule> entity);
+        void Create(List<Schedule> entity);
         Task<Schedule> GetByIdToDelete(int id);
         void DeleteRange(List<Schedule> schedules);
         int IsValidOnNew(List<ScheduleWriteResource> records);
