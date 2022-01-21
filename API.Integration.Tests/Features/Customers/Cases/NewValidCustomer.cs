@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace API.IntegrationTests.Customers {
 
-    public class NewCustomer : IEnumerable<object[]> {
+    public class NewValidCustomer : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

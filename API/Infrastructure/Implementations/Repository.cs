@@ -63,7 +63,6 @@ namespace API.Infrastructure.Implementations {
             }
         }
 
-
         public void Delete(T entity) {
             if (entity != null) {
                 using var transaction = context.Database.BeginTransaction();

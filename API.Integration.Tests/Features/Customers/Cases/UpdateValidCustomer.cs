@@ -1,10 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using API.IntegrationTests.Infrastructure;
 
 namespace API.IntegrationTests.Customers {
 
-    public class ExistingCustomer : IEnumerable<object[]> {
+    public class UpdateValidCustomer : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -13,7 +13,7 @@ namespace API.IntegrationTests.Customers {
                 new TestCustomer {
                     FeatureUrl = "/customers/1",
                     Id = 1,
-                    Description = new Guid().ToString(),
+                    Description = Helpers.CreateRandomString(128)
                 }
             };
         }
