@@ -1,18 +1,21 @@
-using API.IntegrationTests.Infrastructure;
 using System.Collections;
 using System.Collections.Generic;
+using API.IntegrationTests.Infrastructure;
 
 namespace API.IntegrationTests.ShipOwners {
 
-    public class ExistingOwner : IEnumerable<object[]> {
+    public class CreateValidShipOwner : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return new object[] {
+            yield return ValidRecord();
+        }
+
+        private static object[] ValidRecord() {
+            return new object[] {
                 new TestOwner {
-                    FeatureUrl = "/shipOwners/1",
-                    Id = 1,
+                    FeatureUrl = "/shipOwners/",
                     Description = Helpers.CreateRandomString(128)
                 }
             };

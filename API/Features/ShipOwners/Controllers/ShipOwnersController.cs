@@ -34,13 +34,13 @@ namespace API.Features.ShipOwners {
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<ShipOwnerReadResource> GetShipOwner(int id) {
             return mapper.Map<ShipOwner, ShipOwnerReadResource>(await repo.GetById(id));
         }
