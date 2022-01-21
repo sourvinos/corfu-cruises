@@ -34,13 +34,13 @@ namespace API.Features.ShipCrews {
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<CrewReadResource> GetCrew(int id) {
             return await repo.GetById(id);
         }

@@ -4,7 +4,7 @@ using API.IntegrationTests.Infrastructure;
 
 namespace API.IntegrationTests.ShipCrews {
 
-    public class AdminsCantUpdateWhenInvalidCrew : IEnumerable<object[]> {
+    public class CreateInvalidCrew : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -16,7 +16,7 @@ namespace API.IntegrationTests.ShipCrews {
         private static object[] Ship_Must_Exist() {
             return new object[] {
                 new TestCrew {
-                    FeatureUrl = "/crews/1",
+                    FeatureUrl = "/crews/",
                     StatusCode = 450,
                     GenderId = 1,
                     NationalityId = 1,
@@ -31,11 +31,11 @@ namespace API.IntegrationTests.ShipCrews {
         private static object[] Ship_Must_Be_Active() {
             return new object[] {
                 new TestCrew {
-                    FeatureUrl = "/crews/1",
+                    FeatureUrl = "/crews/",
                     StatusCode = 450,
                     GenderId = 1,
                     NationalityId = 1,
-                    ShipId = 4,
+                    ShipId = 2,
                     Lastname = Helpers.CreateRandomString(128),
                     Firstname = Helpers.CreateRandomString(128),
                     Birthdate = "1970-01-01"

@@ -46,12 +46,13 @@ namespace API.IntegrationTests.ShipCrews {
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
 
-        [Fact]
-        public async Task Unauthorized_Inactive_Admins() {
+        [Theory]
+        [ClassData(typeof(InactiveUsersCanNotLogin))]
+        public async Task Unauthorized_Inactive_Users(Login login) {
             // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("nikoleta", "8dd193508e05"));
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, "/crews/1");
+            var request = Helpers.CreateRequest(_baseUrl, "/routes/1");
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
@@ -73,7 +74,7 @@ namespace API.IntegrationTests.ShipCrews {
         }
 
         [Fact]
-        public async Task Simple_Users_Can_Get_By_Id() {
+        public async Task Simple_Users_Can_Not_Get_By_Id() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -81,7 +82,7 @@ namespace API.IntegrationTests.ShipCrews {
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
-            Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
