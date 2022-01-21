@@ -45,10 +45,11 @@ namespace API.IntegrationTests.Schedules {
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
 
-        [Fact]
-        public async Task Unauthorized_Inactive_Admins() {
+        [Theory]
+        [ClassData(typeof(InactiveUsersCanNotLogin))]
+        public async Task Unauthorized_Inactive_Users(Login login) {
             // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("nikoleta", "8dd193508e05"));
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
             var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/schedules/1");
@@ -79,6 +80,19 @@ namespace API.IntegrationTests.Schedules {
             var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/schedules/1");
             // assert
             Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
+            // cleanup
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
+        }
+
+        [Fact]
+        public async Task Admins_Can_Not_Delete_In_Use() {
+            // arrange
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            // act
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/schedules/1");
+            // assert
+            Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode); // Fix
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }

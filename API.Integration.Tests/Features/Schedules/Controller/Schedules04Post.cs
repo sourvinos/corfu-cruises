@@ -6,7 +6,6 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.IntegrationTests.Infrastructure;
-using API.IntegrationTests.Routes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
@@ -53,6 +52,18 @@ namespace API.IntegrationTests.Schedules {
 
         [Theory]
         [ClassData(typeof(NewValidSchedule))]
+        public async Task Unauthorized_Inactive_Simple_Users(NewTestSchedule schedule) {
+            // arrange
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("marios", "2b24a7368e19"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            // act
+            var actionResponse = await _httpClient.PostAsync(_baseUrl + schedule.FeatureUrl, new StringContent(JsonSerializer.Serialize(schedule.TestScheduleBody), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // assert
+            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+        }
+
+        [Theory]
+        [ClassData(typeof(NewValidSchedule))]
         public async Task Unauthorized_Inactive_Admins(NewTestSchedule schedule) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("nikoleta", "8dd193508e05"));
@@ -65,7 +76,7 @@ namespace API.IntegrationTests.Schedules {
 
         [Theory]
         [ClassData(typeof(NewValidSchedule))]
-        public async Task Simple_Users_Can_Not_Create(NewTestSchedule schedule) {
+        public async Task Active_Simple_Users_Can_Not_Create(NewTestSchedule schedule) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -79,7 +90,7 @@ namespace API.IntegrationTests.Schedules {
 
         [Theory]
         [ClassData(typeof(NewInvalidSchedule))]
-        public async Task Admins_Can_Not_Create_When_Invalid(NewTestSchedule schedule) {
+        public async Task Active_Admins_Can_Not_Create_When_Invalid(NewTestSchedule schedule) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -93,7 +104,7 @@ namespace API.IntegrationTests.Schedules {
 
         [Theory]
         [ClassData(typeof(NewValidSchedule))]
-        public async Task Admins_Can_Create_When_Valid(NewTestSchedule schedule) {
+        public async Task Active_Admins_Can_Create_When_Valid(NewTestSchedule schedule) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
