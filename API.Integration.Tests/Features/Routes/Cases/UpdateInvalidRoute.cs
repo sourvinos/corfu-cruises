@@ -4,7 +4,7 @@ using API.IntegrationTests.Infrastructure;
 
 namespace API.IntegrationTests.Routes {
 
-    public class AdminsCantUpdateWhenInvalidPort : IEnumerable<object[]> {
+    public class UpdateInvalidRoute : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

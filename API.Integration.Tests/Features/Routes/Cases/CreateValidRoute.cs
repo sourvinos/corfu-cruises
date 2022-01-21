@@ -4,15 +4,15 @@ using API.IntegrationTests.Infrastructure;
 
 namespace API.IntegrationTests.Routes {
 
-    public class NewMinimalRoute : IEnumerable<object[]> {
+    public class CreateValidRoute : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return CreateMinimalRecord();
+            yield return ValidRecord();
         }
 
-        private static object[] CreateMinimalRecord() {
+        private static object[] ValidRecord() {
             return new object[] {
                 new TestRoute {
                     FeatureUrl = "/routes/",

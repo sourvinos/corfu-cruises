@@ -28,7 +28,7 @@ namespace API.Features.Routes {
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<RouteListResource>> Get() {
             return await repo.Get();
         }
