@@ -12,9 +12,13 @@ namespace API.Features.Drivers {
     [Route("api/[controller]")]
     public class DriversController : ControllerBase {
 
+        #region variables
+
         private readonly IDriverRepository repo;
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
+
+        #endregion
 
         public DriversController(IDriverRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
             this.httpContext = httpContext;

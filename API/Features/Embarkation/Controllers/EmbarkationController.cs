@@ -8,10 +8,14 @@ namespace API.Features.Embarkation {
     [Route("api/[controller]")]
     public class EmbarkationsController : ControllerBase {
 
+        #region variables
+
         private readonly IEmbarkationRepository repo;
         public EmbarkationsController(IEmbarkationRepository repo) {
             this.repo = repo;
         }
+
+        #endregion
 
         [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/shipId/{shipId}")]
         [Authorize(Roles = "admin")]

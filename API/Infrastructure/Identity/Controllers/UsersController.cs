@@ -10,20 +10,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Infrastructure.Identity {
 
-    [Authorize]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase {
 
+        #region variables
+
         private readonly IEmailSender emailSender;
         private readonly UserManager<UserExtended> userManager;
+
+        #endregion
 
         public UsersController(IEmailSender emailSender, UserManager<UserExtended> userManager) {
             this.emailSender = emailSender;
             this.userManager = userManager;
         }
 
-        [Authorize(Roles = "admin")]
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<UserListViewModel>> Get() {
             return await userManager.Users.Select(u => new UserListViewModel {
                 Id = u.Id,
@@ -36,6 +39,7 @@ namespace API.Infrastructure.Identity {
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetUser(string id) {
             UserExtended record = await userManager.Users.Where(x => x.Id == id).SingleOrDefaultAsync();
             if (record == null) {
@@ -56,6 +60,7 @@ namespace API.Infrastructure.Identity {
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> PutUser([FromRoute] string id, [FromBody] UserViewModel vm) {
             if (id == vm.Id && ModelState.IsValid) {
                 UserExtended record = await userManager.FindByIdAsync(id);
@@ -74,8 +79,8 @@ namespace API.Infrastructure.Identity {
 
         }
 
-        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteUser(string id) {
             await userManager.DeleteAsync(await userManager.FindByIdAsync(id));
             return StatusCode(200, new {
@@ -83,8 +88,8 @@ namespace API.Infrastructure.Identity {
             });
         }
 
-        [Authorize(Roles = "admin")]
         [HttpPost("[action]")]
+        [Authorize(Roles = "admin")]
         public IActionResult SendLoginCredentials([FromBody] LoginCredentialsViewModel model) {
             string baseUrl = $"{Request.Scheme}://{Request.Host.Value}{Request.PathBase.Value}";
             string loginLink = Url.Content($"{baseUrl}/login");

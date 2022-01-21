@@ -17,9 +17,13 @@ namespace API.Infrastructure.Auth {
     [Route("api/[controller]")]
     public class AuthController : ControllerBase {
 
+        #region variables
+
         private readonly AppDbContext db;
         private readonly TokenSettings settings;
         private readonly UserManager<UserExtended> userManager;
+
+        #endregion
 
         public AuthController(AppDbContext db, IOptions<TokenSettings> settings, UserManager<UserExtended> userManager) {
             this.db = db;

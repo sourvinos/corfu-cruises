@@ -7,7 +7,11 @@ namespace API.Features.Invoicing {
     [Route("api/[controller]")]
     public class InvoicingController : ControllerBase {
 
+        #region variables
+
         private readonly IInvoicingRepository repo;
+
+        #endregion
 
         public InvoicingController(IInvoicingRepository repo) {
             this.repo = repo;

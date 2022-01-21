@@ -12,9 +12,13 @@ namespace API.Features.Destinations {
     [Route("api/[controller]")]
     public class DestinationsController : ControllerBase {
 
+        #region variables
+
         private readonly IDestinationRepository repo;
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
+
+        #endregion
 
         public DestinationsController(IDestinationRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
             this.httpContext = httpContext;

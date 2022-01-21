@@ -13,9 +13,13 @@ namespace API.Features.Ships {
     [Route("api/[controller]")]
     public class ShipsController : ControllerBase {
 
+        #region variables
+
         private readonly IShipRepository repo;
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
+
+        #endregion
 
         public ShipsController(IShipRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
             this.httpContext = httpContext;

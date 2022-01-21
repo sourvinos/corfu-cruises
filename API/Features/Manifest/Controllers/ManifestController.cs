@@ -6,7 +6,11 @@ namespace API.Features.Manifest {
     [Route("api/[controller]")]
     public class ManifestController : ControllerBase {
 
+        #region variables
+
         private readonly IManifestRepository repo;
+
+        #endregion
 
         public ManifestController(IManifestRepository repo) {
             this.repo = repo;
