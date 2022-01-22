@@ -4,7 +4,7 @@ using API.IntegrationTests.Infrastructure;
 
 namespace API.IntegrationTests.Ships {
 
-    public class AdminsCanNotCreateWhenInvalid : IEnumerable<object[]> {
+    public class CreateInvalidShip : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

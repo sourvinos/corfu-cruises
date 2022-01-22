@@ -28,7 +28,7 @@ namespace API.Features.Ships {
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<ShipListResource>> Get() {
             return await repo.Get();
         }

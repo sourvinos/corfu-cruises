@@ -30,7 +30,7 @@ namespace API.IntegrationTests.Ships {
         }
 
         [Theory]
-        [ClassData(typeof(NewMinimalRecord))]
+        [ClassData(typeof(CreateValidShip))]
         public async Task Unauthorized_Not_Logged_In(TestShip record) {
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
@@ -39,12 +39,11 @@ namespace API.IntegrationTests.Ships {
         }
 
         [Theory]
-        [ClassData(typeof(NewMinimalRecord))]
+        [ClassData(typeof(CreateValidShip))]
         public async Task Unauthorized_Invalid_Credentials(TestShip record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
@@ -52,12 +51,23 @@ namespace API.IntegrationTests.Ships {
         }
 
         [Theory]
-        [ClassData(typeof(NewMinimalRecord))]
+        [ClassData(typeof(CreateValidShip))]
+        public async Task Unauthorized_Inactive_Simple_Users(TestShip record) {
+            // arrange
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("marios", "2b24a7368e19"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            // act
+            var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // assert
+            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+        }
+
+        [Theory]
+        [ClassData(typeof(CreateValidShip))]
         public async Task Unauthorized_Inactive_Admins(TestShip record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("nikoleta", "8dd193508e05"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
@@ -65,12 +75,11 @@ namespace API.IntegrationTests.Ships {
         }
 
         [Theory]
-        [ClassData(typeof(NewMinimalRecord))]
-        public async Task Simple_Users_Can_Not_Create(TestShip record) {
+        [ClassData(typeof(CreateValidShip))]
+        public async Task Active_Simple_Users_Can_Not_Create(TestShip record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
@@ -80,12 +89,11 @@ namespace API.IntegrationTests.Ships {
         }
 
         [Theory]
-        [ClassData(typeof(AdminsCanNotCreateWhenInvalid))]
-        public async Task Admins_Can_Not_Create_When_Invalid(TestShip record) {
+        [ClassData(typeof(CreateInvalidShip))]
+        public async Task Active_Admins_Can_Not_Create_When_Invalid(TestShip record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
@@ -95,12 +103,11 @@ namespace API.IntegrationTests.Ships {
         }
 
         [Theory]
-        [ClassData(typeof(NewMinimalRecord))]
-        public async Task Admins_Can_Create_When_Valid(TestShip record) {
+        [ClassData(typeof(CreateValidShip))]
+        public async Task Active_Admins_Can_Create_When_Valid(TestShip record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert

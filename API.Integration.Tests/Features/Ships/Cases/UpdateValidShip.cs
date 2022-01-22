@@ -4,18 +4,18 @@ using API.IntegrationTests.Infrastructure;
 
 namespace API.IntegrationTests.Ships {
 
-    public class NewMinimalRecord : IEnumerable<object[]> {
+    public class UpdateValidShip : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return CreateMinimalRecord();
+            yield return ValidRecord();
         }
 
-        private static object[] CreateMinimalRecord() {
+        private static object[] ValidRecord() {
             return new object[] {
                 new TestShip {
-                    FeatureUrl = "/ships/",
+                    FeatureUrl = "/ships/1",
                     ShipOwnerId = 1,
                     Description = Helpers.CreateRandomString(5),
                 }
