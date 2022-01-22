@@ -4,12 +4,16 @@ using System.Collections.Generic;
 
 namespace API.IntegrationTests.Customers {
 
-    public class NewValidCustomer : IEnumerable<object[]> {
+    public class CreateValidCustomer : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return new object[] {
+            yield return ValidRecord();
+        }
+
+        private static object[] ValidRecord() {
+            return new object[] {
                 new TestCustomer {
                     FeatureUrl = "/customers/",
                     Description = Helpers.CreateRandomString(128)

@@ -9,7 +9,11 @@ namespace API.IntegrationTests.Customers {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return new object[] {
+            yield return ValidRecord();
+        }
+
+        private static object[] ValidRecord() {
+            return new object[] {
                 new TestCustomer {
                     FeatureUrl = "/customers/1",
                     Id = 1,
