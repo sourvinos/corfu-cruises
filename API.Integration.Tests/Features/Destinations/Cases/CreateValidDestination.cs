@@ -4,15 +4,18 @@ using System.Collections.Generic;
 
 namespace API.IntegrationTests.Destinations {
 
-    public class ExistingDestination : IEnumerable<object[]> {
+    public class CreateValidDestination : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return new object[] {
+            yield return ValidRecord();
+        }
+
+        private static object[] ValidRecord() {
+            return new object[] {
                 new TestDestination {
-                    FeatureUrl = "/destinations/1",
-                    Id = 1,
+                    FeatureUrl = "/destinations/",
                     Abbreviation = Helpers.CreateRandomString(5),
                     Description = Helpers.CreateRandomString(128)
                 }

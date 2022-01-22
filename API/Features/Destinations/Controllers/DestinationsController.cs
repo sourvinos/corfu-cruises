@@ -27,7 +27,7 @@ namespace API.Features.Destinations {
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<DestinationListResource>> Get() {
             return await repo.Get();
         }

@@ -1,17 +1,22 @@
-using API.IntegrationTests.Infrastructure;
 using System.Collections;
 using System.Collections.Generic;
+using API.IntegrationTests.Infrastructure;
 
 namespace API.IntegrationTests.Destinations {
 
-    public class NewDestination : IEnumerable<object[]> {
+    public class UpdateValidDestination : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return new object[] {
+            yield return ValidRecord();
+        }
+
+        private static object[] ValidRecord() {
+            return new object[] {
                 new TestDestination {
-                    FeatureUrl = "/destinations/",
+                    FeatureUrl = "/destinations/1",
+                    Id = 1,
                     Abbreviation = Helpers.CreateRandomString(5),
                     Description = Helpers.CreateRandomString(128)
                 }

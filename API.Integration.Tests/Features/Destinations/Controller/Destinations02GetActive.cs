@@ -19,9 +19,9 @@ namespace API.IntegrationTests.Destinations {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
+        private readonly int _recordCount = 3;
         private readonly string _baseUrl;
         private readonly string _url = "/destinations/getActiveForDropdown";
-
         #endregion
 
         public Destinations02GetActive(AppSettingsFixture appsettings) {
@@ -65,7 +65,7 @@ namespace API.IntegrationTests.Destinations {
 
         [Theory]
         [ClassData(typeof(ActiveUsersCanLogin))]
-        public async Task Users_Can_Get_Active_For_Dropdown(Login login) {
+        public async Task Active_Users_Can_Get_Active_For_Dropdown(Login login) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -74,7 +74,7 @@ namespace API.IntegrationTests.Destinations {
             var actionResponse = await _httpClient.SendAsync(request);
             var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
-            Assert.Equal(3, records.Count);
+            Assert.Equal(_recordCount, records.Count);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
