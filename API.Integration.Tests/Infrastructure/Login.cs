@@ -4,6 +4,7 @@ namespace API.IntegrationTests.Infrastructure {
 
         public string Username { get; set; }
         public string Password { get; set; }
+        public int StatusCode { get; set; }
 
     }
 

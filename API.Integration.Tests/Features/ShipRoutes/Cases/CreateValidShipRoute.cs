@@ -4,12 +4,16 @@ using API.IntegrationTests.Infrastructure;
 
 namespace API.IntegrationTests.ShipRoutes {
 
-    public class NewMinimalShipRoute : IEnumerable<object[]> {
+    public class CreateValidShipRoute : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return new object[] {
+            yield return ValidRecord();
+        }
+
+        private static object[] ValidRecord() {
+            return new object[] {
                 new TestShipRoute {
                     FeatureUrl = "/shipRoutes/",
                     Description = Helpers.CreateRandomString(128),

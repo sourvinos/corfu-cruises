@@ -17,6 +17,8 @@ namespace API.IntegrationTests.ShipRoutes {
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _baseUrl;
+        private readonly string _notFoundUrl = "/shipRoutes/999";
+        private readonly string _notInUseUrl = "/shipRoutes/2";
 
         #endregion
 
@@ -40,43 +42,45 @@ namespace API.IntegrationTests.ShipRoutes {
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/shipRoutes/1");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _notInUseUrl);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
 
-        [Fact]
-        public async Task Unauthorized_Inactive_Admins() {
+        [Theory]
+        [ClassData(typeof(InactiveUsersCanNotLogin))]
+        public async Task Unauthorized_Inactive_Users(Login login) {
             // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("nikoleta", "8dd193508e05"));
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/shipRoutes/4");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _notInUseUrl);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
 
-        [Fact]
-        public async Task Not_Found_When_Not_Exists() {
+        [Theory]
+        [ClassData(typeof(ActiveUsersCanLogin))]
+        public async Task Not_Found_When_Not_Exists(Login login) {
             // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, "/shipRoutes/99");
+            var request = Helpers.CreateRequest(_baseUrl, _notFoundUrl);
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
-            Assert.Equal(HttpStatusCode.NotFound, actionResponse.StatusCode);
+            Assert.Equal((HttpStatusCode)login.StatusCode, actionResponse.StatusCode);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
         [Fact]
-        public async Task Simple_Users_Can_Not_Delete() {
+        public async Task Active_Simple_Users_Can_Not_Delete() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/shipRoutes/1");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _notInUseUrl);
             // assert
             Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
             // cleanup
@@ -84,12 +88,12 @@ namespace API.IntegrationTests.ShipRoutes {
         }
 
         [Fact]
-        public async Task Admins_Can_Delete() {
+        public async Task Active_Admins_Can_Delete() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/shipRoutes/2");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _notInUseUrl);
             // assert
             Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup

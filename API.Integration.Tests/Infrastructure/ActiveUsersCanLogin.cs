@@ -17,6 +17,7 @@ namespace API.IntegrationTests.Infrastructure {
                 new Login {
                     Username = "matoula",
                     Password = "820343d9e828",
+                    StatusCode = 403
                 }
             };
         }
@@ -25,7 +26,8 @@ namespace API.IntegrationTests.Infrastructure {
             return new object[] {
                 new Login {
                     Username = "john",
-                    Password = "ec11fc8c16da"
+                    Password = "ec11fc8c16da",
+                    StatusCode = 404
                 }
             };
         }

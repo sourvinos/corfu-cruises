@@ -34,13 +34,13 @@ namespace API.Features.ShipRoutes {
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<ShipRouteReadResource> GetShipRoute(int id) {
             return mapper.Map<ShipRoute, ShipRouteReadResource>(await repo.GetById(id));
         }
