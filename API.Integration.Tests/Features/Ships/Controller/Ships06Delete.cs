@@ -70,7 +70,7 @@ namespace API.IntegrationTests.Ships {
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
-            Assert.Equal(HttpStatusCode.NotFound, actionResponse.StatusCode);
+            Assert.Equal((HttpStatusCode)login.StatusCode, actionResponse.StatusCode);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
