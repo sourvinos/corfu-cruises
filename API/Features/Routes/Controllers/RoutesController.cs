@@ -28,19 +28,19 @@ namespace API.Features.Routes {
         }
 
         [HttpGet]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<RouteListResource>> Get() {
             return await repo.Get();
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<RouteReadResource> GetRoute(int id) {
             return await repo.GetById(id);
         }

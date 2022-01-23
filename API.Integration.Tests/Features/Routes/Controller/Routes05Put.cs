@@ -104,7 +104,7 @@ namespace API.IntegrationTests.Routes {
 
         [Theory]
         [ClassData(typeof(UpdateValidRoute))]
-        public async Task Admins_Can_Update_When_Valid(TestRoute record) {
+        public async Task Active_Admins_Can_Update_When_Valid(TestRoute record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
