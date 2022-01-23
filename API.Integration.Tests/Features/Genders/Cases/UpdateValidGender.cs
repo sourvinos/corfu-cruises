@@ -9,7 +9,11 @@ namespace API.IntegrationTests.Genders {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return new object[] {
+            yield return ValidRecord();
+        }
+
+        private static object[] ValidRecord() {
+            return new object[] {
                 new TestGender {
                     FeatureUrl = "/genders/1",
                     Id = 1,

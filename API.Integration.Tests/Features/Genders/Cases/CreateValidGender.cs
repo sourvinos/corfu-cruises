@@ -1,6 +1,6 @@
-using API.IntegrationTests.Infrastructure;
 using System.Collections;
 using System.Collections.Generic;
+using API.IntegrationTests.Infrastructure;
 
 namespace API.IntegrationTests.Genders {
 
@@ -9,7 +9,11 @@ namespace API.IntegrationTests.Genders {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return new object[] {
+            yield return ValidRecord();
+        }
+
+        private static object[] ValidRecord() {
+            return new object[] {
                 new TestGender {
                     FeatureUrl = "/genders/",
                     Description = Helpers.CreateRandomString(128)

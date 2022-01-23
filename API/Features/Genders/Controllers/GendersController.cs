@@ -40,7 +40,7 @@ namespace API.Features.Genders {
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<GenderReadResource> GetGender(int id) {
             return mapper.Map<Gender, GenderReadResource>(await repo.GetById(id));
         }

@@ -52,6 +52,18 @@ namespace API.IntegrationTests.Genders {
 
         [Theory]
         [ClassData(typeof(UpdateValidGender))]
+        public async Task Unauthorized_Inactive_Simple_Users(TestGender record) {
+            // arrange
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("marios", "2b24a7368e19"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            // act
+            var actionResponse = await _httpClient.PutAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // assert
+            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+        }
+
+        [Theory]
+        [ClassData(typeof(UpdateValidGender))]
         public async Task Unauthorized_Inactive_Admins(TestGender record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("nikoleta", "8dd193508e05"));
@@ -64,7 +76,7 @@ namespace API.IntegrationTests.Genders {
 
         [Theory]
         [ClassData(typeof(UpdateValidGender))]
-        public async Task Simple_Users_Can_Not_Update(TestGender record) {
+        public async Task Active_Simple_Users_Can_Not_Update(TestGender record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -78,7 +90,7 @@ namespace API.IntegrationTests.Genders {
 
         [Theory]
         [ClassData(typeof(UpdateValidGender))]
-        public async Task Admins_Can_Update(TestGender record) {
+        public async Task Active_Admins_Can_Update_When_Valid(TestGender record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
