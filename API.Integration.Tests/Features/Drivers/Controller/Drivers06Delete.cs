@@ -32,7 +32,7 @@ namespace API.IntegrationTests.Drivers {
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/drivers/1");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _notInUseUrl);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -43,7 +43,7 @@ namespace API.IntegrationTests.Drivers {
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/drivers/1");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _notInUseUrl);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -55,7 +55,7 @@ namespace API.IntegrationTests.Drivers {
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/drivers/4");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _notInUseUrl);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
