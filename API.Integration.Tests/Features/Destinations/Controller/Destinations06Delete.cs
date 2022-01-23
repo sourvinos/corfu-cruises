@@ -61,7 +61,20 @@ namespace API.IntegrationTests.Destinations {
         }
 
         [Fact]
-        public async Task Not_Found_When_Not_Exists() {
+        public async Task Active_Simple_Users_Can_Not_Delete() {
+            // arrange
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            // act
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _notInUseUrl);
+            // assert
+            Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
+            // cleanup
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
+        }
+
+        [Fact]
+        public async Task Active_Admins_Not_Found_When_Not_Exists() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -75,20 +88,7 @@ namespace API.IntegrationTests.Destinations {
         }
 
         [Fact]
-        public async Task Simple_Users_Can_Not_Delete() {
-            // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _notInUseUrl);
-            // assert
-            Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
-            // cleanup
-            await Helpers.Logout(_httpClient, loginResponse.UserId);
-        }
-
-        [Fact]
-        public async Task Admins_Can_Not_Delete_In_Use() {
+        public async Task Active_Admins_Can_Not_Delete_In_Use() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -101,7 +101,7 @@ namespace API.IntegrationTests.Destinations {
         }
 
         [Fact]
-        public async Task Admins_Can_Delete_Not_In_Use() {
+        public async Task Active_Admins_Can_Delete_Not_In_Use() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);

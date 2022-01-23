@@ -27,7 +27,7 @@ namespace API.Features.Destinations {
         }
 
         [HttpGet]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<DestinationListResource>> Get() {
             return await repo.Get();
         }
@@ -39,7 +39,7 @@ namespace API.Features.Destinations {
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<DestinationReadResource> GetById(int id) {
             return mapper.Map<Destination, DestinationReadResource>(await repo.GetById(id));
         }
