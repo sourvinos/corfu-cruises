@@ -17,7 +17,7 @@ namespace API.IntegrationTests.PickupPoints {
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _baseUrl;
-        private readonly string _notFoundUrl = "/ships/999";
+        private readonly string _notFoundUrl = "/pickupPoints/999";
         private readonly string _url = "/pickupPoints/1";
 
         #endregion
