@@ -65,7 +65,7 @@ namespace API.IntegrationTests.Drivers {
 
         [Theory]
         [ClassData(typeof(ActiveUsersCanLogin))]
-        public async Task Users_Can_Get_Active_For_Dropdown(Login login) {
+        public async Task Active_Users_Can_Get_Active_For_Dropdown(Login login) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);

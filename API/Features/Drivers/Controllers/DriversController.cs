@@ -39,7 +39,7 @@ namespace API.Features.Drivers {
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<DriverReadResource> GetDriver(int id) {
             return mapper.Map<Driver, DriverReadResource>(await repo.GetById(id));
         }
