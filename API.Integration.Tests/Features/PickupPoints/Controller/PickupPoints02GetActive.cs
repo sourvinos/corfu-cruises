@@ -5,7 +5,6 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.Reservations;
-using API.Infrastructure.Classes;
 using API.IntegrationTests.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
@@ -66,7 +65,7 @@ namespace API.IntegrationTests.PickupPoints {
 
         [Theory]
         [ClassData(typeof(ActiveUsersCanLogin))]
-        public async Task Users_Can_Get_Active_For_Dropdown(Login login) {
+        public async Task Active_Users_Can_Get_Active_For_Dropdown(Login login) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);

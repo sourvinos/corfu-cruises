@@ -4,7 +4,7 @@ using API.IntegrationTests.Infrastructure;
 
 namespace API.IntegrationTests.PickupPoints {
 
-    public class AdminsCantCreateWhenInvalidPickupPoint : IEnumerable<object[]> {
+    public class UpdateInvalidPickupPoint : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -16,8 +16,9 @@ namespace API.IntegrationTests.PickupPoints {
         private static object[] Route_Must_Exist() {
             return new object[] {
                 new TestPickupPoint {
-                    FeatureUrl = "/pickupPoints/",
+                    FeatureUrl = "/pickupPoints/1",
                     StatusCode = 450,
+                    Id = 1,
                     RouteId = 99,
                     Description = Helpers.CreateRandomString(128),
                     ExactPoint = Helpers.CreateRandomString(128),
@@ -30,9 +31,10 @@ namespace API.IntegrationTests.PickupPoints {
         private static object[] Route_Must_Be_Active() {
             return new object[] {
                 new TestPickupPoint {
-                    FeatureUrl = "/pickupPoints/",
+                    FeatureUrl = "/pickupPoints/1",
                     StatusCode = 450,
-                    RouteId = 9,
+                    Id = 9,
+                    RouteId = 99,
                     Description = Helpers.CreateRandomString(128),
                     ExactPoint = Helpers.CreateRandomString(128),
                     Time = "08:00",

@@ -40,7 +40,7 @@ namespace API.Features.PickupPoints {
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<PickupPointReadResource> GetPickupPoint(int id) {
             return mapper.Map<PickupPoint, PickupPointReadResource>(await repo.GetById(id));
         }

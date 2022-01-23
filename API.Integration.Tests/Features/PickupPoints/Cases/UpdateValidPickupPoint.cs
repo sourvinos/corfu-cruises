@@ -4,18 +4,19 @@ using API.IntegrationTests.Infrastructure;
 
 namespace API.IntegrationTests.PickupPoints {
 
-    public class NewMinimalPickupPoint : IEnumerable<object[]> {
+    public class UpdateValidPickupPoint : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return CreateMinimalRecord();
+            yield return ValidRecord();
         }
 
-        private static object[] CreateMinimalRecord() {
+        private static object[] ValidRecord() {
             return new object[] {
                 new TestPickupPoint {
-                    FeatureUrl = "/pickupPoints/",
+                    FeatureUrl = "/pickupPoints/1",
+                    Id = 1,
                     RouteId = 1,
                     Description = Helpers.CreateRandomString(128),
                     ExactPoint = Helpers.CreateRandomString(128),

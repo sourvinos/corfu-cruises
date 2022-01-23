@@ -30,7 +30,7 @@ namespace API.IntegrationTests.PickupPoints {
         }
 
         [Theory]
-        [ClassData(typeof(NewMinimalPickupPoint))]
+        [ClassData(typeof(CreateValidPickupPoint))]
         public async Task Unauthorized_Not_Logged_In(TestPickupPoint record) {
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
@@ -39,12 +39,11 @@ namespace API.IntegrationTests.PickupPoints {
         }
 
         [Theory]
-        [ClassData(typeof(NewMinimalPickupPoint))]
+        [ClassData(typeof(CreateValidPickupPoint))]
         public async Task Unauthorized_Invalid_Credentials(TestPickupPoint record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
@@ -52,12 +51,23 @@ namespace API.IntegrationTests.PickupPoints {
         }
 
         [Theory]
-        [ClassData(typeof(NewMinimalPickupPoint))]
+        [ClassData(typeof(CreateValidPickupPoint))]
+        public async Task Unauthorized_Inactive_Simple_Users(TestPickupPoint record) {
+            // arrange
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("marios", "2b24a7368e19"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            // act
+            var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
+            // assert
+            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+        }
+
+        [Theory]
+        [ClassData(typeof(CreateValidPickupPoint))]
         public async Task Unauthorized_Inactive_Admins(TestPickupPoint record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("nikoleta", "8dd193508e05"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
@@ -65,12 +75,11 @@ namespace API.IntegrationTests.PickupPoints {
         }
 
         [Theory]
-        [ClassData(typeof(NewMinimalPickupPoint))]
-        public async Task Simple_Users_Can_Not_Create(TestPickupPoint record) {
+        [ClassData(typeof(CreateValidPickupPoint))]
+        public async Task Active_Simple_Users_Can_Not_Create(TestPickupPoint record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
@@ -80,12 +89,11 @@ namespace API.IntegrationTests.PickupPoints {
         }
 
         [Theory]
-        [ClassData(typeof(AdminsCantCreateWhenInvalidPickupPoint))]
-        public async Task Admins_Can_Not_Create_When_Invalid(TestPickupPoint record) {
+        [ClassData(typeof(CreateInvalidPickupPoint))]
+        public async Task Active_Admins_Can_Not_Create_When_Invalid(TestPickupPoint record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
@@ -95,12 +103,11 @@ namespace API.IntegrationTests.PickupPoints {
         }
 
         [Theory]
-        [ClassData(typeof(NewMinimalPickupPoint))]
-        public async Task Admins_Can_Create_When_Valid(TestPickupPoint record) {
+        [ClassData(typeof(CreateValidPickupPoint))]
+        public async Task Active_Admins_Can_Create_When_Valid(TestPickupPoint record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
