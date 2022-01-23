@@ -40,7 +40,7 @@ namespace API.Features.Customers {
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<CustomerReadResource> GetCustomer(int id) {
             return mapper.Map<Customer, CustomerReadResource>(await repo.GetById(id));
         }
