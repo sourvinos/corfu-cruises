@@ -91,7 +91,10 @@ namespace API.Features.ShipCrews {
 
         private IActionResult GetErrorMessage(int errorCode) {
             return errorCode switch {
-                _ => StatusCode(450, new { Response = ApiMessages.FKNotFoundOrInactive("Ship") }),
+                450 => StatusCode(450, new { Response = ApiMessages.FKNotFoundOrInactive("Gender") }),
+                451 => StatusCode(451, new { Response = ApiMessages.FKNotFoundOrInactive("Nationality") }),
+                452 => StatusCode(452, new { Response = ApiMessages.FKNotFoundOrInactive("Ship") }),
+                _ => StatusCode(490, new { Response = ApiMessages.RecordNotSaved() }),
             };
         }
 

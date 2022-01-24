@@ -17,12 +17,12 @@ namespace API.IntegrationTests.ShipCrews {
                 new TestCrew {
                     FeatureUrl = "/crews/1",
                     Id = 1,
+                    GenderId = 1,
+                    NationalityId = 1,
+                    ShipId = 1,
                     Lastname = Helpers.CreateRandomString(128),
                     Firstname = Helpers.CreateRandomString(128),
-                    Birthdate = "1970-01-01",
-                    ShipId = 1,
-                    NationalityId = 1,
-                    GenderId = 1
+                    Birthdate = "1970-01-01"
                 }
             };
         }

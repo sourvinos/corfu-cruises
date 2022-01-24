@@ -44,7 +44,6 @@ namespace API.IntegrationTests.ShipCrews {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
@@ -57,7 +56,6 @@ namespace API.IntegrationTests.ShipCrews {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("marios", "2b24a7368e19"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
@@ -70,7 +68,6 @@ namespace API.IntegrationTests.ShipCrews {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("nikoleta", "8dd193508e05"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
@@ -83,7 +80,6 @@ namespace API.IntegrationTests.ShipCrews {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
@@ -98,7 +94,6 @@ namespace API.IntegrationTests.ShipCrews {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
@@ -113,7 +108,6 @@ namespace API.IntegrationTests.ShipCrews {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            record.UserId = loginResponse.UserId;
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + record.FeatureUrl, new StringContent(JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
             // assert
