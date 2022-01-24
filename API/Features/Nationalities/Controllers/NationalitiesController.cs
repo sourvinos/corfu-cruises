@@ -40,7 +40,7 @@ namespace API.Features.Nationalities {
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<NationalityReadResource> GetNationality(int id) {
             return mapper.Map<Nationality, NationalityReadResource>(await repo.GetById(id));
         }
