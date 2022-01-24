@@ -19,8 +19,6 @@ namespace API.IntegrationTests.ShipRoutes {
                     Description = Helpers.CreateRandomString(128),
                     FromPort = Helpers.CreateRandomString(128),
                     FromTime = "08:00",
-                    ViaPort = Helpers.CreateRandomString(128),
-                    ViaTime = "09:00",
                     ToPort =  Helpers.CreateRandomString(128),
                     ToTime = "10:00"
                 }
