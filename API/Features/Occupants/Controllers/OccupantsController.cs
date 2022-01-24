@@ -40,7 +40,7 @@ namespace API.Features.Occupants {
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<OccupantReadResource> GetOccupant(int id) {
             return mapper.Map<Occupant, OccupantReadResource>(await repo.GetById(id));
         }
