@@ -34,13 +34,13 @@ namespace API.Features.Ports {
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<PortReadResource> GetPort(int id) {
             return mapper.Map<Port, PortReadResource>(await repo.GetById(id));
         }
