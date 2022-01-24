@@ -11,6 +11,7 @@ namespace API.Features.Registrars {
         Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
         new Task<RegistrarReadResource> GetById(int RegistrarId);
         Task<Registrar> GetByIdToDelete(int RegistrarId);
+        int IsValid(RegistrarWriteResource record);
 
     }
 

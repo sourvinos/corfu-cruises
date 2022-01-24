@@ -55,6 +55,17 @@ namespace API.Features.Registrars {
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
+        public int IsValid(RegistrarWriteResource record) {
+            return true switch {
+                var x when x == !IsValidShip(record) => 450,
+                _ => 200,
+            };
+        }
+
+        private bool IsValidShip(RegistrarWriteResource record) {
+            return context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
+        }
+
     }
 
 }

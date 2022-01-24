@@ -33,13 +33,13 @@ namespace API.Features.Registrars {
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetActiveForDropdown() {
             return StatusCode(200, await repo.GetActiveForDropdown());
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<RegistrarReadResource> GetRegistrar(int id) {
             return await repo.GetById(id);
         }
@@ -48,20 +48,30 @@ namespace API.Features.Registrars {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult Post([FromBody] RegistrarWriteResource record) {
-            repo.Create(mapper.Map<RegistrarWriteResource, Registrar>(AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordCreated()
-            });
+            var response = repo.IsValid(record);
+            if (response == 200) {
+                repo.Create(mapper.Map<RegistrarWriteResource, Registrar>(AttachUserIdToRecord(record)));
+                return StatusCode(200, new {
+                    response = ApiMessages.RecordCreated()
+                });
+            } else {
+                return GetErrorMessage(response);
+            }
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public IActionResult Put([FromBody] RegistrarWriteResource record) {
-            repo.Update(mapper.Map<RegistrarWriteResource, Registrar>(AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
+            var response = repo.IsValid(record);
+            if (response == 200) {
+                repo.Update(mapper.Map<RegistrarWriteResource, Registrar>(AttachUserIdToRecord(record)));
+                return StatusCode(200, new {
+                    response = ApiMessages.RecordUpdated()
+                });
+            } else {
+                return GetErrorMessage(response);
+            }
         }
 
         [HttpDelete("{id}")]
@@ -77,6 +87,13 @@ namespace API.Features.Registrars {
             record.UserId = Identity.GetConnectedUserId(httpContext);
             return record;
         }
+
+        private IActionResult GetErrorMessage(int errorCode) {
+            return errorCode switch {
+                _ => StatusCode(450, new { Response = ApiMessages.FKNotFoundOrInactive("Ship") }),
+            };
+        }
+
 
     }
 

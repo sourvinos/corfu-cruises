@@ -1,18 +1,22 @@
-using API.IntegrationTests.Infrastructure;
 using System.Collections;
 using System.Collections.Generic;
+using API.IntegrationTests.Infrastructure;
 
 namespace API.IntegrationTests.Registrars {
 
-    public class NewRegistrar : IEnumerable<object[]> {
+    public class CreateValidRegistrar : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return new object[] {
+            yield return ValidRecord();
+        }
+
+        private static object[] ValidRecord() {
+            return new object[] {
                 new TestRegistrar {
                     FeatureUrl = "/registrars/",
-                    ShipId = 2,
+                    ShipId = 1,
                     Fullname = Helpers.CreateRandomString(128)
                 }
             };
