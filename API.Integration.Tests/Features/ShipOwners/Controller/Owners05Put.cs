@@ -76,7 +76,7 @@ namespace API.IntegrationTests.ShipOwners {
 
         [Theory]
         [ClassData(typeof(UpdateValidShipOwner))]
-        public async Task Simple_Users_Can_Not_Update(TestOwner record) {
+        public async Task Active_Simple_Users_Can_Not_Update(TestOwner record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -90,7 +90,7 @@ namespace API.IntegrationTests.ShipOwners {
 
         [Theory]
         [ClassData(typeof(UpdateValidShipOwner))]
-        public async Task Admins_Can_Update(TestOwner record) {
+        public async Task Active_Admins_Can_Update_When_Valid(TestOwner record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);

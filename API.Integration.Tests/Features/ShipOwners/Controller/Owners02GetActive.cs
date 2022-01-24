@@ -64,7 +64,7 @@ namespace API.IntegrationTests.ShipOwners {
         }
 
         [Fact]
-        public async Task Simple_Users_Can_Not_Get_Active_For_Dropdown() {
+        public async Task Active_Simple_Users_Can_Not_Get_Active_For_Dropdown() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -78,7 +78,7 @@ namespace API.IntegrationTests.ShipOwners {
         }
 
         [Fact]
-        public async Task Admins_Can_Get_Active_For_Dropdown() {
+        public async Task Active_Admins_Can_Get_Active_For_Dropdown() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
