@@ -30,7 +30,7 @@ namespace API.IntegrationTests.Schedules {
         }
 
         [Theory]
-        [ClassData(typeof(NewValidSchedule))]
+        [ClassData(typeof(CreateValidSchedule))]
         public async Task Unauthorized_Not_Logged_In(NewTestSchedule schedule) {
             // act
             var actionResponse = await _httpClient.PostAsync(_baseUrl + schedule.FeatureUrl, new StringContent(JsonSerializer.Serialize(schedule.TestScheduleBody), Encoding.UTF8, MediaTypeNames.Application.Json));
@@ -39,7 +39,7 @@ namespace API.IntegrationTests.Schedules {
         }
 
         [Theory]
-        [ClassData(typeof(NewValidSchedule))]
+        [ClassData(typeof(CreateValidSchedule))]
         public async Task Unauthorized_Invalid_Credentials(NewTestSchedule schedule) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
@@ -51,7 +51,7 @@ namespace API.IntegrationTests.Schedules {
         }
 
         [Theory]
-        [ClassData(typeof(NewValidSchedule))]
+        [ClassData(typeof(CreateValidSchedule))]
         public async Task Unauthorized_Inactive_Simple_Users(NewTestSchedule schedule) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("marios", "2b24a7368e19"));
@@ -63,7 +63,7 @@ namespace API.IntegrationTests.Schedules {
         }
 
         [Theory]
-        [ClassData(typeof(NewValidSchedule))]
+        [ClassData(typeof(CreateValidSchedule))]
         public async Task Unauthorized_Inactive_Admins(NewTestSchedule schedule) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("nikoleta", "8dd193508e05"));
@@ -75,7 +75,7 @@ namespace API.IntegrationTests.Schedules {
         }
 
         [Theory]
-        [ClassData(typeof(NewValidSchedule))]
+        [ClassData(typeof(CreateValidSchedule))]
         public async Task Active_Simple_Users_Can_Not_Create(NewTestSchedule schedule) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
@@ -89,7 +89,7 @@ namespace API.IntegrationTests.Schedules {
         }
 
         [Theory]
-        [ClassData(typeof(NewInvalidSchedule))]
+        [ClassData(typeof(CreateInvalidSchedule))]
         public async Task Active_Admins_Can_Not_Create_When_Invalid(NewTestSchedule schedule) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
@@ -103,7 +103,7 @@ namespace API.IntegrationTests.Schedules {
         }
 
         [Theory]
-        [ClassData(typeof(NewValidSchedule))]
+        [ClassData(typeof(CreateValidSchedule))]
         public async Task Active_Admins_Can_Create_When_Valid(NewTestSchedule schedule) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));

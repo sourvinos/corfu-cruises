@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace API.IntegrationTests.Schedules {
 
-    public class NewInvalidSchedule : IEnumerable<object[]> {
+    public class CreateInvalidSchedule : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

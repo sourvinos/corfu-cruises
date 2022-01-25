@@ -8,10 +8,10 @@ namespace API.IntegrationTests.Schedules {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return CreateValidSchedule();
+            yield return ValidRecord();
         }
 
-        private static object[] CreateValidSchedule() {
+        private static object[] ValidRecord() {
             return new object[] {
                 new UpdateTestSchedule {
                     FeatureUrl = "/schedules/1",

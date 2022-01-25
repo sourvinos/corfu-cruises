@@ -76,7 +76,7 @@ namespace API.IntegrationTests.ShipCrews {
 
         [Theory]
         [ClassData(typeof(CreateValidCrew))]
-        public async Task Simple_Users_Can_Not_Create(TestCrew record) {
+        public async Task Active_Simple_Users_Can_Not_Create(TestCrew record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -90,7 +90,7 @@ namespace API.IntegrationTests.ShipCrews {
 
         [Theory]
         [ClassData(typeof(CreateInvalidCrew))]
-        public async Task Admins_Can_Not_Create_When_Invalid(TestCrew record) {
+        public async Task Active_Admins_Can_Not_Create_When_Invalid(TestCrew record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
@@ -104,7 +104,7 @@ namespace API.IntegrationTests.ShipCrews {
 
         [Theory]
         [ClassData(typeof(CreateValidCrew))]
-        public async Task Admins_Can_Create_When_Valid(TestCrew record) {
+        public async Task Active_Admins_Can_Create_When_Valid(TestCrew record) {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);

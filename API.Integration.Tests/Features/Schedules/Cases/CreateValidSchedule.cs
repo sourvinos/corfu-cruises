@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace API.IntegrationTests.Schedules {
 
-    public class NewValidSchedule : IEnumerable<object[]> {
+    public class CreateValidSchedule : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return CreateValidSchedule();
+            yield return ValidRecord();
         }
 
-        private static object[] CreateValidSchedule() {
+        private static object[] ValidRecord() {
             return new object[] {
                 new NewTestSchedule {
                     FeatureUrl = "/schedules/",

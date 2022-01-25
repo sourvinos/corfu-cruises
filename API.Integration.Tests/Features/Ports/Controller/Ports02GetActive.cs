@@ -63,11 +63,25 @@ namespace API.IntegrationTests.Ports {
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
 
-        [Theory]
-        [ClassData(typeof(ActiveUsersCanLogin))]
-        public async Task Active_Users_Can_Get_Active_For_Dropdown(Login login) {
+        [Fact]
+        public async Task Active_Simple_Users_Can_Not_Get_Active_For_Dropdown() {
             // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            var request = Helpers.CreateRequest(_baseUrl, _url);
+            // act
+            var actionResponse = await _httpClient.SendAsync(request);
+            var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            // assert
+            Assert.Equal(2, records.Count);
+            // cleanup
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
+        }
+
+        [Fact]
+        public async Task Active_Admins_Can_Get_Active_For_Dropdown() {
+            // arrange
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             var request = Helpers.CreateRequest(_baseUrl, _url);
             // act

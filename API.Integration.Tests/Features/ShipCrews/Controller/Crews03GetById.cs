@@ -17,6 +17,8 @@ namespace API.IntegrationTests.ShipCrews {
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _baseUrl;
+        private readonly string _notFoundUrl = "/crews/999";
+        private readonly string _url = "/crews/1";
 
         #endregion
 
@@ -29,7 +31,7 @@ namespace API.IntegrationTests.ShipCrews {
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
             // act
-            var actionResponse = await _httpClient.GetAsync(_baseUrl + "/crews/1");
+            var actionResponse = await _httpClient.GetAsync(_baseUrl + _url);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
@@ -39,7 +41,7 @@ namespace API.IntegrationTests.ShipCrews {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, "/crews/1");
+            var request = Helpers.CreateRequest(_baseUrl, _url);
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
@@ -52,7 +54,7 @@ namespace API.IntegrationTests.ShipCrews {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials(login.Username, login.Password));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, "/routes/1");
+            var request = Helpers.CreateRequest(_baseUrl, _url);
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
@@ -60,25 +62,11 @@ namespace API.IntegrationTests.ShipCrews {
         }
 
         [Fact]
-        public async Task Not_Found_When_Not_Exists() {
-            // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, "/crews/99");
-            // act
-            var actionResponse = await _httpClient.SendAsync(request);
-            // assert
-            Assert.Equal(HttpStatusCode.NotFound, actionResponse.StatusCode);
-            // cleanup
-            await Helpers.Logout(_httpClient, loginResponse.UserId);
-        }
-
-        [Fact]
-        public async Task Simple_Users_Can_Not_Get_By_Id() {
+        public async Task Active_Simple_Users_Can_Not_Get_By_Id() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, "/crews/1");
+            var request = Helpers.CreateRequest(_baseUrl, _url);
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
@@ -88,11 +76,25 @@ namespace API.IntegrationTests.ShipCrews {
         }
 
         [Fact]
-        public async Task Admins_Can_Get_By_Id() {
+        public async Task Active_Admins_Not_Found_When_Not_Exists() {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, "/crews/1");
+            var request = Helpers.CreateRequest(_baseUrl, _notFoundUrl);
+            // act
+            var actionResponse = await _httpClient.SendAsync(request);
+            // assert
+            Assert.Equal(HttpStatusCode.NotFound, actionResponse.StatusCode);
+            // cleanup
+            await Helpers.Logout(_httpClient, loginResponse.UserId);
+        }
+
+        [Fact]
+        public async Task Active_Admins_Can_Get_By_Id() {
+            // arrange
+            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
+            var request = Helpers.CreateRequest(_baseUrl, _url);
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
