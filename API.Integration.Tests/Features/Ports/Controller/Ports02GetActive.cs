@@ -21,6 +21,7 @@ namespace API.IntegrationTests.Ports {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _baseUrl;
         private readonly string _url = "/ports/getActiveForDropdown";
+        private readonly string _actionVerb = "get";
 
         #endregion
 
@@ -32,10 +33,7 @@ namespace API.IntegrationTests.Ports {
 
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
-            // act
-            var actionResponse = await _httpClient.GetAsync(_baseUrl + _url);
-            // assert
-            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+            await Helpers.Should_Return_Unauthorized_When_Not_Logged_In(_httpClient, _actionVerb, _baseUrl, _url);
         }
 
         [Fact]
@@ -71,9 +69,8 @@ namespace API.IntegrationTests.Ports {
             var request = Helpers.CreateRequest(_baseUrl, _url);
             // act
             var actionResponse = await _httpClient.SendAsync(request);
-            var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
-            Assert.Equal(2, records.Count);
+            Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }

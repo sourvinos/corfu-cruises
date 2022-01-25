@@ -17,6 +17,7 @@ namespace API.IntegrationTests.Schedules {
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _baseUrl;
+        private readonly string _url = "/schedules/1";
 
         #endregion
 
@@ -29,7 +30,7 @@ namespace API.IntegrationTests.Schedules {
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
             // act
-            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + "/schedules/1");
+            var actionResponse = await _httpClient.DeleteAsync(_baseUrl + _url);
             // assert
             Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }

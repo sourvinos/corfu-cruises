@@ -19,7 +19,8 @@ namespace API.IntegrationTests.Reservations {
         private readonly string _baseUrl;
         private readonly string _adminUrl = "/reservations/034464de-89bf-4828-b366-12671315dfba";
         private readonly string _simpleUserUrl = "/reservations/202c08b1-f364-4224-bb7a-fc7765fbbf8d";
-        private readonly string _dummyUrl = "/reservations/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
+        private readonly string _url = "/reservations/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
+        private readonly string _actionVerb = "get";
 
         #endregion
 
@@ -31,10 +32,7 @@ namespace API.IntegrationTests.Reservations {
 
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
-            // act
-            var actionResponse = await _httpClient.GetAsync(_baseUrl + _dummyUrl);
-            // assert
-            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+            await Helpers.Should_Return_Unauthorized_When_Not_Logged_In(_httpClient, _actionVerb, _baseUrl, _url);
         }
 
         [Fact]
@@ -42,7 +40,7 @@ namespace API.IntegrationTests.Reservations {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, _dummyUrl);
+            var request = Helpers.CreateRequest(_baseUrl, _url);
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
@@ -54,7 +52,7 @@ namespace API.IntegrationTests.Reservations {
             // arrange
             var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, _dummyUrl, loginResponse.UserId);
+            var request = Helpers.CreateRequest(_baseUrl, _url, loginResponse.UserId);
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert

@@ -23,6 +23,7 @@ namespace API.IntegrationTests.Reservations {
         private readonly string _url = "/reservations/date/2021-10-01";
         private readonly string _adminId = "e7e014fd-5608-4936-866e-ec11fc8c16da";
         private readonly string _simpleUserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828";
+        private readonly string _actionVerb = "get";
 
         #endregion
 
@@ -34,10 +35,7 @@ namespace API.IntegrationTests.Reservations {
 
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
-            // act
-            var actionResponse = await _httpClient.GetAsync(_baseUrl + _url);
-            // assert
-            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+            await Helpers.Should_Return_Unauthorized_When_Not_Logged_In(_httpClient, _actionVerb, _baseUrl, _url);
         }
 
         [Fact]

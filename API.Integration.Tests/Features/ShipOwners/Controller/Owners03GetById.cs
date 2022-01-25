@@ -19,6 +19,7 @@ namespace API.IntegrationTests.ShipOwners {
         private readonly string _baseUrl;
         private readonly string _notFoundUrl = "/shipOwners/999";
         private readonly string _url = "/shipOwners/1";
+        private readonly string _actionVerb = "get";
 
         #endregion
 
@@ -30,10 +31,7 @@ namespace API.IntegrationTests.ShipOwners {
 
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
-            // act
-            var actionResponse = await _httpClient.GetAsync(_baseUrl + _url);
-            // assert
-            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+            await Helpers.Should_Return_Unauthorized_When_Not_Logged_In(_httpClient, _actionVerb, _baseUrl, _url);
         }
 
         [Fact]

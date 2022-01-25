@@ -1,11 +1,13 @@
 using System;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using API.Infrastructure.Auth;
 using Newtonsoft.Json;
+using Xunit;
 
 namespace API.IntegrationTests.Infrastructure {
 
@@ -45,6 +47,19 @@ namespace API.IntegrationTests.Infrastructure {
 
         public static StringContent ConvertObjectToJson(object record) {
             return new StringContent(JsonConvert.SerializeObject(record), Encoding.UTF8, MediaTypeNames.Application.Json);
+        }
+
+        public static async Task Should_Return_Unauthorized_When_Not_Logged_In(HttpClient httpClient, string actionVerb, string baseUrl, string url) {
+            var actionResponse = new HttpResponseMessage();
+            switch (actionVerb) {
+                case "get":
+                    actionResponse = await httpClient.GetAsync(baseUrl + url);
+                    break;
+                case "delete":
+                    actionResponse = await httpClient.DeleteAsync(baseUrl + url);
+                    break;
+            }
+            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
         }
 
     }

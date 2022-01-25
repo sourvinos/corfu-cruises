@@ -21,6 +21,7 @@ namespace API.IntegrationTests.Customers {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _baseUrl;
         private readonly string _url = "/customers/getActiveForDropdown";
+        private readonly string _actionVerb = "get";
 
         #endregion
 
@@ -32,10 +33,7 @@ namespace API.IntegrationTests.Customers {
 
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
-            // act
-            var actionResponse = await _httpClient.GetAsync(_baseUrl + _url);
-            // assert
-            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+            await Helpers.Should_Return_Unauthorized_When_Not_Logged_In(_httpClient, _actionVerb, _baseUrl, _url);
         }
 
         [Fact]
@@ -72,7 +70,7 @@ namespace API.IntegrationTests.Customers {
             // act
             var actionResponse = await _httpClient.SendAsync(request);
             // assert
-            Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
@@ -87,7 +85,7 @@ namespace API.IntegrationTests.Customers {
             var actionResponse = await _httpClient.SendAsync(request);
             var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             // assert
-            Assert.Equal(6, records.Count);
+            Assert.Equal(19, records.Count);
             // cleanup
             await Helpers.Logout(_httpClient, loginResponse.UserId);
         }

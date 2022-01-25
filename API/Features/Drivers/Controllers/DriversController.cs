@@ -33,7 +33,7 @@ namespace API.Features.Drivers {
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetActiveForDropdown() {
             return StatusCode(200, await repo.GetActiveForDropdown());
         }

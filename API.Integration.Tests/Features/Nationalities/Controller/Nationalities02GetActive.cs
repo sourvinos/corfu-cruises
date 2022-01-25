@@ -21,6 +21,7 @@ namespace API.IntegrationTests.Nationalities {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _baseUrl;
         private readonly string _url = "/nationalities/getActiveForDropdown";
+        private readonly string _actionVerb = "get";
 
         #endregion
 
@@ -32,10 +33,7 @@ namespace API.IntegrationTests.Nationalities {
 
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
-            // act
-            var actionResponse = await _httpClient.GetAsync(_baseUrl + _url);
-            // assert
-            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+            await Helpers.Should_Return_Unauthorized_When_Not_Logged_In(_httpClient, _actionVerb, _baseUrl, _url);
         }
 
         [Fact]

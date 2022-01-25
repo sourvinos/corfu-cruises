@@ -28,7 +28,7 @@ namespace API.Features.Schedules {
         }
 
         [HttpGet]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<ScheduleListResource>> Get() {
             return await repo.GetForList();
         }
@@ -40,7 +40,7 @@ namespace API.Features.Schedules {
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<ScheduleReadResource> GetById(int id) {
             return await repo.GetById(id);
         }
