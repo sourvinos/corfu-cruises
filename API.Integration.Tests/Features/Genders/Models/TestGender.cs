@@ -1,8 +1,8 @@
-namespace API.IntegrationTests.Genders {
+using API.Integration.Tests.Infrastructure;
 
-    public class TestGender {
+namespace API.Integration.Tests.Genders {
 
-        public string FeatureUrl { get; set; }
+    public class TestGender : ITestEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }

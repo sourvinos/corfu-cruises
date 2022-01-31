@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.IntegrationTests.Infrastructure;
+using API.Integration.Tests.Infrastructure;
 
-namespace API.IntegrationTests.Destinations {
+namespace API.Integration.Tests.Destinations {
 
     public class UpdateValidDestination : IEnumerable<object[]> {
 
@@ -15,10 +15,9 @@ namespace API.IntegrationTests.Destinations {
         private static object[] ValidRecord() {
             return new object[] {
                 new TestDestination {
-                    FeatureUrl = "/destinations/1",
                     Id = 1,
-                    Abbreviation = Helpers.CreateRandomString(5),
-                    Description = Helpers.CreateRandomString(128)
+                    Description = Helpers.CreateRandomString(128),
+                    Abbreviation = Helpers.CreateRandomString(5)
                 }
             };
         }

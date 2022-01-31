@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using API.Integration.Tests.Infrastructure;
 
-namespace API.IntegrationTests.Reservations {
+namespace API.Integration.Tests.Reservations {
 
-    public class TestReservation {
+    public class TestReservation : ITestEntity {
 
-        public string FeatureUrl { get; set; }
         public int StatusCode { get; set; }
 
+        public int Id { get; set; }
         public Guid? ReservationId { get; set; }
         public string Date { get; set; }
         public int CustomerId { get; set; }

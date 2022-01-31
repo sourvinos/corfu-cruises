@@ -1,12 +1,11 @@
-namespace API.IntegrationTests.Drivers {
+using API.Integration.Tests.Infrastructure;
 
-    public class TestDriver {
+namespace API.Integration.Tests.Drivers {
 
-        public string FeatureUrl { get; set; }
+    public class TestDriver : ITestEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }
-
     }
 
 }

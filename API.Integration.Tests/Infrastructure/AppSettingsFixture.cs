@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 
-namespace API.IntegrationTests.Infrastructure {
+namespace API.Integration.Tests.Infrastructure {
 
     public class AppSettingsFixture : IDisposable {
 

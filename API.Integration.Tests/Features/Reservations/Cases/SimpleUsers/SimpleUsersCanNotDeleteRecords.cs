@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace API.IntegrationTests.Reservations {
+namespace API.Integration.Tests.Reservations {
 
     public class SimpleUsersCanNotDeleteRecords : IEnumerable<object[]> {
 

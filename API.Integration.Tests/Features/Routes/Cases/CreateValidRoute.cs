@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.IntegrationTests.Infrastructure;
+using API.Integration.Tests.Infrastructure;
 
-namespace API.IntegrationTests.Routes {
+namespace API.Integration.Tests.Routes {
 
     public class CreateValidRoute : IEnumerable<object[]> {
 
@@ -15,7 +15,6 @@ namespace API.IntegrationTests.Routes {
         private static object[] ValidRecord() {
             return new object[] {
                 new TestRoute {
-                    FeatureUrl = "/routes/",
                     PortId = 1,
                     Description = Helpers.CreateRandomString(128),
                     Abbreviation = Helpers.CreateRandomString(10)

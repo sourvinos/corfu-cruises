@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.IntegrationTests.Infrastructure;
+using API.Integration.Tests.Infrastructure;
 
-namespace API.IntegrationTests.Routes {
+namespace API.Integration.Tests.Routes {
 
     public class CreateInvalidRoute : IEnumerable<object[]> {
 
@@ -16,7 +16,6 @@ namespace API.IntegrationTests.Routes {
         private static object[] Port_Must_Exist() {
             return new object[] {
                 new TestRoute {
-                    FeatureUrl = "/routes/",
                     StatusCode = 450,
                     PortId = 99,
                     Description = Helpers.CreateRandomString(128),
@@ -28,7 +27,6 @@ namespace API.IntegrationTests.Routes {
         private static object[] Port_Must_Be_Active() {
             return new object[] {
                 new TestRoute {
-                    FeatureUrl = "/routes/",
                     StatusCode = 450,
                     PortId = 3,
                     Description = Helpers.CreateRandomString(128),

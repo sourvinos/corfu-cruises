@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.IntegrationTests.Infrastructure;
+using API.Integration.Tests.Infrastructure;
 
-namespace API.IntegrationTests.Ships {
+namespace API.Integration.Tests.Ships {
 
     public class CreateValidShip : IEnumerable<object[]> {
 
@@ -15,7 +15,6 @@ namespace API.IntegrationTests.Ships {
         private static object[] ValidRecord() {
             return new object[] {
                 new TestShip {
-                    FeatureUrl = "/ships/",
                     ShipOwnerId = 1,
                     Description = Helpers.CreateRandomString(5),
                 }

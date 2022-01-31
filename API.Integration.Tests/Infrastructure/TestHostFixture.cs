@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
-namespace API.IntegrationTests.Infrastructure {
+namespace API.Integration.Tests.Infrastructure {
 
     public class TestHostFixture : IDisposable {
 

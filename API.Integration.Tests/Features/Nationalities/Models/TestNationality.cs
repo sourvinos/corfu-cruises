@@ -1,8 +1,8 @@
-namespace API.IntegrationTests.Nationalities {
+using API.Integration.Tests.Infrastructure;
 
-    public class TestNationality {
+namespace API.Integration.Tests.Nationalities {
 
-        public string FeatureUrl { get; set; }
+    public class TestNationality:ITestEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }

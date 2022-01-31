@@ -1,8 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace API.IntegrationTests.Reservations {
+namespace API.Integration.Tests.Reservations {
 
     public class AdminsCanNotCreateRecordsWhenInvalid : IEnumerable<object[]> {
 
@@ -10,7 +9,7 @@ namespace API.IntegrationTests.Reservations {
 
         public IEnumerator<object[]> GetEnumerator() {
             yield return Nothing_For_This_Day();
-            yield return Nothing_For_This_Day_And_This_Destination();
+            yield return Nothing_For_This_Day_And_Destination();
             yield return Nothing_For_This_Day_And_Destination_And_Port();
             yield return Overbooking_From_Primary_Port_Is_Not_Allowed();
             yield return Overbooking_From_Secondary_Port_Is_Not_Allowed();
@@ -37,7 +36,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Nothing_For_This_Day() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 432,
                     Date = "2021-10-04",
                     CustomerId = 1,
@@ -48,10 +46,9 @@ namespace API.IntegrationTests.Reservations {
             };
         }
 
-        private static object[] Nothing_For_This_Day_And_This_Destination() {
+        private static object[] Nothing_For_This_Day_And_Destination() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 430,
                     Date = "2021-10-02",
                     CustomerId = 1,
@@ -65,7 +62,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Nothing_For_This_Day_And_Destination_And_Port() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 427,
                     Date = "2021-10-02",
                     CustomerId = 1,
@@ -82,7 +78,6 @@ namespace API.IntegrationTests.Reservations {
             // Free seats = 101
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 433,
                     Date = "2021-10-01",
                     CustomerId = 1,
@@ -100,7 +95,6 @@ namespace API.IntegrationTests.Reservations {
             // Free seats = 400 - 134 = 266
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 433,
                     Date = "2021-10-01",
                     CustomerId = 1,
@@ -116,7 +110,6 @@ namespace API.IntegrationTests.Reservations {
             // Checking for Date, DestinationId, CustomeId and TicketNo
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 409,
                     Date = "2021-10-01",
                     CustomerId = 14,
@@ -130,7 +123,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Customer_Must_Exist() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 450,
                     Date = "2021-10-01",
                     CustomerId = 99,
@@ -144,7 +136,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Customer_Must_Be_Active() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 450,
                     Date = "2021-10-01",
                     CustomerId = 20,
@@ -158,7 +149,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Destination_Must_Exist() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 451,
                     Date = "2021-10-01",
                     CustomerId = 1,
@@ -173,7 +163,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Destination_Must_Be_Active() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 451,
                     Date = "2021-10-01",
                     CustomerId = 1,
@@ -188,7 +177,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] PickupPoint_Must_Exist() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 452,
                     Date = "2021-10-01",
                     CustomerId = 1,
@@ -203,7 +191,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] PickupPoint_Must_Be_Active() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 452,
                     Date = "2021-10-01",
                     CustomerId = 1,
@@ -218,7 +205,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Driver_Must_Exist() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 453,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -234,7 +220,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Driver_Must_Be_Active() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 453,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -250,7 +235,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Ship_Must_Exist() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 454,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -266,7 +250,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Ship_Must_Be_Active() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     StatusCode = 454,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -282,7 +265,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Passenger_Count_Is_Not_Correct() {
             return new object[]{
                 new TestReservation{
-                    FeatureUrl = "/reservations/",
                     StatusCode = 455,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -302,7 +284,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Nationality_Must_Exist() {
             return new object[]{
                 new TestReservation{
-                    FeatureUrl = "/reservations/",
                     StatusCode = 456,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -320,7 +301,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Nationality_Must_Be_Active() {
             return new object[]{
                 new TestReservation{
-                    FeatureUrl = "/reservations/",
                     StatusCode = 456,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -338,7 +318,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Gender_Must_Exist() {
             return new object[]{
                 new TestReservation{
-                    FeatureUrl = "/reservations/",
                     StatusCode = 457,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -356,7 +335,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Gender_Must_Be_Active() {
             return new object[]{
                 new TestReservation{
-                    FeatureUrl = "/reservations/",
                     StatusCode = 457,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -374,7 +352,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Occupant_Must_Exist() {
             return new object[]{
                 new TestReservation{
-                    FeatureUrl = "/reservations/",
                     StatusCode = 458,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -392,7 +369,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Occupant_Must_Be_Active() {
             return new object[]{
                 new TestReservation{
-                    FeatureUrl = "/reservations/",
                     StatusCode = 458,
                     CustomerId = 1,
                     DestinationId = 1,

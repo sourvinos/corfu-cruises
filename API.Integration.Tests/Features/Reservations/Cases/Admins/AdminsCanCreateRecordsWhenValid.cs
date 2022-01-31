@@ -1,8 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace API.IntegrationTests.Reservations {
+namespace API.Integration.Tests.Reservations {
 
     public class AdminsCanCreateRecordWhenValid : IEnumerable<object[]> {
 
@@ -16,7 +15,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Admins_Can_Create_Reservations_In_Past_Date() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 3,
@@ -36,7 +34,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Admins_Can_Create_Reservations_In_Future_Date() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 3,

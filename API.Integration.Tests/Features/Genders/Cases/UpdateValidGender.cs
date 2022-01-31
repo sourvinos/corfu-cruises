@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.IntegrationTests.Infrastructure;
+using API.Integration.Tests.Infrastructure;
 
-namespace API.IntegrationTests.Genders {
+namespace API.Integration.Tests.Genders {
 
     public class UpdateValidGender : IEnumerable<object[]> {
 
@@ -15,7 +15,6 @@ namespace API.IntegrationTests.Genders {
         private static object[] ValidRecord() {
             return new object[] {
                 new TestGender {
-                    FeatureUrl = "/genders/1",
                     Id = 1,
                     Description = Helpers.CreateRandomString(128)
                 }

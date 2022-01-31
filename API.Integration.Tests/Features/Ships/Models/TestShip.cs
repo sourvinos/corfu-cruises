@@ -1,8 +1,9 @@
-namespace API.IntegrationTests.Ships {
+using API.Integration.Tests.Infrastructure;
 
-    public class TestShip {
+namespace API.Integration.Tests.Ships {
 
-        public string FeatureUrl { get; set; }
+    public class TestShip : ITestEntity {
+
         public int StatusCode { get; set; }
 
         public int Id { get; set; }

@@ -1,4 +1,4 @@
-namespace API.IntegrationTests.Reservations {
+namespace API.Integration.Tests.Reservations {
 
     public class TestPassenger {
 

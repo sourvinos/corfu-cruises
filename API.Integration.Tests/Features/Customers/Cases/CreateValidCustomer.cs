@@ -1,8 +1,8 @@
-using API.IntegrationTests.Infrastructure;
 using System.Collections;
 using System.Collections.Generic;
+using API.Integration.Tests.Infrastructure;
 
-namespace API.IntegrationTests.Customers {
+namespace API.Integration.Tests.Customers {
 
     public class CreateValidCustomer : IEnumerable<object[]> {
 
@@ -15,7 +15,6 @@ namespace API.IntegrationTests.Customers {
         private static object[] ValidRecord() {
             return new object[] {
                 new TestCustomer {
-                    FeatureUrl = "/customers/",
                     Description = Helpers.CreateRandomString(128)
                 }
             };

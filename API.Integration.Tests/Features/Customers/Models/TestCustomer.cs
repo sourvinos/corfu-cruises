@@ -1,8 +1,8 @@
-namespace API.IntegrationTests.Customers {
+using API.Integration.Tests.Infrastructure;
 
-    public class TestCustomer {
+namespace API.Integration.Tests.Customers {
 
-        public string FeatureUrl { get; set; }
+    public class TestCustomer : ITestEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }

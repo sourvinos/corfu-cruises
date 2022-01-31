@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.Invoicing;
-using API.IntegrationTests.Infrastructure;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using API.Integration.Tests.Infrastructure;
+using API.Integration.Tests.Responses;
 using Xunit;
 
-namespace API.IntegrationTests.Invoicing {
+namespace API.Integration.Tests.Invoicing {
 
     [Collection("Sequence")]
     public class Invoicing : IClassFixture<AppSettingsFixture> {
@@ -20,11 +18,9 @@ namespace API.IntegrationTests.Invoicing {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
+        private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
         private readonly string _url = "/invoicing/date/2021-10-01/customer/all/destination/all/vessel/all";
-        private readonly string _adminId = "e7e014fd-5608-4936-866e-ec11fc8c16da";
-        private readonly string _simpleUserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828";
-        private readonly string _actionVerb = "get";
 
         #endregion
 
@@ -36,50 +32,26 @@ namespace API.IntegrationTests.Invoicing {
 
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
-            await Helpers.Should_Return_Unauthorized_When_Not_Logged_In(_httpClient, _actionVerb, _baseUrl, _url);
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, null, null, null);
         }
 
         [Fact]
         public async Task Unauthorized_Invalid_Credentials() {
-            // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("user-does-not-exist", "not-a-valid-password"));
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, _url);
-            // act
-            var actionResponse = await _httpClient.SendAsync(request);
-            // assert
-            Assert.Equal(HttpStatusCode.Unauthorized, actionResponse.StatusCode);
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "user-does-not-exist", "not-a-valid-password", null);
         }
 
         [Fact]
-        public async Task Simple_Users_Can_Not_List() {
-            // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("matoula", "820343d9e828"));
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, _url, _simpleUserId);
-            // act
-            var actionResponse = await _httpClient.SendAsync(request);
-            // assert
-            Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
-            // cleanup
-            await Helpers.Logout(_httpClient, loginResponse.UserId);
+        public async Task Active_Simple_Users_Can_Not_List() {
+            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", null);
         }
 
         [Fact]
-        public async Task Admins_Can_List() {
-            // arrange
-            var loginResponse = await Helpers.Login(_httpClient, Helpers.CreateLoginCredentials("john", "ec11fc8c16da"));
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
-            var request = Helpers.CreateRequest(_baseUrl, _url, _adminId);
-            // act
-            var actionResponse = await _httpClient.SendAsync(request);
+        public async Task Active_Admins_Can_List() {
+            var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<IEnumerable<InvoiceViewModel>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            // assert
             Assert.Equal(134, records.Sum(x => x.IsTransferGroup.Sum(x => x.TotalPersons)));
             Assert.Equal(96, records.Sum(x => x.IsTransferGroup.Where(x => x.IsTransfer).Sum(x => x.TotalPersons)));
             Assert.Equal(38, records.Sum(x => x.IsTransferGroup.Where(x => !x.IsTransfer).Sum(x => x.TotalPersons)));
-            // cleanup
-            await Helpers.Logout(_httpClient, loginResponse.UserId);
         }
 
     }

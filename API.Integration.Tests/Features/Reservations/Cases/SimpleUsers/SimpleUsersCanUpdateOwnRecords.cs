@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace API.IntegrationTests.Reservations {
+namespace API.Integration.Tests.Reservations {
 
     public class SimpleUsersCanUpdateOwnRecords : IEnumerable<object[]> {
 
@@ -15,7 +15,6 @@ namespace API.IntegrationTests.Reservations {
         private static object[] Simple_Users_Can_Update_Own_Records() {
             return new object[] {
                 new TestReservation {
-                    FeatureUrl = "/reservations/",
                     ReservationId = Guid.Parse("d32c6c0f-25b8-42fe-a6ad-9c1f913931c6"),
                     CustomerId = 1,
                     DestinationId = 1,

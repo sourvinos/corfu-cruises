@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.IntegrationTests.Infrastructure;
+using API.Integration.Tests.Infrastructure;
 
-namespace API.IntegrationTests.Ships {
+namespace API.Integration.Tests.Ships {
 
     public class UpdateInvalidShip : IEnumerable<object[]> {
 
@@ -16,7 +16,6 @@ namespace API.IntegrationTests.Ships {
         private static object[] ShipOwner_Must_Exist() {
             return new object[] {
                 new TestShip {
-                    FeatureUrl = "/ships/1",
                     StatusCode = 450,
                     ShipOwnerId = 4,
                     Description = Helpers.CreateRandomString(5),
@@ -27,7 +26,6 @@ namespace API.IntegrationTests.Ships {
         private static object[] ShipOwner_Must_Be_Active() {
             return new object[] {
                 new TestShip {
-                    FeatureUrl = "/ships/1",
                     StatusCode = 450,
                     ShipOwnerId = 3,
                     Description = Helpers.CreateRandomString(5),
