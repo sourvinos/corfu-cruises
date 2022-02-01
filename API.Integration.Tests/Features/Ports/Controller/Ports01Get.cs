@@ -1,28 +1,31 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
+using API.Infrastructure.Classes;
 using API.Integration.Tests.Cases;
 using API.Integration.Tests.Infrastructure;
 using API.Integration.Tests.Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Drivers {
+namespace API.Integration.Tests.Ports {
 
     [Collection("Sequence")]
-    public class Drivers03GetById : IClassFixture<AppSettingsFixture> {
+    public class Ports01Get : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
+        private readonly int _expectedRecordCount = 3;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _notFoundUrl = "/drivers/999";
-        private readonly string _url = "/drivers/1";
+        private readonly string _url = "/ports";
 
         #endregion
 
-        public Drivers03GetById(AppSettingsFixture appsettings) {
+        public Ports01Get(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
@@ -45,18 +48,15 @@ namespace API.Integration.Tests.Drivers {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_Get_By_Id() {
+        public async Task Active_Simple_Users_Can_Not_List() {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", null);
         }
 
         [Fact]
-        public async Task Active_Admins_Not_Found_When_Not_Exists() {
-            await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
-        }
-
-        [Fact]
-        public async Task Active_Admins_Can_Get_By_Id() {
-            await RecordFound.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
+        public async Task Active_Admins_Can_List() {
+            var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
+            var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            Assert.Equal(_expectedRecordCount, records.Count);
         }
 
     }

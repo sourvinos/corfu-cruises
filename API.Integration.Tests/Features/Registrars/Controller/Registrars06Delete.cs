@@ -1,28 +1,28 @@
-﻿using System.Net.Http;
+using System.Net.Http;
 using System.Threading.Tasks;
 using API.Integration.Tests.Cases;
 using API.Integration.Tests.Infrastructure;
 using API.Integration.Tests.Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Drivers {
+namespace API.Integration.Tests.Registrars {
 
     [Collection("Sequence")]
-    public class Drivers03GetById : IClassFixture<AppSettingsFixture> {
+    public class Registrars06Delete : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly string _actionVerb = "get";
+        private readonly string _actionVerb = "delete";
         private readonly string _baseUrl;
-        private readonly string _notFoundUrl = "/drivers/999";
-        private readonly string _url = "/drivers/1";
+        private readonly string _notFoundUrl = "/registrars/999";
+        private readonly string _url = "/registrars/1";
 
         #endregion
 
-        public Drivers03GetById(AppSettingsFixture appsettings) {
+        public Registrars06Delete(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
@@ -30,7 +30,7 @@ namespace API.Integration.Tests.Drivers {
 
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, null, null, null);
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "", "", null);
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace API.Integration.Tests.Drivers {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_Get_By_Id() {
+        public async Task Active_Simple_Users_Can_Not_Delete() {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", null);
         }
 
@@ -55,8 +55,8 @@ namespace API.Integration.Tests.Drivers {
         }
 
         [Fact]
-        public async Task Active_Admins_Can_Get_By_Id() {
-            await RecordFound.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
+        public async Task Active_Admins_Can_Delete() {
+            await RecordDeleted.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
         }
 
     }

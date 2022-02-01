@@ -18,9 +18,10 @@ namespace API.Integration.Tests.Routes {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
+        private readonly int _expectedRecordCount = 9;
+        private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
         private readonly string _url = "/routes";
-        private readonly string _actionVerb = "get";
 
         #endregion
 
@@ -43,7 +44,7 @@ namespace API.Integration.Tests.Routes {
         [Theory]
         [ClassData(typeof(InactiveUsersCanNotLogin))]
         public async Task Unauthorized_Inactive_Users(Login login) {
-             await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, login.Username, login.Password, null);
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, login.Username, login.Password, null);
         }
 
         [Fact]
@@ -55,7 +56,7 @@ namespace API.Integration.Tests.Routes {
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<List<RouteListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(9, records.Count);
+            Assert.Equal(_expectedRecordCount, records.Count);
         }
 
     }

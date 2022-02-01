@@ -5,10 +5,10 @@ using API.Integration.Tests.Infrastructure;
 using API.Integration.Tests.Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Drivers {
+namespace API.Integration.Tests.Registrars {
 
     [Collection("Sequence")]
-    public class Drivers03GetById : IClassFixture<AppSettingsFixture> {
+    public class Registrars03GetById : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -17,12 +17,12 @@ namespace API.Integration.Tests.Drivers {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _notFoundUrl = "/drivers/999";
-        private readonly string _url = "/drivers/1";
+        private readonly string _notFoundUrl = "/registrars/999";
+        private readonly string _url = "/registrars/1";
 
         #endregion
 
-        public Drivers03GetById(AppSettingsFixture appsettings) {
+        public Registrars03GetById(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
