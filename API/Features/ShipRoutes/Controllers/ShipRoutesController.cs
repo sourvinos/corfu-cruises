@@ -15,9 +15,9 @@ namespace API.Features.ShipRoutes {
 
         #region variables
 
-        private readonly IShipRouteRepository repo;
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
+        private readonly IShipRouteRepository repo;
 
         #endregion
 
