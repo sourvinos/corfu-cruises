@@ -15,9 +15,9 @@ namespace API.Features.Occupants {
 
         #region variables
 
-        private readonly IOccupantRepository repo;
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
+        private readonly IOccupantRepository repo;
 
         #endregion
 
