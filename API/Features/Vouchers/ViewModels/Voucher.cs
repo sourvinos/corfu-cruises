@@ -6,7 +6,6 @@ namespace API.Features.Vouchers {
     public class Voucher {
 
         public string Logo { get; set; }
-
         public DateTime Date { get; set; }
         public string TicketNo { get; set; }
         public string DestinationDescription { get; set; }
@@ -18,19 +17,16 @@ namespace API.Features.Vouchers {
         public string Remarks { get; set; }
         public string BarCode { get; set; }
         public string Email { get; set; }
-
-        public List<Passenger> Passengers { get; set; }
-
         public int Adults { get; set; }
         public int Kids { get; set; }
         public int Free { get; set; }
         public int TotalPersons { get; set; }
         public string ValidPassengerIcon { get; set; }
-
         public string Facebook { get; set; }
         public string YouTube { get; set; }
         public string Instagram { get; set; }
 
+        public List<Passenger> Passengers { get; set; }
     }
 
 }

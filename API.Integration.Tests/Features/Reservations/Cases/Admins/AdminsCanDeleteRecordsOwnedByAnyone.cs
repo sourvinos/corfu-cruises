@@ -33,7 +33,6 @@ namespace API.Integration.Tests.Reservations {
         private static object[] Admins_Can_Delete_Records_Owned_By_Simple_Users() {
             return new object[] {
                 new TestReservation {
-                    // FeatureUrl = "/reservations/",
                     ReservationId = Guid.Parse("6375f5ab-81ea-4d97-a9c6-f1c9de4c2c62")
                 }
             };
