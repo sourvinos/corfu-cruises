@@ -15,9 +15,9 @@ namespace API.Features.ShipOwners {
 
         #region variables
 
-        private readonly IShipOwnerRepository repo;
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
+        private readonly IShipOwnerRepository repo;
 
         #endregion
 
