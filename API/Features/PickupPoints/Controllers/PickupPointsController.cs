@@ -15,9 +15,9 @@ namespace API.Features.PickupPoints {
 
         #region variables
 
-        private readonly IPickupPointRepository repo;
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
+        private readonly IPickupPointRepository repo;
 
         #endregion
 

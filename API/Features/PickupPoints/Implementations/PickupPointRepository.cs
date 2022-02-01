@@ -23,9 +23,7 @@ namespace API.Features.PickupPoints {
         public async Task<IEnumerable<PickupPointListResource>> Get() {
             List<PickupPoint> pickupPoints = await context.Set<PickupPoint>()
                 .Include(x => x.Route)
-                .OrderBy(x => x.Route.Abbreviation)
-                    .ThenBy(x => x.Time)
-                        .ThenBy(x => x.Description)
+                .OrderBy(x => x.Route.Abbreviation).ThenBy(x => x.Time).ThenBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointListResource>>(pickupPoints);
