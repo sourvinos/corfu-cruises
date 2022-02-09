@@ -7,7 +7,6 @@ namespace API.Features.Manifest {
         public string Email { get; set; }
         public string Fax { get; set; }
         public string Address { get; set; }
-        public bool IsActive { get; set; }
         public bool IsPrimary { get; set; }
 
     }

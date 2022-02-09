@@ -25,6 +25,7 @@ namespace API.Features.Reservations {
         public Gender Gender { get; set; }
         public Nationality Nationality { get; set; }
         public Occupant Occupant { get; set; }
+        public virtual Reservation Reservation { get; set; }
 
     }
 

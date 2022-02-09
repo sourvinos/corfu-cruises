@@ -4,7 +4,6 @@ namespace API.Features.Manifest {
 
     public class ShipResource {
 
-        public int Id { get; set; }
         public string Description { get; set; }
         public string IMO { get; set; }
         public string Flag { get; set; }

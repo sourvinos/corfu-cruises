@@ -1,6 +1,7 @@
 using System;
 using API.Features.Genders;
 using API.Features.Nationalities;
+using API.Features.Occupants;
 using API.Features.Ships;
 using API.Infrastructure.Identity;
 
@@ -13,6 +14,7 @@ namespace API.Features.ShipCrews {
         // FKs
         public int GenderId { get; set; }
         public int NationalityId { get; set; }
+        public int OccupantId { get; set; }
         public int ShipId { get; set; }
         // Fields
         public string Lastname { get; set; }
@@ -24,6 +26,7 @@ namespace API.Features.ShipCrews {
         // Navigation
         public Gender Gender { get; set; }
         public Nationality Nationality { get; set; }
+        public Occupant Occupant { get; set; }
         public Ship Ship { get; set; }
         public UserExtended User { get; set; }
 

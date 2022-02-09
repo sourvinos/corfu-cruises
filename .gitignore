@@ -235,6 +235,7 @@ FrontEnd/package-lock.json
 API/Vouchers
 appsettings.json
 **/logs
+desktop.ini
 
 # Cypress
 **/videos

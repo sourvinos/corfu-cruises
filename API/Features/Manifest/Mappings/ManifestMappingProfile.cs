@@ -30,20 +30,18 @@ namespace API.Features.Manifest {
                         Email = registrar.Email,
                         Fax = registrar.Fax,
                         Address = registrar.Address,
-                        IsPrimary = registrar.IsPrimary,
-                        IsActive = registrar.IsActive
+                        IsPrimary = registrar.IsPrimary
                     }),
-                    Crew = source.Ship.Crew.ConvertAll(crew => new ManifestCrewResource {
-                        Id = crew.Id,
+                    Crew = source.Ship.Crews.ConvertAll(crew => new ManifestCrewResource {
                         Lastname = crew.Lastname,
                         Firstname = crew.Firstname,
-                        Birthdate = crew.Birthdate,
-                        IsActive = crew.IsActive,
-                        OccupantDescription = "Crew",
+                        Birthdate = DateHelpers.DateTimeToISOString(crew.Birthdate),
+                        OccupantDescription = crew.Occupant.Description,
+                        GenderDescription = crew.Gender.Description,
+                        NationalityDescription = crew.Nationality.Description,
                     }),
                 }))
                 .ForMember(x => x.Passengers, x => x.MapFrom(x => x.Passengers.Select(passenger => new PassengerResource {
-                    Id = passenger.Id,
                     ReservationId = passenger.ReservationId,
                     Lastname = passenger.Lastname,
                     Firstname = passenger.Firstname,
@@ -54,7 +52,7 @@ namespace API.Features.Manifest {
                     NationalityCode = passenger.Nationality.Code,
                     NationalityDescription = passenger.Nationality.Description,
                     GenderDescription = passenger.Gender.Description,
-                    OccupantDescription = "Passenger"
+                    OccupantDescription = passenger.Occupant.Description
                 })));
         }
 

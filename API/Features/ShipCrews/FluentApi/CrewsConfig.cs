@@ -11,6 +11,7 @@ namespace API.Features.ShipCrews {
             // FKs
             entity.Property(x => x.GenderId).IsRequired(true);
             entity.Property(x => x.NationalityId).IsRequired(true);
+            entity.Property(x => x.OccupantId).IsRequired(true);
             entity.Property(x => x.ShipId).IsRequired(true);
             entity.Property(x => x.UserId).IsRequired(true);
             // Fields
