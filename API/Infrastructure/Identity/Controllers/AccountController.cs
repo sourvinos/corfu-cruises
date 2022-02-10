@@ -24,7 +24,7 @@ namespace API.Infrastructure.Identity {
             this.emailSender = emailSender;
         }
 
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         [HttpPost("[action]")]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel formData) {
             if (ModelState.IsValid) {
@@ -97,7 +97,7 @@ namespace API.Infrastructure.Identity {
             return StatusCode(400, new { response = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage) });
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("[action]")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel vm) {
             if (ModelState.IsValid) {
@@ -115,7 +115,7 @@ namespace API.Infrastructure.Identity {
             return StatusCode(400, new { response = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage) });
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> IsAdmin(string id) {
             var user = await userManager.FindByIdAsync(id);

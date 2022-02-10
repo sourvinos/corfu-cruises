@@ -139,9 +139,9 @@
                         <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.kids }}</td>
                         <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.free }}</td>
                         <td style="min-width: 6%; max-width: 6%; justify-content: flex-end;">{{ rowData.totalPersons }}</td>
-                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.driverDescription }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.driverDescription == "(EMPTY)" ? getEmojiForNullValues(): rowData.driverDescription }}</td>
                         <td style="min-width: 10; max-width: 10%;">{{ rowData.portDescription }}</td>
-                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.shipDescription }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.shipDescription == "(EMPTY)" ? getEmojiForNullValues(): rowData.shipDescription }}</td>
                     </tr>
                 </ng-template>
             </p-table>

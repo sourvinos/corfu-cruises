@@ -90,7 +90,7 @@
                                 </mat-form-field>
                             </div>
                         </form>
-                        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+                        <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
                     </ng-template>
                 </mat-tab>
                 <mat-tab label="{{ getLabel('tabPassengers') }}">

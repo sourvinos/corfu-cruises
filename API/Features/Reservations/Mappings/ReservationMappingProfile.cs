@@ -10,6 +10,8 @@ namespace API.Features.Reservations {
             // List
             CreateMap<Reservation, ReservationListResource>()
                 .ForMember(x => x.RouteAbbreviation, x => x.MapFrom(r => r.PickupPoint.Route.Abbreviation))
+                .ForMember(x => x.DriverDescription, x => x.NullSubstitute("(EMPTY)"))
+                .ForMember(x => x.ShipDescription, x => x.NullSubstitute("(EMPTY)"))
                 .ForMember(x => x.Time, x => x.MapFrom(r => r.PickupPoint.Time));
             // Read reservation
             CreateMap<Reservation, ReservationReadResource>()

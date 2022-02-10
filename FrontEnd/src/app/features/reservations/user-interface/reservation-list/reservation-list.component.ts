@@ -156,6 +156,10 @@ export class ReservationListComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
+    public getEmojiForNullValues(): string {
+        return this.helperService.getEmojiForNullValues()
+    }
+
     public isAdmin(): boolean {
         return true
     }
@@ -229,6 +233,7 @@ export class ReservationListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

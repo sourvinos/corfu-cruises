@@ -17,10 +17,10 @@ namespace API.Features.Reservations {
         // FKs
         public int CustomerId { get; set; }
         public int DestinationId { get; set; }
-        public int DriverId { get; set; }
+        public int? DriverId { get; set; }
         public int PickupPointId { get; set; }
         public int PortId { get; set; }
-        public int ShipId { get; set; }
+        public int? ShipId { get; set; }
         // Fields
         public DateTime Date { get; set; }
         public string TicketNo { get; set; }

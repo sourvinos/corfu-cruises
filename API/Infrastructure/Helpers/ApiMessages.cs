@@ -21,8 +21,6 @@ namespace API.Infrastructure.Helpers {
         public static string RecordIsInUse() { return "This record is in use and can not be deleted."; }
         public static string AuthenticationFailed() { return "Authentication failed."; }
         public static string RecordNotFound() { return "Record not found."; }
-        public static string DefaultDriverAlreadyExists() { return "There is already a default driver."; }
-        public static string DefaultDriverNotFound() { return "Default driver not found."; }
         public static string RecordNotSaved() { return "Record not saved."; }
         public static string FileNotCreated() { return "File not created."; }
         public static string InvalidModel() { return "The model is invalid."; }

@@ -9,7 +9,7 @@ Cypress.Commands.add('login', () => {
             password: 'ec11fc8c16da',
             grantType: 'password'
         }
-    }).its('body.response').then(response => {
+    }).then(response => {
         cy.setLocalStorage('displayName', response.displayname)
         cy.setLocalStorage('expiration', response.expiration)
         cy.setLocalStorage('jwt', response.token)

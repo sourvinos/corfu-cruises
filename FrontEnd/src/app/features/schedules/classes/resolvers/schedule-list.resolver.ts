@@ -6,16 +6,14 @@ import { ScheduleService } from '../calendar/schedule.service'
 
 @Injectable({ providedIn: 'root' })
 
-export class ScheduleListResolver  {
+export class ScheduleListResolver {
 
     constructor(private scheduleService: ScheduleService) { }
 
     resolve(): Observable<ListResolved> {
-        return this.scheduleService.getForList()
-            .pipe(
-                map((scheduleList) => new ListResolved(scheduleList)),
-                catchError((err: any) => of(new ListResolved(null, err)))
-            )
+        return this.scheduleService
+            .getForList()
+            .pipe(map((scheduleList) => new ListResolved(scheduleList)), catchError((err: any) => of(new ListResolved(null, err))))
     }
 
 }

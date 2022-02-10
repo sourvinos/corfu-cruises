@@ -179,7 +179,7 @@ export class CalendarComponent {
         }
     }
 
-    private storeDate(day): void {
+    private storeDate(day: string): void {
         this.helperService.saveItem('date', day)
     }
 

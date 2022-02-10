@@ -87,9 +87,9 @@ export class ReservationFormComponent {
         this.populateDropDowns()
         this.initForm()
         this.populateFormWithDefaultValues()
-        this.patchFieldsWithStoredValues()
-        this.getUserRole()
-        this.getCustomer()
+        // this.patchFieldsWithStoredValues()
+        // this.getUserRole()
+        // this.getCustomer()
     }
 
     ngOnDestroy(): void {
@@ -478,9 +478,9 @@ export class ReservationFormComponent {
 
     private populateFormWithDefaultValues(): void {
         this.form.patchValue({
-            driver: { 'id': 1, 'description': '-' },
-            port: { 'id': 1, 'description': '-' },
-            ship: { 'id': 1, 'description': '-' },
+            // driver: { 'id': 1, 'description': '-' },
+            // port: { 'id': 1, 'description': '-' },
+            // ship: { 'id': 1, 'description': '-' },
             passengers: []
         })
     }

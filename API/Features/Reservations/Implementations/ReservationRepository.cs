@@ -41,10 +41,10 @@ namespace API.Features.Reservations {
             reservations = reservations.If(!await Identity.IsUserAdmin(httpContextAccessor), x => x.Where(x => x.UserId == Identity.GetConnectedUserId(httpContextAccessor))).ToList();
             var personsPerCustomer = reservations.OrderBy(x => x.Customer.Description).GroupBy(x => new { x.Customer.Description }).Select(x => new PersonsPerCustomer { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
             var personsPerDestination = reservations.OrderBy(x => x.Destination.Description).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
-            var personsPerDriver = reservations.OrderBy(x => x.Driver.Description).GroupBy(x => new { x.Driver.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
+            var personsPerDriver = reservations.OrderBy(x => x?.Driver?.Description).GroupBy(x => new { x?.Driver?.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description ?? "(EMPTY)", Persons = x.Sum(x => x.TotalPersons) });
             var personsPerPort = reservations.OrderByDescending(x => x.Port.IsPrimary).GroupBy(x => new { x.Port.Description }).Select(x => new PersonsPerPort { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
             var personsPerRoute = reservations.OrderBy(x => x.PickupPoint.Route.Abbreviation).GroupBy(x => new { x.PickupPoint.Route.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(x => x.TotalPersons) });
-            var personsPerShip = reservations.OrderBy(x => x.Ship.Description).GroupBy(x => new { x.Ship.Description }).Select(x => new PersonsPerShip { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
+            var personsPerShip = reservations.OrderBy(x => x?.Ship?.Description).GroupBy(x => new { x?.Ship?.Description }).Select(x => new PersonsPerShip { Description = x.Key.Description ?? "(EMPTY)", Persons = x.Sum(x => x.TotalPersons) });
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
                 Reservations = reservations.ToList(),
@@ -116,7 +116,7 @@ namespace API.Features.Reservations {
         public int GetPortIdFromPickupPointId(ReservationWriteResource record) {
             PickupPoint pickupPoint = context.PickupPoints
                 .Include(x => x.Route)
-                .SingleOrDefault(x => x.Id == record.PickupPointId);
+                .FirstOrDefault(x => x.Id == record.PickupPointId);
             return pickupPoint.Route.PortId;
         }
 
@@ -225,11 +225,20 @@ namespace API.Features.Reservations {
         }
 
         private bool IsValidDriver(ReservationWriteResource record) {
-            return record.DriverId == 0 || context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive) != null;
+            if (record.DriverId != null) {
+                var driver = context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive);
+                return driver != null;
+            }
+            return true;
         }
+        // return record.DriverId == 0 || context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive) != null;
 
         private bool IsValidShip(ReservationWriteResource record) {
-            return record.ShipId == 0 || context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
+            if (record.ShipId != null) {
+                var ship = context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive);
+                return ship != null;
+            }
+            return true;
         }
 
         private static bool IsCorrectPassengerCount(ReservationWriteResource record) {

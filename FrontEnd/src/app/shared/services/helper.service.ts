@@ -35,11 +35,15 @@ export class HelperService {
         return this.appName
     }
 
+    public getEmojiForNullValues(): any {
+        return ' 🎃'
+    }
+
     public populateTableFiltersDropdowns(records: any[], field: string): any[] {
         const array = []
         const elements = [... new Set(records.map(x => x[field]))]
         elements.forEach(element => {
-            array.push({ label: element, value: element })
+            array.push({ label: element == '(EMPTY)' ? this.getEmojiForNullValues() : element, value: element })
         })
         array.sort((a, b) => (a.label > b.label) ? 1 : -1)
         return array

@@ -14,7 +14,7 @@ context('Reservations', () => {
             cy.gotoReservationList()
         })
 
-        it('Goto the home page', () => {
+        it.skip('Goto the home page', () => {
             cy.goHome()
             cy.url().should('eq', Cypress.config().homeUrl + '/')
         })

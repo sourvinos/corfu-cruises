@@ -23,7 +23,6 @@ namespace API.Features.Reservations {
         public PickupPointWithPortDropdownResource PickupPoint { get; set; }
         public SimpleResource Driver { get; set; }
         public SimpleResource Ship { get; set; }
-        public SimpleResource Port { get; set; }
 
         public List<PassengerReadResource> Passengers { get; set; }
 

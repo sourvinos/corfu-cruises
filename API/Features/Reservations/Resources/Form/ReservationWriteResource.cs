@@ -10,10 +10,10 @@ namespace API.Features.Reservations {
         public string Date { get; set; }
         public int CustomerId { get; set; }
         public int DestinationId { get; set; }
-        public int DriverId { get; set; }
+        public int? DriverId { get; set; }
         public int PickupPointId { get; set; }
         public int PortId { get; set; }
-        public int ShipId { get; set; }
+        public int? ShipId { get; set; }
         public string TicketNo { get; set; }
         public string Email { get; set; }
         public string Phones { get; set; }

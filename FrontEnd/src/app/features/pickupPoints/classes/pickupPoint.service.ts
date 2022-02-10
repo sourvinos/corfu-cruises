@@ -14,7 +14,7 @@ export class PickupPointService extends DataService {
     }
 
     getActiveForDropdown(): Observable<PickupPoint[]> {
-        return this.http.get<PickupPoint[]>(environment.apiUrl + '/pickupPoints/getActiveWithPortForDropdown')
+        return this.http.get<PickupPoint[]>(environment.apiUrl + '/pickupPoints/getActiveForDropdown')
     }
 
     getAllForRoute(routeId: string): Observable<PickupPoint[]> {
