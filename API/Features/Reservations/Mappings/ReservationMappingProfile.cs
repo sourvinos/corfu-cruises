@@ -1,3 +1,5 @@
+using API.Features.Drivers;
+using API.Features.Ships;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Helpers;
 using AutoMapper;
@@ -16,6 +18,8 @@ namespace API.Features.Reservations {
             // Read reservation
             CreateMap<Reservation, ReservationReadResource>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Date)))
+                .ForMember(x => x.Driver, x => x.NullSubstitute(new Driver { Id = 0, Description = "(EMPTY)" }))
+                .ForMember(x => x.Ship, x => x.NullSubstitute(new Ship { Id = 0, Description = "(EMPTY)" }))
                 .ForMember(x => x.PickupPoint, x => x.MapFrom(r => new PickupPointWithPortDropdownResource {
                     Id = r.PickupPoint.Id,
                     Description = r.PickupPoint.Description,

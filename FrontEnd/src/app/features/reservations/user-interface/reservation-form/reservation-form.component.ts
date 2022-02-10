@@ -290,8 +290,8 @@ export class ReservationFormComponent {
     private getRecord(id: number): void {
         this.reservationService.getSingle(id).subscribe(result => {
             this.populateFields(result)
-            this.doBarcodeTasks()
-            this.checkTotalPersonsAgainstPassengerCount()
+            // this.doBarcodeTasks()
+            // this.checkTotalPersonsAgainstPassengerCount()
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             this.onGoBack()
@@ -329,7 +329,6 @@ export class ReservationFormComponent {
             email: ['', [Validators.maxLength(128), Validators.email]],
             phones: ['', Validators.maxLength(128)],
             remarks: ['', Validators.maxLength(128)],
-            userId: this.helperService.readItem('userId'),
             imageBase64: '',
             passengers: []
         })
@@ -451,6 +450,7 @@ export class ReservationFormComponent {
     }
 
     private populateFields(result: ReservationReadResource): void {
+        console.log(result)
         this.form.setValue({
             reservationId: result.reservationId,
             date: this.helperService.formatDateToISO(result.date),
@@ -461,7 +461,7 @@ export class ReservationFormComponent {
             time: result.pickupPoint.time,
             driver: { 'id': result.driver.id, 'description': result.driver.description },
             ship: { 'id': result.ship.id, 'description': result.ship.description },
-            port: { 'id': result.port.id, 'description': result.port.description },
+            port: { 'id': result.pickupPoint.port.id, 'description': result.pickupPoint.port.description },
             adults: result.adults,
             kids: result.kids,
             free: result.free,
@@ -471,7 +471,6 @@ export class ReservationFormComponent {
             phones: result.phones,
             remarks: result.remarks,
             imageBase64: '',
-            userId: this.helperService.readItem('userId'),
             passengers: result.passengers
         })
     }

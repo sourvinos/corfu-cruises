@@ -39,9 +39,7 @@ namespace API.Features.Reservations {
         public async Task<IActionResult> GetReservation(string id) {
             var record = await reservationRepo.GetById(id);
             if (await Identity.IsUserAdmin(httpContextAccessor) || await reservationRepo.DoesUserOwnRecord(record.UserId)) {
-                return StatusCode(200, new {
-                    response = record
-                });
+                return StatusCode(200, record);
             } else {
                 return StatusCode(490, new {
                     response = ApiMessages.NotOwnRecord()
