@@ -241,7 +241,6 @@ export class RouteFormComponent {
 
     private getRecord(id: number): void {
         this.routeService.getSingle(id).subscribe(result => {
-            console.log(result)
             this.populateFields(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')

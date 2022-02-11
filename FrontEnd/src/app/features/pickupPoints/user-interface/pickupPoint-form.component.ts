@@ -269,7 +269,6 @@ export class PickupPointFormComponent {
         const promise = new Promise((resolve) => {
             service.getActiveForDropdown().toPromise().then(
                 (response: any) => {
-                    console.log(response)
                     this[table] = response
                     resolve(this[table])
                     this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))

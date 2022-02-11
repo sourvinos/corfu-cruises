@@ -227,18 +227,19 @@ namespace API.Features.Reservations {
         private bool IsValidDriver(ReservationWriteResource record) {
             if (record.DriverId != null) {
                 var driver = context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive);
-                return driver != null;
+                if (driver != null)
+                    return true;
             }
-            return true;
+            return false;
         }
-        // return record.DriverId == 0 || context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive) != null;
 
         private bool IsValidShip(ReservationWriteResource record) {
             if (record.ShipId != null) {
                 var ship = context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive);
-                return ship != null;
+                if (ship != null)
+                    return true;
             }
-            return true;
+            return false;
         }
 
         private static bool IsCorrectPassengerCount(ReservationWriteResource record) {

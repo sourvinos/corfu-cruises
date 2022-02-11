@@ -44,10 +44,30 @@ export class JwtInterceptor {
                                     return throwError(427) // we don't have a departure for the selected date, destination and port
                                 case 430:
                                     return throwError(430) // we don't have a trip for the selected date and destination
+                                case 431:
+                                    return throwError(431) // simple users can't add a reservation in the past
                                 case 432:
                                     return throwError(432) // we don't have any trips for this day
                                 case 433:
                                     return throwError(433) // no vacancy for port
+                                case 450:
+                                    return throwError(450) // customer does not exist or is inactive
+                                case 451:
+                                    return throwError(451) // destination does not exist or is inactive
+                                case 452:
+                                    return throwError(452) // pickup point does not exist or is inactive
+                                case 453:
+                                    return throwError(453) // driver does not exist or is inactive
+                                case 454:
+                                    return throwError(454) // ship does not exist or is inactive
+                                case 455:
+                                    return throwError(455) // invalid passenger count
+                                case 456:
+                                    return throwError(456) // nationality does not exist or is inactive
+                                case 457:
+                                    return throwError(457) // gender does not exist or is inactive
+                                case 458:
+                                    return throwError(458) // occupant does not exist or is inactive
                                 case 490:
                                     return throwError(490) // unableToSaveRecord
                                 case 491:

@@ -21,7 +21,6 @@ export class SummaryComponent {
     // }
 
     constructor(private messageLabelService: MessageLabelService) {
-        console.log(this.summary)
         this.showDownArrow(0, this.summary)
     }
 

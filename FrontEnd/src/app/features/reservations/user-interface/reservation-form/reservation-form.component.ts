@@ -1,3 +1,4 @@
+import { Ship } from './../../../ships/base/classes/models/ship';
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
@@ -341,14 +342,14 @@ export class ReservationFormComponent {
     private mapObject(): any {
         const form = this.form.value
         const reservation = {
-            'reservationId': this.isGuid(form.reservationId),
+            'reservationId': form.reservationId,
             'date': form.date,
             'destinationId': form.destination.id,
             'customerId': form.customer.id,
             'pickupPointId': form.pickupPoint.id,
             'portId': form.port.id,
-            'driverId': form.driver.id,
-            'shipId': form.ship.id,
+            'driverId': form.driver.id == 0 ? null : form.driver.id,
+            'shipId': form.ship.id == 0 ? null : form.ship.id,
             'ticketNo': form.ticketNo,
             'email': form.email,
             'phones': form.phones,
@@ -356,7 +357,6 @@ export class ReservationFormComponent {
             'kids': form.kids,
             'free': form.free,
             'remarks': form.remarks,
-            'userId': form.userId,
             'passengers': this.mapPassengers()
         }
         return reservation
@@ -450,7 +450,6 @@ export class ReservationFormComponent {
     }
 
     private populateFields(result: ReservationReadResource): void {
-        console.log(result)
         this.form.setValue({
             reservationId: result.reservationId,
             date: this.helperService.formatDateToISO(result.date),

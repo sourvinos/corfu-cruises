@@ -22,7 +22,6 @@ export class VoucherService extends DataService {
     //#region public methods
 
     public createVoucherOnClient(voucher: VoucherViewModel): void {
-        console.log('Service', voucher)
         const rows = []
         rows.push([{ text: '' }, { text: '' }])
         rows.push([{ text: 'Passengers', colSpan: 2, alignment: 'center', fontSize: 18 }])
