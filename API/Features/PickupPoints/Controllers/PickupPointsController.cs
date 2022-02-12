@@ -48,10 +48,10 @@ namespace API.Features.PickupPoints {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PostPickupPoint([FromBody] PickupPointWriteResource record) {
+        public async Task<IActionResult> PostPickupPointAsync([FromBody] PickupPointWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Create(mapper.Map<PickupPointWriteResource, PickupPoint>(AttachUserIdToRecord(record)));
+                // repo.Create(mapper.Map<PickupPointWriteResource, PickupPoint>(await AttachUserIdToRecordAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
@@ -63,10 +63,10 @@ namespace API.Features.PickupPoints {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PutPickupPoint([FromBody] PickupPointWriteResource record) {
+        public async Task<IActionResult> PutPickupPointAsync([FromBody] PickupPointWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Update(mapper.Map<PickupPointWriteResource, PickupPoint>(AttachUserIdToRecord(record)));
+                // repo.Update(mapper.Map<PickupPointWriteResource, PickupPoint>(await AttachUserIdToRecordAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -94,10 +94,10 @@ namespace API.Features.PickupPoints {
             });
         }
 
-        private PickupPointWriteResource AttachUserIdToRecord(PickupPointWriteResource record) {
-            record.UserId = Identity.GetConnectedUserId(httpContext);
-            return record;
-        }
+        // private async Task<PickupPointWriteResource> AttachUserIdToRecordAsync(PickupPointWriteResource record) {
+        //     record.UserId = await Identity.GetConnectedUserId(httpContext);
+        //     return record;
+        // }
 
         private IActionResult GetErrorMessage(int errorCode) {
             return errorCode switch {

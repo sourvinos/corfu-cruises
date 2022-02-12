@@ -48,8 +48,8 @@ namespace API.Features.Occupants {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PostOccupant([FromBody] OccupantWriteResource record) {
-            repo.Create(mapper.Map<OccupantWriteResource, Occupant>(AttachUserIdToRecord(record)));
+        public async Task<IActionResult> PostOccupantAsync([FromBody] OccupantWriteResource record) {
+            // repo.Create(mapper.Map<OccupantWriteResource, Occupant>(await AttachUserIdToRecordAsync(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordCreated()
             });
@@ -58,8 +58,8 @@ namespace API.Features.Occupants {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PutOccupant([FromBody] OccupantWriteResource record) {
-            repo.Update(mapper.Map<OccupantWriteResource, Occupant>(AttachUserIdToRecord(record)));
+        public async Task<IActionResult> PutOccupantAsync([FromBody] OccupantWriteResource record) {
+            // repo.Update(mapper.Map<OccupantWriteResource, Occupant>(await AttachUserIdToRecordAsync(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordUpdated()
             });
@@ -74,10 +74,10 @@ namespace API.Features.Occupants {
             });
         }
 
-        private OccupantWriteResource AttachUserIdToRecord(OccupantWriteResource record) {
-            record.UserId = Identity.GetConnectedUserId(httpContext);
-            return record;
-        }
+        // private async Task<OccupantWriteResource> AttachUserIdToRecordAsync(OccupantWriteResource record) {
+        //     record.UserId = await Identity.GetConnectedUserId(httpContext);
+        //     return record;
+        // }
 
     }
 

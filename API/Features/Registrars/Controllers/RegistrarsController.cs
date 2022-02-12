@@ -47,10 +47,10 @@ namespace API.Features.Registrars {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult Post([FromBody] RegistrarWriteResource record) {
+        public async Task<IActionResult> PostAsync([FromBody] RegistrarWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Create(mapper.Map<RegistrarWriteResource, Registrar>(AttachUserIdToRecord(record)));
+                // repo.Create(mapper.Map<RegistrarWriteResource, Registrar>(await AttachUserIdToRecordAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
@@ -62,10 +62,10 @@ namespace API.Features.Registrars {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult Put([FromBody] RegistrarWriteResource record) {
+        public async Task<IActionResult> PutAsync([FromBody] RegistrarWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Update(mapper.Map<RegistrarWriteResource, Registrar>(AttachUserIdToRecord(record)));
+                // repo.Update(mapper.Map<RegistrarWriteResource, Registrar>(await AttachUserIdToRecordAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -83,10 +83,10 @@ namespace API.Features.Registrars {
             });
         }
 
-        private RegistrarWriteResource AttachUserIdToRecord(RegistrarWriteResource record) {
-            record.UserId = Identity.GetConnectedUserId(httpContext);
-            return record;
-        }
+        // private async Task<RegistrarWriteResource> AttachUserIdToRecordAsync(RegistrarWriteResource record) {
+        //     record.UserId = await Identity.GetConnectedUserId(httpContext);
+        //     return record;
+        // }
 
         private IActionResult GetErrorMessage(int errorCode) {
             return errorCode switch {

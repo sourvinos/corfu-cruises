@@ -60,7 +60,9 @@ export class TopMenuComponent {
                     {
                         label: this.getLabel(menuItems, 'editAccount'),
                         icon: 'fas fa-pen-alt',
-                        command: (): void => { this.editUser() }
+                        command: (): void => {
+                            this.router.navigate(['/users/edit'], { queryParams: { returnUrl: '/' } })
+                        }
                     },
                     {
                         label: this.getLabel(menuItems, 'logout'),
@@ -115,28 +117,9 @@ export class TopMenuComponent {
         return language
     }
 
-    private editUser(): void {
-        let userId = ''
-        this.accountService.currentUserId.subscribe((result: any) => {
-            userId = result
-        })
-        this.router.navigate(['/users', userId], { queryParams: { returnUrl: '/' } })
-    }
-
     private getLanguageIcon(): string {
         const flag = this.helperService.readItem('language') == '' ? this.doLanguageTasks('en-gb') : this.helperService.readItem('language')
         return 'flag ' + flag
-    }
-
-    private getLanguageLabel(): string {
-        const flag = this.helperService.readItem('language') == '' ? this.doLanguageTasks('en-gb') : this.helperService.readItem('language')
-        switch (flag) {
-            case 'el-gr': return 'Γλώσσα'
-            case 'en-gb': return 'Language'
-            case 'de-de': return 'Sprache'
-            case 'cs-CZ': return 'Jazyk'
-            case 'fr-FR': return 'Langue'
-        }
     }
 
     private getLabel(response: any[], label: string): string {

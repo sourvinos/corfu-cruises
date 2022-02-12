@@ -50,11 +50,11 @@ namespace API.Features.Reservations {
         [HttpPost]
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PostReservation([FromBody] ReservationWriteResource record) {
+        public async Task<IActionResult> PostReservationAsync([FromBody] ReservationWriteResource record) {
             var response = reservationRepo.IsValid(record, scheduleRepo);
             if (response == 200) {
                 AttachPortIdToRecord(record);
-                AttachUserIdToRecord(record);
+                // await AttachUserIdToRecordAsync(record);
                 reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
@@ -68,7 +68,7 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
-            AttachUserIdToRecord(record);
+            // await AttachUserIdToRecordAsync(record);
             if (await Identity.IsUserAdmin(httpContextAccessor)) {
                 var response = reservationRepo.IsValid(record, scheduleRepo);
                 if (response == 200) {
@@ -132,10 +132,10 @@ namespace API.Features.Reservations {
             };
         }
 
-        private ReservationWriteResource AttachUserIdToRecord(ReservationWriteResource record) {
-            record.UserId = Identity.GetConnectedUserId(httpContextAccessor);
-            return record;
-        }
+        // private async Task<ReservationWriteResource> AttachUserIdToRecordAsync(ReservationWriteResource record) {
+        //     record.UserId = await Identity.GetConnectedUserId(httpContextAccessor);
+        //     return record;
+        // }
 
         private ReservationWriteResource AttachPortIdToRecord(ReservationWriteResource record) {
             record.PortId = reservationRepo.GetPortIdFromPickupPointId(record);

@@ -48,10 +48,10 @@ namespace API.Features.Routes {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PostRoute([FromBody] RouteWriteResource record) {
+        public async Task<IActionResult> PostRouteAsync([FromBody] RouteWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Create(mapper.Map<RouteWriteResource, Route>(AttachUserIdToRecord(record)));
+                // repo.Create(mapper.Map<RouteWriteResource, Route>(await AttachUserIdToRecordAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
@@ -63,10 +63,10 @@ namespace API.Features.Routes {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PutRoute([FromBody] RouteWriteResource record) {
+        public async Task<IActionResult> PutRouteAsync([FromBody] RouteWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Update(mapper.Map<RouteWriteResource, Route>(AttachUserIdToRecord(record)));
+                // repo.Update(mapper.Map<RouteWriteResource, Route>(await AttachUserIdToRecordAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -84,10 +84,10 @@ namespace API.Features.Routes {
             });
         }
 
-        private RouteWriteResource AttachUserIdToRecord(RouteWriteResource record) {
-            record.UserId = Identity.GetConnectedUserId(httpContext);
-            return record;
-        }
+        // private async Task<RouteWriteResource> AttachUserIdToRecordAsync(RouteWriteResource record) {
+        //     record.UserId = await Identity.GetConnectedUserId(httpContext);
+        //     return record;
+        // }
 
         private IActionResult GetErrorMessage(int errorCode) {
             return errorCode switch {

@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Identity;
+using API.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,8 +29,9 @@ namespace API.Infrastructure.Extensions {
                 .AddDefaultTokenProviders();
         }
 
-        public static string GetConnectedUserId(IHttpContextAccessor httpContextAccessor) {
-            return httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        public static Task<SimpleUser> GetConnectedUserId(IHttpContextAccessor httpContextAccessor) {
+            var response = new SimpleUser { UserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value };
+            return Task.Run(() => response);
         }
 
         public static Task<bool> IsUserAdmin(IHttpContextAccessor httpContextAccessor) {

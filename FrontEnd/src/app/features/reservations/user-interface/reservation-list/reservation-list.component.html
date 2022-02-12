@@ -45,7 +45,7 @@
                         <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter style="width: 100%;" field="destinationDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="destinations" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [ngModel]="value" [options]="destinations" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option.label }}</span>
                                         </ng-template>
@@ -56,7 +56,7 @@
                         <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter style="width: 100%;" field="routeAbbreviation" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="routes" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [ngModel]="value" [options]="routes" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option.label }}</span>
                                         </ng-template>
@@ -67,7 +67,7 @@
                         <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter style="width: 100%;" field="customerDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="customers" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [ngModel]="value" [options]="customers" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option.label }}</span>
                                         </ng-template>
@@ -78,7 +78,7 @@
                         <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter style="width: 100%;" field="pickupPointDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="pickupPoints" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [ngModel]="value" [options]="pickupPoints" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option.label }}</span>
                                         </ng-template>
@@ -93,7 +93,7 @@
                         <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter style="width: 100%;" field="driverDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="drivers" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [ngModel]="value" [options]="drivers" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option.label }}</span>
                                         </ng-template>
@@ -104,7 +104,7 @@
                         <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter style="width: 100%;" field="portDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="ports" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [ngModel]="value" [options]="ports" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option.label }}</span>
                                         </ng-template>
@@ -115,7 +115,7 @@
                         <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter style="width: 100%;" field="shipDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="ships" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [ngModel]="value" [options]="ships" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option.label }}</span>
                                         </ng-template>
@@ -139,9 +139,9 @@
                         <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.kids }}</td>
                         <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.free }}</td>
                         <td style="min-width: 6%; max-width: 6%; justify-content: flex-end;">{{ rowData.totalPersons }}</td>
-                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.driverDescription == "(EMPTY)" ? getEmojiForNullValues(): rowData.driverDescription }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.driverDescription == "(EMPTY)" ? getEmoji('null'): rowData.driverDescription }}</td>
                         <td style="min-width: 10; max-width: 10%;">{{ rowData.portDescription }}</td>
-                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.shipDescription == "(EMPTY)" ? getEmojiForNullValues(): rowData.shipDescription }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.shipDescription == "(EMPTY)" ? getEmoji('null'): rowData.shipDescription }}</td>
                     </tr>
                 </ng-template>
             </p-table>

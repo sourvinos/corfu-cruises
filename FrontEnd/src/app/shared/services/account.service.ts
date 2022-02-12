@@ -1,15 +1,16 @@
 import { BehaviorSubject, Observable } from 'rxjs'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { map } from 'rxjs/operators'
 // Custom
 import { InteractionService } from './interaction.service'
 import { environment } from 'src/environments/environment'
+import { DataService } from './data.service'
 
 @Injectable({ providedIn: 'root' })
 
-export class AccountService {
+export class AccountService extends DataService {
 
     //#region variables
 
@@ -21,24 +22,34 @@ export class AccountService {
     private urlRegister = this.apiUrl + '/account/register'
     private urlResetPassword = this.apiUrl + '/account/resetPassword'
     private urlToken = this.apiUrl + '/auth/auth'
-    private urlIsAdmin = this.apiUrl + '/account/isAdmin'
-    private userId = new BehaviorSubject<string>(localStorage.getItem('userId'))
+    private urlIsAdmin = this.apiUrl + '/account/isConnectedUserAdmin'
+    private urlGetConnectedUserId = this.apiUrl + '/account/getConnectedUserId'
 
     //#endregion
 
-    constructor(private interactionService: InteractionService, private httpClient: HttpClient, private router: Router) { }
+    constructor(private interactionService: InteractionService, httpClient: HttpClient, private router: Router) {
+        super(httpClient, environment.apiUrl)
+    }
 
     //#region public methods
 
     public forgotPassword(formData: any): Observable<any> {
-        return this.httpClient.post<any>(this.urlForgotPassword, formData)
+        return this.http.post<any>(this.urlForgotPassword, formData)
+    }
+
+    public getConnectedUserId(): Observable<any> {
+        return this.http.get<any>(this.urlGetConnectedUserId).pipe(
+            map(response => {
+                return <any>response
+            })
+        )
     }
 
     public getNewRefreshToken(): Observable<any> {
         const userId = localStorage.getItem('userId')
         const refreshToken = localStorage.getItem('refreshToken')
         const grantType = 'refresh_token'
-        return this.httpClient.post<any>(this.urlToken, { userId, refreshToken, grantType }).pipe(
+        return this.http.post<any>(this.urlToken, { userId, refreshToken, grantType }).pipe(
             map(response => {
                 console.log('Refresh token' + response.response.token)
                 if (response.response.token) {
@@ -51,8 +62,8 @@ export class AccountService {
         )
     }
 
-    public isAdmin(id: string): Observable<any> {
-        return this.httpClient.get<any>(this.urlIsAdmin + '/' + id).pipe(
+    public isConnectedUserAdmin(): Observable<any> {
+        return this.http.get<any>(this.urlIsAdmin).pipe(
             map(response => {
                 return <any>response
             })
@@ -62,7 +73,7 @@ export class AccountService {
     public login(userName: string, password: string): Observable<void> {
         const grantType = 'password'
         const language = localStorage.getItem('language') || 'en'
-        return this.httpClient.post<any>(this.urlToken, { language, userName, password, grantType }).pipe(map(response => {
+        return this.http.post<any>(this.urlToken, { language, userName, password, grantType }).pipe(map(response => {
             this.setLoginStatus(true)
             this.setLocalStorage(response)
             this.setUserData()
@@ -78,11 +89,11 @@ export class AccountService {
     }
 
     public register(formData: any): Observable<any> {
-        return this.httpClient.post<any>(this.urlRegister, formData)
+        return this.http.post<any>(this.urlRegister, formData)
     }
 
     public resetPassword(email: string, password: string, confirmPassword: string, token: string): Observable<any> {
-        return this.httpClient.post<any>(this.urlResetPassword, { email, password, confirmPassword, token })
+        return this.http.post<any>(this.urlResetPassword, { email, password, confirmPassword, token })
     }
 
     //#endregion
@@ -149,7 +160,6 @@ export class AccountService {
 
     private setUserData(): void {
         this.displayName.next(localStorage.getItem('displayName'))
-        this.userId.next(localStorage.getItem('userId'))
     }
 
     //#endregion
@@ -162,10 +172,6 @@ export class AccountService {
 
     get isLoggedIn(): Observable<boolean> {
         return this.loginStatus.asObservable()
-    }
-
-    get currentUserId(): any {
-        return this.userId.asObservable()
     }
 
     //#endregion

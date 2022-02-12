@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Infrastructure.Classes;
 using API.Infrastructure.Email;
 using API.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Authorization;
@@ -41,17 +42,23 @@ namespace API.Infrastructure.Identity {
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetUser(string id) {
-            UserExtended record = await userManager.Users.Where(x => x.Id == id).SingleOrDefaultAsync();
+            UserExtended record = await userManager.Users
+                .Include(x => x.Customer)
+                .DefaultIfEmpty()
+                .SingleOrDefaultAsync(x => x.Id == id);
             if (record == null) {
                 return StatusCode(404, new {
                     response = ApiMessages.RecordNotFound()
                 });
             }
-            UserViewModel vm = new() {
+            UserReadResource vm = new() {
                 Id = record.Id,
                 UserName = record.UserName,
                 DisplayName = record.DisplayName,
-                CustomerId = record.CustomerId,
+                Customer = new SimpleResource {
+                    Id = (record.Customer?.Id) ?? 0,
+                    Description = (record.Customer?.Description) ?? "(EMPTY)"
+                },
                 Email = record.Email,
                 IsAdmin = record.IsAdmin,
                 IsActive = record.IsActive
@@ -61,12 +68,12 @@ namespace API.Infrastructure.Identity {
 
         [HttpPut("{id}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IActionResult> PutUser([FromRoute] string id, [FromBody] UserViewModel vm) {
-            if (id == vm.Id && ModelState.IsValid) {
-                UserExtended record = await userManager.FindByIdAsync(id);
+        public async Task<IActionResult> PutUser([FromRoute] string id, [FromBody] UserWriteResource record) {
+            if (id == record.Id && ModelState.IsValid) {
+                UserExtended user = await userManager.FindByIdAsync(id);
                 if (record != null) {
-                    await UpdateUser(record, vm);
-                    await UpdateRole(record);
+                    await UpdateUser(user, record);
+                    await UpdateRole(user);
                     return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
                 }
                 return StatusCode(404, new {
@@ -100,13 +107,13 @@ namespace API.Infrastructure.Identity {
             return StatusCode(496, new { response = ApiMessages.EmailNotSent() });
         }
 
-        private async Task<IdentityResult> UpdateUser(UserExtended user, UserViewModel vm) {
-            user.UserName = vm.UserName;
-            user.DisplayName = vm.DisplayName;
-            user.Email = vm.Email;
-            user.IsAdmin = vm.IsAdmin;
-            user.IsActive = vm.IsActive;
-            user.CustomerId = vm.CustomerId;
+        private async Task<IdentityResult> UpdateUser(UserExtended user, UserWriteResource record) {
+            user.UserName = record.UserName;
+            user.DisplayName = record.DisplayName;
+            user.CustomerId = record.CustomerId;
+            user.Email = record.Email;
+            user.IsAdmin = record.IsAdmin;
+            user.IsActive = record.IsActive;
             return await userManager.UpdateAsync(user);
         }
 

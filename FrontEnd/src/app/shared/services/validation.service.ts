@@ -23,6 +23,13 @@ export class ValidationService {
         }
     }
 
+    static isGuid(control: AbstractControl): { [key: string]: any } {
+        if (control.value) {
+            const pattern = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi
+            return pattern.test(control.value) ? null : { isGuid: true }
+        }
+    }
+
     static RequireAutocomplete(control: AbstractControl): any {
         const selection: any = control.value
         if (typeof selection === 'string') {

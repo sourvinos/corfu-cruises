@@ -38,7 +38,8 @@ namespace API.Features.Reservations {
                 .Include(x => x.Ship)
                 .Where(x => x.Date == Convert.ToDateTime(date))
                 .ToListAsync();
-            reservations = reservations.If(!await Identity.IsUserAdmin(httpContextAccessor), x => x.Where(x => x.UserId == Identity.GetConnectedUserId(httpContextAccessor))).ToList();
+            // var connectedUser = await Identity.GetConnectedUserId(httpContextAccessor);
+            // reservations = reservations.If(!await Identity.IsUserAdmin(httpContextAccessor), x => x.Where(x => x.UserId == connectedUser)).ToList();
             var personsPerCustomer = reservations.OrderBy(x => x.Customer.Description).GroupBy(x => new { x.Customer.Description }).Select(x => new PersonsPerCustomer { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
             var personsPerDestination = reservations.OrderBy(x => x.Destination.Description).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
             var personsPerDriver = reservations.OrderBy(x => x?.Driver?.Description).GroupBy(x => new { x?.Driver?.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description ?? "(EMPTY)", Persons = x.Sum(x => x.TotalPersons) });

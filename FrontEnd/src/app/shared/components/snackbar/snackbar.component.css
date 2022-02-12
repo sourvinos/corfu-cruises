@@ -2,6 +2,8 @@
     align-items: center;
     display: flex;
     justify-content: center;
+    max-width: 40rem !important;
+    min-width: 40rem !important;
     padding: 0.0625rem 0.5rem 0 0.5;
 }
 

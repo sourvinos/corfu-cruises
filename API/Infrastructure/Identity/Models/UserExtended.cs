@@ -27,8 +27,9 @@ namespace API.Infrastructure.Identity {
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }
         // FKs
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         // Navigation
+        public Customer Customer { get; set; }
         public List<Crew> Crews { get; set; }
         public List<Customer> Customers { get; set; }
         public List<Destination> Destinations { get; set; }

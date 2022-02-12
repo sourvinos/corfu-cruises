@@ -2,9 +2,12 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using API.Features.Customers;
 using API.Infrastructure.Email;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
@@ -14,11 +17,13 @@ namespace API.Infrastructure.Identity {
     [Route("api/[controller]")]
     public class AccountController : Controller {
 
+        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IEmailSender emailSender;
         private readonly SignInManager<UserExtended> signInManager;
         private readonly UserManager<UserExtended> userManager;
 
-        public AccountController(UserManager<UserExtended> userManager, SignInManager<UserExtended> signInManager, IEmailSender emailSender) {
+        public AccountController(IHttpContextAccessor httpContextAccessor, UserManager<UserExtended> userManager, SignInManager<UserExtended> signInManager, IEmailSender emailSender) {
+            this.httpContextAccessor = httpContextAccessor;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.emailSender = emailSender;
@@ -116,13 +121,15 @@ namespace API.Infrastructure.Identity {
         }
 
         [Authorize]
-        [HttpGet("[action]/{id}")]
-        public async Task<IActionResult> IsAdmin(string id) {
-            var user = await userManager.FindByIdAsync(id);
-            if (user != null) {
-                return StatusCode(200, new { user.IsAdmin });
-            }
-            return StatusCode(404, new { response = ApiMessages.RecordNotFound() });
+        [HttpGet("[action]")]
+        public Task<bool> IsConnectedUserAdmin() {
+            return Extensions.Identity.IsUserAdmin(httpContextAccessor);
+        }
+
+        [Authorize]
+        [HttpGet("[action]")]
+        public Task<SimpleUser> GetConnectedUserId() {
+            return Extensions.Identity.GetConnectedUserId(httpContextAccessor);
         }
 
     }

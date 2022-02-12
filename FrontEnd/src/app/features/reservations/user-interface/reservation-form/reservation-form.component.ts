@@ -1,4 +1,3 @@
-import { Ship } from './../../../ships/base/classes/models/ship';
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
@@ -149,13 +148,13 @@ export class ReservationFormComponent {
         const passengerDifference = this.form.value.totalPersons - (element != null ? element : this.form.value.passengers.length)
         switch (true) {
             case passengerDifference == 0:
-                this.passengerDifferenceIcon = '✔️'
+                this.passengerDifferenceIcon = '🟢'
                 return true
             case passengerDifference < 0:
-                this.passengerDifferenceIcon = '⛔'
+                this.passengerDifferenceIcon = '🔴'
                 return false
             case passengerDifference > 0:
-                this.passengerDifferenceIcon = '⚠️'
+                this.passengerDifferenceIcon = '🟡'
                 return true
         }
     }
@@ -297,17 +296,6 @@ export class ReservationFormComponent {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             this.onGoBack()
         })
-    }
-
-    private getUserRole(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            this.accountService.isAdmin(this.helperService.readItem('userId')).toPromise().then(
-                (response) => {
-                    this.isAdmin = response.isAdmin
-                    resolve(this.isAdmin)
-                })
-        })
-        return promise
     }
 
     private initForm(): void {

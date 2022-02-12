@@ -6,8 +6,10 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { DriverPdfService } from '../../classes/services/driver-pdf.service'
 import { DriverService } from 'src/app/features/drivers/classes/driver.service'
+import { EmojiService } from './../../../../shared/services/emoji.service'
 import { HelperService } from './../../../../shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { MenuItem, MessageService } from 'primeng/api'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ReservationGroupResource } from '../../classes/resources/list/reservation-group-resource'
@@ -18,7 +20,6 @@ import { ShipService } from 'src/app/features/ships/base/classes/services/ship.s
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { Table } from 'primeng/table'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { MenuItem, MessageService } from 'primeng/api'
 
 @Component({
     selector: 'reservation-list',
@@ -58,7 +59,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageService: MessageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private driverPDFService: DriverPdfService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) { }
+    constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageService: MessageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private driverPDFService: DriverPdfService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
@@ -152,12 +153,12 @@ export class ReservationListComponent {
         this.router.navigate([this.baseUrl, id], { queryParams: { returnUrl: this.baseUrl + '/date/' + this.isoDate } })
     }
 
-    public getLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
+    public getEmoji(emoji: string): string {
+        return this.emojiService.getEmoji(emoji)
     }
 
-    public getEmojiForNullValues(): string {
-        return this.helperService.getEmojiForNullValues()
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
     }
 
     public isAdmin(): boolean {

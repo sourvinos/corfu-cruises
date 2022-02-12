@@ -2,6 +2,7 @@ using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Infrastructure.Middleware {
 
@@ -27,6 +28,7 @@ namespace API.Infrastructure.Middleware {
                 var result = JsonSerializer.Serialize(new { response = error?.Message });
                 await response.WriteAsync(result);
             }
+
         }
 
     }

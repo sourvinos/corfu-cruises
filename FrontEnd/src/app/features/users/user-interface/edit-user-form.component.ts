@@ -20,8 +20,9 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { User } from 'src/app/features/account/classes/user'
 import { UserService } from '../classes/user.service'
-import { ValidationService } from 'src/app/shared/services/validation.service'
+import { ValidationService } from './../../../shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
     selector: 'edit-user-form',
@@ -32,31 +33,30 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 
 export class EditUserFormComponent {
 
-    //#region private variables
+    //#region variables
 
     private feature = 'editUserForm'
     private flatForm: FormGroup
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
+    private userId: string
     private windowTitle = 'User'
-
-    //#endregion
-
-    //#region public variables
-
     public filteredCustomers: Observable<CustomerDropdownResource[]>
     public form: FormGroup
     public input: InputTabStopDirective
-    public variable: DisableToogleDirective
     public isAdmin: boolean
     public returnUrl: string
+    public variable: DisableToogleDirective
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService) {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
                 this.getRecord(p.id)
+                this.getUserRole()
+            } else {
+                this.doUserTasks()
             }
         })
     }
@@ -68,8 +68,8 @@ export class EditUserFormComponent {
         this.addShortcuts()
         this.populateDropDowns()
         this.initForm()
-        this.getUserRole()
         this.getReturnUrl()
+        this.focus('userName')
     }
 
     ngOnDestroy(): void {
@@ -106,20 +106,6 @@ export class EditUserFormComponent {
 
     public onCustomerFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
-    }
-
-    public onDelete(): void {
-        this.dialogService.open('warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['ok', 'abort']).subscribe(response => {
-            if (response) {
-                this.userService.delete(this.form.value.id).subscribe(() => {
-                    this.resetForm()
-                    this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
-                    this.onGoBack()
-                }, errorFromInterceptor => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-                })
-            }
-        })
     }
 
     public onGetHint(id: string, minmax = 0): string {
@@ -167,6 +153,12 @@ export class EditUserFormComponent {
         })
     }
 
+    private doUserTasks() {
+        this.getUserRole().then(() => new Promise(() => {
+            this.getUserId().then(() => this.getRecord(this.userId))
+        }))
+    }
+
     private filterArray(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
@@ -191,8 +183,8 @@ export class EditUserFormComponent {
         this.helperService.setFocus(field)
     }
 
-    private getRecord(id: string): void {
-        this.userService.getSingle(id).subscribe(result => {
+    private getRecord(userId: string): void {
+        this.userService.getSingle(userId).subscribe(result => {
             this.populateFields(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
@@ -200,11 +192,22 @@ export class EditUserFormComponent {
         })
     }
 
+    private getUserId(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.accountService.getConnectedUserId().toPromise().then(
+                (response) => {
+                    this.userId = response.userId
+                    resolve(this.userId)
+                })
+        })
+        return promise
+    }
+
     private getUserRole(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.accountService.isAdmin(this.helperService.readItem('userId')).toPromise().then(
+            this.accountService.isConnectedUserAdmin().toPromise().then(
                 (response) => {
-                    this.isAdmin = response.isAdmin
+                    this.isAdmin = response
                     resolve(this.isAdmin)
                 })
         })
@@ -220,17 +223,19 @@ export class EditUserFormComponent {
             id: '',
             userName: ['', [Validators.required, Validators.maxLength(32)]],
             displayName: ['', [Validators.required, Validators.maxLength(32)]],
-            customer: [{ value: '' }, [Validators.required, ValidationService.RequireAutocomplete]],
+            customer: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             email: [{ value: '' }, [Validators.required, Validators.email, Validators.maxLength(128)]],
             isAdmin: [{ value: false }],
             isActive: [{ value: true }]
         })
     }
 
-    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string, addNewItem = false): Promise<any> {
         const promise = new Promise((resolve) => {
             service.getActiveForDropdown().toPromise().then(
-                (response: any) => {
+                (response: any[]) => {
+                    if (addNewItem)
+                        response.unshift({ id: null, description: this.emojiService.getEmoji('wildcard') })
                     this[table] = response
                     resolve(this[table])
                     this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
@@ -242,7 +247,7 @@ export class EditUserFormComponent {
     }
 
     private populateDropDowns(): void {
-        this.populateDropDown(this.customerService, 'customers', 'filteredCustomers', 'customer', 'description')
+        this.populateDropDown(this.customerService, 'customers', 'filteredCustomers', 'customer', 'description', true)
     }
 
     private populateFields(result: User): void {
@@ -250,7 +255,7 @@ export class EditUserFormComponent {
             id: result.id,
             userName: result.userName,
             displayName: result.displayName,
-            customer: { 'id': result.customerId, 'description': result.customerDescription },
+            customer: { 'id': result.customer.id, 'description': result.customer.id == 0 ? this.emojiService.getEmoji('wildcard') : result.customer.description },
             email: result.email,
             isAdmin: result.isAdmin,
             isActive: result.isActive

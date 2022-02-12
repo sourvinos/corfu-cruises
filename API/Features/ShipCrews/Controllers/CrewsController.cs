@@ -48,10 +48,10 @@ namespace API.Features.ShipCrews {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult Post([FromBody] CrewWriteResource record) {
+        public async Task<IActionResult> PostAsync([FromBody] CrewWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Create(mapper.Map<CrewWriteResource, Crew>(AttachUserIdToRecord(record)));
+                // repo.Create(mapper.Map<CrewWriteResource, Crew>(await AttachUserIdToRecordAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
@@ -63,10 +63,10 @@ namespace API.Features.ShipCrews {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult Put([FromBody] CrewWriteResource record) {
+        public async Task<IActionResult> PutAsync([FromBody] CrewWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Update(mapper.Map<CrewWriteResource, Crew>(AttachUserIdToRecord(record)));
+                // repo.Update(mapper.Map<CrewWriteResource, Crew>(await AttachUserIdToRecordAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -84,10 +84,10 @@ namespace API.Features.ShipCrews {
             });
         }
 
-        private CrewWriteResource AttachUserIdToRecord(CrewWriteResource record) {
-            record.UserId = Identity.GetConnectedUserId(httpContext);
-            return record;
-        }
+        // private async Task<CrewWriteResource> AttachUserIdToRecordAsync(CrewWriteResource record) {
+        //     record.UserId = await Identity.GetConnectedUserId(httpContext);
+        //     return record;
+        // }
 
         private IActionResult GetErrorMessage(int errorCode) {
             return errorCode switch {
