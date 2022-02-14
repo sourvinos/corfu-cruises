@@ -43,6 +43,9 @@ namespace API.Features.Reservations {
         public UserExtended User { get; set; }
         public List<Passenger> Passengers { get; set; }
 
+        public static explicit operator List<object>(Reservation v) {
+            throw new NotImplementedException();
+        }
     }
 
 }

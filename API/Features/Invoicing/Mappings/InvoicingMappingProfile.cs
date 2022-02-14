@@ -7,7 +7,7 @@ namespace API.Features.Invoicing {
 
         public InvoicingMappingProfile() {
             CreateMap<InvoiceIntermediateViewModel, InvoiceViewModel>()
-                .ForMember(x => x.CustomerResource, opt => opt.MapFrom(x => x.Customer))
+                .ForMember(x => x.Customer, opt => opt.MapFrom(x => x.Customer))
                 .ForMember(x => x.Reservations, x => x.MapFrom(x => x.Reservations.Select(isTransfer => new {
                     isTransfer.ReservationId,
                     isTransfer.Adults,
@@ -17,7 +17,7 @@ namespace API.Features.Invoicing {
                     isTransfer.TicketNo,
                     isTransfer.Remarks,
                     DestinationDescription = isTransfer.Destination.Description,
-                    ShipDescription = isTransfer.Ship.Description,
+                    ShipDescription = isTransfer.Ship == null ? "EMPTY" : isTransfer.Ship.Description,
                     isTransfer.PickupPoint.Route.IsTransfer
                 })));
         }

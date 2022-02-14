@@ -51,7 +51,7 @@ namespace API.Features.PickupPoints {
         public async Task<IActionResult> PostPickupPointAsync([FromBody] PickupPointWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                // repo.Create(mapper.Map<PickupPointWriteResource, PickupPoint>(await AttachUserIdToRecordAsync(record)));
+                repo.Create(mapper.Map<PickupPointWriteResource, PickupPoint>(await AttachUserIdToRecordAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
@@ -66,7 +66,7 @@ namespace API.Features.PickupPoints {
         public async Task<IActionResult> PutPickupPointAsync([FromBody] PickupPointWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                // repo.Update(mapper.Map<PickupPointWriteResource, PickupPoint>(await AttachUserIdToRecordAsync(record)));
+                repo.Update(mapper.Map<PickupPointWriteResource, PickupPoint>(await AttachUserIdToRecordAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -94,10 +94,11 @@ namespace API.Features.PickupPoints {
             });
         }
 
-        // private async Task<PickupPointWriteResource> AttachUserIdToRecordAsync(PickupPointWriteResource record) {
-        //     record.UserId = await Identity.GetConnectedUserId(httpContext);
-        //     return record;
-        // }
+        private async Task<PickupPointWriteResource> AttachUserIdToRecordAsync(PickupPointWriteResource record) {
+            var userId = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = userId.UserId;
+            return record;
+        }
 
         private IActionResult GetErrorMessage(int errorCode) {
             return errorCode switch {

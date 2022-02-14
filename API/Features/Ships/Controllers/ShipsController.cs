@@ -51,7 +51,7 @@ namespace API.Features.Ships {
         public async Task<IActionResult> PostShipAsync([FromBody] ShipWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                // repo.Create(mapper.Map<ShipWriteResource, Ship>(await AttachUserIdToRecordAsync(record)));
+                repo.Create(mapper.Map<ShipWriteResource, Ship>(await AttachUserIdToRecordAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
@@ -66,7 +66,7 @@ namespace API.Features.Ships {
         public async Task<IActionResult> PutShipAsync([FromBody] ShipWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                // repo.Update(mapper.Map<ShipWriteResource, Ship>(await AttachUserIdToRecordAsync(record)));
+                repo.Update(mapper.Map<ShipWriteResource, Ship>(await AttachUserIdToRecordAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -84,10 +84,11 @@ namespace API.Features.Ships {
             });
         }
 
-        // private async Task<ShipWriteResource> AttachUserIdToRecordAsync(ShipWriteResource record) {
-        //     record.UserId = await Identity.GetConnectedUserId(httpContext);
-        //     return record;
-        // }
+        private async Task<ShipWriteResource> AttachUserIdToRecordAsync(ShipWriteResource record) {
+            var userId = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = userId.UserId;
+            return record;
+        }
 
         private IActionResult GetErrorMessage(int errorCode) {
             return errorCode switch {

@@ -83,7 +83,6 @@ namespace API.Infrastructure.Identity {
             return StatusCode(400, new {
                 response = ApiMessages.InvalidModel()
             });
-
         }
 
         [HttpDelete("{id}")]

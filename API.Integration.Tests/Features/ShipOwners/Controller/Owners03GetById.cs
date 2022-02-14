@@ -8,7 +8,7 @@ using Xunit;
 namespace API.Integration.Tests.ShipOwners {
 
     [Collection("Sequence")]
-    public class Crews03GetById : IClassFixture<AppSettingsFixture> {
+    public class ShipOwners03GetById : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -22,7 +22,7 @@ namespace API.Integration.Tests.ShipOwners {
 
         #endregion
 
-        public Crews03GetById(AppSettingsFixture appsettings) {
+        public ShipOwners03GetById(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;

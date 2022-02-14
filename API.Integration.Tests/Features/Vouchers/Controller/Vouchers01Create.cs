@@ -40,7 +40,13 @@ namespace API.Integration.Tests.Vouchers {
 
         [Theory]
         [ClassData(typeof(NewVoucher))]
-        public async Task Users_Can_Create(TestVoucher record) {
+        public async Task Active_Simple_Users_Can_Create(TestVoucher record) {
+            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", record);
+        }
+
+        [Theory]
+        [ClassData(typeof(NewVoucher))]
+        public async Task Active_Admins_Can_Create(TestVoucher record) {
             await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
         }
 

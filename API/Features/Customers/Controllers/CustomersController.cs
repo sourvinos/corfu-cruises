@@ -49,7 +49,7 @@ namespace API.Features.Customers {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PostCustomerAsync([FromBody] CustomerWriteResource record) {
-            // repo.Create(mapper.Map<CustomerWriteResource, Customer>(await AttachUserIdToRecordAsync(record)));
+            repo.Create(mapper.Map<CustomerWriteResource, Customer>(await AttachUserIdToRecordAsync(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordCreated()
             });

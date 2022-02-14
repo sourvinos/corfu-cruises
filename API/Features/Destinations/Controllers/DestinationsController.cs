@@ -48,7 +48,7 @@ namespace API.Features.Destinations {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PostDestinationAsync([FromBody] DestinationWriteResource record) {
-            // repo.Create(mapper.Map<DestinationWriteResource, Destination>(await AttachUserIdToRecordAsync(record)));
+            repo.Create(mapper.Map<DestinationWriteResource, Destination>(await AttachUserIdToRecordAsync(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordCreated()
             });
@@ -58,7 +58,7 @@ namespace API.Features.Destinations {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PutDestinationAsync([FromBody] DestinationWriteResource record) {
-            // repo.Update(mapper.Map<DestinationWriteResource, Destination>(await AttachUserIdToRecordAsync(record)));
+            repo.Update(mapper.Map<DestinationWriteResource, Destination>(await AttachUserIdToRecordAsync(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordUpdated()
             });
@@ -73,10 +73,11 @@ namespace API.Features.Destinations {
             });
         }
 
-        // private async Task<DestinationWriteResource> AttachUserIdToRecordAsync(DestinationWriteResource record) {
-        //     record.UserId = await Identity.GetConnectedUserId(httpContext);
-        //     return record;
-        // }
+        private async Task<DestinationWriteResource> AttachUserIdToRecordAsync(DestinationWriteResource record) {
+            var userId = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = userId.UserId;
+            return record;
+        }
 
     }
 

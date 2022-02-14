@@ -11,7 +11,7 @@ using Xunit;
 namespace API.Integration.Tests.ShipOwners {
 
     [Collection("Sequence")]
-    public class Crews02GetActive : IClassFixture<AppSettingsFixture> {
+    public class ShipOwners02GetActive : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -25,7 +25,7 @@ namespace API.Integration.Tests.ShipOwners {
 
         #endregion
 
-        public Crews02GetActive(AppSettingsFixture appsettings) {
+        public ShipOwners02GetActive(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;

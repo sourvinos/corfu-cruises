@@ -21,7 +21,7 @@ namespace API.Integration.Tests.Schedules {
         private readonly int _expectedRecordCount = 1;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/schedules/from/2021-10-01/to/2021-10-01";
+        private readonly string _url = "/schedules/from/2022-02-01/to/2022-02-01";
 
         #endregion
 

@@ -47,13 +47,17 @@ namespace API.Integration.Tests.Schedules {
             await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, login.Username, login.Password, null);
         }
 
-        [Theory]
-        [ClassData(typeof(ActiveUsersCanLogin))]
-        public async Task Active_Users_Can_List(Login login) {
-            var actionResponse = await List.Action(_httpClient, _baseUrl, _url, login.Username, login.Password);
+        [Fact]
+        public async Task Active_Simple_Users_Can_Not_List() {
+            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", null);
+        }
+
+        [Fact]
+        public async Task Active_Admins_Can_List() {
+            var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<List<ScheduleListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(_expectedRecordCount, records.Count);
-       }
+        }
 
     }
 

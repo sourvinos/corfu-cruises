@@ -18,7 +18,7 @@ namespace API.Integration.Tests.Schedules {
                     Id = 1,
                     DestinationId = 1,
                     PortId = 1,
-                    Date = "2021-10-01",
+                    Date = "2022-02-01",
                     MaxPersons = 185
                 }
             };

@@ -9,7 +9,8 @@ namespace API.Features.Invoicing {
         public string Date { get; set; }
         public Customer Customer { get; set; }
 
-        public List<Reservation> Reservations { get; set; }
+        // public List<Reservation> Reservations { get; set; }
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
         public List<IsTransferGroupViewModel> IsTransferGroup { get; set; }
 
         public IsTransferGroupViewModel IsTransferGroupTotal { get; set; }

@@ -17,10 +17,10 @@ namespace API.Features.Invoicing {
             this.repo = repo;
         }
 
-        [HttpGet("date/{date}/customer/{customerId}/destination/{destinationId}/vessel/{vesselId}")]
         [Authorize(Roles = "admin")]
-        public IEnumerable<InvoiceViewModel> Get(string date, string customerId, string destinationId, string vesselId) {
-            return this.repo.Get(date, customerId, destinationId, vesselId);
+        [HttpGet("date/{date}/customer/{customerId}/destination/{destinationId}/ship/{shipId}")]
+        public IEnumerable<InvoiceViewModel> Get(string date, string customerId, string destinationId, string shipId) {
+            return repo.Get(date, customerId, destinationId, shipId);
         }
 
     }

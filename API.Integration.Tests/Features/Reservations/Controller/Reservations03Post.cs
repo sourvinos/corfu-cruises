@@ -66,6 +66,12 @@ namespace API.Integration.Tests.Reservations {
         }
 
         [Theory]
+        [ClassData(typeof(SimpleUsersCanCreateRecordsWhenValid))]
+        public async Task Active_Simple_Users_Can_Create_When_Valid(TestReservation record) {
+            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", record);
+        }
+
+        [Theory]
         [ClassData(typeof(AdminsCanCreateRecordWhenValid))]
         public async Task Active_Admins_Can_Create_When_Valid(TestReservation record) {
             await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);

@@ -20,7 +20,7 @@ namespace API.Integration.Tests.Invoicing {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/invoicing/date/2021-10-01/customer/all/destination/all/vessel/all";
+        private readonly string _url = "/invoicing/date/2022-02-01/customer/all/destination/all/ship/all";
 
         #endregion
 

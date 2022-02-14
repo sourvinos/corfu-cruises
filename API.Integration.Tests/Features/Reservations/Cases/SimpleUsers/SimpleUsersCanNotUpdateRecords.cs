@@ -19,7 +19,7 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 1,
                     DestinationId = 3,
                     PickupPointId = 65,
-                    Date = "2021-10-02",
+                    Date = "2022-02-02",
                     TicketNo = "ETTUU"
                 }
             };

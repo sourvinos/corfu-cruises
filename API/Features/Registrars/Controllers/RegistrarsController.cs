@@ -50,7 +50,7 @@ namespace API.Features.Registrars {
         public async Task<IActionResult> PostAsync([FromBody] RegistrarWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                // repo.Create(mapper.Map<RegistrarWriteResource, Registrar>(await AttachUserIdToRecordAsync(record)));
+                repo.Create(mapper.Map<RegistrarWriteResource, Registrar>(await AttachUserIdToRecordAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
@@ -65,7 +65,7 @@ namespace API.Features.Registrars {
         public async Task<IActionResult> PutAsync([FromBody] RegistrarWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                // repo.Update(mapper.Map<RegistrarWriteResource, Registrar>(await AttachUserIdToRecordAsync(record)));
+                repo.Update(mapper.Map<RegistrarWriteResource, Registrar>(await AttachUserIdToRecordAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -83,10 +83,11 @@ namespace API.Features.Registrars {
             });
         }
 
-        // private async Task<RegistrarWriteResource> AttachUserIdToRecordAsync(RegistrarWriteResource record) {
-        //     record.UserId = await Identity.GetConnectedUserId(httpContext);
-        //     return record;
-        // }
+        private async Task<RegistrarWriteResource> AttachUserIdToRecordAsync(RegistrarWriteResource record) {
+            var userId = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = userId.UserId;
+            return record;
+        }
 
         private IActionResult GetErrorMessage(int errorCode) {
             return errorCode switch {

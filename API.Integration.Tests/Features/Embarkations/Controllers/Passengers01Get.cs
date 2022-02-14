@@ -19,7 +19,7 @@ namespace API.Integration.Tests.Embarkations {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/embarkations/date/2021-10-01/destinationId/1/portId/1/shipId/1";
+        private readonly string _url = "/embarkations/date/2022-02-01/destinationId/1/portId/1/shipId/1";
 
         #endregion
 
@@ -54,9 +54,9 @@ namespace API.Integration.Tests.Embarkations {
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<EmbarkationMainResultResource<EmbarkationResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(51, records.TotalPersons);
+            Assert.Equal(42, records.TotalPersons);
             Assert.Equal(9, records.Boarded);
-            Assert.Equal(16, records.Remaining);
+            Assert.Equal(12, records.Remaining);
         }
 
     }

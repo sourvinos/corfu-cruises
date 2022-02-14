@@ -64,7 +64,8 @@ namespace API.Features.ShipCrews {
             return true switch {
                 var x when x == !IsValidGender(record) => 450,
                 var x when x == !IsValidNationality(record) => 451,
-                var x when x == !IsValidShip(record) => 452,
+                var x when x == !IsValidOccupant(record) => 452,
+                var x when x == !IsValidShip(record) => 453,
                 _ => 200,
             };
         }
@@ -75,6 +76,10 @@ namespace API.Features.ShipCrews {
 
         private bool IsValidNationality(CrewWriteResource record) {
             return context.Nationalities.SingleOrDefault(x => x.Id == record.NationalityId && x.IsActive) != null;
+        }
+
+        private bool IsValidOccupant(CrewWriteResource record) {
+            return context.Occupants.SingleOrDefault(x => x.Id == record.OccupantId && x.IsActive) != null;
         }
 
         private bool IsValidShip(CrewWriteResource record) {

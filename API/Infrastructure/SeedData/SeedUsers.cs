@@ -17,7 +17,7 @@ namespace API.Infrastructure.SeedData {
                     Email = "marios@outlook.com",
                     DisplayName = "Marios",
                     IsAdmin = false,
-                    CustomerId = 1,
+                    CustomerId = null,
                     IsActive = false,
                     SecurityStamp = Guid.NewGuid().ToString()
                 };
@@ -33,7 +33,7 @@ namespace API.Infrastructure.SeedData {
                     Email = "matoula@aol.com",
                     DisplayName = "Matoula",
                     IsAdmin = false,
-                    CustomerId = 2,
+                    CustomerId = null,
                     IsActive = true,
                     SecurityStamp = Guid.NewGuid().ToString()
                 };
@@ -49,7 +49,7 @@ namespace API.Infrastructure.SeedData {
                     Email = "john@hotmail.com",
                     DisplayName = "John",
                     IsAdmin = true,
-                    CustomerId = 1,
+                    CustomerId = null,
                     IsActive = true,
                     SecurityStamp = Guid.NewGuid().ToString()
                 };
@@ -65,7 +65,7 @@ namespace API.Infrastructure.SeedData {
                     Email = "nikoleta@gmail.com",
                     DisplayName = "Nikoleta",
                     IsAdmin = true,
-                    CustomerId = 1,
+                    CustomerId = null,
                     IsActive = false,
                     SecurityStamp = Guid.NewGuid().ToString()
                 };

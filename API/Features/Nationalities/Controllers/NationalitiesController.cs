@@ -49,7 +49,7 @@ namespace API.Features.Nationalities {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PostNationalityAsync([FromBody] NationalityWriteResource record) {
-            // repo.Create(mapper.Map<NationalityWriteResource, Nationality>(await AttachUserIdToRecordAsync(record)));
+            repo.Create(mapper.Map<NationalityWriteResource, Nationality>(await AttachUserIdToRecordAsync(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordCreated()
             });
@@ -59,7 +59,7 @@ namespace API.Features.Nationalities {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PutNationalityAsync([FromBody] NationalityWriteResource record) {
-            // repo.Update(mapper.Map<NationalityWriteResource, Nationality>(await AttachUserIdToRecordAsync(record)));
+            repo.Update(mapper.Map<NationalityWriteResource, Nationality>(await AttachUserIdToRecordAsync(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordUpdated()
             });
@@ -74,10 +74,11 @@ namespace API.Features.Nationalities {
             });
         }
 
-        // private async Task<NationalityWriteResource> AttachUserIdToRecordAsync(NationalityWriteResource record) {
-        //     record.UserId = await Identity.GetConnectedUserId(httpContext);
-        //     return record;
-        // }
+        private async Task<NationalityWriteResource> AttachUserIdToRecordAsync(NationalityWriteResource record) {
+            var userId = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = userId.UserId;
+            return record;
+        }
 
     }
 

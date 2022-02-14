@@ -35,8 +35,9 @@ namespace API.Features.Embarkation {
             int remaining = passengers - boarded;
             var groupPerDriver = context.Set<Reservation>().Include(x => x.Driver)
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId)
-                .GroupBy(x => new { x.Driver.Description })
+                .GroupBy(x => new { x.Driver.Id, x.Driver.Description })
                 .Select(x => new Driver {
+                    Id = x.Key.Id,
                     Description = x.Key.Description
                 })
                 .OrderBy(o => o.Description);

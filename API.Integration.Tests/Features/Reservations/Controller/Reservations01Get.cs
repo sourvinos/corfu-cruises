@@ -20,7 +20,7 @@ namespace API.Integration.Tests.Reservations {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/reservations/date/2021-10-01";
+        private readonly string _url = "/reservations/date/2022-02-01";
 
         #endregion
 

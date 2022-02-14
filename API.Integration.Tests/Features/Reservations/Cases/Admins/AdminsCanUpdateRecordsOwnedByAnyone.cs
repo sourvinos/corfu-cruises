@@ -21,7 +21,7 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 17,
                     DestinationId = 1,
                     PickupPointId = 148,
-                    Date = "2021-10-01",
+                    Date = "2022-02-01",
                     TicketNo = "FQPPI"
                 }
             };
@@ -34,7 +34,7 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 10,
                     DestinationId = 1,
                     PickupPointId = 318,
-                    Date = "2021-10-01",
+                    Date = "2022-02-01",
                     TicketNo = "OHTTG"
                 }
             };
@@ -47,7 +47,7 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 19,
                     DestinationId = 1,
                     PickupPointId = 155,
-                    Date = "2021-10-01",
+                    Date = "2022-02-01",
                     TicketNo = "MDBEP"
                 }
             };

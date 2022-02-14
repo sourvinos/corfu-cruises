@@ -18,6 +18,7 @@ namespace API.IntegrationTests.ShipCrews {
                     Id = 1,
                     GenderId = 1,
                     NationalityId = 1,
+                    OccupantId = 1,
                     ShipId = 1,
                     Lastname = Helpers.CreateRandomString(128),
                     Firstname = Helpers.CreateRandomString(128),

@@ -8,10 +8,32 @@ namespace API.Integration.Tests.Schedules {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return Port_Must_Exist();
-            yield return Port_Must_Be_Active();
             yield return Destination_Must_Exist();
             yield return Destination_Must_Be_Active();
+            yield return Destination_Must_Not_Be_Null();
+            yield return Port_Must_Exist();
+            yield return Port_Must_Be_Active();
+            yield return Port_Must_Not_Be_Null();
+        }
+
+        private static object[] Port_Must_Not_Be_Null() {
+            return new object[] {
+                new NewTestSchedule {
+                    StatusCode = 450,
+                    TestScheduleBody = new List<TestScheduleBody>() {
+                        new TestScheduleBody {
+                            DestinationId = 1,
+                            Date = "2022-02-01",
+                            MaxPersons = 185
+                        },
+                        new TestScheduleBody {
+                            DestinationId = 1,
+                            Date = "2021-10-02",
+                            MaxPersons = 185
+                        }
+                    }
+                }
+            };
         }
 
         private static object[] Port_Must_Exist() {
@@ -22,7 +44,7 @@ namespace API.Integration.Tests.Schedules {
                         new TestScheduleBody {
                             DestinationId = 1,
                             PortId = 9,
-                            Date = "2021-10-01",
+                            Date = "2022-02-01",
                             MaxPersons = 185
                         },
                         new TestScheduleBody {
@@ -44,12 +66,32 @@ namespace API.Integration.Tests.Schedules {
                         new TestScheduleBody {
                             DestinationId = 1,
                             PortId = 3,
-                            Date = "2021-10-01",
+                            Date = "2022-02-01",
                             MaxPersons = 185
                         },
                         new TestScheduleBody {
                             DestinationId = 1,
                             PortId = 3,
+                            Date = "2021-10-02",
+                            MaxPersons = 185
+                        }
+                    }
+                }
+            };
+        }
+
+        private static object[] Destination_Must_Not_Be_Null() {
+            return new object[] {
+                new NewTestSchedule {
+                    StatusCode = 451,
+                    TestScheduleBody = new List<TestScheduleBody>() {
+                        new TestScheduleBody {
+                            PortId = 1,
+                            Date = "2022-02-01",
+                            MaxPersons = 185
+                        },
+                        new TestScheduleBody {
+                            PortId = 1,
                             Date = "2021-10-02",
                             MaxPersons = 185
                         }
@@ -66,7 +108,7 @@ namespace API.Integration.Tests.Schedules {
                         new TestScheduleBody {
                             DestinationId = 5,
                             PortId = 1,
-                            Date = "2021-10-01",
+                            Date = "2022-02-01",
                             MaxPersons = 185
                         },
                         new TestScheduleBody {
@@ -88,7 +130,7 @@ namespace API.Integration.Tests.Schedules {
                         new TestScheduleBody {
                             DestinationId = 4,
                             PortId = 1,
-                            Date = "2021-10-01",
+                            Date = "2022-02-01",
                             MaxPersons = 185
                         },
                         new TestScheduleBody {

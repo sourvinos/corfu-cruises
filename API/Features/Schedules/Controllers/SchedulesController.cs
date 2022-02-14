@@ -57,7 +57,7 @@ namespace API.Features.Schedules {
         public async Task<IActionResult> PostScheduleAsync([FromBody] List<ScheduleWriteResource> records) {
             var response = repo.IsValidOnNew(records);
             if (response == 200) {
-                // await AttachUserIdToRecordOnNewAsync(records);
+                await AttachUserIdToRecordOnNewAsync(records);
                 repo.Create(mapper.Map<List<ScheduleWriteResource>, List<Schedule>>(records));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
@@ -73,7 +73,7 @@ namespace API.Features.Schedules {
         public async Task<IActionResult> PutScheduleAsync([FromBody] ScheduleWriteResource record) {
             var response = repo.IsValidOnUpdate(record);
             if (response == 200) {
-                // repo.Update(mapper.Map<ScheduleWriteResource, Schedule>(await AttachUserIdToRecordOnUpdateAsync(record)));
+                repo.Update(mapper.Map<ScheduleWriteResource, Schedule>(await AttachUserIdToRecordOnUpdateAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -97,17 +97,19 @@ namespace API.Features.Schedules {
             repo.DeleteRange(schedules);
         }
 
-        // private async Task<List<ScheduleWriteResource>> AttachUserIdToRecordOnNewAsync(List<ScheduleWriteResource> records) {
-        //     foreach (var record in records) {
-        //         record.UserId = await Identity.GetConnectedUserId(httpContext);
-        //     }
-        //     return records;
-        // }
+        private async Task<List<ScheduleWriteResource>> AttachUserIdToRecordOnNewAsync(List<ScheduleWriteResource> records) {
+            foreach (var record in records) {
+                var userId = await Identity.GetConnectedUserId(httpContext);
+                record.UserId = userId.UserId;
+            }
+            return records;
+        }
 
-        // private async Task<ScheduleWriteResource> AttachUserIdToRecordOnUpdateAsync(ScheduleWriteResource record) {
-        //     record.UserId = await Identity.GetConnectedUserId(httpContext);
-        //     return record;
-        // }
+        private async Task<ScheduleWriteResource> AttachUserIdToRecordOnUpdateAsync(ScheduleWriteResource record) {
+            var userId = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = userId.UserId;
+            return record;
+        }
 
         private IActionResult GetErrorMessage(int errorCode) {
             return errorCode switch {

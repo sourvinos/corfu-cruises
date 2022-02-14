@@ -14,7 +14,7 @@ namespace API.Features.Reservations {
 
         #region variables
 
-        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
         private readonly IReservationRepository reservationRepo;
         private readonly IScheduleRepository scheduleRepo;
@@ -22,7 +22,7 @@ namespace API.Features.Reservations {
         #endregion
 
         public ReservationsController(IHttpContextAccessor httpContextAccessor, IMapper mapper, IReservationRepository reservationRepo, IScheduleRepository scheduleRepo) {
-            this.httpContextAccessor = httpContextAccessor;
+            this.httpContext = httpContextAccessor;
             this.mapper = mapper;
             this.reservationRepo = reservationRepo;
             this.scheduleRepo = scheduleRepo;
@@ -38,7 +38,7 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetReservation(string id) {
             var record = await reservationRepo.GetById(id);
-            if (await Identity.IsUserAdmin(httpContextAccessor) || await reservationRepo.DoesUserOwnRecord(record.UserId)) {
+            if (await Identity.IsUserAdmin(httpContext) || await reservationRepo.DoesUserOwnRecord(record.UserId)) {
                 return StatusCode(200, record);
             } else {
                 return StatusCode(490, new {
@@ -54,7 +54,7 @@ namespace API.Features.Reservations {
             var response = reservationRepo.IsValid(record, scheduleRepo);
             if (response == 200) {
                 AttachPortIdToRecord(record);
-                // await AttachUserIdToRecordAsync(record);
+                await AttachUserIdToRecordAsync(record);
                 reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
@@ -68,8 +68,8 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
-            // await AttachUserIdToRecordAsync(record);
-            if (await Identity.IsUserAdmin(httpContextAccessor)) {
+            await AttachUserIdToRecordAsync(record);
+            if (await Identity.IsUserAdmin(httpContext)) {
                 var response = reservationRepo.IsValid(record, scheduleRepo);
                 if (response == 200) {
                     reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
@@ -132,10 +132,11 @@ namespace API.Features.Reservations {
             };
         }
 
-        // private async Task<ReservationWriteResource> AttachUserIdToRecordAsync(ReservationWriteResource record) {
-        //     record.UserId = await Identity.GetConnectedUserId(httpContextAccessor);
-        //     return record;
-        // }
+       private async Task<ReservationWriteResource> AttachUserIdToRecordAsync(ReservationWriteResource record) {
+            var userId = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = userId.UserId;
+            return record;
+        }
 
         private ReservationWriteResource AttachPortIdToRecord(ReservationWriteResource record) {
             record.PortId = reservationRepo.GetPortIdFromPickupPointId(record);

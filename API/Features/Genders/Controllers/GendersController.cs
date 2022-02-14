@@ -49,7 +49,7 @@ namespace API.Features.Genders {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PostGenderAsync([FromBody] GenderWriteResource record) {
-            // repo.Create(mapper.Map<GenderWriteResource, Gender>(await AttachUserIdToRecordAsync(record)));
+            repo.Create(mapper.Map<GenderWriteResource, Gender>(await AttachUserIdToRecordAsync(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordCreated()
             });
@@ -59,7 +59,7 @@ namespace API.Features.Genders {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PutGenderAsync([FromBody] GenderWriteResource record) {
-            // repo.Update(mapper.Map<GenderWriteResource, Gender>(await AttachUserIdToRecordAsync(record)));
+            repo.Update(mapper.Map<GenderWriteResource, Gender>(await AttachUserIdToRecordAsync(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordUpdated()
             });
@@ -74,10 +74,11 @@ namespace API.Features.Genders {
             });
         }
 
-        // private async Task<GenderWriteResource> AttachUserIdToRecordAsync(GenderWriteResource record) {
-        //     record.UserId = await Identity.GetConnectedUserId(httpContext);
-        //     return record;
-        // }
+        private async Task<GenderWriteResource> AttachUserIdToRecordAsync(GenderWriteResource record) {
+            var userId = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = userId.UserId;
+            return record;
+        }
 
     }
 

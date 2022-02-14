@@ -15,7 +15,7 @@ namespace API.Integration.Tests.Schedules {
             return new object[] {
                 new NewTestSchedule {
                     TestScheduleBody = new List<TestScheduleBody>() {
-                        new TestScheduleBody { DestinationId = 1, PortId = 1, Date = "2021-10-01", MaxPersons = 185 },
+                        new TestScheduleBody { DestinationId = 1, PortId = 1, Date = "2022-02-01", MaxPersons = 185 },
                         new TestScheduleBody { DestinationId = 1, PortId = 1, Date = "2021-10-02", MaxPersons = 185 }
                     }
                 }

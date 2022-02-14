@@ -7,7 +7,7 @@ namespace API.Integration.Tests.Vouchers {
 
         public int Id { get; set; }
         public string Logo { get; set; }
-        public string Date { get; set; } = "2021-10-01";
+        public string Date { get; set; } = "2022-02-01";
         public string TicketNo { get; set; } = "TUI1701";
         public string DestinationDescription { get; set; } = "DEFAULT DESTINATION";
         public string CustomerDescription { get; set; } = "DEFAULT CUSTOMER";

@@ -18,7 +18,7 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 3,
-                    Date = "2021-10-04",
+                    Date = "2022-02-03",
                     TicketNo = "xxxx",
                     Adults = 2,
                     Kids = 1,

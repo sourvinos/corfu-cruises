@@ -14,7 +14,7 @@ namespace API.Features.Invoicing {
         public string Remarks { get; set; }
         public bool IsTransfer { get; set; }
         public string DestinationDescription { get; set; }
-        public string ShipDescription { get; set; }
+        public string ShipDescription { get; set; } = "EMPTY";
 
     }
 
