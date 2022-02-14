@@ -90,7 +90,7 @@
                                 </mat-form-field>
                             </div>
                         </form>
-                        <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
+                        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
                     </ng-template>
                 </mat-tab>
                 <mat-tab label="{{ getLabel('tabPassengers') }}">
@@ -103,22 +103,19 @@
                         <mat-form-field>
                             <mat-label>{{ getLabel("driver") }}</mat-label>
                             <input matInput formControlName="driver" [matAutocomplete]="drivers" readonly>
-                            <mat-error *ngIf="driver.hasError('required')">{{ getHint('required') }}</mat-error>
-                            <mat-error *ngIf="!driver.hasError('required') && driver.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
+                            <mat-error *ngIf="driver.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
                             <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>{{ getLabel("ship") }}</mat-label>
                             <input matInput formControlName="ship" [matAutocomplete]="ships" readonly>
-                            <mat-error *ngIf="ship.hasError('required')">{{ getHint('required') }}</mat-error>
-                            <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
+                            <mat-error *ngIf="ship.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
                             <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>{{ getLabel("port") }}</mat-label>
                             <input matInput formControlName="port" [matAutocomplete]="ports" readonly>
-                            <mat-error *ngIf="port.hasError('required')">{{ getHint('required') }}</mat-error>
-                            <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
+                            <mat-error *ngIf="port.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
                             <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
                         </mat-form-field>
                     </ng-template>

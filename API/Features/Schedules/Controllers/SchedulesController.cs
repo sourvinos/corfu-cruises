@@ -47,7 +47,7 @@ namespace API.Features.Schedules {
 
         [HttpGet("[action]/date/{date}")]
         [Authorize(Roles = "user, admin")]
-        public bool IsSchedule(DateTime date) {
+        public bool IsSchedule(string date) {
             return repo.DayHasSchedule(date);
         }
 

@@ -71,6 +71,7 @@ namespace API.Features.Reservations {
             await AttachUserIdToRecordAsync(record);
             if (await Identity.IsUserAdmin(httpContext)) {
                 var response = reservationRepo.IsValid(record, scheduleRepo);
+                record = reservationRepo.UpdateForeignKeysWithNull(record);
                 if (response == 200) {
                     reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
                     return StatusCode(200, new {
@@ -132,7 +133,7 @@ namespace API.Features.Reservations {
             };
         }
 
-       private async Task<ReservationWriteResource> AttachUserIdToRecordAsync(ReservationWriteResource record) {
+        private async Task<ReservationWriteResource> AttachUserIdToRecordAsync(ReservationWriteResource record) {
             var userId = await Identity.GetConnectedUserId(httpContext);
             record.UserId = userId.UserId;
             return record;

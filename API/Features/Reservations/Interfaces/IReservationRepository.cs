@@ -16,6 +16,7 @@ namespace API.Features.Reservations {
         int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo);
         void AssignToDriver(int driverId, string[] ids);
         void AssignToShip(int shipId, string[] ids);
+        ReservationWriteResource UpdateForeignKeysWithNull(ReservationWriteResource reservation);
 
     }
 

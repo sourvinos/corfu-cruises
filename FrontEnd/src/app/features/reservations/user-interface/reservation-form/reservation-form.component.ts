@@ -6,7 +6,6 @@ import { Title } from '@angular/platform-browser'
 import { map, startWith } from 'rxjs/operators'
 import html2canvas from 'html2canvas'
 // Custom
-import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerDropdownResource } from '../../classes/resources/form/dropdown/customer-dropdown-resource'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
@@ -71,7 +70,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
         this.activatedRoute.params.subscribe(params => {
             if (params.id) {
                 this.getRecord(params.id)
@@ -203,7 +202,7 @@ export class ReservationFormComponent {
 
     public onSave(): void {
         const reservation: ReservationWriteResource = this.mapObject()
-        if (reservation.reservationId == null) {
+        if (reservation.reservationId.toString() == '') {
             this.reservationService.add(reservation).subscribe(() => {
                 this.resetForm()
                 this.onGoBack()
@@ -311,9 +310,9 @@ export class ReservationFormComponent {
             kids: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             free: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             totalPersons: ['0', ValidationService.isGreaterThanZero],
-            driver: ['', [Validators.required, ValidationService.RequireAutocomplete]],
-            port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
-            ship: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            driver: '',
+            port: '',
+            ship: '',
             ticketNo: ['', [Validators.required, Validators.maxLength(128)]],
             email: ['', [Validators.maxLength(128), Validators.email]],
             phones: ['', Validators.maxLength(128)],
@@ -332,12 +331,12 @@ export class ReservationFormComponent {
         const reservation = {
             'reservationId': form.reservationId,
             'date': form.date,
-            'destinationId': form.destination.id,
             'customerId': form.customer.id,
+            'destinationId': form.destination.id,
+            'driverId': form.driver ? form.driver.id : null,
             'pickupPointId': form.pickupPoint.id,
             'portId': form.port.id,
-            'driverId': form.driver.id == 0 ? null : form.driver.id,
-            'shipId': form.ship.id == 0 ? null : form.ship.id,
+            'shipId': form.ship ? form.ship.id : null,
             'ticketNo': form.ticketNo,
             'email': form.email,
             'phones': form.phones,
@@ -347,6 +346,7 @@ export class ReservationFormComponent {
             'remarks': form.remarks,
             'passengers': this.mapPassengers()
         }
+        console.log(reservation)
         return reservation
     }
 

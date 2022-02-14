@@ -133,9 +133,9 @@ namespace API.Features.Reservations {
                 var x when x == !IsValidGender(record) => 457,
                 var x when x == !IsValidOccupant(record) => 458,
                 var x when x == !UserCanAddReservationInThePast(record.Date) => 431,
-                var x when x == !scheduleRepo.DayHasSchedule(DateTime.Parse(record.Date)) => 432,
-                var x when x == !scheduleRepo.DayHasScheduleForDestination(DateTime.Parse(record.Date), record.DestinationId) => 430,
-                var x when x == !scheduleRepo.PortHasDepartures(DateTime.Parse(record.Date), record.DestinationId, GetPortIdFromPickupPointId(record)) => 427,
+                var x when x == !scheduleRepo.DayHasSchedule(record.Date) => 432,
+                var x when x == !scheduleRepo.DayHasScheduleForDestination(record.Date, record.DestinationId) => 430,
+                var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, GetPortIdFromPickupPointId(record)) => 427,
                 var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsKeyUnique(record) => 409,
                 _ => 200,
@@ -226,7 +226,7 @@ namespace API.Features.Reservations {
         }
 
         private bool IsValidDriver(ReservationWriteResource record) {
-            if (record.DriverId != null) {
+            if (record.DriverId != null && record.DriverId != 0) {
                 var driver = context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive);
                 if (driver == null)
                     return false;
@@ -235,7 +235,7 @@ namespace API.Features.Reservations {
         }
 
         private bool IsValidShip(ReservationWriteResource record) {
-            if (record.ShipId != null) {
+            if (record.ShipId != null && record.ShipId != 0) {
                 var ship = context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive);
                 if (ship == null)
                     return false;
@@ -285,6 +285,11 @@ namespace API.Features.Reservations {
             return true;
         }
 
-    }
+        public ReservationWriteResource UpdateForeignKeysWithNull(ReservationWriteResource reservation) {
+            if (reservation.DriverId == 0) reservation.DriverId = null;
+            if (reservation.ShipId == 0) reservation.ShipId = null;
+            return reservation;
+        }
 
+    }
 }
