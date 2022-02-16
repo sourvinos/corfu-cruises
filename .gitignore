@@ -234,6 +234,7 @@ _Pvt_Extensions
 FrontEnd/package-lock.json
 API/Vouchers
 appsettings.json
+ToDo.txt
 **/logs
 desktop.ini
 

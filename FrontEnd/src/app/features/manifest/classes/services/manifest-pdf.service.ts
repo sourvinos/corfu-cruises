@@ -136,9 +136,9 @@ export class ManifestPdfService {
 
     private createShipRoute(): string {
         return '' +
-            'ΛΙΜΕΝΑΣ ΑΠΟΠΛΟΥ ' + this.shipRoute.fromPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.helperService.formatDateToLocale(this.date) + ' ΩΡΑ ' + this.shipRoute.fromTime + '\n' +
-            'ΕΝΔΙΑΜΕΣΟΙ ΛΙΜΕΝΕΣ ΠΡΟΣΕΓΓΙΣΗΣ ' + this.shipRoute.viaPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.helperService.formatDateToLocale(this.date) + ' ΩΡΑ ' + this.shipRoute.viaTime + '\n' +
-            'ΛΙΜΕΝΑΣ ΚΑΤΑΠΛΟΥ ' + this.shipRoute.toPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.helperService.formatDateToLocale(this.date) + ' ΩΡΑ ' + this.shipRoute.toTime
+            'ΛΙΜΕΝΑΣ ΑΠΟΠΛΟΥ ' + this.shipRoute.fromPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.date + ' ΩΡΑ ' + this.shipRoute.fromTime + '\n' +
+            'ΕΝΔΙΑΜΕΣΟΙ ΛΙΜΕΝΕΣ ΠΡΟΣΕΓΓΙΣΗΣ ' + this.shipRoute.viaPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.date + ' ΩΡΑ ' + this.shipRoute.viaTime + '\n' +
+            'ΛΙΜΕΝΑΣ ΚΑΤΑΠΛΟΥ ' + this.shipRoute.toPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.date + ' ΩΡΑ ' + this.shipRoute.toTime
     }
 
     private createTableHeaders(): any[] {
@@ -171,7 +171,7 @@ export class ManifestPdfService {
     private formatField(type: any, field: string | number | Date): string {
         switch (type) {
             case 'date':
-                return this.helperService.formatDateToLocale(field)
+                return field.toString()
             default:
                 return field != undefined ? field.toString() : ''
         }

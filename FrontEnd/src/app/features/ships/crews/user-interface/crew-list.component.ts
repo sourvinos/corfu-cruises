@@ -69,9 +69,9 @@ export class CrewListComponent {
         this.updateRowGroupMetaData(event.filteredValue)
     }
 
-    public onFormatDate(date: string): string {
-        return this.helperService.formatDateToLocale(date)
-    }
+    // public onFormatDate(date: string): string {
+    //     return this.helperService.formatDateToLocale(date)
+    // }
 
     public onGetLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)

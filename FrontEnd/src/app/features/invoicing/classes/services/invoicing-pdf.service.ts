@@ -190,7 +190,7 @@ export class InvoicingPdfService {
                         { image: this.logoService.getLogo(), width: 80, height: 80, fit: [80, 80], },
                         {
                             text: [
-                                { text: '\n\nDate: ' + this.helperService.formatDateToLocale(data.date), alignment: 'right', fontSize: 9 },
+                                { text: '\n\nDate: ' + data.date, alignment: 'right', fontSize: 9 },
                                 { text: '\nCustomer: ' + data.customerResource.description, alignment: 'right', fontSize: 9 },
                             ]
                         }

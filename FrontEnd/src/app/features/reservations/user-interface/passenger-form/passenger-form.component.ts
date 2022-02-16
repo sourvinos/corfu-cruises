@@ -1,12 +1,14 @@
-import { Component, Inject, NgZone } from '@angular/core'
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { Observable, Subject } from 'rxjs'
 import moment from 'moment'
+import { Component, Inject, NgZone } from '@angular/core'
+import { DateAdapter } from '@angular/material/core'
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { Observable, Subject } from 'rxjs'
 // Custom
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { GenderDropdownResource } from '../../classes/resources/form/dropdown/gender-dropdown-resource'
 import { GenderService } from 'src/app/features/genders/classes/gender.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
@@ -42,7 +44,7 @@ export class PassengerFormComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: Passenger, public dialog: MatDialog, private dialogRef: MatDialogRef<PassengerFormComponent>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private reservationService: ReservationService, private snackbarService: SnackbarService,) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: Passenger, private dateAdapter: DateAdapter<any>, private dialogRef: MatDialogRef<PassengerFormComponent>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private reservationService: ReservationService, private snackbarService: SnackbarService) { }
 
     //#region lifecycle hooks
 
@@ -51,6 +53,10 @@ export class PassengerFormComponent {
         this.addShortcuts()
         this.populateDropDowns()
         this.populateFields(this.data)
+    }
+
+    ngAfterViewInit(): void {
+        this.setLocale()
     }
 
     ngOnDestroy(): void {
@@ -99,6 +105,7 @@ export class PassengerFormComponent {
     public onSave(): void {
         this.ngZone.run(() => {
             this.dialogRef.close(this.flattenPassenger(this.form))
+            // this.dialogRef.close(this.form.value)
         })
     }
 
@@ -195,6 +202,10 @@ export class PassengerFormComponent {
 
     private resetForm(): void {
         this.form.reset()
+    }
+
+    private setLocale() {
+        this.dateAdapter.setLocale(this.helperService.readLanguage())
     }
 
     private showSnackbar(message: string, type: string): void {

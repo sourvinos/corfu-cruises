@@ -40,7 +40,7 @@
                 <mat-error *ngIf="!vessel.hasError('required') && vessel.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
                 <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
             </mat-form-field>
-            <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
+            <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
         </form>
     </div>
 

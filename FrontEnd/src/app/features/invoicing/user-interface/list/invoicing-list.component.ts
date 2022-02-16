@@ -74,12 +74,6 @@ export class InvoicingListComponent {
         })
     }
 
-    public getDate(): string {
-        if (this.helperService.readItem('invoicing-criteria')) {
-            return (this.helperService.formatDateToLocale(JSON.parse(this.helperService.readItem('invoicing-criteria')).date))
-        }
-    }
-
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -117,7 +111,7 @@ export class InvoicingListComponent {
 
     private updateCriteriaLabels(): void {
         const criteria = JSON.parse(this.helperService.readItem('invoicing-criteria'))
-        this.criteriaLabels[0] = this.helperService.formatDateToLocale(criteria.date)
+        this.criteriaLabels[0] = criteria.date
         this.criteriaLabels[1] = criteria.customer.description
         this.criteriaLabels[2] = criteria.destination.description
         this.criteriaLabels[3] = criteria.vessel.description

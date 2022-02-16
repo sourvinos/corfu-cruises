@@ -713,6 +713,10 @@
                 "description": "Mehr"
             },
             {
+                "id": "date",
+                "description": "Datum"
+            },
+            {
                 "id": "destination",
                 "description": "Reiseziel"
             },

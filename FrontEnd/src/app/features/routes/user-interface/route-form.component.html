@@ -38,7 +38,7 @@
                 <mat-slide-toggle data-cy="isTransfer" formControlName="isTransfer">{{ onGetLabel('isTransfer') }}</mat-slide-toggle>
                 <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
             </form>
-            <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
+            <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
         </div>
         <div id="map-outer-wrapper" [class.hidden]="activePanel=='form'">
             <div *ngIf="pickupPoints" id="map-wrapper">

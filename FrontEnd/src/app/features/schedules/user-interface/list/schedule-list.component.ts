@@ -75,7 +75,7 @@ export class ScheduleListComponent {
     }
 
     public onFormatDate(date: string): string {
-        return this.helperService.formatDateToLocale(date)
+        return date
     }
 
     public onGetLabel(id: string): string {
@@ -111,7 +111,7 @@ export class ScheduleListComponent {
         let array = []
         array = [... new Set(this.records.map(x => x[field]))]
         array.forEach(element => {
-            this[table].push({ label: this.helperService.formatDateToLocale(element), value: element })
+            this[table].push({ label: element, value: element })
         })
     }
 

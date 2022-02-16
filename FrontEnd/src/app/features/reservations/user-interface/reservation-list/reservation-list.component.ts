@@ -36,8 +36,8 @@ export class ReservationListComponent {
     @ViewChild('table') table: Table | undefined
 
     private baseUrl = '/reservations'
-    private ngUnsubscribe = new Subject<void>()
     private isoDate = ''
+    private ngUnsubscribe = new Subject<void>()
     private resolver = 'reservationList'
     private unlisten: Unlisten
     private windowTitle = 'Reservations'
@@ -47,19 +47,20 @@ export class ReservationListComponent {
     public drivers = []
     public feature = 'reservationList'
     public highlighted: any
+    public items: MenuItem[]
     public pickupPoints = []
     public ports = []
     public records = new ReservationGroupResource()
     public routes = []
     public selectedRecords = []
     public ships = []
+    public stateKey = 'route-list'
     public today: string
     public totals: any[] = []
-    public items: MenuItem[]
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageService: MessageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private driverPDFService: DriverPdfService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) { }
+    constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private driverPDFService: DriverPdfService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
@@ -76,6 +77,7 @@ export class ReservationListComponent {
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
+        this.helperService.removeItem(this.stateKey)
         this.unlisten()
     }
 
@@ -261,7 +263,7 @@ export class ReservationListComponent {
 
     private updateDates(): void {
         this.isoDate = this.helperService.readItem('date')
-        this.today = this.helperService.formatDateToLocale(this.helperService.readItem('date'))
+        this.today = this.helperService.readItem('date')
     }
 
     private resetTable(table: { reset: any }): void {

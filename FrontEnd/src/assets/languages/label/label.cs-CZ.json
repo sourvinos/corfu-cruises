@@ -713,6 +713,10 @@
                 "description": "Více"
             },
             {
+                "id": "date",
+                "description": "Datum"
+            },
+            {
                 "id": "destination",
                 "description": "Destinace"
             },

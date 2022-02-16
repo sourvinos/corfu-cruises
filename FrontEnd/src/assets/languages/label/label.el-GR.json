@@ -713,6 +713,10 @@
                 "description": "Λοιπά"
             },
             {
+                "id": "date",
+                "description": "Ημερομηνία"
+            },
+            {
                 "id": "destination",
                 "description": "Προορισμός"
             },

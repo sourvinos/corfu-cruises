@@ -24,7 +24,7 @@
             </div>
             <div id="group-field">
                 <mat-form-field>
-                    <input data-cy="birthdate" [inputFormat]="'date'" [matDatepicker]="picker" [inputTabStop]="input" [placeholder]="onGetLabel('birthdate')" autocomplete="off" data-tabindex="3" formControlName="birthdate" id="birthdate" matInput type="text">
+                    <input data-cy="birthdate" [matDatepicker]="picker" [inputTabStop]="input" [placeholder]="onGetLabel('birthdate')" autocomplete="off" data-tabindex="3" formControlName="birthdate" id="birthdate" matInput type="text">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="birthdate.hasError('required')">{{ onGetHint('required') }}</mat-error>
@@ -56,7 +56,7 @@
             </div>
             <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
         </form>
-        <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
+        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
     </div>
 
     <div id="footer">

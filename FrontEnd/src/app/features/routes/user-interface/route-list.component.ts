@@ -11,6 +11,7 @@ import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { Route } from '../classes/models/route'
+import { RouteListResource } from './../classes/resources/route-list-resource'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -34,7 +35,8 @@ export class RouteListComponent {
     private windowTitle = 'Routes'
     public feature = 'routeList'
     public newUrl = this.baseUrl + '/new'
-    public records: Route[] = []
+    public records: RouteListResource[] = []
+    public stateKey = 'route-list'
 
     //#endregion
 
@@ -51,6 +53,7 @@ export class RouteListComponent {
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
+        this.helperService.removeItem(this.stateKey)
         this.unlisten()
     }
 

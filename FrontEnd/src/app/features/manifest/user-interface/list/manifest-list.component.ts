@@ -77,7 +77,7 @@ export class ManifestListComponent {
     }
 
     public onFormatDate(date: string): string {
-        return this.helperService.formatDateToLocale(date)
+        return date
     }
 
     public onGetLabel(id: string): string {
