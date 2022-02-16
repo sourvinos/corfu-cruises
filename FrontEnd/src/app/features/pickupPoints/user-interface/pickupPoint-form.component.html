@@ -19,7 +19,7 @@
                 <div id="group-field">
                     <mat-form-field>
                         <mat-label>{{ onGetLabel("route") }}</mat-label>
-                        <input data-cy="route-abbreviation" type="text" matInput formControlName="route" [matAutocomplete]="routes" data-tabindex="1" [inputTabStop]="input">
+                        <input data-cy="route-abbreviation" [inputTabStop]="input" [matAutocomplete]="routes" data-tabindex="1" formControlName="route" matInput type="text">
                         <mat-error *ngIf="route.hasError('required')">{{ onGetHint('required') }}</mat-error>
                         <mat-error *ngIf="!route.hasError('required') && route.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
                         <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>

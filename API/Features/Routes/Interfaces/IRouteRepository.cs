@@ -8,7 +8,7 @@ namespace API.Features.Routes {
     public interface IRouteRepository : IRepository<Route> {
 
         Task<IEnumerable<RouteListResource>> Get();
-        Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
+        Task<IEnumerable<RouteSimpleResource>> GetActiveForDropdown();
         new Task<RouteReadResource> GetById(int routeId);
         Task<Route> GetByIdToDelete(int id);
         int IsValid(RouteWriteResource record);

@@ -15,13 +15,13 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { PickupPoint } from '../classes/pickupPoint'
 import { PickupPointService } from '../classes/pickupPoint.service'
+import { RouteDropdownResource } from '../../routes/classes/resources/route-dropdown-resource'
 import { RouteService } from 'src/app/features/routes/classes/services/route.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from '../../../shared/services/validation.service'
 import { environment } from 'src/environments/environment'
 import { map, startWith } from 'rxjs/operators'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { RouteDropdownResource } from '../../routes/classes/resources/route-dropdown-resource'
 
 @Component({
     selector: 'pickuppoint-form',
@@ -216,7 +216,7 @@ export class PickupPointFormComponent {
         this.helperService.enableField(form, field)
     }
 
-    private filterArray(array: string, field: string, value: any): any[] {
+    private filterDropdownArray(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
             return this[array].filter((element: { [x: string]: string }) =>
@@ -232,8 +232,7 @@ export class PickupPointFormComponent {
             exactPoint: this.form.value.exactPoint,
             time: this.form.value.time,
             coordinates: this.form.value.coordinates,
-            isActive: this.form.value.isActive,
-            userId: this.form.value.userId
+            isActive: this.form.value.isActive
         })
     }
 
@@ -271,7 +270,7 @@ export class PickupPointFormComponent {
                 (response: any) => {
                     this[table] = response
                     resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterDropdownArray(table, modelProperty, value)))
                 }, (errorFromInterceptor: number) => {
                     this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 })

@@ -27,13 +27,13 @@ namespace API.Features.Routes {
             return mapper.Map<IEnumerable<Route>, IEnumerable<RouteListResource>>(records);
         }
 
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+        public async  Task<IEnumerable<RouteSimpleResource>> GetActiveForDropdown(){
             List<Route> records = await context.Routes
                 .Where(x => x.IsActive)
-                .OrderBy(x => x.Description)
+                .OrderBy(x => x.Abbreviation)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Route>, IEnumerable<SimpleResource>>(records);
+            return mapper.Map<IEnumerable<Route>, IEnumerable<RouteSimpleResource>>(records);
         }
 
         public new async Task<RouteReadResource> GetById(int id) {

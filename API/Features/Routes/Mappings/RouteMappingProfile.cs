@@ -6,7 +6,7 @@ namespace API.Features.Routes {
 
         public RouteMappingProfile() {
             CreateMap<RouteWriteResource, Route>();
-            CreateMap<Route, RouteWithPortListResource>();
+            CreateMap<Route, RouteSimpleResource>();
         }
 
     }

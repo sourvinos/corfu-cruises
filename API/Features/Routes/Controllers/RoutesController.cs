@@ -35,7 +35,7 @@ namespace API.Features.Routes {
 
         [HttpGet("[action]")]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<RouteSimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
