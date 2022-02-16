@@ -105,7 +105,6 @@ export class PassengerFormComponent {
     public onSave(): void {
         this.ngZone.run(() => {
             this.dialogRef.close(this.flattenPassenger(this.form))
-            // this.dialogRef.close(this.form.value)
         })
     }
 

@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
@@ -60,7 +60,13 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private driverPDFService: DriverPdfService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) { }
+    constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private driverPDFService: DriverPdfService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
+        this.router.events.subscribe((navigation) => {
+            if (navigation instanceof NavigationEnd) {
+                this.loadRecords()
+            }
+        })
+    }
 
     //#region lifecycle hooks
 
@@ -100,7 +106,7 @@ export class ReservationListComponent {
             dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
                     this.reservationService.assignToDriver(result, this.selectedRecords).subscribe(() => {
-                        this.removeSelectedIdsFromLocalStorage()
+                        this.refreshList()
                         this.showSnackbar(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'info')
                     })
                 }
@@ -123,7 +129,7 @@ export class ReservationListComponent {
             dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
                     this.reservationService.assignToShip(result, this.selectedRecords).subscribe(() => {
-                        this.removeSelectedIdsFromLocalStorage()
+                        this.refreshList()
                         this.showSnackbar(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'info')
                     })
                 }
@@ -271,12 +277,15 @@ export class ReservationListComponent {
         this.table.filter('', 'ticketNo', 'contains')
     }
 
+    private refreshList(): void {
+        this.router.navigate(['reservations/date/2022-02-10'])
+    }
+
     private saveSelectedIds(): void {
         const ids = []
         this.selectedRecords.forEach(record => {
             ids.push(record.reservationId)
         })
-        this.helperService.saveItem('selectedIds', JSON.stringify(ids))
     }
 
     private setWindowTitle(): void {

@@ -309,7 +309,6 @@ export class ReservationFormComponent {
     }
 
     private initForm(): void {
-        console.log('Init')
         this.form = this.formBuilder.group({
             reservationId: '',
             date: this.helperService.readItem('date'),
