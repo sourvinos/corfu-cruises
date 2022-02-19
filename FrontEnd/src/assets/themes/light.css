@@ -60,8 +60,9 @@
     --color-slider-bar-inactive: #a2a6a7;
     --color-slider-thumb-active: #426f8a;
     --color-slider-thumb-inactive: #a2a6a7;
-    --color-snackbar-error: #920402;
+    --color-snackbar-error: #ed3533;
     --color-snackbar-info: #5cda9e;
+    --color-snackbar-text: #ffffff;
     --color-snackbar-warning: #d1e345;
     --color-spinner-inner: #ffe85c;
     --color-spinner-outer: #fe9f36;

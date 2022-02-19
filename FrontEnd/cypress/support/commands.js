@@ -82,6 +82,10 @@ Cypress.Commands.add('clearField', (element) => {
     cy.get('[data-cy=' + element + ']').clear()
 })
 
+Cypress.Commands.add('buttonClick', (button) => {
+    cy.get('[data-cy=' + button + ']').click()
+})
+
 function createRandomLetters(length) {
     let field = ''
     for (let index = 1; index <= length; index++) {
