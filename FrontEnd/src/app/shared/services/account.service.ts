@@ -112,23 +112,13 @@ export class AccountService extends DataService {
 
     private clearLocalStorage(): void {
         this.clearLocalStorageItems([
-            'customerId',
             'date',
             'displayName',
             'expiration',
             'jwt',
             'loginStatus',
             'refreshToken',
-            'reservations',
-            'searchTermCustomer',
-            'searchTermDestination',
-            'searchTermDriver',
-            'searchTermPickupPoint',
-            'searchTermPort',
-            'searchTermRoute',
-            'searchTermUser',
             'selectedIds',
-            'userId'
         ])
     }
 

@@ -11,7 +11,7 @@ namespace API.Features.Schedules {
             // FKs
             entity.Property(x => x.PortId).IsRequired(true);
             entity.Property(x => x.DestinationId).IsRequired(true);
-            entity.Property(x => x.UserId).IsRequired(true);
+            entity.Property(x => x.UserId).HasMaxLength(36).IsRequired(true);
             // Fields
             entity.Property(x => x.Date).HasColumnType("date").HasMaxLength(10).IsRequired(true);
             entity.Property(x => x.MaxPersons).IsRequired(true);

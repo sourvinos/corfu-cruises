@@ -107,9 +107,9 @@ namespace API.Infrastructure.Identity {
         }
 
         private async Task<IdentityResult> UpdateUser(UserExtended user, UserWriteResource record) {
-            user.UserName = record.UserName;
-            user.DisplayName = record.DisplayName;
-            user.CustomerId = record.CustomerId;
+            user.UserName = record.Username;
+            user.DisplayName = record.Displayname;
+            user.CustomerId = record.CustomerId == 0 ? null : record.CustomerId;
             user.Email = record.Email;
             user.IsAdmin = record.IsAdmin;
             user.IsActive = record.IsActive;

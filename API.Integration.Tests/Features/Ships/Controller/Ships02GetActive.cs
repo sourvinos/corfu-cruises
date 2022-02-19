@@ -47,14 +47,10 @@ namespace API.Integration.Tests.Ships {
             await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, login.Username, login.Password, null);
         }
 
-        [Fact]
-        public async Task Active_Simple_Users_Can_Not_Get_Active_For_Dropdown() {
-            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", null);
-        }
-
-        [Fact]
-        public async Task Active_Admins_Can_Get_Active_For_Dropdown() {
-            var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
+        [Theory]
+        [ClassData(typeof(ActiveUsersCanLogin))]
+        public async Task Active_Users_Can_Get_Active_For_Dropdown(Login login) {
+            var actionResponse = await List.Action(_httpClient, _baseUrl, _url, login.Username, login.Password);
             var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(_expectedRecordCount, records.Count);
         }

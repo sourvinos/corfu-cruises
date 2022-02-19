@@ -36,6 +36,7 @@ export class ReservationListComponent {
     @ViewChild('table') table: Table | undefined
 
     private baseUrl = '/reservations'
+    private url = ''
     private isoDate = ''
     private ngUnsubscribe = new Subject<void>()
     private resolver = 'reservationList'
@@ -54,7 +55,7 @@ export class ReservationListComponent {
     public routes = []
     public selectedRecords = []
     public ships = []
-    public stateKey = 'route-list'
+    public stateKey = 'reservation-list'
     public today: string
     public totals: any[] = []
 
@@ -63,6 +64,7 @@ export class ReservationListComponent {
     constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private driverPDFService: DriverPdfService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
+                this.url = navigation.url
                 this.loadRecords()
             }
         })
@@ -278,7 +280,7 @@ export class ReservationListComponent {
     }
 
     private refreshList(): void {
-        this.router.navigate(['reservations/date/2022-02-10'])
+        this.router.navigate([this.url])
     }
 
     private saveSelectedIds(): void {

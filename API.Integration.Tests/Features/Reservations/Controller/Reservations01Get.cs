@@ -65,7 +65,7 @@ namespace API.Integration.Tests.Reservations {
             Assert.Equal(2, records.PersonsPerPort.Count());
             Assert.Equal(7, records.PersonsPerRoute.Count());
             Assert.Equal(3, records.PersonsPerShip.Count());
-            Assert.Equal(134, records.Persons);
+            Assert.Equal(130, records.Persons);
         }
 
     }

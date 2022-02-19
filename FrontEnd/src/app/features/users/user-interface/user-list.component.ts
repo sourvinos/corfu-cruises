@@ -28,7 +28,6 @@ export class UserListComponent {
     @ViewChild('table') table: Table | undefined
 
     private baseUrl = '/users'
-    private localStorageSearchTerm = 'user-list-search-term'
     private ngUnsubscribe = new Subject<void>()
     private records: User[] = []
     private resolver = 'userList'
@@ -39,6 +38,7 @@ export class UserListComponent {
     public newUrl = this.baseUrl + '/new'
     public searchTerm = ''
     public selectedRecord: User
+    public stateKey = 'user-list'
 
     //#endregion
 
@@ -48,7 +48,6 @@ export class UserListComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.getFilterFromStorage()
         this.loadRecords()
         this.addShortcuts()
     }
@@ -56,6 +55,7 @@ export class UserListComponent {
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
+        this.helperService.removeItem(this.stateKey)
         this.unlisten()
     }
 
@@ -65,11 +65,6 @@ export class UserListComponent {
 
     public onEditRecord(id: number): void {
         this.router.navigate([this.baseUrl, id], { queryParams: { returnUrl: '/users' } })
-    }
-
-    public onFilter($event: any, stringVal: any): void {
-        this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal)
-        this.updateStorageWithFilter()
     }
 
     public onGetLabel(id: string): string {
@@ -101,10 +96,6 @@ export class UserListComponent {
         this.helperService.setFocus(element)
     }
 
-    private getFilterFromStorage(): void {
-        this.searchTerm = this.helperService.readItem(this.localStorageSearchTerm)
-    }
-
     private goBack(): void {
         this.router.navigate(['/'])
     }
@@ -126,10 +117,6 @@ export class UserListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private updateStorageWithFilter(): void {
-        this.helperService.saveItem(this.localStorageSearchTerm, this.searchTerm)
     }
 
     //#endregion

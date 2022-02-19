@@ -8,7 +8,8 @@
             { "error": 404, "message": "Tento záznam nelze nalézt" },
             { "error": 409, "message": "Tento záznam není ojedinělý" },
             { "error": 427, "message": "Na tento den, cíl a přístav nejsou naplánovány žádné výlety" },
-            { "error": 430, "message": "For this day and destination, no trips are scheduled" },
+            { "error": 430, "message": "Pro tento den a cíl nejsou naplánovány žádné výlety" },
+            { "error": 431, "message": "Rezervaci v minulosti nelze vytvořit" },
             { "error": 432, "message": "Na tento den nejsou naplánovány žádné výlety" },
             { "error": 433, "message": "Tato rezervace způsobí nadměrnou rezervaci" },
             { "error": 450, "message": "Tento zákazník neexistuje nebo je neaktivní" },
@@ -45,7 +46,8 @@
             { "id": "selectedRecordsHaveBeenProcessed", "message": "Všechny vybrané záznamy byly aktualizovány" },
             { "id": "unableToResetPassword", "message": "Heslo nelze resetovat" },
             { "id": "wrongPassengerCount", "message": "Počet cestujících se musí rovnat celkovému počtu osob" },
-            { "id": "noContactWithServer", "message": "Z databáze není žádná odpověď" }
+            { "id": "noContactWithServer", "message": "Z databáze není žádná odpověď" },
+            { "id": "featureNotAvailable", "message": "Tato možnost není k dispozici" }
         ]
     }
 ]

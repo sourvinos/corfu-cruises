@@ -52,10 +52,6 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
     width: 100% !important;
 }
 
-.mat-form-field-infix span {
-    font-size: var(--font-size-label) !important;
-}
-
 .mat-form-field-subscript-wrapper {
     margin-top: 2px !important;
 }
@@ -83,8 +79,4 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 .mat-form-field-flex {
     align-items: center !important;
     display: flex !important;
-}
-
-.mat-form-field-label {
-    font-size: var(--font-size-label) !important;
 }

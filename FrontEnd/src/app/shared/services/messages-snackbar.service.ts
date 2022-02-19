@@ -66,6 +66,7 @@ export class MessageSnackbarService {
     public emptyEmail(): string { return this.getDescription(this.feature, 'emptyEmail') }
     public fileNotCreated(): string { return this.getDescription(this.feature, 'fileNotCreated') }
     public noContactWithServer(): string { return this.getDescription(this.feature, 'noContactWithServer') }
+    public featureNotAvailable(): string { return this.getDescription(this.feature, 'featureNotAvailable') }
 
     public filterError(errorCode: number, feature = 'snackbarMessages'): string {
         let returnValue = ''

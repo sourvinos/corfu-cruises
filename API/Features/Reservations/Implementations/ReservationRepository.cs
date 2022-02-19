@@ -8,6 +8,7 @@ using API.Features.Schedules;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Identity.Models;
 using API.Infrastructure.Implementations;
 using API.Infrastructure.Middleware;
 using AutoMapper;
@@ -30,22 +31,20 @@ namespace API.Features.Reservations {
         }
 
         public async Task<ReservationGroupResource<ReservationListResource>> Get(string date) {
-            var reservations = await context.Reservations
-                .Include(x => x.Customer)
-                .Include(x => x.Destination)
-                .Include(x => x.Driver)
-                .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
-                .Include(x => x.Ship)
-                .Where(x => x.Date == Convert.ToDateTime(date))
-                .ToListAsync();
+            IEnumerable<Reservation> reservations;
             var connectedUser = await Identity.GetConnectedUserId(httpContextAccessor);
-            reservations = reservations.If(!await Identity.IsUserAdmin(httpContextAccessor), x => x.Where(x => x.UserId == connectedUser.UserId)).ToList();
+            if (await Identity.IsUserAdmin(httpContextAccessor)) {
+                reservations = GetReservationsFromAllUsers(date);
+            } else {
+                reservations = GetReservationsForConnectedUser(date, connectedUser);
+            }
             var personsPerCustomer = reservations.OrderBy(x => x.Customer.Description).GroupBy(x => new { x.Customer.Description }).Select(x => new PersonsPerCustomer { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
             var personsPerDestination = reservations.OrderBy(x => x.Destination.Description).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
             var personsPerDriver = reservations.OrderBy(x => x?.Driver?.Description).GroupBy(x => new { x?.Driver?.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description ?? "(EMPTY)", Persons = x.Sum(x => x.TotalPersons) });
             var personsPerPort = reservations.OrderByDescending(x => x.Port.IsPrimary).GroupBy(x => new { x.Port.Description }).Select(x => new PersonsPerPort { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
             var personsPerRoute = reservations.OrderBy(x => x.PickupPoint.Route.Abbreviation).GroupBy(x => new { x.PickupPoint.Route.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(x => x.TotalPersons) });
             var personsPerShip = reservations.OrderBy(x => x?.Ship?.Description).GroupBy(x => new { x?.Ship?.Description }).Select(x => new PersonsPerShip { Description = x.Key.Description ?? "(EMPTY)", Persons = x.Sum(x => x.TotalPersons) });
+
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
                 Reservations = reservations.ToList(),
@@ -57,6 +56,7 @@ namespace API.Features.Reservations {
                 PersonsPerShip = personsPerShip.ToList()
             };
             return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
+
         }
 
         public async Task<ReservationReadResource> GetById(string reservationId) {
@@ -170,6 +170,12 @@ namespace API.Features.Reservations {
             }
         }
 
+        public ReservationWriteResource UpdateForeignKeysWithNull(ReservationWriteResource reservation) {
+            if (reservation.DriverId == 0) reservation.DriverId = null;
+            if (reservation.ShipId == 0) reservation.ShipId = null;
+            return reservation;
+        }
+
         private IEnumerable<Passenger> GetPassengersForReservation(string id) {
             var passengers = context.Set<Passenger>()
                 .Where(x => x.ReservationId.ToString() == id)
@@ -214,31 +220,52 @@ namespace API.Features.Reservations {
         }
 
         private bool IsValidCustomer(ReservationWriteResource record) {
-            return context.Customers.SingleOrDefault(x => x.Id == record.CustomerId && x.IsActive) != null;
+            if (record.ReservationId == Guid.Empty) {
+                return context.Customers.SingleOrDefault(x => x.Id == record.CustomerId && x.IsActive) != null;
+            }
+            return context.Customers.SingleOrDefault(x => x.Id == record.CustomerId) != null;
         }
 
         private bool IsValidDestination(ReservationWriteResource record) {
-            return context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId && x.IsActive) != null;
+            if (record.ReservationId == Guid.Empty) {
+                return context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId && x.IsActive) != null;
+            }
+            return context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId) != null;
         }
 
         private bool IsValidPickupPoint(ReservationWriteResource record) {
-            return context.PickupPoints.SingleOrDefault(x => x.Id == record.PickupPointId && x.IsActive) != null;
+            if (record.ReservationId == Guid.Empty) {
+                return context.PickupPoints.SingleOrDefault(x => x.Id == record.PickupPointId && x.IsActive) != null;
+            }
+            return context.PickupPoints.SingleOrDefault(x => x.Id == record.PickupPointId) != null;
         }
 
         private bool IsValidDriver(ReservationWriteResource record) {
             if (record.DriverId != null && record.DriverId != 0) {
-                var driver = context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive);
-                if (driver == null)
-                    return false;
+                if (record.ReservationId == Guid.Empty) {
+                    var driver = context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive);
+                    if (driver == null)
+                        return false;
+                } else {
+                    var driver = context.Drivers.SingleOrDefault(x => x.Id == record.DriverId);
+                    if (driver == null)
+                        return false;
+                }
             }
             return true;
         }
 
         private bool IsValidShip(ReservationWriteResource record) {
             if (record.ShipId != null && record.ShipId != 0) {
-                var ship = context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive);
-                if (ship == null)
-                    return false;
+                if (record.ReservationId == Guid.Empty) {
+                    var ship = context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive);
+                    if (ship == null)
+                        return false;
+                } else {
+                    var ship = context.Ships.SingleOrDefault(x => x.Id == record.ShipId);
+                    if (ship == null)
+                        return false;
+                }
             }
             return true;
         }
@@ -256,7 +283,10 @@ namespace API.Features.Reservations {
             if (record.Passengers != null) {
                 bool isValid = false;
                 foreach (var passenger in record.Passengers) {
-                    isValid = context.Nationalities.SingleOrDefault(x => x.Id == passenger.NationalityId && x.IsActive) != null;
+                    if (record.ReservationId == Guid.Empty) {
+                        isValid = context.Nationalities.SingleOrDefault(x => x.Id == passenger.NationalityId && x.IsActive) != null;
+                    }
+                    isValid = context.Nationalities.SingleOrDefault(x => x.Id == passenger.NationalityId) != null;
                 }
                 return record.Passengers.Count == 0 || isValid;
             }
@@ -267,7 +297,10 @@ namespace API.Features.Reservations {
             if (record.Passengers != null) {
                 bool isValid = false;
                 foreach (var passenger in record.Passengers) {
-                    isValid = context.Genders.SingleOrDefault(x => x.Id == passenger.GenderId && x.IsActive) != null;
+                    if (record.ReservationId == Guid.Empty) {
+                        isValid = context.Genders.SingleOrDefault(x => x.Id == passenger.GenderId && x.IsActive) != null;
+                    }
+                    isValid = context.Genders.SingleOrDefault(x => x.Id == passenger.GenderId) != null;
                 }
                 return record.Passengers.Count == 0 || isValid;
             }
@@ -278,18 +311,38 @@ namespace API.Features.Reservations {
             if (record.Passengers != null) {
                 bool isValid = false;
                 foreach (var passenger in record.Passengers) {
-                    isValid = context.Occupants.SingleOrDefault(x => x.Id == passenger.OccupantId && x.IsActive) != null;
+                    if (record.ReservationId == Guid.Empty) {
+                        isValid = context.Occupants.SingleOrDefault(x => x.Id == passenger.OccupantId && x.IsActive) != null;
+                    }
+                    isValid = context.Occupants.SingleOrDefault(x => x.Id == passenger.OccupantId) != null;
                 }
                 return record.Passengers.Count == 0 || isValid;
             }
             return true;
         }
 
-        public ReservationWriteResource UpdateForeignKeysWithNull(ReservationWriteResource reservation) {
-            if (reservation.DriverId == 0) reservation.DriverId = null;
-            if (reservation.ShipId == 0) reservation.ShipId = null;
-            return reservation;
+        private IEnumerable<Reservation> GetReservationsFromAllUsers(string date) {
+            var reservations = context.Reservations
+                .Include(x => x.Customer)
+                .Include(x => x.Destination)
+                .Include(x => x.Driver)
+                .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
+                .Include(x => x.Ship)
+                .Where(x => x.Date == Convert.ToDateTime(date));
+            return reservations;
+        }
+
+        private IEnumerable<Reservation> GetReservationsForConnectedUser(string date, SimpleUser connectedUser) {
+            var reservations = context.Reservations
+                .Include(x => x.Customer)
+                .Include(x => x.Destination)
+                .Include(x => x.Driver)
+                .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
+                .Include(x => x.Ship)
+                .Where(x => x.Date == Convert.ToDateTime(date) && x.UserId == connectedUser.UserId);
+            return reservations;
         }
 
     }
+
 }

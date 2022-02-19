@@ -34,7 +34,7 @@ namespace API.Features.Ships {
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }

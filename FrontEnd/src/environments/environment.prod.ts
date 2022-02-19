@@ -1,4 +1,4 @@
-// ng build --output-path="\some directory\wwwroot"--configuration=production
+// ng build --output-path="\some directory\wwwroot" --configuration=production
 export const environment = {
     apiUrl: 'https://appcorfucruises.com/api',
     clientUrl: 'https://appcorfucruises.com',

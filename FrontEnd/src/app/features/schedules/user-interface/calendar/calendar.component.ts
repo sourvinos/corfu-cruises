@@ -46,6 +46,7 @@ export class CalendarComponent {
             this.fixCalendarHeight()
         })
         this.addShortcuts()
+        this.clearStoredVariables()
     }
 
     ngOnDestroy(): void {
@@ -102,9 +103,11 @@ export class CalendarComponent {
         })
     }
 
-    public onDoReservationTasks(destination: any): void {
-        this.helperService.saveItem('newReservationFromSchedule', JSON.stringify(destination))
-        this.router.navigate(['/reservations/new'], { queryParams: { returnUrl: 'schedules' } })
+    public onDoReservationTasks(date: string, destinationId: number, destinationDescription: string): void {
+        this.helperService.saveItem('date', date)
+        this.helperService.saveItem('destinationId', destinationId.toString())
+        this.helperService.saveItem('destinationDescription', destinationDescription.toString())
+        this.router.navigate(['/reservations/new'], { queryParams: { returnUrl: 'schedules/calendar' } })
     }
 
     //#endregion
@@ -137,6 +140,12 @@ export class CalendarComponent {
         }
         const result = Math.ceil((lastDate - diff) / 7)
         return result + 1
+    }
+
+    private clearStoredVariables(): void {
+        this.helperService.removeItem('date')
+        this.helperService.removeItem('destinationId')
+        this.helperService.removeItem('destinationDescription')
     }
 
     private getDaysFromDate(month: number, year: number): void {

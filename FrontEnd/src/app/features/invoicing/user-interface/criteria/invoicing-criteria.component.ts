@@ -142,7 +142,7 @@ export class InvoicingCriteriaComponent {
             'date', moment(this.form.value.date).toISOString().substr(0, 10),
             'customer', this.form.value.customer.id,
             'destination', this.form.value.destination.id,
-            'vessel', this.form.value.vessel.id], { relativeTo: this.activatedRoute })
+            'ship', this.form.value.vessel.id], { relativeTo: this.activatedRoute })
     }
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {

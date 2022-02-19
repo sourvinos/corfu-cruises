@@ -171,16 +171,16 @@ export class RegisterUserFormComponent {
         }
     }
 
-    private flattenForm(): void {
+    private flattenForm(): any {
         this.flatForm = this.formBuilder.group({
-            userName: this.form.value.userName,
-            displayName: this.form.value.displayName,
-            customerId: this.form.value.customer.id,
+            username: this.form.value.userName,
+            displayname: this.form.value.displayName,
+            customerId: this.form.value.customer.id == 'null' ? null : this.form.value.customer.id,
             email: this.form.value.email,
             password: this.form.value.passwords.password,
             confirmPassword: this.form.value.passwords.confirmPassword,
             isAdmin: this.form.value.isAdmin,
-            isActive:this.form.value.isActive
+            isActive: this.form.value.isActive
         })
     }
 
@@ -192,7 +192,7 @@ export class RegisterUserFormComponent {
         this.form = this.formBuilder.group({
             userName: [environment.newUser.username, [Validators.required, Validators.maxLength(32), ValidationService.containsSpace]],
             displayName: [environment.newUser.displayName, [Validators.required, Validators.maxLength(32)]],
-            customer: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            customer: ['', ValidationService.RequireAutocomplete],
             email: [environment.newUser.email, [Validators.required, Validators.maxLength(128), Validators.email]],
             passwords: this.formBuilder.group({
                 password: [environment.newUser.password, [Validators.required, Validators.minLength(10), Validators.maxLength(128), ValidationService.containsSpace]],
@@ -208,6 +208,7 @@ export class RegisterUserFormComponent {
             service.getActiveForDropdown().toPromise().then(
                 (response: any) => {
                     this[table] = response
+                    this[table].unshift({ 'id': 'null', 'description': '[⭐]' })
                     resolve(this[table])
                     this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
                 }, (errorFromInterceptor: number) => {
@@ -240,7 +241,7 @@ export class RegisterUserFormComponent {
     get userName(): AbstractControl {
         return this.form.get('userName')
     }
-    
+
     get displayName(): AbstractControl {
         return this.form.get('displayName')
     }

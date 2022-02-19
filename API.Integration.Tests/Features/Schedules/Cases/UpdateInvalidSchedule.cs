@@ -21,7 +21,7 @@ namespace API.Integration.Tests.Schedules {
                 new UpdateTestSchedule {
                     StatusCode = 450,
                     Id = 1,
-                    DestinationId = 5,
+                    DestinationId = 6,
                     PortId = 1,
                     Date = "2022-02-01",
                     MaxPersons = 185
@@ -34,7 +34,7 @@ namespace API.Integration.Tests.Schedules {
                 new UpdateTestSchedule {
                     StatusCode = 450,
                     Id = 1,
-                    DestinationId = 4,
+                    DestinationId = 5,
                     PortId = 1,
                     Date = "2022-02-01",
                     MaxPersons = 185

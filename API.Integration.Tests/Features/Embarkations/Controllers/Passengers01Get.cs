@@ -54,7 +54,7 @@ namespace API.Integration.Tests.Embarkations {
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<EmbarkationMainResultResource<EmbarkationResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(42, records.TotalPersons);
+            Assert.Equal(38, records.TotalPersons);
             Assert.Equal(9, records.Boarded);
             Assert.Equal(12, records.Remaining);
         }

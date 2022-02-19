@@ -9,6 +9,7 @@
             { "error": 409, "message": "Dieser Rekord ist nicht einzigartig" },
             { "error": 427, "message": "Für diesen Tag, Zielort und Hafen sind keine Fahrten geplant" },
             { "error": 430, "message": "Für diesen Tag und Zielort sind keine Fahrten geplant" },
+            { "error": 431, "message": "Eine Reservierung in der Vergangenheit kann nicht erstellt werden" },
             { "error": 432, "message": "Für diesen Tag sind keine Fahrten geplant" },
             { "error": 433, "message": "Diese Reservierung führt zu einer Überbuchung" },
             { "error": 450, "message": "Dieser Kunde existiert nicht oder ist inaktiv" },
@@ -45,7 +46,8 @@
             { "id": "selectedRecordsHaveBeenProcessed", "message": "Alle ausgewählten Datensätze wurden aktualisiert" },
             { "id": "unableToResetPassword", "message": "Das Passwort kann nicht zurückgesetzt werden" },
             { "id": "wrongPassengerCount", "message": "Die Anzahl der Passagiere muss der Gesamtzahl der Personen entsprechen" },
-            { "id": "noContactWithServer", "message": "Keine Antwort von der Datenbank" }
+            { "id": "noContactWithServer", "message": "Keine Antwort von der Datenbank" },
+            { "id": "featureNotAvailable", "message": "Diese Option ist nicht verfügbar" }
         ]
     }
 ]

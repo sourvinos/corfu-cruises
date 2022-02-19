@@ -9,6 +9,7 @@
             { "error": 409, "message": "L'enregistrement n'est pas unique" },
             { "error": 427, "message": "Pour ce jour, destination et port, aucun trajet n'est prévu" },
             { "error": 430, "message": "Pour ce jour et cette destination, aucun trajet n'est prévu" },
+            { "error": 431, "message": "Une réservation dans le passé ne peut pas être créée" },
             { "error": 432, "message": "Pour cette journée, aucun trajet n'est prévu" },
             { "error": 433, "message": "Cette réservation entraînera une surréservation" },
             { "error": 450, "message": "Ce client n'existe pas ou est inactif" },
@@ -45,7 +46,8 @@
             { "id": "selectedRecordsHaveBeenProcessed", "message": "Tous les enregistrements sont mis a jour" },
             { "id": "unableToResetPassword", "message": "Impossible de réinitialiser le mot de passe" },
             { "id": "wrongPassengerCount", "message": "Le nombre de passagers ne correspond pas au nombre total de personnes" },
-            { "id": "noContactWithServer", "message": "Il n'y a pas de réponse de la base de données" }
+            { "id": "noContactWithServer", "message": "Il n'y a pas de réponse de la base de données" },
+            { "id": "featureNotAvailable", "message": "Cette option n'est pas disponible" }
         ]
     }
 ]

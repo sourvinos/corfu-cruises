@@ -49,9 +49,9 @@ namespace API.Integration.Tests.Invoicing {
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<IEnumerable<InvoiceViewModel>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(134, records.Sum(x => x.IsTransferGroup.Sum(x => x.TotalPersons)));
+            Assert.Equal(130, records.Sum(x => x.IsTransferGroup.Sum(x => x.TotalPersons)));
             Assert.Equal(96, records.Sum(x => x.IsTransferGroup.Where(x => x.IsTransfer).Sum(x => x.TotalPersons)));
-            Assert.Equal(38, records.Sum(x => x.IsTransferGroup.Where(x => !x.IsTransfer).Sum(x => x.TotalPersons)));
+            Assert.Equal(34, records.Sum(x => x.IsTransferGroup.Where(x => !x.IsTransfer).Sum(x => x.TotalPersons)));
         }
 
     }

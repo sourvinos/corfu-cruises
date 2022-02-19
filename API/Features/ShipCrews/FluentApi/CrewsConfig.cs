@@ -13,7 +13,7 @@ namespace API.Features.ShipCrews {
             entity.Property(x => x.NationalityId).IsRequired(true);
             entity.Property(x => x.OccupantId).IsRequired(true);
             entity.Property(x => x.ShipId).IsRequired(true);
-            entity.Property(x => x.UserId).IsRequired(true);
+            entity.Property(x => x.UserId).HasMaxLength(36).IsRequired(true);
             // Fields
             entity.Property(x => x.Lastname).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.Firstname).HasMaxLength(128).IsRequired(true);

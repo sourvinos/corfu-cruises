@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using API.Features.Customers;
 using API.Infrastructure.Email;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Identity.Models;

@@ -1,6 +1,6 @@
 <div id="passenger-list">
 
-    <p class="instructions" [class.hidden]=false>{{ passengers | json }}</p>
+    <p class="instructions" [class.hidden]=true>{{ passengers | json }}</p>
     
     <div *ngIf="passengers" id="table-wrapper">
         <p-table #table [scrollable]="true" [value]="passengers" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">

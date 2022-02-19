@@ -346,7 +346,8 @@ namespace API.Infrastructure.SeedData {
                     new PickupPoint { Id = 334, RouteId = 3, ExactPoint = "PINK PALACE", Time = "07:45", Coordinates = "", IsActive = true, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05", Description = "PINK PALACE" },
                     new PickupPoint { Id = 335, RouteId = 1, ExactPoint = "M.ROAD", Time = "07:16", Coordinates = "39.70827616329067,19.843803048133854", IsActive = true, UserId = "7b8326ad-468f-4dbd-bf6d-820343d9e828", Description = "MARILENA HOTEL" },
                     new PickupPoint { Id = 336, RouteId = 1, ExactPoint = "M.ROAD", Time = "07:45", Coordinates = "39.64488649273263,19.859414564067084", IsActive = false, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05", Description = "PARAMITHOUPOLI" },
-                    new PickupPoint { Id = 337, RouteId = 1, ExactPoint = "MAIN ROAD BUS STOP", Time = "07:15", Coordinates = "39.72041639309584,19.874197840690616", IsActive = true, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05", Description = "GOLDEN MARE BARBATI" }
+                    new PickupPoint { Id = 337, RouteId = 1, ExactPoint = "MAIN ROAD BUS STOP", Time = "07:15", Coordinates = "39.72041639309584,19.874197840690616", IsActive = true, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05", Description = "GOLDEN MARE BARBATI" },
+                    new PickupPoint { Id = 338, RouteId = 1, ExactPoint = "BUS STOP", Time = "07:15", Coordinates = "", IsActive = false, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05", Description = "INACTIVE PICKUP POINT" }
                 };
                 context.AddRange(pickupPoints);
                 context.SaveChanges();

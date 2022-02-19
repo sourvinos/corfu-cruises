@@ -12,7 +12,7 @@ namespace API.Features.Reservations {
             entity.Property(x => x.CustomerId).IsRequired(true);
             entity.Property(x => x.DestinationId).IsRequired(true);
             entity.Property(x => x.PickupPointId).IsRequired(true);
-            entity.Property(x => x.UserId).IsRequired(true);
+            entity.Property(x => x.UserId).HasMaxLength(36).IsRequired(true);
             // Fields
             entity.Property(x => x.Date).HasColumnType("date").IsRequired(true);
             entity.Property(x => x.TicketNo).HasMaxLength(128).IsRequired(true);

@@ -17,34 +17,30 @@
                         <form id="form" [formGroup]="form" autocomplete="off">
                             <div id="group-field">
                                 <mat-form-field>
-                                    <input type="text" matInput [placeholder]="getLabel('date')" formControlName="date" id="date" autocomplete="off" [matDatepicker]="picker">
+                                    <input type="text" [inputTabStop]="input" [matDatepicker]="picker" [placeholder]="getLabel('date')" autocomplete="off" data-cy="date" data-tabindex="1" formControlName="date" id="date" matInput>
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
                                     <mat-error *ngIf="date.hasError('required')">{{ getHint('required') }}</mat-error>
-                                    <mat-hint>{{ getLabel('date') }}</mat-hint>
                                 </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>{{ getLabel("destination") }}</mat-label>
-                                    <input data-cy="destination-description" [inputTabStop]="input" [matAutocomplete]="destinations" data-tabindex="1" formControlName="destination" matInput type="text">
+                                    <input [inputTabStop]="input" [matAutocomplete]="destinations" data-cy="destination-description" data-tabindex="2" formControlName="destination" matInput type="text">
                                     <mat-error *ngIf="destination.hasError('required')">{{ getHint('required') }}</mat-error>
                                     <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
-                                    <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
                                 </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>{{ getLabel("customer") }}</mat-label>
-                                    <input data-cy="customer-description" [inputTabStop]="input" [matAutocomplete]="customers" data-tabindex="2" formControlName="customer" matInput type="text">
+                                    <input [inputTabStop]="input" [matAutocomplete]="customers" data-cy="customer-description" data-tabindex="3" formControlName="customer" matInput type="text">
                                     <mat-error *ngIf="customer.hasError('required')">{{ getHint('required') }}</mat-error>
                                     <mat-error *ngIf="!customer.hasError('required') && customer.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
-                                    <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
                                 </mat-form-field>
                             </div>
                             <div id="group-field">
                                 <mat-form-field>
                                     <mat-label>{{ getLabel("pickupPoint") }}</mat-label>
-                                    <input data-cy="pickupPoint-description" [inputTabStop]="input" [matAutocomplete]="pickupPoints" data-tabindex="3" formControlName="pickupPoint" matInput type="text">
+                                    <input [inputTabStop]="input" [matAutocomplete]="pickupPoints" data-cy="pickupPoint-description" data-tabindex="4" formControlName="pickupPoint" matInput type="text">
                                     <mat-error *ngIf="pickupPoint.hasError('required')">{{ getHint('required') }}</mat-error>
                                     <mat-error *ngIf="!pickupPoint.hasError('required') && pickupPoint.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
-                                    <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
                                 </mat-form-field>
                                 <mat-form-field style="width: 30% !important;">
                                     <mat-label>{{ getLabel('exactPoint') }}</mat-label>
@@ -57,42 +53,42 @@
                             </div>
                             <div id="group-field">
                                 <mat-form-field>
-                                    <input data-cy="ticketNo" (keyup)="doBarcodeTasks()" [inputTabStop]="input" [placeholder]="getLabel('ticketNo')" data-tabindex="4" formControlName="ticketNo" matInput type="text">
+                                    <input (keyup)="doBarcodeTasks()" [inputTabStop]="input" [placeholder]="getLabel('ticketNo')" data-cy="ticketNo" data-tabindex="5" formControlName="ticketNo" matInput type="text">
                                     <mat-error *ngIf="ticketNo.hasError('required')">{{ getHint('required') }}</mat-error>
                                     <mat-error *ngIf="ticketNo.hasError('maxlength')">{{ getHint('maxLength', ticketNo.errors.maxlength.requiredLength) }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input data-cy="adults" (keyup)="doPersonsCalculations()" [inputTabStop]="input" [placeholder]="getLabel('adults')" class="number" data-tabindex="5" formControlName="adults" matInput type="number">
+                                    <input (keyup)="doPersonsCalculations()" [inputTabStop]="input" [placeholder]="getLabel('adults')" class="number" data-cy="adults" data-tabindex="6" formControlName="adults" matInput type="number">
                                     <mat-error *ngIf="adults.hasError('required')">{{ getHint('required') }}</mat-error>
                                     <mat-error *ngIf="!adults.hasError('required') && adults.hasError('min') || adults.hasError('max')">{{ getHint('invalid') }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input data-cy="kids" (keyup)="doPersonsCalculations()" [inputTabStop]="input" [placeholder]="getLabel('kids')" class="number" data-tabindex="6" formControlName="kids" matInput type="number">
+                                    <input (keyup)="doPersonsCalculations()" [inputTabStop]="input" [placeholder]="getLabel('kids')" class="number" data-cy="kids" data-tabindex="7" formControlName="kids" matInput type="number">
                                     <mat-error *ngIf="kids.hasError('required')">{{ getHint('required') }}</mat-error>
                                     <mat-error *ngIf="!kids.hasError('required') && kids.hasError('min') || kids.hasError('max')">{{ getHint('invalid') }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input data-cy="free" (keyup)="doPersonsCalculations()" [inputTabStop]="input" [placeholder]="getLabel('free')" class="number" data-tabindex="7" formControlName="free" matInput type="number">
+                                    <input (keyup)="doPersonsCalculations()" [inputTabStop]="input" [placeholder]="getLabel('free')" class="number" data-cy="free" data-tabindex="8" formControlName="free" matInput type="number">
                                     <mat-error *ngIf="free.hasError('required')">{{ getHint('required') }}</mat-error>
                                     <mat-error *ngIf="!free.hasError('required') && free.hasError('min') || free.hasError('max')">{{ getHint('invalid') }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input data-cy="totalPersons" [placeholder]="getLabel('totalPersons')" formControlName="totalPersons" matInput type="number">
+                                    <input [placeholder]="getLabel('totalPersons')" data-cy="totalPersons" formControlName="totalPersons" matInput readonly type="number">
                                     <span id="passenger-check-total-icon">{{ passengerDifferenceIcon }}</span>
                                 </mat-form-field>
                             </div>
                             <div id="group-field">
                                 <mat-form-field>
-                                    <input data-cy="email" [inputTabStop]="input" [placeholder]="getLabel('email')" data-tabindex="8" formControlName="email" matInput type="email">
+                                    <input [inputTabStop]="input" [placeholder]="getLabel('email')" data-cy="email" data-tabindex="9" formControlName="email" matInput type="email">
                                     <mat-error *ngIf="email.hasError('maxlength')">{{ getHint('maxLength', email.errors.maxlength.requiredLength) }}</mat-error>
                                     <mat-error *ngIf="!email.hasError('maxlength') && email.hasError('email')">{{ getHint('invalid') }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input data-cy="phones" [inputTabStop]="input" [placeholder]="getLabel('phones')" data-tabindex="9" formControlName="phones" matInput type="text">
+                                    <input [inputTabStop]="input" [placeholder]="getLabel('phones')" data-cy="phones" data-tabindex="10" formControlName="phones" matInput type="text">
                                     <mat-error *ngIf="phones.hasError('maxlength')">{{ getHint('maxLength', phones.errors.maxlength.requiredLength) }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input data-cy="phones" [inputTabStop]="input" [placeholder]="getLabel('remarks')" data-tabindex="10" formControlName="remarks" matInput type="text">
+                                    <input [inputTabStop]="input" [placeholder]="getLabel('remarks')" data-cy="phones" data-tabindex="11" formControlName="remarks" matInput type="text">
                                     <mat-error *ngIf="remarks.hasError('maxlength')">{{ getHint('maxLength', remarks.errors.maxlength.requiredLength) }}</mat-error>
                                 </mat-form-field>
                             </div>
@@ -109,21 +105,18 @@
                     <ng-template matTabContent>
                         <mat-form-field>
                             <mat-label>{{ getLabel("driver") }}</mat-label>
-                            <input matInput formControlName="driver" [matAutocomplete]="drivers" readonly>
+                            <input [matAutocomplete]="drivers" formControlName="driver" matInput readonly>
                             <mat-error *ngIf="driver.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
-                            <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>{{ getLabel("ship") }}</mat-label>
-                            <input matInput formControlName="ship" [matAutocomplete]="ships" readonly>
+                            <input [matAutocomplete]="ships" formControlName="ship" matInput readonly>
                             <mat-error *ngIf="ship.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
-                            <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>{{ getLabel("port") }}</mat-label>
-                            <input matInput formControlName="port" [matAutocomplete]="ports" readonly>
+                            <input [matAutocomplete]="ports" formControlName="port" matInput readonly>
                             <mat-error *ngIf="port.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
-                            <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
                         </mat-form-field>
                     </ng-template>
                 </mat-tab>
@@ -141,8 +134,8 @@
             </mat-menu>
         </div>
         <div @slideFromRight class="button-group">
-            <button mat-flat-button (click)="onDelete()" *ngIf="form.value.reservationId != '' && isAdmin" class="delete" id="delete">{{ getLabel('deleteButton') }}</button>
-            <button data-cy="save" mat-flat-button (click)="onSave()" [disabled]="!form.valid || !checkTotalPersonsAgainstPassengerCount()" class="primary">{{ getLabel('saveButton') }}</button>
+            <button *ngIf="form.value.reservationId != ''" (click)="onDelete()" class="delete" data-cy="delete" id="delete" mat-flat-button>{{ getLabel('deleteButton') }}</button>
+            <button (click)="onSave()" [disabled]="!form.valid || !checkTotalPersonsAgainstPassengerCount()" class="primary" data-cy="save" mat-flat-button>{{ getLabel('saveButton') }}</button>
         </div>
     </div>
 
@@ -152,37 +145,37 @@
 
 </div>
 
-<mat-autocomplete autoActiveFirstOption #destinations="matAutocomplete" [displayWith]="dropdownFields">
+<mat-autocomplete #destinations="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of filteredDestinations | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #customers="matAutocomplete" [displayWith]="dropdownFields">
+<mat-autocomplete #customers="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of filteredCustomers | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #drivers="matAutocomplete" [displayWith]="dropdownFields">
+<mat-autocomplete #drivers="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of filteredDrivers | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #ships="matAutocomplete" [displayWith]="dropdownFields">
+<mat-autocomplete #ships="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of filteredShips | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #ports="matAutocomplete" [displayWith]="dropdownFields">
+<mat-autocomplete #ports="matAutocomplete" [displayWith]="dropdownFields">
     <mat-option *ngFor="let option of filteredPorts | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #pickupPoints="matAutocomplete" [displayWith]="dropdownFields" (optionSelected)="updateFieldsAfterPickupPointSelection($event.option.value)">
+<mat-autocomplete #pickupPoints="matAutocomplete" [displayWith]="dropdownFields" (optionSelected)="updateFieldsAfterPickupPointSelection($event.option.value)">
     <mat-option *ngFor="let option of filteredPickupPoints | async" [value]="option">
         <span>{{ option.description.substr(0, 30) }}</span>
         <span>{{ option.exactPoint.substr(0, 30) }}</span>

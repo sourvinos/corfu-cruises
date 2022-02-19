@@ -8,7 +8,7 @@ import { InvoicingListResolver } from '../resolvers/invoicing-list.resolver'
 
 const routes: Routes = [
     { path: '', component: InvoicingCriteriaComponent, canActivate: [AuthGuardService] },
-    { path: 'date/:date/customer/:customerId/destination/:destinationId/vessel/:vesselId', component: InvoicingListComponent, canActivate: [AuthGuardService], resolve: { invoicingList: InvoicingListResolver }, runGuardsAndResolvers: 'always' }
+    { path: 'date/:date/customer/:customerId/destination/:destinationId/ship/:shipId', component: InvoicingListComponent, canActivate: [AuthGuardService], resolve: { invoicingList: InvoicingListResolver }, runGuardsAndResolvers: 'always' }
 ]
 
 @NgModule({

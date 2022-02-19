@@ -56,8 +56,8 @@ export class SideMenuComponent {
                 label: this.getLabel(menuItems, 'passengers'),
                 icon: 'fas fa-users',
                 items: [
-                    { label: this.getLabel(menuItems, 'embarkation'), routerLink: 'embarkation' },
-                    { label: this.getLabel(menuItems, 'manifest'), routerLink: '/manifest' }
+                    { label: this.getLabel(menuItems, 'embarkation'), routerLink: '' },
+                    { label: this.getLabel(menuItems, 'manifest'), routerLink: '' }
                 ]
             },
             {
@@ -65,7 +65,7 @@ export class SideMenuComponent {
                 icon: 'fab fa-buffer',
                 items: [
                     { label: this.getLabel(menuItems, 'dashboard'), routerLink: 'reservations' },
-                    { label: this.getLabel(menuItems, 'invoicing'), routerLink: 'invoicing' }
+                    { label: this.getLabel(menuItems, 'invoicing'), routerLink: '' }
                 ]
             },
             {

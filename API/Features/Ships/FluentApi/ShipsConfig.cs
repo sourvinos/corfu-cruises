@@ -10,7 +10,7 @@ namespace API.Features.Ships {
             entity.Property(x => x.Id).ValueGeneratedOnAdd();
             // FKs
             entity.Property(x => x.ShipOwnerId).IsRequired(true);
-            entity.Property(x => x.UserId).IsRequired(true);
+            entity.Property(x => x.UserId).HasMaxLength(36).IsRequired(true);
             // Fields
             entity.Property(x => x.Description).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.IMO).HasDefaultValue("").HasMaxLength(128);
