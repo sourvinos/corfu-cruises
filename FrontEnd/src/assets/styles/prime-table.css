@@ -12,10 +12,6 @@
     overflow-x: hidden !important;
 }
 
-.p-datatable-flex-scrollable:hover ::-webkit-scrollbar-thumb {
-    background-color: var(--color-scrollbar) !important;
-}
-
 .p-datatable-scrollable-footer, .p-datatable-scrollable-header {
     background-color: var(--color-common-background) !important;
     overflow: visible !important;

@@ -34,10 +34,6 @@
     width: auto;
 }
 
-.content.scrollable::-webkit-scrollbar-thumb, #content.scrollable::-webkit-scrollbar-thumb {
-    border-top: 2.5625rem solid var(--color-common-background) !important;
-}
-
 #footer {
     display: flex;
     justify-content: flex-end;
