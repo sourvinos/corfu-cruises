@@ -1,10 +1,10 @@
+import idleService from '@kurtz1993/idle-service'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { MenuItem } from 'primeng/api'
 import { Router } from '@angular/router'
-import { Observable, Subject } from 'rxjs'
+import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
-import idleService from '@kurtz1993/idle-service'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { HelperService } from 'src/app/shared/services/helper.service'

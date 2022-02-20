@@ -29,16 +29,12 @@ export class UserListComponent {
 
     private baseUrl = '/users'
     private ngUnsubscribe = new Subject<void>()
-    private records: User[] = []
     private resolver = 'userList'
     private unlisten: Unlisten
     private windowTitle = 'Users'
     public feature = 'userList'
-    public filteredRecords: User[] = []
     public newUrl = this.baseUrl + '/new'
-    public searchTerm = ''
-    public selectedRecord: User
-    public stateKey = 'user-list'
+    public records: User[] = []
 
     //#endregion
 
@@ -55,7 +51,6 @@ export class UserListComponent {
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
-        this.helperService.removeItem(this.stateKey)
         this.unlisten()
     }
 
@@ -104,7 +99,6 @@ export class UserListComponent {
         const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.list
-            this.filteredRecords = this.records
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

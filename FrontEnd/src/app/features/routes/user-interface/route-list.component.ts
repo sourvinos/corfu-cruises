@@ -36,7 +36,6 @@ export class RouteListComponent {
     public feature = 'routeList'
     public newUrl = this.baseUrl + '/new'
     public records: RouteListResource[] = []
-    public stateKey = 'route-list'
 
     //#endregion
 
@@ -53,7 +52,6 @@ export class RouteListComponent {
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
-        this.helperService.removeItem(this.stateKey)
         this.unlisten()
     }
 

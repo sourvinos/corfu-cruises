@@ -7,16 +7,33 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortField="none" sortMode="multiple">
+        <p-table 
+            #table 
+            [autoLayout]="false"
+            [scrollable]="true"
+            [value]="records"
+            dataKey="id"
+            scrollHeight="flex"
+            selectionMode="single"
+            sortMode="multiple"
+            stateKey="table-filters"
+            stateStorage="local"
+            >
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 30%; max-width: 30%;" pSortableColumn="fromPort">{{ getLabel('headerFromPort') }}<p-sortIcon field="fromPort"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 30%; max-width: 30%;" pSortableColumn="viaPort">{{ getLabel('headerViaPort') }}<p-sortIcon field="viaPort"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 30%; max-width: 30%; border-top-right-radius: 10px;" pSortableColumn="toPort">{{ getLabel('headerToPort') }}<p-sortIcon field="toPort"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon>
+                    </th>
+                    <th data-cy="column" style="min-width: 30%; max-width: 30%;" pSortableColumn="fromPort">{{ getLabel('headerFromPort') }}<p-sortIcon field="fromPort"></p-sortIcon>
+                    </th>
+                    <th data-cy="column" style="min-width: 30%; max-width: 30%;" pSortableColumn="viaPort">{{ getLabel('headerViaPort') }}<p-sortIcon field="viaPort"></p-sortIcon>
+                    </th>
+                    <th data-cy="column" style="min-width: 30%; max-width: 30%; border-top-right-radius: 10px;" pSortableColumn="toPort">{{ getLabel('headerToPort') }}<p-sortIcon field="toPort"></p-sortIcon>
+                    </th>
                 </tr>
                 <tr>
-                    <th style="min-width: 10%; max-width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
+                    <th style="min-width: 10%; max-width: 10%;">
+                        <p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter>
+                    </th>
                     <th style="min-width: 30%; max-width: 30%;"><input data-cy="filter-from-port" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'fromPort', 'contains')" [value]="$any(table).filters['fromPort']?.value"></th>
                     <th style="min-width: 30%; max-width: 30%;"><input data-cy="filter-via-port" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'viaPort', 'contains')" [value]="$any(table).filters['viaPort']?.value"></th>
                     <th style="min-width: 30%; max-width: 30%;"><input data-cy="filter-to-port" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'toPort', 'contains')" [value]="$any(table).filters['toPort']?.value"></th>

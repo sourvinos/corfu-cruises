@@ -1,9 +1,7 @@
 <div id="passenger-list">
 
-    <p class="instructions" [class.hidden]=true>{{ passengers | json }}</p>
-    
     <div *ngIf="passengers" id="table-wrapper">
-        <p-table #table [scrollable]="true" [value]="passengers" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="passengers" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="table-filters" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
                     <th data-cy="column" style="min-width: 50%; max-width: 50%; border-top-left-radius: 10px;" pSortableColumn="lastname">{{ getLabel('headerLastname') }}<p-sortIcon field="lastname"></p-sortIcon></th>
@@ -11,7 +9,7 @@
                     <th data-cy="column" style="min-width: 5%; max-width: 5%; border-top-right-radius: 10px;"></th>
                 </tr>
                 <tr>
-                    <th style="min-width: 50%; max-width: 50%;" ><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
+                    <th style="min-width: 50%; max-width: 50%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
                     <th style="min-width: 45%; max-width: 45%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
                     <th style="min-width: 5%; max-width: 5%;"></th>
                 </tr>
@@ -34,5 +32,7 @@
             </ng-template>
         </p-table>
     </div>
+
+    <p class="instructions" [class.hidden]=true>{{ passengers | json }}</p>
 
 </div>

@@ -7,7 +7,7 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="table-filters" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
                     <th data-cy="column" style="min-width: 12%; max-width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ onGetLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
@@ -25,8 +25,8 @@
             <ng-template pTemplate="body" let-rowData>
                 <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
                     <td style="min-width: 12%; max-width: 12%; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
-                    <td style="min-width: 40%; max-width: 40%;" >{{ rowData.description }}</td>
-                    <td style="min-width: 38%; max-width: 38%;" >{{ rowData.ownerDescription }}</td>
+                    <td style="min-width: 40%; max-width: 40%;">{{ rowData.description }}</td>
+                    <td style="min-width: 38%; max-width: 38%;">{{ rowData.ownerDescription }}</td>
                     <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ rowData.imo }}</td>
                 </tr>
             </ng-template>

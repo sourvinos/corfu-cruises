@@ -7,12 +7,12 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortField="none" sortMode="multiple">
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="table-filters" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column"  style="min-width: 12%; max-width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
-                    <th data-cy="column"  style="min-width: 12%; max-width: 12%;" pSortableColumn="abbreviation">{{ getLabel('headerAbbreviation') }}<p-sortIcon field="abbreviation"></p-sortIcon></th>
-                    <th data-cy="column"  style="min-width: 76%; max-width: 76%; border-top-right-radius: 10px;" pSortableColumn="description">{{ getLabel('headerDescription') }}<p-sortIcon field="description"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 12%; max-width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 12%; max-width: 12%;" pSortableColumn="abbreviation">{{ getLabel('headerAbbreviation') }}<p-sortIcon field="abbreviation"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 76%; max-width: 76%; border-top-right-radius: 10px;" pSortableColumn="description">{{ getLabel('headerDescription') }}<p-sortIcon field="description"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th style="min-width: 12%; max-width: 12%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>

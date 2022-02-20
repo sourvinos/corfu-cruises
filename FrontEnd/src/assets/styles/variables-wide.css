@@ -30,7 +30,7 @@
         --footer-right-margin: 3rem;
         --gap: 2rem;
         --header-margin-bottom: 1.3125rem;
-        --header-margin-top: 1rem;
+        --header-margin-top: 0;
         --side-bar-width: 13rem;
         --top-bar-height: 102px;
     }

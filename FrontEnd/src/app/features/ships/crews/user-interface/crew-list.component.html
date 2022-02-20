@@ -7,14 +7,14 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="table-filters" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
                     <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;">{{ onGetLabel('headerIsActive') }}</th>
                     <th data-cy="column" style="min-width: 25%; max-width: 25%;">{{ onGetLabel('headerShipDescription') }}</th>
-                    <th data-cy="column"  style="min-width: 25%; max-width: 25%;">{{ onGetLabel('headerLastname') }}</th>
-                    <th data-cy="column"  style="min-width: 20%; max-width: 20%;">{{ onGetLabel('headerFirstname') }}</th>
-                    <th data-cy="column"  style="min-width: 20%; max-width: 20%; border-top-right-radius: 10px;">{{ onGetLabel('headerBirthdate') }}</th>
+                    <th data-cy="column" style="min-width: 25%; max-width: 25%;">{{ onGetLabel('headerLastname') }}</th>
+                    <th data-cy="column" style="min-width: 20%; max-width: 20%;">{{ onGetLabel('headerFirstname') }}</th>
+                    <th data-cy="column" style="min-width: 20%; max-width: 20%; border-top-right-radius: 10px;">{{ onGetLabel('headerBirthdate') }}</th>
                 </tr>
                 <tr>
                     <th style="min-width: 10%; max-width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>

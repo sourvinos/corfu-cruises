@@ -7,7 +7,7 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="table-filters" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
                     <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;">{{ onGetLabel('headerIsActive') }}</th>
@@ -17,7 +17,9 @@
                     <th data-cy="column" style="min-width: 8%; max-width: 8%; border-top-right-radius: 10px;">{{ onGetLabel('headerMaxPersons') }}</th>
                 </tr>
                 <tr>
-                    <th style="min-width: 10%; max-width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
+                    <th style="min-width: 10%; max-width: 10%;">
+                        <p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter>
+                    </th>
                     <th style="min-width: 15%; max-width: 15%;">
                         <p-columnFilter style="width: 100%;" field="date" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">

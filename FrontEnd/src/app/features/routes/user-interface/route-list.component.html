@@ -7,7 +7,7 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" [stateKey]="stateKey" stateStorage="local">
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="table-filters" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
                     <th data-cy="column" style="min-width: 12%; max-width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ onGetLabel('headerIsActive') }} <p-sortIcon field="isActive"></p-sortIcon></th>
@@ -17,7 +17,7 @@
                 </tr>
                 <tr>
                     <th style="min-width: 12%; max-width: 12%;"><p-columnFilter data-cy="filter-isActive" type="boolean" field="isActive"></p-columnFilter></th>
-                    <th style="min-width: 12%; max-width: 12%;"><p-columnFilter data-cy="filter-isTransfer"type="boolean" field="isTransfer"></p-columnFilter></th>
+                    <th style="min-width: 12%; max-width: 12%;"><p-columnFilter data-cy="filter-isTransfer" type="boolean" field="isTransfer"></p-columnFilter></th>
                     <th style="min-width: 12%; max-width: 12%;"><input data-cy="filter-abbreviation" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'abbreviation', 'contains')" [value]="$any(table).filters['abbreviation']?.value"></th>
                     <th style="min-width: 64%; max-width: 64%;"><input data-cy="filter-description" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
                 </tr>

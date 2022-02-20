@@ -55,7 +55,6 @@ export class ReservationListComponent {
     public routes = []
     public selectedRecords = []
     public ships = []
-    public stateKey = 'reservation-list'
     public today: string
     public totals: any[] = []
 
@@ -85,7 +84,6 @@ export class ReservationListComponent {
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
-        this.helperService.removeItem(this.stateKey)
         this.unlisten()
     }
 
