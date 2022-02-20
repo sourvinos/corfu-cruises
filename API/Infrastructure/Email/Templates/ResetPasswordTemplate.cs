@@ -35,8 +35,8 @@ namespace API.Infrastructure.Email {
                             </div>
                             <div class='group' id='questions'>
                                 <div class='text small'>Problems or questions? Call us at +30 26620 61400</div>
-                                <div class='text small'>or email at info@bluewatercruises.com</div>
-                                <div class='text small'>© Corfu Water Cruises 2021, Corfu - Greece</div>
+                                <div class='text small'>or email at info@corfucruises.com</div>
+                                <div class='text small'>© Corfu Cruises 2022, Corfu - Greece</div>
                             </div>
                             <div class='group' id='info'>
                                 <div class='text small'>If you didn't make this request, please disregard this email.</div>

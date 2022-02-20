@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { MenuItem } from 'primeng/api'
 import { Router } from '@angular/router'
-import { Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import idleService from '@kurtz1993/idle-service'
 // Custom
@@ -54,7 +54,7 @@ export class TopMenuComponent {
                 visible: this.isUserLoggedIn()
             },
             {
-                label: this.getLabel(menuItems, 'myAccount'),
+                label: this.getUserDisplayName(),
                 icon: 'fas fa-user-alt', visible: this.isUserLoggedIn(),
                 items: [
                     {
@@ -125,6 +125,15 @@ export class TopMenuComponent {
     private getLabel(response: any[], label: string): string {
         return this.messageMenuService.getDescription(response, 'menus', label)
     }
+
+    private getUserDisplayName(): string {
+        let userDisplayName = ''
+        this.accountService.getUserDisplayName.subscribe(result => {
+            userDisplayName = result
+        })
+        return userDisplayName
+    }
+
 
     private isUserLoggedIn(): boolean {
         let isLoggedIn = false

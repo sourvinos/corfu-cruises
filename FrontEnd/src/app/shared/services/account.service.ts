@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs'
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { map } from 'rxjs/operators'
@@ -15,7 +15,6 @@ export class AccountService extends DataService {
     //#region variables
 
     private readonly apiUrl = environment.apiUrl
-    private readonly clientUrl = environment.clientUrl
     private displayName = new BehaviorSubject<string>(localStorage.getItem('displayName'))
     private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus())
     private urlForgotPassword = this.apiUrl + '/account/forgotPassword'
@@ -156,7 +155,7 @@ export class AccountService extends DataService {
 
     //#region getters
 
-    get currentDisplayName(): Observable<string> {
+    get getUserDisplayName(): Observable<string> {
         return this.displayName.asObservable()
     }
 

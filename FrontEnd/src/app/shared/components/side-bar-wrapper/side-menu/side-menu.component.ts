@@ -19,7 +19,6 @@ export class SideMenuComponent {
     //#region variables
 
     private ngUnsubscribe = new Subject<void>()
-    private userRole: Observable<string>
     public bottomItems: MenuItem[]
     public loginStatus: Observable<boolean>
     public topItems: MenuItem[]
