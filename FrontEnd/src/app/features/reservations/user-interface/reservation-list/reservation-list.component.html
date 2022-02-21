@@ -20,7 +20,7 @@
 
     <div id="table-wrapper">
         <div id="table-wrapper">
-            <p-table #table (onFilter)="calculateTotals($event)" (onHeaderCheckboxToggle)="toggleVisibleRows()" (onRowSelect)="rowSelect($event)" (onRowUnselect)="rowUnselect($event)" [(selection)]="selectedRecords" [autoLayout]="false" [scrollable]="true" [value]="records.reservations" dataKey="reservationId" scrollHeight="flex" selectionMode="single" stateKey="table-filters" stateStorage="local">
+            <p-table #table (onFilter)="calculateTotals($event)" (onHeaderCheckboxToggle)="toggleVisibleRows()" (onRowSelect)="rowSelect($event)" (onRowUnselect)="rowUnselect($event)" [(selection)]="selectedRecords" [autoLayout]="false" [scrollable]="true" [value]="records.reservations" dataKey="reservationId" scrollHeight="flex" selectionMode="single">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 5%; max-width: 5%; border-top-left-radius: 10px;"></th>

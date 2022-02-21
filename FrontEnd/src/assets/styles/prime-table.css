@@ -18,6 +18,7 @@
 }
 
 .p-datatable-flex-scrollable .p-datatable-wrapper {
+    background: none;
     overflow-x: hidden;
 }
 
@@ -34,6 +35,10 @@
     text-align: center !important;
     top: 1px;
     transition: all var(--change-theme-delay) ease;
+}
+
+.p-datatable .p-datatable-thead > tr > th:last-child {
+    border-right: 0 !important;
 }
 
 .p-datatable .p-datatable-tbody > tr {
