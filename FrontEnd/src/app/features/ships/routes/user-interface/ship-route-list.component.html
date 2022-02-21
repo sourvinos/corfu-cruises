@@ -7,28 +7,13 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table 
-            #table 
-            [autoLayout]="false"
-            [scrollable]="true"
-            [value]="records"
-            dataKey="id"
-            scrollHeight="flex"
-            selectionMode="single"
-            sortMode="multiple"
-            stateKey="table-filters"
-            stateStorage="local"
-            >
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon>
-                    </th>
-                    <th data-cy="column" style="min-width: 30%; max-width: 30%;" pSortableColumn="fromPort">{{ getLabel('headerFromPort') }}<p-sortIcon field="fromPort"></p-sortIcon>
-                    </th>
-                    <th data-cy="column" style="min-width: 30%; max-width: 30%;" pSortableColumn="viaPort">{{ getLabel('headerViaPort') }}<p-sortIcon field="viaPort"></p-sortIcon>
-                    </th>
-                    <th data-cy="column" style="min-width: 30%; max-width: 30%; border-top-right-radius: 10px;" pSortableColumn="toPort">{{ getLabel('headerToPort') }}<p-sortIcon field="toPort"></p-sortIcon>
-                    </th>
+                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 30%; max-width: 30%;" pSortableColumn="fromPort">{{ getLabel('headerFromPort') }}<p-sortIcon field="fromPort"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 30%; max-width: 30%;" pSortableColumn="viaPort">{{ getLabel('headerViaPort') }}<p-sortIcon field="viaPort"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 30%; max-width: 30%; border-top-right-radius: 10px;" pSortableColumn="toPort">{{ getLabel('headerToPort') }}<p-sortIcon field="toPort"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th style="min-width: 10%; max-width: 10%;">

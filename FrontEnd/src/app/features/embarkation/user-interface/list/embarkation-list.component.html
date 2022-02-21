@@ -75,41 +75,39 @@
                         <div style="width: 100%;">
                             <p-table [value]="reservation.passengers" dataKey="lastname">
                                 <ng-template pTemplate="header">
-                <tr>
-                    <th style="min-width: 10%; max-width: 10%;"></th>
-                    <th style="min-width: 10%; max-width: 10%;">{{ onGetLabel('headerStatus') }}</th>
-                    <th style="min-width: 25%; max-width: 25%;" pSortableColumn="lastname">{{ onGetLabel('headerLastname')}}<p-sortIcon field="lastname"></p-sortIcon>
-                    </th>
-                    <th style="min-width: 25%; max-width: 25%;" pSortableColumn="firstname">{{ onGetLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon>
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-passenger>
-                <tr class="passenger">
-                    <td style="min-width: 10%; max-width: 10%;"></td>
-                    <td style="min-width: 10%; max-width: 10%; justify-content: center;">
-                        <div class="transparent boarding" (click)="onDoEmbarkation(passenger.id)">
-                            <i class="fas fa-check" *ngIf="passenger.isCheckedIn" matTooltipClass="tooltip-background" matTooltip="{{ onGetLabel('buttonDisembarkPassenger') }}"></i>
-                            <i class="fas fa-arrow-circle-down" *ngIf="!passenger.isCheckedIn" matTooltipClass="tooltip-background" matTooltip="{{ onGetLabel('buttonEmbarkPassenger') }}"></i>
+                                    <tr>
+                                        <th style="min-width: 10%; max-width: 10%;"></th>
+                                        <th style="min-width: 10%; max-width: 10%;">{{ onGetLabel('headerStatus') }}</th>
+                                        <th style="min-width: 25%; max-width: 25%;" pSortableColumn="lastname">{{ onGetLabel('headerLastname')}}<p-sortIcon field="lastname"></p-sortIcon></th>
+                                        <th style="min-width: 25%; max-width: 25%;" pSortableColumn="firstname">{{ onGetLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-passenger>
+                                    <tr class="passenger">
+                                        <td style="min-width: 10%; max-width: 10%;"></td>
+                                        <td style="min-width: 10%; max-width: 10%; justify-content: center;">
+                                            <div class="transparent boarding" (click)="onDoEmbarkation(passenger.id)">
+                                                <i class="fas fa-check" *ngIf="passenger.isCheckedIn" matTooltipClass="tooltip-background" matTooltip="{{ onGetLabel('buttonDisembarkPassenger') }}"></i>
+                                                <i class="fas fa-arrow-circle-down" *ngIf="!passenger.isCheckedIn" matTooltipClass="tooltip-background" matTooltip="{{ onGetLabel('buttonEmbarkPassenger') }}"></i>
+                                            </div>
+                                        </td>
+                                        <td style="min-width: 25%; max-width: 25%;">{{ passenger.lastname }}</td>
+                                        <td style="min-width: 25%; max-width: 25%;">{{ passenger.firstname }}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
                         </div>
                     </td>
-                    <td style="min-width: 25%; max-width: 25%;">{{ passenger.lastname }}</td>
-                    <td style="min-width: 25%; max-width: 25%;">{{ passenger.firstname }}</td>
                 </tr>
             </ng-template>
         </p-table>
     </div>
-    </td>
-    </tr>
-    </ng-template>
-    </p-table>
-</div>
 
-<div id="footer">
-    <div @slideFromRight class="button-group">
-        <button mat-flat-button class="primary" id="showScanner" (click)="onShowScanner()">{{ onGetLabel('scanOpenButton') }}</button>
+    <div id="footer">
+        <div @slideFromRight class="button-group">
+            <button mat-flat-button class="primary" id="showScanner" (click)="onShowScanner()">{{ onGetLabel('scanOpenButton') }}</button>
+        </div>
     </div>
-</div>
 
 </div>
 

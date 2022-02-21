@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { map } from 'rxjs/operators'
 // Custom
+import { DataService } from './data.service'
 import { InteractionService } from './interaction.service'
 import { environment } from 'src/environments/environment'
-import { DataService } from './data.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -14,15 +14,15 @@ export class AccountService extends DataService {
 
     //#region variables
 
-    private readonly apiUrl = environment.apiUrl
     private displayName = new BehaviorSubject<string>(localStorage.getItem('displayName'))
     private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus())
+    private apiUrl = environment.apiUrl
     private urlForgotPassword = this.apiUrl + '/account/forgotPassword'
+    private urlGetConnectedUserId = this.apiUrl + '/account/getConnectedUserId'
+    private urlIsAdmin = this.apiUrl + '/account/isConnectedUserAdmin'
     private urlRegister = this.apiUrl + '/account/register'
     private urlResetPassword = this.apiUrl + '/account/resetPassword'
     private urlToken = this.apiUrl + '/auth/auth'
-    private urlIsAdmin = this.apiUrl + '/account/isConnectedUserAdmin'
-    private urlGetConnectedUserId = this.apiUrl + '/account/getConnectedUserId'
 
     //#endregion
 
