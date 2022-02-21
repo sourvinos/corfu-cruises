@@ -50,11 +50,9 @@ export class AccountService extends DataService {
         const grantType = 'refresh_token'
         return this.http.post<any>(this.urlToken, { userId, refreshToken, grantType }).pipe(
             map(response => {
-                console.log('Refresh token' + response.response.token)
                 if (response.response.token) {
                     this.setLoginStatus(true)
-                    this.setLocalStorage(response)
-                    this.refreshMenus()
+                    this.setLocalStorage(response.response)
                 }
                 return <any>response
             })
@@ -111,13 +109,11 @@ export class AccountService extends DataService {
 
     private clearLocalStorage(): void {
         this.clearLocalStorageItems([
-            'date',
             'displayName',
             'expiration',
             'jwt',
             'loginStatus',
             'refreshToken',
-            'selectedIds',
         ])
     }
 

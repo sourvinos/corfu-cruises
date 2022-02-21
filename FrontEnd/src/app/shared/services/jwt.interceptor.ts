@@ -123,10 +123,9 @@ export class JwtInterceptor {
                         this.tokenSubject.next(tokenresponse.response.token)
                         localStorage.setItem('loginStatus', '1')
                         localStorage.setItem('jwt', tokenresponse.response.token)
-                        localStorage.setItem('displayName', tokenresponse.response.displayName)
+                        localStorage.setItem('displayName', tokenresponse.response.displayname)
                         localStorage.setItem('expiration', tokenresponse.response.expiration)
-                        localStorage.setItem('refreshToken', tokenresponse.response.refresh_token)
-                        console.log('Token refreshed')
+                        localStorage.setItem('refreshToken', tokenresponse.response.refreshToken)
                         return next.handle(this.attachTokenToRequest(request))
                     }
                     return <any>this.accountService.logout()
