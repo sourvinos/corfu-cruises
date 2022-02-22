@@ -10,7 +10,7 @@ import { ButtonClickService } from 'src/app/shared/services/button-click.service
 import { CustomerDropdownResource } from '../../reservations/classes/resources/form/dropdown/customer-dropdown-resource'
 import { CustomerService } from '../../customers/classes/services/customer.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { DisableToogleDirective } from 'src/app/shared/directives/mat-slide-toggle.directive'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from '../../../shared/services/keyboard-shortcuts.service'
@@ -22,7 +22,6 @@ import { User } from 'src/app/features/account/classes/user'
 import { UserService } from '../classes/user.service'
 import { ValidationService } from './../../../shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
     selector: 'edit-user-form',
@@ -46,18 +45,12 @@ export class EditUserFormComponent {
     public input: InputTabStopDirective
     public isAdmin: boolean
     public returnUrl: string
-    public variable: DisableToogleDirective
 
     //#endregion
 
     constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService) {
-        this.activatedRoute.params.subscribe(p => {
-            if (p.id) {
-                this.getRecord(p.id)
-                this.getUserRole()
-            } else {
-                this.doUserTasks()
-            }
+        this.activatedRoute.params.subscribe(x => {
+            x.id ? this.editUserFromList(x) : this.editUserFromTopMenu()
         })
     }
 
@@ -66,10 +59,8 @@ export class EditUserFormComponent {
     ngOnInit(): void {
         this.setWindowTitle()
         this.addShortcuts()
-        this.populateDropDowns()
         this.initForm()
         this.getReturnUrl()
-        this.focus('userName')
     }
 
     ngOnDestroy(): void {
@@ -96,24 +87,24 @@ export class EditUserFormComponent {
 
     //#region public methods
 
+    public autocompleteCustomer(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public getHint(id: string, minmax = 0): string {
+        return this.messageHintService.getDescription(id, minmax)
+    }
+
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
+    }
+
     public onChangePassword(): void {
         if (this.form.dirty) {
             this.showSnackbar(this.messageSnackbarService.formIsDirty(), 'error')
         } else {
             this.router.navigate(['/users/' + this.form.value.id + '/changePassword'])
         }
-    }
-
-    public onCustomerFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public onGetHint(id: string, minmax = 0): string {
-        return this.messageHintService.getDescription(id, minmax)
-    }
-
-    public onGetLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
     }
 
     public onGoBack(): void {
@@ -153,9 +144,21 @@ export class EditUserFormComponent {
         })
     }
 
-    private doUserTasks() {
-        this.getUserRole().then(() => new Promise(() => {
-            this.getUserId().then(() => this.getRecord(this.userId))
+    private editUserFromList(x: { [x: string]: any; id?: any }) {
+        this.getConnectedUserRole().then(() => {
+            this.getRecord(x.id).then(() => {
+                this.populateDropDowns()
+            })
+        })
+    }
+
+    private editUserFromTopMenu() {
+        this.getConnectedUserRole().then(() => new Promise(() => {
+            this.getUserId().then(() => {
+                this.getRecord(this.userId).then(() => {
+                    this.populateDropDowns()
+                })
+            })
         }))
     }
 
@@ -179,17 +182,17 @@ export class EditUserFormComponent {
         })
     }
 
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
-    }
-
-    private getRecord(userId: string): void {
-        this.userService.getSingle(userId).subscribe(result => {
-            this.populateFields(result)
-        }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            this.onGoBack()
+    private getRecord(userId: string): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.userService.getSingle(userId).subscribe(result => {
+                this.populateFields(result)
+                resolve(result)
+            }, errorFromInterceptor => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                this.onGoBack()
+            })
         })
+        return promise
     }
 
     private getUserId(): Promise<any> {
@@ -203,7 +206,7 @@ export class EditUserFormComponent {
         return promise
     }
 
-    private getUserRole(): Promise<any> {
+    private getConnectedUserRole(): Promise<any> {
         const promise = new Promise((resolve) => {
             this.accountService.isConnectedUserAdmin().toPromise().then(
                 (response) => {
@@ -230,11 +233,11 @@ export class EditUserFormComponent {
         })
     }
 
-    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string, addNewItem = false): Promise<any> {
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string, addWildCard = false): Promise<any> {
         const promise = new Promise((resolve) => {
             service.getActiveForDropdown().toPromise().then(
                 (response: any[]) => {
-                    if (addNewItem)
+                    if (addWildCard)
                         response.unshift({ id: null, description: this.emojiService.getEmoji('wildcard') })
                     this[table] = response
                     resolve(this[table])

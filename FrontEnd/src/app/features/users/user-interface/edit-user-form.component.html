@@ -7,50 +7,50 @@
             </button>
         </div>
         <div @slideFromLeft id="title">
-            <h1>{{ onGetLabel('header') }}</h1>
+            <h1>{{ getLabel('header') }}</h1>
         </div>
     </div>
 
     <div id="content">
         <form id="form" data-cy="form" [formGroup]="form" autocomplete="off">
             <mat-form-field>
-                <input [inputTabStop]="input" [placeholder]="onGetLabel('userName')" data-cy="userName" data-tabindex="1" formControlName="userName" id="userName" matInput>
-                <mat-error *ngIf="userName.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                <mat-error *ngIf="userName.hasError('maxlength')">{{ onGetHint('maxLength', userName.errors.maxlength.requiredLength) }}</mat-error>
+                <input [inputTabStop]="input" [placeholder]="getLabel('userName')" data-cy="userName" data-tabindex="1" formControlName="userName" id="userName" matInput>
+                <mat-error *ngIf="userName.hasError('required')">{{ getHint('required') }}</mat-error>
+                <mat-error *ngIf="userName.hasError('maxlength')">{{ getHint('maxLength', userName.errors.maxlength.requiredLength) }}</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input [inputTabStop]="input" [placeholder]="onGetLabel('displayName')" data-cy="displayName" data-tabindex="2" formControlName="displayName" id="displayName" matInput>
-                <mat-error *ngIf="displayname.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                <mat-error *ngIf="displayname.hasError('maxlength')">{{ onGetHint('maxLength', displayname.errors.maxlength.requiredLength) }}</mat-error>
+                <input [inputTabStop]="input" [placeholder]="getLabel('displayName')" data-cy="displayName" data-tabindex="2" formControlName="displayName" id="displayName" matInput>
+                <mat-error *ngIf="displayname.hasError('required')">{{ getHint('required') }}</mat-error>
+                <mat-error *ngIf="displayname.hasError('maxlength')">{{ getHint('maxLength', displayname.errors.maxlength.requiredLength) }}</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <mat-label>{{ onGetLabel("customer") }}</mat-label>
+                <mat-label>{{ getLabel("customer") }}</mat-label>
                 <input [inputTabStop]="input" [matAutocomplete]="customers" [readonly]=!isAdmin data-cy="customer" data-tabindex="3" formControlName="customer" matInput type="text">
-                <mat-error *ngIf="customer.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                <mat-error *ngIf="!customer.hasError('required') && customer.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                <mat-error *ngIf="customer.hasError('required')">{{ getHint('required') }}</mat-error>
+                <mat-error *ngIf="!customer.hasError('required') && customer.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
             </mat-form-field>
-            <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
+            <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
             <mat-form-field>
-                <input [inputTabStop]="input" [placeholder]="onGetLabel('email')" [readonly]=!isAdmin data-cy="email" data-tabindex="4" formControlName="email" id="email" matInput type="email">
-                <mat-error *ngIf="email.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                <mat-error *ngIf="email.hasError('email')">{{ onGetHint('invalid') }}</mat-error>
+                <input [inputTabStop]="input" [placeholder]="getLabel('email')" [readonly]=!isAdmin data-cy="email" data-tabindex="4" formControlName="email" id="email" matInput type="email">
+                <mat-error *ngIf="email.hasError('required')">{{ getHint('required') }}</mat-error>
+                <mat-error *ngIf="email.hasError('email')">{{ getHint('invalid') }}</mat-error>
             </mat-form-field>
-            <mat-slide-toggle [disableToogle]=!isAdmin data-cy="isAdmin" formControlName="isAdmin">{{ onGetLabel('isAdmin') }}</mat-slide-toggle>
-            <mat-slide-toggle [disableToogle]=!isAdmin data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
+            <mat-slide-toggle [disableToogle]=!isAdmin data-cy="isAdmin" formControlName="isAdmin">{{ getLabel('isAdmin') }}</mat-slide-toggle>
+            <mat-slide-toggle [disableToogle]=!isAdmin data-cy="isActive" formControlName="isActive">{{ getLabel('isActive') }}</mat-slide-toggle>
         </form>
         <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
     </div>
 
     <div id="footer">
         <div @slideFromRight class="button-group">
-            <button (click)="onChangePassword()" class="secondary" data-cy="changePassword" id="changePassword" mat-flat-button>{{ onGetLabel('changePasswordButton') }}</button>
-            <button (click)="onSave()" [disabled]=!form.valid class="primary" data-cy="save" id="save" mat-flat-button>{{ onGetLabel('saveButton') }}</button>
+            <button (click)="onChangePassword()" class="secondary" data-cy="changePassword" id="changePassword" mat-flat-button>{{ getLabel('changePasswordButton') }}</button>
+            <button (click)="onSave()" [disabled]=!form.valid class="primary" data-cy="save" id="save" mat-flat-button>{{ getLabel('saveButton') }}</button>
         </div>
     </div>
 
 </div>
 
-<mat-autocomplete autoActiveFirstOption #customers="matAutocomplete" [displayWith]="onCustomerFields">
+<mat-autocomplete autoActiveFirstOption #customers="matAutocomplete" [displayWith]="autocompleteCustomer">
     <mat-option *ngFor="let option of filteredCustomers | async" [value]="option">
         {{ option.description }}
     </mat-option>
