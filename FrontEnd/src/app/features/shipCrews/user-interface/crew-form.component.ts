@@ -1,15 +1,18 @@
+import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
+import { CrewWriteDto } from '../classes/dtos/crew-write-dto'
+import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
+import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { Crew } from '../classes/crew'
-import { CrewService } from '../classes/crew.service'
-import { DateAdapter } from '@angular/material/core'
+import { Crew } from '../classes/models/crew'
+import { CrewService } from '../classes/services/crew.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { GenderResource } from '../classes/gender-resource'
+import { GenderDropdownDto } from '../classes/dtos/gender-dropdown-dto'
 import { GenderService } from 'src/app/features/genders/classes/gender.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -17,20 +20,19 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { NationalityResource } from '../classes/nationality-resource'
+import { NationalityDropdownDto } from '../classes/dtos/nationality-dropdown-dto'
 import { NationalityService } from 'src/app/features/nationalities/classes/nationality.service'
 import { PickupPointService } from 'src/app/features/pickupPoints/classes/pickupPoint.service'
-import { ShipResource } from '../classes/ship-resource'
-import { ShipService } from '../../base/classes/services/ship.service'
+import { ShipDropdownDto } from '../classes/dtos/ship-dropdown-dto'
+import { ShipService } from '../../ships/base/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { map, startWith } from 'rxjs/operators'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'crew-form',
     templateUrl: './crew-form.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css'],
+    styleUrls: ['../../../../assets/styles/forms.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
@@ -39,24 +41,26 @@ export class CrewFormComponent {
     //#region variables
 
     private feature = 'crewForm'
-    private flatForm: FormGroup
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
     private url = '/shipCrews'
     private windowTitle = 'Crew'
     public form: FormGroup
     public input: InputTabStopDirective
-
-    public shipArray: Observable<ShipResource[]>
-    public nationalityArray: Observable<NationalityResource[]>
-    public genderArray: Observable<GenderResource[]>
+    public genderArray: Observable<GenderDropdownDto[]>
+    public nationalityArray: Observable<NationalityDropdownDto[]>
+    public shipArray: Observable<ShipDropdownDto[]>
 
     //#endregion
 
     constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private crewService: CrewService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private shipService: ShipService) {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
-                this.getRecord(p.id)
+                this.getRecord(p.id).then(() => {
+                    this.populateDropDowns()
+                })
+            } else {
+                this.populateDropDowns()
             }
         })
     }
@@ -68,13 +72,6 @@ export class CrewFormComponent {
         this.initForm()
         this.addShortcuts()
         this.getLocale()
-        this.populateDropDown(this.shipService, 'ships', 'shipArray', 'ship', 'description')
-        this.populateDropDown(this.nationalityService, 'nationalities', 'nationalityArray', 'nationality', 'description')
-        this.populateDropDown(this.genderService, 'genders', 'genderArray', 'gender', 'description')
-    }
-
-    ngAfterViewInit(): void {
-        this.focus('lastname')
     }
 
     ngOnDestroy(): void {
@@ -114,24 +111,19 @@ export class CrewFormComponent {
         })
     }
 
-    public onDoPreSaveTasks(): void {
-        this.flattenForm()
-        this.saveRecord()
+    public onSave(): void {
+        this.saveRecord(this.flattenForm())
     }
 
-    public onShipFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public onGetHint(id: string, minmax = 0): string {
+    public getHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
     }
 
-    public onGetLabel(id: string): string {
+    public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public dropdownFields(subject: { description: any }): any {
+    public autocomplete(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
 
@@ -178,35 +170,35 @@ export class CrewFormComponent {
         }
     }
 
-    private flattenForm(): void {
-        this.flatForm = this.formBuilder.group({
+    private flattenForm(): CrewWriteDto {
+        const crew: CrewWriteDto = {
             id: this.form.value.id,
+            shipId: this.form.value.ship.id,
+            genderId: this.form.value.gender.id,
+            nationalityId: this.form.value.nationality.id,
             lastname: this.form.value.lastname,
             firstname: this.form.value.firstname,
-            birthdate: this.form.value.birthdate,
-            shipId: this.form.value.ship.id,
-            nationalityId: this.form.value.nationality.id,
-            genderId: this.form.value.gender.id,
-            isActive: this.form.value.isActive,
-            userId: this.form.value.userId
-        })
-    }
-
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
+            birthdate: moment(this.form.value.birthdate).format('YYYY-MM-DD'),
+            isActive: this.form.value.isActive
+        }
+        return crew
     }
 
     private getLocale(): void {
         this.dateAdapter.setLocale(this.helperService.readItem('language'))
     }
 
-    private getRecord(id: number): void {
-        this.crewService.getSingle(id).subscribe(result => {
-            this.populateFields(result)
-        }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            this.goBack()
+    private getRecord(id: number): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.crewService.getSingle(id).subscribe(result => {
+                this.populateFields(result)
+                resolve(result)
+            }, errorFromInterceptor => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                this.goBack()
+            })
         })
+        return promise
     }
 
     private goBack(): void {
@@ -222,8 +214,7 @@ export class CrewFormComponent {
             ship: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             nationality: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             gender: ['', [Validators.required, ValidationService.RequireAutocomplete]],
-            isActive: true,
-            userId: this.helperService.readItem('userId')
+            isActive: true
         })
     }
 
@@ -241,6 +232,12 @@ export class CrewFormComponent {
         return promise
     }
 
+    private populateDropDowns(): void {
+        this.populateDropDown(this.shipService, 'ships', 'shipArray', 'ship', 'description')
+        this.populateDropDown(this.nationalityService, 'nationalities', 'nationalityArray', 'nationality', 'description')
+        this.populateDropDown(this.genderService, 'genders', 'genderArray', 'gender', 'description')
+    }
+
     private populateFields(result: Crew): void {
         this.form.setValue({
             id: result.id,
@@ -250,8 +247,7 @@ export class CrewFormComponent {
             ship: { 'id': result.ship.id, 'description': result.ship.description },
             nationality: { 'id': result.nationality.id, 'description': result.nationality.description },
             gender: { 'id': result.gender.id, 'description': result.gender.description },
-            isActive: result.isActive,
-            userId: this.helperService.readItem('userId')
+            isActive: result.isActive
         })
     }
 
@@ -259,9 +255,9 @@ export class CrewFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(): void {
-        if (this.flatForm.value.id === 0) {
-            this.crewService.add(this.flatForm.value).subscribe(() => {
+    private saveRecord(crew: CrewWriteDto): void {
+        if (crew.id === 0) {
+            this.crewService.add(crew).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -269,10 +265,10 @@ export class CrewFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
             })
         } else {
-            this.crewService.update(this.flatForm.value.id, this.flatForm.value).subscribe(() => {
+            this.crewService.update(crew.id, crew).subscribe(() => {
                 this.resetForm()
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
                 this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
             }, errorCode => {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
             })

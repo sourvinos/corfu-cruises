@@ -1,0 +1,87 @@
+<div id="form-wrapper">
+
+    <div id="header">
+        <div id="navigation">
+            <mat-icon data-cy="goBack" class="goBack" [routerLink]="['/shipCrews']">arrow_back</mat-icon>
+        </div>
+        <div @slideFromLeft id="title">
+            <h1>{{ getLabel('header') }}</h1>
+        </div>
+    </div>
+
+    <div id="content">
+        <form data-cy="form" [formGroup]='form' autocomplete='off'>
+            <div id="group-field">
+                <mat-form-field>
+                    <input data-cy="lastname" type="text" matInput [placeholder]="getLabel('lastname')" formControlName="lastname" data-tabindex="1" id="lastname" [inputTabStop]="input">
+                    <mat-error *ngIf="lastname.hasError('required')">{{ getHint('required') }}</mat-error>
+                    <mat-error *ngIf="lastname.hasError('maxlength')">{{ getHint('maxLength', lastname.errors.maxlength.requiredLength) }}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input data-cy="firstname" type="text" matInput [placeholder]="getLabel('firstname')" formControlName="firstname" data-tabindex="2" id="firstname" [inputTabStop]="input">
+                    <mat-error *ngIf="firstname.hasError('maxlength')">{{ getHint('maxLength', firstname.errors.maxlength.requiredLength) }}</mat-error>
+                </mat-form-field>
+            </div>
+            <div id="group-field">
+                <mat-form-field>
+                    <input data-cy="birthdate" [matDatepicker]="picker" [inputTabStop]="input" [placeholder]="getLabel('birthdate')" autocomplete="off" data-tabindex="3" formControlName="birthdate" id="birthdate" matInput type="text">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="birthdate.hasError('required')">{{ getHint('required') }}</mat-error>
+                    <mat-hint>{{ getLabel('searchHint') }}</mat-hint>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>{{ getLabel("vessel") }}</mat-label>
+                    <input data-cy="ship" matInput formControlName="ship" [matAutocomplete]="ships" data-tabindex="4" [inputTabStop]="input">
+                    <mat-error *ngIf="ship.hasError('required')">{{ getHint('required') }}</mat-error>
+                    <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
+                    <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
+                </mat-form-field>
+            </div>
+            <div id="group-field">
+                <mat-form-field>
+                    <mat-label>{{ getLabel("nationality") }}</mat-label>
+                    <input data-cy="nationality" matInput formControlName="nationality" [matAutocomplete]="nationalities" data-tabindex="5" [inputTabStop]="input">
+                    <mat-error *ngIf="nationality.hasError('required')">{{ getHint('required') }}</mat-error>
+                    <mat-error *ngIf="!nationality.hasError('required') && nationality.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
+                    <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>{{ getLabel("gender") }}</mat-label>
+                    <input data-cy="gender" matInput formControlName="gender" [matAutocomplete]="genders" data-tabindex="6" [inputTabStop]="input">
+                    <mat-error *ngIf="gender.hasError('required')">{{ getHint('required') }}</mat-error>
+                    <mat-error *ngIf="!gender.hasError('required') && gender.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
+                    <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
+                </mat-form-field>
+            </div>
+            <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ getLabel('isActive') }}</mat-slide-toggle>
+        </form>
+        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+    </div>
+
+    <div id="footer">
+        <div @slideFromRight class="button-group">
+            <button data-cy="delete" mat-flat-button class="delete" *ngIf="form.value.id !== 0" id="delete" (click)="onDelete()">{{ getLabel('deleteButton') }}</button>
+            <button data-cy="save" mat-flat-button class="primary" [disabled]="!form.valid" id="save" (click)="onSave()">{{ getLabel('saveButton') }}</button>
+        </div>
+    </div>
+
+</div>
+
+<mat-autocomplete autoActiveFirstOption #ships="matAutocomplete" [displayWith]="autocomplete">
+    <mat-option *ngFor="let option of shipArray | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete autoActiveFirstOption #nationalities="matAutocomplete" [displayWith]="autocomplete">
+    <mat-option *ngFor="let option of nationalityArray | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete autoActiveFirstOption #genders="matAutocomplete" [displayWith]="autocomplete">
+    <mat-option *ngFor="let option of genderArray | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>

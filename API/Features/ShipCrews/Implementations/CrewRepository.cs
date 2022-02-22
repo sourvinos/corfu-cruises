@@ -64,26 +64,31 @@ namespace API.Features.ShipCrews {
             return true switch {
                 var x when x == !IsValidGender(record) => 450,
                 var x when x == !IsValidNationality(record) => 451,
-                var x when x == !IsValidOccupant(record) => 452,
                 var x when x == !IsValidShip(record) => 453,
                 _ => 200,
             };
         }
 
         private bool IsValidGender(CrewWriteResource record) {
-            return context.Genders.SingleOrDefault(x => x.Id == record.GenderId && x.IsActive) != null;
+            if (record.Id == 0) {
+                return context.Genders.SingleOrDefault(x => x.Id == record.GenderId && x.IsActive) != null;
+            }
+            return context.Genders.SingleOrDefault(x => x.Id == record.GenderId) != null;
+
         }
 
         private bool IsValidNationality(CrewWriteResource record) {
-            return context.Nationalities.SingleOrDefault(x => x.Id == record.NationalityId && x.IsActive) != null;
-        }
-
-        private bool IsValidOccupant(CrewWriteResource record) {
-            return context.Occupants.SingleOrDefault(x => x.Id == record.OccupantId && x.IsActive) != null;
+            if (record.Id == 0) {
+                return context.Nationalities.SingleOrDefault(x => x.Id == record.NationalityId && x.IsActive) != null;
+            }
+            return context.Nationalities.SingleOrDefault(x => x.Id == record.NationalityId) != null;
         }
 
         private bool IsValidShip(CrewWriteResource record) {
-            return context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
+            if (record.Id == 0) {
+                return context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
+            }
+            return context.Ships.SingleOrDefault(x => x.Id == record.ShipId) != null;
         }
 
     }

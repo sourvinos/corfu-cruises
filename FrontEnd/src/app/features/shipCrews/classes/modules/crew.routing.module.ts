@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router'
 // Custom
 import { AuthGuardService } from 'src/app/shared/services/auth-guard.service'
 import { CanDeactivateGuard } from 'src/app/shared/services/can-deactivate-guard.service'
-import { CrewFormComponent } from '../user-interface/crew-form.component'
-import { CrewFormResolver } from './crew-form.resolver'
-import { CrewListComponent } from '../user-interface/crew-list.component'
-import { CrewListResolver } from './crew-list.resolver'
+import { CrewFormComponent } from '../../user-interface/crew-form.component'
+import { CrewFormResolver } from '../resolvers/crew-form.resolver'
+import { CrewListComponent } from '../../user-interface/crew-list.component'
+import { CrewListResolver } from '../resolvers/crew-list.resolver'
 
 const routes: Routes = [
     { path: '', component: CrewListComponent, canActivate: [AuthGuardService], resolve: { crewList: CrewListResolver } },

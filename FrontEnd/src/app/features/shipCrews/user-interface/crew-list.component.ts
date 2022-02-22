@@ -16,7 +16,7 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 @Component({
     selector: 'crew-list',
     templateUrl: './crew-list.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css'],
+    styleUrls: ['../../../../assets/styles/lists.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 

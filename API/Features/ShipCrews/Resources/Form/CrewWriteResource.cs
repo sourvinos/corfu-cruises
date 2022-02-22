@@ -11,7 +11,7 @@ namespace API.Features.ShipCrews {
         public string Firstname { get; set; }
         public string Birthdate { get; set; }
         public bool IsActive { get; set; }
-        public string UserId { get; set; } = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
+        public string UserId { get; set; }
 
     }
 

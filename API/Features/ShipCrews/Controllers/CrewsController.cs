@@ -51,7 +51,7 @@ namespace API.Features.ShipCrews {
         public async Task<IActionResult> PostAsync([FromBody] CrewWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Create(mapper.Map<CrewWriteResource, Crew>(await AttachUserIdToRecordAsync(record)));
+                repo.Create(mapper.Map<CrewWriteResource, Crew>(await AttachUserIdToRecordAsync(AttachOccupantIdToRecord(record))));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
@@ -66,7 +66,7 @@ namespace API.Features.ShipCrews {
         public async Task<IActionResult> PutAsync([FromBody] CrewWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Update(mapper.Map<CrewWriteResource, Crew>(await AttachUserIdToRecordAsync(record)));
+                repo.Update(mapper.Map<CrewWriteResource, Crew>(await AttachUserIdToRecordAsync(AttachOccupantIdToRecord(record))));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -87,6 +87,11 @@ namespace API.Features.ShipCrews {
         private async Task<CrewWriteResource> AttachUserIdToRecordAsync(CrewWriteResource record) {
             var userId = await Identity.GetConnectedUserId(httpContext);
             record.UserId = userId.UserId;
+            return record;
+        }
+
+        private static CrewWriteResource AttachOccupantIdToRecord(CrewWriteResource record) {
+            record.OccupantId = 1;
             return record;
         }
 

@@ -1,4 +1,4 @@
-export class NationalityResource {
+export class GenderDropdownDto {
 
     id: number
     description: string

@@ -1,7 +1,7 @@
 import { ActivatedRouteSnapshot } from '@angular/router'
 import { Injectable } from '@angular/core'
 // Custom
-import { CrewService } from './crew.service'
+import { CrewService } from '../services/crew.service'
 
 @Injectable({ providedIn: 'root' })
 

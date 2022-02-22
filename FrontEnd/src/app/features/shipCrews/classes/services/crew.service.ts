@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
-import { Crew } from './crew'
+import { Crew } from '../models/crew'
 import { DataService } from 'src/app/shared/services/data.service'
 import { environment } from 'src/environments/environment'
 

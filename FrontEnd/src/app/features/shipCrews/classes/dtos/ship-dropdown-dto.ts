@@ -1,4 +1,4 @@
-export class ShipResource {
+export class ShipDropdownDto {
 
     id: number
     description: string
