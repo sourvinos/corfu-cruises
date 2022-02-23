@@ -11,7 +11,7 @@
 
     <div id="content">
         <form data-cy="form" [formGroup]='form' autocomplete='off'>
-            <div id="group-field">
+            <div class="group-field">
                 <mat-form-field>
                     <input data-cy="lastname" type="text" matInput [placeholder]="getLabel('lastname')" formControlName="lastname" data-tabindex="1" id="lastname" [inputTabStop]="input">
                     <mat-error *ngIf="lastname.hasError('required')">{{ getHint('required') }}</mat-error>
@@ -22,7 +22,7 @@
                     <mat-error *ngIf="firstname.hasError('maxlength')">{{ getHint('maxLength', firstname.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
             </div>
-            <div id="group-field">
+            <div class="group-field">
                 <mat-form-field>
                     <input data-cy="birthdate" [matDatepicker]="picker" [inputTabStop]="input" [placeholder]="getLabel('birthdate')" autocomplete="off" data-tabindex="3" formControlName="birthdate" id="birthdate" matInput type="text">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -38,7 +38,7 @@
                     <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
                 </mat-form-field>
             </div>
-            <div id="group-field">
+            <div class="group-field">
                 <mat-form-field>
                     <mat-label>{{ getLabel("nationality") }}</mat-label>
                     <input data-cy="nationality" matInput formControlName="nationality" [matAutocomplete]="nationalities" data-tabindex="5" [inputTabStop]="input">

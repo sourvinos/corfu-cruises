@@ -1,6 +1,5 @@
-#footer {
-    justify-content: space-between;
-    margin: var(--gap) var(--footer-right-margin) var(--gap) var(--gap);
+#form {
+    height: 100%;
 }
 
 #qr-code {
@@ -10,9 +9,18 @@
     z-index: -1;
 }
 
+#remarks {
+    margin-top: auto;
+}
+
 #passenger-check-total-icon {
     align-items: center;
     display: flex;
-    margin-bottom: 4px;
-    margin-left: 5px;
+    font-size: 1.5625rem;
+    margin-bottom: 5px;
+}
+
+#footer {
+    justify-content: space-between;
+    margin: var(--gap) var(--footer-right-margin) var(--gap) var(--gap);
 }

@@ -10,7 +10,7 @@
     </div>
 
     <form id="form" data-cy="form" [formGroup]="form" autocomplete="off">
-        <div id="group-field">
+        <div class="group-field">
             <mat-form-field>
                 <input type="text" matInput [placeholder]="getLabel('lastname')" formControlName="lastname" data-tabindex="1" id="lastname" autocomplete="off" [inputTabStop]="input">
                 <mat-error *ngIf="lastname.hasError('required')">{{ getHint('required') }}</mat-error>
@@ -22,7 +22,7 @@
                 <mat-error *ngIf="firstname.hasError('maxlength')">{{ getHint('maxLength', firstname.errors.maxlength.requiredLength) }}</mat-error>
             </mat-form-field>
         </div>
-        <div id="group-field">
+        <div class="group-field">
             <mat-form-field style="width: 40% !important;">
                 <mat-label>{{ getLabel("nationality") }}</mat-label>
                 <input matInput formControlName="nationality" [matAutocomplete]="nationalities" data-tabindex="3" [inputTabStop]="input">
@@ -44,7 +44,7 @@
                 <mat-error *ngIf="birthdate.hasError('required')">{{ getHint('required') }}</mat-error>
             </mat-form-field>
         </div>
-        <div id="group-field">
+        <div class="group-field">
             <mat-form-field>
                 <input type="text" matInput [placeholder]="getLabel('specialCare')" formControlName="specialCare" data-tabindex="6" id="specialCare" autocomplete="off" [inputTabStop]="input">
                 <mat-error *ngIf="specialCare.hasError('required')">{{ getHint('required') }}</mat-error>

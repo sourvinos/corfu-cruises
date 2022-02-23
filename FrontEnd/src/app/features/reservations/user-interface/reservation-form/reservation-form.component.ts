@@ -75,9 +75,13 @@ export class ReservationFormComponent {
     //#endregion
 
     constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
-        this.activatedRoute.params.subscribe(params => {
-            if (params.id) {
-                this.getRecord(params.id)
+        this.activatedRoute.params.subscribe(x => {
+            if (x.id) {
+                this.getRecord(x.id).then(() => {
+                    this.doPostInitJobs()
+                })
+            } else {
+                this.doPostInitJobs()
             }
         })
     }
@@ -87,19 +91,14 @@ export class ReservationFormComponent {
     ngOnInit(): void {
         this.setWindowTitle()
         this.addShortcuts()
-        this.populateDropDowns()
         this.initForm()
         this.setLocale()
-        this.getUserRole()
         this.readStoredVariables()
-        this.getUserId().then(() => {
-            this.getCustomer()
-        })
+        // this.checkTotalPersonsAgainstPassengerCount()
     }
 
-    ngAfterViewInit(): void {
-        this.focus('date')
-    }
+    // ngAfterViewInit(): void {
+    // }
 
     ngOnDestroy(): void {
         this.unsubscribe()
@@ -126,17 +125,19 @@ export class ReservationFormComponent {
     //#region public methods
 
     public checkTotalPersonsAgainstPassengerCount(element?: any): boolean {
-        const passengerDifference = this.form.value.totalPersons - (element != null ? element : this.form.value.passengers.length)
-        switch (true) {
-            case passengerDifference == 0:
-                this.passengerDifferenceIcon = '🟢'
-                return true
-            case passengerDifference < 0:
-                this.passengerDifferenceIcon = '🔴'
-                return false
-            case passengerDifference > 0:
-                this.passengerDifferenceIcon = '🟡'
-                return true
+        if (this.form.value.passengers) {
+            const passengerDifference = this.form.value.totalPersons - (element != null ? element : this.form.value.passengers.length)
+            switch (true) {
+                case passengerDifference == 0:
+                    this.passengerDifferenceIcon = '✔️ '
+                    return true
+                case passengerDifference < 0:
+                    this.passengerDifferenceIcon = '❌ '
+                    return false
+                case passengerDifference > 0:
+                    this.passengerDifferenceIcon = '⚠️ '
+                    return true
+            }
         }
     }
 
@@ -148,7 +149,6 @@ export class ReservationFormComponent {
 
     public doPersonsCalculations(): void {
         this.calculateTotalPersons()
-        this.checkTotalPersonsAgainstPassengerCount()
     }
 
     public dropdownFields(subject: { description: any }): any {
@@ -165,11 +165,10 @@ export class ReservationFormComponent {
 
     private getUserRole(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.accountService.isConnectedUserAdmin().toPromise().then(
-                (response) => {
-                    this.isAdmin = response
-                    resolve(this.isAdmin)
-                })
+            this.accountService.isConnectedUserAdmin().toPromise().then((response) => {
+                this.isAdmin = response
+                resolve(this.isAdmin)
+            })
         })
         return promise
     }
@@ -271,6 +270,17 @@ export class ReservationFormComponent {
         }, 500)
     }
 
+    private doPostInitJobs() {
+        this.getConnectedUserId().then(() => {
+            this.getUserRole().then(() => {
+                this.getLinkedCustomer().then(() => {
+                    this.populateDropDowns()
+                    this.doBarcodeTasks()
+                })
+            })
+        })
+    }
+
     private createBarcodeFromTicketNo(): Promise<any> {
         const promise = new Promise((resolve) => {
             this.barcode.ticketNo = this.form.value.ticketNo
@@ -291,20 +301,24 @@ export class ReservationFormComponent {
         this.helperService.setFocus(field)
     }
 
-    private getCustomer(): void {
-        this.userService.getSingle(this.userId).subscribe(user => {
-            if (user.customer.id != 0) {
-                this.form.patchValue({
-                    customer: {
-                        'id': user.customer.id,
-                        'description': user.customer.description
-                    }
-                })
-            }
+    private getLinkedCustomer(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.userService.getSingle(this.userId).subscribe(user => {
+                if (user.customer.id != 0) {
+                    this.form.patchValue({
+                        customer: {
+                            'id': user.customer.id,
+                            'description': user.customer.description
+                        }
+                    })
+                }
+                resolve(user)
+            })
         })
+        return promise
     }
 
-    private getUserId(): Promise<any> {
+    private getConnectedUserId(): Promise<any> {
         const promise = new Promise((resolve) => {
             this.accountService.getConnectedUserId().toPromise().then((response) => {
                 this.userId = response.userId
@@ -322,15 +336,17 @@ export class ReservationFormComponent {
         }
     }
 
-    private getRecord(id: number): void {
-        this.reservationService.getSingle(id).subscribe(result => {
-            this.populateFields(result)
-            // this.doBarcodeTasks()
-            // this.checkTotalPersonsAgainstPassengerCount()
-        }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            this.onGoBack()
+    private getRecord(id: number): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.reservationService.getSingle(id).subscribe(result => {
+                this.populateFields(result)
+                resolve(result)
+            }, errorFromInterceptor => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                this.onGoBack()
+            })
         })
+        return promise
     }
 
     private initForm(): void {

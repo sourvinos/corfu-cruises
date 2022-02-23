@@ -16,7 +16,7 @@
         </div>
         <div id="form" [class.hidden]="activePanel=='map'">
             <form data-cy="form" [formGroup]="form" autocomplete="off">
-                <div id="group-field">
+                <div class="group-field">
                     <mat-form-field>
                         <mat-label>{{ onGetLabel("route") }}</mat-label>
                         <input data-cy="route-abbreviation" [inputTabStop]="input" [matAutocomplete]="routes" data-tabindex="1" formControlName="route" matInput type="text">
@@ -30,7 +30,7 @@
                         <mat-error *ngIf="description.hasError('maxLength')">{{ onGetHint('maxLength', description.errors.maxlength.requiredLength) }}</mat-error>
                     </mat-form-field>
                 </div>
-                <div id="group-field">
+                <div class="group-field">
                     <mat-form-field>
                         <input data-cy="exactPoint" type="text" matInput [placeholder]="onGetLabel('exactPoint')" formControlName="exactPoint" data-tabindex="3" id="exactPoint" [inputTabStop]="input">
                         <mat-error *ngIf="exactPoint.hasError('required')">{{ onGetHint('required') }}</mat-error>

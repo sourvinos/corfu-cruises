@@ -54,14 +54,8 @@ export class CrewFormComponent {
     //#endregion
 
     constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private crewService: CrewService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private shipService: ShipService) {
-        this.activatedRoute.params.subscribe(p => {
-            if (p.id) {
-                this.getRecord(p.id).then(() => {
-                    this.populateDropDowns()
-                })
-            } else {
-                this.populateDropDowns()
-            }
+        this.activatedRoute.params.subscribe(x => {
+            x.id ? this.getRecord(x.id).then(() => { this.populateDropDowns() }) : this.populateDropDowns()
         })
     }
 
@@ -233,10 +227,13 @@ export class CrewFormComponent {
     }
 
     private populateDropDowns(): void {
-        this.populateDropDown(this.shipService, 'ships', 'shipArray', 'ship', 'description')
-        this.populateDropDown(this.nationalityService, 'nationalities', 'nationalityArray', 'nationality', 'description')
-        this.populateDropDown(this.genderService, 'genders', 'genderArray', 'gender', 'description')
+        this.populateDropDown(this.shipService, 'ships', 'shipArray', 'ship', 'description').then(() => {
+            this.populateDropDown(this.nationalityService, 'nationalities', 'nationalityArray', 'nationality', 'description').then(() => {
+                this.populateDropDown(this.genderService, 'genders', 'genderArray', 'gender', 'description')
+            })
+        })
     }
+
 
     private populateFields(result: Crew): void {
         this.form.setValue({

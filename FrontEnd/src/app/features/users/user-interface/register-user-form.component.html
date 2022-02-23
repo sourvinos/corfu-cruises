@@ -13,7 +13,7 @@
 
     <div id="content">
         <form id="form" data-cy="form" [formGroup]="form" autocomplete="off">
-            <div id="group-field">
+            <div class="group-field">
                 <mat-form-field>
                     <input data-cy="userName" type="text" matInput [placeholder]="onGetLabel('userName')" formControlName="userName" data-tabindex="1" id="userName" [inputTabStop]="input">
                     <mat-error *ngIf="userName.hasError('required')">{{ onGetHint('required') }}</mat-error>
@@ -26,7 +26,7 @@
                     <mat-error *ngIf="displayName.hasError('maxlength')">{{ onGetHint('maxLength', displayName.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
             </div>
-            <div id="group-field">
+            <div class="group-field">
                 <mat-form-field>
                     <mat-label>{{ onGetLabel("customer") }}</mat-label>
                     <input matInput formControlName="customer" [matAutocomplete]="customers" data-tabindex="3" [inputTabStop]="input">
@@ -41,7 +41,7 @@
                 </mat-form-field>
             </div>
             <div formGroupName="passwords" id="passwords">
-                <div id="group-field">
+                <div class="group-field">
                     <mat-form-field>
                         <input data-cy="password" [type]="hidePassword ? 'password' : 'text'" matInput [placeholder]="onGetLabel('password')" formControlName="password" data-tabindex="5" id="password" [inputTabStop]="input">
                         <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">

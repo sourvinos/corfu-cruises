@@ -24,9 +24,9 @@ import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
     showDelay: 0,
-    hideDelay: 10,
+    hideDelay: 1000,
     touchendHideDelay: 50,
-    position: 'right'
+    position: 'left'
 }
 
 @NgModule({

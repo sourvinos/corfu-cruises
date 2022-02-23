@@ -16,7 +16,7 @@
                 <mat-error *ngIf="date.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-hint>{{ onGetLabel('searchDateHint') }}</mat-hint>
             </mat-form-field>
-            <div id="group-field">
+            <div class="group-field">
                 <!-- Destination -->
                 <mat-form-field>
                     <mat-label>{{ onGetLabel("destination") }}</mat-label>
@@ -34,7 +34,7 @@
                     <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
                 </mat-form-field>
             </div>
-            <div id="group-field">
+            <div class="group-field">
                 <!-- Vessel -->
                 <mat-form-field>
                     <mat-label>{{ onGetLabel("vessel") }}</mat-label>
