@@ -63,7 +63,7 @@ export class RouteFormComponent {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
                 this.getRecord(p.id)
-                this.getPickupPoints(p.id)
+                // this.getPickupPoints(p.id)
             }
         })
     }
