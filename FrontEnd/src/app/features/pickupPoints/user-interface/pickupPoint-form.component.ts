@@ -258,9 +258,8 @@ export class PickupPointFormComponent {
             description: ['', [Validators.required, Validators.maxLength(128)]],
             exactPoint: ['', [Validators.required, Validators.maxLength(128)]],
             time: ['', [Validators.required, ValidationService.isTime]],
-            coordinates: [''],
-            isActive: true,
-            userId: this.helperService.readItem('userId')
+            coordinates: ['00.00000000000000,00.000000000000000', [Validators.required]],
+            isActive: true
         })
     }
 
@@ -290,8 +289,7 @@ export class PickupPointFormComponent {
             exactPoint: result.exactPoint,
             time: result.time,
             coordinates: result.coordinates,
-            isActive: result.isActive,
-            userId: this.helperService.readItem('userId')
+            isActive: result.isActive
         })
     }
 

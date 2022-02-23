@@ -70,7 +70,10 @@ namespace API.Features.PickupPoints {
         }
 
         private bool IsValidRoute(PickupPointWriteResource record) {
-            return context.Routes.SingleOrDefault(x => x.Id == record.RouteId && x.IsActive) != null;
+            if (record.Id == 0) {
+                return context.Routes.SingleOrDefault(x => x.Id == record.RouteId && x.IsActive) != null;
+            }
+            return context.Routes.SingleOrDefault(x => x.Id == record.RouteId) != null;
         }
 
     }
