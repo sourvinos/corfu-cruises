@@ -1,14 +1,5 @@
 PENDING
 --------
-BOARDING ALL TOGETHER BUTTON
-NATIONALITY => COUNTRY
-FROM - TO DATE ERROR MESSAGE
-as no tracking
-resolution notifier
-auth controllers
-
-ΛΙΣΤΑ ΕΦΟΡΙΑΣ
-ΙΔΙΑ ΛΙΜΕΝΑΡΧΕΙΟ + ΑΡ. ΕΙΣΙΤΗΡΙΟΥ - ΠΕΛΑΤΗΣ - ΟΧΙ ΕΘΝΙΚΟΤΗΤΑ - ΠΑΡΑΤΗΡΗΣΕΙΣ - ΕΙΔΙΚΗ ΦΡΟΝΤΙΔΑ
 
 
 wide
