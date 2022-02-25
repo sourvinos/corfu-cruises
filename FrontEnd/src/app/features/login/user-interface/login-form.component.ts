@@ -36,13 +36,8 @@ export class LoginFormComponent {
     private windowTitle = 'Login'
     public environment = environment.production
     public form: FormGroup
-    public input: InputTabStopDirective
-
-    //#endregion
-
-    //#region particular variables
-
     public hidePassword = true
+    public input: InputTabStopDirective
 
     //#endregion
 
@@ -56,10 +51,6 @@ export class LoginFormComponent {
         this.addShortcuts()
     }
 
-    ngAfterViewInit(): void {
-        this.focus('username')
-    }
-
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
@@ -69,6 +60,14 @@ export class LoginFormComponent {
     //#endregion
 
     //#region public methods
+
+    public getHint(id: string, minmax = 0): string {
+        return this.messageHintService.getDescription(id, minmax)
+    }
+
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
+    }
 
     public isFakeMobile(): boolean {
         return this.helperService.deviceDetector() == 'mobile'
@@ -80,14 +79,6 @@ export class LoginFormComponent {
 
     public onForgotPassword(): void {
         this.router.navigate(['/account/forgotPassword'])
-    }
-
-    public onGetHint(id: string, minmax = 0): string {
-        return this.messageHintService.getDescription(id, minmax)
-    }
-
-    public onGetLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
     }
 
     public onLogin(): void {
@@ -129,10 +120,6 @@ export class LoginFormComponent {
             this.accountService.logout()
         })
         idleService.start()
-    }
-
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
     }
 
     private goHome(): void {
