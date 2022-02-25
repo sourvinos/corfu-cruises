@@ -41,7 +41,8 @@ const appRoutes: Routes = [
     imports: [
         RouterModule.forRoot(appRoutes, {
             onSameUrlNavigation: 'reload',
-            preloadingStrategy: NoPreloading
+            preloadingStrategy: NoPreloading,
+            useHash: true,
         })
     ],
     exports: [
