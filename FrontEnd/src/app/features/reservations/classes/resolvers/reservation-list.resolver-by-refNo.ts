@@ -8,12 +8,12 @@ import { ReservationService } from '../services/reservation.service'
 
 @Injectable({ providedIn: 'root' })
 
-export class ReservationListResolver {
+export class ReservationListResolverByRefNo {
 
     constructor(private reservationService: ReservationService) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<ReservationListResolved> {
-        return this.reservationService.get(route.params.date)
+        return this.reservationService.getByRefNo(route.params.refNo)
             .pipe(
                 map((reservationList) => new ReservationListResolved(reservationList)),
                 catchError((err: any) => of(new ReservationListResolved(null, err)))

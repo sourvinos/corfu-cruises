@@ -1,11 +1,12 @@
+import html2canvas from 'html2canvas'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import { map, startWith } from 'rxjs/operators'
-import html2canvas from 'html2canvas'
 // Custom
+import moment from 'moment'
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerDropdownResource } from '../../classes/resources/form/dropdown/customer-dropdown-resource'
@@ -37,7 +38,6 @@ import { ValidationService } from './../../../../shared/services/validation.serv
 import { VoucherService } from '../../classes/services/voucher.service'
 import { WarningIconService } from '../../classes/services/warning-icon.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import moment from 'moment'
 
 @Component({
     selector: 'reservation-form',
@@ -353,6 +353,7 @@ export class ReservationFormComponent {
         this.form = this.formBuilder.group({
             reservationId: '',
             date: '',
+            refNo: '',
             destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             customer: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             pickupPoint: ['', [Validators.required, ValidationService.RequireAutocomplete]],
@@ -383,6 +384,7 @@ export class ReservationFormComponent {
         const reservation = {
             'reservationId': form.reservationId,
             'date': moment(form.date).format('YYYY-MM-DD'),
+            'refNo': form.refNo,
             'customerId': form.customer.id,
             'destinationId': form.destination.id,
             'driverId': form.driver ? form.driver.id : null,
@@ -483,6 +485,7 @@ export class ReservationFormComponent {
         this.form.setValue({
             reservationId: result.reservationId,
             date: result.date,
+            refNo: result.refNo,
             destination: { 'id': result.destination.id, 'description': result.destination.description },
             customer: { 'id': result.customer.id, 'description': result.customer.description },
             pickupPoint: { 'id': result.pickupPoint.id, 'description': result.pickupPoint.description, 'exactPoint': result.pickupPoint.exactPoint, 'time': result.pickupPoint.time },
@@ -549,6 +552,10 @@ export class ReservationFormComponent {
 
     get date(): AbstractControl {
         return this.form.get('date')
+    }
+
+    get refNo(): AbstractControl {
+        return this.form.get('refNo')
     }
 
     get destination(): AbstractControl {

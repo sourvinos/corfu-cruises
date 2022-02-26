@@ -6,6 +6,7 @@ export class Reservation {
     reservationId: Guid
 
     date: string
+    refNo: string
     adults: number
     kids: number
     free: number
@@ -15,12 +16,12 @@ export class Reservation {
     phones: string
     remarks: string
 
-    destinationDescription:  string
-    customerDescription:  string
-    driverDescription:  string
-    pickupPointDescription:  string
-    portDescription:  string
-    shipDescription:  string
+    destinationDescription: string
+    customerDescription: string
+    driverDescription: string
+    pickupPointDescription: string
+    portDescription: string
+    shipDescription: string
 
     userId: { id: string, description: string }
 

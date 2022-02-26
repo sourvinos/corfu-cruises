@@ -15,6 +15,7 @@ import { MaterialModule } from './material.module'
 import { PrimeNgModule } from './primeng.module'
 import { QRCodeComponent } from '../components/qrCode/qrCode.component'
 import { SafeStylePipe } from '../pipes/safeStyle.pipe'
+import { SearchByRefBoxComponent } from './../components/top-bar-wrapper/search-byRef-box/search-byRef-box.component'
 import { SnackbarComponent } from '../components/snackbar/snackbar.component'
 
 @NgModule({
@@ -27,7 +28,7 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         MapComponent,
         QRCodeComponent,
         SafeStylePipe,
-        SnackbarComponent,
+        SnackbarComponent
     ],
     imports: [
         CommonModule,

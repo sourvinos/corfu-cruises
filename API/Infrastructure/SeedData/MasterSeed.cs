@@ -28,6 +28,7 @@ namespace API.Infrastructure.SeedData {
             SeedDatabaseSchedules.SeedSchedules(context);
             SeedDatabaseReservations.SeedReservations(context);
             SeedDatabasePassengers.SeedPassengers(context);
+            SeedDatabaseRefNos.SeedRefNos(context);
         }
 
     }

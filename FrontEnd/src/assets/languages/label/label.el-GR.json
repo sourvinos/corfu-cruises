@@ -644,6 +644,10 @@
                 "description": "Ε"
             },
             {
+                "id": "headerRefNo",
+                "description": "Ref No"
+            },
+            {
                 "id": "headerTicketNo",
                 "description": "Αρ. εισιτηρίου"
             },
@@ -711,6 +715,10 @@
             {
                 "id": "tabMoreInfo",
                 "description": "Λοιπά"
+            },
+            {
+                "id": "refNo",
+                "description": "Ref No"
             },
             {
                 "id": "date",
@@ -1982,6 +1990,15 @@
             {
                 "id": "header",
                 "description": "Κρατήσεις"
+            }
+        ]
+    },
+    {
+        "feature": "searchByRefBox",
+        "labels": [
+            {
+                "id": "placeholder",
+                "description": "Αναζήτηση με Ref No"
             }
         ]
     }

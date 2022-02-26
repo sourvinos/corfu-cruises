@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 // Custom
+import { CalendarComponent } from '../../user-interface/calendar/calendar.component'
 import { PassengerFormComponent } from '../../user-interface/passenger-form/passenger-form.component'
 import { PassengerListComponent } from '../../user-interface/passenger-list/passenger-list.component'
 import { ReservationFormComponent } from '../../user-interface/reservation-form/reservation-form.component'
@@ -9,7 +10,6 @@ import { ReservationToDriverComponent } from './../../user-interface/reservation
 import { ReservationToVesselComponent } from '../../user-interface/reservation-to-vessel/reservation-to-vessel-form.component'
 import { SharedModule } from '../../../../shared/modules/shared.module'
 import { SummaryComponent } from '../../user-interface/reservation-list/summary-block.component'
-import { CalendarComponent } from '../../user-interface/calendar/calendar.component'
 
 @NgModule({
     declarations: [

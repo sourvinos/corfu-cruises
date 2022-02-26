@@ -644,6 +644,10 @@
                 "description": "C"
             },
             {
+                "id": "headerRefNo",
+                "description": "Ref No"
+            },
+            {
                 "id": "headerTicketNo",
                 "description": "Billet"
             },
@@ -711,6 +715,10 @@
             {
                 "id": "tabMoreInfo",
                 "description": "Plus"
+            },
+            {
+                "id": "refNo",
+                "description": "Ref No"
             },
             {
                 "id": "date",
@@ -1982,6 +1990,15 @@
             {
                 "id": "header",
                 "description": "Reservations"
+            }
+        ]
+    },
+    {
+        "feature": "searchByRefBox",
+        "labels": [
+            {
+                "id": "placeholder",
+                "description": "Rechercher par Ref No"
             }
         ]
     }

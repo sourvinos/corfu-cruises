@@ -13,6 +13,7 @@ export class ReservationReadResource {
     reservationId: Guid
 
     date: string
+    refNo: string
     email: string
     phones: string
     remarks: string

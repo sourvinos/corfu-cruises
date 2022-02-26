@@ -109,6 +109,7 @@ export class AccountService extends DataService {
 
     private clearLocalStorage(): void {
         this.clearLocalStorageItems([
+            'date',
             'displayName',
             'expiration',
             'jwt',

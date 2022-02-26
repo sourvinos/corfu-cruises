@@ -1,0 +1,39 @@
+#form {
+    display: flex;
+}
+
+#search-by-ref-no-box {
+    display: flex;
+    margin: 0 0.5rem 0 1rem;
+    width: 15.5rem;
+}
+
+#search-by-ref-no-text {
+    background-color: var(--color-common-background);
+    border-radius: 5px;
+    border: none;
+    color: var(--color-text-secondary);
+    font-family: "PF Handbook Pro", sans-serif;
+    font-size: 21px;
+    font-weight: 300;
+    margin-right: 0.4rem;
+    padding: 6px 16px;
+}
+
+#search-by-ref-no-text::placeholder {
+    color: var(--color-text-primary);
+}
+
+input {
+    border: 0;
+    outline: 0;
+}
+
+input:focus {
+    outline: none !important;
+}
+
+button {
+    display: flex;
+    padding: 0 3px;
+}

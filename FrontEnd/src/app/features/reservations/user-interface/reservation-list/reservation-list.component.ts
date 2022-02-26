@@ -74,7 +74,6 @@ export class ReservationListComponent {
     ngOnInit(): void {
         this.setWindowTitle()
         this.initPersonTotals()
-        this.loadRecords()
         this.updateTotals()
         this.populateDropdowns()
         this.addShortcuts()
@@ -158,7 +157,7 @@ export class ReservationListComponent {
     }
 
     public editRecord(id: string): void {
-        this.router.navigate([this.baseUrl, id], { queryParams: { returnUrl: this.baseUrl + '/date/' + this.isoDate } })
+        this.router.navigate([this.baseUrl, id], { queryParams: { returnUrl: this.baseUrl + '/byDate/' + this.isoDate } })
     }
 
     public getEmoji(emoji: string): string {

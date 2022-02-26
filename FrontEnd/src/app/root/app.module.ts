@@ -14,6 +14,7 @@ import { PrimeNgModule } from '../shared/modules/primeng.module'
 // Components
 import { AppComponent } from './app.component'
 import { LogoComponent } from '../shared/components/top-bar-wrapper/logo/logo.component'
+import { SearchByRefBoxComponent } from '../shared/components/top-bar-wrapper/search-byRef-box/search-byRef-box.component'
 import { SideBarComponent } from '../shared/components/side-bar-wrapper/side-bar/side-bar.component'
 import { SideMenuComponent } from '../shared/components/side-bar-wrapper/side-menu/side-menu.component'
 import { ThemeMenuComponent } from '../shared/components/top-bar-wrapper/theme-menu/theme-menu.component'
@@ -30,11 +31,12 @@ import { LoginModule } from '../features/login/classes/login.module'
         AppComponent,
         DomChangeDirective,
         LogoComponent,
+        SearchByRefBoxComponent,
         SideBarComponent,
         SideMenuComponent,
         ThemeMenuComponent,
         TopBarComponent,
-        TopMenuComponent
+        TopMenuComponent,
     ],
     imports: [
         AccountModule,

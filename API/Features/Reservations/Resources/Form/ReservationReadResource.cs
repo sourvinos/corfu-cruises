@@ -8,6 +8,7 @@ namespace API.Features.Reservations {
         public string ReservationId { get; set; }
 
         public string Date { get; set; }
+        public string RefNo { get; set; }
         public int Adults { get; set; }
         public int Kids { get; set; }
         public int Free { get; set; }

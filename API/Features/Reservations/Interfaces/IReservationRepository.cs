@@ -6,7 +6,8 @@ namespace API.Features.Reservations {
 
     public interface IReservationRepository : IRepository<Reservation> {
 
-        Task<ReservationGroupResource<ReservationListResource>> Get(string date);
+        Task<ReservationGroupResource<ReservationListResource>> GetByDate(string date);
+        Task<ReservationGroupResource<ReservationListResource>> GetByRefNo(string refNo);
         Task<ReservationReadResource> GetById(string id);
         Task<Reservation> GetByIdToDelete(string id);
         Task<bool> DoesUserOwnRecord(string userId);
@@ -17,6 +18,7 @@ namespace API.Features.Reservations {
         void AssignToDriver(int driverId, string[] ids);
         void AssignToShip(int shipId, string[] ids);
         ReservationWriteResource UpdateForeignKeysWithNull(ReservationWriteResource reservation);
+        string AssignRefNoToNewReservation(ReservationWriteResource record);
 
     }
 

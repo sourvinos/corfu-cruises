@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 import { Router } from '@angular/router'
-import { environment } from 'src/environments/environment'
+// Custom
 import { EmojiService } from './emoji.service'
+import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 

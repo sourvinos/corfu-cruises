@@ -39,6 +39,7 @@ namespace API.Infrastructure.Classes {
         public DbSet<Passenger> Passengers { get; set; }
         public DbSet<PickupPoint> PickupPoints { get; set; }
         public DbSet<Port> Ports { get; set; }
+        public DbSet<RefNo> RefNos { get; set; }
         public DbSet<Registrar> Registrars { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Route> Routes { get; set; }
@@ -71,6 +72,7 @@ namespace API.Infrastructure.Classes {
             modelBuilder.ApplyConfiguration(new PassengersConfig());
             modelBuilder.ApplyConfiguration(new PickupPointsConfig());
             modelBuilder.ApplyConfiguration(new PortsConfig());
+            modelBuilder.ApplyConfiguration(new RefNosConfig());
             modelBuilder.ApplyConfiguration(new RegistrarsConfig());
             modelBuilder.ApplyConfiguration(new ReservationsConfig());
             modelBuilder.ApplyConfiguration(new RoutesConfig());

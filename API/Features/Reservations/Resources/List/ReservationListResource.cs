@@ -6,11 +6,12 @@ namespace API.Features.Reservations {
 
         public Guid ReservationId { get; set; }
 
+        public string RefNo { get; set; }
+        public string TicketNo { get; set; }
         public int Adults { get; set; }
         public int Kids { get; set; }
         public int Free { get; set; }
         public int TotalPersons { get; set; }
-        public string TicketNo { get; set; }
         public string Time { get; set; }
         public string Remarks { get; set; }
 

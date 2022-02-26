@@ -28,15 +28,21 @@ namespace API.Features.Reservations {
             this.scheduleRepo = scheduleRepo;
         }
 
-        [HttpGet("date/{date}")]
+        [HttpGet("byDate/{date}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationGroupResource<ReservationListResource>> Get([FromRoute] string date) {
-            return await reservationRepo.Get(date);
+        public async Task<ReservationGroupResource<ReservationListResource>> GetByDate([FromRoute] string date) {
+            return await reservationRepo.GetByDate(date);
+        }
+
+        [HttpGet("byRefNo/{refNo}")]
+        [Authorize(Roles = "user, admin")]
+        public async Task<ReservationGroupResource<ReservationListResource>> GetByRefNo([FromRoute] string refNo) {
+            return await reservationRepo.GetByRefNo(refNo);
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IActionResult> GetReservation(string id) {
+        public async Task<IActionResult> GetById(string id) {
             var record = await reservationRepo.GetById(id);
             if (await Identity.IsUserAdmin(httpContext) || await reservationRepo.DoesUserOwnRecord(record.UserId)) {
                 return StatusCode(200, record);
@@ -53,11 +59,12 @@ namespace API.Features.Reservations {
         public async Task<IActionResult> PostReservationAsync([FromBody] ReservationWriteResource record) {
             var response = reservationRepo.IsValid(record, scheduleRepo);
             if (response == 200) {
+                AssignRefNoToNewReservation(record);
                 AttachPortIdToRecord(record);
                 await AttachUserIdToRecordAsync(record);
                 reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                 return StatusCode(200, new {
-                    response = ApiMessages.RecordCreated()
+                    response = record.RefNo
                 });
             } else {
                 return GetErrorMessage(response);
@@ -141,6 +148,11 @@ namespace API.Features.Reservations {
 
         private ReservationWriteResource AttachPortIdToRecord(ReservationWriteResource record) {
             record.PortId = reservationRepo.GetPortIdFromPickupPointId(record);
+            return record;
+        }
+
+        private ReservationWriteResource AssignRefNoToNewReservation(ReservationWriteResource record) {
+            record.RefNo = reservationRepo.AssignRefNoToNewReservation(record);
             return record;
         }
 
