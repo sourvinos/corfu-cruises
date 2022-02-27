@@ -78,7 +78,7 @@ export class ChangePasswordFormComponent {
 
     canDeactivate(): boolean {
         if (this.form.dirty) {
-            this.dialogService.open('warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
+            this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
                     this.onGoBack()
@@ -117,7 +117,7 @@ export class ChangePasswordFormComponent {
             // 404 = User not found
             // 494 = Unable to change password
             // 500 = Invalid model
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error') 
+            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
         })
     }
 

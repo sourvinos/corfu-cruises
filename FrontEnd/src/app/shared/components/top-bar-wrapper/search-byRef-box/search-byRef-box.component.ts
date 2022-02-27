@@ -1,10 +1,10 @@
 import { Component } from '@angular/core'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Observable } from 'rxjs'
 import { Router } from '@angular/router'
 // Custom
 import { AccountService } from './../../../services/account.service'
 import { MessageLabelService } from './../../../services/messages-label.service'
-import { FormBuilder, FormGroup } from '@angular/forms'
 
 @Component({
     selector: 'search-byRef-box',
@@ -16,9 +16,9 @@ export class SearchByRefBoxComponent {
 
     //#region variables
 
-    public loginStatus: Observable<boolean>
     private feature = 'searchByRefBox'
     public form: FormGroup
+    public loginStatus: Observable<boolean>
 
     //#endregion
 
@@ -52,7 +52,7 @@ export class SearchByRefBoxComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            searchByRefNo: [''],
+            searchByRefNo: ['', [Validators.required]],
         })
     }
 

@@ -47,7 +47,10 @@
             { "id": "unableToResetPassword", "message": "Impossible de réinitialiser le mot de passe" },
             { "id": "wrongPassengerCount", "message": "Le nombre de passagers ne correspond pas au nombre total de personnes" },
             { "id": "noContactWithServer", "message": "Il n'y a pas de réponse de la base de données" },
-            { "id": "featureNotAvailable", "message": "Cette option n'est pas disponible" }
+            { "id": "featureNotAvailable", "message": "Cette option n'est pas disponible" },
+            { "id": "reservationCreated", "message": "Ref No " },
+            { "id": "success", "message": "Succès!" },
+            { "id": "warning", "message": "Attention!" }
         ]
     }
 ]

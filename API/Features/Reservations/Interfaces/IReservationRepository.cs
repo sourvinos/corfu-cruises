@@ -12,13 +12,13 @@ namespace API.Features.Reservations {
         Task<Reservation> GetByIdToDelete(string id);
         Task<bool> DoesUserOwnRecord(string userId);
         bool IsKeyUnique(ReservationWriteResource record);
-        bool Update(string id, Reservation updatedRecord);
-        int GetPortIdFromPickupPointId(ReservationWriteResource record);
-        int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo);
-        void AssignToDriver(int driverId, string[] ids);
-        void AssignToShip(int shipId, string[] ids);
+        Task<bool> Update(string id, Reservation updatedRecord);
+        Task<int> GetPortIdFromPickupPointId(ReservationWriteResource record);
+        Task<int> IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo);
+        Task AssignToDriver(int driverId, string[] ids);
+        Task AssignToShip(int shipId, string[] ids);
         ReservationWriteResource UpdateForeignKeysWithNull(ReservationWriteResource reservation);
-        string AssignRefNoToNewReservation(ReservationWriteResource record);
+        Task<string> AssignRefNoToNewReservation(ReservationWriteResource record);
 
     }
 

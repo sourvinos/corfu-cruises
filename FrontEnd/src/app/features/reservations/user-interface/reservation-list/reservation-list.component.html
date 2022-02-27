@@ -128,7 +128,7 @@
                 <ng-template pTemplate="body" let-rowData>
                     <tr [class.ui-state-highlight]="rowData == highlighted" (click)="highlighted = rowData" (dblclick)="editRecord(rowData.reservationId)">
                         <td style="width: 5%; max-width: 5%; justify-content: center;"><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
-                        <td style="min-width: 6%; max-width: 6%;">{{ rowData.refNo }}</td>
+                        <td style="min-width: 6%; max-width: 6%;">{{ formatRefNo(rowData.refNo) }}</td>
                         <td style="min-width: 7%; max-width: 7%;">{{ rowData.ticketNo }}</td>
                         <td style="min-width: 10%; max-width: 10%;">{{ rowData.destinationDescription }}</td>
                         <td style="min-width: 10%; max-width: 10%;">{{ rowData.routeAbbreviation }}</td>

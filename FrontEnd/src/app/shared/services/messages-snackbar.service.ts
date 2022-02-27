@@ -56,6 +56,7 @@ export class MessageSnackbarService {
     public noRecordsSelected(): string { return this.getDescription(this.feature, 'noRecordsSelected') }
     public passwordChanged(): string { return this.getDescription(this.feature, 'passwordChanged') }
     public recordCreated(): string { return this.getDescription(this.feature, 'recordCreated') }
+    public reservationCreated(): string { return this.getDescription(this.feature, 'reservationCreated') }
     public fileCreated(): string { return this.getDescription(this.feature, 'fileCreated') }
     public recordDeleted(): string { return this.getDescription(this.feature, 'recordDeleted') }
     public noResults(): string { return this.getDescription(this.feature, 'noResults') }
@@ -68,6 +69,8 @@ export class MessageSnackbarService {
     public fileNotCreated(): string { return this.getDescription(this.feature, 'fileNotCreated') }
     public noContactWithServer(): string { return this.getDescription(this.feature, 'noContactWithServer') }
     public featureNotAvailable(): string { return this.getDescription(this.feature, 'featureNotAvailable') }
+    public success(): string { return this.getDescription(this.feature, 'success') }
+    public warning(): string { return this.getDescription(this.feature, 'warning') }
 
     public filterError(errorCode: number, feature = 'snackbarMessages'): string {
         let returnValue = ''

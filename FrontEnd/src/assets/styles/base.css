@@ -120,7 +120,7 @@ p.instructions {
     border: none;
     font-size: var(--font-size-map-tooltip);
     margin: -1.8rem 2.3rem;
-    opacity: 100% !important;
+    opacity: 1 !important;
     padding: 1rem 1rem 1.2rem 1rem;
 }
 
@@ -140,7 +140,7 @@ p.instructions {
 
 .leaflet-tooltip-top::before {
     border-top-color: var(--color-map-tooltip-background);
-    opacity: 100%;
+    opacity: 1;
 }
 
 .leaflet-tooltip-bottom::before, .leaflet-tooltip-top::before {
@@ -154,7 +154,7 @@ p.instructions {
     color: white;
     display: flex;
     justify-content: center;
-    opacity: 80%;
+    opacity: 0.8;
 }
 
 .mat-tab-body.mat-tab-body-active {
@@ -219,4 +219,13 @@ p.instructions {
 
 ::-webkit-scrollbar-thumb {
     background-color: var(--color-common-background) !important;
+}
+
+.ref-no {
+    color: greenyellow !important;
+    font-size: 2rem;
+}
+
+.zeros {
+    color: antiquewhite;
 }

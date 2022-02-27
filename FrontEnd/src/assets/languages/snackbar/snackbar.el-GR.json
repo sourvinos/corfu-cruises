@@ -47,7 +47,10 @@
             { "id": "unableToResetPassword", "message": "Δεν μπορεί να γίνει επαναφορά κωδικού" },
             { "id": "wrongPassengerCount", "message": "Ο αριθμός των επιβατών δεν συμφωνεί με το σύνολο των ατόμων" },
             { "id": "noContactWithServer", "message": "Δεν υπάρχει επικοινωνία με τη βάση δεδομένων" },
-            { "id": "featureNotAvailable", "message": "Η επιλογή δεν είναι διαθέσιμη" }
+            { "id": "featureNotAvailable", "message": "Η επιλογή δεν είναι διαθέσιμη" },
+            { "id": "reservationCreated", "message": "Ref No " },
+            { "id": "success", "message": "Επιτυχία!" },
+            { "id": "warning", "message": "Προσοχή!" }
         ]
     }
 ]

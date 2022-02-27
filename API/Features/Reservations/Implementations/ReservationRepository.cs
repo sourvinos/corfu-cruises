@@ -114,14 +114,14 @@ namespace API.Features.Reservations {
 
         public bool IsKeyUnique(ReservationWriteResource record) {
             return !context.Reservations.Any(x =>
-                x.Date == Convert.ToDateTime(record.Date) &&
-                x.ReservationId != record.ReservationId &&
-                x.DestinationId == record.DestinationId &&
-                x.CustomerId == record.CustomerId &&
-                string.Equals(x.TicketNo, record.TicketNo, StringComparison.OrdinalIgnoreCase));
+               x.Date == Convert.ToDateTime(record.Date) &&
+               x.ReservationId != record.ReservationId &&
+               x.DestinationId == record.DestinationId &&
+               x.CustomerId == record.CustomerId &&
+               string.Equals(x.TicketNo, record.TicketNo, StringComparison.OrdinalIgnoreCase));
         }
 
-        public bool Update(string id, Reservation updatedRecord) {
+        public Task<bool> Update(string id, Reservation updatedRecord) {
             using var transaction = context.Database.BeginTransaction();
             try {
                 UpdateReservation(updatedRecord);
@@ -132,21 +132,21 @@ namespace API.Features.Reservations {
                 } else {
                     transaction.Commit();
                 }
-                return true;
+                return Task.FromResult(true);
             } catch (Exception) {
                 transaction.Rollback();
-                return false;
+                return Task.FromResult(false);
             }
         }
 
-        public int GetPortIdFromPickupPointId(ReservationWriteResource record) {
-            PickupPoint pickupPoint = context.PickupPoints
+        public async Task<int> GetPortIdFromPickupPointId(ReservationWriteResource record) {
+            PickupPoint pickupPoint = await context.PickupPoints
                 .Include(x => x.Route)
-                .FirstOrDefault(x => x.Id == record.PickupPointId);
+                .FirstOrDefaultAsync(x => x.Id == record.PickupPointId);
             return pickupPoint.Route.PortId;
         }
 
-        public int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
+        public async Task<int> IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
             return true switch {
                 var x when x == !IsValidCustomer(record) => 450,
                 var x when x == !IsValidDestination(record) => 451,
@@ -160,20 +160,20 @@ namespace API.Features.Reservations {
                 var x when x == !UserCanAddReservationInThePast(record.Date) => 431,
                 var x when x == !scheduleRepo.DayHasSchedule(record.Date) => 432,
                 var x when x == !scheduleRepo.DayHasScheduleForDestination(record.Date, record.DestinationId) => 430,
-                var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, GetPortIdFromPickupPointId(record)) => 427,
-                var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
+                var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, await GetPortIdFromPickupPointId(record)) => 427,
+                var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, await GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsKeyUnique(record) => 409,
                 _ => 200,
             };
         }
 
-        public void AssignToDriver(int driverId, string[] ids) {
+        public async Task AssignToDriver(int driverId, string[] ids) {
             using var transaction = context.Database.BeginTransaction();
             var reservations = context.Reservations
                 .Where(x => ids.Contains(x.ReservationId.ToString()))
                 .ToList();
             reservations.ForEach(a => a.DriverId = driverId);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             if (settings.IsTesting) {
                 transaction.Dispose();
             } else {
@@ -181,13 +181,13 @@ namespace API.Features.Reservations {
             }
         }
 
-        public void AssignToShip(int shipId, string[] ids) {
+        public async Task AssignToShip(int shipId, string[] ids) {
             using var transaction = context.Database.BeginTransaction();
             var records = context.Reservations
                 .Where(x => ids.Contains(x.ReservationId.ToString()))
                 .ToList();
             records.ForEach(a => a.ShipId = shipId);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             if (settings.IsTesting) {
                 transaction.Dispose();
             } else {
@@ -201,8 +201,8 @@ namespace API.Features.Reservations {
             return reservation;
         }
 
-        public string AssignRefNoToNewReservation(ReservationWriteResource record) {
-            return GetDestinationAbbreviation(record) + IncrementRefNoByOne();
+        public async Task<string> AssignRefNoToNewReservation(ReservationWriteResource record) {
+            return await GetDestinationAbbreviation(record) + await IncrementRefNoByOne();
         }
 
         private IEnumerable<Passenger> GetPassengersForReservation(string id) {
@@ -394,17 +394,17 @@ namespace API.Features.Reservations {
             return reservations;
         }
 
-        private int IncrementRefNoByOne() {
+        private async Task<string> IncrementRefNoByOne() {
             var refNo = context.RefNos.First();
             refNo.LastRefNo++;
             context.Entry(refNo).State = EntityState.Modified;
-            context.SaveChanges();
-            return refNo.LastRefNo;
+            await context.SaveChangesAsync();
+            return refNo.LastRefNo.ToString();
         }
 
-        private string GetDestinationAbbreviation(ReservationWriteResource record) {
-            var destination = context.Destinations
-                .FirstOrDefault(x => x.Id == record.DestinationId);
+        private async Task<string> GetDestinationAbbreviation(ReservationWriteResource record) {
+            var destination = await context.Destinations
+                .FirstOrDefaultAsync(x => x.Id == record.DestinationId);
             return destination.Abbreviation;
         }
 

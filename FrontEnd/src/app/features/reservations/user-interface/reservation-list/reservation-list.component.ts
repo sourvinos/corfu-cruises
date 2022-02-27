@@ -8,7 +8,6 @@ import { DriverPdfService } from '../../classes/services/driver-pdf.service'
 import { DriverService } from 'src/app/features/drivers/classes/driver.service'
 import { EmojiService } from './../../../../shared/services/emoji.service'
 import { HelperService } from './../../../../shared/services/helper.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MenuItem, MessageService } from 'primeng/api'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -40,7 +39,6 @@ export class ReservationListComponent {
     private isoDate = ''
     private ngUnsubscribe = new Subject<void>()
     private resolver = 'reservationList'
-    private unlisten: Unlisten
     private windowTitle = 'Reservations'
     public activePanel: string
     public customers = []
@@ -60,7 +58,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private driverPDFService: DriverPdfService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private driverPDFService: DriverPdfService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -76,14 +74,12 @@ export class ReservationListComponent {
         this.initPersonTotals()
         this.updateTotals()
         this.populateDropdowns()
-        this.addShortcuts()
         this.updateDates()
     }
 
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
-        this.unlisten()
     }
 
     //#endregion
@@ -160,6 +156,10 @@ export class ReservationListComponent {
         this.router.navigate([this.baseUrl, id], { queryParams: { returnUrl: this.baseUrl + '/byDate/' + this.isoDate } })
     }
 
+    public formatRefNo(refNo: string): string {
+        return this.helperService.formatRefNo(refNo, false)
+    }
+
     public getEmoji(emoji: string): string {
         return this.emojiService.getEmoji(emoji)
     }
@@ -173,7 +173,7 @@ export class ReservationListComponent {
     }
 
     public newRecord(): void {
-        this.router.navigate([this.baseUrl, 'new'], { queryParams: { returnUrl: 'reservations/date/' + this.isoDate } })
+        this.router.navigate([this.baseUrl, 'new'], { queryParams: { returnUrl: this.baseUrl + '/byDate/' + this.isoDate } })
     }
 
     public rowSelect(event: { data: { totalPersons: any } }): void {
@@ -189,19 +189,6 @@ export class ReservationListComponent {
     }
 
     //#endregion
-
-    //#region private methods
-
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': () => {
-                this.goBack()
-            },
-        }, {
-            priority: 2,
-            inputs: true
-        })
-    }
 
     private clearCheckboxes(): void {
         const items = document.querySelectorAll('.pi-check')

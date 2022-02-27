@@ -47,7 +47,10 @@
             { "id": "unableToResetPassword", "message": "Heslo nelze resetovat" },
             { "id": "wrongPassengerCount", "message": "Počet cestujících se musí rovnat celkovému počtu osob" },
             { "id": "noContactWithServer", "message": "Z databáze není žádná odpověď" },
-            { "id": "featureNotAvailable", "message": "Tato možnost není k dispozici" }
+            { "id": "featureNotAvailable", "message": "Tato možnost není k dispozici" },
+            { "id": "reservationCreated", "message": "Ref No " },
+            { "id": "success", "message": "Úspěch!" },
+            { "id": "warning", "message": "Varování!" }
         ]
     }
 ]

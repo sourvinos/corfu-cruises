@@ -94,11 +94,7 @@ export class ReservationFormComponent {
         this.initForm()
         this.setLocale()
         this.readStoredVariables()
-        // this.checkTotalPersonsAgainstPassengerCount()
     }
-
-    // ngAfterViewInit(): void {
-    // }
 
     ngOnDestroy(): void {
         this.unsubscribe()
@@ -108,7 +104,7 @@ export class ReservationFormComponent {
 
     canDeactivate(): boolean {
         if (this.form.dirty) {
-            this.dialogService.open('warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
+            this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
                     this.onGoBack()
@@ -190,7 +186,7 @@ export class ReservationFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open('warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.reservationService.delete(this.form.value.reservationId).subscribe(() => {
                     this.resetForm()
@@ -210,10 +206,10 @@ export class ReservationFormComponent {
     public onSave(): void {
         const reservation: ReservationWriteResource = this.mapObject()
         if (reservation.reservationId.toString() == '') {
-            this.reservationService.add(reservation).subscribe(() => {
+            this.reservationService.add(reservation).subscribe((response) => {
                 this.resetForm()
                 this.onGoBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                this.dialogService.open(this.messageSnackbarService.success(), 'infoColor', this.messageSnackbarService.reservationCreated() + this.helperService.formatRefNo(response.message, true), ['ok'])
             }, errorFromInterceptor => {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })

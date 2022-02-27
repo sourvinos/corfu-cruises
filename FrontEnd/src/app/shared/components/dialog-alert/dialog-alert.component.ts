@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+// Custom
 import { MessageLabelService } from '../../services/messages-label.service'
 
 @Component({
@@ -13,31 +14,43 @@ export class DialogAlertComponent {
     //#region variables
 
     private feature = 'dialog'
+    public content: string
     public titleColor = ''
 
     //#endregion
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<DialogAlertComponent>, private messageLabelService: MessageLabelService) {
         switch (data.titleColor) {
+            case 'infoColor':
+                this.titleColor = '#00ff66'
+                break
             case 'warningColor':
-                this.titleColor = '#fe9f36'
+                this.titleColor = '#fbff00'
                 break
             case 'errorColor':
-                this.titleColor = '#ff4000'
+                this.titleColor = '#ff0000'
                 break
             default:
                 break
         }
     }
 
+    //#region lifecycle hooks
+
+    ngOnInit() {
+        this.content = this.data.message
+    }
+
+    //#endregion
+
     //#region public methods
+
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
+    }
 
     public onClose(): void {
         this.dialogRef.close()
-    }
-
-    public onGetLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
     }
 
     //#endregion

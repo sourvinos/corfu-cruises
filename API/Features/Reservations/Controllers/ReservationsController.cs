@@ -57,14 +57,14 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PostReservationAsync([FromBody] ReservationWriteResource record) {
-            var response = reservationRepo.IsValid(record, scheduleRepo);
+            var response = await reservationRepo.IsValid(record, scheduleRepo);
             if (response == 200) {
-                AssignRefNoToNewReservation(record);
-                AttachPortIdToRecord(record);
+                await AssignRefNoToNewReservationAsync(record);
+                await AttachPortIdToRecordAsync(record);
                 await AttachUserIdToRecordAsync(record);
                 reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                 return StatusCode(200, new {
-                    response = record.RefNo
+                    message = record.RefNo
                 });
             } else {
                 return GetErrorMessage(response);
@@ -77,15 +77,15 @@ namespace API.Features.Reservations {
         public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             await AttachUserIdToRecordAsync(record);
             if (await Identity.IsUserAdmin(httpContext)) {
-                var response = reservationRepo.IsValid(record, scheduleRepo);
+                var response = await reservationRepo.IsValid(record, scheduleRepo);
                 record = reservationRepo.UpdateForeignKeysWithNull(record);
                 if (response == 200) {
-                    reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
+                    await reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
                     return StatusCode(200, new {
-                        response = ApiMessages.RecordUpdated()
+                        message = record.RefNo
                     });
                 } else {
-                    return this.GetErrorMessage(response);
+                    return GetErrorMessage(response);
                 }
             } else {
                 return StatusCode(403, new {
@@ -146,13 +146,13 @@ namespace API.Features.Reservations {
             return record;
         }
 
-        private ReservationWriteResource AttachPortIdToRecord(ReservationWriteResource record) {
-            record.PortId = reservationRepo.GetPortIdFromPickupPointId(record);
+        private async Task<ReservationWriteResource> AttachPortIdToRecordAsync(ReservationWriteResource record) {
+            record.PortId = await reservationRepo.GetPortIdFromPickupPointId(record);
             return record;
         }
 
-        private ReservationWriteResource AssignRefNoToNewReservation(ReservationWriteResource record) {
-            record.RefNo = reservationRepo.AssignRefNoToNewReservation(record);
+        private async Task<ReservationWriteResource> AssignRefNoToNewReservationAsync(ReservationWriteResource record) {
+            record.RefNo = await reservationRepo.AssignRefNoToNewReservation(record);
             return record;
         }
 

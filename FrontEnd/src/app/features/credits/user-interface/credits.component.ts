@@ -1,17 +1,19 @@
-import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector'
-import { fancyAnimation } from '../../../shared/animations/animations'
-import { Location } from '@angular/common'
 import { Component } from '@angular/core'
-import { Title } from '@angular/platform-browser'
+import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector'
+import { Location } from '@angular/common'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { Title } from '@angular/platform-browser'
+// Custom
+import creditsJson from '../../../../assets/credits/credits.json'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import creditsJson from '../../../../assets/credits/credits.json'
-import { DialogService } from 'src/app/shared/services/dialog.service'
+import { MessageSnackbarService } from './../../../shared/services/messages-snackbar.service'
+import { fancyAnimation } from '../../../shared/animations/animations'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'credits',
@@ -34,7 +36,7 @@ export class CreditsComponent {
 
     //#endregion
 
-    constructor(private buttonClickService: ButtonClickService, private deviceDetectorService: DeviceDetectorService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private dialogService: DialogService, private location: Location, private messageLabelService: MessageLabelService, private router: Router, private titleService: Title) { }
+    constructor(private buttonClickService: ButtonClickService, private deviceDetectorService: DeviceDetectorService, private dialogService: DialogService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -69,7 +71,7 @@ export class CreditsComponent {
     }
 
     public onShowDeviceInfo(): void {
-        this.dialogService.open('warningColor', JSON.stringify(this.deviceDetectorService.getDeviceInfo()), ['ok'])
+        this.dialogService.open(this.messageSnackbarService.success(), 'infoColor', JSON.stringify(this.deviceDetectorService.getDeviceInfo()), ['ok'])
     }
 
     //#endregion

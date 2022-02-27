@@ -71,6 +71,16 @@ export class HelperService {
         })
     }
 
+    public formatRefNo(refNo: string, returnsHTML: boolean): string {
+        const destination = new RegExp(/[a-zA-Z]{1,5}/).exec(refNo)[0]
+        const number = new RegExp(/[0-9]{1,5}/g).exec(refNo).slice(-5)[0]
+        const zeros = '00000'.slice(number.length)
+        if (returnsHTML)
+            return '<span class="ref-no">' + destination + '</span>' + '-' + '<span class="zeros">' + zeros + '</span>' + '<span class="ref-no">' + number + '</span>'
+        else
+            return destination + '-' + zeros + number
+    }
+
     //#endregion
 
     //#region private methods

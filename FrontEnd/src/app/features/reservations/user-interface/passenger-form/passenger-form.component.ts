@@ -82,7 +82,7 @@ export class PassengerFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open('warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(),'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.reservationService.delete(this.form.value.reservationId).subscribe(() => {
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
