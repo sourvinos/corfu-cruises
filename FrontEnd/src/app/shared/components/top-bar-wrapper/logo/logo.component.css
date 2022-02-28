@@ -2,19 +2,20 @@
     align-items: center;
     cursor: pointer;
     display: flex;
-    font-family: var(--font-family-logo);
-    font-size: var(--font-size-logo) !important;
-    font-weight: var(--font-weight-logo);
     outline: 0;
     transition: color var(--change-theme-delay) ease;
 }
 
-#logo-text {
-    color: var(--color-logo-text) !important;
-    line-height: 25px;
-    margin: 0.2rem 0 0 0.5rem;
-}
-
 #logo-image {
     color: var(--color-logo-image) !important;
+    position: absolute;
+}
+
+#logo-text {
+    color: var(--color-logo-text) !important;
+    font-family: var(--font-family-logo);
+    font-size: var(--font-size-logo-text) !important;
+    font-weight: var(--font-weight-logo);
+    line-height: 36px;
+    margin: 2px 0 0 5.5rem;
 }

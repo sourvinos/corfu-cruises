@@ -1,8 +1,8 @@
 * {
     /* Font names */
     --font-family-autocomplete: "Ubuntu Condensed";
-    --font-family-logo: "Questrial";
-    --font-family-master: "PF Handbook Pro";
+    --font-family-logo: "Aka-Acid-CanterBold";
+    --font-family-master: "PF-Handbook-Pro";
     --font-family-table: "Ubuntu Condensed";
     /* Font weights */
     --font-weight-dialog-content: 300 !important;
@@ -25,9 +25,9 @@
     --font-size-datepicker-header-month: 2.2vw;
     --font-size-dialog: 1.5rem;
     --font-size-input-height: 100%;
-    --font-size-loading-message: 1rem;
-    --font-size-logo-loader-first-child: 4rem;
-    --font-size-logo-loader-second-child: 2.5rem;
+    --font-size-loading-message: 2rem;
+    --font-size-logo-loader-first-child: 8rem;
+    --font-size-logo-loader-second-child: 4.5rem;
     --font-size-map-tooltip: 1.1rem;
     --font-size-paragraph: 0.7rem;
     --font-size-snackbar: 120%;

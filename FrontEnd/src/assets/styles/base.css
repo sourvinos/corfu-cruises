@@ -1,10 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 @import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp");
+
 @import "~leaflet/dist/leaflet.css";
 @import "autocomplete.css";
 @import "buttons.css";
@@ -32,6 +31,16 @@
 @import "variables-narrow.css";
 @import "variables-wide.css";
 @import "variables.css";
+
+@font-face {
+    font-family: Aka-Acid-CanterBold;
+    src: url("/assets/fonts/ACCanterBold.ttf");
+}
+
+@font-face {
+    font-family: Pf-Handbook-Pro;
+    src: url("/assets/fonts/PFHandbookProThin.ttf");
+}
 
 * {
     box-sizing: border-box !important;
