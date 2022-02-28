@@ -1,0 +1,23 @@
+[
+	{
+		"Id" : 1,
+		"Description" : "CORFU PORT",
+		"IsPrimary" : 1,
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 2,
+		"Description" : "LEFKIMMI PORT",
+		"IsPrimary" : 0,
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 3,
+		"Description" : "INACTIVE PORT",
+		"IsPrimary" : 0,
+		"IsActive" : 0,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	}
+]

@@ -1,0 +1,41 @@
+[
+	{
+		"Id" : 1,
+		"ShipOwnerId" : 1,
+		"Description" : "MOBY DICK",
+		"IMO" : "748596",
+		"Flag" : "GREEK",
+		"RegistryNo" : "3651",
+		"Manager" : "JOHN DOE",
+		"ManagerInGreece" : "JANE DOE",
+		"Agent" : "JACK DOE",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 2,
+		"ShipOwnerId" : 1,
+		"Description" : "MOBY DICK II",
+		"IMO" : "632145",
+		"Flag" : "GREEK",
+		"RegistryNo" : "7469",
+		"Manager" : "JOHN DOE",
+		"ManagerInGreece" : "JANE DOE",
+		"Agent" : "JACK DOE",
+		"IsActive" : 0,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 3,
+		"ShipOwnerId" : 1,
+		"Description" : "EVENING STAR",
+		"IMO" : "745236",
+		"Flag" : "GREEK",
+		"RegistryNo" : "6142",
+		"Manager" : "JOHN DOE",
+		"ManagerInGreece" : "JANE DOE",
+		"Agent" : "JACK DOE",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	}
+]

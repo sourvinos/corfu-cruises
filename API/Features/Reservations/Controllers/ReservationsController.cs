@@ -119,6 +119,22 @@ namespace API.Features.Reservations {
             });
         }
 
+        private async Task<ReservationWriteResource> AttachUserIdToRecordAsync(ReservationWriteResource record) {
+            var userId = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = userId.UserId;
+            return record;
+        }
+
+        private async Task<ReservationWriteResource> AttachPortIdToRecordAsync(ReservationWriteResource record) {
+            record.PortId = await reservationRepo.GetPortIdFromPickupPointId(record);
+            return record;
+        }
+
+        private async Task<ReservationWriteResource> AssignRefNoToNewReservationAsync(ReservationWriteResource record) {
+            record.RefNo = await reservationRepo.AssignRefNoToNewReservation(record);
+            return record;
+        }
+
         private IActionResult GetErrorMessage(int errorCode) {
             return errorCode switch {
                 450 => StatusCode(450, new { response = ApiMessages.FKNotFoundOrInactive("Customer Id") }),
@@ -138,22 +154,6 @@ namespace API.Features.Reservations {
                 409 => StatusCode(409, new { response = ApiMessages.DuplicateRecord() }),
                 _ => StatusCode(490, new { Response = ApiMessages.RecordNotSaved() }),
             };
-        }
-
-        private async Task<ReservationWriteResource> AttachUserIdToRecordAsync(ReservationWriteResource record) {
-            var userId = await Identity.GetConnectedUserId(httpContext);
-            record.UserId = userId.UserId;
-            return record;
-        }
-
-        private async Task<ReservationWriteResource> AttachPortIdToRecordAsync(ReservationWriteResource record) {
-            record.PortId = await reservationRepo.GetPortIdFromPickupPointId(record);
-            return record;
-        }
-
-        private async Task<ReservationWriteResource> AssignRefNoToNewReservationAsync(ReservationWriteResource record) {
-            record.RefNo = await reservationRepo.AssignRefNoToNewReservation(record);
-            return record;
         }
 
     }

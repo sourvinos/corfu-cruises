@@ -1,8 +1,9 @@
-using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using API.Features.Schedules;
 using API.Infrastructure.Classes;
+using Newtonsoft.Json;
 
 namespace API.Infrastructure.SeedData {
 
@@ -10,15 +11,9 @@ namespace API.Infrastructure.SeedData {
 
         public static void SeedSchedules(AppDbContext context) {
             if (!context.Schedules.Any()) {
-                List<Schedule> schedules = new() {
-                    new Schedule { Id = 1, PortId = 1, DestinationId = 1, Date = new DateTime(2022, 02, 01), MaxPersons = 185, IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" },
-                    new Schedule { Id = 2, PortId = 2, DestinationId = 1, Date = new DateTime(2022, 02, 01), MaxPersons = 215, IsActive = true, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05" },
-                    new Schedule { Id = 3, PortId = 1, DestinationId = 3, Date = new DateTime(2022, 02, 02), MaxPersons = 185, IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" },
-                    new Schedule { Id = 4, PortId = 2, DestinationId = 1, Date = new DateTime(2022, 02, 03), MaxPersons = 215, IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" },
-                    new Schedule { Id = 5, PortId = 1, DestinationId = 1, Date = new DateTime(2022, 02, 10), MaxPersons = 185, IsActive = true, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05" },
-                    new Schedule { Id = 6, PortId = 1, DestinationId = 1, Date = new DateTime(2025, 02, 01), MaxPersons = 185, IsActive = true, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05" }
-                };
-                context.AddRange(schedules);
+                string schedulesJSON = File.ReadAllText("Infrastructure" + Path.DirectorySeparatorChar + "Data" + Path.DirectorySeparatorChar + "Schedules.json");
+                List<Schedule> schedules = JsonConvert.DeserializeObject<List<Schedule>>(schedulesJSON);
+                context.Schedules.AddRange(schedules);
                 context.SaveChanges();
             }
         }

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using API.Features.ShipOwners;
 using API.Infrastructure.Classes;
+using Newtonsoft.Json;
 
 namespace API.Infrastructure.SeedData {
 
@@ -9,12 +11,9 @@ namespace API.Infrastructure.SeedData {
 
         public static void SeedShipOwners(AppDbContext context) {
             if (!context.ShipOwners.Any()) {
-                List<ShipOwner> shipOwners = new() {
-                    new ShipOwner { Id = 1, Description = "MOBY DICK CRUISES", Profession = "SHIPPING COMPANY", Address = "KAVOS MAIN STREET", TaxNo = "EL 999999999", City = "KAVOS", Phones = "+30 26620 12345", Email = "email@server.com", IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" },
-                    new ShipOwner { Id = 2, Description = "BLUE WATER CRUISES", Profession = "SHIPPING COMPANY", Address = "KAVOS MAIN STREET", TaxNo = "EL 999999999", City = "KAVOS", Phones = "+30 26620 12345", Email = "email@server.com", IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" },
-                    new ShipOwner { Id = 3, Description = "EVENING STAR", Profession = "SHIPPING COMPANY", Address = "KAVOS MAIN STREET", TaxNo = "EL 999999999", City = "KAVOS", Phones = "+30 26620 12345", Email = "email@server.com", IsActive = false, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" }
-                };
-                context.AddRange(shipOwners);
+                string shipOwnersJSON = File.ReadAllText("Infrastructure" + Path.DirectorySeparatorChar + "Data" + Path.DirectorySeparatorChar + "ShipOwners.json");
+                List<ShipOwner> shipOwners = JsonConvert.DeserializeObject<List<ShipOwner>>(shipOwnersJSON);
+                context.ShipOwners.AddRange(shipOwners);
                 context.SaveChanges();
             }
         }

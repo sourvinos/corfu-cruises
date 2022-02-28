@@ -1,0 +1,5452 @@
+[
+	{
+		"Id" : 1,
+		"RouteId" : 4,
+		"Description" : "SAN ANTONIO = ADONIS KALAMI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 2,
+		"RouteId" : 4,
+		"Description" : "GIMARI CHURCH",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 3,
+		"RouteId" : 4,
+		"Description" : "KAMINAKI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:55",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 4,
+		"RouteId" : 4,
+		"Description" : "SEA SALT STAY & SEA SUGAR STAY",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 5,
+		"RouteId" : 4,
+		"Description" : "KROUZERI BEACH APTS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 6,
+		"RouteId" : 4,
+		"Description" : "VLADIMIRS APARTMENTS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 7,
+		"RouteId" : 4,
+		"Description" : "NISSAKI BEACH",
+		"ExactPoint" : "HOTEL",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 8,
+		"RouteId" : 4,
+		"Description" : "NISSAKI KATERINA'S S/M",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 9,
+		"RouteId" : 4,
+		"Description" : "SUNSHINE",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 10,
+		"RouteId" : 4,
+		"Description" : "CORFU RESIDENSE",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:06",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 11,
+		"RouteId" : 4,
+		"Description" : "GLYFA TAVERNA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 12,
+		"RouteId" : 4,
+		"Description" : "GOLDEN MARE BARBATI",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:11",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 13,
+		"RouteId" : 4,
+		"Description" : "LA RIVIERA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:14",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 14,
+		"RouteId" : 4,
+		"Description" : "PANTOKRATOR HTL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:14",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 15,
+		"RouteId" : 4,
+		"Description" : "BBB",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 16,
+		"RouteId" : 4,
+		"Description" : "BARBATI CHURCH",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 17,
+		"RouteId" : 4,
+		"Description" : "AKROGIALI",
+		"ExactPoint" : "RESTAURANT",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 18,
+		"RouteId" : 4,
+		"Description" : "CAPTAINS",
+		"ExactPoint" : "CAPTAINS BAR",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 19,
+		"RouteId" : 4,
+		"Description" : "LORD BYRON",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 20,
+		"RouteId" : 4,
+		"Description" : "BARBATI BEACH",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 21,
+		"RouteId" : 4,
+		"Description" : "RIVIERA BARBATI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 22,
+		"RouteId" : 4,
+		"Description" : "UNCLE HARRY S/M",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 23,
+		"RouteId" : 4,
+		"Description" : "SERVOS APPTS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 24,
+		"RouteId" : 4,
+		"Description" : "AKTI BARBATI APPTS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 25,
+		"RouteId" : 4,
+		"Description" : "BARBATI BAY",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 26,
+		"RouteId" : 4,
+		"Description" : "NAUTILUS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 27,
+		"RouteId" : 4,
+		"Description" : "MARILENA HOTEL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:16",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 28,
+		"RouteId" : 4,
+		"Description" : "IPSOS MONTECRISTO CLUB",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:18",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 29,
+		"RouteId" : 4,
+		"Description" : "SAN MARCO",
+		"ExactPoint" : "MINI MARKET",
+		"Time" : "07:19",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 30,
+		"RouteId" : 4,
+		"Description" : "MONTECRISTO BAR",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 31,
+		"RouteId" : 4,
+		"Description" : "KALYPSO CAFE IPSOS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 32,
+		"RouteId" : 4,
+		"Description" : "BUTCHERS CORNER PIRGI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 33,
+		"RouteId" : 4,
+		"Description" : "PIRGI HOTEL",
+		"ExactPoint" : "KREOPOLIO M.ROAD",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 34,
+		"RouteId" : 4,
+		"Description" : "PAVLOS STUDIOS",
+		"ExactPoint" : "EKO DASSIA",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 35,
+		"RouteId" : 4,
+		"Description" : "CORFU GOLDEN TRAVEL OFFICE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 36,
+		"RouteId" : 4,
+		"Description" : "IPSOS KEP",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 37,
+		"RouteId" : 4,
+		"Description" : "CLUB MEDITERANEE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 38,
+		"RouteId" : 4,
+		"Description" : "PASSOA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 39,
+		"RouteId" : 4,
+		"Description" : "IPSOS ?????????",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 40,
+		"RouteId" : 4,
+		"Description" : "IPSOS CAMPING",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 41,
+		"RouteId" : 4,
+		"Description" : "EKO DASSIA",
+		"ExactPoint" : "EKO DASSIA",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 42,
+		"RouteId" : 4,
+		"Description" : "GEORGIA APARTMENTS",
+		"ExactPoint" : "EKO DASSIA",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 43,
+		"RouteId" : 4,
+		"Description" : "VILLA ANNA CASTELLO",
+		"ExactPoint" : "EKO DASSIA",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 44,
+		"RouteId" : 4,
+		"Description" : "PIRGI JET OIL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 45,
+		"RouteId" : 4,
+		"Description" : "KIOSK ANALIPSI",
+		"ExactPoint" : "KIOSK",
+		"Time" : "07:21",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 46,
+		"RouteId" : 4,
+		"Description" : "IPSOS BEACH HTL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:21",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 47,
+		"RouteId" : 4,
+		"Description" : "MEGA HOTEL IPSOS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:22",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 48,
+		"RouteId" : 4,
+		"Description" : "MARGARITA DASSIA-IPSOS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:25",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 49,
+		"RouteId" : 4,
+		"Description" : "MAGGIOROS S/M",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:28",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 50,
+		"RouteId" : 4,
+		"Description" : "ELEA BEACH",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "07:29",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 51,
+		"RouteId" : 4,
+		"Description" : "DASSIA BEACH",
+		"ExactPoint" : "JOY S/M",
+		"Time" : "07:29",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 52,
+		"RouteId" : 4,
+		"Description" : "SOPHIAS CORNER",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:29",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 53,
+		"RouteId" : 4,
+		"Description" : "KARDA CAMPING",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 54,
+		"RouteId" : 4,
+		"Description" : "MIRABELO",
+		"ExactPoint" : "KIOSK - M.ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 55,
+		"RouteId" : 4,
+		"Description" : "JOY HERO SUPERMARKET",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 56,
+		"RouteId" : 4,
+		"Description" : "TARTAYIA BAR",
+		"ExactPoint" : "M.ROAD-APENANTI",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 57,
+		"RouteId" : 4,
+		"Description" : "HELGA HOLIDAYS",
+		"ExactPoint" : "OFFICE",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 58,
+		"RouteId" : 4,
+		"Description" : "CORFU CHANDRIS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 59,
+		"RouteId" : 4,
+		"Description" : "LIVADI NAFSIKA",
+		"ExactPoint" : "CORFU CHANDRIS",
+		"Time" : "07:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 60,
+		"RouteId" : 4,
+		"Description" : "DASSIA CHANDRIS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 61,
+		"RouteId" : 4,
+		"Description" : "KARDA BEACH",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 62,
+		"RouteId" : 4,
+		"Description" : "ARTION",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "07:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 63,
+		"RouteId" : 4,
+		"Description" : "DASSIA CHANDRIS, NSK OFFICE",
+		"ExactPoint" : "MAIN ROAD,PHARMACY",
+		"Time" : "07:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 64,
+		"RouteId" : 4,
+		"Description" : "FARMA TOY SOTIRI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 65,
+		"RouteId" : 4,
+		"Description" : "DASSIA PHARMACY",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 66,
+		"RouteId" : 4,
+		"Description" : "VIVA BAR",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 67,
+		"RouteId" : 4,
+		"Description" : "KIRKI TAVERNA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 68,
+		"RouteId" : 4,
+		"Description" : "MAGNA GRECIA",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "07:32",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 69,
+		"RouteId" : 4,
+		"Description" : "PALMA BOUTIQUE HOTEL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:32",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 70,
+		"RouteId" : 4,
+		"Description" : "IKOS HOTEL",
+		"ExactPoint" : "M.GATE",
+		"Time" : "07:32",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 71,
+		"RouteId" : 4,
+		"Description" : "AMALIA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:33",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 72,
+		"RouteId" : 4,
+		"Description" : "DASSIA D&M BIKES",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:35",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 73,
+		"RouteId" : 4,
+		"Description" : "DASSIA HOLIDAY CLUB",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:35",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 74,
+		"RouteId" : 4,
+		"Description" : "TILEMACHOS HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:35",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 75,
+		"RouteId" : 4,
+		"Description" : "DAPHNILA BAY",
+		"ExactPoint" : "M.GATE",
+		"Time" : "07:35",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 76,
+		"RouteId" : 4,
+		"Description" : "DIONYSOS CAMP DASSIA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:35",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 77,
+		"RouteId" : 4,
+		"Description" : "NEFELI",
+		"ExactPoint" : "M.GATE DAPHNILA",
+		"Time" : "07:35",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 78,
+		"RouteId" : 4,
+		"Description" : "PRIMAVERA HOTEL",
+		"ExactPoint" : "M.ROAD-OPPOSITE",
+		"Time" : "07:35",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 79,
+		"RouteId" : 4,
+		"Description" : "KOMENO BAY",
+		"ExactPoint" : "EVA P. CROSSROAD",
+		"Time" : "07:38",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 80,
+		"RouteId" : 4,
+		"Description" : "EVA PALACE",
+		"ExactPoint" : "EVA PALACE CROSSROAD",
+		"Time" : "07:38",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 81,
+		"RouteId" : 4,
+		"Description" : "POST OFFICE TZAVROS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:39",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 82,
+		"RouteId" : 4,
+		"Description" : "MOYSIKO GYMNASIO KOMMENO",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "07:39",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 83,
+		"RouteId" : 4,
+		"Description" : "RODOSTAMO HOTEL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:39",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 84,
+		"RouteId" : 4,
+		"Description" : "CORFU IMPERIAL",
+		"ExactPoint" : "M.GATE",
+		"Time" : "07:39",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 85,
+		"RouteId" : 4,
+		"Description" : "SPIRIDOULA APPTS",
+		"ExactPoint" : "KAZIANIS S/M",
+		"Time" : "07:39",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 86,
+		"RouteId" : 4,
+		"Description" : "IONIAN ARCHES",
+		"ExactPoint" : "POST OFFICE",
+		"Time" : "07:39",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 87,
+		"RouteId" : 4,
+		"Description" : "GOVINO BAY",
+		"ExactPoint" : "PARK HTL M.ROAD",
+		"Time" : "07:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 88,
+		"RouteId" : 4,
+		"Description" : "NEW HOSPITAL",
+		"ExactPoint" : "TRAFFIC LIGHTS",
+		"Time" : "07:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 89,
+		"RouteId" : 4,
+		"Description" : "KAZIANHS S/M",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 90,
+		"RouteId" : 4,
+		"Description" : "PARK HOTEL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 91,
+		"RouteId" : 4,
+		"Description" : "JET OIL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:41",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 92,
+		"RouteId" : 4,
+		"Description" : "MATHRAKI DINOS",
+		"ExactPoint" : "JET OIL",
+		"Time" : "07:41",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 93,
+		"RouteId" : 4,
+		"Description" : "SAINT NICHOLAS",
+		"ExactPoint" : "JET OIL",
+		"Time" : "07:41",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 94,
+		"RouteId" : 4,
+		"Description" : "PARADISE",
+		"ExactPoint" : "JET OIL",
+		"Time" : "07:41",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 95,
+		"RouteId" : 4,
+		"Description" : "CORKYRA BEACH",
+		"ExactPoint" : "JET OIL",
+		"Time" : "07:41",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 96,
+		"RouteId" : 4,
+		"Description" : "DEBONO",
+		"ExactPoint" : "DIELLAS",
+		"Time" : "07:42",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 97,
+		"RouteId" : 4,
+		"Description" : "SPITI PRIFTI",
+		"ExactPoint" : "MAIN ROAD - OPPOSITE",
+		"Time" : "07:42",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 98,
+		"RouteId" : 4,
+		"Description" : "MOLFETA",
+		"ExactPoint" : "SPITI PRIFTI",
+		"Time" : "07:42",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 99,
+		"RouteId" : 4,
+		"Description" : "OMIROS",
+		"ExactPoint" : "DIELLAS",
+		"Time" : "07:42",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 100,
+		"RouteId" : 4,
+		"Description" : "MARIANA",
+		"ExactPoint" : "DIELLAS",
+		"Time" : "07:42",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 101,
+		"RouteId" : 4,
+		"Description" : "DIELLAS MARKET",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:42",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 102,
+		"RouteId" : 4,
+		"Description" : "KIOSK GOUVIA",
+		"ExactPoint" : "KIOSK GOUVIA",
+		"Time" : "07:42",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 103,
+		"RouteId" : 4,
+		"Description" : "POPI STAR",
+		"ExactPoint" : "SPITI PRIFTI",
+		"Time" : "07:42",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 104,
+		"RouteId" : 4,
+		"Description" : "KONTOKALI - AB BASILOPOULOS",
+		"ExactPoint" : "TRAFFIC LIGHTS",
+		"Time" : "07:43",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 105,
+		"RouteId" : 4,
+		"Description" : "TELESILA HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 106,
+		"RouteId" : 4,
+		"Description" : "ROUVAS APTS",
+		"ExactPoint" : "ROUVAS RESTAURANT",
+		"Time" : "07:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 107,
+		"RouteId" : 4,
+		"Description" : "HOSPITAL",
+		"ExactPoint" : "TRAFFIC LIGHTS",
+		"Time" : "07:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 108,
+		"RouteId" : 4,
+		"Description" : "PARAMITHOUPOLI",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 109,
+		"RouteId" : 4,
+		"Description" : "EYTERPE",
+		"ExactPoint" : "KONTOKALI HTL M.GATE",
+		"Time" : "07:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 110,
+		"RouteId" : 4,
+		"Description" : "AB VASILOPOYLOS KONTOKALI",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 111,
+		"RouteId" : 4,
+		"Description" : "KERKYRA GOLF",
+		"ExactPoint" : "M.ROAD BUS STOP",
+		"Time" : "07:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 112,
+		"RouteId" : 4,
+		"Description" : "IN ACTION",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "07:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 113,
+		"RouteId" : 4,
+		"Description" : "ALYKES PROFI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 114,
+		"RouteId" : 4,
+		"Description" : "SUNSET HOTEL ALYKES",
+		"ExactPoint" : "M.ROAD OPPOSITE",
+		"Time" : "07:53",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 115,
+		"RouteId" : 4,
+		"Description" : "CORFU MARE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:54",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 116,
+		"RouteId" : 4,
+		"Description" : "KONTOKALI BAY",
+		"ExactPoint" : "M.GATE",
+		"Time" : "07:55",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 117,
+		"RouteId" : 4,
+		"Description" : "KOTSOVOLOS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:55",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 118,
+		"RouteId" : 4,
+		"Description" : "HELLENIC OFFICE",
+		"ExactPoint" : "KANALIA (NEXT TO TUI OFFICE)",
+		"Time" : "08:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 119,
+		"RouteId" : 4,
+		"Description" : "54 DREAMY NIGHTS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 120,
+		"RouteId" : 4,
+		"Description" : "VIROS CROSSROAD",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 121,
+		"RouteId" : 4,
+		"Description" : "DALIA HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 122,
+		"RouteId" : 4,
+		"Description" : "BRETAGNE HOTEL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 123,
+		"RouteId" : 4,
+		"Description" : "HELLENIS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 124,
+		"RouteId" : 4,
+		"Description" : "ROYAL BOUTIQUE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 125,
+		"RouteId" : 4,
+		"Description" : "ARITI",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "08:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 126,
+		"RouteId" : 4,
+		"Description" : "ARION HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 127,
+		"RouteId" : 4,
+		"Description" : "DIVANI",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 128,
+		"RouteId" : 4,
+		"Description" : "MON REPO ANAKTORA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 129,
+		"RouteId" : 4,
+		"Description" : "CORFU HOLIDAY",
+		"ExactPoint" : "M.GATE",
+		"Time" : "08:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 130,
+		"RouteId" : 4,
+		"Description" : "KOLONA NTOYGLA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 131,
+		"RouteId" : 4,
+		"Description" : "MON REPO HTL",
+		"ExactPoint" : "HOTEL",
+		"Time" : "08:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 132,
+		"RouteId" : 4,
+		"Description" : "KONSTANTINOYPOLIS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 133,
+		"RouteId" : 4,
+		"Description" : "CORFU PALACE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 134,
+		"RouteId" : 4,
+		"Description" : "AKTAION",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 135,
+		"RouteId" : 4,
+		"Description" : "OLD ASTRON - CITY MARINA",
+		"ExactPoint" : "MAYROS GATOS - OPPOSITE",
+		"Time" : "08:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 136,
+		"RouteId" : 4,
+		"Description" : "ATLANTIS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 137,
+		"RouteId" : 4,
+		"Description" : "MAYROS GATOS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 138,
+		"RouteId" : 4,
+		"Description" : "PALEA ANAKTORA KAMARA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 139,
+		"RouteId" : 4,
+		"Description" : "DOUGLAS COLUMN",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 140,
+		"RouteId" : 4,
+		"Description" : "SETTE VENTI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 141,
+		"RouteId" : 4,
+		"Description" : "CAVALIERI",
+		"ExactPoint" : "HOTEL",
+		"Time" : "08:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 142,
+		"RouteId" : 4,
+		"Description" : "CITY MARINA HTL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 143,
+		"RouteId" : 8,
+		"Description" : "DESPOINA 3 GEFURIA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 144,
+		"RouteId" : 8,
+		"Description" : "TRIA GEFYRIA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:24",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 145,
+		"RouteId" : 8,
+		"Description" : "KANALIA SKLAVENITIS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:25",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 146,
+		"RouteId" : 8,
+		"Description" : "MINI MARKET 24",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:26",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 147,
+		"RouteId" : 8,
+		"Description" : "THRAKA GRILL HOUSE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 148,
+		"RouteId" : 8,
+		"Description" : "V LUXURY SUITES",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 149,
+		"RouteId" : 8,
+		"Description" : "ANNITA HTL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 150,
+		"RouteId" : 8,
+		"Description" : "BRITISH S/M",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 151,
+		"RouteId" : 8,
+		"Description" : "AEGLI HOTEL",
+		"ExactPoint" : "PONTIKONISI",
+		"Time" : "08:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 152,
+		"RouteId" : 8,
+		"Description" : "PONTIKONISI HTL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 153,
+		"RouteId" : 8,
+		"Description" : "COCA COLA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:32",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 154,
+		"RouteId" : 8,
+		"Description" : "AKTI PERAMA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:32",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 155,
+		"RouteId" : 8,
+		"Description" : "PERAMA HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:34",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 156,
+		"RouteId" : 8,
+		"Description" : "OASIS HOTEL",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "08:35",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 157,
+		"RouteId" : 8,
+		"Description" : "PERAMA KIOSK",
+		"ExactPoint" : "OASIS",
+		"Time" : "08:35",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 158,
+		"RouteId" : 8,
+		"Description" : "TP TRAVEL PERAMA OFFICE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:35",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 159,
+		"RouteId" : 8,
+		"Description" : "ALEXANDROS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:36",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 160,
+		"RouteId" : 8,
+		"Description" : "ELEALS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:37",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 161,
+		"RouteId" : 8,
+		"Description" : "BRETANOS APTS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:38",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 162,
+		"RouteId" : 8,
+		"Description" : "AEOLOS BEACH",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:38",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 163,
+		"RouteId" : 8,
+		"Description" : "EMPRESS CORFU",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:39",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 164,
+		"RouteId" : 8,
+		"Description" : "KAIZER RESTAURANT",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "08:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 165,
+		"RouteId" : 8,
+		"Description" : "KAIZER BRIDGE",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 166,
+		"RouteId" : 8,
+		"Description" : "EL GRECO",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:41",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 167,
+		"RouteId" : 8,
+		"Description" : "ANDROMACHES APTS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:41",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 168,
+		"RouteId" : 8,
+		"Description" : "MUSES SEA VEIW",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:41",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 169,
+		"RouteId" : 8,
+		"Description" : "ANGSANA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:43",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 170,
+		"RouteId" : 8,
+		"Description" : "GRANDE MARE = COSTA BLUE",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:43",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 171,
+		"RouteId" : 8,
+		"Description" : "BENITSES PORT",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:44",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 172,
+		"RouteId" : 8,
+		"Description" : "LE MIRAGE HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 173,
+		"RouteId" : 8,
+		"Description" : "GOLDEN TOURS BENITSES OFFICE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 174,
+		"RouteId" : 8,
+		"Description" : "CORFU CRUISES OLD BENITSES OFFICE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 175,
+		"RouteId" : 8,
+		"Description" : "BELLA VISTA BENITSES",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 176,
+		"RouteId" : 8,
+		"Description" : "STADIUM",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 177,
+		"RouteId" : 8,
+		"Description" : "PASSAS STD",
+		"ExactPoint" : "BENITSES PORT",
+		"Time" : "08:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 178,
+		"RouteId" : 8,
+		"Description" : "ST.STEFANO - CROSSROAD",
+		"ExactPoint" : "CROSSROAD",
+		"Time" : "08:51",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 179,
+		"RouteId" : 8,
+		"Description" : "AVRA HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:52",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 180,
+		"RouteId" : 8,
+		"Description" : "BENITSES SCHOOL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:53",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 181,
+		"RouteId" : 8,
+		"Description" : "BENITSES KIOSK",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:53",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 182,
+		"RouteId" : 8,
+		"Description" : "POTAMAKI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:54",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 183,
+		"RouteId" : 8,
+		"Description" : "AROKARIA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:55",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 184,
+		"RouteId" : 8,
+		"Description" : "BUKARI",
+		"ExactPoint" : "PORT",
+		"Time" : "08:55",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 185,
+		"RouteId" : 8,
+		"Description" : "GOLDEN SUNSET BUKARI",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:55",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 186,
+		"RouteId" : 8,
+		"Description" : "OSCAR BENITSES OFFICE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:55",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 187,
+		"RouteId" : 8,
+		"Description" : "THEODOROS TAVERNA(GREEN BUS ST",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:55",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 188,
+		"RouteId" : 8,
+		"Description" : "TSAKI",
+		"ExactPoint" : "TSAKI-SPIROS BIKES",
+		"Time" : "08:55",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 189,
+		"RouteId" : 8,
+		"Description" : "VIOLETTA BUKARI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:55",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 190,
+		"RouteId" : 8,
+		"Description" : "BENITSES TAXI RANK",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:55",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 191,
+		"RouteId" : 8,
+		"Description" : "CORFU MARIS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:56",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 192,
+		"RouteId" : 8,
+		"Description" : "KARINA HOTEL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:57",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 193,
+		"RouteId" : 8,
+		"Description" : "CASA DI VENTI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:57",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 194,
+		"RouteId" : 8,
+		"Description" : "CORFU LIDO SUN",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:58",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 195,
+		"RouteId" : 8,
+		"Description" : "BELLOS BEACH HOTEL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:59",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 196,
+		"RouteId" : 8,
+		"Description" : "MIRAMARE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 197,
+		"RouteId" : 8,
+		"Description" : "NERAIDA ONEIRO",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 198,
+		"RouteId" : 8,
+		"Description" : "BELVEDERE",
+		"ExactPoint" : "M.ROAD BUS STOP",
+		"Time" : "09:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 199,
+		"RouteId" : 8,
+		"Description" : "CORFU SENSES=MARE MONTE",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 200,
+		"RouteId" : 8,
+		"Description" : "ALAMANOS",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "09:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 201,
+		"RouteId" : 8,
+		"Description" : "ONEIRO VILLAS",
+		"ExactPoint" : "M.ROAD 200m AFTER REGENCY",
+		"Time" : "09:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 202,
+		"RouteId" : 8,
+		"Description" : "MYTHOS KAIRABA HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 203,
+		"RouteId" : 8,
+		"Description" : "VERONIKA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 204,
+		"RouteId" : 8,
+		"Description" : "PRIMASOL IONIAN SUN = REGENCY",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:02",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 205,
+		"RouteId" : 8,
+		"Description" : "AURORA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:03",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 206,
+		"RouteId" : 8,
+		"Description" : "KOCHILI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:03",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 207,
+		"RouteId" : 8,
+		"Description" : "CORFU VILLAGE",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 208,
+		"RouteId" : 8,
+		"Description" : "MARBELLA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 209,
+		"RouteId" : 8,
+		"Description" : "MARBELLA NIDO",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:06",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 210,
+		"RouteId" : 8,
+		"Description" : "VERONIKI APTS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:07",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 211,
+		"RouteId" : 8,
+		"Description" : "DELFINIA",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "09:09",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 212,
+		"RouteId" : 8,
+		"Description" : "G+S OFFICE",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 213,
+		"RouteId" : 8,
+		"Description" : "FONTANA S/M MORAITIKA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 214,
+		"RouteId" : 8,
+		"Description" : "DESPINA BAKERY",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 215,
+		"RouteId" : 8,
+		"Description" : "THE OLIVAR SUITES",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 216,
+		"RouteId" : 8,
+		"Description" : "OSCAR RENT A CAR",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 217,
+		"RouteId" : 8,
+		"Description" : "HLIOS SUPERMARKET",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 218,
+		"RouteId" : 8,
+		"Description" : "KAPODISTRIAS HTL",
+		"ExactPoint" : "BP BEFORE MIRAMARE",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 219,
+		"RouteId" : 8,
+		"Description" : "MAYFLOWER",
+		"ExactPoint" : "EKO-MORAITIKA",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 220,
+		"RouteId" : 8,
+		"Description" : "VERYCOCO",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 221,
+		"RouteId" : 8,
+		"Description" : "FIRST RENT A CAR",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 222,
+		"RouteId" : 8,
+		"Description" : "EKO MORAITIKA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 223,
+		"RouteId" : 8,
+		"Description" : "COOP SUPERMARKET",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 224,
+		"RouteId" : 8,
+		"Description" : "FARMAKEIO MORAITIKA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 225,
+		"RouteId" : 8,
+		"Description" : "ALKIONIS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 226,
+		"RouteId" : 8,
+		"Description" : "BELLA GRECIA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 227,
+		"RouteId" : 8,
+		"Description" : "DIMITRA S/M - SYNKA MORAITIKA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 228,
+		"RouteId" : 8,
+		"Description" : "PANTHEON",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:11",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 229,
+		"RouteId" : 8,
+		"Description" : "ROSSIS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:11",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 230,
+		"RouteId" : 8,
+		"Description" : "GEMINI",
+		"ExactPoint" : "HOTEL",
+		"Time" : "09:11",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 231,
+		"RouteId" : 8,
+		"Description" : "3K S/M MESSONGHI",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:11",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 232,
+		"RouteId" : 8,
+		"Description" : "APOLLO PALACE",
+		"ExactPoint" : "M.GATE",
+		"Time" : "09:11",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 233,
+		"RouteId" : 8,
+		"Description" : "AQUARIUS",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "09:11",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 234,
+		"RouteId" : 8,
+		"Description" : "CATHOLIC CHURCH MESSONGHI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:11",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 235,
+		"RouteId" : 8,
+		"Description" : "SEA BIRD",
+		"ExactPoint" : "TAXI STATION",
+		"Time" : "09:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 236,
+		"RouteId" : 8,
+		"Description" : "TATIANA HOUSE",
+		"ExactPoint" : "NEXT DIMOS MELITEION",
+		"Time" : "09:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 237,
+		"RouteId" : 8,
+		"Description" : "KERKYRA ISLAND",
+		"ExactPoint" : "3K S/M MESSONGHI",
+		"Time" : "09:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 238,
+		"RouteId" : 8,
+		"Description" : "ALBATROS",
+		"ExactPoint" : "TAXI STATION",
+		"Time" : "09:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 239,
+		"RouteId" : 8,
+		"Description" : "TAXI MESSONGHI",
+		"ExactPoint" : "TAXI STATION",
+		"Time" : "09:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 240,
+		"RouteId" : 8,
+		"Description" : "KUSPADES/REGINA HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 241,
+		"RouteId" : 8,
+		"Description" : "DIMOS MEILITEIEON",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 242,
+		"RouteId" : 8,
+		"Description" : "MESSONGHI BEACH",
+		"ExactPoint" : "TAXI STATION",
+		"Time" : "09:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 243,
+		"RouteId" : 8,
+		"Description" : "MARGARITA",
+		"ExactPoint" : "TAXI STATION",
+		"Time" : "09:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 244,
+		"RouteId" : 8,
+		"Description" : "THREE STARS",
+		"ExactPoint" : "TAXI STATION",
+		"Time" : "09:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 245,
+		"RouteId" : 8,
+		"Description" : "KUSPADES REGINA HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:16",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 246,
+		"RouteId" : 8,
+		"Description" : "GARDENOS VILLA GIANNETA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 247,
+		"RouteId" : 8,
+		"Description" : "BP MESSONGHI",
+		"ExactPoint" : "CROSSROAD FOR AG.MATHEOS",
+		"Time" : "09:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 248,
+		"RouteId" : 8,
+		"Description" : "SANDY BEACH",
+		"ExactPoint" : "HOTEL",
+		"Time" : "09:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 249,
+		"RouteId" : 8,
+		"Description" : "SANDY VILLAS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 250,
+		"RouteId" : 8,
+		"Description" : "NYXTERIDA PENSION MARATHIAS",
+		"ExactPoint" : "CROSSROAD",
+		"Time" : "09:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 251,
+		"RouteId" : 8,
+		"Description" : "LINIA BP",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 252,
+		"RouteId" : 8,
+		"Description" : "VITALADES CROSSROAD",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 253,
+		"RouteId" : 8,
+		"Description" : "MARATHIAS",
+		"ExactPoint" : "M.ROAD BUS STOP",
+		"Time" : "09:35",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 254,
+		"RouteId" : 8,
+		"Description" : "ELIA TAVERNA PERIVOLI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 255,
+		"RouteId" : 8,
+		"Description" : "GOLDEN SAND",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 256,
+		"RouteId" : 8,
+		"Description" : "PERIVOLI GAS STATION",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 257,
+		"RouteId" : 8,
+		"Description" : "CHURCH - ST.GEORGE'S",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 258,
+		"RouteId" : 8,
+		"Description" : "ELEANA APTS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 259,
+		"RouteId" : 8,
+		"Description" : "TZEVENOS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 260,
+		"RouteId" : 8,
+		"Description" : "ANANIAS",
+		"ExactPoint" : "BLUE SEA-MAIN ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 261,
+		"RouteId" : 8,
+		"Description" : "ST.GEORGE HTL",
+		"ExactPoint" : "BARBAYIANNIS",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 262,
+		"RouteId" : 8,
+		"Description" : "BLUE SEA HTL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 263,
+		"RouteId" : 8,
+		"Description" : "ARGYRADES",
+		"ExactPoint" : "KIOSK",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 264,
+		"RouteId" : 8,
+		"Description" : "STELLA S/M",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 265,
+		"RouteId" : 8,
+		"Description" : "LORD TRAVEL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 266,
+		"RouteId" : 8,
+		"Description" : "KAFESAS",
+		"ExactPoint" : "RESTAURANT",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 267,
+		"RouteId" : 8,
+		"Description" : "MALTA",
+		"ExactPoint" : "RESTAURANT",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 268,
+		"RouteId" : 8,
+		"Description" : "AG.GEORGIOS - CROSSROAD",
+		"ExactPoint" : "CROSSROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 269,
+		"RouteId" : 8,
+		"Description" : "BLUE DIAMOND",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 270,
+		"RouteId" : 8,
+		"Description" : "STORK TOURS OFFICE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 271,
+		"RouteId" : 8,
+		"Description" : "MARATHIAS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 272,
+		"RouteId" : 8,
+		"Description" : "PANORAMA REST.AG.GEORGIOS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 273,
+		"RouteId" : 8,
+		"Description" : "ELENAS POOL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 274,
+		"RouteId" : 8,
+		"Description" : "STARS STDS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:41",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 275,
+		"RouteId" : 8,
+		"Description" : "DIMITRA SUPERMARKET LEFKIMMI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:41",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 276,
+		"RouteId" : 8,
+		"Description" : "STELLA S/M AG GEORGIOS ARG",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:41",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 277,
+		"RouteId" : 8,
+		"Description" : "ALMYRA BAR",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:41",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 278,
+		"RouteId" : 8,
+		"Description" : "ATTIKA BEACH",
+		"ExactPoint" : "RECEPTION",
+		"Time" : "09:42",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 279,
+		"RouteId" : 8,
+		"Description" : "SYNKA S/M LEFKIMMI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 280,
+		"RouteId" : 5,
+		"Description" : "A1",
+		"ExactPoint" : "A2",
+		"Time" : "06:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 281,
+		"RouteId" : 5,
+		"Description" : "ODYSSEUS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 282,
+		"RouteId" : 5,
+		"Description" : "AKROTIRI",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 283,
+		"RouteId" : 5,
+		"Description" : "FAROS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 284,
+		"RouteId" : 5,
+		"Description" : "PALEO CAMPING",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 285,
+		"RouteId" : 5,
+		"Description" : "OCEANIS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 286,
+		"RouteId" : 5,
+		"Description" : "KATHY S/M PALEO",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 287,
+		"RouteId" : 5,
+		"Description" : "NOUFARO APARTMENTS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 288,
+		"RouteId" : 5,
+		"Description" : "PALEO ART NOUVEAU",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 289,
+		"RouteId" : 5,
+		"Description" : "LAKONES JUNCTION",
+		"ExactPoint" : "JUNCTION",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 290,
+		"RouteId" : 5,
+		"Description" : "LACONES JUNCTION",
+		"ExactPoint" : "CROSSROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 291,
+		"RouteId" : 5,
+		"Description" : "AMPELAKI",
+		"ExactPoint" : "RESTURANT LA CALM",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 292,
+		"RouteId" : 5,
+		"Description" : "PALEO INN",
+		"ExactPoint" : "HOTEL",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 293,
+		"RouteId" : 5,
+		"Description" : "PALEOKASTRITSA HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 294,
+		"RouteId" : 5,
+		"Description" : "PALEO POLICE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 295,
+		"RouteId" : 5,
+		"Description" : "SPIROS TAVERNA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 296,
+		"RouteId" : 5,
+		"Description" : "MOODY BLUE BAR PALEOK.",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 297,
+		"RouteId" : 5,
+		"Description" : "MARIA'S STUDIOS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 298,
+		"RouteId" : 5,
+		"Description" : "PALEO DISCO",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 299,
+		"RouteId" : 5,
+		"Description" : "VRACHOS RESTAURANT",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 300,
+		"RouteId" : 5,
+		"Description" : "ARIS SUPERMARKET",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 301,
+		"RouteId" : 5,
+		"Description" : "ERMONES BRIDGE",
+		"ExactPoint" : "BRIDGE",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 302,
+		"RouteId" : 5,
+		"Description" : "VATOS",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 303,
+		"RouteId" : 5,
+		"Description" : "PHILOXENIA",
+		"ExactPoint" : "BRIDGE",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 304,
+		"RouteId" : 5,
+		"Description" : "LINDAS MARKET",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 305,
+		"RouteId" : 5,
+		"Description" : "PALEO - GARDELADES CROSSROAD",
+		"ExactPoint" : "KIOSK",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 306,
+		"RouteId" : 5,
+		"Description" : "GR.MEDITTERANNEO",
+		"ExactPoint" : "HOTEL",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 307,
+		"RouteId" : 5,
+		"Description" : "ERMONES BUS STOP",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 308,
+		"RouteId" : 5,
+		"Description" : "ROSA BELLA",
+		"ExactPoint" : "ERMONES BRIDGE",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 309,
+		"RouteId" : 5,
+		"Description" : "HOTEL ELENA",
+		"ExactPoint" : "BRIDGE",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 310,
+		"RouteId" : 5,
+		"Description" : "ADRIOLOS APTS",
+		"ExactPoint" : "MAIN GATE",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 311,
+		"RouteId" : 5,
+		"Description" : "MALIBU APTS GLYFADA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 312,
+		"RouteId" : 5,
+		"Description" : "LIAPADES CEMETARY",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 313,
+		"RouteId" : 5,
+		"Description" : "SOULA MARKET",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 314,
+		"RouteId" : 5,
+		"Description" : "LIAPADES BUS STOP",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 315,
+		"RouteId" : 5,
+		"Description" : "MICHALIS TAVERNA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 316,
+		"RouteId" : 5,
+		"Description" : "BLUE PRINCESS = ELLY BEACH",
+		"ExactPoint" : "HOTEL",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 317,
+		"RouteId" : 5,
+		"Description" : "LIAPADES BEACH",
+		"ExactPoint" : "HOTEL - TAVERNA",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 318,
+		"RouteId" : 5,
+		"Description" : "GLYFADA BUS STOP",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 319,
+		"RouteId" : 5,
+		"Description" : "GLYFADA VILLA",
+		"ExactPoint" : "M.GATE GLYFADA HTL",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 320,
+		"RouteId" : 5,
+		"Description" : "VILLA MIRTO",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 321,
+		"RouteId" : 5,
+		"Description" : "GRAND HOTEL GLYFADA",
+		"ExactPoint" : "MAIN GATE",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 322,
+		"RouteId" : 5,
+		"Description" : "FUNDANA VILLAS LAKONES",
+		"ExactPoint" : "CROSSROAD",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 323,
+		"RouteId" : 5,
+		"Description" : "GLYFADA BEACH H",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 324,
+		"RouteId" : 5,
+		"Description" : "KOKKINI",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:25",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 325,
+		"RouteId" : 5,
+		"Description" : "PELEKAS BEACH",
+		"ExactPoint" : "MOUCHAS CORNER",
+		"Time" : "07:25",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 326,
+		"RouteId" : 5,
+		"Description" : "AQUALAND VILLAGE",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:25",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 327,
+		"RouteId" : 5,
+		"Description" : "KONTOGYALOS HTL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:25",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 328,
+		"RouteId" : 5,
+		"Description" : "MOUCHAS CORNER",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "07:25",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 329,
+		"RouteId" : 5,
+		"Description" : "PARADISE FUN CLUB",
+		"ExactPoint" : "M. ROAD - KIOSK",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 330,
+		"RouteId" : 5,
+		"Description" : "AG.GORDIS HTL=MAYOR LA GROTTA VERDE",
+		"ExactPoint" : "AG.GORDIOS BUS STOP",
+		"Time" : "07:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 331,
+		"RouteId" : 5,
+		"Description" : "BELVEDERE APPTS AG.GORDIS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 332,
+		"RouteId" : 5,
+		"Description" : "IRENE APTARTMENTS",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "07:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 333,
+		"RouteId" : 5,
+		"Description" : "SINARADES",
+		"ExactPoint" : "BUS STOP-CROSSROAD",
+		"Time" : "07:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 334,
+		"RouteId" : 5,
+		"Description" : "LIDO SOFIA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 335,
+		"RouteId" : 5,
+		"Description" : "PINK PALACE",
+		"ExactPoint" : "PINK PALACE",
+		"Time" : "07:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 336,
+		"RouteId" : 5,
+		"Description" : "AG.GORDIOS BUS STOP",
+		"ExactPoint" : "BUS STOP",
+		"Time" : "07:46",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 337,
+		"RouteId" : 5,
+		"Description" : "RIZOS GARDEN ?????? ?????",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 338,
+		"RouteId" : 5,
+		"Description" : "FOLIES",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "08:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 339,
+		"RouteId" : 5,
+		"Description" : "MARKATO SUPERMARKET",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 340,
+		"RouteId" : 5,
+		"Description" : "SHELL TRIKLINO",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 341,
+		"RouteId" : 5,
+		"Description" : "PIZZA FLOGA ALEPOY",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 342,
+		"RouteId" : 5,
+		"Description" : "PAPRIKA ALEPOY",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 343,
+		"RouteId" : 3,
+		"Description" : "GIANNIS RENT A BIKE KASSIOPI",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "06:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 344,
+		"RouteId" : 3,
+		"Description" : "MICHELANGELO KASSIOPI",
+		"ExactPoint" : "NIKOS SUPERMARKET",
+		"Time" : "06:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 345,
+		"RouteId" : 3,
+		"Description" : "KASSIOPI PUMP",
+		"ExactPoint" : "PUMP",
+		"Time" : "06:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 346,
+		"RouteId" : 3,
+		"Description" : "NIKOS SUPERMARKET",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "06:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 347,
+		"RouteId" : 3,
+		"Description" : "APRAOS HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 348,
+		"RouteId" : 3,
+		"Description" : "IMEROLIA KASIOPI",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "06:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 349,
+		"RouteId" : 3,
+		"Description" : "LEKKAS TAVERNA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "06:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 350,
+		"RouteId" : 3,
+		"Description" : "KASSIOPI SPIRAKOS BIKES",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 351,
+		"RouteId" : 3,
+		"Description" : "CHRISMOS HOTEL",
+		"ExactPoint" : "MAIN ROAD - BUS STOP",
+		"Time" : "06:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 352,
+		"RouteId" : 3,
+		"Description" : "MARE BLUE = BLUE BAY",
+		"ExactPoint" : "HOTEL",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 353,
+		"RouteId" : 3,
+		"Description" : "LAGUNA HOLIDAY RESORT",
+		"ExactPoint" : "MAIN GATE",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 354,
+		"RouteId" : 3,
+		"Description" : "ALMYROS BEACH",
+		"ExactPoint" : "HOTEL",
+		"Time" : "06:55",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 355,
+		"RouteId" : 3,
+		"Description" : "RESTIA SUITES",
+		"ExactPoint" : "MAI ROAD",
+		"Time" : "06:55",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 356,
+		"RouteId" : 3,
+		"Description" : "TZORAS S/M ACHARAVI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:57",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 357,
+		"RouteId" : 3,
+		"Description" : "THALASSA HTL SUITES",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "06:57",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 358,
+		"RouteId" : 3,
+		"Description" : "SHELL PETROL STATION",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:58",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 359,
+		"RouteId" : 3,
+		"Description" : "NOSTOS MARE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:58",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 360,
+		"RouteId" : 3,
+		"Description" : "GELLINA VILLAGE",
+		"ExactPoint" : "M.GATE",
+		"Time" : "06:59",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 361,
+		"RouteId" : 3,
+		"Description" : "BLUE BAY APARTMENTS",
+		"ExactPoint" : "PIXEL/FB TRAVEL",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 362,
+		"RouteId" : 3,
+		"Description" : "GELLINA APARTMENTS",
+		"ExactPoint" : "PUMP",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 363,
+		"RouteId" : 3,
+		"Description" : "BEIS BEACH",
+		"ExactPoint" : "SPIROS SM",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 364,
+		"RouteId" : 3,
+		"Description" : "CORYFO VILLAGE",
+		"ExactPoint" : "SALVANOS SUPER MARKET",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 365,
+		"RouteId" : 3,
+		"Description" : "ALMYROS VILLAS RESORT",
+		"ExactPoint" : "MAIN GATE",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 366,
+		"RouteId" : 3,
+		"Description" : "GELLINA MARE",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 367,
+		"RouteId" : 3,
+		"Description" : "ENTERPRISE CAR RENTAL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 368,
+		"RouteId" : 3,
+		"Description" : "DIELLAS ACHARAVI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 369,
+		"RouteId" : 3,
+		"Description" : "CENTURY RESORT",
+		"ExactPoint" : "PUMP",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 370,
+		"RouteId" : 3,
+		"Description" : "EXIT 3",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 371,
+		"RouteId" : 3,
+		"Description" : "S - BIKES ACHARAVI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 372,
+		"RouteId" : 3,
+		"Description" : "BOSTONIA VILLAGE",
+		"ExactPoint" : "TZORAS S/M",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 373,
+		"RouteId" : 3,
+		"Description" : "SALVANOS S/M",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 374,
+		"RouteId" : 3,
+		"Description" : "ACHARAVI BEACH",
+		"ExactPoint" : "SALVANOS SUPER MARKET",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 375,
+		"RouteId" : 3,
+		"Description" : "IONIAN PRINCESS",
+		"ExactPoint" : "PUMP",
+		"Time" : "07:01",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 376,
+		"RouteId" : 3,
+		"Description" : "ACHARAVI PUMP",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:01",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 377,
+		"RouteId" : 3,
+		"Description" : "FARMAK ??????? S/M",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:02",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 378,
+		"RouteId" : 3,
+		"Description" : "SYNKA S/M ACHARAVI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:02",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 379,
+		"RouteId" : 3,
+		"Description" : "PIXEL (SPORT CENTER)",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:03",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 380,
+		"RouteId" : 3,
+		"Description" : "KORMORANOS EXIT No5",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:03",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 381,
+		"RouteId" : 3,
+		"Description" : "SPIROS SUPERMARKET",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:04",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 382,
+		"RouteId" : 3,
+		"Description" : "BLUE LAGOON HOTEL RODA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 383,
+		"RouteId" : 3,
+		"Description" : "LEITOURGIS OFFICE ACHARAVI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 384,
+		"RouteId" : 3,
+		"Description" : "FIRE STATION RODA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 385,
+		"RouteId" : 3,
+		"Description" : "NSK OFFICE RODA",
+		"ExactPoint" : "OFFICE",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 386,
+		"RouteId" : 3,
+		"Description" : "MUSEUM ACHARAVI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 387,
+		"RouteId" : 3,
+		"Description" : "RODA BP",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:06",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 388,
+		"RouteId" : 3,
+		"Description" : "RODA CROSSROAD",
+		"ExactPoint" : "CROSSROAD",
+		"Time" : "07:07",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 389,
+		"RouteId" : 3,
+		"Description" : "MELINDA APTS RODA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:07",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 390,
+		"RouteId" : 3,
+		"Description" : "TROPICANA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:08",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 391,
+		"RouteId" : 3,
+		"Description" : "HN TRAVEL RODA",
+		"ExactPoint" : "OFFICE",
+		"Time" : "07:08",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 392,
+		"RouteId" : 3,
+		"Description" : "RODA TAXI RANK",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:09",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 393,
+		"RouteId" : 3,
+		"Description" : "RODA OASIS HTL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:09",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 394,
+		"RouteId" : 3,
+		"Description" : "RODA TRAFFIC LIGHTS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 395,
+		"RouteId" : 3,
+		"Description" : "IBISCUS",
+		"ExactPoint" : "MAIN GATE",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 396,
+		"RouteId" : 3,
+		"Description" : "RODA BEACH",
+		"ExactPoint" : "RECEPTION",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 397,
+		"RouteId" : 3,
+		"Description" : "ROBOLLA BEACH",
+		"ExactPoint" : "M.GATE RODA BEACH",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 398,
+		"RouteId" : 3,
+		"Description" : "MIRABELL",
+		"ExactPoint" : "HOTEL",
+		"Time" : "07:11",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 399,
+		"RouteId" : 3,
+		"Description" : "RODA BEACH MAIN GATE",
+		"ExactPoint" : "MAIN GATE",
+		"Time" : "07:11",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 400,
+		"RouteId" : 3,
+		"Description" : "ANGELA BEACH",
+		"ExactPoint" : "HOTEL",
+		"Time" : "07:15",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 401,
+		"RouteId" : 3,
+		"Description" : "SUNRISE TAVERNA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 402,
+		"RouteId" : 3,
+		"Description" : "LEFKES VELONADES",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:20",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 403,
+		"RouteId" : 3,
+		"Description" : "ABC SWEETHOME",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:25",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 404,
+		"RouteId" : 3,
+		"Description" : "SIDARI BEACH",
+		"ExactPoint" : "MAIN ROAD - BRIDGE",
+		"Time" : "07:26",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 405,
+		"RouteId" : 3,
+		"Description" : "REBECCA VILLAGE",
+		"ExactPoint" : "MAIN ROAD - BRIDGE",
+		"Time" : "07:26",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 406,
+		"RouteId" : 3,
+		"Description" : "PIZZA VENEZIA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:27",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 407,
+		"RouteId" : 3,
+		"Description" : "SIDARI LEGENDS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:28",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 408,
+		"RouteId" : 3,
+		"Description" : "SIDARI VALUE PLUS OFFICE",
+		"ExactPoint" : "OFFICE",
+		"Time" : "07:29",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 409,
+		"RouteId" : 3,
+		"Description" : "PARADISE REST",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:29",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 410,
+		"RouteId" : 3,
+		"Description" : "CORFU PALMAR HOTEL",
+		"ExactPoint" : "MAIN GATE",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 411,
+		"RouteId" : 3,
+		"Description" : "POTAMOS",
+		"ExactPoint" : "CROSSROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 412,
+		"RouteId" : 3,
+		"Description" : "MONIKA HTL",
+		"ExactPoint" : "MAIN ROAD BRIDGE",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 413,
+		"RouteId" : 3,
+		"Description" : "ANGELINA",
+		"ExactPoint" : "MAIN ROAD - KALUA BAR",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 414,
+		"RouteId" : 3,
+		"Description" : "BURGER& STEAKHOUSE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 415,
+		"RouteId" : 3,
+		"Description" : "MELITSA SUPERMARKET",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 416,
+		"RouteId" : 3,
+		"Description" : "OLIVE GROVE",
+		"ExactPoint" : "SUPERMARKET OPPOSITE",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 417,
+		"RouteId" : 3,
+		"Description" : "MARKATO SUPERMARKET SIDARI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 418,
+		"RouteId" : 3,
+		"Description" : "ESCAPE BAR",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 419,
+		"RouteId" : 3,
+		"Description" : "PANORAMA",
+		"ExactPoint" : "SIDARI SCONTO MARKET",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 420,
+		"RouteId" : 3,
+		"Description" : "VLASEROS BRANCH OFFICE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 421,
+		"RouteId" : 3,
+		"Description" : "SIDARI MARKATO SUPER MARKET",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 422,
+		"RouteId" : 3,
+		"Description" : "SPIROS HOTEL",
+		"ExactPoint" : "MAIN GATE",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 423,
+		"RouteId" : 3,
+		"Description" : "SAN GEORGE SIDARI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 424,
+		"RouteId" : 3,
+		"Description" : "SIDARI SCONTO MARKET",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 425,
+		"RouteId" : 3,
+		"Description" : "ALKION",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 426,
+		"RouteId" : 3,
+		"Description" : "SUNSHINE(MELITSA)",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 427,
+		"RouteId" : 3,
+		"Description" : "POLYXENI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 428,
+		"RouteId" : 3,
+		"Description" : "OLYMPIC PALACE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 429,
+		"RouteId" : 3,
+		"Description" : "SIDARI MIMOZA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 430,
+		"RouteId" : 3,
+		"Description" : "VLASEROS KANALI OFFICE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 431,
+		"RouteId" : 3,
+		"Description" : "LAGOON",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 432,
+		"RouteId" : 3,
+		"Description" : "SUNNY CORFU SIDARI",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 433,
+		"RouteId" : 3,
+		"Description" : "PARADISE BAR",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 434,
+		"RouteId" : 3,
+		"Description" : "ANDROMEDA HOTEL",
+		"ExactPoint" : "HOTEL",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 435,
+		"RouteId" : 3,
+		"Description" : "SIDARI VILLAGE",
+		"ExactPoint" : "LAGOON",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 436,
+		"RouteId" : 3,
+		"Description" : "NSK OFFICE SIDARI (MELISSA)",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 437,
+		"RouteId" : 3,
+		"Description" : "THE WAVE",
+		"ExactPoint" : "MAIN ROAD- BRIDGE",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 438,
+		"RouteId" : 3,
+		"Description" : "OLGA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 439,
+		"RouteId" : 3,
+		"Description" : "THREE LITTLE PIGS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 440,
+		"RouteId" : 3,
+		"Description" : "THE BRANCH OFFICE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:31",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 441,
+		"RouteId" : 3,
+		"Description" : "AK NEW OFFICE",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:32",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 442,
+		"RouteId" : 3,
+		"Description" : "CORFIOT OFFICE KANALI",
+		"ExactPoint" : "OPPOSITE ANGELINA",
+		"Time" : "07:33",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 443,
+		"RouteId" : 3,
+		"Description" : "SAXOPHONE BAR",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:34",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 444,
+		"RouteId" : 3,
+		"Description" : "PALMAR HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:34",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 445,
+		"RouteId" : 3,
+		"Description" : "SUMMERTIME HOTEL",
+		"ExactPoint" : "SAXOPHONE BAR",
+		"Time" : "07:34",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 446,
+		"RouteId" : 3,
+		"Description" : "JOANNAS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:35",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 447,
+		"RouteId" : 3,
+		"Description" : "BLUE SKY",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:35",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 448,
+		"RouteId" : 3,
+		"Description" : "EXPRESS S/M PEROYLADES",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:36",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 449,
+		"RouteId" : 3,
+		"Description" : "DAMIA HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:36",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 450,
+		"RouteId" : 3,
+		"Description" : "SPIROS S/M SIDARI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:37",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 451,
+		"RouteId" : 3,
+		"Description" : "TEREZAS POOL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:37",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 452,
+		"RouteId" : 3,
+		"Description" : "SIDARI ELIN",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:38",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 453,
+		"RouteId" : 3,
+		"Description" : "CHRISTINAS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:39",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 454,
+		"RouteId" : 3,
+		"Description" : "PALM GROVE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:39",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 455,
+		"RouteId" : 3,
+		"Description" : "GOUDELIS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:40",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 456,
+		"RouteId" : 3,
+		"Description" : "SKRIPERO",
+		"ExactPoint" : "TRAFFIC LIGHTS - KIOSK",
+		"Time" : "07:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 457,
+		"RouteId" : 3,
+		"Description" : "FIORI HTL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:55",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 458,
+		"RouteId" : 3,
+		"Description" : "TROUBETAS CORYFI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "08:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 459,
+		"RouteId" : 7,
+		"Description" : "SILVERSTONE GO CARTS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:44",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 460,
+		"RouteId" : 7,
+		"Description" : "NIKOS VILLAS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:44",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 461,
+		"RouteId" : 7,
+		"Description" : "MELISSA APTS KAVOS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:44",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 462,
+		"RouteId" : 7,
+		"Description" : "CAPO DI CORFU",
+		"ExactPoint" : "M.GATE",
+		"Time" : "09:44",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 463,
+		"RouteId" : 7,
+		"Description" : "SUNRISE",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:44",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 464,
+		"RouteId" : 7,
+		"Description" : "SEA SIDE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:44",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 465,
+		"RouteId" : 7,
+		"Description" : "KYANEA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:44",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 466,
+		"RouteId" : 7,
+		"Description" : "SOCRATIS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:44",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 467,
+		"RouteId" : 7,
+		"Description" : "YIANETTA",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "09:44",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 468,
+		"RouteId" : 7,
+		"Description" : "CAPTAINS AG.PETROS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:44",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 469,
+		"RouteId" : 7,
+		"Description" : "NIKOS APTS AG.PETROS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:44",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 470,
+		"RouteId" : 7,
+		"Description" : "SCRIVAS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:44",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 471,
+		"RouteId" : 7,
+		"Description" : "ALEXANDRA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 472,
+		"RouteId" : 7,
+		"Description" : "TEX MEX",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 473,
+		"RouteId" : 7,
+		"Description" : "FUTURE BAR",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 474,
+		"RouteId" : 7,
+		"Description" : "KAVOS TAXI STATION",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 475,
+		"RouteId" : 7,
+		"Description" : "SANDY TRAVEL",
+		"ExactPoint" : "OFFICE",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 476,
+		"RouteId" : 7,
+		"Description" : "GO KART",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 477,
+		"RouteId" : 7,
+		"Description" : "ROUSOS APT",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 478,
+		"RouteId" : 7,
+		"Description" : "THE BARN BAR",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 479,
+		"RouteId" : 7,
+		"Description" : "LEFKIMMI HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 480,
+		"RouteId" : 7,
+		"Description" : "LEGENDS BAR KAVOS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 481,
+		"RouteId" : 7,
+		"Description" : "KORINA TRAVEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 482,
+		"RouteId" : 7,
+		"Description" : "SNOBS BAR",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 483,
+		"RouteId" : 7,
+		"Description" : "FOUNTAIN BAR",
+		"ExactPoint" : "CROSSROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 484,
+		"RouteId" : 7,
+		"Description" : "SAND & SEA",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 485,
+		"RouteId" : 7,
+		"Description" : "SUMMER TRAVEL OFFICE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 486,
+		"RouteId" : 7,
+		"Description" : "NET BAR",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 487,
+		"RouteId" : 7,
+		"Description" : "SAN MARINA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 488,
+		"RouteId" : 7,
+		"Description" : "EROFILI HTL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 489,
+		"RouteId" : 7,
+		"Description" : "EKATI HOTEL",
+		"ExactPoint" : "OFFICE",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 490,
+		"RouteId" : 7,
+		"Description" : "ISLAND BEACH",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 491,
+		"RouteId" : 7,
+		"Description" : "MEDITERRANEAN BLUE",
+		"ExactPoint" : "HOTEL",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 492,
+		"RouteId" : 7,
+		"Description" : "NAOS",
+		"ExactPoint" : "OFFICE",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 493,
+		"RouteId" : 7,
+		"Description" : "ASPROKAVOS S/M",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 494,
+		"RouteId" : 7,
+		"Description" : "ASPIOTIS",
+		"ExactPoint" : "OFFICE",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 495,
+		"RouteId" : 7,
+		"Description" : "KAVOS TAXI STATION",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 496,
+		"RouteId" : 7,
+		"Description" : "CHANDRIS S/M",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 497,
+		"RouteId" : 7,
+		"Description" : "IONIAN SEA VIEW",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 498,
+		"RouteId" : 7,
+		"Description" : "LEMON GROVE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 499,
+		"RouteId" : 7,
+		"Description" : "PANDIS TRAVEL",
+		"ExactPoint" : "OFFICE",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 500,
+		"RouteId" : 7,
+		"Description" : "KAVOS PLAZA",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 501,
+		"RouteId" : 7,
+		"Description" : "MORFEAS HOTEL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 502,
+		"RouteId" : 7,
+		"Description" : "OULA APTS",
+		"ExactPoint" : "CROSSROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 503,
+		"RouteId" : 7,
+		"Description" : "EVER GREEN KAVOS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 504,
+		"RouteId" : 7,
+		"Description" : "CORFU SEA GARDENS",
+		"ExactPoint" : "M. ROAD",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 505,
+		"RouteId" : 7,
+		"Description" : "ISLAND HOLIDAYS",
+		"ExactPoint" : "OFFICE",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 506,
+		"RouteId" : 7,
+		"Description" : "JUST IN TRAVEL",
+		"ExactPoint" : "OFFICE",
+		"Time" : "09:46",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 507,
+		"RouteId" : 1,
+		"Description" : "CORFU TOWN NEW PORT",
+		"ExactPoint" : "-",
+		"Time" : "08:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 508,
+		"RouteId" : 1,
+		"Description" : "SKALA DHMAPXOY",
+		"ExactPoint" : "-",
+		"Time" : "08:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 509,
+		"RouteId" : 1,
+		"Description" : "KAFE GYALI",
+		"ExactPoint" : "-",
+		"Time" : "08:30",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 510,
+		"RouteId" : 6,
+		"Description" : "LEFKIMMI PORT",
+		"ExactPoint" : "-",
+		"Time" : "09:45",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 511,
+		"RouteId" : 6,
+		"Description" : "KAVOS JETTY",
+		"ExactPoint" : "-",
+		"Time" : "10:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 512,
+		"RouteId" : 2,
+		"Description" : "COSTAS GOLDEN BEACH-PAGOI",
+		"ExactPoint" : "MAIN GATE",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 513,
+		"RouteId" : 2,
+		"Description" : "TEO HTL",
+		"ExactPoint" : "MAIN GATE",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 514,
+		"RouteId" : 2,
+		"Description" : "BRILLIANT",
+		"ExactPoint" : "MAIN.ROAD",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 515,
+		"RouteId" : 2,
+		"Description" : "GOLDEN BEACH",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 516,
+		"RouteId" : 2,
+		"Description" : "AGG PAGI DIKTIA",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 517,
+		"RouteId" : 2,
+		"Description" : "DIKTIA AG. GEORGIOS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 518,
+		"RouteId" : 2,
+		"Description" : "ALKYON HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 519,
+		"RouteId" : 2,
+		"Description" : "BELLE HELENE",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 520,
+		"RouteId" : 2,
+		"Description" : "THEO HOTEL PAGOI",
+		"ExactPoint" : "HOTEL",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 521,
+		"RouteId" : 2,
+		"Description" : "SUN FUN CLUB",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 522,
+		"RouteId" : 2,
+		"Description" : "SAINT GEORGE PALACE HOTEL",
+		"ExactPoint" : "SUN FUN CLUB",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 523,
+		"RouteId" : 2,
+		"Description" : "ATHENA HOTEL PAGOI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "06:50",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 524,
+		"RouteId" : 2,
+		"Description" : "ARILLAS ARKOKAL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 525,
+		"RouteId" : 2,
+		"Description" : "MEGA LITHARI",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 526,
+		"RouteId" : 2,
+		"Description" : "DIONYSSOS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 527,
+		"RouteId" : 2,
+		"Description" : "AKTI ARILLAS HOTEL",
+		"ExactPoint" : "AKTI ARILLAS",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 528,
+		"RouteId" : 2,
+		"Description" : "KALOUDIS",
+		"ExactPoint" : "MARINA ARILLAS HOTEL",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 529,
+		"RouteId" : 2,
+		"Description" : "TRIA ADELFIA ARILLAS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 530,
+		"RouteId" : 2,
+		"Description" : "MARINA ARILLAS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 531,
+		"RouteId" : 2,
+		"Description" : "MARVEL HOTEL",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:00",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 532,
+		"RouteId" : 2,
+		"Description" : "KATHY'S S/M SAN STEFANO",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 533,
+		"RouteId" : 2,
+		"Description" : "KAPETANIOS",
+		"ExactPoint" : "KATHYS S/M",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 534,
+		"RouteId" : 2,
+		"Description" : "SAN STEFANO BARAS",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 535,
+		"RouteId" : 2,
+		"Description" : "ASPA S/M",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:05",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 536,
+		"RouteId" : 2,
+		"Description" : "LEITOYRGIS OFFICE SAN STEFANO",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 537,
+		"RouteId" : 2,
+		"Description" : "TEREZAS AGIOS STEFANOS",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 538,
+		"RouteId" : 2,
+		"Description" : "ROMANZA HOTEL ST.STEFANO",
+		"ExactPoint" : "HOTEL",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 539,
+		"RouteId" : 2,
+		"Description" : "NAFSIKA SAN STEFANO",
+		"ExactPoint" : "M.ROAD",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 540,
+		"RouteId" : 2,
+		"Description" : "BARRAS HOTEL",
+		"ExactPoint" : "MAIN ROAD",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 541,
+		"RouteId" : 2,
+		"Description" : "MYTHOS SAN STEFANO",
+		"ExactPoint" : "TENNIS COURT",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 542,
+		"RouteId" : 2,
+		"Description" : "KOUROS",
+		"ExactPoint" : "ASPA S/M",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 543,
+		"RouteId" : 2,
+		"Description" : "ATHINA",
+		"ExactPoint" : "ASPA S/M",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 544,
+		"RouteId" : 2,
+		"Description" : "LITTLE PRINCE",
+		"ExactPoint" : "ASPA S/M",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 545,
+		"RouteId" : 2,
+		"Description" : "ROSE GARDEN APTS",
+		"ExactPoint" : "PARADISE S/M ST. STEF.",
+		"Time" : "07:10",
+		"Coordinates" : "39.6110481,19.8919893",
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	}
+]

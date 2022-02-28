@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using API.Features.Destinations;
 using API.Infrastructure.Classes;
+using Newtonsoft.Json;
 
 namespace API.Infrastructure.SeedData {
 
@@ -9,14 +11,9 @@ namespace API.Infrastructure.SeedData {
 
         public static void SeedDestinations(AppDbContext context) {
             if (!context.Destinations.Any()) {
-                List<Destination> destinations = new() {
-                    new Destination { Id = 1, Abbreviation = "PA", IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da", Description = "PAXOS - ANTIPAXOS" },
-                    new Destination { Id = 2, Abbreviation = "PAS", IsActive = true, UserId = "544c9930-ad76-4aa9-bb1c-8dd193508e05", Description = "PAXOS - ANTIPAXOS (SPACE SAFE)" },
-                    new Destination { Id = 3, Abbreviation = "BL", IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da", Description = "BLUE LAGOON" },
-                    new Destination { Id = 4, Abbreviation = "BLS", IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da", Description = "BLUE LAGOON (SPACE SAFE)" },
-                    new Destination { Id = 5, Abbreviation = "A", IsActive = false, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da", Description = "ALBANIA" }
-                };
-                context.AddRange(destinations);
+                string destinationsJSON = File.ReadAllText("Infrastructure" + Path.DirectorySeparatorChar + "Data" + Path.DirectorySeparatorChar + "Destinations.json");
+                List<Destination> destinations = JsonConvert.DeserializeObject<List<Destination>>(destinationsJSON);
+                context.Destinations.AddRange(destinations);
                 context.SaveChanges();
             }
         }

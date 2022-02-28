@@ -1,0 +1,56 @@
+[
+	{
+		"Id" : 1,
+		"DestinationId" : 1,
+		"PortId" : 1,
+		"Date" : "2022-02-01",
+		"MaxPersons" : 185,
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 2,
+		"DestinationId" : 1,
+		"PortId" : 2,
+		"Date" : "2022-02-01",
+		"MaxPersons" : 215,
+		"IsActive" : 1,
+		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
+	},
+	{
+		"Id" : 3,
+		"DestinationId" : 3,
+		"PortId" : 1,
+		"Date" : "2022-02-02",
+		"MaxPersons" : 185,
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 4,
+		"DestinationId" : 1,
+		"PortId" : 2,
+		"Date" : "2022-02-03",
+		"MaxPersons" : 215,
+		"IsActive" : 1,
+		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
+	},
+	{
+		"Id" : 5,
+		"DestinationId" : 1,
+		"PortId" : 1,
+		"Date" : "2022-02-10",
+		"MaxPersons" : 185,
+		"IsActive" : 1,
+		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
+	},
+	{
+		"Id" : 6,
+		"DestinationId" : 1,
+		"PortId" : 1,
+		"Date" : "2025-02-01",
+		"MaxPersons" : 185,
+		"IsActive" : 1,
+		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
+	}
+]

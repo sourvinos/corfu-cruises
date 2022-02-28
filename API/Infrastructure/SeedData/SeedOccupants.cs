@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using API.Features.Occupants;
 using API.Infrastructure.Classes;
+using Newtonsoft.Json;
 
 namespace API.Infrastructure.SeedData {
 
@@ -9,12 +11,9 @@ namespace API.Infrastructure.SeedData {
 
         public static void SeedOccupants(AppDbContext context) {
             if (!context.Occupants.Any()) {
-                List<Occupant> occupants = new() {
-                    new Occupant { Id = 1, Description = "CREW", IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" },
-                    new Occupant { Id = 2, Description = "PASSENGER", IsActive = true, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" },
-                    new Occupant { Id = 3, Description = "OTHER", IsActive = false, UserId = "e7e014fd-5608-4936-866e-ec11fc8c16da" }
-                };
-                context.AddRange(occupants);
+                string occupantsJSON = File.ReadAllText("Infrastructure" + Path.DirectorySeparatorChar + "Data" + Path.DirectorySeparatorChar + "Occupants.json");
+                List<Occupant> occupants = JsonConvert.DeserializeObject<List<Occupant>>(occupantsJSON);
+                context.Occupants.AddRange(occupants);
                 context.SaveChanges();
             }
         }

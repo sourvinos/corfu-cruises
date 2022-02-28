@@ -121,21 +121,21 @@ namespace API.Features.Reservations {
                string.Equals(x.TicketNo, record.TicketNo, StringComparison.OrdinalIgnoreCase));
         }
 
-        public Task<bool> Update(string id, Reservation updatedRecord) {
+        public async Task<bool> Update(string id, Reservation updatedRecord) {
             using var transaction = context.Database.BeginTransaction();
             try {
-                UpdateReservation(updatedRecord);
-                RemovePassengers(GetPassengersForReservation(id));
-                AddPassengers(updatedRecord);
+                await UpdateReservation(updatedRecord);
+                await RemovePassengers(GetPassengersForReservation(id));
+                await AddPassengers(updatedRecord);
                 if (settings.IsTesting) {
                     transaction.Dispose();
                 } else {
                     transaction.Commit();
                 }
-                return Task.FromResult(true);
+                return true;
             } catch (Exception) {
                 transaction.Rollback();
-                return Task.FromResult(false);
+                return false;
             }
         }
 
@@ -212,23 +212,23 @@ namespace API.Features.Reservations {
             return passengers;
         }
 
-        private void UpdateReservation(Reservation updatedRecord) {
+        private async Task UpdateReservation(Reservation updatedRecord) {
             context.Entry(updatedRecord).State = EntityState.Modified;
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        private void AddPassengers(Reservation updatedRecord) {
+        private async Task AddPassengers(Reservation updatedRecord) {
             var records = new List<Passenger>();
             foreach (var record in updatedRecord.Passengers) {
                 records.Add(record);
             }
             context.Set<Passenger>().AddRange(records);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        private void RemovePassengers(IEnumerable<Passenger> passengers) {
+        private async Task RemovePassengers(IEnumerable<Passenger> passengers) {
             context.Set<Passenger>().RemoveRange(passengers);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
         private static bool PortHasVacancy(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId, int reservationPersons) {
@@ -398,7 +398,13 @@ namespace API.Features.Reservations {
             var refNo = context.RefNos.First();
             refNo.LastRefNo++;
             context.Entry(refNo).State = EntityState.Modified;
+            using var transaction = context.Database.BeginTransaction();
             await context.SaveChangesAsync();
+            if (settings.IsTesting) {
+                transaction.Dispose();
+            } else {
+                transaction.Commit();
+            }
             return refNo.LastRefNo.ToString();
         }
 
