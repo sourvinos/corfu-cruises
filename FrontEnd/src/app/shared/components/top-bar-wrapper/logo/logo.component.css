@@ -9,6 +9,7 @@
 #logo-image {
     color: var(--color-logo-image) !important;
     position: absolute;
+    width: var(--font-size-logo-image);
 }
 
 #logo-text {
@@ -17,5 +18,5 @@
     font-size: var(--font-size-logo-text) !important;
     font-weight: var(--font-weight-logo);
     line-height: 36px;
-    margin: 2px 0 0 5.5rem;
+    margin: 2px 0 0 var(--logo-left-margin);
 }

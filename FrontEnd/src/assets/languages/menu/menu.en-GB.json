@@ -59,8 +59,8 @@
                 "description": "Ports"
             },
             {
-                "id": "routes",
-                "description": "Routes"
+                "id": "coachRoutes",
+                "description": "Coach routes"
             },
             {
                 "id": "schedules",
@@ -71,40 +71,32 @@
                 "description": "Users"
             },
             {
-                "id": "vessels",
-                "description": "Vessels"
+                "id": "ships",
+                "description": "Ships"
             },
             {
-                "id": "vesselManagement",
-                "description": "Management"
+                "id": "shipOwners",
+                "description": "Ship owners"
             },
             {
-                "id": "vesselOwners",
-                "description": "Owners"
+                "id": "registrars",
+                "description": "Passenger registrars"
             },
             {
-                "id": "vesselRegistrars",
-                "description": "Registrars"
-            },
-            {
-                "id": "vesselRoutes",
-                "description": "Routes"
-            },
-            {
-                "id": "vesselCrews",
+                "id": "crews",
                 "description": "Crews"
+            },
+            {
+                "id": "shipRoutes",
+                "description": "Ship routes"
             },
             {
                 "id": "logout",
                 "description": "Logout"
             },
             {
-                "id": "myAccount",
-                "description": "My account"
-            },
-            {
                 "id": "editAccount",
-                "description": "Edit"
+                "description": "My account"
             },
             {
                 "id": "calendar",

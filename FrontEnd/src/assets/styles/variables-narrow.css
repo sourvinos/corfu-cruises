@@ -1,9 +1,9 @@
 @media only screen and (max-width: 1440px) {
     * {
-        --content-padding-left: 14rem;
+        --content-padding-left: 17rem;
         --font-size-button: 100%;
-        --font-size-calendar-day: 100%;
         --font-size-calendar-day-width: 2rem;
+        --font-size-calendar-day: 100%;
         --font-size-calendar-destinations: 60%;
         --font-size-calendar-popup-day: 150%;
         --font-size-calendar-popup-destinations: 100%;
@@ -16,8 +16,9 @@
         --font-size-h2: 150%;
         --font-size-input-hint: 80%;
         --font-size-input: 85%;
-        --font-size-logo-text: 300%;
-        --font-size-menu-items: 100%;
+        --font-size-logo-image: 2.5rem;
+        --font-size-logo-text: 200%;
+        --font-size-menu-items: 110%;
         --font-size-panel-buttons: 110%;
         --font-size-radio-button: 90%;
         --font-size-row-subgroup: 100%;
@@ -31,7 +32,8 @@
         --gap: 1rem;
         --header-margin-bottom: 0.75rem;
         --header-margin-top: 0;
-        --side-bar-width: 12rem;
-        --top-bar-height: 67px;
+        --logo-left-margin: 3.5rem;
+        --side-bar-width: 15rem;
+        --top-bar-height: 72.59px;
     }
 }

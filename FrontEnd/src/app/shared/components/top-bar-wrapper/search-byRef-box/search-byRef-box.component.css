@@ -14,9 +14,9 @@
     border: none;
     color: var(--color-text-secondary);
     font-family: "PF Handbook Pro", sans-serif;
-    font-size: 21px;
+    font-size: 110%;
     font-weight: 300;
-    margin-right: 0.4rem;
+    margin: 0.0625rem 0.4rem 0 0;
     padding: 6px 16px;
 }
 

@@ -59,7 +59,7 @@
                 "description": "Přístavy"
             },
             {
-                "id": "routes",
+                "id": "coachRoutes",
                 "description": "Trasy"
             },
             {
@@ -71,40 +71,32 @@
                 "description": "Uživatelé"
             },
             {
-                "id": "vessels",
+                "id": "ships",
                 "description": "Lodě"
             },
             {
-                "id": "vesselManagement",
-                "description": "Řízení"
-            },
-            {
-                "id": "vesselOwners",
+                "id": "shipOwners",
                 "description": "Vlastníci"
             },
             {
-                "id": "vesselRegistrars",
+                "id": "registrars",
                 "description": "Registrátoři"
             },
             {
-                "id": "vesselRoutes",
-                "description": "Trasy"
+                "id": "crews",
+                "description": "Posádky"
             },
             {
-                "id": "vesselCrews",
-                "description": "Posádky"
+                "id": "shipRoutes",
+                "description": "Trasy"
             },
             {
                 "id": "logout",
                 "description": "Odhlásit set"
             },
             {
-                "id": "myAccount",
-                "description": "Můj účet"
-            },
-            {
                 "id": "editAccount",
-                "description": "Upravit"
+                "description": "Můj účet"
             },
             {
                 "id": "calendar",

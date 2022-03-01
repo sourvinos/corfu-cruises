@@ -52,59 +52,51 @@
             },
             {
                 "id": "pickupPoints",
-                "description": "Aufenthalte"
+                "description": "Abholstellen"
             },
             {
                 "id": "ports",
                 "description": "Häfen"
             },
             {
-                "id": "routes",
-                "description": "Routen"
+                "id": "coachRoutes",
+                "description": "Busrouten"
             },
             {
                 "id": "schedules",
-                "description": "Zeitplan"
+                "description": "Reisepläne"
             },
             {
                 "id": "users",
                 "description": "Benutzer"
             },
             {
-                "id": "vessels",
+                "id": "ships",
                 "description": "Schiffe"
             },
             {
-                "id": "vesselManagement",
-                "description": "Verwaltung"
-            },
-            {
-                "id": "vesselOwners",
+                "id": "shipOwners",
                 "description": "Schiffseigner"
             },
             {
-                "id": "vesselRegistrars",
-                "description": "Registrare"
+                "id": "registrars",
+                "description": "Fahrgastregistrierer"
             },
             {
-                "id": "vesselRoutes",
-                "description": "Routen"
-            },
-            {
-                "id": "vesselCrews",
+                "id": "crews",
                 "description": "Besatzungen"
+            },
+            {
+                "id": "shipRoutes",
+                "description": "Schiffsrouten"
             },
             {
                 "id": "logout",
                 "description": "Ausloggen"
             },
             {
-                "id": "myAccount",
-                "description": "Mein Konto"
-            },
-            {
                 "id": "editAccount",
-                "description": "Bearbeiten"
+                "description": "Mein Konto"
             },
             {
                 "id": "calendar",

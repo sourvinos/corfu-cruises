@@ -107,7 +107,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Προορισμοί"
+                "description": "Προορισμοί εκδρομών"
             },
             {
                 "id": "headerIsActive",
@@ -132,7 +132,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Προορισμός"
+                "description": "Προορισμός εκδρομής"
             },
             {
                 "id": "abbreviation",
@@ -161,7 +161,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Οδηγοί"
+                "description": "Οδηγοί λεωφορείων"
             },
             {
                 "id": "headerIsActive",
@@ -186,7 +186,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Οδηγός"
+                "description": "Οδηγός λεωφορείου"
             },
             {
                 "id": "description",
@@ -215,7 +215,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Σημεία Παραλαβής"
+                "description": "Σημεία παραλαβής επιβατών"
             },
             {
                 "id": "headerIsActive",
@@ -248,7 +248,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Σημείο παραλαβής"
+                "description": "Σημείο παραλαβής επιβατών"
             },
             {
                 "id": "route",
@@ -347,11 +347,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Διαδρομές"
+                "description": "Δρομολόγια λεωφορείων"
             },
             {
                 "id": "headerIsActive",
-                "description": "Ενεργή"
+                "description": "Ενεργό"
             },
             {
                 "id": "headerIsTransfer",
@@ -376,7 +376,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Διαδρομη"
+                "description": "Δρομολόγιο λεωφορείου"
             },
             {
                 "id": "abbreviation",
@@ -455,6 +455,10 @@
             {
                 "id": "header",
                 "description": "Χρήστης"
+            },
+            {
+                "id": "my-header",
+                "description": "Ο λογαριασμός μου"
             },
             {
                 "id": "userName",
@@ -1644,19 +1648,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πλοιοκτητης"
+                "description": "Πλοιοκτήτης"
             },
             {
                 "id": "description",
-                "description": "Επωνυμια"
+                "description": "Επωνυμία"
             },
             {
                 "id": "profession",
-                "description": "Δραστηριοτητα"
+                "description": "Δραστηριότητα"
             },
             {
                 "id": "address",
-                "description": "Διευθυνση"
+                "description": "Διεύθυνση"
             },
             {
                 "id": "taxNo",
@@ -1664,11 +1668,11 @@
             },
             {
                 "id": "city",
-                "description": "Πολη"
+                "description": "Πόλη"
             },
             {
                 "id": "phones",
-                "description": "Τηλεφωνα"
+                "description": "Τηλέφωνα"
             },
             {
                 "id": "email",
@@ -1676,7 +1680,7 @@
             },
             {
                 "id": "isActive",
-                "description": "Ενεργος"
+                "description": "Ενεργός"
             },
             {
                 "id": "deleteButton",
@@ -1722,11 +1726,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Διαδρομή"
+                "description": "Δρομολόγιο πλοίου"
             },
             {
-                "id": "isActive",
-                "description": "Ενεργή"
+                "id": "description",
+                "description": "Περιγραφή"
             },
             {
                 "id": "fromPort",
@@ -1754,7 +1758,7 @@
             },
             {
                 "id": "isActive",
-                "description": "Ενεργή"
+                "description": "Ενεργό"
             },
             {
                 "id": "deleteButton",
@@ -1792,19 +1796,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Καταγραφεας επιβατων"
+                "description": "Καταγραφέας επιβατών"
             },
             {
                 "id": "fullname",
-                "description": "Πληρες ονομα"
+                "description": "Πλήρες όνομα"
             },
             {
                 "id": "vessel",
-                "description": "Πλοιο"
+                "description": "Πλοίο"
             },
             {
                 "id": "phones",
-                "description": "Τηλεφωνα"
+                "description": "Τηλέφωνα"
             },
             {
                 "id": "email",
@@ -1816,15 +1820,15 @@
             },
             {
                 "id": "address",
-                "description": "Διευθυνση"
+                "description": "Διεύθυνση"
             },
             {
                 "id": "isPrimary",
-                "description": "Πρωτευον"
+                "description": "Πρωτεύον"
             },
             {
                 "id": "isActive",
-                "description": "Ενεργος"
+                "description": "Ενεργός"
             },
             {
                 "id": "deleteButton",
@@ -1919,7 +1923,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πρόγραμμα"
+                "description": "Πρόγραμμα εκδρομών"
             },
             {
                 "id": "headerIsActive",
@@ -1952,7 +1956,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Μεταβολή προγράμματος"
+                "description": "Πρόγραμμα εκδρομής"
             },
             {
                 "id": "date",

@@ -457,6 +457,10 @@
                 "description": "User"
             },
             {
+                "id": "my-header",
+                "description": "My account"
+            },
+            {
                 "id": "userName",
                 "description": "Username"
             },
@@ -1771,7 +1775,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Registrars"
+                "description": "Passenger registrars"
             },
             {
                 "id": "headerIsActive",
@@ -1952,7 +1956,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Edit schedule"
+                "description": "Schedule"
             },
             {
                 "id": "date",

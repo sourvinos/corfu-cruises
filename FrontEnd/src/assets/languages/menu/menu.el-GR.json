@@ -11,7 +11,7 @@
                 "description": "Επιβάτες"
             },
             {
-                "id": "embarkation" ,
+                "id": "embarkation",
                 "description": "Επιβίβαση"
             },
             {
@@ -40,11 +40,11 @@
             },
             {
                 "id": "destinations",
-                "description": "Προορισμοί"
+                "description": "Προορισμοί εκδρομών"
             },
             {
                 "id": "drivers",
-                "description": "Οδηγοί"
+                "description": "Οδηγοί λεωφορείων"
             },
             {
                 "id": "genders",
@@ -52,59 +52,51 @@
             },
             {
                 "id": "pickupPoints",
-                "description": "Σημεία παραλαβής"
+                "description": "Σημεία παραλαβής επιβατών"
             },
             {
                 "id": "ports",
                 "description": "Λιμάνια"
             },
             {
-                "id": "routes",
-                "description": "Διαδρομές"
+                "id": "coachRoutes",
+                "description": "Δρομολόγια λεωφορείων"
             },
             {
                 "id": "schedules",
-                "description": "Πρόγραμμα"
+                "description": "Πρόγραμμα εκδρομών"
             },
             {
                 "id": "users",
                 "description": "Χρήστες"
             },
             {
-                "id": "vessels",
+                "id": "ships",
                 "description": "Πλοία"
             },
             {
-                "id": "vesselManagement",
-                "description": "Διαχείρηση"
-            },
-            {
-                "id": "vesselOwners",
+                "id": "shipOwners",
                 "description": "Πλοιοκτήτες"
             },
             {
-                "id": "vesselRegistrars",
-                "description": "Καταγραφείς επιβατών"
+                "id": "shipRoutes",
+                "description": "Δρομολόγια πλοίων"
             },
             {
-                "id": "vesselRoutes",
-                "description": "Διαδρομές"
-            },
-            {
-                "id": "vesselCrews",
+                "id": "crews",
                 "description": "Πληρώματα"
+            },
+            {
+                "id": "registrars",
+                "description": "Καταγραφείς επιβατών"
             },
             {
                 "id": "logout",
                 "description": "Αποσύνδεση"
             },
             {
-                "id": "myAccount",
-                "description": "Ο λογαριασμός μου"
-            },
-            {
                 "id": "editAccount",
-                "description": "Επεξεργασία"
+                "description": "Ο λογαριασμός μου"
             },
             {
                 "id": "calendar",

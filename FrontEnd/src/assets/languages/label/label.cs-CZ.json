@@ -457,6 +457,10 @@
                 "description": "Uživatel"
             },
             {
+                "id": "my-header",
+                "description": "Můj účet"
+            },
+            {
                 "id": "userName",
                 "description": "Uživatelské jméno"
             },
@@ -1952,7 +1956,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Upravit rozvrh"
+                "description": "Rozvrh"
             },
             {
                 "id": "date",

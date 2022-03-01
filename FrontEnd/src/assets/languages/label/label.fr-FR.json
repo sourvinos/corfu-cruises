@@ -186,7 +186,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Chauffeur"
+                "description": "Conducteur"
             },
             {
                 "id": "description",
@@ -347,7 +347,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Routes"
+                "description": "Routes de bus"
             },
             {
                 "id": "headerIsActive",
@@ -455,6 +455,10 @@
             {
                 "id": "header",
                 "description": "Utilisateur"
+            },
+            {
+                "id": "my-header",
+                "description": "Mon compte"
             },
             {
                 "id": "userName",
@@ -1693,7 +1697,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Itinéraires"
+                "description": "Routes maritimes"
             },
             {
                 "id": "headerIsActive",
@@ -1771,7 +1775,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Registraires"
+                "description": "Enregistreurs de passagers"
             },
             {
                 "id": "headerIsActive",
@@ -1792,7 +1796,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Greffier"
+                "description": "Registrar"
             },
             {
                 "id": "fullname",
@@ -1841,7 +1845,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Équipages"
+                "description": "Équipes"
             },
             {
                 "id": "headerIsActive",
@@ -1919,7 +1923,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Schedules"
+                "description": "Horaires"
             },
             {
                 "id": "headerIsActive",
@@ -1952,7 +1956,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Modifier l'horaire"
+                "description": "Horaire"
             },
             {
                 "id": "date",

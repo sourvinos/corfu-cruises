@@ -48,7 +48,7 @@
             },
             {
                 "id": "genders",
-                "description": "Sexes"
+                "description": "Genres"
             },
             {
                 "id": "pickupPoints",
@@ -59,52 +59,44 @@
                 "description": "Ports"
             },
             {
-                "id": "routes",
-                "description": "Itineraires"
+                "id": "coachRoutes",
+                "description": "Routes de bus"
             },
             {
                 "id": "schedules",
-                "description": "Programmes"
+                "description": "Horaires"
             },
             {
                 "id": "users",
                 "description": "Utilisateurs"
             },
             {
-                "id": "vessels",
+                "id": "ships",
                 "description": "Navires"
             },
             {
-                "id": "vesselManagement",
-                "description": "Gestion"
-            },
-            {
-                "id": "vesselOwners",
+                "id": "shipOwners",
                 "description": "Armateurs"
             },
             {
-                "id": "vesselRegistrars",
-                "description": "Registraires"
+                "id": "registrars",
+                "description": "Enregistreurs de passagers"
             },
             {
-                "id": "vesselRoutes",
-                "description": "Itinéraires"
+                "id": "crews",
+                "description": "Équipes"
             },
             {
-                "id": "vesselCrews",
-                "description": "Équipages"
+                "id": "shipRoutes",
+                "description": "Routes maritimes"
             },
             {
                 "id": "logout",
                 "description": "Quitter"
             },
             {
-                "id": "myAccount",
-                "description": "Mon compte"
-            },
-            {
                 "id": "editAccount",
-                "description": "Éditer"
+                "description": "Mon compte"
             },
             {
                 "id": "calendar",

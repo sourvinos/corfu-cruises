@@ -5,9 +5,14 @@
             <button (click)="onGoBack()" class="goBack" data-cy="goBack" id="goBack" mat-mini-fab>
                 <mat-icon>arrow_back</mat-icon>
             </button>
+            <div @slideFromLeft id="title">
+                <h1>{{ getLabel('header') }}</h1>
+            </div>
         </div>
-        <div @slideFromLeft id="title">
-            <h1>{{ getLabel('header') }}</h1>
+        <div [class.hidden]="returnUrl!='/'" id="navigation">
+            <div @slideFromLeft id="title">
+                <h1>{{ getLabel('my-header') }}</h1>
+            </div>
         </div>
     </div>
 

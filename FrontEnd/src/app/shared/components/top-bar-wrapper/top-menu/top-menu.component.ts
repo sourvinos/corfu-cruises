@@ -76,6 +76,7 @@ export class TopMenuComponent {
             {
                 label: '',
                 icon: this.getLanguageIcon(),
+                id: 'language-icon',
                 items: [
                     {
                         label: 'Ελληνικά',

@@ -248,11 +248,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Abholpunkt"
+                "description": "Abholstelle"
             },
             {
                 "id": "route",
-                "description": "Route"
+                "description": "Busroute"
             },
             {
                 "id": "description",
@@ -260,11 +260,11 @@
             },
             {
                 "id": "exactPoint",
-                "description": "Genauer Punkt"
+                "description": "Genaue Stelle"
             },
             {
                 "id": "time",
-                "description": "Zeit"
+                "description": "Abholzeit"
             },
             {
                 "id": "coordinates",
@@ -455,6 +455,10 @@
             {
                 "id": "header",
                 "description": "Benutzer"
+            },
+            {
+                "id": "my-header",
+                "description": "Mein Konto"
             },
             {
                 "id": "userName",
@@ -1952,7 +1956,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Zeitplan bearbeiten"
+                "description": "Zeitplan"
             },
             {
                 "id": "date",

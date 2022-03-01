@@ -57,7 +57,7 @@ export class SideMenuComponent {
                 label: this.getLabel(menuItems, 'passengers'),
                 icon: 'fas fa-users',
                 items: [
-                    { label: this.getLabel(menuItems, 'embarkation'),command: (): void => { this.router.navigate(['/']) } },
+                    { label: this.getLabel(menuItems, 'embarkation'), command: (): void => { this.router.navigate(['/']) } },
                     { label: this.getLabel(menuItems, 'manifest'), command: (): void => { this.router.navigate(['/']) } },
                 ]
             },
@@ -76,25 +76,19 @@ export class SideMenuComponent {
                     { label: this.getLabel(menuItems, 'customers'), command: (): void => { this.router.navigate(['/customers']) } },
                     { label: this.getLabel(menuItems, 'destinations'), command: (): void => { this.router.navigate(['/destinations']) } },
                     { label: this.getLabel(menuItems, 'drivers'), command: (): void => { this.router.navigate(['/drivers']) } },
-                    { label: this.getLabel(menuItems, 'genders'), command: (): void => { this.router.navigate(['/genders']) } },
                     { label: this.getLabel(menuItems, 'pickupPoints'), command: (): void => { this.router.navigate(['/pickupPoints']) } },
+                    { label: this.getLabel(menuItems, 'coachRoutes'), command: (): void => { this.router.navigate(['/routes']) } },
                     { label: this.getLabel(menuItems, 'ports'), command: (): void => { this.router.navigate(['/ports']) } },
-                    { label: this.getLabel(menuItems, 'routes'), command: (): void => { this.router.navigate(['/routes']) } },
                     { label: this.getLabel(menuItems, 'schedules'), command: (): void => { this.router.navigate(['/schedules']) } },
-                    { label: this.getLabel(menuItems, 'users'), command: (): void => { this.router.navigate(['/users']) } },
+                    { label: this.getLabel(menuItems, 'ships'), command: (): void => { this.router.navigate(['/ships']) } },
+                    { label: this.getLabel(menuItems, 'crews'), command: (): void => { this.router.navigate(['/shipCrews']) } },
+                    { label: this.getLabel(menuItems, 'genders'), command: (): void => { this.router.navigate(['/genders']) } },
+                    { label: this.getLabel(menuItems, 'registrars'), command: (): void => { this.router.navigate(['/shipRegistrars']) } },
+                    { label: this.getLabel(menuItems, 'shipOwners'), command: (): void => { this.router.navigate(['/shipOwners']) } },
+                    { label: this.getLabel(menuItems, 'shipRoutes'), command: (): void => { this.router.navigate(['/shipRoutes']) } },
+                    { label: this.getLabel(menuItems, 'users'), command: (): void => { this.router.navigate(['/users']) } }
                 ]
-            },
-            {
-                label: this.getLabel(menuItems, 'vessels'),
-                icon: 'fas fa-ship',
-                items: [
-                    { label: this.getLabel(menuItems, 'vesselManagement'), command: (): void => { this.router.navigate(['/ships']) } },
-                    { label: this.getLabel(menuItems, 'vesselCrews'), command: (): void => { this.router.navigate(['/shipCrews']) } },
-                    { label: this.getLabel(menuItems, 'vesselOwners'), command: (): void => { this.router.navigate(['/shipOwners']) } },
-                    { label: this.getLabel(menuItems, 'vesselRegistrars'), command: (): void => { this.router.navigate(['/shipRegistrars']) } },
-                    { label: this.getLabel(menuItems, 'vesselRoutes'), command: (): void => { this.router.navigate(['/shipRoutes']) } }
-                ]
-            },
+            }
         ]
         this.bottomItems = [
             {
