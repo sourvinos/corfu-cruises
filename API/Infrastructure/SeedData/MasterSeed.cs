@@ -7,10 +7,12 @@ namespace API.Infrastructure.SeedData {
     public static class SeedDatabaseMaster {
 
         public static void SeedDatabase(RoleManager<IdentityRole> roleManager, UserManager<UserExtended> userManager, AppDbContext context) {
-            // context.Database.EnsureDeleted();
-            // context.Database.EnsureCreated();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            // Identity
             SeedDatabaseRoles.SeedRoles(roleManager);
             SeedDatabaseUsers.SeedUsers(userManager);
+            // Standalone
             SeedDatabaseCustomers.SeedCustomers(context);
             SeedDatabaseDestinations.SeedDestinations(context);
             SeedDatabaseDrivers.SeedDrivers(context);
@@ -18,17 +20,19 @@ namespace API.Infrastructure.SeedData {
             SeedDatabaseNationalities.SeedNationalities(context);
             SeedDatabaseOccupants.SeedOccupants(context);
             SeedDatabasePorts.SeedPorts(context);
+            SeedDatabaseRefNos.SeedRefNos(context);
+            SeedDatabaseShipOwners.SeedShipOwners(context);
+            SeedDatabaseShipRoutes.SeedShipRoutes(context);
+            // With dependencies on other tables
+            SeedDatabaseShips.SeedShips(context);
+            SeedDatabaseCrews.SeedCrews(context);
             SeedDatabaseRoutes.SeedRoutes(context);
             SeedDatabasePickupPoints.SeedPickupPoints(context);
-            SeedDatabaseShipRoutes.SeedShipRoutes(context);
-            SeedDatabaseShipOwners.SeedShipOwners(context);
-            SeedDatabaseShips.SeedShips(context);
             SeedDatabaseRegistrars.SeedRegistrars(context);
-            SeedDatabaseCrews.SeedCrews(context);
             SeedDatabaseSchedules.SeedSchedules(context);
+            // Reservations
             SeedDatabaseReservations.SeedReservations(context);
             SeedDatabasePassengers.SeedPassengers(context);
-            SeedDatabaseRefNos.SeedRefNos(context);
         }
 
     }
