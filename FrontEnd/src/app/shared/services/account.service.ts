@@ -115,6 +115,8 @@ export class AccountService extends DataService {
             'jwt',
             'loginStatus',
             'refreshToken',
+            'refNo',
+            'returnUrl'
         ])
     }
 

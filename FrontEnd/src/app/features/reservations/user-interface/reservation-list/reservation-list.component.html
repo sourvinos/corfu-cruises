@@ -2,12 +2,12 @@
 
     <div id="header">
         <div id="navigation">
-            <button [routerLink]="['/reservations']" class="goBack" data-cy="goBack" id="goBack" mat-mini-fab>
+            <button (click)="onGoBack()" class="goBack" data-cy="goBack" id="goBack" mat-mini-fab>
                 <mat-icon>arrow_back</mat-icon>
             </button>
         </div>
         <div @slideFromLeft id="title">
-            <h1>{{ getLabel('header') }} {{ formatDateToLocale() }}</h1>
+            <h1>{{ showDateOrRefNoInHeader() }}</h1>
         </div>
         <div id="totals">
             <div *ngFor="let item of totals | slice:0:3">

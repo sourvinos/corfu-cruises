@@ -179,7 +179,9 @@ export class InvoicingCriteriaComponent {
     }
 
     private removeCriteria(): void {
-        this.helperService.removeItem('invoicing-criteria')
+        this.helperService.clearStorageItems([
+            'invoicing-criteria'
+        ])
     }
 
     private setWindowTitle(): void {

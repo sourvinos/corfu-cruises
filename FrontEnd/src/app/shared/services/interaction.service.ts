@@ -17,22 +17,12 @@ export class InteractionService {
 
     //#region public methods
 
-    /**
-     * Caller(s):
-     *  account.service.ts
-     * 
-     * Subscriber(s):
-     *  top-menu.component.ts
-     * 
-     * Description:
-     *  The caller tells the subscriber to show or hide menu elements
-     */
-    public mustRefreshMenus(): void {
-        this._refreshMenus.next()
-    }
-
     public mustRefreshDateAdapters(): void {
         this._refreshDateAdapter.next()
+    }
+
+    public mustRefreshMenus(): void {
+        this._refreshMenus.next()
     }
 
     //#endregion

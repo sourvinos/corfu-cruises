@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 import { Router } from '@angular/router'
 // Custom
 import { AccountService } from './../../../services/account.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { MessageLabelService } from './../../../services/messages-label.service'
 
 @Component({
@@ -22,7 +23,7 @@ export class SearchByRefBoxComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private formBuilder: FormBuilder, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private accountService: AccountService, private formBuilder: FormBuilder, private helperService: HelperService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -43,7 +44,10 @@ export class SearchByRefBoxComponent {
     }
 
     public onSearchByRefNo() {
-        this.router.navigate(['reservations/byRefNo', this.form.value.searchByRefNo])
+        const refNo = this.form.value.searchByRefNo
+        this.helperService.clearStorageItems(['date'])
+        this.helperService.saveItem('refNo', refNo)
+        this.router.navigate(['reservations/byRefNo', refNo])
     }
 
     //#endregion
@@ -61,4 +65,5 @@ export class SearchByRefBoxComponent {
     }
 
     //#endregion
+
 }

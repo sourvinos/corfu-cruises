@@ -576,8 +576,12 @@
         "feature": "reservationList",
         "labels": [
             {
-                "id": "header",
+                "id": "headerForDate",
                 "description": "Κρατήσεις για "
+            },
+            {
+                "id": "headerForRefNo",
+                "description": "Κράτηση με Ref No "
             },
             {
                 "id": "summaryTab",

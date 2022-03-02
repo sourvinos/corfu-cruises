@@ -95,6 +95,7 @@ export class ReservationFormComponent {
         this.initForm()
         this.subscribeToInteractionService()
         this.readStoredVariables()
+        this.setLocale()
     }
 
     ngOnDestroy(): void {
@@ -201,7 +202,7 @@ export class ReservationFormComponent {
     }
 
     public onGoBack(): void {
-        this.router.navigate([this.activatedRoute.snapshot.queryParams['returnUrl']])
+        this.router.navigate([this.helperService.readItem('returnUrl')])
     }
 
     public onSave(): void {
@@ -255,8 +256,7 @@ export class ReservationFormComponent {
     }
 
     private clearStoredVariables(): void {
-        this.helperService.removeItem('destinationId')
-        this.helperService.removeItem('destinationDescription')
+        this.helperService.clearStorageItems(['destinationId', 'destinationDescription'])
     }
 
     private convertCanvasToBase64(): void {

@@ -8,6 +8,7 @@ import { DriverPdfService } from '../../classes/services/driver-pdf.service'
 import { DriverService } from 'src/app/features/drivers/classes/driver.service'
 import { EmojiService } from './../../../../shared/services/emoji.service'
 import { HelperService } from './../../../../shared/services/helper.service'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { MenuItem, MessageService } from 'primeng/api'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -36,7 +37,6 @@ export class ReservationListComponent {
 
     private baseUrl = '/reservations'
     private url = ''
-    private isoDate = ''
     private ngUnsubscribe = new Subject<void>()
     private resolver = 'reservationList'
     private windowTitle = 'Reservations'
@@ -58,7 +58,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private driverPDFService: DriverPdfService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private driverPDFService: DriverPdfService, private interactionService: InteractionService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -74,7 +74,6 @@ export class ReservationListComponent {
         this.initPersonTotals()
         this.updateTotals()
         this.populateDropdowns()
-        this.updateDates()
     }
 
     ngOnDestroy(): void {
@@ -153,7 +152,8 @@ export class ReservationListComponent {
     }
 
     public editRecord(id: string): void {
-        this.router.navigate([this.baseUrl, id], { queryParams: { returnUrl: this.baseUrl + '/byDate/' + this.isoDate } })
+        this.helperService.saveItem('returnUrl', this.url)
+        this.router.navigate([this.baseUrl, id])
     }
 
     public formatDateToLocale() {
@@ -177,7 +177,12 @@ export class ReservationListComponent {
     }
 
     public newRecord(): void {
-        this.router.navigate([this.baseUrl, 'new'], { queryParams: { returnUrl: this.baseUrl + '/byDate/' + this.isoDate } })
+        this.helperService.saveItem('returnUrl', this.url)
+        this.router.navigate([this.baseUrl, 'new'])
+    }
+
+    public onGoBack(): void {
+        this.router.navigate(['reservations'])
     }
 
     public rowSelect(event: { data: { totalPersons: any } }): void {
@@ -186,6 +191,15 @@ export class ReservationListComponent {
 
     public rowUnselect(event: { data: { totalPersons: number } }): void {
         this.totals[2].sum -= event.data.totalPersons
+    }
+
+    public showDateOrRefNoInHeader(): string {
+        if (this.helperService.readItem('refNo')) {
+            return this.getLabel('headerForRefNo') + this.formatRefNo(this.helperService.readItem('refNo'))
+        }
+        else {
+            return this.getLabel('headerForDate') + this.formatDateToLocale()
+        }
     }
 
     public toggleVisibleRows(): void {
@@ -253,15 +267,6 @@ export class ReservationListComponent {
         this.drivers = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'driverDescription')
         this.ports = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'portDescription')
         this.ships = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'shipDescription')
-    }
-
-    private removeSelectedIdsFromLocalStorage(): void {
-        localStorage.removeItem('selectedIds')
-    }
-
-    private updateDates(): void {
-        this.isoDate = this.helperService.readItem('date')
-        this.today = this.helperService.readItem('date')
     }
 
     private resetTable(table: { reset: any }): void {

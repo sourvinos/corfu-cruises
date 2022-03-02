@@ -576,8 +576,12 @@
         "feature": "reservationList",
         "labels": [
             {
-                "id": "header",
+                "id": "headerForDate",
                 "description": "Reservierungen für "
+            },
+            {
+                "id": "headerForRefNo",
+                "description": "Reservierung mit Ref No "
             },
             {
                 "id": "summaryTab",

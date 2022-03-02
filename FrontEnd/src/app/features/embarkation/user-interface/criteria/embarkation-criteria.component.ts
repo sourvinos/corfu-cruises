@@ -169,9 +169,11 @@ export class EmbarkationCriteriaComponent {
     }
 
     private removeCriteria(): void {
-        this.helperService.removeItem('embarkationCriteria')
+        this.helperService.clearStorageItems([
+            'embarkationCriteria'
+        ])
     }
-    
+
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }

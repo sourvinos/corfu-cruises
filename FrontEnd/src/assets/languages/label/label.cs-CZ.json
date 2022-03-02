@@ -576,8 +576,12 @@
         "feature": "reservationList",
         "labels": [
             {
-                "id": "header",
+                "id": "headerForDate",
                 "description": "Rezervace pro "
+            },
+            {
+                "id": "headerForRefNo",
+                "description": "Rezervace s "
             },
             {
                 "id": "summaryTab",

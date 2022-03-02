@@ -107,7 +107,8 @@ export class CalendarComponent {
         this.helperService.saveItem('date', date)
         this.helperService.saveItem('destinationId', destinationId.toString())
         this.helperService.saveItem('destinationDescription', destinationDescription.toString())
-        this.router.navigate(['/reservations/new'], { queryParams: { returnUrl: 'schedules/calendar' } })
+        this.helperService.saveItem('returnUrl', 'schedules/calendar')
+        this.router.navigate(['/reservations/new'])
     }
 
     //#endregion
@@ -143,9 +144,11 @@ export class CalendarComponent {
     }
 
     private clearStoredVariables(): void {
-        this.helperService.removeItem('date')
-        this.helperService.removeItem('destinationId')
-        this.helperService.removeItem('destinationDescription')
+        this.helperService.clearStorageItems([
+            'date',
+            'destinationId',
+            'destinationDescription'
+        ])
     }
 
     private getDaysFromDate(month: number, year: number): void {

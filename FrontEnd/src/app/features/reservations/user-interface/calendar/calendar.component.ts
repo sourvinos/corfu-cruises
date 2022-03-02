@@ -46,6 +46,7 @@ export class CalendarComponent {
             this.fixCalendarHeight()
         })
         this.addShortcuts()
+        this.clearStoredVariables()
     }
 
     ngOnDestroy(): void {
@@ -121,6 +122,14 @@ export class CalendarComponent {
         }
         const result = Math.ceil((lastDate - diff) / 7)
         return result + 1
+    }
+
+    private clearStoredVariables() {
+        this.helperService.clearStorageItems([
+            'date',
+            'refNo',
+            'returnUrl'
+        ])
     }
 
     private fixCalendarHeight(): void {

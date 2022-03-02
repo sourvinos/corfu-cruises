@@ -181,7 +181,9 @@ export class ManifestCriteriaComponent {
     }
 
     private removeCriteria(): void {
-        this.helperService.removeItem('manifestCriteria')
+        this.helperService.clearStorageItems([
+            'manifestCriteria'
+        ])
     }
 
     private setWindowTitle(): void {
