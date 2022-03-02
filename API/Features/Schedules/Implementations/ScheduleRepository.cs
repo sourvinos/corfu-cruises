@@ -98,7 +98,7 @@ namespace API.Features.Schedules {
 
         public bool PortHasDepartures(string date, int destinationId, int portId) {
             var schedule = context.Set<Schedule>()
-                .Where(x => x.Date.ToString() == date && x.DestinationId == destinationId && x.PortId == portId)
+                .Where(x => x.Date.ToString() == date && x.DestinationId == destinationId && x.PortId == portId && x.IsActive)
                 .ToList();
             return schedule.Count != 0;
         }
