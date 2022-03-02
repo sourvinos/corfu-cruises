@@ -59,7 +59,7 @@
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                 <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
                     <td style="min-width: 10%; max-width: 10%; padding: 5px !important; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
-                    <td style="min-width: 15%; max-width: 15%; justify-content: center;">{{ onFormatDate(rowData.date) }}</td>
+                    <td style="min-width: 15%; max-width: 15%; justify-content: center;">{{ formatDateToLocale(rowData.date) }}</td>
                     <td style="min-width: 35%; max-width: 35%;">{{ rowData.destinationDescription }}</td>
                     <td style="min-width: 32%; max-width: 32%;">{{ rowData.portDescription }}</td>
                     <td style="min-width: 8%; max-width: 8%; justify-content: center;">{{ rowData.maxPersons }}</td>

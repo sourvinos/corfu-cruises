@@ -74,6 +74,7 @@ export class EditScheduleComponent {
         this.subscribeToInteractionService()
         this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
         this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
+        this.setLocale()
     }
 
     ngOnDestroy(): void {

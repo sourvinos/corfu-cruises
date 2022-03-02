@@ -74,8 +74,8 @@ export class ScheduleListComponent {
         this.updateRowGroupMetaData(event.filteredValue)
     }
 
-    public onFormatDate(date: string): string {
-        return date
+    public formatDateToLocale(date: string): string {
+        return this.helperService.formatDateToLocale(date)
     }
 
     public onGetLabel(id: string): string {

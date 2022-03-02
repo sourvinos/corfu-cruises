@@ -66,6 +66,7 @@ export class CrewFormComponent {
         this.initForm()
         this.subscribeToInteractionService()
         this.addShortcuts()
+        this.setLocale()
     }
 
     ngOnDestroy(): void {
