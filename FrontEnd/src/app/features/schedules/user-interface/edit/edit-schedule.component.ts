@@ -1,30 +1,30 @@
+import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
+import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { MatDialog } from '@angular/material/dialog'
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-import { map, startWith } from 'rxjs/operators'
+import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { DestinationDropdownResource } from 'src/app/features/reservations/classes/resources/form/dropdown/destination-dropdown-resource'
+import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { PortDropdownResource } from 'src/app/features/ports/classes/resources/port-dropdown-resource'
+import { PortService } from 'src/app/features/ports/classes/services/port.service'
+import { ScheduleReadResource } from '../../classes/form/schedule-read-resource'
+import { ScheduleService } from '../../classes/calendar/schedule.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
-import { ScheduleService } from '../../classes/calendar/schedule.service'
-import { PortService } from 'src/app/features/ports/classes/services/port.service'
-import { ScheduleReadResource } from '../../classes/form/schedule-read-resource'
-import { DestinationDropdownResource } from 'src/app/features/reservations/classes/resources/form/dropdown/destination-dropdown-resource'
-import { PortDropdownResource } from 'src/app/features/ports/classes/resources/port-dropdown-resource'
-import moment from 'moment'
-import { DateAdapter } from '@angular/material/core'
 
 @Component({
     selector: 'edit-schedule',
@@ -57,25 +57,7 @@ export class EditScheduleComponent {
 
     //#endregion
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private buttonClickService: ButtonClickService,
-        private dateAdapter: DateAdapter<any>,
-        private destinationService: DestinationService,
-        private dialogService: DialogService,
-        private formBuilder: FormBuilder,
-        private helperService: HelperService,
-        private keyboardShortcutsService: KeyboardShortcuts,
-        private messageHintService: MessageHintService,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageSnackbarService,
-        private portService: PortService,
-        private scheduleService: ScheduleService,
-        private router: Router,
-        private snackbarService: SnackbarService,
-        private titleService: Title,
-        public dialog: MatDialog
-    ) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private scheduleService: ScheduleService, private snackbarService: SnackbarService, private titleService: Title) {
         this.activatedRoute.params.subscribe(p => {
             if (p.id) {
                 this.getRecord(p.id)
@@ -89,7 +71,7 @@ export class EditScheduleComponent {
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
-        this.getLocale()
+        this.subscribeToInteractionService()
         this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
         this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
     }
@@ -228,10 +210,6 @@ export class EditScheduleComponent {
         })
     }
 
-    private getLocale(): void {
-        this.dateAdapter.setLocale(this.helperService.readItem('language'))
-    }
-
     private getRecord(id: number): void {
         this.scheduleService.getSingle(id).subscribe(result => {
             this.populateFields(result)
@@ -283,12 +261,22 @@ export class EditScheduleComponent {
         this.form.reset()
     }
 
+    private setLocale() {
+        this.dateAdapter.setLocale(this.helperService.readLanguage())
+    }
+
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
+            this.setLocale()
+        })
     }
 
     private unsubscribe(): void {

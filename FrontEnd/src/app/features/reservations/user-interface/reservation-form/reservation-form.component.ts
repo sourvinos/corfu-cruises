@@ -4,7 +4,7 @@ import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-import { map, startWith } from 'rxjs/operators'
+import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import moment from 'moment'
 import { AccountService } from 'src/app/shared/services/account.service'
@@ -19,6 +19,7 @@ import { DriverDropdownResource } from '../../classes/resources/form/dropdown/dr
 import { DriverService } from 'src/app/features/drivers/classes/driver.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -74,7 +75,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.getRecord(x.id).then(() => {
@@ -92,7 +93,7 @@ export class ReservationFormComponent {
         this.setWindowTitle()
         this.addShortcuts()
         this.initForm()
-        this.setLocale()
+        this.subscribeToInteractionService()
         this.readStoredVariables()
     }
 
@@ -291,10 +292,6 @@ export class ReservationFormComponent {
             return this[array].filter((element: { [x: string]: string }) =>
                 element[field].toLowerCase().startsWith(filtervalue))
         }
-    }
-
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
     }
 
     private getLinkedCustomer(): Promise<any> {
@@ -527,6 +524,12 @@ export class ReservationFormComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
+            this.setLocale()
+        })
     }
 
     private unsubscribe(): void {

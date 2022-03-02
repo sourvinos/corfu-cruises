@@ -166,7 +166,6 @@ export class CalendarComponent {
 
     private navigateToList(): void {
         this.router.navigate(['byDate', this.helperService.readItem('date')], { relativeTo: this.activatedRoute })
-        // this.router.navigate(['byRefNo', 'PA-00001'], { relativeTo: this.activatedRoute })
     }
 
     private navigateToMonth(flag: number): void {

@@ -1,6 +1,5 @@
 import idleService from '@kurtz1993/idle-service'
 import { Component } from '@angular/core'
-import { DateAdapter } from '@angular/material/core'
 import { MenuItem } from 'primeng/api'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
@@ -30,7 +29,7 @@ export class TopMenuComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private interactionService: InteractionService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageMenuService: MessageMenuService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
+    constructor(private accountService: AccountService, private helperService: HelperService, private interactionService: InteractionService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageMenuService: MessageMenuService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -111,7 +110,6 @@ export class TopMenuComponent {
     private doLanguageTasks(language: string): string {
         this.saveLanguage(language)
         this.loadMessages()
-        this.updateDateAdapter()
         this.messageMenuService.getMessages().then((response) => {
             this.buildMenu(response)
         })
@@ -150,6 +148,7 @@ export class TopMenuComponent {
         this.messageLabelService.getMessages()
         this.messageMenuService.getMessages()
         this.messageSnackbarService.getMessages()
+        this.interactionService.mustRefreshDateAdapters()
         this.interactionService.mustRefreshMenus()
     }
 
@@ -163,10 +162,6 @@ export class TopMenuComponent {
                 this.buildMenu(response)
             })
         })
-    }
-
-    private updateDateAdapter(): void {
-        this.dateAdapter.setLocale(this.helperService.readItem('language'))
     }
 
     //#endregion

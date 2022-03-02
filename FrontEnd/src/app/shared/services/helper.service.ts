@@ -27,6 +27,11 @@ export class HelperService {
         form.get(field).enable()
     }
 
+    public formatDateToLocale(date: string) {
+        const x = date.split('-')
+        return new Intl.DateTimeFormat(this.readLanguage()).format(new Date(parseInt(x[0]), parseInt(x[1]) - 1, parseInt(x[2])))
+    }
+
     public getApplicationTitle(): any {
         return this.appName
     }

@@ -1,28 +1,28 @@
 import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
-import { CrewWriteDto } from '../classes/dtos/crew-write-dto'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-import { map, startWith } from 'rxjs/operators'
+import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { Crew } from '../classes/models/crew'
 import { CrewService } from '../classes/services/crew.service'
+import { CrewWriteDto } from '../classes/dtos/crew-write-dto'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { GenderDropdownDto } from '../classes/dtos/gender-dropdown-dto'
 import { GenderService } from 'src/app/features/genders/classes/gender.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { NationalityDropdownDto } from '../classes/dtos/nationality-dropdown-dto'
 import { NationalityService } from 'src/app/features/nationalities/classes/nationality.service'
-import { PickupPointService } from 'src/app/features/pickupPoints/classes/pickupPoint.service'
 import { ShipDropdownDto } from '../classes/dtos/ship-dropdown-dto'
 import { ShipService } from '../../ships/base/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
@@ -53,7 +53,7 @@ export class CrewFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private crewService: CrewService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private shipService: ShipService) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private crewService: CrewService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title) {
         this.activatedRoute.params.subscribe(x => {
             x.id ? this.getRecord(x.id).then(() => { this.populateDropDowns() }) : this.populateDropDowns()
         })
@@ -64,8 +64,8 @@ export class CrewFormComponent {
     ngOnInit(): void {
         this.setWindowTitle()
         this.initForm()
+        this.subscribeToInteractionService()
         this.addShortcuts()
-        this.getLocale()
     }
 
     ngOnDestroy(): void {
@@ -272,12 +272,22 @@ export class CrewFormComponent {
         }
     }
 
+    private setLocale() {
+        this.dateAdapter.setLocale(this.helperService.readLanguage())
+    }
+
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
+            this.setLocale()
+        })
     }
 
     private unsubscribe(): void {

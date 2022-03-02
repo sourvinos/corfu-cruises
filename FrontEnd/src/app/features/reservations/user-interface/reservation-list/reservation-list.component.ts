@@ -156,6 +156,10 @@ export class ReservationListComponent {
         this.router.navigate([this.baseUrl, id], { queryParams: { returnUrl: this.baseUrl + '/byDate/' + this.isoDate } })
     }
 
+    public formatDateToLocale() {
+        return this.helperService.formatDateToLocale(this.helperService.readItem('date'))
+    }
+
     public formatRefNo(refNo: string): string {
         return this.helperService.formatRefNo(refNo, false)
     }
@@ -189,6 +193,8 @@ export class ReservationListComponent {
     }
 
     //#endregion
+
+    //#region private methods
 
     private clearCheckboxes(): void {
         const items = document.querySelectorAll('.pi-check')
