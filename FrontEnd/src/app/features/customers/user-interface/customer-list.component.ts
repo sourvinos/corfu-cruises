@@ -28,9 +28,7 @@ export class CustomerListComponent {
     private ngUnsubscribe = new Subject<void>()
     private resolver = 'customerList'
     private unlisten: Unlisten
-    private windowTitle = 'Customers'
     public feature = 'customerList'
-    public newUrl = this.baseUrl + '/new'
     public records: CustomerListResource[] = []
 
     //#endregion
@@ -60,7 +58,11 @@ export class CustomerListComponent {
     }
 
     public onEditRecord(id: number): void {
-        this.router.navigate([this.baseUrl, id])
+        this.router.navigate([this.baseUrl, id], { queryParams: { returnUrl: 'customers' } })
+    }
+
+    public onNewRecord(): void {
+        this.router.navigate([this.baseUrl + '/new'], { queryParams: { returnUrl: 'customers' } })
     }
 
     //#endregion
@@ -82,7 +84,7 @@ export class CustomerListComponent {
     }
 
     private goBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate([this.helperService.getHomePage()])
     }
 
     private loadRecords(): void {
@@ -96,7 +98,7 @@ export class CustomerListComponent {
     }
 
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {

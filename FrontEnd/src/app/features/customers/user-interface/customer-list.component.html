@@ -35,7 +35,7 @@
 
     <div id="footer">
         <div @slideFromRight class="button-group">
-            <button data-cy="new" mat-flat-button class="primary" [routerLink]="newUrl">{{ getLabel("newButton") }}</button>
+            <button data-cy="new" mat-flat-button class="primary" (click)="onNewRecord()">{{ getLabel("newButton") }}</button>
         </div>
     </div>
 

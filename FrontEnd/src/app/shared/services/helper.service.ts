@@ -19,6 +19,12 @@ export class HelperService {
 
     //#region public methods
 
+    public clearStorageItems(items: string[]): void {
+        items.forEach(element => {
+            this.removeItem(element)
+        })
+    }
+
     public deviceDetector(): string {
         return 'desktop'
     }
@@ -32,8 +38,22 @@ export class HelperService {
         return new Intl.DateTimeFormat(this.readLanguage()).format(new Date(parseInt(x[0]), parseInt(x[1]) - 1, parseInt(x[2])))
     }
 
+    public formatRefNo(refNo: string, returnsHTML: boolean): string {
+        const destination = new RegExp(/[a-zA-Z]{1,5}/).exec(refNo)[0]
+        const number = new RegExp(/[0-9]{1,5}/g).exec(refNo).slice(-5)[0]
+        const zeros = '00000'.slice(number.length)
+        if (returnsHTML)
+            return '<span class="ref-no">' + destination.toUpperCase() + '</span>' + '-' + '<span class="zeros">' + zeros + '</span>' + '<span class="ref-no">' + number + '</span>'
+        else
+            return destination.toUpperCase() + '-' + zeros + number
+    }
+
     public getApplicationTitle(): any {
         return this.appName
+    }
+
+    public getHomePage(): string {
+        return '/'
     }
 
     public populateTableFiltersDropdowns(records: any[], field: string): any[] {
@@ -58,12 +78,6 @@ export class HelperService {
         localStorage.setItem(key, value)
     }
 
-    public clearStorageItems(items: string[]): void {
-        items.forEach(element => {
-            this.removeItem(element)
-        })
-    }
-
     public setFocus(element: string): void {
         setTimeout(() => {
             const input = <HTMLInputElement>document.getElementById(element)
@@ -76,16 +90,6 @@ export class HelperService {
         router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
             router.navigate([url])
         })
-    }
-
-    public formatRefNo(refNo: string, returnsHTML: boolean): string {
-        const destination = new RegExp(/[a-zA-Z]{1,5}/).exec(refNo)[0]
-        const number = new RegExp(/[0-9]{1,5}/g).exec(refNo).slice(-5)[0]
-        const zeros = '00000'.slice(number.length)
-        if (returnsHTML)
-            return '<span class="ref-no">' + destination.toUpperCase() + '</span>' + '-' + '<span class="zeros">' + zeros + '</span>' + '<span class="ref-no">' + number + '</span>'
-        else
-            return destination.toUpperCase() + '-' + zeros + number
     }
 
     //#endregion
