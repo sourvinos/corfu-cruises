@@ -1,5 +1,6 @@
 .mat-slide-toggle {
     margin: 0.625rem 0 1rem 0;
+    width: 100%;
 }
 
 .mat-slide-toggle-content {

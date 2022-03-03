@@ -140,11 +140,11 @@
             },
             {
                 "id": "description",
-                "description": "Περιγραφη"
+                "description": "Περιγραφή"
             },
             {
                 "id": "isActive",
-                "description": "Ενεργος"
+                "description": "Ενεργός"
             },
             {
                 "id": "deleteButton",
@@ -190,11 +190,11 @@
             },
             {
                 "id": "description",
-                "description": "Όνομα"
+                "description": "Πλήρες όνομα"
             },
             {
                 "id": "phones",
-                "description": "Αριθμοί τηλεφώνων"
+                "description": "Τηλέφωνα"
             },
             {
                 "id": "isActive",
@@ -384,19 +384,19 @@
             },
             {
                 "id": "description",
-                "description": "Περιγραφη"
+                "description": "Περιγραφή"
             },
             {
                 "id": "port",
-                "description": "Λιμανι"
+                "description": "Λιμάνι"
             },
             {
                 "id": "isTransfer",
-                "description": "Εχει μεταφορα"
+                "description": "Έχει μεταφορά"
             },
             {
                 "id": "isActive",
-                "description": "Ενεργο"
+                "description": "Ενεργό"
             },
             {
                 "id": "deleteButton",
@@ -408,11 +408,11 @@
             },
             {
                 "id": "formTab",
-                "description": "Στοιχεια"
+                "description": "Στοιχεία"
             },
             {
                 "id": "mapTab",
-                "description": "Χαρτης"
+                "description": "Χάρτης"
             }
         ]
     },
@@ -478,7 +478,7 @@
             },
             {
                 "id": "isAdmin",
-                "description": "Διαχειριστής"
+                "description": "Δχστής"
             },
             {
                 "id": "isActive",
@@ -531,7 +531,7 @@
             },
             {
                 "id": "isAdmin",
-                "description": "Διαχειριστής"
+                "description": "Δχστής"
             },
             {
                 "id": "isActive",
@@ -552,19 +552,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Αλλαγη κωδικου"
+                "description": "Αλλαγή κωδικού"
             },
             {
                 "id": "currentPassword",
-                "description": "Τρεχων κωδικος"
+                "description": "Τρέχων κωδικός"
             },
             {
                 "id": "newPassword",
-                "description": "Νεος κωδικος"
+                "description": "Νέος κωδικός"
             },
             {
                 "id": "confirmPassword",
-                "description": "Επιβεβαιωση νεου κωδικου"
+                "description": "Επιβεβαίωση νέου κωδικού"
             },
             {
                 "id": "saveButton",
@@ -617,19 +617,15 @@
             },
             {
                 "id": "assignToDriverButton",
-                "description": "Αναθεση επιβατων σε οδηγο"
+                "description": "Ανάθεση επιβατών σε οδηγο"
             },
             {
                 "id": "assignToShipButton",
-                "description": "Αναθεση επιβατων σε πλοιο"
+                "description": "Ανάθεση επιβατών σε πλοίο"
             },
             {
                 "id": "createPdfButton",
-                "description": "Δημιουργια PDF οδηγων"
-            },
-            {
-                "id": "createPdfReportButton",
-                "description": "Create PDF with list"
+                "description": "Δημιουργία PDF οδηγών"
             },
             {
                 "id": "newButton",
@@ -886,11 +882,11 @@
             },
             {
                 "id": "header",
-                "description": "Αναθεση σε οδηγο"
+                "description": "Ανάθεση σε οδηγό"
             },
             {
                 "id": "driver",
-                "description": "Οδηγος"
+                "description": "Οδηγός"
             },
             {
                 "id": "okButton",
@@ -898,7 +894,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Ακυρο"
+                "description": "Άκυρο"
             }
         ]
     },
@@ -911,11 +907,11 @@
             },
             {
                 "id": "header",
-                "description": "Αναθεση σε πλοιο"
+                "description": "Ανάθεση σε πλοίο"
             },
             {
                 "id": "ship",
-                "description": "Πλοιο"
+                "description": "Πλοίο"
             },
             {
                 "id": "okButton",
@@ -923,7 +919,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Ακυρο"
+                "description": "Άκυρο"
             }
         ]
     },
@@ -932,7 +928,7 @@
         "labels": [
             {
                 "id": "ports",
-                "description": "Λιμανια"
+                "description": "Λιμάνια"
             },
             {
                 "id": "portId",
@@ -940,11 +936,11 @@
             },
             {
                 "id": "portDescription",
-                "description": "Περιγραφη"
+                "description": "Περιγραφή"
             },
             {
                 "id": "destinations",
-                "description": "Προορισμοι"
+                "description": "Προορισμοί"
             },
             {
                 "id": "destinationId",
@@ -952,11 +948,11 @@
             },
             {
                 "id": "destinationDescription",
-                "description": "Περιγραφη"
+                "description": "Περιγραφή"
             },
             {
                 "id": "customers",
-                "description": "Πελατες"
+                "description": "Πελάτες"
             },
             {
                 "id": "customerId",
@@ -964,11 +960,11 @@
             },
             {
                 "id": "customerDescription",
-                "description": "Επωνυμια"
+                "description": "Επωνυμία"
             },
             {
                 "id": "pickupPoints",
-                "description": "Σημεια παραλαβης"
+                "description": "Σημεία παραλαβής"
             },
             {
                 "id": "pickupPointId",
@@ -976,27 +972,27 @@
             },
             {
                 "id": "pickupPointDescription",
-                "description": "Περιγραφη"
+                "description": "Περιγραφή"
             },
             {
                 "id": "exactPoint",
-                "description": "Ακριβες σημειο"
+                "description": "Ακριβές σημείο"
             },
             {
                 "id": "time",
-                "description": "Ωρα"
+                "description": "Ώρα"
             },
             {
                 "id": "selectButton",
-                "description": "Επιλογη"
+                "description": "Επιλογή"
             },
             {
                 "id": "nationalityDescription",
-                "description": "Εθνικοτητα"
+                "description": "Εθνικότητα"
             },
             {
                 "id": "genderDescription",
-                "description": "Φυλο"
+                "description": "Φύλο"
             }
         ]
     },
@@ -1005,11 +1001,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πηγες"
+                "description": "Πηγές"
             },
             {
                 "id": "closeButton",
-                "description": "Κλεισιμο"
+                "description": "ΚΛΕΙΣΙΜΟ"
             }
         ]
     },
@@ -1071,11 +1067,11 @@
             },
             {
                 "id": "manager",
-                "description": "Διαχειριστής"
+                "description": "Δχστής"
             },
             {
                 "id": "managerInGreece",
-                "description": "Διαχειριστής στην Ελλάδα"
+                "description": "Δχστής στην Ελλάδα"
             },
             {
                 "id": "agent",
@@ -1163,27 +1159,27 @@
             },
             {
                 "id": "headerNationality",
-                "description": "Εθνικοτητα"
+                "description": "Εθνικότητα"
             },
             {
                 "id": "headerBirthdate",
-                "description": "Ημερομηνια γεννησης"
+                "description": "Ημερομηνία γέννησης"
             },
             {
                 "id": "headerSpecialCare",
-                "description": "Ειδικη φροντιδα"
+                "description": "Ειδική φροντίδα"
             },
             {
                 "id": "headerRemarks",
-                "description": "Παρατηρησεις"
+                "description": "Παρατηρήσεις"
             },
             {
                 "id": "headerIsCheckedIn",
-                "description": "Εχει επιβιβαστει"
+                "description": "Έχει επιβιβαστεί"
             },
             {
                 "id": "newPassengerButton",
-                "description": "Νεος επιβατης"
+                "description": "Νέος επιβάτης"
             }
         ]
     },
@@ -1393,7 +1389,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Εθνικοτητες"
+                "description": "Εθνικότητες"
             },
             {
                 "id": "searchLabel",
@@ -1405,15 +1401,15 @@
             },
             {
                 "id": "newButton",
-                "description": "Νεα"
+                "description": "ΝΕΑ"
             },
             {
                 "id": "headerDescription",
-                "description": "Περιγραφη"
+                "description": "Περιγραφή"
             },
             {
                 "id": "headerFlag",
-                "description": "Σημαια"
+                "description": "Σημαία"
             }
         ]
     },
@@ -1422,19 +1418,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Εθνικοτητα"
+                "description": "Εθνικότητα"
             },
             {
                 "id": "description",
-                "description": "Περιγραφη"
+                "description": "Περιγραφή"
             },
             {
                 "id": "code",
-                "description": "Code"
+                "description": "Κωδ."
             },
             {
                 "id": "isActive",
-                "description": "Ενεργη"
+                "description": "Ενεργή"
             },
             {
                 "id": "deleteButton",
@@ -1709,15 +1705,15 @@
             },
             {
                 "id": "headerFromPort",
-                "description": "Λιμένας αφετηρίας"
+                "description": "Λιμάνι αναχώρησης"
             },
             {
                 "id": "headerViaPort",
-                "description": "Ενδιάμεσοι λιμένες"
+                "description": "Ενδιάμεσα λιμάνια προσέγγισης"
             },
             {
                 "id": "headerToPort",
-                "description": "Λιμένας προορισμού"
+                "description": "Λιμάνι προορισμού"
             },
             {
                 "id": "newButton",
@@ -1746,7 +1742,7 @@
             },
             {
                 "id": "viaPort",
-                "description": "Ενδιάμεσοι λιμένες προσέγγισης"
+                "description": "Ενδιάμεσα λιμάνια προσέγγισης"
             },
             {
                 "id": "viaTime",
@@ -1754,7 +1750,7 @@
             },
             {
                 "id": "toPort",
-                "description": "Λιμένας τελικού προορισμού"
+                "description": "Λιμάνι προορισμού"
             },
             {
                 "id": "toTime",
@@ -1807,7 +1803,7 @@
                 "description": "Πλήρες όνομα"
             },
             {
-                "id": "vessel",
+                "id": "ship",
                 "description": "Πλοίο"
             },
             {
@@ -1890,7 +1886,7 @@
             },
             {
                 "id": "firstname",
-                "description": "'Ονομα"
+                "description": "Όνομα"
             },
             {
                 "id": "birthdate",

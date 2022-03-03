@@ -628,10 +628,6 @@
                 "description": "PDF für Fahrer erstellen"
             },
             {
-                "id": "createPdfReportButton",
-                "description": "Create PDF with list"
-            },
-            {
                 "id": "newButton",
                 "description": "NEU"
             },
@@ -1807,7 +1803,7 @@
                 "description": "Vollständiger Name"
             },
             {
-                "id": "vessel",
+                "id": "ship",
                 "description": "Schiff"
             },
             {

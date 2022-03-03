@@ -628,10 +628,6 @@
                 "description": "Creation du fichier PDF des conducteurs"
             },
             {
-                "id": "createPdfReportButton",
-                "description": "Create PDF with list"
-            },
-            {
                 "id": "newButton",
                 "description": "Nouvelle"
             },
@@ -1807,7 +1803,7 @@
                 "description": "Nom et prénom"
             },
             {
-                "id": "vessel",
+                "id": "ship",
                 "description": "Navire"
             },
             {
