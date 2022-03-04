@@ -9,7 +9,6 @@ import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
-import { MatDialog } from '@angular/material/dialog'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -34,28 +33,21 @@ export class ShipFormComponent {
     //#region variables 
 
     private feature = 'shipForm'
-    private flatForm: FormGroup
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '/ships'
-    private windowTitle = 'Ship'
     public form: FormGroup
     public input: InputTabStopDirective
-
-    //#endregion
-
-    //#region particular variables
-
-    public shipOwners = []
+    private flatForm: FormGroup
     public filteredShipOwners: Observable<ShipOwner[]>
+    public shipOwners = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private shipService: ShipService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private shipOwnerService: ShipOwnerService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
-        this.activatedRoute.params.subscribe(p => {
-            if (p.id) {
-                this.getRecord(p.id)
-                this.getShipOwners(p.id)
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private shipOwnerService: ShipOwnerService, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title) {
+        this.activatedRoute.params.subscribe(x => {
+            if (x.id) {
+                this.getRecord(x.id)
+                this.getShipOwners(x.id)
             }
         })
     }
@@ -67,10 +59,6 @@ export class ShipFormComponent {
         this.initForm()
         this.addShortcuts()
         this.populateDropDown(this.shipOwnerService, 'shipOwners', 'filteredShipOwners', 'shipOwner', 'description')
-    }
-
-    ngAfterViewInit(): void {
-        this.focus('description')
     }
 
     ngOnDestroy(): void {
@@ -85,8 +73,6 @@ export class ShipFormComponent {
                     this.resetForm()
                     this.onGoBack()
                     return true
-                } else {
-                    this.focus('description')
                 }
             })
         } else {
@@ -97,6 +83,14 @@ export class ShipFormComponent {
     //#endregion
 
     //#region public methods
+
+    public getHint(id: string, minmax = 0): string {
+        return this.messageHintService.getDescription(id, minmax)
+    }
+
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
+    }
 
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
@@ -112,16 +106,8 @@ export class ShipFormComponent {
         })
     }
 
-    public onGetHint(id: string, minmax = 0): string {
-        return this.messageHintService.getDescription(id, minmax)
-    }
-
-    public onGetLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
-    }
-
     public onGoBack(): void {
-        this.router.navigate([this.url])
+        this.router.navigate([this.activatedRoute.snapshot.queryParams['returnUrl']])
     }
 
     public onSave(): void {
@@ -168,16 +154,6 @@ export class ShipFormComponent {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
                     this.buttonClickService.clickOnButton(event, 'save')
                 }
-            },
-            'Alt.C': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'abort')
-                }
-            },
-            'Alt.O': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'ok')
-                }
             }
         }, {
             priority: 1,
@@ -207,10 +183,6 @@ export class ShipFormComponent {
             isActive: this.form.value.isActive,
             userId: this.form.value.userId
         })
-    }
-
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
     }
 
     private getRecord(id: number): void {
@@ -279,7 +251,7 @@ export class ShipFormComponent {
     }
 
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {

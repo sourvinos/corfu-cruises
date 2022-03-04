@@ -2,7 +2,7 @@
 
     <div id="header">
         <div @slideFromLeft id="title">
-            <h1>{{ onGetLabel('header') }}</h1>
+            <h1>{{ getLabel('header') }}</h1>
         </div>
     </div>
 
@@ -10,10 +10,10 @@
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="min-width: 12%; max-width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ onGetLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 40%; max-width: 40%;" pSortableColumn="description">{{ onGetLabel('headerDescription') }}<p-sortIcon field="description"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 38%; max-width: 38%;" pSortableColumn="ownerDescription">{{ onGetLabel('headerOwnerDescription') }}<p-sortIcon field="ownerDescription"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-right-radius: 10px;" pSortableColumn="imo">{{ onGetLabel('headerIMO') }}<p-sortIcon field="imo"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 12%; max-width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 40%; max-width: 40%;" pSortableColumn="description">{{ getLabel('headerDescription') }}<p-sortIcon field="description"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 38%; max-width: 38%;" pSortableColumn="ownerDescription">{{ getLabel('headerOwnerDescription') }}<p-sortIcon field="ownerDescription"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-right-radius: 10px;" pSortableColumn="imo">{{ getLabel('headerIMO') }}<p-sortIcon field="imo"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th style="min-width: 12%; max-width: 12%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
@@ -35,7 +35,7 @@
 
     <div id="footer">
         <div @slideFromRight class="button-group">
-            <button data-cy="new" mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ onGetLabel('newButton') }}</button>
+            <button data-cy="new" mat-flat-button class="primary" (click)="onNewRecord()">{{ getLabel("newButton") }}</button>
         </div>
     </div>
 

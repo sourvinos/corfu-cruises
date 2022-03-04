@@ -26,7 +26,6 @@ export class CustomerListComponent {
 
     private baseUrl = '/customers'
     private ngUnsubscribe = new Subject<void>()
-    private resolver = 'customerList'
     private unlisten: Unlisten
     public feature = 'customerList'
     public records: CustomerListResource[] = []
@@ -88,7 +87,7 @@ export class CustomerListComponent {
     }
 
     private loadRecords(): void {
-        const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
+        const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = listResolved.list
         } else {

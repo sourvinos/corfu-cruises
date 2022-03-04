@@ -1,7 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
+import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
-import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
@@ -25,15 +24,10 @@ export class ShipListComponent {
 
     //#region variables
 
-    @ViewChild('table') table: Table | undefined
-
     private baseUrl = '/ships'
     private ngUnsubscribe = new Subject<void>()
-    private resolver = 'shipList'
     private unlisten: Unlisten
-    private windowTitle = 'Ships'
     public feature = 'shipList'
-    public newUrl = this.baseUrl + '/new'
     public records: ShipListResource[] = []
 
     //#endregion
@@ -58,12 +52,16 @@ export class ShipListComponent {
 
     //#region public methods
 
-    public onEditRecord(id: number): void {
-        this.router.navigate([this.baseUrl, id])
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onGetLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
+    public onEditRecord(id: number): void {
+        this.router.navigate([this.baseUrl, id], { queryParams: { returnUrl: 'ships' } })
+    }
+
+    public onNewRecord(): void {
+        this.router.navigate([this.baseUrl + '/new'], { queryParams: { returnUrl: 'ships' } })
     }
 
     //#endregion
@@ -85,11 +83,11 @@ export class ShipListComponent {
     }
 
     private goBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate([this.helperService.getHomePage()])
     }
 
     private loadRecords(): void {
-        const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
+        const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = listResolved.list
         } else {
@@ -99,7 +97,7 @@ export class ShipListComponent {
     }
 
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {

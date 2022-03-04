@@ -31,7 +31,6 @@ export class CustomerFormComponent {
     private feature = 'customerForm'
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private windowTitle = 'Customers'
     public form: FormGroup
     public input: InputTabStopDirective
 
@@ -138,7 +137,7 @@ export class CustomerFormComponent {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
                     this.buttonClickService.clickOnButton(event, 'save')
                 }
-            },
+            }
         }, {
             priority: 1,
             inputs: true
