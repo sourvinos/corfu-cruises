@@ -105,8 +105,8 @@ namespace API.Features.Schedules {
 
         public int IsValidOnNew(List<ScheduleWriteResource> records) {
             return true switch {
-                var x when x == !IsValidPortOnNew(records) => 450,
-                var x when x == !IsValidDestinationOnNew(records) => 451,
+                var x when x == !IsValidDestinationOnNew(records) => 450,
+                var x when x == !IsValidPortOnNew(records) => 451,
                 _ => 200,
             };
         }
@@ -131,7 +131,7 @@ namespace API.Features.Schedules {
                     PortId = x.PortId,
                     PortDescription = x.Port.Description,
                     IsPortPrimary = x.Port.IsPrimary,
-                    MaxPersons = x.MaxPersons
+                    MaxPassengers = x.MaxPassengers
                 });
             return response.ToList();
         }
@@ -153,7 +153,7 @@ namespace API.Features.Schedules {
         private static IEnumerable<ScheduleReservationGroup> UpdateCalendarData(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations) {
             foreach (var item in schedule) {
                 var x = reservations.FirstOrDefault(x => x.Date == item.Date && x.DestinationId == item.DestinationId && x.PortId == item.PortId);
-                item.Persons = (x?.TotalPersons) ?? 0;
+                item.Passengers = (x?.TotalPersons) ?? 0;
             }
             var response = schedule
                 .GroupBy(x => x.Date)
@@ -165,14 +165,14 @@ namespace API.Features.Schedules {
                         Description = x.Key.DestinationDescription,
                         PassengerCount = CalculatePassengerCountForDestination(reservations, x.Key.Date, x.Key.DestinationId),
                         AvailableSeats = CalculateAvailableSeatsForAllPorts(schedule, reservations, x.Key.Date, x.Key.DestinationId),
-                        Ports = x.GroupBy(x => new { x.PortId, x.Date, x.DestinationId, x.PortDescription, x.IsPortPrimary, x.MaxPersons })
+                        Ports = x.GroupBy(x => new { x.PortId, x.Date, x.DestinationId, x.PortDescription, x.IsPortPrimary, x.MaxPassengers })
                         .Select(x => new PortResource {
                             Id = x.Key.PortId,
                             Description = x.Key.PortDescription,
                             IsPrimary = x.Key.IsPortPrimary,
-                            MaxPassengers = x.Key.MaxPersons,
-                            PassengerCount = x.Sum(x => x.Persons),
-                            AvailableSeats = CalculateAvailableSeatsForPort(schedule, x.Key.Date, x.Key.DestinationId, x.Key.MaxPersons, x.Sum(x => x.Persons), x.Key.IsPortPrimary)
+                            MaxPassengers = x.Key.MaxPassengers,
+                            PassengerCount = x.Sum(x => x.Passengers),
+                            AvailableSeats = CalculateAvailableSeatsForPort(schedule, x.Key.Date, x.Key.DestinationId, x.Key.MaxPassengers, x.Sum(x => x.Passengers), x.Key.IsPortPrimary)
                         })
                     })
                 });
@@ -180,25 +180,16 @@ namespace API.Features.Schedules {
         }
 
         private static int CalculateAvailableSeatsForAllPorts(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations, string date, int destinationId) {
-            var maxPersons = CalculateMaxPersons(schedule, date, destinationId);
+            var maxPassengers = CalculateMaxPersons(schedule, date, destinationId);
             var passengers = CalculatePassengerCountForDestination(reservations, date, destinationId);
-            return maxPersons - passengers;
+            return maxPassengers - passengers;
         }
 
-        private static int CalculateAvailableSeatsForPort(IEnumerable<ScheduleResource> schedule, string date, int destinationId, int max, int persons, bool isPortPrimary) {
+        private static int CalculateAvailableSeatsForPort(IEnumerable<ScheduleResource> schedule, string date, int destinationId, int maxPassengers, int passengers, bool isPortPrimary) {
             if (isPortPrimary) {
-                var empty = max - persons;
-                return empty;
+                return CalculateAvailableSeatsForPrimaryPort(schedule, date, destinationId, maxPassengers, passengers);
             } else {
-                var primaryPort = schedule.FirstOrDefault(x => x.Date == date && x.DestinationId == destinationId && x.IsPortPrimary);
-                if (primaryPort != null) {
-                    var emptyForPrimaryPort = primaryPort.MaxPersons - primaryPort.Persons;
-                    var empty = emptyForPrimaryPort + max - persons;
-                    return empty;
-                } else {
-                    var empty = max - persons;
-                    return empty;
-                }
+                return CalculateAvailableSeatsForSecondaryPort(schedule, date, destinationId, maxPassengers, passengers);
             }
         }
 
@@ -207,7 +198,7 @@ namespace API.Features.Schedules {
         }
 
         private static int CalculateMaxPersons(IEnumerable<ScheduleResource> schedule, string date, int destinationId) {
-            return schedule.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.MaxPersons);
+            return schedule.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.MaxPassengers);
         }
 
         private bool IsValidPortOnNew(List<ScheduleWriteResource> records) {
@@ -222,7 +213,7 @@ namespace API.Features.Schedules {
         }
 
         private bool IsValidPortOnUpdate(ScheduleWriteResource record) {
-            return record.PortId == 0 || context.Ports.SingleOrDefault(x => x.Id == record.PortId && x.IsActive) != null;
+            return context.Ports.SingleOrDefault(x => x.Id == record.PortId && x.IsActive) != null;
         }
 
         private bool IsValidDestinationOnNew(List<ScheduleWriteResource> records) {
@@ -237,7 +228,7 @@ namespace API.Features.Schedules {
         }
 
         private bool IsValidDestinationOnUpdate(ScheduleWriteResource record) {
-            return record.DestinationId == 0 || context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId && x.IsActive) != null;
+            return context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId && x.IsActive) != null;
         }
 
         private void Save() {
@@ -249,6 +240,24 @@ namespace API.Features.Schedules {
                 transaction.Dispose();
             } else {
                 transaction.Commit();
+            }
+        }
+
+        private static int CalculateAvailableSeatsForPrimaryPort(IEnumerable<ScheduleResource> schedule, string date, int destinationId, int maxPassengers, int passengers) {
+            var secondaryPort = schedule.FirstOrDefault(x => x.Date == date && x.DestinationId == destinationId && !x.IsPortPrimary);
+            if (secondaryPort != null && secondaryPort.MaxPassengers != 0) {
+                return maxPassengers - passengers;
+            } else {
+                return maxPassengers - passengers - ((secondaryPort?.Passengers) ?? 0);
+            }
+        }
+
+        private static int CalculateAvailableSeatsForSecondaryPort(IEnumerable<ScheduleResource> schedule, string date, int destinationId, int maxPassengers, int passengers) {
+            var primaryPort = schedule.FirstOrDefault(x => x.Date == date && x.DestinationId == destinationId && x.IsPortPrimary);
+            if (primaryPort != null) {
+                return primaryPort.MaxPassengers - primaryPort.Passengers + maxPassengers - passengers;
+            } else {
+                return maxPassengers - passengers;
             }
         }
 

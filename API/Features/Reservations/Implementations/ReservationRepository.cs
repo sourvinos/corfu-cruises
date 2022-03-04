@@ -249,21 +249,21 @@ namespace API.Features.Reservations {
         }
 
         private bool IsValidCustomer(ReservationWriteResource record) {
-            if (record.ReservationId == Guid.Empty) {
+            if (record.ReservationId == null) {
                 return context.Customers.SingleOrDefault(x => x.Id == record.CustomerId && x.IsActive) != null;
             }
             return context.Customers.SingleOrDefault(x => x.Id == record.CustomerId) != null;
         }
 
         private bool IsValidDestination(ReservationWriteResource record) {
-            if (record.ReservationId == Guid.Empty) {
+            if (record.ReservationId == null) {
                 return context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId && x.IsActive) != null;
             }
             return context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId) != null;
         }
 
         private bool IsValidPickupPoint(ReservationWriteResource record) {
-            if (record.ReservationId == Guid.Empty) {
+            if (record.ReservationId == null) {
                 return context.PickupPoints.SingleOrDefault(x => x.Id == record.PickupPointId && x.IsActive) != null;
             }
             return context.PickupPoints.SingleOrDefault(x => x.Id == record.PickupPointId) != null;
@@ -271,7 +271,7 @@ namespace API.Features.Reservations {
 
         private bool IsValidDriver(ReservationWriteResource record) {
             if (record.DriverId != null && record.DriverId != 0) {
-                if (record.ReservationId == Guid.Empty) {
+                if (record.ReservationId == null) {
                     var driver = context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive);
                     if (driver == null)
                         return false;
@@ -286,7 +286,7 @@ namespace API.Features.Reservations {
 
         private bool IsValidShip(ReservationWriteResource record) {
             if (record.ShipId != null && record.ShipId != 0) {
-                if (record.ReservationId == Guid.Empty) {
+                if (record.ReservationId == null) {
                     var ship = context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive);
                     if (ship == null)
                         return false;
@@ -312,10 +312,11 @@ namespace API.Features.Reservations {
             if (record.Passengers != null) {
                 bool isValid = false;
                 foreach (var passenger in record.Passengers) {
-                    if (record.ReservationId == Guid.Empty) {
+                    if (record.ReservationId == null) {
                         isValid = context.Nationalities.SingleOrDefault(x => x.Id == passenger.NationalityId && x.IsActive) != null;
+                    } else {
+                        isValid = context.Nationalities.SingleOrDefault(x => x.Id == passenger.NationalityId) != null;
                     }
-                    isValid = context.Nationalities.SingleOrDefault(x => x.Id == passenger.NationalityId) != null;
                 }
                 return record.Passengers.Count == 0 || isValid;
             }
@@ -326,10 +327,11 @@ namespace API.Features.Reservations {
             if (record.Passengers != null) {
                 bool isValid = false;
                 foreach (var passenger in record.Passengers) {
-                    if (record.ReservationId == Guid.Empty) {
+                    if (record.ReservationId == null) {
                         isValid = context.Genders.SingleOrDefault(x => x.Id == passenger.GenderId && x.IsActive) != null;
+                    } else {
+                        isValid = context.Genders.SingleOrDefault(x => x.Id == passenger.GenderId) != null;
                     }
-                    isValid = context.Genders.SingleOrDefault(x => x.Id == passenger.GenderId) != null;
                 }
                 return record.Passengers.Count == 0 || isValid;
             }
@@ -340,10 +342,11 @@ namespace API.Features.Reservations {
             if (record.Passengers != null) {
                 bool isValid = false;
                 foreach (var passenger in record.Passengers) {
-                    if (record.ReservationId == Guid.Empty) {
+                    if (record.ReservationId == null) {
                         isValid = context.Occupants.SingleOrDefault(x => x.Id == passenger.OccupantId && x.IsActive) != null;
+                    } else {
+                        isValid = context.Occupants.SingleOrDefault(x => x.Id == passenger.OccupantId) != null;
                     }
-                    isValid = context.Occupants.SingleOrDefault(x => x.Id == passenger.OccupantId) != null;
                 }
                 return record.Passengers.Count == 0 || isValid;
             }

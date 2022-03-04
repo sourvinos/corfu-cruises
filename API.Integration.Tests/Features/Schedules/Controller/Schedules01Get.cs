@@ -18,7 +18,7 @@ namespace API.Integration.Tests.Schedules {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly int _expectedRecordCount = 6;
+        private readonly int _expectedRecordCount = 25;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
         private readonly string _url = "/schedules";

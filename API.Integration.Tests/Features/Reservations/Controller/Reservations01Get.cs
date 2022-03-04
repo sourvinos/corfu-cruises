@@ -20,7 +20,7 @@ namespace API.Integration.Tests.Reservations {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/reservations/date/2022-02-01";
+        private readonly string _url = "/reservations/byDate/2022-03-10";
 
         #endregion
 
@@ -50,22 +50,16 @@ namespace API.Integration.Tests.Reservations {
         public async Task Active_Simple_Users_Can_List_Only_Owned() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "matoula", "820343d9e828");
             var records = JsonSerializer.Deserialize<ReservationGroupResource<ReservationListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(5, records.Reservations.Count());
-            Assert.Equal(23, records.Persons);
+            Assert.Equal(3, records.Reservations.Count());
+            Assert.Equal(9, records.Persons);
         }
 
         [Fact]
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<ReservationGroupResource<ReservationListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(27, records.Reservations.Count());
-            Assert.Equal(12, records.PersonsPerCustomer.Count());
-            Assert.Single(records.PersonsPerDestination);
-            Assert.Equal(4, records.PersonsPerDriver.Count());
-            Assert.Equal(2, records.PersonsPerPort.Count());
-            Assert.Equal(7, records.PersonsPerRoute.Count());
-            Assert.Equal(3, records.PersonsPerShip.Count());
-            Assert.Equal(130, records.Persons);
+            Assert.Equal(6, records.Reservations.Count());
+            Assert.Equal(22, records.Persons);
         }
 
     }

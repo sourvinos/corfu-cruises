@@ -9,8 +9,8 @@ namespace API.Features.Schedules {
         public int PortId { get; set; }
         public string PortDescription { get; set; }
         public bool IsPortPrimary { get; set; }
-        public int MaxPersons { get; set; }
-        public int Persons { get; set; }
+        public int MaxPassengers { get; set; }
+        public int Passengers { get; set; }
 
     }
 

@@ -16,10 +16,10 @@ namespace API.Integration.Tests.Reservations {
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
-        private readonly string _adminUrl = "/reservations/getReservationByRefNo/PA-00001";
+        private readonly string _adminUrl = "/reservations/byRefNo/bl52";
         private readonly string _baseUrl;
-        private readonly string _notFoundUrl = "/reservations/getReservationByRefNo/xxxxxxxx";
-        private readonly string _simpleUserUrl = "/reservations/getReservationByRefNo/PA-00008";
+        private readonly string _notFoundUrl = "/reservations/byRefNo/xxxxxxxx";
+        private readonly string _simpleUserUrl = "/reservations/byRefNo/pa37";
 
         #endregion
 
@@ -46,22 +46,22 @@ namespace API.Integration.Tests.Reservations {
         }
 
         [Fact]
-        public async Task Active_Users_Not_Found_When_Not_Exists() {
-            await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
+        public async Task Active_Users_Get_Empty_List_If_Not_Exists() {
+            await RecordFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_Get_By_Id_Not_Owned() {
-            await RecordNotOwned.Action(_httpClient, _baseUrl, _adminUrl, "matoula", "820343d9e828");
+        public async Task Active_Simple_Users_Get_Empty_List_If_Not_Owned() {
+            await RecordFound.Action(_httpClient, _baseUrl, _adminUrl, "matoula", "820343d9e828");
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Get_By_Id_If_Owned() {
+        public async Task Active_Simple_Users_Can_Get_By_RefNo_If_Owned() {
             await RecordFound.Action(_httpClient, _baseUrl, _simpleUserUrl, "matoula", "820343d9e828");
         }
 
         [Fact]
-        public async Task Active_Admins_Can_Get_By_Id() {
+        public async Task Active_Admins_Can_Get_By_RefNo() {
             await RecordFound.Action(_httpClient, _baseUrl, _adminUrl, "john", "ec11fc8c16da");
         }
 

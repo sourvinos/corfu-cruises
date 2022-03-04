@@ -37,7 +37,7 @@ namespace API.Integration.Tests.Reservations {
             return new object[] {
                 new TestReservation {
                     StatusCode = 432,
-                    Date = "2022-02-04",
+                    Date = "2022-03-04",
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 1,
@@ -50,7 +50,7 @@ namespace API.Integration.Tests.Reservations {
             return new object[] {
                 new TestReservation {
                     StatusCode = 430,
-                    Date = "2022-02-02",
+                    Date = "2022-03-02",
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 1,
@@ -63,59 +63,52 @@ namespace API.Integration.Tests.Reservations {
             return new object[] {
                 new TestReservation {
                     StatusCode = 427,
-                    Date = "2022-02-02",
+                    Date = "2022-03-02",
                     CustomerId = 1,
                     DestinationId = 3,
-                    PickupPointId = 45,
+                    PickupPointId = 266,
                     TicketNo = "xxxxxx"
                 }
             };
         }
 
         private static object[] Overbooking_From_Primary_Port_Is_Not_Allowed() {
-            // According to the schedule: Max persons = 185 (Corfu)
-            // According to the reservations: Corfu (84)
-            // Free seats = 101
             return new object[] {
                 new TestReservation {
                     StatusCode = 433,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 3,
-                    Adults = 102,
+                    Adults = 156,
                     TicketNo = "xxxxxx"
                 }
             };
         }
 
         private static object[] Overbooking_From_Secondary_Port_Is_Not_Allowed() {
-            // According to the schedule: Max persons = 185 (Corfu) + 215 (Lefkimmi) = 400
-            // According to the reservations: Corfu (84) + Lefkimmi (50) = 134
-            // Free seats = 400 - 134 = 266
             return new object[] {
                 new TestReservation {
                     StatusCode = 433,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     CustomerId = 1,
                     DestinationId = 1,
-                    PickupPointId = 4,
-                    Adults = 267,
+                    PickupPointId = 266,
+                    Adults = 156,
                     TicketNo = "xxxxxx"
                 }
             };
         }
 
         private static object[] Duplicate_Records_Are_Not_Allowed() {
-            // Checking for Date, DestinationId, CustomeId and TicketNo
             return new object[] {
                 new TestReservation {
                     StatusCode = 409,
-                    Date = "2022-02-01",
-                    CustomerId = 14,
+                    Date = "2022-03-01",
+                    CustomerId = 3,
                     DestinationId = 1,
-                    PickupPointId = 285,
-                    TicketNo = "SBQRQ"
+                    PickupPointId = 266,
+                    TicketNo = "xxxxx"
                 }
             };
         }
@@ -124,7 +117,7 @@ namespace API.Integration.Tests.Reservations {
             return new object[] {
                 new TestReservation {
                     StatusCode = 450,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     CustomerId = 99,
                     DestinationId = 1,
                     PickupPointId = 285,
@@ -137,7 +130,7 @@ namespace API.Integration.Tests.Reservations {
             return new object[] {
                 new TestReservation {
                     StatusCode = 450,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     CustomerId = 20,
                     DestinationId = 1,
                     PickupPointId = 285,
@@ -150,7 +143,7 @@ namespace API.Integration.Tests.Reservations {
             return new object[] {
                 new TestReservation {
                     StatusCode = 451,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     CustomerId = 1,
                     DestinationId = 99,
                     PickupPointId = 285,
@@ -164,9 +157,9 @@ namespace API.Integration.Tests.Reservations {
             return new object[] {
                 new TestReservation {
                     StatusCode = 451,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     CustomerId = 1,
-                    DestinationId = 4,
+                    DestinationId = 5,
                     PickupPointId = 285,
                     Adults = 2,
                     TicketNo = "xxxxx"
@@ -178,7 +171,7 @@ namespace API.Integration.Tests.Reservations {
             return new object[] {
                 new TestReservation {
                     StatusCode = 452,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 999,
@@ -192,10 +185,10 @@ namespace API.Integration.Tests.Reservations {
             return new object[] {
                 new TestReservation {
                     StatusCode = 452,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     CustomerId = 1,
                     DestinationId = 1,
-                    PickupPointId = 336,
+                    PickupPointId = 23,
                     Adults = 2,
                     TicketNo = "xxxxx"
                 }
@@ -210,7 +203,7 @@ namespace API.Integration.Tests.Reservations {
                     DestinationId = 1,
                     DriverId = 99,
                     PickupPointId = 3,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     TicketNo = "xxxx",
                     Adults = 3,
                 }
@@ -223,9 +216,9 @@ namespace API.Integration.Tests.Reservations {
                     StatusCode = 453,
                     CustomerId = 1,
                     DestinationId = 1,
-                    DriverId = 5,
+                    DriverId = 6,
                     PickupPointId = 3,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     TicketNo = "xxxx",
                     Adults = 3,
                 }
@@ -240,7 +233,7 @@ namespace API.Integration.Tests.Reservations {
                     DestinationId = 1,
                     PickupPointId = 3,
                     ShipId = 99,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     TicketNo = "xxxx",
                     Adults = 3,
                 }
@@ -255,7 +248,7 @@ namespace API.Integration.Tests.Reservations {
                     DestinationId = 1,
                     ShipId = 2,
                     PickupPointId = 3,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     TicketNo = "xxxx",
                     Adults = 3,
                 }
@@ -269,7 +262,7 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 3,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
@@ -288,7 +281,7 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 3,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
@@ -305,7 +298,7 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 3,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
@@ -322,7 +315,7 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 3,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
@@ -339,7 +332,7 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 3,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
@@ -356,7 +349,7 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 3,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
@@ -373,7 +366,7 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 3,
-                    Date = "2022-02-01",
+                    Date = "2022-03-01",
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {

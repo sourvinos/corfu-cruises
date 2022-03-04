@@ -113,8 +113,8 @@ namespace API.Features.Schedules {
 
         private IActionResult GetErrorMessage(int errorCode) {
             return errorCode switch {
-                450 => StatusCode(450, new { response = ApiMessages.FKNotFoundOrInactive("Port Id") }),
-                451 => StatusCode(451, new { response = ApiMessages.FKNotFoundOrInactive("Destination Id") }),
+                450 => StatusCode(450, new { response = ApiMessages.FKNotFoundOrInactive("Destination Id") }),
+                451 => StatusCode(451, new { response = ApiMessages.FKNotFoundOrInactive("Port Id") }),
                 _ => StatusCode(490, new { Response = ApiMessages.RecordNotSaved() }),
             };
         }

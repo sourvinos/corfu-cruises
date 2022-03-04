@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -18,10 +19,9 @@ namespace API.Integration.Tests.Schedules {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly int _expectedRecordCount = 1;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/schedules/from/2022-02-01/to/2022-02-01";
+        private readonly string _url = "/schedules/from/2022-03-01/to/2022-03-01";
 
         #endregion
 
@@ -52,7 +52,26 @@ namespace API.Integration.Tests.Schedules {
         public async Task Active_Users_Can_List(Login login) {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, login.Username, login.Password);
             var records = JsonSerializer.Deserialize<List<ScheduleReservationGroup>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(_expectedRecordCount, records.Count);
+            Assert.Single(records);
+            Assert.Equal("2022-03-01", records[0].Date);
+            Assert.Single(records[0].Destinations);
+            var destinations = records[0].Destinations.ToList();
+            Assert.Single(destinations);
+            Assert.Equal("PAXOS - ANTIPAXOS", destinations[0].Description);
+            Assert.Equal(30, destinations[0].PassengerCount);
+            Assert.Equal(155, destinations[0].AvailableSeats);
+            var ports = destinations[0].Ports.ToList();
+            Assert.Equal(2, ports.Count);
+            Assert.Equal("CORFU PORT", ports[0].Description);
+            Assert.Equal(185, ports[0].MaxPassengers);
+            Assert.True(ports[0].IsPrimary);
+            Assert.Equal(10, ports[0].PassengerCount);
+            Assert.Equal(155, ports[0].AvailableSeats);
+            Assert.Equal("LEFKIMMI PORT", ports[1].Description);
+            Assert.Equal(0, ports[1].MaxPassengers);
+            Assert.False(ports[1].IsPrimary);
+            Assert.Equal(20, ports[1].PassengerCount);
+            Assert.Equal(155, ports[1].AvailableSeats);
         }
 
     }

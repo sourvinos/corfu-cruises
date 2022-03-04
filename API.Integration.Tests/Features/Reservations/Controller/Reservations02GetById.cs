@@ -16,10 +16,10 @@ namespace API.Integration.Tests.Reservations {
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
-        private readonly string _adminUrl = "/reservations/034464de-89bf-4828-b366-12671315dfba";
+        private readonly string _adminUrl = "/reservations/0316855d-d5da-44a6-b09c-89a8d014a963";
         private readonly string _baseUrl;
         private readonly string _notFoundUrl = "/reservations/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
-        private readonly string _simpleUserUrl = "/reservations/202c08b1-f364-4224-bb7a-fc7765fbbf8d";
+        private readonly string _simpleUserUrl = "/reservations/cc939619-ced8-49a7-a330-9cd6b491cb93";
 
         #endregion
 

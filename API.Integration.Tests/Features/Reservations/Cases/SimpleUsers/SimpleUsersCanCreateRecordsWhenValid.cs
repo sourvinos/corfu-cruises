@@ -17,7 +17,7 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 3,
-                    Date = "2025-02-01",
+                    Date = "2025-03-01",
                     TicketNo = "xxxx",
                     Adults = 3,
                     Passengers = new List<TestPassenger>()
