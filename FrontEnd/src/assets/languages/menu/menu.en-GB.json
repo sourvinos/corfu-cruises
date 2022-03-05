@@ -23,8 +23,8 @@
                 "description": "Reservations"
             },
             {
-                "id": "dashboard",
-                "description": "Dashboard"
+                "id": "tasks",
+                "description": "Tasks"
             },
             {
                 "id": "invoicing",

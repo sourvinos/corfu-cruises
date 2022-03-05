@@ -1,6 +1,6 @@
 @media only screen and (min-width: 1441px) {
     * {
-        --content-padding-left: 19rem;
+        --content-padding-left: 20rem;
         --font-size-button: 110%;
         --font-size-calendar-day-width: 3rem;
         --font-size-calendar-day: 120%;
@@ -33,7 +33,7 @@
         --header-margin-bottom: 1.3125rem;
         --header-margin-top: 0;
         --logo-left-margin: 3.5rem;
-        --side-bar-width: 15rem;
+        --side-bar-width: 17rem;
         --top-bar-height: 105px;
     }
 }

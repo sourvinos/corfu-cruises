@@ -23,8 +23,8 @@
                 "description": "Κρατήσεις"
             },
             {
-                "id": "dashboard",
-                "description": "Κεντρικός πίνακας"
+                "id": "tasks",
+                "description": "Εργασίες"
             },
             {
                 "id": "invoicing",

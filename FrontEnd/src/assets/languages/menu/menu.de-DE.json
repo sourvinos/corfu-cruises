@@ -23,8 +23,8 @@
                 "description": "Reservierung"
             },
             {
-                "id": "dashboard",
-                "description": "Hauptfeld"
+                "id": "tasks",
+                "description": "Aufgaben"
             },
             {
                 "id": "invoicing",

@@ -23,8 +23,8 @@
                 "description": "Rezervace"
             },
             {
-                "id": "dashboard",
-                "description": "Hlavní panel"
+                "id": "tasks",
+                "description": "Úkoly"
             },
             {
                 "id": "invoicing",

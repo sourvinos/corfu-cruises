@@ -23,8 +23,8 @@
                 "description": "Reservations"
             },
             {
-                "id": "dashboard",
-                "description": "Tablau central"
+                "id": "tasks",
+                "description": "Tâches"
             },
             {
                 "id": "invoicing",
