@@ -226,6 +226,10 @@ export class ReservationFormComponent {
         }
     }
 
+    public patchFormWithPassengers(passengers: any) {
+        this.form.patchValue({ passengers: passengers })
+    }
+
     //#endregion
 
     //#region private methods

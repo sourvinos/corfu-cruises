@@ -82,7 +82,7 @@ export class PassengerFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(),'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.reservationService.delete(this.form.value.reservationId).subscribe(() => {
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -125,6 +125,16 @@ export class PassengerFormComponent {
         })
     }
 
+    private assignNewIdToNewPassenger(id: any) {
+        let me = 0
+        if (id == 0) {
+            me = Math.round(Math.random() * new Date().getMilliseconds())
+        } else {
+            me = id
+        }
+        return me
+    }
+
     private filterDropdownArray(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
@@ -135,7 +145,7 @@ export class PassengerFormComponent {
 
     private flattenPassenger(form: FormGroup): any {
         const passenger = {
-            'id': form.value.id,
+            'id': this.assignNewIdToNewPassenger(form.value.id),
             'reservationId': form.value.reservationId,
             'lastname': form.value.lastname,
             'firstname': form.value.firstname,

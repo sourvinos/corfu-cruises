@@ -23,6 +23,7 @@ export class PassengerListComponent {
     @Input() passengers: Passenger[] = []
     @Input() reservationId: Guid
     @Output() outputPassengerCount = new EventEmitter()
+    @Output() outputPassengers = new EventEmitter()
     private ngUnsubscribe = new Subject<void>()
     public feature = 'passengerList'
 
@@ -49,6 +50,7 @@ export class PassengerListComponent {
         const index = this.passengers.indexOf(record)
         this.passengers.splice(index, 1)
         this.outputPassengerCount.emit(this.passengers.length)
+        this.outputPassengers.emit(this.passengers)
     }
 
     public onEditRecord(record: Passenger): void {
@@ -114,6 +116,7 @@ export class PassengerListComponent {
                 this.passengers.push(result)
                 this.passengers = [...this.passengers]
                 this.outputPassengerCount.emit(this.passengers.length)
+                this.outputPassengers.emit(this.passengers)
             }
         })
     }
