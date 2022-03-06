@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using API.Features.Drivers;
 using API.Features.PickupPoints;
 using API.Features.Schedules;
 using API.Infrastructure.Classes;
@@ -55,6 +56,19 @@ namespace API.Features.Reservations {
                 PersonsPerShip = personsPerShip.ToList()
             };
             return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
+        }
+
+        public async Task<DriverResult<Reservation>> GetByDateAndDriver(string date, int driverId) {
+            var driver = await GetDriver(driverId);
+            var reservations = await GetReservationsByDateAndDriver(date, driverId);
+            var mainResult = new DriverResult<Reservation> {
+                Date = date,
+                DriverId = driver != null ? driverId : 0,
+                DriverDescription = driver != null ? driver.Description : "(EMPTY)",
+                Phones = driver != null ? driver.Phones : "(EMPTY)",
+                Reservations = mapper.Map<IEnumerable<Reservation>, IEnumerable<ReservationDriverListResource>>(reservations)
+            };
+            return mainResult;
         }
 
         public async Task<ReservationGroupResource<ReservationListResource>> GetByRefNo(string refNo) {
@@ -397,6 +411,18 @@ namespace API.Features.Reservations {
             return reservations;
         }
 
+        private async Task<IEnumerable<Reservation>> GetReservationsByDateAndDriver(string date, int driverId) {
+            var reservations = await context.Reservations
+                .Include(x => x.Customer)
+                .Include(x => x.Destination)
+                .Include(x => x.Driver)
+                .Include(x => x.PickupPoint)
+                .Where(x => x.Date == Convert.ToDateTime(date) && x.DriverId == (driverId != 0 ? driverId : null))
+                .OrderBy(x => x.PickupPoint.Time).ThenBy(x => x.PickupPoint.Description)
+                .ToListAsync();
+            return reservations;
+        }
+
         private async Task<string> IncrementRefNoByOne() {
             var refNo = context.RefNos.First();
             refNo.LastRefNo++;
@@ -415,6 +441,12 @@ namespace API.Features.Reservations {
             var destination = await context.Destinations
                 .FirstOrDefaultAsync(x => x.Id == record.DestinationId);
             return destination.Abbreviation;
+        }
+
+        private async Task<Driver> GetDriver(int driverId) {
+            var driver = await context.Drivers
+                .FirstOrDefaultAsync(x => x.Id == driverId);
+            return driver;
         }
 
     }

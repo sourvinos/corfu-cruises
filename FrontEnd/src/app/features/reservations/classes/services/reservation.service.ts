@@ -18,6 +18,10 @@ export class ReservationService extends DataService {
         return this.http.get<ReservationGroupResource>(this.url + '/byDate/' + date)
     }
 
+    getByDateAndDriver(date: string, driverId: number): Observable<any> {
+        return this.http.get<any>(this.url + '/byDate/' + date + '/byDriver/' + driverId)
+    }
+
     getByRefNo(refNo: string): Observable<ReservationGroupResource> {
         return this.http.get<ReservationGroupResource>(this.url + '/byRefNo/' + refNo)
     }

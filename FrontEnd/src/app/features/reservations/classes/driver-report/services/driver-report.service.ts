@@ -1,26 +1,32 @@
-import { Injectable } from '@angular/core'
-import { ReservationFlat } from '../view-models/reservation-flat'
 import pdfMake from 'pdfmake/build/pdfmake'
+import { Injectable } from '@angular/core'
+// Custom
+import { DriverReportDTO } from '../dtos/driver-report-dto'
+import { HelperService } from 'src/app/shared/services/helper.service'
+import { ReportHeaderDTO } from '../dtos/report-header-dto'
+import { ReportReservationDTO } from '../dtos/report-reservation-dto'
+import { ReservationService } from '../../services/reservation.service'
 
 @Injectable({ providedIn: 'root' })
 
-export class DriverPdfService {
+export class DriverReportService {
+
+    //#region variables
+
+    private driverReport: DriverReportDTO
+
+    //#endregion
+
+    constructor(private helperService: HelperService, private reservationService: ReservationService) { }
 
     //#region public methods
 
-    public createDriverReport(reservations: any[], drivers: any[], date: string): void {
-        const array = this.sort(reservations)
-        drivers.forEach(driver => {
-            const filteredArray = array.filter((x: { driverDescription: any }) => x.driverDescription === driver.value)
-            const dd = {
-                pageMargins: [50, 40, 50, 50],
-                pageOrientation: 'landscape',
-                defaultStyle: { fontSize: 8 },
-                header: this.createPageHeader(driver.value, date),
-                footer: this.createPageFooter(),
-                content: this.table(filteredArray, ['time', 'pickupPointDescription', 'adults', 'kids', 'free', 'totalPersons', 'customerDescription', 'remarks', 'destinationAbbreviation'], ['center', 'left', 'right', 'right', 'right', 'right', 'left', 'left', 'center'], driver)
-            }
-            this.createPdf(dd, driver.value)
+    public doReportTasks(driverIds: number[]): void {
+        driverIds.forEach(driverId => {
+            this.reservationService.getByDateAndDriver(this.helperService.readItem('date'), driverId).subscribe(response => {
+                this.mapObjectFromAPI(response)
+                this.createReport()
+            })
         })
     }
 
@@ -28,14 +34,37 @@ export class DriverPdfService {
 
     //#region private methods
 
-    private table(data: any[], columns: any[], align: any[], driver: string): any {
+    private addPersonsToPickupPoint(pickupPointCount: number, total: number[], row: { adults: any; kids: any; free: any; totalPersons: any }): any {
+        pickupPointCount += 1
+        total[0] += Number(row.adults)
+        total[1] += Number(row.kids)
+        total[2] += Number(row.free)
+        total[3] += Number(row.totalPersons)
+        return { pickupPointCount, total }
+    }
+
+    private createReport(): void {
+        const dd = {
+            pageMargins: [50, 40, 50, 50],
+            pageOrientation: 'landscape',
+            defaultStyle: { fontSize: 8 },
+            header: this.createPageHeader(),
+            footer: this.createPageFooter(),
+            content: this.table(this.driverReport.reservations,
+                ['time', 'ticketNo', 'pickupPointDescription', 'exactPoint', 'adults', 'kids', 'free', 'totalPersons', 'customerDescription', 'remarks', 'destinationAbbreviation'],
+                ['center', 'center', 'left', 'left', 'right', 'right', 'right', 'right', 'left', 'left', 'center'])
+        }
+        this.createPdf(dd, this.driverReport.header.driverDescription)
+    }
+
+    private table(reservations: any, columns: any[], align: any[]): any {
         return {
             table: {
                 headerRows: 1,
                 dontBreakRows: true,
-                body: this.buildTableBody(data, columns, align, driver),
+                body: this.buildTableBody(reservations, columns, align),
                 heights: 10,
-                widths: [20, '*', 15, 15, 15, 15, 150, 180, 20],
+                widths: [20, 40, '*', '*', 15, 15, 15, 15, 140, 150, 20],
             },
             layout: {
                 vLineColor: function (i: number, node: { table: { widths: string | any[] } }): any { return (i === 1 || i === node.table.widths.length - 1) ? '#dddddd' : '#dddddd' },
@@ -46,17 +75,17 @@ export class DriverPdfService {
         }
     }
 
-    private buildTableBody(data: any[], columns: any[], align: any[], driver: string): void {
+    private buildTableBody(reservations: any, columns: any[], align: any[]): void {
         const body: any = []
         let pickupPointCount = 0
         let pickupPointPersons: number[] = [0, 0, 0, 0]
         let driverPersons: number[] = [0, 0, 0, 0]
-        let pickupPointDescription = data[0].pickupPointDescription
+        let pickupPointDescription = reservations[0].pickupPointDescription
         body.push(this.createTableHeaders())
-        data.forEach(((row) => {
+        reservations.forEach(((reservation: ReportReservationDTO) => {
             let dataRow = []
-            if (row.pickupPointDescription === pickupPointDescription) {
-                const { pickupPointCount: x, total: z } = this.addPersonsToPickupPoint(pickupPointCount, pickupPointPersons, row)
+            if (reservation.pickupPointDescription === pickupPointDescription) {
+                const { pickupPointCount: x, total: z } = this.addPersonsToPickupPoint(pickupPointCount, pickupPointPersons, reservation)
                 pickupPointCount = x
                 pickupPointPersons = z
             } else {
@@ -65,25 +94,27 @@ export class DriverPdfService {
                     dataRow = []
                 }
                 pickupPointCount = 1
-                pickupPointDescription = row.pickupPointDescription
-                pickupPointPersons = this.initPickupPointPersons(pickupPointPersons, row)
+                pickupPointDescription = reservation.pickupPointDescription
+                pickupPointPersons = this.initPickupPointPersons(pickupPointPersons, reservation)
             }
-            driverPersons = this.addPersonsToDriver(driverPersons, row)
-            dataRow = this.replaceZerosWithBlanks(columns, row, dataRow, align)
+            driverPersons = this.addPersonsToDriver(driverPersons, reservation)
+            dataRow = this.replaceZerosWithBlanks(columns, reservation, dataRow, align)
             body.push(dataRow)
         }))
         if (pickupPointCount > 1) {
             body.push(this.createPickupPointTotalLine(pickupPointDescription, pickupPointPersons))
         }
         body.push(this.createBlankLine())
-        body.push(this.createTotalLineForDriver(driver, driverPersons))
+        body.push(this.createTotalLineForDriver(this.driverReport.header.driverDescription, driverPersons))
         return body
     }
 
     private createTableHeaders(): any[] {
         return [
             { text: 'TIME', style: 'tableHeader', alignment: 'center' },
+            { text: 'TICKET NO', style: 'tableHeader', alignment: 'center' },
             { text: 'PICKUP POINT', style: 'tableHeader', alignment: 'center' },
+            { text: 'EXACT POINT', style: 'tableHeader', alignment: 'center' },
             { text: 'A', style: 'tableHeader', alignment: 'center' },
             { text: 'K', style: 'tableHeader', alignment: 'center' },
             { text: 'F', style: 'tableHeader', alignment: 'center' },
@@ -97,6 +128,8 @@ export class DriverPdfService {
     private createPickupPointTotalLine(pickupPoint: string, total: any[]): any[] {
         return [
             { text: '' },
+            { text: '' },
+            { text: '' },
             { text: 'TOTAL FROM ' + pickupPoint },
             { text: String(total[0]) === '0' ? '' : String(total[0]), alignment: 'right', fillColor: 'white' },
             { text: String(total[1]) === '0' ? '' : String(total[1]), alignment: 'right', fillColor: 'white' },
@@ -108,29 +141,15 @@ export class DriverPdfService {
         ]
     }
 
-    private sort(array: ReservationFlat[]): any {
-        const sortedArray = array.sort((a, b) => {
-            if (a.driver > b.driver) { return 1 }
-            if (a.driver > b.driver) { return 1 }
-            if (a.time > b.time) { return 1 }
-            if (a.time < b.time) { return -1 }
-            if (a.pickupPoint > b.pickupPoint) { return 1 }
-            if (a.pickupPoint < b.pickupPoint) { return -1 }
-            if (a.customer > b.customer) { return 1 }
-            if (a.customer < b.customer) { return -1 }
-            if (a.destination > b.destination) { return 1 }
-            if (a.destination < b.destination) { return -1 }
-        })
-        return sortedArray
-    }
-
-    private createPageHeader(driver: string, date: string) {
+    private createPageHeader() {
+        const date = this.helperService.formatDateToLocale(this.driverReport.header.date)
+        const driverInfo = this.driverReport.header.driverDescription + ', ' + this.driverReport.header.phones
         return function (): any {
             return {
                 table: {
                     widths: '*',
                     body: [[
-                        { text: 'DRIVER: ' + driver, alignment: 'left', margin: [50, 20, 50, 60] },
+                        { text: 'DRIVER: ' + driverInfo, alignment: 'left', margin: [50, 20, 50, 60] },
                         { text: 'DATE: ' + date, alignment: 'right', margin: [50, 20, 50, 60] }
                     ]]
                 },
@@ -159,7 +178,7 @@ export class DriverPdfService {
         return totals
     }
 
-    private replaceZerosWithBlanks(columns: any[], row: { [x: string]: { toString: () => any } }, dataRow: any[], align: any[]): any {
+    private replaceZerosWithBlanks(columns: any[], row: ReportReservationDTO, dataRow: any[], align: any[]): any {
         columns.forEach((element, index) => {
             if (row[element].toString() === '0') {
                 row[element] = ''
@@ -177,11 +196,13 @@ export class DriverPdfService {
         return total
     }
 
-    private createTotalLineForDriver(driver: string, totals: any[]): any[] {
+    private createTotalLineForDriver(data: any, totals: any[]): any[] {
         const dataRow = []
         dataRow.push(
             { text: '' },
-            { text: 'TOTAL FOR ' + driver },
+            { text: '' },
+            { text: '' },
+            { text: 'TOTAL FOR ' + data },
             { text: String(totals[0]) === '0' ? '' : String(totals[0]), alignment: 'right', fillColor: 'white' },
             { text: String(totals[1]) === '0' ? '' : String(totals[1]), alignment: 'right', fillColor: 'white' },
             { text: String(totals[2]) === '0' ? '' : String(totals[2]), alignment: 'right', fillColor: 'white' },
@@ -191,15 +212,6 @@ export class DriverPdfService {
             { text: '' }
         )
         return dataRow
-    }
-
-    private addPersonsToPickupPoint(pickupPointCount: number, total: number[], row: { adults: any; kids: any; free: any; totalPersons: any }): any {
-        pickupPointCount += 1
-        total[0] += Number(row.adults)
-        total[1] += Number(row.kids)
-        total[2] += Number(row.free)
-        total[3] += Number(row.totalPersons)
-        return { pickupPointCount, total }
     }
 
     private createBlankLine(): any {
@@ -213,16 +225,54 @@ export class DriverPdfService {
             { text: '' },
             { text: '' },
             { text: '' },
+            { text: '' },
+            { text: '' },
             { text: '' }
         )
         return dataRow
     }
 
-    private createPdf(document: any, driver: string): void {
-        pdfMake.createPdf(document).download(driver + '.pdf')
+    private createPdf(document: any, filename: any): void {
+        pdfMake.createPdf(document).download(filename + '.pdf')
+    }
+
+    private mapObjectFromAPI(response: any): void {
+        this.driverReport = {
+            header: this.mapHeaderFromAPI(response),
+            reservations: this.mapReservationsFromAPI(response.reservations)
+        }
+    }
+
+    private mapHeaderFromAPI(response: any): ReportHeaderDTO {
+        const header = {
+            'date': response.date,
+            'driverId': response.driverId,
+            'driverDescription': response.driverDescription,
+            'phones': response.phones
+        }
+        return header
+    }
+
+    private mapReservationsFromAPI(response: any[]): ReportReservationDTO[] {
+        const reservations = []
+        response.forEach((reservation: any) => {
+            reservations.push({
+                'time': reservation.time,
+                'ticketNo': reservation.ticketNo,
+                'pickupPointDescription': reservation.pickupPointDescription,
+                'exactPoint': reservation.exactPoint,
+                'adults': reservation.adults,
+                'kids': reservation.kids,
+                'free': reservation.free,
+                'totalPersons': reservation.totalPersons,
+                'customerDescription': reservation.customerDescription,
+                'destinationAbbreviation': reservation.destinationAbbreviation,
+                'remarks': reservation.remarks
+            })
+        })
+        return reservations
     }
 
     //#endregion
 
 }
-

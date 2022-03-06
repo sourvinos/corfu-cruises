@@ -8,6 +8,7 @@ namespace API.Features.Reservations {
 
         Task<ReservationGroupResource<ReservationListResource>> GetByDate(string date);
         Task<ReservationGroupResource<ReservationListResource>> GetByRefNo(string refNo);
+        Task<DriverResult<Reservation>> GetByDateAndDriver(string date, int driverId);
         Task<ReservationReadResource> GetById(string id);
         Task<Reservation> GetByIdToDelete(string id);
         Task<bool> DoesUserOwnRecord(string userId);

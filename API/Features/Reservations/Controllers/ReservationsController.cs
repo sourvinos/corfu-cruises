@@ -34,6 +34,12 @@ namespace API.Features.Reservations {
             return await reservationRepo.GetByDate(date);
         }
 
+        [HttpGet("byDate/{date}/byDriver/{driverId}")]
+        [Authorize(Roles = "admin")]
+        public async Task<DriverResult<Reservation>> GetByDateAndDriver([FromRoute] string date, int driverId) {
+            return await reservationRepo.GetByDateAndDriver(date, driverId);
+        }
+
         [HttpGet("byRefNo/{refNo}")]
         [Authorize(Roles = "user, admin")]
         public async Task<ReservationGroupResource<ReservationListResource>> GetByRefNo([FromRoute] string refNo) {

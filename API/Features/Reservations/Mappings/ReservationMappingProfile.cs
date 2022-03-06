@@ -11,10 +11,14 @@ namespace API.Features.Reservations {
         public ReservationMappingProfile() {
             // List
             CreateMap<Reservation, ReservationListResource>()
-                .ForMember(x => x.RouteAbbreviation, x => x.MapFrom(r => r.PickupPoint.Route.Abbreviation))
+                .ForMember(x => x.RouteAbbreviation, x => x.MapFrom(x => x.PickupPoint.Route.Abbreviation))
                 .ForMember(x => x.DriverDescription, x => x.NullSubstitute("(EMPTY)"))
                 .ForMember(x => x.ShipDescription, x => x.NullSubstitute("(EMPTY)"))
-                .ForMember(x => x.Time, x => x.MapFrom(r => r.PickupPoint.Time));
+                .ForMember(x => x.Time, x => x.MapFrom(x => x.PickupPoint.Time));
+            // DriverList
+            CreateMap<Reservation, ReservationDriverListResource>()
+                .ForMember(x => x.ExactPoint, x => x.MapFrom(x => x.PickupPoint.ExactPoint))
+                .ForMember(x => x.Time, x => x.MapFrom(x => x.PickupPoint.Time));
             // Read reservation
             CreateMap<Reservation, ReservationReadResource>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Date)))

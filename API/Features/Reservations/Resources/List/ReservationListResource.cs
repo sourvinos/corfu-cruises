@@ -6,6 +6,9 @@ namespace API.Features.Reservations {
 
         public Guid ReservationId { get; set; }
 
+        public int DestinationId { get; set; }
+        public int DriverId { get; set; }
+
         public string RefNo { get; set; }
         public string TicketNo { get; set; }
         public int Adults { get; set; }

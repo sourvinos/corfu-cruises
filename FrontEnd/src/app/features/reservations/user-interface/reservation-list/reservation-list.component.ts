@@ -4,11 +4,10 @@ import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
-import { DriverPdfService } from '../../classes/services/driver-pdf.service'
+import { DriverReportService } from '../../classes/driver-report/services/driver-report.service'
 import { DriverService } from 'src/app/features/drivers/classes/driver.service'
 import { EmojiService } from './../../../../shared/services/emoji.service'
 import { HelperService } from './../../../../shared/services/helper.service'
-import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { MenuItem, MessageService } from 'primeng/api'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -53,12 +52,11 @@ export class ReservationListComponent {
     public routes = []
     public selectedRecords = []
     public ships = []
-    public today: string
     public totals: any[] = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private driverPDFService: DriverPdfService, private interactionService: InteractionService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -140,7 +138,8 @@ export class ReservationListComponent {
     }
 
     public createPdf(): void {
-        this.driverPDFService.createDriverReport(this.records.reservations, this.drivers, this.today)
+        const driverIds = this.getDistinctDriverIds(this.records.reservations)
+        this.driverReportService.doReportTasks(driverIds)
     }
 
     public doResetTableTasks(table: { reset: () => void }): void {
@@ -252,6 +251,15 @@ export class ReservationListComponent {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }
+    }
+
+    private getDistinctDriverIds(reservations): any[] {
+        const driverIds = []
+        const x = [... new Set(reservations.map((x: { driverId: any }) => x.driverId))]
+        x.forEach(element => {
+            driverIds.push(element)
+        })
+        return driverIds
     }
 
     private goBack(): void {
