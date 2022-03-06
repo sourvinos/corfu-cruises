@@ -20,13 +20,13 @@ namespace API.Integration.Tests.Schedules {
                     StatusCode = 450,
                     TestScheduleBody = new List<TestScheduleBody>() {
                         new TestScheduleBody {
-                            DestinationId = 5,
+                            DestinationId = 6,
                             PortId = 1,
                             Date = "2022-02-01",
                             MaxPassengers = 185
                         },
                         new TestScheduleBody {
-                            DestinationId = 5,
+                            DestinationId = 6,
                             PortId = 1,
                             Date = "2021-10-02",
                             MaxPassengers = 185
@@ -42,13 +42,13 @@ namespace API.Integration.Tests.Schedules {
                     StatusCode = 450,
                     TestScheduleBody = new List<TestScheduleBody>() {
                         new TestScheduleBody {
-                            DestinationId = 4,
+                            DestinationId = 5,
                             PortId = 1,
                             Date = "2022-02-01",
                             MaxPassengers = 185
                         },
                         new TestScheduleBody {
-                            DestinationId = 4,
+                            DestinationId = 5,
                             PortId = 1,
                             Date = "2021-10-02",
                             MaxPassengers = 185

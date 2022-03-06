@@ -11,7 +11,7 @@ namespace API.Features.Schedules {
             RuleFor(x => x.DestinationId).NotEmpty();
             // Fields
             RuleFor(x => x.Date).Must(DateHelpers.BeCorrectFormat).WithMessage(ApiMessages.DateHasWrongFormat());
-            RuleFor(x => x.MaxPassengers).NotEmpty().InclusiveBetween(1, 999).WithMessage(ApiMessages.InvalidMaxPersons());
+            RuleFor(x => x.MaxPassengers).InclusiveBetween(0, 999).WithMessage(ApiMessages.InvalidMaxPersons());
         }
 
     }

@@ -213,7 +213,7 @@ namespace API.Features.Schedules {
         }
 
         private bool IsValidPortOnUpdate(ScheduleWriteResource record) {
-            return context.Ports.SingleOrDefault(x => x.Id == record.PortId && x.IsActive) != null;
+            return context.Ports.SingleOrDefault(x => x.Id == record.PortId) != null;
         }
 
         private bool IsValidDestinationOnNew(List<ScheduleWriteResource> records) {
@@ -228,7 +228,7 @@ namespace API.Features.Schedules {
         }
 
         private bool IsValidDestinationOnUpdate(ScheduleWriteResource record) {
-            return context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId && x.IsActive) != null;
+            return context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId) != null;
         }
 
         private void Save() {
