@@ -1,8 +1,6 @@
 #top-bar {
     align-items: center;
-    background-color: var(--color-common-background);
     display: flex;
     justify-content: space-between;
     padding: var(--gap) 5rem var(--gap) 5rem;
-    transition: background-color var(--change-theme-delay) ease;
 }

@@ -4,6 +4,7 @@
 @import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp");
 
 @import "~leaflet/dist/leaflet.css";
+
 @import "autocomplete.css";
 @import "buttons.css";
 @import "checkbox.css";
@@ -46,7 +47,6 @@
 }
 
 html, body {
-    background-color: #000000;
     display: flex;
     height: 100%;
     margin: 0;
