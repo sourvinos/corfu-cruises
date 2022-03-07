@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core'
-import { FormGroup } from '@angular/forms'
 import { Router } from '@angular/router'
 // Custom
 import { EmojiService } from './emoji.service'
 import { environment } from 'src/environments/environment'
+import { FormGroup } from '@angular/forms'
 
 @Injectable({ providedIn: 'root' })
 
@@ -34,8 +34,8 @@ export class HelperService {
     }
 
     public formatDateToLocale(date: string) {
-        const x = date.split('-')
-        return new Intl.DateTimeFormat(this.readLanguage()).format(new Date(parseInt(x[0]), parseInt(x[1]) - 1, parseInt(x[2])))
+        const parts = date.split('-')
+        return this.addLeadingZerosToDateParts(new Intl.DateTimeFormat(this.readLanguage()).format(new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]))))
     }
 
     public formatRefNo(refNo: string, returnsHTML: boolean): string {
@@ -96,13 +96,32 @@ export class HelperService {
 
     //#region private methods
 
-    private removeItem(key: string): void {
-        localStorage.removeItem(key)
+    private addLeadingZerosToDateParts(date: string): string {
+        const seperator = this.getDateLocaleSeperator()
+        const parts = date.split(seperator)
+        parts[0].replace(' ', '').length == 1 ? parts[0] = '0' + parts[0].replace(' ', '') : parts[0]
+        parts[1].replace(' ', '').length == 1 ? parts[1] = '0' + parts[1].replace(' ', '') : parts[1]
+        parts[2] = parts[2].replace(' ', '')
+        return parts[0] + seperator + parts[1] + seperator + parts[2]
     }
 
     private getDefaultLanguage(): string {
         localStorage.setItem('language', 'en-gb')
         return 'en-gb'
+    }
+
+    private getDateLocaleSeperator() {
+        switch (this.readLanguage()) {
+            case 'cs-cz': return '.'
+            case 'de-de': return '.'
+            case 'el-gr': return '/'
+            case 'en-gb': return '/'
+            case 'fr-fr': return '/'
+        }
+    }
+
+    private removeItem(key: string): void {
+        localStorage.removeItem(key)
     }
 
     //#endregion

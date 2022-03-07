@@ -184,8 +184,7 @@ export class NewScheduleComponent {
                 'destinationId': this.form.value.destination.id,
                 'portId': this.form.value.port.id,
                 'maxPassengers': this.form.value.maxPassengers,
-                'isActive': true,
-                'userId': this.helperService.readItem('userId')
+                'isActive': true
             })
         })
     }
@@ -198,8 +197,7 @@ export class NewScheduleComponent {
                 'portId': this.form.value.port.id,
                 'destinationId': this.form.value.destination.id,
                 'maxPassengers': 0,
-                'isActive': false,
-                'userId': this.helperService.readItem('userId')
+                'isActive': false
             })
         })
     }
@@ -260,8 +258,7 @@ export class NewScheduleComponent {
             periodToDelete: [''],
             daysToInsert: ['', Validators.required],
             maxPassengers: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
-            isActive: true,
-            userId: this.helperService.readItem('userId')
+            isActive: true
         })
     }
 
