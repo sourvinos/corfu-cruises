@@ -2,12 +2,13 @@ import idleService from '@kurtz1993/idle-service'
 import { Component } from '@angular/core'
 import { MenuItem } from 'primeng/api/menuitem'
 import { Observable, Subject } from 'rxjs'
+import { Router } from '@angular/router'
 import { takeUntil } from 'rxjs/operators'
 // Custom
 import { AccountService } from '../../../services/account.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { MessageMenuService } from '../../../services/messages-menu.service'
-import { Router } from '@angular/router'
 
 @Component({
     selector: 'side-menu',
@@ -26,7 +27,7 @@ export class SideMenuComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private interactionService: InteractionService, private messageMenuService: MessageMenuService, private router: Router) { }
+    constructor(private accountService: AccountService, private helperService: HelperService, private interactionService: InteractionService, private messageMenuService: MessageMenuService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -64,8 +65,8 @@ export class SideMenuComponent {
                 label: this.getLabel(menuItems, 'tasks'),
                 icon: 'fas fa-microchip',
                 items: [
-                    { label: this.getLabel(menuItems, 'invoicing', true), command: (): void => { this.router.navigate(['/']) } },
-                    { label: this.getLabel(menuItems, 'manifest', true), command: (): void => { this.router.navigate(['/']) } },
+                    { label: this.getLabel(menuItems, 'invoicing', true), command: (): void => { this.router.navigate([this.helperService.getHomePage()]) } },
+                    { label: this.getLabel(menuItems, 'manifest', true), command: (): void => { this.router.navigate([this.helperService.getHomePage()]) } },
                 ]
             },
             {

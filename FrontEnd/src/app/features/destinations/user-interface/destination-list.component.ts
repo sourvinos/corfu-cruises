@@ -4,6 +4,7 @@ import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { DestinationListResource } from '../classes/destination-list-resource'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
@@ -11,7 +12,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import { DestinationListResource } from '../classes/destination-list-resource'
 
 @Component({
     selector: 'destination-list',
@@ -82,7 +82,7 @@ export class DestinationListComponent {
     }
 
     private goBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate([this.helperService.getHomePage()])
     }
 
     private loadRecords(): void {

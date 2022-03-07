@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { HelperService } from './helper.service'
+import { Injectable } from '@angular/core'
+// Custom
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+
 
 @Injectable({ providedIn: 'root' })
 
@@ -12,7 +14,7 @@ export class MessageMenuService {
 
     //#endregion
 
-    constructor(private helperService: HelperService, private httpClient: HttpClient) { }
+    constructor(private localStorageService: LocalStorageService, private httpClient: HttpClient) { }
 
     //#region public methods
 
@@ -34,11 +36,10 @@ export class MessageMenuService {
 
     public getMessages(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.httpClient.get('assets/languages/menu/menu.' + this.helperService.readLanguage() + '.json').toPromise().then(
-                response => {
-                    this.messages = response
-                    resolve(this.messages)
-                })
+            this.httpClient.get('assets/languages/menu/menu.' + this.localStorageService.getLanguage() + '.json').toPromise().then(response => {
+                this.messages = response
+                resolve(this.messages)
+            })
         })
         return promise
     }

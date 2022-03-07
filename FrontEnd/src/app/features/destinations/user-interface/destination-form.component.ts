@@ -1,8 +1,8 @@
+import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Title } from '@angular/platform-browser'
-import { ActivatedRoute, Router } from '@angular/router'
 import { Subject } from 'rxjs'
+import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { Destination } from '../classes/destination'
@@ -65,7 +65,7 @@ export class DestinationFormComponent {
 
     canDeactivate(): boolean {
         if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.warning(),'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
+            this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
                     this.onGoBack()
@@ -84,7 +84,7 @@ export class DestinationFormComponent {
     //#region public methods
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(),'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.destinationService.delete(this.form.value.id).subscribe(() => {
                     this.resetForm()

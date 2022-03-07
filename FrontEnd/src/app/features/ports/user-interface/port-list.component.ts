@@ -11,9 +11,9 @@ import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { Port } from '../classes/models/port'
+import { PortListResource } from '../classes/resources/port-list-resource'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import { PortListResource } from '../classes/resources/port-list-resource'
 
 @Component({
     selector: 'port-list',
@@ -86,7 +86,7 @@ export class PortListComponent {
     }
 
     private goBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate([this.helperService.getHomePage()])
     }
 
     private loadRecords(): void {

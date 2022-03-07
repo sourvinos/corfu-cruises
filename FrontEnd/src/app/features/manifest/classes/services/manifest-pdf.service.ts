@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core'
 import pdfMake from 'pdfmake/build/pdfmake'
+import { Injectable } from '@angular/core'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ManifestPassenger } from '../view-models/manifest-passenger'

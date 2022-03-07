@@ -8,6 +8,7 @@ import { ButtonClickService } from 'src/app/shared/services/button-click.service
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from '../../../shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
@@ -38,7 +39,7 @@ export class UserListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -75,9 +76,6 @@ export class UserListComponent {
             'Escape': () => {
                 this.goBack()
             },
-            'Alt.S': () => {
-                this.focus('searchTerm')
-            },
             'Alt.N': (event: KeyboardEvent) => {
                 this.buttonClickService.clickOnButton(event, 'new')
             }
@@ -87,12 +85,8 @@ export class UserListComponent {
         })
     }
 
-    private focus(element: string): void {
-        this.helperService.setFocus(element)
-    }
-
     private goBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate([this.helperService.getHomePage()])
     }
 
     private loadRecords(): void {

@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
+import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from '../../../shared/services/dialog.service'
@@ -20,7 +21,6 @@ import { RouteService } from 'src/app/features/routes/classes/services/route.ser
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from '../../../shared/services/validation.service'
 import { environment } from 'src/environments/environment'
-import { map, startWith } from 'rxjs/operators'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -83,7 +83,7 @@ export class PickupPointFormComponent {
 
     canDeactivate(): boolean {
         if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.warning(),'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
+            this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
                     this.onGoBack()
@@ -100,7 +100,7 @@ export class PickupPointFormComponent {
     //#region public methods
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(),'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.pickupPointService.delete(this.form.value.id).subscribe(() => {
                     this.resetForm()
@@ -210,10 +210,6 @@ export class PickupPointFormComponent {
             priority: 0,
             inputs: true
         })
-    }
-
-    private enableField(form: FormGroup, field: string): void {
-        this.helperService.enableField(form, field)
     }
 
     private filterDropdownArray(array: string, field: string, value: any): any[] {

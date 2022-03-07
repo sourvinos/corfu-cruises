@@ -89,7 +89,7 @@ export class RegistrarListComponent {
     }
 
     private goBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate([this.helperService.getHomePage()])
     }
 
     private loadRecords(): void {

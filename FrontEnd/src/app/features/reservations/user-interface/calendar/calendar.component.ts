@@ -1,11 +1,12 @@
+import moment, { utc } from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
-import moment, { utc } from 'moment'
 // Custom
 import { Day } from '../../classes/calendar/day'
-import { HelperService } from './../../../../shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { ScheduleService } from 'src/app/features/schedules/classes/calendar/schedule.service'
@@ -35,7 +36,7 @@ export class CalendarComponent {
 
     // #endregion 
 
-    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private router: Router, private scheduleService: ScheduleService) { }
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private router: Router, private scheduleService: ScheduleService) { }
 
     //#region lifecycle hooks
 
@@ -125,7 +126,7 @@ export class CalendarComponent {
     }
 
     private clearStoredVariables() {
-        this.helperService.clearStorageItems([
+        this.localStorageService.deleteItems([
             'date',
             'refNo',
             'returnUrl'
@@ -170,11 +171,11 @@ export class CalendarComponent {
     }
 
     private goBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate([this.helperService.getHomePage()])
     }
 
     private navigateToList(): void {
-        this.router.navigate(['byDate', this.helperService.readItem('date')], { relativeTo: this.activatedRoute })
+        this.router.navigate(['byDate', this.localStorageService.getItem('date')], { relativeTo: this.activatedRoute })
     }
 
     private navigateToMonth(flag: number): void {
@@ -188,7 +189,7 @@ export class CalendarComponent {
     }
 
     private storeDate(day: string): void {
-        this.helperService.saveItem('date', day)
+        this.localStorageService.saveItem('date', day)
     }
 
     private updateCalendar(): void {

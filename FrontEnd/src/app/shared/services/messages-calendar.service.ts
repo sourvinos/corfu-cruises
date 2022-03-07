@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+// Custom
+import { LocalStorageService } from './local-storage.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -11,7 +13,7 @@ export class MessageCalendarService {
 
     //#endregion
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient, private localStorageService: LocalStorageService) {
         this.getMessages()
     }
 
@@ -35,7 +37,7 @@ export class MessageCalendarService {
 
     public getMessages(): Promise<any> {
         const promise = new Promise((resolve) => {
-            const language = localStorage.getItem('language') == null ? 'en-gb' : localStorage.getItem('language')
+            const language = this.localStorageService.getLanguage() == null ? 'en-gb' : localStorage.getItem('language')
             this.httpClient.get('assets/languages/calendar/calendar.' + language + '.json').toPromise().then(response => {
                 this.messages = response
                 resolve(this.messages)

@@ -1,19 +1,21 @@
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
-import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { Title } from '@angular/platform-browser'
+// Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from '../../../shared/services/keyboard-shortcuts.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'forgot-password-form',
@@ -37,7 +39,7 @@ export class ForgotPasswordFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -121,7 +123,7 @@ export class ForgotPasswordFormComponent {
         this.form.setValue({
             email: environment.login.email,
             returnUrl: environment.clientUrl,
-            language: this.helperService.readItem('language'),
+            language: this.localStorageService.getLanguage(),
         })
     }
 

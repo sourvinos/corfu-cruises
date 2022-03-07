@@ -3,11 +3,11 @@ import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InvoicingPdfService } from '../../classes/services/invoicing-pdf.service'
 import { InvoicingService } from '../../classes/services/invoicing.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
@@ -34,7 +34,7 @@ export class InvoicingListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private invoicingService: InvoicingService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private invoicingPdfService: InvoicingPdfService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private invoicingService: InvoicingService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private invoicingPdfService: InvoicingPdfService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.loadRecords()
@@ -110,7 +110,7 @@ export class InvoicingListComponent {
     }
 
     private updateCriteriaLabels(): void {
-        const criteria = JSON.parse(this.helperService.readItem('invoicing-criteria'))
+        const criteria = JSON.parse(this.localStorageService.getItem('invoicing-criteria'))
         this.criteriaLabels[0] = criteria.date
         this.criteriaLabels[1] = criteria.customer.description
         this.criteriaLabels[2] = criteria.destination.description

@@ -1,17 +1,17 @@
 import html2canvas from 'html2canvas'
+import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
+import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
-import moment from 'moment'
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerDropdownResource } from '../../classes/resources/form/dropdown/customer-dropdown-resource'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
-import { DateAdapter } from '@angular/material/core'
 import { Destination } from 'src/app/features/destinations/classes/destination'
 import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
@@ -21,6 +21,7 @@ import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -75,7 +76,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.getRecord(x.id).then(() => {
@@ -202,7 +203,7 @@ export class ReservationFormComponent {
     }
 
     public onGoBack(): void {
-        this.router.navigate([this.helperService.readItem('returnUrl')])
+        this.router.navigate([this.localStorageService.getItem('returnUrl')])
     }
 
     public onSave(): void {
@@ -260,7 +261,7 @@ export class ReservationFormComponent {
     }
 
     private clearStoredVariables(): void {
-        this.helperService.clearStorageItems(['destinationId', 'destinationDescription'])
+        this.localStorageService.deleteItems(['destinationId', 'destinationDescription'])
     }
 
     private convertCanvasToBase64(): void {
@@ -506,10 +507,10 @@ export class ReservationFormComponent {
 
     private readStoredVariables() {
         this.form.patchValue({
-            date: this.helperService.readItem('date'),
+            date: this.localStorageService.getItem('date'),
             destination: {
-                'id': this.helperService.readItem('destinationId'),
-                'description': this.helperService.readItem('destinationDescription')
+                'id': this.localStorageService.getItem('destinationId'),
+                'description': this.localStorageService.getItem('destinationDescription')
             }
         })
     }
@@ -519,7 +520,7 @@ export class ReservationFormComponent {
     }
 
     private setLocale() {
-        this.dateAdapter.setLocale(this.helperService.readLanguage())
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private setWindowTitle(): void {

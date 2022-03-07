@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
@@ -5,7 +6,6 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import { map, startWith } from 'rxjs/operators'
-import moment from 'moment'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { Destination } from './../../../destinations/classes/destination'
@@ -13,6 +13,7 @@ import { DestinationService } from 'src/app/features/destinations/classes/destin
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -54,7 +55,7 @@ export class ManifestCriteriaComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private shipRouteService: ShipRouteService, private snackbarService: SnackbarService, private titleService: Title, private vesselService: ShipService,) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private shipRouteService: ShipRouteService, private snackbarService: SnackbarService, private titleService: Title, private vesselService: ShipService,) { }
 
     //#region lifecycle hooks
 
@@ -127,11 +128,11 @@ export class ManifestCriteriaComponent {
     }
 
     private getLocale(): void {
-        this.dateAdapter.setLocale(this.helperService.readItem('language'))
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private goBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate([this.helperService.getHomePage()])
     }
 
     private initForm(): void {
@@ -168,8 +169,8 @@ export class ManifestCriteriaComponent {
     }
 
     private populateFields(): void {
-        if (this.helperService.readItem('manifest-criteria')) {
-            const criteria = JSON.parse(this.helperService.readItem('manifest-criteria'))
+        if (this.localStorageService.getItem('manifest-criteria')) {
+            const criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
             this.form.setValue({
                 date: moment(criteria.date).toISOString(),
                 destination: criteria.destination,
@@ -181,7 +182,7 @@ export class ManifestCriteriaComponent {
     }
 
     private removeCriteria(): void {
-        this.helperService.clearStorageItems([
+        this.localStorageService.deleteItems([
             'manifestCriteria'
         ])
     }
@@ -195,7 +196,7 @@ export class ManifestCriteriaComponent {
     }
 
     private storeCriteria(): void {
-        this.helperService.saveItem('manifest-criteria', JSON.stringify(this.form.value))
+        this.localStorageService.saveItem('manifest-criteria', JSON.stringify(this.form.value))
     }
 
     //#endregion

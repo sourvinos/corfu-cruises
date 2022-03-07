@@ -1,4 +1,3 @@
-// Base
 import { Component } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 // Custom

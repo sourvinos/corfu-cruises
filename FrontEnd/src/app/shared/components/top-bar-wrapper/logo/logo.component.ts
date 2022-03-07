@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { DeviceDetectorService } from 'ngx-device-detector'
+// Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
 
 @Component({
@@ -16,7 +16,7 @@ export class LogoComponent {
 
     //#endregion
 
-    constructor(private deviceDetectorService: DeviceDetectorService, private helperService: HelperService) { }
+    constructor(private helperService: HelperService) { }
 
     //#region lifecycle hooks
 

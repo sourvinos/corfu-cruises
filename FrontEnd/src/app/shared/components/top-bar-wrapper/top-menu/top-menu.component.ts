@@ -6,8 +6,8 @@ import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -29,7 +29,7 @@ export class TopMenuComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private helperService: HelperService, private interactionService: InteractionService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageMenuService: MessageMenuService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
+    constructor(private accountService: AccountService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageMenuService: MessageMenuService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -117,7 +117,7 @@ export class TopMenuComponent {
     }
 
     private getLanguageIcon(): string {
-        const flag = this.helperService.readItem('language') == '' ? this.doLanguageTasks('en-gb') : this.helperService.readItem('language')
+        const flag = this.localStorageService.getLanguage() == '' ? this.doLanguageTasks('en-gb') : this.localStorageService.getLanguage()
         return 'flag ' + flag
     }
 
@@ -153,7 +153,7 @@ export class TopMenuComponent {
     }
 
     private saveLanguage(language: string): void {
-        this.helperService.saveItem('language', language)
+        this.localStorageService.saveItem('language', language)
     }
 
     private subscribeToInteractionService(): void {

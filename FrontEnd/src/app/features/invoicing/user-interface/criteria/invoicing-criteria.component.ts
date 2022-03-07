@@ -1,10 +1,10 @@
+import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-import moment from 'moment'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
@@ -13,6 +13,7 @@ import { GenericResource } from '../../classes/resources/generic-resource'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -45,7 +46,7 @@ export class InvoicingCriteriaComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private vesselService: ShipService) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private vesselService: ShipService) { }
 
     //#region lifecycle hooks
 
@@ -121,11 +122,11 @@ export class InvoicingCriteriaComponent {
     }
 
     private getLocale(): void {
-        this.dateAdapter.setLocale(this.helperService.readItem('language'))
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private goBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate([this.helperService.getHomePage()])
     }
 
     private initForm(): void {
@@ -167,8 +168,8 @@ export class InvoicingCriteriaComponent {
     }
 
     private populateFields(): void {
-        if (this.helperService.readItem('invoicing-criteria')) {
-            const criteria = JSON.parse(this.helperService.readItem('invoicing-criteria'))
+        if (this.localStorageService.getItem('invoicing-criteria')) {
+            const criteria = JSON.parse(this.localStorageService.getItem('invoicing-criteria'))
             this.form.setValue({
                 date: moment(criteria.date).toISOString(),
                 customer: criteria.customer,
@@ -179,7 +180,7 @@ export class InvoicingCriteriaComponent {
     }
 
     private removeCriteria(): void {
-        this.helperService.clearStorageItems([
+        this.localStorageService.deleteItems([
             'invoicing-criteria'
         ])
     }
@@ -193,7 +194,7 @@ export class InvoicingCriteriaComponent {
     }
 
     private storeCriteria(): void {
-        this.helperService.saveItem('invoicing-criteria', JSON.stringify(this.form.value))
+        this.localStorageService.saveItem('invoicing-criteria', JSON.stringify(this.form.value))
     }
 
     //#endregion

@@ -8,9 +8,9 @@ import { Observable, Subject } from 'rxjs'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { GenderDropdownResource } from '../../classes/resources/form/dropdown/gender-dropdown-resource'
 import { GenderService } from 'src/app/features/genders/classes/gender.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -44,7 +44,7 @@ export class PassengerFormComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: Passenger, private dateAdapter: DateAdapter<any>, private dialogRef: MatDialogRef<PassengerFormComponent>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private reservationService: ReservationService, private snackbarService: SnackbarService) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: Passenger, private dateAdapter: DateAdapter<any>, private dialogRef: MatDialogRef<PassengerFormComponent>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private reservationService: ReservationService, private snackbarService: SnackbarService) { }
 
     //#region lifecycle hooks
 
@@ -214,7 +214,7 @@ export class PassengerFormComponent {
     }
 
     private setLocale() {
-        this.dateAdapter.setLocale(this.helperService.readLanguage())
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private showSnackbar(message: string, type: string): void {

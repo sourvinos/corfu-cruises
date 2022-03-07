@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core'
-import pdfMake from 'pdfmake/build/pdfmake'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
+import pdfMake from 'pdfmake/build/pdfmake'
+import { Injectable } from '@angular/core'
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 // Custom
-import { HelperService } from './../../../../shared/services/helper.service'
 import { InvoicingTransferGroupViewModel } from '../view-models/invoicing-transfer-group-view-model'
 import { InvoicingViewModel } from '../view-models/invoicing-view-model'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
@@ -13,7 +12,7 @@ import { LogoService } from 'src/app/features/reservations/classes/services/logo
 export class InvoicingPdfService {
 
 
-    constructor(private logoService: LogoService, private helperService: HelperService) { }
+    constructor(private logoService: LogoService) { }
 
     public doInvoiceTasks(invoice: InvoicingViewModel): void {
         const dd = {

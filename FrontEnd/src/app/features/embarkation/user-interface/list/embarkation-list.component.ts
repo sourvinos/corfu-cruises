@@ -9,6 +9,7 @@ import { EmbarkationCompositeViewModel } from '../../classes/view-models/embarka
 import { EmbarkationService } from '../../classes/services/embarkation.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
@@ -42,7 +43,7 @@ export class EmbarkationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private embarkationervice: EmbarkationService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private embarkationervice: EmbarkationService, private titleService: Title) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.loadRecords()
@@ -166,7 +167,7 @@ export class EmbarkationListComponent {
     }
 
     private getLocale(): void {
-        this.dateAdapter.setLocale(this.helperService.readItem('language'))
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private loadRecords(): void {
@@ -187,7 +188,9 @@ export class EmbarkationListComponent {
     }
 
     private refreshPage(): void {
-        this.helperService.refreshPage(this.router, this.router.url)
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate([this.router.url])
+        })
     }
 
     private setWindowTitle(): void {

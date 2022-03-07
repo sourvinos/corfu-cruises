@@ -1,22 +1,22 @@
+import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Title } from '@angular/platform-browser'
-import { ActivatedRoute, Router } from '@angular/router'
 import { Subject } from 'rxjs'
+import { Title } from '@angular/platform-browser'
 // Custom
-import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { Gender } from '../classes/gender'
 import { GenderService } from '../classes/gender.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
+import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
+import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 
 @Component({
     selector: 'gender-form',
@@ -65,7 +65,7 @@ export class GenderFormComponent {
 
     canDeactivate(): boolean {
         if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.warning(),'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
+            this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
                     this.onGoBack()
@@ -82,7 +82,7 @@ export class GenderFormComponent {
     //#region public methods
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(),'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.genderService.delete(this.form.value.id).subscribe(() => {
                     this.resetForm()

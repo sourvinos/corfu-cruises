@@ -35,9 +35,9 @@ export class GenderListComponent {
     public feature = 'genderList'
     public newUrl = this.baseUrl + '/new'
     public records: Gender[] = []
-    
+
     //#endregion
-    
+
     constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
@@ -85,7 +85,7 @@ export class GenderListComponent {
     }
 
     private goBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate([this.helperService.getHomePage()])
     }
 
     private loadRecords(): void {

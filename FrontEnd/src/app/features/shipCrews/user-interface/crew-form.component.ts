@@ -18,6 +18,7 @@ import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -53,7 +54,7 @@ export class CrewFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private crewService: CrewService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private crewService: CrewService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title) {
         this.activatedRoute.params.subscribe(x => {
             x.id ? this.getRecord(x.id).then(() => { this.populateDropDowns() }) : this.populateDropDowns()
         })
@@ -180,7 +181,7 @@ export class CrewFormComponent {
     }
 
     private getLocale(): void {
-        this.dateAdapter.setLocale(this.helperService.readItem('language'))
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private getRecord(id: number): Promise<any> {
@@ -274,7 +275,7 @@ export class CrewFormComponent {
     }
 
     private setLocale() {
-        this.dateAdapter.setLocale(this.helperService.readLanguage())
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private setWindowTitle(): void {

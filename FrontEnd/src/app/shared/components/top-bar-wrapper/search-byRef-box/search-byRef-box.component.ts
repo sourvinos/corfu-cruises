@@ -4,7 +4,7 @@ import { Observable } from 'rxjs'
 import { Router } from '@angular/router'
 // Custom
 import { AccountService } from './../../../services/account.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from './../../../services/messages-label.service'
 
 @Component({
@@ -23,7 +23,7 @@ export class SearchByRefBoxComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private formBuilder: FormBuilder, private helperService: HelperService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private accountService: AccountService, private formBuilder: FormBuilder, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -45,8 +45,8 @@ export class SearchByRefBoxComponent {
 
     public onSearchByRefNo() {
         const refNo = this.form.value.searchByRefNo
-        this.helperService.clearStorageItems(['date'])
-        this.helperService.saveItem('refNo', refNo)
+        this.localStorageService.deleteItems(['date'])
+        this.localStorageService.saveItem('refNo', refNo)
         this.router.navigate(['reservations/byRefNo', refNo])
     }
 

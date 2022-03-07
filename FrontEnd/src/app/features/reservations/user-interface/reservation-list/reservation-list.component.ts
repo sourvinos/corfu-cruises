@@ -1,14 +1,16 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
+import { MenuItem, MessageService } from 'primeng/api'
 import { Subject } from 'rxjs'
+import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { DriverReportService } from '../../classes/driver-report/services/driver-report.service'
 import { DriverService } from 'src/app/features/drivers/classes/driver.service'
 import { EmojiService } from './../../../../shared/services/emoji.service'
 import { HelperService } from './../../../../shared/services/helper.service'
-import { MenuItem, MessageService } from 'primeng/api'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ReservationGroupResource } from '../../classes/resources/list/reservation-group-resource'
@@ -17,7 +19,6 @@ import { ReservationToDriverComponent } from '../reservation-to-driver/reservati
 import { ReservationToVesselComponent } from '../reservation-to-vessel/reservation-to-vessel-form.component'
 import { ShipService } from 'src/app/features/ships/base/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { Table } from 'primeng/table'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -56,7 +57,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -151,12 +152,12 @@ export class ReservationListComponent {
     }
 
     public editRecord(id: string): void {
-        this.helperService.saveItem('returnUrl', this.url)
+        this.localStorageService.saveItem('returnUrl', this.url)
         this.router.navigate([this.baseUrl, id])
     }
 
     public formatDateToLocale() {
-        return this.helperService.formatDateToLocale(this.helperService.readItem('date'))
+        return this.helperService.formatISODateToLocale(this.localStorageService.getItem('date'))
     }
 
     public formatRefNo(refNo: string): string {
@@ -176,7 +177,7 @@ export class ReservationListComponent {
     }
 
     public newRecord(): void {
-        this.helperService.saveItem('returnUrl', this.url)
+        this.localStorageService.saveItem('returnUrl', this.url)
         this.router.navigate([this.baseUrl, 'new'])
     }
 
@@ -193,8 +194,8 @@ export class ReservationListComponent {
     }
 
     public showDateOrRefNoInHeader(): string {
-        if (this.helperService.readItem('refNo')) {
-            return this.getLabel('headerForRefNo') + this.formatRefNo(this.helperService.readItem('refNo'))
+        if (this.localStorageService.getItem('refNo')) {
+            return this.getLabel('headerForRefNo') + this.formatRefNo(this.localStorageService.getItem('refNo'))
         }
         else {
             return this.getLabel('headerForDate') + this.formatDateToLocale()

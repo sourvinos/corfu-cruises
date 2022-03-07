@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core'
 // Custom
 import { DriverReportDTO } from '../dtos/driver-report-dto'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { ReportHeaderDTO } from '../dtos/report-header-dto'
 import { ReportReservationDTO } from '../dtos/report-reservation-dto'
 import { ReservationService } from '../../services/reservation.service'
@@ -17,13 +18,13 @@ export class DriverReportService {
 
     //#endregion
 
-    constructor(private helperService: HelperService, private reservationService: ReservationService) { }
+    constructor(private helperService: HelperService, private localStorageService: LocalStorageService, private reservationService: ReservationService) { }
 
     //#region public methods
 
     public doReportTasks(driverIds: number[]): void {
         driverIds.forEach(driverId => {
-            this.reservationService.getByDateAndDriver(this.helperService.readItem('date'), driverId).subscribe(response => {
+            this.reservationService.getByDateAndDriver(this.localStorageService.getItem('date'), driverId).subscribe(response => {
                 this.mapObjectFromAPI(response)
                 this.createReport()
             })
@@ -142,7 +143,7 @@ export class DriverReportService {
     }
 
     private createPageHeader() {
-        const date = this.helperService.formatDateToLocale(this.driverReport.header.date)
+        const date = this.helperService.formatISODateToLocale(this.driverReport.header.date)
         const driverInfo = this.driverReport.header.driverDescription + ', ' + this.driverReport.header.phones
         return function (): any {
             return {

@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
@@ -5,21 +6,18 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import { map, startWith } from 'rxjs/operators'
-import moment from 'moment'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { Destination } from 'src/app/features/destinations/classes/destination'
-import { DestinationService } from '../../../destinations/classes/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { Port } from 'src/app/features/ports/classes/models/port'
-import { PortService } from 'src/app/features/ports/classes/services/port.service'
 import { Ship } from 'src/app/features/ships/base/classes/models/ship'
-import { ShipService } from 'src/app/features/ships/base/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
@@ -50,7 +48,7 @@ export class EmbarkationCriteriaComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -122,11 +120,11 @@ export class EmbarkationCriteriaComponent {
     }
 
     private getLocale(): void {
-        this.dateAdapter.setLocale(this.helperService.readItem('language'))
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private goBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate([this.helperService.getHomePage()])
     }
 
     private initForm(): void {
@@ -157,8 +155,8 @@ export class EmbarkationCriteriaComponent {
     }
 
     private populateFields(): void {
-        if (this.helperService.readItem('embarkationCriteria')) {
-            const criteria = JSON.parse(this.helperService.readItem('embarkationCriteria'))
+        if (this.localStorageService.getItem('embarkationCriteria')) {
+            const criteria = JSON.parse(this.localStorageService.getItem('embarkationCriteria'))
             this.form.setValue({
                 date: moment(criteria.date).toISOString(),
                 destination: criteria.destination,
@@ -169,7 +167,7 @@ export class EmbarkationCriteriaComponent {
     }
 
     private removeCriteria(): void {
-        this.helperService.clearStorageItems([
+        this.localStorageService.deleteItems([
             'embarkationCriteria'
         ])
     }
@@ -183,7 +181,7 @@ export class EmbarkationCriteriaComponent {
     }
 
     private storeCriteria(): void {
-        this.helperService.saveItem('embarkationCriteria', JSON.stringify(this.form.value))
+        this.localStorageService.saveItem('embarkationCriteria', JSON.stringify(this.form.value))
     }
 
     //#endregion

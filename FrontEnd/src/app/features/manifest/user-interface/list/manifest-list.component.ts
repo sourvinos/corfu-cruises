@@ -11,7 +11,6 @@ import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
 import { ManifestViewModel } from '../../classes/view-models/manifest-view-model'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
-import { ShipRouteService } from 'src/app/features/ships/routes/classes/services/shipRoute.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -44,7 +43,7 @@ export class ManifestListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private shipRouteService: ShipRouteService, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -156,15 +155,6 @@ export class ManifestListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private updateShipRoute(): Promise<any> {
-        return new Promise((resolve) => {
-            this.shipRouteService.getSingle(this.helperService.readItem('shipRoute')).subscribe(result => {
-                this.selectedShipRoute = result
-                resolve(this.selectedShipRoute)
-            })
-        })
     }
 
     //#endregion

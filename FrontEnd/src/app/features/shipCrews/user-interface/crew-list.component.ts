@@ -70,7 +70,7 @@ export class CrewListComponent {
     }
 
     public formatDateToLocale(date: string): string {
-        return this.helperService.formatDateToLocale(date)
+        return this.helperService.formatISODateToLocale(date)
     }
 
     public onGetLabel(id: string): string {
@@ -104,7 +104,7 @@ export class CrewListComponent {
     }
 
     private goBack(): void {
-        this.router.navigate(['/'])
+        this.router.navigate([this.helperService.getHomePage()])
     }
 
     private loadRecords(): void {
