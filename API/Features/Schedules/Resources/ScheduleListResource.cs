@@ -6,7 +6,7 @@ namespace API.Features.Schedules {
         public string Date { get; set; }
         public string DestinationDescription { get; set; }
         public string PortDescription { get; set; }
-        public int MaxPersons { get; set; }
+        public int MaxPassengers { get; set; }
         public bool IsActive { get; set; }
 
     }

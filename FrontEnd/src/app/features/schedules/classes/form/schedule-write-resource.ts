@@ -4,7 +4,7 @@ export class ScheduleWriteResource {
     date: string
     destinationId: number
     portId: number
-    maxPersons: number
+    maxPassengers: number
     isActive: boolean
     userId: string
 

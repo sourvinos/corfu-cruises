@@ -180,7 +180,7 @@ namespace API.Features.Schedules {
         }
 
         private static int CalculateAvailableSeatsForAllPorts(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations, string date, int destinationId) {
-            var maxPassengers = CalculateMaxPersons(schedule, date, destinationId);
+            var maxPassengers = CalculateMaxPassengers(schedule, date, destinationId);
             var passengers = CalculatePassengerCountForDestination(reservations, date, destinationId);
             return maxPassengers - passengers;
         }
@@ -197,7 +197,7 @@ namespace API.Features.Schedules {
             return reservations.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.TotalPersons);
         }
 
-        private static int CalculateMaxPersons(IEnumerable<ScheduleResource> schedule, string date, int destinationId) {
+        private static int CalculateMaxPassengers(IEnumerable<ScheduleResource> schedule, string date, int destinationId) {
             return schedule.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.MaxPassengers);
         }
 

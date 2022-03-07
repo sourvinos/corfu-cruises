@@ -8,7 +8,7 @@ namespace API.Features.Schedules {
         public string Date { get; set; }
         public SimpleResource Destination { get; set; }
         public SimpleResource Port { get; set; }
-        public int MaxPersons { get; set; }
+        public int MaxPassengers { get; set; }
         public bool IsActive { get; set; }
 
     }

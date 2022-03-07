@@ -38,9 +38,9 @@
             </mat-form-field>
             <mat-form-field>
                 <!-- Sorted -->
-                <input data-cy="maxPersons" [inputTabStop]="input" [placeholder]="getLabel('maxPersons')" data-tabindex="4" formControlName="maxPersons" id="maxPersons" matInput type="number">
-                <mat-error *ngIf="maxPersons.hasError('required')">{{ getHint('required') }}</mat-error>
-                <mat-error *ngIf="!maxPersons.hasError('required') && maxPersons.hasError('min') || maxPersons.hasError('max')">{{ getHint('invalid') }}</mat-error>
+                <input data-cy="maxPassengers" [inputTabStop]="input" [placeholder]="getLabel('maxPassengers')" data-tabindex="4" formControlName="maxPassengers" id="maxPassengers" matInput type="number">
+                <mat-error *ngIf="maxPassengers.hasError('required')">{{ getHint('required') }}</mat-error>
+                <mat-error *ngIf="!maxPassengers.hasError('required') && maxPassengers.hasError('min') || maxPassengers.hasError('max')">{{ getHint('invalid') }}</mat-error>
             </mat-form-field>
             <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ getLabel('isActive') }}</mat-slide-toggle>
         </form>

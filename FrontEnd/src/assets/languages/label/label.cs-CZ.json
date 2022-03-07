@@ -1133,8 +1133,8 @@
                 "description": "Datum období"
             },
             {
-                "id": "maxPersons",
-                "description": "Maximální počet osob"
+                "id": "maxPassengers",
+                "description": "Maximální počet cestujících"
             },
             {
                 "id": "saveButton",
@@ -1942,8 +1942,8 @@
                 "description": "Přístav"
             },
             {
-                "id": "headerMaxPersons",
-                "description": "Maximální kapacita"
+                "id": "headerMaxPassengers",
+                "description": "Maximální počet cestujících"
             },
             {
                 "id": "newButton",
@@ -1971,8 +1971,8 @@
                 "description": "Přístav"
             },
             {
-                "id": "maxPersons",
-                "description": "Maximální kapacita"
+                "id": "maxPassengers",
+                "description": "Maximální počet cestujících"
             },
             {
                 "id": "isActive",

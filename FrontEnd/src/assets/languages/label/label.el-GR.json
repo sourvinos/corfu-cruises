@@ -1133,8 +1133,8 @@
                 "description": "Διάστημα"
             },
             {
-                "id": "maxPersons",
-                "description": "Μέγιστη χωρητικότητα"
+                "id": "maxPassengers",
+                "description": "Μέγιστος αριθμός επιβατών"
             },
             {
                 "id": "saveButton",
@@ -1942,8 +1942,8 @@
                 "description": "Λιμάνι"
             },
             {
-                "id": "headerMaxPersons",
-                "description": "Μέγιστη χωρητικότητα"
+                "id": "headerMaxPassengers",
+                "description": "Μέγιστος αριθμός επιβατών"
             },
             {
                 "id": "newButton",
@@ -1971,8 +1971,8 @@
                 "description": "Λιμάνι"
             },
             {
-                "id": "maxPersons",
-                "description": "Μέγιστη χωρητικότητα"
+                "id": "maxPassengers",
+                "description": "Μέγιστος αριθμός επιβατών"
             },
             {
                 "id": "isActive",

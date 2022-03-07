@@ -1133,8 +1133,8 @@
                 "description": "Zeitraum"
             },
             {
-                "id": "maxPersons",
-                "description": "Maximale Personenzahl"
+                "id": "maxPassengers",
+                "description": "Maximale Anzahl von Passagieren"
             },
             {
                 "id": "saveButton",
@@ -1942,8 +1942,8 @@
                 "description": "Hafen"
             },
             {
-                "id": "headerMaxPersons",
-                "description": "Maximale Personenzahl"
+                "id": "headerMaxPassengers",
+                "description": "Maximale Anzahl von Passagieren"
             },
             {
                 "id": "newButton",
@@ -1971,8 +1971,8 @@
                 "description": "Hafen"
             },
             {
-                "id": "maxPersons",
-                "description": "Maximale Personenzahl"
+                "id": "maxPassengers",
+                "description": "Maximale Anzahl von Passagieren"
             },
             {
                 "id": "isActive",

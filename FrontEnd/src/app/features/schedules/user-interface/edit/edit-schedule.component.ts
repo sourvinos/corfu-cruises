@@ -205,7 +205,7 @@ export class EditScheduleComponent {
             date: moment(this.form.value.date).format('YYYY-MM-DD'),
             destinationId: this.form.value.destination.id,
             portId: this.form.value.port.id,
-            maxPersons: this.form.value.maxPersons,
+            maxPassengers: this.form.value.maxPassengers,
             isActive: this.form.value.isActive
         })
     }
@@ -225,7 +225,7 @@ export class EditScheduleComponent {
             date: ['', [Validators.required, Validators.maxLength(10)]],
             destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
-            maxPersons: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
+            maxPassengers: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             isActive: true
         })
     }
@@ -250,7 +250,7 @@ export class EditScheduleComponent {
             date: moment(result.date).format('YYYY-MM-DD'),
             destination: { 'id': result.destination.id, 'description': result.destination.description },
             port: { 'id': result.port.id, 'description': result.port.description },
-            maxPersons: result.maxPersons,
+            maxPassengers: result.maxPassengers,
             isActive: result.isActive
         })
     }
@@ -298,8 +298,8 @@ export class EditScheduleComponent {
         return this.form.get('port')
     }
 
-    get maxPersons(): AbstractControl {
-        return this.form.get('maxPersons')
+    get maxPassengers(): AbstractControl {
+        return this.form.get('maxPassengers')
     }
 
     //#endregion

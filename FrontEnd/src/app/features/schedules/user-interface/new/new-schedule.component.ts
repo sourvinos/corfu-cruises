@@ -183,7 +183,7 @@ export class NewScheduleComponent {
                 'date': day,
                 'destinationId': this.form.value.destination.id,
                 'portId': this.form.value.port.id,
-                'maxPersons': this.form.value.maxPersons,
+                'maxPassengers': this.form.value.maxPassengers,
                 'isActive': true,
                 'userId': this.helperService.readItem('userId')
             })
@@ -197,7 +197,7 @@ export class NewScheduleComponent {
                 'date': day.substring(4, day.length),
                 'portId': this.form.value.port.id,
                 'destinationId': this.form.value.destination.id,
-                'maxPersons': 0,
+                'maxPassengers': 0,
                 'isActive': false,
                 'userId': this.helperService.readItem('userId')
             })
@@ -259,7 +259,7 @@ export class NewScheduleComponent {
             toDate: ['', Validators.required],
             periodToDelete: [''],
             daysToInsert: ['', Validators.required],
-            maxPersons: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
+            maxPassengers: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             isActive: true,
             userId: this.helperService.readItem('userId')
         })
@@ -333,8 +333,8 @@ export class NewScheduleComponent {
         return this.form.get('toDate')
     }
 
-    get maxPersons(): AbstractControl {
-        return this.form.get('maxPersons')
+    get maxPassengers(): AbstractControl {
+        return this.form.get('maxPassengers')
     }
 
     //#endregion

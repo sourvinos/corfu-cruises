@@ -1133,8 +1133,8 @@
                 "description": "Espace"
             },
             {
-                "id": "maxPersons",
-                "description": "Capacité maximale"
+                "id": "maxPassengers",
+                "description": "Nombre maximal de passagers"
             },
             {
                 "id": "saveButton",
@@ -1942,8 +1942,8 @@
                 "description": "Port"
             },
             {
-                "id": "headerMaxPersons",
-                "description": "Capacité maximale"
+                "id": "headerMaxPassengers",
+                "description": "Nombre maximal de passagers"
             },
             {
                 "id": "newButton",
@@ -1971,8 +1971,8 @@
                 "description": "Port"
             },
             {
-                "id": "maxPersons",
-                "description": "Capacité maximale"
+                "id": "maxPassengers",
+                "description": "Nombre maximal de passagers"
             },
             {
                 "id": "isActive",

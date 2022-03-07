@@ -1133,7 +1133,7 @@
                 "description": "Period"
             },
             {
-                "id": "maxPersons",
+                "id": "maxPassengers",
                 "description": "Maximum number of passengers"
             },
             {
@@ -1942,8 +1942,8 @@
                 "description": "Port"
             },
             {
-                "id": "headerMaxPersons",
-                "description": "Maximum capacity"
+                "id": "headerMaxPassengers",
+                "description": "Max number of passengers"
             },
             {
                 "id": "newButton",
@@ -1971,8 +1971,8 @@
                 "description": "Port"
             },
             {
-                "id": "maxPersons",
-                "description": "Maximum capacity"
+                "id": "maxPassengers",
+                "description": "Max number of passengers"
             },
             {
                 "id": "isActive",

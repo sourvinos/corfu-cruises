@@ -4,7 +4,7 @@ export class ScheduleListResource {
     date: string
     destinationDescription: string
     portDescription: string
-    maxPersons: number
+    maxPassengers: number
     isActive: boolean
 
 }

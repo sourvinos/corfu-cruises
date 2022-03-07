@@ -246,16 +246,16 @@ namespace API.Features.Reservations {
         }
 
         private static bool PortHasVacancy(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId, int reservationPersons) {
-            int maxPersons = GetPortMaxPersons(scheduleRepo, fromDate, toDate, reservationId, destinationId, portId);
-            return maxPersons >= reservationPersons;
+            int maxPassengers = GetPortMaxPassengers(scheduleRepo, fromDate, toDate, reservationId, destinationId, portId);
+            return maxPassengers >= reservationPersons;
         }
 
-        private static int GetPortMaxPersons(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId) {
+        private static int GetPortMaxPassengers(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId) {
             IEnumerable<ScheduleReservationGroup> schedule = scheduleRepo.DoCalendarTasks(fromDate, toDate, reservationId).ToList();
             var port = schedule.Select(x => x.Destinations.SingleOrDefault(x => x.Id == destinationId).Ports.SingleOrDefault(x => x.Id == portId)).Select(x => new {
-                MaxPersons = x.AvailableSeats
+                MaxPassengers = x.AvailableSeats
             }).ToList();
-            return port[0].MaxPersons;
+            return port[0].MaxPassengers;
         }
 
         private bool UserCanAddReservationInThePast(string date) {
