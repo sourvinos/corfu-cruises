@@ -187,8 +187,7 @@ export class ShipOwnerFormComponent {
             city: ['', [Validators.maxLength(128)]],
             phones: ['', [Validators.maxLength(128)]],
             email: ['', [Validators.email, Validators.maxLength(128)]],
-            isActive: true,
-            userId: this.helperService.readItem('userId')
+            isActive: true
         })
     }
 
@@ -202,8 +201,7 @@ export class ShipOwnerFormComponent {
             city: result.city,
             phones: result.phones,
             email: result.email,
-            isActive: result.isActive,
-            userId: this.helperService.readItem('userId')
+            isActive: result.isActive
         })
     }
 

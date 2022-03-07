@@ -229,8 +229,7 @@ export class RegistrarFormComponent {
             fax: ['', Validators.maxLength(128)],
             address: ['', Validators.maxLength(128)],
             isPrimary: true,
-            isActive: true,
-            userId: this.helperService.readItem('userId')
+            isActive: true
         })
     }
 
@@ -244,8 +243,7 @@ export class RegistrarFormComponent {
             fax: result.fax,
             address: result.address,
             isPrimary: result.isPrimary,
-            isActive: result.isActive,
-            userId: this.helperService.readItem('userId')
+            isActive: result.isActive
         })
     }
 

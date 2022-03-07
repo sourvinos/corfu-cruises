@@ -185,8 +185,7 @@ export class ShipRouteFormComponent {
             fromPort: ['', [Validators.maxLength(128)]], fromTime: ['', [Validators.required, ValidationService.isTime]],
             viaPort: ['', [Validators.maxLength(128)]], viaTime: ['', [ValidationService.isTime]],
             toPort: ['', [Validators.maxLength(128)]], toTime: ['', [Validators.required, ValidationService.isTime]],
-            isActive: true,
-            userId: this.helperService.readItem('userId')
+            isActive: true
         })
     }
 
@@ -197,8 +196,7 @@ export class ShipRouteFormComponent {
             fromPort: result.fromPort, fromTime: result.fromTime,
             viaPort: result.viaPort, viaTime: result.viaTime,
             toPort: result.toPort, toTime: result.toTime,
-            isActive: result.isActive,
-            userId: this.helperService.readItem('userId')
+            isActive: result.isActive
         })
     }
 

@@ -182,8 +182,7 @@ export class DriverFormComponent {
             id: 0,
             description: ['', [Validators.required, Validators.maxLength(128)]],
             phones: ['', [Validators.maxLength(128)]],
-            isActive: true,
-            userId: this.helperService.readItem('userId')
+            isActive: true
         })
     }
 
@@ -192,8 +191,7 @@ export class DriverFormComponent {
             id: result.id,
             description: result.description,
             phones: result.phones,
-            isActive: result.isActive,
-            userId: this.helperService.readItem('userId')
+            isActive: result.isActive
         })
     }
 

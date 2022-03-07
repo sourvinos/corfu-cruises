@@ -255,8 +255,7 @@ export class RouteFormComponent {
             description: ['', [Validators.required, Validators.maxLength(128)]],
             port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             isTransfer: true,
-            isActive: true,
-            userId: this.helperService.readItem('userId')
+            isActive: true
         })
     }
 
@@ -281,8 +280,7 @@ export class RouteFormComponent {
             description: result.description,
             port: { 'id': result.port.id, 'description': result.port.description },
             isTransfer: result.isTransfer,
-            isActive: result.isActive,
-            userId: this.helperService.readItem('userId')
+            isActive: result.isActive
         })
     }
 

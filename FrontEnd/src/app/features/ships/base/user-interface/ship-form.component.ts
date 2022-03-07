@@ -211,8 +211,7 @@ export class ShipFormComponent {
             manager: ['', [Validators.maxLength(128)]],
             managerInGreece: ['', [Validators.maxLength(128)]],
             agent: ['', [Validators.maxLength(128)]],
-            isActive: true,
-            userId: this.helperService.readItem('userId')
+            isActive: true
         })
     }
 
@@ -241,8 +240,7 @@ export class ShipFormComponent {
             manager: result.manager,
             managerInGreece: result.managerInGreece,
             agent: result.agent,
-            isActive: result.isActive,
-            userId: this.helperService.readItem('userId')
+            isActive: result.isActive
         })
     }
 

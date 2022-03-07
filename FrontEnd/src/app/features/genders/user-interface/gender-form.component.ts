@@ -179,8 +179,7 @@ export class GenderFormComponent {
         this.form = this.formBuilder.group({
             id: 0,
             description: ['', [Validators.required, Validators.maxLength(128)]],
-            isActive: true,
-            userId: this.helperService.readItem('userId')
+            isActive: true
         })
     }
 
@@ -188,8 +187,7 @@ export class GenderFormComponent {
         this.form.setValue({
             id: result.id,
             description: result.description,
-            isActive: result.isActive,
-            userId: this.helperService.readItem('userId')
+            isActive: result.isActive
         })
     }
 

@@ -179,8 +179,7 @@ export class PortFormComponent {
             id: 0,
             description: ['', [Validators.required, Validators.maxLength(128)]],
             isPrimary: false,
-            isActive: true,
-            userId: this.helperService.readItem('userId')
+            isActive: true
         })
     }
 
@@ -189,8 +188,7 @@ export class PortFormComponent {
             id: result.id,
             description: result.description,
             isPrimary: result.isPrimary,
-            isActive: result.isActive,
-            userId: this.helperService.readItem('userId')
+            isActive: result.isActive
         })
     }
 
