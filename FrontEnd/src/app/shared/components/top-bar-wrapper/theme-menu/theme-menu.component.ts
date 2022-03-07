@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 // Custom
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'theme-menu',
@@ -13,7 +14,7 @@ export class ThemeMenuComponent {
 
     //#region variables
 
-    private theme = 'light'
+    private theme = environment.defaultTheme
     public checked: boolean
 
     //#endregion
@@ -37,11 +38,6 @@ export class ThemeMenuComponent {
         this.theme = this.checked ? 'dark' : 'light'
         this.attachStylesheetToHead()
         this.saveTheme()
-    }
-
-    public onHideMenu(): void {
-        const menu = (<HTMLElement>document.getElementById('hamburger-menu')); menu.classList.remove('visible')
-        const nav = (<HTMLElement>document.getElementById('secondary-menu')); nav.classList.remove('visible')
     }
 
     //#endregion
