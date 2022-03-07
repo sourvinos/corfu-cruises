@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace API.Integration.Tests.Reservations {
 
-    public class AdminsCanCreateRecordWhenValid : IEnumerable<object[]> {
+    public class ActiveAdminsCanCreateWhenValid : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return Admins_Can_Create_Reservations_In_Past_Date();
-            yield return Admins_Can_Create_Reservations_In_Future_Date();
-            yield return Admins_Can_Create_With_Null_Driver();
-            yield return Admins_Can_Create_With_Null_Ship();
+            yield return Active_Admins_Can_Create_Reservations_In_Past_Date();
+            yield return Active_Admins_Can_Create_Reservations_In_Future_Date();
+            yield return Active_Admins_Can_Create_With_Null_Driver();
+            yield return Active_Admins_Can_Create_With_Null_Ship();
         }
 
-        private static object[] Admins_Can_Create_Reservations_In_Past_Date() {
+        private static object[] Active_Admins_Can_Create_Reservations_In_Past_Date() {
             return new object[] {
                 new TestReservation {
                     CustomerId = 1,
@@ -32,7 +32,7 @@ namespace API.Integration.Tests.Reservations {
             };
         }
 
-        private static object[] Admins_Can_Create_Reservations_In_Future_Date() {
+        private static object[] Active_Admins_Can_Create_Reservations_In_Future_Date() {
             return new object[] {
                 new TestReservation {
                     CustomerId = 1,
@@ -51,7 +51,7 @@ namespace API.Integration.Tests.Reservations {
             };
         }
 
-        private static object[] Admins_Can_Create_With_Null_Driver() {
+        private static object[] Active_Admins_Can_Create_With_Null_Driver() {
             return new object[] {
                 new TestReservation {
                     StatusCode = 200,
@@ -66,7 +66,7 @@ namespace API.Integration.Tests.Reservations {
             };
         }
 
-        private static object[] Admins_Can_Create_With_Null_Ship() {
+        private static object[] Active_Admins_Can_Create_With_Null_Ship() {
             return new object[] {
                 new TestReservation {
                     StatusCode = 200,

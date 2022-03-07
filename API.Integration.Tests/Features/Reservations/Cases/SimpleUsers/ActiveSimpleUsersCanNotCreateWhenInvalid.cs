@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace API.Integration.Tests.Reservations {
 
-    public class SimpleUsersCanNotCreateRecordsWhenInvalid : IEnumerable<object[]> {
+    public class ActiveSimpleUsersCanNotCreateWhenInvalid : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

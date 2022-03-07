@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace API.Integration.Tests.Reservations {
 
-    public class AdminsCanNotCreateRecordsWhenInvalid : IEnumerable<object[]> {
+    public class ActiveAdminsCanNotCreateWhenInvalid : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -11,26 +11,28 @@ namespace API.Integration.Tests.Reservations {
             yield return Nothing_For_This_Day();
             yield return Nothing_For_This_Day_And_Destination();
             yield return Nothing_For_This_Day_And_Destination_And_Port();
-            yield return Overbooking_From_Primary_Port_Is_Not_Allowed();
-            yield return Overbooking_From_Secondary_Port_Is_Not_Allowed();
+            yield return Overbooking_From_Primary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed();
+            yield return Overbooking_From_Secondary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed();
+            yield return Overbooking_From_Primary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed();
+            yield return Overbooking_From_Secondary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed();
             yield return Duplicate_Records_Are_Not_Allowed();
-            yield return Customer_Must_Exist();
-            yield return Customer_Must_Be_Active();
-            yield return Destination_Must_Exist();
-            yield return Destination_Must_Be_Active();
-            yield return PickupPoint_Must_Exist();
-            yield return PickupPoint_Must_Be_Active();
-            yield return Driver_Must_Exist();
-            yield return Driver_Must_Be_Active();
-            yield return Ship_Must_Exist();
-            yield return Ship_Must_Be_Active();
             yield return Passenger_Count_Is_Not_Correct();
-            yield return Nationality_Must_Exist();
-            yield return Nationality_Must_Be_Active();
-            yield return Gender_Must_Exist();
+            yield return Customer_Must_Be_Active();
+            yield return Customer_Must_Exist();
+            yield return Destination_Must_Be_Active();
+            yield return Destination_Must_Exist();
+            yield return Driver_Must_Be_Active();
+            yield return Driver_Must_Exist();
             yield return Gender_Must_Be_Active();
-            yield return Occupant_Must_Exist();
+            yield return Gender_Must_Exist();
+            yield return Nationality_Must_Be_Active();
+            yield return Nationality_Must_Exist();
             yield return Occupant_Must_Be_Active();
+            yield return Occupant_Must_Exist();
+            yield return PickupPoint_Must_Be_Active();
+            yield return PickupPoint_Must_Exist();
+            yield return Ship_Must_Be_Active();
+            yield return Ship_Must_Exist();
         }
 
         private static object[] Nothing_For_This_Day() {
@@ -50,9 +52,9 @@ namespace API.Integration.Tests.Reservations {
             return new object[] {
                 new TestReservation {
                     StatusCode = 430,
-                    Date = "2022-03-02",
+                    Date = "2022-06-03",
                     CustomerId = 1,
-                    DestinationId = 1,
+                    DestinationId = 3,
                     PickupPointId = 1,
                     TicketNo = "xxxxxx"
                 }
@@ -63,16 +65,16 @@ namespace API.Integration.Tests.Reservations {
             return new object[] {
                 new TestReservation {
                     StatusCode = 427,
-                    Date = "2022-03-02",
+                    Date = "2022-06-03",
                     CustomerId = 1,
-                    DestinationId = 3,
+                    DestinationId = 1,
                     PickupPointId = 266,
                     TicketNo = "xxxxxx"
                 }
             };
         }
 
-        private static object[] Overbooking_From_Primary_Port_Is_Not_Allowed() {
+        private static object[] Overbooking_From_Primary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed() {
             return new object[] {
                 new TestReservation {
                     StatusCode = 433,
@@ -86,7 +88,7 @@ namespace API.Integration.Tests.Reservations {
             };
         }
 
-        private static object[] Overbooking_From_Secondary_Port_Is_Not_Allowed() {
+        private static object[] Overbooking_From_Secondary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed() {
             return new object[] {
                 new TestReservation {
                     StatusCode = 433,
@@ -95,6 +97,34 @@ namespace API.Integration.Tests.Reservations {
                     DestinationId = 1,
                     PickupPointId = 266,
                     Adults = 156,
+                    TicketNo = "xxxxxx"
+                }
+            };
+        }
+
+        private static object[] Overbooking_From_Primary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed() {
+            return new object[] {
+                new TestReservation {
+                    StatusCode = 433,
+                    Date = "2022-03-02",
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 3,
+                    Adults = 163,
+                    TicketNo = "xxxxxx"
+                }
+            };
+        }
+
+        private static object[] Overbooking_From_Secondary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed() {
+            return new object[] {
+                new TestReservation {
+                    StatusCode = 433,
+                    Date = "2022-03-02",
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 266,
+                    Adults = 378,
                     TicketNo = "xxxxxx"
                 }
             };

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace API.Integration.Tests.Reservations {
 
-    public class AdminsCanUpdate : IEnumerable<object[]> {
+    public class AdminsCanUpdateOwnedByAnyone : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -27,7 +27,8 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 3,
                     DestinationId = 1,
                     PickupPointId = 7,
-                    TicketNo = "xxxx2"
+                    TicketNo = "xxxx2",
+                    Adults = 155
                 }
             };
         }
@@ -35,12 +36,12 @@ namespace API.Integration.Tests.Reservations {
         private static object[] Admins_Can_Update_Records_Owned_By_Other_Admins() {
             return new object[] {
                 new TestReservation {
-                    ReservationId = Guid.Parse("f1529422-5619-4b8b-9bcd-4f0950752679"),
-                    Date = "2022-03-02",
-                    CustomerId = 5,
-                    DestinationId = 3,
-                    PickupPointId = 15,
-                    TicketNo = "LDPCW"
+                    ReservationId = Guid.Parse("82930aed-059e-4215-8fd0-291f39ab4280"),
+                    Date = "2022-06-03",
+                    CustomerId = 3,
+                    DestinationId = 1,
+                    PickupPointId = 90,
+                    TicketNo = "HWGTF"
                 }
             };
         }
@@ -48,12 +49,12 @@ namespace API.Integration.Tests.Reservations {
         private static object[] Admins_Can_Update_Records_Owned_By_Simple_Users() {
             return new object[] {
                 new TestReservation {
-                    ReservationId = Guid.Parse("cc939619-ced8-49a7-a330-9cd6b491cb93"),
-                    Date = "2022-03-03",
-                    CustomerId = 8,
+                    ReservationId = Guid.Parse("7c258b3a-4455-46bd-b6f1-b13356cbae6e"),
+                    Date = "2022-03-02",
+                    CustomerId = 16,
                     DestinationId = 1,
-                    PickupPointId = 273,
-                    TicketNo = "CTRLX"
+                    PickupPointId = 120,
+                    TicketNo = "XBOTW"
                 }
             };
         }
@@ -74,7 +75,7 @@ namespace API.Integration.Tests.Reservations {
         private static object[] Admins_Can_Update_Records_With_Inactive_Destination() {
             return new object[] {
                 new TestReservation {
-                    ReservationId = Guid.Parse("e5f7efbd-1539-459d-8743-6a1353607102"),
+                    ReservationId = Guid.Parse("08d9fcfd-a30b-4db2-8a1f-8190157d98a7"),
                     Date = "2022-06-01",
                     CustomerId = 5,
                     DestinationId = 5,
@@ -118,7 +119,7 @@ namespace API.Integration.Tests.Reservations {
                     ReservationId = Guid.Parse("0316855d-d5da-44a6-b09c-89a8d014a963"),
                     Date = "2022-03-02",
                     CustomerId = 1,
-                    DestinationId = 3,
+                    DestinationId = 1,
                     DriverId = 1,
                     PickupPointId = 65,
                     ShipId = 2,

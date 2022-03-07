@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace API.Integration.Tests.Reservations {
 
-    public class SimpleUsersCanNotUpdate : IEnumerable<object[]> {
+    public class ActiveSimpleUsersCanNotUpdate : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
