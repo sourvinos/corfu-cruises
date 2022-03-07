@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
@@ -13,8 +14,8 @@ export class LocalStorageService {
     public getLanguage(): string {
         const language = localStorage.getItem('language')
         if (language == null) {
-            localStorage.setItem('language', 'en-gb')
-            return 'en-gb'
+            localStorage.setItem('language', environment.defaultLanguage)
+            return environment.defaultLanguage
         }
         return language
     }

@@ -1,8 +1,9 @@
-// ng build --output-path="\some directory\wwwroot" --configuration=production-local
+// ng build --output-path="\some directory" --configuration=production-local
 export const environment = {
     apiUrl: 'https://localhost:1701/api',
     clientUrl: 'https://localhost:1701',
     appName: 'CORFU CRUISES',
+    defaultLanguage: 'en-gb',
     emailFooter: {
         lineA: 'Problems or questions? Call us at +30 26620 61400',
         lineB: 'or email at info@corfucruises.com',

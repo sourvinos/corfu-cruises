@@ -38,11 +38,10 @@ export class MessageSnackbarService {
 
     public getMessages(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.httpClient.get('assets/languages/snackbar/snackbar.' + this.localStorageService.getLanguage() + '.json').toPromise().then(
-                response => {
-                    this.messages = response
-                    resolve(this.messages)
-                })
+            this.httpClient.get('assets/languages/snackbar/snackbar.' + this.localStorageService.getLanguage() + '.json').toPromise().then(response => {
+                this.messages = response
+                resolve(this.messages)
+            })
         })
         return promise
     }

@@ -3,6 +3,7 @@ export const environment = {
     apiUrl: 'https://localhost:5001/api',
     clientUrl: 'https://localhost:4200',
     appName: 'CORFU CRUISES',
+    defaultLanguage: 'en-gb',
     emailFooter: {
         lineA: 'Problems or questions? Call us at +30 26620 61400',
         lineB: 'or email at info@corfucruises.com',
