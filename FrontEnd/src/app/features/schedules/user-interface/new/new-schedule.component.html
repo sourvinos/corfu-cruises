@@ -18,14 +18,12 @@
                 <input data-cy="destination-description" [inputTabStop]="input" [matAutocomplete]="destinations" data-tabindex="1" formControlName="destination" matInput type="text">
                 <mat-error *ngIf="destination.hasError('required')">{{ getHint('required') }}</mat-error>
                 <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
-                <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ getLabel("port") }}</mat-label>
                 <input data-cy="port-description" [inputTabStop]="input" [matAutocomplete]="ports" data-tabindex="2" formControlName="port" matInput type="text">
                 <mat-error *ngIf="port.hasError('required')">{{ getHint('required') }}</mat-error>
                 <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
-                <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ getLabel('dateRange') }}</mat-label>

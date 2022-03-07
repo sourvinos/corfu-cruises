@@ -22,7 +22,6 @@
                 <input matInput formControlName="destination" [matAutocomplete]="destinations" data-tabindex="2" [inputTabStop]="input">
                 <mat-error *ngIf="destination.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
             </mat-form-field>
             <!-- Port -->
             <mat-form-field>
@@ -30,7 +29,6 @@
                 <input matInput formControlName="port" [matAutocomplete]="ports" data-tabindex="3" [inputTabStop]="input">
                 <mat-error *ngIf="port.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
             </mat-form-field>
             <!-- Ship -->
             <mat-form-field>
@@ -38,7 +36,6 @@
                 <input matInput formControlName="ship" [matAutocomplete]="ships" data-tabindex="4" [inputTabStop]="input">
                 <mat-error *ngIf="ship.hasError('required')">{{ onGetHint('required') }}</mat-error>
                 <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
             </mat-form-field>
         </form>
         <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>

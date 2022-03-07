@@ -1225,10 +1225,6 @@
             {
                 "id": "saveButton",
                 "description": "OK"
-            },
-            {
-                "id": "searchAutocompleteHint",
-                "description": "Vyberte ze seznamu"
             }
         ]
     },
@@ -1292,10 +1288,6 @@
             {
                 "id": "searchDateHint",
                 "description": "Datum nalodění"
-            },
-            {
-                "id": "searchAutocompleteHint",
-                "description": "Vyberte ze seznamu"
             },
             {
                 "id": "destination",
@@ -1470,10 +1462,6 @@
                 "description": "Plavidlo"
             },
             {
-                "id": "searchAutocompleteHint",
-                "description": "Vyberte ze seznamu"
-            },
-            {
                 "id": "searchButton",
                 "description": "VYHLEDÁVÁNÍ"
             }
@@ -1566,10 +1554,6 @@
             {
                 "id": "route",
                 "description": "Trasa"
-            },
-            {
-                "id": "searchAutocompleteHint",
-                "description": "Vyberte ze seznamu"
             },
             {
                 "id": "searchButton",

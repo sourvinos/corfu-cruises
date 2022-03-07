@@ -1225,10 +1225,6 @@
             {
                 "id": "saveButton",
                 "description": "OK"
-            },
-            {
-                "id": "searchAutocompleteHint",
-                "description": "Sélectionnez dans la liste"
             }
         ]
     },
@@ -1292,10 +1288,6 @@
             {
                 "id": "searchDateHint",
                 "description": "Date d'embarquement"
-            },
-            {
-                "id": "searchAutocompleteHint",
-                "description": "Sélectionnez dans la liste"
             },
             {
                 "id": "destination",
@@ -1470,10 +1462,6 @@
                 "description": "Navire"
             },
             {
-                "id": "searchAutocompleteHint",
-                "description": "Selectionner dans la liste"
-            },
-            {
                 "id": "searchButton",
                 "description": "RECHERCHE"
             }
@@ -1566,10 +1554,6 @@
             {
                 "id": "route",
                 "description": "Route"
-            },
-            {
-                "id": "searchAutocompleteHint",
-                "description": "Selectionner dans la liste"
             },
             {
                 "id": "searchButton",

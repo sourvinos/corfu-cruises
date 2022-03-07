@@ -34,7 +34,6 @@
                 <mat-error *ngIf="customer.hasError('required')">{{ getHint('required') }}</mat-error>
                 <mat-error *ngIf="!customer.hasError('required') && customer.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
             </mat-form-field>
-            <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
             <mat-form-field>
                 <input [inputTabStop]="input" [placeholder]="getLabel('email')" [readonly]=!isAdmin data-cy="email" data-tabindex="4" formControlName="email" id="email" matInput type="email">
                 <mat-error *ngIf="email.hasError('required')">{{ getHint('required') }}</mat-error>

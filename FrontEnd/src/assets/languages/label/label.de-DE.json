@@ -882,7 +882,7 @@
             },
             {
                 "id": "header",
-                "description": "(DE) Assign to driver"
+                "description": "Fahrgäste in den Bus einteilen"
             },
             {
                 "id": "driver",
@@ -890,7 +890,7 @@
             },
             {
                 "id": "okButton",
-                "description": "(DE) OK"
+                "description": "OK"
             },
             {
                 "id": "noButton",
@@ -907,7 +907,7 @@
             },
             {
                 "id": "header",
-                "description": "(DE) Assign to ship"
+                "description": "Passagiere auf das Schiff einlassen"
             },
             {
                 "id": "ship",
@@ -915,7 +915,7 @@
             },
             {
                 "id": "okButton",
-                "description": "(DE) OK"
+                "description": "OK"
             },
             {
                 "id": "noButton",
@@ -1225,10 +1225,6 @@
             {
                 "id": "saveButton",
                 "description": "OK"
-            },
-            {
-                "id": "searchAutocompleteHint",
-                "description": "Aus der Liste auswählen"
             }
         ]
     },
@@ -1292,10 +1288,6 @@
             {
                 "id": "searchDateHint",
                 "description": "Einschiffungsdatum"
-            },
-            {
-                "id": "searchAutocompleteHint",
-                "description": "Aus der Liste auswählen"
             },
             {
                 "id": "destination",
@@ -1470,10 +1462,6 @@
                 "description": "Schiff"
             },
             {
-                "id": "searchAutocompleteHint",
-                "description": "Aus der Liste auswählen"
-            },
-            {
                 "id": "searchButton",
                 "description": "SUCHEN"
             }
@@ -1566,10 +1554,6 @@
             {
                 "id": "route",
                 "description": "Route"
-            },
-            {
-                "id": "searchAutocompleteHint",
-                "description": "Aus der Liste auswählen"
             },
             {
                 "id": "searchButton",

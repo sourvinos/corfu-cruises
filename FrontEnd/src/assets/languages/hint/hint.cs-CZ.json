@@ -2,15 +2,15 @@
     "labels": [
         {
             "id": "required",
-            "description": "Toto pole je povinné."
+            "description": "Toto pole je povinné"
         },
         {
             "id": "minLength",
-            "description": "Toto pole musí mít minimálně xx znaků."
+            "description": "Toto pole musí mít alespoň xx znaků"
         },
         {
             "id": "maxLength",
-            "description": "Toto pole může mít maximálně xx znaků."
+            "description": "Toto pole může mít až xx znaků"
         },
         {
             "id": "invalid",
@@ -22,15 +22,15 @@
         },
         {
             "id": "spacesNotAllowed",
-            "description": "Mezery nejsou povolené."
+            "description": "Mezery nejsou povoleny"
         },
         {
             "id": "otherErrors",
-            "description": "Toto pole je chybné."
+            "description": "Toto pole obsahuje chyby"
         },
         {
             "id": "invalidPeriod",
-            "description": "Období data není platné"
+            "description": "Lhůta není platná"
         }
     ]
 }

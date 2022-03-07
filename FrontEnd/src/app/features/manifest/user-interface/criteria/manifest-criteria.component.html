@@ -23,7 +23,6 @@
                     <input matInput formControlName="destination" [matAutocomplete]="destinations" data-tabindex="2" [inputTabStop]="input">
                     <mat-error *ngIf="destination.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                    <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
                 </mat-form-field>
                 <!-- Port -->
                 <mat-form-field>
@@ -31,7 +30,6 @@
                     <input matInput formControlName="port" [matAutocomplete]="ports" data-tabindex="3" [inputTabStop]="input">
                     <mat-error *ngIf="port.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                    <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
                 </mat-form-field>
             </div>
             <div class="group-field">
@@ -41,7 +39,6 @@
                     <input matInput formControlName="vessel" [matAutocomplete]="vessels" data-tabindex="4" [inputTabStop]="input">
                     <mat-error *ngIf="vessel.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-error *ngIf="!vessel.hasError('required') && vessel.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                    <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
                 </mat-form-field>
                 <!-- Route -->
                 <mat-form-field>
@@ -49,7 +46,6 @@
                     <input matInput formControlName="route" [matAutocomplete]="routes" data-tabindex="5" [inputTabStop]="input">
                     <mat-error *ngIf="route.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-error *ngIf="!route.hasError('required') && route.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                    <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
                 </mat-form-field>
             </div>
         </form>

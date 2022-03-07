@@ -2,19 +2,19 @@
     "labels": [
         {
             "id": "required",
-            "description": "(DE) This field is required"
+            "description": "Dieses Feld wird benötigt"
         },
         {
             "id": "minLength",
-            "description": "(DE) This field must be at least xx characters long"
+            "description": "Dieses Feld muss mindestens xx Zeichen lang sein"
         },
         {
             "id": "maxLength",
-            "description": "(DE) This field can be up to xx characters long"
+            "description": "Dieses Feld kann bis zu xx Zeichen lang sein"
         },
         {
             "id": "invalid",
-            "description": "(DE) This field is invalid"
+            "description": "Dieses Feld ist ungültig"
         },
         {
             "id": "passwordsNoMatch",
@@ -22,15 +22,15 @@
         },
         {
             "id": "spacesNotAllowed",
-            "description": "(DE) Spaces are not allowed"
+            "description": "Leerzeichen sind nicht erlaubt"
         },
         {
             "id": "otherErrors",
-            "description": "(DE) This field has errors"
+            "description": "Dieses Feld enthält Fehler"
         },
         {
             "id": "invalidPeriod",
-            "description": "Der Zeitraum ist nicht gültig"
+            "description": "Der Zeitraum ist ungültig"
         }
     ]
 }

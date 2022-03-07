@@ -1225,10 +1225,6 @@
             {
                 "id": "saveButton",
                 "description": "OK"
-            },
-            {
-                "id": "searchAutocompleteHint",
-                "description": "Επιλέξτε από τη λίστα"
             }
         ]
     },
@@ -1292,10 +1288,6 @@
             {
                 "id": "searchDateHint",
                 "description": "Ημερ/νία αναχώρησης"
-            },
-            {
-                "id": "searchAutocompleteHint",
-                "description": "Επιλέξτε από τη λίστα"
             },
             {
                 "id": "destination",
@@ -1470,10 +1462,6 @@
                 "description": "Πλοίο"
             },
             {
-                "id": "searchAutocompleteHint",
-                "description": "Επιλέξτε από τη λίστα"
-            },
-            {
                 "id": "searchButton",
                 "description": "ΑΝΑΖΗΤΗΣΗ"
             }
@@ -1566,10 +1554,6 @@
             {
                 "id": "route",
                 "description": "Δρομολόγιο"
-            },
-            {
-                "id": "searchAutocompleteHint",
-                "description": "Επιλέξτε από τη λίστα"
             },
             {
                 "id": "searchButton",

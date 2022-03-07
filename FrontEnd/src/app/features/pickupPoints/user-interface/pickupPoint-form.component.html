@@ -24,7 +24,6 @@
                         <input data-cy="route-abbreviation" [inputTabStop]="input" [matAutocomplete]="routes" data-tabindex="1" formControlName="route" matInput type="text">
                         <mat-error *ngIf="route.hasError('required')">{{ onGetHint('required') }}</mat-error>
                         <mat-error *ngIf="!route.hasError('required') && route.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                        <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
                     </mat-form-field>
                     <mat-form-field>
                         <input data-cy="description" type="text" matInput [placeholder]="onGetLabel('description')" formControlName="description" data-tabindex="2" id="description" [inputTabStop]="input">

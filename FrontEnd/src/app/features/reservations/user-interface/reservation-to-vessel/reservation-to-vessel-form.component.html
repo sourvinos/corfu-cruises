@@ -11,7 +11,6 @@
                 <input data-cy="ship-description" [inputTabStop]="input" [matAutocomplete]="ships" data-tabindex="1" formControlName="ship" matInput type="text">
                 <mat-error *ngIf="ship.hasError('required')">{{ getHint('required') }}</mat-error>
                 <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
-                <mat-hint>{{ getLabel('searchAutocompleteHint') }}</mat-hint>
             </mat-form-field>
         </form>
         <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>

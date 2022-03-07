@@ -33,7 +33,6 @@
                     <input matInput data-cy="port-description" type="text" formControlName="port" [matAutocomplete]="ports" data-tabindex="3" [inputTabStop]="input">
                     <mat-error *ngIf="port.hasError('required')">{{ onGetHint('required') }}</mat-error>
                     <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
-                    <mat-hint>{{ onGetLabel('searchAutocompleteHint') }}</mat-hint>
                 </mat-form-field>
                 <mat-slide-toggle data-cy="isTransfer" formControlName="isTransfer">{{ onGetLabel('isTransfer') }}</mat-slide-toggle>
                 <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
