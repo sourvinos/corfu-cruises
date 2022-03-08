@@ -621,7 +621,7 @@
             },
             {
                 "id": "assignToShipButton",
-                "description": "Affectation des passagers a un bateau"
+                "description": "Créer une liste de pré-embarquement"
             },
             {
                 "id": "createPdfButton",
@@ -877,16 +877,12 @@
         "feature": "assignToDriver",
         "labels": [
             {
-                "id": "searchHint",
-                "description": "Selectionner dans la liste"
-            },
-            {
                 "id": "header",
-                "description": "Affectation a un conducteur"
+                "description": "Sélection du conducteur"
             },
             {
-                "id": "driver",
-                "description": "Conducteur"
+                "id": "sub-header",
+                "description": "Sélectionnez le chauffeur qui transférera les passagers au port"
             },
             {
                 "id": "okButton",
@@ -894,7 +890,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Annuler"
+                "description": "ANNULER"
             }
         ]
     },
@@ -902,16 +898,12 @@
         "feature": "assignToShip",
         "labels": [
             {
-                "id": "searchHint",
-                "description": "Selectionner dans la liste"
-            },
-            {
                 "id": "header",
-                "description": "Affectation a bateau"
+                "description": "Sélection des navires"
             },
             {
-                "id": "ship",
-                "description": "Bateau"
+                "id": "sub-header",
+                "description": "Choisir le navire qui transportera les passagers vers leur destination"
             },
             {
                 "id": "okButton",
@@ -919,7 +911,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Annuler"
+                "description": "ANNULER"
             }
         ]
     },

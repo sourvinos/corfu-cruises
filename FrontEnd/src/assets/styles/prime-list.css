@@ -1,0 +1,32 @@
+.p-listbox {
+    background: var(--color-primeng-list);
+    border: 0;
+}
+
+.p-listbox .p-listbox-list {
+    padding: 0.5rem;
+}
+
+.p-listbox .p-listbox-list .p-listbox-item {
+    border-left: 3px solid var(--color-primeng-list-unselected-border);
+    color: var(--color-text-primary);
+    padding: 10px 10px;
+}
+
+.p-listbox .p-listbox-list .p-listbox-item.p-highlight {
+    background-color: var(--color-primeng-list);
+    border-left: 3px solid var(--color-primeng-list-unselected-border);
+    color: var(--color-text-primary);
+}
+
+.p-listbox .p-listbox-list .p-listbox-item:focus {
+    background-color: var(--color-primeng-list-hover);
+    border-left: 3px solid var(--color-primeng-list-selected-border);
+    box-shadow: none;
+    color: var(--color-text-primary);
+}
+
+.p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled):hover {
+    background-color: var(--color-primeng-list-hover);
+    color: var(--color-text-primary);
+}

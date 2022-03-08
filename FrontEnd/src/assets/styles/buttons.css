@@ -39,7 +39,7 @@ button.delete:hover {
 }
 
 button.transparent {
-    background-color: #00000000 !important;
+    background-color: transparent !important;
     color: var(--color-text-primary) !important;
 }
 

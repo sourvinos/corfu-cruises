@@ -621,7 +621,7 @@
             },
             {
                 "id": "assignToShipButton",
-                "description": "Přiřazení cestujících k plavidlu"
+                "description": "Vytvoření seznamu před nástupem do letadla"
             },
             {
                 "id": "createPdfButton",
@@ -869,7 +869,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Zrušit"
+                "description": "ZRUŠIT"
             }
         ]
     },
@@ -877,16 +877,12 @@
         "feature": "assignToDriver",
         "labels": [
             {
-                "id": "searchHint",
-                "description": "Vyberte ze seznamu"
-            },
-            {
                 "id": "header",
-                "description": "Přiřadit řidiči"
+                "description": "Výběr ovladače"
             },
             {
-                "id": "driver",
-                "description": "Řidič"
+                "id": "sub-header",
+                "description": "Vyberte řidiče, který přepraví cestující do přístavu"
             },
             {
                 "id": "okButton",
@@ -894,7 +890,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Zrušit"
+                "description": "ZRUŠIT"
             }
         ]
     },
@@ -903,15 +899,11 @@
         "labels": [
             {
                 "id": "searchHint",
-                "description": "Vyberte ze seznamu"
+                "description": "Výběr lodi"
             },
             {
                 "id": "header",
-                "description": "Přiřazení cestujících k plavidlu"
-            },
-            {
-                "id": "ship",
-                "description": "Plavidlo"
+                "description": "Vyberte loď, která přepraví cestující do cílové destinace"
             },
             {
                 "id": "okButton",
@@ -919,7 +911,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Zrušit"
+                "description": "ZRUŠIT"
             }
         ]
     },

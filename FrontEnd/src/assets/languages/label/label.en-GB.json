@@ -621,7 +621,7 @@
             },
             {
                 "id": "assignToShipButton",
-                "description": "Assign passengers to ship"
+                "description": "Create pre-boarding list"
             },
             {
                 "id": "createPdfButton",
@@ -877,16 +877,12 @@
         "feature": "assignToDriver",
         "labels": [
             {
-                "id": "searchHint",
-                "description": "Select from the list"
-            },
-            {
                 "id": "header",
-                "description": "Assign to driver"
+                "description": "Driver selection"
             },
             {
-                "id": "driver",
-                "description": "Driver"
+                "id": "sub-header",
+                "description": "Select which driver will transfer the passengers to the port"
             },
             {
                 "id": "okButton",
@@ -894,7 +890,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Cancel"
+                "description": "CANCEL"
             }
         ]
     },
@@ -902,16 +898,12 @@
         "feature": "assignToShip",
         "labels": [
             {
-                "id": "searchHint",
-                "description": "Select from the list"
-            },
-            {
                 "id": "header",
-                "description": "Assign to ship"
+                "description": "Ship selection"
             },
             {
-                "id": "ship",
-                "description": "Ship"
+                "id": "sub-header",
+                "description": "Select which ship will carry the passengers to the destination"
             },
             {
                 "id": "okButton",
@@ -919,7 +911,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Cancel"
+                "description": "CANCEL"
             }
         ]
     },

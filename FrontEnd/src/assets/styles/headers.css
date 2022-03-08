@@ -8,10 +8,10 @@ h1 {
     transition: color var(--change-component-theme-on-hover) ease;
 }
 
-h2 {
-    color: var(--color-headers) !important;
+h6 {
+    color: var(--color-headers-sub) !important;
     font-family: var(--font-family-master) !important;
-    font-size: var(--font-size-h2) !important;
+    font-size: var(--font-size-h6) !important;
     font-weight: var(--font-weight-header) !important;
     margin: 0 !important;
     padding: 0 !important;

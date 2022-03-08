@@ -617,11 +617,11 @@
             },
             {
                 "id": "assignToDriverButton",
-                "description": "Ανάθεση επιβατών σε οδηγο"
+                "description": "Ανάθεση επιβατών σε οδηγό"
             },
             {
                 "id": "assignToShipButton",
-                "description": "Ανάθεση επιβατών σε πλοίο"
+                "description": "Δημιουργία λίστας προ-επιβίβασης"
             },
             {
                 "id": "createPdfButton",
@@ -877,16 +877,12 @@
         "feature": "assignToDriver",
         "labels": [
             {
-                "id": "searchHint",
-                "description": "Επιλέξτε από τη λίστα"
-            },
-            {
                 "id": "header",
-                "description": "Ανάθεση σε οδηγό"
+                "description": "Επιλογή οδηγού"
             },
             {
-                "id": "driver",
-                "description": "Οδηγός"
+                "id": "sub-header",
+                "description": "Επιλέξτε ποιος οδηγός θα μεταφέρει τους επιβάτες στο λιμάνι"
             },
             {
                 "id": "okButton",
@@ -894,7 +890,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Άκυρο"
+                "description": "ΑΚΥΡΟ"
             }
         ]
     },
@@ -902,16 +898,12 @@
         "feature": "assignToShip",
         "labels": [
             {
-                "id": "searchHint",
-                "description": "Επιλέξτε από τη λίστα"
-            },
-            {
                 "id": "header",
-                "description": "Ανάθεση σε πλοίο"
+                "description": "Επιλογή πλοίου"
             },
             {
-                "id": "ship",
-                "description": "Πλοίο"
+                "id": "sub-header",
+                "description": "Επιλέξτε ποιο πλοίο θα μεταφέρει τους επιβάτες στον προορισμό"
             },
             {
                 "id": "okButton",
@@ -919,7 +911,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Άκυρο"
+                "description": "ΑΚΥΡΟ"
             }
         ]
     },

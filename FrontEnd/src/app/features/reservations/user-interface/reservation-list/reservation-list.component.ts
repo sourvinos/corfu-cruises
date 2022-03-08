@@ -84,12 +84,12 @@ export class ReservationListComponent {
 
     //#region public methods
 
-    public assignToDriver(): void {
+    public onAssignToDriver(): void {
         if (this.isAnyRowSelected()) {
             this.saveSelectedIds()
             const dialogRef = this.dialog.open(ReservationToDriverComponent, {
-                height: '350px',
-                width: '550px',
+                height: '550px',
+                width: '500px',
                 data: {
                     drivers: this.driverService.getActiveForDropdown(),
                     actions: ['abort', 'ok']
@@ -111,8 +111,8 @@ export class ReservationListComponent {
         if (this.isAnyRowSelected()) {
             this.saveSelectedIds()
             const dialogRef = this.dialog.open(ReservationToVesselComponent, {
-                height: '350px',
-                width: '550px',
+                height: '550px',
+                width: '500px',
                 data: {
                     ships: this.shipService.getActiveForDropdown(),
                     actions: ['abort', 'ok']

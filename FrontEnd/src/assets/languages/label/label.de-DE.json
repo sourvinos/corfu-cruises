@@ -621,7 +621,7 @@
             },
             {
                 "id": "assignToShipButton",
-                "description": "Passagiere auf das Schiff einlassen"
+                "description": "Pre-Boarding-Liste erstellen"
             },
             {
                 "id": "createPdfButton",
@@ -877,16 +877,12 @@
         "feature": "assignToDriver",
         "labels": [
             {
-                "id": "searchHint",
-                "description": "Aus der Liste auswählen"
-            },
-            {
                 "id": "header",
-                "description": "Fahrgäste in den Bus einteilen"
+                "description": "Auswahl des Fahrers"
             },
             {
-                "id": "driver",
-                "description": "Fahrer"
+                "id": "sub-header",
+                "description": "Wählen Sie den Fahrer, der die Passagiere zum Hafen bringt"
             },
             {
                 "id": "okButton",
@@ -894,7 +890,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Abbrechen"
+                "description": "ABBRECHEN"
             }
         ]
     },
@@ -902,16 +898,12 @@
         "feature": "assignToShip",
         "labels": [
             {
-                "id": "searchHint",
-                "description": "Aus der Liste auswählen"
-            },
-            {
                 "id": "header",
-                "description": "Passagiere auf das Schiff einlassen"
+                "description": "Auswahl der Schiffe"
             },
             {
-                "id": "ship",
-                "description": "Schiff"
+                "id": "sub-header",
+                "description": "Wählen Sie das Schiff aus, das die Passagiere zum Zielort bringt"
             },
             {
                 "id": "okButton",
@@ -919,7 +911,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Abbrechen"
+                "description": "ABBRECHEN"
             }
         ]
     },

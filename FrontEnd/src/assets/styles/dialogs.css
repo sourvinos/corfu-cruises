@@ -16,8 +16,9 @@
 }
 
 #dialog-header {
-    align-items: center;
+    align-items: left;
     display: flex;
+    flex-direction: column;
     padding-bottom: 1.5rem;
 }
 
@@ -32,6 +33,7 @@
     font-size: var(--font-size-dialog) !important;
     font-weight: var(--font-weight-dialog-content) !important;
     line-height: 2rem;
+    overflow-y: scroll;
 }
 
 #dialog-footer {
