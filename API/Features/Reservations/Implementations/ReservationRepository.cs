@@ -181,13 +181,13 @@ namespace API.Features.Reservations {
             };
         }
 
-        public async Task AssignToDriver(int driverId, string[] ids) {
+        public void AssignToDriver(int driverId, string[] ids) {
             using var transaction = context.Database.BeginTransaction();
             var reservations = context.Reservations
                 .Where(x => ids.Contains(x.ReservationId.ToString()))
                 .ToList();
             reservations.ForEach(a => a.DriverId = driverId);
-            await context.SaveChangesAsync();
+            context.SaveChanges();
             if (settings.IsTesting) {
                 transaction.Dispose();
             } else {
@@ -195,13 +195,13 @@ namespace API.Features.Reservations {
             }
         }
 
-        public async Task AssignToShip(int shipId, string[] ids) {
+        public void AssignToShip(int shipId, string[] ids) {
             using var transaction = context.Database.BeginTransaction();
             var records = context.Reservations
                 .Where(x => ids.Contains(x.ReservationId.ToString()))
                 .ToList();
             records.ForEach(a => a.ShipId = shipId);
-            await context.SaveChangesAsync();
+            context.SaveChanges();
             if (settings.IsTesting) {
                 transaction.Dispose();
             } else {

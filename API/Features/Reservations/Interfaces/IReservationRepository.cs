@@ -16,8 +16,8 @@ namespace API.Features.Reservations {
         Task<bool> Update(string id, Reservation updatedRecord);
         Task<int> GetPortIdFromPickupPointId(ReservationWriteResource record);
         Task<int> IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo);
-        Task AssignToDriver(int driverId, string[] ids);
-        Task AssignToShip(int shipId, string[] ids);
+        void AssignToDriver(int driverId, string[] ids);
+        void AssignToShip(int shipId, string[] ids);
         ReservationWriteResource UpdateForeignKeysWithNull(ReservationWriteResource reservation);
         Task<string> AssignRefNoToNewReservation(ReservationWriteResource record);
 
