@@ -59,7 +59,10 @@ namespace API {
             services.AddDbContext<AppDbContext>();
             services.AddScoped<ModelValidationAttribute>();
             services.AddControllersWithViews()
-                    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                    .AddNewtonsoftJson(options => {
+                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                        options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                    })
                     .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddEmailSenders();
             services.Configure<CookiePolicyOptions>(options => { options.CheckConsentNeeded = _ => true; options.MinimumSameSitePolicy = SameSiteMode.None; });

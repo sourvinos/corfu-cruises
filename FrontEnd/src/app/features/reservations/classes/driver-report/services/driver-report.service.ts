@@ -52,8 +52,8 @@ export class DriverReportService {
             header: this.createPageHeader(),
             footer: this.createPageFooter(),
             content: this.table(this.driverReport.reservations,
-                ['time', 'ticketNo', 'pickupPointDescription', 'exactPoint', 'adults', 'kids', 'free', 'totalPersons', 'customerDescription', 'remarks', 'destinationAbbreviation'],
-                ['center', 'center', 'left', 'left', 'right', 'right', 'right', 'right', 'left', 'left', 'center'])
+                ['time', 'ticketNo', 'pickupPointDescription', 'exactPoint', 'adults', 'kids', 'free', 'totalPersons', 'customerDescription', 'fullname', 'remarks', 'destinationAbbreviation'],
+                ['center', 'center', 'left', 'left', 'right', 'right', 'right', 'right', 'left', 'left', 'left', 'center'])
         }
         this.createPdf(dd, this.driverReport.header.driverDescription)
     }
@@ -65,7 +65,7 @@ export class DriverReportService {
                 dontBreakRows: true,
                 body: this.buildTableBody(reservations, columns, align),
                 heights: 10,
-                widths: [20, 40, '*', '*', 15, 15, 15, 15, 140, 150, 20],
+                widths: [20, 40, '*', '*', 15, 15, 15, 15, 50, 100, 150, 20],
             },
             layout: {
                 vLineColor: function (i: number, node: { table: { widths: string | any[] } }): any { return (i === 1 || i === node.table.widths.length - 1) ? '#dddddd' : '#dddddd' },
@@ -121,6 +121,7 @@ export class DriverReportService {
             { text: 'F', style: 'tableHeader', alignment: 'center' },
             { text: 'T', style: 'tableHeader', alignment: 'center' },
             { text: 'CUSTOMER', style: 'tableHeader', alignment: 'center' },
+            { text: 'GROUP LEADER', style: 'tableHeader', alignment: 'center' },
             { text: 'REMARKS', style: 'tableHeader', alignment: 'center' },
             { text: 'D', style: 'tableHeader', alignment: 'center' },
         ]
@@ -130,12 +131,13 @@ export class DriverReportService {
         return [
             { text: '' },
             { text: '' },
-            { text: '' },
             { text: 'TOTAL FROM ' + pickupPoint },
             { text: String(total[0]) === '0' ? '' : String(total[0]), alignment: 'right', fillColor: 'white' },
             { text: String(total[1]) === '0' ? '' : String(total[1]), alignment: 'right', fillColor: 'white' },
             { text: String(total[2]) === '0' ? '' : String(total[2]), alignment: 'right', fillColor: 'white' },
             { text: String(total[3]) === '0' ? '' : String(total[3]), alignment: 'right', fillColor: 'white' },
+            { text: '' },
+            { text: '' },
             { text: '' },
             { text: '' },
             { text: '' }
@@ -202,12 +204,13 @@ export class DriverReportService {
         dataRow.push(
             { text: '' },
             { text: '' },
-            { text: '' },
             { text: 'TOTAL FOR ' + data },
             { text: String(totals[0]) === '0' ? '' : String(totals[0]), alignment: 'right', fillColor: 'white' },
             { text: String(totals[1]) === '0' ? '' : String(totals[1]), alignment: 'right', fillColor: 'white' },
             { text: String(totals[2]) === '0' ? '' : String(totals[2]), alignment: 'right', fillColor: 'white' },
             { text: String(totals[3]) === '0' ? '' : String(totals[3]), alignment: 'right', fillColor: 'white' },
+            { text: '' },
+            { text: '' },
             { text: '' },
             { text: '' },
             { text: '' }
@@ -218,6 +221,7 @@ export class DriverReportService {
     private createBlankLine(): any {
         const dataRow = []
         dataRow.push(
+            { text: '' },
             { text: '' },
             { text: '' },
             { text: '' },
@@ -256,7 +260,7 @@ export class DriverReportService {
 
     private mapReservationsFromAPI(response: any[]): ReportReservationDTO[] {
         const reservations = []
-        response.forEach((reservation: any) => {
+        response.forEach((reservation: ReportReservationDTO) => {
             reservations.push({
                 'time': reservation.time,
                 'ticketNo': reservation.ticketNo,
@@ -267,10 +271,12 @@ export class DriverReportService {
                 'free': reservation.free,
                 'totalPersons': reservation.totalPersons,
                 'customerDescription': reservation.customerDescription,
+                'fullname': reservation.fullname ?? '',
+                'remarks': reservation.remarks,
                 'destinationAbbreviation': reservation.destinationAbbreviation,
-                'remarks': reservation.remarks
             })
         })
+        console.log(reservations)
         return reservations
     }
 

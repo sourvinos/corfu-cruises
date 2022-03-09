@@ -11,8 +11,10 @@ namespace API.Features.Reservations {
         public int Free { get; set; }
         public int TotalPersons { get; set; }
         public string CustomerDescription { get; set; }
+        public string Fullname { get; set; }
         public string Remarks { get; set; }
         public string DestinationAbbreviation { get; set; }
+
 
     }
 

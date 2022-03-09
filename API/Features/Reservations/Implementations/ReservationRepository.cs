@@ -417,6 +417,7 @@ namespace API.Features.Reservations {
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
                 .Include(x => x.PickupPoint)
+                .Include(x => x.Passengers)
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.DriverId == (driverId != 0 ? driverId : null))
                 .OrderBy(x => x.PickupPoint.Time).ThenBy(x => x.PickupPoint.Description)
                 .ToListAsync();

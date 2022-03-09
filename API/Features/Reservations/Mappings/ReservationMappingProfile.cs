@@ -1,3 +1,4 @@
+using System.Linq;
 using API.Features.Drivers;
 using API.Features.Ships;
 using API.Infrastructure.Classes;
@@ -18,7 +19,8 @@ namespace API.Features.Reservations {
             // DriverList
             CreateMap<Reservation, ReservationDriverListResource>()
                 .ForMember(x => x.ExactPoint, x => x.MapFrom(x => x.PickupPoint.ExactPoint))
-                .ForMember(x => x.Time, x => x.MapFrom(x => x.PickupPoint.Time));
+                .ForMember(x => x.Time, x => x.MapFrom(x => x.PickupPoint.Time))
+                .ForMember(x => x.Fullname, x => x.MapFrom(x => x.Passengers.FirstOrDefault().Lastname + " " + x.Passengers.FirstOrDefault().Firstname));
             // Read reservation
             CreateMap<Reservation, ReservationReadResource>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Date)))

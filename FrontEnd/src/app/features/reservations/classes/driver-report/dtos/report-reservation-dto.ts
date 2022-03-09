@@ -9,7 +9,8 @@ export class ReportReservationDTO {
     free: number
     totalPersons: number
     customerDescription: string
-    destinationAbbreviation: string
+    fullname: string
     remarks: string
-    
+    destinationAbbreviation: string
+
 }
