@@ -9,6 +9,6 @@ export class ReservationViewModel {
     free: number
     totalPersons: number
     remarks: string
-    isTransfer: boolean
+    hasTransfer: boolean
 
 }

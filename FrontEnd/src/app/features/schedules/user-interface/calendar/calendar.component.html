@@ -1,10 +1,8 @@
 <div id="list">
 
     <div id="header">
-        <div @slideFromLeft id="title">
-            <h1>{{ getLabel('header') }}</h1>
-        </div>
-        <div id="month-selector">
+        <home-button-and-title [feature]="feature" [icon]="icon" [routerLink]="parentUrl"></home-button-and-title>
+        <div @slideFromRight id="month-selector">
             <span class="material-icons arrows" (click)="onChangeMonth(-1)">chevron_left</span>
             <h1 id="month-and-year">{{ getMonthAndYear() }}</h1>
             <span class="material-icons arrows" (click)="onChangeMonth(1)">chevron_right</span>

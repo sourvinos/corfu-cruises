@@ -354,7 +354,7 @@
                 "description": "Aktiv"
             },
             {
-                "id": "headerIsTransfer",
+                "id": "headerHasTransfer",
                 "description": "Transfer"
             },
             {
@@ -391,7 +391,7 @@
                 "description": "Hafen"
             },
             {
-                "id": "isTransfer",
+                "id": "hasTransfer",
                 "description": "Erfordert Übertragung"
             },
             {
@@ -1216,7 +1216,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "OK"
+                "description": "SPEICHERN"
             }
         ]
     },
@@ -1479,7 +1479,7 @@
                 "description": "Ticketnummer"
             },
             {
-                "id": "headerIsTransfer",
+                "id": "headerHasTransfer",
                 "description": "Transfer"
             },
             {

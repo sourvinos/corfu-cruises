@@ -1,0 +1,259 @@
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { Component } from '@angular/core'
+import { Observable, Subject } from 'rxjs'
+import { ActivatedRoute, Router } from '@angular/router'
+import { Title } from '@angular/platform-browser'
+import { map, startWith } from 'rxjs/operators'
+// Custom
+import { AccountService } from 'src/app/shared/services/account.service'
+import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { ConfirmValidParentMatcher, ValidationService } from '../../../../shared/services/validation.service'
+import { CustomerDropdownDTO } from '../../../customers/classes/dtos/customer-dropdown-dto'
+import { CustomerService } from '../../../customers/classes/services/customer.service'
+import { DialogService } from 'src/app/shared/services/dialog.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
+import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { KeyboardShortcuts, Unlisten } from '../../../../shared/services/keyboard-shortcuts.service'
+import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
+import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { RegisterUserDTO } from '../../classes/dtos/register-user-dto'
+import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { UserService } from '../../classes/services/user.service'
+import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+
+@Component({
+    selector: 'register-user-form',
+    templateUrl: './register-user-form.component.html',
+    styleUrls: ['../../../../../assets/styles/forms.css', './register-user-form.component.css'],
+    animations: [slideFromLeft, slideFromRight]
+})
+
+export class RegisterUserFormComponent {
+
+    //#region variables
+
+    private ngUnsubscribe = new Subject<void>()
+    private unlisten: Unlisten
+    public feature = 'registerUserForm'
+    public form: FormGroup
+    public icon = 'arrow_back'
+    public input: InputTabStopDirective
+    public parentUrl = '/users'
+
+    public confirmValidParentMatcher = new ConfirmValidParentMatcher()
+    public hidePassword = true
+    public filteredCustomers: Observable<CustomerDropdownDTO[]>
+
+    //#endregion
+
+    constructor(private activatedRoute: ActivatedRoute, private accountService: AccountService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService,  private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService) { }
+
+    //#region lifecycle hooks
+
+    ngOnInit(): void {
+        this.setWindowTitle()
+        this.initForm()
+        this.addShortcuts()
+        this.populateDropDowns()
+    }
+
+    ngOnDestroy(): void {
+        this.cleanup()
+        this.unlisten()
+    }
+
+    canDeactivate(): boolean {
+        if (this.form.dirty) {
+            this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
+                if (response) {
+                    this.resetForm()
+                    this.onGoBack()
+                    return true
+                }
+            })
+        } else {
+            return true
+        }
+    }
+
+    //#endregion
+
+    //#region public methods
+
+    public dropdownFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public getHint(id: string, minmax = 0): string {
+        return this.messageHintService.getDescription(id, minmax)
+    }
+
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public onGoBack(): void {
+        this.router.navigate([this.activatedRoute.snapshot.queryParams['returnUrl']])
+    }
+
+    public onSave(): void {
+        this.saveRecord(this.flattenForm())
+    }
+
+    public onSendLoginCredentials(): void {
+        this.flattenForm()
+        this.userService.sendLoginCredentials(this.form).subscribe(() => {
+            this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+        }, errorFromInterceptor => {
+            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+        })
+    }
+
+    //#endregion
+
+    //#region private methods
+
+    private addShortcuts(): void {
+        this.unlisten = this.keyboardShortcutsService.listen({
+            'Escape': (event: KeyboardEvent) => {
+                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
+                    this.buttonClickService.clickOnButton(event, 'goBack')
+                }
+            },
+            'Alt.S': (event: KeyboardEvent) => {
+                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
+                    this.buttonClickService.clickOnButton(event, 'save')
+                }
+            }
+        }, {
+            priority: 0,
+            inputs: true
+        })
+    }
+
+    private filterArray(array: string, field: string, value: any): any[] {
+        if (typeof value !== 'object') {
+            const filtervalue = value.toLowerCase()
+            return this[array].filter((element: { [x: string]: string }) =>
+                element[field].toLowerCase().startsWith(filtervalue))
+        }
+    }
+
+    private flattenForm(): RegisterUserDTO {
+        const user = {
+            username: this.form.value.userName,
+            displayname: this.form.value.displayName,
+            customerId: this.form.value.customer.id == 'null' ? null : this.form.value.customer.id,
+            email: this.form.value.email,
+            password: this.form.value.passwords.password,
+            confirmPassword: this.form.value.passwords.confirmPassword,
+            isAdmin: this.form.value.isAdmin,
+            isActive: this.form.value.isActive
+        }
+        return user
+    }
+
+    private initForm(): void {
+        this.form = this.formBuilder.group({
+            userName: ['', [Validators.required, Validators.maxLength(32), ValidationService.containsSpace]],
+            displayName: ['', [Validators.required, Validators.maxLength(32)]],
+            customer: ['', ValidationService.RequireAutocomplete],
+            email: ['', [Validators.required, Validators.maxLength(128), Validators.email]],
+            passwords: this.formBuilder.group({
+                password: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(128), ValidationService.containsSpace]],
+                confirmPassword: ['', [Validators.required, ValidationService.containsSpace]]
+            }, { validator: ValidationService.childrenEqual }),
+            isAdmin: false,
+            isActive: true
+        })
+    }
+
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+        const promise = new Promise((resolve) => {
+            service.getActiveForDropdown().toPromise().then(
+                (response: any) => {
+                    this[table] = response
+                    this[table].unshift({ 'id': 'null', 'description': '[⭐]' })
+                    resolve(this[table])
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                }, (errorFromInterceptor: number) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                })
+        })
+        return promise
+    }
+
+    private populateDropDowns(): void {
+        this.populateDropDown(this.customerService, 'customers', 'filteredCustomers', 'customer', 'description')
+    }
+
+    private resetForm(): void {
+        this.form.reset()
+    }
+
+    private saveRecord(user: RegisterUserDTO): void {
+        this.accountService.register(user).subscribe(() => {
+            this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+            this.resetForm()
+            this.onGoBack()
+        }, errorFromInterceptor => {
+            // 200 = Ok
+            // 492 = Unable to register user (username and/or email already exist)
+            // 500 = Invalid model
+            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+        })
+    }
+
+    private setWindowTitle(): void {
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
+    }
+
+    private showSnackbar(message: string | string[], type: string): void {
+        this.snackbarService.open(message, type)
+    }
+
+    private cleanup(): void {
+        this.ngUnsubscribe.next()
+        this.ngUnsubscribe.unsubscribe()
+    }
+
+    //#endregion
+
+    //#region getters
+
+    get userName(): AbstractControl {
+        return this.form.get('userName')
+    }
+
+    get displayName(): AbstractControl {
+        return this.form.get('displayName')
+    }
+
+    get customer(): AbstractControl {
+        return this.form.get('customer')
+    }
+
+    get email(): AbstractControl {
+        return this.form.get('email')
+    }
+
+    get passwords(): AbstractControl {
+        return this.form.get('passwords')
+    }
+
+    get password(): AbstractControl {
+        return this.form.get('passwords.password')
+    }
+
+    get confirmPassword(): AbstractControl {
+        return this.form.get('passwords.confirmPassword')
+    }
+
+    get matchingPasswords(): boolean {
+        return this.form.get('passwords.password').value === this.form.get('passwords.confirmPassword').value
+    }
+
+    //#endregion
+
+}

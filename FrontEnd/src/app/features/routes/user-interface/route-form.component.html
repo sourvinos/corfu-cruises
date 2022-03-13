@@ -1,61 +1,49 @@
 <div id="form-wrapper">
 
     <div id="header">
-        <div id="navigation">
-            <button data-cy="goBack" class="goBack" id="goBack" [routerLink]="['/routes']" mat-mini-fab>
-                <mat-icon>arrow_back</mat-icon>
-            </button>
-        </div>
-        <div @slideFromLeft id="title">
-            <h1>{{ onGetLabel('header') }}</h1>
-        </div>
+        <home-button-and-title [feature]="feature" [icon]="icon" [routerLink]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="content">
         <div id="panel-buttons">
-            <button mat-flat-button class="tab" id="formTab" [disabled]="activePanel=='form'" (click)="onFocusFormPanel()">{{ onGetLabel('formTab') }}</button>
-            <button mat-flat-button class="tab" id="mapTab" [disabled]="activePanel=='map'" (click)="onFocusMapPanel()">{{ onGetLabel('mapTab') }}</button>
+            <button (click)="onFocusFormPanel()" [disabled]="activePanel=='form'" class="tab" id="formTab" mat-flat-button>{{ getLabel("formTab") }}</button>
+            <button (click)="onFocusMapPanel()" [disabled]="activePanel=='map'" class="tab" id="mapTab" mat-flat-button>{{ getLabel("mapTab") }}</button>
         </div>
         <div id="form" [class.hidden]="activePanel=='map'">
-            <form data-cy="form" [formGroup]='form' autocomplete='off'>
+            <form [formGroup]="form" autocomplete="off" data-cy="form">
                 <mat-form-field>
-                    <input data-cy="abbreviation" type="text" matInput [placeholder]="onGetLabel('abbreviation')" formControlName="abbreviation" data-tabindex="1" id="abbreviation" [inputTabStop]="input">
-                    <mat-error *ngIf="abbreviation.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                    <mat-error *ngIf="abbreviation.hasError('maxlength')">{{ onGetHint('maxLength', abbreviation.errors.maxlength.requiredLength) }}</mat-error>
+                    <input [inputTabStop]="input" [placeholder]="getLabel('abbreviation')" data-cy="abbreviation" data-tabindex="1" formControlName="abbreviation" id="abbreviation" matInput>
+                    <mat-error *ngIf="abbreviation.hasError('required')">{{ getHint("required") }}</mat-error>
+                    <mat-error *ngIf="abbreviation.hasError('maxlength')">{{ getHint("maxLength", abbreviation.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input data-cy="description" type="text" matInput [placeholder]="onGetLabel('description')" formControlName="description" data-tabindex="2" id="description" [inputTabStop]="input">
-                    <mat-error *ngIf="description.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                    <mat-error *ngIf="description.hasError('maxlength')">{{ onGetHint('maxLength', description.errors.maxlength.requiredLength) }}</mat-error>
+                    <input [inputTabStop]="input" [placeholder]="getLabel('description')" data-cy="description" data-tabindex="2" formControlName="description" id="description" matInput>
+                    <mat-error *ngIf="description.hasError('required')">{{ getHint("required") }}</mat-error>
+                    <mat-error *ngIf="description.hasError('maxlength')">{{ getHint("maxLength", description.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>{{ onGetLabel("port") }}</mat-label>
-                    <input matInput data-cy="port-description" type="text" formControlName="port" [matAutocomplete]="ports" data-tabindex="3" [inputTabStop]="input">
-                    <mat-error *ngIf="port.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                    <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ports" [placeholder]="getLabel('port')" data-cy="port-description" data-tabindex="3" formControlName="port" matInput>
+                    <mat-error *ngIf="port.hasError('required')">{{ getHint("required") }}</mat-error>
+                    <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
-                <mat-slide-toggle data-cy="isTransfer" formControlName="isTransfer">{{ onGetLabel('isTransfer') }}</mat-slide-toggle>
-                <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
+                <mat-slide-toggle data-cy="hasTransfer" formControlName="hasTransfer">{{ getLabel("hasTransfer") }}</mat-slide-toggle>
+                <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ getLabel("isActive") }}</mat-slide-toggle>
             </form>
             <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
         </div>
-        <div id="map-outer-wrapper" [class.hidden]="activePanel=='form'">
-            <div *ngIf="pickupPoints" id="map-wrapper">
-                <map [pickupPoints]="pickupPoints" (outputCoordinates)="onUpdateCoordinates($event)"></map>
-            </div>
-        </div>
+        <div id="map-outer-wrapper" [class.hidden]="activePanel=='form'"></div>
     </div>
 
     <div id="footer">
         <div @slideFromRight class="button-group">
-            <button data-cy="delete" mat-flat-button class="delete" *ngIf="form.value.id !== 0" id="delete" (click)="onDelete()">{{ onGetLabel('deleteButton') }}</button>
-            <button data-cy="save" mat-flat-button class="primary" [disabled]="!form.valid" id="save" (click)="onSave()">{{ onGetLabel('saveButton') }}</button>
+            <button (click)="onDelete()" *ngIf="form.value.id !== 0" class="delete" data-cy="delete" id="delete" mat-flat-button>{{ getLabel("deleteButton") }}</button>
+            <button (click)="onSave()" [disabled]="!form.valid" class="primary" data-cy="save" id="save" mat-flat-button>{{ getLabel("saveButton") }}</button>
         </div>
     </div>
 
 </div>
 
-<mat-autocomplete autoActiveFirstOption #ports="matAutocomplete" [displayWith]="portFields">
+<mat-autocomplete #ports="matAutocomplete" [displayWith]="dropdownPortFields" autoActiveFirstOption>
     <mat-option *ngFor="let option of filteredPorts | async" [value]="option">
         {{ option.description }}
     </mat-option>

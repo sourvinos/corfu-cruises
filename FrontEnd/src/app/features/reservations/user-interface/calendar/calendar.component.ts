@@ -9,7 +9,7 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { ScheduleService } from 'src/app/features/schedules/classes/calendar/schedule.service'
+import { ScheduleService } from 'src/app/features/schedules/classes/services/schedule.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -31,6 +31,7 @@ export class CalendarComponent {
     public days: Day[]
     public feature = 'calendarReservations'
     public monthSelect: any[]
+    public parentUrl = '/'
     public selectedDate: any
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 

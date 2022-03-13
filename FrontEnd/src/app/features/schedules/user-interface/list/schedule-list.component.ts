@@ -1,15 +1,12 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
-import { Location } from '@angular/common'
+import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
-import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
@@ -26,40 +23,34 @@ export class ScheduleListComponent {
 
     //#region variables
 
-    @ViewChild('table') table: Table | undefined
-
-    private baseUrl = '/schedules'
-    private ngUnsubscribe = new Subject<void>()
-    private resolver = 'scheduleList'
     private unlisten: Unlisten
-    private windowTitle = 'Schedules'
+    private unsubscribe = new Subject<void>()
+    private url = 'schedules'
     public feature = 'scheduleList'
-    public newUrl = this.baseUrl + '/new'
-    public records: any[] = []
+    public icon = 'home'
+    public parentUrl = '/'
+    public records = []
 
-    public dates = []
-    public destinations = []
-    public ports = []
-    public rowGroupMetadata: any
+    public dropdownDates = []
+    public dropdownDestinations = []
+    public dropdownPorts = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private localStorageService: LocalStorageService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.loadRecords()
-        this.getDistinctRecords('destinations', 'destinationDescription')
-        this.getDistinctRecords('ports', 'portDescription')
-        this.getDistinctDateRecords('dates', 'date')
+        this.loadRecords().then(() => {
+            this.populateDropdownFilters()
+        })
         this.addShortcuts()
     }
 
     ngOnDestroy(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -67,20 +58,20 @@ export class ScheduleListComponent {
 
     //#region public methods
 
-    public onEditRecord(id: number): void {
-        this.router.navigate([this.baseUrl, id])
-    }
-
-    public onFilter(event: { filteredValue: string | any[] }): void {
-        this.updateRowGroupMetaData(event.filteredValue)
-    }
-
     public formatDateToLocale(date: string): string {
         return this.helperService.formatISODateToLocale(date)
     }
 
-    public onGetLabel(id: string): string {
+    public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public onEditRecord(id: number): void {
+        this.router.navigate([this.url, id], { queryParams: { returnUrl: this.url } })
+    }
+
+    public onNewRecord(): void {
+        this.router.navigate([this.url + '/new'], { queryParams: { returnUrl: this.url } })
     }
 
     //#endregion
@@ -101,65 +92,41 @@ export class ScheduleListComponent {
         })
     }
 
-    private getDistinctRecords(table: string, field: string): void {
-        let array = []
-        array = [... new Set(this.records.map(x => x[field]))]
-        array.forEach(element => {
-            this[table].push({ label: element, value: element })
-        })
-    }
-    private getDistinctDateRecords(table: string, field: string): void {
-        let array = []
-        array = [... new Set(this.records.map(x => x[field]))]
-        array.forEach(element => {
-            this[table].push({ label: element, value: element })
-        })
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
     private goBack(): void {
-        this.router.navigate([this.helperService.getHomePage()])
+        this.router.navigate([this.parentUrl])
     }
 
-    private loadRecords(): void {
-        const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
-        if (listResolved.error === null) {
-            this.records = listResolved.list
-        } else {
-            this.goBack()
-            this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
-        }
+    private loadRecords(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
+            if (listResolved.error === null) {
+                this.records = listResolved.list
+                resolve(this.records)
+            } else {
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
+            }
+        })
+        return promise
+    }
+
+    private populateDropdownFilters() {
+        this.dropdownDates = this.helperService.getDistinctRecords(this.records, 'date')
+        this.dropdownDestinations = this.helperService.getDistinctRecords(this.records, 'destinationDescription')
+        this.dropdownPorts = this.helperService.getDistinctRecords(this.records, 'portDescription')
     }
 
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private updateRowGroupMetaData(data: string | any[]): void {
-
-        this.rowGroupMetadata = {}
-
-        if (data) {
-            for (let i = 0; i < data.length; i++) {
-                const rowData = data[i]
-                const routeAbbreviation = rowData.routeAbbreviation
-                if (i == 0) {
-                    this.rowGroupMetadata[routeAbbreviation] = { index: 0, size: 1 }
-                }
-                else {
-                    const previousRowData = data[i - 1]
-                    const previousRowGroup = previousRowData.routeAbbreviation
-                    if (routeAbbreviation === previousRowGroup)
-                        this.rowGroupMetadata[routeAbbreviation].size++
-                    else
-                        this.rowGroupMetadata[routeAbbreviation] = { index: i, size: 1 }
-                }
-            }
-        }
-
     }
 
     //#endregion

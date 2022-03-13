@@ -1,56 +1,48 @@
 <div id="form-wrapper">
 
     <div id="header">
-        <div id="navigation">
-            <button [routerLink]="['/pickupPoints']" class="goBack" data-cy="goBack" id="goBack" mat-mini-fab>
-                <mat-icon>arrow_back</mat-icon>
-            </button>
-        </div>
-        <div @slideFromLeft id="title">
-            <h1>{{ onGetLabel('header') }}</h1>
-        </div>
+        <home-button-and-title [feature]="feature" [icon]="icon" [routerLink]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="content">
         <div id="panel-buttons">
-            <button data-cy="form-button" mat-flat-button class="tab" id="formTab" [disabled]="activePanel=='form'" (click)="onFocusFormPanel()">{{ onGetLabel('formTab') }}</button>
-            <button data-cy="map-button" mat-flat-button class="tab" id="mapTab" [disabled]="activePanel=='map'" (click)="onFocusMapPanel()">{{ onGetLabel('mapTab') }}</button>
+            <button (click)="onFocusFormPanel()" [disabled]="activePanel=='form'" class="tab" data-cy="form-button" id="formTab" mat-flat-button>{{ getLabel("formTab") }}</button>
+            <button (click)="onFocusMapPanel()" [disabled]="activePanel=='map'" class="tab" data-cy="map-button" id="mapTab" mat-flat-button>{{ getLabel("mapTab") }}</button>
         </div>
         <div id="form" [class.hidden]="activePanel=='map'">
-            <form data-cy="form" [formGroup]="form" autocomplete="off">
+            <form [formGroup]="form" autocomplete="off" data-cy="form">
                 <div class="group-field">
                     <mat-form-field>
-                        <mat-label>{{ onGetLabel("route") }}</mat-label>
-                        <input data-cy="route-abbreviation" [inputTabStop]="input" [matAutocomplete]="routes" data-tabindex="1" formControlName="route" matInput type="text">
-                        <mat-error *ngIf="route.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                        <mat-error *ngIf="!route.hasError('required') && route.hasError('incorrect')">{{ onGetHint('invalid') }}</mat-error>
+                        <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="routes" [placeholder]="getLabel('route')" data-cy="route-description" data-tabindex="1" formControlName="route" matInput>
+                        <mat-error *ngIf="route.hasError('required')">{{ getHint("required") }}</mat-error>
+                        <mat-error *ngIf="!route.hasError('required') && route.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                     </mat-form-field>
                     <mat-form-field>
-                        <input data-cy="description" type="text" matInput [placeholder]="onGetLabel('description')" formControlName="description" data-tabindex="2" id="description" [inputTabStop]="input">
-                        <mat-error *ngIf="description.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                        <mat-error *ngIf="description.hasError('maxLength')">{{ onGetHint('maxLength', description.errors.maxlength.requiredLength) }}</mat-error>
+                        <input [inputTabStop]="input" [placeholder]="getLabel('description')" data-cy="description" data-tabindex="2" formControlName="description" id="description" matInput>
+                        <mat-error *ngIf="description.hasError('required')">{{ getHint("required") }}</mat-error>
+                        <mat-error *ngIf="description.hasError('maxLength')">{{ getHint("maxLength", description.errors.maxlength.requiredLength) }}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="group-field">
                     <mat-form-field>
-                        <input data-cy="exactPoint" type="text" matInput [placeholder]="onGetLabel('exactPoint')" formControlName="exactPoint" data-tabindex="3" id="exactPoint" [inputTabStop]="input">
-                        <mat-error *ngIf="exactPoint.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                        <mat-error *ngIf="exactPoint.hasError('maxlength')">{{ onGetHint('maxLength', exactPoint.errors.maxlength.requiredLength) }}</mat-error>
+                        <input [inputTabStop]="input" [placeholder]="getLabel('exactPoint')" data-cy="exactPoint" data-tabindex="3" formControlName="exactPoint" id="exactPoint" matInput>
+                        <mat-error *ngIf="exactPoint.hasError('required')">{{ getHint("required") }}</mat-error>
+                        <mat-error *ngIf="exactPoint.hasError('maxlength')">{{ getHint("maxLength", exactPoint.errors.maxlength.requiredLength) }}</mat-error>
                     </mat-form-field>
                     <mat-form-field>
-                        <input data-cy="time" type="text" matInput [placeholder]="onGetLabel('time')" formControlName="time" data-tabindex="4" id="time" [inputTabStop]="input">
-                        <mat-error *ngIf="time.hasError('required')">{{ onGetHint('required') }}</mat-error>
-                        <mat-error *ngIf="!time.hasError('required') && !time.hasError('isTime')">{{ onGetHint('invalid') }}</mat-error>
+                        <input [inputTabStop]="input" [placeholder]="getLabel('time')" data-cy="time" data-tabindex="4" formControlName="time" id="time" matInput>
+                        <mat-error *ngIf="time.hasError('required')">{{ getHint("required") }}</mat-error>
+                        <mat-error *ngIf="!time.hasError('required') && !time.hasError('isTime')">{{ getHint("invalid") }}</mat-error>
                     </mat-form-field>
                 </div>
                 <mat-form-field>
-                    <input data-cy="coordinates" type="text" matInput [placeholder]="onGetLabel('coordinates')" formControlName="coordinates" id="coordinates" readonly>
+                    <input [placeholder]="getLabel('coordinates')" data-cy="coordinates" formControlName="coordinates" id="coordinates" matInput readonly>
                 </mat-form-field>
-                <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ onGetLabel('isActive') }}</mat-slide-toggle>
+                <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ getLabel("isActive") }}</mat-slide-toggle>
             </form>
             <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
         </div>
-        <div id="map-outer-wrapper" [class.hidden]="activePanel=='form'">
+        <div [class.hidden]="activePanel=='form'" id="map-outer-wrapper">
             <div *ngIf="pickupPoints" id="map-wrapper">
                 <map [pickupPoints]="pickupPoints" (outputCoordinates)="onUpdateCoordinates($event)"></map>
             </div>
@@ -59,14 +51,14 @@
 
     <div id="footer">
         <div @slideFromRight class="button-group">
-            <button data-cy="delete" mat-flat-button class="delete" *ngIf="form.value.id !== 0" id="delete" (click)="onDelete()">{{ onGetLabel('deleteButton') }}</button>
-            <button data-cy="save" mat-flat-button class="primary" [disabled]="!form.valid" id="save" (click)="onSave()">{{ onGetLabel('saveButton') }}</button>
+            <button (click)="onDelete()" *ngIf="form.value.id !== 0" class="delete" data-cy="delete" id="delete" mat-flat-button>{{ getLabel("deleteButton") }}</button>
+            <button (click)="onSave()" [disabled]="!form.valid" class="primary" data-cy="save" id="save" mat-flat-button>{{ getLabel("saveButton") }}</button>
         </div>
     </div>
 
 </div>
 
-<mat-autocomplete autoActiveFirstOption #routes="matAutocomplete" [displayWith]="routeFields">
+<mat-autocomplete #routes="matAutocomplete" [displayWith]="dropdownRouteFields" autoActiveFirstOption>
     <mat-option *ngFor="let option of filteredRoutes | async" [value]="option">
         {{ option.abbreviation }}
     </mat-option>

@@ -7,6 +7,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner'
 // Custom
 import { DialogAlertComponent } from '../components/dialog-alert/dialog-alert.component'
 import { DisableToogleDirective } from '../directives/mat-slide-toggle.directive'
+import { HomeButtonAndTitleComponent } from '../components/home-button-and-title/home-button-and-title.component'
 import { InputFormatDirective } from 'src/app/shared/directives/input-format.directive'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MapComponent } from '../components/map/map.component'
@@ -20,6 +21,7 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
     declarations: [
         DialogAlertComponent,
         DisableToogleDirective,
+        HomeButtonAndTitleComponent,
         InputFormatDirective,
         InputTabStopDirective,
         MapComponent,
@@ -39,6 +41,7 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         CommonModule,
         DisableToogleDirective,
         FormsModule,
+        HomeButtonAndTitleComponent,
         InputFormatDirective,
         InputTabStopDirective,
         MapComponent,
@@ -48,7 +51,7 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         QRCodeModule,
         ReactiveFormsModule,
         RouterModule,
-        ZXingScannerModule,
+        ZXingScannerModule
     ],
     entryComponents: [
         DialogAlertComponent,

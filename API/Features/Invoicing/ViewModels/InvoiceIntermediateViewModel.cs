@@ -11,9 +11,9 @@ namespace API.Features.Invoicing {
 
         // public List<Reservation> Reservations { get; set; }
         public List<Reservation> Reservations { get; set; } = new List<Reservation>();
-        public List<IsTransferGroupViewModel> IsTransferGroup { get; set; }
+        public List<HasTransferGroupViewModel> HasTransferGroup { get; set; }
 
-        public IsTransferGroupViewModel IsTransferGroupTotal { get; set; }
+        public HasTransferGroupViewModel HasTransferGroupTotal { get; set; }
 
     }
 

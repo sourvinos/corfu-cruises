@@ -6,8 +6,9 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { Driver } from '../classes/driver'
-import { DriverService } from '../classes/driver.service'
+import { DriverReadDTO } from './../classes/dtos/driver-read-dto'
+import { DriverService } from '../classes/services/driver.service'
+import { DriverWriteDTO } from '../classes/dtos/driver-write-dto'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -15,7 +16,6 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -29,20 +29,19 @@ export class DriverFormComponent {
 
     //#region variables 
 
-    private feature = 'driverForm'
-    private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '/drivers'
-    private windowTitle = 'Driver'
-    public environment = environment.production
+    private unsubscribe = new Subject<void>()
+    public feature = 'driverForm'
     public form: FormGroup
+    public icon = 'arrow_back'
     public input: InputTabStopDirective
+    public parentUrl = '/drivers'
 
     //#endregion
 
     constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
-        this.activatedRoute.params.subscribe(p => {
-            if (p.id) { this.getRecord(p.id) }
+        this.activatedRoute.params.subscribe(x => {
+            x.id ? this.getRecord(x.id) : null
         })
     }
 
@@ -54,12 +53,8 @@ export class DriverFormComponent {
         this.addShortcuts()
     }
 
-    ngAfterViewInit(): void {
-        this.focus('description')
-    }
-
     ngOnDestroy(): void {
-        this.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -68,10 +63,8 @@ export class DriverFormComponent {
             this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
-                    this.onGoBack()
+                    this.goBack()
                     return true
-                } else {
-                    this.focus('description')
                 }
             })
         } else {
@@ -83,13 +76,21 @@ export class DriverFormComponent {
 
     //#region public methods
 
+    public getHint(id: string, minmax = 0): string {
+        return this.messageHintService.getDescription(id, minmax)
+    }
+
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
+    }
+
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.driverService.delete(this.form.value.id).subscribe(() => {
                     this.resetForm()
+                    this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
-                    this.onGoBack()
                 }, errorFromInterceptor => {
                     this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 })
@@ -97,36 +98,8 @@ export class DriverFormComponent {
         })
     }
 
-    public onGetHint(id: string, minmax = 0): string {
-        return this.messageHintService.getDescription(id, minmax)
-    }
-
-    public onGetLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
-    }
-
-    public onGoBack(): void {
-        this.router.navigate([this.url])
-    }
-
     public onSave(): void {
-        if (this.form.value.id === 0) {
-            this.driverService.add(this.form.value).subscribe(() => {
-                this.resetForm()
-                this.onGoBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            })
-        } else {
-            this.driverService.update(this.form.value.id, this.form.value).subscribe(() => {
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-                this.resetForm()
-                this.onGoBack()
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            })
-        }
+        this.saveRecord(this.flattenForm())
     }
 
     //#endregion
@@ -147,25 +120,26 @@ export class DriverFormComponent {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
                     this.buttonClickService.clickOnButton(event, 'save')
                 }
-            },
-            'Alt.C': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'abort')
-                }
-            },
-            'Alt.O': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'ok')
-                }
             }
         }, {
-            priority: 1,
+            priority: 0,
             inputs: true
         })
     }
 
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
+    }
+
+    private flattenForm(): DriverWriteDTO {
+        const driver = {
+            id: this.form.value.id,
+            description: this.form.value.description,
+            phones: this.form.value.phones,
+            isActive: this.form.value.isActive
+        }
+        return driver
     }
 
     private getRecord(id: number): void {
@@ -173,8 +147,12 @@ export class DriverFormComponent {
             this.populateFields(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            this.onGoBack()
+            this.goBack()
         })
+    }
+
+    private goBack(): void {
+        this.router.navigate([this.parentUrl])
     }
 
     private initForm(): void {
@@ -186,7 +164,7 @@ export class DriverFormComponent {
         })
     }
 
-    private populateFields(result: Driver): void {
+    private populateFields(result: DriverReadDTO): void {
         this.form.setValue({
             id: result.id,
             description: result.description,
@@ -199,17 +177,32 @@ export class DriverFormComponent {
         this.form.reset()
     }
 
+    private saveRecord(driver: DriverWriteDTO): void {
+        if (driver.id === 0) {
+            this.driverService.add(driver).subscribe(() => {
+                this.resetForm()
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+            }, errorFromInterceptor => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            })
+        } else {
+            this.driverService.update(driver.id, driver).subscribe(() => {
+                this.resetForm()
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+            }, errorFromInterceptor => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            })
+        }
+    }
+
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private unsubscribe(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
     }
 
     //#endregion

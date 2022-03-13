@@ -8,8 +8,8 @@ import { Title } from '@angular/platform-browser'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { Destination } from './../../../destinations/classes/destination'
-import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
+import { Destination } from '../../../destinations/classes/models/destination'
+import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -19,10 +19,10 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { Port } from 'src/app/features/ports/classes/models/port'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
-import { Ship } from 'src/app/features/ships/base/classes/models/ship'
-import { ShipRoute } from 'src/app/features/ships/routes/classes/models/shipRoute'
-import { ShipRouteService } from 'src/app/features/ships/routes/classes/services/shipRoute.service'
-import { ShipService } from 'src/app/features/ships/base/classes/services/ship.service'
+import { Ship } from 'src/app/features/ships/classes/models/ship'
+import { ShipRoute } from 'src/app/features/shipRoutes/classes/models/shipRoute'
+import { ShipRouteService } from 'src/app/features/shipRoutes/classes/services/shipRoute.service'
+import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
@@ -114,7 +114,7 @@ export class ManifestCriteriaComponent {
                 this.buttonClickService.clickOnButton(event, 'search')
             }
         }, {
-            priority: 1,
+            priority: 0,
             inputs: true
         })
     }

@@ -1,8 +1,8 @@
-import { KeyValuePair } from 'src/app/shared/classes/keyValuePair'
+export class Port {
 
-export class Port extends KeyValuePair {
-
+    id: number
     description: string
     isPrimary: boolean
-    
+    isActive: boolean
+
 }

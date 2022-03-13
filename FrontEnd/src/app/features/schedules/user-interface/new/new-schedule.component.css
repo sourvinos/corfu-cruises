@@ -4,12 +4,7 @@
     padding-top: 1rem;
 }
 
-.active-item {
-    border: 0 !important;
-    border-bottom: 5px solid var(--color-border-item-active) !important;
-}
-
-.selectable {
+.selectable-day {
     border: 0;
     border-bottom: 5px solid var(--color-border-item-inactive);
     color: var(--color-text-primary);
@@ -21,7 +16,12 @@
     padding: 0.125rem 0.5rem 0.125rem 0.5rem;
 }
 
-.selectable:hover {
+.selectable-day:hover {
     color: var(--color-text-secondary);
     cursor: pointer;
+}
+
+.active-selectable-day {
+    border: 0 !important;
+    border-bottom: 5px solid var(--color-border-item-active) !important;
 }

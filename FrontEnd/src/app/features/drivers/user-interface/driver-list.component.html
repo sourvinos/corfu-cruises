@@ -1,18 +1,16 @@
 <div id="list">
 
     <div id="header">
-        <div @slideFromLeft id="title">
-            <h1>{{ onGetLabel('header') }}</h1>
-        </div>
+        <home-button-and-title [feature]="feature" [icon]="icon" [routerLink]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="table-wrapper">
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="min-width: 12%; width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ onGetLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 50%; width: 50%;" pSortableColumn="description">{{ onGetLabel('headerFullname') }}<p-sortIcon field="description"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 38%; width: 38%; border-top-right-radius: 10px;" pSortableColumn="phones">{{ onGetLabel('headerPhones') }}<p-sortIcon field="phones"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 12%; width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 50%; width: 50%;" pSortableColumn="description">{{ getLabel('headerFullname') }}<p-sortIcon field="description"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 38%; width: 38%; border-top-right-radius: 10px;" pSortableColumn="phones">{{ getLabel('headerPhones') }}<p-sortIcon field="phones"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th style="min-width: 12%; width: 12%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
@@ -21,7 +19,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
-                <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
+                <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
                     <td style="min-width: 12%; width: 12%; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
                     <td style="min-width: 50%; width: 50%; padding: 5px !important;">{{ rowData.description }}</td>
                     <td style="min-width: 38%; width: 38%; padding: 5px !important;">{{ rowData.phones }}</td>
@@ -32,7 +30,7 @@
 
     <div id="footer">
         <div @slideFromRight class="button-group">
-            <button data-cy="new" mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ onGetLabel('newButton') }}</button>
+            <button data-cy="new" mat-flat-button class="primary" id="new" (click)="onNewRecord()">{{ getLabel("newButton") }}</button>
         </div>
     </div>
 

@@ -25,7 +25,7 @@ namespace API.Features.Invoicing {
                 .Include(x => x.Destination)
                 .Include(x => x.Ship)
                 .Include(x => x.PickupPoint).ThenInclude(x => x.Route)
-                .OrderBy(x => x.Date).ThenBy(x => x.Customer.Description).ThenBy(x => !x.PickupPoint.Route.IsTransfer)
+                .OrderBy(x => x.Date).ThenBy(x => x.Customer.Description).ThenBy(x => !x.PickupPoint.Route.HasTransfer)
                 .Where(x => x.Date == Convert.ToDateTime(date)
                     && ((customerId == "all") || x.CustomerId == Int32.Parse(customerId))
                     && ((destinationId == "all") || x.DestinationId == Int32.Parse(destinationId))
@@ -36,8 +36,8 @@ namespace API.Features.Invoicing {
                     Date = DateHelpers.DateTimeToISOString(x.Key.Date),
                     Customer = x.Key.Customer,
                     Reservations = x.ToList(),
-                    IsTransferGroup = GroupReservationsByIsTransfer(x.ToList()),
-                    IsTransferGroupTotal = new IsTransferGroupViewModel {
+                    HasTransferGroup = GroupReservationsByHasTransfer(x.ToList()),
+                    HasTransferGroupTotal = new HasTransferGroupViewModel {
                         Adults = x.Select(r => r.Adults).Sum(),
                         Kids = x.Select(r => r.Kids).Sum(),
                         Free = x.Select(r => r.Free).Sum(),
@@ -47,11 +47,11 @@ namespace API.Features.Invoicing {
             return mapper.Map<IEnumerable<InvoiceIntermediateViewModel>, IEnumerable<InvoiceViewModel>>(result);
         }
 
-        public static List<IsTransferGroupViewModel> GroupReservationsByIsTransfer(List<Reservation> reservations) {
+        public static List<HasTransferGroupViewModel> GroupReservationsByHasTransfer(List<Reservation> reservations) {
             var result = reservations
-                .GroupBy(r => r.PickupPoint.Route.IsTransfer)
-                .Select(g => new IsTransferGroupViewModel {
-                    IsTransfer = g.Key,
+                .GroupBy(r => r.PickupPoint.Route.HasTransfer)
+                .Select(g => new HasTransferGroupViewModel {
+                    HasTransfer = g.Key,
                     Adults = g.Select(r => r.Adults).Sum(),
                     Kids = g.Select(r => r.Kids).Sum(),
                     Free = g.Select(r => r.Free).Sum(),

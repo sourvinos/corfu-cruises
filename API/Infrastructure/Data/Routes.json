@@ -4,7 +4,7 @@
 		"PortId" : 1,
 		"Description" : "NO TRANSFER - CORFU PORT",
 		"Abbreviation" : "CP",
-		"IsTransfer" : 0,
+		"HasTransfer" : 0,
 		"IsActive" : 1,
 		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
 	},
@@ -13,7 +13,7 @@
 		"PortId" : 1,
 		"Description" : "AG.STEFANOS - ARILLAS - PAGOI - CORFU PORT",
 		"Abbreviation" : "PAGOI",
-		"IsTransfer" : 1,
+		"HasTransfer" : 1,
 		"IsActive" : 1,
 		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
 	},
@@ -22,7 +22,7 @@
 		"PortId" : 1,
 		"Description" : "ACHARAVI - RODA - SIDARI - CORFU PORT",
 		"Abbreviation" : "ACH-SID",
-		"IsTransfer" : 1,
+		"HasTransfer" : 1,
 		"IsActive" : 1,
 		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
 	},
@@ -31,7 +31,7 @@
 		"PortId" : 1,
 		"Description" : "NISAKI - KALAMI - BARBATI - DASIA - GOUVIA - CORFU PORT",
 		"Abbreviation" : "NISAKI",
-		"IsTransfer" : 1,
+		"HasTransfer" : 1,
 		"IsActive" : 1,
 		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
 	},
@@ -40,7 +40,7 @@
 		"PortId" : 1,
 		"Description" : "PALEO - ERMONES - GLYFADA - PELEKA - AG.GORDIS - CORFU PORT",
 		"Abbreviation" : "WEST",
-		"IsTransfer" : 1,
+		"HasTransfer" : 1,
 		"IsActive" : 1,
 		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
 	},
@@ -49,7 +49,7 @@
 		"PortId" : 2,
 		"Description" : "NO TRANSFER - LEFKIMMI PORT",
 		"Abbreviation" : "LP",
-		"IsTransfer" : 0,
+		"HasTransfer" : 0,
 		"IsActive" : 1,
 		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
 	},
@@ -58,7 +58,7 @@
 		"PortId" : 2,
 		"Description" : "KAVOS",
 		"Abbreviation" : "KAVOS",
-		"IsTransfer" : 1,
+		"HasTransfer" : 1,
 		"IsActive" : 1,
 		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
 	},
@@ -67,7 +67,7 @@
 		"PortId" : 2,
 		"Description" : "TOWN - PERAMA - MESONGHI - LEFKIMMI",
 		"Abbreviation" : "SOUTH",
-		"IsTransfer" : 1,
+		"HasTransfer" : 1,
 		"IsActive" : 1,
 		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
 	},
@@ -76,7 +76,7 @@
 		"PortId" : 1,
 		"Description" : "INACTIVE ROUTE",
 		"Abbreviation" : "INACTIVE",
-		"IsTransfer" : 1,
+		"HasTransfer" : 1,
 		"IsActive" : 0,
 		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
 	}

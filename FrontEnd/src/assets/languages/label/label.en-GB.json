@@ -354,7 +354,7 @@
                 "description": "Active"
             },
             {
-                "id": "headerIsTransfer",
+                "id": "headerHasTransfer",
                 "description": "Transfer"
             },
             {
@@ -391,7 +391,7 @@
                 "description": "Port"
             },
             {
-                "id": "isTransfer",
+                "id": "hasTransfer",
                 "description": "Requires transfer"
             },
             {
@@ -1216,7 +1216,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "OK"
+                "description": "SAVE"
             }
         ]
     },
@@ -1479,7 +1479,7 @@
                 "description": "Ticket No"
             },
             {
-                "id": "headerIsTransfer",
+                "id": "headerHasTransfer",
                 "description": "Transfer"
             },
             {
@@ -1869,8 +1869,8 @@
                 "description": "Birthdate"
             },
             {
-                "id": "vessel",
-                "description": "Vessel"
+                "id": "ship",
+                "description": "Ship"
             },
             {
                 "id": "nationality",

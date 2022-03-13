@@ -3,8 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 // Custom
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { Ship } from 'src/app/features/ships/base/classes/models/ship'
-import { ShipService } from 'src/app/features/ships/base/classes/services/ship.service'
+import { Ship } from 'src/app/features/ships/classes/models/ship'
+import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 

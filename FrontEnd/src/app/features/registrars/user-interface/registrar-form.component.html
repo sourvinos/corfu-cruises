@@ -1,0 +1,60 @@
+<div id="form-wrapper">
+
+    <div id="header">
+        <home-button-and-title [feature]="feature" [icon]="icon" [routerLink]="parentUrl"></home-button-and-title>
+    </div>
+
+    <div id="content">
+        <form data-cy="form" [formGroup]='form' autocomplete="off">
+            <div class="group-field">
+                <mat-form-field>
+                    <input data-cy="fullname" type="text" matInput [placeholder]="getLabel('fullname')" formControlName="fullname" data-tabindex="1" id="fullname" [inputTabStop]="input">
+                    <mat-error *ngIf="fullname.hasError('required')">{{ getHint('required') }}</mat-error>
+                    <mat-error *ngIf="fullname.hasError('maxlength')">{{ getHint('maxLength', fullname.errors.maxlength.requiredLength) }}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>{{ getLabel("ship") }}</mat-label>
+                    <input matInput data-cy="ship-description" formControlName="ship" [matAutocomplete]="ships" data-tabindex="2" [inputTabStop]="input">
+                    <mat-error *ngIf="ship.hasError('required')">{{ getHint('required') }}</mat-error>
+                    <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="group-field">
+                <mat-form-field>
+                    <input data-cy="phones" type="text" matInput [placeholder]="getLabel('phones')" formControlName="phones" data-tabindex="3" id="phones" [inputTabStop]="input">
+                    <mat-error *ngIf="phones.hasError('maxlength')">{{ getHint('maxLength', phones.errors.maxlength.requiredLength) }}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input data-cy="email" type="text" matInput [placeholder]="getLabel('email')" formControlName="email" data-tabindex="4" id="email" [inputTabStop]="input">
+                    <mat-error *ngIf="email.hasError('maxlength')">{{ getHint('maxLength', email.errors.maxlength.requiredLength) }}</mat-error>
+                    <mat-error *ngIf="!email.hasError('maxlength') && email.hasError('email')">{{ getHint('invalid') }}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input data-cy="fax" type="text" matInput [placeholder]="getLabel('fax')" formControlName="fax" data-tabindex="5" id="fax" [inputTabStop]="input">
+                    <mat-error *ngIf="fax.hasError('maxlength')">{{ getHint('maxLength', fax.errors.maxlength.requiredLength) }}</mat-error>
+                </mat-form-field>
+            </div>
+            <mat-form-field>
+                <input data-cy="address" type="text" matInput [placeholder]="getLabel('address')" formControlName="address" data-tabindex="6" id="address" [inputTabStop]="input">
+                <mat-error *ngIf="address.hasError('maxlength')">{{ getHint('maxLength', address.errors.maxlength.requiredLength) }}</mat-error>
+            </mat-form-field>
+            <mat-slide-toggle data-cy="isPrimary" formControlName="isPrimary">{{ getLabel('isPrimary') }}</mat-slide-toggle>
+            <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ getLabel('isActive') }}</mat-slide-toggle>
+        </form>
+        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+    </div>
+
+    <div id="footer">
+        <div @slideFromRight class="button-group">
+            <button data-cy="delete" mat-flat-button class="delete" *ngIf="form.value.id !== 0" id="delete" (click)="onDelete()">{{ getLabel('deleteButton') }}</button>
+            <button data-cy="save" mat-flat-button class="primary" [disabled]="!form.valid" id="save" (click)="onSave()">{{ getLabel('saveButton') }}</button>
+        </div>
+    </div>
+
+</div>
+
+<mat-autocomplete autoActiveFirstOption #ships="matAutocomplete" [displayWith]="dropdownFields">
+    <mat-option *ngFor="let option of filteredShips | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>

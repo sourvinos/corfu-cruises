@@ -10,13 +10,13 @@ import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { CustomerDropdownResource } from '../../classes/resources/form/dropdown/customer-dropdown-resource'
+import { CustomerDropdownDTO } from '../../../customers/classes/dtos/customer-dropdown-dto'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
-import { Destination } from 'src/app/features/destinations/classes/destination'
-import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
+import { Destination } from 'src/app/features/destinations/classes/models/destination'
+import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { DriverDropdownResource } from '../../classes/resources/form/dropdown/driver-dropdown-resource'
-import { DriverService } from 'src/app/features/drivers/classes/driver.service'
+import { DriverDropdownDTO } from '../../../drivers/classes/dtos/driver-dropdown-dto'
+import { DriverService } from 'src/app/features/drivers/classes/services/driver.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
@@ -26,20 +26,19 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { OkIconService } from '../../classes/services/ok-icon.service'
-import { PickupPointDropdownResource } from '../../classes/resources/form/dropdown/pickupPoint-dropdown-resource'
-import { PickupPointService } from 'src/app/features/pickupPoints/classes/pickupPoint.service'
-import { PortDropdownResource } from '../../classes/resources/form/dropdown/port-dropdown-resource'
+import { PickupPointDropdownDTO } from '../../../pickupPoints/classes/dtos/pickupPoint-dropdown-dto'
+import { PickupPointService } from 'src/app/features/pickupPoints/classes/services/pickupPoint.service'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
 import { ReservationReadResource } from '../../classes/resources/form/reservation/reservation-read-resource'
 import { ReservationService } from '../../classes/services/reservation.service'
-import { ReservationWriteResource } from '../../classes/resources/form/reservation/reservation-write-resource'
-import { ShipService } from 'src/app/features/ships/base/classes/services/ship.service'
+import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { UserService } from 'src/app/features/users/classes/user.service'
+import { UserService } from 'src/app/features/users/classes/services/user.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
 import { VoucherService } from '../../classes/services/voucher.service'
 import { WarningIconService } from '../../classes/services/warning-icon.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { PortDropdownDTO } from 'src/app/features/ports/classes/dtos/port-dropdown-dto'
 
 @Component({
     selector: 'reservation-form',
@@ -67,11 +66,11 @@ export class ReservationFormComponent {
 
     public barcode = { 'ticketNo': '', 'size': 128, 'level': 'M' }
     public filteredDestinations: Observable<Destination[]>
-    public filteredCustomers: Observable<CustomerDropdownResource[]>
-    public filteredPickupPoints: Observable<PickupPointDropdownResource[]>
-    public filteredDrivers: Observable<DriverDropdownResource[]>
-    public filteredShips: Observable<DriverDropdownResource[]>
-    public filteredPorts: Observable<PortDropdownResource[]>
+    public filteredCustomers: Observable<CustomerDropdownDTO[]>
+    public filteredPickupPoints: Observable<PickupPointDropdownDTO[]>
+    public filteredDrivers: Observable<DriverDropdownDTO[]>
+    public filteredShips: Observable<DriverDropdownDTO[]>
+    public filteredPorts: Observable<PortDropdownDTO[]>
     public passengerDifferenceIcon: string
 
     //#endregion
@@ -100,7 +99,7 @@ export class ReservationFormComponent {
     }
 
     ngOnDestroy(): void {
-        this.unsubscribe()
+        this.cleanup()
         this.unlisten()
         this.clearStoredVariables()
     }
@@ -128,7 +127,7 @@ export class ReservationFormComponent {
             const passengerDifference = this.form.value.totalPersons - (element != null ? element : this.form.value.passengers.length)
             switch (true) {
                 case passengerDifference == 0:
-                    this.passengerDifferenceIcon = '✔️ '
+                    this.passengerDifferenceIcon = '✔️'
                     return true
                 case passengerDifference < 0:
                     this.passengerDifferenceIcon = '❌ '
@@ -172,7 +171,7 @@ export class ReservationFormComponent {
         return promise
     }
 
-    public updateFieldsAfterPickupPointSelection(value: PickupPointDropdownResource): void {
+    public updateFieldsAfterPickupPointSelection(value: PickupPointDropdownDTO): void {
         this.form.patchValue({
             exactPoint: value.exactPoint,
             time: value.time,
@@ -207,7 +206,7 @@ export class ReservationFormComponent {
     }
 
     public onSave(): void {
-        const reservation: ReservationWriteResource = this.mapObject()
+        const reservation = this.mapObject()
         if (reservation.reservationId.toString() == '') {
             this.reservationService.add(reservation).subscribe((response) => {
                 this.resetForm()
@@ -249,7 +248,7 @@ export class ReservationFormComponent {
                 }
             }
         }, {
-            priority: 1,
+            priority: 0,
             inputs: true
         })
     }
@@ -537,7 +536,7 @@ export class ReservationFormComponent {
         })
     }
 
-    private unsubscribe(): void {
+    private cleanup(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
     }

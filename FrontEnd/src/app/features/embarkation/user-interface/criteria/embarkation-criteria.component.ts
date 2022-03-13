@@ -8,7 +8,7 @@ import { Title } from '@angular/platform-browser'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { Destination } from 'src/app/features/destinations/classes/destination'
+import { Destination } from 'src/app/features/destinations/classes/models/destination'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -17,7 +17,7 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { Port } from 'src/app/features/ports/classes/models/port'
-import { Ship } from 'src/app/features/ships/base/classes/models/ship'
+import { Ship } from 'src/app/features/ships/classes/models/ship'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
@@ -106,7 +106,7 @@ export class EmbarkationCriteriaComponent {
                 this.buttonClickService.clickOnButton(event, 'search')
             }
         }, {
-            priority: 1,
+            priority: 0,
             inputs: true
         })
     }

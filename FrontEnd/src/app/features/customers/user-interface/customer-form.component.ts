@@ -5,8 +5,9 @@ import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { Customer } from '../classes/models/customer'
+import { CustomerReadDTO } from '../classes/dtos/customer-read-dto'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
+import { CustomerWriteDTO } from '../classes/dtos/customer-write-dto'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -28,11 +29,13 @@ export class CustomerFormComponent {
 
     //#region variables
 
-    private feature = 'customerForm'
-    private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
+    private unsubscribe = new Subject<void>()
+    public feature = 'customerForm'
     public form: FormGroup
+    public icon = 'arrow_back'
     public input: InputTabStopDirective
+    public parentUrl = '/customers'
 
     //#endregion
 
@@ -51,7 +54,7 @@ export class CustomerFormComponent {
     }
 
     ngOnDestroy(): void {
-        this.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -60,7 +63,7 @@ export class CustomerFormComponent {
             this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
-                    this.onGoBack()
+                    this.goBack()
                     return true
                 }
             })
@@ -86,8 +89,8 @@ export class CustomerFormComponent {
             if (response) {
                 this.customerService.delete(this.form.value.id).subscribe(() => {
                     this.resetForm()
+                    this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
-                    this.onGoBack()
                 }, errorFromInterceptor => {
                     this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 })
@@ -95,28 +98,8 @@ export class CustomerFormComponent {
         })
     }
 
-    public onGoBack(): void {
-        this.router.navigate([this.activatedRoute.snapshot.queryParams['returnUrl']])
-    }
-
     public onSave(): void {
-        if (this.form.value.id === 0) {
-            this.customerService.add(this.form.value).subscribe(() => {
-                this.resetForm()
-                this.onGoBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            })
-        } else {
-            this.customerService.update(this.form.value.id, this.form.value).subscribe(() => {
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-                this.resetForm()
-                this.onGoBack()
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            })
-        }
+        this.saveRecord(this.flattenForm())
     }
 
     //#endregion
@@ -139,9 +122,28 @@ export class CustomerFormComponent {
                 }
             }
         }, {
-            priority: 1,
+            priority: 0,
             inputs: true
         })
+    }
+
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
+    }
+
+    private flattenForm(): CustomerWriteDTO {
+        const customer = {
+            id: this.form.value.id,
+            description: this.form.value.description,
+            profession: this.form.value.profession,
+            address: this.form.value.address,
+            phones: this.form.value.phones,
+            personInCharge: this.form.value.personInCharge,
+            email: this.form.value.email,
+            isActive: this.form.value.isActive
+        }
+        return customer
     }
 
     private getRecord(id: number): void {
@@ -149,8 +151,12 @@ export class CustomerFormComponent {
             this.populateFields(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            this.onGoBack()
+            this.goBack()
         })
+    }
+
+    private goBack(): void {
+        this.router.navigate([this.parentUrl])
     }
 
     private initForm(): void {
@@ -166,7 +172,7 @@ export class CustomerFormComponent {
         })
     }
 
-    private populateFields(result: Customer): void {
+    private populateFields(result: CustomerReadDTO): void {
         this.form.setValue({
             id: result.id,
             description: result.description,
@@ -183,17 +189,32 @@ export class CustomerFormComponent {
         this.form.reset()
     }
 
+    private saveRecord(customer: CustomerWriteDTO): void {
+        if (customer.id === 0) {
+            this.customerService.add(customer).subscribe(() => {
+                this.resetForm()
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+            }, errorFromInterceptor => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            })
+        } else {
+            this.customerService.update(customer.id, customer).subscribe(() => {
+                this.resetForm()
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+            }, errorFromInterceptor => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            })
+        }
+    }
+
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private unsubscribe(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
     }
 
     //#endregion

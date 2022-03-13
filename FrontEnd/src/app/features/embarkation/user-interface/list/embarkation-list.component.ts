@@ -138,7 +138,7 @@ export class EmbarkationListComponent {
                 this.buttonClickService.clickOnButton(event, 'showScanner')
             }
         }, {
-            priority: 1,
+            priority: 0,
             inputs: true
         })
     }

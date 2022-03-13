@@ -7,7 +7,7 @@ import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { DriverReportService } from '../../classes/driver-report/services/driver-report.service'
-import { DriverService } from 'src/app/features/drivers/classes/driver.service'
+import { DriverService } from 'src/app/features/drivers/classes/services/driver.service'
 import { EmojiService } from './../../../../shared/services/emoji.service'
 import { HelperService } from './../../../../shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
@@ -17,7 +17,7 @@ import { ReservationGroupResource } from '../../classes/resources/list/reservati
 import { ReservationService } from './../../classes/services/reservation.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToVesselComponent } from '../reservation-to-vessel/reservation-to-vessel-form.component'
-import { ShipService } from 'src/app/features/ships/base/classes/services/ship.service'
+import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 

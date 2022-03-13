@@ -7,7 +7,7 @@ export class InvoicingViewModel {
     date: string
     customerResource: GenericResource
     reservations: ReservationViewModel[]
-    isTransferGroup: InvoicingTransferGroupViewModel[]
-    isTransferGroupTotal: InvoicingTransferGroupViewModel
+    hasTransferGroup: InvoicingTransferGroupViewModel[]
+    hasTransferGroupTotal: InvoicingTransferGroupViewModel
 
 }

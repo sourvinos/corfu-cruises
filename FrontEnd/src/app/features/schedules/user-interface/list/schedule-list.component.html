@@ -1,20 +1,18 @@
 <div id="list">
 
     <div id="header">
-        <div @slideFromLeft id="title">
-            <h1>{{ onGetLabel('header') }}</h1>
-        </div>
+        <home-button-and-title [feature]="feature" [icon]="icon" [routerLink]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="table-wrapper">
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;">{{ onGetLabel('headerIsActive') }}</th>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%;">{{ onGetLabel('headerDate') }}</th>
-                    <th data-cy="column" style="min-width: 40%; max-width: 40%;">{{ onGetLabel('headerDestinationDescription') }}</th>
-                    <th data-cy="column" style="min-width: 30%; max-width: 30%;">{{ onGetLabel('headerPortDescription') }}</th>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-right-radius: 10px;">{{ onGetLabel('headerMaxPassengers') }}</th>
+                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;">{{ getLabel("headerIsActive") }}</th>
+                    <th data-cy="column" style="min-width: 10%; max-width: 10%;">{{ getLabel("headerDate") }}</th>
+                    <th data-cy="column" style="min-width: 40%; max-width: 40%;">{{ getLabel("headerDestinationDescription") }}</th>
+                    <th data-cy="column" style="min-width: 30%; max-width: 30%;">{{ getLabel("headerPortDescription") }}</th>
+                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-right-radius: 10px;">{{ getLabel("headerMaxPassengers") }}</th>
                 </tr>
                 <tr>
                     <th style="min-width: 10%; max-width: 10%;">
@@ -23,7 +21,7 @@
                     <th style="min-width: 10%; max-width: 10%;">
                         <p-columnFilter style="width: 100%;" field="date" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown data-cy="filter-date" [ngModel]="value" [options]="dates" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                <p-dropdown data-cy="filter-date" [ngModel]="value" [options]="dropdownDates" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                     <ng-template let-option pTemplate="item">
                                         <span>{{ option.label }}</span>
                                     </ng-template>
@@ -34,7 +32,7 @@
                     <th style="min-width: 40%; max-width: 40%;">
                         <p-columnFilter style="width: 100%;" field="destinationDescription" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown data-cy="filter-destination" [ngModel]="value" [options]="destinations" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                <p-dropdown data-cy="filter-destination" [ngModel]="value" [options]="dropdownDestinations" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                     <ng-template let-option pTemplate="item">
                                         <span>{{ option.label }}</span>
                                     </ng-template>
@@ -45,7 +43,7 @@
                     <th style="min-width: 30%; max-width: 30%;">
                         <p-columnFilter style="width: 100%;" field="portDescription" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown data-cy="filter-port" [ngModel]="value" [options]="ports" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                <p-dropdown data-cy="filter-port" [ngModel]="value" [options]="dropdownPorts" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                     <ng-template let-option pTemplate="item">
                                         <span>{{ option.label }}</span>
                                     </ng-template>
@@ -56,7 +54,7 @@
                     <th style="min-width: 10%; max-width: 10%;"><input data-cy="filter-max-passengers" type="text" class="p-inputtext center" (input)="table.filter($event.target.value, 'maxPassengers', 'contains')" [value]="$any(table).filters['maxPassengers']?.value"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <ng-template pTemplate="body" let-rowData>
                 <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
                     <td style="min-width: 10%; max-width: 10%; padding: 5px !important; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
                     <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ formatDateToLocale(rowData.date) }}</td>
@@ -70,7 +68,7 @@
 
     <div id="footer">
         <div @slideFromRight class="button-group">
-            <button data-cy="new" mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ onGetLabel('newButton') }}</button>
+            <button data-cy="new" mat-flat-button class="primary" id="new" (click)="onNewRecord()">{{ getLabel("newButton") }}</button>
         </div>
     </div>
 

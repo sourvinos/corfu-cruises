@@ -102,7 +102,7 @@ export class ForgotPasswordFormComponent {
                 }
             }
         }, {
-            priority: 1,
+            priority: 0,
             inputs: true
         })
     }

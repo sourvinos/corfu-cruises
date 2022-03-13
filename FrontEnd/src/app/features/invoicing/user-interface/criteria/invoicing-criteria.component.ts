@@ -8,7 +8,7 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
-import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
+import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { GenericResource } from '../../classes/resources/generic-resource'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -17,7 +17,7 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { ShipService } from 'src/app/features/ships/base/classes/services/ship.service'
+import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { map, startWith } from 'rxjs/operators'
@@ -108,7 +108,7 @@ export class InvoicingCriteriaComponent {
                 this.buttonClickService.clickOnButton(event, 'search')
             }
         }, {
-            priority: 1,
+            priority: 0,
             inputs: true
         })
     }

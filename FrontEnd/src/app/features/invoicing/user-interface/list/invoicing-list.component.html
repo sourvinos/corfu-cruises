@@ -23,7 +23,7 @@
                         <th style="width: 20%; border-top-left-radius: 10px;">{{ getLabel("headerDestination") }}</th>
                         <th style="width: 20%;">{{ getLabel("headerShip") }}</th>
                         <th style="width: 10%;">{{ getLabel("headerTicketNo") }}</th>
-                        <th style="width: 10%;">{{ getLabel("headerIsTransfer") }}</th>
+                        <th style="width: 10%;">{{ getLabel("headerHasTransfer") }}</th>
                         <th style="width: 5%;">{{ getLabel("headerAdults") }}</th>
                         <th style="width: 5%;">{{ getLabel("headerKids") }}</th>
                         <th style="width: 5%;">{{ getLabel("headerFree") }}</th>
@@ -50,7 +50,7 @@
                         <td style="width: 20%;">{{ rowData.reservations[i].shipDescription }}</td>
                         <td style="width: 10%;">{{ rowData.reservations[i].ticketNo }}</td>
                         <td style="text-align: center; width: 10%;">
-                            <i class="pi" [ngClass]="{'icon-green pi-check': rowData.reservations[i].isTransfer, 'icon-red pi-times': !rowData.reservations[i].isTransfer}"></i>
+                            <i class="pi" [ngClass]="{'icon-green pi-check': rowData.reservations[i].hasTransfer, 'icon-red pi-times': !rowData.reservations[i].hasTransfer}"></i>
                         </td>
                         <td style="text-align: right; width: 5%;">{{ rowData.reservations[i].adults }}</td>
                         <td style="text-align: right; width: 5%;">{{ rowData.reservations[i].kids }}</td>
@@ -63,16 +63,16 @@
                         <th colspan="5" class="total-header">{{ getLabel("headerTotals") }}</th>
                         <th colspan="1"></th>
                     </tr>
-                    <tr class="subtotal" *ngFor="let x of rowData.isTransferGroup, let i = index">
+                    <tr class="subtotal" *ngFor="let x of rowData.hasTransferGroup, let i = index">
                         <td style="width: 20%;"></td>
                         <td style="width: 20%;"></td>
                         <td style="width: 20%;"></td>
                         <td style="text-align: center; width: 3rem;">
-                            <i class="pi" [ngClass]="{'icon-green pi-check': rowData.isTransferGroup[i].isTransfer, 'icon-red pi-times': !rowData.isTransferGroup[i].isTransfer}"></i>
-                        <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroup[i].adults }}</td>
-                        <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroup[i].kids }}</td>
-                        <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroup[i].free }}</td>
-                        <td style="text-align: right; width: 4rem;">{{ rowData.isTransferGroup[i].totalPersons }}</td>
+                            <i class="pi" [ngClass]="{'icon-green pi-check': rowData.hasTransferGroup[i].hasTransfer, 'icon-red pi-times': !rowData.hasTransferGroup[i].hasTransfer}"></i>
+                        <td style="text-align: right; width: 3rem;">{{ rowData.hasTransferGroup[i].adults }}</td>
+                        <td style="text-align: right; width: 3rem;">{{ rowData.hasTransferGroup[i].kids }}</td>
+                        <td style="text-align: right; width: 3rem;">{{ rowData.hasTransferGroup[i].free }}</td>
+                        <td style="text-align: right; width: 4rem;">{{ rowData.hasTransferGroup[i].totalPersons }}</td>
                         <td style="width: 10%;"></td>
                     </tr>
                     <tr class="row-group">
@@ -80,10 +80,10 @@
                         <td style="width: 20%;"></td>
                         <td style="width: 20%;"></td>
                         <td style="width: 3rem;"></td>
-                        <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroupTotal.adults }}</td>
-                        <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroupTotal.kids }}</td>
-                        <td style="text-align: right; width: 3rem;">{{ rowData.isTransferGroupTotal.free }}</td>
-                        <td style="text-align: right; width: 4rem;">{{ rowData.isTransferGroupTotal.totalPersons }}</td>
+                        <td style="text-align: right; width: 3rem;">{{ rowData.hasTransferGroupTotal.adults }}</td>
+                        <td style="text-align: right; width: 3rem;">{{ rowData.hasTransferGroupTotal.kids }}</td>
+                        <td style="text-align: right; width: 3rem;">{{ rowData.hasTransferGroupTotal.free }}</td>
+                        <td style="text-align: right; width: 4rem;">{{ rowData.hasTransferGroupTotal.totalPersons }}</td>
                         <td style="width: 10%;"></td>
                     </tr>
                 </ng-template>

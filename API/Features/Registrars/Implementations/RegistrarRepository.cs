@@ -63,7 +63,10 @@ namespace API.Features.Registrars {
         }
 
         private bool IsValidShip(RegistrarWriteResource record) {
-            return context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
+            if (record.Id == 0) {
+                return context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
+            }
+            return context.Ships.SingleOrDefault(x => x.Id == record.ShipId) != null;
         }
 
     }

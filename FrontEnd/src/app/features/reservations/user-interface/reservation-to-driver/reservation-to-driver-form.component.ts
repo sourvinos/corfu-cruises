@@ -1,8 +1,8 @@
 import { Component, Inject, NgZone } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 // Custom
-import { Driver } from 'src/app/features/drivers/classes/driver'
-import { DriverService } from './../../../drivers/classes/driver.service'
+import { Driver } from 'src/app/features/drivers/classes/models/driver'
+import { DriverService } from '../../../drivers/classes/services/driver.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from './../../../../shared/services/snackbar.service'

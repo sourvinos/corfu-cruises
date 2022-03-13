@@ -1,31 +1,29 @@
 <div id="list">
 
     <div id="header">
-        <div @slideFromLeft id="title">
-            <h1>{{ onGetLabel('header') }}</h1>
-        </div>
+        <home-button-and-title [feature]="feature" [icon]="icon" [routerLink]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="table-wrapper">
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="min-width: 12%; max-width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ onGetLabel('headerIsActive') }} <p-sortIcon field="isActive"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 12%; max-width: 12%;" pSortableColumn="isTransfer">{{ onGetLabel('headerIsTransfer') }} <p-sortIcon field="isTransfer"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 12%; max-width: 12%;" pSortableColumn="abbreviation">{{ onGetLabel('headerAbbreviation') }}<p-sortIcon field="abbreviation"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 64%; max-width: 64%; border-top-right-radius: 10px;" pSortableColumn="description">{{ onGetLabel('headerDescription') }}<p-sortIcon field="description"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 12%; max-width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }} <p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 12%; max-width: 12%;" pSortableColumn="hasTransfer">{{ getLabel("headerHasTransfer") }} <p-sortIcon field="hasTransfer"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 12%; max-width: 12%;" pSortableColumn="abbreviation">{{ getLabel("headerAbbreviation") }}<p-sortIcon field="abbreviation"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 64%; max-width: 64%; border-top-right-radius: 10px;" pSortableColumn="description">{{ getLabel("headerDescription") }}<p-sortIcon field="description"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th style="min-width: 12%; max-width: 12%;"><p-columnFilter data-cy="filter-isActive" type="boolean" field="isActive"></p-columnFilter></th>
-                    <th style="min-width: 12%; max-width: 12%;"><p-columnFilter data-cy="filter-isTransfer" type="boolean" field="isTransfer"></p-columnFilter></th>
+                    <th style="min-width: 12%; max-width: 12%;"><p-columnFilter data-cy="filter-hasTransfer" type="boolean" field="hasTransfer"></p-columnFilter></th>
                     <th style="min-width: 12%; max-width: 12%;"><input data-cy="filter-abbreviation" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'abbreviation', 'contains')" [value]="$any(table).filters['abbreviation']?.value"></th>
                     <th style="min-width: 64%; max-width: 64%;"><input data-cy="filter-description" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
-                <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
+                <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
                     <td style="min-width: 12%; max-width: 12%; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
-                    <td style="min-width: 12%; max-width: 12%; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isTransfer, 'icon-red pi-times': !rowData.isTransfer}"></i></td>
+                    <td style="min-width: 12%; max-width: 12%; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.hasTransfer, 'icon-red pi-times': !rowData.hasTransfer}"></i></td>
                     <td style="min-width: 12%; max-width: 12%; justify-content: center;">{{ rowData.abbreviation }}</td>
                     <td style="min-width: 64%; max-width: 64%;">{{ rowData.description }}</td>
                 </tr>
@@ -35,7 +33,7 @@
 
     <div id="footer">
         <div @slideFromRight class="button-group">
-            <button data-cy="new" mat-flat-button class="primary" id="new" [routerLink]="newUrl">{{ onGetLabel('newButton') }}</button>
+            <button data-cy="new" mat-flat-button class="primary" id="new" (click)="onNewRecord()">{{ getLabel("newButton") }}</button>
         </div>
     </div>
 

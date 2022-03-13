@@ -1,8 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
-import { Location } from '@angular/common'
+import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
-import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
@@ -11,12 +9,11 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { PickupPoint } from '../classes/pickupPoint'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
-    selector: 'pickuppoint-list',
+    selector: 'pickupPoint-list',
     templateUrl: './pickupPoint-list.component.html',
     styleUrls: ['../../../../assets/styles/lists.css'],
     animations: [slideFromLeft, slideFromRight]
@@ -26,36 +23,32 @@ export class PickupPointListComponent {
 
     //#region variables
 
-    @ViewChild('table') table: Table | undefined
-
-    private baseUrl = this.location.path()
-    private ngUnsubscribe = new Subject<void>()
-    private resolver = 'pickupPointList'
     private unlisten: Unlisten
-    private windowTitle = 'Pickup points'
+    private unsubscribe = new Subject<void>()
+    private url = 'pickupPoints'
     public feature = 'pickupPointList'
-    public newUrl = this.baseUrl + '/new'
-    public records: any[] = []
+    public icon = 'home'
+    public parentUrl = '/'
+    public records = []
 
-    public routes = []
-    public rowGroupMetadata: any
+    public dropdownRoutes = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private location: Location, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.loadRecords()
-        this.getDistinctRoutes()
+        this.loadRecords().then(() => {
+            this.populateDropdownFilters()
+        })
         this.addShortcuts()
     }
 
     ngOnDestroy(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -63,16 +56,16 @@ export class PickupPointListComponent {
 
     //#region public methods
 
-    public onEditRecord(record: PickupPoint): void {
-        this.router.navigate([this.baseUrl, record.id])
-    }
-
-    public onFilter(event: { filteredValue: string | any[] }): void {
-        this.updateRowGroupMetaData(event.filteredValue)
-    }
-
-    public onGetLabel(id: string): string {
+    public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public onEditRecord(id: number): void {
+        this.router.navigate([this.url, id], { queryParams: { returnUrl: this.url } })
+    }
+
+    public onNewRecord(): void {
+        this.router.navigate([this.url + '/new'], { queryParams: { returnUrl: this.url } })
     }
 
     //#endregion
@@ -93,58 +86,39 @@ export class PickupPointListComponent {
         })
     }
 
-    private getDistinctRoutes(): void {
-        let array = []
-        array = [... new Set(this.records.map(x => x.routeAbbreviation))]
-        array.forEach(element => {
-            this.routes.push({ label: element, value: element })
-        })
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
     private goBack(): void {
-        this.router.navigate([this.helperService.getHomePage()])
+        this.router.navigate([this.parentUrl])
     }
 
-    private loadRecords(): void {
-        const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
-        if (listResolved.error === null) {
-            this.records = listResolved.list
-        } else {
-            this.goBack()
-            this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
-        }
+    private loadRecords(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
+            if (listResolved.error === null) {
+                this.records = listResolved.list
+                resolve(this.records)
+            } else {
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
+            }
+        })
+        return promise
+    }
+
+    private populateDropdownFilters() {
+        this.dropdownRoutes = this.helperService.getDistinctRecords(this.records, 'routeAbbreviation')
     }
 
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private updateRowGroupMetaData(data: string | any[]): void {
-
-        this.rowGroupMetadata = {}
-
-        if (data) {
-            for (let i = 0; i < data.length; i++) {
-                const rowData = data[i]
-                const routeAbbreviation = rowData.routeAbbreviation
-                if (i == 0) {
-                    this.rowGroupMetadata[routeAbbreviation] = { index: 0, size: 1 }
-                }
-                else {
-                    const previousRowData = data[i - 1]
-                    const previousRowGroup = previousRowData.routeAbbreviation
-                    if (routeAbbreviation === previousRowGroup)
-                        this.rowGroupMetadata[routeAbbreviation].size++
-                    else
-                        this.rowGroupMetadata[routeAbbreviation] = { index: i, size: 1 }
-                }
-            }
-        }
-
     }
 
     //#endregion

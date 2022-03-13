@@ -4,7 +4,6 @@ import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { CustomerListResource } from '../classes/resources/customer-list-resource'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from '../../../shared/classes/list-resolved'
@@ -24,15 +23,17 @@ export class CustomerListComponent {
 
     //#region variables
 
-    private baseUrl = '/customers'
-    private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
+    private unsubscribe = new Subject<void>()
+    private url = 'customers'
     public feature = 'customerList'
-    public records: CustomerListResource[] = []
+    public icon = 'home'
+    public parentUrl = '/'
+    public records = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title,) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -43,8 +44,7 @@ export class CustomerListComponent {
     }
 
     ngOnDestroy(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -57,11 +57,11 @@ export class CustomerListComponent {
     }
 
     public onEditRecord(id: number): void {
-        this.router.navigate([this.baseUrl, id], { queryParams: { returnUrl: 'customers' } })
+        this.router.navigate([this.url, id], { queryParams: { returnUrl: this.url } })
     }
 
     public onNewRecord(): void {
-        this.router.navigate([this.baseUrl + '/new'], { queryParams: { returnUrl: 'customers' } })
+        this.router.navigate([this.url + '/new'], { queryParams: { returnUrl: this.url } })
     }
 
     //#endregion
@@ -82,18 +82,27 @@ export class CustomerListComponent {
         })
     }
 
-    private goBack(): void {
-        this.router.navigate([this.helperService.getHomePage()])
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
-    private loadRecords(): void {
-        const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
-        if (listResolved.error === null) {
-            this.records = listResolved.list
-        } else {
-            this.goBack()
-            this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
-        }
+    private goBack(): void {
+        this.router.navigate([this.parentUrl])
+    }
+
+    private loadRecords(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
+            if (listResolved.error === null) {
+                this.records = listResolved.list
+                resolve(this.records)
+            } else {
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
+            }
+        })
+        return promise
     }
 
     private setWindowTitle(): void {

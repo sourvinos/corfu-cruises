@@ -4,7 +4,6 @@ import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DestinationListResource } from '../classes/destination-list-resource'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
@@ -24,14 +23,13 @@ export class DestinationListComponent {
 
     //#region variables
 
-    private baseUrl = '/destinations'
-    private ngUnsubscribe = new Subject<void>()
-    private resolver = 'destinationList'
     private unlisten: Unlisten
-    private windowTitle = 'Destinations'
+    private unsubscribe = new Subject<void>()
+    private url = 'destinations'
     public feature = 'destinationList'
-    public newUrl = this.baseUrl + '/new'
-    public records: DestinationListResource[] = []
+    public icon = 'home'
+    public parentUrl = '/'
+    public records = []
 
     //#endregion
 
@@ -46,8 +44,7 @@ export class DestinationListComponent {
     }
 
     ngOnDestroy(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -60,7 +57,11 @@ export class DestinationListComponent {
     }
 
     public onEditRecord(id: number): void {
-        this.router.navigate([this.baseUrl, id])
+        this.router.navigate([this.url, id], { queryParams: { returnUrl: this.url } })
+    }
+
+    public onNewRecord(): void {
+        this.router.navigate([this.url + '/new'], { queryParams: { returnUrl: this.url } })
     }
 
     //#endregion
@@ -81,22 +82,31 @@ export class DestinationListComponent {
         })
     }
 
-    private goBack(): void {
-        this.router.navigate([this.helperService.getHomePage()])
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
-    private loadRecords(): void {
-        const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.resolver]
-        if (listResolved.error === null) {
-            this.records = listResolved.list
-        } else {
-            this.goBack()
-            this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
-        }
+    private goBack(): void {
+        this.router.navigate([this.parentUrl])
+    }
+
+    private loadRecords(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
+            if (listResolved.error === null) {
+                this.records = listResolved.list
+                resolve(this.records)
+            } else {
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
+            }
+        })
+        return promise
     }
 
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {

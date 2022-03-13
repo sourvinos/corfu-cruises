@@ -24,12 +24,12 @@ export class InvoicingPdfService {
                 [
                     this.addHeaders(invoice[0]),
                     this.reservations(invoice[0].reservations,
-                        ['destinationDescription', 'shipDescription', 'ticketNo', 'isTransfer', 'adults', 'kids', 'free', 'totalPersons', 'remarks'],
+                        ['destinationDescription', 'shipDescription', 'ticketNo', 'hasTransfer', 'adults', 'kids', 'free', 'totalPersons', 'remarks'],
                         ['left', 'left', 'center', 'center', 'right', 'right', 'right', 'right', 'left']),
-                    this.isTransferGroup(invoice[0].isTransferGroup,
-                        ['isTransfer', 'adults', 'kids', 'free', 'totalPersons'],
+                    this.hasTransferGroup(invoice[0].hasTransferGroup,
+                        ['hasTransfer', 'adults', 'kids', 'free', 'totalPersons'],
                         ['center', 'right', 'right', 'right', 'right']),
-                    this.isTransferGroupTotal(invoice[0].isTransferGroupTotal)
+                    this.hasTransferGroupTotal(invoice[0].hasTransferGroupTotal)
                 ]
             ],
             styles: {
@@ -70,7 +70,7 @@ export class InvoicingPdfService {
         ]
     }
 
-    private buildIsTransferGroupHeaders(): any[] {
+    private buildHasTransferGroupHeaders(): any[] {
         return [
             { text: 'TRANSFER', style: 'tableHeader' },
             { text: 'ADULTS', style: 'tableHeader' },
@@ -93,13 +93,13 @@ export class InvoicingPdfService {
         }
     }
 
-    private isTransferGroup(data, columns: any[], align: any[]): any {
+    private hasTransferGroup(data, columns: any[], align: any[]): any {
         return {
             table: {
                 widths: [40, 30, 30, 30, 30],
                 headerRows: 1,
                 dontBreakRows: true,
-                body: this.buildIsTransferGroup(data, columns, align),
+                body: this.buildHasTransferGroup(data, columns, align),
                 heights: 10,
                 bold: false,
             },
@@ -118,9 +118,9 @@ export class InvoicingPdfService {
         return body
     }
 
-    private buildIsTransferGroup(data, columns: any[], align: any[]): void {
+    private buildHasTransferGroup(data, columns: any[], align: any[]): void {
         const body: any = []
-        body.push(this.buildIsTransferGroupHeaders())
+        body.push(this.buildHasTransferGroupHeaders())
         data.forEach((row: any) => {
             let dataRow = []
             dataRow = this.processRow(columns, row, dataRow, align)
@@ -129,13 +129,13 @@ export class InvoicingPdfService {
         return body
     }
 
-    private isTransferGroupTotal(data: InvoicingTransferGroupViewModel): any {
+    private hasTransferGroupTotal(data: InvoicingTransferGroupViewModel): any {
         return {
             table: {
                 widths: [40, 30, 30, 30, 30],
                 headerRows: 1,
                 dontBreakRows: true,
-                body: this.buildIsTransferGroupTotal(data),
+                body: this.buildHasTransferGroupTotal(data),
                 heights: 10,
                 bold: false,
             },
@@ -143,7 +143,7 @@ export class InvoicingPdfService {
         }
     }
 
-    private buildIsTransferGroupTotal(data: InvoicingTransferGroupViewModel): void {
+    private buildHasTransferGroupTotal(data: InvoicingTransferGroupViewModel): void {
         const body: any = []
         const dataRow = []
         dataRow.push({ alignment: 'center', text: 'TOTAL', margin: [0, 5, 0, 0] })

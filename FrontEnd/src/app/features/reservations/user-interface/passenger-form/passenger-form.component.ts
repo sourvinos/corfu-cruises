@@ -5,23 +5,24 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Observable, Subject } from 'rxjs'
 // Custom
+import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { GenderDropdownResource } from '../../classes/resources/form/dropdown/gender-dropdown-resource'
-import { GenderService } from 'src/app/features/genders/classes/gender.service'
+import { GenderService } from 'src/app/features/genders/classes/services/gender.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { NationalityDropdownResource } from './../../classes/resources/form/dropdown/nationality-dropdown-resource'
-import { NationalityService } from 'src/app/features/nationalities/classes/nationality.service'
+import { NationalityService } from 'src/app/features/nationalities/classes/services/nationality.service'
 import { Passenger } from '../../classes/models/passenger'
 import { ReservationService } from '../../classes/services/reservation.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { map, startWith } from 'rxjs/operators'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { NationalityDropdownDTO } from 'src/app/features/nationalities/classes/dtos/nationality-dropdown-dto'
+import { GenderDropdownDTO } from 'src/app/features/genders/classes/dtos/gender-dropdown-dto'
 
 @Component({
     selector: 'passenger-form',
@@ -34,17 +35,20 @@ export class PassengerFormComponent {
 
     //#region variables
 
-    private feature = 'passengerForm'
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    public filteredGenders: Observable<GenderDropdownResource[]>
-    public filteredNationalities: Observable<NationalityDropdownResource[]>
+    public feature = 'passengerForm'
     public form: FormGroup
+    public icon = 'arrow_back'
     public input: InputTabStopDirective
+    public parentUrl = '/customers'
+
+    public filteredGenders: Observable<GenderDropdownDTO[]>
+    public filteredNationalities: Observable<NationalityDropdownDTO[]>
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: Passenger, private dateAdapter: DateAdapter<any>, private dialogRef: MatDialogRef<PassengerFormComponent>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private reservationService: ReservationService, private snackbarService: SnackbarService) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: Passenger, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogRef: MatDialogRef<PassengerFormComponent>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private reservationService: ReservationService, private snackbarService: SnackbarService) { }
 
     //#region lifecycle hooks
 
@@ -60,8 +64,7 @@ export class PassengerFormComponent {
     }
 
     ngOnDestroy(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -104,7 +107,7 @@ export class PassengerFormComponent {
 
     public onSave(): void {
         this.ngZone.run(() => {
-            this.dialogRef.close(this.flattenPassenger(this.form))
+            this.dialogRef.close(this.flattenForm(this.form))
         })
     }
 
@@ -119,6 +122,9 @@ export class PassengerFormComponent {
                     this.onGoBack()
                 }
             },
+            'Alt.S': (event: KeyboardEvent) => {
+                this.buttonClickService.clickOnButton(event, 'save')
+            }
         }, {
             priority: 3,
             inputs: true
@@ -143,7 +149,7 @@ export class PassengerFormComponent {
         }
     }
 
-    private flattenPassenger(form: FormGroup): any {
+    private flattenForm(form: FormGroup): any {
         const passenger = {
             'id': this.assignNewIdToNewPassenger(form.value.id),
             'reservationId': form.value.reservationId,
@@ -219,6 +225,11 @@ export class PassengerFormComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
+    }
+
+    private cleanup(): void {
+        this.ngUnsubscribe.next()
+        this.ngUnsubscribe.unsubscribe()
     }
 
     //#endregion

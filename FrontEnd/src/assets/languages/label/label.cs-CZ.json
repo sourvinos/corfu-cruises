@@ -354,7 +354,7 @@
                 "description": "Aktiv"
             },
             {
-                "id": "headerIsTransfer",
+                "id": "headerHasTransfer",
                 "description": "Transfer"
             },
             {
@@ -391,7 +391,7 @@
                 "description": "Přístav"
             },
             {
-                "id": "isTransfer",
+                "id": "hasTransfer",
                 "description": "Vyžaduje převod"
             },
             {
@@ -1216,7 +1216,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "OK"
+                "description": "ULOŽIT"
             }
         ]
     },
@@ -1479,7 +1479,7 @@
                 "description": "Číslo lístku"
             },
             {
-                "id": "headerIsTransfer",
+                "id": "headerHasTransfer",
                 "description": "Převod"
             },
             {

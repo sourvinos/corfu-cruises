@@ -22,6 +22,10 @@ export class HelperService {
         return 'desktop'
     }
 
+    public enableOrDisableAutoComplete(event: { key: string }): boolean {
+        return (event.key == 'Enter' || event.key == 'ArrowUp' || event.key == 'ArrowDown' || event.key == 'ArrowRight' || event.key == 'ArrowLeft') ? true : false
+    }
+
     public formatISODateToLocale(date: string) {
         const parts = date.split('-')
         return this.addLeadingZerosToDateParts(new Intl.DateTimeFormat(this.localStorageService.getLanguage()).format(new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]))))
@@ -39,6 +43,16 @@ export class HelperService {
 
     public getApplicationTitle(): any {
         return this.appName
+    }
+
+    public getDistinctRecords(records: any[], field: string): any[] {
+        let unique = []
+        const array = []
+        unique = [... new Set(records.map(x => x[field]))]
+        unique.forEach(element => {
+            array.push({ label: element, value: element })
+        })
+        return array
     }
 
     public getHomePage(): string {

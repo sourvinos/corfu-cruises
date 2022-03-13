@@ -12,9 +12,10 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { PortReadDTO } from '../classes/dtos/port-read-dto'
 import { PortService } from '../classes/services/port.service'
+import { PortWriteDTO } from '../classes/dtos/port-write-dto'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { environment } from 'src/environments/environment'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -28,20 +29,19 @@ export class PortFormComponent {
 
     //#region variables
 
-    private feature = 'portForm'
-    private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '/ports'
-    private windowTitle = 'Port'
-    public environment = environment.production
+    private unsubscribe = new Subject<void>()
+    public feature = 'portForm'
     public form: FormGroup
+    public icon = 'arrow_back'
     public input: InputTabStopDirective
+    public parentUrl = '/ports'
 
     //#endregion
 
     constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
-        this.activatedRoute.params.subscribe(p => {
-            if (p.id) { this.getRecord(p.id) }
+        this.activatedRoute.params.subscribe(x => {
+            x.id ? this.getRecord(x.id) : null
         })
     }
 
@@ -53,12 +53,8 @@ export class PortFormComponent {
         this.addShortcuts()
     }
 
-    ngAfterViewInit(): void {
-        this.focus('description')
-    }
-
     ngOnDestroy(): void {
-        this.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -67,7 +63,7 @@ export class PortFormComponent {
             this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
-                    this.onGoBack()
+                    this.goBack()
                     return true
                 }
             })
@@ -80,13 +76,21 @@ export class PortFormComponent {
 
     //#region public methods
 
+    public getHint(id: string, minmax = 0): string {
+        return this.messageHintService.getDescription(id, minmax)
+    }
+
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
+    }
+
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.portService.delete(this.form.value.id).subscribe(() => {
                     this.resetForm()
+                    this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
-                    this.onGoBack()
                 }, errorFromInterceptor => {
                     this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 })
@@ -94,37 +98,10 @@ export class PortFormComponent {
         })
     }
 
-    public onGetHint(id: string, minmax = 0): string {
-        return this.messageHintService.getDescription(id, minmax)
-    }
-
-    public onGetLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
-    }
-
-    public onGoBack(): void {
-        this.router.navigate([this.url])
-    }
-
     public onSave(): void {
-        if (this.form.value.id === 0) {
-            this.portService.add(this.form.value).subscribe(() => {
-                this.resetForm()
-                this.onGoBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            })
-        } else {
-            this.portService.update(this.form.value.id, this.form.value).subscribe(() => {
-                this.resetForm()
-                this.onGoBack()
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            })
-        }
+        this.saveRecord(this.flattenForm())
     }
+
 
     //#endregion
 
@@ -144,25 +121,26 @@ export class PortFormComponent {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
                     this.buttonClickService.clickOnButton(event, 'save')
                 }
-            },
-            'Alt.C': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'abort')
-                }
-            },
-            'Alt.O': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'ok')
-                }
             }
         }, {
-            priority: 1,
+            priority: 0,
             inputs: true
         })
     }
 
-    private focus(field: string): void {
-        this.helperService.setFocus(field)
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
+    }
+
+    private flattenForm(): PortWriteDTO {
+        const port = {
+            id: this.form.value.id,
+            description: this.form.value.description,
+            isPrimary: this.form.value.isPrimary,
+            isActive: this.form.value.isActive
+        }
+        return port
     }
 
     private getRecord(id: number): void {
@@ -170,8 +148,12 @@ export class PortFormComponent {
             this.populateFields(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            this.onGoBack()
+            this.goBack()
         })
+    }
+
+    private goBack(): void {
+        this.router.navigate([this.parentUrl])
     }
 
     private initForm(): void {
@@ -183,7 +165,7 @@ export class PortFormComponent {
         })
     }
 
-    private populateFields(result: any): void {
+    private populateFields(result: PortReadDTO): void {
         this.form.setValue({
             id: result.id,
             description: result.description,
@@ -196,17 +178,32 @@ export class PortFormComponent {
         this.form.reset()
     }
 
+    private saveRecord(port: PortWriteDTO): void {
+        if (port.id === 0) {
+            this.portService.add(port).subscribe(() => {
+                this.resetForm()
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+            }, errorFromInterceptor => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            })
+        } else {
+            this.portService.update(port.id, port).subscribe(() => {
+                this.resetForm()
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+            }, errorFromInterceptor => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            })
+        }
+    }
+
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private unsubscribe(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
     }
 
     //#endregion

@@ -8,8 +8,8 @@ import { Title } from '@angular/platform-browser'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DestinationDropdownResource } from 'src/app/features/reservations/classes/resources/form/dropdown/destination-dropdown-resource'
-import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
+import { DestinationDropdownDTO } from 'src/app/features/destinations/classes/dtos/destination-dropdown-dto'
+import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -19,13 +19,13 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { PortDropdownResource } from 'src/app/features/ports/classes/resources/port-dropdown-resource'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
-import { ScheduleReadResource } from '../../classes/form/schedule-read-resource'
-import { ScheduleService } from '../../classes/calendar/schedule.service'
+import { ScheduleReadDTO } from '../../classes/form/schedule-read-dto'
+import { ScheduleService } from '../../classes/services/schedule.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { PortDropdownDTO } from 'src/app/features/ports/classes/dtos/port-dropdown-dto'
 
 @Component({
     selector: 'edit-schedule',
@@ -38,31 +38,25 @@ export class EditScheduleComponent {
 
     //#region variables
 
-    private feature = 'scheduleEditForm'
     private flatForm: FormGroup
     private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '/schedules'
-    private windowTitle = ''
+    public feature = 'scheduleEditForm'
     public form: FormGroup
+    public icon = 'arrow_back'
     public input: InputTabStopDirective
-
-    //#endregion
-
-    //#region particular variables
+    public parentUrl = '/schedules'
 
     public destinations = []
     public ports = []
-    public filteredDestinations: Observable<DestinationDropdownResource[]>
-    public filteredPorts: Observable<PortDropdownResource[]>
+    public filteredDestinations: Observable<DestinationDropdownDTO[]>
+    public filteredPorts: Observable<PortDropdownDTO[]>
 
     //#endregion
 
     constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private scheduleService: ScheduleService, private snackbarService: SnackbarService, private titleService: Title) {
-        this.activatedRoute.params.subscribe(p => {
-            if (p.id) {
-                this.getRecord(p.id)
-            }
+        this.activatedRoute.params.subscribe(x => {
+            x.id ? this.getRecord(x.id) : null
         })
     }
 
@@ -79,7 +73,7 @@ export class EditScheduleComponent {
     }
 
     ngOnDestroy(): void {
-        this.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -101,6 +95,22 @@ export class EditScheduleComponent {
 
     //#region public methods
 
+    public dropdownDestinationFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public dropdownPortFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public getHint(id: string, minmax = 0): string {
+        return this.messageHintService.getDescription(id, minmax)
+    }
+
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
+    }
+
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
@@ -115,16 +125,8 @@ export class EditScheduleComponent {
         })
     }
 
-    public getHint(id: string, minmax = 0): string {
-        return this.messageHintService.getDescription(id, minmax)
-    }
-
-    public getLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
-    }
-
     public onGoBack(): void {
-        this.router.navigate([this.url])
+        this.router.navigate([this.activatedRoute.snapshot.queryParams['returnUrl']])
     }
 
     public onSave(): void {
@@ -149,14 +151,6 @@ export class EditScheduleComponent {
         }
     }
 
-    public destinationFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public portFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
     //#endregion
 
     //#region private methods
@@ -175,19 +169,9 @@ export class EditScheduleComponent {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
                     this.buttonClickService.clickOnButton(event, 'save')
                 }
-            },
-            'Alt.C': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'abort')
-                }
-            },
-            'Alt.O': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'ok')
-                }
             }
         }, {
-            priority: 1,
+            priority: 0,
             inputs: true
         })
     }
@@ -195,7 +179,7 @@ export class EditScheduleComponent {
     private filterArray(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
-            return this[array].filter((element) =>
+            return this[array].filter((element: { [x: string]: string }) =>
                 element[field].toLowerCase().startsWith(filtervalue))
         }
     }
@@ -245,7 +229,7 @@ export class EditScheduleComponent {
         return promise
     }
 
-    private populateFields(result: ScheduleReadResource): void {
+    private populateFields(result: ScheduleReadDTO): void {
         this.form.setValue({
             id: result.id,
             date: moment(result.date).format('YYYY-MM-DD'),
@@ -265,7 +249,7 @@ export class EditScheduleComponent {
     }
 
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {
@@ -278,7 +262,7 @@ export class EditScheduleComponent {
         })
     }
 
-    private unsubscribe(): void {
+    private cleanup(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
     }

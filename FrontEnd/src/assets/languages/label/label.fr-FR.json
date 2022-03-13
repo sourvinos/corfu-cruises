@@ -354,7 +354,7 @@
                 "description": "Actif"
             },
             {
-                "id": "headerIsTransfer",
+                "id": "headerHasTransfer",
                 "description": "Transfert"
             },
             {
@@ -391,7 +391,7 @@
                 "description": "Port"
             },
             {
-                "id": "isTransfer",
+                "id": "hasTransfer",
                 "description": "avec du transfer"
             },
             {
@@ -1216,7 +1216,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "OK"
+                "description": "ENREGISTRER"
             }
         ]
     },
@@ -1479,7 +1479,7 @@
                 "description": "Billet"
             },
             {
-                "id": "headerIsTransfer",
+                "id": "headerHasTransfer",
                 "description": "Transfert"
             },
             {

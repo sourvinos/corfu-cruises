@@ -7,6 +7,7 @@ import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from '../../../shared/services/dialog.service'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -14,13 +15,14 @@ import { MapComponent } from 'src/app/shared/components/map/map.component'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { PickupPoint } from '../classes/pickupPoint'
-import { PickupPointService } from '../classes/pickupPoint.service'
-import { RouteDropdownResource } from '../../routes/classes/resources/route-dropdown-resource'
+import { PickupPoint } from '../classes/models/pickupPoint'
+import { PickupPointReadDTO } from './../classes/dtos/pickupPoint-read-dto'
+import { PickupPointService } from '../classes/services/pickupPoint.service'
+import { PickupPointWriteDTO } from '../classes/dtos/pickupPoint-write-dto'
+import { RouteDropdownDTO } from '../../routes/classes/dtos/route-dropdown-dto'
 import { RouteService } from 'src/app/features/routes/classes/services/route.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from '../../../shared/services/validation.service'
-import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -34,33 +36,30 @@ export class PickupPointFormComponent {
 
     //#region variables
 
-    private feature = 'pickupPointForm'
-    private flatForm: FormGroup
-    private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '/pickupPoints'
-    private windowTitle = 'Pickup point'
-    public environment = environment.production
+    private unsubscribe = new Subject<void>()
+    public feature = 'pickupPointForm'
     public form: FormGroup
+    public icon = 'arrow_back'
     public input: InputTabStopDirective
+    public parentUrl = '/pickupPoints'
 
-    //#endregion
-
-    //#region particular variables
+    public isAutoCompleteDisabled = true
+    public filteredRoutes: Observable<RouteDropdownDTO[]>
+    public routes: RouteDropdownDTO[] = []
+    public pickupPoints: PickupPoint[] = []
 
     public activePanel: string
-    public filteredRoutes: Observable<RouteDropdownResource[]>
-    public pickupPoints = []
 
     //#endregion
 
     @ViewChild(MapComponent) child: MapComponent
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private routeService: RouteService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
-        this.activatedRoute.params.subscribe(p => {
-            if (p.id) {
-                this.getRecord(p.id)
-                this.getPickupPoints(p.id)
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private routeService: RouteService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
+        this.activatedRoute.params.subscribe(x => {
+            if (x.id) {
+                this.getRecord(x.id)
+                this.getPickupPoints(x.id)
             }
         })
     }
@@ -69,15 +68,14 @@ export class PickupPointFormComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
+        this.initForm()
         this.addShortcuts()
         this.populateDropDowns()
-        this.initForm()
-        this.populateDropDown(this.routeService, 'routes', 'filteredRoutes', 'route', 'abbreviation')
         this.onFocusFormPanel()
     }
 
     ngOnDestroy(): void {
-        this.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -86,7 +84,7 @@ export class PickupPointFormComponent {
             this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
-                    this.onGoBack()
+                    this.goBack()
                     return true
                 }
             })
@@ -99,18 +97,45 @@ export class PickupPointFormComponent {
 
     //#region public methods
 
+    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+        if (event.target.value == '') this.isAutoCompleteDisabled = true
+    }
+
+    public dropdownRouteFields(subject: { abbreviation: any }): any {
+        return subject ? subject.abbreviation : undefined
+    }
+
+    public enableOrDisableAutoComplete(event: any) {
+        this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
+    }
+
+    public getHint(id: string, minmax = 0): string {
+        return this.messageHintService.getDescription(id, minmax)
+    }
+
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
+    }
+
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.pickupPointService.delete(this.form.value.id).subscribe(() => {
                     this.resetForm()
+                    this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
-                    this.onGoBack()
                 }, errorFromInterceptor => {
                     this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 })
             }
         })
+    }
+
+    public onFocusFormPanel(): void {
+        this.activePanel = 'form'
+        document.getElementById('formTab').classList.add('active')
+        document.getElementById('mapTab').classList.remove('active')
+        document.getElementById('form').style.display = 'flex'
     }
 
     public onFocusMapPanel(): void {
@@ -121,49 +146,9 @@ export class PickupPointFormComponent {
         this.child.onRefreshMap()
     }
 
-    public onFocusFormPanel(): void {
-        this.activePanel = 'form'
-        document.getElementById('formTab').classList.add('active')
-        document.getElementById('mapTab').classList.remove('active')
-        document.getElementById('form').style.display = 'flex'
-    }
-
-    public onGetHint(id: string, minmax = 0): string {
-        return this.messageHintService.getDescription(id, minmax)
-    }
-
-    public onGetLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
-    }
-
-    public routeFields(subject: { abbreviation: any }): any {
-        return subject ? subject.abbreviation : undefined
-    }
-
-    public onGoBack(): void {
-        this.router.navigate([this.url])
-    }
 
     public onSave(): void {
-        if (this.form.value.id === 0 || this.form.value.id === null) {
-            this.flattenForm()
-            this.pickupPointService.add(this.flatForm.value).subscribe(() => {
-                this.resetForm()
-                this.onGoBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
-            })
-        } else {
-            this.flattenForm()
-            this.pickupPointService.update(this.flatForm.value.id, this.flatForm.value).subscribe(() => {
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-                this.resetForm()
-                this.onGoBack()
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
-            })
-        }
+        this.saveRecord(this.flattenForm())
     }
 
     public onToggleFullScreen(): void {
@@ -195,21 +180,16 @@ export class PickupPointFormComponent {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
                     this.buttonClickService.clickOnButton(event, 'save')
                 }
-            },
-            'Alt.C': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'abort')
-                }
-            },
-            'Alt.O': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'ok')
-                }
             }
         }, {
             priority: 0,
             inputs: true
         })
+    }
+
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
     private filterDropdownArray(array: string, field: string, value: any): any[] {
@@ -220,8 +200,8 @@ export class PickupPointFormComponent {
         }
     }
 
-    private flattenForm(): void {
-        this.flatForm = this.formBuilder.group({
+    private flattenForm(): PickupPointWriteDTO {
+        const pickupPoint = {
             id: this.form.value.id,
             routeId: this.form.value.route.id,
             description: this.form.value.description,
@@ -229,7 +209,8 @@ export class PickupPointFormComponent {
             time: this.form.value.time,
             coordinates: this.form.value.coordinates,
             isActive: this.form.value.isActive
-        })
+        }
+        return pickupPoint
     }
 
     private getRecord(id: number): void {
@@ -237,7 +218,7 @@ export class PickupPointFormComponent {
             this.populateFields(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            this.onGoBack()
+            this.goBack()
         })
     }
 
@@ -245,6 +226,10 @@ export class PickupPointFormComponent {
         this.pickupPointService.getSingle(id).subscribe(result => {
             this.pickupPoints.push(result)
         })
+    }
+
+    private goBack(): void {
+        this.router.navigate([this.parentUrl])
     }
 
     private initForm(): void {
@@ -259,10 +244,12 @@ export class PickupPointFormComponent {
         })
     }
 
-    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string, addWildCard = false): Promise<any> {
         const promise = new Promise((resolve) => {
             service.getActiveForDropdown().toPromise().then(
-                (response: any) => {
+                (response: any[]) => {
+                    if (addWildCard)
+                        response.unshift({ id: null, description: this.emojiService.getEmoji('wildcard') })
                     this[table] = response
                     resolve(this[table])
                     this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterDropdownArray(table, modelProperty, value)))
@@ -277,7 +264,7 @@ export class PickupPointFormComponent {
         this.populateDropDown(this.routeService, 'routes', 'filteredRoutes', 'route', 'abbreviation')
     }
 
-    private populateFields(result: PickupPoint): void {
+    private populateFields(result: PickupPointReadDTO): void {
         this.form.setValue({
             id: result.id,
             route: { 'id': result.route.id, 'abbreviation': result.route.abbreviation },
@@ -293,17 +280,34 @@ export class PickupPointFormComponent {
         this.form.reset()
     }
 
+    private saveRecord(pickupPoint: PickupPointWriteDTO): void {
+        if (pickupPoint.id === 0) {
+            this.flattenForm()
+            this.pickupPointService.add(pickupPoint).subscribe(() => {
+                this.resetForm()
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+            }, errorCode => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            })
+        } else {
+            this.flattenForm()
+            this.pickupPointService.update(pickupPoint.id, pickupPoint).subscribe(() => {
+                this.resetForm()
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+            }, errorCode => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            })
+        }
+    }
+
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private unsubscribe(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
     }
 
     //#endregion

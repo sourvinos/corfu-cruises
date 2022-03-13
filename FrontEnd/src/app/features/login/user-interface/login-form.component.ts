@@ -105,7 +105,7 @@ export class LoginFormComponent {
                 this.buttonClickService.clickOnButton(event, 'login')
             }
         }, {
-            priority: 1,
+            priority: 0,
             inputs: true
         })
     }

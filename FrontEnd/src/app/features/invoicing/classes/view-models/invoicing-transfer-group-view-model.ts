@@ -1,6 +1,6 @@
 export class InvoicingTransferGroupViewModel {
 
-    isTransfer: boolean
+    hasTransfer: boolean
     adults: number
     kids: number
     free: number

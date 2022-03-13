@@ -1,12 +1,12 @@
 import { Guid } from 'guid-typescript'
 // Custom
-import { CustomerDropdownResource } from '../dropdown/customer-dropdown-resource'
-import { DestinationDropdownResource } from '../dropdown/destination-dropdown-resource'
-import { DriverDropdownResource } from '../dropdown/driver-dropdown-resource'
+import { CustomerDropdownDTO } from '../../../../../customers/classes/dtos/customer-dropdown-dto'
+import { DestinationDropdownDTO } from '../../../../../destinations/classes/dtos/destination-dropdown-dto'
+import { DriverDropdownDTO } from '../../../../../drivers/classes/dtos/driver-dropdown-dto'
 import { PassengerReadResource } from '../passenger/passenger-read-resource'
-import { PickupPointDropdownResource } from '../dropdown/pickupPoint-dropdown-resource'
-import { PortDropdownResource } from '../dropdown/port-dropdown-resource'
+import { PickupPointDropdownDTO } from '../../../../../pickupPoints/classes/dtos/pickupPoint-dropdown-dto'
 import { ShipDropdownResource } from '../dropdown/ship-dropdown-resource'
+import { PortDropdownDTO } from 'src/app/features/ports/classes/dtos/port-dropdown-dto'
 
 export class ReservationReadResource {
 
@@ -23,12 +23,12 @@ export class ReservationReadResource {
     totalPersons: number
     ticketNo: string
 
-    customer: CustomerDropdownResource
-    destination: DestinationDropdownResource
-    pickupPoint: PickupPointDropdownResource
-    driver: DriverDropdownResource
+    customer: CustomerDropdownDTO
+    destination: DestinationDropdownDTO
+    pickupPoint: PickupPointDropdownDTO
+    driver: DriverDropdownDTO
     ship: ShipDropdownResource
-    port: PortDropdownResource
+    port: PortDropdownDTO
 
     passengers: PassengerReadResource
 

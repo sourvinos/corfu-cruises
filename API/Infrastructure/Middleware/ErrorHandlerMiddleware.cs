@@ -2,7 +2,6 @@ using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Infrastructure.Middleware {
 

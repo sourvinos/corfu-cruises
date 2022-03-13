@@ -3,13 +3,11 @@ import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 // Custom
-import { Day } from '../../classes/calendar/day'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { DayViewModel } from '../../classes/calendar/day-view-model'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { ScheduleService } from 'src/app/features/schedules/classes/calendar/schedule.service'
+import { ScheduleService } from 'src/app/features/schedules/classes/services/schedule.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -28,15 +26,16 @@ export class CalendarComponent {
     private ngUnsubscribe = new Subject<void>()
     private startDate: any
     private unlisten: Unlisten
-    public days: Day[]
+    public days: DayViewModel[]
     public feature = 'calendar'
+    public icon = 'home'
     public monthSelect: any[]
-    public selectedDate: any
+    public parentUrl = '/'
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
     // #endregion 
 
-    constructor(private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private router: Router, private scheduleService: ScheduleService) { }
+    constructor(private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private router: Router, private scheduleService: ScheduleService) { }
 
     //#region lifecycle hooks
 
@@ -60,10 +59,6 @@ export class CalendarComponent {
 
     //#region public methods
 
-    public getLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
-    }
-
     public getMonthAndYear(): string {
         return this.messageCalendarService.getDescription('months', this.startDate.month() + 1) + ' ' + this.startDate.year()
     }
@@ -77,27 +72,11 @@ export class CalendarComponent {
     }
 
     public isToday(day: any): boolean {
-        return day.date == new Date().toISOString().substr(0, 10)
+        return day.date == new Date().toISOString().substring(0, 10)
     }
 
-    public showSchedule(id: any): void {
-        if (this.hasDateSchedule(id)) {
-            document.getElementById(id).style.transform = 'scale(2,2)'
-            document.getElementById(id).style.zIndex = '1'
-            document.getElementById(id).style.width = '120%'
-        }
-    }
-
-    public hideSchedule(id: any): void {
-        if (this.hasDateSchedule(id)) {
-            document.getElementById(id).style.transform = 'scale(1,1)'
-            document.getElementById(id).style.zIndex = '0'
-            document.getElementById(id).style.width = '100%'
-        }
-    }
-
-    public onChangeMonth(flag: number): void {
-        this.navigateToMonth(flag)
+    public onChangeMonth(month: number): void {
+        this.navigateToMonth(month)
         this.getScheduleForMonth().then(() => {
             this.updateCalendar()
             this.fixCalendarHeight()
@@ -162,7 +141,7 @@ export class CalendarComponent {
         const arrayDays = Object.keys([...Array(numberDays)]).map((a: any) => {
             a = parseInt(a) + 1
             const dayObject = moment(`${year}-${month}-${a}`, 'YYYY-MM-DD')
-            const day = new Day()
+            const day = new DayViewModel()
             day.date = dayObject.format('YYYY-MM-DD')
             this.days.push(day)
             return {
@@ -195,7 +174,7 @@ export class CalendarComponent {
     }
 
     private goBack(): void {
-        this.router.navigate([this.helperService.getHomePage()])
+        this.router.navigate([this.parentUrl])
     }
 
     private fixCalendarHeight(): void {

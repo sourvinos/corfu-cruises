@@ -3,7 +3,7 @@
     "abbreviation": "NISAKI",
     "description": "NISAKI - CORFU PORT",
     "isActive": true,
-    "isTransfer": true,
+    "hasTransfer": true,
     "userId": "b6401c3e-7683-49bc-bb7f-8be3b2fd2210",
     "port": {
         "id": 1,

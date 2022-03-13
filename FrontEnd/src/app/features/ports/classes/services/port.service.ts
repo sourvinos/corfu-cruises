@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { DataService } from 'src/app/shared/services/data.service'
-import { PortDropdownResource } from 'src/app/features/reservations/classes/resources/form/dropdown/port-dropdown-resource'
 import { environment } from 'src/environments/environment'
+import { PortDropdownDTO } from '../dtos/port-dropdown-dto'
 
 @Injectable({ providedIn: 'root' })
 
@@ -16,8 +16,8 @@ export class PortService extends DataService {
 
     //#region public methods
 
-    public getActiveForDropdown(): Observable<PortDropdownResource[]> {
-        return this.http.get<PortDropdownResource[]>(environment.apiUrl + '/ports/getActiveForDropdown')
+    public getActiveForDropdown(): Observable<PortDropdownDTO[]> {
+        return this.http.get<PortDropdownDTO[]>(environment.apiUrl + '/ports/getActiveForDropdown')
     }
 
     public createPDF(): Observable<HttpResponse<Blob>> {

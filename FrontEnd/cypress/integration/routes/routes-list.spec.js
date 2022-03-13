@@ -40,22 +40,22 @@ context('Routes', () => {
             })
         })
 
-        it('Filter the table by IsTransfer records', () => {
-            cy.get('[data-cy=filter-isTransfer]').click()
+        it('Filter the table by HasTransfer records', () => {
+            cy.get('[data-cy=filter-hasTransfer]').click()
             cy.get('[data-cy=row]').should(rows => {
                 expect(rows).to.have.length(6)
             })
         })
 
-        it('Filter the table by not IsTransfer records', () => {
-            cy.get('[data-cy=filter-isTransfer]').click()
+        it('Filter the table by not HasTransfer records', () => {
+            cy.get('[data-cy=filter-hasTransfer]').click()
             cy.get('[data-cy=row]').should(rows => {
                 expect(rows).to.have.length(2)
             })
         })
 
-        it('Clear IsTransfer records filter', () => {
-            cy.get('[data-cy=filter-isTransfer]').click()
+        it('Clear HasTransfer records filter', () => {
+            cy.get('[data-cy=filter-hasTransfer]').click()
             cy.get('[data-cy=row]').should(rows => {
                 expect(rows).to.have.length(8)
             })

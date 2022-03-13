@@ -3,56 +3,56 @@
         "id": 1,
         "abbreviation": "NISAKI",
         "description": "NISAKI - KALAMI - BARBATI - DASIA - GOUVIA - CORFU PORT",
-        "isTransfer": true,
+        "hasTransfer": true,
         "isActive": false
     },
     {
         "id": 2,
         "abbreviation": "SOUTH",
         "description": "TOWN - ΠΕΡΑΜΑ - ΜΕΣΣΟΓΓΗ - ΛΕΥΚΙΜΜΗ",
-        "isTransfer": true,
+        "hasTransfer": true,
         "isActive": true
     },
     {
         "id": 3,
         "abbreviation": "WEST",
         "description": "PALEO - ERMONES - GLYFADA - PELEKA - AG.GORDIS - CORFU PORT",
-        "isTransfer": true,
+        "hasTransfer": true,
         "isActive": true
     },
     {
         "id": 4,
         "abbreviation": "ACH-SID",
         "description": "ACHARAVI - RODA - SIDARI - CORFU PORT",
-        "isTransfer": true,
+        "hasTransfer": true,
         "isActive": true
     },
     {
         "id": 5,
         "abbreviation": "KAVOS",
         "description": "KAVOS",
-        "isTransfer": true,
+        "hasTransfer": true,
         "isActive": true
     },
     {
         "id": 6,
         "abbreviation": "LP",
         "description": "NO TRANSFER - LEFKIMMI PORT",
-        "isTransfer": false,
+        "hasTransfer": false,
         "isActive": true
     },
     {
         "id": 7,
         "abbreviation": "PAGOI",
         "description": "AG.STEFANOS - ARILLAS - PAGOI - CORFU PORT",
-        "isTransfer": true,
+        "hasTransfer": true,
         "isActive": true
     },
     {
         "id": 8,
         "abbreviation": "CP",
         "description": "NO TRANSFER - CORFU PORT",
-        "isTransfer": false,
+        "hasTransfer": false,
         "isActive": true
     }
 ]

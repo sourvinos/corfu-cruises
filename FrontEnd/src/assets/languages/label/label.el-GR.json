@@ -354,7 +354,7 @@
                 "description": "Ενεργό"
             },
             {
-                "id": "headerIsTransfer",
+                "id": "headerHasTransfer",
                 "description": "Μεταφορά"
             },
             {
@@ -391,7 +391,7 @@
                 "description": "Λιμάνι"
             },
             {
-                "id": "isTransfer",
+                "id": "hasTransfer",
                 "description": "Έχει μεταφορά"
             },
             {
@@ -1216,7 +1216,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "OK"
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     },
@@ -1479,7 +1479,7 @@
                 "description": "Αρ. εισιτηρίου"
             },
             {
-                "id": "headerIsTransfer",
+                "id": "headerHasTransfer",
                 "description": "Μεταφορά"
             },
             {

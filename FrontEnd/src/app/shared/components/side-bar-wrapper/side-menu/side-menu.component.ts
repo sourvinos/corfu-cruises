@@ -81,9 +81,9 @@ export class SideMenuComponent {
                     { label: this.getLabel(menuItems, 'ports', true), command: (): void => { this.router.navigate(['/ports']) } },
                     { label: this.getLabel(menuItems, 'schedules', true), command: (): void => { this.router.navigate(['/schedules']) } },
                     { label: this.getLabel(menuItems, 'ships', true), command: (): void => { this.router.navigate(['/ships']) } },
-                    { label: this.getLabel(menuItems, 'crews', true), command: (): void => { this.router.navigate(['/shipCrews']) } },
+                    { label: this.getLabel(menuItems, 'crews', true), command: (): void => { this.router.navigate(['/crews']) } },
                     { label: this.getLabel(menuItems, 'genders', true), command: (): void => { this.router.navigate(['/genders']) } },
-                    { label: this.getLabel(menuItems, 'registrars', true), command: (): void => { this.router.navigate(['/shipRegistrars']) } },
+                    { label: this.getLabel(menuItems, 'registrars', true), command: (): void => { this.router.navigate(['/registrars']) } },
                     { label: this.getLabel(menuItems, 'shipOwners', true), command: (): void => { this.router.navigate(['/shipOwners']) } },
                     { label: this.getLabel(menuItems, 'shipRoutes', true), command: (): void => { this.router.navigate(['/shipRoutes']) } },
                     { label: this.getLabel(menuItems, 'users', true), command: (): void => { this.router.navigate(['/users']) } }

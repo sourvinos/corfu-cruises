@@ -46,7 +46,7 @@ export class CreditsComponent {
     }
 
     ngOnDestroy(): void {
-        this.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -104,7 +104,7 @@ export class CreditsComponent {
                 }
             }
         }, {
-            priority: 1,
+            priority: 0,
             inputs: true
         })
     }
@@ -113,7 +113,7 @@ export class CreditsComponent {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
 
-    private unsubscribe(): void {
+    private cleanup(): void {
         this.ngUnsubscribe.next()
         this.ngUnsubscribe.unsubscribe()
     }

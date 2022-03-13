@@ -3,26 +3,27 @@ import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
+import { Router } from '@angular/router'
 import { Title } from '@angular/platform-browser'
-import { map, startWith } from 'rxjs/operators'
+import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DestinationDropdownResource } from 'src/app/features/reservations/classes/resources/form/dropdown/destination-dropdown-resource'
-import { DestinationService } from 'src/app/features/destinations/classes/destination.service'
+import { DestinationDropdownDTO } from 'src/app/features/destinations/classes/dtos/destination-dropdown-dto'
+import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { PortDropdownResource } from 'src/app/features/reservations/classes/resources/form/dropdown/port-dropdown-resource'
+import { PortDropdownDTO } from 'src/app/features/ports/classes/dtos/port-dropdown-dto'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
-import { Router } from '@angular/router'
-import { ScheduleService } from '../../classes/calendar/schedule.service'
-import { ScheduleWriteResource } from '../../classes/form/schedule-write-resource'
+import { ScheduleService } from '../../classes/services/schedule.service'
+import { ScheduleWriteDTO } from '../../classes/form/schedule-write-dto'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
@@ -38,29 +39,29 @@ export class NewScheduleComponent {
 
     //#region variables
 
-    private feature = 'scheduleCreateForm'
-    private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '/schedules'
-    private windowTitle = 'Schedule'
+    private unsubscribe = new Subject<void>()
+    public feature = 'scheduleCreateForm'
     public form: FormGroup
+    public icon = 'arrow_back'
     public input: InputTabStopDirective
+    public parentUrl = '/schedules'
 
-    //#endregion
-
-    //#region particular variables
+    public isAutoCompleteDisabled = true
+    public destinations: DestinationDropdownDTO[]
+    public filteredDestinations: Observable<DestinationDropdownDTO[]>
+    public ports: PortDropdownDTO[]
+    public filteredPorts: Observable<PortDropdownDTO[]>
 
     private daysToDelete = []
     private daysToInsert = []
-    private scheduleWriteResource: ScheduleWriteResource[] = []
+    private scheduleWriteDTO: ScheduleWriteDTO[] = []
     public selectedWeekDays = []
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    public filteredDestinations: Observable<DestinationDropdownResource[]>
-    public filteredPorts: Observable<PortDropdownResource[]>
 
     //#endregion
 
-    constructor(private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private keyboardShortcutsService: KeyboardShortcuts, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private scheduleService: ScheduleService, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private scheduleService: ScheduleService, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -68,13 +69,13 @@ export class NewScheduleComponent {
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
-        this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
-        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
-        this.getLocale()
+        this.populateDropdowns()
+        this.subscribeToInteractionService()
+        this.setLocale()
     }
 
     ngOnDestroy(): void {
-        this.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -83,7 +84,7 @@ export class NewScheduleComponent {
             this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
-                    this.onGoBack()
+                    this.goBack()
                     return true
                 }
             })
@@ -96,6 +97,18 @@ export class NewScheduleComponent {
 
     //#region public methods
 
+    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+        if (event.target.value == '') this.isAutoCompleteDisabled = true
+    }
+
+    public dropdownFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
+    }
+
+    public enableOrDisableAutoComplete(event: any) {
+        this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
+    }
+
     public getHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
     }
@@ -104,28 +117,12 @@ export class NewScheduleComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onGetWeekday(id: string): string {
+    public getWeekday(id: string): string {
         return this.messageCalendarService.getDescription('weekdays', id)
     }
 
-    public onGoBack(): void {
-        this.router.navigate([this.url])
-    }
-
     public onSave(): void {
-        this.buildScheduleObjectsToDelete()
-        this.scheduleService.deleteRange(this.scheduleWriteResource).subscribe(() => {
-            this.buildScheduleObjectsToCreate()
-            this.scheduleService.addRange(this.scheduleWriteResource).subscribe(() => {
-                this.resetForm()
-                this.onGoBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
-            })
-        }, errorCode => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
-        })
+        this.saveRecord()
     }
 
     public onToggleItem(item: string, lookupArray: string[]): void {
@@ -136,10 +133,6 @@ export class NewScheduleComponent {
     public onUpdateArrays(): void {
         this.createPeriodToDelete()
         this.createDaysToInsert()
-    }
-
-    public dropdownFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
     }
 
     //#endregion
@@ -153,34 +146,21 @@ export class NewScheduleComponent {
                     this.buttonClickService.clickOnButton(event, 'goBack')
                 }
             },
-            'Alt.D': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'delete')
-            },
             'Alt.S': (event: KeyboardEvent) => {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
                     this.buttonClickService.clickOnButton(event, 'save')
                 }
-            },
-            'Alt.C': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'abort')
-                }
-            },
-            'Alt.O': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'ok')
-                }
             }
         }, {
-            priority: 1,
+            priority: 0,
             inputs: true
         })
     }
 
     private buildScheduleObjectsToCreate(): any {
-        this.scheduleWriteResource = []
+        this.scheduleWriteDTO = []
         this.form.value.daysToInsert.forEach((day: any) => {
-            this.scheduleWriteResource.push({
+            this.scheduleWriteDTO.push({
                 'date': day,
                 'destinationId': this.form.value.destination.id,
                 'portId': this.form.value.port.id,
@@ -191,9 +171,9 @@ export class NewScheduleComponent {
     }
 
     private buildScheduleObjectsToDelete(): void {
-        this.scheduleWriteResource = []
+        this.scheduleWriteDTO = []
         this.daysToDelete.forEach((day: string) => {
-            this.scheduleWriteResource.push({
+            this.scheduleWriteDTO.push({
                 'date': day.substring(4, day.length),
                 'portId': this.form.value.port.id,
                 'destinationId': this.form.value.destination.id,
@@ -201,6 +181,11 @@ export class NewScheduleComponent {
                 'isActive': false
             })
         })
+    }
+
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
     private createDaysToInsert(): void {
@@ -217,7 +202,7 @@ export class NewScheduleComponent {
         })
     }
 
-    private createPeriod(from: moment.MomentInput, to: moment.MomentInput): any {
+    private createPeriodToInsert(from: moment.MomentInput, to: moment.MomentInput): any {
         const dateArray = []
         let currentDate = moment(from)
         const stopDate = moment(to)
@@ -230,7 +215,7 @@ export class NewScheduleComponent {
 
     private createPeriodToDelete(): void {
         if (this.fromDate.value && this.toDate.value) {
-            this.daysToDelete = this.createPeriod(new Date(this.fromDate.value.format('YYYY-MM-DD')), new Date(this.toDate.value.format('YYYY-MM-DD')))
+            this.daysToDelete = this.createPeriodToInsert(new Date(this.fromDate.value.format('YYYY-MM-DD')), new Date(this.toDate.value.format('YYYY-MM-DD')))
             this.form.patchValue({
                 periodToDelete: this.daysToDelete
             })
@@ -240,13 +225,13 @@ export class NewScheduleComponent {
     private filterArray(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
-            return this[array].filter((element) =>
+            return this[array].filter((element: { [x: string]: string }) =>
                 element[field].toLowerCase().startsWith(filtervalue))
         }
     }
 
-    private getLocale(): void {
-        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+    private goBack(): void {
+        this.router.navigate([this.parentUrl])
     }
 
     private initForm(): void {
@@ -277,38 +262,64 @@ export class NewScheduleComponent {
         return promise
     }
 
+    private populateDropdowns(): void {
+        this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
+        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
+    }
+
     private resetForm(): void {
         this.form.reset()
     }
 
+    private saveRecord(): void {
+        this.buildScheduleObjectsToDelete()
+        this.scheduleService.deleteRange(this.scheduleWriteDTO).subscribe(() => {
+            this.buildScheduleObjectsToCreate()
+            this.scheduleService.addRange(this.scheduleWriteDTO).subscribe(() => {
+                this.resetForm()
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+            }, errorCode => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            })
+        }, errorCode => {
+            this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+        })
+    }
+
+    private setLocale(): void {
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+    }
+
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
     }
 
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+            this.setLocale()
+        })
+    }
+
     private toggleActiveItem(item: string, lookupArray: string[]): void {
         const element = document.getElementById(item)
-        if (element.classList.contains('active-item')) {
+        if (element.classList.contains('active-selectable-day')) {
             for (let i = 0; i < lookupArray.length; i++) {
                 if ((lookupArray)[i] === item) {
                     lookupArray.splice(i, 1)
                     i--
-                    element.classList.remove('active-item')
+                    element.classList.remove('active-selectable-day')
                     break
                 }
             }
         } else {
-            element.classList.add('active-item')
+            element.classList.add('active-selectable-day')
             lookupArray.push(item)
         }
-    }
-
-    private unsubscribe(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
     }
 
     //#endregion

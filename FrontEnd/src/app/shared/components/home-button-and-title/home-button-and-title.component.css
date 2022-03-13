@@ -1,0 +1,13 @@
+#navigation {
+    display: flex;
+    margin: auto 1rem auto 0;
+}
+
+#navigation button {
+    margin-right: 1rem !important;
+}
+
+#title {
+    align-items: center;
+    display: flex;
+}

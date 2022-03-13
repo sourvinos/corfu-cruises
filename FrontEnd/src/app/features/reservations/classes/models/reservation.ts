@@ -23,8 +23,6 @@ export class Reservation {
     portDescription: string
     shipDescription: string
 
-    userId: { id: string, description: string }
-
     passengers: Passenger[]
 
 }
