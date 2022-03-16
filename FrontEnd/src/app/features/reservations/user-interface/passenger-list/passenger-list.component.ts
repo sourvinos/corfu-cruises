@@ -7,6 +7,7 @@ import { Table } from 'primeng/table'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { PassengerFormComponent } from '../passenger-form/passenger-form.component'
 import { PassengerReadVM } from '../../classes/view-models/passenger-read-vm'
+import { AccountService } from 'src/app/shared/services/account.service'
 
 @Component({
     selector: 'passenger-list',
@@ -22,6 +23,7 @@ export class PassengerListComponent {
 
     @Input() passengers: PassengerReadVM[] = []
     @Input() reservationId: Guid
+    @Input() isAdmin: boolean
     @Output() outputPassengerCount = new EventEmitter()
     @Output() outputPassengers = new EventEmitter()
     private ngUnsubscribe = new Subject<void>()
@@ -29,7 +31,7 @@ export class PassengerListComponent {
 
     //#endregion
 
-    constructor(public dialog: MatDialog, private messageLabelService: MessageLabelService) { }
+    constructor(public dialog: MatDialog, private accountService: AccountService, private messageLabelService: MessageLabelService) { }
 
     //#region lifecycle hooks
 

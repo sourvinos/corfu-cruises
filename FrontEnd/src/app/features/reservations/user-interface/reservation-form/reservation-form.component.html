@@ -96,7 +96,7 @@
                 </mat-tab>
                 <mat-tab label="{{ getLabel('tabPassengers') }}">
                     <ng-template matTabContent>
-                        <passenger-list [passengers]="form.value.passengers" [reservationId]="form.value.reservationId" (outputPassengerCount)="checkTotalPersonsAgainstPassengerCount($event)" (outputPassengers)="patchFormWithPassengers($event)"></passenger-list>
+                        <passenger-list [passengers]="form.value.passengers" [isAdmin]="isAdmin"[reservationId]="form.value.reservationId" (outputPassengerCount)="checkTotalPersonsAgainstPassengerCount($event)" (outputPassengers)="patchFormWithPassengers($event)"></passenger-list>
                     </ng-template>
                 </mat-tab>
                 <mat-tab label="{{ getLabel('tabMoreInfo') }}">

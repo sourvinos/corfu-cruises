@@ -8,6 +8,7 @@ import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { GenderAutocompleteVM } from 'src/app/features/genders/classes/view-models/gender-autocomplete-vm'
+import { AccountService } from 'src/app/shared/services/account.service'
 import { GenderService } from 'src/app/features/genders/classes/services/gender.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -46,9 +47,28 @@ export class PassengerFormComponent {
     public genderAutocomplete: Observable<GenderAutocompleteVM[]>
     public nationalityAutocomplete: Observable<NationalityAutocompleteVM[]>
 
+    public isAdmin: boolean
+
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: PassengerReadVM, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogRef: MatDialogRef<PassengerFormComponent>, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private snackbarService: SnackbarService) { }
+    constructor(
+        @Inject(MAT_DIALOG_DATA) public data: PassengerReadVM,
+        private buttonClickService: ButtonClickService,
+        private dateAdapter: DateAdapter<any>,
+        private dialogRef: MatDialogRef<PassengerFormComponent>,
+        private formBuilder: FormBuilder,
+        private genderService: GenderService,
+        private helperService: HelperService,
+        private keyboardShortcutsService: KeyboardShortcuts,
+        private localStorageService: LocalStorageService,
+        private messageHintService: MessageHintService,
+        private messageLabelService: MessageLabelService,
+        private messageSnackbarService: MessageSnackbarService,
+        private nationalityService: NationalityService,
+        private ngZone: NgZone,
+        private accountService: AccountService,
+        private snackbarService: SnackbarService
+    ) { }
 
     //#region lifecycle hooks
 
@@ -58,6 +78,7 @@ export class PassengerFormComponent {
         this.populateDropdowns()
         this.populateFields(this.data)
         this.setLocale()
+        this.getConnectedUserRole()
     }
 
     ngOnDestroy(): void {
@@ -155,11 +176,14 @@ export class PassengerFormComponent {
         return passenger
     }
 
-    private goBack(): void {
-        this.form.reset()
-        this.ngZone.run(() => {
-            this.dialogRef.close()
+    private getConnectedUserRole(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.accountService.isConnectedUserAdmin().toPromise().then((response) => {
+                this.isAdmin = response
+                resolve(this.isAdmin)
+            })
         })
+        return promise
     }
 
     private initForm(): void {

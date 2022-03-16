@@ -6,7 +6,7 @@
                 <tr>
                     <th data-cy="column" style="min-width: 50%; max-width: 50%; border-top-left-radius: 10px;" pSortableColumn="lastname">{{ getLabel('headerLastname') }}<p-sortIcon field="lastname"></p-sortIcon></th>
                     <th data-cy="column" style="min-width: 45%; max-width: 45%;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 5%; max-width: 5%; border-top-right-radius: 10px;"></th>
+                    <th  data-cy="column" style="min-width: 5%; max-width: 5%; border-top-right-radius: 10px;"></th>
                 </tr>
                 <tr>
                     <th style="min-width: 50%; max-width: 50%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
@@ -18,7 +18,7 @@
                 <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
                     <td style="min-width: 50%; max-width: 50%;">{{ rowData.lastname }}</td>
                     <td style="min-width: 45%; max-width: 45%;">{{ rowData.firstname }}</td>
-                    <td data-cy="deleteRow" style="min-width: 5%; max-width: 5%; justify-content: center;" (click)="onDeleteRow(rowData)"><i class="far fa-trash-alt"></i></td>
+                    <td data-cy="deleteRow" style="min-width: 5%; max-width: 5%; justify-content: center;" ><i *ngIf="isAdmin" (click)="onDeleteRow(rowData)" class="far fa-trash-alt"></i></td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">

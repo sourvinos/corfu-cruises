@@ -176,7 +176,7 @@ export class ReservationFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    private getUserRole(): Promise<any> {
+    private getConnectedUserRole(): Promise<any> {
         const promise = new Promise((resolve) => {
             this.accountService.isConnectedUserAdmin().toPromise().then((response) => {
                 this.isAdmin = response
@@ -267,7 +267,7 @@ export class ReservationFormComponent {
 
     private doPostInitJobs() {
         this.getConnectedUserId().then(() => {
-            this.getUserRole().then(() => {
+            this.getConnectedUserRole().then(() => {
                 this.getLinkedCustomer().then(() => {
                     this.populateDropDowns()
                     this.doBarcodeTasks()
