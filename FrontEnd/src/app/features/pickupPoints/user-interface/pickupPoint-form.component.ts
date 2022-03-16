@@ -16,10 +16,10 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { PickupPoint } from '../classes/models/pickupPoint'
-import { PickupPointReadDTO } from './../classes/dtos/pickupPoint-read-dto'
+import { PickupPointReadVM } from '../classes/view-models/pickupPoint-read-vm'
 import { PickupPointService } from '../classes/services/pickupPoint.service'
-import { PickupPointWriteDTO } from '../classes/dtos/pickupPoint-write-dto'
-import { RouteDropdownDTO } from '../../routes/classes/dtos/route-dropdown-dto'
+import { PickupPointWriteVM } from '../classes/view-models/pickupPoint-write-vm'
+import { RouteDropdownVM } from '../../routes/classes/view-models/route-dropdown-vm'
 import { RouteService } from 'src/app/features/routes/classes/services/route.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from '../../../shared/services/validation.service'
@@ -45,8 +45,8 @@ export class PickupPointFormComponent {
     public parentUrl = '/pickupPoints'
 
     public isAutoCompleteDisabled = true
-    public filteredRoutes: Observable<RouteDropdownDTO[]>
-    public routes: RouteDropdownDTO[] = []
+    public filteredRoutes: Observable<RouteDropdownVM[]>
+    public routes: RouteDropdownVM[] = []
     public pickupPoints: PickupPoint[] = []
 
     public activePanel: string
@@ -97,13 +97,13 @@ export class PickupPointFormComponent {
 
     //#region public methods
 
-    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
-        if (event.target.value == '') this.isAutoCompleteDisabled = true
-    }
-
-    public dropdownRouteFields(subject: { abbreviation: any }): any {
+    public autocompleteFields(subject: { abbreviation: any }): any {
         return subject ? subject.abbreviation : undefined
     }
+
+    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+        if (event.target.value == '') this.isAutoCompleteDisabled = true
+    }    
 
     public enableOrDisableAutoComplete(event: any) {
         this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
@@ -200,7 +200,7 @@ export class PickupPointFormComponent {
         }
     }
 
-    private flattenForm(): PickupPointWriteDTO {
+    private flattenForm(): PickupPointWriteVM {
         const pickupPoint = {
             id: this.form.value.id,
             routeId: this.form.value.route.id,
@@ -217,8 +217,8 @@ export class PickupPointFormComponent {
         this.pickupPointService.getSingle(id).subscribe(result => {
             this.populateFields(result)
         }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             this.goBack()
+            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
         })
     }
 
@@ -264,7 +264,7 @@ export class PickupPointFormComponent {
         this.populateDropDown(this.routeService, 'routes', 'filteredRoutes', 'route', 'abbreviation')
     }
 
-    private populateFields(result: PickupPointReadDTO): void {
+    private populateFields(result: PickupPointReadVM): void {
         this.form.setValue({
             id: result.id,
             route: { 'id': result.route.id, 'abbreviation': result.route.abbreviation },
@@ -280,7 +280,7 @@ export class PickupPointFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(pickupPoint: PickupPointWriteDTO): void {
+    private saveRecord(pickupPoint: PickupPointWriteVM): void {
         if (pickupPoint.id === 0) {
             this.flattenForm()
             this.pickupPointService.add(pickupPoint).subscribe(() => {

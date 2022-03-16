@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
-import { ChangePasswordDTO } from '../dtos/change-password-dto'
+import { ChangePasswordViewModel } from '../view-models/change-password-view-model'
 import { DataService } from 'src/app/shared/services/data.service'
 import { HelperService } from '../../../../shared/services/helper.service'
 import { environment } from 'src/environments/environment'
@@ -17,8 +17,8 @@ export class UserService extends DataService {
 
     //#region public methods
 
-    public updatePassword(formData: ChangePasswordDTO): Observable<any> {
-        return this.http.post<any>(environment.apiUrl + '/account/changePassword/', formData)
+    public updatePassword(formData: ChangePasswordViewModel): Observable<any> {
+        return this.http.post<any>(environment.apiUrl + '/changePassword/', formData)
     }
 
     public sendLoginCredentials(formData: any): Observable<any> {

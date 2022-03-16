@@ -12,9 +12,9 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { PortReadDTO } from '../classes/dtos/port-read-dto'
+import { PortReadVM } from '../classes/view-models/port-read-vm'
 import { PortService } from '../classes/services/port.service'
-import { PortWriteDTO } from '../classes/dtos/port-write-dto'
+import { PortWriteVM } from '../classes/view-models/port-write-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
@@ -133,7 +133,7 @@ export class PortFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private flattenForm(): PortWriteDTO {
+    private flattenForm(): PortWriteVM {
         const port = {
             id: this.form.value.id,
             description: this.form.value.description,
@@ -147,8 +147,8 @@ export class PortFormComponent {
         this.portService.getSingle(id).subscribe(result => {
             this.populateFields(result)
         }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             this.goBack()
+            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
         })
     }
 
@@ -165,7 +165,7 @@ export class PortFormComponent {
         })
     }
 
-    private populateFields(result: PortReadDTO): void {
+    private populateFields(result: PortReadVM): void {
         this.form.setValue({
             id: result.id,
             description: result.description,
@@ -178,7 +178,7 @@ export class PortFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(port: PortWriteDTO): void {
+    private saveRecord(port: PortWriteVM): void {
         if (port.id === 0) {
             this.portService.add(port).subscribe(() => {
                 this.resetForm()

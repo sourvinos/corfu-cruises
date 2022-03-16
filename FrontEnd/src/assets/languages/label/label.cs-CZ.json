@@ -7,11 +7,11 @@
                 "description": "Přihlásit se"
             },
             {
-                "id": "usernameLabel",
+                "id": "username",
                 "description": " Uživatelské jméno"
             },
             {
-                "id": "passwordLabel",
+                "id": "password",
                 "description": "Heslo"
             },
             {
@@ -465,7 +465,7 @@
                 "description": "Uživatelské jméno"
             },
             {
-                "id": "displayName",
+                "id": "displayname",
                 "description": "Zobrazené jméno"
             },
             {
@@ -499,7 +499,7 @@
         ]
     },
     {
-        "feature": "registerUserForm",
+        "feature": "newUserForm",
         "labels": [
             {
                 "id": "header",
@@ -510,7 +510,7 @@
                 "description": "Uživatelské jméno"
             },
             {
-                "id": "displayName",
+                "id": "displayname",
                 "description": "Zobrazené jméno"
             },
             {
@@ -576,12 +576,12 @@
         "feature": "reservationList",
         "labels": [
             {
-                "id": "headerForDate",
-                "description": "Rezervace pro "
+                "id": "header",
+                "description": "Denní hlášení rezervací"
             },
             {
-                "id": "headerForRefNo",
-                "description": "Rezervace s "
+                "id": "tripDate",
+                "description": "Datum výletu lodí"
             },
             {
                 "id": "summaryTab",
@@ -826,8 +826,8 @@
                 "description": "Email"
             },
             {
-                "id": "submitButton",
-                "description": "POTVRDIT"
+                "id": "saveButton",
+                "description": "ULOŽIT"
             },
             {
                 "id": "weNeedYourEmail",
@@ -1101,7 +1101,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Plán"
+                "description": "Měsíční program exkurzí"
             }
         ]
     },
@@ -1450,7 +1450,7 @@
                 "description": "Destinace"
             },
             {
-                "id": "vessel",
+                "id": "ship",
                 "description": "Plavidlo"
             },
             {
@@ -1532,7 +1532,7 @@
                 "description": "Datum odletu"
             },
             {
-                "id": "vessel",
+                "id": "ship",
                 "description": "Plavidlo"
             },
             {
@@ -1869,7 +1869,7 @@
                 "description": "Datum narození"
             },
             {
-                "id": "vessel",
+                "id": "ship",
                 "description": "Plavidlo"
             },
             {
@@ -1969,7 +1969,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Rezervace"
+                "description": "Měsíční rezervační kalendář"
             }
         ]
     },

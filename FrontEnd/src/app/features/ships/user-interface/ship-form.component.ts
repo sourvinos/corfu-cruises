@@ -12,11 +12,11 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { ShipOwnerDropdownDTO } from '../../shipOwners/classes/dtos/shipOwner-dropdown-dto'
+import { ShipOwnerDropdownVM } from '../../shipOwners/classes/view-models/shipOwner-dropdown-vm'
 import { ShipOwnerService } from 'src/app/features/shipOwners/classes/services/shipOwner.service'
-import { ShipReadDTO } from '../classes/dtos/ship-read-dto'
+import { ShipReadVM } from '../classes/view-models/ship-read-vm'
 import { ShipService } from '../classes/services/ship.service'
-import { ShipWriteDTO } from '../classes/dtos/ship-write-dto'
+import { ShipWriteVM } from '../classes/view-models/ship-write-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { map, startWith } from 'rxjs/operators'
@@ -42,8 +42,8 @@ export class ShipFormComponent {
     public parentUrl = '/ships'
 
     public isAutoCompleteDisabled = true
-    public filteredShipOwners: Observable<ShipOwnerDropdownDTO[]>
-    public shipOwners: ShipOwnerDropdownDTO[] = []
+    public filteredShipOwners: Observable<ShipOwnerDropdownVM[]>
+    public shipOwners: ShipOwnerDropdownVM[] = []
 
     //#endregion
 
@@ -85,13 +85,13 @@ export class ShipFormComponent {
 
     //#region public methods
 
-    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
-        if (event.target.value == '') this.isAutoCompleteDisabled = true
-    }
-
-    public dropdownShipOwnerFields(subject: { description: any }): any {
+    public autocompleteFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
+
+    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+        if (event.target.value == '') this.isAutoCompleteDisabled = true
+    }    
 
     public enableOrDisableAutoComplete(event: any) {
         this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
@@ -161,7 +161,7 @@ export class ShipFormComponent {
         }
     }
 
-    private flattenForm(): ShipWriteDTO {
+    private flattenForm(): ShipWriteVM {
         const ship = {
             id: this.form.value.id,
             shipOwnerId: this.form.value.shipOwner.id,
@@ -183,8 +183,8 @@ export class ShipFormComponent {
                 this.populateFields(result)
                 resolve(result)
             }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 this.goBack()
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         })
         return promise
@@ -227,7 +227,7 @@ export class ShipFormComponent {
         this.populateDropDown(this.shipOwnerService, 'shipOwners', 'filteredShipOwners', 'shipOwner', 'description')
     }
 
-    private populateFields(result: ShipReadDTO): void {
+    private populateFields(result: ShipReadVM): void {
         this.form.setValue({
             id: result.id,
             shipOwner: { 'id': result.shipOwner.id, 'description': result.shipOwner.description },
@@ -246,7 +246,7 @@ export class ShipFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(ship: ShipWriteDTO): void {
+    private saveRecord(ship: ShipWriteVM): void {
         if (ship.id === 0) {
             this.shipService.add(ship).subscribe(() => {
                 this.resetForm()

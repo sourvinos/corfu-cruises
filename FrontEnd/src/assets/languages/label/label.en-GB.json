@@ -7,11 +7,11 @@
                 "description": "Login"
             },
             {
-                "id": "usernameLabel",
+                "id": "username",
                 "description": "Username"
             },
             {
-                "id": "passwordLabel",
+                "id": "password",
                 "description": "Password"
             },
             {
@@ -465,7 +465,7 @@
                 "description": "Username"
             },
             {
-                "id": "displayName",
+                "id": "displayname",
                 "description": "Displayed name"
             },
             {
@@ -499,7 +499,7 @@
         ]
     },
     {
-        "feature": "registerUserForm",
+        "feature": "newUserForm",
         "labels": [
             {
                 "id": "header",
@@ -510,7 +510,7 @@
                 "description": "Username"
             },
             {
-                "id": "displayName",
+                "id": "displayname",
                 "description": "Displayed name"
             },
             {
@@ -576,12 +576,12 @@
         "feature": "reservationList",
         "labels": [
             {
-                "id": "headerForDate",
-                "description": "Reservations for "
+                "id": "header",
+                "description": "Daily reservations report"
             },
             {
-                "id": "headerForRefNo",
-                "description": "Reservation with Ref No "
+                "id": "tripDate",
+                "description": "Boat trip date"
             },
             {
                 "id": "summaryTab",
@@ -826,7 +826,7 @@
                 "description": "Email"
             },
             {
-                "id": "submitButton",
+                "id": "saveButton",
                 "description": "SUBMIT"
             },
             {
@@ -1101,7 +1101,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Schedule"
+                "description": "Monthly excursions program"
             }
         ]
     },
@@ -1450,8 +1450,8 @@
                 "description": "Destination"
             },
             {
-                "id": "vessel",
-                "description": "Vessel"
+                "id": "ship",
+                "description": "Ship"
             },
             {
                 "id": "searchButton",
@@ -1521,7 +1521,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Vessel manifest"
+                "description": "Ship manifest"
             },
             {
                 "id": "date",
@@ -1532,8 +1532,8 @@
                 "description": "Departure date"
             },
             {
-                "id": "vessel",
-                "description": "Vessel"
+                "id": "ship",
+                "description": "Ship"
             },
             {
                 "id": "destination",
@@ -1558,7 +1558,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Vessel manifest"
+                "description": "Ship manifest"
             },
             {
                 "id": "headerLastname",
@@ -1969,7 +1969,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Reservations"
+                "description": "Monthly booking calendar"
             }
         ]
     },

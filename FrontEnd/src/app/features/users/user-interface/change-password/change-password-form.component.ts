@@ -6,7 +6,7 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { ChangePasswordDTO } from '../../classes/dtos/change-password-dto'
+import { ChangePasswordViewModel } from '../../classes/view-models/change-password-view-model'
 import { ConfirmValidParentMatcher, ValidationService } from 'src/app/shared/services/validation.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -30,15 +30,14 @@ export class ChangePasswordFormComponent {
 
     //#region variables
 
-    private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
+    private unsubscribe = new Subject<void>()
     public feature = 'changePasswordForm'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/users'
 
-    private flatForm: ChangePasswordDTO
     public confirmValidParentMatcher = new ConfirmValidParentMatcher();
     public hidePassword = true
 
@@ -68,7 +67,7 @@ export class ChangePasswordFormComponent {
             this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
-                    this.onGoBack()
+                    this.goBack()
                     return true
                 }
             })
@@ -89,23 +88,8 @@ export class ChangePasswordFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onGoBack(): void {
-        this.router.navigate(['../'], { relativeTo: this.activatedRoute })
-    }
-
     public onSave(): void {
-        this.flattenFormFields()
-        this.userService.updatePassword(this.flatForm).subscribe(() => {
-            this.showSnackbar(this.messageSnackbarService.passwordChanged(), 'info')
-            this.resetForm()
-            this.accountService.logout()
-        }, errorFromInterceptor => {
-            // 200 = Ok
-            // 404 = User not found
-            // 494 = Unable to change password
-            // 500 = Invalid model
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-        })
+        this.saveRecord(this.flattenForm())
     }
 
     //#endregion
@@ -130,22 +114,32 @@ export class ChangePasswordFormComponent {
         })
     }
 
-    private flattenFormFields(): void {
-        this.flatForm = {
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
+    }
+
+    private flattenForm(): ChangePasswordViewModel {
+        const vm = {
             userId: this.form.value.userId,
             currentPassword: this.form.value.currentPassword,
             password: this.form.value.passwords.password,
             confirmPassword: this.form.value.passwords.confirmPassword
         }
+        return vm
     }
 
     private getRecord(id: string): void {
         this.userService.getSingle(id).subscribe(result => {
             this.populateFields(result)
         }, errorFromInterceptor => {
+            this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            this.onGoBack()
         })
+    }
+
+    private goBack(): void {
+        this.router.navigate(['../'], { relativeTo: this.activatedRoute })
     }
 
     private initForm(): void {
@@ -170,17 +164,22 @@ export class ChangePasswordFormComponent {
         this.form.reset()
     }
 
+    private saveRecord(vm: ChangePasswordViewModel): void {
+        this.userService.updatePassword(vm).subscribe(() => {
+            this.resetForm()
+            this.accountService.logout()
+            this.showSnackbar(this.messageSnackbarService.passwordChanged(), 'info')
+        }, errorFromInterceptor => {
+            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+        })
+    }
+
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private cleanup(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
     }
 
     //#endregion

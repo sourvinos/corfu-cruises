@@ -5,7 +5,6 @@ namespace API.Features.Reservations {
 
     public class ReservationWriteResource {
 
-        public int Id { get; set; }
         public Guid? ReservationId { get; set; }
         public int CustomerId { get; set; }
         public int DestinationId { get; set; }

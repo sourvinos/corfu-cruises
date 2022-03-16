@@ -7,11 +7,11 @@
                 "description": "Connexion"
             },
             {
-                "id": "usernameLabel",
+                "id": "username",
                 "description": "Utilisateur"
             },
             {
-                "id": "passwordLabel",
+                "id": "password",
                 "description": "Mot de passe"
             },
             {
@@ -465,7 +465,7 @@
                 "description": "Nom"
             },
             {
-                "id": "displayName",
+                "id": "displayname",
                 "description": "Nom apparu"
             },
             {
@@ -499,7 +499,7 @@
         ]
     },
     {
-        "feature": "registerUserForm",
+        "feature": "newUserForm",
         "labels": [
             {
                 "id": "header",
@@ -510,7 +510,7 @@
                 "description": "Utilisateur"
             },
             {
-                "id": "displayName",
+                "id": "displayname",
                 "description": "Nom apparu"
             },
             {
@@ -576,12 +576,12 @@
         "feature": "reservationList",
         "labels": [
             {
-                "id": "headerForDate",
-                "description": "Réservations pour "
+                "id": "header",
+                "description": "Rapport quotidien sur les réservations"
             },
             {
-                "id": "headerForRefNo",
-                "description": "Réservation avec Ref No "
+                "id": "tripDate",
+                "description": "Date de la sortie en bateau"
             },
             {
                 "id": "summaryTab",
@@ -826,8 +826,8 @@
                 "description": "Email"
             },
             {
-                "id": "submitButton",
-                "description": "SOUMISSION"
+                "id": "saveButton",
+                "description": "ENREGISTRER"
             },
             {
                 "id": "weNeedYourEmail",
@@ -1101,7 +1101,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Horaire"
+                "description": "Programme d'excursions mensuel"
             }
         ]
     },
@@ -1450,7 +1450,7 @@
                 "description": "Destination"
             },
             {
-                "id": "vessel",
+                "id": "ship",
                 "description": "Navire"
             },
             {
@@ -1532,7 +1532,7 @@
                 "description": "Date de départ"
             },
             {
-                "id": "vessel",
+                "id": "ship",
                 "description": "Navire"
             },
             {
@@ -1869,7 +1869,7 @@
                 "description": "Date de naissance"
             },
             {
-                "id": "vessel",
+                "id": "ship",
                 "description": "Navire"
             },
             {
@@ -1969,7 +1969,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Reservations"
+                "description": "Calendrier mensuel des réservations"
             }
         ]
     },

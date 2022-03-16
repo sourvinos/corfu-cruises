@@ -5,9 +5,9 @@ import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { CustomerReadDTO } from '../classes/dtos/customer-read-dto'
+import { CustomerReadVM } from '../classes/view-models/customer-read-vm'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
-import { CustomerWriteDTO } from '../classes/dtos/customer-write-dto'
+import { CustomerWriteVM } from '../classes/view-models/customer-write-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -132,7 +132,7 @@ export class CustomerFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private flattenForm(): CustomerWriteDTO {
+    private flattenForm(): CustomerWriteVM {
         const customer = {
             id: this.form.value.id,
             description: this.form.value.description,
@@ -172,7 +172,7 @@ export class CustomerFormComponent {
         })
     }
 
-    private populateFields(result: CustomerReadDTO): void {
+    private populateFields(result: CustomerReadVM): void {
         this.form.setValue({
             id: result.id,
             description: result.description,
@@ -189,7 +189,7 @@ export class CustomerFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(customer: CustomerWriteDTO): void {
+    private saveRecord(customer: CustomerWriteVM): void {
         if (customer.id === 0) {
             this.customerService.add(customer).subscribe(() => {
                 this.resetForm()

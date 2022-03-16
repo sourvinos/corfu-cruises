@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http'
+import { Guid } from 'guid-typescript'
 import { Observable } from 'rxjs'
 
 export class DataService {
@@ -20,7 +21,7 @@ export class DataService {
         return this.http.post<any>(this.url, formData)
     }
 
-    public update(id: string | number, formData: any): Observable<any> {
+    public update(id: string | number | Guid, formData: any): Observable<any> {
         if (id != undefined) {
             return this.http.put<any>(this.url + '/' + id, formData)
         }

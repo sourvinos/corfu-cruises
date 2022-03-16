@@ -5,7 +5,7 @@ import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { EmbarkationCompositeViewModel } from '../../classes/view-models/embarkation-composite-view-model'
+import { EmbarkationVM } from '../../classes/view-models/embarkation-vm'
 import { EmbarkationService } from '../../classes/services/embarkation.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -31,8 +31,8 @@ export class EmbarkationListComponent {
     private unlisten: Unlisten
     private windowTitle = 'Embarkation'
     public feature = 'embarkationList'
-    public filteredRecords: EmbarkationCompositeViewModel
-    public records: EmbarkationCompositeViewModel
+    public filteredRecords: EmbarkationVM
+    public records: EmbarkationVM
 
     private temp = []
     public customers = []

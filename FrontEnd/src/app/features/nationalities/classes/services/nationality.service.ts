@@ -4,7 +4,7 @@ import { Observable } from 'rxjs'
 // Custom
 import { DataService } from 'src/app/shared/services/data.service'
 import { environment } from 'src/environments/environment'
-import { NationalityDropdownDTO } from '../dtos/nationality-dropdown-dto'
+import { NationalityAutocompleteVM } from '../view-models/nationality-autocomplete-vm'
 
 @Injectable({ providedIn: 'root' })
 
@@ -16,8 +16,8 @@ export class NationalityService extends DataService {
 
     //#region public methods
 
-    getActiveForDropdown(): Observable<NationalityDropdownDTO[]> {
-        return this.http.get<NationalityDropdownDTO[]>(environment.apiUrl + '/nationalities/getActiveForDropdown')
+    getActiveForDropdown(): Observable<NationalityAutocompleteVM[]> {
+        return this.http.get<NationalityAutocompleteVM[]>(environment.apiUrl + '/nationalities/getActiveForDropdown')
     }
 
     //#endregion

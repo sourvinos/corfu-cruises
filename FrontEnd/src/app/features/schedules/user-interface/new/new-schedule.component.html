@@ -1,7 +1,7 @@
 <div id="form-wrapper">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [icon]="icon" [routerLink]="parentUrl"></home-button-and-title>
+        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="content">
@@ -19,8 +19,8 @@
             <mat-form-field>
                 <mat-label>{{ getLabel("dateRange") }}</mat-label>
                 <mat-date-range-input [formGroup]="form" [rangePicker]="picker">
-                    <input (dateInput)="onUpdateArrays()" [inputTabStop]="input" autocomplete="off" class="center" data-cy="fromDate" data-tabindex="3" formControlName="fromDate" id="fromDate" matInput matStartDate>
-                    <input (dateInput)="onUpdateArrays()" [inputTabStop]="input" autocomplete="off" class="center" data-cy="toDate" data-tabindex="4" formControlName="toDate" id="toDate" matEndDate matInput>
+                    <input (dateInput)="onUpdateArrays()" [inputTabStop]="input" class="center" data-cy="fromDate" data-tabindex="3" formControlName="fromDate" id="fromDate" matInput matStartDate>
+                    <input (dateInput)="onUpdateArrays()" [inputTabStop]="input" class="center" data-cy="toDate" data-tabindex="4" formControlName="toDate" id="toDate" matEndDate matInput>
                 </mat-date-range-input>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
@@ -49,13 +49,13 @@
 
 </div>
 
-<mat-autocomplete #destinations="matAutocomplete" [displayWith]="dropdownFields" autoActiveFirstOption>
+<mat-autocomplete #destinations="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
     <mat-option *ngFor="let option of filteredDestinations | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete #ports="matAutocomplete" [displayWith]="dropdownFields" autoActiveFirstOption>
+<mat-autocomplete #ports="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
     <mat-option *ngFor="let option of filteredPorts | async" [value]="option">
         {{ option.description }}
     </mat-option>

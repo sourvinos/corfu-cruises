@@ -6,9 +6,8 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { DriverReadDTO } from './../classes/dtos/driver-read-dto'
 import { DriverService } from '../classes/services/driver.service'
-import { DriverWriteDTO } from '../classes/dtos/driver-write-dto'
+import { DriverWriteVM } from '../classes/view-models/driver-write-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -17,6 +16,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { DriverReadVM } from '../classes/view-models/driver-read-vm'
 
 @Component({
     selector: 'driver-form',
@@ -132,7 +132,7 @@ export class DriverFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private flattenForm(): DriverWriteDTO {
+    private flattenForm(): DriverWriteVM {
         const driver = {
             id: this.form.value.id,
             description: this.form.value.description,
@@ -146,8 +146,8 @@ export class DriverFormComponent {
         this.driverService.getSingle(id).subscribe(result => {
             this.populateFields(result)
         }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             this.goBack()
+            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
         })
     }
 
@@ -164,7 +164,7 @@ export class DriverFormComponent {
         })
     }
 
-    private populateFields(result: DriverReadDTO): void {
+    private populateFields(result: DriverReadVM): void {
         this.form.setValue({
             id: result.id,
             description: result.description,
@@ -177,7 +177,7 @@ export class DriverFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(driver: DriverWriteDTO): void {
+    private saveRecord(driver: DriverWriteVM): void {
         if (driver.id === 0) {
             this.driverService.add(driver).subscribe(() => {
                 this.resetForm()

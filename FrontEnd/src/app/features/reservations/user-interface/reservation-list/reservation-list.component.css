@@ -32,6 +32,12 @@
     font-weight: var(--font-weight-sum-persons);
 }
 
+#totals #trip-date {
+    color: var(--color-reservation-list-date) !important;
+    margin: 0 1rem 0 2rem;
+    transform: scale(1.5, 2.5);
+}
+
 #footer {
     justify-content: space-between;
     margin: var(--gap) var(--footer-right-margin) var(--gap) var(--gap);

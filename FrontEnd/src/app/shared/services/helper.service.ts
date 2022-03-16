@@ -47,7 +47,7 @@ export class HelperService {
 
     public getDistinctRecords(records: any[], field: string): any[] {
         let unique = []
-        const array = []
+        const array: any[] = []
         unique = [... new Set(records.map(x => x[field]))]
         unique.forEach(element => {
             array.push({ label: element, value: element })
@@ -60,7 +60,7 @@ export class HelperService {
     }
 
     public populateTableFiltersDropdowns(records: any[], field: string): any[] {
-        const array = []
+        const array: any[] = []
         const elements = [... new Set(records.map(x => x[field]))]
         elements.forEach(element => {
             array.push({ label: element == '(EMPTY)' ? this.emojiService.getEmoji('wildcard') : element, value: element })

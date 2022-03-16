@@ -5,7 +5,7 @@ namespace API.Infrastructure.Identity {
     public class UserWriteResource {
 
         public string Id { get; set; }
-        public string Username { get; set; }
+        public string UserName { get; set; }
         public string Displayname { get; set; }
         public int? CustomerId { get; set; }
         public string Email { get; set; }

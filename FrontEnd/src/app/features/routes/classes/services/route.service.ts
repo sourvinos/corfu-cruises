@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { DataService } from 'src/app/shared/services/data.service'
-import { RouteDropdownDTO } from '../dtos/route-dropdown-dto'
+import { RouteDropdownVM } from '../view-models/route-dropdown-vm'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
@@ -16,8 +16,8 @@ export class RouteService extends DataService {
 
     //#region public methods
 
-    public getActiveForDropdown(): Observable<RouteDropdownDTO[]> {
-        return this.http.get<RouteDropdownDTO[]>(environment.apiUrl + '/routes/getActiveForDropdown')
+    public getActiveForDropdown(): Observable<RouteDropdownVM[]> {
+        return this.http.get<RouteDropdownVM[]>(environment.apiUrl + '/routes/getActiveForDropdown')
     }
 
     //#endregion

@@ -45,8 +45,6 @@ export class SearchByRefBoxComponent {
 
     public onSearchByRefNo() {
         const refNo = this.form.value.searchByRefNo
-        this.localStorageService.deleteItems(['date'])
-        this.localStorageService.saveItem('refNo', refNo)
         this.router.navigate(['reservations/byRefNo', refNo])
     }
 

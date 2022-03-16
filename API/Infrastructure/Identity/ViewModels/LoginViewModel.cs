@@ -5,7 +5,7 @@ namespace API.Infrastructure.Identity {
     public class LoginViewModel {
 
         [Required]
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

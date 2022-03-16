@@ -10,10 +10,6 @@
     font-weight: var(--font-weight-checkbox) !important;
 }
 
-.no-bottom-margin {
-    margin-bottom: 0 !important;
-}
-
 .mat-slide-toggle-bar {
     background-color: var(--color-slider-bar-inactive) !important;
 }

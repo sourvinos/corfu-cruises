@@ -1,11 +1,11 @@
 import pdfMake from 'pdfmake/build/pdfmake'
 import { Injectable } from '@angular/core'
 // Custom
-import { DriverReportDTO } from '../dtos/driver-report-dto'
+import { DriverReportVM } from '../view-models/driver-report-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
-import { ReportHeaderDTO } from '../dtos/report-header-dto'
-import { ReportReservationDTO } from '../dtos/report-reservation-dto'
+import { ReportHeaderVM } from '../view-models/report-header-vm'
+import { ReportReservationVM } from '../view-models/report-reservation-vm'
 import { ReservationService } from '../../services/reservation.service'
 
 @Injectable({ providedIn: 'root' })
@@ -14,7 +14,7 @@ export class DriverReportService {
 
     //#region variables
 
-    private driverReport: DriverReportDTO
+    private driverReport: DriverReportVM
 
     //#endregion
 
@@ -83,7 +83,7 @@ export class DriverReportService {
         let driverPersons: number[] = [0, 0, 0, 0]
         let pickupPointDescription = reservations[0].pickupPointDescription
         body.push(this.createTableHeaders())
-        reservations.forEach(((reservation: ReportReservationDTO) => {
+        reservations.forEach(((reservation: ReportReservationVM) => {
             let dataRow = []
             if (reservation.pickupPointDescription === pickupPointDescription) {
                 const { pickupPointCount: x, total: z } = this.addPersonsToPickupPoint(pickupPointCount, pickupPointPersons, reservation)
@@ -181,7 +181,7 @@ export class DriverReportService {
         return totals
     }
 
-    private replaceZerosWithBlanks(columns: any[], row: ReportReservationDTO, dataRow: any[], align: any[]): any {
+    private replaceZerosWithBlanks(columns: any[], row: ReportReservationVM, dataRow: any[], align: any[]): any {
         columns.forEach((element, index) => {
             if (row[element].toString() === '0') {
                 row[element] = ''
@@ -248,7 +248,7 @@ export class DriverReportService {
         }
     }
 
-    private mapHeaderFromAPI(response: any): ReportHeaderDTO {
+    private mapHeaderFromAPI(response: any): ReportHeaderVM {
         const header = {
             'date': response.date,
             'driverId': response.driverId,
@@ -258,9 +258,9 @@ export class DriverReportService {
         return header
     }
 
-    private mapReservationsFromAPI(response: any[]): ReportReservationDTO[] {
+    private mapReservationsFromAPI(response: any[]): ReportReservationVM[] {
         const reservations = []
-        response.forEach((reservation: ReportReservationDTO) => {
+        response.forEach((reservation: ReportReservationVM) => {
             reservations.push({
                 'time': reservation.time,
                 'ticketNo': reservation.ticketNo,

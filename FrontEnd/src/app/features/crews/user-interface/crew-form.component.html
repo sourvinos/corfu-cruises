@@ -1,7 +1,7 @@
 <div id="form-wrapper">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [icon]="icon" [routerLink]="parentUrl"></home-button-and-title>
+        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="content">
@@ -25,22 +25,19 @@
                     <mat-error *ngIf="birthdate.hasError('required')">{{ getHint("required") }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>{{ getLabel("ship") }}</mat-label>
-                    <input [inputTabStop]="input" [matAutocomplete]="ships" data-cy="ship" data-tabindex="4" formControlName="ship" matInput>
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ships" [placeholder]="getLabel('ship')" data-cy="ship-description" data-tabindex="4" formControlName="ship" matInput>                    
                     <mat-error *ngIf="ship.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
             </div>
             <div class="group-field">
                 <mat-form-field>
-                    <mat-label>{{ getLabel("nationality") }}</mat-label>
-                    <input [inputTabStop]="input" [matAutocomplete]="nationalities" data-cy="nationality" data-tabindex="5" formControlName="nationality" matInput>
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="nationalities" [placeholder]="getLabel('nationality')" data-cy="nationality-description" data-tabindex="5" formControlName="nationality" matInput>
                     <mat-error *ngIf="nationality.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="!nationality.hasError('required') && nationality.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>{{ getLabel("gender") }}</mat-label>
-                    <input [inputTabStop]="input" [matAutocomplete]="genders" data-cy="gender" data-tabindex="6" formControlName="gender" matInput>
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="genders" [placeholder]="getLabel('gender')" data-cy="gender-description" data-tabindex="6" formControlName="gender" matInput>
                     <mat-error *ngIf="gender.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="!gender.hasError('required') && gender.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
@@ -59,19 +56,19 @@
 
 </div>
 
-<mat-autocomplete #ships="matAutocomplete" [displayWith]="dropdownFields" autoActiveFirstOption>
+<mat-autocomplete #ships="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
     <mat-option *ngFor="let option of shipDropdown | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete #nationalities="matAutocomplete" [displayWith]="dropdownFields" autoActiveFirstOption>
+<mat-autocomplete #nationalities="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
     <mat-option *ngFor="let option of nationalityDropdown | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete #genders="matAutocomplete" [displayWith]="dropdownFields" autoActiveFirstOption>
+<mat-autocomplete #genders="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
     <mat-option *ngFor="let option of genderDropdown | async" [value]="option">
         {{ option.description }}
     </mat-option>

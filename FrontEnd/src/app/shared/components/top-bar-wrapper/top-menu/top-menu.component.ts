@@ -49,18 +49,20 @@ export class TopMenuComponent {
             {
                 label: this.getLabel(menuItems, 'calendar'),
                 icon: 'fas fa-calendar',
-                routerLink: ['schedules/calendar'],
+                routerLink: ['calendar-schedule'],
                 visible: this.isUserLoggedIn()
             },
             {
-                label: this.getUserDisplayName(),
+                label: this.getUserDisplayname(),
                 icon: 'fas fa-user-alt', visible: this.isUserLoggedIn(),
                 items: [
                     {
                         label: this.getLabel(menuItems, 'editAccount'),
                         icon: 'fas fa-pen-alt',
                         command: (): void => {
-                            this.router.navigate(['/users/edit'], { queryParams: { returnUrl: '/' } })
+                            this.getConnectedUserId().then((response) => {
+                                this.router.navigate(['/users/' + response], { queryParams: { returnUrl: '/' } })
+                            })
                         }
                     },
                     {
@@ -116,6 +118,16 @@ export class TopMenuComponent {
         return language
     }
 
+    private getConnectedUserId(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.accountService.getConnectedUserId().toPromise().then((response) => {
+                resolve(response.userId)
+            })
+        })
+        return promise
+    }
+
+
     private getLanguageIcon(): string {
         const flag = this.localStorageService.getLanguage() == '' ? this.doLanguageTasks('en-gb') : this.localStorageService.getLanguage()
         return 'flag ' + flag
@@ -125,14 +137,13 @@ export class TopMenuComponent {
         return this.messageMenuService.getDescription(response, 'menus', label)
     }
 
-    private getUserDisplayName(): string {
+    private getUserDisplayname(): string {
         let userDisplayName = ''
-        this.accountService.getUserDisplayName.subscribe(result => {
+        this.accountService.getUserDisplayname.subscribe(result => {
             userDisplayName = result
         })
         return userDisplayName
     }
-
 
     private isUserLoggedIn(): boolean {
         let isLoggedIn = false

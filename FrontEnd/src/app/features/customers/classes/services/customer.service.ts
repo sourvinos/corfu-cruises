@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
-import { CustomerDropdownDTO } from 'src/app/features/customers/classes/dtos/customer-dropdown-dto'
+import { CustomerDropdownVM } from 'src/app/features/customers/classes/view-models/customer-dropdown-vm'
 import { DataService } from 'src/app/shared/services/data.service'
 import { environment } from 'src/environments/environment'
 
@@ -16,8 +16,8 @@ export class CustomerService extends DataService {
 
     //#region public methods
 
-    public getActiveForDropdown(): Observable<CustomerDropdownDTO[]> {
-        return this.http.get<CustomerDropdownDTO[]>(environment.apiUrl + '/customers/getActiveForDropdown')
+    public getActiveForDropdown(): Observable<CustomerDropdownVM[]> {
+        return this.http.get<CustomerDropdownVM[]>(environment.apiUrl + '/customers/getActiveForDropdown')
     }
 
     //#endregion

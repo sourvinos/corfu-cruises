@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators'
 import { DataService } from './data.service'
 import { InteractionService } from './interaction.service'
 import { environment } from 'src/environments/environment'
+import { ResetPasswordViewModel } from 'src/app/features/users/classes/view-models/reset-password-view-model'
 
 @Injectable({ providedIn: 'root' })
 
@@ -14,7 +15,7 @@ export class AccountService extends DataService {
 
     //#region variables
 
-    private displayName = new BehaviorSubject<string>(localStorage.getItem('displayName'))
+    private displayname = new BehaviorSubject<string>(localStorage.getItem('displayname'))
     private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus())
     private apiUrl = environment.apiUrl
     private urlForgotPassword = this.apiUrl + '/account/forgotPassword'
@@ -89,8 +90,8 @@ export class AccountService extends DataService {
         return this.http.post<any>(this.urlRegister, formData)
     }
 
-    public resetPassword(email: string, password: string, confirmPassword: string, token: string): Observable<any> {
-        return this.http.post<any>(this.urlResetPassword, { email, password, confirmPassword, token })
+    public resetPassword(vm: ResetPasswordViewModel): Observable<any> {
+        return this.http.post<any>(this.urlResetPassword, { vm })
     }
 
     //#endregion
@@ -110,7 +111,7 @@ export class AccountService extends DataService {
     private clearLocalStorage(): void {
         this.clearLocalStorageItems([
             'date',
-            'displayName',
+            'displayname',
             'expiration',
             'jwt',
             'loginStatus',
@@ -135,7 +136,7 @@ export class AccountService extends DataService {
     }
 
     private setLocalStorage(response: any): void {
-        localStorage.setItem('displayName', response.displayname)
+        localStorage.setItem('displayname', response.displayname)
         localStorage.setItem('expiration', response.expiration)
         localStorage.setItem('jwt', response.token)
         localStorage.setItem('loginStatus', '1')
@@ -147,15 +148,15 @@ export class AccountService extends DataService {
     }
 
     private setUserData(): void {
-        this.displayName.next(localStorage.getItem('displayName'))
+        this.displayname.next(localStorage.getItem('displayname'))
     }
 
     //#endregion
 
     //#region getters
 
-    get getUserDisplayName(): Observable<string> {
-        return this.displayName.asObservable()
+    get getUserDisplayname(): Observable<string> {
+        return this.displayname.asObservable()
     }
 
     get isLoggedIn(): Observable<boolean> {

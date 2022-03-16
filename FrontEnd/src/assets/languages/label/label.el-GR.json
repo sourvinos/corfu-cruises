@@ -7,11 +7,11 @@
                 "description": "Σύνδεση"
             },
             {
-                "id": "usernameLabel",
+                "id": "username",
                 "description": "Χρήστης"
             },
             {
-                "id": "passwordLabel",
+                "id": "password",
                 "description": "Κωδικός"
             },
             {
@@ -465,7 +465,7 @@
                 "description": "Όνομα"
             },
             {
-                "id": "displayName",
+                "id": "displayname",
                 "description": "Εμφανιζόμενο όνομα"
             },
             {
@@ -499,7 +499,7 @@
         ]
     },
     {
-        "feature": "registerUserForm",
+        "feature": "newUserForm",
         "labels": [
             {
                 "id": "header",
@@ -510,7 +510,7 @@
                 "description": "Όνομα"
             },
             {
-                "id": "displayName",
+                "id": "displayname",
                 "description": "Εμφανιζόμενο όνομα"
             },
             {
@@ -576,12 +576,16 @@
         "feature": "reservationList",
         "labels": [
             {
-                "id": "headerForDate",
-                "description": "Κρατήσεις για "
+                "id": "header",
+                "description": "Ημερήσια κατάσταση κρατήσεων"
             },
             {
-                "id": "headerForRefNo",
-                "description": "Κράτηση με Ref No "
+                "id": "header",
+                "description": "Ημερήσια κατάσταση κρατήσεων"
+            },
+            {
+                "id": "tripDate",
+                "description": "Ημερομηνία εκδρομής"
             },
             {
                 "id": "summaryTab",
@@ -826,8 +830,8 @@
                 "description": "Email"
             },
             {
-                "id": "submitButton",
-                "description": "ΥΠΟΒΟΛΗ"
+                "id": "saveButton",
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             },
             {
                 "id": "weNeedYourEmail",
@@ -1101,7 +1105,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πρόγραμμα"
+                "description": "Μηνιαίο πρόγραμμα εκδρομών"
             }
         ]
     },
@@ -1450,7 +1454,7 @@
                 "description": "Προορισμός"
             },
             {
-                "id": "vessel",
+                "id": "ship",
                 "description": "Πλοίο"
             },
             {
@@ -1532,7 +1536,7 @@
                 "description": "Ημερ/νία αναχώρησης"
             },
             {
-                "id": "vessel",
+                "id": "ship",
                 "description": "Πλοίο"
             },
             {
@@ -1869,7 +1873,7 @@
                 "description": "Ημερ/νία γέννησης"
             },
             {
-                "id": "vessel",
+                "id": "ship",
                 "description": "Πλοίο"
             },
             {
@@ -1969,7 +1973,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Κρατήσεις"
+                "description": "Μηνιαίο ημερολόγιο κρατήσεων"
             }
         ]
     },

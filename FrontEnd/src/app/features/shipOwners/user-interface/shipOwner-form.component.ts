@@ -12,9 +12,9 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { ShipOwnerReadDTO } from '../classes/dtos/shipOwner-read-dto'
+import { ShipOwnerReadVM } from '../classes/view-models/shipOwner-read-vm'
 import { ShipOwnerService } from '../classes/services/shipOwner.service'
-import { ShipOwnerWriteDTO } from '../classes/dtos/shipOwner-write-dto'
+import { ShipOwnerWriteVM } from '../classes/view-models/shipOwner-write-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
@@ -132,7 +132,7 @@ export class ShipOwnerFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private flattenForm(): ShipOwnerWriteDTO {
+    private flattenForm(): ShipOwnerWriteVM {
         const shipOwner = {
             id: this.form.value.id,
             description: this.form.value.description,
@@ -151,8 +151,8 @@ export class ShipOwnerFormComponent {
         this.shipOwnerService.getSingle(id).subscribe(result => {
             this.populateFields(result)
         }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             this.goBack()
+            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
         })
     }
 
@@ -174,7 +174,7 @@ export class ShipOwnerFormComponent {
         })
     }
 
-    private populateFields(result: ShipOwnerReadDTO): void {
+    private populateFields(result: ShipOwnerReadVM): void {
         this.form.setValue({
             id: result.id,
             description: result.description,
@@ -192,7 +192,7 @@ export class ShipOwnerFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(shipOwner: ShipOwnerWriteDTO): void {
+    private saveRecord(shipOwner: ShipOwnerWriteVM): void {
         if (shipOwner.id === 0) {
             this.shipOwnerService.add(shipOwner).subscribe(() => {
                 this.resetForm()

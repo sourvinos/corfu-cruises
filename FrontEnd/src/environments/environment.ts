@@ -21,8 +21,8 @@ export const environment = {
         isHuman: true
     },
     newUser: {
-        username: '',
-        displayName: '',
+        userName: '',
+        displayname: '',
         email: '',
         password: '',
         confirmPassword: ''

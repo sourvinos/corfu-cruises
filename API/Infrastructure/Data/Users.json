@@ -2,7 +2,7 @@
 	{
 		"Id" : "4fcd7909-0569-45d9-8b78-2b24a7368e19",
 		"Discriminator" : "UserExtended",
-		"DisplayName" : "Marios",
+		"Displayname" : "Marios",
 		"IsAdmin" : 0,
 		"IsActive" : 0,
 		"CustomerId" : null,
@@ -24,7 +24,7 @@
 	{
 		"Id" : "544c9930-ad76-4aa9-bb1c-8dd193508e05",
 		"Discriminator" : "UserExtended",
-		"DisplayName" : "Nikoleta",
+		"Displayname" : "Nikoleta",
 		"IsAdmin" : 1,
 		"IsActive" : 0,
 		"CustomerId" : null,
@@ -46,7 +46,7 @@
 	{
 		"Id" : "7b8326ad-468f-4dbd-bf6d-820343d9e828",
 		"Discriminator" : "UserExtended",
-		"DisplayName" : "Matoula",
+		"Displayname" : "Matoula",
 		"IsAdmin" : 0,
 		"IsActive" : 1,
 		"CustomerId" : null,
@@ -68,7 +68,7 @@
 	{
 		"Id" : "e7e014fd-5608-4936-866e-ec11fc8c16da",
 		"Discriminator" : "UserExtended",
-		"DisplayName" : "John",
+		"Displayname" : "John",
 		"IsAdmin" : 1,
 		"IsActive" : 1,
 		"CustomerId" : null,

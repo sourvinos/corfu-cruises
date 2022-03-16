@@ -1,7 +1,7 @@
 <div id="form-wrapper">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [icon]="icon" [routerLink]="parentUrl"></home-button-and-title>
+        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="content">
@@ -9,8 +9,8 @@
             <div class="group-field">
                 <mat-form-field>
                     <input [inputTabStop]="input" [placeholder]="getLabel('description')" data-cy="description" data-tabindex="1" formControlName="description" id="description" matInput>
-                    <mat-error *ngIf="description.hasError('required')">{{ getHint('required') }}</mat-error>
-                    <mat-error *ngIf="description.hasError('maxlength')">{{ getHint('maxLength', description.errors.maxlength.requiredLength) }}</mat-error>
+                    <mat-error *ngIf="description.hasError('required')">{{ getHint("required") }}</mat-error>
+                    <mat-error *ngIf="description.hasError('maxlength')">{{ getHint("maxLength", description.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="shipOwners" [placeholder]="getLabel('shipOwner')" data-cy="shipOwner-description" data-tabindex="2" formControlName="shipOwner" matInput>
@@ -60,7 +60,7 @@
 
 </div>
 
-<mat-autocomplete #shipOwners="matAutocomplete" [displayWith]="dropdownShipOwnerFields" autoActiveFirstOption>
+<mat-autocomplete #shipOwners="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
     <mat-option *ngFor="let option of filteredShipOwners | async" [value]="option">
         {{ option.description }}
     </mat-option>

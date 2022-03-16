@@ -8,6 +8,7 @@
         "experimentalDecorators": true,
         "importHelpers": true,
         "resolveJsonModule": true,
+        "strict": false,
         "lib": [
             "es2018",
             "dom"

@@ -8,10 +8,8 @@ import { NewScheduleComponent } from '../../user-interface/new/new-schedule.comp
 import { ScheduleEditFormResolver } from '../resolvers/schedule-edit-form.resolver'
 import { ScheduleListComponent } from '../../user-interface/list/schedule-list.component'
 import { ScheduleListResolver } from '../resolvers/schedule-list.resolver'
-import { CalendarComponent } from '../../user-interface/calendar/calendar.component'
 
 const routes: Routes = [
-    { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuardService] },
     { path: '', component: ScheduleListComponent, canActivate: [AuthGuardService], resolve: { scheduleList: ScheduleListResolver } },
     { path: 'new', component: NewScheduleComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard] },
     { path: ':id', component: EditScheduleComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard], resolve: { scheduleEditForm: ScheduleEditFormResolver } }

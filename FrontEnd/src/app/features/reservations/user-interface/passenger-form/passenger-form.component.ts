@@ -4,25 +4,24 @@ import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Observable, Subject } from 'rxjs'
+import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DialogService } from 'src/app/shared/services/dialog.service'
+import { GenderAutocompleteVM } from 'src/app/features/genders/classes/view-models/gender-autocomplete-vm'
 import { GenderService } from 'src/app/features/genders/classes/services/gender.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { NationalityAutocompleteVM } from 'src/app/features/nationalities/classes/view-models/nationality-autocomplete-vm'
 import { NationalityService } from 'src/app/features/nationalities/classes/services/nationality.service'
-import { Passenger } from '../../classes/models/passenger'
-import { ReservationService } from '../../classes/services/reservation.service'
+import { PassengerReadVM } from '../../classes/view-models/passenger-read-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { map, startWith } from 'rxjs/operators'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import { NationalityDropdownDTO } from 'src/app/features/nationalities/classes/dtos/nationality-dropdown-dto'
-import { GenderDropdownDTO } from 'src/app/features/genders/classes/dtos/gender-dropdown-dto'
 
 @Component({
     selector: 'passenger-form',
@@ -35,31 +34,29 @@ export class PassengerFormComponent {
 
     //#region variables
 
-    private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
+    private unsubscribe = new Subject<void>()
     public feature = 'passengerForm'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public parentUrl = '/customers'
+    public parentUrl = null
 
-    public filteredGenders: Observable<GenderDropdownDTO[]>
-    public filteredNationalities: Observable<NationalityDropdownDTO[]>
+    public isAutoCompleteDisabled = true
+    public genderAutocomplete: Observable<GenderAutocompleteVM[]>
+    public nationalityAutocomplete: Observable<NationalityAutocompleteVM[]>
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: Passenger, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogRef: MatDialogRef<PassengerFormComponent>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private reservationService: ReservationService, private snackbarService: SnackbarService) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: PassengerReadVM, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogRef: MatDialogRef<PassengerFormComponent>, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private snackbarService: SnackbarService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.initForm()
         this.addShortcuts()
-        this.populateDropDowns()
+        this.populateDropdowns()
         this.populateFields(this.data)
-    }
-
-    ngAfterViewInit(): void {
         this.setLocale()
     }
 
@@ -72,8 +69,16 @@ export class PassengerFormComponent {
 
     //#region public methods
 
-    public dropdownFields(subject: { description: any }): any {
+    public autocompleteFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
+    }
+
+    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+        if (event.target.value == '') this.isAutoCompleteDisabled = true
+    }
+
+    public enableOrDisableAutoComplete(event: any) {
+        this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
 
     public getHint(id: string, minmax = 0): string {
@@ -82,27 +87,6 @@ export class PassengerFormComponent {
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
-    }
-
-    public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
-            if (response) {
-                this.reservationService.delete(this.form.value.reservationId).subscribe(() => {
-                    this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
-                    this.onGoBack()
-                    this.resetForm()
-                }, errorFromInterceptor => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-                })
-            }
-        })
-    }
-
-    public onGoBack(): void {
-        this.form.reset()
-        this.ngZone.run(() => {
-            this.dialogRef.close()
-        })
     }
 
     public onSave(): void {
@@ -117,9 +101,9 @@ export class PassengerFormComponent {
 
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': () => {
+            'Escape': (event: KeyboardEvent) => {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.onGoBack()
+                    this.buttonClickService.clickOnButton(event, 'goBack')
                 }
             },
             'Alt.S': (event: KeyboardEvent) => {
@@ -129,6 +113,11 @@ export class PassengerFormComponent {
             priority: 3,
             inputs: true
         })
+    }
+
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
     private assignNewIdToNewPassenger(id: any) {
@@ -141,7 +130,7 @@ export class PassengerFormComponent {
         return me
     }
 
-    private filterDropdownArray(array: string, field: string, value: any): any[] {
+    private filterAutocomplete(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
             return this[array].filter((element: { [x: string]: string }) =>
@@ -166,15 +155,22 @@ export class PassengerFormComponent {
         return passenger
     }
 
+    private goBack(): void {
+        this.form.reset()
+        this.ngZone.run(() => {
+            this.dialogRef.close()
+        })
+    }
+
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: this.data.id,
             reservationId: this.data.reservationId,
+            gender: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             nationality: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             lastname: ['', [Validators.required, Validators.maxLength(128)]],
             firstname: ['', [Validators.required, Validators.maxLength(128)]],
             birthdate: ['', [Validators.required, Validators.maxLength(10)]],
-            gender: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             specialCare: ['', Validators.maxLength(128)],
             remarks: ['', Validators.maxLength(128)],
             isCheckedIn: false,
@@ -187,7 +183,7 @@ export class PassengerFormComponent {
                 (response: any) => {
                     this[table] = response
                     resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterDropdownArray(table, modelProperty, value)))
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
                 }, (errorFromInterceptor: number) => {
                     this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 })
@@ -195,17 +191,17 @@ export class PassengerFormComponent {
         return promise
     }
 
-    private populateDropDowns(): void {
-        this.populateDropDown(this.nationalityService, 'nationalities', 'filteredNationalities', 'nationality', 'description')
-        this.populateDropDown(this.genderService, 'genders', 'filteredGenders', 'gender', 'description')
+    private populateDropdowns(): void {
+        this.populateDropDown(this.genderService, 'genders', 'genderAutocomplete', 'gender', 'description')
+        this.populateDropDown(this.nationalityService, 'nationalities', 'nationalityAutocomplete', 'nationality', 'description')
     }
 
-    private populateFields(result: Passenger): void {
+    private populateFields(result: PassengerReadVM): void {
         this.form.setValue({
             id: result.id,
             reservationId: result.reservationId,
-            nationality: result.nationality,
-            gender: result.gender,
+            gender: { 'id': result.gender.id, 'description': result.gender.description },
+            nationality: { 'id': result.nationality.id, 'description': result.nationality.description },
             lastname: result.lastname,
             firstname: result.firstname,
             birthdate: result.birthdate,
@@ -215,21 +211,12 @@ export class PassengerFormComponent {
         })
     }
 
-    private resetForm(): void {
-        this.form.reset()
-    }
-
     private setLocale() {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private cleanup(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
     }
 
     //#endregion

@@ -2,17 +2,20 @@
 import { NgModule } from '@angular/core'
 import { NoPreloading, RouterModule, Routes } from '@angular/router'
 // Components
-import { CreditsComponent } from '../features/credits/user-interface/credits.component'
 import { EmptyPageComponent } from '../shared/components/empty-page/empty-page.component'
-import { HomeComponent } from '../features/home/home.component'
+import { CalendarScheduleComponent } from '../features/calendar/user-interface/calendar-schedule.component'
 import { LoginFormComponent } from '../features/login/user-interface/login-form.component'
+import { HomeComponent } from '../features/home/home.component'
+import { CreditsComponent } from '../features/credits/user-interface/credits.component'
+import { ForgotPasswordFormComponent } from '../features/users/user-interface/forgot-password/forgot-password-form.component'
+import { ResetPasswordFormComponent } from '../features/users/user-interface/reset-password/reset-password-form.component'
 // Guards
 import { AuthGuardService } from '../shared/services/auth-guard.service'
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuardService], pathMatch: 'full' },
     { path: 'login', component: LoginFormComponent },
-    { path: 'account', loadChildren: () => import('../features/account/classes/account.module').then(m => m.AccountModule) },
+    { path: 'calendar-schedule', component: CalendarScheduleComponent, canActivate: [AuthGuardService] },
     { path: 'crews', loadChildren: () => import('../features/crews/classes/modules/crew.module').then(m => m.CrewModule) },
     { path: 'customers', loadChildren: () => import('../features/customers/classes/modules/customer.module').then(m => m.CustomerModule) },
     { path: 'destinations', loadChildren: () => import('../features/destinations/classes/modules/destination.module').then(m => m.DestinationModule) },
@@ -31,6 +34,8 @@ const appRoutes: Routes = [
     { path: 'shipRoutes', loadChildren: () => import('../features/shipRoutes/classes/modules/shipRoute.module').then(m => m.ShipRouteModule) },
     { path: 'ships', loadChildren: () => import('../features/ships/classes/modules/ship.module').then(m => m.ShipModule) },
     { path: 'users', loadChildren: () => import('../features/users/classes/modules/user.module').then(m => m.UserModule) },
+    { path: 'forgotPassword', component: ForgotPasswordFormComponent },
+    { path: 'resetPassword', component: ResetPasswordFormComponent },
     { path: 'credits', component: CreditsComponent },
     { path: '**', component: EmptyPageComponent }
 ]

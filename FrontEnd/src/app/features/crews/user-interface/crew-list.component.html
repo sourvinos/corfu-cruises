@@ -1,7 +1,7 @@
 <div id="list">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [icon]="icon" [routerLink]="parentUrl"></home-button-and-title>
+        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="table-wrapper">
@@ -19,7 +19,7 @@
                     <th style="min-width: 25%; max-width: 25%;">
                         <p-columnFilter style="width: 100%;" field="shipDescription" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown data-cy="filter-ship" [ngModel]="value" [options]="dropdownShips" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                <p-dropdown data-cy="filter-ship" [ngModel]="value" [options]="autocompleteShips" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                     <ng-template let-option pTemplate="item">
                                         <span>{{ option.label }}</span>
                                     </ng-template>

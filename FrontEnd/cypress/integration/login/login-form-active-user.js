@@ -16,8 +16,8 @@ context('Login', () => {
             cy.buttonShouldBeEnabled('forgotPassword')
         })
 
-        it('Give the username', () => {
-            cy.typeNotRandomChars('username', 'john').elementShouldBeValid('username')
+        it('Give the userName', () => {
+            cy.typeNotRandomChars('userName', 'john').elementShouldBeValid('userName')
         })
 
         it('Login should be disabled', () => {

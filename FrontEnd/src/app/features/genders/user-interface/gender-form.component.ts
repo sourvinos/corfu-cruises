@@ -6,9 +6,9 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { GenderReadDTO } from './../classes/dtos/gender-read-dto'
+import { GenderReadVM } from '../classes/view-models/gender-read-vm'
 import { GenderService } from '../classes/services/gender.service'
-import { GenderWriteDTO } from '../classes/dtos/gender-write-dto'
+import { GenderWriteVM } from '../classes/view-models/gender-write-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -132,7 +132,7 @@ export class GenderFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private flattenForm(): GenderWriteDTO {
+    private flattenForm(): GenderWriteVM {
         const gender = {
             id: this.form.value.id,
             description: this.form.value.description,
@@ -145,8 +145,8 @@ export class GenderFormComponent {
         this.genderService.getSingle(id).subscribe(result => {
             this.populateFields(result)
         }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             this.goBack()
+            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
         })
     }
 
@@ -162,7 +162,7 @@ export class GenderFormComponent {
         })
     }
 
-    private populateFields(result: GenderReadDTO): void {
+    private populateFields(result: GenderReadVM): void {
         this.form.setValue({
             id: result.id,
             description: result.description,
@@ -174,7 +174,7 @@ export class GenderFormComponent {
         this.form.reset()
     }
     
-    private saveRecord(gender: GenderWriteDTO): void {
+    private saveRecord(gender: GenderWriteVM): void {
         if (gender.id === 0) {
             this.genderService.add(gender).subscribe(() => {
                 this.resetForm()

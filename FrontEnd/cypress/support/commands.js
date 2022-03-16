@@ -5,12 +5,12 @@ Cypress.Commands.add('login', () => {
         url: Cypress.config().apiUrl + '/auth/auth',
         method: 'POST',
         body: {
-            username: 'john',
+            userName: 'john',
             password: 'ec11fc8c16da',
             grantType: 'password'
         }
     }).then(response => {
-        cy.setLocalStorage('displayName', response.displayname)
+        cy.setLocalStorage('displayname', response.displayname)
         cy.setLocalStorage('expiration', response.expiration)
         cy.setLocalStorage('jwt', response.token)
         cy.setLocalStorage('loginStatus', '1')

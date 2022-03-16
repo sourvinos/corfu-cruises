@@ -1,7 +1,7 @@
 <div id="form-wrapper">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [icon]="icon" [routerLink]="parentUrl"></home-button-and-title>
+        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="content">
@@ -58,7 +58,7 @@
 
 </div>
 
-<mat-autocomplete #routes="matAutocomplete" [displayWith]="dropdownRouteFields" autoActiveFirstOption>
+<mat-autocomplete #routes="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
     <mat-option *ngFor="let option of filteredRoutes | async" [value]="option">
         {{ option.abbreviation }}
     </mat-option>

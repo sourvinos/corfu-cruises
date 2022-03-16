@@ -1,7 +1,7 @@
-import { Manifest } from '../view-models/manifest'
+import { ManifestVM } from '../view-models/manifest-vm'
 
 export class ManifestListResolved {
 
-    constructor(public result: Manifest, public error: any = null) { }
+    constructor(public result: ManifestVM, public error: any = null) { }
 
 }

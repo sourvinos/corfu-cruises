@@ -24,7 +24,7 @@ namespace API.Infrastructure.Email {
             var body = EmailMessages.FirstLoginCredentials(model.Language);
 
             htmlContent += "<h1 style = 'font-weight: 500;'><span style = 'color: #0078d7;'>Corfu</span><span style = 'color: #5db2ff;'> Cruises</span></h1>";
-            htmlContent += "<p>" + body[0] + model.DisplayName + "!</p>";
+            htmlContent += "<p>" + body[0] + model.Displayname + "!</p>";
             htmlContent += "<p>" + body[1] + "</p>";
             htmlContent += "<p>" + body[2] + model.UserName + "</p>";
             htmlContent += "<p>" + body[3] + model.Password + "</p>";
@@ -41,8 +41,8 @@ namespace API.Infrastructure.Email {
             htmlContent += "<p>" + body[9] + "</p>";
             htmlContent += "<p>Corfu Cruises " + DateTime.Now.ToString("yyyy") + "</p>";
 
-            message.From.Add(new MailboxAddress(settings.From, settings.Username));
-            message.To.Add(new MailboxAddress(model.DisplayName, model.Email));
+            message.From.Add(new MailboxAddress(settings.From, settings.UserName));
+            message.To.Add(new MailboxAddress(model.Displayname, model.Email));
             message.Subject = body[10];
             message.Body = new TextPart("html") {
                 Text = htmlContent
@@ -50,7 +50,7 @@ namespace API.Infrastructure.Email {
 
             using (var client = new MailKit.Net.Smtp.SmtpClient()) {
                 client.Connect(settings.SmtpClient, settings.Port, false);
-                client.Authenticate(settings.Username, settings.Password);
+                client.Authenticate(settings.UserName, settings.Password);
                 client.Send(message);
                 client.Disconnect(true);
             }
@@ -67,13 +67,13 @@ namespace API.Infrastructure.Email {
             };
 
             message.Body = builder.ToMessageBody();
-            message.From.Add(new MailboxAddress(settings.From, settings.Username));
+            message.From.Add(new MailboxAddress(settings.From, settings.UserName));
             message.To.Add(new MailboxAddress(displayName, userEmail));
             message.Subject = "Your request for new password";
 
             using (var client = new MailKit.Net.Smtp.SmtpClient()) {
                 client.Connect(settings.SmtpClient, settings.Port, false);
-                client.Authenticate(settings.Username, settings.Password);
+                client.Authenticate(settings.UserName, settings.Password);
                 client.Send(message);
                 client.Disconnect(true);
             }
@@ -96,7 +96,7 @@ namespace API.Infrastructure.Email {
                     FileName = Path.GetFileName($@"Vouchers\\Voucher{voucher.TicketNo}.pdf")
                 };
 
-                message.From.Add(new MailboxAddress("", settings.Username));
+                message.From.Add(new MailboxAddress("", settings.UserName));
                 message.To.Add(new MailboxAddress("", voucher.Email));
                 message.Subject = "Your Reservation With " + settings.From + " Is Ready!";
 
@@ -105,7 +105,7 @@ namespace API.Infrastructure.Email {
 
                 using (var client = new MailKit.Net.Smtp.SmtpClient()) {
                     client.Connect(settings.SmtpClient, settings.Port, false);
-                    client.Authenticate(settings.Username, settings.Password);
+                    client.Authenticate(settings.UserName, settings.Password);
                     client.Send(message);
                     client.Disconnect(true);
                 }

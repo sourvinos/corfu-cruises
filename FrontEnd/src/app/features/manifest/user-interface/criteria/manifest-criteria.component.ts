@@ -1,3 +1,4 @@
+import { DestinationDropdownVM } from './../../../destinations/classes/view-models/destination-dropdown-vm';
 import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
@@ -8,7 +9,7 @@ import { Title } from '@angular/platform-browser'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { Destination } from '../../../destinations/classes/models/destination'
+import { ShipDropdownVM } from '../../../ships/classes/view-models/ship-dropdown-vm'
 import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -19,7 +20,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { Port } from 'src/app/features/ports/classes/models/port'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
-import { Ship } from 'src/app/features/ships/classes/models/ship'
 import { ShipRoute } from 'src/app/features/shipRoutes/classes/models/shipRoute'
 import { ShipRouteService } from 'src/app/features/shipRoutes/classes/services/shipRoute.service'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
@@ -44,13 +44,13 @@ export class ManifestCriteriaComponent {
     public feature = 'manifestCriteria'
     public input: InputTabStopDirective
     public form: FormGroup
-    public destinations: Destination[] = []
+    public destinations: DestinationDropdownVM[] = []
     public ports: Port[] = []
-    public vessels: Ship[] = []
+    public vessels: ShipDropdownVM[] = []
     public routes: ShipRoute[]
-    public filteredDestinations: Observable<Destination[]>
+    public filteredDestinations: Observable<DestinationDropdownVM[]>
     public filteredPorts: Observable<Port[]>
-    public filteredVessels: Observable<Ship[]>
+    public filteredVessels: Observable<ShipDropdownVM[]>
     public filteredRoutes: Observable<ShipRoute[]>
 
     //#endregion
@@ -81,11 +81,11 @@ export class ManifestCriteriaComponent {
 
     //#region public methods
 
-    public dropdownFields(subject: { description: any }): any {
+    public autocompleteFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
 
-    public onGetHint(id: string, minmax = 0): string {
+    public getHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
     }
 

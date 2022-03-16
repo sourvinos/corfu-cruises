@@ -8,11 +8,11 @@ import { ButtonClickService } from 'src/app/shared/services/button-click.service
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
-import { ManifestViewModel } from '../../classes/view-models/manifest-view-model'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { ManifestListVM } from '../../classes/view-models/manifest-list-vm'
 
 @Component({
     selector: 'manifest-list',
@@ -33,9 +33,9 @@ export class ManifestListComponent {
     private windowTitle = 'Manifest'
     public crewCount = 0
     public feature = 'manifestList'
-    public filteredRecords: ManifestViewModel
+    public filteredRecords: ManifestListVM
     public passengerCount = 0
-    public records: ManifestViewModel
+    public records: ManifestListVM
     public selectedShipRoute: any
 
     public genders = []

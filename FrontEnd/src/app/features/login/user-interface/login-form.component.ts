@@ -7,8 +7,6 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { AccountService } from '../../../shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DeviceDetectorService } from 'ngx-device-detector'
-import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -30,19 +28,19 @@ export class LoginFormComponent {
 
     //#region variables
 
-    private feature = 'loginForm'
-    private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private url = '/'
-    private windowTitle = 'Login'
-    public environment = environment.production
+    private unsubscribe = new Subject<void>()
+    public feature = 'loginForm'
     public form: FormGroup
-    public hidePassword = true
+    public icon = ''
     public input: InputTabStopDirective
+    public parentUrl = null
+
+    public hidePassword = true
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private deviceDetectorService: DeviceDetectorService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -53,8 +51,7 @@ export class LoginFormComponent {
     }
 
     ngOnDestroy(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -70,16 +67,8 @@ export class LoginFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public isFakeMobile(): boolean {
-        return this.helperService.deviceDetector() == 'mobile'
-    }
-
-    public isMobile(): boolean {
-        return this.deviceDetectorService.getDeviceInfo().deviceType == 'mobile'
-    }
-
     public onForgotPassword(): void {
-        this.router.navigate(['/account/forgotPassword'])
+        this.router.navigate(['forgotPassword'])
     }
 
     public onLogin(): void {
@@ -110,6 +99,11 @@ export class LoginFormComponent {
         })
     }
 
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
+    }
+
     private configureIdle(): void {
         idleService.configure({
             timeToIdle: 3600,
@@ -124,7 +118,7 @@ export class LoginFormComponent {
     }
 
     private goHome(): void {
-        this.router.navigate([this.url])
+        this.router.navigate(['/'])
     }
 
     private initForm(): void {
@@ -136,7 +130,7 @@ export class LoginFormComponent {
     }
 
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle())
     }
 
     private showError(error: any): void {

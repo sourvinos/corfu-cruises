@@ -9,7 +9,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 // Custom
 import { DataService } from 'src/app/shared/services/data.service'
 import { LogoService } from './logo.service'
-import { VoucherViewModel } from '../view-models/voucher/voucher-view-model'
+import { VoucherVM } from '../view-models/voucher-vm'
 
 @Injectable({ providedIn: 'root' })
 
@@ -21,7 +21,7 @@ export class VoucherService extends DataService {
 
     //#region public methods
 
-    public createVoucherOnClient(voucher: VoucherViewModel): void {
+    public createVoucherOnClient(voucher: VoucherVM): void {
         const rows = []
         rows.push([{ text: '' }, { text: '' }])
         rows.push([{ text: 'Passengers', colSpan: 2, alignment: 'center', fontSize: 18 }])

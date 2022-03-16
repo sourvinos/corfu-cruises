@@ -33,8 +33,8 @@ namespace API.Infrastructure.Identity {
         public async Task<IActionResult> Register([FromBody] RegisterViewModel formData) {
             if (ModelState.IsValid) {
                 var user = new UserExtended {
-                    UserName = formData.Username,
-                    DisplayName = formData.Displayname,
+                    UserName = formData.UserName,
+                    Displayname = formData.Displayname,
                     CustomerId = formData.CustomerId,
                     Email = formData.Email,
                     IsAdmin = formData.IsAdmin,
@@ -65,7 +65,7 @@ namespace API.Infrastructure.Identity {
                     string tokenEncoded = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
                     string baseUrl = $"{model.ReturnUrl}";
                     string passwordResetLink = Url.Content($"{baseUrl}/#/account/resetPassword?email={model.Email}&token={tokenEncoded}");
-                    emailSender.SendResetPasswordEmail(user.DisplayName, user.Email, passwordResetLink, model.Language);
+                    emailSender.SendResetPasswordEmail(user.Displayname, user.Email, passwordResetLink, model.Language);
                     return StatusCode(200, new { response = ApiMessages.EmailInstructions() });
                 }
                 return StatusCode(200, new { response = ApiMessages.EmailInstructions() });

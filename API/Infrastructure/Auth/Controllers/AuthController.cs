@@ -58,7 +58,7 @@ namespace API.Infrastructure.Auth {
         }
 
         private async Task<IActionResult> GenerateNewToken(TokenRequest model) {
-            var user = await userManager.FindByNameAsync(model.Username);
+            var user = await userManager.FindByNameAsync(model.UserName);
             if (user?.IsActive == true && await userManager.CheckPasswordAsync(user, model.Password)) {
                 var newRefreshToken = CreateRefreshToken(settings.ClientId, user.Id);
                 var oldRefreshTokens = db.Tokens.Where(rt => rt.UserId == user.Id);
@@ -115,7 +115,7 @@ namespace API.Infrastructure.Auth {
             var encodedToken = tokenHandler.WriteToken(newtoken);
             return new TokenResponse() {
                 UserId = user.Id,
-                Displayname = user.DisplayName,
+                Displayname = user.Displayname,
                 Token = encodedToken,
                 RefreshToken = refreshToken,
                 Expiration = newtoken.ValidTo,

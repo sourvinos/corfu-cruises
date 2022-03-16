@@ -1,7 +1,7 @@
 <div id="form-wrapper">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [icon]="icon" [routerLink]="parentUrl"></home-button-and-title>
+        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="content">
@@ -20,7 +20,7 @@
                 <mat-form-field>
                     <input [inputTabStop]="input" [placeholder]="getLabel('fromTime')" data-cy="fromTime" data-tabindex="3" formControlName="fromTime" id="fromTime" matInput>
                     <mat-error *ngIf="fromTime.hasError('required')">{{ getHint("required") }}</mat-error>
-                    <mat-error *ngIf="!fromTime.hasError('required') && !fromTime.hasError('isTime')">{{ getHint('invalid') }}</mat-error>
+                    <mat-error *ngIf="!fromTime.hasError('required') && !fromTime.hasError('isTime')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
             </div>
             <div class="group-field">
@@ -30,7 +30,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <input [inputTabStop]="input" [placeholder]="getLabel('viaTime')" data-cy="viaTime" data-tabindex="5" formControlName="viaTime" id="viaTime" matInput>
-                    <mat-error *ngIf="!viaTime.hasError('required') && !viaTime.hasError('isTime')">{{ getHint('invalid') }}</mat-error>
+                    <mat-error *ngIf="!viaTime.hasError('required') && !viaTime.hasError('isTime')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
             </div>
             <div class="group-field">
@@ -42,7 +42,7 @@
                 <mat-form-field>
                     <input [inputTabStop]="input" [placeholder]="getLabel('toTime')" data-cy="toTime" data-tabindex="7" formControlName="toTime" id="toTime" matInput>
                     <mat-error *ngIf="toTime.hasError('required')">{{ getHint("required") }}</mat-error>
-                    <mat-error *ngIf="!toTime.hasError('required') && !toTime.hasError('isTime')">{{ getHint('invalid') }}</mat-error>
+                    <mat-error *ngIf="!toTime.hasError('required') && !toTime.hasError('isTime')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
             </div>
             <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ getLabel("isActive") }}</mat-slide-toggle>

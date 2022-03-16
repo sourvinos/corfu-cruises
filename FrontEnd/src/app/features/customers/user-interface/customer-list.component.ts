@@ -29,6 +29,7 @@ export class CustomerListComponent {
     public feature = 'customerList'
     public icon = 'home'
     public parentUrl = '/'
+
     public records = []
 
     //#endregion

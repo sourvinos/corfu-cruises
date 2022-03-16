@@ -1,11 +1,16 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
-import { MenuItem, MessageService } from 'primeng/api'
 import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
+import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
+import { ShipRouteDropdownVM } from './../../../shipRoutes/classes/view-models/shipRoute-dropdown-vm'
+import { RouteDropdownVM } from './../../../routes/classes/view-models/route-dropdown-vm'
+import { PortDropdownVM } from './../../../ports/classes/view-models/port-dropdown-vm'
+import { DriverDropdownVM } from './../../../drivers/classes/view-models/driver-dropdown-vm'
+import { CustomerDropdownVM } from './../../../customers/classes/view-models/customer-dropdown-vm'
 import { DriverReportService } from '../../classes/driver-report/services/driver-report.service'
 import { DriverService } from 'src/app/features/drivers/classes/services/driver.service'
 import { EmojiService } from './../../../../shared/services/emoji.service'
@@ -13,20 +18,20 @@ import { HelperService } from './../../../../shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { ReservationGroupResource } from '../../classes/resources/list/reservation-group-resource'
+import { ReservationGroupVM } from '../../classes/resources/list/reservation-group-vm'
 import { ReservationService } from './../../classes/services/reservation.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
-import { ReservationToVesselComponent } from '../reservation-to-vessel/reservation-to-vessel-form.component'
+import { ReservationToShipComponent } from '../reservation-to-ship/reservation-to-ship-form.component'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { PickupPointDropdownVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
 
 @Component({
     selector: 'reservation-list',
     templateUrl: './reservation-list.component.html',
     styleUrls: ['../../../../../assets/styles/lists.css', './reservation-list.component.css'],
-    animations: [slideFromLeft, slideFromRight],
-    providers: [MessageService]
+    animations: [slideFromLeft, slideFromRight]
 })
 
 export class ReservationListComponent {
@@ -35,25 +40,27 @@ export class ReservationListComponent {
 
     @ViewChild('table') table: Table | undefined
 
-    private baseUrl = '/reservations'
-    private url = ''
-    private ngUnsubscribe = new Subject<void>()
+    public parentUrl = '/reservations'
     private resolver = 'reservationList'
+    private unsubscribe = new Subject<void>()
+    public icon = 'arrow_back'
+    private url = ''
     private windowTitle = 'Reservations'
-    public activePanel: string
-    public customers = []
-    public destinations = []
-    public drivers = []
     public feature = 'reservationList'
+
+
     public highlighted: any
-    public items: MenuItem[]
-    public pickupPoints = []
-    public ports = []
-    public records = new ReservationGroupResource()
-    public routes = []
+    public records = new ReservationGroupVM()
     public selectedRecords = []
-    public ships = []
     public totals: any[] = []
+
+    public dropdownCustomers: CustomerDropdownVM[] = []
+    public dropdownDestinations: DestinationDropdownVM[] = []
+    public dropdownDrivers: DriverDropdownVM[] = []
+    public dropdownPickupPoints: PickupPointDropdownVM[] = []
+    public dropdownPorts: PortDropdownVM[] = []
+    public dropdownRoutes: RouteDropdownVM[] = []
+    public dropdownShips: ShipRouteDropdownVM[] = []
 
     //#endregion
 
@@ -62,6 +69,7 @@ export class ReservationListComponent {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
                 this.loadRecords()
+                this.storeDate()
             }
         })
     }
@@ -76,8 +84,8 @@ export class ReservationListComponent {
     }
 
     ngOnDestroy(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
     //#endregion
@@ -110,7 +118,7 @@ export class ReservationListComponent {
     public assignToShip(): void {
         if (this.isAnyRowSelected()) {
             this.saveSelectedIds()
-            const dialogRef = this.dialog.open(ReservationToVesselComponent, {
+            const dialogRef = this.dialog.open(ReservationToShipComponent, {
                 height: '550px',
                 width: '500px',
                 data: {
@@ -139,8 +147,7 @@ export class ReservationListComponent {
     }
 
     public createPdf(): void {
-        const driverIds = this.getDistinctDriverIds(this.records.reservations)
-        this.driverReportService.doReportTasks(driverIds)
+        this.driverReportService.doReportTasks(this.getDistinctDriverIds(this.records.reservations))
     }
 
     public doResetTableTasks(table: { reset: () => void }): void {
@@ -151,9 +158,9 @@ export class ReservationListComponent {
         this.updateTotals()
     }
 
-    public editRecord(id: string): void {
+    public onEditRecord(id: string): void {
         this.localStorageService.saveItem('returnUrl', this.url)
-        this.router.navigate([this.baseUrl, id])
+        this.router.navigate([this.parentUrl, id])
     }
 
     public formatDateToLocale() {
@@ -178,7 +185,7 @@ export class ReservationListComponent {
 
     public newRecord(): void {
         this.localStorageService.saveItem('returnUrl', this.url)
-        this.router.navigate([this.baseUrl, 'new'])
+        this.router.navigate([this.parentUrl, 'new'])
     }
 
     public onGoBack(): void {
@@ -193,13 +200,8 @@ export class ReservationListComponent {
         this.totals[2].sum -= event.data.totalPersons
     }
 
-    public showDateOrRefNoInHeader(): string {
-        if (this.localStorageService.getItem('refNo')) {
-            return this.getLabel('headerForRefNo') + this.formatRefNo(this.localStorageService.getItem('refNo'))
-        }
-        else {
-            return this.getLabel('headerForDate') + this.formatDateToLocale()
-        }
+    public showDate(): string {
+        return this.formatDateToLocale()
     }
 
     public toggleVisibleRows(): void {
@@ -254,7 +256,7 @@ export class ReservationListComponent {
         }
     }
 
-    private getDistinctDriverIds(reservations): any[] {
+    private getDistinctDriverIds(reservations: any): any[] {
         const driverIds = []
         const x = [... new Set(reservations.map((x: { driverId: any }) => x.driverId))]
         x.forEach(element => {
@@ -264,18 +266,17 @@ export class ReservationListComponent {
     }
 
     private goBack(): void {
-        this.router.navigate([this.baseUrl])
+        this.router.navigate([this.parentUrl])
     }
 
     private populateDropdowns(): void {
-        this.destinations = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'destinationDescription')
-        this.routes = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'routeAbbreviation')
-        this.routes = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'routeAbbreviation')
-        this.customers = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'customerDescription')
-        this.pickupPoints = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'pickupPointDescription')
-        this.drivers = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'driverDescription')
-        this.ports = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'portDescription')
-        this.ships = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'shipDescription')
+        this.dropdownCustomers = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'customerDescription')
+        this.dropdownDestinations = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'destinationDescription')
+        this.dropdownDrivers = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'driverDescription')
+        this.dropdownPickupPoints = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'pickupPointDescription')
+        this.dropdownPorts = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'portDescription')
+        this.dropdownRoutes = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'routeAbbreviation')
+        this.dropdownShips = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'shipDescription')
     }
 
     private resetTable(table: { reset: any }): void {
@@ -300,6 +301,10 @@ export class ReservationListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
+    }
+
+    private storeDate(): void {
+        this.localStorageService.saveItem('date', this.records.reservations[0].date)
     }
 
     private updateTotals(): void {

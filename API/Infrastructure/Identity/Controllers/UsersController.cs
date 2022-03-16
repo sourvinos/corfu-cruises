@@ -32,7 +32,7 @@ namespace API.Infrastructure.Identity {
             return await userManager.Users.Select(u => new UserListViewModel {
                 Id = u.Id,
                 UserName = u.UserName,
-                DisplayName = u.DisplayName,
+                Displayname = u.Displayname,
                 Email = u.Email,
                 IsAdmin = u.IsAdmin,
                 IsActive = u.IsActive
@@ -54,7 +54,7 @@ namespace API.Infrastructure.Identity {
             UserReadResource vm = new() {
                 Id = record.Id,
                 UserName = record.UserName,
-                DisplayName = record.DisplayName,
+                Displayname = record.Displayname,
                 Customer = new SimpleResource {
                     Id = (record.Customer?.Id) ?? 0,
                     Description = (record.Customer?.Description) ?? "(EMPTY)"
@@ -107,8 +107,8 @@ namespace API.Infrastructure.Identity {
         }
 
         private async Task<IdentityResult> UpdateUser(UserExtended user, UserWriteResource record) {
-            user.UserName = record.Username;
-            user.DisplayName = record.Displayname;
+            user.UserName = record.UserName;
+            user.Displayname = record.Displayname;
             user.CustomerId = record.CustomerId == 0 ? null : record.CustomerId;
             user.Email = record.Email;
             user.IsAdmin = record.IsAdmin;

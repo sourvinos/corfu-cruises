@@ -8,11 +8,11 @@ import { Title } from '@angular/platform-browser'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { CrewReadDTO } from '../classes/dtos/crew-read-dto'
+import { CrewReadVM } from '../classes/view-models/crew-read-vm'
 import { CrewService } from '../classes/services/crew.service'
-import { CrewWriteDTO } from '../classes/dtos/crew-write-dto'
+import { CrewWriteVM } from '../classes/view-models/crew-write-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { GenderDropdownDTO } from '../../genders/classes/dtos/gender-dropdown-dto'
+import { GenderAutocompleteVM } from '../../genders/classes/view-models/gender-autocomplete-vm'
 import { GenderService } from 'src/app/features/genders/classes/services/gender.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -22,9 +22,9 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { NationalityDropdownDTO } from '../../nationalities/classes/dtos/nationality-dropdown-dto'
+import { NationalityAutocompleteVM } from '../../nationalities/classes/view-models/nationality-autocomplete-vm'
 import { NationalityService } from 'src/app/features/nationalities/classes/services/nationality.service'
-import { ShipDropdownDTO } from '../../ships/classes/dtos/ship-dropdown-dto'
+import { ShipDropdownVM } from '../../ships/classes/view-models/ship-dropdown-vm'
 import { ShipService } from '../../ships/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
@@ -49,9 +49,10 @@ export class CrewFormComponent {
     public input: InputTabStopDirective
     public parentUrl = '/crews'
 
-    public genderDropdown: Observable<GenderDropdownDTO[]>
-    public nationalityDropdown: Observable<NationalityDropdownDTO[]>
-    public shipDropdown: Observable<ShipDropdownDTO[]>
+    public isAutoCompleteDisabled = true
+    public genderDropdown: Observable<GenderAutocompleteVM[]>
+    public nationalityDropdown: Observable<NationalityAutocompleteVM[]>
+    public shipDropdown: Observable<ShipDropdownVM[]>
 
     //#endregion
 
@@ -94,8 +95,16 @@ export class CrewFormComponent {
 
     //#region public methods
 
-    public dropdownFields(subject: { description: any }): any {
+    public autocompleteFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
+    }
+
+    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+        if (event.target.value == '') this.isAutoCompleteDisabled = true
+    }
+
+    public enableOrDisableAutoComplete(event: any) {
+        this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
 
     public getHint(id: string, minmax = 0): string {
@@ -162,7 +171,7 @@ export class CrewFormComponent {
         }
     }
 
-    private flattenForm(): CrewWriteDTO {
+    private flattenForm(): CrewWriteVM {
         const crew = {
             id: this.form.value.id,
             shipId: this.form.value.ship.id,
@@ -228,7 +237,7 @@ export class CrewFormComponent {
         })
     }
 
-    private populateFields(result: CrewReadDTO): void {
+    private populateFields(result: CrewReadVM): void {
         this.form.setValue({
             id: result.id,
             lastname: result.lastname,
@@ -245,7 +254,7 @@ export class CrewFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(crew: CrewWriteDTO): void {
+    private saveRecord(crew: CrewWriteVM): void {
         if (crew.id === 0) {
             this.crewService.add(crew).subscribe(() => {
                 this.resetForm()

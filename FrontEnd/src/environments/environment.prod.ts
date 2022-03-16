@@ -1,4 +1,4 @@
-// ng build --output-path="\some directoryt" --configuration=production
+// ng build --output-path="\some directory" --configuration=production
 export const environment = {
     apiUrl: 'https://appcorfucruises.com/api',
     clientUrl: 'https://appcorfucruises.com',
@@ -21,8 +21,8 @@ export const environment = {
         isHuman: false
     },
     newUser: {
-        username: '',
-        displayName: '',
+        userName: '',
+        displayname: '',
         email: '',
         password: '',
         confirmPassword: ''

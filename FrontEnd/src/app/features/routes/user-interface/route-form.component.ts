@@ -15,11 +15,11 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { PickupPointService } from 'src/app/features/pickupPoints/classes/services/pickupPoint.service'
-import { PortDropdownDTO } from './../../ports/classes/dtos/port-dropdown-dto'
+import { PortDropdownVM } from '../../ports/classes/view-models/port-dropdown-vm'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
-import { RouteReadDTO } from './../classes/dtos/route-read-dto'
+import { RouteReadDTO } from '../classes/view-models/route-read-dto'
 import { RouteService } from '../classes/services/route.service'
-import { RouteWriteDTO } from '../classes/dtos/route-write-dto'
+import { RouteWriteDTO } from '../classes/view-models/route-write-dto'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
@@ -44,8 +44,8 @@ export class RouteFormComponent {
     public parentUrl = '/routes'
 
     public isAutoCompleteDisabled = true
-    public ports: PortDropdownDTO[] = []
-    public filteredPorts: Observable<PortDropdownDTO[]>
+    public ports: PortDropdownVM[] = []
+    public filteredPorts: Observable<PortDropdownVM[]>
 
     public activePanel: string
 
@@ -92,12 +92,12 @@ export class RouteFormComponent {
 
     //#region public methods
 
-    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
-        if (event.target.value == '') this.isAutoCompleteDisabled = true
+    public autocompleteFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
     }
 
-    public dropdownPortFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
+    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+        if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
     public enableOrDisableAutoComplete(event: any) {
@@ -175,7 +175,7 @@ export class RouteFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private filterArray(array: string, field: string, value: any): any[] {
+    private filterAutocomplete(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
             return this[array].filter((element: { [x: string]: string; }) =>
@@ -201,8 +201,8 @@ export class RouteFormComponent {
                 this.populateFields(result)
                 resolve(result)
             }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 this.goBack()
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         })
         return promise
@@ -229,7 +229,7 @@ export class RouteFormComponent {
                 (response: any) => {
                     this[table] = response
                     resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
                 }, (errorFromInterceptor: number) => {
                     this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 })

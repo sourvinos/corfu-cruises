@@ -36,10 +36,6 @@ input:disabled {
     margin-top: var(--form-field-margin) !important;
 }
 
-.no-margin {
-    margin: 0 !important;
-}
-
 input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:active, input:-webkit-autofill:hover {
     font-size: var(--font-size-input) !important;
 }

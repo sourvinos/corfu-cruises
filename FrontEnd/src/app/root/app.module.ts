@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { ScrollingModule } from '@angular/cdk/scrolling'
 // Modules
-import { AccountModule } from '../features/account/classes/account.module'
 import { AppRoutingModule } from './app.routing.module'
 import { LoginModule } from '../features/login/classes/login.module'
 import { PrimeNgModule } from '../shared/modules/primeng.module'
@@ -20,13 +19,11 @@ import { ThemeMenuComponent } from '../shared/components/top-bar-wrapper/theme-m
 import { TopBarComponent } from '../shared/components/top-bar-wrapper/top-bar/top-bar.component'
 import { TopMenuComponent } from '../shared/components/top-bar-wrapper/top-menu/top-menu.component'
 // Utils
-import { DomChangeDirective } from '../shared/directives/dom-change.directive'
 import { JwtInterceptor } from '../shared/services/jwt.interceptor'
 
 @NgModule({
     declarations: [
         AppComponent,
-        DomChangeDirective,
         LogoComponent,
         SearchByRefBoxComponent,
         SideBarComponent,
@@ -36,7 +33,6 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         TopMenuComponent
     ],
     imports: [
-        AccountModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         BrowserModule,

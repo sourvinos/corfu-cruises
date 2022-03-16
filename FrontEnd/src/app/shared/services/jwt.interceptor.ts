@@ -63,7 +63,7 @@ export class JwtInterceptor {
                         this.tokenSubject.next(tokenresponse.response.token)
                         localStorage.setItem('loginStatus', '1')
                         localStorage.setItem('jwt', tokenresponse.response.token)
-                        localStorage.setItem('displayName', tokenresponse.response.displayname)
+                        localStorage.setItem('displayname', tokenresponse.response.displayname)
                         localStorage.setItem('expiration', tokenresponse.response.expiration)
                         localStorage.setItem('refreshToken', tokenresponse.response.refreshToken)
                         return next.handle(this.attachTokenToRequest(request))

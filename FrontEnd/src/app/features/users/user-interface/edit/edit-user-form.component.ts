@@ -7,19 +7,19 @@ import { map, startWith } from 'rxjs/operators'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { CustomerDropdownDTO } from '../../../customers/classes/dtos/customer-dropdown-dto'
+import { CustomerDropdownVM } from '../../../customers/classes/view-models/customer-dropdown-vm'
 import { CustomerService } from '../../../customers/classes/services/customer.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
+import { UserWriteVM } from '../../classes/dtos/user-write-vm'
+import { EditUserViewModel } from './../../classes/view-models/edit-user-view-model'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from '../../../../shared/services/keyboard-shortcuts.service'
-import { LocalStorageService } from '../../../../shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { User } from 'src/app/features/account/classes/user'
 import { UserService } from '../../classes/services/user.service'
 import { ValidationService } from '../../../../shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
@@ -35,25 +35,28 @@ export class EditUserFormComponent {
 
     //#region variables
 
-    private flatForm: FormGroup
-    private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    public feature = ''
+    private unsubscribe = new Subject<void>()
+    public feature = 'editUserForm'
     public form: FormGroup
-    public icon = ''
+    public icon = null
     public input: InputTabStopDirective
-    public parentUrl = ''
+    public parentUrl = null
+
+    public isAutoCompleteDisabled = true
+    public customers: CustomerDropdownVM[] = []
+    public filteredCustomers: Observable<CustomerDropdownVM[]>
 
     public header = ''
-    private userId: string
-    public filteredCustomers: Observable<CustomerDropdownDTO[]>
     public isAdmin: boolean
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService) {
-        this.activatedRoute.params.subscribe(x => {
-            x.id ? this.editUserFromList(x) : this.editUserFromTopMenu()
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService) {
+        this.activatedRoute.params.subscribe((userId) => {
+            activatedRoute.queryParams.subscribe(response => {
+                response.returnUrl == '/' ? this.editUserFromTopMenu() : this.editUserFromList(userId)
+            })
         })
     }
 
@@ -75,7 +78,7 @@ export class EditUserFormComponent {
             this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
-                    this.onGoBack()
+                    this.goBack()
                     return true
                 }
             })
@@ -88,8 +91,16 @@ export class EditUserFormComponent {
 
     //#region public methods
 
-    public dropdownCustomerFields(subject: { description: any }): any {
+    public autocompleteFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
+    }
+
+    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+        if (event.target.value == '') this.isAutoCompleteDisabled = true
+    }
+
+    public enableOrDisableAutoComplete(event: any) {
+        this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
 
     public getHint(id: string, minmax = 0): string {
@@ -108,19 +119,8 @@ export class EditUserFormComponent {
         }
     }
 
-    public onGoBack(): void {
-        this.router.navigate([this.parentUrl])
-    }
-
     public onSave(): void {
-        this.flattenForm()
-        this.userService.update(this.flatForm.value.id, this.flatForm.value).subscribe(() => {
-            this.resetForm()
-            this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-            this.onGoBack()
-        }, errorCode => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
-        })
+        this.saveRecord(this.flattenForm())
     }
 
     //#endregion
@@ -145,12 +145,16 @@ export class EditUserFormComponent {
         })
     }
 
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
+    }
+
     private editUserFromList(x: { [x: string]: any; id?: any }) {
         this.getConnectedUserRole().then(() => {
             this.getRecord(x.id).then(() => {
                 this.parentUrl = '/users'
                 this.icon = 'arrow_back'
-                this.feature = 'editUserForm'
                 this.header = 'header'
                 this.populateDropDowns()
             })
@@ -159,11 +163,10 @@ export class EditUserFormComponent {
 
     private editUserFromTopMenu() {
         this.getConnectedUserRole().then(() => new Promise(() => {
-            this.getUserId().then(() => {
-                this.getRecord(this.userId).then(() => {
+            this.getConnectedUserId().then((response) => {
+                this.getRecord(response).then(() => {
                     this.parentUrl = '/'
                     this.icon = 'home'
-                    this.feature = 'editUserForm'
                     this.header = 'my-header'
                     this.populateDropDowns()
                 })
@@ -171,7 +174,7 @@ export class EditUserFormComponent {
         }))
     }
 
-    private filterArray(array: string, field: string, value: any): any[] {
+    private filterAutocomplete(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
             return this[array].filter((element: { [x: string]: string }) =>
@@ -179,16 +182,17 @@ export class EditUserFormComponent {
         }
     }
 
-    private flattenForm(): void {
-        this.flatForm = this.formBuilder.group({
+    private flattenForm(): UserWriteVM {
+        const user = {
             id: this.form.getRawValue().id,
             userName: this.form.getRawValue().userName,
-            displayName: this.form.getRawValue().displayName,
+            displayname: this.form.getRawValue().displayname,
             customerId: this.form.getRawValue().customer.id,
             email: this.form.getRawValue().email,
             isAdmin: this.form.getRawValue().isAdmin,
             isActive: this.form.getRawValue().isActive
-        })
+        }
+        return user
     }
 
     private getRecord(userId: string): Promise<any> {
@@ -197,19 +201,18 @@ export class EditUserFormComponent {
                 this.populateFields(result)
                 resolve(result)
             }, errorFromInterceptor => {
+                this.goBack()
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-                this.onGoBack()
             })
         })
         return promise
     }
 
-    private getUserId(): Promise<any> {
+    private getConnectedUserId(): Promise<any> {
         const promise = new Promise((resolve) => {
             this.accountService.getConnectedUserId().toPromise().then(
                 (response) => {
-                    this.userId = response.userId
-                    resolve(this.userId)
+                    resolve(response.userId)
                 })
         })
         return promise
@@ -226,11 +229,15 @@ export class EditUserFormComponent {
         return promise
     }
 
+    private goBack(): void {
+        this.router.navigate([this.parentUrl])
+    }
+
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: '',
             userName: ['', [Validators.required, Validators.maxLength(32)]],
-            displayName: ['', [Validators.required, Validators.maxLength(32)]],
+            displayname: ['', [Validators.required, Validators.maxLength(32)]],
             customer: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             email: [{ value: '' }, [Validators.required, Validators.email, Validators.maxLength(128)]],
             isAdmin: [{ value: false }],
@@ -246,7 +253,7 @@ export class EditUserFormComponent {
                         response.unshift({ id: null, description: this.emojiService.getEmoji('wildcard') })
                     this[table] = response
                     resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
                 }, (errorFromInterceptor: number) => {
                     this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 })
@@ -258,11 +265,11 @@ export class EditUserFormComponent {
         this.populateDropDown(this.customerService, 'customers', 'filteredCustomers', 'customer', 'description', true)
     }
 
-    private populateFields(result: User): void {
+    private populateFields(result: EditUserViewModel): void {
         this.form.setValue({
             id: result.id,
             userName: result.userName,
-            displayName: result.displayName,
+            displayname: result.displayname,
             customer: { 'id': result.customer.id, 'description': result.customer.id == 0 ? this.emojiService.getEmoji('wildcard') : result.customer.description },
             email: result.email,
             isAdmin: result.isAdmin,
@@ -274,17 +281,23 @@ export class EditUserFormComponent {
         this.form.reset()
     }
 
+    private saveRecord(user: UserWriteVM): void {
+        this.flattenForm()
+        this.userService.update(user.id, user).subscribe(() => {
+            this.resetForm()
+            this.goBack()
+            this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+        }, errorCode => {
+            this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+        })
+    }
+
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
-    }
-
-    private cleanup(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
     }
 
     //#endregion
@@ -296,7 +309,7 @@ export class EditUserFormComponent {
     }
 
     get displayname(): AbstractControl {
-        return this.form.get('displayName')
+        return this.form.get('displayname')
     }
 
     get customer(): AbstractControl {

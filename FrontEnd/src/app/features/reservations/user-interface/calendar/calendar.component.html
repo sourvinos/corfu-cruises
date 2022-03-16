@@ -1,7 +1,7 @@
 <div id="list">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [routerLink]="parentUrl"></home-button-and-title>
+        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="month-selector">
             <span class="material-icons arrows" (click)="onChangeMonth(-1)">chevron_left</span>
             <h1 id="month-and-year">{{ getMonthAndYear() }}</h1>

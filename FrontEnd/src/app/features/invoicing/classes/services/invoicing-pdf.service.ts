@@ -3,8 +3,8 @@ import pdfMake from 'pdfmake/build/pdfmake'
 import { Injectable } from '@angular/core'
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 // Custom
-import { InvoicingTransferGroupViewModel } from '../view-models/invoicing-transfer-group-view-model'
-import { InvoicingViewModel } from '../view-models/invoicing-view-model'
+import { InvoicingTransferGroupVM } from '../view-models/invoicing-transfer-group-vm'
+import { InvoicingVM } from '../view-models/invoicing-vm'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 
 @Injectable({ providedIn: 'root' })
@@ -14,7 +14,7 @@ export class InvoicingPdfService {
 
     constructor(private logoService: LogoService) { }
 
-    public doInvoiceTasks(invoice: InvoicingViewModel): void {
+    public doInvoiceTasks(invoice: InvoicingVM): void {
         const dd = {
             pageMargins: [50, 50, 50, 50],
             pageOrientation: 'portrait',
@@ -129,7 +129,7 @@ export class InvoicingPdfService {
         return body
     }
 
-    private hasTransferGroupTotal(data: InvoicingTransferGroupViewModel): any {
+    private hasTransferGroupTotal(data: InvoicingTransferGroupVM): any {
         return {
             table: {
                 widths: [40, 30, 30, 30, 30],
@@ -143,7 +143,7 @@ export class InvoicingPdfService {
         }
     }
 
-    private buildHasTransferGroupTotal(data: InvoicingTransferGroupViewModel): void {
+    private buildHasTransferGroupTotal(data: InvoicingTransferGroupVM): void {
         const body: any = []
         const dataRow = []
         dataRow.push({ alignment: 'center', text: 'TOTAL', margin: [0, 5, 0, 0] })

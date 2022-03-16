@@ -13,7 +13,7 @@ import { slideFromLeft } from '../../animations/animations'
 export class HomeButtonAndTitleComponent {
 
     @Input() feature: string
-    @Input() parentUrl: string
+    @Input() parentUrl: any
     @Input() icon: string
     @Input() header: string
 

@@ -31,7 +31,7 @@ export class CrewListComponent {
     public parentUrl = '/'
     public records = []
 
-    public dropdownShips = []
+    public autocompleteShips = []
 
     //#endregion
 
@@ -115,7 +115,7 @@ export class CrewListComponent {
     }
 
     private populateDropdownFilters() {
-        this.dropdownShips = this.helperService.getDistinctRecords(this.records, 'shipDescription')
+        this.autocompleteShips = this.helperService.getDistinctRecords(this.records, 'shipDescription')
     }
 
     private setWindowTitle(): void {

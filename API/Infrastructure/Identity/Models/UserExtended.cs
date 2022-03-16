@@ -23,7 +23,7 @@ namespace API.Infrastructure.Identity {
     public class UserExtended : IdentityUser {
 
         // Fields
-        public string DisplayName { get; set; }
+        public string Displayname { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }
         // FKs

@@ -5,8 +5,8 @@ import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { Passenger } from '../../classes/models/passenger'
 import { PassengerFormComponent } from '../passenger-form/passenger-form.component'
+import { PassengerReadVM } from '../../classes/view-models/passenger-read-vm'
 
 @Component({
     selector: 'passenger-list',
@@ -20,7 +20,7 @@ export class PassengerListComponent {
 
     @ViewChild('table') table: Table | undefined
 
-    @Input() passengers: Passenger[] = []
+    @Input() passengers: PassengerReadVM[] = []
     @Input() reservationId: Guid
     @Output() outputPassengerCount = new EventEmitter()
     @Output() outputPassengers = new EventEmitter()
@@ -46,14 +46,14 @@ export class PassengerListComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onDeleteRow(record: Passenger): void {
+    public onDeleteRow(record: PassengerReadVM): void {
         const index = this.passengers.indexOf(record)
         this.passengers.splice(index, 1)
         this.outputPassengerCount.emit(this.passengers.length)
         this.outputPassengers.emit(this.passengers)
     }
 
-    public onEditRecord(record: Passenger): void {
+    public onEditRecord(record: any): void {
         this.showPassengerForm(record)
     }
 
@@ -65,16 +65,16 @@ export class PassengerListComponent {
 
     //#region private methods
 
-    private populateForm(passenger: Passenger): void {
+    private sendPassengerToForm(passenger: PassengerReadVM): void {
         const dialog = this.dialog.open(PassengerFormComponent, {
             data: {
                 id: passenger.id,
                 reservationId: passenger.reservationId,
+                gender: { 'id': passenger.gender.id, 'description': passenger.gender.description },
+                nationality: { 'id': passenger.nationality.id, 'description': passenger.nationality.description },
                 lastname: passenger.lastname,
                 firstname: passenger.firstname,
-                nationality: passenger.nationality,
                 birthdate: passenger.birthdate,
-                gender: passenger.gender,
                 remarks: passenger.remarks,
                 specialCare: passenger.specialCare,
                 isCheckedIn: passenger.isCheckedIn
@@ -126,7 +126,7 @@ export class PassengerListComponent {
             this.showEmptyForm()
         }
         if (passenger != undefined) {
-            this.populateForm(passenger)
+            this.sendPassengerToForm(passenger)
         }
     }
 

@@ -10,32 +10,32 @@
         <form id="form" [formGroup]="form" autocomplete="off">
             <!-- Date -->
             <mat-form-field>
-                <input type="text" matInput class="center" id="date" [matDatepicker]="picker" [placeholder]="getLabel('searchLabel')" formControlName="date" [inputFormat]="'date'" autocomplete="off" data-tabindex="1" [inputTabStop]="input">
+                <input type="text" matInput class="center" id="date" [matDatepicker]="picker" [placeholder]="getLabel('searchLabel')" formControlName="date" data-tabindex="1" [inputTabStop]="input">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="date.hasError('required')">{{ getHint('required') }}</mat-error>
+                <mat-error *ngIf="date.hasError('required')">{{ getHint("required") }}</mat-error>
                 <mat-hint>{{ getLabel('searchDateHint') }}</mat-hint>
             </mat-form-field>
             <!-- Customer -->
             <mat-form-field>
                 <mat-label>{{ getLabel("customer") }}</mat-label>
                 <input matInput formControlName="customer" [matAutocomplete]="customers" data-tabindex="2" [inputTabStop]="input">
-                <mat-error *ngIf="customer.hasError('required')">{{ getHint('required') }}</mat-error>
-                <mat-error *ngIf="!customer.hasError('required') && customer.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
+                <mat-error *ngIf="customer.hasError('required')">{{ getHint("required") }}</mat-error>
+                <mat-error *ngIf="!customer.hasError('required') && customer.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
             </mat-form-field>
             <!-- Destination -->
             <mat-form-field>
                 <mat-label>{{ getLabel("destination") }}</mat-label>
                 <input matInput formControlName="destination" [matAutocomplete]="destinations" data-tabindex="3" [inputTabStop]="input">
-                <mat-error *ngIf="destination.hasError('required')">{{ getHint('required') }}</mat-error>
-                <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
+                <mat-error *ngIf="destination.hasError('required')">{{ getHint("required") }}</mat-error>
+                <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
             </mat-form-field>
             <!-- Vessel -->
             <mat-form-field>
                 <mat-label>{{ getLabel("vessel") }}</mat-label>
                 <input matInput formControlName="vessel" [matAutocomplete]="vessels" data-tabindex="4" [inputTabStop]="input">
-                <mat-error *ngIf="vessel.hasError('required')">{{ getHint('required') }}</mat-error>
-                <mat-error *ngIf="!vessel.hasError('required') && vessel.hasError('incorrect')">{{ getHint('invalid') }}</mat-error>
+                <mat-error *ngIf="vessel.hasError('required')">{{ getHint("required") }}</mat-error>
+                <mat-error *ngIf="!vessel.hasError('required') && vessel.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
             </mat-form-field>
             <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
         </form>

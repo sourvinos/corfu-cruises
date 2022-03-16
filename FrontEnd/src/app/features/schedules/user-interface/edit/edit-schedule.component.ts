@@ -8,7 +8,7 @@ import { Title } from '@angular/platform-browser'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DestinationDropdownDTO } from 'src/app/features/destinations/classes/dtos/destination-dropdown-dto'
+import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
 import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -19,13 +19,14 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
-import { ScheduleReadDTO } from '../../classes/form/schedule-read-dto'
+import { ScheduleReadVM } from '../../classes/form/schedule-read-vm'
 import { ScheduleService } from '../../classes/services/schedule.service'
+import { ScheduleWriteVM } from '../../classes/form/schedule-write-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { PortDropdownDTO } from 'src/app/features/ports/classes/dtos/port-dropdown-dto'
 
 @Component({
     selector: 'edit-schedule',
@@ -38,19 +39,19 @@ export class EditScheduleComponent {
 
     //#region variables
 
-    private flatForm: FormGroup
-    private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
+    private unsubscribe = new Subject<void>()
     public feature = 'scheduleEditForm'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/schedules'
 
-    public destinations = []
-    public ports = []
-    public filteredDestinations: Observable<DestinationDropdownDTO[]>
-    public filteredPorts: Observable<PortDropdownDTO[]>
+    public isAutoCompleteDisabled = true
+    public destinations: DestinationDropdownVM[] = []
+    public filteredDestinations: Observable<DestinationDropdownVM[]>
+    public ports: PortDropdownVM[] = []
+    public filteredPorts: Observable<PortDropdownVM[]>
 
     //#endregion
 
@@ -66,9 +67,8 @@ export class EditScheduleComponent {
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
+        this.populateDropdowns()
         this.subscribeToInteractionService()
-        this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
-        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
         this.setLocale()
     }
 
@@ -82,7 +82,7 @@ export class EditScheduleComponent {
             this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
-                    this.onGoBack()
+                    this.goBack()
                     return true
                 }
             })
@@ -95,12 +95,16 @@ export class EditScheduleComponent {
 
     //#region public methods
 
-    public dropdownDestinationFields(subject: { description: any }): any {
+    public autocompleteFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
 
-    public dropdownPortFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
+    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+        if (event.target.value == '') this.isAutoCompleteDisabled = true
+    }
+
+    public enableOrDisableAutoComplete(event: any) {
+        this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
 
     public getHint(id: string, minmax = 0): string {
@@ -116,8 +120,8 @@ export class EditScheduleComponent {
             if (response) {
                 this.scheduleService.delete(this.form.value.id).subscribe(() => {
                     this.resetForm()
+                    this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
-                    this.onGoBack()
                 }, errorFromInterceptor => {
                     this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 })
@@ -125,30 +129,8 @@ export class EditScheduleComponent {
         })
     }
 
-    public onGoBack(): void {
-        this.router.navigate([this.activatedRoute.snapshot.queryParams['returnUrl']])
-    }
-
     public onSave(): void {
-        if (this.form.value.id === 0 || this.form.value.id === null) {
-            this.flattenForm()
-            this.scheduleService.add(this.flatForm.value).subscribe(() => {
-                this.resetForm()
-                this.onGoBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
-            })
-        } else {
-            this.flattenForm()
-            this.scheduleService.update(this.flatForm.value.id, this.flatForm.value).subscribe(() => {
-                this.resetForm()
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-                this.onGoBack()
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
-            })
-        }
+        this.saveRecord(this.flattenForm())
     }
 
     //#endregion
@@ -176,7 +158,12 @@ export class EditScheduleComponent {
         })
     }
 
-    private filterArray(array: string, field: string, value: any): any[] {
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
+    }
+
+    private filterAutocomplete(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
             return this[array].filter((element: { [x: string]: string }) =>
@@ -184,24 +171,33 @@ export class EditScheduleComponent {
         }
     }
 
-    private flattenForm(): void {
-        this.flatForm = this.formBuilder.group({
+    private flattenForm(): ScheduleWriteVM {
+        const schedule = {
             id: this.form.value.id,
             date: moment(this.form.value.date).format('YYYY-MM-DD'),
             destinationId: this.form.value.destination.id,
             portId: this.form.value.port.id,
             maxPassengers: this.form.value.maxPassengers,
             isActive: this.form.value.isActive
-        })
+        }
+        return schedule
     }
 
-    private getRecord(id: number): void {
-        this.scheduleService.getSingle(id).subscribe(result => {
-            this.populateFields(result)
-        }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            this.onGoBack()
+    private getRecord(id: number): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.scheduleService.getSingle(id).subscribe(result => {
+                this.populateFields(result)
+                resolve(result)
+            }, errorFromInterceptor => {
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            })
         })
+        return promise
+    }
+
+    private goBack(): void {
+        this.router.navigate([this.parentUrl])
     }
 
     private initForm(): void {
@@ -221,7 +217,7 @@ export class EditScheduleComponent {
                 (response: any) => {
                     this[table] = response
                     resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
                 }, (errorFromInterceptor: number) => {
                     this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 })
@@ -229,7 +225,12 @@ export class EditScheduleComponent {
         return promise
     }
 
-    private populateFields(result: ScheduleReadDTO): void {
+    private populateDropdowns(): void {
+        this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
+        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
+    }
+
+    private populateFields(result: ScheduleReadVM): void {
         this.form.setValue({
             id: result.id,
             date: moment(result.date).format('YYYY-MM-DD'),
@@ -242,6 +243,28 @@ export class EditScheduleComponent {
 
     private resetForm(): void {
         this.form.reset()
+    }
+
+    private saveRecord(schedule: ScheduleWriteVM): void {
+        if (schedule.id === 0) {
+            this.flattenForm()
+            this.scheduleService.add(schedule).subscribe(() => {
+                this.resetForm()
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+            }, errorCode => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            })
+        } else {
+            this.flattenForm()
+            this.scheduleService.update(schedule.id, schedule).subscribe(() => {
+                this.resetForm()
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+            }, errorCode => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            })
+        }
     }
 
     private setLocale() {
@@ -257,14 +280,9 @@ export class EditScheduleComponent {
     }
 
     private subscribeToInteractionService(): void {
-        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
+        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
             this.setLocale()
         })
-    }
-
-    private cleanup(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
     }
 
     //#endregion

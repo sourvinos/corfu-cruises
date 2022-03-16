@@ -4,7 +4,7 @@ import { Observable } from 'rxjs'
 // Custom
 import { DataService } from 'src/app/shared/services/data.service'
 import { environment } from 'src/environments/environment'
-import { PortDropdownDTO } from '../dtos/port-dropdown-dto'
+import { PortDropdownVM } from '../view-models/port-dropdown-vm'
 
 @Injectable({ providedIn: 'root' })
 
@@ -16,8 +16,8 @@ export class PortService extends DataService {
 
     //#region public methods
 
-    public getActiveForDropdown(): Observable<PortDropdownDTO[]> {
-        return this.http.get<PortDropdownDTO[]>(environment.apiUrl + '/ports/getActiveForDropdown')
+    public getActiveForDropdown(): Observable<PortDropdownVM[]> {
+        return this.http.get<PortDropdownVM[]>(environment.apiUrl + '/ports/getActiveForDropdown')
     }
 
     public createPDF(): Observable<HttpResponse<Blob>> {

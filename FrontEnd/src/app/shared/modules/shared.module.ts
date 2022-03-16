@@ -5,10 +5,10 @@ import { QRCodeModule } from 'angular2-qrcode'
 import { RouterModule } from '@angular/router'
 import { ZXingScannerModule } from '@zxing/ngx-scanner'
 // Custom
+import { CalendarScheduleComponent } from 'src/app/features/calendar/user-interface/calendar-schedule.component'
 import { DialogAlertComponent } from '../components/dialog-alert/dialog-alert.component'
 import { DisableToogleDirective } from '../directives/mat-slide-toggle.directive'
 import { HomeButtonAndTitleComponent } from '../components/home-button-and-title/home-button-and-title.component'
-import { InputFormatDirective } from 'src/app/shared/directives/input-format.directive'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MapComponent } from '../components/map/map.component'
 import { MaterialModule } from './material.module'
@@ -19,10 +19,10 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
 
 @NgModule({
     declarations: [
+        CalendarScheduleComponent,
         DialogAlertComponent,
         DisableToogleDirective,
         HomeButtonAndTitleComponent,
-        InputFormatDirective,
         InputTabStopDirective,
         MapComponent,
         QRCodeComponent,
@@ -42,7 +42,6 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         DisableToogleDirective,
         FormsModule,
         HomeButtonAndTitleComponent,
-        InputFormatDirective,
         InputTabStopDirective,
         MapComponent,
         MaterialModule,

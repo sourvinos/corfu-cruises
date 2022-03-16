@@ -8,7 +8,7 @@ import { Title } from '@angular/platform-browser'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DestinationDropdownDTO } from 'src/app/features/destinations/classes/dtos/destination-dropdown-dto'
+import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
 import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -20,10 +20,11 @@ import { MessageCalendarService } from 'src/app/shared/services/messages-calenda
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { PortDropdownDTO } from 'src/app/features/ports/classes/dtos/port-dropdown-dto'
+import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
+import { ScheduleDeleteVM } from './../../classes/form/schedule-delete-vm'
 import { ScheduleService } from '../../classes/services/schedule.service'
-import { ScheduleWriteDTO } from '../../classes/form/schedule-write-dto'
+import { ScheduleWriteVM } from '../../classes/form/schedule-write-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
@@ -48,14 +49,15 @@ export class NewScheduleComponent {
     public parentUrl = '/schedules'
 
     public isAutoCompleteDisabled = true
-    public destinations: DestinationDropdownDTO[]
-    public filteredDestinations: Observable<DestinationDropdownDTO[]>
-    public ports: PortDropdownDTO[]
-    public filteredPorts: Observable<PortDropdownDTO[]>
+    public destinations: DestinationDropdownVM[]
+    public filteredDestinations: Observable<DestinationDropdownVM[]>
+    public ports: PortDropdownVM[]
+    public filteredPorts: Observable<PortDropdownVM[]>
 
-    private daysToDelete = []
+    private periodToDelete = []
     private daysToInsert = []
-    private scheduleWriteDTO: ScheduleWriteDTO[] = []
+    // private scheduleDeleteVM: ScheduleWriteVM[] = []
+    private scheduleWriteVM: ScheduleWriteVM[] = []
     public selectedWeekDays = []
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
@@ -97,12 +99,12 @@ export class NewScheduleComponent {
 
     //#region public methods
 
-    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
-        if (event.target.value == '') this.isAutoCompleteDisabled = true
+    public autocompleteFields(subject: { description: any }): any {
+        return subject ? subject.description : undefined
     }
 
-    public dropdownFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
+    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+        if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
     public enableOrDisableAutoComplete(event: any) {
@@ -157,30 +159,35 @@ export class NewScheduleComponent {
         })
     }
 
-    private buildScheduleObjectsToCreate(): any {
-        this.scheduleWriteDTO = []
+    private buildScheduleToCreate(): ScheduleWriteVM[] {
+        const formValue = this.form.value
+        const objects: ScheduleWriteVM[] = []
         this.form.value.daysToInsert.forEach((day: any) => {
-            this.scheduleWriteDTO.push({
-                'date': day,
-                'destinationId': this.form.value.destination.id,
-                'portId': this.form.value.port.id,
-                'maxPassengers': this.form.value.maxPassengers,
-                'isActive': true
-            })
+            const x: ScheduleWriteVM = {
+                id: formValue.id,
+                destinationId: formValue.destination.id,
+                portId: formValue.port.id,
+                date: day,
+                maxPassengers: formValue.maxPassengers,
+                isActive: true
+            }
+            objects.push(x)
         })
+        return objects
     }
 
-    private buildScheduleObjectsToDelete(): void {
-        this.scheduleWriteDTO = []
-        this.daysToDelete.forEach((day: string) => {
-            this.scheduleWriteDTO.push({
-                'date': day.substring(4, day.length),
-                'portId': this.form.value.port.id,
-                'destinationId': this.form.value.destination.id,
-                'maxPassengers': 0,
-                'isActive': false
-            })
+    private buildObjectsToDelete(): ScheduleDeleteVM[] {
+        const formValue = this.form.value
+        const objects: ScheduleDeleteVM[] = []
+        this.periodToDelete.forEach((day: string) => {
+            const x = {
+                destinationId: formValue.destination.id,
+                portId: formValue.port.id,
+                date: day.substring(4, day.length)
+            }
+            objects.push(x)
         })
+        return objects
     }
 
     private cleanup(): void {
@@ -191,7 +198,7 @@ export class NewScheduleComponent {
     private createDaysToInsert(): void {
         this.daysToInsert = []
         this.selectedWeekDays.forEach(weekday => {
-            this.daysToDelete.forEach((day: string) => {
+            this.periodToDelete.forEach((day: string) => {
                 if (day.substring(0, 3) == weekday) {
                     this.daysToInsert.push(day.substr(4, 10))
                 }
@@ -215,9 +222,9 @@ export class NewScheduleComponent {
 
     private createPeriodToDelete(): void {
         if (this.fromDate.value && this.toDate.value) {
-            this.daysToDelete = this.createPeriodToInsert(new Date(this.fromDate.value.format('YYYY-MM-DD')), new Date(this.toDate.value.format('YYYY-MM-DD')))
+            this.periodToDelete = this.createPeriodToInsert(new Date(this.fromDate.value.format('YYYY-MM-DD')), new Date(this.toDate.value.format('YYYY-MM-DD')))
             this.form.patchValue({
-                periodToDelete: this.daysToDelete
+                periodToDelete: this.periodToDelete
             })
         }
     }
@@ -272,10 +279,9 @@ export class NewScheduleComponent {
     }
 
     private saveRecord(): void {
-        this.buildScheduleObjectsToDelete()
-        this.scheduleService.deleteRange(this.scheduleWriteDTO).subscribe(() => {
-            this.buildScheduleObjectsToCreate()
-            this.scheduleService.addRange(this.scheduleWriteDTO).subscribe(() => {
+        this.scheduleService.deleteRange(this.buildObjectsToDelete()).subscribe(() => {
+            this.buildScheduleToCreate()
+            this.scheduleService.addRange(this.scheduleWriteVM).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')

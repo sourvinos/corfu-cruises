@@ -1,8 +1,7 @@
-import { ShipDropdownResource } from './../../../reservations/classes/resources/form/dropdown/ship-dropdown-resource'
-
 export class Registrar {
 
     id: number
+    shipId: number
     fullname: string
     phones: string
     email: string
@@ -10,7 +9,5 @@ export class Registrar {
     address: string
     isPrimary: boolean
     isActive: boolean
-
-    ship: ShipDropdownResource
 
 }

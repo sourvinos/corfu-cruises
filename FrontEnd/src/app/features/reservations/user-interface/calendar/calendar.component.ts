@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
-import { Day } from '../../classes/calendar/day'
+import { DayVM } from '../../classes/calendar/day-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
@@ -23,15 +23,18 @@ export class CalendarComponent {
 
     // #region variables
 
+    private unlisten: Unlisten
+    private unsubscribe = new Subject<void>()
+    private url = 'reservations'
+    public feature = 'calendarReservations'
+    public icon = 'home'
+    public parentUrl = '/'
+
     private dateSelect: any
     private daysWithSchedule = []
-    private ngUnsubscribe = new Subject<void>()
     private startDate: any
-    private unlisten: Unlisten
-    public days: Day[]
-    public feature = 'calendarReservations'
+    public days: DayVM[]
     public monthSelect: any[]
-    public parentUrl = '/'
     public selectedDate: any
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
@@ -52,8 +55,8 @@ export class CalendarComponent {
     }
 
     ngOnDestroy(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
         this.unlisten()
     }
 
@@ -149,8 +152,10 @@ export class CalendarComponent {
         const arrayDays = Object.keys([...Array(numberDays)]).map((a: any) => {
             a = parseInt(a) + 1
             const dayObject = moment(`${year}-${month}-${a}`, 'YYYY-MM-DD')
-            const day = new Day()
-            day.date = dayObject.format('YYYY-MM-DD')
+            const day: DayVM = {
+                date: dayObject.format('YYYY-MM-DD'),
+                destinations: []
+            }
             this.days.push(day)
             return {
                 name: dayObject.format('dddd'),

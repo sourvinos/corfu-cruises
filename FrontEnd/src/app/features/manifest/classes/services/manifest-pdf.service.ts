@@ -2,8 +2,8 @@ import pdfMake from 'pdfmake/build/pdfmake'
 import { Injectable } from '@angular/core'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { ManifestPassenger } from '../view-models/manifest-passenger'
-import { ManifestViewModel } from './../view-models/manifest-view-model'
+import { ManifestPassengerVM } from '../view-models/manifest-passenger-vm'
+import { ManifestListVM } from '../view-models/manifest-list-vm'
 
 @Injectable({ providedIn: 'root' })
 
@@ -21,7 +21,7 @@ export class ManifestPdfService {
 
     //#region public methods
 
-    public createReport(manifest: ManifestViewModel): void {
+    public createReport(manifest: ManifestListVM): void {
         this.date = JSON.parse(localStorage.getItem('manifest-criteria')).date
         this.shipRoute = JSON.parse(localStorage.getItem('manifest-criteria')).route
         const dd = {
@@ -74,7 +74,7 @@ export class ManifestPdfService {
 
     //#region private methods
 
-    private buildTableBody(data: ManifestViewModel, columnTypes: any[], columns: any[], align: any[]): void {
+    private buildTableBody(data: ManifestListVM, columnTypes: any[], columns: any[], align: any[]): void {
         const body: any = []
         body.push(this.createTableHeaders())
         data.passengers.forEach((row) => {
@@ -85,7 +85,7 @@ export class ManifestPdfService {
         return body
     }
 
-    private createShipData(manifest: ManifestViewModel): string {
+    private createShipData(manifest: ManifestListVM): string {
         return '' +
             'ΣΤΟΙΧΕΙΑ ΠΛΟΙΟΥ' + '\n' +
             'ΟΝΟΜΑ ' + manifest.ship.description + '\n' +
@@ -94,7 +94,7 @@ export class ManifestPdfService {
             'ΙΜΟ ' + manifest.ship.imo + '\n'
     }
 
-    private createManager(manifest: ManifestViewModel): string {
+    private createManager(manifest: ManifestListVM): string {
         return '' +
             'ΣΤΟΙΧΕΙΑ ΕΤΑΙΡΙΑΣ' + '\n' +
             'ΥΠΕΥΘΥΝΟΣ ΔΙΑΧΕΙΡΙΣΤΗΣ ' + manifest.ship.manager + '\n' +
@@ -102,7 +102,7 @@ export class ManifestPdfService {
             'ΥΠΕΥΘΥΝΟΙ ΝΑΥΤΙΚΟΙ ΠΡΑΚΤΟΡΕΣ ' + manifest.ship.agent + '\n'
     }
 
-    private createDataEntryPrimaryPerson(manifest: ManifestViewModel): string {
+    private createDataEntryPrimaryPerson(manifest: ManifestListVM): string {
         return '' +
             'ΥΠΕΥΘΥΝΟΣ ΚΑΤΑΓΡΑΦΗΣ' + '\n' +
             'ΟΝΟΜΑΤΕΠΩΝΥΜΟ ' + manifest.ship.registrars[0].fullname + '\n' +
@@ -111,7 +111,7 @@ export class ManifestPdfService {
             'FAX ' + manifest.ship.registrars[0].fax + '\n'
     }
 
-    private createDataEntrySecondaryPerson(manifest: ManifestViewModel): string {
+    private createDataEntrySecondaryPerson(manifest: ManifestListVM): string {
         return '' +
             'ΑΝΤΙΚΑΤΑΣΤΑΤΗΣ ΥΠΕΥΘΥΝΟΥ ΚΑΤΑΓΡΑΦΗΣ' + '\n' +
             'ΟΝΟΜΑΤΕΠΩΝΥΜΟ ' + manifest.ship.registrars[1].fullname + '\n' +
@@ -120,13 +120,13 @@ export class ManifestPdfService {
             'FAX ' + manifest.ship.registrars[1].fax + '\n'
     }
 
-    private createTitle(manifest: ManifestViewModel): string {
+    private createTitle(manifest: ManifestListVM): string {
         return '' +
             'ΔΡΟΜΟΛΟΓΙΟ ΤΗΣ ' + manifest.date + '\n' +
             'ΚΑΤΑΣΤΑΣΗ ΕΠΙΒΑΙΝΟΝΤΩΝ'
     }
 
-    private createSignature(manifest: ManifestViewModel): string {
+    private createSignature(manifest: ManifestListVM): string {
         return '' +
             'ΒΕΒΑΙΩΝΕΤΑΙ Η ΑΚΡΙΒΕΙΑ ΤΩΝ ΩΣ ΑΝΩ ΣΤΟΙΧΕΙΩΝ' + '\n' +
             'ΚΑΙ ΠΛΗΡΟΦΟΡΙΩΝ ΑΠΟ ΤΟΝ / ΤΗΝ' + '\n' +
@@ -155,7 +155,7 @@ export class ManifestPdfService {
         ]
     }
 
-    private createPageHeader(manifest: ManifestViewModel): string {
+    private createPageHeader(manifest: ManifestListVM): string {
         return manifest.ship.shipOwner.description + '\n' +
             manifest.ship.shipOwner.profession + '\n' +
             manifest.ship.shipOwner.address + '\n' +
@@ -177,7 +177,7 @@ export class ManifestPdfService {
         }
     }
 
-    private processRow(columnTypes: any[], columns: any[], row: ManifestPassenger, dataRow: any[], align: any[]): any {
+    private processRow(columnTypes: any[], columns: any[], row: ManifestPassengerVM, dataRow: any[], align: any[]): any {
         columns.forEach((element, index) => {
             if (element != undefined) {
                 if (index == 0) {
@@ -190,7 +190,7 @@ export class ManifestPdfService {
         return dataRow
     }
 
-    private table(data: ManifestViewModel, columnTypes: any[], columns: any[], align: any[]): any {
+    private table(data: ManifestListVM, columnTypes: any[], columns: any[], align: any[]): any {
         return {
             table: {
                 headerRows: 1,

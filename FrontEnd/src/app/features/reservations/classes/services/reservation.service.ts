@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { DataService } from 'src/app/shared/services/data.service'
-import { ReservationGroupResource } from '../resources/list/reservation-group-resource'
+import { ReservationGroupVM } from '../resources/list/reservation-group-vm'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
@@ -14,16 +14,16 @@ export class ReservationService extends DataService {
         super(httpClient, environment.apiUrl + '/reservations')
     }
 
-    getByDate(date: string): Observable<ReservationGroupResource> {
-        return this.http.get<ReservationGroupResource>(this.url + '/byDate/' + date)
+    getByDate(date: string): Observable<ReservationGroupVM> {
+        return this.http.get<ReservationGroupVM>(this.url + '/byDate/' + date)
     }
 
     getByDateAndDriver(date: string, driverId: number): Observable<any> {
         return this.http.get<any>(this.url + '/byDate/' + date + '/byDriver/' + driverId)
     }
 
-    getByRefNo(refNo: string): Observable<ReservationGroupResource> {
-        return this.http.get<ReservationGroupResource>(this.url + '/byRefNo/' + refNo)
+    getByRefNo(refNo: string): Observable<ReservationGroupVM> {
+        return this.http.get<ReservationGroupVM>(this.url + '/byRefNo/' + refNo)
     }
 
     assignToDriver(driverId: string, records: any[]): Observable<any> {

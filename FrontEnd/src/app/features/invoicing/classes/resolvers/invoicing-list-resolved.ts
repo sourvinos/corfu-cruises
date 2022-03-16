@@ -1,7 +1,7 @@
-import { InvoicingViewModel } from '../view-models/invoicing-view-model'
+import { InvoicingVM } from '../view-models/invoicing-vm'
 
 export class InvoicingListResolved {
 
-    constructor(public result: InvoicingViewModel, public error: any = null) { }
+    constructor(public result: InvoicingVM, public error: any = null) { }
 
 }

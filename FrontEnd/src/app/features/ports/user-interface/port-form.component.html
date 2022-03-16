@@ -1,12 +1,12 @@
 <div id="form-wrapper">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [icon]="icon" [routerLink]="parentUrl"></home-button-and-title>
+        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="content">
         <form [formGroup]="form" autocomplete="off" data-cy="form">
-            <mat-form-field class="no-margin">
+            <mat-form-field>
                 <input [inputTabStop]="input" [placeholder]="getLabel('description')" data-cy="description" data-tabindex="1" formControlName="description" id="description" matInput>
                 <mat-error *ngIf="description.hasError('required')">{{ getHint("required") }}</mat-error>
                 <mat-error *ngIf="description.hasError('maxlength')">{{ getHint("maxLength", description.errors.maxlength.requiredLength) }}</mat-error>
