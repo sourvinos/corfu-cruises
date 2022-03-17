@@ -1,33 +1,32 @@
-import idleService from '@kurtz1993/idle-service'
 import { Component } from '@angular/core'
-import { MenuItem } from 'primeng/api/menuitem'
 import { Observable, Subject } from 'rxjs'
 import { Router } from '@angular/router'
 import { takeUntil } from 'rxjs/operators'
 // Custom
-import { AccountService } from '../../../services/account.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { AccountService } from 'src/app/shared/services/account.service'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { MessageMenuService } from '../../../services/messages-menu.service'
+import { MessageMenuService } from 'src/app/shared/services/messages-menu.service'
+import { slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'side-menu',
     templateUrl: './side-menu.component.html',
-    styleUrls: ['./side-menu.component.css']
+    styleUrls: ['./side-menu.component.css'],
+    animations: [slideFromLeft]
 })
 
 export class SideMenuComponent {
 
     //#region variables
 
-    private ngUnsubscribe = new Subject<void>()
-    public bottomItems: MenuItem[]
+    private ngunsubscribe = new Subject<void>()
     public loginStatus: Observable<boolean>
-    public topItems: MenuItem[]
+    public menuItems: [] = []
 
     //#endregion
 
-    constructor(private accountService: AccountService, private helperService: HelperService, private interactionService: InteractionService, private messageMenuService: MessageMenuService, private router: Router) { }
+    constructor(private router: Router, private accountService: AccountService, private interactionService: InteractionService, private messageMenuService: MessageMenuService, private emojiService: EmojiService) { }
 
     //#region lifecycle hooks
 
@@ -44,71 +43,44 @@ export class SideMenuComponent {
 
     //#endregion
 
-    //#region private methods
+    //#region public methods
 
-    private buildMenu(menuItems: any[]): void {
-        this.topItems = [
-            {
-                label: this.getLabel(menuItems, 'home'),
-                icon: 'fas fa-home',
-                routerLink: ['/']
-            },
-            {
-                label: this.getLabel(menuItems, 'embarkation'), command: (): void => { this.router.navigate(['/embarkation']) },
-                icon: 'fas fa-ship'
-            },
-            {
-                label: this.getLabel(menuItems, 'reservations'), command: (): void => { this.router.navigate(['/reservations']) },
-                icon: 'fas fa-ticket-alt'
-            },
-            {
-                label: this.getLabel(menuItems, 'tasks'),
-                icon: 'fas fa-microchip',
-                items: [
-                    { label: this.getLabel(menuItems, 'invoicing', true), command: (): void => { this.router.navigate([this.helperService.getHomePage()]) } },
-                    { label: this.getLabel(menuItems, 'manifest', true), command: (): void => { this.router.navigate([this.helperService.getHomePage()]) } },
-                ]
-            },
-            {
-                label: this.getLabel(menuItems, 'tables'),
-                icon: 'fas fa-list-alt',
-                items: [
-                    { label: this.getLabel(menuItems, 'customers', true), command: (): void => { this.router.navigate(['/customers']) } },
-                    { label: this.getLabel(menuItems, 'destinations', true), command: (): void => { this.router.navigate(['/destinations']) } },
-                    { label: this.getLabel(menuItems, 'drivers', true), command: (): void => { this.router.navigate(['/drivers']) } },
-                    { label: this.getLabel(menuItems, 'pickupPoints', true), command: (): void => { this.router.navigate(['/pickupPoints']) } },
-                    { label: this.getLabel(menuItems, 'coachRoutes', true), command: (): void => { this.router.navigate(['/routes']) } },
-                    { label: this.getLabel(menuItems, 'ports', true), command: (): void => { this.router.navigate(['/ports']) } },
-                    { label: this.getLabel(menuItems, 'schedules', true), command: (): void => { this.router.navigate(['/schedules']) } },
-                    { label: this.getLabel(menuItems, 'ships', true), command: (): void => { this.router.navigate(['/ships']) } },
-                    { label: this.getLabel(menuItems, 'crews', true), command: (): void => { this.router.navigate(['/crews']) } },
-                    { label: this.getLabel(menuItems, 'genders', true), command: (): void => { this.router.navigate(['/genders']) } },
-                    { label: this.getLabel(menuItems, 'registrars', true), command: (): void => { this.router.navigate(['/registrars']) } },
-                    { label: this.getLabel(menuItems, 'shipOwners', true), command: (): void => { this.router.navigate(['/shipOwners']) } },
-                    { label: this.getLabel(menuItems, 'shipRoutes', true), command: (): void => { this.router.navigate(['/shipRoutes']) } },
-                    { label: this.getLabel(menuItems, 'users', true), command: (): void => { this.router.navigate(['/users']) } }
-                ]
-            }
-        ]
-        this.bottomItems = [
-            {
-                label: this.getLabel(menuItems, 'logout'),
-                icon: 'fas fa-power-off',
-                command: (): void => {
-                    this.accountService.logout()
-                    idleService.stop()
-                }
-            }
-
-        ]
+    public getEmoji(symbol: string): string {
+        return this.emojiService.getEmoji(symbol)
     }
 
-    private getLabel(response: any[], label: string, showIcon = false): string {
-        return showIcon ? this.getIcon() + this.messageMenuService.getDescription(response, 'menus', label) : this.messageMenuService.getDescription(response, 'menus', label)
+    public getLabel(id: string): string {
+        return this.messageMenuService.getDescription(this.menuItems, id)
+    }
+
+    public doTasks(element: string, feature: string): void {
+        this.navigateToFeature(feature)
+        this.styleMenu(element, '0')
+    }
+
+    //#endregion
+
+    //#region private methods
+
+    private buildMenu(response) {
+        this.menuItems = response
+    }
+
+    private navigateToFeature(feature: string): void {
+        this.router.navigate([feature])
+    }
+
+    public styleMenu(element: string, width: string) {
+        document.getElementById(element).style.height = 'auto'
+        document.getElementById(element).style.padding = '10px 10px 10px 0;'
+        document.getElementById(element).style.position = 'absolute'
+        document.getElementById(element).style.transition = 'width 0.3s ease-in-out'
+        document.getElementById(element).style.width = width
+        document.getElementById(element).style.zIndex = '1'
     }
 
     private subscribeToInteractionService(): void {
-        this.interactionService.refreshMenus.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
+        this.interactionService.refreshMenus.pipe(takeUntil(this.ngunsubscribe)).subscribe(() => {
             this.messageMenuService.getMessages().then((response) => {
                 this.buildMenu(response)
             })
@@ -117,10 +89,6 @@ export class SideMenuComponent {
 
     private updateVariables(): void {
         this.loginStatus = this.accountService.isLoggedIn
-    }
-
-    private getIcon(): string {
-        return '◻️ '
     }
 
     //#endregion

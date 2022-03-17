@@ -1,107 +1,102 @@
 [
     {
-        "feature": "menus",
-        "labels": [
-            {
-                "id": "home",
-                "description": "Startseite"
-            },
-            {
-                "id": "passengers",
-                "description": "Schiffspassagiere"
-            },
-            {
-                "id": "embarkation",
-                "description": "Einschiffung"
-            },
-            {
-                "id": "manifest",
-                "description": "Schiffsmanifest"
-            },
-            {
-                "id": "reservations",
-                "description": "Reservierung"
-            },
-            {
-                "id": "tasks",
-                "description": "Aufgaben"
-            },
-            {
-                "id": "invoicing",
-                "description": "Fakturierung"
-            },
-            {
-                "id": "tables",
-                "description": "Tabellen"
-            },
-            {
-                "id": "customers",
-                "description": "Kunden"
-            },
-            {
-                "id": "destinations",
-                "description": "Reiseziele"
-            },
-            {
-                "id": "drivers",
-                "description": "Fahrer"
-            },
-            {
-                "id": "genders",
-                "description": "Geschlechter"
-            },
-            {
-                "id": "pickupPoints",
-                "description": "Abholstellen"
-            },
-            {
-                "id": "ports",
-                "description": "Häfen"
-            },
-            {
-                "id": "coachRoutes",
-                "description": "Busrouten"
-            },
-            {
-                "id": "schedules",
-                "description": "Reisepläne"
-            },
-            {
-                "id": "users",
-                "description": "Benutzer"
-            },
-            {
-                "id": "ships",
-                "description": "Schiffe"
-            },
-            {
-                "id": "shipOwners",
-                "description": "Schiffseigner"
-            },
-            {
-                "id": "registrars",
-                "description": "Fahrgastregistrierer"
-            },
-            {
-                "id": "crews",
-                "description": "Besatzungen"
-            },
-            {
-                "id": "shipRoutes",
-                "description": "Schiffsrouten"
-            },
-            {
-                "id": "logout",
-                "description": "Ausloggen"
-            },
-            {
-                "id": "editAccount",
-                "description": "Mein Konto"
-            },
-            {
-                "id": "calendar",
-                "description": "Kalender"
-            }
-        ]
+        "id": "home",
+        "description": "Startseite"
+    },
+    {
+        "id": "passengers",
+        "description": "Schiffspassagiere"
+    },
+    {
+        "id": "embarkation",
+        "description": "Einschiffung"
+    },
+    {
+        "id": "manifest",
+        "description": "Schiffsmanifest"
+    },
+    {
+        "id": "reservations",
+        "description": "Reservierung"
+    },
+    {
+        "id": "tasks",
+        "description": "Aufgaben"
+    },
+    {
+        "id": "invoicing",
+        "description": "Fakturierung"
+    },
+    {
+        "id": "tables",
+        "description": "Tabellen"
+    },
+    {
+        "id": "customers",
+        "description": "Kunden"
+    },
+    {
+        "id": "destinations",
+        "description": "Reiseziele"
+    },
+    {
+        "id": "drivers",
+        "description": "Fahrer"
+    },
+    {
+        "id": "genders",
+        "description": "Geschlechter"
+    },
+    {
+        "id": "pickupPoints",
+        "description": "Abholstellen"
+    },
+    {
+        "id": "ports",
+        "description": "Häfen"
+    },
+    {
+        "id": "coachRoutes",
+        "description": "Busrouten"
+    },
+    {
+        "id": "schedules",
+        "description": "Reisepläne"
+    },
+    {
+        "id": "users",
+        "description": "Benutzer"
+    },
+    {
+        "id": "ships",
+        "description": "Schiffe"
+    },
+    {
+        "id": "shipOwners",
+        "description": "Schiffseigner"
+    },
+    {
+        "id": "registrars",
+        "description": "Fahrgastregistrierer"
+    },
+    {
+        "id": "crews",
+        "description": "Besatzungen"
+    },
+    {
+        "id": "shipRoutes",
+        "description": "Schiffsrouten"
+    },
+    {
+        "id": "logout",
+        "description": "Ausloggen"
+    },
+    {
+        "id": "editAccount",
+        "description": "Mein Konto"
+    },
+    {
+        "id": "calendar",
+        "description": "Kalender"
     }
 ]

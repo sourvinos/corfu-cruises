@@ -1,6 +1,6 @@
 #side-bar {
     height: 100%;
     margin-left: var(--gap);
-    position: fixed;
+    position: absolute;
     top: var(--top-bar-height);
 }

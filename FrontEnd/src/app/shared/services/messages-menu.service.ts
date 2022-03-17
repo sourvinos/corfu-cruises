@@ -18,16 +18,12 @@ export class MessageMenuService {
 
     //#region public methods
 
-    public getDescription(response: any[], feature: string, id: string): string {
+    public getDescription(response: any[], id: string): string {
         let returnValue = ''
         if (response != undefined) {
-            response.filter((f: { feature: string; labels: any[] }) => {
-                if (f.feature === feature) {
-                    f.labels.filter(l => {
-                        if (l.id == id) {
-                            returnValue = l.description
-                        }
-                    })
+            response.filter((f) => {
+                if (f.id === id) {
+                    returnValue = f.description
                 }
             })
         }

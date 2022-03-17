@@ -8,9 +8,10 @@ export class EmojiService {
         switch (emoji) {
             case 'null': return '🤪'
             case 'wildcard': return '⭐'
-            case 'ok': return '🟢'
-            case 'warning': return '🟡'
-            case 'error': return '🔴'
+            case 'ok': return '✔️ '
+            case 'warning': return '⚠️ '
+            case 'error': return '❌ '
+            case 'dot': return '◽'
         }
 
     }

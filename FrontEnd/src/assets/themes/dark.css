@@ -50,7 +50,6 @@
     --color-menu-background-hover: #6390ab4a;
     --color-menu-background: #657171;
     --color-menu-icons: #efe7ce;
-    --color-menu-sub-items-background: #a6d5fa0f;
     --color-menu-sub-items: #c0f3c4;
     --color-menu-text-hover: #ffffff;
     --color-primeng-list-hover: #738993;
@@ -59,7 +58,7 @@
     --color-primeng-list: #5f6e74;
     --color-radio-inner-circle: #ffe85c;
     --color-radio-outer-circle: #fe9f36;
-    --color-reservation-list-date:#6de9c7;
+    --color-reservation-list-date: #6de9c7;
     --color-scrollbar: #fe9f36;
     --color-selected-tab: #ffe85c;
     --color-slider-bar-active: #6d7273;
@@ -95,4 +94,12 @@
     --color-text-selected: #f2d49266;
     --color-tooltip-background: #fe9f36;
     --color-tooltip: #525d61;
+    --color-side-menu-background: #657171;
+    --color-side-menu-icons: #faf1e6;
+    --color-side-menu-icons-hover: #f19238;
+    --color-side-menu-background-items: #faf1e6;
+    --color-side-menu-background-items-background: #657171;
+    --color-side-menu-background-items-hover: #efefef;
+    --color-side-menu-background-items-hover-background: #f19238;
+    --color-side-menu-background-items-border-left: #945010;
 }

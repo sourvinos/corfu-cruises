@@ -1,6 +1,6 @@
 @media only screen and (max-width: 1440px) {
     * {
-        --content-padding-left: 20rem;
+        --content-padding-left: 9rem;
         --font-size-button: 100%;
         --font-size-calendar-day-width: 2rem;
         --font-size-calendar-day: 100%;

@@ -1,12 +1,65 @@
 #sidemenu {
-    background: var(--color-menu-background);
-    border-radius: 10px;
+    background: var(--color-side-menu-background);
     display: flex;
     flex-direction: column;
     height: calc(100% - var(--top-bar-height) - var(--gap));
-    justify-content: space-between;
-    padding: 0.5rem;
     transition: background-color var(--change-theme-delay) ease;
-    width: var(--side-bar-width);
-    z-index: 2;
+    width: 80px;
+}
+
+.menu {
+    font-weight: 800;
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.menu:last-child {
+    margin-top: auto;
+}
+
+.icon {
+    color: var(--color-side-menu-icons);
+    align-items: center !important;
+    cursor: pointer;
+    display: flex;
+    font-size: 24px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.icon:hover {
+    color: var(--color-side-menu-icons-hover);
+}
+
+.menu-item .menu-list {
+    background: var(--color-side-menu-background-items);
+    font-family: "PF Handbook Pro", sans-serif;
+    font-weight: 300;
+    height: 0;
+    left: 93%;
+    list-style: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-align: left;
+    top: 0;
+    white-space: nowrap;
+    width: 0;
+    z-index: 1;
+}
+
+.menu-item .menu-list li {
+    background-color: var(--color-side-menu-background-items-background);
+    border-left: solid 5px var(--color-side-menu-background-items-background);
+    color: var(--color-side-menu-background-items);
+    font-size: 20px;
+    padding: 5px 20px 7px 10px;
+}
+
+.menu-item .menu-list li:hover {
+    background-color: var(--color-side-menu-background-items-hover-background);
+    border-left: solid 5px var(--color-side-menu-background-items-border-left);
+    color: #000000;
+    cursor: pointer;
 }

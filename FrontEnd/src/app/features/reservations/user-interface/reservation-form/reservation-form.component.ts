@@ -41,6 +41,7 @@ import { VoucherService } from '../../classes/services/voucher.service'
 import { WarningIconService } from '../../classes/services/warning-icon.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 import { PassengerWriteVM } from '../../classes/view-models/passenger-write-vm'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
     selector: 'reservation-form',
@@ -82,7 +83,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.getRecord(x.id).then(() => {
@@ -146,13 +147,13 @@ export class ReservationFormComponent {
             const passengerDifference = this.form.value.totalPersons - (element != null ? element : this.form.value.passengers.length)
             switch (true) {
                 case passengerDifference == 0:
-                    this.passengerDifferenceIcon = '✔️'
+                    this.passengerDifferenceIcon = this.emojiService.getEmoji('ok')
                     return true
                 case passengerDifference < 0:
-                    this.passengerDifferenceIcon = '❌ '
+                    this.passengerDifferenceIcon = this.emojiService.getEmoji('error')
                     return false
                 case passengerDifference > 0:
-                    this.passengerDifferenceIcon = '⚠️ '
+                    this.passengerDifferenceIcon = this.emojiService.getEmoji('warning')
                     return true
             }
         }

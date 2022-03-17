@@ -2,7 +2,7 @@ import idleService from '@kurtz1993/idle-service'
 import { Component } from '@angular/core'
 import { MenuItem } from 'primeng/api'
 import { Router } from '@angular/router'
-import { Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
@@ -24,9 +24,11 @@ export class TopMenuComponent {
 
     //#region variables
 
-    private ngUnsubscribe = new Subject<void>()
+    private ngunsubscribe = new Subject<void>()
+    public loginStatus: Observable<boolean>
+    public menu: [] = []
     public menuItems: MenuItem[]
-
+    
     //#endregion
 
     constructor(private accountService: AccountService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageMenuService: MessageMenuService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
@@ -36,6 +38,7 @@ export class TopMenuComponent {
     ngOnInit(): void {
         this.messageMenuService.getMessages().then((response) => {
             this.buildMenu(response)
+            this.createMenu()
             this.subscribeToInteractionService()
         })
     }
@@ -44,10 +47,14 @@ export class TopMenuComponent {
 
     //#region private methods
 
-    private buildMenu(menuItems: any): void {
+    private buildMenu(response) {
+        this.menuItems = response
+    }
+
+    private createMenu(): void {
         this.menuItems = [
             {
-                label: this.getLabel(menuItems, 'calendar'),
+                label: this.getLabel('calendar'),
                 icon: 'fas fa-calendar',
                 routerLink: ['calendar-schedule'],
                 visible: this.isUserLoggedIn()
@@ -57,7 +64,7 @@ export class TopMenuComponent {
                 icon: 'fas fa-user-alt', visible: this.isUserLoggedIn(),
                 items: [
                     {
-                        label: this.getLabel(menuItems, 'editAccount'),
+                        label: this.getLabel('editAccount'),
                         icon: 'fas fa-pen-alt',
                         command: (): void => {
                             this.getConnectedUserId().then((response) => {
@@ -66,7 +73,7 @@ export class TopMenuComponent {
                         }
                     },
                     {
-                        label: this.getLabel(menuItems, 'logout'),
+                        label: this.getLabel('logout'),
                         icon: 'fas fa-power-off',
                         command: (): void => {
                             this.accountService.logout()
@@ -133,9 +140,9 @@ export class TopMenuComponent {
         return 'flag ' + flag
     }
 
-    private getLabel(response: any[], label: string): string {
-        return this.messageMenuService.getDescription(response, 'menus', label)
-    }
+    // private getLabel(response: any[], label: string): string {
+        // return this.messageMenuService.getDescription(response, 'menus', label)
+    // }
 
     private getUserDisplayname(): string {
         let userDisplayName = ''
@@ -168,12 +175,17 @@ export class TopMenuComponent {
     }
 
     private subscribeToInteractionService(): void {
-        this.interactionService.refreshMenus.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
+        this.interactionService.refreshMenus.pipe(takeUntil(this.ngunsubscribe)).subscribe(() => {
             this.messageMenuService.getMessages().then((response) => {
                 this.buildMenu(response)
             })
         })
     }
+
+    private getLabel(id: string): string {
+        return this.messageMenuService.getDescription(this.menu, id)
+    }
+
 
     //#endregion
 

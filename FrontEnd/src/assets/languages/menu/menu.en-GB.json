@@ -1,107 +1,98 @@
 [
     {
-        "feature": "menus",
-        "labels": [
-            {
-                "id": "home",
-                "description": "Home"
-            },
-            {
-                "id": "passengers",
-                "description": "Passengers"
-            },
-            {
-                "id": "embarkation",
-                "description": "Embarkation"
-            },
-            {
-                "id": "manifest",
-                "description": "Ship manifest"
-            },
-            {
-                "id": "reservations",
-                "description": "Reservations"
-            },
-            {
-                "id": "tasks",
-                "description": "Tasks"
-            },
-            {
-                "id": "invoicing",
-                "description": "Invoicing"
-            },
-            {
-                "id": "tables",
-                "description": "Tables"
-            },
-            {
-                "id": "customers",
-                "description": "Customers"
-            },
-            {
-                "id": "destinations",
-                "description": "Destinations"
-            },
-            {
-                "id": "drivers",
-                "description": "Drivers"
-            },
-            {
-                "id": "genders",
-                "description": "Genders"
-            },
-            {
-                "id": "pickupPoints",
-                "description": "Pickup points"
-            },
-            {
-                "id": "ports",
-                "description": "Ports"
-            },
-            {
-                "id": "coachRoutes",
-                "description": "Coach routes"
-            },
-            {
-                "id": "schedules",
-                "description": "Schedules"
-            },
-            {
-                "id": "users",
-                "description": "Users"
-            },
-            {
-                "id": "ships",
-                "description": "Ships"
-            },
-            {
-                "id": "shipOwners",
-                "description": "Shipowners"
-            },
-            {
-                "id": "registrars",
-                "description": "Passenger registrars"
-            },
-            {
-                "id": "crews",
-                "description": "Crews"
-            },
-            {
-                "id": "shipRoutes",
-                "description": "Ship routes"
-            },
-            {
-                "id": "logout",
-                "description": "Logout"
-            },
-            {
-                "id": "editAccount",
-                "description": "My account"
-            },
-            {
-                "id": "calendar",
-                "description": "Calendar"
-            }
-        ]
+        "id": "home",
+        "description": "Home"
+    },
+    {
+        "id": "embarkation",
+        "description": "Embarkation"
+    },
+    {
+        "id": "reservations",
+        "description": "Reservations"
+    },
+    {
+        "id": "tasks",
+        "description": "Tasks"
+    },
+    {
+        "id": "tables",
+        "description": "Tables"
+    },
+    {
+        "id": "logout",
+        "description": "Logout"
+    },
+     {
+        "id": "manifest",
+        "description": "Ship manifest"
+    },
+    {
+        "id": "invoicing",
+        "description": "Invoicing"
+    },
+    {
+        "id": "customers",
+        "description": "Customers"
+    },
+    {
+        "id": "destinations",
+        "description": "Destinations"
+    },
+    {
+        "id": "drivers",
+        "description": "Drivers"
+    },
+    {
+        "id": "genders",
+        "description": "Genders"
+    },
+    {
+        "id": "pickupPoints",
+        "description": "Pickup points"
+    },
+    {
+        "id": "ports",
+        "description": "Ports"
+    },
+    {
+        "id": "coachRoutes",
+        "description": "Coach routes"
+    },
+    {
+        "id": "schedules",
+        "description": "Schedules"
+    },
+    {
+        "id": "users",
+        "description": "Users"
+    },
+    {
+        "id": "ships",
+        "description": "Ships"
+    },
+    {
+        "id": "shipOwners",
+        "description": "Shipowners"
+    },
+    {
+        "id": "shipRoutes",
+        "description": "Ship routes"
+    },
+    {
+        "id": "crews",
+        "description": "Crews"
+    },
+    {
+        "id": "registrars",
+        "description": "Passenger registrars"
+    },
+    {
+        "id": "editAccount",
+        "description": "My account"
+    },
+    {
+        "id": "calendar",
+        "description": "Calendar"
     }
 ]

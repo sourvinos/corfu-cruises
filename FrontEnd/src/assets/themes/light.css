@@ -49,9 +49,7 @@
     --color-map-tooltip-color: #000000;
     --color-menu-background-hover: #cce8f9;
     --color-menu-background: #9ae4f5;
-    --color-menu-icons: #69a5d2;
-    --color-menu-sub-items-background: #00000008;
-    --color-menu-sub-items: #44a3a9;
+    --color-menu-icons: --color-menu-sub-items: #44a3a9;
     --color-menu-text-hover: #072d31;
     --color-primeng-list-hover: #6dd9f1;
     --color-primeng-list-selected-border: #ff6347;
@@ -95,4 +93,12 @@
     --color-text-selected: #f2d49266;
     --color-tooltip-background: #426f8a;
     --color-tooltip: #efefef;
+    --color-side-menu-background: #9ae4f5;
+    --color-side-menu-icons: #faf1e6;
+    --color-side-menu-icons-hover: #1581d3;
+    --color-side-menu-background-items: #000000;
+    --color-side-menu-background-items-background: #9ae4f5;
+    --color-side-menu-background-items-hover: #efefef;
+    --color-side-menu-background-items-hover-background: #a6d5fa;
+    --color-side-menu-background-items-border-left: #367bf4;
 }
