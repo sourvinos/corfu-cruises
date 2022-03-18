@@ -83,6 +83,10 @@ export class ReservationListComponent {
         this.populateDropdowns()
     }
 
+    ngAfterViewInit(): void {
+        this.changeScrollWheelSpeed()
+    }
+
     ngOnDestroy(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
@@ -211,6 +215,10 @@ export class ReservationListComponent {
     //#endregion
 
     //#region private methods
+
+    private changeScrollWheelSpeed(): void {
+        this.helperService.changeScrollWheelSpeed(document.querySelector<HTMLElement>('.cdk-virtual-scroll-viewport'), 0.99)
+    }
 
     private clearCheckboxes(): void {
         const items = document.querySelectorAll('.pi-check')
