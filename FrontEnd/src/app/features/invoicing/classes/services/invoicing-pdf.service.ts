@@ -190,7 +190,7 @@ export class InvoicingPdfService {
                         {
                             text: [
                                 { text: '\n\nDate: ' + data.date, alignment: 'right', fontSize: 9 },
-                                { text: '\nCustomer: ' + data.customerResource.description, alignment: 'right', fontSize: 9 },
+                                { text: '\nCustomer: ' + data.customer.description, alignment: 'right', fontSize: 9 },
                             ]
                         }
                     ],

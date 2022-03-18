@@ -62,12 +62,12 @@ export class InvoicingListComponent {
 
     public exportAllCustomers(): void {
         this.records.forEach((record: any) => {
-            this.exportSingleCustomer(record.date, record.customerResource.id)
+            this.exportSingleCustomer(record.date, record.customer.id)
         })
     }
 
-    public exportSingleCustomer(date: string, customerId: number): void {
-        this.invoicingService.get(date, customerId, 0, 0).subscribe(result => {
+    public exportSingleCustomer(date: string, customerId: string): void {
+        this.invoicingService.get(date, customerId, 'all', 'all').subscribe(result => {
             this.invoicingPdfService.doInvoiceTasks(result)
         }, errorFromInterceptor => {
             this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
@@ -103,6 +103,7 @@ export class InvoicingListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -114,7 +115,7 @@ export class InvoicingListComponent {
         this.criteriaLabels[0] = criteria.date
         this.criteriaLabels[1] = criteria.customer.description
         this.criteriaLabels[2] = criteria.destination.description
-        this.criteriaLabels[3] = criteria.vessel.description
+        this.criteriaLabels[3] = criteria.ship.description
     }
 
     private setWindowTitle(): void {

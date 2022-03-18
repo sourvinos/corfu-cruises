@@ -33,8 +33,8 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
                     <tr>
-                        <td colspan="2" class="row-group clickable" (click)="exportSingleCustomer(rowData.date, rowData.customerResource.id)">
-                            <i class="pi pi-file-pdf"></i><span>{{ rowData.customerResource.description }}</span>
+                        <td colspan="2" class="row-group clickable" (click)="exportSingleCustomer(rowData.date, rowData.customer.id)">
+                            <i class="pi pi-file-pdf"></i><span>{{ rowData.customer.description }}</span>
                         </td>
                         <td style="width: 20%;"></td>
                         <td style="width: 10%;"></td>

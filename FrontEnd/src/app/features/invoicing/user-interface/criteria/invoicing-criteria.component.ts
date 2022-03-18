@@ -42,11 +42,11 @@ export class InvoicingCriteriaComponent {
     public input: InputTabStopDirective
     public filteredCustomers: Observable<GenericResource[]>
     public filteredDestinations: Observable<GenericResource[]>
-    public filteredVessels: Observable<GenericResource[]>
+    public filteredShips: Observable<GenericResource[]>
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private vesselService: ShipService) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private shipService: ShipService) { }
 
     //#region lifecycle hooks
 
@@ -90,7 +90,7 @@ export class InvoicingCriteriaComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public vesselFields(subject: { description: any }): any {
+    public shipFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
 
@@ -134,7 +134,7 @@ export class InvoicingCriteriaComponent {
             date: ['', [Validators.required]],
             customer: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
-            vessel: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            ship: ['', [Validators.required, ValidationService.RequireAutocomplete]],
         })
     }
 
@@ -143,7 +143,7 @@ export class InvoicingCriteriaComponent {
             'date', moment(this.form.value.date).toISOString().substr(0, 10),
             'customer', this.form.value.customer.id,
             'destination', this.form.value.destination.id,
-            'ship', this.form.value.vessel.id], { relativeTo: this.activatedRoute })
+            'ship', this.form.value.ship.id], { relativeTo: this.activatedRoute })
     }
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
@@ -164,7 +164,7 @@ export class InvoicingCriteriaComponent {
     private populateDropdowns(): void {
         this.populateDropDown(this.customerService, 'customers', 'filteredCustomers', 'customer', 'description')
         this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
-        this.populateDropDown(this.vesselService, 'vessels', 'filteredVessels', 'vessel', 'description')
+        this.populateDropDown(this.shipService, 'ships', 'filteredShips', 'ship', 'description')
     }
 
     private populateFields(): void {
@@ -174,7 +174,7 @@ export class InvoicingCriteriaComponent {
                 date: moment(criteria.date).toISOString(),
                 customer: criteria.customer,
                 destination: criteria.destination,
-                vessel: criteria.vessel
+                ship: criteria.ship
             })
         }
     }
@@ -213,8 +213,8 @@ export class InvoicingCriteriaComponent {
         return this.form.get('destination')
     }
 
-    get vessel(): AbstractControl {
-        return this.form.get('vessel')
+    get ship(): AbstractControl {
+        return this.form.get('ship')
     }
 
     //#endregion    

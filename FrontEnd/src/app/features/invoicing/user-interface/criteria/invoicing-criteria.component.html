@@ -30,12 +30,12 @@
                 <mat-error *ngIf="destination.hasError('required')">{{ getHint("required") }}</mat-error>
                 <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
             </mat-form-field>
-            <!-- Vessel -->
+            <!-- Ship -->
             <mat-form-field>
-                <mat-label>{{ getLabel("vessel") }}</mat-label>
-                <input matInput formControlName="vessel" [matAutocomplete]="vessels" data-tabindex="4" [inputTabStop]="input">
-                <mat-error *ngIf="vessel.hasError('required')">{{ getHint("required") }}</mat-error>
-                <mat-error *ngIf="!vessel.hasError('required') && vessel.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
+                <mat-label>{{ getLabel("ship") }}</mat-label>
+                <input matInput formControlName="ship" [matAutocomplete]="ships" data-tabindex="4" [inputTabStop]="input">
+                <mat-error *ngIf="ship.hasError('required')">{{ getHint("required") }}</mat-error>
+                <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
             </mat-form-field>
             <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
         </form>
@@ -61,8 +61,8 @@
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #vessels="matAutocomplete" [displayWith]="genericFields">
-    <mat-option *ngFor="let option of filteredVessels | async" [value]="option">
+<mat-autocomplete autoActiveFirstOption #ships="matAutocomplete" [displayWith]="genericFields">
+    <mat-option *ngFor="let option of filteredShips | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
