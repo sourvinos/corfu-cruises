@@ -26,9 +26,9 @@ export class TopMenuComponent {
 
     private ngunsubscribe = new Subject<void>()
     public loginStatus: Observable<boolean>
-    public menu: [] = []
-    public menuItems: MenuItem[]
-    
+    public menuItems: [] = []
+    public menu: MenuItem[]
+
     //#endregion
 
     constructor(private accountService: AccountService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageMenuService: MessageMenuService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
@@ -37,7 +37,7 @@ export class TopMenuComponent {
 
     ngOnInit(): void {
         this.messageMenuService.getMessages().then((response) => {
-            this.buildMenu(response)
+            this.menuItems = response
             this.createMenu()
             this.subscribeToInteractionService()
         })
@@ -47,12 +47,8 @@ export class TopMenuComponent {
 
     //#region private methods
 
-    private buildMenu(response) {
-        this.menuItems = response
-    }
-
     private createMenu(): void {
-        this.menuItems = [
+        this.menu = [
             {
                 label: this.getLabel('calendar'),
                 icon: 'fas fa-calendar',
@@ -120,7 +116,7 @@ export class TopMenuComponent {
         this.saveLanguage(language)
         this.loadMessages()
         this.messageMenuService.getMessages().then((response) => {
-            this.buildMenu(response)
+            this.menuItems = response
         })
         return language
     }
@@ -140,13 +136,10 @@ export class TopMenuComponent {
         return 'flag ' + flag
     }
 
-    // private getLabel(response: any[], label: string): string {
-        // return this.messageMenuService.getDescription(response, 'menus', label)
-    // }
-
     private getUserDisplayname(): string {
         let userDisplayName = ''
         this.accountService.getUserDisplayname.subscribe(result => {
+            console.log('user', result)
             userDisplayName = result
         })
         return userDisplayName
@@ -177,15 +170,15 @@ export class TopMenuComponent {
     private subscribeToInteractionService(): void {
         this.interactionService.refreshMenus.pipe(takeUntil(this.ngunsubscribe)).subscribe(() => {
             this.messageMenuService.getMessages().then((response) => {
-                this.buildMenu(response)
+                this.menuItems = response
+                this.createMenu()   
             })
         })
     }
 
-    private getLabel(id: string): string {
-        return this.messageMenuService.getDescription(this.menu, id)
+    public getLabel(id: string): string {
+        return this.messageMenuService.getDescription(this.menuItems, id)
     }
-
 
     //#endregion
 

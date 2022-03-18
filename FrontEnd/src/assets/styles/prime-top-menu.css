@@ -33,11 +33,12 @@
 }
 
 .p-menubar .p-menuitem-link:nth-child(1), .p-menubar .p-menuitem-link:nth-child(2) {
-    /* padding: 6px 15px 6px 15px !important; */
+    padding: 6px 15px 6px 15px !important;
 }
 
 .p-menubar .p-menuitem-link .p-menuitem-text {
     color: var(--color-text-primary) !important;
+    font-family: var(--font-family-master);
     font-size: var(--font-size-menu-items) !important;
     font-weight: var(--font-weight-menu-items) !important;
 }
@@ -68,6 +69,10 @@
 
 .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
     color: var(--color-text-primary);
+}
+
+.p-menubar .p-menuitem.p-menuitem-active {
+    border: none;
 }
 
 .p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link {
