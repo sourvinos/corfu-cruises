@@ -16,10 +16,10 @@ namespace API.Features.Manifest {
             this.repo = repo;
         }
 
-        [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/vesselId/{vesselId}")]
-        //[Authorize(Roles = "admin")]
-        public ManifestResource Get(string date, int destinationId, int portId, int vesselId) {
-            return this.repo.Get(date, destinationId, portId, vesselId);
+        [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/shipId/{shipId}")]
+        [Authorize(Roles = "admin")]
+        public ManifestResource Get(string date, int destinationId, int portId, int shipId) {
+            return this.repo.Get(date, destinationId, portId, shipId);
         }
 
     }

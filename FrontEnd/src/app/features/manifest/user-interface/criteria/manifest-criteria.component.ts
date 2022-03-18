@@ -1,4 +1,3 @@
-import { DestinationDropdownVM } from './../../../destinations/classes/view-models/destination-dropdown-vm';
 import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
@@ -13,6 +12,7 @@ import { ShipDropdownVM } from '../../../ships/classes/view-models/ship-dropdown
 import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { DestinationDropdownVM } from './../../../destinations/classes/view-models/destination-dropdown-vm'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
@@ -46,16 +46,16 @@ export class ManifestCriteriaComponent {
     public form: FormGroup
     public destinations: DestinationDropdownVM[] = []
     public ports: Port[] = []
-    public vessels: ShipDropdownVM[] = []
+    public ships: ShipDropdownVM[] = []
     public routes: ShipRoute[]
     public filteredDestinations: Observable<DestinationDropdownVM[]>
     public filteredPorts: Observable<Port[]>
-    public filteredVessels: Observable<ShipDropdownVM[]>
+    public filteredShips: Observable<ShipDropdownVM[]>
     public filteredRoutes: Observable<ShipRoute[]>
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private shipRouteService: ShipRouteService, private snackbarService: SnackbarService, private titleService: Title, private vesselService: ShipService,) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private shipRouteService: ShipRouteService, private snackbarService: SnackbarService, private titleService: Title, private shipService: ShipService,) { }
 
     //#region lifecycle hooks
 
@@ -66,7 +66,7 @@ export class ManifestCriteriaComponent {
         this.getLocale()
         this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
         this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
-        this.populateDropDown(this.vesselService, 'vessels', 'filteredVessels', 'vessel', 'description')
+        this.populateDropDown(this.shipService, 'ships', 'filteredShips', 'ship', 'description')
         this.populateDropDown(this.shipRouteService, 'shipRoutes', 'filteredRoutes', 'route', 'description')
         this.populateFields()
     }
@@ -140,7 +140,7 @@ export class ManifestCriteriaComponent {
             date: ['', [Validators.required]],
             destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
-            vessel: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            ship: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             route: ['', [Validators.required, ValidationService.RequireAutocomplete]],
         })
     }
@@ -150,7 +150,7 @@ export class ManifestCriteriaComponent {
             'date', moment(this.form.value.date).toISOString().substr(0, 10),
             'destinationId', 1,
             'portId', this.form.value.port.id,
-            'vesselId', this.form.value.vessel.id
+            'shipId', this.form.value.ship.id
         ], { relativeTo: this.activatedRoute })
     }
 
@@ -175,7 +175,7 @@ export class ManifestCriteriaComponent {
                 date: moment(criteria.date).toISOString(),
                 destination: criteria.destination,
                 port: criteria.port,
-                vessel: criteria.vessel,
+                ship: criteria.ship,
                 route: criteria.route
             })
         }
@@ -215,8 +215,8 @@ export class ManifestCriteriaComponent {
         return this.form.get('port')
     }
 
-    get vessel(): AbstractControl {
-        return this.form.get('vessel')
+    get ship(): AbstractControl {
+        return this.form.get('ship')
     }
 
     get route(): AbstractControl {

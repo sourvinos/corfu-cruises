@@ -1,5 +1,7 @@
+import pdfFonts from 'pdfmake/build/vfs_fonts'
 import pdfMake from 'pdfmake/build/pdfmake'
 import { Injectable } from '@angular/core'
+pdfMake.vfs = pdfFonts.pdfMake.vfs
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ManifestPassengerVM } from '../view-models/manifest-passenger-vm'
@@ -64,6 +66,15 @@ export class ManifestPdfService {
                 table: {
                     fontSize: 7,
                     bold: false
+                },
+                paddingLeft: {
+                    margin: [50, 0, 0, 0]
+                },
+                paddingTop: {
+                    margin: [0, 15, 0, 0]
+                },
+                defaultStyle: {
+                    font: 'Roboto'
                 }
             }
         }
