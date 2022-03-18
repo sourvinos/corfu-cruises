@@ -104,8 +104,8 @@ export class ResetPasswordFormComponent {
     private flattenForm(): ResetPasswordViewModel {
         const vm = {
             email: this.email,
-            password: this.form.value.password,
-            confirmPassword: this.form.value.confirmPassword,
+            password: this.form.value.passwords.password,
+            confirmPassword: this.form.value.passwords.confirmPassword,
             token: this.token
         }
         return vm

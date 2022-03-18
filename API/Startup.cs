@@ -66,7 +66,7 @@ namespace API {
                     .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddEmailSenders();
             services.Configure<CookiePolicyOptions>(options => { options.CheckConsentNeeded = _ => true; options.MinimumSameSitePolicy = SameSiteMode.None; });
-            services.Configure<EmailSettings>(options => Configuration.GetSection("ShipCruises").Bind(options));
+            services.Configure<EmailSettings>(options => Configuration.GetSection("EmailSettings").Bind(options));
             services.Configure<TokenSettings>(options => Configuration.GetSection("TokenSettings").Bind(options));
             services.Configure<TestingEnvironment>(options => Configuration.GetSection("TestingEnvironment").Bind(options));
         }

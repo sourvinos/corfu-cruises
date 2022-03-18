@@ -91,7 +91,7 @@ export class AccountService extends DataService {
     }
 
     public resetPassword(vm: ResetPasswordViewModel): Observable<any> {
-        return this.http.post<any>(this.urlResetPassword, { vm })
+        return this.http.post<any>(this.urlResetPassword, vm)
     }
 
     //#endregion
