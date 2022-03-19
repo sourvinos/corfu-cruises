@@ -1593,6 +1593,10 @@
                 "description": "Crew"
             },
             {
+                "id": "no-results",
+                "description": "We found nothing!"
+            },
+            {
                 "id": "exportToPdfButton",
                 "description": "Export to PDF"
             }

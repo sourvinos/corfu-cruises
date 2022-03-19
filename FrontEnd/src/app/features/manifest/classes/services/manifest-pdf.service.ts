@@ -3,9 +3,8 @@ import pdfMake from 'pdfmake/build/pdfmake'
 import { Injectable } from '@angular/core'
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 // Custom
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { ManifestPassengerVM } from '../view-models/manifest-passenger-vm'
-import { ManifestListVM } from '../view-models/manifest-list-vm'
+import { ManifestVM } from '../view-models/manifest-vm'
 
 @Injectable({ providedIn: 'root' })
 
@@ -19,11 +18,9 @@ export class ManifestPdfService {
 
     //#endregion
 
-    constructor(private helperService: HelperService) { }
-
     //#region public methods
 
-    public createReport(manifest: ManifestListVM): void {
+    public createReport(manifest: ManifestVM): void {
         this.date = JSON.parse(localStorage.getItem('manifest-criteria')).date
         this.shipRoute = JSON.parse(localStorage.getItem('manifest-criteria')).route
         const dd = {
@@ -85,7 +82,7 @@ export class ManifestPdfService {
 
     //#region private methods
 
-    private buildTableBody(data: ManifestListVM, columnTypes: any[], columns: any[], align: any[]): void {
+    private buildTableBody(data: ManifestVM, columnTypes: any[], columns: any[], align: any[]): void {
         const body: any = []
         body.push(this.createTableHeaders())
         data.passengers.forEach((row) => {
@@ -96,7 +93,7 @@ export class ManifestPdfService {
         return body
     }
 
-    private createShipData(manifest: ManifestListVM): string {
+    private createShipData(manifest: ManifestVM): string {
         return '' +
             'ΣΤΟΙΧΕΙΑ ΠΛΟΙΟΥ' + '\n' +
             'ΟΝΟΜΑ ' + manifest.ship.description + '\n' +
@@ -105,7 +102,7 @@ export class ManifestPdfService {
             'ΙΜΟ ' + manifest.ship.imo + '\n'
     }
 
-    private createManager(manifest: ManifestListVM): string {
+    private createManager(manifest: ManifestVM): string {
         return '' +
             'ΣΤΟΙΧΕΙΑ ΕΤΑΙΡΙΑΣ' + '\n' +
             'ΥΠΕΥΘΥΝΟΣ ΔΙΑΧΕΙΡΙΣΤΗΣ ' + manifest.ship.manager + '\n' +
@@ -113,7 +110,7 @@ export class ManifestPdfService {
             'ΥΠΕΥΘΥΝΟΙ ΝΑΥΤΙΚΟΙ ΠΡΑΚΤΟΡΕΣ ' + manifest.ship.agent + '\n'
     }
 
-    private createDataEntryPrimaryPerson(manifest: ManifestListVM): string {
+    private createDataEntryPrimaryPerson(manifest: ManifestVM): string {
         return '' +
             'ΥΠΕΥΘΥΝΟΣ ΚΑΤΑΓΡΑΦΗΣ' + '\n' +
             'ΟΝΟΜΑΤΕΠΩΝΥΜΟ ' + manifest.ship.registrars[0].fullname + '\n' +
@@ -122,7 +119,7 @@ export class ManifestPdfService {
             'FAX ' + manifest.ship.registrars[0].fax + '\n'
     }
 
-    private createDataEntrySecondaryPerson(manifest: ManifestListVM): string {
+    private createDataEntrySecondaryPerson(manifest: ManifestVM): string {
         return '' +
             'ΑΝΤΙΚΑΤΑΣΤΑΤΗΣ ΥΠΕΥΘΥΝΟΥ ΚΑΤΑΓΡΑΦΗΣ' + '\n' +
             'ΟΝΟΜΑΤΕΠΩΝΥΜΟ ' + manifest.ship.registrars[1].fullname + '\n' +
@@ -131,13 +128,13 @@ export class ManifestPdfService {
             'FAX ' + manifest.ship.registrars[1].fax + '\n'
     }
 
-    private createTitle(manifest: ManifestListVM): string {
+    private createTitle(manifest: ManifestVM): string {
         return '' +
             'ΔΡΟΜΟΛΟΓΙΟ ΤΗΣ ' + manifest.date + '\n' +
             'ΚΑΤΑΣΤΑΣΗ ΕΠΙΒΑΙΝΟΝΤΩΝ'
     }
 
-    private createSignature(manifest: ManifestListVM): string {
+    private createSignature(manifest: ManifestVM): string {
         return '' +
             'ΒΕΒΑΙΩΝΕΤΑΙ Η ΑΚΡΙΒΕΙΑ ΤΩΝ ΩΣ ΑΝΩ ΣΤΟΙΧΕΙΩΝ' + '\n' +
             'ΚΑΙ ΠΛΗΡΟΦΟΡΙΩΝ ΑΠΟ ΤΟΝ / ΤΗΝ' + '\n' +
@@ -166,7 +163,7 @@ export class ManifestPdfService {
         ]
     }
 
-    private createPageHeader(manifest: ManifestListVM): string {
+    private createPageHeader(manifest: ManifestVM): string {
         return manifest.ship.shipOwner.description + '\n' +
             manifest.ship.shipOwner.profession + '\n' +
             manifest.ship.shipOwner.address + '\n' +
@@ -201,7 +198,7 @@ export class ManifestPdfService {
         return dataRow
     }
 
-    private table(data: ManifestListVM, columnTypes: any[], columns: any[], align: any[]): any {
+    private table(data: ManifestVM, columnTypes: any[], columns: any[], align: any[]): any {
         return {
             table: {
                 headerRows: 1,

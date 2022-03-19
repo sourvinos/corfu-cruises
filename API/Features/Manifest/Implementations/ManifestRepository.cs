@@ -22,10 +22,11 @@ namespace API.Features.Manifest {
                 Ship = context.Ships
                     .Include(x => x.ShipOwner)
                     .Include(x => x.Registrars.Where(x => x.IsActive))
+                    .Include(x => x.Crews.Where(x => x.IsActive))
+                    .Include(x => x.Crews.Where(x => x.IsActive)).ThenInclude(x => x.Gender)
                     .Include(x => x.Crews.Where(x => x.IsActive)).ThenInclude(x => x.Nationality)
                     .Include(x => x.Crews.Where(x => x.IsActive)).ThenInclude(x => x.Occupant)
-                    .SingleOrDefault(x => x.Id == shipId),
-                Port = context.Ports.SingleOrDefault(x => x.Id == portId),
+                    .FirstOrDefault(x => x.Id == shipId),
                 Passengers = context.Passengers
                     .Include(x => x.Nationality)
                     .Include(x => x.Occupant)
@@ -33,7 +34,8 @@ namespace API.Features.Manifest {
                     .Where(x => x.Reservation.Date.ToString() == date && x.Reservation.DestinationId == destinationId && x.Reservation.ShipId == shipId && x.IsCheckedIn)
                     .ToList()
             };
-            return mapper.Map<ManifestViewModel, ManifestResource>(manifest);
+            var temp = mapper.Map<ManifestViewModel, ManifestResource>(manifest);
+            return temp;
         }
 
     }

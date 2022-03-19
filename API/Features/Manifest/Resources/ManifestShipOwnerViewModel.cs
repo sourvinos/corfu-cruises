@@ -1,6 +1,6 @@
 namespace API.Features.Manifest {
 
-    public class ShipOwnerResource {
+    public class ManifestShipOwnerViewModel {
 
         public string Description { get; set; }
         public string Profession { get; set; }

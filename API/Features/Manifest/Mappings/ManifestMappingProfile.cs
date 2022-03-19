@@ -9,7 +9,7 @@ namespace API.Features.Manifest {
         public ManifestMappingProfile() {
             CreateMap<ManifestViewModel, ManifestResource>()
                 .ForMember(dest => dest.Date, x => x.MapFrom(source => source.Date))
-                .ForMember(dest => dest.Ship, x => x.MapFrom(source => new ShipResource {
+                .ForMember(dest => dest.Ship, x => x.MapFrom(source => new ManifestShipViewModel {
                     Description = source.Ship.Description,
                     IMO = source.Ship.IMO,
                     Flag = source.Ship.Flag,
@@ -17,14 +17,14 @@ namespace API.Features.Manifest {
                     Manager = source.Ship.Manager,
                     ManagerInGreece = source.Ship.ManagerInGreece,
                     Agent = source.Ship.Agent,
-                    ShipOwner = new ShipOwnerResource {
+                    ShipOwner = new ManifestShipOwnerViewModel {
                         Description = source.Ship.ShipOwner.Description,
                         Profession = source.Ship.ShipOwner.Profession,
                         Address = source.Ship.ShipOwner.Address,
                         City = source.Ship.ShipOwner.City,
                         TaxNo = source.Ship.ShipOwner.TaxNo
                     },
-                    Registrars = source.Ship.Registrars.ConvertAll(registrar => new RegistrarResource {
+                    Registrars = source.Ship.Registrars.ConvertAll(registrar => new ManifestRegistrarViewModel {
                         Fullname = registrar.Fullname,
                         Phones = registrar.Phones,
                         Email = registrar.Email,
@@ -32,26 +32,24 @@ namespace API.Features.Manifest {
                         Address = registrar.Address,
                         IsPrimary = registrar.IsPrimary
                     }),
-                    Crew = source.Ship.Crews.ConvertAll(crew => new ManifestCrewResource {
+                    Crew = source.Ship.Crews.ConvertAll(crew => new ManifestCrewViewModel {
                         Lastname = crew.Lastname,
                         Firstname = crew.Firstname,
                         Birthdate = DateHelpers.DateTimeToISOString(crew.Birthdate),
-                        OccupantDescription = crew.Occupant.Description,
                         GenderDescription = crew.Gender.Description,
                         NationalityDescription = crew.Nationality.Description,
-                    }),
+                        OccupantDescription = crew.Occupant.Description,
+                    })
                 }))
-                .ForMember(x => x.Passengers, x => x.MapFrom(x => x.Passengers.Select(passenger => new PassengerResource {
-                    ReservationId = passenger.ReservationId,
+                .ForMember(x => x.Passengers, x => x.MapFrom(x => x.Passengers.Select(passenger => new ManifestPassengerViewModel {
                     Lastname = passenger.Lastname,
                     Firstname = passenger.Firstname,
                     Birthdate = DateHelpers.DateTimeToISOString(passenger.Birthdate),
                     Remarks = passenger.Remarks,
                     SpecialCare = passenger.SpecialCare,
-                    IsCheckedIn = passenger.IsCheckedIn,
                     NationalityCode = passenger.Nationality.Code,
-                    NationalityDescription = passenger.Nationality.Description,
                     GenderDescription = passenger.Gender.Description,
+                    NationalityDescription = passenger.Nationality.Description,
                     OccupantDescription = passenger.Occupant.Description
                 })));
         }

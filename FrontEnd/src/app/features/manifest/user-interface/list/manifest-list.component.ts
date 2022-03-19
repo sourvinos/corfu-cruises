@@ -1,7 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
+import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
-import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
@@ -12,7 +11,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { ManifestListVM } from '../../classes/view-models/manifest-list-vm'
+import { ManifestVM } from '../../classes/view-models/manifest-vm'
 
 @Component({
     selector: 'manifest-list',
@@ -25,18 +24,16 @@ export class ManifestListComponent {
 
     //#region variables
 
-    @ViewChild('table') table: Table | undefined
-
-    private ngUnsubscribe = new Subject<void>()
-    private resolver = 'manifestList'
     private unlisten: Unlisten
-    private windowTitle = 'Manifest'
-    public crewCount = 0
+    private unsubscribe = new Subject<void>()
+    private url = 'manifest'
     public feature = 'manifestList'
-    public filteredRecords: ManifestListVM
+    public icon = 'arrow_back'
+    public parentUrl = '/manifest'
+
+    public crewCount = 0
     public passengerCount = 0
-    public records: ManifestListVM
-    public selectedShipRoute: any
+    public records: ManifestVM
 
     public genders = []
     public nationalities = []
@@ -58,8 +55,8 @@ export class ManifestListComponent {
     }
 
     ngOnDestroy(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
         this.unlisten()
     }
 
@@ -71,15 +68,11 @@ export class ManifestListComponent {
         this.pdfService.createReport(this.records)
     }
 
-    public onFilterExclude(occupantDescription?: string): void {
-        this.filteredRecords.passengers = occupantDescription ? this.records.passengers.filter(x => x.occupantDescription != occupantDescription) : this.records.passengers
+    public formatDateToLocale(date: string): string {
+        return this.helperService.formatISODateToLocale(date)
     }
 
-    public onFormatDate(date: string): string {
-        return date
-    }
-
-    public onGetLabel(id: string): string {
+    public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
@@ -88,9 +81,11 @@ export class ManifestListComponent {
     //#region private methods
 
     private addCrewToPassengers(): void {
-        this.records.ship.crew.forEach(crew => {
-            this.records.passengers.push(crew)
-        })
+        if (this.records.ship) {
+            this.records.ship.crew.forEach(crew => {
+                this.records.passengers.push(crew)
+            })
+        }
     }
 
     private addShortcuts(): void {
@@ -109,7 +104,7 @@ export class ManifestListComponent {
 
     private calculateTotals(): void {
         this.passengerCount = this.records.passengers.length
-        this.crewCount = this.records.ship.crew.length
+        this.crewCount = this.records.ship ? this.records.ship.crew.length : 0
     }
 
     private getDistinctGenders(): void {
@@ -129,20 +124,13 @@ export class ManifestListComponent {
     }
 
     private goBack(): void {
-        this.router.navigate(['/manifest'])
+        this.router.navigate([this.parentUrl])
     }
 
     private loadRecords(): void {
-        // this.manifestService.get('2021-05-01', 1, 2, 2).subscribe(result => {
-        //     console.log('Result', result)
-        //     this.records = result
-        //     this.filteredRecords = Object.assign([], this.records)
-        //     console.log('Records', this.filteredRecords)
-        // })
-        const listResolved = this.activatedRoute.snapshot.data[this.resolver]
+        const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = listResolved.result
-            this.filteredRecords = Object.assign([], this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -150,7 +138,7 @@ export class ManifestListComponent {
     }
 
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {

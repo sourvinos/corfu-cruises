@@ -6,9 +6,9 @@ namespace API.Features.Manifest {
 
         public string Date { get; set; }
 
-        public ShipResource Ship { get; set; }
+        public ManifestShipViewModel Ship { get; set; }
 
-        public List<PassengerResource> Passengers { get; set; }
+        public List<ManifestPassengerViewModel> Passengers { get; set; }
 
     }
 

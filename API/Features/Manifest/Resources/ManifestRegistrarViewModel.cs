@@ -1,6 +1,6 @@
 namespace API.Features.Manifest {
 
-    public class RegistrarResource {
+    public class ManifestRegistrarViewModel {
 
         public string Fullname { get; set; }
         public string Phones { get; set; }

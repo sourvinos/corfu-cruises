@@ -71,12 +71,14 @@ export class SideMenuComponent {
     }
 
     public styleMenu(element: string, width: string) {
-        document.getElementById(element).style.height = 'auto'
-        document.getElementById(element).style.padding = '10px 10px 10px 0;'
-        document.getElementById(element).style.position = 'absolute'
-        document.getElementById(element).style.transition = 'width 0.3s ease-in-out'
-        document.getElementById(element).style.width = width
-        document.getElementById(element).style.zIndex = '1'
+        if (document.getElementById(element)) {
+            document.getElementById(element).style.height = 'auto'
+            document.getElementById(element).style.padding = '10px 10px 10px 0;'
+            document.getElementById(element).style.position = 'absolute'
+            document.getElementById(element).style.transition = 'width 0.3s ease-in-out'
+            document.getElementById(element).style.width = width
+            document.getElementById(element).style.zIndex = '1'
+        }
     }
 
     private subscribeToInteractionService(): void {

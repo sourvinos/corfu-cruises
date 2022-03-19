@@ -1593,6 +1593,10 @@
                 "description": "Équipages"
             },
             {
+                "id": "no-results",
+                "description": "Nous n'avons rien trouvé!"
+            },
+            {
                 "id": "exportToPdfButton",
                 "description": "CRÉER UN PDF"
             }

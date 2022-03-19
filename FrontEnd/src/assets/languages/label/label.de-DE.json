@@ -1512,7 +1512,7 @@
             },
             {
                 "id": "no-results",
-                "description": "Nichts gefunden!"
+                "description": "Wir haben nichts gefunden!"
             }
         ]
     },
@@ -1591,6 +1591,10 @@
             {
                 "id": "crewCount",
                 "description": "Besatzungen"
+            },
+            {
+                "id": "no-results",
+                "description": "Wir haben nichts gefunden!"
             },
             {
                 "id": "exportToPdfButton",

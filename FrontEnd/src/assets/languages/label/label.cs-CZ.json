@@ -1512,7 +1512,7 @@
             },
             {
                 "id": "no-results",
-                "description": "Nic nalezeno!"
+                "description": "Nic jsme nenašli!"
             }
         ]
     },
@@ -1591,6 +1591,10 @@
             {
                 "id": "crewCount",
                 "description": "Osazenstvos"
+            },
+            {
+                "id": "no-results",
+                "description": "We found nothing!"
             },
             {
                 "id": "exportToPdfButton",

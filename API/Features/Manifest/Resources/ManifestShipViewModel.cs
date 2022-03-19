@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace API.Features.Manifest {
 
-    public class ShipResource {
+    public class ManifestShipViewModel {
 
         public string Description { get; set; }
         public string IMO { get; set; }
@@ -12,9 +12,9 @@ namespace API.Features.Manifest {
         public string ManagerInGreece { get; set; }
         public string Agent { get; set; }
 
-        public ShipOwnerResource ShipOwner { get; set; }
-        public List<RegistrarResource> Registrars { get; set; }
-        public List<ManifestCrewResource> Crew { get; set; }
+        public ManifestShipOwnerViewModel ShipOwner { get; set; }
+        public List<ManifestRegistrarViewModel> Registrars { get; set; }
+        public List<ManifestCrewViewModel> Crew { get; set; }
 
     }
 

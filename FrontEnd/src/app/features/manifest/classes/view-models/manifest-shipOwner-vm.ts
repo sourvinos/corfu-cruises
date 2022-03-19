@@ -1,4 +1,4 @@
-export class ShipOwnerVM {
+export class ManifestShipOwnerVM {
 
     constructor(
 
