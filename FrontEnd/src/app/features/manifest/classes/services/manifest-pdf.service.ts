@@ -5,6 +5,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 // Custom
 import { ManifestPassengerVM } from '../view-models/manifest-passenger-vm'
 import { ManifestVM } from '../view-models/manifest-vm'
+import { HelperService } from 'src/app/shared/services/helper.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -13,16 +14,14 @@ export class ManifestPdfService {
     //#region variables
 
     private rowCount = 0
-    private date: string
-    private shipRoute: any
 
     //#endregion
+
+    constructor(private helperService: HelperService) { }
 
     //#region public methods
 
     public createReport(manifest: ManifestVM): void {
-        this.date = JSON.parse(localStorage.getItem('manifest-criteria')).date
-        this.shipRoute = JSON.parse(localStorage.getItem('manifest-criteria')).route
         const dd = {
             pageMargins: 50,
             pageOrientation: 'portrait',
@@ -35,7 +34,7 @@ export class ManifestPdfService {
                             body: [
                                 [this.createPageHeader(manifest), this.createTitle(manifest)],
                                 [this.createShipData(manifest), this.createManager(manifest)],
-                                [this.createShipRoute(), ''],
+                                [this.createShipRoute(manifest), ''],
                                 [this.createDataEntryPrimaryPerson(manifest), this.createDataEntrySecondaryPerson(manifest)]
                             ],
                             style: 'table',
@@ -142,11 +141,11 @@ export class ManifestPdfService {
             'ΠΟΥ ΕΧΕΙ ΟΡΙΣΤΕΙ ΑΠΟ ΤΗΝ ΕΤΑΙΡΙΑ ΓΙΑ ΤΗ ΔΙΑΒΙΒΑΣΗ ΤΟΥΣ ΣΤΗΝ ΑΡΧΗ'
     }
 
-    private createShipRoute(): string {
+    private createShipRoute(manifest: ManifestVM): string {
         return '' +
-            'ΛΙΜΕΝΑΣ ΑΠΟΠΛΟΥ ' + this.shipRoute.fromPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.date + ' ΩΡΑ ' + this.shipRoute.fromTime + '\n' +
-            'ΕΝΔΙΑΜΕΣΟΙ ΛΙΜΕΝΕΣ ΠΡΟΣΕΓΓΙΣΗΣ ' + this.shipRoute.viaPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.date + ' ΩΡΑ ' + this.shipRoute.viaTime + '\n' +
-            'ΛΙΜΕΝΑΣ ΚΑΤΑΠΛΟΥ ' + this.shipRoute.toPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.date + ' ΩΡΑ ' + this.shipRoute.toTime
+            'ΛΙΜΕΝΑΣ ΑΠΟΠΛΟΥ ' + manifest.shipRoute.fromPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.helperService.formatISODateToLocale(manifest.date) + ' ΩΡΑ ' + manifest.shipRoute.fromTime + '\n' +
+            'ΕΝΔΙΑΜΕΣΟΙ ΛΙΜΕΝΕΣ ΠΡΟΣΕΓΓΙΣΗΣ ' + manifest.shipRoute.viaPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.helperService.formatISODateToLocale(manifest.date) + ' ΩΡΑ ' + manifest.shipRoute.viaTime + '\n' +
+            'ΛΙΜΕΝΑΣ ΚΑΤΑΠΛΟΥ ' + manifest.shipRoute.toPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.helperService.formatISODateToLocale(manifest.date) + ' ΩΡΑ ' + manifest.shipRoute.toTime
     }
 
     private createTableHeaders(): any[] {

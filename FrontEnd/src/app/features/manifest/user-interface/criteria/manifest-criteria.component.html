@@ -43,9 +43,9 @@
                 <!-- Route -->
                 <mat-form-field>
                     <mat-label>{{ onGetLabel("route") }}</mat-label>
-                    <input matInput formControlName="route" [matAutocomplete]="routes" data-tabindex="5" [inputTabStop]="input">
-                    <mat-error *ngIf="route.hasError('required')">{{ getHint("required") }}</mat-error>
-                    <mat-error *ngIf="!route.hasError('required') && route.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
+                    <input matInput formControlName="shipRoute" [matAutocomplete]="shipRoutes" data-tabindex="5" [inputTabStop]="input">
+                    <mat-error *ngIf="shipRoute.hasError('required')">{{ getHint("required") }}</mat-error>
+                    <mat-error *ngIf="!shipRoute.hasError('required') && shipRoute.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
             </div>
         </form>
@@ -78,8 +78,8 @@
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #routes="matAutocomplete" [displayWith]="autocompleteFields">
-    <mat-option *ngFor="let option of filteredRoutes | async" [value]="option">
+<mat-autocomplete autoActiveFirstOption #shipRoutes="matAutocomplete" [displayWith]="autocompleteFields">
+    <mat-option *ngFor="let option of filteredShipRoutes | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>

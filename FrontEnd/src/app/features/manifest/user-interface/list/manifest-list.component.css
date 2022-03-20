@@ -33,3 +33,7 @@
 #image-wrapper span {
     font-size: 8rem;
 }
+
+#image-wrapper button {
+    margin-top: 0.625rem;
+}

@@ -41,6 +41,14 @@ namespace API.Features.Manifest {
                         OccupantDescription = crew.Occupant.Description,
                     })
                 }))
+                .ForMember(dest => dest.ShipRoute, x => x.MapFrom(source => new ManifestShipRouteViewModel {
+                    FromPort = source.ShipRoute.FromPort,
+                    FromTime = source.ShipRoute.FromTime,
+                    ViaPort = source.ShipRoute.ViaPort,
+                    ViaTime = source.ShipRoute.ViaTime,
+                    ToPort = source.ShipRoute.ToPort,
+                    ToTime = source.ShipRoute.ToTime
+                }))
                 .ForMember(x => x.Passengers, x => x.MapFrom(x => x.Passengers.Select(passenger => new ManifestPassengerViewModel {
                     Lastname = passenger.Lastname,
                     Firstname = passenger.Firstname,

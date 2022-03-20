@@ -12,6 +12,7 @@ import { MessageSnackbarService } from '../../../../shared/services/messages-sna
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { ManifestVM } from '../../classes/view-models/manifest-vm'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
     selector: 'manifest-list',
@@ -40,7 +41,7 @@ export class ManifestListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -72,8 +73,16 @@ export class ManifestListComponent {
         return this.helperService.formatISODateToLocale(date)
     }
 
+    public getEmoji(emoji: string): string {
+        return this.emojiService.getEmoji(emoji)
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public goBack(): void {
+        this.router.navigate([this.parentUrl])
     }
 
     //#endregion
@@ -81,7 +90,7 @@ export class ManifestListComponent {
     //#region private methods
 
     private addCrewToPassengers(): void {
-        if (this.records.ship) {
+        if (this.records.passengers.length > 0) {
             this.records.ship.crew.forEach(crew => {
                 this.records.passengers.push(crew)
             })
@@ -121,10 +130,6 @@ export class ManifestListComponent {
         array.forEach(element => {
             this.nationalities.push({ label: element, value: element })
         })
-    }
-
-    private goBack(): void {
-        this.router.navigate([this.parentUrl])
     }
 
     private loadRecords(): void {

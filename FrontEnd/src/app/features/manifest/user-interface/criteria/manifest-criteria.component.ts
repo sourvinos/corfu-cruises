@@ -47,11 +47,11 @@ export class ManifestCriteriaComponent {
     public destinations: DestinationDropdownVM[] = []
     public ports: Port[] = []
     public ships: ShipDropdownVM[] = []
-    public routes: ShipRoute[]
+    public shipRoutes: ShipRoute[]
     public filteredDestinations: Observable<DestinationDropdownVM[]>
     public filteredPorts: Observable<Port[]>
     public filteredShips: Observable<ShipDropdownVM[]>
-    public filteredRoutes: Observable<ShipRoute[]>
+    public filteredShipRoutes: Observable<ShipRoute[]>
 
     //#endregion
 
@@ -67,7 +67,7 @@ export class ManifestCriteriaComponent {
         this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
         this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
         this.populateDropDown(this.shipService, 'ships', 'filteredShips', 'ship', 'description')
-        this.populateDropDown(this.shipRouteService, 'shipRoutes', 'filteredRoutes', 'route', 'description')
+        this.populateDropDown(this.shipRouteService, 'shipRoutes', 'filteredShipRoutes', 'shipRoute', 'description')
         this.populateFields()
     }
 
@@ -141,16 +141,17 @@ export class ManifestCriteriaComponent {
             destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             ship: ['', [Validators.required, ValidationService.RequireAutocomplete]],
-            route: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            shipRoute: ['', [Validators.required, ValidationService.RequireAutocomplete]],
         })
     }
 
     private navigateToList(): void {
         this.router.navigate([
-            'date', moment(this.form.value.date).toISOString().substr(0, 10),
-            'destinationId', 1,
+            'date', moment(this.form.value.date).toISOString().substring(0, 10),
+            'destinationId', this.form.value.destination.id,
             'portId', this.form.value.port.id,
-            'shipId', this.form.value.ship.id
+            'shipId', this.form.value.ship.id,
+            'shipRouteId', this.form.value.shipRoute.id
         ], { relativeTo: this.activatedRoute })
     }
 
@@ -176,7 +177,7 @@ export class ManifestCriteriaComponent {
                 destination: criteria.destination,
                 port: criteria.port,
                 ship: criteria.ship,
-                route: criteria.route
+                shipRoute: criteria.shipRoute
             })
         }
     }
@@ -219,8 +220,8 @@ export class ManifestCriteriaComponent {
         return this.form.get('ship')
     }
 
-    get route(): AbstractControl {
-        return this.form.get('route')
+    get shipRoute(): AbstractControl {
+        return this.form.get('shipRoute')
     }
 
     //#endregion

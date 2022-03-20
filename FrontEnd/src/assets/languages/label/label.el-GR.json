@@ -580,10 +580,6 @@
                 "description": "Ημερήσια κατάσταση κρατήσεων"
             },
             {
-                "id": "header",
-                "description": "Ημερήσια κατάσταση κρατήσεων"
-            },
-            {
                 "id": "tripDate",
                 "description": "Ημερομηνία εκδρομής"
             },
@@ -1525,7 +1521,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Επιβαίνοντες πλοίου"
+                "description": "Κατάσταση πλοίου"
             },
             {
                 "id": "date",
@@ -1562,7 +1558,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Επιβαίνοντες πλοίου"
+                "description": "Κατάσταση πλοίου"
             },
             {
                 "id": "headerLastname",

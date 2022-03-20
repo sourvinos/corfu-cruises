@@ -1,5 +1,6 @@
 import { ManifestPassengerVM } from './manifest-passenger-vm'
 import { ManifestShipVM } from './manifest-ship-vm'
+import { ManifestShipRouteVM } from './manifest-shipRoute-vm'
 
 export class ManifestVM {
 
@@ -7,7 +8,7 @@ export class ManifestVM {
 
         public date: string,
         public ship: ManifestShipVM,
-        public route: string,
+        public shipRoute: ManifestShipRouteVM,
         public passengers: ManifestPassengerVM[] = []
 
     ) { }

@@ -77,8 +77,9 @@
 
     <ng-container *ngIf="records.passengers.length == 0">
         <div id="image-wrapper">
-            <span>🎃</span>
+            <span>{{ getEmoji("no-results") }}</span>
             <h1>{{ getLabel("no-results") }}</h1>
+            <button (click)="goBack()" class="primary" data-cy="go-back" id="go-back" mat-flat-button>OK</button>
         </div>
     </ng-container>
 

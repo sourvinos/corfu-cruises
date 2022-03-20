@@ -7,8 +7,8 @@ namespace API.Infrastructure.SeedData {
     public static class SeedDatabaseMaster {
 
         public static void SeedDatabase(RoleManager<IdentityRole> roleManager, UserManager<UserExtended> userManager, AppDbContext context) {
-            // context.Database.EnsureDeleted();
-            // context.Database.EnsureCreated();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
             // Identity
             SeedDatabaseRoles.SeedRoles(roleManager);
             SeedDatabaseUsers.SeedUsers(userManager);

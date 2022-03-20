@@ -58,7 +58,7 @@ namespace API.Infrastructure.Auth {
         }
 
         private async Task<IActionResult> GenerateNewToken(TokenRequest model) {
-            var user = await userManager.FindByNameAsync(model.UserName);
+            var user = await userManager.FindByNameAsync(model.Username);
             if (user?.IsActive == true && await userManager.CheckPasswordAsync(user, model.Password)) {
                 var newRefreshToken = CreateRefreshToken(settings.ClientId, user.Id);
                 var oldRefreshTokens = db.Tokens.Where(rt => rt.UserId == user.Id);

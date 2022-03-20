@@ -16,7 +16,7 @@ namespace API.Features.Manifest {
             this.mapper = mapper;
         }
 
-        public ManifestResource Get(string date, int destinationId, int portId, int shipId) {
+        public ManifestResource Get(string date, int destinationId, int portId, int shipId, int shipRouteId) {
             var manifest = new ManifestViewModel {
                 Date = date,
                 Ship = context.Ships
@@ -27,6 +27,8 @@ namespace API.Features.Manifest {
                     .Include(x => x.Crews.Where(x => x.IsActive)).ThenInclude(x => x.Nationality)
                     .Include(x => x.Crews.Where(x => x.IsActive)).ThenInclude(x => x.Occupant)
                     .FirstOrDefault(x => x.Id == shipId),
+                ShipRoute = context.ShipRoutes
+                    .FirstOrDefault(x => x.Id == shipRouteId),
                 Passengers = context.Passengers
                     .Include(x => x.Nationality)
                     .Include(x => x.Occupant)
@@ -34,8 +36,7 @@ namespace API.Features.Manifest {
                     .Where(x => x.Reservation.Date.ToString() == date && x.Reservation.DestinationId == destinationId && x.Reservation.ShipId == shipId && x.IsCheckedIn)
                     .ToList()
             };
-            var temp = mapper.Map<ManifestViewModel, ManifestResource>(manifest);
-            return temp;
+            return mapper.Map<ManifestViewModel, ManifestResource>(manifest);
         }
 
     }
