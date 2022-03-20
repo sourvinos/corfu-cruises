@@ -1,0 +1,8 @@
+.mat-calendar {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.mat-calendar-arrow {
+    display: none !important;
+}

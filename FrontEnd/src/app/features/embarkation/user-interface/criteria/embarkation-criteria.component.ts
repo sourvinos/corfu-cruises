@@ -1,5 +1,3 @@
-import { DestinationDropdownVM } from './../../../destinations/classes/view-models/destination-dropdown-vm';
-import { ShipDropdownVM } from '../../../ships/classes/view-models/ship-dropdown-vm'
 import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
@@ -7,17 +5,23 @@ import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
-import { map, startWith } from 'rxjs/operators'
+import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { DestinationDropdownVM } from './../../../destinations/classes/view-models/destination-dropdown-vm'
+import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { Port } from 'src/app/features/ports/classes/models/port'
+import { PortDropdownVM } from './../../../ports/classes/view-models/port-dropdown-vm'
+import { PortService } from 'src/app/features/ports/classes/services/port.service'
+import { ShipDropdownVM } from '../../../ships/classes/view-models/ship-dropdown-vm'
+import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
@@ -25,7 +29,7 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 @Component({
     selector: 'embarkation-criteria',
     templateUrl: './embarkation-criteria.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css'],
+    styleUrls: ['../../../../../assets/styles/forms.css', './embarkation-criteria.component.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
@@ -33,39 +37,41 @@ export class EmbarkationCriteriaComponent {
 
     //#region variables
 
-    private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private windowTitle = 'Embarkation'
+    private unsubscribe = new Subject<void>()
     public feature = 'embarkationCriteria'
-    public input: InputTabStopDirective
     public form: FormGroup
+    public icon = 'home'
+    public input: InputTabStopDirective
+    public parentUrl = '/'
+
+    public isAutoCompleteDisabled = true
     public destinations: DestinationDropdownVM[] = []
-    public ports: Port[] = []
-    public ships: ShipDropdownVM[] = []
     public filteredDestinations: Observable<DestinationDropdownVM[]>
-    public filteredPorts: Observable<Port[]>
+    public ports: PortDropdownVM[] = []
+    public filteredPorts: Observable<PortDropdownVM[]>
+    public ships: ShipDropdownVM[] = []
     public filteredShips: Observable<ShipDropdownVM[]>
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
-        this.initForm()
         this.addShortcuts()
-        this.getLocale()
-        this.populateDropDown('destinationService', 'destinations', 'filteredDestinations', 'destination', 'description')
-        this.populateDropDown('portService', 'ports', 'filteredPorts', 'port', 'description')
-        this.populateDropDown('shipService', 'ships', 'filteredShips', 'ship', 'description')
-        this.populateFields()
+        this.initForm()
+        this.populateDropdowns()
+        this.populateFieldsFromStoredVariables()
+        this.setLocale()
+        this.setWindowTitle()
+        this.subscribeToInteractionService()
+        this.focusOnField()
     }
 
     ngOnDestroy(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -77,15 +83,23 @@ export class EmbarkationCriteriaComponent {
         return subject ? subject.description : undefined
     }
 
+    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+        if (event.target.value == '') this.isAutoCompleteDisabled = true
+    }
+
+    public enableOrDisableAutoComplete(event: any) {
+        this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
+    }
+
     public getHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
     }
 
-    public onGetLabel(id: string): string {
+    public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onDoJobs(): void {
+    public onDoTasks(): void {
         this.storeCriteria()
         this.navigateToList()
     }
@@ -98,7 +112,6 @@ export class EmbarkationCriteriaComponent {
         this.unlisten = this.keyboardShortcutsService.listen({
             'Escape': () => {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.removeCriteria()
                     this.goBack()
                 }
             },
@@ -111,25 +124,30 @@ export class EmbarkationCriteriaComponent {
         })
     }
 
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
+    }
+
     private filterArray(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
-            return this[array].filter((element) =>
+            return this[array].filter((element: { [x: string]: string }) =>
                 element[field].toLowerCase().startsWith(filtervalue))
         }
     }
 
-    private getLocale(): void {
-        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+    private focusOnField(): void {
+        this.helperService.focusOnField('destination')
     }
 
     private goBack(): void {
-        this.router.navigate([this.helperService.getHomePage()])
+        this.router.navigate([this.parentUrl])
     }
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            date: ['', [Validators.required]],
+            date: [new Date().toISOString().substring(0, 10)],
             destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             ship: ['', [Validators.required, ValidationService.RequireAutocomplete]],
@@ -137,12 +155,12 @@ export class EmbarkationCriteriaComponent {
     }
 
     private navigateToList(): void {
-        this.router.navigate(['date', moment(this.form.value.date).toISOString().substr(0, 10), 'destinationId', this.form.value.destination.id, 'portId', this.form.value.port.id, 'shipId', this.form.value.ship.id], { relativeTo: this.activatedRoute })
+        this.router.navigate(['date', moment(this.form.value.date).toISOString().substring(0, 10), 'destinationId', this.form.value.destination.id, 'portId', this.form.value.port.id, 'shipId', this.form.value.ship.id], { relativeTo: this.activatedRoute })
     }
 
-    private populateDropDown(service: string, table: string, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
         const promise = new Promise((resolve) => {
-            this[service].getActiveForDropdown().toPromise().then(
+            service.getActiveForDropdown().toPromise().then(
                 (response: any) => {
                     this[table] = response
                     resolve(this[table])
@@ -154,7 +172,13 @@ export class EmbarkationCriteriaComponent {
         return promise
     }
 
-    private populateFields(): void {
+    private populateDropdowns(): void {
+        this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
+        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
+        this.populateDropDown(this.shipService, 'ships', 'filteredShips', 'ship', 'description')
+    }
+
+    private populateFieldsFromStoredVariables(): void {
         if (this.localStorageService.getItem('embarkationCriteria')) {
             const criteria = JSON.parse(this.localStorageService.getItem('embarkationCriteria'))
             this.form.setValue({
@@ -166,14 +190,12 @@ export class EmbarkationCriteriaComponent {
         }
     }
 
-    private removeCriteria(): void {
-        this.localStorageService.deleteItems([
-            'embarkationCriteria'
-        ])
+    private setLocale(): void {
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {
@@ -182,6 +204,12 @@ export class EmbarkationCriteriaComponent {
 
     private storeCriteria(): void {
         this.localStorageService.saveItem('embarkationCriteria', JSON.stringify(this.form.value))
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+            this.setLocale()
+        })
     }
 
     //#endregion

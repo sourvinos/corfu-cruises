@@ -102,7 +102,7 @@ export class HelperService {
         return array
     }
 
-    public setFocus(element: string): void {
+    public focusOnField(element: string): void {
         setTimeout(() => {
             const input = <HTMLInputElement>document.getElementById(element)
             input.focus()

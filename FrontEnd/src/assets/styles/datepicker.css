@@ -42,7 +42,7 @@
 }
 
 .mat-calendar-body-label {
-    opacity: 0%;
+    opacity: 0;
 }
 
 .mat-calendar-body-cell-content {
@@ -57,8 +57,8 @@
 }
 
 .mat-calendar-body-selected {
-    background-color: var(--color-button-secondary);
-    color: var(--color-button-text);
+    background-color: var(--color-datepicker-days-background);
+    color: var(--color-datepicker-days);
 }
 
 .mat-calendar-body-in-range:not(.mat-calendar-body-range-start):not(.mat-calendar-body-range-end) {

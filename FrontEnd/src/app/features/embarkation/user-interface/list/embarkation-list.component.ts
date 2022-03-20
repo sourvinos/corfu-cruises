@@ -28,11 +28,14 @@ export class EmbarkationListComponent {
 
     private ngUnsubscribe = new Subject<void>()
     private resolver = 'embarkationList'
+    public icon = 'arrow_back'
+    private url = ''
     private unlisten: Unlisten
     private windowTitle = 'Embarkation'
     public feature = 'embarkationList'
     public filteredRecords: EmbarkationVM
     public records: EmbarkationVM
+    public parentUrl = '/embarkation'
 
     private temp = []
     public customers = []
@@ -46,6 +49,7 @@ export class EmbarkationListComponent {
     constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private embarkationervice: EmbarkationService, private titleService: Title) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
+                this.url = navigation.url
                 this.loadRecords()
                 this.updatePassengerStatus()
                 this.getDistinctCustomers()
@@ -74,7 +78,7 @@ export class EmbarkationListComponent {
 
     public onDoEmbarkation(id: number): void {
         this.embarkationervice.boardPassenger(id).subscribe(() => {
-            this.refreshPage()
+            this.refreshList()
             this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
         })
     }
@@ -187,10 +191,8 @@ export class EmbarkationListComponent {
         document.getElementById('video').style.display = 'flex'
     }
 
-    private refreshPage(): void {
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate([this.router.url])
-        })
+    private refreshList(): void {
+        this.router.navigate([this.url])
     }
 
     private setWindowTitle(): void {

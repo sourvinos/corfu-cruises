@@ -81,7 +81,7 @@ export class CalendarComponent {
     }
 
     public isToday(day: any): boolean {
-        return day.date == new Date().toISOString().substr(0, 10)
+        return day.date == new Date().toISOString().substring(0, 10)
     }
 
     public onChangeMonth(flag: number): void {

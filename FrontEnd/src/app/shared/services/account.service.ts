@@ -117,7 +117,8 @@ export class AccountService extends DataService {
             'loginStatus',
             'refreshToken',
             'refNo',
-            'returnUrl'
+            'returnUrl',
+            'embarkationCriteria'
         ])
     }
 

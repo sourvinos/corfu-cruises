@@ -29,8 +29,10 @@
     --color-credit-hover: #f9f4d7;
     --color-credit-title: #fe9f36;
     --color-credit-url: #86805f;
-    --color-datepicker-days: #ededed;
+    --color-datepicker-days-background: #a6d5fa;
+    --color-datepicker-days: #000000;
     --color-datepicker-month: #ffe85c;
+    --color-datepicker-selected-date: #fff000;
     --color-dropdown-background: #e3f5f5;
     --color-dropdown-icons: #9ae4f5;
     --color-embarkation-list-icons: #6ba2ad;
@@ -49,7 +51,7 @@
     --color-map-tooltip-color: #000000;
     --color-menu-background-hover: #cce8f9;
     --color-menu-background: #9ae4f5;
-    --color-menu-icons: --color-menu-sub-items: #44a3a9;
+    --color-menu-icons: #44a3a9;
     --color-menu-text-hover: #072d31;
     --color-primeng-list-hover: #6dd9f1;
     --color-primeng-list-selected-border: #ff6347;
@@ -60,6 +62,14 @@
     --color-reservation-list-date: #ff086e;
     --color-scrollbar: #fe9f36;
     --color-selected-tab: #ef8857;
+    --color-side-menu-background-items-background: #9ae4f5;
+    --color-side-menu-background-items-border-left: #367bf4;
+    --color-side-menu-background-items-hover-background: #a6d5fa;
+    --color-side-menu-background-items-hover: #efefef;
+    --color-side-menu-background-items: #000000;
+    --color-side-menu-background: #9ae4f5;
+    --color-side-menu-icons-hover: #1581d3;
+    --color-side-menu-icons: #faf1e6;
     --color-slider-bar-active: #94999a;
     --color-slider-bar-inactive: #a2a6a7;
     --color-slider-thumb-active: #426f8a;
@@ -93,12 +103,4 @@
     --color-text-selected: #f2d49266;
     --color-tooltip-background: #426f8a;
     --color-tooltip: #efefef;
-    --color-side-menu-background: #9ae4f5;
-    --color-side-menu-icons: #faf1e6;
-    --color-side-menu-icons-hover: #1581d3;
-    --color-side-menu-background-items: #000000;
-    --color-side-menu-background-items-background: #9ae4f5;
-    --color-side-menu-background-items-hover: #efefef;
-    --color-side-menu-background-items-hover-background: #a6d5fa;
-    --color-side-menu-background-items-border-left: #367bf4;
 }

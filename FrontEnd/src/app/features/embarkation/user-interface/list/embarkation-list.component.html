@@ -1,12 +1,7 @@
 <div id="list">
 
     <div id="header">
-        <div id="navigation">
-            <mat-icon class="goBack" [routerLink]="['/embarkation']">arrow_back</mat-icon>
-        </div>
-        <div @slideFromLeft id="title">
-            <h1>{{ onGetLabel('header') }}</h1>
-        </div>
+        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="embarkationFilter">
             <mat-radio-group>
                 <mat-radio-button checked value="all" (click)="onFilterExclude()">{{ onGetLabel('all') }} ({{ records.totalPersons }})</mat-radio-button>
