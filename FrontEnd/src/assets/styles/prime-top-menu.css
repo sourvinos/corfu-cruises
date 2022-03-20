@@ -33,7 +33,7 @@
 }
 
 .p-menubar .p-menuitem-link:nth-child(1), .p-menubar .p-menuitem-link:nth-child(2) {
-    padding: 6px 15px 6px 15px !important;
+    padding: 0.625rem 1rem 0.625rem 1rem !important;
 }
 
 .p-menubar .p-menuitem-link .p-menuitem-text {

@@ -32,9 +32,9 @@ export class ResetPasswordFormComponent {
     private unsubscribe = new Subject<void>()
     public feature = 'resetPasswordForm'
     public form: FormGroup
-    public icon = ''
+    public icon = null
     public input: InputTabStopDirective
-    public parentUrl = ''
+    public parentUrl = null
 
     private email: string
     private token: string
