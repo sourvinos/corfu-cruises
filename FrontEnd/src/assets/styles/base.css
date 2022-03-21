@@ -195,23 +195,6 @@ p.instructions {
     margin-right: 0.2rem !important;
 }
 
-.mat-progress-spinner circle, .mat-spinner circle {
-    stroke: var(--color-spinner) !important;
-}
-
-.has-data {
-    align-items: baseline;
-    border-radius: 50px;
-    color: var(--color-text-primary);
-    display: flex;
-    flex-direction: row;
-    padding: 0 1rem;
-}
-
-.mat-drawer-backdrop.mat-drawer-shown {
-    background-color: #ffffff00;
-}
-
 .mat-tooltip {
     color: var(--color-tooltip) !important;
     font-family: var(--font-family-master);

@@ -2,6 +2,7 @@
 
     <div id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <div *ngIf="isProcessing" id="loading-indication"></div>
     </div>
 
     <div id="content">
@@ -28,5 +29,9 @@
             <button (click)="onLogin()" [disabled]="!form.valid" class="primary" data-cy="login" id="login" mat-flat-button>{{ getLabel("loginButton") }}</button>
         </div>
     </div>
+
+    <!-- <div [class.hidden]="!isProcessing" id="loading-indication"> -->
+    <!-- Horizontal loader -->
+    <!-- </div> -->
 
 </div>

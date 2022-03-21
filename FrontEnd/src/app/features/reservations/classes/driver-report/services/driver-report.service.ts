@@ -276,7 +276,6 @@ export class DriverReportService {
                 'destinationAbbreviation': reservation.destinationAbbreviation,
             })
         })
-        console.log(reservations)
         return reservations
     }
 

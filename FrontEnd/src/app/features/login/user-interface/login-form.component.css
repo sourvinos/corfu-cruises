@@ -6,3 +6,51 @@
 #footer {
     margin: var(--gap) 0 var(--gap) auto !important;
 }
+
+#loading-indication, #loading-indication::before {
+    background-color: var(--color-common-background);
+    display: flex;
+    height: 0.0625rem;
+    margin: 0;
+    width: 100%;
+}
+
+#loading-indication::before {
+    background-color: #ffa500;
+    content: "";
+    animation: running-progress 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes running-progress {
+    0% {
+        margin-left: 0;
+        margin-right: 100%;
+    }
+
+    50% {
+        margin-left: 25%;
+        margin-right: 0%;
+    }
+
+    100% {
+        margin-left: 100%;
+        margin-right: 0;
+    }
+}
+
+@keyframes running-progress {
+    0% {
+        margin-left: 0;
+        margin-right: 100%;
+    }
+
+    50% {
+        margin-left: 25%;
+        margin-right: 0%;
+    }
+
+    100% {
+        margin-left: 100%;
+        margin-right: 0;
+    }
+}

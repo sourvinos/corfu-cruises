@@ -30,31 +30,10 @@ export class AppComponent {
 
     //#region listeners
 
-    @HostListener('window:resize', ['$event']) onResize(): any {
-        this.positionSpinner()
-    }
-
     @HostListener('window:beforeunload', ['$event']) beforeUnloadHander(): any {
         this.accountService.logout()
     }
 
     //#endregion
 
-    //#region lifecycle hooks
-
-    ngAfterViewInit(): void {
-        this.positionSpinner()
-    }
-
-    //#endregion
-
-    //#region private methods
-
-    private positionSpinner(): void {
-        document.getElementById('spinner').style.left = (window.outerWidth / 2) - 40 + 'px'
-        document.getElementById('spinner').style.top = (document.getElementById('wrapper').clientHeight / 2) - 40 + 'px'
-    }
-
-
-    //#endregion
 }

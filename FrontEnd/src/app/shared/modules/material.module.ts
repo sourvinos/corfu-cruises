@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
 import { MatSidenavModule } from '@angular/material/sidenav'
@@ -44,6 +45,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         MatMenuModule,
         MatMomentDateModule,
         MatProgressBarModule,
+        MatProgressSpinnerModule,
         MatRadioModule,
         MatSelectModule,
         MatSidenavModule,

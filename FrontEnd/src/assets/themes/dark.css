@@ -32,7 +32,7 @@
     --color-datepicker-days-background: #a6d5fa;
     --color-datepicker-days: #efefef;
     --color-datepicker-month: #ffe85c;
-    --color-datepicker-selected-date: #fff000;
+    --color-datepicker-selected-date: #000000;
     --color-dropdown-background: #657171;
     --color-dropdown-icons: #efe7ce;
     --color-embarkation-list-icons: #6ba2ad;
@@ -78,9 +78,6 @@
     --color-snackbar-info: #5cda9e;
     --color-snackbar-text: #ffffff;
     --color-snackbar-warning: #d1e345;
-    --color-spinner-inner: #ffe85c;
-    --color-spinner-outer: #fe9f36;
-    --color-spinner: #fe9f36;
     --color-summary-background: #555f64;
     --color-summary-header-icon: #efe7ce;
     --color-summary-header: #e6ba8a;

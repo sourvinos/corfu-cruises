@@ -139,7 +139,6 @@ export class TopMenuComponent {
     private getUserDisplayname(): string {
         let userDisplayName = ''
         this.accountService.getUserDisplayname.subscribe(result => {
-            console.log('user', result)
             userDisplayName = result
         })
         return userDisplayName

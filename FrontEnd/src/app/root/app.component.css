@@ -1,5 +1,6 @@
 #wrapper {
     display: flex;
+    flex-direction: column;
     height: 100%;
     width: 100vw;
 }
@@ -9,6 +10,7 @@
     background-size: cover;
     display: flex;
     flex-direction: column;
+    height: 100%;
     overflow: hidden;
     width: 100%;
     transition: background-color var(--change-theme-delay) ease;
@@ -21,23 +23,50 @@
     transition: background-color var(--change-theme-delay) ease;
 }
 
-#spinner {
-    border: 0.1875rem solid var(--color-spinner-outer);
-    border-top: 0.1875rem solid var(--color-spinner-inner);
-    border-radius: 50%;
-    width: 5rem;
-    height: 5rem;
-    position: absolute;
-    animation: spin 1700ms linear infinite;
-    z-index: 2;
+#loading-indication, #loading-indication::before {
+    background-color: var(--color-common-background);
+    display: flex;
+    height: 0.0625rem;
+    margin: 0;
+    width: 100%;
 }
 
-@keyframes spin {
+#loading-indication::before {
+    background-color: #ffa500;
+    content: "";
+    animation: running-progress 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes running-progress {
     0% {
-        transform: rotate(0deg);
+        margin-left: 0;
+        margin-right: 100%;
+    }
+
+    50% {
+        margin-left: 25%;
+        margin-right: 0%;
     }
 
     100% {
-        transform: rotate(360deg);
+        margin-left: 100%;
+        margin-right: 0;
+    }
+}
+
+@keyframes running-progress {
+    0% {
+        margin-left: 0;
+        margin-right: 100%;
+    }
+
+    50% {
+        margin-left: 25%;
+        margin-right: 0%;
+    }
+
+    100% {
+        margin-left: 100%;
+        margin-right: 0;
     }
 }

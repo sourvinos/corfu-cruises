@@ -21,7 +21,7 @@
     --color-calendar-popup-add-reservation: #efe7ce;
     --color-calendar-popup-destination: #bff5a2;
     --color-calendar-popup-details: #719298;
-    --color-calendar-today: #46f6ff;
+    --color-calendar-today: #77779a;
     --color-checkbox-checked: #426f8a;
     --color-checkbox-indeterminate: #426f8a;
     --color-common-background: #ebf6ff;
@@ -32,7 +32,7 @@
     --color-datepicker-days-background: #a6d5fa;
     --color-datepicker-days: #000000;
     --color-datepicker-month: #9ae4f5;
-    --color-datepicker-selected-date: #fff000;
+    --color-datepicker-selected-date: #77779a;
     --color-dropdown-background: #e3f5f5;
     --color-dropdown-icons: #9ae4f5;
     --color-embarkation-list-icons: #6ba2ad;
@@ -78,9 +78,6 @@
     --color-snackbar-info: #5cda9e;
     --color-snackbar-text: #ffffff;
     --color-snackbar-warning: #d1e345;
-    --color-spinner-inner: #ffe85c;
-    --color-spinner-outer: #fe9f36;
-    --color-spinner: #fe9f36;
     --color-summary-background: #effff6;
     --color-summary-header-icon: #73b2c7;
     --color-summary-header: #227c9d;
