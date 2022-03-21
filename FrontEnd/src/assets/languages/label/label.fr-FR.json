@@ -1524,18 +1524,6 @@
                 "description": "Manifeste du navire"
             },
             {
-                "id": "date",
-                "description": "Date"
-            },
-            {
-                "id": "searchDateHint",
-                "description": "Date de départ"
-            },
-            {
-                "id": "ship",
-                "description": "Navire"
-            },
-            {
                 "id": "destination",
                 "description": "Destination"
             },
@@ -1544,7 +1532,11 @@
                 "description": "Port"
             },
             {
-                "id": "route",
+                "id": "ship",
+                "description": "Navire"
+            },
+            {
+                "id": "shipRoute",
                 "description": "Route"
             },
             {

@@ -1,49 +1,38 @@
 <div id="form-wrapper">
 
     <div id="header">
-        <div @slideFromLeft id="title">
-            <h1>{{ onGetLabel('header')}}</h1>
-        </div>
+        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="content">
         <form id="form" [formGroup]="form" autocomplete="off">
-            <!-- Date -->
-            <mat-form-field>
-                <input type="text" matInput d="date" [matDatepicker]="picker" [placeholder]="onGetLabel('date')" formControlName="date" data-tabindex="1" [inputTabStop]="input">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="date.hasError('required')">{{ getHint("required") }}</mat-error>
-                <mat-hint>{{ onGetLabel('searchDateHint') }}</mat-hint>
-            </mat-form-field>
-            <div class="group-field">
+            <div id="calendar">
+                <mat-card id="calendar-card">
+                    <mat-calendar [(selected)]="form.value.date"></mat-calendar>
+                </mat-card>
+            </div>
+            <div id="fields">
                 <!-- Destination -->
                 <mat-form-field>
-                    <mat-label>{{ onGetLabel("destination") }}</mat-label>
-                    <input matInput formControlName="destination" [matAutocomplete]="destinations" data-tabindex="2" [inputTabStop]="input">
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="destinations" [placeholder]="getLabel('destination')" data-cy="destination-description" data-tabindex="1" formControlName="destination" id="destination" matInput>
                     <mat-error *ngIf="destination.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
                 <!-- Port -->
                 <mat-form-field>
-                    <mat-label>{{ onGetLabel("port") }}</mat-label>
-                    <input matInput formControlName="port" [matAutocomplete]="ports" data-tabindex="3" [inputTabStop]="input">
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ports" [placeholder]="getLabel('port')" data-cy="port-description" data-tabindex="2" formControlName="port" id="port" matInput>
                     <mat-error *ngIf="port.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
-            </div>
-            <div class="group-field">
                 <!-- Ship -->
                 <mat-form-field>
-                    <mat-label>{{ onGetLabel("ship") }}</mat-label>
-                    <input matInput formControlName="ship" [matAutocomplete]="ships" data-tabindex="4" [inputTabStop]="input">
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ships" [placeholder]="getLabel('ship')" data-cy="ship-description" data-tabindex="3" formControlName="ship" id="ship" matInput>
                     <mat-error *ngIf="ship.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
-                <!-- Route -->
+                <!-- Route-->
                 <mat-form-field>
-                    <mat-label>{{ onGetLabel("route") }}</mat-label>
-                    <input matInput formControlName="shipRoute" [matAutocomplete]="shipRoutes" data-tabindex="5" [inputTabStop]="input">
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="shipRoutes" [placeholder]="getLabel('shipRoute')" data-cy="shipRoute-description" data-tabindex="4" formControlName="shipRoute" id="shipRoute" matInput>
                     <mat-error *ngIf="shipRoute.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="!shipRoute.hasError('required') && shipRoute.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
@@ -54,31 +43,31 @@
 
     <div id="footer">
         <div @slideFromRight class="button-group">
-            <button mat-flat-button class="primary" [disabled]="!form.valid" id="search" (click)="onDoJobs()">{{ onGetLabel('searchButton') }}</button>
+            <button (click)="onDoTasks()" [disabled]="!form.valid" class="primary" id="search" mat-flat-button>{{ getLabel("searchButton") }}</button>
         </div>
     </div>
 
 </div>
 
-<mat-autocomplete autoActiveFirstOption #destinations="matAutocomplete" [displayWith]="autocompleteFields">
+<mat-autocomplete #destinations="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
     <mat-option *ngFor="let option of filteredDestinations | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #ports="matAutocomplete" [displayWith]="autocompleteFields">
+<mat-autocomplete #ports="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
     <mat-option *ngFor="let option of filteredPorts | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #ships="matAutocomplete" [displayWith]="autocompleteFields">
+<mat-autocomplete #ships="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
     <mat-option *ngFor="let option of filteredShips | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete autoActiveFirstOption #shipRoutes="matAutocomplete" [displayWith]="autocompleteFields">
+<mat-autocomplete #shipRoutes="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
     <mat-option *ngFor="let option of filteredShipRoutes | async" [value]="option">
         {{ option.description }}
     </mat-option>

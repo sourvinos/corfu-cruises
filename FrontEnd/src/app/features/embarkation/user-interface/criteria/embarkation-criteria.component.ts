@@ -155,7 +155,12 @@ export class EmbarkationCriteriaComponent {
     }
 
     private navigateToList(): void {
-        this.router.navigate(['date', moment(this.form.value.date).toISOString().substring(0, 10), 'destinationId', this.form.value.destination.id, 'portId', this.form.value.port.id, 'shipId', this.form.value.ship.id], { relativeTo: this.activatedRoute })
+        this.router.navigate([
+            'date', moment(this.form.value.date).toISOString().substring(0, 10),
+            'destinationId', this.form.value.destination.id,
+            'portId', this.form.value.port.id,
+            'shipId', this.form.value.ship.id
+        ], { relativeTo: this.activatedRoute })
     }
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {

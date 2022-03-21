@@ -1524,18 +1524,6 @@
                 "description": "Κατάσταση πλοίου"
             },
             {
-                "id": "date",
-                "description": "Ημερ/νία"
-            },
-            {
-                "id": "searchDateHint",
-                "description": "Ημερ/νία αναχώρησης"
-            },
-            {
-                "id": "ship",
-                "description": "Πλοίο"
-            },
-            {
                 "id": "destination",
                 "description": "Προορισμός"
             },
@@ -1544,7 +1532,11 @@
                 "description": "Λιμάνι"
             },
             {
-                "id": "route",
+                "id": "ship",
+                "description": "Πλοίο"
+            },
+            {
+                "id": "shipRoute",
                 "description": "Δρομολόγιο"
             },
             {

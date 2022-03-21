@@ -1524,18 +1524,6 @@
                 "description": "Manifest plavidla"
             },
             {
-                "id": "date",
-                "description": "Datum"
-            },
-            {
-                "id": "searchDateHint",
-                "description": "Datum odletu"
-            },
-            {
-                "id": "ship",
-                "description": "Plavidlo"
-            },
-            {
                 "id": "destination",
                 "description": "Destinace"
             },
@@ -1544,7 +1532,11 @@
                 "description": "Přístav"
             },
             {
-                "id": "route",
+                "id": "ship",
+                "description": "Plavidlo"
+            },
+            {
+                "id": "shipRoute",
                 "description": "Trasa"
             },
             {
