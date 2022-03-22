@@ -1553,6 +1553,30 @@
                 "description": "Schiffsmanifest"
             },
             {
+                "id": "criteriaDate",
+                "description": "Datum"
+            },
+            {
+                "id": "criteriaDestination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "criteriaPort",
+                "description": "Hafen"
+            },
+            {
+                "id": "criteriaShip",
+                "description": "Schiff"
+            },
+            {
+                "id": "criteriaShipRoute",
+                "description": "Route"
+            },
+            {
+                "id": "headerOccupantDescription",
+                "description": "Eigentum"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Name"
             },
@@ -1562,7 +1586,7 @@
             },
             {
                 "id": "headerNationality",
-                "description": "Provinz"
+                "description": "Nationalität"
             },
             {
                 "id": "headerGender",
@@ -1573,16 +1597,16 @@
                 "description": "Geburtsdatum"
             },
             {
-                "id": "allRecordCount",
-                "description": "Alle"
+                "id": "countLabel",
+                "description": "Personen insgesamt"
             },
             {
-                "id": "passengerCount",
+                "id": "passengerCountLabel",
                 "description": "Passagiere"
             },
             {
-                "id": "crewCount",
-                "description": "Besatzungen"
+                "id": "crewCountLabel",
+                "description": "Besatzung"
             },
             {
                 "id": "no-results",

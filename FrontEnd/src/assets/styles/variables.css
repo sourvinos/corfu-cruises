@@ -1,9 +1,8 @@
 * {
     /* Font names */
-    --font-family-autocomplete: "Ubuntu Condensed";
     --font-family-logo: "Aka-Acid-CanterBold";
-    --font-family-master: "PF-Handbook-Pro";
-    --font-family-table: "Ubuntu Condensed";
+    --font-family-handbook: "PF-Handbook-Pro";
+    --font-family-ubuntu: "Ubuntu Condensed";
     /* Font weights */
     --font-weight-dialog-content: 300 !important;
     --font-weight-header: 300 !important;
@@ -31,7 +30,7 @@
     --font-size-map-tooltip: 1.1rem;
     --font-size-paragraph: 0.7rem;
     --font-size-snackbar: 120%;
-    --font-size-sum-persons: 150%;
+    --font-size-sum-persons: 120%;
     --font-size-tab-label: 130%;
     --form-field-margin: 10px;
 }

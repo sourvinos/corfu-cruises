@@ -1553,6 +1553,30 @@
                 "description": "Κατάσταση πλοίου"
             },
             {
+                "id": "criteriaDate",
+                "description": "Ημερομηνία"
+            },
+            {
+                "id": "criteriaDestination",
+                "description": "Προορισμός"
+            },
+            {
+                "id": "criteriaPort",
+                "description": "Λιμάνι"
+            },
+            {
+                "id": "criteriaShip",
+                "description": "Πλοίο"
+            },
+            {
+                "id": "criteriaShipRoute",
+                "description": "Διαδρομή"
+            },
+            {
+                "id": "headerOccupantDescription",
+                "description": "Ιδιότητα"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Επώνυμο"
             },
@@ -1573,15 +1597,15 @@
                 "description": "Ημερ/νία γέννησης"
             },
             {
-                "id": "allRecordCount",
-                "description": "Όλοι"
+                "id": "countLabel",
+                "description": "Σύνολο ατόμων"
             },
             {
-                "id": "passengerCount",
+                "id": "passengerCountLabel",
                 "description": "Επιβάτες"
             },
             {
-                "id": "crewCount",
+                "id": "crewCountLabel",
                 "description": "Πλήρωμα"
             },
             {

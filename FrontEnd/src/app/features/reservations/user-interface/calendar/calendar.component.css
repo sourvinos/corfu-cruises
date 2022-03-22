@@ -60,7 +60,7 @@
     background: var(--color-table-header);
     color: var(--color-text-primary);
     display: flex;
-    font-family: var(--font-family-master);
+    font-family: var(--font-family-handbook);
     font-size: var(--font-size-calendar-weekday);
     height: max-content;
     justify-content: center;
@@ -122,7 +122,7 @@
     display: none;
     flex-direction: row;
     height: 0;
-    opacity: 0%;
+    opacity: 0;
     padding: 0;
     width: 0;
     z-index: 0;
@@ -176,7 +176,7 @@
 
 .popup .details .ports .passenger-count {
     font-family: "Roboto Mono", sans-serif;
-    font-size: var(--font-size-calendar-popup-ports-passengerCount);
+    font-size: var(--font-size-calendar-popup-ports-passenger-count);
 }
 
 .days.has-schedule:hover > .date {
@@ -187,7 +187,7 @@
     animation: fade-in 0.3s;
     display: flex;
     height: 200px;
-    opacity: 90%;
+    opacity: 0.9;
     overflow: visible;
     position: absolute;
     transition: height 0.3s, opacity 0.3s, width 0.3s;
@@ -197,11 +197,11 @@
 @keyframes fade-in {
     from {
         display: none;
-        opacity: 0%;
+        opacity: 0;
     }
 
     to {
         display: flex;
-        opacity: 90%;
+        opacity: 0.9;
     }
 }

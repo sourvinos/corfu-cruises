@@ -19,6 +19,12 @@ namespace API.Features.Manifest {
         public ManifestResource Get(string date, int destinationId, int portId, int shipId, int shipRouteId) {
             var manifest = new ManifestViewModel {
                 Date = date,
+                Destination = context.Destinations
+                    .Select(x => new DestinationViewModel { Id = x.Id, Description = x.Description })
+                    .FirstOrDefault(x => x.Id == destinationId),
+                Port = context.Ports
+                    .Select(x => new PortViewModel { Id = x.Id, Description = x.Description })
+                    .FirstOrDefault(x => x.Id == portId),
                 Ship = context.Ships
                     .Include(x => x.ShipOwner)
                     .Include(x => x.Registrars.Where(x => x.IsActive))

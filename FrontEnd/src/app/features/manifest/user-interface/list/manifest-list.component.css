@@ -12,14 +12,6 @@
     margin-left: 1rem;
 }
 
-.fa-user-alt {
-    color: var(--color-manifest-list-passenger-icon);
-}
-
-.fa-anchor {
-    color: var(--color-manifest-list-crew-icon);
-}
-
 #image-wrapper {
     align-items: center;
     display: flex;
@@ -36,4 +28,93 @@
 
 #image-wrapper button {
     margin-top: 0.625rem;
+}
+
+#criteria {
+    align-items: center;
+    display: flex;
+    font-weight: var(--font-weight-totals);
+    justify-content: flex-end;
+    margin: 0 1rem 0 auto;
+    text-align: right;
+}
+
+#criteria .panel {
+    margin-left: 1rem;
+}
+
+#criteria .panel .label {
+    color: var(--color-text-primary);
+    font-family: var(--font-family-ubuntu);
+    font-weight: var(--font-weight-sum-persons);
+    margin: 0 0 0 0.5rem;
+}
+
+#criteria .panel .description {
+    font-family: var(--font-family-handbook);
+    font-size: var(--font-size-sum-persons);
+    font-weight: var(--font-weight-sum-persons);
+}
+
+#criteria .panel .description.odd {
+    color: var(--color-criteria-odd);
+}
+
+#criteria .panel .description.even {
+    color: var(--color-criteria-even);
+}
+
+#totals {
+    align-items: center;
+    display: flex;
+    font-size: 0.625rem;
+    font-weight: var(--font-weight-totals);
+    justify-content: flex-end;
+    margin: 0 auto 0 0;
+    text-align: right;
+}
+
+#totals .panel .label {
+    color: var(--color-text-primary);
+    font-family: var(--font-family-ubuntu);
+    font-weight: var(--font-weight-sum-persons);
+    margin: 0 0 0 0.5rem;
+}
+
+#totals .panel .description {
+    font-family: var(--font-family-handbook);
+    font-size: var(--font-size-sum-persons);
+    font-weight: var(--font-weight-sum-persons);
+}
+
+#totals .panel .description.odd {
+    color: var(--color-criteria-odd);
+}
+
+#totals .panel .description.even {
+    color: var(--color-criteria-even);
+}
+
+#totals .count-panel {
+    display: flex;
+    font-family: var(--font-family-handbook);
+    margin: 0.125rem 2rem 0 2rem;
+    transform: scale(1.5, 2.5);
+}
+
+#totals .count-panel .label {
+    color: var(--color-total-label) !important;
+}
+
+#totals .count-panel .label::after {
+    content: ":";
+    margin-right: 0.2rem;
+}
+
+#totals .count-panel:first-child {
+    margin-left: 2rem;
+}
+
+#totals .count-panel .count {
+    color: var(--color-total-count);
 }

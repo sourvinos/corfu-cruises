@@ -7,6 +7,8 @@ export class ManifestVM {
     constructor(
 
         public date: string,
+        public destination: string,
+        public port: string,
         public ship: ManifestShipVM,
         public shipRoute: ManifestShipRouteVM,
         public passengers: ManifestPassengerVM[] = []

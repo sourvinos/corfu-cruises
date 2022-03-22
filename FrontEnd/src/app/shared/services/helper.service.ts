@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
 // Custom
 import { EmojiService } from './emoji.service'
-import { environment } from 'src/environments/environment'
 import { LocalStorageService } from './local-storage.service'
+import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
+import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
@@ -11,10 +12,11 @@ export class HelperService {
     //#region variables
 
     private appName = environment.appName
+    private weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
     //#endregion
 
-    constructor(private emojiService: EmojiService, private localStorageService: LocalStorageService) { }
+    constructor(private emojiService: EmojiService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService) { }
 
     //#region public methods
 
@@ -59,9 +61,12 @@ export class HelperService {
         return (event.key == 'Enter' || event.key == 'ArrowUp' || event.key == 'ArrowDown' || event.key == 'ArrowRight' || event.key == 'ArrowLeft') ? true : false
     }
 
-    public formatISODateToLocale(date: string) {
+    public formatISODateToLocale(date: string, showWeekday = false) {
         const parts = date.split('-')
-        return this.addLeadingZerosToDateParts(new Intl.DateTimeFormat(this.localStorageService.getLanguage()).format(new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]))))
+        const rawDate = new Date(date)
+        const dateWithLeadingZeros = this.addLeadingZerosToDateParts(new Intl.DateTimeFormat(this.localStorageService.getLanguage()).format(new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]))))
+        const weekday = this.messageCalendarService.getDescription('weekdays', rawDate.toDateString().substring(0, 3))
+        return showWeekday ? weekday + ' ' + dateWithLeadingZeros : dateWithLeadingZeros
     }
 
     public formatRefNo(refNo: string, returnsHTML: boolean): string {

@@ -1553,6 +1553,30 @@
                 "description": "Manifest plavidla"
             },
             {
+                "id": "criteriaDate",
+                "description": "Datum"
+            },
+            {
+                "id": "criteriaDestination",
+                "description": "Destinace"
+            },
+            {
+                "id": "criteriaPort",
+                "description": "Přístavt"
+            },
+            {
+                "id": "criteriaShip",
+                "description": "Plavidlo"
+            },
+            {
+                "id": "criteriaShipRoute",
+                "description": "Route"
+            },
+            {
+                "id": "headerOccupantDescription",
+                "description": "Property"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Příjmení"
             },
@@ -1573,16 +1597,16 @@
                 "description": "Datum narození"
             },
             {
-                "id": "allRecordCount",
-                "description": "Všichni"
+                "id": "countLabel",
+                "description": "Celkem osob"
             },
             {
-                "id": "passengerCount",
+                "id": "passengerCountLabel",
                 "description": "Cestující"
             },
             {
-                "id": "crewCount",
-                "description": "Osazenstvos"
+                "id": "crewCountLabel",
+                "description": "Posádka"
             },
             {
                 "id": "no-results",

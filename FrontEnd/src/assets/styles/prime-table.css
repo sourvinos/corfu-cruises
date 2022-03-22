@@ -27,7 +27,7 @@
     border-right: 1px solid var(--color-table-column-seperator) !important;
     border-width: 0 1px 0 0 !important;
     color: var(--color-text-primary) !important;
-    font-family: var(--font-family-table) !important;
+    font-family: var(--font-family-ubuntu) !important;
     font-size: var(--font-size-table-header) !important;
     font-weight: var(--font-weight-table-header) !important;
     justify-content: center;
@@ -64,7 +64,7 @@
 .p-datatable .p-datatable-tbody > tr > td {
     border: none !important;
     color: var(--color-text-primary);
-    font-family: var(--font-family-table);
+    font-family: var(--font-family-ubuntu);
     font-size: var(--font-size-table-row);
     overflow: hidden !important;
     padding: 0.5rem !important;

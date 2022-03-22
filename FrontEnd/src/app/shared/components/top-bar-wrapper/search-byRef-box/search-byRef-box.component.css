@@ -12,7 +12,7 @@
     border-radius: 5px;
     border: none;
     color: var(--color-text-secondary);
-    font-family: "PF Handbook Pro", sans-serif;
+    font-family: var(--font-family-ubuntu), sans-serif;
     font-size: 110%;
     font-weight: 300;
     margin: 0 0.4rem 0 0;

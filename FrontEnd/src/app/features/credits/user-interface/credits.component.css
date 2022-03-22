@@ -10,7 +10,7 @@
 .item {
     border-radius: 0.5rem;
     cursor: pointer;
-    font-family: var(--font-family-master);
+    font-family: var(--font-family-handbook);
     font-weight: 300;
     margin-right: 1rem;
     padding: 1rem;

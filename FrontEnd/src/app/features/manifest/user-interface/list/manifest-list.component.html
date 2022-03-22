@@ -2,12 +2,27 @@
 
     <div *ngIf="records.passengers.length > 0" id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-        <div *ngIf="records.passengers.length > 0" id="manifest-occupant-filter">
-            <mat-radio-group>
-                <!-- <mat-radio-button value="all" (click)="onFilterExclude()" checked>{{ getLabel('allRecordCount') }} ({{ passengerCount + crewCount }})</mat-radio-button> -->
-                <!-- <mat-radio-button value="passengerCount" (click)="onFilterExclude('Crew')">{{ getLabel('passengerCount') }} ({{ passengerCount }})</mat-radio-button> -->
-                <!-- <mat-radio-button value="crewCount" (click)="onFilterExclude('Passenger')">{{ getLabel('crewCount') }} ({{ crewCount }})</mat-radio-button> -->
-            </mat-radio-group>
+        <div id="criteria">
+            <div class="panel" id="date">
+                <div class="label">{{ getLabel("criteriaDate") }}</div>
+                <div class="description odd">{{ formatDateToLocale(records.date,true) }}</div>
+            </div>
+            <div class="panel" id="destination">
+                <div class="label">{{ getLabel("criteriaDestination") }}</div>
+                <div class="description even">{{ records.destination }}</div>
+            </div>
+            <div class="panel" id="port">
+                <div class="label">{{ getLabel("criteriaPort") }}</div>
+                <div class="description odd">{{ records.port }}</div>
+            </div>
+            <div class="panel" id="ship">
+                <div class="label">{{ getLabel("criteriaShip") }}</div>
+                <div class="description even">{{ records.ship.description }}</div>
+            </div>
+            <div class="panel" id="shipRoute">
+                <div class="label">{{ getLabel("criteriaShipRoute") }}</div>
+                <div class="description odd">{{ records.shipRoute.description }}</div>
+            </div>
         </div>
     </div>
 
@@ -16,19 +31,29 @@
             <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records.passengers" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 5%; border-top-left-radius: 10px;"></th>
-                        <th style="width: 30%;">{{ getLabel('headerLastname') }}</th>
-                        <th style="width: 25%;">{{ getLabel('headerFirstname') }}</th>
-                        <th style="width: 15%;">{{ getLabel('headerNationality') }}</th>
-                        <th style="width: 15%;">{{ getLabel('headerGender') }}</th>
-                        <th style="width: 15%; border-top-right-radius: 10px;">{{ getLabel('headerBirthdate') }}</th>
+                        <th style="min-width: 10%; max-width: 10%;; border-top-left-radius: 10px;">{{ getLabel("headerOccupantDescription") }}</th>
+                        <th style="min-width: 20%; max-width: 20%;">{{ getLabel("headerLastname") }}</th>
+                        <th style="min-width: 20%; max-width: 20%;">{{ getLabel("headerFirstname") }}</th>
+                        <th style="min-width: 20%; max-width: 20%;">{{ getLabel("headerNationality") }}</th>
+                        <th style="min-width: 15%; max-width: 15%;">{{ getLabel("headerGender") }}</th>
+                        <th style="min-width: 15%; max-width: 15%; border-top-right-radius: 10px;">{{ getLabel("headerBirthdate") }}</th>
                     </tr>
                     <tr>
-                        <th></th>
-                        <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
-                        <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
-                        <th>
-                            <p-columnFilter field="nationalityDescription" matchMode="equals" [showMenu]="false">
+                        <th style="min-width: 10%; max-width: 10%;">
+                            <p-columnFilter style="width: 100%;" field="occupantDescription" matchMode="equals" [showMenu]="false">
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-dropdown [ngModel]="value" [options]="occupants" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option.label }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
+                        <th style="min-width: 20%; max-width: 20%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
+                        <th style="min-width: 20%; max-width: 20%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
+                        <th style="min-width: 20%; max-width: 20%;">
+                            <p-columnFilter style="width: 100%;" field="nationalityDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="nationalities" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
@@ -38,8 +63,8 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th>
-                            <p-columnFilter field="genderDescription" matchMode="equals" [showMenu]="false">
+                        <th style="min-width: 15%; max-width: 15%;">
+                            <p-columnFilter style="width: 100%;" field="genderDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="genders" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
@@ -49,20 +74,17 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'birthdate', 'contains')" [value]="$any(table).filters['birthdate']?.value"></th>
+                        <th style="min-width: 15%; max-width: 15%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'birthdate', 'contains')" [value]="$any(table).filters['birthdate']?.value"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
                     <tr [pSelectableRow]="rowData">
-                        <td style="width: 5%; justify-content: center;">
-                            <i class="fas fa-user-alt" *ngIf="rowData.occupantDescription.toLowerCase()=='passenger'"></i>
-                            <i class="fas fa-anchor" *ngIf="rowData.occupantDescription.toLowerCase()!='passenger'"></i>
-                        </td>
-                        <td style="width: 30%;">{{ rowData.lastname }}</td>
-                        <td style="width: 25%;">{{ rowData.firstname }}</td>
-                        <td style="width: 15%;">{{ rowData.nationalityDescription }}</td>
-                        <td style="width: 15%;">{{ rowData.genderDescription }}</td>
-                        <td style="width: 15%; justify-content: center;">{{ formatDateToLocale(rowData.birthdate) }}</td>
+                        <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ rowData.occupantDescription }}</td>
+                        <td style="min-width: 20%; max-width: 20%;">{{ rowData.lastname }}</td>
+                        <td style="min-width: 20%; max-width: 20%;">{{ rowData.firstname }}</td>
+                        <td style="min-width: 20%; max-width: 20%;">{{ rowData.nationalityDescription }}</td>
+                        <td style="min-width: 15%; max-width: 15%;">{{ rowData.genderDescription }}</td>
+                        <td style="min-width: 15%; max-width: 15%; justify-content: center;">{{ formatDateToLocale(rowData.birthdate) }}</td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -70,8 +92,22 @@
     </ng-container>
 
     <div *ngIf="records.passengers.length != 0" id="footer">
+        <div @slideFromLeft id="totals">
+            <div class="count-panel">
+                <div class="label">{{ getLabel("countLabel") }}</div>
+                <div class="count">{{ passengerCount + crewCount }}</div>
+            </div>
+            <div class="count-panel">
+                <div class="label">{{ getLabel("passengerCountLabel") }}</div>
+                <div class="count">{{ passengerCount }}</div>
+            </div>
+            <div class="count-panel">
+                <div class="label">{{ getLabel("crewCountLabel") }}</div>
+                <div class="count">{{ crewCount }}</div>
+            </div>
+        </div>
         <div @slideFromRight class="button-group">
-            <button mat-flat-button class="primary" id="exportToPDF" (click)="onCreatePdf()">{{ getLabel('exportToPdfButton') }}</button>
+            <button mat-flat-button class="primary" id="exportToPDF" (click)="onCreatePdf()">{{ getLabel("exportToPdfButton") }}</button>
         </div>
     </div>
 

@@ -36,6 +36,7 @@ export class ManifestListComponent {
     public passengerCount = 0
     public records: ManifestVM
 
+    public occupants = []
     public genders = []
     public nationalities = []
 
@@ -52,6 +53,7 @@ export class ManifestListComponent {
         this.addCrewToPassengers()
         this.getDistinctGenders()
         this.getDistinctNationalities()
+        this.getDistinctOccupants()
         this.addShortcuts()
     }
 
@@ -69,8 +71,8 @@ export class ManifestListComponent {
         this.pdfService.createReport(this.records)
     }
 
-    public formatDateToLocale(date: string): string {
-        return this.helperService.formatISODateToLocale(date)
+    public formatDateToLocale(date: string, showWeekday = false): string {
+        return this.helperService.formatISODateToLocale(date, showWeekday)
     }
 
     public getEmoji(emoji: string): string {
@@ -132,10 +134,19 @@ export class ManifestListComponent {
         })
     }
 
+    private getDistinctOccupants(): void {
+        let array = []
+        array = [... new Set(this.records.passengers.map(x => x.occupantDescription))]
+        array.forEach(element => {
+            this.occupants.push({ label: element, value: element })
+        })
+    }
+
     private loadRecords(): void {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = listResolved.result
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

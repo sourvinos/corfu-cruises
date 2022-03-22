@@ -68,7 +68,7 @@ ul {
 
 p.instructions {
     color: var(--color-text-primary);
-    font-family: var(--font-family-master);
+    font-family: var(--font-family-handbook);
     font-size: var(--font-size-paragraph);
     overflow: hidden;
 }
@@ -135,7 +135,7 @@ p.instructions {
 
 .leaflet-tooltip span {
     color: var(--color-map-tooltip-color);
-    font-family: var(--font-family-master);
+    font-family: var(--font-family-handbook);
     font-weight: 300;
 }
 
@@ -197,7 +197,7 @@ p.instructions {
 
 .mat-tooltip {
     color: var(--color-tooltip) !important;
-    font-family: var(--font-family-master);
+    font-family: var(--font-family-handbook);
     font-weight: var(--font-weight-tooltip);
 }
 

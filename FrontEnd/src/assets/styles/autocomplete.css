@@ -5,7 +5,7 @@
 
 .mat-option {
     border: 1px solid transparent !important;
-    font-family: var(--font-family-autocomplete) !important;
+    font-family: var(--font-family-ubuntu) !important;
     height: 2rem !important;
     line-height: 2rem !important;
 }

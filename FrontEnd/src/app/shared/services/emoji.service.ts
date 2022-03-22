@@ -13,6 +13,8 @@ export class EmojiService {
             case 'error': return '❌ '
             case 'dot': return '◽'
             case 'no-results': return '😵'
+            case 'passenger': return '👤'
+            case 'crew': return '⚓'
         }
 
     }

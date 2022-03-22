@@ -2,6 +2,7 @@ namespace API.Features.Manifest {
 
     public class ManifestShipRouteViewModel {
 
+        public string Description { get; set; }
         public string FromPort { get; set; }
         public string FromTime { get; set; }
         public string ViaPort { get; set; }

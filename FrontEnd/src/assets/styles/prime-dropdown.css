@@ -1,6 +1,7 @@
 .p-dropdown .p-dropdown-clear-icon {
     color: var(--color-dropdown-icons);
-    font-size: 14px;
+    font-size: 9px;
+    margin-top: -4px;
 }
 
 .p-dropdown .p-dropdown-trigger {
@@ -17,7 +18,7 @@
 
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
     color: var(--color-text-primary);
-    font-family: var(--font-family-master);
+    font-family: var(--font-family-handbook);
 }
 
 .p-dropdown-items-wrapper {
@@ -37,7 +38,7 @@
 
 .p-fluid .p-dropdown .p-dropdown-label {
     color: var(--color-text-primary);
-    font-family: var(--font-family-master);
+    font-family: var(--font-family-handbook);
     font-size: var(--font-size-input) !important;
     margin-bottom: 0;
     padding: 5px 6px 3px 6px !important;

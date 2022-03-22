@@ -29,6 +29,8 @@
     --color-credit-hover: #545454;
     --color-credit-title: #fe9f36;
     --color-credit-url: #ffe85c;
+    --color-criteria-even: #f6ddc2;
+    --color-criteria-odd: #cce3f5;
     --color-datepicker-days-background: #a6d5fa;
     --color-datepicker-days: #efefef;
     --color-datepicker-month: #ffe85c;
@@ -59,7 +61,7 @@
     --color-primeng-list: #5f6e74;
     --color-radio-inner-circle: #ffe85c;
     --color-radio-outer-circle: #fe9f36;
-    --color-reservation-list-date: #6de9c7;
+    --color-reservation-list-date: #10c450;
     --color-scrollbar: #fe9f36;
     --color-selected-tab: #ffe85c;
     --color-side-menu-background-items-background: #657171;
@@ -82,7 +84,7 @@
     --color-summary-header-icon: #efe7ce;
     --color-summary-header: #e6ba8a;
     --color-summary-scroll-icon: #efe7ce;
-    --color-summary-total: #e6ba8a;
+    --color-table-background: #7d8b8f0f;
     --color-table-badge-background: #7c8084;
     --color-table-badge-color: #ffe85c;
     --color-table-column-seperator: #4c565a;
@@ -100,4 +102,6 @@
     --color-text-selected: #f2d49266;
     --color-tooltip-background: #fe9f36;
     --color-tooltip: #525d61;
+    --color-total-count: #faf1e6;
+    --color-total-label: #efe7ce;
 }

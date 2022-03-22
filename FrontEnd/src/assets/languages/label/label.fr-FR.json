@@ -1553,6 +1553,30 @@
                 "description": "Manifeste du navire"
             },
             {
+                "id": "criteriaDate",
+                "description": "Date"
+            },
+            {
+                "id": "criteriaDestination",
+                "description": "Destination"
+            },
+            {
+                "id": "criteriaPort",
+                "description": "Port"
+            },
+            {
+                "id": "criteriaShip",
+                "description": "Navire"
+            },
+            {
+                "id": "criteriaShipRoute",
+                "description": "Route"
+            },
+            {
+                "id": "headerOccupantDescription",
+                "description": "Propriété"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Nom de famille"
             },
@@ -1573,16 +1597,16 @@
                 "description": "Date de naissance"
             },
             {
-                "id": "allRecordCount",
-                "description": "Tous"
+                "id": "countLabel",
+                "description": "Total personnes"
             },
             {
-                "id": "passengerCount",
+                "id": "passengerCountLabel",
                 "description": "Passagers"
             },
             {
-                "id": "crewCount",
-                "description": "Équipages"
+                "id": "crewCountLabel",
+                "description": "Equipage"
             },
             {
                 "id": "no-results",

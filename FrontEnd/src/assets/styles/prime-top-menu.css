@@ -38,7 +38,7 @@
 
 .p-menubar .p-menuitem-link .p-menuitem-text {
     color: var(--color-text-primary) !important;
-    font-family: var(--font-family-master);
+    font-family: var(--font-family-handbook);
     font-size: var(--font-size-menu-items) !important;
     font-weight: var(--font-weight-menu-items) !important;
 }
@@ -69,10 +69,6 @@
 
 .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
     color: var(--color-text-primary);
-}
-
-.p-menubar .p-menuitem.p-menuitem-active {
-    border: none;
 }
 
 .p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link {
@@ -108,6 +104,7 @@
 .p-menubar .p-menuitem.p-menuitem-active {
     background-color: var(--color-menu-background-hover);
     border-radius: 5px;
+    border: none;
 }
 
 .p-menubar .p-submenu-list {

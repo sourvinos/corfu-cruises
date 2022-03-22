@@ -1,15 +1,15 @@
-#customSnackbar {
+#custom-snackbar {
     align-items: center;
     display: flex;
     justify-content: center;
     padding: 0.0625rem 0.5rem 0 0.5;
 }
 
-#customSnackbar div {
+#custom-snackbar div {
     align-items: center;
     color: var(--color-snackbar-text);
     display: flex;
-    font-family: var(--font-family-master);
+    font-family: var(--font-family-handbook);
     font-size: var(--font-size-snackbar);
     font-weight: var(--font-weight-snackbar);
 }

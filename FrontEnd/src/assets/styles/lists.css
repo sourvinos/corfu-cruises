@@ -3,7 +3,7 @@
     flex-direction: column;
     height: 100%;
     overflow: hidden;
-    padding: 0.5rem var(--gap) 0.5rem var(--content-padding-left);
+    padding: 0.5rem var(--gap) 0 var(--content-padding-left);
     width: 100%;
 }
 
@@ -21,6 +21,7 @@
 }
 
 #footer {
+    align-items: center;
     display: flex;
     justify-content: flex-end;
     margin: var(--gap) var(--footer-right-margin) var(--gap) 0;

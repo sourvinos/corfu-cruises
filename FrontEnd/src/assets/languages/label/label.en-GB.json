@@ -1553,6 +1553,30 @@
                 "description": "Ship manifest"
             },
             {
+                "id": "criteriaDate",
+                "description": "Date"
+            },
+            {
+                "id": "criteriaDestination",
+                "description": "Destination"
+            },
+            {
+                "id": "criteriaPort",
+                "description": "Port"
+            },
+            {
+                "id": "criteriaShip",
+                "description": "Ship"
+            },
+            {
+                "id": "criteriaShipRoute",
+                "description": "Route"
+            },
+            {
+                "id": "headerOccupantDescription",
+                "description": "Property"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Lastname"
             },
@@ -1573,15 +1597,15 @@
                 "description": "Birthdate"
             },
             {
-                "id": "allRecordCount",
-                "description": "All"
+                "id": "countLabel",
+                "description": "Total persons"
             },
             {
-                "id": "passengerCount",
+                "id": "passengerCountLabel",
                 "description": "Passengers"
             },
             {
-                "id": "crewCount",
+                "id": "crewCountLabel",
                 "description": "Crew"
             },
             {

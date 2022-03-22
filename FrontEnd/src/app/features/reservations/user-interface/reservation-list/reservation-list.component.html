@@ -38,9 +38,7 @@
                         <th style="min-width: 10%; max-width: 10%; border-top-right-radius: 10px;">{{ getLabel('headerShip') }}</th>
                     </tr>
                     <tr>
-                        <th style="min-width: 5%; max-width: 5%;">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
+                        <th style="min-width: 5%; max-width: 5%;"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
                         <th style="min-width: 6%; max-width: 6%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
                         <th style="min-width: 7%; max-width: 7%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
                         <th style="min-width: 10%; max-width: 10%;">

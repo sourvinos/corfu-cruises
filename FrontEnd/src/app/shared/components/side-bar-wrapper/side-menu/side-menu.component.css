@@ -34,7 +34,6 @@
 
 .menu-item .menu-list {
     background: var(--color-side-menu-background-items);
-    font-family: "PF Handbook Pro", sans-serif;
     font-weight: 300;
     height: 0;
     left: 93%;
@@ -53,6 +52,7 @@
     background-color: var(--color-side-menu-background-items-background);
     border-left: solid 5px var(--color-side-menu-background-items-background);
     color: var(--color-side-menu-background-items);
+    font-family: var(--font-family-handbook), sans-serif;
     font-size: 20px;
     padding: 5px 20px 7px 10px;
 }

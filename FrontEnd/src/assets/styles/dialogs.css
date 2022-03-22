@@ -29,7 +29,7 @@
 #dialog-content {
     color: var(--color-text-primary);
     flex: 1;
-    font-family: var(--font-family-master) !important;
+    font-family: var(--font-family-handbook) !important;
     font-size: var(--font-size-dialog) !important;
     font-weight: var(--font-weight-dialog-content) !important;
     line-height: 2rem;
