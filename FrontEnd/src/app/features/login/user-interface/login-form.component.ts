@@ -75,16 +75,14 @@ export class LoginFormComponent {
     public onLogin(): void {
         const form = this.form.value
         this.isProcessing = true
-        setTimeout(() => {
-            this.accountService.login(form.username, form.password).subscribe(() => {
-                this.goHome()
-                this.configureIdle()
-                this.isProcessing = false
-            }, error => {
-                this.showError(error)
-                this.isProcessing = false
-            })
-        }, 5000)
+        this.accountService.login(form.username, form.password).subscribe(() => {
+            this.goHome()
+            this.configureIdle()
+            this.isProcessing = false
+        }, error => {
+            this.showError(error)
+            this.isProcessing = false
+        })
     }
 
     //#endregion

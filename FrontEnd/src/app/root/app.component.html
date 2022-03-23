@@ -1,5 +1,9 @@
 <div id="wrapper">
 
+    <div [class.hidden]="!showLoadingIndication" id="loading-indication">
+        <!-- Horizontal loader -->
+    </div>
+
     <side-bar></side-bar>
 
     <div id="main">
@@ -10,10 +14,6 @@
             <router-outlet></router-outlet>
         </div>
 
-    </div>
-
-    <div [class.hidden]="!showLoadingIndication" id="loading-indication">
-        <!-- Horizontal loader -->
     </div>
 
 </div>

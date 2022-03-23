@@ -2,7 +2,7 @@
 
     <div *ngIf="records.passengers.length > 0" id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-        <div id="criteria">
+        <div id="criteria-panel">
             <div class="panel" id="date">
                 <div class="label">{{ getLabel("criteriaDate") }}</div>
                 <div class="description odd">{{ formatDateToLocale(records.date,true) }}</div>
@@ -92,18 +92,18 @@
     </ng-container>
 
     <div *ngIf="records.passengers.length != 0" id="footer">
-        <div @slideFromLeft id="totals">
-            <div class="count-panel">
+        <div @slideFromLeft id="totals-panel">
+            <div class="panel" id="total-count">
+                <div class="count odd">{{ passengerCount + crewCount }}</div>
                 <div class="label">{{ getLabel("countLabel") }}</div>
-                <div class="count">{{ passengerCount + crewCount }}</div>
             </div>
-            <div class="count-panel">
+            <div class="panel" id="passenger-count">
+                <div class="count even">{{ passengerCount }}</div>
                 <div class="label">{{ getLabel("passengerCountLabel") }}</div>
-                <div class="count">{{ passengerCount }}</div>
             </div>
-            <div class="count-panel">
+            <div class="panel" id="crew-count">
+                <div class="count odd">{{ crewCount }}</div>
                 <div class="label">{{ getLabel("crewCountLabel") }}</div>
-                <div class="count">{{ crewCount }}</div>
             </div>
         </div>
         <div @slideFromRight class="button-group">

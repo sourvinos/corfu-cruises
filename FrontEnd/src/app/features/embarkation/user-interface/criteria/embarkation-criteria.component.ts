@@ -52,6 +52,7 @@ export class EmbarkationCriteriaComponent {
     public filteredPorts: Observable<PortDropdownVM[]>
     public ships: ShipDropdownVM[] = []
     public filteredShips: Observable<ShipDropdownVM[]>
+    public selected: Date | null
 
     //#endregion
 
@@ -68,6 +69,10 @@ export class EmbarkationCriteriaComponent {
         this.setWindowTitle()
         this.subscribeToInteractionService()
         this.focusOnField()
+    }
+
+    ngDoCheck(): void {
+        this.form.patchValue({ date: moment(this.selected).utc(true).format('YYYY-MM-DD') })
     }
 
     ngOnDestroy(): void {
@@ -147,7 +152,7 @@ export class EmbarkationCriteriaComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            date: [new Date().toISOString().substring(0, 10)],
+            date: ['', [Validators.required]],
             destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             ship: ['', [Validators.required, ValidationService.RequireAutocomplete]],
@@ -156,7 +161,7 @@ export class EmbarkationCriteriaComponent {
 
     private navigateToList(): void {
         this.router.navigate([
-            'date', moment(this.form.value.date).toISOString().substring(0, 10),
+            'date', this.form.value.date,
             'destinationId', this.form.value.destination.id,
             'portId', this.form.value.port.id,
             'shipId', this.form.value.ship.id
@@ -184,10 +189,11 @@ export class EmbarkationCriteriaComponent {
     }
 
     private populateFieldsFromStoredVariables(): void {
-        if (this.localStorageService.getItem('embarkationCriteria')) {
-            const criteria = JSON.parse(this.localStorageService.getItem('embarkationCriteria'))
+        if (this.localStorageService.getItem('embarkation-criteria')) {
+            const criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
+            this.selected = criteria.date
             this.form.setValue({
-                date: moment(criteria.date).toISOString(),
+                date: criteria.date,
                 destination: criteria.destination,
                 port: criteria.port,
                 ship: criteria.ship
@@ -208,7 +214,7 @@ export class EmbarkationCriteriaComponent {
     }
 
     private storeCriteria(): void {
-        this.localStorageService.saveItem('embarkationCriteria', JSON.stringify(this.form.value))
+        this.localStorageService.saveItem('embarkation-criteria', JSON.stringify(this.form.value))
     }
 
     private subscribeToInteractionService(): void {

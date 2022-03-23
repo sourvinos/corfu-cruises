@@ -18,7 +18,7 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { Port } from 'src/app/features/ports/classes/models/port'
+import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
 import { ShipDropdownVM } from '../../../ships/classes/view-models/ship-dropdown-vm'
 import { ShipRoute } from 'src/app/features/shipRoutes/classes/models/shipRoute'
@@ -50,12 +50,13 @@ export class ManifestCriteriaComponent {
     public isAutoCompleteDisabled = true
     public destinations: DestinationDropdownVM[] = []
     public filteredDestinations: Observable<DestinationDropdownVM[]>
-    public ports: Port[] = []
-    public filteredPorts: Observable<Port[]>
+    public ports: PortDropdownVM[] = []
+    public filteredPorts: Observable<PortDropdownVM[]>
     public ships: ShipDropdownVM[] = []
     public filteredShips: Observable<ShipDropdownVM[]>
     public shipRoutes: ShipRoute[]
     public filteredShipRoutes: Observable<ShipRoute[]>
+    public selected: Date | null
 
     //#endregion
 
@@ -72,6 +73,10 @@ export class ManifestCriteriaComponent {
         this.setWindowTitle()
         this.subscribeToInteractionService()
         this.focusOnField()
+    }
+
+    ngDoCheck(): void {
+        this.form.patchValue({ date: moment(this.selected).utc(true).format('YYYY-MM-DD') })
     }
 
     ngOnDestroy(): void {
@@ -136,7 +141,7 @@ export class ManifestCriteriaComponent {
     private filterArray(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
-            return this[array].filter((element) =>
+            return this[array].filter((element: { [x: string]: string }) =>
                 element[field].toLowerCase().startsWith(filtervalue))
         }
     }
@@ -161,7 +166,7 @@ export class ManifestCriteriaComponent {
 
     private navigateToList(): void {
         this.router.navigate([
-            'date', moment(this.form.value.date).toISOString().substring(0, 10),
+            'date', this.form.value.date,
             'destinationId', this.form.value.destination.id,
             'portId', this.form.value.port.id,
             'shipId', this.form.value.ship.id,
@@ -193,8 +198,9 @@ export class ManifestCriteriaComponent {
     private populateFieldsFromStoredVariables(): void {
         if (this.localStorageService.getItem('manifest-criteria')) {
             const criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
+            this.selected = criteria.date
             this.form.setValue({
-                date: moment(criteria.date).toISOString(),
+                date: criteria.date,
                 destination: criteria.destination,
                 port: criteria.port,
                 ship: criteria.ship,
