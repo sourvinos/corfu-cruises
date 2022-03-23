@@ -1,0 +1,56 @@
+#menu {
+    display: flex;
+    flex-direction: row;
+}
+
+#menu .menu-header {
+    font-family: var(--font-family-handbook);
+    font-size: 25px;
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
+    text-align: center;
+}
+
+#menu .menu-item {
+    font-family: var(--font-family-handbook);
+    font-size: 20px;
+    padding: 0.4rem 1rem;
+    width: 13.5rem;
+}
+
+#menu .menu-item:hover {
+    background-color: #00000017;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#reservations .menu-header {
+    color: #02a59c;
+}
+
+#reservations .menu-item {
+    color: #35c7bf;
+}
+
+#tasks .menu-header {
+    color: #ff696a;
+}
+
+#tasks .menu-item {
+    color: #f19192;
+}
+
+#tables .menu-header {
+    color: #ffb747;
+}
+
+#tables .menu-item {
+    color: #edcd9c;
+}
+
+#ships .menu-header {
+    color: #38b5c5;
+}
+
+#ships .menu-item {
+    color: #84cfd9;
+}

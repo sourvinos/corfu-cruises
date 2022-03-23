@@ -1,98 +1,27 @@
 [
-    {
-        "id": "home",
-        "description": "Αρχική"
-    },
-    {
-        "id": "embarkation",
-        "description": "Επιβίβαση"
-    },
-    {
-        "id": "reservations",
-        "description": "Κρατήσεις"
-    },
-    {
-        "id": "tasks",
-        "description": "Εργασίες"
-    },
-    {
-        "id": "tables",
-        "description": "Πίνακες"
-    },
-    {
-        "id": "logout",
-        "description": "Αποσύνδεση"
-    },
-     {
-        "id": "manifest",
-        "description": "Κατάσταση πλοίου"
-    },
-    {
-        "id": "invoicing",
-        "description": "Τιμολόγηση"
-    },
-    {
-        "id": "customers",
-        "description": "Πελάτες"
-    },
-    {
-        "id": "destinations",
-        "description": "Προορισμοί εκδρομών"
-    },
-    {
-        "id": "drivers",
-        "description": "Οδηγοί λεωφορείων"
-    },
-    {
-        "id": "genders",
-        "description": "Φύλα"
-    },
-    {
-        "id": "pickupPoints",
-        "description": "Σημεία παραλαβής επιβατών"
-    },
-    {
-        "id": "ports",
-        "description": "Λιμάνια"
-    },
-    {
-        "id": "coachRoutes",
-        "description": "Δρομολόγια λεωφορείων"
-    },
-    {
-        "id": "schedules",
-        "description": "Πρόγραμμα εκδρομών"
-    },
-    {
-        "id": "users",
-        "description": "Χρήστες"
-    },
-    {
-        "id": "ships",
-        "description": "Πλοία"
-    },
-    {
-        "id": "shipOwners",
-        "description": "Πλοιοκτήτες"
-    },
-    {
-        "id": "shipRoutes",
-        "description": "Δρομολόγια πλοίων"
-    },
-    {
-        "id": "crews",
-        "description": "Πληρώματα"
-    },
-    {
-        "id": "registrars",
-        "description": "Καταγραφείς επιβατών"
-    },
-    {
-        "id": "editAccount",
-        "description": "Ο λογαριασμός μου"
-    },
-    {
-        "id": "calendar",
-        "description": "Ημερολόγιο"
-    }
+    {        "id": "calendar",        "description": "Ημερολόγιο"    },
+    {        "id": "editAccount",        "description": "Ο λογαριασμός μου"    },
+    {        "id": "logout",        "description": "Αποσύνδεση"    },
+    {        "id": "reservations",        "description": "Κρατήσεις"    },
+    {        "id": "reservations-calendar",        "description": "Κεντρικός πίνακας"    },
+    {        "id": "ships",        "description": "Πλοία"    },
+    {        "id": "ships-crews",        "description": "Πληρώματα"    },
+    {        "id": "ships-file",        "description": "Αρχείο"    },
+    {        "id": "ships-registrars",        "description": "Καταγραφείς επιβατών"    },
+    {        "id": "ships-shipOwners",        "description": "Πλοιοκτήτες"    },
+    {        "id": "ships-shipRoutes",        "description": "Δρομολόγια πλοίων"    },
+    {        "id": "tables",        "description": "Πίνακες"    },
+    {        "id": "tables-coachRoutes",        "description": "Δρομολόγια λεωφορείων"    },
+    {        "id": "tables-customers",        "description": "Πελάτες"    },
+    {        "id": "tables-destinations",        "description": "Προορισμοί εκδρομών"    },
+    {        "id": "tables-drivers",        "description": "Οδηγοί λεωφορείων"    },
+    {        "id": "tables-genders",        "description": "Φύλα"    },
+    {        "id": "tables-pickupPoints",        "description": "Σημεία παραλαβής επιβατών"    },
+    {        "id": "tables-ports",        "description": "Λιμάνια"    },
+    {        "id": "tables-schedules",        "description": "Πρόγραμμα εκδρομών"    },
+    {        "id": "tables-users",        "description": "Χρήστες"    },
+    {        "id": "tasks",        "description": "Εργασίες"    },
+    {        "id": "tasks-embarkation",        "description": "Επιβίβαση"    },
+    {        "id": "tasks-invoicing",        "description": "Τιμολόγηση"    },
+    {        "id": "tasks-manifest",        "description": "Κατάσταση πλοίου"    }
 ]

@@ -1,0 +1,9 @@
+button {
+    background-color: transparent;
+    display: flex;
+}
+
+button span {
+    color: var(--color-text-primary);
+    font-size: 2.5rem;
+}

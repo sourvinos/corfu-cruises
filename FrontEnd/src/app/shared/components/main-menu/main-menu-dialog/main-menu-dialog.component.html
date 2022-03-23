@@ -1,0 +1,37 @@
+<div id="menu">
+
+    <div id="reservations">
+        <div class="menu-header">{{ getLabel('reservations') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('reservations')">{{ getLabel('reservations-calendar') }}</div>
+    </div>
+
+    <div id="tasks">
+        <div class="menu-header">{{ getLabel('tasks') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('embarkation')">{{ getLabel('tasks-embarkation') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('invoicing')">{{ getLabel('tasks-invoicing') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('manifest')">{{ getLabel('tasks-manifest') }}</div>
+    </div>
+
+    <div id="tables">
+        <div class="menu-header">{{ getLabel('tables') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('customers')">{{ getLabel('tables-customers') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('destinations')">{{ getLabel('tables-destinations') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('pickupPoints')">{{ getLabel('tables-pickupPoints') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('drivers')">{{ getLabel('tables-drivers') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('coachRoutes')">{{ getLabel('tables-coachRoutes') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('schedules')">{{ getLabel('tables-schedules') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('genders')">{{ getLabel('tables-genders') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('ports')">{{ getLabel('tables-ports') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('users')">{{ getLabel('tables-users') }}</div>
+    </div>
+    
+    <div id="ships">
+        <div class="menu-header">{{ getLabel('ships') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('ships')">{{ getLabel('ships-file') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('crews')">{{ getLabel('ships-crews') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('shipOwners')">{{ getLabel('ships-shipOwners') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('registrars')">{{ getLabel('ships-registrars') }}</div>
+        <div class="menu-item" (click)="navigateToFeature('shipRoutes')">{{ getLabel('ships-shipRoutes') }}</div>
+    </div>
+
+</div>

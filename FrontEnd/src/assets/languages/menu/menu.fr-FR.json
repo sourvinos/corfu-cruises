@@ -1,102 +1,27 @@
 [
-    {
-        "id": "home",
-        "description": "Page d'accueil"
-    },
-    {
-        "id": "passengers",
-        "description": "Passagers"
-    },
-    {
-        "id": "embarkation",
-        "description": "Embarquement"
-    },
-    {
-        "id": "manifest",
-        "description": "Manifeste du navire"
-    },
-    {
-        "id": "reservations",
-        "description": "Reservations"
-    },
-    {
-        "id": "tasks",
-        "description": "Tâches"
-    },
-    {
-        "id": "invoicing",
-        "description": "Facturation"
-    },
-    {
-        "id": "tables",
-        "description": "Tables"
-    },
-    {
-        "id": "customers",
-        "description": "Clients"
-    },
-    {
-        "id": "destinations",
-        "description": "Destinations"
-    },
-    {
-        "id": "drivers",
-        "description": "Conducteurs"
-    },
-    {
-        "id": "genders",
-        "description": "Genres"
-    },
-    {
-        "id": "pickupPoints",
-        "description": "Points de collecte"
-    },
-    {
-        "id": "ports",
-        "description": "Ports"
-    },
-    {
-        "id": "coachRoutes",
-        "description": "Routes de bus"
-    },
-    {
-        "id": "schedules",
-        "description": "Horaires"
-    },
-    {
-        "id": "users",
-        "description": "Utilisateurs"
-    },
-    {
-        "id": "ships",
-        "description": "Navires"
-    },
-    {
-        "id": "shipOwners",
-        "description": "Armateurs"
-    },
-    {
-        "id": "registrars",
-        "description": "Enregistreurs de passagers"
-    },
-    {
-        "id": "crews",
-        "description": "Équipes"
-    },
-    {
-        "id": "shipRoutes",
-        "description": "Routes maritimes"
-    },
-    {
-        "id": "logout",
-        "description": "Quitter"
-    },
-    {
-        "id": "editAccount",
-        "description": "Mon compte"
-    },
-    {
-        "id": "calendar",
-        "description": "Calendrier"
-    }
+    {        "id": "calendar",        "description": "Calendrier"    },
+    {        "id": "editAccount",        "description": "Mon compte"    },
+    {        "id": "logout",        "description": "Quitter"    },
+    {        "id": "reservations",        "description": "Reservations"    },
+    {        "id": "reservations-calendar",        "description": "Monthly calendar"    },
+    {        "id": "ships",        "description": "Navires"    },
+    {        "id": "ships-crews",        "description": "Équipes"    },
+    {        "id": "ships-file",        "description": "File"    },
+    {        "id": "ships-registrars",        "description": "Enregistreurs de passagers"    },
+    {        "id": "ships-shipOwners",        "description": "Armateurs"    },
+    {        "id": "ships-shipRoutes",        "description": "Routes maritimes"    },
+    {        "id": "tables",        "description": "Tables"    },
+    {        "id": "tables-coachRoutes",        "description": "Routes de bus"    },
+    {        "id": "tables-customers",        "description": "Clients"    },
+    {        "id": "tables-destinations",        "description": "Destinations"    },
+    {        "id": "tables-drivers",        "description": "Conducteurs"    },
+    {        "id": "tables-genders",        "description": "Genres"    },
+    {        "id": "tables-pickupPoints",        "description": "Points de collecte"    },
+    {        "id": "tables-ports",        "description": "Ports"    },
+    {        "id": "tables-schedules",        "description": "Horaires"    },
+    {        "id": "tables-users",        "description": "Utilisateurs"    },
+    {        "id": "tasks",        "description": "Tâches"    },
+    {        "id": "tasks-embarkation",        "description": "Embarquement"    },
+    {        "id": "tasks-invoicing",        "description": "Facturation"    },
+    {        "id": "tasks-manifest",        "description": "Manifeste du navire"    }
 ]
