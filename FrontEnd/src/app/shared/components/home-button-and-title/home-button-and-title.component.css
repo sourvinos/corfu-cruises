@@ -4,11 +4,14 @@
 }
 
 #navigation button {
-    background-color: var(--color-button-navigation) !important;
     border: none;
     box-shadow: none;
     display: flex;
     margin-right: 1rem !important;
+}
+
+#navigation button:hover {
+    background-color: var(--color-button-navigation) !important;
 }
 
 #title {

@@ -1,3 +1,1 @@
-<button mat-fab *ngIf="loginStatus | async">
-    <span (click)="showMainMenu()"class="material-icons">menu</span>
-</button>
+<span *ngIf="loginStatus | async" (click)="showMainMenu()" class="material-icons">menu</span>

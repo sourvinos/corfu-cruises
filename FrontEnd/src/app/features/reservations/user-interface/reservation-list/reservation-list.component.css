@@ -39,6 +39,5 @@
 }
 
 #footer {
-    justify-content: space-between;
-    margin: var(--gap) var(--footer-right-margin) var(--gap) var(--gap);
+    margin: var(--gap) 3rem var(--gap) var(--gap);
 }

@@ -202,7 +202,7 @@ p.instructions {
 }
 
 .tooltip-background {
-    background: var(--color-tooltip-background);
+    background: var(--color-orange);
 }
 
 ::-webkit-scrollbar {
