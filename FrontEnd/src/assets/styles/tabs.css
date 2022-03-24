@@ -13,6 +13,11 @@
     min-width: 50px !important;
 }
 
+.mat-tab-label-container {
+    align-items: flex-start !important;
+    padding: 2rem 1rem 0 0 !important;
+}
+
 .mat-ink-bar {
     background-color: var(--color-selected-tab) !important;
     height: 2px !important;

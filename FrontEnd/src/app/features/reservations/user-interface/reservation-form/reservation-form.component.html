@@ -5,9 +5,9 @@
     </div>
 
     <div id="content">
-        <mat-tab-group>
+        <mat-tab-group class="vertical">
             <form id="form" [formGroup]="form" autocomplete="off">
-                <mat-tab label="{{ getLabel('tabGeneral') }}">
+                <mat-tab label="1">
                     <ng-template matTabContent>
                         <form id="form" [formGroup]="form" autocomplete="off">
                             <div class="group-field">
@@ -94,12 +94,12 @@
                         <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
                     </ng-template>
                 </mat-tab>
-                <mat-tab label="{{ getLabel('tabPassengers') }}">
+                <mat-tab label="2">
                     <ng-template matTabContent>
-                        <passenger-list [passengers]="form.value.passengers" [isAdmin]="isAdmin"[reservationId]="form.value.reservationId" (outputPassengerCount)="checkTotalPersonsAgainstPassengerCount($event)" (outputPassengers)="patchFormWithPassengers($event)"></passenger-list>
+                        <passenger-list [passengers]="form.value.passengers" [isAdmin]="isAdmin" [reservationId]="form.value.reservationId" (outputPassengerCount)="checkTotalPersonsAgainstPassengerCount($event)" (outputPassengers)="patchFormWithPassengers($event)"></passenger-list>
                     </ng-template>
                 </mat-tab>
-                <mat-tab label="{{ getLabel('tabMoreInfo') }}">
+                <mat-tab label="3">
                     <ng-template matTabContent>
                         <mat-form-field>
                             <mat-label>{{ getLabel("driver") }}</mat-label>
