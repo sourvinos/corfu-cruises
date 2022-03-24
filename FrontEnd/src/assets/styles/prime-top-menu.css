@@ -28,10 +28,6 @@
     display: flex;
 }
 
-.p-menubar .p-menubar-root-list > .p-menuitem:nth-child(1), .p-menubar .p-menubar-root-list > .p-menuitem:nth-child(2) {
-    padding: 1px 0 1px 0;
-}
-
 .p-menubar .p-menuitem-link:nth-child(1), .p-menubar .p-menuitem-link:nth-child(2) {
     padding: 0.625rem 1rem 0.625rem 1rem !important;
 }

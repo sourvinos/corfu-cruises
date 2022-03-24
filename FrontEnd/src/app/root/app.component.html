@@ -1,8 +1,6 @@
 <div id="wrapper">
 
-    <div [class.hidden]="!showLoadingIndication" id="loading-indication">
-        <!-- Horizontal loader -->
-    </div>
+    <div *ngIf="showLoadingIndication" id="loading-indication"></div>
 
     <div id="main">
 
