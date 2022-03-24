@@ -89,7 +89,7 @@ button:not(:disabled) {
 }
 
 .mat-mini-fab .mat-button-wrapper {
-    padding-top: 0.3125rem !important;
+    line-height: 23px !important;
 }
 
 .mat-icon {

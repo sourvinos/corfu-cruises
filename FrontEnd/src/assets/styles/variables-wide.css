@@ -16,7 +16,7 @@
         --font-size-h6: 110%;
         --font-size-input-hint: 90%;
         --font-size-input: 100%;
-        --font-size-logo-image: 3rem;
+        --font-size-logo-image: 4.5rem;
         --font-size-logo-text: 300%;
         --font-size-menu-items: 110%;
         --font-size-panel-buttons: 130%;
@@ -32,8 +32,8 @@
         --gap: 1.5rem;
         --header-margin-bottom: 1.5rem;
         --header-margin-top: 0;
-        --logo-left-margin: 3.5rem;
         --side-bar-width: 17rem;
         --top-bar-height: 105px;
+        --logo-left-margin: 5rem;
     }
 }

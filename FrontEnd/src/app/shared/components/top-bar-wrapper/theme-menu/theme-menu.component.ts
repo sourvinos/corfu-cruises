@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 // Custom
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { environment } from 'src/environments/environment'
 
@@ -19,7 +20,7 @@ export class ThemeMenuComponent {
 
     //#endregion
 
-    constructor(@Inject(DOCUMENT) private document: Document, private localStorageService: LocalStorageService) { }
+    constructor(@Inject(DOCUMENT) private document: Document, private interactionService: InteractionService, private localStorageService: LocalStorageService) { }
 
     //#region lifecycle hooks
 
@@ -38,6 +39,7 @@ export class ThemeMenuComponent {
         this.theme = this.checked ? 'dark' : 'light'
         this.attachStylesheetToHead()
         this.saveTheme()
+        this.interactionService.mustRefreshLogo()
     }
 
     //#endregion

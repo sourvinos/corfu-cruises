@@ -9,9 +9,11 @@ export class InteractionService {
 
     private _refreshDateAdapter = new Subject<any>()
     private _refreshMenus = new Subject<any>()
+    private _refreshLogo = new Subject<any>()
 
     public refreshDateAdapter = this._refreshDateAdapter.asObservable()
     public refreshMenus = this._refreshMenus.asObservable()
+    public refreshLogo = this._refreshLogo.asObservable()
 
     //#endregion
 
@@ -23,6 +25,10 @@ export class InteractionService {
 
     public mustRefreshMenus(): void {
         this._refreshMenus.next()
+    }
+
+    public mustRefreshLogo(): void {
+        this._refreshLogo.next()
     }
 
     //#endregion
