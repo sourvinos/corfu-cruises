@@ -1,6 +1,8 @@
 button {
     background-color: transparent;
-    display: flex;
+    bottom: 12px;
+    left: 70px;
+    position: absolute;
 }
 
 button span {
