@@ -10,7 +10,7 @@ export class SnackbarService {
 
     //#region public methods
 
-    public open(message: string | string[], type: string): void {
+    public open(message: string | string[], type: string, duration = 1500): void {
         this.zone.run(() => {
             let errors = ''
             if (typeof (message) === 'object') {
@@ -25,6 +25,7 @@ export class SnackbarService {
                 data: {
                     html: errors
                 },
+                duration: duration,
                 panelClass: [type],
             })
         })

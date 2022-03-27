@@ -24,14 +24,13 @@
             <ng-template pTemplate="footer">
                 <tr>
                     <td style="text-align: right;" colspan="3">
-                        <button data-cy="newPerson" mat-mini-fab (click)="onNew()">
-                            <mat-icon>person_add</mat-icon>
-                        </button>
+                        <button class="secondary" mat-flat-button (click)="onNew()">{{ getLabel('newPassengerButton') }}</button>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
     </div>
+    
 
     <p class="instructions" [class.hidden]=true>{{ passengers | json }}</p>
 

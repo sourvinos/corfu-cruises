@@ -1,4 +1,3 @@
-import idleService from '@kurtz1993/idle-service'
 import { Component } from '@angular/core'
 import { MenuItem } from 'primeng/api'
 import { Router } from '@angular/router'
@@ -73,7 +72,6 @@ export class TopMenuComponent {
                         icon: 'fas fa-power-off',
                         command: (): void => {
                             this.accountService.logout()
-                            idleService.stop()
                         }
                     }]
             },
@@ -130,7 +128,6 @@ export class TopMenuComponent {
         return promise
     }
 
-
     private getLanguageIcon(): string {
         const flag = this.localStorageService.getLanguage() == '' ? this.doLanguageTasks('en-gb') : this.localStorageService.getLanguage()
         return 'flag ' + flag
@@ -170,10 +167,14 @@ export class TopMenuComponent {
         this.interactionService.refreshMenus.pipe(takeUntil(this.ngunsubscribe)).subscribe(() => {
             this.messageMenuService.getMessages().then((response) => {
                 this.menuItems = response
-                this.createMenu()   
+                this.createMenu()
             })
         })
     }
+
+    //#endregion
+
+    //#region public methods
 
     public getLabel(id: string): string {
         return this.messageMenuService.getDescription(this.menuItems, id)

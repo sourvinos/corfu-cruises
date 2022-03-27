@@ -5,6 +5,10 @@ export const environment = {
     appName: 'CORFU CRUISES',
     defaultLanguage: 'en-gb',
     defaultTheme: 'light',
+    idleSettings: {
+        idle: 5,
+        timeout: 5
+    },
     emailFooter: {
         lineA: 'Problems or questions? Call us at +30 26620 61400',
         lineB: 'or email at info@corfucruises.com',

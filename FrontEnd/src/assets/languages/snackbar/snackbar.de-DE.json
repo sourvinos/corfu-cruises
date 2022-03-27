@@ -2,55 +2,206 @@
     {
         "feature": "snackbarMessages",
         "labels": [
-            { "error": 400, "message": "Das Modell ist ungültig" },
-            { "error": 401, "message": "Authentifizierung fehlgeschlagen" },
-            { "error": 403, "message": "Diese Aktion erfordert eine höhere Berechtigungsstufe" },
-            { "error": 404, "message": "Dieser Datensatz kann nicht gefunden werden" },
-            { "error": 409, "message": "Dieser Rekord ist nicht einzigartig" },
-            { "error": 427, "message": "Für diesen Tag, Zielort und Hafen sind keine Fahrten geplant" },
-            { "error": 430, "message": "Für diesen Tag und Zielort sind keine Fahrten geplant" },
-            { "error": 431, "message": "Eine Reservierung in der Vergangenheit kann nicht erstellt werden" },
-            { "error": 432, "message": "Für diesen Tag sind keine Fahrten geplant" },
-            { "error": 433, "message": "Diese Reservierung führt zu einer Überbuchung" },
-            { "error": 450, "message": "Dieser Kunde existiert nicht oder ist inaktiv" },
-            { "error": 451, "message": "Dieses Ziel existiert nicht oder ist inaktiv" },
-            { "error": 452, "message": "Dieser Abholpunkt existiert nicht oder ist inaktiv" },
-            { "error": 453, "message": "Dieser Fahrer existiert nicht oder ist inaktiv" },
-            { "error": 454, "message": "Dieses Schiff existiert nicht oder ist inaktiv" },
-            { "error": 455, "message": "Die Passagierzahl ist nicht korrekt" },
-            { "error": 456, "message": "Die Staatsangehörigkeit von mindestens einem Passagier ist nicht vorhanden oder inaktiv" },
-            { "error": 457, "message": "Das Geschlecht von mindestens einem Passagier ist nicht vorhanden oder inaktiv" },
-            { "error": 458, "message": "Mindestens ein Beifahrer ist nicht vorhanden oder inaktiv" },
-            { "error": 490, "message": "Dieser Datensatz konnte nicht gespeichert werden" },
-            { "error": 491, "message": "Dieser Datensatz wird verwendet und kann nicht gelöscht werden" },
-            { "error": 492, "message": "Ein Benutzer mit diesen Angaben kann nicht erstellt werden" },
-            { "error": 493, "message": "Die Datei wurde nicht erstellt" },
-            { "error": 494, "message": "Das Passwort kann nicht geändert werden" },
-            { "error": 495, "message": "Für dieses Konto steht eine E-Mail-Bestätigung aus" },
-            { "error": 499, "message": "Es ist etwas sehr Schlimmes passiert. Sofort abmelden" },
-            { "error": 500, "message": "Es besteht keine Verbindung zur Datenbank" },
-            { "id": "authenticationFailed", "message": "Authentifizierung fehlgeschlagen"},
-            { "id": "askConfirmationToAbortEditing", "message": "Wenn Sie fortfahren, gehen alle Änderungen verloren" },
-            { "id": "askConfirmationToDelete", "message": "Wenn Sie fortfahren, ist dieser Datensatz für immer verloren" },
-            { "id": "emailSent", "message": "Eine E-Mail mit Anweisungen wurde gesendet" },
-            { "id": "emptyEmail", "message": "Die E-Mail darf nicht leer sein" },
-            { "id": "fileCreated", "message": "Die Datei wurde erstellt" },
-            { "id": "formIsDirty", "message": "Bevor Sie fortfahren, müssen alle Änderungen gespeichert werden" },
-            { "id": "noRecordsSelected", "message": "Sie haben keine Datensätze ausgewählt" },
-            { "id": "noResults", "message": "Wir haben nichts gefunden" },
-            { "id": "noVideoDevicesFound", "message": "Es befinden sich keine Kameras auf Ihrem Gerät" },
-            { "id": "passwordChanged", "message": "Das Passwort wurde geändert, Sie müssen sich erneut anmelden" },
-            { "id": "recordCreated", "message": "Ein Datensatz wurde erstellt" },
-            { "id": "recordDeleted", "message": "Dieser Datensatz wurde gelöscht" },
-            { "id": "recordUpdated", "message": "Dieser Datensatz wurde aktualisiert" },
-            { "id": "selectedRecordsHaveBeenProcessed", "message": "Alle ausgewählten Datensätze wurden aktualisiert" },
-            { "id": "unableToResetPassword", "message": "Das Passwort kann nicht zurückgesetzt werden" },
-            { "id": "wrongPassengerCount", "message": "Die Anzahl der Passagiere muss der Gesamtzahl der Personen entsprechen" },
-            { "id": "noContactWithServer", "message": "Keine Antwort von der Datenbank" },
-            { "id": "featureNotAvailable", "message": "Diese Option ist nicht verfügbar" },
-            { "id": "reservationCreated", "message": "Ref No " },
-            { "id": "success", "message": "Erfolg!" },
-            { "id": "warning", "message": "Achtung!" }
+            {
+                "error": 400,
+                "message": "Das Modell ist ungültig"
+            },
+            {
+                "error": 401,
+                "message": "Authentifizierung fehlgeschlagen"
+            },
+            {
+                "error": 403,
+                "message": "Diese Aktion erfordert eine höhere Berechtigungsstufe"
+            },
+            {
+                "error": 404,
+                "message": "Dieser Datensatz kann nicht gefunden werden"
+            },
+            {
+                "error": 409,
+                "message": "Dieser Rekord ist nicht einzigartig"
+            },
+            {
+                "error": 427,
+                "message": "Für diesen Tag, Zielort und Hafen sind keine Fahrten geplant"
+            },
+            {
+                "error": 430,
+                "message": "Für diesen Tag und Zielort sind keine Fahrten geplant"
+            },
+            {
+                "error": 431,
+                "message": "Eine Reservierung in der Vergangenheit kann nicht erstellt werden"
+            },
+            {
+                "error": 432,
+                "message": "Für diesen Tag sind keine Fahrten geplant"
+            },
+            {
+                "error": 433,
+                "message": "Diese Reservierung führt zu einer Überbuchung"
+            },
+            {
+                "error": 450,
+                "message": "Dieser Kunde existiert nicht oder ist inaktiv"
+            },
+            {
+                "error": 451,
+                "message": "Dieses Ziel existiert nicht oder ist inaktiv"
+            },
+            {
+                "error": 452,
+                "message": "Dieser Abholpunkt existiert nicht oder ist inaktiv"
+            },
+            {
+                "error": 453,
+                "message": "Dieser Fahrer existiert nicht oder ist inaktiv"
+            },
+            {
+                "error": 454,
+                "message": "Dieses Schiff existiert nicht oder ist inaktiv"
+            },
+            {
+                "error": 455,
+                "message": "Die Passagierzahl ist nicht korrekt"
+            },
+            {
+                "error": 456,
+                "message": "Die Staatsangehörigkeit von mindestens einem Passagier ist nicht vorhanden oder inaktiv"
+            },
+            {
+                "error": 457,
+                "message": "Das Geschlecht von mindestens einem Passagier ist nicht vorhanden oder inaktiv"
+            },
+            {
+                "error": 458,
+                "message": "Mindestens ein Beifahrer ist nicht vorhanden oder inaktiv"
+            },
+            {
+                "error": 490,
+                "message": "Dieser Datensatz konnte nicht gespeichert werden"
+            },
+            {
+                "error": 491,
+                "message": "Dieser Datensatz wird verwendet und kann nicht gelöscht werden"
+            },
+            {
+                "error": 492,
+                "message": "Ein Benutzer mit diesen Angaben kann nicht erstellt werden"
+            },
+            {
+                "error": 493,
+                "message": "Die Datei wurde nicht erstellt"
+            },
+            {
+                "error": 494,
+                "message": "Das Passwort kann nicht geändert werden"
+            },
+            {
+                "error": 495,
+                "message": "Für dieses Konto steht eine E-Mail-Bestätigung aus"
+            },
+            {
+                "error": 499,
+                "message": "Es ist etwas sehr Schlimmes passiert. Sofort abmelden"
+            },
+            {
+                "error": 500,
+                "message": "Es besteht keine Verbindung zur Datenbank"
+            },
+            {
+                "id": "authenticationFailed",
+                "message": "Authentifizierung fehlgeschlagen"
+            },
+            {
+                "id": "askConfirmationToAbortEditing",
+                "message": "Wenn Sie fortfahren, gehen alle Änderungen verloren"
+            },
+            {
+                "id": "askConfirmationToDelete",
+                "message": "Wenn Sie fortfahren, ist dieser Datensatz für immer verloren"
+            },
+            {
+                "id": "emailSent",
+                "message": "Eine E-Mail mit Anweisungen wurde gesendet"
+            },
+            {
+                "id": "emptyEmail",
+                "message": "Die E-Mail darf nicht leer sein"
+            },
+            {
+                "id": "fileCreated",
+                "message": "Die Datei wurde erstellt"
+            },
+            {
+                "id": "formIsDirty",
+                "message": "Bevor Sie fortfahren, müssen alle Änderungen gespeichert werden"
+            },
+            {
+                "id": "noRecordsSelected",
+                "message": "Sie haben keine Datensätze ausgewählt"
+            },
+            {
+                "id": "noResults",
+                "message": "Wir haben nichts gefunden"
+            },
+            {
+                "id": "noVideoDevicesFound",
+                "message": "Es befinden sich keine Kameras auf Ihrem Gerät"
+            },
+            {
+                "id": "passwordChanged",
+                "message": "Das Passwort wurde geändert, Sie müssen sich erneut anmelden"
+            },
+            {
+                "id": "recordCreated",
+                "message": "Ein Datensatz wurde erstellt"
+            },
+            {
+                "id": "recordDeleted",
+                "message": "Dieser Datensatz wurde gelöscht"
+            },
+            {
+                "id": "recordUpdated",
+                "message": "Dieser Datensatz wurde aktualisiert"
+            },
+            {
+                "id": "selectedRecordsHaveBeenProcessed",
+                "message": "Alle ausgewählten Datensätze wurden aktualisiert"
+            },
+            {
+                "id": "unableToResetPassword",
+                "message": "Das Passwort kann nicht zurückgesetzt werden"
+            },
+            {
+                "id": "wrongPassengerCount",
+                "message": "Die Anzahl der Passagiere muss der Gesamtzahl der Personen entsprechen"
+            },
+            {
+                "id": "noContactWithServer",
+                "message": "Keine Antwort von der Datenbank"
+            },
+            {
+                "id": "featureNotAvailable",
+                "message": "Diese Option ist nicht verfügbar"
+            },
+            {
+                "id": "reservationCreated",
+                "message": "Ref No "
+            },
+            {
+                "id": "success",
+                "message": "Erfolg!"
+            },
+            {
+                "id": "warning",
+                "message": "Achtung!"
+            },
+            {
+                "id": "timeoutWarning",
+                "message": "Ich glaube, der Benutzer macht etwas anderes! Abmeldung in xx"
+            }
         ]
     }
 ]

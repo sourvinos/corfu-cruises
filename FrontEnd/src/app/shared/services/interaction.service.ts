@@ -9,26 +9,26 @@ export class InteractionService {
 
     private _refreshDateAdapter = new Subject<any>()
     private _refreshMenus = new Subject<any>()
-    private _refreshLogo = new Subject<any>()
+    private _updateLogoImage = new Subject<any>()
 
     public refreshDateAdapter = this._refreshDateAdapter.asObservable()
     public refreshMenus = this._refreshMenus.asObservable()
-    public refreshLogo = this._refreshLogo.asObservable()
+    public updateLogoImage = this._updateLogoImage.asObservable()
 
     //#endregion
 
     //#region public methods
 
     public mustRefreshDateAdapters(): void {
-        this._refreshDateAdapter.next()
+        this._refreshDateAdapter.next(null)
     }
 
     public mustRefreshMenus(): void {
-        this._refreshMenus.next()
+        this._refreshMenus.next(null)
     }
 
-    public mustRefreshLogo(): void {
-        this._refreshLogo.next()
+    public mustUpdateLogoImage(): void {
+        this._updateLogoImage.next(null)
     }
 
     //#endregion

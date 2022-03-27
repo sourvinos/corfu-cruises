@@ -710,7 +710,7 @@
             },
             {
                 "id": "tabGeneral",
-                "description": "Γενικά"
+                "description": "Σύνοψη"
             },
             {
                 "id": "tabPassengers",
@@ -1146,24 +1146,8 @@
                 "description": "Όνομα"
             },
             {
-                "id": "headerActions",
-                "description": "Ενέργειες"
-            },
-            {
                 "id": "headerNationality",
                 "description": "Εθνικότητα"
-            },
-            {
-                "id": "headerBirthdate",
-                "description": "Ημερομηνία γέννησης"
-            },
-            {
-                "id": "headerSpecialCare",
-                "description": "Ειδική φροντίδα"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Παρατηρήσεις"
             },
             {
                 "id": "headerIsCheckedIn",
@@ -1171,7 +1155,7 @@
             },
             {
                 "id": "newPassengerButton",
-                "description": "Νέος επιβάτης"
+                "description": "ΝΕΟΣ ΕΠΙΒΑΤΗΣ"
             }
         ]
     },
@@ -1355,7 +1339,7 @@
                 "description": "ΣΚΑΝΑΡΙΣΜΑ ΚΟΥΠΟΝΙΟΥ"
             },
             {
-                "id": "scanCloseButton",
+                "id": "scan-close-button",
                 "description": "X"
             },
             {

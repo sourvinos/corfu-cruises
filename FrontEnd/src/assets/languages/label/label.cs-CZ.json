@@ -710,7 +710,7 @@
             },
             {
                 "id": "tabGeneral",
-                "description": "Všeobecné"
+                "description": "Přehled"
             },
             {
                 "id": "tabPassengers",
@@ -1146,24 +1146,8 @@
                 "description": "Jméno"
             },
             {
-                "id": "headerActions",
-                "description": "Akce"
-            },
-            {
                 "id": "headerNationality",
                 "description": "Národnost"
-            },
-            {
-                "id": "headerBirthdate",
-                "description": "Datum of Birth"
-            },
-            {
-                "id": "headerSpecialCare",
-                "description": "Speciální péče"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Poznámky"
             },
             {
                 "id": "headerIsCheckedIn",
@@ -1171,7 +1155,7 @@
             },
             {
                 "id": "newPassengerButton",
-                "description": "NOVÝ"
+                "description": "NOVÝ PASAŽÉR"
             }
         ]
     },
@@ -1355,7 +1339,7 @@
                 "description": "SKENOVAT POUKAZ"
             },
             {
-                "id": "scanCloseButton",
+                "id": "scan-close-button",
                 "description": "X"
             },
             {

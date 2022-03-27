@@ -38,7 +38,7 @@ export class ChangePasswordFormComponent {
     public input: InputTabStopDirective
     public parentUrl = '/users'
 
-    public confirmValidParentMatcher = new ConfirmValidParentMatcher();
+    public confirmValidParentMatcher = new ConfirmValidParentMatcher()
     public hidePassword = true
 
     //#endregion

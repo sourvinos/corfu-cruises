@@ -21,7 +21,7 @@ export class ReservationToShipComponent {
 
     private feature = 'assignToShip'
     public ships: ShipDropdownVM[] = []
-    public selectedShipId = '';
+    public selectedShipId = ''
 
     //#endregion
 

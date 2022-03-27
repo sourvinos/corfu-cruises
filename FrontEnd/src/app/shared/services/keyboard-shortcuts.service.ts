@@ -1,3 +1,4 @@
+/* eslint-disable no-cond-assign */
 import { Injectable, NgZone } from '@angular/core'
 
 type Terminal = boolean | 'match'

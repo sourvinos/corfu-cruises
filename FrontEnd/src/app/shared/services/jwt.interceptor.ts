@@ -11,8 +11,8 @@ export class JwtInterceptor {
 
     //#region variables
 
-    private isTokenRefreshing = false;
-    private tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    private isTokenRefreshing = false
+    private tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null)
 
     //#endregion
 
@@ -90,57 +90,57 @@ export class JwtInterceptor {
     private trapError(err: number) {
         switch (err) {
             case 0:
-                return throwError(500) // no contact with api
+                return throwError(() => new Error('500')) // no contact with api
             case 400:
-                return throwError(400) // invalidModel
+                return throwError(() => new Error('400')) // invalidModel
             case 403:
-                return throwError(403) // unauthorized
+                return throwError(() => new Error('403')) // unauthorized
             case 404:
-                return throwError(404) // not found
+                return throwError(() => new Error('404')) // not found
             case 409:
-                return throwError(409) // duplicate record (date, destination, customer, ticket no)
+                return throwError(() => new Error('409')) // duplicate record (date, destination, customer, ticket no)
             case 427:
-                return throwError(427) // we don't have a departure for the selected date, destination and port
+                return throwError(() => new Error('427')) // we don't have a departure for the selected date, destination and port
             case 430:
-                return throwError(430) // we don't have a trip for the selected date and destination
+                return throwError(() => new Error('430')) // we don't have a trip for the selected date and destination
             case 431:
-                return throwError(431) // simple users can't add a reservation in the past
+                return throwError(() => new Error('431')) // simple users can't add a reservation in the past
             case 432:
-                return throwError(432) // we don't have any trips for this day
+                return throwError(() => new Error('432')) // we don't have any trips for this day
             case 433:
-                return throwError(433) // no vacancy for port
+                return throwError(() => new Error('433')) // no vacancy for port
             case 450:
-                return throwError(450) // customer does not exist or is inactive
+                return throwError(() => new Error('450')) // customer does not exist or is inactive
             case 451:
-                return throwError(451) // destination does not exist or is inactive
+                return throwError(() => new Error('451')) // destination does not exist or is inactive
             case 452:
-                return throwError(452) // pickup point does not exist or is inactive
+                return throwError(() => new Error('452')) // pickup point does not exist or is inactive
             case 453:
-                return throwError(453) // driver does not exist or is inactive
+                return throwError(() => new Error('453')) // driver does not exist or is inactive
             case 454:
-                return throwError(454) // ship does not exist or is inactive
+                return throwError(() => new Error('454')) // ship does not exist or is inactive
             case 455:
-                return throwError(455) // invalid passenger count
+                return throwError(() => new Error('455')) // invalid passenger count
             case 456:
-                return throwError(456) // nationality does not exist or is inactive
+                return throwError(() => new Error('456')) // nationality does not exist or is inactive
             case 457:
-                return throwError(457) // gender does not exist or is inactive
+                return throwError(() => new Error('457')) // gender does not exist or is inactive
             case 458:
-                return throwError(458) // occupant does not exist or is inactive
+                return throwError(() => new Error('458')) // occupant does not exist or is inactive
             case 490:
-                return throwError(490) // unableToSaveRecord
+                return throwError(() => new Error('490')) // unableToSaveRecord
             case 491:
-                return throwError(491) // recordInUse
+                return throwError(() => new Error('491')) // recordInUse
             case 492:
-                return throwError(492) // unableToRegisterUser
+                return throwError(() => new Error('492')) // unableToRegisterUser
             case 493:
-                return throwError(493) // unableToCreateFile
+                return throwError(() => new Error('493')) // unableToCreateFile
             case 494:
-                return throwError(494) // unableToChangePassword
+                return throwError(() => new Error('494')) // unableToChangePassword
             case 500:
-                return throwError(500) // no contact with api
+                return throwError(() => new Error('500')) // no contact with api
             default:
-                return throwError(499) // unknown!
+                return throwError(() => new Error('499')) // unknown!
         }
     }
 

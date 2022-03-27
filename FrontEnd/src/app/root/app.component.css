@@ -38,21 +38,21 @@
     animation: running-progress 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-@keyframes running-progress {
-    0% {
-        margin-left: 0;
-        margin-right: 100%;
-    }
+#timeout-warning {
+    background-color: #c5dba0;
+    border-radius: 0 5px 5px 0;
+    bottom: var(--gap);
+    color: #000000;
+    font-family: var(--font-family-ubuntu);
+    font-weight: bold;
+    font-size: 19px;
+    padding: 9px 1rem 9px 10rem;
+    position: absolute;
+    transition: width 0.2s ease-in-out;
+}
 
-    50% {
-        margin-left: 25%;
-        margin-right: 0%;
-    }
-
-    100% {
-        margin-left: 100%;
-        margin-right: 0;
-    }
+#timeout-warning::after {
+    content: "''";
 }
 
 @keyframes running-progress {

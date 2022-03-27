@@ -1,7 +1,13 @@
 .p-datatable table {
     border-spacing: 0;
+    display: flex;
+    flex-direction: column;
     flex: 1;
     transition: all var(--change-theme-delay) ease;
+}
+
+.p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-thead {
+    background-color: transparent;
 }
 
 .p-datatable-tbody {
@@ -73,8 +79,13 @@
     white-space: nowrap !important;
 }
 
+.p-datatable .p-datatable-tfoot {
+    background-color: transparent !important;
+}
+
 .p-datatable .p-datatable-tfoot > tr > td {
-    background: none;
+    background-color: var(--color-table-header);
+    border-radius: 0 0 10px 10px;
     border: none;
     justify-content: flex-end;
 }

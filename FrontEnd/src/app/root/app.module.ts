@@ -1,13 +1,14 @@
 // Base
-import { NgModule } from '@angular/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { NgModule } from '@angular/core'
 import { ScrollingModule } from '@angular/cdk/scrolling'
 // Modules
 import { AppRoutingModule } from './app.routing.module'
 import { LoginModule } from '../features/login/classes/login.module'
+import { NgIdleModule } from '@ng-idle/core'
 import { PrimeNgModule } from '../shared/modules/primeng.module'
 // Components
 import { AppComponent } from './app.component'
@@ -37,6 +38,7 @@ import { MainMenuComponent } from '../shared/components/main-menu/main-menu/main
         FormsModule,
         HttpClientModule,
         LoginModule,
+        NgIdleModule.forRoot(),
         PrimeNgModule,
         ReactiveFormsModule,
         ScrollingModule

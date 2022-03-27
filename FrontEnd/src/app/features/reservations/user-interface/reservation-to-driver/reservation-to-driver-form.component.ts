@@ -21,7 +21,7 @@ export class ReservationToDriverComponent {
 
     private feature = 'assignToDriver'
     public drivers: Driver[] = []
-    public selectedDriverId = '';
+    public selectedDriverId = ''
 
     //#endregion
 

@@ -1,7 +1,6 @@
-import { KeyValuePair } from '../../../../shared/classes/keyValuePair'
+export class Nationality {
 
-export class Nationality extends KeyValuePair {
-
+    id: number
     description: string
     code: string
     isActive: boolean

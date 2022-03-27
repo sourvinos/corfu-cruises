@@ -10,6 +10,10 @@
             <router-outlet></router-outlet>
         </div>
 
+        <div @slideFromLeft *ngIf="countdown >= 1" id="timeout-warning">
+            <span id="message">{{ getEmoji() }} {{ getMessage() }}</span>
+        </div>
+
     </div>
 
 </div>

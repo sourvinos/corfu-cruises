@@ -710,7 +710,7 @@
             },
             {
                 "id": "tabGeneral",
-                "description": "Allgemeines"
+                "description": "Übersicht"
             },
             {
                 "id": "tabPassengers",
@@ -1146,24 +1146,8 @@
                 "description": "Vorname"
             },
             {
-                "id": "headerActions",
-                "description": "Aktionen"
-            },
-            {
                 "id": "headerNationality",
                 "description": "Nationalität"
-            },
-            {
-                "id": "headerBirthdate",
-                "description": "Geburtsdatum"
-            },
-            {
-                "id": "headerSpecialCare",
-                "description": "Spezialbehandlung"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Auslassungen"
             },
             {
                 "id": "headerIsCheckedIn",
@@ -1171,7 +1155,7 @@
             },
             {
                 "id": "newPassengerButton",
-                "description": "Neuer Passagier"
+                "description": "NEUE PASSAGIERE"
             }
         ]
     },
@@ -1355,7 +1339,7 @@
                 "description": "GUTSCHEIN SCANNEN"
             },
             {
-                "id": "scanCloseButton",
+                "id": "scan-close-button",
                 "description": "X"
             },
             {

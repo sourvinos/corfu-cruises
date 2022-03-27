@@ -1,4 +1,4 @@
-#criteriaLabels {
+#criteria-labels {
     align-items: center;
     display: flex;
     font-family: var(--font-family-handbook);
@@ -7,7 +7,7 @@
     margin-left: auto;
 }
 
-#criteriaLabels span {
+#criteria-labels span {
     color: var(--color-headers);
     margin: 0 0.3125rem 0 0.3125rem;
 }
@@ -21,7 +21,7 @@
     transition: all var(--change-theme-delay) ease;
 }
 
-.subtotal td, .rowGroup td {
+.subtotal td, .row-group td {
     color: var(--color-table-row-subgroup);
     font-size: var(--font-size-row-subgroup);
     transition: all var(--change-theme-delay) ease;

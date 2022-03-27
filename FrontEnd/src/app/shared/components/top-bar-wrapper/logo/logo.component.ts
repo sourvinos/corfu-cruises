@@ -27,7 +27,7 @@ export class LogoComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.updateCompanyLogo()
+        this.updateLogoImage()
         this.subscribeToInteractionService()
     }
 
@@ -36,16 +36,16 @@ export class LogoComponent {
     //#region private methods
 
     private refreshLogo(): void {
-        this.interactionService.mustRefreshLogo()
+        this.interactionService.mustUpdateLogoImage()
     }
 
     private subscribeToInteractionService(): void {
-        this.interactionService.refreshLogo.pipe(takeUntil(this.ngunsubscribe)).subscribe(() => {
-            this.updateCompanyLogo()
+        this.interactionService.updateLogoImage.pipe(takeUntil(this.ngunsubscribe)).subscribe(() => {
+            this.updateLogoImage()
         })
     }
 
-    private updateCompanyLogo(): void {
+    private updateLogoImage(): void {
         this.companyLogoText = this.helperService.getApplicationTitle()
         this.companyLogoImagePathname = '/assets/images/icons/logo-' + this.localStorageService.getItem('theme') + '.png'
     }

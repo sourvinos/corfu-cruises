@@ -1,6 +1,6 @@
-import idleService, { IdleEvents } from '@kurtz1993/idle-service'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
+import { Idle } from '@ng-idle/core'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
@@ -36,12 +36,14 @@ export class LoginFormComponent {
     public input: InputTabStopDirective
     public parentUrl = null
 
+    public countdown = 0
     public hidePassword = true
-    public isProcessing = false
+    public idleState = 'NOT_STARTED'
+    public isInitializing = false
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private formBuilder: FormBuilder, private helperService: HelperService, private idle: Idle, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -73,15 +75,14 @@ export class LoginFormComponent {
     }
 
     public onLogin(): void {
-        const form = this.form.value
-        this.isProcessing = true
-        this.accountService.login(form.username, form.password).subscribe(() => {
+        this.setIsInitializing(true)
+        this.accountService.login(this.form.value.username, this.form.value.password).subscribe(() => {
             this.goHome()
-            this.configureIdle()
-            this.isProcessing = false
+            this.setIsInitializing(false)
+            this.startIdleTimer()
         }, error => {
+            this.setIsInitializing(false)
             this.showError(error)
-            this.isProcessing = false
         })
     }
 
@@ -108,19 +109,6 @@ export class LoginFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private configureIdle(): void {
-        idleService.configure({
-            timeToIdle: 3600,
-            timeToTimeout: 60,
-            autoResume: true,
-            listenFor: 'click mousemove',
-        })
-        idleService.on(IdleEvents.UserHasTimedOut, () => {
-            this.accountService.logout()
-        })
-        idleService.start()
-    }
-
     private goHome(): void {
         this.router.navigate(['/'])
     }
@@ -131,6 +119,10 @@ export class LoginFormComponent {
             password: [environment.login.password, Validators.required],
             isHuman: [environment.login.isHuman, Validators.requiredTrue]
         })
+    }
+
+    private setIsInitializing(isInitializing: boolean): void {
+        this.isInitializing = isInitializing
     }
 
     private setWindowTitle(): void {
@@ -155,6 +147,12 @@ export class LoginFormComponent {
         this.snackbarService.open(message, type)
     }
 
+    private startIdleTimer(): void {
+        this.idle.watch()
+        this.idleState = 'NOT_IDLE'
+        this.countdown = 0
+    }
+
     //#endregion
 
     //#region getters
@@ -168,7 +166,7 @@ export class LoginFormComponent {
     }
 
     get checkForProcessing() {
-        return this.isProcessing
+        return this.isInitializing
     }
 
     //#endregion

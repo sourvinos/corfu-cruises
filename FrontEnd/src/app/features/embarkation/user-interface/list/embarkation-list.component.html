@@ -2,7 +2,7 @@
 
     <div id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-        <div id="embarkationFilter">
+        <div id="embarkation-filter">
             <mat-radio-group>
                 <mat-radio-button checked value="all" (click)="onFilterExclude()">{{ onGetLabel('all') }} ({{ records.totalPersons }})</mat-radio-button>
                 <mat-radio-button value="boarded" (click)="onFilterExclude(onGetLabel('pending').toUpperCase())">{{ onGetLabel('boarded') }} ({{ records.boarded }})</mat-radio-button>
@@ -107,5 +107,5 @@
 </div>
 
 <div id="video">
-    <zxing-scanner [enable]="scannerEnabled" (scanSuccess)="doSomething($event)" (hasDevices)="hasDevices()" (camerasFound)="camerasFound()"></zxing-scanner> <button mat-flat-button class="secondary" id="scanCloseButton" (click)="onHideScanner()">{{ onGetLabel('scanCloseButton') }}</button>
+    <zxing-scanner [enable]="scannerEnabled" (scanSuccess)="doSomething($event)" (hasDevices)="hasDevices()" (camerasFound)="camerasFound()"></zxing-scanner> <button mat-flat-button class="secondary" id="scan-close-button" (click)="onHideScanner()">{{ onGetLabel('scan-close-button') }}</button>
 </div>

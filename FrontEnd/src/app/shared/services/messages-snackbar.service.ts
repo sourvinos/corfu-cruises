@@ -20,14 +20,14 @@ export class MessageSnackbarService {
 
     //#region public methods
 
-    public getDescription(feature: string, id: string): string {
+    public getDescription(feature: string, id: string, stringLength = 0): string {
         let returnValue = ''
         if (this.messages != undefined) {
             this.messages.filter((f: { feature: string; labels: any[] }) => {
                 if (f.feature === feature) {
                     f.labels.filter(l => {
                         if (l.id == id) {
-                            returnValue = l.message
+                            returnValue = l.message.replace('xx', stringLength.toString())
                         }
                     })
                 }
@@ -69,6 +69,7 @@ export class MessageSnackbarService {
     public fileNotCreated(): string { return this.getDescription(this.feature, 'fileNotCreated') }
     public noContactWithServer(): string { return this.getDescription(this.feature, 'noContactWithServer') }
     public featureNotAvailable(): string { return this.getDescription(this.feature, 'featureNotAvailable') }
+    public timeoutWarning(countdown: number): string { return this.getDescription(this.feature, 'timeoutWarning', countdown) }
     public success(): string { return this.getDescription(this.feature, 'success') }
     public warning(): string { return this.getDescription(this.feature, 'warning') }
 
@@ -76,7 +77,11 @@ export class MessageSnackbarService {
         let returnValue = ''
         this.messages.filter((f: { feature: string; labels: any[] }) => {
             if (f.feature === feature) {
-                f.labels.filter(l => { if (l.error == errorCode) { returnValue = l.message } })
+                f.labels.filter(l => {
+                    if (l.error == errorCode) {
+                        returnValue = l.message
+                    }
+                })
             }
         })
         return returnValue

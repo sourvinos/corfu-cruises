@@ -7,7 +7,7 @@
     <div id="content">
         <mat-tab-group class="vertical">
             <form id="form" [formGroup]="form" autocomplete="off">
-                <mat-tab label="1">
+                <mat-tab label="{{ getLabel('tabGeneral') }}">
                     <ng-template matTabContent>
                         <form id="form" [formGroup]="form" autocomplete="off">
                             <div class="group-field">
@@ -94,28 +94,30 @@
                         <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
                     </ng-template>
                 </mat-tab>
-                <mat-tab label="2">
+                <mat-tab label="{{ getLabel('tabPassengers') }}">
                     <ng-template matTabContent>
                         <passenger-list [passengers]="form.value.passengers" [isAdmin]="isAdmin" [reservationId]="form.value.reservationId" (outputPassengerCount)="checkTotalPersonsAgainstPassengerCount($event)" (outputPassengers)="patchFormWithPassengers($event)"></passenger-list>
                     </ng-template>
                 </mat-tab>
-                <mat-tab label="3">
+                <mat-tab label="{{ getLabel('tabMoreInfo') }}">
                     <ng-template matTabContent>
-                        <mat-form-field>
-                            <mat-label>{{ getLabel("driver") }}</mat-label>
-                            <input [matAutocomplete]="drivers" formControlName="driver" matInput readonly>
-                            <mat-error *ngIf="driver.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>{{ getLabel("ship") }}</mat-label>
-                            <input [matAutocomplete]="ships" formControlName="ship" matInput readonly>
-                            <mat-error *ngIf="ship.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>{{ getLabel("port") }}</mat-label>
-                            <input [matAutocomplete]="ports" formControlName="port" matInput readonly>
-                            <mat-error *ngIf="port.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
-                        </mat-form-field>
+                        <div id="more">
+                            <mat-form-field>
+                                <mat-label>{{ getLabel("driver") }}</mat-label>
+                                <input [matAutocomplete]="drivers" formControlName="driver" matInput readonly>
+                                <mat-error *ngIf="driver.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>{{ getLabel("ship") }}</mat-label>
+                                <input [matAutocomplete]="ships" formControlName="ship" matInput readonly>
+                                <mat-error *ngIf="ship.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>{{ getLabel("port") }}</mat-label>
+                                <input [matAutocomplete]="ports" formControlName="port" matInput readonly>
+                                <mat-error *ngIf="port.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
+                            </mat-form-field>
+                        </div>
                     </ng-template>
                 </mat-tab>
             </form>

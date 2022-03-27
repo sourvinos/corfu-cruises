@@ -4,7 +4,7 @@ import { Directive, HostListener, Input } from '@angular/core'
 
 export class InputTabStopDirective {
 
-    @Input('inputTabStop') format: any;
+    @Input('inputTabStop') format: any
 
     @HostListener('keydown', ['$event']) onkeydown(event: { target: { getAttribute: (arg0: string) => string; }; key: string; preventDefault: () => void; }): any {
         if (event.target.getAttribute('type') === 'number' && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {

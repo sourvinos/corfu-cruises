@@ -710,7 +710,7 @@
             },
             {
                 "id": "tabGeneral",
-                "description": "En general"
+                "description": "Aperçu"
             },
             {
                 "id": "tabPassengers",
@@ -1146,24 +1146,8 @@
                 "description": "Nom "
             },
             {
-                "id": "headerActions",
-                "description": "Actions"
-            },
-            {
                 "id": "headerNationality",
                 "description": "Nationalite"
-            },
-            {
-                "id": "headerBirthdate",
-                "description": "Date de naissance"
-            },
-            {
-                "id": "headerSpecialCare",
-                "description": "Traitement special"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "ΠRemarques"
             },
             {
                 "id": "headerIsCheckedIn",
@@ -1171,7 +1155,7 @@
             },
             {
                 "id": "newPassengerButton",
-                "description": "Nouvel utilisateur"
+                "description": "NOUVEAU PASSAGER"
             }
         ]
     },
@@ -1355,7 +1339,7 @@
                 "description": "SCANNEZ LE BON"
             },
             {
-                "id": "scanCloseButton",
+                "id": "scan-close-button",
                 "description": "X"
             },
             {

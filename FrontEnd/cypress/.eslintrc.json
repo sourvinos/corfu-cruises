@@ -3,7 +3,7 @@
         "cypress"
     ],
     "rules": {
-        "cypress/no-assigning-return-values": "null"
+        "cypress/no-assigning-return-values": "off"
     },
     "extends": [
         "plugin:cypress/recommended"
