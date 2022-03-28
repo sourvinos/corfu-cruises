@@ -1,27 +1,102 @@
 [
-    {        "id": "calendar",        "description": "Ημερολόγιο"    },
-    {        "id": "editAccount",        "description": "Ο λογαριασμός μου"    },
-    {        "id": "logout",        "description": "Αποσύνδεση"    },
-    {        "id": "reservations",        "description": "Κρατήσεις"    },
-    {        "id": "reservations-calendar",        "description": "Κεντρικός πίνακας"    },
-    {        "id": "ships",        "description": "Πλοία"    },
-    {        "id": "ships-crews",        "description": "Πληρώματα"    },
-    {        "id": "ships-file",        "description": "Αρχείο"    },
-    {        "id": "ships-registrars",        "description": "Καταγραφείς επιβατών"    },
-    {        "id": "ships-shipOwners",        "description": "Πλοιοκτήτες"    },
-    {        "id": "ships-shipRoutes",        "description": "Δρομολόγια πλοίων"    },
-    {        "id": "tables",        "description": "Πίνακες"    },
-    {        "id": "tables-coachRoutes",        "description": "Δρομολόγια λεωφορείων"    },
-    {        "id": "tables-customers",        "description": "Πελάτες"    },
-    {        "id": "tables-destinations",        "description": "Προορισμοί εκδρομών"    },
-    {        "id": "tables-drivers",        "description": "Οδηγοί λεωφορείων"    },
-    {        "id": "tables-genders",        "description": "Φύλα"    },
-    {        "id": "tables-pickupPoints",        "description": "Σημεία παραλαβής επιβατών"    },
-    {        "id": "tables-ports",        "description": "Λιμάνια"    },
-    {        "id": "tables-schedules",        "description": "Πρόγραμμα εκδρομών"    },
-    {        "id": "tables-users",        "description": "Χρήστες"    },
-    {        "id": "tasks",        "description": "Εργασίες"    },
-    {        "id": "tasks-embarkation",        "description": "Επιβίβαση"    },
-    {        "id": "tasks-invoicing",        "description": "Τιμολόγηση"    },
-    {        "id": "tasks-manifest",        "description": "Κατάσταση πλοίου"    }
+    {
+        "id": "calendar",
+        "description": "Ημερολόγιο"
+    },
+    {
+        "id": "editAccount",
+        "description": "Ο λογαριασμός μου"
+    },
+    {
+        "id": "logout",
+        "description": "Αποσύνδεση"
+    },
+    {
+        "id": "reservations",
+        "description": "Κρατήσεις"
+    },
+    {
+        "id": "reservations-calendar",
+        "description": "Μηνιαίο ημερολόγιο"
+    },
+    {
+        "id": "ships",
+        "description": "Πλοία"
+    },
+    {
+        "id": "ships-crews",
+        "description": "Πληρώματα"
+    },
+    {
+        "id": "ships-file",
+        "description": "Αρχείο"
+    },
+    {
+        "id": "ships-registrars",
+        "description": "Καταγραφείς επιβατών"
+    },
+    {
+        "id": "ships-shipOwners",
+        "description": "Πλοιοκτήτες"
+    },
+    {
+        "id": "ships-shipRoutes",
+        "description": "Δρομολόγια πλοίων"
+    },
+    {
+        "id": "tables",
+        "description": "Πίνακες"
+    },
+    {
+        "id": "tables-coachRoutes",
+        "description": "Δρομολόγια λεωφορείων"
+    },
+    {
+        "id": "tables-customers",
+        "description": "Πελάτες"
+    },
+    {
+        "id": "tables-destinations",
+        "description": "Προορισμοί εκδρομών"
+    },
+    {
+        "id": "tables-drivers",
+        "description": "Οδηγοί λεωφορείων"
+    },
+    {
+        "id": "tables-genders",
+        "description": "Φύλα"
+    },
+    {
+        "id": "tables-pickupPoints",
+        "description": "Σημεία παραλαβής επιβατών"
+    },
+    {
+        "id": "tables-ports",
+        "description": "Λιμάνια"
+    },
+    {
+        "id": "tables-schedules",
+        "description": "Πρόγραμμα εκδρομών"
+    },
+    {
+        "id": "tables-users",
+        "description": "Χρήστες"
+    },
+    {
+        "id": "tasks",
+        "description": "Εργασίες"
+    },
+    {
+        "id": "tasks-embarkation",
+        "description": "Επιβίβαση"
+    },
+    {
+        "id": "tasks-invoicing",
+        "description": "Τιμολόγηση"
+    },
+    {
+        "id": "tasks-manifest",
+        "description": "Κατάσταση πλοίου"
+    }
 ]

@@ -7,17 +7,17 @@ namespace API.Features.Schedules {
 
     public interface IScheduleRepository : IRepository<Schedule> {
 
-        Task<IEnumerable<ScheduleListResource>> GetForList();
+        Task<IEnumerable<ScheduleListViewModel>> GetForList();
         IEnumerable<ScheduleReservationGroup> DoCalendarTasks(string fromDate, string toDate, Guid? reservationId);
         bool DayHasSchedule(string date);
         bool DayHasScheduleForDestination(string date, int destinationId);
         bool PortHasDepartures(string date, int destinationId, int portId);
-        new Task<ScheduleReadResource> GetById(int scheduleId);
+        new Task<ScheduleReadDto> GetById(int scheduleId);
         void Create(List<Schedule> entity);
         Task<Schedule> GetByIdToDelete(int id);
-        void DeleteRange(List<Schedule> schedules);
-        int IsValidOnNew(List<ScheduleWriteResource> records);
-        int IsValidOnUpdate(ScheduleWriteResource record);
+        void DeleteRange(List<ScheduleDeleteRangeDto> schedules);
+        int IsValidOnNew(List<ScheduleWriteDto> records);
+        int IsValidOnUpdate(ScheduleWriteDto record);
 
     }
 

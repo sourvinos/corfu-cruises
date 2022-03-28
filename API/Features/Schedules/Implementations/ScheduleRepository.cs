@@ -24,23 +24,23 @@ namespace API.Features.Schedules {
             this.settings = settings.Value;
         }
 
-        public async Task<IEnumerable<ScheduleListResource>> GetForList() {
+        public async Task<IEnumerable<ScheduleListViewModel>> GetForList() {
             var schedules = await context.Set<Schedule>()
                 .Include(x => x.Destination)
                 .Include(x => x.Port)
                 .OrderBy(x => x.Date).ThenBy(x => x.Destination.Description).ThenBy(x => x.Port.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Schedule>, IEnumerable<ScheduleListResource>>(schedules);
+            return mapper.Map<IEnumerable<Schedule>, IEnumerable<ScheduleListViewModel>>(schedules);
         }
 
-        new public async Task<ScheduleReadResource> GetById(int scheduleId) {
+        new public async Task<ScheduleReadDto> GetById(int scheduleId) {
             var record = await context.Set<Schedule>()
                 .Include(p => p.Port)
                 .Include(p => p.Destination)
                 .SingleOrDefaultAsync(m => m.Id == scheduleId);
             if (record != null) {
-                return mapper.Map<Schedule, ScheduleReadResource>(record);
+                return mapper.Map<Schedule, ScheduleReadDto>(record);
             } else {
                 throw new RecordNotFound(ApiMessages.RecordNotFound());
             }
@@ -61,17 +61,18 @@ namespace API.Features.Schedules {
             }
         }
 
-        public void DeleteRange(List<Schedule> schedules) {
-            List<Schedule> idsToDelete = new();
+        public void DeleteRange(List<ScheduleDeleteRangeDto> schedules) {
+            var objectsToDelete = new List<Schedule>();
             foreach (var item in schedules) {
-                var idToDelete = context.Set<Schedule>()
-                    .FirstOrDefault(x => x.Date == item.Date && x.DestinationId == item.DestinationId && x.PortId == item.PortId);
-                if (idToDelete != null) {
-                    idsToDelete.Add(idToDelete);
+                var objectToDelete = context.Schedules
+                    .Where(x => x.Date == Convert.ToDateTime(item.Date) && x.DestinationId == item.DestinationId && x.PortId == item.PortId)
+                    .FirstOrDefault();
+                if (objectToDelete != null) {
+                    objectsToDelete.Add(objectToDelete);
                 }
             }
-            if (idsToDelete.Count > 0) {
-                context.RemoveRange(idsToDelete);
+            if (objectsToDelete.Count > 0) {
+                context.RemoveRange(objectsToDelete);
                 context.SaveChanges();
             }
         }
@@ -103,7 +104,7 @@ namespace API.Features.Schedules {
             return schedule.Count != 0;
         }
 
-        public int IsValidOnNew(List<ScheduleWriteResource> records) {
+        public int IsValidOnNew(List<ScheduleWriteDto> records) {
             return true switch {
                 var x when x == !IsValidDestinationOnNew(records) => 450,
                 var x when x == !IsValidPortOnNew(records) => 451,
@@ -111,7 +112,7 @@ namespace API.Features.Schedules {
             };
         }
 
-        public int IsValidOnUpdate(ScheduleWriteResource record) {
+        public int IsValidOnUpdate(ScheduleWriteDto record) {
             return true switch {
                 var x when x == !IsValidDestinationOnUpdate(record) => 450,
                 var x when x == !IsValidPortOnUpdate(record) => 451,
@@ -119,11 +120,11 @@ namespace API.Features.Schedules {
             };
         }
 
-        private IEnumerable<ScheduleResource> GetScheduleForPeriod(string fromDate, string toDate) {
+        private IEnumerable<ScheduleViewModel> GetScheduleForPeriod(string fromDate, string toDate) {
             var response = context.Set<Schedule>()
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
                 .OrderBy(x => x.Date).ThenBy(x => x.DestinationId).ThenBy(x => x.PortId)
-                .Select(x => new ScheduleResource {
+                .Select(x => new ScheduleViewModel {
                     Date = x.Date.ToString(),
                     DestinationId = x.DestinationId,
                     DestinationDescription = x.Destination.Description,
@@ -136,12 +137,12 @@ namespace API.Features.Schedules {
             return response.ToList();
         }
 
-        private IEnumerable<ReservationResource> GetReservationsForPeriod(string fromDate, string toDate, Guid? reservationId) {
+        private IEnumerable<ReservationViewModel> GetReservationsForPeriod(string fromDate, string toDate, Guid? reservationId) {
             var response = context.Set<Reservation>()
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate) && x.ReservationId != reservationId)
                 .OrderBy(x => x.Date).ThenBy(x => x.DestinationId).ThenBy(x => x.PortId)
                 .GroupBy(x => new { x.Date, x.DestinationId, x.PortId })
-                .Select(x => new ReservationResource {
+                .Select(x => new ReservationViewModel {
                     Date = x.Key.Date.ToString(),
                     DestinationId = x.Key.DestinationId,
                     PortId = x.Key.PortId,
@@ -150,7 +151,7 @@ namespace API.Features.Schedules {
             return response.ToList();
         }
 
-        private static IEnumerable<ScheduleReservationGroup> UpdateCalendarData(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations) {
+        private static IEnumerable<ScheduleReservationGroup> UpdateCalendarData(IEnumerable<ScheduleViewModel> schedule, IEnumerable<ReservationViewModel> reservations) {
             foreach (var item in schedule) {
                 var x = reservations.FirstOrDefault(x => x.Date == item.Date && x.DestinationId == item.DestinationId && x.PortId == item.PortId);
                 item.Passengers = (x?.TotalPersons) ?? 0;
@@ -160,13 +161,13 @@ namespace API.Features.Schedules {
                 .Select(x => new ScheduleReservationGroup {
                     Date = x.Key,
                     Destinations = x.GroupBy(x => new { x.Date, x.DestinationId, x.DestinationDescription })
-                    .Select(x => new DestinationResource {
+                    .Select(x => new DestinationPortsViewModel {
                         Id = x.Key.DestinationId,
                         Description = x.Key.DestinationDescription,
                         PassengerCount = CalculatePassengerCountForDestination(reservations, x.Key.Date, x.Key.DestinationId),
                         AvailableSeats = CalculateAvailableSeatsForAllPorts(schedule, reservations, x.Key.Date, x.Key.DestinationId),
                         Ports = x.GroupBy(x => new { x.PortId, x.Date, x.DestinationId, x.PortDescription, x.IsPortPrimary, x.MaxPassengers })
-                        .Select(x => new PortResource {
+                        .Select(x => new PortViewModel {
                             Id = x.Key.PortId,
                             Description = x.Key.PortDescription,
                             IsPrimary = x.Key.IsPortPrimary,
@@ -179,13 +180,13 @@ namespace API.Features.Schedules {
             return response.ToList();
         }
 
-        private static int CalculateAvailableSeatsForAllPorts(IEnumerable<ScheduleResource> schedule, IEnumerable<ReservationResource> reservations, string date, int destinationId) {
+        private static int CalculateAvailableSeatsForAllPorts(IEnumerable<ScheduleViewModel> schedule, IEnumerable<ReservationViewModel> reservations, string date, int destinationId) {
             var maxPassengers = CalculateMaxPassengers(schedule, date, destinationId);
             var passengers = CalculatePassengerCountForDestination(reservations, date, destinationId);
             return maxPassengers - passengers;
         }
 
-        private static int CalculateAvailableSeatsForPort(IEnumerable<ScheduleResource> schedule, string date, int destinationId, int maxPassengers, int passengers, bool isPortPrimary) {
+        private static int CalculateAvailableSeatsForPort(IEnumerable<ScheduleViewModel> schedule, string date, int destinationId, int maxPassengers, int passengers, bool isPortPrimary) {
             if (isPortPrimary) {
                 return CalculateAvailableSeatsForPrimaryPort(schedule, date, destinationId, maxPassengers, passengers);
             } else {
@@ -193,15 +194,15 @@ namespace API.Features.Schedules {
             }
         }
 
-        private static int CalculatePassengerCountForDestination(IEnumerable<ReservationResource> reservations, string date, int destinationId) {
+        private static int CalculatePassengerCountForDestination(IEnumerable<ReservationViewModel> reservations, string date, int destinationId) {
             return reservations.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.TotalPersons);
         }
 
-        private static int CalculateMaxPassengers(IEnumerable<ScheduleResource> schedule, string date, int destinationId) {
+        private static int CalculateMaxPassengers(IEnumerable<ScheduleViewModel> schedule, string date, int destinationId) {
             return schedule.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.MaxPassengers);
         }
 
-        private bool IsValidPortOnNew(List<ScheduleWriteResource> records) {
+        private bool IsValidPortOnNew(List<ScheduleWriteDto> records) {
             if (records != null) {
                 bool isValid = false;
                 foreach (var schedule in records) {
@@ -212,11 +213,11 @@ namespace API.Features.Schedules {
             return true;
         }
 
-        private bool IsValidPortOnUpdate(ScheduleWriteResource record) {
+        private bool IsValidPortOnUpdate(ScheduleWriteDto record) {
             return context.Ports.SingleOrDefault(x => x.Id == record.PortId) != null;
         }
 
-        private bool IsValidDestinationOnNew(List<ScheduleWriteResource> records) {
+        private bool IsValidDestinationOnNew(List<ScheduleWriteDto> records) {
             if (records != null) {
                 bool isValid = false;
                 foreach (var schedule in records) {
@@ -227,7 +228,7 @@ namespace API.Features.Schedules {
             return true;
         }
 
-        private bool IsValidDestinationOnUpdate(ScheduleWriteResource record) {
+        private bool IsValidDestinationOnUpdate(ScheduleWriteDto record) {
             return context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId) != null;
         }
 
@@ -243,7 +244,7 @@ namespace API.Features.Schedules {
             }
         }
 
-        private static int CalculateAvailableSeatsForPrimaryPort(IEnumerable<ScheduleResource> schedule, string date, int destinationId, int maxPassengers, int passengers) {
+        private static int CalculateAvailableSeatsForPrimaryPort(IEnumerable<ScheduleViewModel> schedule, string date, int destinationId, int maxPassengers, int passengers) {
             var secondaryPort = schedule.FirstOrDefault(x => x.Date == date && x.DestinationId == destinationId && !x.IsPortPrimary);
             if (secondaryPort != null && secondaryPort.MaxPassengers != 0) {
                 return maxPassengers - passengers;
@@ -252,7 +253,7 @@ namespace API.Features.Schedules {
             }
         }
 
-        private static int CalculateAvailableSeatsForSecondaryPort(IEnumerable<ScheduleResource> schedule, string date, int destinationId, int maxPassengers, int passengers) {
+        private static int CalculateAvailableSeatsForSecondaryPort(IEnumerable<ScheduleViewModel> schedule, string date, int destinationId, int maxPassengers, int passengers) {
             var primaryPort = schedule.FirstOrDefault(x => x.Date == date && x.DestinationId == destinationId && x.IsPortPrimary);
             if (primaryPort != null) {
                 return primaryPort.MaxPassengers - primaryPort.Passengers + maxPassengers - passengers;

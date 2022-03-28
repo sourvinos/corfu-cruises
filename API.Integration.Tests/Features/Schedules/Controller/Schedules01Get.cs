@@ -18,7 +18,7 @@ namespace API.Integration.Tests.Schedules {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly int _expectedRecordCount = 25;
+        private readonly int _expectedRecordCount = 26;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
         private readonly string _url = "/schedules";
@@ -55,7 +55,7 @@ namespace API.Integration.Tests.Schedules {
         [Fact]
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
-            var records = JsonSerializer.Deserialize<List<ScheduleListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var records = JsonSerializer.Deserialize<List<ScheduleListViewModel>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(_expectedRecordCount, records.Count);
         }
 

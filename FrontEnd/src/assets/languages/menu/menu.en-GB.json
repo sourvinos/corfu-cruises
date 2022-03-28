@@ -1,27 +1,102 @@
 [
-    {        "id": "calendar",        "description": "Calendar"    },
-    {        "id": "editAccount",        "description": "My account"    },
-    {        "id": "logout",        "description": "Logout"    },
-    {        "id": "reservations",        "description": "Reservations"    },
-    {        "id": "reservations-calendar",        "description": "Monthly calendar"    },
-    {        "id": "ships",        "description": "Ships"    },
-    {        "id": "ships-crews",        "description": "Crews"    },
-    {        "id": "ships-file",        "description": "File"    },
-    {        "id": "ships-registrars",        "description": "Passenger registrars"    },
-    {        "id": "ships-shipOwners",        "description": "Shipowners"    },
-    {        "id": "ships-shipRoutes",        "description": "Ship routes"    },
-    {        "id": "tables",        "description": "Tables"    },
-    {        "id": "tables-coachRoutes",        "description": "Coach routes"    },
-    {        "id": "tables-customers",        "description": "Customers"    },
-    {        "id": "tables-destinations",        "description": "Destinations"    },
-    {        "id": "tables-drivers",        "description": "Drivers"    },
-    {        "id": "tables-genders",        "description": "Genders"    },
-    {        "id": "tables-pickupPoints",        "description": "Pickup points"    },
-    {        "id": "tables-ports",        "description": "Ports"    },
-    {        "id": "tables-schedules",        "description": "Schedules"    },
-    {        "id": "tables-users",        "description": "Users"    },
-    {        "id": "tasks",        "description": "Tasks"    },
-    {        "id": "tasks-embarkation",        "description": "Embarkation"    },
-    {        "id": "tasks-invoicing",        "description": "Invoicing"    },
-    {        "id": "tasks-manifest",        "description": "Ship manifest"    }
+    {
+        "id": "calendar",
+        "description": "Calendar"
+    },
+    {
+        "id": "editAccount",
+        "description": "My account"
+    },
+    {
+        "id": "logout",
+        "description": "Logout"
+    },
+    {
+        "id": "reservations",
+        "description": "Reservations"
+    },
+    {
+        "id": "reservations-calendar",
+        "description": "Monthly calendar"
+    },
+    {
+        "id": "ships",
+        "description": "Ships"
+    },
+    {
+        "id": "ships-crews",
+        "description": "Crews"
+    },
+    {
+        "id": "ships-file",
+        "description": "File"
+    },
+    {
+        "id": "ships-registrars",
+        "description": "Passenger registrars"
+    },
+    {
+        "id": "ships-shipOwners",
+        "description": "Shipowners"
+    },
+    {
+        "id": "ships-shipRoutes",
+        "description": "Ship routes"
+    },
+    {
+        "id": "tables",
+        "description": "Tables"
+    },
+    {
+        "id": "tables-coachRoutes",
+        "description": "Coach routes"
+    },
+    {
+        "id": "tables-customers",
+        "description": "Customers"
+    },
+    {
+        "id": "tables-destinations",
+        "description": "Destinations"
+    },
+    {
+        "id": "tables-drivers",
+        "description": "Drivers"
+    },
+    {
+        "id": "tables-genders",
+        "description": "Genders"
+    },
+    {
+        "id": "tables-pickupPoints",
+        "description": "Pickup points"
+    },
+    {
+        "id": "tables-ports",
+        "description": "Ports"
+    },
+    {
+        "id": "tables-schedules",
+        "description": "Schedules"
+    },
+    {
+        "id": "tables-users",
+        "description": "Users"
+    },
+    {
+        "id": "tasks",
+        "description": "Tasks"
+    },
+    {
+        "id": "tasks-embarkation",
+        "description": "Embarkation"
+    },
+    {
+        "id": "tasks-invoicing",
+        "description": "Invoicing"
+    },
+    {
+        "id": "tasks-manifest",
+        "description": "Ship manifest"
+    }
 ]

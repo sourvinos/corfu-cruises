@@ -11,7 +11,7 @@ namespace API.UnitTests.Features.Schedules {
         [ClassData(typeof(ValidateFK))]
         public void Invalid_DestinationId(int destinationId) {
             new ScheduleValidator()
-                .TestValidate(new ScheduleWriteResource { DestinationId = destinationId })
+                .TestValidate(new ScheduleWriteDto { DestinationId = destinationId })
                 .ShouldHaveValidationErrorFor(x => x.DestinationId);
         }
 
@@ -19,7 +19,7 @@ namespace API.UnitTests.Features.Schedules {
         [ClassData(typeof(ValidateFK))]
         public void Invalid_PortId(int portId) {
             new ScheduleValidator()
-                .TestValidate(new ScheduleWriteResource { PortId = portId })
+                .TestValidate(new ScheduleWriteDto { PortId = portId })
                 .ShouldHaveValidationErrorFor(x => x.PortId);
         }
 
@@ -27,16 +27,16 @@ namespace API.UnitTests.Features.Schedules {
         [ClassData(typeof(ValidateDate))]
         public void Invalid_Date(string date) {
             new ScheduleValidator()
-                .TestValidate(new ScheduleWriteResource { Date = date })
+                .TestValidate(new ScheduleWriteDto { Date = date })
                 .ShouldHaveValidationErrorFor(x => x.Date);
         }
 
         [Theory]
         [ClassData(typeof(ValidateInteger))]
-        public void Invalid_MaxPersons(int maxPersons) {
+        public void Invalid_MaxPassengers(int maxPassengers) {
             new ScheduleValidator()
-                .TestValidate(new ScheduleWriteResource { MaxPersons = maxPersons })
-                .ShouldHaveValidationErrorFor(x => x.MaxPersons);
+                .TestValidate(new ScheduleWriteDto { MaxPassengers = maxPassengers })
+                .ShouldHaveValidationErrorFor(x => x.MaxPassengers);
         }
 
     }

@@ -14,7 +14,7 @@
                                 <mat-form-field style="width: 30% !important;">
                                     <mat-label>{{ getLabel('refNo') }}</mat-label>
                                     <input matInput formControlName="refNo" readonly>
-                                </mat-form-field>
+                                </mat-form-field> 
                                 <mat-form-field>
                                     <input type="text" [inputTabStop]="input" [matDatepicker]="picker" [placeholder]="getLabel('date')" data-cy="date" data-tabindex="1" formControlName="date" id="date" matInput>
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -159,8 +159,8 @@
 
 <mat-autocomplete #pickupPoints="matAutocomplete" [displayWith]="autocompleteFields" (optionSelected)="updateFieldsAfterPickupPointSelection($event.option.value)" autoActiveFirstOption>
     <mat-option *ngFor="let option of filteredPickupPoints | async" [value]="option">
-        <span>{{ option.description.substr(0, 30) }}</span>
-        <span>{{ option.exactPoint.substr(0, 30) }}</span>
+        <span>{{ option.description.substring(0, 30) }}</span>
+        <span>{{ option.exactPoint.substring(0, 30) }}</span>
         <span>{{ option.time }}</span>
     </mat-option>
 </mat-autocomplete>

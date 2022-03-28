@@ -140,7 +140,7 @@ export class InvoicingCriteriaComponent {
 
     private navigateToList(): void {
         this.router.navigate([
-            'date', moment(this.form.value.date).toISOString().substr(0, 10),
+            'date', moment(this.form.value.date).toISOString(),
             'customer', this.form.value.customer.id,
             'destination', this.form.value.destination.id,
             'ship', this.form.value.ship.id], { relativeTo: this.activatedRoute })

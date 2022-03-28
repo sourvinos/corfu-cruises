@@ -56,8 +56,6 @@ export class NewScheduleComponent {
 
     private periodToDelete = []
     private daysToInsert = []
-    // private scheduleDeleteVM: ScheduleWriteVM[] = []
-    private scheduleWriteVM: ScheduleWriteVM[] = []
     public selectedWeekDays = []
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
@@ -183,7 +181,7 @@ export class NewScheduleComponent {
             const x = {
                 destinationId: formValue.destination.id,
                 portId: formValue.port.id,
-                date: day.substring(4, day.length)
+                date: day.substring(4)
             }
             objects.push(x)
         })
@@ -200,7 +198,7 @@ export class NewScheduleComponent {
         this.selectedWeekDays.forEach(weekday => {
             this.periodToDelete.forEach((day: string) => {
                 if (day.substring(0, 3) == weekday) {
-                    this.daysToInsert.push(day.substr(4, 10))
+                    this.daysToInsert.push(day.substring(4))
                 }
             })
         })
@@ -280,8 +278,7 @@ export class NewScheduleComponent {
 
     private saveRecord(): void {
         this.scheduleService.deleteRange(this.buildObjectsToDelete()).subscribe(() => {
-            this.buildScheduleToCreate()
-            this.scheduleService.addRange(this.scheduleWriteVM).subscribe(() => {
+            this.scheduleService.addRange(this.buildScheduleToCreate()).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')

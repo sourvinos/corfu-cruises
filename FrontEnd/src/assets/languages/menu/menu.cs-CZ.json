@@ -1,27 +1,102 @@
 [
-    {        "id": "calendar",        "description": "Kalendář"    },
-    {        "id": "editAccount",        "description": "Můj účet"    },
-    {        "id": "logout",        "description": "Odhlásit set"    },
-    {        "id": "reservations",        "description": "Rezervace"    },
-    {        "id": "reservations-calendar",        "description": "Monthly calendar"    },
-    {        "id": "ships",        "description": "Lodě"    },
-    {        "id": "ships-crews",        "description": "Posádky"    },
-    {        "id": "ships-file",        "description": "File"    },
-    {        "id": "ships-registrars",        "description": "Registrátoři"    },
-    {        "id": "ships-shipOwners",        "description": "Vlastníci"    },
-    {        "id": "ships-shipRoutes",        "description": "Trasy"    },
-    {        "id": "tables",        "description": "Tabulky"    },
-    {        "id": "tables-coachRoutes",        "description": "Trasy"    },
-    {        "id": "tables-customers",        "description": "Zákazníci"    },
-    {        "id": "tables-destinations",        "description": "Destinace"    },
-    {        "id": "tables-drivers",        "description": "Řidiči"    },
-    {        "id": "tables-genders",        "description": "Pohlaví"    },
-    {        "id": "tables-pickupPoints",        "description": "Nástupní místa"    },
-    {        "id": "tables-ports",        "description": "Přístavy"    },
-    {        "id": "tables-schedules",        "description": "Rozvrhy"    },
-    {        "id": "tables-users",        "description": "Uživatelé"    },
-    {        "id": "tasks",        "description": "Úkoly"    },
-    {        "id": "tasks-embarkation",        "description": "Nalodění"    },
-    {        "id": "tasks-invoicing",        "description": "Fakturace"    },
-    {        "id": "tasks-manifest",        "description": "Zpráva o plavidle"    }
+    {
+        "id": "calendar",
+        "description": "Kalendář"
+    },
+    {
+        "id": "editAccount",
+        "description": "Můj účet"
+    },
+    {
+        "id": "logout",
+        "description": "Odhlásit set"
+    },
+    {
+        "id": "reservations",
+        "description": "Rezervace"
+    },
+    {
+        "id": "reservations-calendar",
+        "description": "Měsíční kalendář"
+    },
+    {
+        "id": "ships",
+        "description": "Lodě"
+    },
+    {
+        "id": "ships-crews",
+        "description": "Posádky"
+    },
+    {
+        "id": "ships-file",
+        "description": "File"
+    },
+    {
+        "id": "ships-registrars",
+        "description": "Registrátoři"
+    },
+    {
+        "id": "ships-shipOwners",
+        "description": "Vlastníci"
+    },
+    {
+        "id": "ships-shipRoutes",
+        "description": "Trasy"
+    },
+    {
+        "id": "tables",
+        "description": "Tabulky"
+    },
+    {
+        "id": "tables-coachRoutes",
+        "description": "Trasy"
+    },
+    {
+        "id": "tables-customers",
+        "description": "Zákazníci"
+    },
+    {
+        "id": "tables-destinations",
+        "description": "Destinace"
+    },
+    {
+        "id": "tables-drivers",
+        "description": "Řidiči"
+    },
+    {
+        "id": "tables-genders",
+        "description": "Pohlaví"
+    },
+    {
+        "id": "tables-pickupPoints",
+        "description": "Nástupní místa"
+    },
+    {
+        "id": "tables-ports",
+        "description": "Přístavy"
+    },
+    {
+        "id": "tables-schedules",
+        "description": "Rozvrhy"
+    },
+    {
+        "id": "tables-users",
+        "description": "Uživatelé"
+    },
+    {
+        "id": "tasks",
+        "description": "Úkoly"
+    },
+    {
+        "id": "tasks-embarkation",
+        "description": "Nalodění"
+    },
+    {
+        "id": "tasks-invoicing",
+        "description": "Fakturace"
+    },
+    {
+        "id": "tasks-manifest",
+        "description": "Zpráva o plavidle"
+    }
 ]

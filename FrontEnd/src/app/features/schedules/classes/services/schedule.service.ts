@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { DataService } from 'src/app/shared/services/data.service'
+import { ScheduleDeleteVM } from './../form/schedule-delete-vm'
+import { ScheduleWriteVM } from '../form/schedule-write-vm'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
@@ -23,12 +25,12 @@ export class ScheduleService extends DataService {
         return this.http.get<any>(this.url + '/from/' + fromDate + '/to/' + toDate).toPromise()
     }
 
-    public addRange(formData: any[]): Observable<any[]> {
-        return this.http.post<any[]>(this.url, formData)
+    public addRange(scheduleObjects: ScheduleWriteVM[]): Observable<any[]> {
+        return this.http.post<any[]>(this.url, scheduleObjects)
     }
 
-    public deleteRange(formData: any[]): Observable<any[]> {
-        return this.http.post<any[]>(this.url + '/range/', formData)
+    public deleteRange(scheduleObjects: ScheduleDeleteVM[]): Observable<any> {
+        return this.http.post<any>(this.url + '/range/', scheduleObjects)
     }
 
     //#endregion

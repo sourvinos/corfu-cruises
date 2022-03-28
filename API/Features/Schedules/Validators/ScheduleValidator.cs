@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace API.Features.Schedules {
 
-    public class ScheduleValidator : AbstractValidator<ScheduleWriteResource> {
+    public class ScheduleValidator : AbstractValidator<ScheduleWriteDto> {
 
         public ScheduleValidator() {
             // FKs
@@ -11,7 +11,7 @@ namespace API.Features.Schedules {
             RuleFor(x => x.DestinationId).NotEmpty();
             // Fields
             RuleFor(x => x.Date).Must(DateHelpers.BeCorrectFormat).WithMessage(ApiMessages.DateHasWrongFormat());
-            RuleFor(x => x.MaxPassengers).InclusiveBetween(0, 999).WithMessage(ApiMessages.InvalidMaxPassengers());
+            RuleFor(x => x.MaxPassengers).NotEmpty().InclusiveBetween(0, 999).WithMessage(ApiMessages.InvalidMaxPassengers());
         }
 
     }

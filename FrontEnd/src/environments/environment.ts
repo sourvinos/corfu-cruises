@@ -6,8 +6,8 @@ export const environment = {
     defaultLanguage: 'en-gb',
     defaultTheme: 'light',
     idleSettings: {
-        idle: 5,
-        timeout: 5
+        idle: 3600,
+        timeout: 60
     },
     emailFooter: {
         lineA: 'Problems or questions? Call us at +30 26620 61400',

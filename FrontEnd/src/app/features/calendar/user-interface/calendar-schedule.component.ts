@@ -74,7 +74,7 @@ export class CalendarScheduleComponent {
     }
 
     public isToday(day: any): boolean {
-        return day.date == new Date().toISOString().substring(0, 10)
+        return day.date == new Date().toISOString()
     }
 
     public onChangeMonth(month: number): void {

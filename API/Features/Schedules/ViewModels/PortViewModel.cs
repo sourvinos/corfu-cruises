@@ -1,6 +1,6 @@
 namespace API.Features.Schedules {
 
-    public class PortResource {
+    public class PortViewModel {
 
         public int Id { get; set; }
         public string Description { get; set; }

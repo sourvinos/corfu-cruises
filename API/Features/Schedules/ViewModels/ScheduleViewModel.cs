@@ -1,6 +1,6 @@
 namespace API.Features.Schedules {
 
-    public class ScheduleResource {
+    public class ScheduleViewModel {
 
         public string Date { get; set; }
         public int DestinationId { get; set; }

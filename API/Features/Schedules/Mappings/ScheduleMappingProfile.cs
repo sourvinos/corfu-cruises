@@ -6,11 +6,11 @@ namespace API.Features.Schedules {
     public class ScheduleMappingProfile : Profile {
 
         public ScheduleMappingProfile() {
-            CreateMap<Schedule, ScheduleReadResource>()
+            CreateMap<Schedule, ScheduleReadDto>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Date)));
-            CreateMap<Schedule, ScheduleListResource>()
+            CreateMap<Schedule, ScheduleListViewModel>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Date)));
-            CreateMap<ScheduleWriteResource, Schedule>();
+            CreateMap<ScheduleWriteDto, Schedule>();
         }
 
     }

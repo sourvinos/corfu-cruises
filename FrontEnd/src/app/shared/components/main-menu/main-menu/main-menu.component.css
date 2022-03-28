@@ -12,6 +12,6 @@ span {
 }
 
 span:hover {
-    color: var(--color-orange);
+    color: var(--color-map-buttons-background);
     cursor: pointer;
 }
