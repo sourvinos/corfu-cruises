@@ -7,7 +7,6 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
 import { ShipRouteDropdownVM } from './../../../shipRoutes/classes/view-models/shipRoute-dropdown-vm'
-import { RouteDropdownVM } from './../../../routes/classes/view-models/route-dropdown-vm'
 import { PortDropdownVM } from './../../../ports/classes/view-models/port-dropdown-vm'
 import { DriverDropdownVM } from './../../../drivers/classes/view-models/driver-dropdown-vm'
 import { CustomerDropdownVM } from './../../../customers/classes/view-models/customer-dropdown-vm'
@@ -26,6 +25,7 @@ import { ShipService } from 'src/app/features/ships/classes/services/ship.servic
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { PickupPointDropdownVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
+import { CoachRouteDropdownVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-dropdown-vm'
 
 @Component({
     selector: 'reservation-list',
@@ -59,7 +59,7 @@ export class ReservationListComponent {
     public dropdownDrivers: DriverDropdownVM[] = []
     public dropdownPickupPoints: PickupPointDropdownVM[] = []
     public dropdownPorts: PortDropdownVM[] = []
-    public dropdownRoutes: RouteDropdownVM[] = []
+    public dropdownCoachRoutes: CoachRouteDropdownVM[] = []
     public dropdownShips: ShipRouteDropdownVM[] = []
 
     //#endregion
@@ -277,12 +277,12 @@ export class ReservationListComponent {
     }
 
     private populateDropdowns(): void {
+        this.dropdownCoachRoutes = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'coachRouteAbbreviation')
         this.dropdownCustomers = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'customerDescription')
         this.dropdownDestinations = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'destinationDescription')
         this.dropdownDrivers = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'driverDescription')
         this.dropdownPickupPoints = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'pickupPointDescription')
         this.dropdownPorts = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'portDescription')
-        this.dropdownRoutes = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'routeAbbreviation')
         this.dropdownShips = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'shipDescription')
     }
 

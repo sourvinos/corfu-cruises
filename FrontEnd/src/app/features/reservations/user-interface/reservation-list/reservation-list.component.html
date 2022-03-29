@@ -53,9 +53,9 @@
                             </p-columnFilter>
                         </th>
                         <th style="min-width: 10%; max-width: 10%;">
-                            <p-columnFilter style="width: 100%;" field="routeAbbreviation" matchMode="equals" [showMenu]="false">
+                            <p-columnFilter style="width: 100%;" field="coachRouteAbbreviation" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="dropdownRoutes" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
+                                    <p-dropdown [ngModel]="value" [options]="dropdownCoachRoutes" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option.label }}</span>
                                         </ng-template>
@@ -132,7 +132,7 @@
                         <td style="min-width: 6%; max-width: 6%;">{{ formatRefNo(rowData.refNo) }}</td>
                         <td style="min-width: 7%; max-width: 7%;">{{ rowData.ticketNo }}</td>
                         <td style="min-width: 10%; max-width: 10%;">{{ rowData.destinationDescription }}</td>
-                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.routeAbbreviation }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.coachRouteAbbreviation }}</td>
                         <td style="min-width: 10%; max-width: 10%;">{{ rowData.customerDescription }}</td>
                         <td style="min-width: 10%; max-width: 10%;">{{ rowData.pickupPointDescription }}</td>
                         <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.adults }}</td>

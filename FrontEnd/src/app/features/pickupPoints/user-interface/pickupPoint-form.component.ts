@@ -19,11 +19,11 @@ import { PickupPoint } from '../classes/models/pickupPoint'
 import { PickupPointReadVM } from '../classes/view-models/pickupPoint-read-vm'
 import { PickupPointService } from '../classes/services/pickupPoint.service'
 import { PickupPointWriteVM } from '../classes/view-models/pickupPoint-write-vm'
-import { RouteDropdownVM } from '../../routes/classes/view-models/route-dropdown-vm'
-import { RouteService } from 'src/app/features/routes/classes/services/route.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from '../../../shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { CoachRouteDropdownVM } from '../../coachRoutes/classes/view-models/coachRoute-dropdown-vm'
+import { CoachRouteService } from '../../coachRoutes/classes/services/coachRoute.service'
 
 @Component({
     selector: 'pickuppoint-form',
@@ -45,8 +45,8 @@ export class PickupPointFormComponent {
     public parentUrl = '/pickupPoints'
 
     public isAutoCompleteDisabled = true
-    public filteredRoutes: Observable<RouteDropdownVM[]>
-    public routes: RouteDropdownVM[] = []
+    public filteredRoutes: Observable<CoachRouteDropdownVM[]>
+    public routes: CoachRouteDropdownVM[] = []
     public pickupPoints: PickupPoint[] = []
 
     public activePanel: string
@@ -55,7 +55,7 @@ export class PickupPointFormComponent {
 
     @ViewChild(MapComponent) child: MapComponent
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private routeService: RouteService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointService: PickupPointService, private routeService: CoachRouteService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.getRecord(x.id)
@@ -261,7 +261,7 @@ export class PickupPointFormComponent {
     }
 
     private populateDropDowns(): void {
-        this.populateDropDown(this.routeService, 'routes', 'filteredRoutes', 'route', 'abbreviation')
+        this.populateDropDown(this.routeService, 'coachRoutes', 'filteredRoutes', 'route', 'abbreviation')
     }
 
     private populateFields(result: PickupPointReadVM): void {

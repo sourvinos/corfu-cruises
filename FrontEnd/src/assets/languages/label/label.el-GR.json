@@ -343,7 +343,7 @@
         ]
     },
     {
-        "feature": "routeList",
+        "feature": "coachRouteList",
         "labels": [
             {
                 "id": "header",
@@ -372,7 +372,7 @@
         ]
     },
     {
-        "feature": "routeForm",
+        "feature": "coachRouteForm",
         "labels": [
             {
                 "id": "header",

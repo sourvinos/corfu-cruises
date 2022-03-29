@@ -8,7 +8,7 @@ using API.Features.PickupPoints;
 using API.Features.Ports;
 using API.Features.Registrars;
 using API.Features.Reservations;
-using API.Features.Routes;
+using API.Features.CoachRoutes;
 using API.Features.Schedules;
 using API.Features.ShipCrews;
 using API.Features.ShipOwners;
@@ -29,6 +29,7 @@ namespace API.Infrastructure.Classes {
 
         #region DbSets
 
+        public DbSet<CoachRoute> CoachRoutes { get; set; }
         public DbSet<Crew> Crews { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Destination> Destinations { get; set; }
@@ -42,7 +43,6 @@ namespace API.Infrastructure.Classes {
         public DbSet<RefNo> RefNos { get; set; }
         public DbSet<Registrar> Registrars { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<Route> Routes { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Ship> Ships { get; set; }
         public DbSet<ShipOwner> ShipOwners { get; set; }
@@ -75,7 +75,7 @@ namespace API.Infrastructure.Classes {
             modelBuilder.ApplyConfiguration(new RefNosConfig());
             modelBuilder.ApplyConfiguration(new RegistrarsConfig());
             modelBuilder.ApplyConfiguration(new ReservationsConfig());
-            modelBuilder.ApplyConfiguration(new RoutesConfig());
+            modelBuilder.ApplyConfiguration(new CoachRoutesConfig());
             modelBuilder.ApplyConfiguration(new SchedulesConfig());
             modelBuilder.ApplyConfiguration(new ShipOwnersConfig());
             modelBuilder.ApplyConfiguration(new ShipRoutesConfig());

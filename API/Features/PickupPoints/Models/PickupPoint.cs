@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using API.Features.CoachRoutes;
 using API.Features.Reservations;
-using API.Features.Routes;
 using API.Infrastructure.Identity;
 
 namespace API.Features.PickupPoints {
@@ -20,7 +20,7 @@ namespace API.Features.PickupPoints {
         // FKs
         public string UserId { get; set; }
         // Navigation
-        public Route Route { get; set; }
+        public CoachRoute CoachRoute { get; set; }
         public UserExtended User { get; set; }
         public List<Reservation> Reservations { get; set; }
 

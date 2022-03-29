@@ -22,8 +22,8 @@ namespace API.Features.PickupPoints {
 
         public async Task<IEnumerable<PickupPointListResource>> Get() {
             List<PickupPoint> pickupPoints = await context.Set<PickupPoint>()
-                .Include(x => x.Route)
-                .OrderBy(x => x.Route.Abbreviation).ThenBy(x => x.Time).ThenBy(x => x.Description)
+                .Include(x => x.CoachRoute)
+                .OrderBy(x => x.CoachRoute.Abbreviation).ThenBy(x => x.Time).ThenBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointListResource>>(pickupPoints);
@@ -31,7 +31,7 @@ namespace API.Features.PickupPoints {
 
         public async Task<IEnumerable<PickupPointWithPortDropdownResource>> GetActiveWithPortForDropdown() {
             List<PickupPoint> pickupPoints = await context.Set<PickupPoint>()
-                .Include(x => x.Route).ThenInclude(x => x.Port)
+                .Include(x => x.CoachRoute).ThenInclude(x => x.Port)
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Time).ThenBy(x => x.Description)
                 .AsNoTracking()
@@ -41,7 +41,7 @@ namespace API.Features.PickupPoints {
 
         public new async Task<PickupPoint> GetById(int id) {
             var record = await context.Set<PickupPoint>()
-                .Include(x => x.Route)
+                .Include(x => x.CoachRoute)
                 .SingleOrDefaultAsync(x => x.Id == id);
             if (record != null) {
                 return record;
@@ -71,9 +71,9 @@ namespace API.Features.PickupPoints {
 
         private bool IsValidRoute(PickupPointWriteResource record) {
             if (record.Id == 0) {
-                return context.Routes.SingleOrDefault(x => x.Id == record.RouteId && x.IsActive) != null;
+                return context.CoachRoutes.SingleOrDefault(x => x.Id == record.RouteId && x.IsActive) != null;
             }
-            return context.Routes.SingleOrDefault(x => x.Id == record.RouteId) != null;
+            return context.CoachRoutes.SingleOrDefault(x => x.Id == record.RouteId) != null;
         }
 
     }

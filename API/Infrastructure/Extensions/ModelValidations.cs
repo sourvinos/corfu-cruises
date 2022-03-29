@@ -1,3 +1,4 @@
+using API.Features.CoachRoutes;
 using API.Features.Customers;
 using API.Features.Destinations;
 using API.Features.Drivers;
@@ -8,7 +9,6 @@ using API.Features.PickupPoints;
 using API.Features.Ports;
 using API.Features.Registrars;
 using API.Features.Reservations;
-using API.Features.Routes;
 using API.Features.Schedules;
 using API.Features.ShipCrews;
 using API.Features.ShipRoutes;
@@ -23,6 +23,7 @@ namespace API.Infrastructure.Extensions {
     public static class ModelValidations {
 
         public static void AddModelValidation(IServiceCollection services) {
+            services.AddTransient<IValidator<CoachRouteWriteDto>, CoachRouteValidator>();
             services.AddTransient<IValidator<CrewWriteResource>, CrewValidator>();
             services.AddTransient<IValidator<CustomerWriteResource>, CustomerValidator>();
             services.AddTransient<IValidator<DestinationWriteResource>, DestinationValidator>();
@@ -35,7 +36,6 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IValidator<RegisterViewModel>, RegisterValidator>();
             services.AddTransient<IValidator<RegistrarWriteResource>, RegistrarValidator>();
             services.AddTransient<IValidator<ReservationWriteResource>, ReservationValidator>();
-            services.AddTransient<IValidator<RouteWriteResource>, RouteValidator>();
             services.AddTransient<IValidator<ScheduleWriteDto>, ScheduleValidator>();
             services.AddTransient<IValidator<ShipRouteWriteResource>, ShipRouteValidator>();
             services.AddTransient<IValidator<ShipWriteResource>, ShipValidator>();

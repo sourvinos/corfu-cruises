@@ -43,7 +43,7 @@ namespace API.Features.Reservations {
             var personsPerDestination = reservations.OrderBy(x => x.Destination.Description).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
             var personsPerDriver = reservations.OrderBy(x => x?.Driver?.Description).GroupBy(x => new { x?.Driver?.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description ?? "(EMPTY)", Persons = x.Sum(x => x.TotalPersons) });
             var personsPerPort = reservations.OrderByDescending(x => x.Port.IsPrimary).GroupBy(x => new { x.Port.Description }).Select(x => new PersonsPerPort { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
-            var personsPerRoute = reservations.OrderBy(x => x.PickupPoint.Route.Abbreviation).GroupBy(x => new { x.PickupPoint.Route.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(x => x.TotalPersons) });
+            var personsPerRoute = reservations.OrderBy(x => x.PickupPoint.CoachRoute.Abbreviation).GroupBy(x => new { x.PickupPoint.CoachRoute.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(x => x.TotalPersons) });
             var personsPerShip = reservations.OrderBy(x => x?.Ship?.Description).GroupBy(x => new { x?.Ship?.Description }).Select(x => new PersonsPerShip { Description = x.Key.Description ?? "(EMPTY)", Persons = x.Sum(x => x.TotalPersons) });
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
@@ -83,7 +83,7 @@ namespace API.Features.Reservations {
             var personsPerDestination = reservations.OrderBy(x => x.Destination.Description).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
             var personsPerDriver = reservations.OrderBy(x => x?.Driver?.Description).GroupBy(x => new { x?.Driver?.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description ?? "(EMPTY)", Persons = x.Sum(x => x.TotalPersons) });
             var personsPerPort = reservations.OrderByDescending(x => x.Port.IsPrimary).GroupBy(x => new { x.Port.Description }).Select(x => new PersonsPerPort { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
-            var personsPerRoute = reservations.OrderBy(x => x.PickupPoint.Route.Abbreviation).GroupBy(x => new { x.PickupPoint.Route.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(x => x.TotalPersons) });
+            var personsPerRoute = reservations.OrderBy(x => x.PickupPoint.CoachRoute.Abbreviation).GroupBy(x => new { x.PickupPoint.CoachRoute.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(x => x.TotalPersons) });
             var personsPerShip = reservations.OrderBy(x => x?.Ship?.Description).GroupBy(x => new { x?.Ship?.Description }).Select(x => new PersonsPerShip { Description = x.Key.Description ?? "(EMPTY)", Persons = x.Sum(x => x.TotalPersons) });
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
@@ -101,7 +101,7 @@ namespace API.Features.Reservations {
         public async Task<ReservationReadResource> GetById(string reservationId) {
             var record = await context.Reservations
                 .Include(x => x.Customer)
-                .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
+                .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
                 .Include(x => x.Ship)
@@ -155,9 +155,9 @@ namespace API.Features.Reservations {
 
         public async Task<int> GetPortIdFromPickupPointId(ReservationWriteResource record) {
             PickupPoint pickupPoint = await context.PickupPoints
-                .Include(x => x.Route)
+                .Include(x => x.CoachRoute)
                 .FirstOrDefaultAsync(x => x.Id == record.PickupPointId);
-            return pickupPoint.Route.PortId;
+            return pickupPoint.CoachRoute.PortId;
         }
 
         public async Task<int> IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
@@ -372,7 +372,7 @@ namespace API.Features.Reservations {
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
-                .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
+                .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
                 .Where(x => x.Date == Convert.ToDateTime(date));
             return reservations;
@@ -383,7 +383,7 @@ namespace API.Features.Reservations {
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
-                .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
+                .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.UserId == connectedUser.UserId);
             return reservations;
@@ -394,7 +394,7 @@ namespace API.Features.Reservations {
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
-                .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
+                .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
                 .Where(x => x.RefNo == refNo);
             return reservations;
@@ -405,7 +405,7 @@ namespace API.Features.Reservations {
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
-                .Include(x => x.PickupPoint).ThenInclude(y => y.Route).ThenInclude(z => z.Port)
+                .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
                 .Where(x => x.RefNo == refNo && x.UserId == connectedUser.UserId);
             return reservations;

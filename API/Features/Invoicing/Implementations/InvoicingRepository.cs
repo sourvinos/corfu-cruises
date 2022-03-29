@@ -24,8 +24,8 @@ namespace API.Features.Invoicing {
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Ship)
-                .Include(x => x.PickupPoint).ThenInclude(x => x.Route)
-                .OrderBy(x => x.Date).ThenBy(x => x.Customer.Description).ThenBy(x => !x.PickupPoint.Route.HasTransfer)
+                .Include(x => x.PickupPoint).ThenInclude(x => x.CoachRoute)
+                .OrderBy(x => x.Date).ThenBy(x => x.Customer.Description).ThenBy(x => !x.PickupPoint.CoachRoute.HasTransfer)
                 .Where(x => x.Date == Convert.ToDateTime(date)
                     && ((customerId == "all") || x.CustomerId == Int32.Parse(customerId))
                     && ((destinationId == "all") || x.DestinationId == Int32.Parse(destinationId))
@@ -49,7 +49,7 @@ namespace API.Features.Invoicing {
 
         public static List<HasTransferGroupViewModel> GroupReservationsByHasTransfer(List<Reservation> reservations) {
             var result = reservations
-                .GroupBy(r => r.PickupPoint.Route.HasTransfer)
+                .GroupBy(r => r.PickupPoint.CoachRoute.HasTransfer)
                 .Select(g => new HasTransferGroupViewModel {
                     HasTransfer = g.Key,
                     Adults = g.Select(r => r.Adults).Sum(),

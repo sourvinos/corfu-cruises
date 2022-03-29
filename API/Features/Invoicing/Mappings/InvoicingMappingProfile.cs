@@ -18,7 +18,7 @@ namespace API.Features.Invoicing {
                     hasTransfer.Remarks,
                     DestinationDescription = hasTransfer.Destination.Description,
                     ShipDescription = hasTransfer.Ship == null ? "EMPTY" : hasTransfer.Ship.Description,
-                    hasTransfer.PickupPoint.Route.HasTransfer
+                    hasTransfer.PickupPoint.CoachRoute.HasTransfer
                 })));
         }
 

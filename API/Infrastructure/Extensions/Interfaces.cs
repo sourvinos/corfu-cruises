@@ -1,3 +1,4 @@
+using API.Features.CoachRoutes;
 using API.Features.Customers;
 using API.Features.Destinations;
 using API.Features.Drivers;
@@ -11,7 +12,6 @@ using API.Features.PickupPoints;
 using API.Features.Ports;
 using API.Features.Registrars;
 using API.Features.Reservations;
-using API.Features.Routes;
 using API.Features.Schedules;
 using API.Features.ShipCrews;
 using API.Features.ShipOwners;
@@ -41,7 +41,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IPickupPointRepository, PickupPointRepository>();
             services.AddTransient<IPortRepository, PortRepository>();
             services.AddTransient<IReservationRepository, ReservationRepository>();
-            services.AddTransient<IRouteRepository, RouteRepository>();
+            services.AddTransient<ICoachRouteRepository, CoachRouteRepository>();
             services.AddTransient<IScheduleRepository, ScheduleRepository>();
             services.AddTransient<IShipOwnerRepository, ShipOwnerRepository>();
             services.AddTransient<IShipRepository, ShipRepository>();

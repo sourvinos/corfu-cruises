@@ -13,7 +13,7 @@ namespace API.Features.Reservations {
             // List
             CreateMap<Reservation, ReservationListResource>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Date)))
-                .ForMember(x => x.RouteAbbreviation, x => x.MapFrom(x => x.PickupPoint.Route.Abbreviation))
+                .ForMember(x => x.CoachRouteAbbreviation, x => x.MapFrom(x => x.PickupPoint.CoachRoute.Abbreviation))
                 .ForMember(x => x.DriverDescription, x => x.NullSubstitute("(EMPTY)"))
                 .ForMember(x => x.ShipDescription, x => x.NullSubstitute("(EMPTY)"))
                 .ForMember(x => x.Time, x => x.MapFrom(x => x.PickupPoint.Time));
@@ -33,8 +33,8 @@ namespace API.Features.Reservations {
                     ExactPoint = r.PickupPoint.ExactPoint,
                     Time = r.PickupPoint.Time,
                     Port = new SimpleResource {
-                        Id = r.PickupPoint.Route.Port.Id,
-                        Description = r.PickupPoint.Route.Port.Description
+                        Id = r.PickupPoint.CoachRoute.Port.Id,
+                        Description = r.PickupPoint.CoachRoute.Port.Description
                     }
                 }));
             // Read passenger

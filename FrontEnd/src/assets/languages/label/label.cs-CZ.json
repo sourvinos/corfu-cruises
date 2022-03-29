@@ -343,11 +343,11 @@
         ]
     },
     {
-        "feature": "routeList",
+        "feature": "coachRouteList",
         "labels": [
             {
                 "id": "header",
-                "description": "Trasy"
+                "description": "Autobusové trasy"
             },
             {
                 "id": "headerIsActive",
@@ -372,7 +372,7 @@
         ]
     },
     {
-        "feature": "routeForm",
+        "feature": "coachRouteForm",
         "labels": [
             {
                 "id": "header",

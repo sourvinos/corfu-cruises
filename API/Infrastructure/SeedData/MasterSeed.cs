@@ -26,7 +26,7 @@ namespace API.Infrastructure.SeedData {
             // With dependencies on other tables
             SeedDatabaseShips.SeedShips(context);
             SeedDatabaseCrews.SeedCrews(context);
-            SeedDatabaseRoutes.SeedRoutes(context);
+            SeedDatabaseRoutes.SeedCoachRoutes(context);
             SeedDatabasePickupPoints.SeedPickupPoints(context);
             SeedDatabaseRegistrars.SeedRegistrars(context);
             SeedDatabaseSchedules.SeedSchedules(context);

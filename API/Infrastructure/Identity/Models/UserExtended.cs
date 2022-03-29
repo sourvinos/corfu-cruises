@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using API.Features.CoachRoutes;
 using API.Features.Customers;
 using API.Features.Destinations;
 using API.Features.Drivers;
@@ -9,7 +10,6 @@ using API.Features.PickupPoints;
 using API.Features.Ports;
 using API.Features.Registrars;
 using API.Features.Reservations;
-using API.Features.Routes;
 using API.Features.Schedules;
 using API.Features.ShipCrews;
 using API.Features.ShipOwners;
@@ -30,6 +30,7 @@ namespace API.Infrastructure.Identity {
         public int? CustomerId { get; set; }
         // Navigation
         public Customer Customer { get; set; }
+        public List<CoachRoute> CoachRoutes { get; set; }
         public List<Crew> Crews { get; set; }
         public List<Customer> Customers { get; set; }
         public List<Destination> Destinations { get; set; }
@@ -41,7 +42,6 @@ namespace API.Infrastructure.Identity {
         public List<Port> Ports { get; set; }
         public List<Registrar> Registrars { get; set; }
         public List<Reservation> Reservations { get; set; }
-        public List<Route> Routes { get; set; }
         public List<Schedule> Schedules { get; set; }
         public List<Ship> Ships { get; set; }
         public List<ShipOwner> ShipOwners { get; set; }

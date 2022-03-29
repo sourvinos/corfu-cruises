@@ -23,7 +23,7 @@ namespace API.Features.Reservations {
         public string DestinationDescription { get; set; }
         public string DriverDescription { get; set; }
         public string PickupPointDescription { get; set; }
-        public string RouteAbbreviation { get; set; }
+        public string CoachRouteAbbreviation { get; set; }
         public string PortDescription { get; set; }
         public string ShipDescription { get; set; }
 
