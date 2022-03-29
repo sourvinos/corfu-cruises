@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { firstValueFrom } from 'rxjs'
 // Custom
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 
@@ -32,7 +33,7 @@ export class MessageMenuService {
 
     public getMessages(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.httpClient.get('assets/languages/menu/menu.' + this.localStorageService.getLanguage() + '.json').toPromise().then(response => {
+            firstValueFrom(this.httpClient.get('assets/languages/menu/menu.' + this.localStorageService.getLanguage() + '.json')).then(response => {
                 this.messages = response
                 resolve(this.messages)
             })

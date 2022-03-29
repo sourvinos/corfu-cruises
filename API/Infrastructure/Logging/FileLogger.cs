@@ -33,7 +33,8 @@ namespace API.Infrastructure.Logging {
             }
 
             var fullPathName = string.Format("{0}/{1}", fileLoggerProvider.Options.FolderPath + Path.DirectorySeparatorChar, fileLoggerProvider.Options.FilePath.Replace("{date}", DateTime.Now.ToString("yyyy-MM-dd")));
-            var logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{logLevel}] {exception.Message}";
+            // var logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{logLevel}] {exception.Message}";
+            var logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{logLevel}] {state}";
 
             using var streamWriter = new StreamWriter(fullPathName, true);
             streamWriter.WriteLine(logEntry);

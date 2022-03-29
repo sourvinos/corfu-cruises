@@ -152,10 +152,6 @@ namespace API.Infrastructure.Logging {
                 GetObjectProperties(record));
         }
 
-        // private static void LogRecordNotFound(string id, ILogger logger, ControllerContext context) {
-        //     logger.LogError("{caller} {error}", GetControllerAndActionName(context), GetSimpleDescription($"Id {id} not found"));
-        // }
-
         private static void LogRecordNotFound(int id, ILogger logger, ControllerContext context) {
             logger.LogError("{caller} {error}", GetControllerAndActionName(context), GetSimpleDescription($"Id {id} not found"));
         }
@@ -172,7 +168,6 @@ namespace API.Infrastructure.Logging {
             } else {
                 return exception.Message;
             }
-
         }
 
         #endregion

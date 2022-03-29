@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Observable, Subject } from 'rxjs'
+import { firstValueFrom, Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
@@ -179,7 +179,7 @@ export class ReservationFormComponent {
 
     private getConnectedUserRole(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.accountService.isConnectedUserAdmin().toPromise().then((response) => {
+            firstValueFrom(this.accountService.isConnectedUserAdmin()).then((response) => {
                 this.isAdmin = response
                 resolve(this.isAdmin)
             })
@@ -337,7 +337,7 @@ export class ReservationFormComponent {
 
     private getConnectedUserId(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.accountService.getConnectedUserId().toPromise().then((response) => {
+            firstValueFrom(this.accountService.getConnectedUserId()).then((response) => {
                 this.userId = response.userId
                 resolve(this.userId)
             })

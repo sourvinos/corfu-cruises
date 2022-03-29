@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Observable, Subject } from 'rxjs'
+import { firstValueFrom, Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 import { map, startWith } from 'rxjs/operators'
 // Custom
@@ -210,7 +210,7 @@ export class EditUserFormComponent {
 
     private getConnectedUserId(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.accountService.getConnectedUserId().toPromise().then(
+            firstValueFrom(this.accountService.getConnectedUserId()).then(
                 (response) => {
                     resolve(response.userId)
                 })
@@ -220,7 +220,7 @@ export class EditUserFormComponent {
 
     private getConnectedUserRole(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.accountService.isConnectedUserAdmin().toPromise().then(
+            firstValueFrom(this.accountService.isConnectedUserAdmin()).then(
                 (response) => {
                     this.isAdmin = response
                     resolve(this.isAdmin)

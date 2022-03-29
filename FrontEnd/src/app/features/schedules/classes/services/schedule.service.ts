@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
+import { firstValueFrom, Observable } from 'rxjs'
 // Custom
 import { DataService } from 'src/app/shared/services/data.service'
 import { ScheduleDeleteVM } from './../form/schedule-delete-vm'
@@ -21,8 +21,8 @@ export class ScheduleService extends DataService {
         return this.http.get<any>(this.url)
     }
 
-    public getForCalendar(fromDate: string, toDate: string): Promise<any> {
-        return this.http.get<any>(this.url + '/from/' + fromDate + '/to/' + toDate).toPromise()
+    public async getForCalendar(fromDate: string, toDate: string): Promise<any> {
+        return await firstValueFrom(this.http.get<any>(this.url + '/from/' + fromDate + '/to/' + toDate))
     }
 
     public addRange(scheduleObjects: ScheduleWriteVM[]): Observable<any[]> {

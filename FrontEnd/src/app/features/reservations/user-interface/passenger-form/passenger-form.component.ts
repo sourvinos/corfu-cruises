@@ -3,7 +3,7 @@ import { Component, Inject, NgZone } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { Observable, Subject } from 'rxjs'
+import { firstValueFrom, Observable, Subject } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
@@ -178,7 +178,7 @@ export class PassengerFormComponent {
 
     private getConnectedUserRole(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.accountService.isConnectedUserAdmin().toPromise().then((response) => {
+            firstValueFrom(this.accountService.isConnectedUserAdmin()).then((response) => {
                 this.isAdmin = response
                 resolve(this.isAdmin)
             })

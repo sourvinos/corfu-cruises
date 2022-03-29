@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { MenuItem } from 'primeng/api'
 import { Router } from '@angular/router'
-import { Observable, Subject } from 'rxjs'
+import { firstValueFrom, Observable, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
@@ -121,7 +121,7 @@ export class TopMenuComponent {
 
     private getConnectedUserId(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.accountService.getConnectedUserId().toPromise().then((response) => {
+            firstValueFrom(this.accountService.getConnectedUserId()).then((response) => {
                 resolve(response.userId)
             })
         })

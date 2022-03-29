@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { firstValueFrom } from 'rxjs'
 // Custom
 import { LocalStorageService } from './local-storage.service'
 
@@ -38,7 +39,7 @@ export class MessageSnackbarService {
 
     public getMessages(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.httpClient.get('assets/languages/snackbar/snackbar.' + this.localStorageService.getLanguage() + '.json').toPromise().then(response => {
+            firstValueFrom(this.httpClient.get('assets/languages/snackbar/snackbar.' + this.localStorageService.getLanguage() + '.json')).then(response => {
                 this.messages = response
                 resolve(this.messages)
             })
@@ -73,12 +74,12 @@ export class MessageSnackbarService {
     public success(): string { return this.getDescription(this.feature, 'success') }
     public warning(): string { return this.getDescription(this.feature, 'warning') }
 
-    public filterError(errorCode: number, feature = 'snackbarMessages'): string {
+    public filterError(error: any, feature = 'snackbarMessages'): string {
         let returnValue = ''
         this.messages.filter((f: { feature: string; labels: any[] }) => {
             if (f.feature === feature) {
                 f.labels.filter(l => {
-                    if (l.error == errorCode) {
+                    if (l.error == parseInt(error.message)) {
                         returnValue = l.message
                     }
                 })
