@@ -1138,6 +1138,10 @@
         "feature": "passengerList",
         "labels": [
             {
+                "id": "headerId",
+                "description": "Id"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Επώνυμο"
             },

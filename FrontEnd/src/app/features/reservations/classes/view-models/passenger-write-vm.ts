@@ -2,7 +2,6 @@ import { Guid } from 'guid-typescript'
 
 export class PassengerWriteVM {
 
-    id: number
     reservationId: Guid
     genderId: number
     nationalityId: number

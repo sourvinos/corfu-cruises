@@ -69,7 +69,6 @@ export class ReservationListComponent {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
                 this.loadRecords()
-                this.storeDate()
             }
         })
     }
@@ -312,7 +311,9 @@ export class ReservationListComponent {
     }
 
     private storeDate(): void {
-        this.localStorageService.saveItem('date', this.records.reservations[0].date)
+        if (this.records.reservations) {
+            this.localStorageService.saveItem('date', this.records.reservations[0].date)
+        }
     }
 
     private updateTotals(): void {

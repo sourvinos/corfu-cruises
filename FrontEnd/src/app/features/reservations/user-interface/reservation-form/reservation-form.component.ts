@@ -425,11 +425,10 @@ export class ReservationFormComponent {
 
     private mapPassengers(): any {
         const form = this.form.value.passengers
-        const passengers = []
-        form.forEach((passenger) => {
+        const passengers: PassengerWriteVM[] = []
+        form.forEach((passenger: any) => {
             const x: PassengerWriteVM = {
-                id: passenger.id,
-                reservationId: this.isGuid(passenger.reservationId),
+                reservationId: passenger.reservationId,
                 genderId: passenger.gender.id,
                 nationalityId: passenger.nationality.id,
                 occupantId: 2,
@@ -521,6 +520,7 @@ export class ReservationFormComponent {
     }
 
     private saveRecord(reservation: ReservationWriteVM): void {
+        console.log(reservation)
         if (reservation.reservationId.toString() == '') {
             this.reservationService.add(reservation).subscribe((response) => {
                 this.resetForm()

@@ -51,24 +51,7 @@ export class PassengerFormComponent {
 
     //#endregion
 
-    constructor(
-        @Inject(MAT_DIALOG_DATA) public data: PassengerReadVM,
-        private buttonClickService: ButtonClickService,
-        private dateAdapter: DateAdapter<any>,
-        private dialogRef: MatDialogRef<PassengerFormComponent>,
-        private formBuilder: FormBuilder,
-        private genderService: GenderService,
-        private helperService: HelperService,
-        private keyboardShortcutsService: KeyboardShortcuts,
-        private localStorageService: LocalStorageService,
-        private messageHintService: MessageHintService,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageSnackbarService,
-        private nationalityService: NationalityService,
-        private ngZone: NgZone,
-        private accountService: AccountService,
-        private snackbarService: SnackbarService
-    ) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: PassengerReadVM, private accountService: AccountService, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogRef: MatDialogRef<PassengerFormComponent>, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private snackbarService: SnackbarService) { }
 
     //#region lifecycle hooks
 
@@ -141,14 +124,8 @@ export class PassengerFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private assignNewIdToNewPassenger(id: any) {
-        let me = 0
-        if (id == 0) {
-            me = Math.round(Math.random() * new Date().getMilliseconds())
-        } else {
-            me = id
-        }
-        return me
+    private assignTempIdToNewPassenger() {
+        return Math.round(Math.random() * new Date().getMilliseconds())
     }
 
     private filterAutocomplete(array: string, field: string, value: any): any[] {
@@ -161,7 +138,7 @@ export class PassengerFormComponent {
 
     private flattenForm(form: FormGroup): any {
         const passenger = {
-            'id': this.assignNewIdToNewPassenger(form.value.id),
+            'id': form.value.id == 0 ? this.assignTempIdToNewPassenger() : form.value.id,
             'reservationId': form.value.reservationId,
             'lastname': form.value.lastname,
             'firstname': form.value.firstname,

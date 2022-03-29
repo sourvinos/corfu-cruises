@@ -146,7 +146,6 @@ export class ManifestListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = listResolved.result
-            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
