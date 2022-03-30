@@ -4,29 +4,33 @@ import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
+import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { CustomerDropdownVM } from 'src/app/features/customers/classes/view-models/customer-dropdown-vm'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
+import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
 import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { GenericResource } from '../../classes/resources/generic-resource'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ShipDropdownVM } from 'src/app/features/ships/classes/view-models/ship-dropdown-vm'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { map, startWith } from 'rxjs/operators'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
     selector: 'invoicing-criteria',
     templateUrl: './invoicing-criteria.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css'],
+    styleUrls: ['../../../../../assets/styles/forms.css', './invoicing-criteria.component.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
@@ -34,34 +38,45 @@ export class InvoicingCriteriaComponent {
 
     //#region variables
 
-    private ngUnsubscribe = new Subject<void>()
     private unlisten: Unlisten
-    private windowTitle = 'Invoicing'
+    private unsubscribe = new Subject<void>()
     public feature = 'invoicingCriteria'
     public form: FormGroup
+    public icon = 'home'
     public input: InputTabStopDirective
-    public filteredCustomers: Observable<GenericResource[]>
-    public filteredDestinations: Observable<GenericResource[]>
+    public parentUrl = '/'
+
+    public isAutoCompleteDisabled = true
+    public customers: CustomerDropdownVM[] = []
+    public filteredCustomers: Observable<CustomerDropdownVM[]>
+    public destinations: DestinationDropdownVM[] = []
+    public filteredDestinations: Observable<DestinationDropdownVM[]>
+    public ships: ShipDropdownVM[] = []
     public filteredShips: Observable<GenericResource[]>
+    public selected: string
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private shipService: ShipService) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private shipService: ShipService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
-        this.initForm()
         this.addShortcuts()
-        this.getLocale()
+        this.initForm()
         this.populateDropdowns()
-        this.populateFields()
+        this.populateFieldsFromStoredVariables()
+        this.setLocale()
+        this.subscribeToInteractionService()
+        this.focusOnField()
+    }
+
+    ngDoCheck(): void {
+        this.form.patchValue({ date: moment(this.selected).utc(true).format('YYYY-MM-DD') })
     }
 
     ngOnDestroy(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -69,17 +84,16 @@ export class InvoicingCriteriaComponent {
 
     //#region public methods
 
-    public customerFields(subject: { description: any }): any {
+    public autocompleteFields(subject: { description: any }): any {
         return subject ? subject.description : undefined
     }
 
-    public doTasks(): void {
-        this.storeCriteria()
-        this.navigateToList()
+    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+        if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
-    public genericFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
+    public enableOrDisableAutoComplete(event: any) {
+        this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
 
     public getHint(id: string, minmax = 0): string {
@@ -90,8 +104,9 @@ export class InvoicingCriteriaComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public shipFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
+    public onDoTasks(): void {
+        this.storeCriteria()
+        this.navigateToList()
     }
 
     //#endregion
@@ -101,7 +116,6 @@ export class InvoicingCriteriaComponent {
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
             'Escape': () => {
-                this.removeCriteria()
                 this.goBack()
             },
             'Alt.S': (event: KeyboardEvent) => {
@@ -113,20 +127,25 @@ export class InvoicingCriteriaComponent {
         })
     }
 
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
+    }
+
     private filterArray(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
-            return this[array].filter((element) =>
+            return this[array].filter((element: { [x: string]: string }) =>
                 element[field].toLowerCase().startsWith(filtervalue))
         }
     }
 
-    private getLocale(): void {
-        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+    private focusOnField(): void {
+        this.helperService.focusOnField('customer')
     }
 
     private goBack(): void {
-        this.router.navigate([this.helperService.getHomePage()])
+        this.router.navigate([this.parentUrl])
     }
 
     private initForm(): void {
@@ -140,10 +159,13 @@ export class InvoicingCriteriaComponent {
 
     private navigateToList(): void {
         this.router.navigate([
-            'date', moment(this.form.value.date).toISOString(),
+            'date', this.form.value.date,
             'customer', this.form.value.customer.id,
             'destination', this.form.value.destination.id,
-            'ship', this.form.value.ship.id], { relativeTo: this.activatedRoute })
+            'ship', this.form.value.ship.id],
+            {
+                relativeTo: this.activatedRoute
+            })
     }
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
@@ -167,26 +189,29 @@ export class InvoicingCriteriaComponent {
         this.populateDropDown(this.shipService, 'ships', 'filteredShips', 'ship', 'description')
     }
 
-    private populateFields(): void {
+    private populateFieldsFromStoredVariables(): void {
         if (this.localStorageService.getItem('invoicing-criteria')) {
             const criteria = JSON.parse(this.localStorageService.getItem('invoicing-criteria'))
+            this.selected = criteria.date
             this.form.setValue({
-                date: moment(criteria.date).toISOString(),
+                date: criteria.date,
                 customer: criteria.customer,
                 destination: criteria.destination,
                 ship: criteria.ship
             })
+        } else {
+            this.form.patchValue({
+                date: new Date().toISOString(),
+                customer: { id: 'all', description: '[' + this.emojiService.getEmoji('wildcard') + ']' },
+                destination: { id: 'all', description: '[' + this.emojiService.getEmoji('wildcard') + ']' },
+                ship: { id: 'all', description: '[' + this.emojiService.getEmoji('wildcard') + ']' }
+            })
+            this.selected = new Date().toISOString()
         }
     }
 
-    private removeCriteria(): void {
-        this.localStorageService.deleteItems([
-            'invoicing-criteria'
-        ])
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+    private setLocale(): void {
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private showSnackbar(message: string, type: string): void {
@@ -195,6 +220,12 @@ export class InvoicingCriteriaComponent {
 
     private storeCriteria(): void {
         this.localStorageService.saveItem('invoicing-criteria', JSON.stringify(this.form.value))
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+            this.setLocale()
+        })
     }
 
     //#endregion

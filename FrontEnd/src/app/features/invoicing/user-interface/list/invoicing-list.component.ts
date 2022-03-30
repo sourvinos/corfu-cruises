@@ -12,6 +12,8 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { InvoicingVM } from '../../classes/view-models/invoicing-vm'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
     selector: 'invoicing-list',
@@ -24,17 +26,31 @@ export class InvoicingListComponent {
 
     //#region variables
 
-    private ngUnsubscribe = new Subject<void>()
-    private resolver = 'invoicingList'
     private unlisten: Unlisten
-    private windowTitle = 'Invoicing'
+    private unsubscribe = new Subject<void>()
+    private url = 'invoicing'
     public feature = 'invoicingList'
-    public records: any
-    public criteriaLabels = []
+    public icon = 'arrow_back'
+    public parentUrl = '/invoicing'
+
+    public record: any
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private invoicingService: InvoicingService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private invoicingPdfService: InvoicingPdfService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private helperService: HelperService,
+        private invoicingService: InvoicingService,
+        private keyboardShortcutsService: KeyboardShortcuts,
+        private localStorageService: LocalStorageService,
+        private messageLabelService: MessageLabelService,
+        private emojiService: EmojiService,
+        private messageSnackbarService: MessageSnackbarService,
+        private invoicingPdfService: InvoicingPdfService,
+        private router: Router,
+        private snackbarService: SnackbarService,
+        private titleService: Title
+    ) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.loadRecords()
@@ -45,14 +61,13 @@ export class InvoicingListComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
+        this.loadRecords()
         this.addShortcuts()
-        this.updateCriteriaLabels()
     }
 
     ngOnDestroy(): void {
-        this.ngUnsubscribe.next()
-        this.ngUnsubscribe.unsubscribe()
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
         this.unlisten()
     }
 
@@ -61,7 +76,7 @@ export class InvoicingListComponent {
     //#region public methods
 
     public exportAllCustomers(): void {
-        this.records.forEach((record: any) => {
+        this.record.forEach((record: any) => {
             this.exportSingleCustomer(record.date, record.customer.id)
         })
     }
@@ -74,8 +89,16 @@ export class InvoicingListComponent {
         })
     }
 
+    public getEmoji(emoji: string): string {
+        return this.emojiService.getEmoji(emoji)
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public goBack(): void {
+        this.router.navigate([this.parentUrl])
     }
 
     //#endregion
@@ -95,30 +118,17 @@ export class InvoicingListComponent {
         })
     }
 
-    private goBack(): void {
-        this.router.navigate(['/invoicing'])
-    }
-
     private loadRecords(): void {
-        const listResolved = this.activatedRoute.snapshot.data[this.resolver]
+        const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
-            this.records = listResolved.result
+            this.record = listResolved.result
+            console.log('1', this.record.reservations)
+            // console.log('2', this.records.reservations)
+            // console.log('3', this.records[0].reservations)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }
-    }
-
-    private updateCriteriaLabels(): void {
-        const criteria = JSON.parse(this.localStorageService.getItem('invoicing-criteria'))
-        this.criteriaLabels[0] = criteria.date
-        this.criteriaLabels[1] = criteria.customer.description
-        this.criteriaLabels[2] = criteria.destination.description
-        this.criteriaLabels[3] = criteria.ship.description
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
     }
 
     private showSnackbar(message: string, type: string): void {

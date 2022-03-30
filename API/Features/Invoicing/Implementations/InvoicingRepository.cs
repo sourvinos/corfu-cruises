@@ -27,9 +27,9 @@ namespace API.Features.Invoicing {
                 .Include(x => x.PickupPoint).ThenInclude(x => x.CoachRoute)
                 .OrderBy(x => x.Date).ThenBy(x => x.Customer.Description).ThenBy(x => !x.PickupPoint.CoachRoute.HasTransfer)
                 .Where(x => x.Date == Convert.ToDateTime(date)
-                    && ((customerId == "all") || x.CustomerId == Int32.Parse(customerId))
-                    && ((destinationId == "all") || x.DestinationId == Int32.Parse(destinationId))
-                    && ((shipId == "all") || x.ShipId == Int32.Parse(shipId)))
+                    && ((customerId == "all") || x.CustomerId == int.Parse(customerId))
+                    && ((destinationId == "all") || x.DestinationId == int.Parse(destinationId))
+                    && ((shipId == "all") || x.ShipId == int.Parse(shipId)))
                 .AsEnumerable()
                 .GroupBy(x => new { x.Date, x.Customer })
                 .Select(x => new InvoiceIntermediateViewModel {

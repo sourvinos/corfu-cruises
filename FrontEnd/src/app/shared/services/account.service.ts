@@ -118,9 +118,9 @@ export class AccountService extends DataService {
             'refreshToken',
             'refNo',
             'returnUrl',
-            // 'embarkation-criteria',
-            // 'manifest-criteria',
-            // 'invoicing-criteria'
+            'embarkation-criteria',
+            'manifest-criteria',
+            'invoicing-criteria'
         ])
     }
 

@@ -15,7 +15,7 @@ export class InvoicingListResolver {
     resolve(route: ActivatedRouteSnapshot): Observable<InvoicingListResolved> {
         return this.invoicingService.get(route.params.date, route.params.customerId, route.params.destinationId, route.params.shipId)
             .pipe(
-                map((reservationList) => new InvoicingListResolved(reservationList)),
+                map((invoicingList) => new InvoicingListResolved(invoicingList)),
                 catchError((err: any) => of(new InvoicingListResolved(null, err)))
             )
     }
