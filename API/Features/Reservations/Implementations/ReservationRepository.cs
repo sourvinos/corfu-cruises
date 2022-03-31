@@ -233,9 +233,7 @@ namespace API.Features.Reservations {
 
         private async Task AddPassengers(Reservation updatedRecord) {
             var records = new List<Passenger>();
-            foreach (var record in updatedRecord.Passengers) {
-                records.Add(record);
-            }
+            records.AddRange(updatedRecord.Passengers);
             context.Set<Passenger>().AddRange(records);
             await context.SaveChangesAsync();
         }

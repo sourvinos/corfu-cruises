@@ -33,16 +33,16 @@
 }
 
 #loading-indication::before {
-    background-color: #ffa500;
+    background-color: var(--orange);
     content: "";
     animation: running-progress 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 #timeout-warning {
-    background-color: #c5dba0;
+    background-color: var(--green);
     border-radius: 0 5px 5px 0;
     bottom: var(--gap);
-    color: #000000;
+    color: var(--dark-gray);
     font-family: var(--font-family-ubuntu);
     font-weight: bold;
     font-size: 19px;
@@ -52,7 +52,7 @@
 }
 
 #timeout-warning::after {
-    content: "''";
+    content: """";
 }
 
 @keyframes running-progress {

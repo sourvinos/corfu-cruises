@@ -93,8 +93,10 @@ export class CalendarComponent {
     }
 
     public onShowReservationsForSelectedDay(day: any): void {
-        this.storeDate(day)
-        this.navigateToList()
+        if (this.hasDateSchedule(day)) {
+            this.storeDate(day)
+            this.navigateToList()
+        }
     }
 
     //#endregion

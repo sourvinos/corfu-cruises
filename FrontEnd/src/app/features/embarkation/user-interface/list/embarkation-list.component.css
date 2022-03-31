@@ -20,7 +20,7 @@
 }
 
 #video {
-    background-color: #000000;
+    background-color: var(--dark-gray);
     display: none;
     padding: 1rem;
     position: fixed;

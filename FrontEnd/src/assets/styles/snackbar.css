@@ -1,0 +1,15 @@
+.mat-snack-bar-container {
+    min-width: 35rem !important;
+}
+
+.info {
+    background-color: var(--color-snackbar-info) !important;
+}
+
+.warning {
+    background-color: var(--color-snackbar-warning) !important;
+}
+
+.error {
+    background-color: var(--color-snackbar-error) !important;
+}

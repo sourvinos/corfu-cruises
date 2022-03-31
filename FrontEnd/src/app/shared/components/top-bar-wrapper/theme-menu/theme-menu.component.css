@@ -17,7 +17,7 @@
 }
 
 label {
-    background-color: #77779a;
+    background-color: var(--light-gray);
     border-radius: 30px;
     cursor: pointer;
     display: flex;
@@ -29,12 +29,12 @@ label:hover {
 }
 
 .fa-sun {
-    color: #ffeb6f;
+    color: var(--yellow);
     transition: 0.3s;
 }
 
 .fa-moon {
-    color: #ffffff;
+    color: var(--white);
     transition: 0.3s;
 }
 

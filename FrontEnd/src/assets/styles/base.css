@@ -7,7 +7,9 @@
 
 @import "autocomplete.css";
 @import "buttons.css";
+@import "calendar.css";
 @import "checkbox.css";
+@import "colors.css";
 @import "datepicker.css";
 @import "dialogs.css";
 @import "headers.css";
@@ -15,7 +17,9 @@
 @import "input-focused-not-error.css";
 @import "input-not-focused-not-error.css";
 @import "input.css";
+@import "leaflet.css";
 @import "loader.css";
+@import "menu.css";
 @import "prime-checkbox.css";
 @import "prime-dropdown.css";
 @import "prime-input.css";
@@ -24,11 +28,12 @@
 @import "prime-table.css";
 @import "prime-top-menu.css";
 @import "radio.css";
-@import "calendar.css";
 @import "scrollable.css";
 @import "slider.css";
+@import "snackbar.css";
 @import "table-wrapper.css";
 @import "tabs.css";
+@import "tooltip.css";
 @import "variables-narrow.css";
 @import "variables-wide.css";
 @import "variables.css";
@@ -73,151 +78,10 @@ p.instructions {
     overflow: hidden;
 }
 
-.mat-icon, .item {
-    outline: 0 !important;
-}
-
-.mat-menu-panel, .mat-menu-content {
-    align-items: flex-start;
-    background-color: var(--color-common-background) !important;
-    border-radius: 0 !important;
-    display: flex;
-    flex-direction: column;
-    min-height: auto !important;
-    overflow: visible !important;
-    padding: 0 !important;
-    width: 100%;
-}
-
-.mat-menu-item {
-    color: var(--color-button-text) !important;
-    display: flex !important;
-    height: 2.75rem;
-    justify-content: flex-start !important;
-    margin-left: 0 !important;
-    padding: 0 1rem !important;
-}
-
-.mat-snack-bar-container {
-    min-width: 30rem !important;
-}
-
-.mat-checkbox-label {
-    color: var(--color-summary-header) !important;
-    margin-left: 0.5rem !important;
-}
-
-.info {
-    background-color: var(--color-snackbar-info) !important;
-}
-
-.warning {
-    background-color: var(--color-snackbar-warning) !important;
-}
-
-.error {
-    background-color: var(--color-snackbar-error) !important;
-}
-
-.mat-date-range-input-start-wrapper {
-    width: 100% !important;
-}
-
-.leaflet-tooltip {
-    background: var(--color-map-tooltip-background) !important;
-    border-radius: 5px;
-    border: none;
-    font-size: var(--font-size-map-tooltip);
-    margin: -1.8rem 2.3rem;
-    opacity: 1 !important;
-    padding: 1rem 1rem 1.2rem 1rem;
-}
-
-.leaflet-tooltip span {
-    color: var(--color-map-tooltip-color);
-    font-family: var(--font-family-handbook);
-    font-weight: 300;
-}
-
-.leaflet-tooltip span:first-child {
-    font-size: 100%;
-}
-
-.leaflet-tooltip span:not(:first-child) {
-    font-size: 100%;
-}
-
-.leaflet-tooltip-top::before {
-    border-top-color: var(--color-map-tooltip-background);
-    opacity: 1;
-}
-
-.leaflet-tooltip-bottom::before, .leaflet-tooltip-top::before {
-    margin-left: -7px;
-}
-
-.leaflet-cluster-orange {
-    align-items: center;
-    background-color: orange;
-    border-radius: 50%;
-    color: white;
-    display: flex;
-    justify-content: center;
-    opacity: 0.8;
-}
-
-.mat-tab-body.mat-tab-body-active {
-    height: 100% !important;
-}
-
-.mat-calendar-body-cell-content .mat-date-range-input-separator {
-    color: black !important;
-}
-
-.none {
-    background: none;
-}
-
-.mat-calendar-controls {
-    margin: 10% calc(33% / 7 - 16px) !important;
-    margin-top: 0 !important;
-}
-
-.mat-calendar-body-label {
-    padding: 0 0 1rem 0 !important;
-}
-
-.mat-calendar-period-button {
-    margin-left: 0 !important;
-}
-
-.mat-calendar-next-button {
-    margin-right: 0.2rem !important;
-}
-
-.mat-tooltip {
-    color: var(--color-tooltip) !important;
-    font-family: var(--font-family-handbook);
-    font-weight: var(--font-weight-tooltip);
-}
-
-.tooltip-background {
-    background: var(--color-orange);
-}
-
 ::-webkit-scrollbar {
     width: 1px;
 }
 
 ::-webkit-scrollbar-thumb {
     background-color: var(--color-common-background) !important;
-}
-
-.ref-no {
-    color: greenyellow !important;
-    font-size: 2rem;
-}
-
-.zeros {
-    color: antiquewhite;
 }

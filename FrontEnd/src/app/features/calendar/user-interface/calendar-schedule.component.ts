@@ -43,10 +43,10 @@ export class CalendarScheduleComponent {
 
     ngOnInit(): void {
         this.getDaysFromDate(moment().month() + 1, moment().year())
-        this.getScheduleForMonth().then(() => {
-            this.updateCalendar()
-            this.fixCalendarHeight()
-        })
+        // this.getScheduleForMonth().then(() => {
+        //     this.updateCalendar()
+        //     this.fixCalendarHeight()
+        // })
         this.addShortcuts()
         this.clearStoredVariables()
     }

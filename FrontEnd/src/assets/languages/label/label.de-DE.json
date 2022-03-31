@@ -869,7 +869,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Abbrechen"
+                "description": "ABBRECHEN"
             }
         ]
     },
@@ -1324,7 +1324,7 @@
             },
             {
                 "id": "headerPersons",
-                "description": "Personen"
+                "description": "Gesamtpersonen"
             },
             {
                 "id": "headerStatus",
@@ -1586,7 +1586,7 @@
             },
             {
                 "id": "countLabel",
-                "description": "Personen insgesamt"
+                "description": "Gesamtpersonen"
             },
             {
                 "id": "passengerCountLabel",
@@ -1978,6 +1978,10 @@
             {
                 "id": "header",
                 "description": "Monatlicher Reservierungskalender"
+            },
+            {
+                "id": "persons",
+                "description": "Gesamtpersonen"
             }
         ]
     },

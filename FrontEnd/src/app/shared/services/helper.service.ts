@@ -74,7 +74,7 @@ export class HelperService {
         const number = new RegExp(/[0-9]{1,5}/g).exec(refNo).slice(-5)[0]
         const zeros = '00000'.slice(number.length)
         if (returnsHTML)
-            return '<span class="ref-no">' + destination.toUpperCase() + '</span>' + '-' + '<span class="zeros">' + zeros + '</span>' + '<span class="ref-no">' + number + '</span>'
+            return '<span>' + destination.toUpperCase() + '</span>' + '-' + '<span>' + zeros + '</span>' + '<span>' + number + '</span>'
         else
             return destination.toUpperCase() + '-' + zeros + number
     }

@@ -1,0 +1,20 @@
+.mat-menu-panel, .mat-menu-content {
+    align-items: flex-start;
+    background-color: var(--color-common-background) !important;
+    border-radius: 0 !important;
+    display: flex;
+    flex-direction: column;
+    min-height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    width: 100%;
+}
+
+.mat-menu-item {
+    color: var(--color-button-text) !important;
+    display: flex !important;
+    height: 2.75rem;
+    justify-content: flex-start !important;
+    margin-left: 0 !important;
+    padding: 0 1rem !important;
+}

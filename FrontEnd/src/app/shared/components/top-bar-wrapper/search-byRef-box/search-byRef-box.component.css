@@ -33,6 +33,7 @@ input:focus {
 }
 
 button {
+    color: var(--color-button-text) !important;
     display: flex;
     padding: 0 3px;
 }

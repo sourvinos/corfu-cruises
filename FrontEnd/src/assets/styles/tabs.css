@@ -19,7 +19,7 @@
 }
 
 .mat-ink-bar {
-    background-color: var(--color-selected-tab) !important;
+    background-color: var(--color-border-item-active) !important;
     height: 2px !important;
 }
 
@@ -48,5 +48,9 @@
 }
 
 .mat-tab-group {
+    height: 100% !important;
+}
+
+.mat-tab-body.mat-tab-body-active {
     height: 100% !important;
 }

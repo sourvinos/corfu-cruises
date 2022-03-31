@@ -40,7 +40,6 @@
                     "options": {
                         "allowedCommonJsDependencies": [
                             "qrcode",
-                            "@kurtz1993/idle-service",
                             "pdfmake"
                         ],
                         "outputPath": "dist",

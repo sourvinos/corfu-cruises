@@ -1,5 +1,5 @@
 .p-dropdown .p-dropdown-clear-icon {
-    color: var(--color-dropdown-icons);
+    color: var(--color-table-dropdown-icons);
     font-size: 9px;
     margin-top: -4px;
 }
@@ -50,5 +50,5 @@
 }
 
 .pi {
-    color: var(--color-dropdown-icons);
+    color: var(--color-table-dropdown-icons);
 }

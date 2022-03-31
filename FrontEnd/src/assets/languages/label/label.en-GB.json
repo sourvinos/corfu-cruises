@@ -869,7 +869,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Cancel"
+                "description": "CANCEL"
             }
         ]
     },
@@ -1978,6 +1978,10 @@
             {
                 "id": "header",
                 "description": "Monthly reservations calendar"
+            },
+            {
+                "id": "persons",
+                "description": "Persons"
             }
         ]
     },

@@ -58,7 +58,7 @@
                 <tr>
                     <td style="min-width: 6%; max-width: 6%;"><button pButton pRipple [pRowToggler]="reservation" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button></td>
                     <td style="min-width: 6%; max-width: 6%; justify-content: center;"><i *ngIf="onHasRemarks(reservation.remarks)" class="fas fa-exclamation-triangle" matTooltipClass="tooltip-background" matTooltip="{{ reservation.remarks }}"></i></td>
-                    <td style="min-width: 10%; max-width: 10%; justify-content: center; color: var(--color-embarkation-list-ticket-no) !important;">{{ reservation.ticketNo }}</td>
+                    <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ reservation.ticketNo }}</td>
                     <td>{{ reservation.customer }}</td>
                     <td>{{ reservation.driver }}</td>
                     <td style="min-width: 7%; max-width: 7%; justify-content: center;">{{ reservation.totalPersons }}</td>

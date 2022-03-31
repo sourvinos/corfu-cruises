@@ -18,8 +18,7 @@
 
     <div id="table-wrapper">
         <div id="table-wrapper">
-            <p-table 
-                #table (onFilter)="calculateTotals($event)" (onHeaderCheckboxToggle)="toggleVisibleRows()" (onRowSelect)="rowSelect($event)" (onRowUnselect)="rowUnselect($event)" [(selection)]="selectedRecords" [autoLayout]="false" [scrollable]="true" [value]="records.reservations" [virtualRowHeight]="33" [virtualScroll]="true" dataKey="reservationId" scrollHeight="flex" selectionMode="single">
+            <p-table #table (onFilter)="calculateTotals($event)" (onHeaderCheckboxToggle)="toggleVisibleRows()" (onRowSelect)="rowSelect($event)" (onRowUnselect)="rowUnselect($event)" [(selection)]="selectedRecords" [autoLayout]="false" [scrollable]="true" [value]="records.reservations" [virtualRowHeight]="33" [virtualScroll]="true" dataKey="reservationId" scrollHeight="flex" selectionMode="single">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 5%; max-width: 5%; border-top-left-radius: 10px;"></th>
@@ -38,7 +37,9 @@
                         <th style="min-width: 10%; max-width: 10%; border-top-right-radius: 10px;">{{ getLabel('headerShip') }}</th>
                     </tr>
                     <tr>
-                        <th style="min-width: 5%; max-width: 5%;"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                        <th style="min-width: 5%; max-width: 5%;">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
                         <th style="min-width: 6%; max-width: 6%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
                         <th style="min-width: 7%; max-width: 7%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
                         <th style="min-width: 10%; max-width: 10%;">

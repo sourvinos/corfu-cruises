@@ -28,9 +28,9 @@
 }
 
 .icon-red {
-    color: #ff5276;
+    color: var(--light-red);
 }
 
 .icon-green {
-    color: #17da17;
+    color: var(--light-green);
 }

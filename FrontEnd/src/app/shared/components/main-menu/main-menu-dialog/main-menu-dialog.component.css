@@ -18,39 +18,39 @@
 }
 
 #menu .menu-item:hover {
-    background-color: #00000017;
+    background-color: var(--gray-hover);
     border-radius: 5px;
     cursor: pointer;
 }
 
 #reservations .menu-header {
-    color: #02a59c;
+    color: var(--dark-blue);
 }
 
 #reservations .menu-item {
-    color: #35c7bf;
+    color: var(--blue);
 }
 
 #tasks .menu-header {
-    color: #ff696a;
+    color: var(--red);
 }
 
 #tasks .menu-item {
-    color: #f19192;
+    color: var(--light-red);
 }
 
 #tables .menu-header {
-    color: #ffb747;
+    color: var(--green);
 }
 
 #tables .menu-item {
-    color: #edcd9c;
+    color: var(--light-green);
 }
 
 #ships .menu-header {
-    color: #38b5c5;
+    color: var(--dark-blue);
 }
 
 #ships .menu-item {
-    color: #84cfd9;
+    color: var(--blue);
 }

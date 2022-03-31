@@ -1978,6 +1978,10 @@
             {
                 "id": "header",
                 "description": "Měsíční kalendář rezervací"
+            },
+            {
+                "id": "persons",
+                "description": "Gesamtpersonen"
             }
         ]
     },

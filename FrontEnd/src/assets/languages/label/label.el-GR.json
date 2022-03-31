@@ -1978,6 +1978,10 @@
             {
                 "id": "header",
                 "description": "Μηνιαίο ημερολόγιο κρατήσεων"
+            },
+            {
+                "id": "persons",
+                "description": "Άτομα"
             }
         ]
     },

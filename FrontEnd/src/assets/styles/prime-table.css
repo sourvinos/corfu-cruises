@@ -29,10 +29,10 @@
 }
 
 .p-datatable .p-datatable-thead > tr > th {
-    background-color: var(--color-table-header) !important;
+    background-color: var(--color-table-header-background) !important;
     border-right: 1px solid var(--color-table-column-seperator) !important;
     border-width: 0 1px 0 0 !important;
-    color: var(--color-text-primary) !important;
+    color: var(--color-table-header) !important;
     font-family: var(--font-family-ubuntu) !important;
     font-size: var(--font-size-table-header) !important;
     font-weight: var(--font-weight-table-header) !important;
@@ -48,14 +48,18 @@
 }
 
 .p-datatable .p-datatable-tbody > tr {
-    background-color: transparent !important;
+    background-color: var(--color-table-background) !important;
     border: none !important;
+    outline: 1px solid var(--color-table-row-outline);
     transition: all var(--change-theme-delay) ease;
+}
+
+.p-datatable .p-datatable-tbody > tr:focus {
+    outline: none !important;
 }
 
 .p-datatable .p-datatable-tbody > tr:focus-visible {
     outline: none !important;
-    background-color: var(--color-table-row-highlight) !important;
 }
 
 .row-group > td {
@@ -64,7 +68,7 @@
 }
 
 .ui-state-highlight td {
-    background: var(--color-table-row-highlight) !important;
+    background-color: var(--color-table-row-background-selected) !important;
 }
 
 .p-datatable .p-datatable-tbody > tr > td {
@@ -84,14 +88,14 @@
 }
 
 .p-datatable .p-datatable-tfoot > tr > td {
-    background-color: var(--color-table-header);
+    background-color: var(--color-table-row-background-selected);
     border-radius: 0 0 10px 10px;
     border: none;
     justify-content: flex-end;
 }
 
 .p-datatable .p-datatable-tbody > tr.p-highlight > td {
-    background-color: var(--color-table-row-highlight) !important;
+    background-color: var(--color-table-row-background-selected) !important;
 }
 
 .p-datatable .p-sortable-column .p-sortable-column-icon {
@@ -116,13 +120,13 @@
 }
 
 .p-button.p-button-icon-only.p-button-rounded {
-    color: var(--color-menu-icons);
+    color: var(--color-top-menu-icons);
     height: auto;
     padding: 0;
 }
 
-.p-button.p-button-text.p-button-plain:enabled:hover {
-    background: transparent;
+.p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+    background-color: var(--color-table-row-background-hover) !important;
 }
 
 .p-button.p-button-text:enabled:focus, .p-button.p-button-outlined:enabled:focus {
@@ -135,7 +139,7 @@
 }
 
 div:not(.p-column-filter).p-column-filter-row:hover {
-    background-color: var(--color-menu-background-hover);
+    background-color: var(--color-table-row-background-hover) !important;
 }
 
 .row-group {

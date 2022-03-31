@@ -11,7 +11,7 @@
 }
 
 #navigation button:hover {
-    background-color: var(--color-button-navigation) !important;
+    background-color: var(--color-button-fab-background-hover) !important;
 }
 
 #title {

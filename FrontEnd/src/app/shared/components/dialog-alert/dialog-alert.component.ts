@@ -22,13 +22,10 @@ export class DialogAlertComponent {
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<DialogAlertComponent>, private messageLabelService: MessageLabelService) {
         switch (data.titleColor) {
             case 'infoColor':
-                this.titleColor = '#00ff66'
+                this.titleColor = '#529be7'
                 break
             case 'warningColor':
-                this.titleColor = '#fbff00'
-                break
-            case 'errorColor':
-                this.titleColor = '#ff0000'
+                this.titleColor = '#d94040'
                 break
             default:
                 break

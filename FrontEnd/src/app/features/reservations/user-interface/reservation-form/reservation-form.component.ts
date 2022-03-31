@@ -520,7 +520,6 @@ export class ReservationFormComponent {
     }
 
     private saveRecord(reservation: ReservationWriteVM): void {
-        console.log(reservation)
         if (reservation.reservationId.toString() == '') {
             this.reservationService.add(reservation).subscribe((response) => {
                 this.resetForm()

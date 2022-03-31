@@ -794,7 +794,7 @@
             },
             {
                 "id": "abortButton",
-                "description": "Annuler"
+                "description": "ANNULER"
             },
             {
                 "id": "deleteButton",
@@ -869,7 +869,7 @@
             },
             {
                 "id": "noButton",
-                "description": "Annuler"
+                "description": "ANNULER"
             }
         ]
     },
@@ -1586,7 +1586,7 @@
             },
             {
                 "id": "countLabel",
-                "description": "Total personnes"
+                "description": "Personnes"
             },
             {
                 "id": "passengerCountLabel",
@@ -1978,6 +1978,10 @@
             {
                 "id": "header",
                 "description": "Calendrier mensuel des réservations"
+            },
+            {
+                "id": "persons",
+                "description": "Personnes"
             }
         ]
     },

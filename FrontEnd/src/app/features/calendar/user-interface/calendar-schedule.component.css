@@ -47,7 +47,6 @@
 
 #calendar {
     display: grid;
-    gap: 5px;
     grid-template-columns: repeat(7, 1fr);
     height: 100%;
     list-style: none;
@@ -57,7 +56,7 @@
 
 .weekday-name {
     align-items: center;
-    background: var(--color-table-header);
+    background: var(--color-table-header-background);
     color: var(--color-text-primary);
     display: flex;
     font-family: var(--font-family-handbook);
@@ -94,7 +93,7 @@
 
 .date .day {
     align-items: center;
-    background-color: var(--color-calendar-day-background);
+    background-color: var(--color-calendar-weekday-background);
     border-radius: 0.5rem 0 0 0.5rem;
     display: flex;
     font-family: Montserrat, sans-serif;
@@ -107,13 +106,12 @@
 .date .destinations {
     display: flex;
     flex-direction: column;
-    font-size: var(--font-size-calendar-destinations);
     padding: 1rem;
 }
 
 .today {
     border: 1px solid var(--color-calendar-today);
-    color: var(--color-calendar-today) !important;
+    color: var(--color-calendar-weekday-background) !important;
     padding: 1rem;
 }
 
@@ -130,7 +128,7 @@
 
 .popup .day {
     align-items: center;
-    background-color: var(--color-calendar-day-background);
+    background-color: var(--color-calendar-weekday-background);
     border-radius: 0.5rem 0 0 0.5rem;
     display: flex;
     font-family: Montserrat, sans-serif;

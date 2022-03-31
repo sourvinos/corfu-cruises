@@ -1,5 +1,5 @@
 .flag {
-    height: 16px !important;
+    height: 21px !important;
     width: 23px !important;
 }
 
@@ -25,7 +25,9 @@
 
 .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link {
     align-items: center;
+    box-shadow: none !important;
     display: flex;
+    margin: 2px;
 }
 
 .p-menubar .p-menuitem-link:nth-child(1), .p-menubar .p-menuitem-link:nth-child(2) {
@@ -33,14 +35,14 @@
 }
 
 .p-menubar .p-menuitem-link .p-menuitem-text {
-    color: var(--color-text-primary) !important;
+    color: var(--color-top-menu-text) !important;
     font-family: var(--font-family-handbook);
     font-size: var(--font-size-menu-items) !important;
     font-weight: var(--font-weight-menu-items) !important;
 }
 
 .p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text {
-    color: var(--color-text-primary);
+    color: var(--color-top-menu-text);
 }
 
 .p-hidden {
@@ -48,7 +50,7 @@
 }
 
 .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
-    color: var(--color-text-primary) !important;
+    color: var(--color-button-text) !important;
     font-size: var(--font-size-menu-items) !important;
     font-weight: var(--font-weight-menu-items) !important;
     margin-top: 3px;
@@ -68,7 +70,7 @@
 }
 
 .p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link {
-    background-color: var(--color-menu-background-hover);
+    background-color: var(--color-top-menu-background-hover);
 }
 
 .p-menubar .p-menuitem-link:not(.p-disabled):hover {
@@ -76,11 +78,11 @@
 }
 
 .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link {
-    background-color: var(--color-menu-background-hover);
+    background-color: var(--color-top-menu-background-hover);
 }
 
 .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover {
-    background-color: var(--color-menu-background-hover);
+    background-color: var(--color-top-menu-background-hover);
 }
 
 #language-icon {
@@ -88,23 +90,23 @@
 }
 
 .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover {
-    background-color: var(--color-menu-background-hover);
+    background-color: var(--color-top-menu-background-hover);
 }
 
 .p-menubar .p-menuitem-link .p-menuitem-icon {
-    color: var(--color-menu-icons) !important;
+    color: var(--color-top-menu-icons) !important;
     height: 16px;
     width: 16px;
 }
 
 .p-menubar .p-menuitem.p-menuitem-active {
-    background-color: var(--color-menu-background-hover);
+    background-color: var(--color-top-menu-background-hover);
     border-radius: 5px;
     border: none;
 }
 
 .p-menubar .p-submenu-list {
-    background-color: var(--color-menu-background);
+    background-color: var(--color-top-menu-background);
     border-radius: 5px;
     box-shadow: none;
     padding: 0.5rem;
@@ -119,5 +121,5 @@
 }
 
 .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-submenu-icon {
-    color: var(--color-menu-icons) !important;
+    color: var(--color-top-menu-icons) !important;
 }

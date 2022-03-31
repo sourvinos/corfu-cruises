@@ -33,7 +33,7 @@
 }
 
 .p-tabview .p-tabview-nav .p-tabview-ink-bar {
-    background-color: var(--color-selected-tab);
+    background-color: var(--color-border-item-active);
 }
 
 .p-tabview .p-tabview-nav li {

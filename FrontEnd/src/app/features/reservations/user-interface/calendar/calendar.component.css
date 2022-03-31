@@ -47,30 +47,33 @@
 
 #calendar {
     display: grid;
-    gap: 5px;
+    grid-column-gap: 0.3rem;
     grid-template-columns: repeat(7, 1fr);
     height: 100%;
     list-style: none;
     margin: 0;
     padding: 0;
+    row-gap: 0.3125rem;
 }
 
 .weekday-name {
     align-items: center;
-    background: var(--color-table-header);
-    color: var(--color-text-primary);
+    background: var(--color-calendar-weekday-background);
+    border-radius: 10px;
+    color: var(--color-table-header);
     display: flex;
     font-family: var(--font-family-handbook);
     font-size: var(--font-size-calendar-weekday);
-    height: max-content;
+    font-weight: bold;
     justify-content: center;
-    padding: 0.3rem;
+    margin-bottom: -0.0625rem;
+    padding: 0.5rem;
 }
 
 .days {
     align-items: center;
-    background-color: var(--color-calendar-days-no-schedule-background);
-    border-radius: 0.5rem;
+    background-color: transparent;
+    border-radius: 10px;
     color: var(--color-text-primary);
     display: flex;
     flex-direction: row;
@@ -78,15 +81,15 @@
     height: 100%;
     justify-content: center;
     margin: 1px;
+    outline: 1px solid var(--blue);
 }
 
-.days.has-schedule {
+.days.has-schedule:hover {
+    background-color: var(--color-calendar-day-hover);
     cursor: pointer;
-    background-color: var(--color-calendar-days-schedule-background);
 }
 
 .date {
-    border-radius: 0.5rem;
     display: flex;
     height: 100%;
     width: 100%;
@@ -94,12 +97,15 @@
 
 .date .day {
     align-items: center;
-    background-color: var(--color-calendar-day-background);
-    border-radius: 0.5rem 0 0 0.5rem;
+    background-color: #edebdc3d;
+    border-right: 1px solid;
+    color: var(--color-calendar-day);
     display: flex;
     font-family: Montserrat, sans-serif;
     font-size: var(--font-size-calendar-day);
+    font-weight: bold;
     justify-content: center;
+    margin: 1rem 0 1rem 0;
     max-width: var(--font-size-calendar-day-width);
     min-width: var(--font-size-calendar-day-width);
 }
@@ -112,96 +118,20 @@
 }
 
 .today {
-    border: 1px solid var(--color-calendar-today);
-    color: var(--color-calendar-today) !important;
-    padding: 1rem;
+    background-color: var(--color-calendar-today);
 }
 
-.popup {
-    border-radius: 0.5rem;
-    display: none;
+.destination-description {
+    font-size: var(--font-size-calendar-destinations);
+}
+
+.destination-count {
+    display: flex;
     flex-direction: row;
-    height: 0;
-    opacity: 0;
-    padding: 0;
-    width: 0;
-    z-index: 0;
+    font-size: var(--font-size-calendar-destination-count);
 }
 
-.popup .day {
-    align-items: center;
-    background-color: var(--color-calendar-day-background);
-    border-radius: 0.5rem 0 0 0.5rem;
-    display: flex;
-    font-family: Montserrat, sans-serif;
-    font-size: var(--font-size-calendar-popup-day);
-    justify-content: center;
-    width: 4.5rem;
-}
-
-.popup .details {
-    background-color: var(--color-calendar-popup-details);
-    border-radius: 0 0.5rem 0.5rem 0;
-    cursor: pointer;
-    padding: 1rem;
-    width: 100%;
-}
-
-.popup .details .destination {
-    align-items: center;
-    display: flex;
-    font-size: var(--font-size-calendar-popup-destinations);
-    font-weight: 300;
-    gap: 1rem;
-    margin: 0.5rem 0 0.5rem 0;
-}
-
-.popup .details .destination .right {
-    width: 100%;
-}
-
-.popup .details .destination .right .destination-description {
-    color: var(--color-calendar-popup-destination);
-    display: flex;
-    justify-content: space-between;
-}
-
-.popup .details .destination .right .ports {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    font-size: var(--font-size-calendar-popup-ports);
-    font-weight: 30;
-}
-
-.popup .details .ports .passenger-count {
-    font-family: "Roboto Mono", sans-serif;
-    font-size: var(--font-size-calendar-popup-ports-passenger-count);
-}
-
-.days.has-schedule:hover > .date {
-    display: none;
-}
-
-.days.has-schedule:hover > .popup {
-    animation: fade-in 0.3s;
-    display: flex;
-    height: 200px;
-    opacity: 0.9;
-    overflow: visible;
-    position: absolute;
-    transition: height 0.3s, opacity 0.3s, width 0.3s;
-    width: 340px;
-}
-
-@keyframes fade-in {
-    from {
-        display: none;
-        opacity: 0;
-    }
-
-    to {
-        display: flex;
-        opacity: 0.9;
-    }
+.destination-count .label {
+    font-weight: bold;
+    margin-right: 0.5rem;
 }

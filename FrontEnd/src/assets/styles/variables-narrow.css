@@ -4,12 +4,9 @@
         --font-size-button: 100%;
         --font-size-calendar-day-width: 2rem;
         --font-size-calendar-day: 100%;
-        --font-size-calendar-destinations: 60%;
-        --font-size-calendar-popup-day: 150%;
-        --font-size-calendar-popup-destinations: 100%;
-        --font-size-calendar-popup-ports-empty: 100%;
-        --font-size-calendar-popup-ports: 90%;
+        --font-size-calendar-destinations: 90%;
         --font-size-calendar-weekday: 100%;
+        --font-size-calendar-destination-count: 75%;
         --font-size-checkbox: 95%;
         --font-size-criteria-labels: 100%;
         --font-size-h1: 170%;
