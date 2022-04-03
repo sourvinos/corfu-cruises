@@ -24,6 +24,7 @@ namespace API.Features.Manifest {
                         Profession = source.Ship.ShipOwner.Profession,
                         Address = source.Ship.ShipOwner.Address,
                         City = source.Ship.ShipOwner.City,
+                        Phones = source.Ship.ShipOwner.Phones,
                         TaxNo = source.Ship.ShipOwner.TaxNo
                     },
                     Registrars = source.Ship.Registrars

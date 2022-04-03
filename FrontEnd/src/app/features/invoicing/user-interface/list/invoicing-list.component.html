@@ -1,12 +1,12 @@
 <div id="list">
 
-    <div *ngIf="record" id="header">
+    <div *ngIf="records.length > 0" id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
     </div>
 
-    <ng-container *ngIf="record">
+    <ng-container *ngIf="records.length > 0">
         <div id="table-wrapper">
-            <p-table #table [autoLayout]="false" [scrollable]="true" [value]="record" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="width: 20%; border-top-left-radius: 10px;">{{ getLabel("headerDestination") }}</th>
@@ -85,12 +85,8 @@
         </div>
     </ng-container>
 
-    <!-- <ng-container *ngIf="records.reservations">
-        <div id="image-wrapper">
-            <span>{{ getEmoji("no-results") }}</span>
-            <h1>{{ getLabel("no-results") }}</h1>
-            <button (click)="goBack()" class="primary" data-cy="go-back" id="go-back" mat-flat-button>OK</button>
-        </div>
-    </ng-container> -->
+    <ng-container *ngIf="records.length == 0">
+        <list-no-results [feature]="feature" [parentUrl]="parentUrl"></list-no-results>
+    </ng-container>
 
 </div>

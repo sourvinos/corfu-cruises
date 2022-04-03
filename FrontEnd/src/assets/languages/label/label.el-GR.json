@@ -1353,6 +1353,10 @@
             {
                 "id": "buttonDisembarkPassenger",
                 "description": "ΚAΝΤΕ ΚΛΙΚ ΓΙΑ ΑΠΟΒIΒΑΣΗ ΕΠΙΒAΤΗ"
+            },
+            {
+                "id": "no-results",
+                "description": "Δεν βρήκαμε τίποτα!"
             }
         ]
     },

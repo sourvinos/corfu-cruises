@@ -1353,6 +1353,10 @@
             {
                 "id": "buttonDisembarkPassenger",
                 "description": "CLIQUEZ POUR DÉBARQUER UN PASSAGER"
+            },
+            {
+                "id": "no-results",
+                "description": "Nous n'avons rien trouvé !"
             }
         ]
     },
@@ -1500,7 +1504,7 @@
             },
             {
                 "id": "no-results",
-                "description": "Rien n'a été trouvé!"
+                "description": "Nous n'avons rien trouvé !"
             }
         ]
     },

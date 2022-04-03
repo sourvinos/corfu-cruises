@@ -1353,6 +1353,10 @@
             {
                 "id": "buttonDisembarkPassenger",
                 "description": "CLICK TO DISEMBARK PASSENGER"
+            },
+            {
+                "id": "no-results",
+                "description": "We found nothing!"
             }
         ]
     },

@@ -48,17 +48,3 @@
 .clickable:hover > .pi-file-pdf {
     color: var(--color-table-row-group-hover) !important;
 }
-
-#image-wrapper {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: center;
-    margin-bottom: calc(var(--gap) * 4);
-    width: 100%;
-}
-
-#image-wrapper span {
-    font-size: 8rem;
-}

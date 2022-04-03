@@ -48,7 +48,7 @@
 }
 
 .p-datatable .p-datatable-tbody > tr {
-    background-color: var(--color-table-background) !important;
+    background-color: transparent !important;
     border: none !important;
     outline: 1px solid var(--color-table-row-outline);
     transition: all var(--change-theme-delay) ease;

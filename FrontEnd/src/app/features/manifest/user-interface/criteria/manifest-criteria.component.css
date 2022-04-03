@@ -4,26 +4,6 @@
     height: 100%;
 }
 
-#calendar-wrapper {
-    height: 400px;
-    max-height: 400px;
-    max-width: 350px;
-    min-height: 400px;
-    min-width: 350px;
-    width: 350px;
-}
-
-#calendar-card {
-    align-items: center;
-    background-color: transparent;
-    border: 1px solid #657171;
-    box-shadow: none;
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    width: 100%;
-}
-
 #field-wrapper {
     display: flex;
     flex-direction: column;

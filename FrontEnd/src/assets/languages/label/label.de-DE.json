@@ -1353,6 +1353,10 @@
             {
                 "id": "buttonDisembarkPassenger",
                 "description": "KLICKEN SIE HIER, UM DEN PASSAGIER AUSZUSTEIGEN"
+            },
+            {
+                "id": "no-results",
+                "description": "Wir haben nichts gefunden!"
             }
         ]
     },

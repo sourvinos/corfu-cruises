@@ -1,3 +1,4 @@
+import { InvoicingVM } from './../../classes/view-models/invoicing-vm'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
@@ -12,7 +13,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { InvoicingVM } from '../../classes/view-models/invoicing-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
@@ -33,7 +33,7 @@ export class InvoicingListComponent {
     public icon = 'arrow_back'
     public parentUrl = '/invoicing'
 
-    public record: any
+    public records: InvoicingVM[] = []
 
     //#endregion
 
@@ -76,7 +76,7 @@ export class InvoicingListComponent {
     //#region public methods
 
     public exportAllCustomers(): void {
-        this.record.forEach((record: any) => {
+        this.records.forEach((record: any) => {
             this.exportSingleCustomer(record.date, record.customer.id)
         })
     }
@@ -121,10 +121,8 @@ export class InvoicingListComponent {
     private loadRecords(): void {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
-            this.record = listResolved.result
-            console.log('1', this.record.reservations)
-            // console.log('2', this.records.reservations)
-            // console.log('3', this.records[0].reservations)
+            this.records = listResolved.result
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

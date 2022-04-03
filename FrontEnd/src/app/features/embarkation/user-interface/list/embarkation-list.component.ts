@@ -14,6 +14,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
     selector: 'embarkation-list',
@@ -46,7 +47,7 @@ export class EmbarkationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private embarkationervice: EmbarkationService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private embarkationervice: EmbarkationService, private titleService: Title) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -87,12 +88,16 @@ export class EmbarkationListComponent {
         this.filteredRecords.embarkation = variable ? this.records.embarkation.filter(x => x.isCheckedIn != variable) : this.records.embarkation
     }
 
-    public onGetLabel(id: string): string {
+    public getEmoji(emoji: string): string {
+        return this.emojiService.getEmoji(emoji)
+    }
+
+    public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onGoBack(): void {
-        this.router.navigate(['/embarkation'])
+    public goBack(): void {
+        this.router.navigate([this.parentUrl])
     }
 
     public onHasRemarks(remarks: string): boolean {
@@ -135,7 +140,7 @@ export class EmbarkationListComponent {
         this.unlisten = this.keyboardShortcutsService.listen({
             'Escape': () => {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.onGoBack()
+                    this.goBack()
                 }
             },
             'Alt.S': (event: KeyboardEvent) => {
@@ -180,7 +185,7 @@ export class EmbarkationListComponent {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
         } else {
-            this.onGoBack()
+            this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }
     }
@@ -206,10 +211,10 @@ export class EmbarkationListComponent {
     private updatePassengerStatus(): void {
         this.records.embarkation.forEach(record => {
             if (record.passengers.filter(x => x.isCheckedIn).length == record.passengers.length) {
-                record.isCheckedIn = this.onGetLabel('boarded').toUpperCase()
+                record.isCheckedIn = this.getLabel('boarded').toUpperCase()
             }
             if (record.passengers.filter(x => !x.isCheckedIn).length == record.passengers.length) {
-                record.isCheckedIn = this.onGetLabel('pending').toUpperCase()
+                record.isCheckedIn = this.getLabel('pending').toUpperCase()
             }
             if (record.passengers.filter(x => x.isCheckedIn).length != record.passengers.length && record.passengers.filter(x => !x.isCheckedIn).length != record.passengers.length) {
                 record.isCheckedIn = 'MIX'

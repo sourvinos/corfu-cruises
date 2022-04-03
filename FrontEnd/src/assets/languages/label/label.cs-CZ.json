@@ -1353,6 +1353,10 @@
             {
                 "id": "buttonDisembarkPassenger",
                 "description": "KLIKNUTÍM VYSTOUPÍTE Z CESTUJÍCÍHO"
+            },
+            {
+                "id": "no-results",
+                "description": "Nic jsme nenašli!"
             }
         ]
     },
@@ -1598,7 +1602,7 @@
             },
             {
                 "id": "no-results",
-                "description": "We found nothing!"
+                "description": "Nic jsme nenašli!"
             },
             {
                 "id": "exportToPdfButton",

@@ -1,8 +1,8 @@
 * {
-    --color-autocomplete-background-hover: var(--light-gray);
-    --color-autocomplete-background: var(--gray);
+    --color-autocomplete-background-hover: var(--gray);
+    --color-autocomplete-background: var(--light-blue);
     --color-autocomplete-border-active: var(--orange);
-    --color-autocomplete: var(--white);
+    --color-autocomplete: var(--dark-blue);
     /*  */
     --color-border-item-active: var(--dark-red);
     --color-border-item-inactive: var(--very-light-gray);
@@ -22,12 +22,13 @@
     --color-button-fab-background: var(--light-brown);
     --color-button-fab-background-hover: var(--light-brown-hover);
     /*  */
+    --color-calendar-background: var(--light-yellow);
+    --color-calendar-day-hover: var(--light-brown-hover);
+    --color-calendar-day: var(--dark-red);
     --color-calendar-days-no-schedule-background: var(--dark-gray);
     --color-calendar-days-schedule-background: var(--dark-gray);
     --color-calendar-today: var(--light-brown);
     --color-calendar-weekday-background: var(--light-yellow);
-    --color-calendar-day: var(--dark-red);
-    --color-calendar-day-hover: var(--light-brown-hover);
     /*  */
     --color-checkbox-checked: var(--dark-gray);
     /*  */
@@ -38,14 +39,14 @@
     --color-credit-title: var(--orange);
     --color-credit-url: var(--yellow);
     /*  */
-    --color-criteria-even: var(--white);
-    --color-criteria-odd: var(--light-blue);
+    --color-criteria-even: var(--dark-red);
+    --color-criteria-odd: var(--dark-blue);
     /*  */
     --color-datepicker-background: var(--dark-blue);
-    --color-datepicker-days: var(--white);
-    --color-datepicker-month: var(--yellow);
-    --color-datepicker-selected-date: var(--dark-blue);
-    --color-datepicker-selected-date-background: var(--gray);
+    --color-datepicker-month: var(--light-gray);
+    --color-datepicker-days: var(--dark-blue);
+    --color-datepicker-selected-date: var(--white);
+    --color-datepicker-selected-date-background: var(--orange);
     --color-datepicker-today: var(--light-red);
     /*  */
     --color-dropdown-background: var(--gray);
@@ -91,7 +92,7 @@
     --color-table-badge-background: var(--gray);
     --color-table-badge-color: var(--dark-red);
     --color-table-column-seperator: var(--gray);
-    --color-table-dropdown-icons: var(--white);
+    --color-table-dropdown-icons: var(--dark-blue);
     --color-table-filter-border: var(--gray);
     --color-table-header: var(--dark-blue);
     --color-table-header-background: var(--very-light-green);
@@ -107,7 +108,7 @@
     --color-table-sort-icon: var(--dark-blue);
     /*  */
     --color-text-primary: var(--dark-blue);
-    --color-text-secondary: var(--light-yellow);
+    --color-text-secondary: var(--orange);
     --color-text-selected: var(--light-gray);
     --color-text-error: var(--red);
     /*  */
