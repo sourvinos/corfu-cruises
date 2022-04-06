@@ -6,7 +6,7 @@ namespace API.Features.Embarkation {
 
     public interface IEmbarkationRepository : IRepository<Reservation> {
 
-        Task<EmbarkationMainResultResource<EmbarkationResource>> Get(string date, int destinationId, int portId, int shipId);
+        Task<EmbarkationMainResultResource<EmbarkationResource>> Get(string date, int destinationId, int portId, string shipId);
         bool DoEmbarkation(int id);
 
     }

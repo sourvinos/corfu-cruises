@@ -22,6 +22,7 @@
                         <th style="min-width: 10%; max-width: 10%;">{{ getLabel('headerTicketNo') }}</th>
                         <th>{{ getLabel('headerCustomer') }}</th>
                         <th>{{ getLabel('headerDriver') }}</th>
+                        <th>{{ getLabel('headerShip') }}</th>
                         <th style="min-width: 7%; max-width: 7%;">{{ getLabel('headerPersons') }}</th>
                     </tr>
                     <tr>
@@ -52,6 +53,17 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
+                        <th>
+                            <p-columnFilter style="width: 100%;" field="ship" matchMode="equals" [showMenu]="false">
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-dropdown [ngModel]="value" [options]="ships" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option.label }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
                         <th style="min-width: 7%; max-width: 7%;">
                             <p-columnFilter type="text" field="persons"></p-columnFilter>
                         </th>
@@ -64,6 +76,7 @@
                         <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ reservation.ticketNo }}</td>
                         <td>{{ reservation.customer }}</td>
                         <td>{{ reservation.driver }}</td>
+                        <td>{{ reservation.ship }}</td>
                         <td style="min-width: 7%; max-width: 7%; justify-content: center;">{{ reservation.totalPersons }}</td>
                     </tr>
                 </ng-template>

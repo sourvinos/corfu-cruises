@@ -1323,6 +1323,10 @@
                 "description": "Fahrer"
             },
             {
+                "id": "headerShip",
+                "description": "Schiff"
+            },
+            {
                 "id": "headerPersons",
                 "description": "Gesamtpersonen"
             },

@@ -1323,6 +1323,10 @@
                 "description": "Οδηγός"
             },
             {
+                "id": "headerShip",
+                "description": "Πλοίο"
+            },
+            {
                 "id": "headerPersons",
                 "description": "Άτομα"
             },

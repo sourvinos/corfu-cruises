@@ -22,33 +22,27 @@ namespace API.Features.Embarkation {
             this.settings = settings.Value;
         }
 
-        public async Task<EmbarkationMainResultResource<EmbarkationResource>> Get(string date, int destinationId, int portId, int shipId) {
+        public async Task<EmbarkationMainResultResource<EmbarkationResource>> Get(string date, int destinationId, int portId, string shipId) {
             var reservations = await context.Set<Reservation>()
                 .Include(x => x.Customer)
                 .Include(x => x.Driver)
+                .Include(x => x.Ship)
                 .Include(x => x.Passengers)
-                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId)
+                .Where(x => x.Date == Convert.ToDateTime(date)
+                    && x.DestinationId == destinationId
+                    && x.PortId == portId
+                    && ((shipId == "all") || x.ShipId == int.Parse(shipId)))
                 .ToListAsync();
             int totalPersons = reservations.Sum(x => x.TotalPersons);
             int passengers = reservations.Sum(c => c.Passengers.Count);
             int boarded = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);
             int remaining = passengers - boarded;
-            var groupPerDriver = reservations
-                // .Include(x => x.Driver)
-                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.PortId == portId && x.ShipId == shipId)
-                .GroupBy(x => new { x?.Driver?.Id, x?.Driver?.Description })
-                .Select(x => new Driver {
-                    Id = x.Key.Id ?? 0,
-                    Description = x.Key.Description ?? "EMPTY"
-                })
-                .OrderBy(o => o.Description);
             var mainResult = new EmbarkationMainResult<Reservation> {
                 TotalPersons = totalPersons,
                 MissingNames = totalPersons - passengers,
                 Passengers = passengers,
                 Boarded = boarded,
                 Remaining = remaining,
-                Drivers = groupPerDriver.ToList(),
                 Embarkation = reservations.ToList()
             };
             return mapper.Map<EmbarkationMainResult<Reservation>, EmbarkationMainResultResource<EmbarkationResource>>(mainResult);

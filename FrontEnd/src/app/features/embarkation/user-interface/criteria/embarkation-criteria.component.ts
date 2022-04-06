@@ -173,6 +173,7 @@ export class EmbarkationCriteriaComponent {
             service.getActiveForDropdown().toPromise().then(
                 (response: any) => {
                     this[table] = response
+                    this[table].unshift({ 'id': 'all', 'description': '[⭐]' })                    
                     resolve(this[table])
                     this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
                 }, (errorFromInterceptor: number) => {

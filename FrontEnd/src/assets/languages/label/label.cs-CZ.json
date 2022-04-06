@@ -1323,6 +1323,10 @@
                 "description": "Řidič"
             },
             {
+                "id": "headerShip",
+                "description": "Plavidlo"
+            },
+            {
                 "id": "headerPersons",
                 "description": "Osob"
             },

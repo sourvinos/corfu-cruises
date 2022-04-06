@@ -8,6 +8,7 @@ namespace API.Features.Embarkation {
         public string Remarks { get; set; }
         public string Customer { get; set; }
         public string Driver { get; set; }
+        public string Ship { get; set; }
         public int TotalPersons { get; set; }
 
         public List<EmbarkationPassengerResource> Passengers { get; set; }

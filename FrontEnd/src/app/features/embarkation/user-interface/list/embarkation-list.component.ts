@@ -42,6 +42,7 @@ export class EmbarkationListComponent {
     private temp = []
     public customers = []
     public drivers = []
+    public ships = []
 
     public scannerEnabled: boolean
     public searchTerm: string
@@ -56,6 +57,7 @@ export class EmbarkationListComponent {
                 this.updatePassengerStatus()
                 this.getDistinctCustomers()
                 this.getDistinctDrivers()
+                this.getDistinctShips()
             }
         })
     }
@@ -173,6 +175,13 @@ export class EmbarkationListComponent {
         this.temp = [... new Set(this.records.embarkation.map(x => x.driver))]
         this.temp.forEach(element => {
             this.drivers.push({ label: element, value: element })
+        })
+    }
+
+    private getDistinctShips(): void {
+        this.temp = [... new Set(this.records.embarkation.map(x => x.ship))]
+        this.temp.forEach(element => {
+            this.ships.push({ label: element, value: element })
         })
     }
 
