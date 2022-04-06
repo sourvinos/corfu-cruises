@@ -11,6 +11,7 @@ import { DisableToogleDirective } from '../directives/mat-slide-toggle.directive
 import { HomeButtonAndTitleComponent } from '../components/home-button-and-title/home-button-and-title.component'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { ListNoResultsComponent } from '../components/list-no-results/list-no-results.component'
+import { LoadingSpinnerComponent } from '../components/loading-spinner/loading-spinner.component'
 import { MapComponent } from '../components/map/map.component'
 import { MaterialModule } from './material.module'
 import { PrimeNgModule } from './primeng.module'
@@ -26,6 +27,7 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         HomeButtonAndTitleComponent,
         InputTabStopDirective,
         ListNoResultsComponent,
+        LoadingSpinnerComponent,
         MapComponent,
         QRCodeComponent,
         SafeStylePipe,
@@ -46,6 +48,7 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         HomeButtonAndTitleComponent,
         InputTabStopDirective,
         ListNoResultsComponent,
+        LoadingSpinnerComponent,
         MapComponent,
         MaterialModule,
         PrimeNgModule,

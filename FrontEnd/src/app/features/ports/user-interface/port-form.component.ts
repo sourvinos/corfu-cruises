@@ -6,7 +6,7 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
@@ -36,6 +36,7 @@ export class PortFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/ports'
+    public loading = new Subject<boolean>()
 
     //#endregion
 
@@ -87,7 +88,7 @@ export class PortFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.portService.delete(this.form.value.id).subscribe(() => {
+                this.portService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -180,7 +181,7 @@ export class PortFormComponent {
 
     private saveRecord(port: PortWriteVM): void {
         if (port.id === 0) {
-            this.portService.add(port).subscribe(() => {
+            this.portService.add(port).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -188,7 +189,7 @@ export class PortFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.portService.update(port.id, port).subscribe(() => {
+            this.portService.update(port.id, port).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

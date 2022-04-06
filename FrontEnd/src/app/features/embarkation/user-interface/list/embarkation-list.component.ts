@@ -7,7 +7,7 @@ import { Title } from '@angular/platform-browser'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { EmbarkationVM } from '../../classes/view-models/embarkation-vm'
 import { EmbarkationService } from '../../classes/services/embarkation.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -37,6 +37,7 @@ export class EmbarkationListComponent {
     public filteredRecords: EmbarkationVM
     public records: EmbarkationVM
     public parentUrl = '/embarkation'
+    public loading = new Subject<boolean>()
 
     private temp = []
     public customers = []
@@ -78,7 +79,7 @@ export class EmbarkationListComponent {
     //#region public methods
 
     public onDoEmbarkation(id: number): void {
-        this.embarkationervice.boardPassenger(id).subscribe(() => {
+        this.embarkationervice.boardPassenger(id).pipe(indicate(this.loading)).subscribe(() => {
             this.refreshList()
             this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
         })

@@ -1,6 +1,4 @@
 <div id="form-wrapper">
-    
-    <div *ngIf="isInitializing" id="loading-indication"></div>
 
     <div id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
@@ -29,6 +27,10 @@
             <button (click)="onForgotPassword()" class="transparent" data-cy="forgotPassword" id="forgotPassword" mat-flat-button>{{ getLabel("forgotPasswordButton") }}</button>
             <button (click)="onLogin()" [disabled]="!form.valid" class="primary" data-cy="login" id="login" mat-flat-button>{{ getLabel("loginButton") }}</button>
         </div>
+    </div>
+
+    <div *ngIf="loading | async">
+        <loading-spinner></loading-spinner>
     </div>
 
 </div>

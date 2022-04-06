@@ -6,7 +6,7 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
@@ -40,6 +40,7 @@ export class ShipFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/ships'
+    public loading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public filteredShipOwners: Observable<ShipOwnerDropdownVM[]>
@@ -108,7 +109,7 @@ export class ShipFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.shipService.delete(this.form.value.id).subscribe(() => {
+                this.shipService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -248,7 +249,7 @@ export class ShipFormComponent {
 
     private saveRecord(ship: ShipWriteVM): void {
         if (ship.id === 0) {
-            this.shipService.add(ship).subscribe(() => {
+            this.shipService.add(ship).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -256,7 +257,7 @@ export class ShipFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.shipService.update(ship.id, ship).subscribe(() => {
+            this.shipService.update(ship.id, ship).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

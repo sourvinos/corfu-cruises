@@ -8,7 +8,7 @@ import { map, startWith } from 'rxjs/operators'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from '../../../shared/services/dialog.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MapComponent } from 'src/app/shared/components/map/map.component'
@@ -43,6 +43,7 @@ export class PickupPointFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/pickupPoints'
+    public loading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public filteredRoutes: Observable<CoachRouteDropdownVM[]>
@@ -103,7 +104,7 @@ export class PickupPointFormComponent {
 
     public checkForEmptyAutoComplete(event: { target: { value: any } }) {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
-    }    
+    }
 
     public enableOrDisableAutoComplete(event: any) {
         this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
@@ -120,7 +121,7 @@ export class PickupPointFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.pickupPointService.delete(this.form.value.id).subscribe(() => {
+                this.pickupPointService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -283,7 +284,7 @@ export class PickupPointFormComponent {
     private saveRecord(pickupPoint: PickupPointWriteVM): void {
         if (pickupPoint.id === 0) {
             this.flattenForm()
-            this.pickupPointService.add(pickupPoint).subscribe(() => {
+            this.pickupPointService.add(pickupPoint).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -292,7 +293,7 @@ export class PickupPointFormComponent {
             })
         } else {
             this.flattenForm()
-            this.pickupPointService.update(pickupPoint.id, pickupPoint).subscribe(() => {
+            this.pickupPointService.update(pickupPoint.id, pickupPoint).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

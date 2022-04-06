@@ -1,9 +1,24 @@
 import { Injectable } from '@angular/core'
+import { defer, finalize, Observable, Subject } from 'rxjs'
 // Custom
 import { EmojiService } from './emoji.service'
 import { LocalStorageService } from './local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { environment } from 'src/environments/environment'
+
+export function prepare<T>(callback: () => void): (source: Observable<T>) => Observable<T> {
+    return (source: Observable<T>): Observable<T> => defer(() => {
+        callback()
+        return source
+    })
+}
+
+export function indicate<T>(indicator: Subject<boolean>): (source: Observable<T>) => Observable<T> {
+    return (source: Observable<T>): Observable<T> => source.pipe(
+        prepare(() => indicator.next(true)),
+        finalize(() => indicator.next(false))
+    )
+}
 
 @Injectable({ providedIn: 'root' })
 

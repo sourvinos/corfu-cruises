@@ -13,7 +13,7 @@ import { DialogService } from 'src/app/shared/services/dialog.service'
 import { UserWriteVM } from '../../classes/dtos/user-write-vm'
 import { EditUserViewModel } from './../../classes/view-models/edit-user-view-model'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from '../../../../shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
@@ -42,6 +42,7 @@ export class EditUserFormComponent {
     public icon = null
     public input: InputTabStopDirective
     public parentUrl = null
+    public loading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public customers: CustomerDropdownVM[] = []
@@ -283,7 +284,7 @@ export class EditUserFormComponent {
 
     private saveRecord(user: UserWriteVM): void {
         this.flattenForm()
-        this.userService.update(user.id, user).subscribe(() => {
+        this.userService.update(user.id, user).pipe(indicate(this.loading)).subscribe(() => {
             this.resetForm()
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

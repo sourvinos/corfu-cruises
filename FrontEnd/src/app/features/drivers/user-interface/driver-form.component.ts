@@ -8,7 +8,7 @@ import { ButtonClickService } from 'src/app/shared/services/button-click.service
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverService } from '../classes/services/driver.service'
 import { DriverWriteVM } from '../classes/view-models/driver-write-vm'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
@@ -36,6 +36,7 @@ export class DriverFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/drivers'
+    public loading = new Subject<boolean>()
 
     //#endregion
 
@@ -87,7 +88,7 @@ export class DriverFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.driverService.delete(this.form.value.id).subscribe(() => {
+                this.driverService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -179,7 +180,7 @@ export class DriverFormComponent {
 
     private saveRecord(driver: DriverWriteVM): void {
         if (driver.id === 0) {
-            this.driverService.add(driver).subscribe(() => {
+            this.driverService.add(driver).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -187,7 +188,7 @@ export class DriverFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.driverService.update(driver.id, driver).subscribe(() => {
+            this.driverService.update(driver.id, driver).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

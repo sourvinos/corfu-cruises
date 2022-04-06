@@ -56,6 +56,10 @@
         </div>
     </div>
 
+    <div *ngIf="loading | async">
+        <loading-spinner></loading-spinner>
+    </div>
+
 </div>
 
 <mat-autocomplete #routes="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>

@@ -14,7 +14,7 @@
                                 <mat-form-field style="width: 30% !important;">
                                     <mat-label>{{ getLabel('refNo') }}</mat-label>
                                     <input matInput formControlName="refNo" readonly>
-                                </mat-form-field> 
+                                </mat-form-field>
                                 <mat-form-field>
                                     <input type="text" [inputTabStop]="input" [matDatepicker]="picker" [placeholder]="getLabel('date')" data-cy="date" data-tabindex="1" formControlName="date" id="date" matInput>
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -141,6 +141,10 @@
 
     <div id="qr-code">
         <qr-Code [value]="barcode.ticketNo" [size]="barcode.size" [level]="barcode.level"></qr-Code>
+    </div>
+
+    <div *ngIf="loading | async">
+        <loading-spinner></loading-spinner>
     </div>
 
 </div>

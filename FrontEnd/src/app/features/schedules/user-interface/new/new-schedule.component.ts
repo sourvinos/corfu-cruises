@@ -11,7 +11,7 @@ import { ButtonClickService } from 'src/app/shared/services/button-click.service
 import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
 import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -47,6 +47,7 @@ export class NewScheduleComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/schedules'
+    public loading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public destinations: DestinationDropdownVM[]
@@ -277,8 +278,8 @@ export class NewScheduleComponent {
     }
 
     private saveRecord(): void {
-        this.scheduleService.deleteRange(this.buildObjectsToDelete()).subscribe(() => {
-            this.scheduleService.addRange(this.buildScheduleToCreate()).subscribe(() => {
+        this.scheduleService.deleteRange(this.buildObjectsToDelete()).pipe(indicate(this.loading)).subscribe(() => {
+            this.scheduleService.addRange(this.buildScheduleToCreate()).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')

@@ -17,7 +17,7 @@ import { DestinationService } from 'src/app/features/destinations/classes/servic
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverDropdownVM } from '../../../drivers/classes/view-models/driver-dropdown-vm'
 import { DriverService } from 'src/app/features/drivers/classes/services/driver.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -64,6 +64,7 @@ export class ReservationFormComponent {
 
     private userId: string
     public isAdmin: boolean
+    public loading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
 
@@ -521,7 +522,7 @@ export class ReservationFormComponent {
 
     private saveRecord(reservation: ReservationWriteVM): void {
         if (reservation.reservationId.toString() == '') {
-            this.reservationService.add(reservation).subscribe((response) => {
+            this.reservationService.add(reservation).pipe(indicate(this.loading)).subscribe((response) => {
                 this.resetForm()
                 this.goBack()
                 this.dialogService.open(this.messageSnackbarService.success(), 'infoColor', this.messageSnackbarService.reservationCreated() + this.helperService.formatRefNo(response.message, true), ['ok'])
@@ -529,7 +530,7 @@ export class ReservationFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.reservationService.update(reservation.reservationId, reservation).subscribe(() => {
+            this.reservationService.update(reservation.reservationId, reservation).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

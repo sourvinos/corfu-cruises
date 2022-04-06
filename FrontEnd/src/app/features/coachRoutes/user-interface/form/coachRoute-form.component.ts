@@ -10,7 +10,7 @@ import { CoachRouteReadDTO } from '../../classes/dtos/coachRoute-read-dto'
 import { CoachRouteService } from '../../classes/services/coachRoute.service'
 import { CoachRouteWriteDTO } from '../../classes/dtos/coachRoute-write-dto'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MapComponent } from 'src/app/shared/components/map/map.component'
@@ -41,6 +41,7 @@ export class CoachRouteFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/coachRoutes'
+    public loading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public ports: PortDropdownVM[] = []
@@ -114,7 +115,7 @@ export class CoachRouteFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.coachRouteService.delete(this.form.value.id).subscribe(() => {
+                this.coachRouteService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -260,7 +261,7 @@ export class CoachRouteFormComponent {
 
     private saveRecord(coachRoute: CoachRouteWriteDTO): void {
         if (coachRoute.id === 0) {
-            this.coachRouteService.add(coachRoute).subscribe(() => {
+            this.coachRouteService.add(coachRoute).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -268,7 +269,7 @@ export class CoachRouteFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.coachRouteService.update(coachRoute.id, coachRoute).subscribe(() => {
+            this.coachRouteService.update(coachRoute.id, coachRoute).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

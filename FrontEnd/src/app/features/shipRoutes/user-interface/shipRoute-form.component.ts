@@ -6,7 +6,7 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
@@ -37,6 +37,7 @@ export class ShipRouteFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/shipRoutes'
+    public loading = new Subject<boolean>()
 
     //#endregion
 
@@ -88,7 +89,7 @@ export class ShipRouteFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.shipRouteService.delete(this.form.value.id).subscribe(() => {
+                this.shipRouteService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -199,7 +200,7 @@ export class ShipRouteFormComponent {
 
     private saveRecord(shipRoute: ShipRouteWriteVM): void {
         if (shipRoute.id === 0) {
-            this.shipRouteService.add(shipRoute).subscribe(() => {
+            this.shipRouteService.add(shipRoute).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -207,7 +208,7 @@ export class ShipRouteFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.shipRouteService.update(shipRoute.id, shipRoute).subscribe(() => {
+            this.shipRouteService.update(shipRoute.id, shipRoute).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

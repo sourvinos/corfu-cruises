@@ -7,7 +7,7 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { AccountService } from '../../../shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
@@ -39,7 +39,7 @@ export class LoginFormComponent {
     public countdown = 0
     public hidePassword = true
     public idleState = 'NOT_STARTED'
-    public isInitializing = false
+    public loading = new Subject<boolean>()
 
     //#endregion
 
@@ -75,13 +75,10 @@ export class LoginFormComponent {
     }
 
     public onLogin(): void {
-        this.setIsInitializing(true)
-        this.accountService.login(this.form.value.username, this.form.value.password).subscribe(() => {
+        this.accountService.login(this.form.value.username, this.form.value.password).pipe(indicate(this.loading)).subscribe(() => {
             this.goHome()
-            this.setIsInitializing(false)
             this.startIdleTimer()
         }, error => {
-            this.setIsInitializing(false)
             this.showError(error)
         })
     }
@@ -119,10 +116,6 @@ export class LoginFormComponent {
             password: [environment.login.password, Validators.required],
             isHuman: [environment.login.isHuman, Validators.requiredTrue]
         })
-    }
-
-    private setIsInitializing(isInitializing: boolean): void {
-        this.isInitializing = isInitializing
     }
 
     private setWindowTitle(): void {
@@ -163,10 +156,6 @@ export class LoginFormComponent {
 
     get password(): AbstractControl {
         return this.form.get('password')
-    }
-
-    get checkForProcessing() {
-        return this.isInitializing
     }
 
     //#endregion

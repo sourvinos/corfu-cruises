@@ -14,7 +14,7 @@ import { CrewWriteVM } from '../classes/view-models/crew-write-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { GenderAutocompleteVM } from '../../genders/classes/view-models/gender-autocomplete-vm'
 import { GenderService } from 'src/app/features/genders/classes/services/gender.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -48,6 +48,7 @@ export class CrewFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/crews'
+    public loading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public genderDropdown: Observable<GenderAutocompleteVM[]>
@@ -118,7 +119,7 @@ export class CrewFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.crewService.delete(this.form.value.id).subscribe(() => {
+                this.crewService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -256,7 +257,7 @@ export class CrewFormComponent {
 
     private saveRecord(crew: CrewWriteVM): void {
         if (crew.id === 0) {
-            this.crewService.add(crew).subscribe(() => {
+            this.crewService.add(crew).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -264,7 +265,7 @@ export class CrewFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
             })
         } else {
-            this.crewService.update(crew.id, crew).subscribe(() => {
+            this.crewService.update(crew.id, crew).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

@@ -9,7 +9,7 @@ import { DestinationReadVM } from '../classes/view-models/destination-read-vm'
 import { DestinationService } from '../classes/services/destination.service'
 import { DestinationWriteVM } from '../classes/view-models/destination-write-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
@@ -36,6 +36,7 @@ export class DestinationFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/destinations'
+    public loading = new Subject<boolean>()
 
     //#endregion
 
@@ -87,7 +88,7 @@ export class DestinationFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.destinationService.delete(this.form.value.id).subscribe(() => {
+                this.destinationService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -179,7 +180,7 @@ export class DestinationFormComponent {
 
     private saveRecord(destination: DestinationWriteVM): void {
         if (destination.id === 0) {
-            this.destinationService.add(destination).subscribe(() => {
+            this.destinationService.add(destination).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -187,7 +188,7 @@ export class DestinationFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.destinationService.update(destination.id, destination).subscribe(() => {
+            this.destinationService.update(destination.id, destination).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

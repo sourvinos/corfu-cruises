@@ -6,7 +6,7 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
@@ -36,6 +36,7 @@ export class ShipOwnerFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/shipOwners'
+    public loading = new Subject<boolean>()
 
     //#endregion
 
@@ -87,7 +88,7 @@ export class ShipOwnerFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.shipOwnerService.delete(this.form.value.id).subscribe(() => {
+                this.shipOwnerService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -194,7 +195,7 @@ export class ShipOwnerFormComponent {
 
     private saveRecord(shipOwner: ShipOwnerWriteVM): void {
         if (shipOwner.id === 0) {
-            this.shipOwnerService.add(shipOwner).subscribe(() => {
+            this.shipOwnerService.add(shipOwner).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -202,7 +203,7 @@ export class ShipOwnerFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.shipOwnerService.update(shipOwner.id, shipOwner).subscribe(() => {
+            this.shipOwnerService.update(shipOwner.id, shipOwner).pipe(indicate(this.loading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

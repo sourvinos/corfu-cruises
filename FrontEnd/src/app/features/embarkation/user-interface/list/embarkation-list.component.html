@@ -114,6 +114,10 @@
         <list-no-results [feature]="feature" [parentUrl]="parentUrl"></list-no-results>
     </ng-container>
 
+    <div *ngIf="loading | async">
+        <loading-spinner></loading-spinner>
+    </div>
+
 </div>
 
 <div id="video">

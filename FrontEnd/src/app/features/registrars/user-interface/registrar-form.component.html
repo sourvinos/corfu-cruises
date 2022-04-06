@@ -13,7 +13,7 @@
                     <mat-error *ngIf="fullname.hasError('maxlength')">{{ getHint("maxLength", fullname.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ships" [placeholder]="getLabel('ship')" data-cy="ship-description" data-tabindex="2" formControlName="port" matInput>
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ships" [placeholder]="getLabel('ship')" data-cy="ship-description" data-tabindex="2" formControlName="ship" matInput>
                     <mat-error *ngIf="ship.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
@@ -49,6 +49,10 @@
             <button (click)="onDelete()" *ngIf="form.value.id !== 0" class="delete" data-cy="delete" id="delete" mat-flat-button>{{ getLabel("deleteButton") }}</button>
             <button (click)="onSave()" [disabled]="!form.valid" class="primary" data-cy="save" id="save" mat-flat-button>{{ getLabel("saveButton") }}</button>
         </div>
+    </div>
+
+    <div *ngIf="loading | async">
+        <loading-spinner></loading-spinner>
     </div>
 
 </div>
