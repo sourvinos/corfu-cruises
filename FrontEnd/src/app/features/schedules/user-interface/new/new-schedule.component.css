@@ -5,9 +5,8 @@
 }
 
 .selectable-day {
-    border: 0;
-    border-bottom: 5px solid var(--color-border-item-inactive);
-    color: var(--color-text-primary);
+    border-bottom: 5px solid var(--color-d);
+    color: var(--color-text);
     display: flex;
     font-family: var(--font-family-handbook);
     font-size: var(--font-size-summary-block-item);
@@ -17,11 +16,10 @@
 }
 
 .selectable-day:hover {
-    color: var(--color-text-secondary);
+    border-bottom: 5px solid var(--color-b);
     cursor: pointer;
 }
 
 .active-selectable-day {
-    border: 0 !important;
-    border-bottom: 5px solid var(--color-border-item-active) !important;
+    border-bottom: 5px solid var(--color-b) !important;
 }

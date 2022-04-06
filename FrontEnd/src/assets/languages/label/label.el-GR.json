@@ -580,8 +580,8 @@
                 "description": "Ημερήσια κατάσταση κρατήσεων"
             },
             {
-                "id": "tripDate",
-                "description": "Ημερομηνία εκδρομής"
+                "id": "date",
+                "description": "Ημερομηνία"
             },
             {
                 "id": "summaryTab",

@@ -8,74 +8,55 @@ button {
     min-width: 0 !important;
     outline: 0 !important;
     padding-top: 0.0625rem !important;
-    transition: background-color var(--change-component-theme-on-hover) ease;
+    transition: all var(--change-component-theme-on-hover) ease;
 }
 
 button.primary {
-    background-color: var(--color-button-primary) !important;
+    background-color: var(--color-b) !important;
     color: var(--color-button-text) !important;
 }
 
 button.primary:hover {
-    color: var(--color);
-    background-color: var(--color-button-primary-hover) !important;
-}
-
-button.secondary {
-    background-color: var(--color-button-secondary) !important;
-    color: var(--color-button-text) !important;
-}
-
-button.secondary:hover {
-    background-color: var(--color-button-secondary-hover) !important;
+    opacity: 0.5;
 }
 
 button.delete {
-    background-color: var(--color-button-delete) !important;
+    background-color: var(--color-button-background-delete) !important;
     color: var(--color-button-text) !important;
 }
 
 button.delete:hover {
-    background-color: var(--color-button-delete-hover) !important;
+    opacity: 0.5;
 }
 
 button.transparent {
     background-color: transparent !important;
-    color: var(--color-text-primary) !important;
+    color: var(--color-text) !important;
 }
 
 button.transparent:hover {
-    background-color: var(--color-button-primary) !important;
+    background-color: var(--color-b) !important;
     color: var(--color-button-text) !important;
 }
 
 button.tab {
-    background-color: var(--color-common-background) !important;
+    background-color: var(--color-a) !important;
     padding-bottom: 5px;
-}
-
-button.tab > span.mat-button-wrapper {
-    border-bottom: 1px solid var(--color-common-background);
 }
 
 button.tab:first-child {
     margin-right: 1rem;
 }
 
-button.tab.active > span.mat-button-wrapper {
-    border-bottom: 1px solid var(--color-border-item-active);
-    padding-bottom: 5px;
-}
-
 button.mat-mini-fab {
-    background-color: var(--color-button-fab-background) !important;
-    color: var(--color-button-fab) !important;
+    background-color: var(--color-a) !important;
+    color: var(--color-b) !important;
     margin: 0 !important;
     outline: 0 !important;
 }
 
 button.mat-mini-fab:hover {
-    background-color: var(--color-button-fab-background-hover) !important;
+    background-color: var(--color-d) !important;
 }
 
 button:disabled {
@@ -91,19 +72,7 @@ button:not(:disabled) {
     line-height: 23px !important;
 }
 
-.mat-icon {
-    color: var(--color-button-text) !important;
-}
-
 .mat-button-toggle-label-content {
     line-height: 2.5rem !important;
 }
 
-.material-icons-two-tone {
-    color: var(--color-summary-header-icon) !important;
-    font-weight: 600;
-}
-
-.go-back:hover {
-    cursor: pointer;
-}

@@ -3,12 +3,13 @@ import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 // Custom
+import { DayViewModel } from '../classes/view-models/day-view-model'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { ScheduleService } from 'src/app/features/schedules/classes/services/schedule.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { DayViewModel } from '../classes/view-models/day-view-model'
 
 @Component({
     selector: 'calendar-schedule',
@@ -37,16 +38,16 @@ export class CalendarScheduleComponent {
 
     // #endregion 
 
-    constructor(private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private router: Router, private scheduleService: ScheduleService) { }
+    constructor(private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private router: Router, private scheduleService: ScheduleService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.getDaysFromDate(moment().month() + 1, moment().year())
-        // this.getScheduleForMonth().then(() => {
-        //     this.updateCalendar()
-        //     this.fixCalendarHeight()
-        // })
+        this.getScheduleForMonth().then(() => {
+            this.updateCalendar()
+            this.fixCalendarHeight()
+        })
         this.addShortcuts()
         this.clearStoredVariables()
     }
@@ -74,7 +75,7 @@ export class CalendarScheduleComponent {
     }
 
     public isToday(day: any): boolean {
-        return day.date == new Date().toISOString()
+        return day.date == new Date().toISOString().substring(0, 10)
     }
 
     public onChangeMonth(month: number): void {

@@ -7,8 +7,16 @@
 }
 
 #panel-buttons button {
+    border-bottom: 2px solid var(--color-a);
     border-radius: 0;
-    color: var(--color-text-primary) !important;
+    color: var(--color-text) !important;
+    font-size: var(--font-size-panel-buttons) !important;
+}
+
+#panel-buttons button.mat-button-disabled {
+    border-bottom: 0.25rem solid var(--color-c);
+    border-radius: 0;
+    color: var(--color-text) !important;
     font-size: var(--font-size-panel-buttons) !important;
 }
 

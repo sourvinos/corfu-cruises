@@ -580,8 +580,8 @@
                 "description": "Denní hlášení rezervací"
             },
             {
-                "id": "tripDate",
-                "description": "Datum výletu lodí"
+                "id": "date",
+                "description": "Datum"
             },
             {
                 "id": "summaryTab",

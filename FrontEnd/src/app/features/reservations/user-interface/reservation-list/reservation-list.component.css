@@ -14,28 +14,25 @@
     align-items: center;
     display: flex;
     font-family: var(--font-family-handbook);
-    font-weight: var(--font-weight-totals);
+    gap: 0.5rem;
     justify-content: flex-end;
     margin: 0 1rem 0 auto;
     text-align: right;
 }
 
+#totals > div {
+    background-color: var(--color-d);
+    padding: 0.5rem;
+    border-radius: 0.3125rem;
+}
+
 #totals .label {
-    color: var(--color-text-primary);
-    font-weight: var(--font-weight-sum-persons);
-    margin: 0 0 0 0.5rem;
+    color: var(--color-text);
+    font-weight: bold;
 }
 
 #totals .sum {
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-sum-persons);
-    font-weight: var(--font-weight-sum-persons);
-}
-
-#totals #trip-date {
-    color: var(--color-reservation-list-date) !important;
-    margin: 0 1rem 0 2rem;
-    transform: scale(1.5, 2.5);
+    color: var(--color-text);
 }
 
 #footer {

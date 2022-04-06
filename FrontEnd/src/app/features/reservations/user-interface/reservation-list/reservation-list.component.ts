@@ -167,7 +167,7 @@ export class ReservationListComponent {
     }
 
     public formatDateToLocale() {
-        return this.helperService.formatISODateToLocale(this.localStorageService.getItem('date'))
+        return this.helperService.formatISODateToLocale(this.localStorageService.getItem('date'), true)
     }
 
     public formatRefNo(refNo: string): string {

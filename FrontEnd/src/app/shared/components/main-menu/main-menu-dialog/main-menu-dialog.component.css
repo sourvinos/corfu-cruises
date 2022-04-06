@@ -5,7 +5,7 @@
 
 #menu .menu-header {
     font-family: var(--font-family-handbook);
-    font-size: 25px;
+    font-size: 1.5rem;
     padding: 0.5rem 0.5rem 1rem 0.5rem;
     text-align: center;
 }
@@ -18,7 +18,7 @@
 }
 
 #menu .menu-item:hover {
-    background-color: var(--gray-hover);
+    background-color: var(--color-c);
     border-radius: 5px;
     cursor: pointer;
 }

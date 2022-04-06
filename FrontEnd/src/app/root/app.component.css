@@ -6,7 +6,7 @@
 }
 
 #main {
-    background: var(--color-common-background) url("../../assets/images/background/background.svg") no-repeat center;
+    background: var(--color-a) url("../../assets/images/background/background.svg") no-repeat center;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@
 }
 
 #loading-indication, #loading-indication::before {
-    background-color: var(--color-common-background);
+    background-color: var(--color-a);
     display: flex;
     height: 0.0625rem;
     margin: 0;
@@ -33,26 +33,25 @@
 }
 
 #loading-indication::before {
-    background-color: var(--orange);
+    background-color: var(--color-loader);
     content: "";
     animation: running-progress 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 #timeout-warning {
-    background-color: var(--green);
-    border-radius: 0 5px 5px 0;
+    background-color: var(--color-c);
+    border-radius: 0 0.3125rem 0.3125rem 0;
     bottom: var(--gap);
-    color: var(--dark-gray);
-    font-family: var(--font-family-ubuntu);
-    font-weight: bold;
-    font-size: 19px;
-    padding: 9px 1rem 9px 10rem;
+    color: var(--color-text);
+    font-family: var(--font-family-handbook);
+    font-size: 1.25rem;
+    padding: 0.625rem 1rem 0.625rem 10rem;
     position: absolute;
     transition: width 0.2s ease-in-out;
 }
 
 #timeout-warning::after {
-    content: """";
+    content: "";
 }
 
 @keyframes running-progress {

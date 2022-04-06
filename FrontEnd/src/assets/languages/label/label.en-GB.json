@@ -580,8 +580,8 @@
                 "description": "Daily reservations report"
             },
             {
-                "id": "tripDate",
-                "description": "Boat trip date"
+                "id": "date",
+                "description": "Date"
             },
             {
                 "id": "summaryTab",

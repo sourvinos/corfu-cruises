@@ -2,27 +2,22 @@
 
     <div id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-        <div id="month-selector">
-            <span class="material-icons arrows" (click)="onChangeMonth(-1)">chevron_left</span>
+        <div @slideFromRight id="month-selector">
+            <span class="material-icons month-arrows" (click)="onChangeMonth(-1)">chevron_left</span>
             <h1 id="month-and-year">{{ getMonthAndYear() }}</h1>
-            <span class="material-icons arrows" (click)="onChangeMonth(1)">chevron_right</span>
+            <span class="material-icons month-arrows" (click)="onChangeMonth(1)">chevron_right</span>
         </div>
     </div>
 
     <div id="wrapper-calendar">
         <ol id="calendar">
             <div *ngFor="let weekDay of weekDays" class="weekday-name">{{ getWeekday(weekDay) }}</div>
-            <li data-cy="days" class="days" [id]="days[day.value - 1].date" *ngFor="let day of monthSelect;let first = first" [ngClass]="hasDateSchedule(days[day.value - 1].date) ? 'has-schedule' : 'noSchedule'" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
-                <div class="date" [ngClass]="isToday(days[day.value - 1]) ? 'today' : 'notToday'" (click)="onShowReservationsForSelectedDay(days[day.value - 1].date)">
+            <li data-cy="days" class="days" [id]="days[day.value - 1].date" *ngFor="let day of monthSelect;let first = first" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
+                <div class="date-card" [ngClass]="isToday(days[day.value - 1]) ? 'today' : 'notToday'" [ngClass]="hasDateSchedule(days[day.value - 1].date) ? 'has-schedule' : 'noSchedule'" (click)="onShowReservationsForSelectedDay(days[day.value - 1].date)">
                     <div class="day">{{ day?.value }}</div>
-                    <div class="destinations">
-                        <div *ngFor="let destination of days[day.value - 1].destinations">
-                            <div class="destination-description">{{ destination.description }}</div>
-                            <div class="destination-count">
-                                <div class="label">{{ getLabel('persons') }}</div>
-                                <div class="count">{{ destination.passengerCount }}</div>
-                            </div>
-                        </div>
+                    <div class="destination" *ngFor="let destination of days[day.value - 1].destinations">
+                        <div class="destination-description">{{ destination.description }}</div>
+                        <div class="destination-passenger-count">{{ destination.passengerCount }}</div>
                     </div>
                 </div>
             </li>

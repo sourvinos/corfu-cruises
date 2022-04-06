@@ -3,7 +3,7 @@
     flex-direction: column;
     height: 100%;
     overflow: hidden;
-    padding: 0 2rem 0 2rem;
+    padding: 0 var(--gap) 0 var(--gap);
     width: 100%;
 }
 
@@ -28,9 +28,9 @@
 }
 
 .icon-red {
-    color: var(--light-red);
+    color: var(--color-list-inactive-item);
 }
 
 .icon-green {
-    color: var(--light-green);
+    color: var(--color-list-active-item);
 }

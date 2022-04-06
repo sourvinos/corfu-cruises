@@ -7,8 +7,9 @@
                 <div class="sum">{{ item.sum }}</div>
                 <div class="label">{{ getLabel(item.description) }}</div>
             </div>
-            <div id="trip-date">
-                <div>{{ showDate() }}</div>
+            <div>
+                <div class="sum">{{ showDate() }}</div>
+                <div class="label">{{ getLabel('date') }}</div>
             </div>
         </div>
         <button mat-flat-button class="primary" (click)="doResetTableTasks(table)">

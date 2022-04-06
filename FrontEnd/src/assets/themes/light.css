@@ -1,32 +1,8 @@
 * {
-    /* Blues */
-    --blue: #79b6c7;
-    --light-blue: #cce3ff;
-    --dark-blue: #073d65;
-    --blue-hover: #35ccea75;
-    /* Grays */
-    --gray: #e7eff4;
-    --light-gray: #838f8f;
-    --very-light-gray: #e6e7e7;
-    --dark-gray: #5b6b6b;
-    --gray-hover: #838f8f24;
-    /* Greens */
-    --green: #389f74;
-    --light-green: #56c35e;
-    --very-light-green: #c9ebe9;
-    /* Oranges */
-    --orange: #fe9f36;
-    /* Reds */
-    --red: #fd7e7b;
-    --dark-red: #d94040;
-    --light-red: #e35c59;
-    /* Whites */
-    --white: #ededed;
-    /* Yellows */
-    --yellow: #ffe85c;
-    --light-yellow: #fcffeb;
-    --dark-yellow: #bdab10;
-    /* Browns */
-    --light-brown: #f9d3b84f;
-    --light-brown-hover: #fff2e9;
+    --color-a: #ffffff;
+    --color-b: #595959;
+    --color-c: #d9d9d9;
+    --color-d: #f2f2f2;
+    --color-e: #d94040;
+    --color-f: #d8f7fb;
 }

@@ -78,8 +78,8 @@ namespace API.Features.Schedules {
         }
 
         public IEnumerable<ScheduleReservationGroup> DoCalendarTasks(string fromDate, string toDate, Guid? reservationId) {
-            var schedules = this.GetScheduleForPeriod(fromDate, toDate);
-            var reservations = this.GetReservationsForPeriod(fromDate, toDate, reservationId);
+            var schedules = GetScheduleForPeriod(fromDate, toDate);
+            var reservations = GetReservationsForPeriod(fromDate, toDate, reservationId);
             return UpdateCalendarData(schedules, reservations);
         }
 
@@ -122,7 +122,7 @@ namespace API.Features.Schedules {
 
         private IEnumerable<ScheduleViewModel> GetScheduleForPeriod(string fromDate, string toDate) {
             var response = context.Set<Schedule>()
-                .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
+                .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate) && x.IsActive && x.Destination.IsActive)
                 .OrderBy(x => x.Date).ThenBy(x => x.DestinationId).ThenBy(x => x.PortId)
                 .Select(x => new ScheduleViewModel {
                     Date = x.Date.ToString(),

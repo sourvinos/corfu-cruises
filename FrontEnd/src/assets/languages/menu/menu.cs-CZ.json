@@ -1,7 +1,11 @@
 [
     {
-        "id": "calendar",
-        "description": "Kalendář"
+        "id": "dashboard",
+        "description": "Hlavní panel"
+    },
+    {
+        "id": "schedule",
+        "description": "Rozvrhy"
     },
     {
         "id": "editAccount",

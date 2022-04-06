@@ -1,0 +1,34 @@
+* {
+    /*  Hamburger Menu */
+    --color-hamburger-menu: #bd0034;
+    --color-hamburger-menu-hover: #bd0034;
+    /*  Labels and Text */
+    --color-text: #073d65;
+    /*  Buttons */
+    --color-button-text: #ffffff;
+    --color-button-background-delete: #d94040;
+    /*  Checkboxes */
+    --color-checkbox-background: #7ca19f;
+    /*  Tabs */
+    --color-list-active-item: #7ca19f;
+    --color-list-inactive-item: #d94040;
+    /* Reservation Form Tabs */
+    --color-tab-overview: #fd7e14ff;
+    --color-tab-passengers: #fea75fff;
+    --color-tab-more: #fed1aaff;
+    /* Inputs */
+    --color-input: #073d65;
+    --color-input-focus: #65b4ef;
+    --color-input-error: #d94040;
+    --color-input-selected-background: #65b3ef4d;
+    /* Snackbars */
+    --color-snackbar-background-success: #16a34a;
+    --color-snackbar-background-error: #d94040;
+    --color-snackbar-background-warning: #ffc107;
+    --color-snackbar-text: #efefef;
+    /* Loader */
+    --color-loader: #ffa500;
+    /* Theme menu */
+    --color-sun: #f6ff00;
+    --color-moon: #efefef;
+}

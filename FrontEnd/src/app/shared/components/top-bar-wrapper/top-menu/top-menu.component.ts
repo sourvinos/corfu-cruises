@@ -49,7 +49,13 @@ export class TopMenuComponent {
     private createMenu(): void {
         this.menu = [
             {
-                label: this.getLabel('calendar'),
+                label: this.getLabel('dashboard'),
+                icon: 'fas fa-server',
+                routerLink: ['reservations'],
+                visible: this.isUserLoggedIn()
+            },
+            {
+                label: this.getLabel('schedule'),
                 icon: 'fas fa-calendar',
                 routerLink: ['calendar-schedule'],
                 visible: this.isUserLoggedIn()

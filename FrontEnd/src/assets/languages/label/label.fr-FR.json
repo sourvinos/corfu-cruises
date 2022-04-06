@@ -580,8 +580,8 @@
                 "description": "Rapport quotidien sur les réservations"
             },
             {
-                "id": "tripDate",
-                "description": "Date de la sortie en bateau"
+                "id": "date",
+                "description": "Date"
             },
             {
                 "id": "summaryTab",

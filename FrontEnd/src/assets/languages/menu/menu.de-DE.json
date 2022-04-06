@@ -1,7 +1,11 @@
 [
     {
-        "id": "calendar",
-        "description": "Kalender"
+        "id": "dashboard",
+        "description": "Hauptpanel"
+    },
+    {
+        "id": "schedule",
+        "description": "Reisepläne"
     },
     {
         "id": "editAccount",

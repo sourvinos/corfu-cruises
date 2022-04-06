@@ -35,23 +35,14 @@
 }
 
 #criteria-panel .panel .label, #totals-panel .panel .label {
-    color: var(--color-text-primary);
     font-family: var(--font-family-ubuntu);
     font-size: 100%;
 }
 
 #criteria-panel .panel .description, #totals-panel .panel .count {
-    margin-top: 5px;
+    margin-top: 0.3125rem;
     font-family: var(--font-family-handbook);
     font-size: 120%;
-}
-
-#criteria-panel .panel .description.odd, #totals-panel .panel .count.odd {
-    color: var(--color-criteria-odd);
-}
-
-#criteria-panel .panel .description.even, #totals-panel .panel .count.even {
-    color: var(--color-criteria-even);
 }
 
 #totals-panel {

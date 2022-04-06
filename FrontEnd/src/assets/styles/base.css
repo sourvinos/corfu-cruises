@@ -8,9 +8,7 @@
 @import "autocomplete.css";
 @import "buttons.css";
 @import "calendar.css";
-@import "checkbox.css";
-@import "colors.css";
-@import "datepicker.css";
+@import "common-colors.css";
 @import "dialogs.css";
 @import "headers.css";
 @import "input-error.css";
@@ -24,7 +22,6 @@
 @import "prime-dropdown.css";
 @import "prime-input.css";
 @import "prime-list.css";
-@import "prime-tab.css";
 @import "prime-table.css";
 @import "prime-top-menu.css";
 @import "radio.css";
@@ -72,16 +69,12 @@ ul {
 }
 
 p.instructions {
-    color: var(--color-text-primary);
+    color: var(--color-text);
     font-family: var(--font-family-handbook);
     font-size: var(--font-size-paragraph);
     overflow: hidden;
 }
 
 ::-webkit-scrollbar {
-    width: 1px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--color-common-background) !important;
+    width: 0;
 }

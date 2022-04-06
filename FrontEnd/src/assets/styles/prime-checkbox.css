@@ -7,11 +7,11 @@
 }
 
 .p-checkbox .p-checkbox-box {
-    background-color: var(--color-checkbox-checked) !important;
-    border-color: var(--color-checkbox-checked) !important;
+    background-color: var(--color-a) !important;
+    border-color: var(--color-c) !important;
 }
 
 .p-checkbox .p-checkbox-box.p-highlight {
-    background-color: var(--color-checkbox-checked) !important;
-    border-color: var(--color-checkbox-checked) !important;
+    background-color: var(--color-b) !important;
+    border-color: var(--color-b) !important;
 }

@@ -34,5 +34,5 @@
 }
 
 .content.scrollable::-webkit-scrollbar-thumb, #content.scrollable::-webkit-scrollbar-thumb {
-    border-top: 0 solid var(--color-common-background) !important;
+    border-top: 0 solid var(--color-a) !important;
 }

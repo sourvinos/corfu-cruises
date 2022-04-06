@@ -1,6 +1,6 @@
 .mat-menu-panel, .mat-menu-content {
     align-items: flex-start;
-    background-color: var(--color-common-background) !important;
+    background-color: var(--color-a) !important;
     border-radius: 0 !important;
     display: flex;
     flex-direction: column;

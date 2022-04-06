@@ -8,7 +8,7 @@
 }
 
 #loading-indication, #loading-indication::before {
-    background-color: var(--color-common-background);
+    background-color: var(--color-a);
     display: flex;
     height: 0.0625rem;
     left: 0;
@@ -19,7 +19,7 @@
 }
 
 #loading-indication::before {
-    background-color: var(--orange);
+    background-color: var(--color-loader);
     content: "";
     animation: running-progress 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }

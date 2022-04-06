@@ -20,8 +20,7 @@ export class AppComponent {
     //#region variables
 
     public showLoadingIndication = true
-    public countdown = null
-    // private idleState = 'NOT_STARTED'
+    public countdown = 0
 
     //#endregion
 
@@ -52,7 +51,7 @@ export class AppComponent {
     }
 
     public getMessage(): string {
-        return this.messageSnackbarService.timeoutWarning(this.countdown)
+        return this.messageSnackbarService.timeoutWarning(this.countdown) + '"'
     }
 
     //#endregion

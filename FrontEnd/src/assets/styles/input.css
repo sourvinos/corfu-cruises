@@ -11,7 +11,7 @@ input.right {
 }
 
 input::selection {
-    background-color: var(--color-text-selected);
+    background-color: var(--color-input-selected-background);
 }
 
 input.mat-input-element {
@@ -20,7 +20,7 @@ input.mat-input-element {
 
 input[type="text"], input[type="email"], input[type="number"], input[type="password"], input.mat-form-field-autofill-control {
     background-clip: content-box;
-    caret-color: var(--color-text-secondary);
+    caret-color: var(--color-text);
     cursor: text !important;
     font-size: var(--font-size-input) !important;
     outline: none;
@@ -55,10 +55,6 @@ input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:act
 
 .mat-hint, .mat-error {
     font-size: var(--font-size-input-hint) !important;
-}
-
-.mat-date-range-input-separator {
-    color: var(--color-text-primary) !important;
 }
 
 .mat-form-field-label-wrapper {

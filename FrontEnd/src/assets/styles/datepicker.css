@@ -1,8 +1,0 @@
-.mat-datepicker-toggle .mat-icon-button {
-    color: var(--color-text-primary) !important;
-}
-
-.mat-datepicker-content {
-    background-color: var(--color-calendar-background);
-    border: 1px solid #657171;
-}

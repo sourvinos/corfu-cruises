@@ -29,19 +29,19 @@
 }
 
 :host ::ng-deep .vertical .mat-tab-label:nth-child(1) {
-    background-color: #fd7e14ff;
+    background-color: var(--color-tab-overview);
 }
 
 :host ::ng-deep .vertical .mat-tab-label:nth-child(2) {
-    background-color: #fea75fff;
+    background-color: var(--color-tab-passengers);
 }
 
 :host ::ng-deep .vertical .mat-tab-label:nth-child(3) {
-    background-color: #fed1aaff;
+    background-color: var(--color-tab-more);
 }
 
 :host ::ng-deep .mat-tab-label .mat-tab-label-content {
-    color: black !important;
+    color: var(--color-text) !important;
     font-weight: bold !important;
 }
 
@@ -64,7 +64,7 @@
 }
 
 #form {
-    background-color: var(--color-table-background);
+    background-color: var(--color-a);
     height: 100%;
     padding: 0 1rem;
 }
@@ -84,20 +84,10 @@
     align-items: center;
     display: flex;
     font-size: 1.5625rem;
-    margin-bottom: 5px;
+    margin-bottom: 0.3125rem;
 }
 
 #footer {
     justify-content: space-between;
     margin: var(--gap) var(--footer-right-margin) var(--gap) var(--gap);
-}
-
-.mat-tab-label {
-    color: aquamarine !important;
-}
-
-#more {
-    background-color: var(--color-table-background);
-    height: 100%;
-    padding: 0 1rem 0 1rem;
 }

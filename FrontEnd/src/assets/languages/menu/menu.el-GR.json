@@ -1,7 +1,11 @@
 [
     {
-        "id": "calendar",
-        "description": "Ημερολόγιο"
+        "id": "dashboard",
+        "description": "Κεντρικός πίνακας"
+    },
+    {
+        "id": "schedule",
+        "description": "Πρόγραμμα"
     },
     {
         "id": "editAccount",

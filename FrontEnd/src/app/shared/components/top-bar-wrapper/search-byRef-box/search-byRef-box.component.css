@@ -8,19 +8,19 @@
 }
 
 #search-by-ref-no-text {
-    background-color: var(--color-common-background);
-    border-radius: 5px;
+    background-color: var(--color-a);
+    border-radius: 0.3125rem;
     border: none;
-    color: var(--color-text-secondary);
+    color: var(--color-text);
     font-family: var(--font-family-ubuntu), sans-serif;
-    font-size: 110%;
+    font-size: 1rem;
     font-weight: 300;
     margin: 0 0.4rem 0 0;
-    padding: 6px 16px;
+    padding: 0.375rem 1rem;
 }
 
 #search-by-ref-no-text::placeholder {
-    color: var(--color-text-primary);
+    color: var(--color-c);
 }
 
 input {
@@ -33,7 +33,10 @@ input:focus {
 }
 
 button {
-    color: var(--color-button-text) !important;
     display: flex;
-    padding: 0 3px;
+    padding: 0 0.1875rem;
+}
+
+button span {
+    color: #ededed !important;
 }

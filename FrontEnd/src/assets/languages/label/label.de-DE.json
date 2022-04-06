@@ -580,8 +580,8 @@
                 "description": "Täglicher Buchungsbericht"
             },
             {
-                "id": "tripDate",
-                "description": "Datum der Bootsfahrt"
+                "id": "date",
+                "description": "Datum"
             },
             {
                 "id": "summaryTab",

@@ -1,5 +1,5 @@
 .mat-autocomplete-panel.mat-autocomplete-visible {
-    background-color: var(--color-autocomplete-background) !important;
+    background-color: var(--color-c) !important;
     border-radius: 0 !important;
 }
 
@@ -11,7 +11,7 @@
 }
 
 .mat-option-text {
-    color: var(--color-autocomplete) !important;
+    color: var(--color-text) !important;
     display: flex !important;
     font-size: var(--font-size-autocomplete) !important;
     justify-content: space-between;
@@ -23,12 +23,4 @@
 
 .mat-option-text > span:last-child {
     width: 3rem !important;
-}
-
-.mat-option.mat-active {
-    border: 1px solid var(--color-autocomplete-border-active) !important;
-}
-
-.mat-option:hover:not(.mat-option-disabled) {
-    background-color: var(--color-autocomplete-background-hover) !important;
 }

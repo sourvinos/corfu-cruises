@@ -18,8 +18,12 @@
     overflow-x: hidden !important;
 }
 
+.cdk-virtual-scroll-content-wrapper {
+    height: 100% !important;
+}
+
 .p-datatable-scrollable-footer, .p-datatable-scrollable-header {
-    background-color: var(--color-common-background) !important;
+    background-color: var(--color-c) !important;
     overflow: visible !important;
 }
 
@@ -29,10 +33,10 @@
 }
 
 .p-datatable .p-datatable-thead > tr > th {
-    background-color: var(--color-table-header-background) !important;
-    border-right: 1px solid var(--color-table-column-seperator) !important;
+    background-color: var(--color-c) !important;
+    border-right: 1px solid var(--color-c) !important;
     border-width: 0 1px 0 0 !important;
-    color: var(--color-table-header) !important;
+    color: var(--color-text) !important;
     font-family: var(--font-family-ubuntu) !important;
     font-size: var(--font-size-table-header) !important;
     font-weight: var(--font-weight-table-header) !important;
@@ -50,7 +54,7 @@
 .p-datatable .p-datatable-tbody > tr {
     background-color: transparent !important;
     border: none !important;
-    outline: 1px solid var(--color-table-row-outline);
+    outline: 1px dotted var(--color-c);
     transition: all var(--change-theme-delay) ease;
 }
 
@@ -63,17 +67,17 @@
 }
 
 .row-group > td {
-    color: var(--color-table-row-group) !important;
+    color: var(--color-text) !important;
     font-weight: bold;
 }
 
 .ui-state-highlight td {
-    background-color: var(--color-table-row-background-selected) !important;
+    background-color: var(--color-c) !important;
 }
 
 .p-datatable .p-datatable-tbody > tr > td {
     border: none !important;
-    color: var(--color-text-primary);
+    color: var(--color-text);
     font-family: var(--font-family-ubuntu);
     font-size: var(--font-size-table-row);
     overflow: hidden !important;
@@ -88,24 +92,24 @@
 }
 
 .p-datatable .p-datatable-tfoot > tr > td {
-    background-color: var(--color-table-row-background-selected);
+    background-color: var(--color-c);
     border-radius: 0 0 10px 10px;
     border: none;
     justify-content: flex-end;
 }
 
 .p-datatable .p-datatable-tbody > tr.p-highlight > td {
-    background-color: var(--color-table-row-background-selected) !important;
+    background-color: var(--color-c) !important;
 }
 
 .p-datatable .p-sortable-column .p-sortable-column-icon {
-    color: var(--color-table-sort-icon) !important;
+    color: var(--color-text) !important;
     margin-top: -4px;
 }
 
 .p-datatable .p-sortable-column .p-sortable-column-badge {
-    background-color: var(--color-table-badge-background);
-    color: var(--color-table-badge-color);
+    background-color: var(--color-a);
+    color: var(--color-text);
     margin-top: -4px;
     transition: all var(--change-theme-delay) ease;
 }
@@ -120,13 +124,12 @@
 }
 
 .p-button.p-button-icon-only.p-button-rounded {
-    color: var(--color-top-menu-icons);
     height: auto;
     padding: 0;
 }
 
 .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
-    background-color: var(--color-table-row-background-hover) !important;
+    background-color: var(--color-c) !important;
 }
 
 .p-button.p-button-text:enabled:focus, .p-button.p-button-outlined:enabled:focus {
@@ -139,10 +142,10 @@
 }
 
 div:not(.p-column-filter).p-column-filter-row:hover {
-    background-color: var(--color-table-row-background-hover) !important;
+    background-color: var(--color-c) !important;
 }
 
 .row-group {
-    color: var(--color-table-row-group) !important;
+    color: var(--color-text) !important;
     font-weight: bold;
 }

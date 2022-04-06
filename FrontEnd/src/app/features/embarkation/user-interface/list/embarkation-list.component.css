@@ -38,25 +38,9 @@
 }
 
 #video {
-    background-color: var(--dark-gray);
+    background-color: var(--color-a);
     display: none;
     padding: 1rem;
     position: fixed;
     z-index: 1;
-}
-
-.fa-arrow-circle-down {
-    color: var(--color-button-embarkation-pending) !important;
-}
-
-.fa-check {
-    color: var(--color-button-embarkation-ok) !important;
-}
-
-.fa-exclamation-triangle {
-    color: var(--color-icon-remarks-warning) !important;
-}
-
-.boarding:hover {
-    cursor: pointer;
 }

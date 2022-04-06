@@ -10,10 +10,6 @@
     margin-right: 1rem !important;
 }
 
-#navigation button:hover {
-    background-color: var(--color-button-fab-background-hover) !important;
-}
-
 #title {
     align-items: center;
     display: flex;

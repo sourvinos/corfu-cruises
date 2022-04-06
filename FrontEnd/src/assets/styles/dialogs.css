@@ -7,12 +7,12 @@
 }
 
 .mat-dialog-container {
-    background-color: var(--color-common-background) !important;
+    background-color: var(--color-a) !important;
     padding: 2rem !important;
 }
 
 #dialog {
-    background-color: var(--color-common-background) !important;
+    background-color: var(--color-a) !important;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -31,7 +31,7 @@
 }
 
 #dialog-content {
-    color: var(--color-text-primary);
+    color: var(--color-text);
     flex: 1;
     font-family: var(--font-family-handbook) !important;
     font-size: var(--font-size-dialog) !important;

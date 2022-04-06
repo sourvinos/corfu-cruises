@@ -12,10 +12,14 @@
     width: 100%;
 }
 
-#image-wrapper span {
+span {
     font-size: 8rem;
 }
 
-#image-wrapper button {
+button {
     margin-top: 0.5rem;
+}
+
+button:hover {
+    cursor: pointer;
 }

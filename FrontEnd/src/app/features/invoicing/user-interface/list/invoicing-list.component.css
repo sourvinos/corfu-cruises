@@ -1,20 +1,6 @@
-#criteria-labels {
-    align-items: center;
-    display: flex;
-    font-family: var(--font-family-handbook);
-    font-size: var(--font-size-criteria-labels);
-    font-weight: var(--font-weight-header);
-    margin-left: auto;
-}
-
-#criteria-labels span {
-    color: var(--color-headers);
-    margin: 0 0.3125rem 0 0.3125rem;
-}
-
 .total-header {
-    background-color: var(--color-table-row-group-header);
-    color: var(--color-text-primary);
+    background-color: var(--color-a);
+    color: var(--color-text);
     font-family: var(--font-family-ubuntu);
     font-weight: 100;
     padding: 0.3rem;
@@ -22,8 +8,7 @@
 }
 
 .subtotal td, .row-group td {
-    color: var(--color-table-row-subgroup);
-    font-size: var(--font-size-row-subgroup);
+    color: var(--color-c);
     transition: all var(--change-theme-delay) ease;
 }
 
@@ -34,17 +19,12 @@
 }
 
 .clickable:hover {
-    color: var(--color-table-row-group-hover) !important;
+    color: var(--color-d) !important;
 }
 
 .pi-file-pdf {
     margin-right: 0.5rem;
-    color: var(--color-table-sort-icon) !important;
     font-size: 1.5rem !important;
     font-weight: 100;
     transition: all var(--change-theme-delay) ease;
-}
-
-.clickable:hover > .pi-file-pdf {
-    color: var(--color-table-row-group-hover) !important;
 }

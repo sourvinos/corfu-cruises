@@ -1,15 +1,16 @@
 .mat-snack-bar-container {
+    color: var(--color-snackbar-text);
     min-width: 35rem !important;
 }
 
 .info {
-    background-color: var(--color-snackbar-info) !important;
+    background-color: var(--color-snackbar-background-success) !important;
 }
 
 .warning {
-    background-color: var(--color-snackbar-warning) !important;
+    background-color: var(--color-snackbar-background-warning) !important;
 }
 
 .error {
-    background-color: var(--color-snackbar-error) !important;
+    background-color: var(--color-snackbar-background-error) !important;
 }
