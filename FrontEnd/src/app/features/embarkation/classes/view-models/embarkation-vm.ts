@@ -4,11 +4,11 @@ export class EmbarkationVM {
 
     constructor(
 
-        public passengers: number,
-        public boarded: number,
-        public remaining: number,
-        public totalPersons: number,
-        public missingNames: number,
+        public passengerCount: number,
+        public passengerCountWithNames: number,
+        public boardedCount: number,
+        public remainingCount: number,
+        public passengerCountWithNoNames: number,
         public embarkation: EmbarkationReservationVM[] = []
 
     ) { }

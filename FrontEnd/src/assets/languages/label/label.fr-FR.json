@@ -1295,20 +1295,12 @@
                 "description": "Embarquement"
             },
             {
-                "id": "all",
-                "description": "Tous"
-            },
-            {
                 "id": "boarded",
                 "description": "Embarquées"
             },
             {
                 "id": "pending",
                 "description": "En attente"
-            },
-            {
-                "id": "filtered",
-                "description": "Filtrés"
             },
             {
                 "id": "headerTicketNo",
@@ -1351,16 +1343,44 @@
                 "description": "X"
             },
             {
-                "id": "buttonEmbarkPassenger",
-                "description": "CLIQUEZ POUR EMBARQUER UN PASSAGER"
+                "id": "date",
+                "description": "Date"
             },
             {
-                "id": "buttonDisembarkPassenger",
-                "description": "CLIQUEZ POUR DÉBARQUER UN PASSAGER"
+                "id": "destination",
+                "description": "Destination"
+            },
+            {
+                "id": "port",
+                "description": "Port"
+            },
+            {
+                "id": "ship",
+                "description": "Navire"
             },
             {
                 "id": "no-results",
                 "description": "Nous n'avons rien trouvé !"
+            },
+            {
+                "id": "filterAll",
+                "description": "Total"
+            },
+            {
+                "id": "filterWithDetails",
+                "description": "Avec détails"
+            },
+            {
+                "id": "filterBoarded",
+                "description": "Embarqués"
+            },
+            {
+                "id": "filterPending",
+                "description": "En attente"
+            },
+            {
+                "id": "remarks",
+                "description": "Remarques"
             }
         ]
     },

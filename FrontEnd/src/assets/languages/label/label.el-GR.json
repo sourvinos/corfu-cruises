@@ -790,7 +790,7 @@
             },
             {
                 "id": "remarks",
-                "description": "Παρατηρήσεις"
+                "description": "Σχόλια"
             },
             {
                 "id": "abortButton",
@@ -1196,7 +1196,7 @@
             },
             {
                 "id": "remarks",
-                "description": "Παρατηρήσεις"
+                "description": "Σχόλια"
             },
             {
                 "id": "isCheckedIn",
@@ -1295,20 +1295,12 @@
                 "description": "Επιβίβαση"
             },
             {
-                "id": "all",
-                "description": "Όλοι"
-            },
-            {
                 "id": "boarded",
-                "description": "Έχουν επιβιβαστεί"
+                "description": "ΟΚ"
             },
             {
                 "id": "pending",
-                "description": "Σε εκκρεμότητα"
-            },
-            {
-                "id": "filtered",
-                "description": "Φιλτραρισμένοι"
+                "description": "ΕΚΚΡΕΜΕΙ"
             },
             {
                 "id": "headerTicketNo",
@@ -1332,7 +1324,7 @@
             },
             {
                 "id": "headerStatus",
-                "description": "Κατάσταση"
+                "description": "Επιβίβαση"
             },
             {
                 "id": "headerLastname",
@@ -1351,16 +1343,44 @@
                 "description": "X"
             },
             {
-                "id": "buttonEmbarkPassenger",
-                "description": "ΚAΝΤΕ ΚΛΙΚ ΓΙΑ ΕΠΙΒIΒΑΣΗ ΕΠΙΒAΤΗ"
+                "id": "date",
+                "description": "Ημερομηνία"
             },
             {
-                "id": "buttonDisembarkPassenger",
-                "description": "ΚAΝΤΕ ΚΛΙΚ ΓΙΑ ΑΠΟΒIΒΑΣΗ ΕΠΙΒAΤΗ"
+                "id": "destination",
+                "description": "Προορισμός"
+            },
+            {
+                "id": "port",
+                "description": "Λιμάνι"
+            },
+            {
+                "id": "ship",
+                "description": "Πλοίο"
             },
             {
                 "id": "no-results",
                 "description": "Δεν βρήκαμε τίποτα!"
+            },
+            {
+                "id": "filterAll",
+                "description": "Σύνολο"
+            },
+            {
+                "id": "filterWithDetails",
+                "description": "Με στοιχεία"
+            },
+            {
+                "id": "filterBoarded",
+                "description": "Επιβιβασμένοι"
+            },
+            {
+                "id": "filterPending",
+                "description": "Εκκρεμούν"
+            },
+            {
+                "id": "remarks",
+                "description": "Σχόλια"
             }
         ]
     },
@@ -1374,10 +1394,6 @@
             {
                 "id": "searchLabel",
                 "description": "Αναζητηση"
-            },
-            {
-                "id": "searchHint",
-                "description": "Με βάση την περιγραφή"
             },
             {
                 "id": "newButton",
@@ -1496,7 +1512,7 @@
             },
             {
                 "id": "headerRemarks",
-                "description": "Παρατηρήσεις"
+                "description": "Σχόλια"
             },
             {
                 "id": "headerTotals",

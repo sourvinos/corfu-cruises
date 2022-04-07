@@ -790,7 +790,7 @@
             },
             {
                 "id": "remarks",
-                "description": "Bemerkungen"
+                "description": "Kommentare"
             },
             {
                 "id": "abortButton",
@@ -1196,7 +1196,7 @@
             },
             {
                 "id": "remarks",
-                "description": "Auslassungen"
+                "description": "Kommentare"
             },
             {
                 "id": "isCheckedIn",
@@ -1295,20 +1295,12 @@
                 "description": "Einschiffung"
             },
             {
-                "id": "all",
-                "description": "Alle"
-            },
-            {
                 "id": "boarded",
-                "description": "Eingestiegene"
+                "description": "OK"
             },
             {
                 "id": "pending",
                 "description": "Ausstehende"
-            },
-            {
-                "id": "filtered",
-                "description": "Gefilterte"
             },
             {
                 "id": "headerTicketNo",
@@ -1328,7 +1320,7 @@
             },
             {
                 "id": "headerPersons",
-                "description": "Gesamtpersonen"
+                "description": "Personen"
             },
             {
                 "id": "headerStatus",
@@ -1351,16 +1343,44 @@
                 "description": "X"
             },
             {
-                "id": "buttonEmbarkPassenger",
-                "description": "KLICKEN SIE HIER, UM DEN PASSAGIER EINZUSCHIFFEN"
+                "id": "date",
+                "description": "Datum"
             },
             {
-                "id": "buttonDisembarkPassenger",
-                "description": "KLICKEN SIE HIER, UM DEN PASSAGIER AUSZUSTEIGEN"
+                "id": "destination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "port",
+                "description": "Hafen"
+            },
+            {
+                "id": "ship",
+                "description": "Schiff"
             },
             {
                 "id": "no-results",
                 "description": "Wir haben nichts gefunden!"
+            },
+            {
+                "id": "filterAll",
+                "description": "Insgesamt"
+            },
+            {
+                "id": "filterWithDetails",
+                "description": "Mit Details"
+            },
+            {
+                "id": "filterBoarded",
+                "description": "Eingeschiffte"
+            },
+            {
+                "id": "filterPending",
+                "description": "Ausstehend"
+            },
+            {
+                "id": "remarks",
+                "description": "Kommentare"
             }
         ]
     },
@@ -1374,10 +1394,6 @@
             {
                 "id": "searchLabel",
                 "description": "Suchen"
-            },
-            {
-                "id": "searchHint",
-                "description": "Alle suchen"
             },
             {
                 "id": "newButton",
@@ -1496,7 +1512,7 @@
             },
             {
                 "id": "headerRemarks",
-                "description": "Bemerkungen"
+                "description": "Kommentare"
             },
             {
                 "id": "headerTotals",

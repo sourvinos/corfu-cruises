@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Features.Drivers;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
@@ -38,11 +37,11 @@ namespace API.Features.Embarkation {
             int boarded = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);
             int remaining = passengers - boarded;
             var mainResult = new EmbarkationMainResult<Reservation> {
-                TotalPersons = totalPersons,
-                MissingNames = totalPersons - passengers,
-                Passengers = passengers,
-                Boarded = boarded,
-                Remaining = remaining,
+                PassengerCount = totalPersons,
+                PassengerCountWithNames = passengers,
+                BoardedCount = boarded,
+                RemainingCount = remaining,
+                PassengerCountWithNoNames = totalPersons - passengers,
                 Embarkation = reservations.ToList()
             };
             return mapper.Map<EmbarkationMainResult<Reservation>, EmbarkationMainResultResource<EmbarkationResource>>(mainResult);

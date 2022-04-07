@@ -4,11 +4,11 @@ namespace API.Features.Embarkation {
 
     public class EmbarkationMainResultResource<T> {
 
-        public int TotalPersons { get; set; }
-        public int MissingNames { get; set; }
-        public int Passengers { get; set; }
-        public int Boarded { get; set; }
-        public int Remaining { get; set; }
+        public int PassengerCount { get; set; }
+        public int PassengerCountWithNames { get; set; }
+        public int BoardedCount { get; set; }
+        public int RemainingCount { get; set; }
+        public int PassengerCountWithNoNames { get; set; }
 
         public IEnumerable<EmbarkationResource> Embarkation { get; set; }
 

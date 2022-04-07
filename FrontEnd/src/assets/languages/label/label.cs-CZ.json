@@ -790,7 +790,7 @@
             },
             {
                 "id": "remarks",
-                "description": "Poznámky"
+                "description": "Komentáře"
             },
             {
                 "id": "abortButton",
@@ -1196,7 +1196,7 @@
             },
             {
                 "id": "remarks",
-                "description": "Poznámky"
+                "description": "Komentáře"
             },
             {
                 "id": "isCheckedIn",
@@ -1295,20 +1295,12 @@
                 "description": "Nalodění"
             },
             {
-                "id": "all",
-                "description": "Všichni"
-            },
-            {
                 "id": "boarded",
                 "description": "Nastoupili"
             },
             {
                 "id": "pending",
                 "description": "Čekající"
-            },
-            {
-                "id": "filtered",
-                "description": "Filtrovaní"
             },
             {
                 "id": "headerTicketNo",
@@ -1351,16 +1343,44 @@
                 "description": "X"
             },
             {
-                "id": "buttonEmbarkPassenger",
-                "description": "KLIKNUTÍM NALODÍTE CESTUJÍCÍHO"
+                "id": "date",
+                "description": "Datum"
             },
             {
-                "id": "buttonDisembarkPassenger",
-                "description": "KLIKNUTÍM VYSTOUPÍTE Z CESTUJÍCÍHO"
+                "id": "destination",
+                "description": "Destinace"
+            },
+            {
+                "id": "port",
+                "description": "Přístav"
+            },
+            {
+                "id": "ship",
+                "description": "Plavidlo"
             },
             {
                 "id": "no-results",
                 "description": "Nic jsme nenašli!"
+            },
+            {
+                "id": "filterAll",
+                "description": "Celkem"
+            },
+            {
+                "id": "filterWithDetails",
+                "description": "S podrobnostmi"
+            },
+            {
+                "id": "filterBoarded",
+                "description": "Nastoupivší"
+            },
+            {
+                "id": "filterPending",
+                "description": "Čeká se na"
+            },
+            {
+                "id": "remarks",
+                "description": "Komentáře"
             }
         ]
     },
@@ -1496,7 +1516,7 @@
             },
             {
                 "id": "headerRemarks",
-                "description": "Poznámky"
+                "description": "Komentáře"
             },
             {
                 "id": "headerTotals",

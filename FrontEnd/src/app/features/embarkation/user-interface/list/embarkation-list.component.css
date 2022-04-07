@@ -44,3 +44,86 @@
     position: fixed;
     z-index: 1;
 }
+
+.remarks:hover {
+    cursor: pointer;
+}
+
+.passenger-row {
+    padding: 3px;
+}
+
+.embarkation-status:hover {
+    cursor: pointer;
+}
+
+.pending {
+    background-color: var(--color-embarkation-pending);
+}
+
+.complete {
+    background-color: var(--color-embarkation-complete);
+}
+
+#criteria {
+    align-items: center;
+    display: flex;
+    font-family: var(--font-family-handbook);
+    gap: 0.5rem;
+    justify-content: flex-end;
+    margin: 0 1rem 0 auto;
+    text-align: right;
+}
+
+#criteria > div {
+    background-color: var(--color-d);
+    padding: 0.5rem;
+    border-radius: 0.3125rem;
+}
+
+#criteria .label {
+    color: var(--color-text);
+    font-weight: bold;
+}
+
+#criteria .description {
+    color: var(--color-text);
+}
+
+#footer {
+    justify-content: space-between;
+    margin: var(--gap) var(--footer-right-margin) var(--gap) var(--footer-left-margin);
+}
+
+.selected-filter {
+    background-color: var(--color-c) !important;
+}
+
+#filters {
+    align-items: center;
+    display: flex;
+    font-family: var(--font-family-handbook);
+    gap: 0.5rem;
+    margin: 0 auto 0 1rem;
+    text-align: right;
+}
+
+#filters > div {
+    background-color: var(--color-d);
+    padding: 0.5rem;
+    border-radius: 0.3125rem;
+}
+
+#filters > div:hover {
+    background-color: var(--color-c);
+    cursor: pointer;
+}
+
+#filters .label {
+    color: var(--color-text);
+    font-weight: bold;
+}
+
+#filters .description {
+    color: var(--color-text);
+}

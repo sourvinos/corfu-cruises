@@ -15,6 +15,7 @@ import { MessageSnackbarService } from '../../../../shared/services/messages-sna
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
+import { DialogService } from 'src/app/shared/services/dialog.service'
 
 @Component({
     selector: 'embarkation-list',
@@ -46,15 +47,32 @@ export class EmbarkationListComponent {
 
     public scannerEnabled: boolean
     public searchTerm: string
+    public embarkationCriteria: any = {}
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private embarkationervice: EmbarkationService, private titleService: Title) {
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private buttonClickService: ButtonClickService,
+        private dateAdapter: DateAdapter<any>,
+        private dialogService: DialogService,
+        private emojiService: EmojiService,
+        private helperService: HelperService,
+        private keyboardShortcutsService: KeyboardShortcuts,
+        private localStorageService: LocalStorageService,
+        private messageLabelService: MessageLabelService,
+        private messageSnackbarService: MessageSnackbarService,
+        private router: Router,
+        private snackbarService: SnackbarService,
+        private embarkationervice: EmbarkationService,
+        private titleService: Title
+    ) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
                 this.loadRecords()
                 this.updatePassengerStatus()
+                this.populateCriteriaFromStoredVariables()
                 this.getDistinctCustomers()
                 this.getDistinctDrivers()
                 this.getDistinctShips()
@@ -80,15 +98,20 @@ export class EmbarkationListComponent {
 
     //#region public methods
 
-    public onDoEmbarkation(id: number): void {
+    public embarkPassenger(id: number): void {
         this.embarkationervice.boardPassenger(id).pipe(indicate(this.loading)).subscribe(() => {
             this.refreshList()
             this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
         })
     }
 
-    public onFilterExclude(variable?: string): void {
-        this.filteredRecords.embarkation = variable ? this.records.embarkation.filter(x => x.isCheckedIn != variable) : this.records.embarkation
+    private formatDateToLocale(date: string, showWeekday = false): string {
+        return this.helperService.formatISODateToLocale(date, showWeekday)
+    }
+
+    public doFilterTasks(elementId: string, variable?: string): void {
+        this.filterByEmbarkationStatus(variable)
+        this.setActiveClassOnSelectedFilter(elementId)
     }
 
     public getEmoji(emoji: string): string {
@@ -101,6 +124,10 @@ export class EmbarkationListComponent {
 
     public goBack(): void {
         this.router.navigate([this.parentUrl])
+    }
+
+    public showDate(): string {
+        return this.formatDateToLocale(this.embarkationCriteria.date, true)
     }
 
     public onHasRemarks(remarks: string): boolean {
@@ -121,6 +148,10 @@ export class EmbarkationListComponent {
         }, 1000)
     }
 
+    public showRemarks(remarks: string): void {
+        this.dialogService.open(this.getLabel('remarks'), 'warningColor', remarks, ['ok'])
+    }
+
     public doSomething(event: string): void {
         this.scannerEnabled = false
         document.getElementById('video').style.display = 'none'
@@ -133,6 +164,14 @@ export class EmbarkationListComponent {
 
     public camerasFound(): void {
         console.log('Camera list')
+    }
+
+    public replaceWildcardWithText(criteria: string): string {
+        if (criteria.includes(this.emojiService.getEmoji('wildcard'))) {
+            return this.emojiService.getEmoji('wildcard')
+        } else {
+            return criteria
+        }
     }
 
     //#endregion
@@ -162,6 +201,11 @@ export class EmbarkationListComponent {
                 this.filteredRecords.embarkation.push(record)
             }
         })
+    }
+
+    private filterByEmbarkationStatus(variable?: string): void {
+        console.log(variable)
+        this.filteredRecords.embarkation = variable ? this.records.embarkation.filter(x => x.isCheckedIn != variable) : this.records.embarkation
     }
 
     private getDistinctCustomers(): void {
@@ -194,9 +238,22 @@ export class EmbarkationListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
+        }
+    }
+
+    private populateCriteriaFromStoredVariables(): void {
+        if (this.localStorageService.getItem('embarkation-criteria')) {
+            const criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
+            this.embarkationCriteria = {
+                date: criteria.date,
+                destination: criteria.destination,
+                port: criteria.port,
+                ship: criteria.ship
+            }
         }
     }
 
@@ -230,6 +287,14 @@ export class EmbarkationListComponent {
                 record.isCheckedIn = 'MIX'
             }
         })
+    }
+
+    private setActiveClassOnSelectedFilter(elementId: string) {
+        const filters = document.getElementById('filters')
+        Array.from(filters.children).forEach(child => {
+            child.classList.remove('selected-filter')
+        })
+        document.getElementById(elementId).classList.add('selected-filter')
     }
 
     //#endregion
