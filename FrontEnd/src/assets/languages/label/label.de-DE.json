@@ -1335,6 +1335,10 @@
                 "description": "Vorname"
             },
             {
+                "id": "createPDF",
+                "description": "PDF ERSTELLEN"
+            },
+            {
                 "id": "scanOpenButton",
                 "description": "GUTSCHEIN SCANNEN"
             },

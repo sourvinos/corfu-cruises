@@ -1,0 +1,83 @@
+@model EmbarkationPrinterGroupVM<EmbarkationPrinterVM>
+
+<head>
+    <style>
+        #wrapper {
+            padding: 2rem;
+        }
+
+        #header {
+            align-items: center;
+            display: flex;
+        }
+
+        #image{
+            height: 105px;
+            width: 105px;
+        }
+
+        #logo-and-title {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #logo-text {
+            font-family: "Aka-Acid-CanterBold";
+            font-size: 36px;
+        }
+
+        #title {
+            font-family: "Ubuntu Condensed";
+            font-size: 18px;
+            font-weight: 100;
+        }
+
+        #wrapper {
+            padding: 2rem;
+        }
+
+        .reservation {
+            display: flex;
+            font-family: "Ubuntu Condensed";
+        }
+
+        .passenger {
+            display: flex;
+            font-family: "Ubuntu Condensed";
+            margin-left: 5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div id="header">
+            <div id="image">
+                <img src="@Model.Logo" width="105" height="105px" />
+            </div>
+            <div id="logo-and-title">
+                <div id="logo-text">CORFU CRUISES</div>
+                <div id="title">Κατάσταση επιβίβασης</div>
+            </div>
+        </div>
+
+        @foreach (var x in Model.Embarkation) {
+            <div class="reservation">
+                <div class="customer">@x.Customer</div>
+                <div class="driver">@x.Driver</div>
+                <div class="ticket-no">@x.TicketNo</div>
+            </div>
+            @foreach (var item in x.Passengers) {
+                <div class="passenger">
+                    <div class="lastname">
+                        @item.Lastname
+                        @item.Firstname
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+</body>

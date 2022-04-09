@@ -16,11 +16,11 @@ namespace API.Infrastructure.Implementations {
     public class Repository<T> : IRepository<T> where T : class {
 
         protected readonly AppDbContext context;
-        private readonly TestingEnvironment settings;
+        private readonly TestingEnvironment testingSettings;
 
-        public Repository(AppDbContext context, IOptions<TestingEnvironment> settings) {
+        public Repository(AppDbContext context, IOptions<TestingEnvironment> testingSettings) {
             this.context = context;
-            this.settings = settings.Value;
+            this.testingSettings = testingSettings.Value;
         }
 
         public async Task<IEnumerable<T>> Get(Expression<Func<T, bool>> expression) {
@@ -87,7 +87,7 @@ namespace API.Infrastructure.Implementations {
         }
 
         private void DisposeOrCommit(IDbContextTransaction transaction) {
-            if (settings.IsTesting) {
+            if (testingSettings.IsTesting) {
                 transaction.Dispose();
             } else {
                 transaction.Commit();

@@ -1335,6 +1335,10 @@
                 "description": "Prénom"
             },
             {
+                "id": "createPDF",
+                "description": "CRÉER UN PDF"
+            },
+            {
                 "id": "scanOpenButton",
                 "description": "SCANNEZ LE BON"
             },

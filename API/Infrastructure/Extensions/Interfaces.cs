@@ -3,6 +3,8 @@ using API.Features.Customers;
 using API.Features.Destinations;
 using API.Features.Drivers;
 using API.Features.Embarkation;
+using API.Features.Embarkation.Display;
+using API.Features.Embarkation.Printer;
 using API.Features.Genders;
 using API.Features.Invoicing;
 using API.Features.Manifest;
@@ -26,12 +28,13 @@ namespace API.Infrastructure.Extensions {
 
         public static void AddInterfaces(IServiceCollection services) {
             services.AddScoped<Token>();
-            services.AddTransient<IEmbarkationRepository, EmbarkationRepository>();
+            services.AddTransient<ICoachRouteRepository, CoachRouteRepository>();
             services.AddTransient<ICrewRepository, CrewRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddTransient<IRegistrarRepository, RegistrarRepository>();
             services.AddTransient<IDestinationRepository, DestinationRepository>();
             services.AddTransient<IDriverRepository, DriverRepository>();
+            services.AddTransient<IEmbarkationDisplayRepository, EmbarkationDisplayRepository>();
+            services.AddTransient<IEmbarkationPrinterRepository, EmbarkationPrinterRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
             services.AddTransient<IInvoicingRepository, InvoicingRepository>();
@@ -40,8 +43,8 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IOccupantRepository, OccupantRepository>();
             services.AddTransient<IPickupPointRepository, PickupPointRepository>();
             services.AddTransient<IPortRepository, PortRepository>();
+            services.AddTransient<IRegistrarRepository, RegistrarRepository>();
             services.AddTransient<IReservationRepository, ReservationRepository>();
-            services.AddTransient<ICoachRouteRepository, CoachRouteRepository>();
             services.AddTransient<IScheduleRepository, ScheduleRepository>();
             services.AddTransient<IShipOwnerRepository, ShipOwnerRepository>();
             services.AddTransient<IShipRepository, ShipRepository>();

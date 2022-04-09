@@ -1,27 +1,32 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Features.Embarkation.Display;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Embarkation {
 
-    public class EmbarkationRepository : Repository<Reservation>, IEmbarkationRepository {
+    public class EmbarkationDisplayRepository : Repository<Reservation>, IEmbarkationDisplayRepository {
 
         private readonly IMapper mapper;
-        private readonly TestingEnvironment settings;
+        private readonly DirectoryLocations directoryLocations;
+        private readonly TestingEnvironment testingSettings;
 
-        public EmbarkationRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
+        public EmbarkationDisplayRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> testingSettings, IOptions<DirectoryLocations> directoryLocations) : base(appDbContext, testingSettings) {
             this.mapper = mapper;
-            this.settings = settings.Value;
+            this.testingSettings = testingSettings.Value;
+            this.directoryLocations = directoryLocations.Value;
         }
 
-        public async Task<EmbarkationMainResultResource<EmbarkationResource>> Get(string date, int destinationId, int portId, string shipId) {
+        public async Task<EmbarkationDisplayGroupVM<EmbarkationDisplayVM>> Get(string date, int destinationId, int portId, string shipId) {
             var reservations = await context.Set<Reservation>()
                 .Include(x => x.Customer)
                 .Include(x => x.Driver)
@@ -36,7 +41,7 @@ namespace API.Features.Embarkation {
             int passengers = reservations.Sum(c => c.Passengers.Count);
             int boarded = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);
             int remaining = passengers - boarded;
-            var mainResult = new EmbarkationMainResult<Reservation> {
+            var mainResult = new EmbarkationDisplayGroupDto<Reservation> {
                 PassengerCount = totalPersons,
                 PassengerCountWithNames = passengers,
                 BoardedCount = boarded,
@@ -44,7 +49,7 @@ namespace API.Features.Embarkation {
                 PassengerCountWithNoNames = totalPersons - passengers,
                 Embarkation = reservations.ToList()
             };
-            return mapper.Map<EmbarkationMainResult<Reservation>, EmbarkationMainResultResource<EmbarkationResource>>(mainResult);
+            return mapper.Map<EmbarkationDisplayGroupDto<Reservation>, EmbarkationDisplayGroupVM<EmbarkationDisplayVM>>(mainResult);
         }
 
         public bool DoEmbarkation(int id) {
@@ -53,7 +58,7 @@ namespace API.Features.Embarkation {
                 using var transaction = context.Database.BeginTransaction();
                 passenger.IsCheckedIn = !passenger.IsCheckedIn;
                 context.SaveChanges();
-                if (settings.IsTesting) {
+                if (testingSettings.IsTesting) {
                     transaction.Dispose();
                 } else {
                     transaction.Commit();
@@ -62,6 +67,13 @@ namespace API.Features.Embarkation {
             } else {
                 return false;
             }
+        }
+
+        public FileStreamResult GetReport(string filename) {
+            byte[] byteArray = File.ReadAllBytes(directoryLocations.ReportsLocation + Path.DirectorySeparatorChar + filename);
+            File.WriteAllBytes(filename, byteArray);
+            MemoryStream memoryStream = new(byteArray);
+            return new FileStreamResult(memoryStream, "application/pdf");
         }
 
     }

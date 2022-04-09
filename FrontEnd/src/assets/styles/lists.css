@@ -27,6 +27,11 @@
     margin: var(--gap) var(--footer-right-margin) var(--gap) 0;
 }
 
+#footer .button-group {
+    display: flex;
+    gap: 1rem;
+}
+
 .icon-red {
     color: var(--color-list-inactive-item);
 }
