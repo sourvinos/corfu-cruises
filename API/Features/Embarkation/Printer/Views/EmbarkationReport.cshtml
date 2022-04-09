@@ -2,16 +2,13 @@
 
 <head>
     <style>
-        #wrapper {
-            padding: 2rem;
-        }
 
         #header {
             align-items: center;
             display: flex;
         }
 
-        #image{
+        #image {
             height: 105px;
             width: 105px;
         }
@@ -19,6 +16,8 @@
         #logo-and-title {
             display: flex;
             flex-direction: column;
+            padding-left: 1rem;
+            align-items: center;
         }
 
         #logo-text {
@@ -32,8 +31,52 @@
             font-weight: 100;
         }
 
-        #wrapper {
-            padding: 2rem;
+        #criteria {
+            display: flex;
+            font-family: "Ubuntu Condensed";
+            margin-left: auto;
+        }
+
+        #criteria > div {
+            background-color: #efefef;
+            border-radius: 5px;
+            margin-left: 0.5rem;
+            padding: 5px 10px;
+            text-align: right;
+        }
+
+        .label {
+            font-size: 16px;
+            font-family: "PF Handbook Pro";
+        }
+
+        .description {
+            font-size: 18px;
+            font-family: "PF Handbook Pro";
+            font-weight: 300;
+        }
+
+        #list-header {
+            background-color: #efefef;
+            border-radius: 10px;
+            display: flex;
+            font-family: "Ubuntu Condensed";
+            font-size: 16px;
+            justify-content: space-evenly;
+            margin-top: 0.5rem;
+            padding: 1rem;
+        }
+
+        #outer-table {
+            width: 100%;
+            font-family: "Ubuntu Condensed";
+            margin-top: 2rem;
+        }
+
+        .nested-table {
+            width: 50%;
+            border-radius: 10px;
+            margin-left: 10rem;
         }
 
         .reservation {
@@ -42,11 +85,32 @@
         }
 
         .passenger {
-            display: flex;
-            font-family: "Ubuntu Condensed";
-            margin-left: 5rem;
+            background-color: #ffffff;
+            padding: 0.5rem;
         }
+
+        th {
+            padding: 0.5rem;
+            border: 1px dotted lightgray;
+        }
+
+        td {
+            padding: 0.1rem 0.5rem;
+            border: 1px dotted lightgray;
+            font-size: 10px;
+        }
+
+        .column-header {
+            font-size: 12px;
+        }
+
+        #ticket-column {
+            text-align: center;
+            width: 5rem;
+        }
+
     </style>
+
 </head>
 
 <body>
@@ -55,29 +119,73 @@
 
         <div id="header">
             <div id="image">
-                <img src="@Model.Logo" width="105" height="105px" />
+                <img src="@Model.Logo" width="105px" height="105px" />
             </div>
             <div id="logo-and-title">
                 <div id="logo-text">CORFU CRUISES</div>
-                <div id="title">Κατάσταση επιβίβασης</div>
+                <div id="title">ΚΑΤΑΣΤΑΣΗ ΕΠΙΒΙΒΑΣΗΣ</div>
+            </div>
+            <div id="criteria">
+                <div>
+                    <div class="label">Ημερομηνία</div>
+                    <div class="description">Τετ 01/07/2022</div>
+                </div>
+                <div>
+                    <div class="label">Προορισμός</div>
+                    <div class="description">PAXOS - ANTIPAXOS</div>
+                </div>
+                <div>
+                    <div class="label">Λιμάνι</div>
+                    <div class="description">LEFKIMMI PORT</div>
+                </div>
+                <div>
+                    <div class="label">Πλοίο</div>
+                    <div class="description">CAPTAIN BILL</div>
+                </div>
             </div>
         </div>
 
-        @foreach (var x in Model.Embarkation) {
-            <div class="reservation">
-                <div class="customer">@x.Customer</div>
-                <div class="driver">@x.Driver</div>
-                <div class="ticket-no">@x.TicketNo</div>
-            </div>
-            @foreach (var item in x.Passengers) {
-                <div class="passenger">
-                    <div class="lastname">
-                        @item.Lastname
-                        @item.Firstname
-                    </div>
-                </div>
-            }
-        }
+        <table id="outer-table">
+            <thead>
+                <tr>
+                    <th class="column-header" id="ticket-column">ΑΡ. ΕΙΣΙΤΗΡΙΟΥ</th>
+                    <th class="column-header">ΠΕΛΑΤΗΣ</th>
+                    <th class="column-header">ΟΔΗΓΟΣ</th>
+                    <th class="column-header">ΣΧΟΛΙΑ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model.Embarkation)
+                {
+                    <tr>
+                        <td>@x.TicketNo</td>
+                        <td>@x.Customer</td>
+                        <td>@x.Driver</td>
+                        <td>@x.Remarks</td>
+                    </tr>
+                    <tr style="page-break-inside: avoid">
+                        <td class="passenger" colspan="5">
+                            <table class="nested-table">
+                                <tbody>
+                                    @foreach (var item in x.Passengers)
+                                    {
+                                        <tr>
+                                            <td>@item.Firstname</td>
+                                            <td>@item.Lastname</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div id="footer">
+            @Model.PassengerCount            
+        </div>
+
     </div>
 
 </body>

@@ -28,7 +28,7 @@ namespace API.Features.Embarkation.Printer {
 
         [HttpPost("[action]")]
         public void CreateReport() {
-            CreatePDF(repo.DoReportTasks("2022-04-10", 1, 1, 1));
+            CreatePDF(repo.DoReportTasks("2022-07-01", 1, 1, 1));
         }
 
         [HttpGet("[action]/{filename}")]
@@ -42,7 +42,13 @@ namespace API.Features.Embarkation.Printer {
             var viewResult = compositeViewEngine.FindView(ControllerContext, "EmbarkationReport", false);
             var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary()) { Model = report };
             var viewContext = new ViewContext(ControllerContext, viewResult.View, viewDictionary, TempData, stringWriter, new HtmlHelperOptions());
-            var htmlToPdf = new HtmlToPdf(1000, 1414);
+            var htmlToPdf = new HtmlToPdf();
+            htmlToPdf.Options.PdfPageSize = PdfPageSize.A4;
+            htmlToPdf.Options.PdfPageOrientation = PdfPageOrientation.Landscape;
+            htmlToPdf.Options.MarginLeft = 10;
+            htmlToPdf.Options.MarginRight = 10;
+            htmlToPdf.Options.MarginTop = 20;
+            htmlToPdf.Options.MarginBottom = 20;
             await viewResult.View.RenderAsync(viewContext);
             var pdf = htmlToPdf.ConvertHtmlString(stringWriter.ToString());
             var pdfBytes = pdf.Save();
