@@ -39,21 +39,9 @@ namespace API.Features.Reservations {
             } else {
                 reservations = GetReservationsForConnectedUserbyDate(date, connectedUser);
             }
-            var personsPerCustomer = reservations.OrderBy(x => x.Customer.Description).GroupBy(x => new { x.Customer.Description }).Select(x => new PersonsPerCustomer { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
-            var personsPerDestination = reservations.OrderBy(x => x.Destination.Description).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
-            var personsPerDriver = reservations.OrderBy(x => x?.Driver?.Description).GroupBy(x => new { x?.Driver?.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description ?? "(EMPTY)", Persons = x.Sum(x => x.TotalPersons) });
-            var personsPerPort = reservations.OrderByDescending(x => x.Port.IsPrimary).GroupBy(x => new { x.Port.Description }).Select(x => new PersonsPerPort { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
-            var personsPerRoute = reservations.OrderBy(x => x.PickupPoint.CoachRoute.Abbreviation).GroupBy(x => new { x.PickupPoint.CoachRoute.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(x => x.TotalPersons) });
-            var personsPerShip = reservations.OrderBy(x => x?.Ship?.Description).GroupBy(x => new { x?.Ship?.Description }).Select(x => new PersonsPerShip { Description = x.Key.Description ?? "(EMPTY)", Persons = x.Sum(x => x.TotalPersons) });
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
                 Reservations = reservations.ToList(),
-                PersonsPerCustomer = personsPerCustomer.ToList(),
-                PersonsPerDestination = personsPerDestination.ToList(),
-                PersonsPerDriver = personsPerDriver.ToList(),
-                PersonsPerPort = personsPerPort.ToList(),
-                PersonsPerRoute = personsPerRoute.ToList(),
-                PersonsPerShip = personsPerShip.ToList()
             };
             return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
         }
@@ -61,14 +49,13 @@ namespace API.Features.Reservations {
         public async Task<DriverResult<Reservation>> GetByDateAndDriver(string date, int driverId) {
             var driver = await GetDriver(driverId);
             var reservations = await GetReservationsByDateAndDriver(date, driverId);
-            var mainResult = new DriverResult<Reservation> {
+            return new DriverResult<Reservation> {
                 Date = date,
                 DriverId = driver != null ? driverId : 0,
                 DriverDescription = driver != null ? driver.Description : "(EMPTY)",
                 Phones = driver != null ? driver.Phones : "(EMPTY)",
                 Reservations = mapper.Map<IEnumerable<Reservation>, IEnumerable<ReservationDriverListResource>>(reservations)
             };
-            return mainResult;
         }
 
         public async Task<ReservationGroupResource<ReservationListResource>> GetByRefNo(string refNo) {
@@ -79,21 +66,9 @@ namespace API.Features.Reservations {
             } else {
                 reservations = GetReservationsForConnectedUserbyRefNo(refNo, connectedUser);
             }
-            var personsPerCustomer = reservations.OrderBy(x => x.Customer.Description).GroupBy(x => new { x.Customer.Description }).Select(x => new PersonsPerCustomer { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
-            var personsPerDestination = reservations.OrderBy(x => x.Destination.Description).GroupBy(x => new { x.Destination.Description }).Select(x => new PersonsPerDestination { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
-            var personsPerDriver = reservations.OrderBy(x => x?.Driver?.Description).GroupBy(x => new { x?.Driver?.Description }).Select(x => new PersonsPerDriver { Description = x.Key.Description ?? "(EMPTY)", Persons = x.Sum(x => x.TotalPersons) });
-            var personsPerPort = reservations.OrderByDescending(x => x.Port.IsPrimary).GroupBy(x => new { x.Port.Description }).Select(x => new PersonsPerPort { Description = x.Key.Description, Persons = x.Sum(x => x.TotalPersons) });
-            var personsPerRoute = reservations.OrderBy(x => x.PickupPoint.CoachRoute.Abbreviation).GroupBy(x => new { x.PickupPoint.CoachRoute.Abbreviation }).Select(x => new PersonsPerRoute { Description = x.Key.Abbreviation, Persons = x.Sum(x => x.TotalPersons) });
-            var personsPerShip = reservations.OrderBy(x => x?.Ship?.Description).GroupBy(x => new { x?.Ship?.Description }).Select(x => new PersonsPerShip { Description = x.Key.Description ?? "(EMPTY)", Persons = x.Sum(x => x.TotalPersons) });
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
                 Reservations = reservations.ToList(),
-                PersonsPerCustomer = personsPerCustomer.ToList(),
-                PersonsPerDestination = personsPerDestination.ToList(),
-                PersonsPerDriver = personsPerDriver.ToList(),
-                PersonsPerPort = personsPerPort.ToList(),
-                PersonsPerRoute = personsPerRoute.ToList(),
-                PersonsPerShip = personsPerShip.ToList()
             };
             return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
         }
@@ -116,10 +91,9 @@ namespace API.Features.Reservations {
         }
 
         public async Task<Reservation> GetByIdToDelete(string id) {
-            var reservation = await context.Reservations
+            return await context.Reservations
                 .Include(x => x.Passengers)
                 .FirstAsync(x => x.ReservationId.ToString() == id);
-            return reservation;
         }
 
         public Task<bool> DoesUserOwnRecord(string userId) {
@@ -220,10 +194,9 @@ namespace API.Features.Reservations {
         }
 
         private IEnumerable<Passenger> GetPassengersForReservation(string id) {
-            var passengers = context.Set<Passenger>()
+            return context.Set<Passenger>()
                 .Where(x => x.ReservationId.ToString() == id)
                 .ToList();
-            return passengers;
         }
 
         private async Task UpdateReservation(Reservation updatedRecord) {
@@ -366,51 +339,48 @@ namespace API.Features.Reservations {
         }
 
         private IEnumerable<Reservation> GetReservationsFromAllUsersByDate(string date) {
-            var reservations = context.Reservations
+            return context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
+                .Include(x => x.Passengers)
                 .Where(x => x.Date == Convert.ToDateTime(date));
-            return reservations;
         }
 
         private IEnumerable<Reservation> GetReservationsForConnectedUserbyDate(string date, SimpleUser connectedUser) {
-            var reservations = context.Reservations
+            return context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.UserId == connectedUser.UserId);
-            return reservations;
         }
 
         private IEnumerable<Reservation> GetReservationsFromAllUsersByRefNo(string refNo) {
-            var reservations = context.Reservations
+            return context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
                 .Where(x => x.RefNo == refNo);
-            return reservations;
         }
 
         private IEnumerable<Reservation> GetReservationsForConnectedUserbyRefNo(string refNo, SimpleUser connectedUser) {
-            var reservations = context.Reservations
+            return context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
                 .Where(x => x.RefNo == refNo && x.UserId == connectedUser.UserId);
-            return reservations;
         }
 
         private async Task<IEnumerable<Reservation>> GetReservationsByDateAndDriver(string date, int driverId) {
-            var reservations = await context.Reservations
+            return await context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
@@ -419,7 +389,6 @@ namespace API.Features.Reservations {
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.DriverId == (driverId != 0 ? driverId : null))
                 .OrderBy(x => x.PickupPoint.Time).ThenBy(x => x.PickupPoint.Description)
                 .ToListAsync();
-            return reservations;
         }
 
         private async Task<string> IncrementRefNoByOne() {
@@ -443,9 +412,8 @@ namespace API.Features.Reservations {
         }
 
         private async Task<Driver> GetDriver(int driverId) {
-            var driver = await context.Drivers
+            return await context.Drivers
                 .FirstOrDefaultAsync(x => x.Id == driverId);
-            return driver;
         }
 
     }

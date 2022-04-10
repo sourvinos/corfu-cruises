@@ -14,6 +14,7 @@ export class EmojiService {
             case 'warning': return '⚠️'
             case 'wildcard': return '⭐'
             case 'remarks': return '✉️'
+            case 'sum': return '∑'
         }
 
     }

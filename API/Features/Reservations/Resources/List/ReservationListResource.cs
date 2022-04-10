@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace API.Features.Reservations {
 
@@ -26,6 +27,9 @@ namespace API.Features.Reservations {
         public string CoachRouteAbbreviation { get; set; }
         public string PortDescription { get; set; }
         public string ShipDescription { get; set; }
+
+        public int PassengerCount { get; set; }
+        public int PassengerDifference { get; set; }
 
     }
 

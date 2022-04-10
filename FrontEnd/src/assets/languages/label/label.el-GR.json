@@ -653,7 +653,11 @@
             },
             {
                 "id": "headerTicketNo",
-                "description": "Αρ. εισιτηρίου"
+                "description": "Εισιτήριο"
+            },
+            {
+                "id": "headerPlusMinus",
+                "description": "+/-"
             },
             {
                 "id": "headerDestination",
@@ -1394,10 +1398,6 @@
             {
                 "id": "header",
                 "description": "Εθνικότητες"
-            },
-            {
-                "id": "searchLabel",
-                "description": "Αναζητηση"
             },
             {
                 "id": "newButton",

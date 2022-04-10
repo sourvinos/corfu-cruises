@@ -16,7 +16,9 @@ namespace API.Features.Reservations {
                 .ForMember(x => x.CoachRouteAbbreviation, x => x.MapFrom(x => x.PickupPoint.CoachRoute.Abbreviation))
                 .ForMember(x => x.DriverDescription, x => x.NullSubstitute("(EMPTY)"))
                 .ForMember(x => x.ShipDescription, x => x.NullSubstitute("(EMPTY)"))
-                .ForMember(x => x.Time, x => x.MapFrom(x => x.PickupPoint.Time));
+                .ForMember(x => x.Time, x => x.MapFrom(x => x.PickupPoint.Time))
+                .ForMember(x => x.PassengerCount, x => x.MapFrom(x => x.Passengers.Count))
+                .ForMember(x => x.PassengerDifference, x => x.MapFrom(x => x.TotalPersons - x.Passengers.Count));
             // DriverList
             CreateMap<Reservation, ReservationDriverListResource>()
                 .ForMember(x => x.ExactPoint, x => x.MapFrom(x => x.PickupPoint.ExactPoint))

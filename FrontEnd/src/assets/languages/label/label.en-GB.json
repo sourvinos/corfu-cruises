@@ -653,7 +653,11 @@
             },
             {
                 "id": "headerTicketNo",
-                "description": "Ticket No"
+                "description": "Ticket"
+            },
+            {
+                "id": "headerPlusMinus",
+                "description": "+/-"
             },
             {
                 "id": "headerDestination",

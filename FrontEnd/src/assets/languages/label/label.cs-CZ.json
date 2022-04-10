@@ -653,7 +653,11 @@
             },
             {
                 "id": "headerTicketNo",
-                "description": "Ticket No"
+                "description": "Vstupenka"
+            },
+            {
+                "id": "headerPlusMinus",
+                "description": "+/-"
             },
             {
                 "id": "headerDestination",
@@ -1398,10 +1402,6 @@
             {
                 "id": "searchLabel",
                 "description": "Vyhledávání"
-            },
-            {
-                "id": "searchHint",
-                "description": "Vyhledávání by description"
             },
             {
                 "id": "newButton",

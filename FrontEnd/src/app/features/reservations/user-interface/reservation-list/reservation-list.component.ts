@@ -141,6 +141,18 @@ export class ReservationListComponent {
         }
     }
 
+    public showEmoji(passengerDifference: number): string {
+        if (passengerDifference > 0) {
+            return this.emojiService.getEmoji('warning')
+        }
+        if (passengerDifference == 0) {
+            return this.emojiService.getEmoji('ok')
+        }
+        if (passengerDifference < 0) {
+            return this.emojiService.getEmoji('error')
+        }
+    }
+
     public calculateTotals(event?: { filteredValue: any[] }): void {
         setTimeout(() => {
             this.totals[0].sum = this.records.persons
@@ -257,6 +269,7 @@ export class ReservationListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.resolver]
         if (listResolved.error === null) {
             this.records = listResolved.result
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
