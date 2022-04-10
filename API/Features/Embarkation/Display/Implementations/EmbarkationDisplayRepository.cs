@@ -76,6 +76,11 @@ namespace API.Features.Embarkation {
             return new FileStreamResult(memoryStream, "application/pdf");
         }
 
+        public async Task<int> GetShipIdFromDescription(string description) {
+            var ship = await context.Ships.FirstOrDefaultAsync(x => x.Description == description);
+            return ship.Id;
+        }
+
     }
 
 }

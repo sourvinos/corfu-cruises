@@ -23,19 +23,16 @@ export class EmbarkationService extends DataService {
         return this.http.patch(this.url + '/doEmbarkation?', null, { params: params })
     }
 
-    openReport(filename: string): Observable<any> {
-        return this.http.get(this.url + 'printer/downloadreport/' + filename, { responseType: 'arraybuffer' })
+    getShipIdFromDesciption(description: string): Observable<number> {
+        return this.http.get<any>(this.url + 'display/getShipIdFromDescription/' + description)
     }
 
-    openReports(): any {
-        this.http.get(this.url + '/openreport', { responseType: 'arraybuffer' }).subscribe({
-            next: (pdf) => {
-                const blob = new Blob([pdf], { type: 'application/pdf' })
-                const fileURL = URL.createObjectURL(blob)
-                window.open(fileURL, '_blank')
-            },
-            error: (e) => console.log(e)
-        })
+    createReport(criteria: any): Observable<any> {
+        return this.http.post(this.url + 'printer/createreport/', criteria)
+    }
+
+    openReport(filename: string): Observable<any> {
+        return this.http.get(this.url + 'printer/downloadreport/' + filename, { responseType: 'arraybuffer' })
     }
 
 }

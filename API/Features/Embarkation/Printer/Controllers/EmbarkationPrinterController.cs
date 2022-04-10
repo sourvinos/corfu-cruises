@@ -27,8 +27,8 @@ namespace API.Features.Embarkation.Printer {
         #endregion
 
         [HttpPost("[action]")]
-        public void CreateReport() {
-            CreatePDF(repo.DoReportTasks("2022-07-01", 1, 1, 1));
+        public void CreateReport([FromBody] EmbarkationPrinterCriteria criteria) {
+            CreatePDF(repo.DoReportTasks(criteria));
         }
 
         [HttpGet("[action]/{filename}")]
@@ -38,7 +38,7 @@ namespace API.Features.Embarkation.Printer {
 
         private async void CreatePDF(EmbarkationPrinterGroupVM<EmbarkationPrinterVM> report) {
             using var stringWriter = new StringWriter();
-            report.Logo = Logo.GetLogo();
+            // report.Logo = Logo.GetLogo();
             var viewResult = compositeViewEngine.FindView(ControllerContext, "EmbarkationReport", false);
             var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary()) { Model = report };
             var viewContext = new ViewContext(ControllerContext, viewResult.View, viewDictionary, TempData, stringWriter, new HtmlHelperOptions());

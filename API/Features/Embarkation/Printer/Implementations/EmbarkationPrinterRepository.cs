@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
+using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -45,20 +46,23 @@ namespace API.Features.Embarkation.Printer {
             return mapper.Map<EmbarkationPrinterGroup<Reservation>, EmbarkationPrinterGroupVM<EmbarkationPrinterVM>>(mainResult);
         }
 
-        public EmbarkationPrinterGroupVM<EmbarkationPrinterVM> DoReportTasks(string date, int destinationId, int portId, int shipId) {
+        public EmbarkationPrinterGroupVM<EmbarkationPrinterVM> DoReportTasks(EmbarkationPrinterCriteria criteria) {
             var reservations = context.Set<Reservation>()
                 .Include(x => x.Customer)
                 .Include(x => x.Driver)
-                .Include(x => x.Ship)
                 .Include(x => x.Passengers)
-                .Where(x => x.Date == Convert.ToDateTime(date)
-                    && x.DestinationId == destinationId
-                    && x.PortId == portId
-                    && x.ShipId == shipId)
+                .Where(x => x.Date == Convert.ToDateTime(criteria.Date)
+                    && x.DestinationId == criteria.DestinationId
+                    && x.PortId == criteria.PortId
+                    && x.ShipId == criteria.ShipId)
                 .ToList();
             int totalPersons = reservations.Sum(x => x.TotalPersons);
             int passengers = reservations.Sum(c => c.Passengers.Count);
             var mainResult = new EmbarkationPrinterGroup<Reservation> {
+                Date = criteria.Date,
+                Destination = context.Destinations.Where(x => x.Id == criteria.DestinationId).Select(x => x.Description).FirstOrDefault(),
+                Port = context.Ports.Where(x => x.Id == criteria.PortId).Select(x => x.Description).FirstOrDefault(),
+                Ship = context.Ships.Where(x => x.Id == criteria.ShipId).Select(x => x.Description).FirstOrDefault(),
                 PassengerCount = totalPersons,
                 PassengerCountWithNames = passengers,
                 PassengerCountWithNoNames = totalPersons - passengers,

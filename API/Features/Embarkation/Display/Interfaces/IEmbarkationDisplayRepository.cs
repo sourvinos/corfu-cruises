@@ -7,6 +7,7 @@ namespace API.Features.Embarkation.Display {
     public interface IEmbarkationDisplayRepository : IRepository<Reservation> {
 
         Task<EmbarkationDisplayGroupVM<EmbarkationDisplayVM>> Get(string date, int destinationId, int portId, string shipId);
+        Task<int> GetShipIdFromDescription(string description);
         bool DoEmbarkation(int id);
     }
 

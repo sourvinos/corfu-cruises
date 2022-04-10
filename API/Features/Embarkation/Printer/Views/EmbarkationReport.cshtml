@@ -1,8 +1,8 @@
+@using API.Features.Vouchers
 @model EmbarkationPrinterGroupVM<EmbarkationPrinterVM>
 
 <head>
     <style>
-
         #header {
             align-items: center;
             display: flex;
@@ -37,7 +37,7 @@
             margin-left: auto;
         }
 
-        #criteria > div {
+        #criteria>div {
             background-color: #efefef;
             border-radius: 5px;
             margin-left: 0.5rem;
@@ -54,6 +54,10 @@
             font-size: 18px;
             font-family: "PF Handbook Pro";
             font-weight: 300;
+        }
+
+        #footer {
+            font-family: "PF Handbook Pro";
         }
 
         #list-header {
@@ -108,7 +112,6 @@
             text-align: center;
             width: 5rem;
         }
-
     </style>
 
 </head>
@@ -119,7 +122,7 @@
 
         <div id="header">
             <div id="image">
-                <img src="@Model.Logo" width="105px" height="105px" />
+                <img src="@Logo.GetLogo()" width="105px" height="105px" />
             </div>
             <div id="logo-and-title">
                 <div id="logo-text">CORFU CRUISES</div>
@@ -128,19 +131,19 @@
             <div id="criteria">
                 <div>
                     <div class="label">Ημερομηνία</div>
-                    <div class="description">Τετ 01/07/2022</div>
+                    <div class="description">@Model.Date</div>
                 </div>
                 <div>
                     <div class="label">Προορισμός</div>
-                    <div class="description">PAXOS - ANTIPAXOS</div>
+                    <div class="description">@Model.Destination</div>
                 </div>
                 <div>
                     <div class="label">Λιμάνι</div>
-                    <div class="description">LEFKIMMI PORT</div>
+                    <div class="description">@Model.Port</div>
                 </div>
                 <div>
                     <div class="label">Πλοίο</div>
-                    <div class="description">CAPTAIN BILL</div>
+                    <div class="description">@Model.Ship</div>
                 </div>
             </div>
         </div>
@@ -183,7 +186,7 @@
         </table>
 
         <div id="footer">
-            @Model.PassengerCount            
+            @Model.PassengerCount
         </div>
 
     </div>
