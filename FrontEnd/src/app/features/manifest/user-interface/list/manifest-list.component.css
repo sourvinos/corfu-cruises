@@ -56,3 +56,8 @@
 #totals-panel .panel {
     margin-right: 1rem;
 }
+
+#footer {
+    justify-content: space-between;
+    margin: var(--gap) var(--footer-right-margin) var(--gap) var(--footer-left-margin);
+}

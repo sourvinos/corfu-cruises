@@ -126,7 +126,7 @@
 </div>
 </ng-container>
 
-<div *ngIf="records.passengerCount > 0" id="footer">
+<div id="footer" *ngIf="records.passengerCount > 0">
     <div @slideFromLeft id="filters">
         <div>
             <div class="description">{{ records.passengerCount }}</div>
@@ -145,7 +145,7 @@
             <div class="label">{{ getLabel('filterPending')}}</div>
         </div>
     </div>
-    <div id="footer">
+    <div>
         <div @slideFromRight class="button-group">
             <button mat-flat-button class="primary" id="createPdf" (click)="openReport()">{{ getLabel("createPDF") }}</button>
             <button mat-flat-button class="primary" id="showScanner" (click)="onShowScanner()">{{ getLabel('scanOpenButton') }}</button>

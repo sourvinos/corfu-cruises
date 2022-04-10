@@ -1308,7 +1308,7 @@
             },
             {
                 "id": "headerTicketNo",
-                "description": "Ticket No"
+                "description": "Ticket"
             },
             {
                 "id": "headerCustomer",

@@ -24,7 +24,7 @@
     align-items: center;
     display: flex;
     justify-content: flex-end;
-    margin: var(--gap) var(--footer-right-margin) var(--gap) 0;
+    margin: var(--gap) var(--footer-right-margin) var(--gap) auto;
 }
 
 #footer .button-group {

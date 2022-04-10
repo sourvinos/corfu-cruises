@@ -9,5 +9,6 @@
 }
 
 #footer {
-    margin: 1rem 1rem 0 auto !important;
+    justify-content: space-between;
+    margin: var(--gap) var(--footer-right-margin) var(--gap) var(--footer-left-margin);
 }

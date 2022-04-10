@@ -1308,7 +1308,7 @@
             },
             {
                 "id": "headerTicketNo",
-                "description": "Číslo lístku"
+                "description": "Vstupenka"
             },
             {
                 "id": "headerCustomer",

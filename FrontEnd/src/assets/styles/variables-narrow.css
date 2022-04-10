@@ -1,13 +1,11 @@
 @media only screen and (max-width: 1440px) {
     * {
+        --calendar-gap: 0.5rem;
         --font-size-button: 100%;
-        /*  */
-        --font-size-calendar-day: 1rem;
         --font-size-calendar-day-min-max-width: 1.875rem;
+        --font-size-calendar-day: 1rem;
         --font-size-calendar-destination: 0.625rem;
         --font-size-calendar-ports: 0.6875rem;
-        --calendar-gap: 0.5rem;
-        /*  */
         --font-size-checkbox: 95%;
         --font-size-criteria-labels: 100%;
         --font-size-h1: 1.5rem;
@@ -26,13 +24,14 @@
         --font-size-table-row: 80%;
         --font-weight-checkbox: 400 !important;
         --font-weight-menu-items: 400;
+        --footer-left-margin: 3rem;
+        --footer-right-margin: 3rem;
         --gap: 1rem;
         --header-margin-bottom: 0.75rem;
         --header-margin-top: 0;
+        --header-right-margin: 4rem;
+        --logo-left-margin: 4rem;
         --side-bar-width: 17rem;
         --top-bar-height: 72.59px;
-        --logo-left-margin: 4rem;
-        --footer-right-margin: 4rem;
-        --footer-left-margin: 3rem;
     }
 }

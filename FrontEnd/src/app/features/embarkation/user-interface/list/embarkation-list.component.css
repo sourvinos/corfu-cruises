@@ -90,11 +90,6 @@
     color: var(--color-text);
 }
 
-#footer {
-    justify-content: space-between;
-    margin: var(--gap) var(--footer-right-margin) var(--gap) var(--footer-left-margin);
-}
-
 .selected-filter {
     background-color: var(--color-c) !important;
 }
@@ -126,4 +121,9 @@
 
 #filters .description {
     color: var(--color-text);
+}
+
+#footer {
+    justify-content: space-between;
+    margin: var(--gap) var(--footer-right-margin) var(--gap) var(--footer-left-margin);
 }

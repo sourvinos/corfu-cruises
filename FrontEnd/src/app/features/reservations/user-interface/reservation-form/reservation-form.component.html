@@ -133,9 +133,11 @@
                 <ng-container *ngTemplateOutlet="voucherMenu"></ng-container>
             </mat-menu>
         </div>
-        <div @slideFromRight class="button-group">
-            <button *ngIf="form.value.reservationId != ''" (click)="onDelete()" class="delete" data-cy="delete" id="delete" mat-flat-button>{{ getLabel('deleteButton') }}</button>
-            <button (click)="onSave()" [disabled]="!form.valid || !checkTotalPersonsAgainstPassengerCount()" class="primary" data-cy="save" mat-flat-button>{{ getLabel('saveButton') }}</button>
+        <div>
+            <div @slideFromRight class="button-group">
+                <button *ngIf="form.value.reservationId != ''" (click)="onDelete()" class="delete" data-cy="delete" id="delete" mat-flat-button>{{ getLabel('deleteButton') }}</button>
+                <button (click)="onSave()" [disabled]="!form.valid || !checkTotalPersonsAgainstPassengerCount()" class="primary" data-cy="save" mat-flat-button>{{ getLabel('saveButton') }}</button>
+            </div>
         </div>
     </div>
 
