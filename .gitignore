@@ -233,6 +233,7 @@ _Pvt_Extensions
 # Custom
 FrontEnd/package-lock.json
 API/Vouchers
+API/Reports
 appsettings.json
 ToDo.txt
 **/logs

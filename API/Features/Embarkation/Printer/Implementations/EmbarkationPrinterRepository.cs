@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -71,7 +70,7 @@ namespace API.Features.Embarkation.Printer {
             return mapper.Map<EmbarkationPrinterGroup<Reservation>, EmbarkationPrinterGroupVM<EmbarkationPrinterVM>>(mainResult);
         }
 
-        public FileStreamResult DownloadReport(string filename) {
+        public FileStreamResult OpenReport(string filename) {
             byte[] byteArray = File.ReadAllBytes(directoryLocations.ReportsLocation + Path.DirectorySeparatorChar + filename);
             File.WriteAllBytes(filename, byteArray);
             MemoryStream memoryStream = new(byteArray);

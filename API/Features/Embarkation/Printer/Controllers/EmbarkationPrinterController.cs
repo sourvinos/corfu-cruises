@@ -1,6 +1,7 @@
 using System;
 using System.IO;
-using API.Features.Vouchers;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -27,24 +28,25 @@ namespace API.Features.Embarkation.Printer {
         #endregion
 
         [HttpPost("[action]")]
-        public void CreateReport([FromBody] EmbarkationPrinterCriteria criteria) {
-            CreatePDF(repo.DoReportTasks(criteria));
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> CreateReport([FromBody] EmbarkationPrinterCriteria criteria) {
+            return await CreatePDF(repo.DoReportTasks(criteria));
         }
 
         [HttpGet("[action]/{filename}")]
-        public IActionResult DownloadReport([FromRoute] string filename) {
-            return repo.DownloadReport(filename);
+        [Authorize(Roles = "admin")]
+        public IActionResult OpenReport([FromRoute] string filename) {
+            return repo.OpenReport(filename);
         }
 
-        private async void CreatePDF(EmbarkationPrinterGroupVM<EmbarkationPrinterVM> report) {
+        private async Task<IActionResult> CreatePDF(EmbarkationPrinterGroupVM<EmbarkationPrinterVM> report) {
             using var stringWriter = new StringWriter();
-            // report.Logo = Logo.GetLogo();
             var viewResult = compositeViewEngine.FindView(ControllerContext, "EmbarkationReport", false);
             var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary()) { Model = report };
             var viewContext = new ViewContext(ControllerContext, viewResult.View, viewDictionary, TempData, stringWriter, new HtmlHelperOptions());
             var htmlToPdf = new HtmlToPdf();
             htmlToPdf.Options.PdfPageSize = PdfPageSize.A4;
-            htmlToPdf.Options.PdfPageOrientation = PdfPageOrientation.Landscape;
+            htmlToPdf.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
             htmlToPdf.Options.MarginLeft = 10;
             htmlToPdf.Options.MarginRight = 10;
             htmlToPdf.Options.MarginTop = 20;
@@ -55,8 +57,13 @@ namespace API.Features.Embarkation.Printer {
             if (!Directory.Exists("Reports")) {
                 Directory.CreateDirectory("Reports");
             }
-            using var streamWriter = new StreamWriter("Reports\\Report.pdf");
+            var filename = Guid.NewGuid().ToString("N");
+            using var streamWriter = new StreamWriter("Reports\\" + filename + ".pdf");
             await streamWriter.BaseStream.WriteAsync(pdfBytes.AsMemory(0, pdfBytes.Length));
+            pdf.Close();
+            return StatusCode(200, new {
+                response = filename
+            });
         }
 
     }

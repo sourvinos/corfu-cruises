@@ -7,7 +7,7 @@ namespace API.Features.Embarkation.Printer {
     public interface IEmbarkationPrinterRepository : IRepository<Reservation> {
 
         EmbarkationPrinterGroupVM<EmbarkationPrinterVM> DoReportTasks(EmbarkationPrinterCriteria Criteria);
-        FileStreamResult DownloadReport(string filename);
+        FileStreamResult OpenReport(string filename);
 
     }
 
