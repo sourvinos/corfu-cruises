@@ -168,10 +168,12 @@ export class CalendarScheduleComponent {
     }
 
     private getScheduleForMonth(): Promise<any> {
+        this.isLoading = true
         const promise = new Promise((resolve) => {
             this.scheduleService.getForCalendar(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
                 this.daysWithSchedule = response
                 resolve(this.daysWithSchedule)
+                this.isLoading = false
             })
         })
         return promise
