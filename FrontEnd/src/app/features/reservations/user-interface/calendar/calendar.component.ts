@@ -81,12 +81,10 @@ export class CalendarComponent {
     }
 
     public onChangeMonth(flag: number): void {
-        this.isLoading = true
         this.navigateToMonth(flag)
         this.getScheduleForMonth().then(() => {
             this.updateCalendar()
             this.fixCalendarHeight()
-            this.isLoading = false
         })
     }
 
@@ -146,14 +144,11 @@ export class CalendarComponent {
     }
 
     private fixCalendarHeight(): void {
-        this.isLoading = true
         const calendar = document.getElementById('calendar')
         calendar.style.gridTemplateRows = '30px repeat(' + this.calculateWeekCount(this.dateSelect.format('YYYY'), this.dateSelect.format('MM')) + ', 1fr)'
-        this.isLoading = false
     }
 
     private getDaysFromDate(month: number, year: number): void {
-        this.isLoading = true
         this.startDate = utc(`${year}-${month}-01`, 'YYYY-MM-DD')
         this.days = []
         const endDate = this.startDate.clone().endOf('month')
@@ -175,7 +170,6 @@ export class CalendarComponent {
             }
         })
         this.monthSelect = arrayDays
-        this.isLoading = false
     }
 
     private getScheduleForMonth(): Promise<any> {
@@ -213,12 +207,10 @@ export class CalendarComponent {
     }
 
     private updateCalendar(): void {
-        this.isLoading = true
         this.daysWithSchedule.forEach(day => {
             const x = this.days.find(x => x.date == day.date)
             this.days[this.days.indexOf(x)].destinations = day.destinations
         })
-        this.isLoading = false
     }
 
     //#endregion

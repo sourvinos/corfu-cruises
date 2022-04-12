@@ -35,6 +35,7 @@ export class CalendarScheduleComponent {
     public days: DayViewModel[]
     public monthSelect: any[]
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    public isLoading: boolean
 
     // #endregion 
 
