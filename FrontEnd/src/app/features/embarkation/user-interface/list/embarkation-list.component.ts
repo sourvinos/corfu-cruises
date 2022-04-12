@@ -172,11 +172,11 @@ export class EmbarkationListComponent {
         this.dialogService.open(this.getLabel('remarks'), 'warningColor', remarks, ['ok'])
     }
 
-    public replaceWildcardWithText(criteria: string): string {
-        if (criteria.includes(this.emojiService.getEmoji('wildcard'))) {
+    public replaceWildcardWithText(criteria: any): string {
+        if (criteria.description.includes(this.emojiService.getEmoji('wildcard'))) {
             return this.emojiService.getEmoji('wildcard')
         } else {
-            return criteria
+            return criteria.description
         }
     }
 
