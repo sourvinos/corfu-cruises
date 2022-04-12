@@ -42,7 +42,7 @@ export class EditUserFormComponent {
     public icon = null
     public input: InputTabStopDirective
     public parentUrl = null
-    public loading = new Subject<boolean>()
+    public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public customers: CustomerDropdownVM[] = []
@@ -284,7 +284,7 @@ export class EditUserFormComponent {
 
     private saveRecord(user: UserWriteVM): void {
         this.flattenForm()
-        this.userService.update(user.id, user).pipe(indicate(this.loading)).subscribe(() => {
+        this.userService.update(user.id, user).pipe(indicate(this.isLoading)).subscribe(() => {
             this.resetForm()
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

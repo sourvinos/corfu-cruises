@@ -47,7 +47,7 @@ export class NewScheduleComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/schedules'
-    public loading = new Subject<boolean>()
+    public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public destinations: DestinationDropdownVM[]
@@ -278,8 +278,8 @@ export class NewScheduleComponent {
     }
 
     private saveRecord(): void {
-        this.scheduleService.deleteRange(this.buildObjectsToDelete()).pipe(indicate(this.loading)).subscribe(() => {
-            this.scheduleService.addRange(this.buildScheduleToCreate()).pipe(indicate(this.loading)).subscribe(() => {
+        this.scheduleService.deleteRange(this.buildObjectsToDelete()).pipe(indicate(this.isLoading)).subscribe(() => {
+            this.scheduleService.addRange(this.buildScheduleToCreate()).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')

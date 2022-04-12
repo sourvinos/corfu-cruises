@@ -36,7 +36,7 @@ export class DriverFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/drivers'
-    public loading = new Subject<boolean>()
+    public isLoading = new Subject<boolean>()
 
     //#endregion
 
@@ -88,7 +88,7 @@ export class DriverFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.driverService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
+                this.driverService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -180,7 +180,7 @@ export class DriverFormComponent {
 
     private saveRecord(driver: DriverWriteVM): void {
         if (driver.id === 0) {
-            this.driverService.add(driver).pipe(indicate(this.loading)).subscribe(() => {
+            this.driverService.add(driver).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -188,7 +188,7 @@ export class DriverFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.driverService.update(driver.id, driver).pipe(indicate(this.loading)).subscribe(() => {
+            this.driverService.update(driver.id, driver).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

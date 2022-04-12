@@ -19,7 +19,7 @@ export class AppComponent {
 
     //#region variables
 
-    public showLoadingIndication = true
+    public isLoading = true
     public countdown = 0
 
     //#endregion
@@ -28,10 +28,10 @@ export class AppComponent {
         this.initIdleService()
         this.router.events.subscribe((routerEvent) => {
             if (routerEvent instanceof NavigationStart) {
-                this.showLoadingIndication = true
+                this.isLoading = true
             }
             if (routerEvent instanceof NavigationEnd || routerEvent instanceof NavigationCancel || routerEvent instanceof NavigationError) {
-                this.showLoadingIndication = false
+                this.isLoading = false
             }
         })
     }

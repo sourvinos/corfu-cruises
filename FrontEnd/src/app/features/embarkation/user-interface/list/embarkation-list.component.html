@@ -157,7 +157,7 @@
         <list-no-results [feature]="feature" [parentUrl]="parentUrl"></list-no-results>
     </ng-container>
 
-    <div *ngIf="loading | async">
+    <div *ngIf="isLoading | async">
         <loading-spinner></loading-spinner>
     </div>
 

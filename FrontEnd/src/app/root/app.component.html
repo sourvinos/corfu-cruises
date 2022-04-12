@@ -1,7 +1,5 @@
 <div id="wrapper">
     
-    <div *ngIf="showLoadingIndication" id="loading-indication"></div>
-
     <div id="main">
 
         <top-bar></top-bar>
@@ -14,6 +12,10 @@
             <span id="message">{{ getEmoji() }} {{ getMessage() }}</span>
         </div>
 
+    </div>
+
+    <div *ngIf="isLoading">
+        <loading-spinner></loading-spinner>
     </div>
 
 </div>

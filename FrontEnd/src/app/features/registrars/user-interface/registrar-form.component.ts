@@ -41,7 +41,7 @@ export class RegistrarFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/registrars'
-    public loading = new Subject<boolean>()
+    public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public ships: ShipDropdownVM[] = []
@@ -110,7 +110,7 @@ export class RegistrarFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.registrarService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
+                this.registrarService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -249,7 +249,7 @@ export class RegistrarFormComponent {
 
     private saveRecord(registrar: RegistrarWriteVM): void {
         if (registrar.id === 0) {
-            this.registrarService.add(registrar).pipe(indicate(this.loading)).subscribe(() => {
+            this.registrarService.add(registrar).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -257,7 +257,7 @@ export class RegistrarFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
             })
         } else {
-            this.registrarService.update(registrar.id, registrar).pipe(indicate(this.loading)).subscribe(() => {
+            this.registrarService.update(registrar.id, registrar).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

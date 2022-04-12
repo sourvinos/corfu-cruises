@@ -64,7 +64,7 @@ export class ReservationFormComponent {
 
     private userId: string
     public isAdmin: boolean
-    public loading = new Subject<boolean>()
+    public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
 
@@ -522,7 +522,7 @@ export class ReservationFormComponent {
 
     private saveRecord(reservation: ReservationWriteVM): void {
         if (reservation.reservationId.toString() == '') {
-            this.reservationService.add(reservation).pipe(indicate(this.loading)).subscribe((response) => {
+            this.reservationService.add(reservation).pipe(indicate(this.isLoading)).subscribe((response) => {
                 this.resetForm()
                 this.goBack()
                 this.dialogService.open(this.messageSnackbarService.success(), 'infoColor', this.messageSnackbarService.reservationCreated() + this.helperService.formatRefNo(response.message, true), ['ok'])
@@ -530,7 +530,7 @@ export class ReservationFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.reservationService.update(reservation.reservationId, reservation).pipe(indicate(this.loading)).subscribe(() => {
+            this.reservationService.update(reservation.reservationId, reservation).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

@@ -25,7 +25,6 @@ export class CalendarComponent {
 
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
-    private url = 'reservations'
     public feature = 'calendarReservations'
     public icon = 'home'
     public parentUrl = '/'
@@ -37,6 +36,7 @@ export class CalendarComponent {
     public monthSelect: any[]
     public selectedDate: any
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    public isLoading: boolean
 
     // #endregion 
 
@@ -45,13 +45,9 @@ export class CalendarComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.getDaysFromDate(moment().month() + 1, moment().year())
-        this.getScheduleForMonth().then(() => {
-            this.updateCalendar()
-            this.fixCalendarHeight()
-        })
         this.addShortcuts()
         this.clearStoredVariables()
+        this.doCalendarTasks()
     }
 
     ngOnDestroy(): void {
@@ -85,10 +81,12 @@ export class CalendarComponent {
     }
 
     public onChangeMonth(flag: number): void {
+        this.isLoading = true
         this.navigateToMonth(flag)
         this.getScheduleForMonth().then(() => {
             this.updateCalendar()
             this.fixCalendarHeight()
+            this.isLoading = false
         })
     }
 
@@ -139,12 +137,23 @@ export class CalendarComponent {
         ])
     }
 
+    private doCalendarTasks(): void {
+        this.getDaysFromDate(moment().month() + 1, moment().year())
+        this.getScheduleForMonth().then(() => {
+            this.updateCalendar()
+            this.fixCalendarHeight()
+        })
+    }
+
     private fixCalendarHeight(): void {
+        this.isLoading = true
         const calendar = document.getElementById('calendar')
         calendar.style.gridTemplateRows = '30px repeat(' + this.calculateWeekCount(this.dateSelect.format('YYYY'), this.dateSelect.format('MM')) + ', 1fr)'
+        this.isLoading = false
     }
 
     private getDaysFromDate(month: number, year: number): void {
+        this.isLoading = true
         this.startDate = utc(`${year}-${month}-01`, 'YYYY-MM-DD')
         this.days = []
         const endDate = this.startDate.clone().endOf('month')
@@ -166,13 +175,16 @@ export class CalendarComponent {
             }
         })
         this.monthSelect = arrayDays
+        this.isLoading = false
     }
 
     private getScheduleForMonth(): Promise<any> {
+        this.isLoading = true
         const promise = new Promise((resolve) => {
             this.scheduleService.getForCalendar(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
                 this.daysWithSchedule = response
                 resolve(this.daysWithSchedule)
+                this.isLoading = false
             })
         })
         return promise
@@ -201,10 +213,12 @@ export class CalendarComponent {
     }
 
     private updateCalendar(): void {
+        this.isLoading = true
         this.daysWithSchedule.forEach(day => {
             const x = this.days.find(x => x.date == day.date)
             this.days[this.days.indexOf(x)].destinations = day.destinations
         })
+        this.isLoading = false
     }
 
     //#endregion

@@ -39,7 +39,7 @@ export class EmbarkationListComponent {
 
     public embarkationCriteria: EmbarkationCriteriaVM
     public filteredRecords: EmbarkationVM
-    public loading = new Subject<boolean>()
+    public isLoading = new Subject<boolean>()
     public records: EmbarkationVM
 
     public customers = []
@@ -131,7 +131,7 @@ export class EmbarkationListComponent {
                     portId: criteria.port.id,
                     shipId: shipId
                 }
-                this.embarkationPrinterService.createReport(criteriaObject).pipe(indicate(this.loading)).subscribe((response) => {
+                this.embarkationPrinterService.createReport(criteriaObject).pipe(indicate(this.isLoading)).subscribe((response) => {
                     this.embarkationPrinterService.openReport(response.response + '.pdf').subscribe({
                         next: (pdf) => {
                             const blob = new Blob([pdf], { type: 'application/pdf' })
@@ -148,7 +148,7 @@ export class EmbarkationListComponent {
     }
 
     public onEmbarkPassenger(id: number): void {
-        this.embarkationDisplayService.boardPassenger(id).pipe(indicate(this.loading)).subscribe(() => {
+        this.embarkationDisplayService.boardPassenger(id).pipe(indicate(this.isLoading)).subscribe(() => {
             this.refreshList()
             this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
         })

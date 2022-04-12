@@ -48,7 +48,7 @@ export class CrewFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/crews'
-    public loading = new Subject<boolean>()
+    public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public genderDropdown: Observable<GenderAutocompleteVM[]>
@@ -119,7 +119,7 @@ export class CrewFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.crewService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
+                this.crewService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -257,7 +257,7 @@ export class CrewFormComponent {
 
     private saveRecord(crew: CrewWriteVM): void {
         if (crew.id === 0) {
-            this.crewService.add(crew).pipe(indicate(this.loading)).subscribe(() => {
+            this.crewService.add(crew).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -265,7 +265,7 @@ export class CrewFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
             })
         } else {
-            this.crewService.update(crew.id, crew).pipe(indicate(this.loading)).subscribe(() => {
+            this.crewService.update(crew.id, crew).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

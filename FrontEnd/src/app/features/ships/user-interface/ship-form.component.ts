@@ -40,7 +40,7 @@ export class ShipFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/ships'
-    public loading = new Subject<boolean>()
+    public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public filteredShipOwners: Observable<ShipOwnerDropdownVM[]>
@@ -109,7 +109,7 @@ export class ShipFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.shipService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
+                this.shipService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -249,7 +249,7 @@ export class ShipFormComponent {
 
     private saveRecord(ship: ShipWriteVM): void {
         if (ship.id === 0) {
-            this.shipService.add(ship).pipe(indicate(this.loading)).subscribe(() => {
+            this.shipService.add(ship).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -257,7 +257,7 @@ export class ShipFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.shipService.update(ship.id, ship).pipe(indicate(this.loading)).subscribe(() => {
+            this.shipService.update(ship.id, ship).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

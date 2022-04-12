@@ -36,7 +36,7 @@ export class PortFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/ports'
-    public loading = new Subject<boolean>()
+    public isLoading = new Subject<boolean>()
 
     //#endregion
 
@@ -88,7 +88,7 @@ export class PortFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.portService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
+                this.portService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -181,7 +181,7 @@ export class PortFormComponent {
 
     private saveRecord(port: PortWriteVM): void {
         if (port.id === 0) {
-            this.portService.add(port).pipe(indicate(this.loading)).subscribe(() => {
+            this.portService.add(port).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -189,7 +189,7 @@ export class PortFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.portService.update(port.id, port).pipe(indicate(this.loading)).subscribe(() => {
+            this.portService.update(port.id, port).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

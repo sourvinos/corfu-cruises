@@ -37,7 +37,7 @@ export class ShipRouteFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/shipRoutes'
-    public loading = new Subject<boolean>()
+    public isLoading = new Subject<boolean>()
 
     //#endregion
 
@@ -89,7 +89,7 @@ export class ShipRouteFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.shipRouteService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
+                this.shipRouteService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -200,7 +200,7 @@ export class ShipRouteFormComponent {
 
     private saveRecord(shipRoute: ShipRouteWriteVM): void {
         if (shipRoute.id === 0) {
-            this.shipRouteService.add(shipRoute).pipe(indicate(this.loading)).subscribe(() => {
+            this.shipRouteService.add(shipRoute).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -208,7 +208,7 @@ export class ShipRouteFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.shipRouteService.update(shipRoute.id, shipRoute).pipe(indicate(this.loading)).subscribe(() => {
+            this.shipRouteService.update(shipRoute.id, shipRoute).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

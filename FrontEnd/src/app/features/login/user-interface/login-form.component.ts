@@ -39,7 +39,7 @@ export class LoginFormComponent {
     public countdown = 0
     public hidePassword = true
     public idleState = 'NOT_STARTED'
-    public loading = new Subject<boolean>()
+    public isLoading = new Subject<boolean>()
 
     //#endregion
 
@@ -75,7 +75,7 @@ export class LoginFormComponent {
     }
 
     public onLogin(): void {
-        this.accountService.login(this.form.value.username, this.form.value.password).pipe(indicate(this.loading)).subscribe(() => {
+        this.accountService.login(this.form.value.username, this.form.value.password).pipe(indicate(this.isLoading)).subscribe(() => {
             this.goHome()
             this.startIdleTimer()
         }, error => {

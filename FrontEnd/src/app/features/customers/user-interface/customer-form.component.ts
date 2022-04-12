@@ -36,7 +36,7 @@ export class CustomerFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/customers'
-    public loading = new Subject<boolean>()
+    public isLoading = new Subject<boolean>()
 
     //#endregion
 
@@ -88,7 +88,7 @@ export class CustomerFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.customerService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
+                this.customerService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -192,7 +192,7 @@ export class CustomerFormComponent {
 
     private saveRecord(customer: CustomerWriteVM): void {
         if (customer.id === 0) {
-            this.customerService.add(customer).pipe(indicate(this.loading)).subscribe(() => {
+            this.customerService.add(customer).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -200,7 +200,7 @@ export class CustomerFormComponent {
                 this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             })
         } else {
-            this.customerService.update(customer.id, customer).pipe(indicate(this.loading)).subscribe(() => {
+            this.customerService.update(customer.id, customer).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

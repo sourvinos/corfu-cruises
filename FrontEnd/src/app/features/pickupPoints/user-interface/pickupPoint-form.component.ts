@@ -43,7 +43,7 @@ export class PickupPointFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/pickupPoints'
-    public loading = new Subject<boolean>()
+    public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public filteredRoutes: Observable<CoachRouteDropdownVM[]>
@@ -121,7 +121,7 @@ export class PickupPointFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.pickupPointService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
+                this.pickupPointService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -284,7 +284,7 @@ export class PickupPointFormComponent {
     private saveRecord(pickupPoint: PickupPointWriteVM): void {
         if (pickupPoint.id === 0) {
             this.flattenForm()
-            this.pickupPointService.add(pickupPoint).pipe(indicate(this.loading)).subscribe(() => {
+            this.pickupPointService.add(pickupPoint).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
@@ -293,7 +293,7 @@ export class PickupPointFormComponent {
             })
         } else {
             this.flattenForm()
-            this.pickupPointService.update(pickupPoint.id, pickupPoint).pipe(indicate(this.loading)).subscribe(() => {
+            this.pickupPointService.update(pickupPoint.id, pickupPoint).pipe(indicate(this.isLoading)).subscribe(() => {
                 this.resetForm()
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')

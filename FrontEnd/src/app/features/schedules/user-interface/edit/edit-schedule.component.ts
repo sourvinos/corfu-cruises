@@ -46,7 +46,7 @@ export class EditScheduleComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/schedules'
-    public loading = new Subject<boolean>()
+    public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public destinations: DestinationDropdownVM[] = []
@@ -119,7 +119,7 @@ export class EditScheduleComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.scheduleService.delete(this.form.value.id).pipe(indicate(this.loading)).subscribe(() => {
+                this.scheduleService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
                     this.resetForm()
                     this.goBack()
                     this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
@@ -248,7 +248,7 @@ export class EditScheduleComponent {
 
     private saveRecord(schedule: ScheduleWriteVM): void {
         this.flattenForm()
-        this.scheduleService.update(schedule.id, schedule).pipe(indicate(this.loading)).subscribe(() => {
+        this.scheduleService.update(schedule.id, schedule).pipe(indicate(this.isLoading)).subscribe(() => {
             this.resetForm()
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
