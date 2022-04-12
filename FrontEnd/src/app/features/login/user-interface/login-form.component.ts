@@ -16,6 +16,7 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { SnackbarService } from '../../../shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 
 @Component({
     selector: 'login-form',
@@ -43,7 +44,7 @@ export class LoginFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private formBuilder: FormBuilder, private helperService: HelperService, private idle: Idle, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private formBuilder: FormBuilder, private helperService: HelperService, private idle: Idle, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -51,6 +52,7 @@ export class LoginFormComponent {
         this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
+        this.clearStoredVariables()
     }
 
     ngOnDestroy(): void {
@@ -104,6 +106,20 @@ export class LoginFormComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
+    }
+
+    private clearStoredVariables(): void {
+        this.localStorageService.deleteItems([
+            { 'item': 'date', 'when': 'always' },
+            { 'item': 'displayname', 'when': 'always' },
+            { 'item': 'expiration', 'when': 'always' },
+            { 'item': 'jwt', 'when': 'always' },
+            { 'item': 'loginStatus', 'when': 'always' },
+            { 'item': 'refreshToken', 'when': 'always' },
+            { 'item': 'refNo', 'when': 'always' },
+            { 'item': 'returnUrl', 'when': 'always' },
+            { 'item': 'embarkation-criteria', 'when': 'production' },
+        ])
     }
 
     private goHome(): void {

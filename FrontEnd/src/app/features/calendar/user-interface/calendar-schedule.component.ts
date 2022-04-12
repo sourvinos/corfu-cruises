@@ -128,9 +128,9 @@ export class CalendarScheduleComponent {
 
     private clearStoredVariables(): void {
         this.localStorageService.deleteItems([
-            'date',
-            'destinationId',
-            'destinationDescription'
+            { 'item': 'date', 'when': 'always' },
+            { 'item': 'destinationId', 'when': 'always' },
+            { 'item': 'destinationDescription', 'when': 'always' }
         ])
     }
 

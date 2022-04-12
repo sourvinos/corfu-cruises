@@ -131,9 +131,9 @@ export class CalendarComponent {
 
     private clearStoredVariables() {
         this.localStorageService.deleteItems([
-            'date',
-            'refNo',
-            'returnUrl'
+            { 'item': 'date', 'when': 'always' },
+            { 'item': 'refNo', 'when': 'always' },
+            { 'item': 'returnUrl', 'when': 'always' }
         ])
     }
 

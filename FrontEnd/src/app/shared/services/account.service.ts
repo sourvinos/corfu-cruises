@@ -8,6 +8,7 @@ import { DataService } from './data.service'
 import { InteractionService } from './interaction.service'
 import { environment } from 'src/environments/environment'
 import { ResetPasswordViewModel } from 'src/app/features/users/classes/view-models/reset-password-view-model'
+import { LocalStorageService } from './local-storage.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -27,7 +28,7 @@ export class AccountService extends DataService {
 
     //#endregion
 
-    constructor(private interactionService: InteractionService, httpClient: HttpClient, private router: Router) {
+    constructor(private localStorageService: LocalStorageService, private interactionService: InteractionService, httpClient: HttpClient, private router: Router) {
         super(httpClient, environment.apiUrl)
     }
 
@@ -81,7 +82,7 @@ export class AccountService extends DataService {
 
     public logout(): void {
         this.setLoginStatus(false)
-        this.clearLocalStorage()
+        this.clearStoredVariables()
         this.refreshMenus()
         this.navigateToLogin()
     }
@@ -108,23 +109,18 @@ export class AccountService extends DataService {
         return false
     }
 
-    private clearLocalStorage(): void {
-        this.clearLocalStorageItems([
-            'date',
-            'displayname',
-            'expiration',
-            'jwt',
-            'loginStatus',
-            'refreshToken',
-            'refNo',
-            'returnUrl'
+    private clearStoredVariables(): void {
+        this.localStorageService.deleteItems([
+            { 'item': 'date', 'when': 'always' },
+            { 'item': 'displayname', 'when': 'always' },
+            { 'item': 'expiration', 'when': 'always' },
+            { 'item': 'jwt', 'when': 'always' },
+            { 'item': 'loginStatus', 'when': 'always' },
+            { 'item': 'refreshToken', 'when': 'always' },
+            { 'item': 'refNo', 'when': 'always' },
+            { 'item': 'returnUrl', 'when': 'always' },
+            { 'item': 'embarkation-criteria', 'when': 'production' },
         ])
-    }
-
-    private clearLocalStorageItems(items: string[]): void {
-        items.forEach(element => {
-            localStorage.removeItem(element)
-        })
     }
 
     private navigateToLogin(): void {

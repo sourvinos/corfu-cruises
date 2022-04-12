@@ -256,7 +256,10 @@ export class ReservationFormComponent {
     }
 
     private clearStoredVariables(): void {
-        this.localStorageService.deleteItems(['destinationId', 'destinationDescription'])
+        this.localStorageService.deleteItems([
+            { 'item': 'destinationId', 'when': 'always' },
+            { 'item': 'destinationDescription', 'when': 'always' }
+        ])
     }
 
     private convertCanvasToBase64(): void {
