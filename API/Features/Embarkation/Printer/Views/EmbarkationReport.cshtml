@@ -2,7 +2,13 @@
 @model EmbarkationPrinterGroupVM<EmbarkationPrinterVM>
 
 <head>
+
+    <link href="http://fonts.cdnfonts.com/css/canter-bold" rel="stylesheet">
+    <link href="http://fonts.cdnfonts.com/css/pf-handbook-pro" rel="stylesheet">
+    <link href="http://fonts.cdnfonts.com/css/ubuntu-condensed-2" rel="stylesheet">
+
     <style>
+
         #header {
             align-items: center;
             display: flex;
@@ -14,15 +20,15 @@
         }
 
         #logo-and-title {
+            align-items: center;
             display: flex;
             flex-direction: column;
             padding-left: 1rem;
-            align-items: center;
         }
 
         #logo-text {
-            font-family: "Aka-Acid-CanterBold";
-            font-size: 36px;
+        	font-family: "Canter Bold";
+	        font-size: 36px;
         }
 
         #title {
@@ -37,7 +43,7 @@
             margin-left: auto;
         }
 
-        #criteria>div {
+        .pill {
             background-color: #efefef;
             border-radius: 5px;
             margin-left: 0.5rem;
@@ -46,18 +52,21 @@
         }
 
         .label {
-            font-size: 16px;
             font-family: "PF Handbook Pro";
+            font-size: 16px;
         }
 
         .description {
-            font-size: 18px;
             font-family: "PF Handbook Pro";
+            font-size: 18px;
             font-weight: 300;
         }
 
         #footer {
+            display: flex;
             font-family: "PF Handbook Pro";
+            justify-content: flex-end;
+            margin-top: 1rem;
         }
 
         #list-header {
@@ -94,8 +103,9 @@
         }
 
         th {
-            padding: 0.5rem;
             border: 1px dotted lightgray;
+            font-weight: 500;
+            padding: 0.5rem;
         }
 
         td {
@@ -112,6 +122,7 @@
             text-align: center;
             width: 5rem;
         }
+
     </style>
 
 </head>
@@ -129,20 +140,20 @@
                 <div id="title">ΚΑΤΑΣΤΑΣΗ ΕΠΙΒΙΒΑΣΗΣ</div>
             </div>
             <div id="criteria">
-                <div>
-                    <div class="label">Ημερομηνία</div>
+                <div class="pill">
+                    <div class="label">ΗΜΕΡΟΜΗΝΙΑ</div>
                     <div class="description">@Model.Date</div>
                 </div>
-                <div>
-                    <div class="label">Προορισμός</div>
+                <div class="pill">
+                    <div class="label">ΠΡΟΟΡΙΣΜΟΣ</div>
                     <div class="description">@Model.Destination</div>
                 </div>
-                <div>
-                    <div class="label">Λιμάνι</div>
+                <div class="pill">
+                    <div class="label">ΛΙΜΑΝΙ</div>
                     <div class="description">@Model.Port</div>
                 </div>
-                <div>
-                    <div class="label">Πλοίο</div>
+                <div class="pill">
+                    <div class="label">ΠΛΟΙΟ</div>
                     <div class="description">@Model.Ship</div>
                 </div>
             </div>
@@ -151,7 +162,7 @@
         <table id="outer-table">
             <thead>
                 <tr>
-                    <th class="column-header" id="ticket-column">ΑΡ. ΕΙΣΙΤΗΡΙΟΥ</th>
+                    <th class="column-header" id="ticket-column">ΕΙΣΙΤΗΡΙΟ</th>
                     <th class="column-header">ΠΕΛΑΤΗΣ</th>
                     <th class="column-header">ΟΔΗΓΟΣ</th>
                     <th class="column-header">ΣΧΟΛΙΑ</th>
@@ -186,7 +197,14 @@
         </table>
 
         <div id="footer">
-            @Model.PassengerCount
+            <div class="pill">
+                <div class="label">Σ<sub>0<sub></div>
+                <div class="description">@Model.PassengerCount</div>
+            </div>
+            <div class="pill">
+                <div class="label">Σ<sub>1</sub></div>
+                <div class="description">@Model.PassengerCountWithNames</div>
+            </div>
         </div>
 
     </div>
