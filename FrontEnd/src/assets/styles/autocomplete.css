@@ -13,7 +13,6 @@
 .mat-option-text {
     color: var(--color-text) !important;
     display: flex !important;
-    font-size: var(--font-size-autocomplete) !important;
     justify-content: space-between;
 }
 

@@ -11,7 +11,6 @@ h1 {
 h6 {
     color: var(--color-text) !important;
     font-family: var(--font-family-handbook) !important;
-    font-size: var(--font-size-h6) !important;
     font-weight: var(--font-weight-header) !important;
     margin: 0 !important;
     padding: 0 !important;

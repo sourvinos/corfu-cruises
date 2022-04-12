@@ -53,7 +53,6 @@
 .mat-calendar-body-cell {
     background-color: transparent !important;
     border-radius: 50%;
-    font-size: var(--font-size-datepicker-days) !important;
     transition: background-color 0.4s ease-out;
 }
 
@@ -79,7 +78,6 @@
 
 .mat-calendar-body-cell-content {
     flex-direction: column;
-    font-size: var(--font-size-calendar-date);
 }
 
 .mat-calendar-body-today {

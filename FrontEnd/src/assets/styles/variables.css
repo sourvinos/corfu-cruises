@@ -11,27 +11,20 @@
     --font-weight-logo: 400;
     --font-weight-mat-hint: 300;
     --font-weight-snackbar: 300;
-    --font-weight-sum-persons: 300;
-    --font-weight-summary-header: 300;
     --font-weight-table-header: 300 !important;
-    --font-weight-tooltip: 700;
     /* Delays */
     --change-theme-delay: 0.3s;
     --change-component-theme-on-hover: 0.2s;
     /* Common sizes in all screen resolutions */
-    --font-size-autocomplete: 90%;
-    --font-size-calendar-date: 100%;
-    --font-size-datepicker-days: 0.9vw;
-    --font-size-datepicker-header-month: 2.2vw;
+    --font-size-datepicker-header-month: 1.8rem;
     --font-size-dialog: 1.5rem;
-    --font-size-input-height: 100%;
     --font-size-loading-message: 2rem;
     --font-size-logo-loader-first-child: 8rem;
     --font-size-logo-loader-second-child: 4.5rem;
     --font-size-map-tooltip: 1.1rem;
     --font-size-paragraph: 0.7rem;
-    --font-size-snackbar: 120%;
+    --font-size-snackbar: 1.1rem;
     --font-size-sum-persons: 120%;
-    --font-size-tab-label: 130%;
-    --form-field-margin: 10px;
+    --font-size-tab-label: 1rem;
+    --form-field-margin: 0.625rem;
 }
