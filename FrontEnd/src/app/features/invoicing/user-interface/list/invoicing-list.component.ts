@@ -1,19 +1,19 @@
-import { InvoicingVM } from './../../classes/view-models/invoicing-vm'
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 // Custom
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { InvoicingCriteriaVM } from '../../classes/view-models/invoicing-criteria-vm'
 import { InvoicingPdfService } from '../../classes/services/invoicing-pdf.service'
 import { InvoicingService } from '../../classes/services/invoicing.service'
+import { InvoicingVM } from './../../classes/view-models/invoicing-vm'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
     selector: 'invoicing-list',
@@ -28,46 +28,29 @@ export class InvoicingListComponent {
 
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
-    private url = 'invoicing'
     public feature = 'invoicingList'
     public icon = 'arrow_back'
     public parentUrl = '/invoicing'
 
+    public invoicingCriteria: InvoicingCriteriaVM
     public records: InvoicingVM[] = []
+    public filteredRecords: InvoicingVM[] = []
+    public isLoading = new Subject<boolean>()
 
     //#endregion
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private helperService: HelperService,
-        private invoicingService: InvoicingService,
-        private keyboardShortcutsService: KeyboardShortcuts,
-        private localStorageService: LocalStorageService,
-        private messageLabelService: MessageLabelService,
-        private emojiService: EmojiService,
-        private messageSnackbarService: MessageSnackbarService,
-        private invoicingPdfService: InvoicingPdfService,
-        private router: Router,
-        private snackbarService: SnackbarService,
-        private titleService: Title
-    ) {
-        this.router.events.subscribe((navigation) => {
-            if (navigation instanceof NavigationEnd) {
-                this.loadRecords()
-            }
-        })
-    }
+    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private invoicingPdfService: InvoicingPdfService, private invoicingService: InvoicingService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.loadRecords()
         this.addShortcuts()
+        this.loadRecords()
+        this.populateCriteriaFromStoredVariables()
     }
 
     ngOnDestroy(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
@@ -89,6 +72,10 @@ export class InvoicingListComponent {
         })
     }
 
+    public formatDate(): string {
+        return this.formatDateToLocale(this.invoicingCriteria.date, true)
+    }
+
     public getEmoji(emoji: string): string {
         return this.emojiService.getEmoji(emoji)
     }
@@ -99,6 +86,14 @@ export class InvoicingListComponent {
 
     public goBack(): void {
         this.router.navigate([this.parentUrl])
+    }
+
+    public replaceWildcardWithText(criteria: any): string {
+        if (criteria.description.includes(this.emojiService.getEmoji('wildcard'))) {
+            return this.emojiService.getEmoji('wildcard')
+        } else {
+            return criteria.description
+        }
     }
 
     //#endregion
@@ -118,6 +113,15 @@ export class InvoicingListComponent {
         })
     }
 
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
+    }
+
+    private formatDateToLocale(date: string, showWeekday = false): string {
+        return this.helperService.formatISODateToLocale(date, showWeekday)
+    }
+
     private loadRecords(): void {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
@@ -125,6 +129,18 @@ export class InvoicingListComponent {
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
+        }
+    }
+
+    private populateCriteriaFromStoredVariables(): void {
+        if (this.localStorageService.getItem('invoicing-criteria')) {
+            const criteria = JSON.parse(this.localStorageService.getItem('invoicing-criteria'))
+            this.invoicingCriteria = {
+                date: criteria.date,
+                customer: criteria.customer,
+                destination: criteria.destination,
+                ship: criteria.ship
+            }
         }
     }
 

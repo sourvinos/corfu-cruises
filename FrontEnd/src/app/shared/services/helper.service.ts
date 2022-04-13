@@ -112,11 +112,17 @@ export class HelperService {
         return '/'
     }
 
-    public populateTableFiltersDropdowns(records: any[], field: string): any[] {
+    public populateTableFiltersDropdowns(records: any[], field: any): any[] {
         const array: any[] = []
         const elements = [... new Set(records.map(x => x[field]))]
         elements.forEach(element => {
-            array.push({ label: element == '(EMPTY)' ? this.emojiService.getEmoji('wildcard') : element, value: element })
+            if (typeof (element) == 'string') {
+                array.push({ label: element == '(EMPTY)' ? this.emojiService.getEmoji('wildcard') : element, value: element })
+            }
+            if (typeof (element) == 'object') {
+                array.push({ label: element.description == '(EMPTY)' ? this.emojiService.getEmoji('wildcard') : element.description, value: element.description })
+            }
+
         })
         array.sort((a, b) => (a.label > b.label) ? 1 : -1)
         return array

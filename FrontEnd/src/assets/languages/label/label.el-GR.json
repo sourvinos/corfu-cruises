@@ -1483,6 +1483,10 @@
                 "description": "Τιμολόγηση"
             },
             {
+                "id": "headerCustomer",
+                "description": "Πελάτης"
+            },
+            {
                 "id": "headerDestination",
                 "description": "Προορισμός"
             },
@@ -1511,16 +1515,12 @@
                 "description": "Δ"
             },
             {
-                "id": "headerTotalPersons",
-                "description": "Σύνολο"
-            },
-            {
                 "id": "headerRemarks",
                 "description": "Σχόλια"
             },
             {
                 "id": "headerTotals",
-                "description": "Σύνολα"
+                "description": "ΣΥΝΟΛΑ"
             },
             {
                 "id": "exportAllButton",
@@ -1529,6 +1529,30 @@
             {
                 "id": "no-results",
                 "description": "Δεν βρήκαμε τίποτα!"
+            },
+            {
+                "id": "has-transfer",
+                "description": "ΝΑΙ"
+            },
+            {
+                "id": "no-transfer",
+                "description": "ΟΧΙ"
+            },
+            {
+                "id": "criteria-date",
+                "description": "Ημερομηνία"
+            },
+            {
+                "id": "criteria-customer",
+                "description": "Πελάτης"
+            },
+            {
+                "id": "criteria-destination",
+                "description": "Προορισμός"
+            },
+            {
+                "id": "criteria-ship",
+                "description": "Πλοίο"
             }
         ]
     },

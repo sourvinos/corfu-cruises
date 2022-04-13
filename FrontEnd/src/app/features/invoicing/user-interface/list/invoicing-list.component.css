@@ -1,30 +1,46 @@
-.total-header {
-    background-color: var(--color-a);
-    color: var(--color-text);
-    font-family: var(--font-family-ubuntu);
-    font-weight: 100;
-    padding: 0.3rem;
-    transition: all var(--change-theme-delay) ease;
-}
-
-.subtotal td, .row-group td {
-    color: var(--color-c);
-    transition: all var(--change-theme-delay) ease;
-}
-
-.clickable {
+#criteria {
     align-items: center;
-    cursor: pointer;
     display: flex;
+    font-family: var(--font-family-handbook);
+    gap: 0.5rem;
+    justify-content: flex-end;
+    margin: 0 1rem 0 auto;
+    text-align: right;
+}
+
+#criteria > div {
+    background-color: var(--color-d);
+    padding: 0.5rem;
+    border-radius: 0.3125rem;
+}
+
+#criteria .label {
+    color: var(--color-text);
+    font-weight: bold;
+}
+
+#criteria .description {
+    color: var(--color-text);
+}
+
+.customer-totals {
+    background-color: var(--color-c) !important;
 }
 
 .clickable:hover {
-    color: var(--color-d) !important;
+    cursor: pointer;
 }
 
 .pi-file-pdf {
-    margin-right: 0.5rem;
+    color: var(--color-e);
     font-size: 1.5rem !important;
     font-weight: 100;
-    transition: all var(--change-theme-delay) ease;
+}
+
+.no-transfer {
+    background-color: var(--color-embarkation-pending);
+}
+
+.has-transfer {
+    background-color: var(--color-embarkation-complete);
 }

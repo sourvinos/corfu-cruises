@@ -120,6 +120,7 @@ export class AccountService extends DataService {
             { 'item': 'refNo', 'when': 'always' },
             { 'item': 'returnUrl', 'when': 'always' },
             { 'item': 'embarkation-criteria', 'when': 'production' },
+            { 'item': 'invoicing-criteria', 'when': 'production' },
         ])
     }
 

@@ -1400,14 +1400,6 @@
                 "description": "Nationalites"
             },
             {
-                "id": "searchLabel",
-                "description": "RECHERCHE"
-            },
-            {
-                "id": "searchHint",
-                "description": "Sous la base  Description"
-            },
-            {
                 "id": "newButton",
                 "description": "Nouvelle"
             },
@@ -1491,6 +1483,10 @@
                 "description": "Facturation"
             },
             {
+                "id": "headerCustomer",
+                "description": "Client"
+            },
+            {
                 "id": "headerDestination",
                 "description": "Destination"
             },
@@ -1519,16 +1515,12 @@
                 "description": "L"
             },
             {
-                "id": "headerTotalPersons",
-                "description": "Total"
-            },
-            {
                 "id": "headerRemarks",
                 "description": "Remarques"
             },
             {
                 "id": "headerTotals",
-                "description": "Total"
+                "description": "TOTALS"
             },
             {
                 "id": "exportAllButton",
@@ -1537,6 +1529,30 @@
             {
                 "id": "no-results",
                 "description": "Nous n'avons rien trouvé !"
+            },
+            {
+                "id": "has-transfer",
+                "description": "OUI"
+            },
+            {
+                "id": "no-transfer",
+                "description": "NON"
+            },
+            {
+                "id": "criteria-date",
+                "description": "Date"
+            },
+            {
+                "id": "criteria-customer",
+                "description": "Client"
+            },
+            {
+                "id": "criteria-destination",
+                "description": "Destination"
+            },
+            {
+                "id": "criteria-ship",
+                "description": "Bateau"
             }
         ]
     },

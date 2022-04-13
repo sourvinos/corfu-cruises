@@ -1400,10 +1400,6 @@
                 "description": "Nationalitäten"
             },
             {
-                "id": "searchLabel",
-                "description": "Suchen"
-            },
-            {
                 "id": "newButton",
                 "description": "NEU"
             },
@@ -1487,6 +1483,10 @@
                 "description": "Fakturierung"
             },
             {
+                "id": "headerCustomer",
+                "description": "Kunde"
+            },
+            {
                 "id": "headerDestination",
                 "description": "Reiseziel"
             },
@@ -1515,16 +1515,12 @@
                 "description": "G"
             },
             {
-                "id": "headerTotalPersons",
-                "description": "Gesamt"
-            },
-            {
                 "id": "headerRemarks",
                 "description": "Kommentare"
             },
             {
                 "id": "headerTotals",
-                "description": "Summen"
+                "description": "SUMME"
             },
             {
                 "id": "exportAllButton",
@@ -1533,6 +1529,30 @@
             {
                 "id": "no-results",
                 "description": "Wir haben nichts gefunden!"
+            },
+            {
+                "id": "has-transfer",
+                "description": "JA"
+            },
+            {
+                "id": "no-transfer",
+                "description": "NEIN"
+            },
+            {
+                "id": "criteria-date",
+                "description": "Datum"
+            },
+            {
+                "id": "criteria-customer",
+                "description": "Kunde"
+            },
+            {
+                "id": "criteria-destination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "criteria-ship",
+                "description": "Schiff"
             }
         ]
     },

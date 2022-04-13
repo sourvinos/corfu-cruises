@@ -1400,14 +1400,6 @@
                 "description": "Nationalities"
             },
             {
-                "id": "searchLabel",
-                "description": "SEARCH"
-            },
-            {
-                "id": "searchHint",
-                "description": "Search by description"
-            },
-            {
                 "id": "newButton",
                 "description": "NEW"
             },
@@ -1491,6 +1483,10 @@
                 "description": "Invoicing"
             },
             {
+                "id": "headerCustomer",
+                "description": "Customer"
+            },
+            {
                 "id": "headerDestination",
                 "description": "Destination"
             },
@@ -1519,16 +1515,12 @@
                 "description": "F"
             },
             {
-                "id": "headerTotalPersons",
-                "description": "Total"
-            },
-            {
                 "id": "headerRemarks",
                 "description": "Comments"
             },
             {
                 "id": "headerTotals",
-                "description": "Totals"
+                "description": "TOTALS"
             },
             {
                 "id": "exportAllButton",
@@ -1537,6 +1529,30 @@
             {
                 "id": "no-results",
                 "description": "We found nothing!"
+            },
+            {
+                "id": "has-transfer",
+                "description": "YES"
+            },
+            {
+                "id": "no-transfer",
+                "description": "NO"
+            },
+            {
+                "id": "criteria-date",
+                "description": "Date"
+            },
+            {
+                "id": "criteria-customer",
+                "description": "Customer"
+            },
+            {
+                "id": "criteria-destination",
+                "description": "Destination"
+            },
+            {
+                "id": "criteria-ship",
+                "description": "Ship"
             }
         ]
     },

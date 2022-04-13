@@ -7,7 +7,7 @@ export class InvoicingVM {
     constructor(
 
         public date: string = '',
-        public customerResource: GenericResource,
+        public customer: GenericResource,
         public reservations: InvoicingReservationVM[] = [],
         public hasTransferGroup: InvoicingTransferGroupVM[],
         public hasTransferGroupTotal: InvoicingTransferGroupVM

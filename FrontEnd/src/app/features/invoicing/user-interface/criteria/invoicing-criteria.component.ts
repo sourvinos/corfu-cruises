@@ -53,7 +53,7 @@ export class InvoicingCriteriaComponent {
     public filteredDestinations: Observable<DestinationDropdownVM[]>
     public ships: ShipDropdownVM[] = []
     public filteredShips: Observable<GenericResource[]>
-    public selected: string
+    public selected: Date | null
 
     //#endregion
 
@@ -158,14 +158,7 @@ export class InvoicingCriteriaComponent {
     }
 
     private navigateToList(): void {
-        this.router.navigate([
-            'date', this.form.value.date,
-            'customer', this.form.value.customer.id,
-            'destination', this.form.value.destination.id,
-            'ship', this.form.value.ship.id],
-            {
-                relativeTo: this.activatedRoute
-            })
+        this.router.navigate(['date', this.form.value.date, 'customerId', this.form.value.customer.id, 'destinationId', this.form.value.destination.id, 'shipId', this.form.value.ship.id], { relativeTo: this.activatedRoute })
     }
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
@@ -206,7 +199,6 @@ export class InvoicingCriteriaComponent {
                 destination: { id: 'all', description: '[' + this.emojiService.getEmoji('wildcard') + ']' },
                 ship: { id: 'all', description: '[' + this.emojiService.getEmoji('wildcard') + ']' }
             })
-            this.selected = new Date().toISOString()
         }
     }
 

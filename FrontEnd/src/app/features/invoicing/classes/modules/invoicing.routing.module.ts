@@ -9,7 +9,7 @@ import { InvoicingListResolver } from '../resolvers/invoicing-list.resolver'
 const routes: Routes = [
     { path: '', component: InvoicingCriteriaComponent, canActivate: [AuthGuardService] },
     {
-        path: 'date/:date/customer/:customerId/destination/:destinationId/ship/:shipId',
+        path: 'date/:date/customerId/:customerId/destinationId/:destinationId/shipId/:shipId',
         component: InvoicingListComponent,
         canActivate: [AuthGuardService],
         resolve: {

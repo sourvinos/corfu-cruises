@@ -1300,7 +1300,7 @@
             },
             {
                 "id": "boarded",
-                "description": "Nastoupili"
+                "description": "OK"
             },
             {
                 "id": "pending",
@@ -1400,10 +1400,6 @@
                 "description": "Národnosti"
             },
             {
-                "id": "searchLabel",
-                "description": "Vyhledávání"
-            },
-            {
                 "id": "newButton",
                 "description": "NOVÝ"
             },
@@ -1487,6 +1483,10 @@
                 "description": "Fakturace"
             },
             {
+                "id": "headerCustomer",
+                "description": "Zákazník"
+            },
+            {
                 "id": "headerDestination",
                 "description": "Destinace"
             },
@@ -1515,16 +1515,12 @@
                 "description": "Z"
             },
             {
-                "id": "headerTotalPersons",
-                "description": "Celkový"
-            },
-            {
                 "id": "headerRemarks",
                 "description": "Komentáře"
             },
             {
                 "id": "headerTotals",
-                "description": "Celkem"
+                "description": "CELKEM"
             },
             {
                 "id": "exportAllButton",
@@ -1533,6 +1529,30 @@
             {
                 "id": "no-results",
                 "description": "Nic jsme nenašli!"
+            },
+            {
+                "id": "has-transfer",
+                "description": "ANO"
+            },
+            {
+                "id": "no-transfer",
+                "description": "NE"
+            },
+            {
+                "id": "criteria-date",
+                "description": "Datum"
+            },
+            {
+                "id": "criteria-customer",
+                "description": "Zákazník"
+            },
+            {
+                "id": "criteria-destination",
+                "description": "Destinace"
+            },
+            {
+                "id": "criteria-ship",
+                "description": "Plavidlo"
             }
         ]
     },

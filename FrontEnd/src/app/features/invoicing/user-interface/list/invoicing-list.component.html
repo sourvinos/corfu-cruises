@@ -1,79 +1,120 @@
 <div id="list">
-
+    
     <div *ngIf="records.length > 0" id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <div id="criteria">
+            <div>
+                <div class="label">{{ getLabel('criteria-date') }}</div>
+                <div class="description">{{ formatDate() }}</div>
+            </div>
+            <div>
+                <div class="label">{{ getLabel('criteria-customer') }}</div>
+                <div class="description">{{ replaceWildcardWithText(invoicingCriteria.customer) }}</div>
+            </div>
+            <div>
+                <div class="label">{{ getLabel('criteria-destination') }}</div>
+                <div class="description">{{ replaceWildcardWithText(invoicingCriteria.destination) }}</div>
+            </div>
+            <div>
+                <div class="label">{{ getLabel('criteria-ship') }}</div>
+                <div class="description">{{ replaceWildcardWithText(invoicingCriteria.ship) }}</div>
+            </div>
+        </div>
     </div>
 
     <ng-container *ngIf="records.length > 0">
         <div id="table-wrapper">
-            <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table [value]="records" sortField="customer.description" rowGroupMode="subheader" #table [autoLayout]="false" [scrollable]="true" dataKey="customer.description" scrollHeight="flex" groupRowsBy="customer.description">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 20%; border-top-left-radius: 10px;">{{ getLabel("headerDestination") }}</th>
-                        <th style="width: 20%;">{{ getLabel("headerShip") }}</th>
-                        <th style="width: 10%;">{{ getLabel("headerTicketNo") }}</th>
-                        <th style="width: 10%;">{{ getLabel("headerHasTransfer") }}</th>
-                        <th style="width: 5%;">{{ getLabel("headerAdults") }}</th>
-                        <th style="width: 5%;">{{ getLabel("headerKids") }}</th>
-                        <th style="width: 5%;">{{ getLabel("headerFree") }}</th>
-                        <th style="width: 6%;">{{ getLabel("headerTotalPersons") }}</th>
-                        <th style="width: 20%; border-top-right-radius: 10px;">{{ getLabel("headerRemarks") }}</th>
+                        <th style="min-width: 3%; max-width: 3%; border-top-left-radius: 10px;"></th>
+                        <th style="min-width: 20%; max-width: 20%;">{{ getLabel("headerDestination") }}</th>
+                        <th style="min-width: 20%; max-width: 20%;">{{ getLabel("headerShip") }}</th>
+                        <th style="min-width: 10%; max-width: 10%;">{{ getLabel("headerTicketNo") }}</th>
+                        <th style="min-width: 5%; max-width: 5%;">{{ getLabel("headerHasTransfer") }}</th>
+                        <th style="min-width: 3%; max-width: 3%;">{{ getLabel("headerAdults") }}</th>
+                        <th style="min-width: 3%; max-width: 3%;">{{ getLabel("headerKids") }}</th>
+                        <th style="min-width: 3%; max-width: 3%;">{{ getLabel("headerFree") }}</th>
+                        <th style="min-width: 3%; max-width: 3%;">{{ getEmoji('sum') }}</th>
+                        <th style="min-width: 25%; max-width: 25%;">{{ getLabel("headerRemarks") }}</th>
+                        <th style="min-width: 5%; max-width: 5%; border-top-right-radius: 10px;"></th>
+                    </tr>
+                    <tr>
+                        <th style="min-width: 3%; max-width: 3%;"></th>
+                        <th style="min-width: 20%; max-width: 20%;"></th>
+                        <th style="min-width: 20%; max-width: 20%;"></th>
+                        <th style="min-width: 10%; max-width: 10%;">
+                            <p-columnFilter type="text" field="ticketNo"></p-columnFilter>
+                        </th>
+                        <th style="min-width: 5%; max-width: 5%;"></th>
+                        <th style="min-width: 3%; max-width: 3%;"></th>
+                        <th style="min-width: 3%; max-width: 3%;"></th>
+                        <th style="min-width: 3%; max-width: 3%;"></th>
+                        <th style="min-width: 3%; max-width: 3%;"></th>
+                        <th style="min-width: 25%; max-width: 25%;"></th>
+                        <th style="min-width: 5%; max-width: 5%;"></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-rowData>
+                <ng-template pTemplate="groupheader" let-record let-expanded="expanded">
                     <tr>
-                        <td colspan="2" class="row-group clickable" (click)="exportSingleCustomer(rowData.date, rowData.customer.id)">
-                            <i class="pi pi-file-pdf"></i><span>{{ rowData.customer.description }}</span>
+                        <td colspan="10" type="button">
+                            <button pButton pRipple [pRowToggler]="record" class="p-button-text p-button-rounded p-button-plain p-mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                            <span style="font-weight: bold;">{{ record.customer.description }}</span>
                         </td>
-                        <td style="width: 20%;"></td>
-                        <td style="width: 10%;"></td>
-                        <td style="width: 10%;"></td>
-                        <td style="width: 5%;"></td>
-                        <td style="width: 5%;"></td>
-                        <td style="width: 5%;"></td>
-                        <td style="width: 6%;"></td>
-                        <td style="width: 20%;"></td>
                     </tr>
-                    <tr [pSelectableRow]="rowData.reservations[i]" *ngFor="let x of rowData.reservations, let i = index">
-                        <td style="width: 20%;">{{ rowData.reservations[i].destinationDescription }}</td>
-                        <td style="width: 20%;">{{ rowData.reservations[i].shipDescription }}</td>
-                        <td style="width: 10%;">{{ rowData.reservations[i].ticketNo }}</td>
-                        <td style="text-align: center; width: 10%;">
-                            <i class="pi" [ngClass]="{'icon-green pi-check': rowData.reservations[i].hasTransfer, 'icon-red pi-times': !rowData.reservations[i].hasTransfer}"></i>
+                </ng-template>
+                <ng-template pTemplate="rowexpansion" let-record>
+                    <tr [pSelectableRow]="record.reservations[i]" *ngFor="let x of record.reservations, let i = index">
+                        <td style="min-width: 3%; max-width: 3%;"></td>
+                        <td style="min-width: 20%; max-width: 20%;">{{ record.reservations[i].destinationDescription }}</td>
+                        <td style="min-width: 20%; max-width: 20%;">{{ record.reservations[i].shipDescription }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ record.reservations[i].ticketNo }}</td>
+                        <td [ngClass]="record.reservations[i].hasTransfer ? 'has-transfer' : 'no-transfer'" style="min-width: 5%; max-width: 5%; justify-content: center;">
+                            <span *ngIf="record.reservations[i].hasTransfer">{{ getLabel('has-transfer') }}</span>
+                            <span *ngIf="!record.reservations[i].hasTransfer">{{ getLabel('no-transfer') }}</span>
                         </td>
-                        <td style="text-align: right; width: 5%;">{{ rowData.reservations[i].adults }}</td>
-                        <td style="text-align: right; width: 5%;">{{ rowData.reservations[i].kids }}</td>
-                        <td style="text-align: right; width: 5%;">{{ rowData.reservations[i].free }}</td>
-                        <td style="text-align: right; width: 6%;">{{ rowData.reservations[i].totalPersons }}</td>
-                        <td style="width: 20%;">{{ rowData.reservations[i].remarks }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].adults }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].kids }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].free }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].totalPersons }}</td>
+                        <td style="min-width: 25%; max-width: 25%;">{{ record.reservations[i].remarks }}</td>
+                        <td style="min-width: 5%; max-width: 5%;"></td>
                     </tr>
                     <tr>
-                        <th colspan="3"></th>
-                        <th colspan="5" class="total-header">{{ getLabel("headerTotals") }}</th>
-                        <th colspan="1"></th>
+                        <td style="min-width: 3%; max-width: 3%;"></td>
                     </tr>
-                    <tr class="subtotal" *ngFor="let x of rowData.hasTransferGroup, let i = index">
-                        <td style="width: 20%;"></td>
-                        <td style="width: 20%;"></td>
-                        <td style="width: 20%;"></td>
-                        <td style="text-align: center; width: 3rem;">
-                            <i class="pi" [ngClass]="{'icon-green pi-check': rowData.hasTransferGroup[i].hasTransfer, 'icon-red pi-times': !rowData.hasTransferGroup[i].hasTransfer}"></i>
-                        <td style="text-align: right; width: 3rem;">{{ rowData.hasTransferGroup[i].adults }}</td>
-                        <td style="text-align: right; width: 3rem;">{{ rowData.hasTransferGroup[i].kids }}</td>
-                        <td style="text-align: right; width: 3rem;">{{ rowData.hasTransferGroup[i].free }}</td>
-                        <td style="text-align: right; width: 4rem;">{{ rowData.hasTransferGroup[i].totalPersons }}</td>
-                        <td style="width: 10%;"></td>
-                    </tr>
+                    <ng-container *ngIf="record.hasTransferGroup.length > 1">
+                        <tr class="subtotal" *ngFor="let x of record.hasTransferGroup, let i = index">
+                            <td style="min-width: 3%; max-width: 3%;"></td>
+                            <td style="min-width: 20%; max-width: 20%;"></td>
+                            <td style="min-width: 20%; max-width: 20%;"></td>
+                            <td style="min-width: 10%; max-width: 10%;"></td>
+                            <td style="min-width: 5%; max-width: 5%; justify-content: center;" [ngClass]="record.hasTransferGroup[i].hasTransfer ? 'has-transfer' : 'no-transfer'">
+                                <span *ngIf="record.hasTransferGroup[i].hasTransfer">{{ getLabel('has-transfer') }}</span>
+                                <span *ngIf="!record.hasTransferGroup[i].hasTransfer">{{ getLabel('no-transfer') }}</span>
+                            </td>
+                            <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroup[i].adults }}</td>
+                            <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroup[i].kids }}</td>
+                            <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroup[i].free }}</td>
+                            <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroup[i].totalPersons }}</td>
+                            <td style="min-width: 25%; max-width: 25%;"></td>
+                            <td style="min-width: 5%; max-width: 5%;"></td>
+                        </tr>
+                    </ng-container>
                     <tr class="row-group">
-                        <td style="width: 10%;"></td>
-                        <td style="width: 20%;"></td>
-                        <td style="width: 20%;"></td>
-                        <td style="width: 3rem;"></td>
-                        <td style="text-align: right; width: 3rem;">{{ rowData.hasTransferGroupTotal.adults }}</td>
-                        <td style="text-align: right; width: 3rem;">{{ rowData.hasTransferGroupTotal.kids }}</td>
-                        <td style="text-align: right; width: 3rem;">{{ rowData.hasTransferGroupTotal.free }}</td>
-                        <td style="text-align: right; width: 4rem;">{{ rowData.hasTransferGroupTotal.totalPersons }}</td>
-                        <td style="width: 10%;"></td>
+                        <td style="min-width: 3%; max-width: 3%;"></td>
+                        <td style="min-width: 20%; max-width: 20%;"></td>
+                        <td style="min-width: 20%; max-width: 20%;"></td>
+                        <td style="min-width: 10%; max-width: 10%;"></td>
+                        <td style="min-width: 5%; max-width: 5%; justify-content: center;">{{ getLabel("headerTotals") }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroupTotal.adults }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroupTotal.kids }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroupTotal.free }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroupTotal.totalPersons }}</td>
+                        <td style="min-width: 25%; max-width: 25%;"></td>
+                        <td style="min-width: 5%; max-width: 5%;" class="center clickable" (click)="exportSingleCustomer(record.date, record.customer.id)">
+                            <i class="pi pi-file-pdf"></i>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -88,5 +129,9 @@
     <ng-container *ngIf="records.length == 0">
         <list-no-results [feature]="feature" [parentUrl]="parentUrl"></list-no-results>
     </ng-container>
+
+    <div *ngIf="isLoading | async">
+        <loading-spinner></loading-spinner>
+    </div>
 
 </div>
