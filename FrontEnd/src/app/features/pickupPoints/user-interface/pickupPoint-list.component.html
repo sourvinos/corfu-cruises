@@ -8,11 +8,11 @@
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="true" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;">{{ getLabel("headerIsActive") }}</th>
-                    <th data-cy="column" style="min-width: 15%; max-width: 15%;">{{ getLabel("headerRouteAbbreviation") }}</th>
-                    <th data-cy="column" style="min-width: 35%; max-width: 35%;">{{ getLabel("headerDescription") }}</th>
-                    <th data-cy="column" style="min-width: 30%; max-width: 30%;">{{ getLabel("headerExactPoint") }}</th>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-right-radius: 10px;">{{ getLabel("headerTime") }}</th>
+                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 15%; max-width: 15%;" pSortableColumn="routeAbbreviation">{{ getLabel("headerRouteAbbreviation") }}<p-sortIcon field="routeAbbreviation"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 35%; max-width: 35%;" pSortableColumn="description">{{ getLabel("headerDescription") }}<p-sortIcon field="description"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 30%; max-width: 30%;" pSortableColumn="exactPoint">{{ getLabel("headerExactPoint") }}<p-sortIcon field="exactPoint"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-right-radius: 10px;" pSortableColumn="time">{{ getLabel("headerTime") }}<p-sortIcon field="time"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th style="min-width: 10%; max-width: 10%;">

@@ -1979,7 +1979,7 @@
             },
             {
                 "id": "headerMaxPassengers",
-                "description": "Max number of passengers"
+                "description": "Passengers"
             },
             {
                 "id": "newButton",

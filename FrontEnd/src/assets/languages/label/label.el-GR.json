@@ -1979,7 +1979,7 @@
             },
             {
                 "id": "headerMaxPassengers",
-                "description": "Μέγιστος αριθμός επιβατών"
+                "description": "Επιβάτες"
             },
             {
                 "id": "newButton",

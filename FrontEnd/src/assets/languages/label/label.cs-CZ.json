@@ -1979,7 +1979,7 @@
             },
             {
                 "id": "headerMaxPassengers",
-                "description": "Maximální počet cestujících"
+                "description": "Cestující"
             },
             {
                 "id": "newButton",
