@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Features.Embarkation.Display;
@@ -8,7 +7,6 @@ using API.Features.Reservations;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -17,13 +15,11 @@ namespace API.Features.Embarkation {
     public class EmbarkationDisplayRepository : Repository<Reservation>, IEmbarkationDisplayRepository {
 
         private readonly IMapper mapper;
-        private readonly DirectoryLocations directoryLocations;
         private readonly TestingEnvironment testingSettings;
 
-        public EmbarkationDisplayRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> testingSettings, IOptions<DirectoryLocations> directoryLocations) : base(appDbContext, testingSettings) {
+        public EmbarkationDisplayRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> testingSettings) : base(appDbContext, testingSettings) {
             this.mapper = mapper;
             this.testingSettings = testingSettings.Value;
-            this.directoryLocations = directoryLocations.Value;
         }
 
         public async Task<EmbarkationDisplayGroupVM<EmbarkationDisplayVM>> Get(string date, int destinationId, int portId, string shipId) {
@@ -32,6 +28,7 @@ namespace API.Features.Embarkation {
                 .Include(x => x.Driver)
                 .Include(x => x.Ship)
                 .Include(x => x.Passengers)
+                .Where(x => x.ShipId != null)
                 .Where(x => x.Date == Convert.ToDateTime(date)
                     && x.DestinationId == destinationId
                     && x.PortId == portId
@@ -67,13 +64,6 @@ namespace API.Features.Embarkation {
             } else {
                 return false;
             }
-        }
-
-        public FileStreamResult GetReport(string filename) {
-            byte[] byteArray = File.ReadAllBytes(directoryLocations.ReportsLocation + Path.DirectorySeparatorChar + filename);
-            File.WriteAllBytes(filename, byteArray);
-            MemoryStream memoryStream = new(byteArray);
-            return new FileStreamResult(memoryStream, "application/pdf");
         }
 
         public async Task<int> GetShipIdFromDescription(string description) {
