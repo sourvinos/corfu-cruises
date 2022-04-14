@@ -1339,6 +1339,10 @@
                 "description": "Firstname"
             },
             {
+                "id": "headerCountry",
+                "description": "Country"
+            },
+            {
                 "id": "createPDF",
                 "description": "CREATE PDF"
             },

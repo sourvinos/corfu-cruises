@@ -1339,6 +1339,10 @@
                 "description": "Όνομα"
             },
             {
+                "id": "headerCountry",
+                "description": "Χώρα"
+            },
+            {
                 "id": "createPDF",
                 "description": "ΔΗΜΙΟΥΡΓΙΑ PDF"
             },

@@ -15,6 +15,8 @@ namespace API.Features.Embarkation.Display {
                     Id = passenger.Id,
                     Lastname = passenger.Lastname,
                     Firstname = passenger.Firstname,
+                    NationalityCode = passenger.Nationality.Code,
+                    NationalityDescription = passenger.Nationality.Description,
                     IsCheckedIn = passenger.IsCheckedIn
                 })));
         }

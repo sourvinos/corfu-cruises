@@ -1339,6 +1339,10 @@
                 "description": "Prénom"
             },
             {
+                "id": "headerCountry",
+                "description": "Pays"
+            },
+            {
                 "id": "createPDF",
                 "description": "CRÉER UN PDF"
             },

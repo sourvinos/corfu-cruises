@@ -1339,6 +1339,10 @@
                 "description": "Jméno"
             },
             {
+                "id": "headerCountry",
+                "description": "Země"
+            },
+            {
                 "id": "createPDF",
                 "description": "VYTVOŘIT PDF"
             },

@@ -98,15 +98,20 @@
                                 <p-table class="nested-table" [value]="reservation.passengers" dataKey="lastname">
                                     <ng-template pTemplate="header">
                                         <tr>
-                                            <th style="min-width: 40%; max-width: 40%; padding: 10px !important;" pSortableColumn="lastname">{{ getLabel('headerLastname')}}<p-sortIcon field="lastname"></p-sortIcon></th>
-                                            <th style="min-width: 40%; max-width: 40%; padding: 10px !important;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
+                                            <th style="min-width: 30%; max-width: 30%; padding: 10px !important;" pSortableColumn="lastname">{{ getLabel('headerLastname')}}<p-sortIcon field="lastname"></p-sortIcon></th>
+                                            <th style="min-width: 30%; max-width: 30%; padding: 10px !important;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
+                                            <th style="min-width: 20%; max-width: 20%; padding: 10px !important;" pSortableColumn="nationalityDescription">{{ getLabel('headerCountry') }}<p-sortIcon field="nationalityDescription"></p-sortIcon></th>
                                             <th style="min-width: 20%; max-width: 10%;" pSortableColumn="isCheckedIn">{{ getLabel('headerStatus') }}<p-sortIcon field="isCheckedIn"></p-sortIcon></th>
                                         </tr>
                                     </ng-template>
                                     <ng-template pTemplate="body" let-passenger>
                                         <tr class="passenger-row">
-                                            <td style="min-width: 40%; max-width: 40%;">{{ passenger.lastname }}</td>
-                                            <td style="min-width: 40%; max-width: 40%;">{{ passenger.firstname }}</td>
+                                            <td style="min-width: 30%; max-width: 30%;">{{ passenger.lastname }}</td>
+                                            <td style="min-width: 30%; max-width: 30%;">{{ passenger.firstname }}</td>
+                                            <td style="min-width: 20%; max-width: 20%; justify-content: left;">
+                                                <img src="assets/images/nationalities/{{ passenger.nationalityCode }}.png" width="32" style="vertical-align: middle" />
+                                                <span style="overflow: hidden;">&nbsp;&nbsp;{{ passenger.nationalityDescription }}</span>
+                                            </td>
                                             <td (click)="onEmbarkPassenger(passenger.id)" class="embarkation-status" [ngClass]="passenger.isCheckedIn ? 'complete' : 'pending'" style="min-width: 19.9%; max-width: 19.9%; justify-content: center; margin-left: 3px;">
                                                 <span *ngIf="passenger.isCheckedIn">{{ getLabel('boarded') }}</span>
                                                 <span *ngIf="!passenger.isCheckedIn">{{ getLabel('pending') }}</span>
