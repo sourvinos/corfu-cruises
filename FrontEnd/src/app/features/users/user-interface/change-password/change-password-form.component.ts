@@ -165,12 +165,15 @@ export class ChangePasswordFormComponent {
     }
 
     private saveRecord(vm: ChangePasswordViewModel): void {
-        this.userService.updatePassword(vm).subscribe(() => {
-            this.resetForm()
-            this.accountService.logout()
-            this.showSnackbar(this.messageSnackbarService.passwordChanged(), 'info')
-        }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+        this.userService.updatePassword(vm).subscribe({
+            complete: () => {
+                this.resetForm()
+                this.accountService.logout()
+                this.showSnackbar(this.messageSnackbarService.passwordChanged(), 'info')
+            },
+            error: (errorFromInterceptor) => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            }
         })
     }
 

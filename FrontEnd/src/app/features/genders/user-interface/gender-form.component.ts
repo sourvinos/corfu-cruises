@@ -88,12 +88,15 @@ export class GenderFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.genderService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
-                }, errorFromInterceptor => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                this.genderService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                    complete: () => {
+                        this.resetForm()
+                        this.goBack()
+                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                    },
+                    error: (errorFromInterceptor) => {
+                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    }
                 })
             }
         })
@@ -177,20 +180,26 @@ export class GenderFormComponent {
 
     private saveRecord(gender: GenderWriteVM): void {
         if (gender.id === 0) {
-            this.genderService.add(gender).pipe(indicate(this.isLoading)).subscribe(() => {
-                this.resetForm()
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            this.genderService.add(gender).pipe(indicate(this.isLoading)).subscribe({
+                complete: () => {
+                    this.resetForm()
+                    this.goBack()
+                    this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                },
+                error: (errorFromInterceptor) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                }
             })
         } else {
-            this.genderService.update(gender.id, gender).pipe(indicate(this.isLoading)).subscribe(() => {
-                this.resetForm()
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            this.genderService.update(gender.id, gender).pipe(indicate(this.isLoading)).subscribe({
+                complete: () => {
+                    this.resetForm()
+                    this.goBack()
+                    this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                },
+                error: (errorFromInterceptor) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                }
             })
         }
     }

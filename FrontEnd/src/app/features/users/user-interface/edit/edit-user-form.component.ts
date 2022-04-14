@@ -284,12 +284,14 @@ export class EditUserFormComponent {
 
     private saveRecord(user: UserWriteVM): void {
         this.flattenForm()
-        this.userService.update(user.id, user).pipe(indicate(this.isLoading)).subscribe(() => {
-            this.resetForm()
-            this.goBack()
-            this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-        }, errorCode => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+        this.userService.update(user.id, user).pipe(indicate(this.isLoading)).subscribe({
+            complete: () => {
+                this.resetForm()
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+            }, error: (errorFromInterceptor) => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            }
         })
     }
 

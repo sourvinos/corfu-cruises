@@ -88,12 +88,15 @@ export class DriverFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.driverService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
-                }, errorFromInterceptor => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                this.driverService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                    complete: () => {
+                        this.resetForm()
+                        this.goBack()
+                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                    },
+                    error: (errorFromInterceptor) => {
+                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    }
                 })
             }
         })
@@ -180,20 +183,26 @@ export class DriverFormComponent {
 
     private saveRecord(driver: DriverWriteVM): void {
         if (driver.id === 0) {
-            this.driverService.add(driver).pipe(indicate(this.isLoading)).subscribe(() => {
-                this.resetForm()
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            this.driverService.add(driver).pipe(indicate(this.isLoading)).subscribe({
+                complete: () => {
+                    this.resetForm()
+                    this.goBack()
+                    this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                },
+                error: (errorFromInterceptor) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                }
             })
         } else {
-            this.driverService.update(driver.id, driver).pipe(indicate(this.isLoading)).subscribe(() => {
-                this.resetForm()
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            this.driverService.update(driver.id, driver).pipe(indicate(this.isLoading)).subscribe({
+                complete: () => {
+                    this.resetForm()
+                    this.goBack()
+                    this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                },
+                error: (errorFromInterceptor) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                }
             })
         }
     }

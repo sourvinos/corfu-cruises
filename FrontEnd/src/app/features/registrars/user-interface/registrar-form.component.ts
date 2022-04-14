@@ -110,12 +110,15 @@ export class RegistrarFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.registrarService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
-                }, errorFromInterceptor => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                this.registrarService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                    complete: () => {
+                        this.resetForm()
+                        this.goBack()
+                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                    },
+                    error: (errorFromInterceptor) => {
+                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    }
                 })
             }
         })
@@ -249,20 +252,26 @@ export class RegistrarFormComponent {
 
     private saveRecord(registrar: RegistrarWriteVM): void {
         if (registrar.id === 0) {
-            this.registrarService.add(registrar).pipe(indicate(this.isLoading)).subscribe(() => {
-                this.resetForm()
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            this.registrarService.add(registrar).pipe(indicate(this.isLoading)).subscribe({
+                complete: () => {
+                    this.resetForm()
+                    this.goBack()
+                    this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                },
+                error: (errorFromInterceptor) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                }
             })
         } else {
-            this.registrarService.update(registrar.id, registrar).pipe(indicate(this.isLoading)).subscribe(() => {
-                this.resetForm()
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+            this.registrarService.update(registrar.id, registrar).pipe(indicate(this.isLoading)).subscribe({
+                complete: () => {
+                    this.resetForm()
+                    this.goBack()
+                    this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                },
+                error: (errorFromInterceptor) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                }
             })
         }
     }

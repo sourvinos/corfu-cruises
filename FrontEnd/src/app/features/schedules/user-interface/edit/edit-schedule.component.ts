@@ -119,12 +119,15 @@ export class EditScheduleComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.scheduleService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
-                }, errorFromInterceptor => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                this.scheduleService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                    complete: () => {
+                        this.resetForm()
+                        this.goBack()
+                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                    },
+                    error: (errorFromInterceptor) => {
+                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    }
                 })
             }
         })
@@ -248,12 +251,15 @@ export class EditScheduleComponent {
 
     private saveRecord(schedule: ScheduleWriteVM): void {
         this.flattenForm()
-        this.scheduleService.update(schedule.id, schedule).pipe(indicate(this.isLoading)).subscribe(() => {
-            this.resetForm()
-            this.goBack()
-            this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-        }, errorCode => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+        this.scheduleService.update(schedule.id, schedule).pipe(indicate(this.isLoading)).subscribe({
+            complete: () => {
+                this.resetForm()
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+            },
+            error: (errorFromInterceptor) => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            }
         })
     }
 

@@ -88,12 +88,15 @@ export class PortFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.portService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
-                }, errorFromInterceptor => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                this.portService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                    complete: () => {
+                        this.resetForm()
+                        this.goBack()
+                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                    },
+                    error: (errorFromInterceptor) => {
+                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    }
                 })
             }
         })
@@ -145,11 +148,14 @@ export class PortFormComponent {
     }
 
     private getRecord(id: number): void {
-        this.portService.getSingle(id).subscribe(result => {
-            this.populateFields(result)
-        }, errorFromInterceptor => {
-            this.goBack()
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+        this.portService.getSingle(id).subscribe({
+            next: (result) => {
+                this.populateFields(result)
+            },
+            error: (errorFromInterceptor) => {
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            }
         })
     }
 
@@ -181,20 +187,26 @@ export class PortFormComponent {
 
     private saveRecord(port: PortWriteVM): void {
         if (port.id === 0) {
-            this.portService.add(port).pipe(indicate(this.isLoading)).subscribe(() => {
-                this.resetForm()
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            this.portService.add(port).pipe(indicate(this.isLoading)).subscribe({
+                complete: () => {
+                    this.resetForm()
+                    this.goBack()
+                    this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                },
+                error: (errorFromInterceptor) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                }
             })
         } else {
-            this.portService.update(port.id, port).pipe(indicate(this.isLoading)).subscribe(() => {
-                this.resetForm()
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            this.portService.update(port.id, port).pipe(indicate(this.isLoading)).subscribe({
+                complete: () => {
+                    this.resetForm()
+                    this.goBack()
+                    this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                },
+                error: (errorFromInterceptor) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                }
             })
         }
     }

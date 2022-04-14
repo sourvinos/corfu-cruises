@@ -123,11 +123,14 @@ export class ResetPasswordFormComponent {
     }
 
     private saveRecord(form: ResetPasswordViewModel): void {
-        this.accountService.resetPassword(form).subscribe(() => {
-            this.showSnackbar(this.messageSnackbarService.passwordChanged(), 'info')
-            this.router.navigate(['/login'])
-        }, () => {
-            this.showSnackbar(this.messageSnackbarService.unableToResetPassword(), 'error')
+        this.accountService.resetPassword(form).subscribe({
+            complete: () => {
+                this.showSnackbar(this.messageSnackbarService.passwordChanged(), 'info')
+                this.router.navigate(['/login'])
+            },
+            error: () => {
+                this.showSnackbar(this.messageSnackbarService.unableToResetPassword(), 'error')
+            }
         })
     }
 

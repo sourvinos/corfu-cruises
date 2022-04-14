@@ -278,16 +278,22 @@ export class NewScheduleComponent {
     }
 
     private saveRecord(): void {
-        this.scheduleService.deleteRange(this.buildObjectsToDelete()).pipe(indicate(this.isLoading)).subscribe(() => {
-            this.scheduleService.addRange(this.buildScheduleToCreate()).pipe(indicate(this.isLoading)).subscribe(() => {
-                this.resetForm()
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorCode => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
-            })
-        }, errorCode => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorCode), 'error')
+        this.scheduleService.deleteRange(this.buildObjectsToDelete()).pipe(indicate(this.isLoading)).subscribe({
+            complete: () => {
+                this.scheduleService.addRange(this.buildScheduleToCreate()).pipe(indicate(this.isLoading)).subscribe({
+                    complete: () => {
+                        this.resetForm()
+                        this.goBack()
+                        this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                    },
+                    error: (errorFromInterceptor) => {
+                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    }
+                })
+            },
+            error: (errorFromInterceptor) => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            }
         })
     }
 

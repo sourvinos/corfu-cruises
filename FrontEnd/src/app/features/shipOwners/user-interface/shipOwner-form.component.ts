@@ -88,12 +88,15 @@ export class ShipOwnerFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.shipOwnerService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe(() => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
-                }, errorFromInterceptor => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                this.shipOwnerService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                    complete: () => {
+                        this.resetForm()
+                        this.goBack()
+                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                    },
+                    error: (errorFromInterceptor) => {
+                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    }
                 })
             }
         })
@@ -195,20 +198,26 @@ export class ShipOwnerFormComponent {
 
     private saveRecord(shipOwner: ShipOwnerWriteVM): void {
         if (shipOwner.id === 0) {
-            this.shipOwnerService.add(shipOwner).pipe(indicate(this.isLoading)).subscribe(() => {
-                this.resetForm()
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            this.shipOwnerService.add(shipOwner).pipe(indicate(this.isLoading)).subscribe({
+                complete: () => {
+                    this.resetForm()
+                    this.goBack()
+                    this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                },
+                error: (errorFromInterceptor) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                }
             })
         } else {
-            this.shipOwnerService.update(shipOwner.id, shipOwner).pipe(indicate(this.isLoading)).subscribe(() => {
-                this.resetForm()
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            this.shipOwnerService.update(shipOwner.id, shipOwner).pipe(indicate(this.isLoading)).subscribe({
+                complete: () => {
+                    this.resetForm()
+                    this.goBack()
+                    this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                },
+                error: (errorFromInterceptor) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                }
             })
         }
     }

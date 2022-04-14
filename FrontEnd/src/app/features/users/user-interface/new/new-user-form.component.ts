@@ -110,10 +110,13 @@ export class NewUserFormComponent {
 
     public onSendLoginCredentials(): void {
         this.flattenForm()
-        this.userService.sendLoginCredentials(this.form).subscribe(() => {
-            this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-        }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+        this.userService.sendLoginCredentials(this.form).subscribe({
+            complete: () => {
+                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+            },
+            error: (errorFromInterceptor) => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            }
         })
     }
 
@@ -209,12 +212,15 @@ export class NewUserFormComponent {
     }
 
     private saveRecord(user: UserNewDTO): void {
-        this.accountService.register(user).subscribe(() => {
-            this.resetForm()
-            this.goBack()
-            this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-        }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+        this.accountService.register(user).subscribe({
+            complete: () => {
+                this.resetForm()
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+            },
+            error: (errorFromInterceptor) => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            }
         })
     }
 

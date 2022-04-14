@@ -207,12 +207,15 @@ export class ReservationFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.reservationService.delete(this.form.value.reservationId).subscribe(() => {
-                    this.resetForm()
-                    this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
-                    this.goBack()
-                }, errorFromInterceptor => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                this.reservationService.delete(this.form.value.reservationId).subscribe({
+                    complete: () => {
+                        this.resetForm()
+                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                        this.goBack()
+                    },
+                    error: (errorFromInterceptor) => {
+                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    },
                 })
             }
         })
@@ -525,20 +528,26 @@ export class ReservationFormComponent {
 
     private saveRecord(reservation: ReservationWriteVM): void {
         if (reservation.reservationId.toString() == '') {
-            this.reservationService.add(reservation).pipe(indicate(this.isLoading)).subscribe((response) => {
-                this.resetForm()
-                this.goBack()
-                this.dialogService.open(this.messageSnackbarService.success(), 'infoColor', this.messageSnackbarService.reservationCreated() + this.helperService.formatRefNo(response.message, true), ['ok'])
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            this.reservationService.add(reservation).pipe(indicate(this.isLoading)).subscribe({
+                next: (response) => {
+                    this.resetForm()
+                    this.goBack()
+                    this.dialogService.open(this.messageSnackbarService.success(), 'infoColor', this.messageSnackbarService.reservationCreated() + this.helperService.formatRefNo(response.message, true), ['ok'])
+                },
+                error: (errorFromInterceptor) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                }
             })
         } else {
-            this.reservationService.update(reservation.reservationId, reservation).pipe(indicate(this.isLoading)).subscribe(() => {
-                this.resetForm()
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            this.reservationService.update(reservation.reservationId, reservation).pipe(indicate(this.isLoading)).subscribe({
+                complete: () => {
+                    this.resetForm()
+                    this.goBack()
+                    this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                },
+                error: (errorFromInterceptor) => {
+                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                }
             })
         }
     }

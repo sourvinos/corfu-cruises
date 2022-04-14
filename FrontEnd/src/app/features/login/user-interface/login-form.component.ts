@@ -77,11 +77,14 @@ export class LoginFormComponent {
     }
 
     public onLogin(): void {
-        this.accountService.login(this.form.value.username, this.form.value.password).pipe(indicate(this.isLoading)).subscribe(() => {
-            this.goHome()
-            this.startIdleTimer()
-        }, error => {
-            this.showError(error)
+        this.accountService.login(this.form.value.username, this.form.value.password).pipe(indicate(this.isLoading)).subscribe({
+            complete: () => {
+                this.goHome()
+                this.startIdleTimer()
+            },
+            error: (errorFromInterceptor) => {
+                this.showError(errorFromInterceptor)
+            }
         })
     }
 

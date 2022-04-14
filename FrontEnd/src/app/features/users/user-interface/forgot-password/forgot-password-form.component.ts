@@ -68,11 +68,14 @@ export class ForgotPasswordFormComponent {
     }
 
     public onSave(): void {
-        this.accountService.forgotPassword(this.form.value).subscribe(() => {
-            this.goBack()
-            this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
-        }, () => {
-            this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
+        this.accountService.forgotPassword(this.form.value).subscribe({
+            complete: () => {
+                this.goBack()
+                this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
+            },
+            error: () => {
+                this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
+            }
         })
     }
 
