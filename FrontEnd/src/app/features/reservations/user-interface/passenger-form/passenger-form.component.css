@@ -5,10 +5,9 @@
 }
 
 #header {
-    margin: 0 0 1rem 1rem !important;
+    margin: 0 1rem 1rem 1rem !important;
 }
 
 #footer {
-    justify-content: space-between;
-    margin: var(--gap) var(--footer-right-margin) var(--gap) var(--footer-left-margin);
+    margin: 0 1rem 0 1rem !important;
 }
