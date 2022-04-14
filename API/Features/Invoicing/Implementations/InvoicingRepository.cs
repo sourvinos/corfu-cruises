@@ -19,38 +19,43 @@ namespace API.Features.Invoicing {
             this.mapper = mapper;
         }
 
-        public IEnumerable<InvoiceViewModel> Get(string date, string customerId, string destinationId, string shipId) {
+        public IEnumerable<InvoiceIntermediateVM> Get(string date, string customerId, string destinationId, string shipId) {
             var result = context.Set<Reservation>()
                 .Include(x => x.Customer)
-                .Include(x => x.Destination)
+                .Include(x => x.Port)
                 .Include(x => x.Ship)
                 .Include(x => x.PickupPoint).ThenInclude(x => x.CoachRoute)
-                .OrderBy(x => x.Date).ThenBy(x => x.Customer.Description).ThenBy(x => !x.PickupPoint.CoachRoute.HasTransfer)
                 .Where(x => x.Date == Convert.ToDateTime(date)
                     && ((customerId == "all") || x.CustomerId == int.Parse(customerId))
                     && ((destinationId == "all") || x.DestinationId == int.Parse(destinationId))
                     && ((shipId == "all") || x.ShipId == int.Parse(shipId)))
                 .AsEnumerable()
-                .GroupBy(x => new { x.Date, x.Customer })
-                .Select(x => new InvoiceIntermediateViewModel {
-                    Date = DateHelpers.DateTimeToISOString(x.Key.Date),
-                    Customer = x.Key.Customer,
-                    Reservations = x.ToList(),
-                    HasTransferGroup = GroupReservationsByHasTransfer(x.ToList()),
-                    HasTransferGroupTotal = new HasTransferGroupViewModel {
-                        Adults = x.Select(r => r.Adults).Sum(),
-                        Kids = x.Select(r => r.Kids).Sum(),
-                        Free = x.Select(r => r.Free).Sum(),
-                        TotalPersons = x.Select(r => r.TotalPersons).Sum()
-                    }
+                .GroupBy(x => x.Port)
+                .Select(x => new InvoiceIntermediateVM {
+                    Port = x.Key.Description,
+                    PortTotal = x.Sum(x => x.TotalPersons),
+                    TransferGroup = x.GroupBy(x => x.PickupPoint.CoachRoute.HasTransfer).Select(x => new TransferGroup {
+                        HasTransfer = x.Key,
+                        Passengers = x.Sum(x => x.TotalPersons),
+                    }),
+                    Reservations = x.ToList()
                 }).ToList();
-            return mapper.Map<IEnumerable<InvoiceIntermediateViewModel>, IEnumerable<InvoiceViewModel>>(result);
+            return result;
         }
 
-        public static List<HasTransferGroupViewModel> GroupReservationsByHasTransfer(List<Reservation> reservations) {
-            var result = reservations
+        public static List<InvoicePortVM> GroupReservationsByPort(List<Reservation> reservations) {
+            return reservations
+                .GroupBy(x => x.Port.Description)
+                .Select(x => new InvoicePortVM {
+                    PortDescription = x.Key
+                })
+                .ToList();
+        }
+
+        public static List<HasTransferGroupVM> GroupReservationsByHasTransfer(List<Reservation> reservations) {
+            return reservations
                 .GroupBy(r => r.PickupPoint.CoachRoute.HasTransfer)
-                .Select(g => new HasTransferGroupViewModel {
+                .Select(g => new HasTransferGroupVM {
                     HasTransfer = g.Key,
                     Adults = g.Select(r => r.Adults).Sum(),
                     Kids = g.Select(r => r.Kids).Sum(),
@@ -58,7 +63,6 @@ namespace API.Features.Invoicing {
                     TotalPersons = g.Select(r => r.TotalPersons).Sum(),
                 })
                 .ToList();
-            return result;
         }
 
     }

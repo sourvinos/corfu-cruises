@@ -2,7 +2,7 @@ using System;
 
 namespace API.Features.Invoicing {
 
-    public class InvoiceReservationViewModel {
+    public class InvoiceReservationVM {
 
         public Guid ReservationId { get; set; }
 
@@ -13,6 +13,7 @@ namespace API.Features.Invoicing {
         public string TicketNo { get; set; }
         public string Remarks { get; set; }
         public bool HasTransfer { get; set; }
+        public string PortDesciption { get; set; }
         public string DestinationDescription { get; set; }
         public string ShipDescription { get; set; } = "EMPTY";
 

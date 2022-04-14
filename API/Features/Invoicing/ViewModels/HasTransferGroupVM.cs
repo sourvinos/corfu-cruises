@@ -1,6 +1,6 @@
 namespace API.Features.Invoicing {
 
-    public class HasTransferGroupViewModel {
+    public class HasTransferGroupVM {
 
         public bool HasTransfer { get; set; }
         public int Adults { get; set; }
