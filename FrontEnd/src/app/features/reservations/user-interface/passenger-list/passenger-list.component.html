@@ -4,24 +4,21 @@
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="passengers" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="min-width: 5%; max-width: 5%; border-top-left-radius: 10px;">{{ getLabel('headerId') }}</th>
-                    <th style="min-width: 45%; max-width: 45%;" pSortableColumn="lastname">{{ getLabel('headerLastname') }}<p-sortIcon field="lastname"></p-sortIcon></th>
+                    <th style="min-width: 50%; max-width: 50%; border-top-left-radius: 10px;" pSortableColumn="lastname">{{ getLabel('headerLastname') }}<p-sortIcon field="lastname"></p-sortIcon></th>
                     <th style="min-width: 45%; max-width: 45%;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
                     <th style="min-width: 5%; max-width: 5%; border-top-right-radius: 10px;"></th>
                 </tr>
                 <tr>
-                    <th style="min-width: 5%; max-width: 5%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'id', 'contains')" [value]="$any(table).filters['id']?.value"></th>
-                    <th style="min-width: 45%; max-width: 45%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
+                    <th style="min-width: 50%; max-width: 50%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
                     <th style="min-width: 45%; max-width: 45%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
                     <th style="min-width: 5%; max-width: 5%;"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
-                    <td style="min-width: 5%; max-width: 5%; justify-content: center;">{{ rowData.id }}</td>
-                    <td style="min-width: 45%; max-width: 45%;">{{ rowData.lastname }}</td>
+                    <td style="min-width: 50%; max-width: 50%;">{{ rowData.lastname }}</td>
                     <td style="min-width: 45%; max-width: 45%;">{{ rowData.firstname }}</td>
-                    <td style="min-width: 5%; max-width: 5%; justify-content: center;" ><i *ngIf="isAdmin" (click)="onDeleteRow(rowData)" class="far fa-trash-alt"></i></td>
+                    <td style="min-width: 5%; max-width: 5%; justify-content: center;"><i *ngIf="isAdmin" (click)="onDeleteRow(rowData)" class="far fa-trash-alt"></i></td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
