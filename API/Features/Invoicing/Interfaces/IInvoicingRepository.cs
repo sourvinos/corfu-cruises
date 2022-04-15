@@ -4,7 +4,7 @@ namespace API.Features.Invoicing {
 
     public interface IInvoicingRepository {
 
-        IEnumerable<InvoiceIntermediateVM> Get(string date, string customerId, string destinationId, string shipId);
+        IEnumerable<InvoicingReportVM> Get(string date, string customerId, string destinationId, string shipId);
 
     }
 
