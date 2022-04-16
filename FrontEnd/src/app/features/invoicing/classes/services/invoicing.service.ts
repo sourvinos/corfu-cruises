@@ -17,7 +17,7 @@ export class InvoicingService extends DataService {
     //#region public methods
 
     get(date: string, customerId: string, destinationId: string, shipId: string): Observable<InvoicingVM> {
-        return this.http.get<InvoicingVM>(this.url + '/date/' + date + '/customer/' + customerId + '/destination/' + destinationId + '/ship/' + shipId)
+        return this.http.get<InvoicingVM>(this.url + '/date/' + date + '/customerId/' + customerId + '/destinationId/' + destinationId + '/shipId/' + shipId)
     }
 
     //#endregion

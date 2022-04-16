@@ -37,10 +37,44 @@
     font-weight: 100;
 }
 
-.no-transfer {
-    background-color: var(--color-embarkation-pending);
+.pivot {
+    background-color: var(--color-passenger-table);
+    border-radius: 0.625rem;
+    font-family: var(--font-family-ubuntu);
+    margin: 0.5rem 0 0.5rem 5rem;
+    padding: 1rem;
+    width: max-content;
+}
+
+.pivot .port {
+    padding: 5px;
+    width: 200px;
+}
+
+.pivot .header, .pivot .footer {
+    background-color: var(--color-c);
+    border: 1px solid var(--color-a);
+    font-weight: normal;
+    text-align: center;
+}
+
+.pivot .transfer {
+    padding: 5px;
+}
+
+.pivot .number {
+    border: 1px solid var(--color-a);
+    padding: 4px 0 6px 0;
+    text-align: center;
+    width: 40px;
 }
 
 .has-transfer {
-    background-color: var(--color-embarkation-complete);
+    color: var(--color-has-transfer);
+    padding-left: 1rem;
+}
+
+.has-no-transfer {
+    color: var(--color-has-no-transfer);
+    padding-left: 1rem;
 }

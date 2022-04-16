@@ -4,8 +4,11 @@ namespace API.Features.Invoicing {
 
     public class InvoicingPortVM {
 
-        public string Description { get; set; }
+        public string Port { get; set; }
         public IEnumerable<HasTransferGroupVM> HasTransferGroup { get; set; }
+        public int Adults { get; set; }
+        public int Kids { get; set; }
+        public int Free { get; set; }
         public int TotalPersons { get; set; }
 
     }
@@ -13,6 +16,9 @@ namespace API.Features.Invoicing {
     public class HasTransferGroupVM {
 
         public bool HasTransfer { get; set; }
+        public int Adults { get; set; }
+        public int Kids { get; set; }
+        public int Free { get; set; }
         public int TotalPersons { get; set; }
 
     }

@@ -1,5 +1,5 @@
 <div id="list">
-    
+
     <div *ngIf="records.length > 0" id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
@@ -24,54 +24,40 @@
 
     <ng-container *ngIf="records.length > 0">
         <div id="table-wrapper">
-            <p-table [value]="records" sortField="customer.description" rowGroupMode="subheader" #table [autoLayout]="false" [scrollable]="true" dataKey="customer.description" scrollHeight="flex" groupRowsBy="customer.description">
+            <p-table [value]="records" sortField="customer" rowGroupMode="subheader" #table [autoLayout]="false" [scrollable]="true" dataKey="customer" scrollHeight="flex" groupRowsBy="customer">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 3%; max-width: 3%; border-top-left-radius: 10px;"></th>
-                        <th style="min-width: 20%; max-width: 20%;">{{ getLabel("headerDestination") }}</th>
-                        <th style="min-width: 20%; max-width: 20%;">{{ getLabel("headerShip") }}</th>
+                        <th style="min-width: 15%; max-width: 15%;">{{ getLabel("headerDestination") }}</th>
+                        <th style="min-width: 15%; max-width: 15%;">{{ getLabel("headerShip") }}</th>
+                        <th style="min-width: 15%; max-width: 15%;">{{ getLabel("headerPort") }}</th>
                         <th style="min-width: 10%; max-width: 10%;">{{ getLabel("headerTicketNo") }}</th>
-                        <th style="min-width: 5%; max-width: 5%;">{{ getLabel("headerHasTransfer") }}</th>
+                        <th style="min-width: 6%; max-width: 6%;">{{ getLabel("headerHasTransfer") }}</th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getLabel("headerAdults") }}</th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getLabel("headerKids") }}</th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getLabel("headerFree") }}</th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getEmoji('sum') }}</th>
-                        <th style="min-width: 25%; max-width: 25%;">{{ getLabel("headerRemarks") }}</th>
-                        <th style="min-width: 5%; max-width: 5%; border-top-right-radius: 10px;"></th>
-                    </tr>
-                    <tr>
-                        <th style="min-width: 3%; max-width: 3%;"></th>
-                        <th style="min-width: 20%; max-width: 20%;"></th>
-                        <th style="min-width: 20%; max-width: 20%;"></th>
-                        <th style="min-width: 10%; max-width: 10%;">
-                            <p-columnFilter type="text" field="ticketNo"></p-columnFilter>
-                        </th>
-                        <th style="min-width: 5%; max-width: 5%;"></th>
-                        <th style="min-width: 3%; max-width: 3%;"></th>
-                        <th style="min-width: 3%; max-width: 3%;"></th>
-                        <th style="min-width: 3%; max-width: 3%;"></th>
-                        <th style="min-width: 3%; max-width: 3%;"></th>
-                        <th style="min-width: 25%; max-width: 25%;"></th>
-                        <th style="min-width: 5%; max-width: 5%;"></th>
+                        <th style="min-width: 24%; max-width: 24%; border-top-right-radius: 10px;">{{ getLabel("headerRemarks") }}</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="groupheader" let-record let-expanded="expanded">
                     <tr>
                         <td colspan="10" type="button">
                             <button pButton pRipple [pRowToggler]="record" class="p-button-text p-button-rounded p-button-plain p-mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                            <span style="font-weight: bold;">{{ record.customer.description }}</span>
+                            <span style="font-weight: bold;">{{ record.customer }}</span>
                         </td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="rowexpansion" let-record>
-                    <tr [pSelectableRow]="record.reservations[i]" *ngFor="let x of record.reservations, let i = index">
+                    <tr *ngFor="let x of record.reservations, let i = index">
                         <td style="min-width: 3%; max-width: 3%;"></td>
-                        <td style="min-width: 20%; max-width: 20%;">{{ record.reservations[i].destinationDescription }}</td>
-                        <td style="min-width: 20%; max-width: 20%;">{{ record.reservations[i].shipDescription }}</td>
+                        <td style="min-width: 15%; max-width: 15%;">{{ record.reservations[i].destination }}</td>
+                        <td style="min-width: 15%; max-width: 15%;">{{ record.reservations[i].ship }}</td>
+                        <td style="min-width: 15%; max-width: 15%;">{{ record.reservations[i].port }}</td>
                         <td style="min-width: 10%; max-width: 10%;">{{ record.reservations[i].ticketNo }}</td>
-                        <td [ngClass]="record.reservations[i].hasTransfer ? 'has-transfer' : 'no-transfer'" style="min-width: 5%; max-width: 5%; justify-content: center;">
-                            <span *ngIf="record.reservations[i].hasTransfer">{{ getLabel('has-transfer') }}</span>
-                            <span *ngIf="!record.reservations[i].hasTransfer">{{ getLabel('no-transfer') }}</span>
+                        <td [ngClass]="record.reservations[i].hasTransfer ? 'has-transfer' : 'no-transfer'" style="min-width: 6%; max-width: 6%; justify-content: center;">
+                            <span *ngIf="record.reservations[i].hasTransfer" class="has-transfer material-icons-outlined">check_circle</span>
+                            <span *ngIf="!record.reservations[i].hasTransfer" class="has-no-transfer material-icons-outlined">highlight_off</span>
                         </td>
                         <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].adults }}</td>
                         <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].kids }}</td>
@@ -80,42 +66,42 @@
                         <td style="min-width: 25%; max-width: 25%;">{{ record.reservations[i].remarks }}</td>
                         <td style="min-width: 5%; max-width: 5%;"></td>
                     </tr>
-                    <tr>
-                        <td style="min-width: 3%; max-width: 3%;"></td>
-                    </tr>
-                    <ng-container *ngIf="record.hasTransferGroup.length > 1">
-                        <tr class="subtotal" *ngFor="let x of record.hasTransferGroup, let i = index">
-                            <td style="min-width: 3%; max-width: 3%;"></td>
-                            <td style="min-width: 20%; max-width: 20%;"></td>
-                            <td style="min-width: 20%; max-width: 20%;"></td>
-                            <td style="min-width: 10%; max-width: 10%;"></td>
-                            <td style="min-width: 5%; max-width: 5%; justify-content: center;" [ngClass]="record.hasTransferGroup[i].hasTransfer ? 'has-transfer' : 'no-transfer'">
-                                <span *ngIf="record.hasTransferGroup[i].hasTransfer">{{ getLabel('has-transfer') }}</span>
-                                <span *ngIf="!record.hasTransferGroup[i].hasTransfer">{{ getLabel('no-transfer') }}</span>
-                            </td>
-                            <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroup[i].adults }}</td>
-                            <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroup[i].kids }}</td>
-                            <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroup[i].free }}</td>
-                            <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroup[i].totalPersons }}</td>
-                            <td style="min-width: 25%; max-width: 25%;"></td>
-                            <td style="min-width: 5%; max-width: 5%;"></td>
-                        </tr>
-                    </ng-container>
-                    <tr class="row-group">
-                        <td style="min-width: 3%; max-width: 3%;"></td>
-                        <td style="min-width: 20%; max-width: 20%;"></td>
-                        <td style="min-width: 20%; max-width: 20%;"></td>
-                        <td style="min-width: 10%; max-width: 10%;"></td>
-                        <td style="min-width: 5%; max-width: 5%; justify-content: center;">{{ getLabel("headerTotals") }}</td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroupTotal.adults }}</td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroupTotal.kids }}</td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroupTotal.free }}</td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.hasTransferGroupTotal.totalPersons }}</td>
-                        <td style="min-width: 25%; max-width: 25%;"></td>
-                        <td style="min-width: 5%; max-width: 5%;" class="center clickable" (click)="exportSingleCustomer(record.date, record.customer.id)">
-                            <i class="pi pi-file-pdf"></i>
-                        </td>
-                    </tr>
+                    <div class="pivot">
+                        <div *ngFor="let port of record.portGroup, let i = index">
+                            <table class="port-group">
+                                <thead>
+                                    <tr>
+                                        <th class="port"></th>
+                                        <th class="header number">A</th>
+                                        <th class="header number">K</th>
+                                        <th class="header number">F</th>
+                                        <th class="header number">{{ getEmoji('sum') }}</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let hasTransfer of record.portGroup[i].hasTransferGroup, let z = index">
+                                        <td></td>
+                                        <td class="number">{{ record.portGroup[i].hasTransferGroup[z].adults }}</td>
+                                        <td class="number">{{ record.portGroup[i].hasTransferGroup[z].kids }}</td>
+                                        <td class="number">{{ record.portGroup[i].hasTransferGroup[z].free }}</td>
+                                        <td class="number">{{ record.portGroup[i].hasTransferGroup[z].totalPersons }}</td>
+                                        <td class="center">
+                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].hasTransfer" class="has-transfer material-icons-outlined">check_circle</span>
+                                            <span *ngIf="!record.portGroup[i].hasTransferGroup[z].hasTransfer" class="has-no-transfer material-icons-outlined">highlight_off</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="port footer">{{ record.portGroup[i].port }}</td>
+                                        <td class="number footer">{{ record.portGroup[i].adults }}</td>
+                                        <td class="number footer">{{ record.portGroup[i].kids }}</td>
+                                        <td class="number footer">{{ record.portGroup[i].free }}</td>
+                                        <td class="number footer">{{ record.portGroup[i].totalPersons }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </ng-template>
             </p-table>
         </div>

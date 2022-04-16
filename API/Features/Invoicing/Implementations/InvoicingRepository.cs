@@ -34,13 +34,22 @@ namespace API.Features.Invoicing {
                 .Select(x => new InvoicingDTO {
                     Customer = x.Key.Description,
                     Ports = x.GroupBy(x => x.Port).OrderBy(x => !x.Key.IsPrimary).Select(x => new InvoicingPortDTO {
-                        Description = x.Key.Description,
+                        Port = x.Key.Description,
                         HasTransferGroup = x.GroupBy(x => x.PickupPoint.CoachRoute.HasTransfer).Select(x => new HasTransferGroupDTO {
                             HasTransfer = x.Key,
+                            Adults = x.Sum(x => x.Adults),
+                            Kids = x.Sum(x => x.Kids),
+                            Free = x.Sum(x => x.Free),
                             TotalPersons = x.Sum(x => x.TotalPersons),
                         }).OrderBy(x => !x.HasTransfer),
+                        Adults = x.Sum(x => x.Adults),
+                        Kids = x.Sum(x => x.Kids),
+                        Free = x.Sum(x => x.Free),
                         TotalPersons = x.Sum(x => x.TotalPersons)
                     }),
+                    Adults = x.Sum(x => x.Adults),
+                    Kids = x.Sum(x => x.Kids),
+                    Free = x.Sum(x => x.Free),
                     TotalPersons = x.Sum(x => x.TotalPersons),
                     Reservations = x.OrderBy(x => !x.PickupPoint.CoachRoute.HasTransfer).ToList()
                 }).ToList();

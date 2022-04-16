@@ -5,6 +5,7 @@ export class InvoicingReservationVM {
         public reservationId: string,
         public destinationDescription: string,
         public shipDescription: string,
+        public portDescription: string,
         public ticketNo: string,
         public adults: number,
         public kids: number,

@@ -7,7 +7,7 @@ import { HelperService } from 'src/app/shared/services/helper.service'
 import { InvoicingCriteriaVM } from '../../classes/view-models/invoicing-criteria-vm'
 import { InvoicingPdfService } from '../../classes/services/invoicing-pdf.service'
 import { InvoicingService } from '../../classes/services/invoicing.service'
-import { InvoicingVM } from './../../classes/view-models/invoicing-vm'
+import { InvoicingVM } from '../../classes/view-models/invoicing-vm'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -72,6 +72,10 @@ export class InvoicingListComponent {
         })
     }
 
+    public hasTransfer(value: any): boolean {
+        return value ? true : false
+    }
+
     public formatDate(): string {
         return this.formatDateToLocale(this.invoicingCriteria.date, true)
     }
@@ -126,6 +130,7 @@ export class InvoicingListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = listResolved.result
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

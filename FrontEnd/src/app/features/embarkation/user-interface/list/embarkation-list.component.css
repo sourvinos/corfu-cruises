@@ -105,8 +105,8 @@
 
 #filters > div {
     background-color: var(--color-d);
-    padding: 0.5rem;
     border-radius: 0.3125rem;
+    padding: 0.5rem;
 }
 
 #filters > div:hover {

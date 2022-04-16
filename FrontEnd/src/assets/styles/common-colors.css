@@ -35,4 +35,7 @@
     --color-passenger-table: #f6f9fb;
     --color-embarkation-pending: #feedaf;
     --color-embarkation-complete: #c8e6c9;
+    /* About transfer */
+    --color-has-transfer: #32cd32;
+    --color-has-no-transfer: #d94040;
 }

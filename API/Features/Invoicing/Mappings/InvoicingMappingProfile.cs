@@ -10,8 +10,11 @@ namespace API.Features.Invoicing {
             CreateMap<InvoicingDTO, InvoicingReportVM>()
                 .ForMember(x => x.Customer, x => x.MapFrom(x => x.Customer))
                 .ForMember(x => x.PortGroup, x => x.MapFrom(x => x.Ports.Select(x => new InvoicingPortDTO {
-                    Description = x.Description,
+                    Port = x.Port,
                     HasTransferGroup = x.HasTransferGroup,
+                    Adults = x.Adults,
+                    Kids = x.Kids,
+                    Free = x.Free,
                     TotalPersons = x.TotalPersons
                 })))
                 .ForMember(x => x.Reservations, x => x.MapFrom(x => x.Reservations.Select(x => new InvoicingReservationVM {
@@ -24,6 +27,7 @@ namespace API.Features.Invoicing {
                     Remarks = x.Remarks,
                     HasTransfer = x.PickupPoint.CoachRoute.HasTransfer,
                     Destination = x.Destination.Description,
+                    Port = x.Port.Description,
                     Ship = x.Ship == null ? "(EMPTY)" : x.Ship.Description,
                 })));
         }

@@ -123,4 +123,5 @@
     color: var(--color-e);
     font-family: monospace;
     font-size: var(--font-size-calendar-ports);
+    padding-left: 0.5rem;
 }
