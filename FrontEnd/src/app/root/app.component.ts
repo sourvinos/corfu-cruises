@@ -62,6 +62,7 @@ export class AppComponent {
         this.idle.setIdle(environment.idleSettings.idle)
         this.idle.setTimeout(environment.idleSettings.timeout)
         this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES)
+        this.idle.watch()
         this.idle.onIdleEnd.subscribe(() => {
             this.countdown = 0
             this.cd.detectChanges()

@@ -6,7 +6,7 @@ export const environment = {
     defaultLanguage: 'en-gb',
     defaultTheme: 'light',
     idleSettings: {
-        idle: 3600,
+        idle: 300,
         timeout: 60
     },
     emailFooter: {
