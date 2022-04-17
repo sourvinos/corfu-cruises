@@ -71,7 +71,7 @@ export class JwtInterceptor {
                     return <any>this.accountService.logout()
                 }),
                 catchError(error => {
-                    return throwError(error.status)
+                    return throwError(() => error.status)
                 }),
                 finalize(() => {
                     this.isTokenRefreshing = false
