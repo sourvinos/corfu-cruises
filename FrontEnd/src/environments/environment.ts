@@ -1,18 +1,18 @@
 // ng build
 export const environment = {
     apiUrl: 'https://localhost:5001/api',
-    clientUrl: 'https://localhost:4200',
     appName: 'CORFU CRUISES',
+    clientUrl: 'https://localhost:4200',
     defaultLanguage: 'en-gb',
     defaultTheme: 'light',
-    idleSettings: {
-        idle: 300,
-        timeout: 60
-    },
     emailFooter: {
         lineA: 'Problems or questions? Call us at +30 26620 61400',
         lineB: 'or email at info@corfucruises.com',
         lineC: '© Corfu Cruises 2021, Corfu - Greece'
+    },
+    idleSettings: {
+        idle: 300,
+        timeout: 60
     },
     isWideScreen: 1920,
     leaflet: {
@@ -32,4 +32,5 @@ export const environment = {
         confirmPassword: ''
     },
     production: false,
+    scrollWheelSpeed: 0.50
 }

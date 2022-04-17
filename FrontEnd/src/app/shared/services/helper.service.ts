@@ -35,14 +35,14 @@ export class HelperService {
 
     //#region public methods
 
-    public changeScrollWheelSpeed(container: HTMLElement, speedY: number): any {
+    public changeScrollWheelSpeed(container: HTMLElement): any {
         let scrollY = 0
         const handleScrollReset = function () {
             scrollY = container.scrollTop
         }
-        const handleMouseWheel = function (e) {
+        const handleMouseWheel = function (e: any) {
             e.preventDefault()
-            scrollY += speedY * e.deltaY
+            scrollY += environment.scrollWheelSpeed * e.deltaY
             if (scrollY < 0) {
                 scrollY = 0
             } else {

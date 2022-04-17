@@ -95,7 +95,7 @@ export class CrewListComponent {
     }
 
     private changeScrollWheelSpeed(): void {
-        this.helperService.changeScrollWheelSpeed(document.querySelector<HTMLElement>('.cdk-virtual-scroll-viewport'), 0.99)
+        this.helperService.changeScrollWheelSpeed(document.querySelector<HTMLElement>('.cdk-virtual-scroll-viewport'))
     }
 
     private cleanup(): void {
