@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
+import { Injectable, NgZone } from '@angular/core'
 import { Router } from '@angular/router'
 import { map } from 'rxjs/operators'
 // Custom
@@ -28,7 +28,7 @@ export class AccountService extends DataService {
 
     //#endregion
 
-    constructor(private localStorageService: LocalStorageService, private interactionService: InteractionService, httpClient: HttpClient, private router: Router) {
+    constructor(private localStorageService: LocalStorageService, private interactionService: InteractionService, httpClient: HttpClient, private router: Router, private ngZone: NgZone) {
         super(httpClient, environment.apiUrl)
     }
 
@@ -125,7 +125,9 @@ export class AccountService extends DataService {
     }
 
     private navigateToLogin(): void {
-        this.router.navigate(['/login'])
+        this.ngZone.run(() => {
+            this.router.navigate(['/login'])
+        })
     }
 
     private refreshMenus(): void {
