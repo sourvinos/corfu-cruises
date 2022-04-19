@@ -136,6 +136,24 @@ export class HelperService {
         }, 500)
     }
 
+    public hideSideMenuAndRestoreScale(): void {
+        document.getElementById('side-menu').parentElement.classList.remove('side-menu-is-visible')
+        document.getElementById('main').classList.remove('side-menu-is-visible')
+        document.querySelector<HTMLElement>('#main').style.transform = 'scale(1, 1)'
+    }
+
+    public toggleScaleOnMainWindow(): boolean {
+        document.getElementById('side-menu').parentElement.classList.toggle('side-menu-is-visible')
+        document.getElementById('main').classList.toggle('side-menu-is-visible')
+        if (document.getElementById('main').classList.contains('side-menu-is-visible')) {
+            document.querySelector<HTMLElement>('#main').style.transform = 'scale(' + ((100 * (screen.width - 350)) / screen.width) / 100 + ', 0.9)'
+            return true
+        } else {
+            document.querySelector<HTMLElement>('#main').style.transform = 'scale(1, 1)'
+            return false
+        }
+    }
+
     //#endregion
 
     //#region private methods

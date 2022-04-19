@@ -20,10 +20,6 @@
         "description": "Reservations"
     },
     {
-        "id": "reservations-calendar",
-        "description": "Calendrier mensuel"
-    },
-    {
         "id": "ships",
         "description": "Navires"
     },
@@ -32,7 +28,7 @@
         "description": "Équipes"
     },
     {
-        "id": "ships-file",
+        "id": "ships",
         "description": "File"
     },
     {

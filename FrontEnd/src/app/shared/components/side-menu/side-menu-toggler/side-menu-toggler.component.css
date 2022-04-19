@@ -8,10 +8,9 @@ span {
     background-color: transparent;
     color: var(--color-hamburger-menu);
     font-size: 2.5rem;
-    transition: color 0.2s ease-in;
+    transition: all 0.2s ease-in;
 }
 
 span:hover {
-    color: var(--color-hamburger-menu-hover);
     cursor: pointer;
 }

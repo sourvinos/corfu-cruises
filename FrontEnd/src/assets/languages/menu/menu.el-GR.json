@@ -5,7 +5,7 @@
     },
     {
         "id": "schedule",
-        "description": "Πρόγραμμα"
+        "description": "Διαθεσιμότητα"
     },
     {
         "id": "editAccount",
@@ -20,10 +20,6 @@
         "description": "Κρατήσεις"
     },
     {
-        "id": "reservations-calendar",
-        "description": "Μηνιαίο ημερολόγιο"
-    },
-    {
         "id": "ships",
         "description": "Πλοία"
     },
@@ -32,8 +28,8 @@
         "description": "Πληρώματα"
     },
     {
-        "id": "ships-file",
-        "description": "Αρχείο"
+        "id": "ships",
+        "description": "Πλοία"
     },
     {
         "id": "ships-registrars",
@@ -45,7 +41,7 @@
     },
     {
         "id": "ships-shipRoutes",
-        "description": "Δρομολόγια πλοίων"
+        "description": "Διαδρομές πλοίων"
     },
     {
         "id": "tables",
@@ -53,7 +49,7 @@
     },
     {
         "id": "tables-coachRoutes",
-        "description": "Δρομολόγια λεωφορείων"
+        "description": "Διαδρομές λεωφορείων"
     },
     {
         "id": "tables-customers",
@@ -61,7 +57,7 @@
     },
     {
         "id": "tables-destinations",
-        "description": "Προορισμοί εκδρομών"
+        "description": "Προορισμοί"
     },
     {
         "id": "tables-drivers",
@@ -73,7 +69,7 @@
     },
     {
         "id": "tables-pickupPoints",
-        "description": "Σημεία παραλαβής επιβατών"
+        "description": "Σημεία παραλαβής"
     },
     {
         "id": "tables-ports",
@@ -81,7 +77,7 @@
     },
     {
         "id": "tables-schedules",
-        "description": "Πρόγραμμα εκδρομών"
+        "description": "Πρόγραμμα"
     },
     {
         "id": "tables-users",
@@ -97,7 +93,7 @@
     },
     {
         "id": "tasks-invoicing",
-        "description": "Τιμολόγηση"
+        "description": "Τιμολόγηση πελατών"
     },
     {
         "id": "tasks-manifest",

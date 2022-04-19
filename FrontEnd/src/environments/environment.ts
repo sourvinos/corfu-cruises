@@ -11,9 +11,10 @@ export const environment = {
         lineC: '© Corfu Cruises 2021, Corfu - Greece'
     },
     idleSettings: {
-        idle: 60,
+        idle: 3600,
         timeout: 10
     },
+    menuIconDirectory: 'assets/images/menu/',
     isWideScreen: 1920,
     leaflet: {
         token: 'pk.eyJ1Ijoic291cnZpbm9zIiwiYSI6ImNrajEwa3plbDRzY2gzMnFqcXppZzNhaDkifQ.JMR_dEvdaFTpQ2jiapPrhg'

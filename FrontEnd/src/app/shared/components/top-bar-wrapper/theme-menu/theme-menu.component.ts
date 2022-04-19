@@ -39,7 +39,6 @@ export class ThemeMenuComponent {
         this.theme = this.checked ? 'dark' : 'light'
         this.attachStylesheetToHead()
         this.saveTheme()
-        this.interactionService.mustUpdateLogoImage()
     }
 
     //#endregion

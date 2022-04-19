@@ -82,3 +82,8 @@ p.instructions {
 ::-webkit-scrollbar {
     width: 0;
 }
+
+.active {
+    background-color: #ffd43b;
+    font-weight: 600;
+}

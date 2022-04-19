@@ -1,0 +1,4 @@
+<span *ngIf="loginStatus | async" (click)="toggleSideMenu()" class="material-icons">
+    <span *ngIf="isSideMenuOpen">close</span>
+    <span *ngIf="!isSideMenuOpen">menu</span>
+</span>

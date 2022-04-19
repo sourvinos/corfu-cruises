@@ -14,8 +14,9 @@ import { SharedModule } from 'src/app/shared/modules/shared.module'
 // Components
 import { AppComponent } from './app.component'
 import { LogoComponent } from '../shared/components/top-bar-wrapper/logo/logo.component'
-import { MainMenuComponent } from '../shared/components/main-menu/main-menu/main-menu.component'
 import { SearchByRefBoxComponent } from '../shared/components/top-bar-wrapper/search-byRef-box/search-byRef-box.component'
+import { SideMenuComponent } from './../shared/components/side-menu/side-menu/side-menu.component'
+import { SideMenuTogglerComponent } from '../shared/components/side-menu/side-menu-toggler/side-menu-toggler.component'
 import { ThemeMenuComponent } from '../shared/components/top-bar-wrapper/theme-menu/theme-menu.component'
 import { TopBarComponent } from '../shared/components/top-bar-wrapper/top-bar/top-bar.component'
 import { TopMenuComponent } from '../shared/components/top-bar-wrapper/top-menu/top-menu.component'
@@ -26,8 +27,9 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
     declarations: [
         AppComponent,
         LogoComponent,
-        MainMenuComponent,
         SearchByRefBoxComponent,
+        SideMenuComponent,
+        SideMenuTogglerComponent,
         ThemeMenuComponent,
         TopBarComponent,
         TopMenuComponent

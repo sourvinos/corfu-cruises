@@ -7,6 +7,7 @@ import { EmojiService } from '../shared/services/emoji.service'
 import { MessageSnackbarService } from '../shared/services/messages-snackbar.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft } from '../shared/animations/animations'
+import { Observable } from 'rxjs'
 
 @Component({
     selector: 'root',
@@ -21,6 +22,7 @@ export class AppComponent {
 
     public isLoading = true
     public countdown = 0
+    public loginStatus: Observable<boolean>
 
     //#endregion
 
