@@ -32,7 +32,8 @@ namespace API.Features.Invoicing {
                 .AsEnumerable()
                 .GroupBy(x => x.Customer).OrderBy(x => x.Key.Description)
                 .Select(x => new InvoicingDTO {
-                    Customer = x.Key.Description,
+                    Date = date,
+                    Customer = new SimpleResource { Id = x.Key.Id, Description = x.Key.Description },
                     Ports = x.GroupBy(x => x.Port).OrderBy(x => !x.Key.IsPrimary).Select(x => new InvoicingPortDTO {
                         Port = x.Key.Description,
                         HasTransferGroup = x.GroupBy(x => x.PickupPoint.CoachRoute.HasTransfer).Select(x => new HasTransferGroupDTO {

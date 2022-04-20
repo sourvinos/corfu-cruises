@@ -44,7 +44,7 @@
                     <tr>
                         <td colspan="10" type="button">
                             <button pButton pRipple [pRowToggler]="record" class="p-button-text p-button-rounded p-button-plain p-mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                            <span style="font-weight: bold;">{{ record.customer }}</span>
+                            <span style="font-weight: bold;">{{ record.customer.description }}</span>
                         </td>
                     </tr>
                 </ng-template>
