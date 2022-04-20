@@ -69,6 +69,7 @@ export class ReservationListComponent {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
                 this.loadRecords()
+                this.storeDate()
             }
         })
     }
@@ -216,7 +217,7 @@ export class ReservationListComponent {
     }
 
     public showDate(): string {
-        return this.formatDateToLocale()
+        return this.localStorageService.getItem('date') ? this.formatDateToLocale() : '-'
     }
 
     public toggleVisibleRows(): void {
@@ -323,8 +324,12 @@ export class ReservationListComponent {
     }
 
     private storeDate(): void {
-        if (this.records.reservations) {
+        if (this.records.reservations.length > 0) {
             this.localStorageService.saveItem('date', this.records.reservations[0].date)
+        } else {
+            this.localStorageService.deleteItems([
+                { 'item': 'date', 'when': 'always' }
+            ])
         }
     }
 
