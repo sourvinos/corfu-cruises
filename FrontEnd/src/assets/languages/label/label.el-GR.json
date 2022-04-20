@@ -2049,5 +2049,34 @@
                 "description": "Αναζήτηση με Ref No"
             }
         ]
+    },
+    {
+        "feature": "theme",
+        "labels": [
+            {
+                "id": "blue",
+                "description": "Μπλέ"
+            },
+            {
+                "id": "gray",
+                "description": "Γκρί"
+            },
+            {
+                "id": "green",
+                "description": "Πράσινο"
+            },
+            {
+                "id": "olive",
+                "description": "Λαδί"
+            },
+            {
+                "id": "orange",
+                "description": "Πορτοκαλί"
+            },
+            {
+                "id": "red",
+                "description": "Κόκκινο"
+            }
+        ]
     }
 ]

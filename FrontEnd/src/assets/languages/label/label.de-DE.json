@@ -2049,5 +2049,34 @@
                 "description": "Suche nach Ref No"
             }
         ]
+    },
+    {
+        "feature": "theme",
+        "labels": [
+            {
+                "id": "blue",
+                "description": "Blau"
+            },
+            {
+                "id": "gray",
+                "description": "Grau"
+            },
+            {
+                "id": "green",
+                "description": "Grün"
+            },
+            {
+                "id": "olive",
+                "description": "Olivgrün"
+            },
+            {
+                "id": "orange",
+                "description": "Orange"
+            },
+            {
+                "id": "red",
+                "description": "Rot"
+            }
+        ]
     }
 ]

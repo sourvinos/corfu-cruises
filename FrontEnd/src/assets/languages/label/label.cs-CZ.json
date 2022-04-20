@@ -2049,5 +2049,34 @@
                 "description": "Hledat podle Ref No"
             }
         ]
+    },
+    {
+        "feature": "theme",
+        "labels": [
+            {
+                "id": "blue",
+                "description": "Modrá"
+            },
+            {
+                "id": "gray",
+                "description": "Šedá"
+            },
+            {
+                "id": "green",
+                "description": "Zelená"
+            },
+            {
+                "id": "olive",
+                "description": "Olivová"
+            },
+            {
+                "id": "orange",
+                "description": "Oranžová"
+            },
+            {
+                "id": "red",
+                "description": "Červená"
+            }
+        ]
     }
 ]

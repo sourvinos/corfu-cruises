@@ -20,7 +20,7 @@
 }
 
 #search-by-ref-no-text::placeholder {
-    color: var(--color-c);
+    color: var(--color-text);
 }
 
 input {
