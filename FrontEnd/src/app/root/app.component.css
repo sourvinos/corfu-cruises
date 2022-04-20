@@ -28,6 +28,10 @@
     transition: background-color var(--change-theme-delay) ease;
 }
 
+#menu-button {
+    position: absolute;
+}
+
 #loading-indication, #loading-indication::before {
     background-color: var(--color-a);
     display: flex;
@@ -44,13 +48,14 @@
 }
 
 #timeout-warning {
-    background-color: var(--color-c);
+    background-color: var(--color-timeout-snackbar);
     border-radius: 0 0.3125rem 0.3125rem 0;
-    bottom: var(--gap);
-    color: var(--color-text);
+    bottom: calc(var(--gap) * 2);
+    box-shadow: 5px 5px 10px -5px #000000;
+    color: var(--color-button-text);
     font-family: var(--font-family-handbook);
     font-size: 1.25rem;
-    padding: 0.625rem 1rem 0.625rem 10rem;
+    padding: 0.625rem 1rem 0.625rem 1rem;
     position: absolute;
     transition: width 0.2s ease-in-out;
 }
@@ -74,8 +79,4 @@
         margin-left: 100%;
         margin-right: 0;
     }
-}
-
-#menu-button {
-    position: absolute;
 }

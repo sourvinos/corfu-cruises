@@ -37,4 +37,6 @@
     /* About transfer */
     --color-has-transfer: #32cd32;
     --color-has-no-transfer: #d94040;
+    /* Timeout snackbar */
+    --color-timeout-snackbar: #d94040;
 }

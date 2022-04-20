@@ -7,7 +7,7 @@ export class EmojiService {
     public getEmoji(emoji: string) {
         switch (emoji) {
             case 'error': return '❌ '
-            case 'inactive-user': return '😴'
+            case 'clock': return '⏱'
             case 'no-results': return '😵'
             case 'null': return '🚫'
             case 'ok': return '✔️'

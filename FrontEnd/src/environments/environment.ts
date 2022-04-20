@@ -11,7 +11,7 @@ export const environment = {
         lineC: '© Corfu Cruises 2021, Corfu - Greece'
     },
     idleSettings: {
-        idle: 3600,
+        idle: 300,
         timeout: 10
     },
     menuIconDirectory: 'assets/images/menu/',

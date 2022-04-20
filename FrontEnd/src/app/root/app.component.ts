@@ -4,10 +4,12 @@ import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Rout
 // Custom
 import { AccountService } from '../shared/services/account.service'
 import { EmojiService } from '../shared/services/emoji.service'
+import { HelperService } from '../shared/services/helper.service'
+import { InteractionService } from '../shared/services/interaction.service'
 import { MessageSnackbarService } from '../shared/services/messages-snackbar.service'
+import { Observable } from 'rxjs'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft } from '../shared/animations/animations'
-import { Observable } from 'rxjs'
 
 @Component({
     selector: 'root',
@@ -26,7 +28,7 @@ export class AppComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private cd: ChangeDetectorRef, private emojiService: EmojiService, private idle: Idle, private messageSnackbarService: MessageSnackbarService, private router: Router) {
+    constructor(private accountService: AccountService, private cd: ChangeDetectorRef, private emojiService: EmojiService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private messageSnackbarService: MessageSnackbarService, private router: Router) {
         this.initIdleService()
         this.router.events.subscribe((routerEvent) => {
             if (routerEvent instanceof NavigationStart) {
@@ -49,7 +51,7 @@ export class AppComponent {
     //#region public methods
 
     public getEmoji(): string {
-        return this.emojiService.getEmoji('inactive-user')
+        return this.emojiService.getEmoji('clock')
     }
 
     public getMessage(): string {
@@ -74,6 +76,8 @@ export class AppComponent {
         })
         this.idle.onTimeout.subscribe(() => {
             this.countdown = 0
+            this.helperService.hideSideMenuAndRestoreScale()
+            this.interactionService.SideMenuIsClosed()
             this.accountService.logout()
         })
     }
