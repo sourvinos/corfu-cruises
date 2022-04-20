@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { Observable } from 'rxjs'
+import { Observable, Subject, takeUntil } from 'rxjs'
 import { Router } from '@angular/router'
 // Custom
 import { AccountService } from './../../../services/account.service'
@@ -18,6 +18,7 @@ export class SideMenuComponent {
 
     //#region variables
 
+    private ngunsubscribe = new Subject<void>()
     public loginStatus: Observable<boolean>
     public menuItems: [] = []
 
@@ -29,7 +30,8 @@ export class SideMenuComponent {
 
     ngOnInit(): void {
         this.messageMenuService.getMessages().then((response) => {
-            this.buildMenu(response)
+            this.createMenu(response)
+            this.subscribeToInteractionService()
         })
     }
 
@@ -65,7 +67,7 @@ export class SideMenuComponent {
 
     //#region private methods
 
-    private buildMenu(response: any): void {
+    private createMenu(response: any): void {
         this.menuItems = response
     }
 
@@ -93,6 +95,15 @@ export class SideMenuComponent {
 
     private updateVariables(): void {
         this.loginStatus = this.accountService.isLoggedIn
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshMenus.pipe(takeUntil(this.ngunsubscribe)).subscribe(() => {
+            this.messageMenuService.getMessages().then((response) => {
+                this.menuItems = response
+                this.createMenu(response)
+            })
+        })
     }
 
     //#endregion

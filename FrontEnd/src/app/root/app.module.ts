@@ -13,6 +13,7 @@ import { PrimeNgModule } from '../shared/modules/primeng.module'
 import { SharedModule } from 'src/app/shared/modules/shared.module'
 // Components
 import { AppComponent } from './app.component'
+import { LanguageMenuComponent } from '../shared/components/language-menu/language-menu.component'
 import { LogoComponent } from '../shared/components/top-bar-wrapper/logo/logo.component'
 import { SearchByRefBoxComponent } from '../shared/components/top-bar-wrapper/search-byRef-box/search-byRef-box.component'
 import { SideMenuComponent } from './../shared/components/side-menu/side-menu/side-menu.component'
@@ -26,6 +27,7 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
 @NgModule({
     declarations: [
         AppComponent,
+        LanguageMenuComponent,
         LogoComponent,
         SearchByRefBoxComponent,
         SideMenuComponent,
