@@ -237,7 +237,6 @@ export class ReservationFormComponent {
             },
             'Alt.S': (event: KeyboardEvent) => {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    console.log('Attempt to save', this.form.value.totalPersons >= this.form.value.passengers.length)
                     if (this.form.value.totalPersons >= this.form.value.passengers.length) {
                         this.buttonClickService.clickOnButton(event, 'save')
                     }

@@ -324,12 +324,14 @@ export class ReservationListComponent {
     }
 
     private storeDate(): void {
-        if (this.records.reservations.length > 0) {
-            this.localStorageService.saveItem('date', this.records.reservations[0].date)
-        } else {
-            this.localStorageService.deleteItems([
-                { 'item': 'date', 'when': 'always' }
-            ])
+        if (this.url.includes('byRefNo')) {
+            if (this.records.reservations.length > 0) {
+                this.localStorageService.saveItem('date', this.records.reservations[0].date)
+            } else {
+                this.localStorageService.deleteItems([
+                    { 'item': 'date', 'when': 'always' }
+                ])
+            }
         }
     }
 
