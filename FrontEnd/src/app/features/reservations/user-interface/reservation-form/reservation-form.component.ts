@@ -139,10 +139,6 @@ export class ReservationFormComponent {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
-    public enableOrDisableAutoComplete(event: any) {
-        this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
-    }
-
     public checkTotalPersonsAgainstPassengerCount(element?: any): boolean {
         if (this.form.value.passengers) {
             const passengerDifference = this.form.value.totalPersons - (element != null ? element : this.form.value.passengers.length)
@@ -171,6 +167,18 @@ export class ReservationFormComponent {
         this.checkTotalPersonsAgainstPassengerCount()
     }
 
+    public doVoucherTasksOnClient(): void {
+        this.voucherService.createVoucherOnClient(this.mapObjectToVoucher())
+    }
+
+    public doVoucherTasksOnServer(): void {
+        this.showSnackbar(this.messageSnackbarService.featureNotAvailable(), 'warning')
+    }
+
+    public enableOrDisableAutoComplete(event: any) {
+        this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
+    }
+
     public getHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
     }
@@ -179,30 +187,8 @@ export class ReservationFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    private getConnectedUserRole(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            firstValueFrom(this.accountService.isConnectedUserAdmin()).then((response) => {
-                this.isAdmin = response
-                resolve(this.isAdmin)
-            })
-        })
-        return promise
-    }
-
-    public updateFieldsAfterPickupPointSelection(value: PickupPointDropdownVM): void {
-        this.form.patchValue({
-            exactPoint: value.exactPoint,
-            time: value.time,
-            port: { 'id': value.port.id, 'description': value.port.description }
-        })
-    }
-
-    public doVoucherTasksOnClient(): void {
-        this.voucherService.createVoucherOnClient(this.mapObjectToVoucher())
-    }
-
-    public doVoucherTasksOnServer(): void {
-        this.showSnackbar(this.messageSnackbarService.featureNotAvailable(), 'warning')
+    public isConnectedUserAdmin(): boolean {
+        return this.isAdmin
     }
 
     public onDelete(): void {
@@ -228,6 +214,14 @@ export class ReservationFormComponent {
 
     public patchFormWithPassengers(passengers: any) {
         this.form.patchValue({ passengers: passengers })
+    }
+
+    public updateFieldsAfterPickupPointSelection(value: PickupPointDropdownVM): void {
+        this.form.patchValue({
+            exactPoint: value.exactPoint,
+            time: value.time,
+            port: { 'id': value.port.id, 'description': value.port.description }
+        })
     }
 
     //#endregion
@@ -267,12 +261,25 @@ export class ReservationFormComponent {
         ])
     }
 
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
+    }
+
     private convertCanvasToBase64(): void {
         setTimeout(() => {
             html2canvas(document.querySelector('#qr-code')).then(canvas => {
                 this.form.patchValue({ imageBase64: canvas.toDataURL() })
             })
         }, 500)
+    }
+
+    private createBarcodeFromTicketNo(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.barcode.ticketNo = this.form.value.ticketNo
+            resolve(this.ticketNo)
+        })
+        return promise
     }
 
     private doPostInitJobs() {
@@ -285,14 +292,6 @@ export class ReservationFormComponent {
                 })
             })
         })
-    }
-
-    private createBarcodeFromTicketNo(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            this.barcode.ticketNo = this.form.value.ticketNo
-            resolve(this.ticketNo)
-        })
-        return promise
     }
 
     private filterArray(array: string, field: string, value: any): any[] {
@@ -327,6 +326,26 @@ export class ReservationFormComponent {
         return reservation
     }
 
+    private getConnectedUserId(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            firstValueFrom(this.accountService.getConnectedUserId()).then((response) => {
+                this.userId = response.userId
+                resolve(this.userId)
+            })
+        })
+        return promise
+    }
+
+    private getConnectedUserRole(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            firstValueFrom(this.accountService.isConnectedUserAdmin()).then((response) => {
+                this.isAdmin = response
+                resolve(this.isAdmin)
+            })
+        })
+        return promise
+    }
+
     private getLinkedCustomer(): Promise<any> {
         const promise = new Promise((resolve) => {
             this.userService.getSingle(this.userId).subscribe(user => {
@@ -339,16 +358,6 @@ export class ReservationFormComponent {
                     })
                 }
                 resolve(user)
-            })
-        })
-        return promise
-    }
-
-    private getConnectedUserId(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            firstValueFrom(this.accountService.getConnectedUserId()).then((response) => {
-                this.userId = response.userId
-                resolve(this.userId)
             })
         })
         return promise
@@ -403,10 +412,6 @@ export class ReservationFormComponent {
             imageBase64: '',
             passengers: [[]]
         })
-    }
-
-    private isGuid(reservationId: string): any {
-        return reservationId == '' ? null : reservationId
     }
 
     private mapObjectToVoucher(): any {
@@ -570,11 +575,6 @@ export class ReservationFormComponent {
         this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
             this.setLocale()
         })
-    }
-
-    private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
     }
 
     private updateReturnUrl(): void {
