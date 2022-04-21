@@ -1,14 +1,14 @@
 <div id="theme-menu">
     <ul>
-        <li><button mat-menu-item><img src="/assets/images/themes/{{ getTheme() }}.svg" width="25px"><span>{{ getLabel(defaultTheme) }}</span><img class="dropdown-arrow" src="/assets/images/menu/dropdown-arrow.svg"></button>
-            <ul class="sub-menu" (click)="hideMenu()">
+        <li><button mat-menu-item><img src="/assets/images/themes/{{ getSelectedThemeIcon() }}.svg" width="25px"><span>{{ getLabel(defaultTheme) }}</span><img class="dropdown-arrow" src="/assets/images/menu/dropdown-arrow.svg"></button>
+            <!-- <ul class="sub-menu" (click)="hideMenu()">
                 <button mat-menu-item (click)="changeTheme('blue')"><img src="/assets/images/themes/blue.svg"><span>{{ getLabel('blue') }}</span></button>
                 <button mat-menu-item (click)="changeTheme('gray')"><img src="/assets/images/themes/gray.svg"><span>{{ getLabel('gray') }}</span></button>
                 <button mat-menu-item (click)="changeTheme('green')"><img src="/assets/images/themes/green.svg"><span>{{ getLabel('green') }}</span></button>
                 <button mat-menu-item (click)="changeTheme('olive')"><img src="/assets/images/themes/olive.svg"><span>{{ getLabel('olive') }}</span></button>
                 <button mat-menu-item (click)="changeTheme('orange')"><img src="/assets/images/themes/orange.svg"><span>{{ getLabel('orange') }}</span></button>
                 <button mat-menu-item (click)="changeTheme('red')"><img src="/assets/images/themes/red.svg"><span>{{ getLabel('red') }}</span></button>
-            </ul>
+            </ul> -->
         </li>
     </ul>
 </div>
