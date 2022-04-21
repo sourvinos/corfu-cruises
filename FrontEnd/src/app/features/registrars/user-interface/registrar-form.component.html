@@ -38,8 +38,7 @@
                 <mat-error *ngIf="address.hasError('maxlength')">{{ getHint("maxLength", address.errors.maxlength.requiredLength) }}</mat-error>
             </mat-form-field>
             <mat-slide-toggle data-cy="isPrimary" formControlName="isPrimary">{{ getLabel("isPrimary") }}</mat-slide-toggle>
-            <mat-slide-toggle data-cy="isActive" formControlName="isActive
-                ">{{ getLabel("isActive") }}</mat-slide-toggle>
+            <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ getLabel("isActive") }}</mat-slide-toggle>
         </form>
         <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
     </div>

@@ -1822,8 +1822,16 @@
                 "description": "Aktivní"
             },
             {
+                "id": "headerIsPrimary",
+                "description": "Hlavní"
+            },
+            {
                 "id": "headerFullname",
                 "description": "Celé jméno"
+            },
+            {
+                "id": "headerShipDescription",
+                "description": "Plavidlo"
             },
             {
                 "id": "newButton",

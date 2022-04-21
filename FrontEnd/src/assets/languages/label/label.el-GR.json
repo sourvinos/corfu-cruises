@@ -1822,8 +1822,16 @@
                 "description": "Ενεργός"
             },
             {
+                "id": "headerIsPrimary",
+                "description": "Πρωτεύων"
+            },
+            {
                 "id": "headerFullname",
                 "description": "Πλήρες όνομα"
+            },
+            {
+                "id": "headerShipDescription",
+                "description": "Πλοίο"
             },
             {
                 "id": "newButton",

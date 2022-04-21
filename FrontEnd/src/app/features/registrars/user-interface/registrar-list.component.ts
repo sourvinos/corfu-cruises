@@ -105,6 +105,7 @@ export class RegistrarListComponent {
             if (listResolved.error === null) {
                 this.records = listResolved.list
                 resolve(this.records)
+                console.log(this.records)
             } else {
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

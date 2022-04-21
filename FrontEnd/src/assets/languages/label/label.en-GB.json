@@ -1822,8 +1822,16 @@
                 "description": "Active"
             },
             {
+                "id": "headerIsPrimary",
+                "description": "Primary"
+            },
+            {
                 "id": "headerFullname",
                 "description": "Fullname"
+            },
+            {
+                "id": "headerShipDescription",
+                "description": "Ship"
             },
             {
                 "id": "newButton",
