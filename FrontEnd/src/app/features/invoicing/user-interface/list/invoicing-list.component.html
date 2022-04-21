@@ -37,18 +37,15 @@
                         <th style="min-width: 3%; max-width: 3%;">{{ getLabel("headerKids") }}</th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getLabel("headerFree") }}</th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getEmoji('sum') }}</th>
-                        <th style="min-width: 24%; max-width: 24%; border-top-right-radius: 10px;">{{ getLabel("headerRemarks") }}</th>
+                        <th style="min-width: 21%; max-width: 21%;">{{ getLabel("headerRemarks") }}</th>
+                        <th style="min-width: 3%; max-width: 3%; border-top-right-radius: 10px;"></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="groupheader" let-record let-expanded="expanded">
+                <ng-template pTemplate="body" let-record>
                     <tr>
-                        <td colspan="10" type="button">
-                            <button pButton pRipple [pRowToggler]="record" class="p-button-text p-button-rounded p-button-plain p-mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                            <span style="font-weight: bold;">{{ record.customer.description }}</span>
-                        </td>
+                        <td colspan="11">{{ record.customer.description }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: center;" class="clickable" (click)="exportSingleCustomer(record.date,record.customer.id)">PDF</td>
                     </tr>
-                </ng-template>
-                <ng-template pTemplate="rowexpansion" let-record>
                     <tr *ngFor="let x of record.reservations, let i = index">
                         <td style="min-width: 3%; max-width: 3%;"></td>
                         <td style="min-width: 15%; max-width: 15%;">{{ record.reservations[i].destination }}</td>
@@ -63,8 +60,8 @@
                         <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].kids }}</td>
                         <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].free }}</td>
                         <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].totalPersons }}</td>
-                        <td style="min-width: 25%; max-width: 25%;">{{ record.reservations[i].remarks }}</td>
-                        <td style="min-width: 5%; max-width: 5%;"></td>
+                        <td style="min-width: 21%; max-width: 21%;">{{ record.reservations[i].remarks }}</td>
+                        <td style="min-width: 3%; max-width: 3%;"></td>
                     </tr>
                     <div class="pivot">
                         <div class="port-panel" *ngFor="let port of record.portGroup, let i = index">

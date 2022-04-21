@@ -15,6 +15,7 @@ export class InvoicingPdfService {
     constructor(private logoService: LogoService) { }
 
     public doInvoiceTasks(invoice: InvoicingVM): void {
+        console.log('Processing...', invoice)
         const dd = {
             pageMargins: [50, 50, 50, 50],
             pageOrientation: 'portrait',
@@ -24,12 +25,8 @@ export class InvoicingPdfService {
                 [
                     this.addHeaders(invoice[0]),
                     this.reservations(invoice[0].reservations,
-                        ['destinationDescription', 'shipDescription', 'ticketNo', 'hasTransfer', 'adults', 'kids', 'free', 'totalPersons', 'remarks'],
+                        ['destination', 'ship', 'ticketNo', 'hasTransfer', 'adults', 'kids', 'free', 'totalPersons', 'remarks'],
                         ['left', 'left', 'center', 'center', 'right', 'right', 'right', 'right', 'left']),
-                    this.hasTransferGroup(invoice[0].hasTransferGroup,
-                        ['hasTransfer', 'adults', 'kids', 'free', 'totalPersons'],
-                        ['center', 'right', 'right', 'right', 'right']),
-                    this.hasTransferGroupTotal(invoice[0].hasTransferGroupTotal)
                 ]
             ],
             styles: {
@@ -93,6 +90,20 @@ export class InvoicingPdfService {
         }
     }
 
+    private portGroup(data, columns: any[], align: any[]): any {
+        return {
+            table: {
+                widths: [40, 30, 30, 30, 30],
+                headerRows: 1,
+                dontBreakRows: true,
+                body: this.buildHasTransferGroup(data, columns, align),
+                heights: 10,
+                bold: false,
+            },
+            margin: [192, 40, 10, 10]
+        }
+    }
+
     private hasTransferGroup(data, columns: any[], align: any[]): any {
         return {
             table: {
@@ -110,7 +121,7 @@ export class InvoicingPdfService {
     private buildReservations(data, columns: any[], align: any[]): void {
         const body: any = []
         body.push(this.buildReservationsHeader())
-        data.forEach((row) => {
+        data.forEach((row: any) => {
             let dataRow = []
             dataRow = this.processRow(columns, row, dataRow, align)
             body.push(dataRow)
@@ -162,7 +173,8 @@ export class InvoicingPdfService {
                     alignment: align[index].toString(),
                     color: '#000000',
                     noWrap: false,
-                    text: this.convertBoolToString(row[element].toString()),
+                    // text: this.convertBoolToString(row[element].toString()),
+                    text: row[element],
                     margin: [0, 5, 0, 0]
                 })
         })

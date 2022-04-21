@@ -65,10 +65,12 @@ export class InvoicingListComponent {
     }
 
     public exportSingleCustomer(date: string, customerId: string): void {
-        this.invoicingService.get(date, customerId, 'all', 'all').subscribe(result => {
-            this.invoicingPdfService.doInvoiceTasks(result)
-        }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+        this.invoicingService.get(date, customerId, 'all', 'all').subscribe({
+            next: (response) => {
+                this.invoicingPdfService.doInvoiceTasks(response)
+            }, error: (errorFromInterceptor) => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            }
         })
     }
 
