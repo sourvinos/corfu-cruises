@@ -168,6 +168,7 @@ export class ReservationFormComponent {
 
     public doPersonsCalculations(): void {
         this.calculateTotalPersons()
+        this.checkTotalPersonsAgainstPassengerCount()
     }
 
     public getHint(id: string, minmax = 0): string {
@@ -242,8 +243,10 @@ export class ReservationFormComponent {
             },
             'Alt.S': (event: KeyboardEvent) => {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    if (this.calculateTotalPersons())
+                    console.log('Attempt to save', this.form.value.totalPersons >= this.form.value.passengers.length)
+                    if (this.form.value.totalPersons >= this.form.value.passengers.length) {
                         this.buttonClickService.clickOnButton(event, 'save')
+                    }
                 }
             }
         }, {
@@ -252,10 +255,9 @@ export class ReservationFormComponent {
         })
     }
 
-    private calculateTotalPersons(): boolean {
+    private calculateTotalPersons(): void {
         const totalPersons = parseInt(this.form.value.adults, 10) + parseInt(this.form.value.kids, 10) + parseInt(this.form.value.free, 10)
         this.form.patchValue({ totalPersons: Number(totalPersons) ? totalPersons : 0 })
-        return totalPersons > 0 ? true : false
     }
 
     private clearStoredVariables(): void {
