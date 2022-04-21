@@ -4,8 +4,8 @@
         "description": "Hlavní panel"
     },
     {
-        "id": "schedule",
-        "description": "Rozvrhy"
+        "id": "availability",
+        "description": "Dostupnost"
     },
     {
         "id": "editAccount",

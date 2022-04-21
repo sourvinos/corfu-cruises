@@ -14,6 +14,7 @@ export const environment = {
         idle: 900,
         timeout: 60
     },
+    menuIconDirectory: 'assets/images/menu/',
     isWideScreen: 1920,
     leaflet: {
         token: 'pk.eyJ1Ijoic291cnZpbm9zIiwiYSI6ImNrajEwa3plbDRzY2gzMnFqcXppZzNhaDkifQ.JMR_dEvdaFTpQ2jiapPrhg'

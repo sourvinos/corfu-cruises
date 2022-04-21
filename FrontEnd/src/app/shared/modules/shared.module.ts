@@ -5,7 +5,7 @@ import { QRCodeModule } from 'angular2-qrcode'
 import { RouterModule } from '@angular/router'
 import { ZXingScannerModule } from '@zxing/ngx-scanner'
 // Custom
-import { CalendarScheduleComponent } from 'src/app/features/calendar/user-interface/calendar-schedule.component'
+import { AvailabilityComponent } from 'src/app/features/availability/user-interface/availability.component'
 import { DialogAlertComponent } from '../components/dialog-alert/dialog-alert.component'
 import { DisableToogleDirective } from '../directives/mat-slide-toggle.directive'
 import { HomeButtonAndTitleComponent } from '../components/home-button-and-title/home-button-and-title.component'
@@ -21,7 +21,7 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
 
 @NgModule({
     declarations: [
-        CalendarScheduleComponent,
+        AvailabilityComponent,
         DialogAlertComponent,
         DisableToogleDirective,
         HomeButtonAndTitleComponent,

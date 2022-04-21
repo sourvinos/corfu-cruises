@@ -3,19 +3,19 @@ import { NgModule } from '@angular/core'
 import { NoPreloading, RouterModule, Routes } from '@angular/router'
 // Components
 import { HomeComponent } from '../features/home/home.component'
-import { LoginFormComponent } from '../features/login/user-interface/login-form.component'
-import { CalendarScheduleComponent } from '../features/calendar/user-interface/calendar-schedule.component'
-import { ForgotPasswordFormComponent } from '../features/users/user-interface/forgot-password/forgot-password-form.component'
-import { ResetPasswordFormComponent } from '../features/users/user-interface/reset-password/reset-password-form.component'
-import { EmptyPageComponent } from '../shared/components/empty-page/empty-page.component'
+import { AvailabilityComponent } from '../features/availability/user-interface/availability.component'
 import { CreditsComponent } from '../features/credits/user-interface/credits.component'
+import { EmptyPageComponent } from '../shared/components/empty-page/empty-page.component'
+import { ForgotPasswordFormComponent } from '../features/users/user-interface/forgot-password/forgot-password-form.component'
+import { LoginFormComponent } from '../features/login/user-interface/login-form.component'
+import { ResetPasswordFormComponent } from '../features/users/user-interface/reset-password/reset-password-form.component'
 // Guards
 import { AuthGuardService } from '../shared/services/auth-guard.service'
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuardService], pathMatch: 'full' },
     { path: 'login', component: LoginFormComponent },
-    { path: 'calendar-schedule', component: CalendarScheduleComponent, canActivate: [AuthGuardService] },
+    { path: 'availability', component: AvailabilityComponent, canActivate: [AuthGuardService] },
     { path: 'coachRoutes', loadChildren: () => import('../features/coachRoutes/classes/modules/coachRoute.module').then(m => m.CoachRouteModule) },
     { path: 'crews', loadChildren: () => import('../features/crews/classes/modules/crew.module').then(m => m.CrewModule) },
     { path: 'customers', loadChildren: () => import('../features/customers/classes/modules/customer.module').then(m => m.CustomerModule) },

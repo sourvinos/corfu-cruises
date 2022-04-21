@@ -4,8 +4,8 @@
         "description": "Panneau principal"
     },
     {
-        "id": "schedule",
-        "description": "Horaires"
+        "id": "availability",
+        "description": "Disponibilité"
     },
     {
         "id": "editAccount",

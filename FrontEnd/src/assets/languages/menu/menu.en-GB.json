@@ -4,7 +4,7 @@
         "description": "Main Panel"
     },
     {
-        "id": "schedule",
+        "id": "availability",
         "description": "Availability"
     },
     {

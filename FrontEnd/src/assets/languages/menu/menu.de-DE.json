@@ -4,8 +4,8 @@
         "description": "Hauptpanel"
     },
     {
-        "id": "schedule",
-        "description": "Reisepläne"
+        "id": "availability",
+        "description": "Verfügbarkeit"
     },
     {
         "id": "editAccount",

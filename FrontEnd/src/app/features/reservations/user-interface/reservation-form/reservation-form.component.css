@@ -70,10 +70,8 @@
 }
 
 #qr-code {
-    height: 100px;
+    left: -10rem;
     position: absolute;
-    width: 100px;
-    z-index: -1;
 }
 
 #remarks {

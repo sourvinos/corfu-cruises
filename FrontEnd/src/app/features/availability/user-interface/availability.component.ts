@@ -12,13 +12,13 @@ import { ScheduleService } from 'src/app/features/schedules/classes/services/sch
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
-    selector: 'calendar-schedule',
-    templateUrl: './calendar-schedule.component.html',
-    styleUrls: ['../../../../assets/styles/lists.css', './calendar-schedule.component.css'],
+    selector: 'availability',
+    templateUrl: './availability.component.html',
+    styleUrls: ['../../../../assets/styles/lists.css', './availability.component.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
-export class CalendarScheduleComponent {
+export class AvailabilityComponent {
 
     // #region variables
 
@@ -91,7 +91,7 @@ export class CalendarScheduleComponent {
         this.localStorageService.saveItem('date', date)
         this.localStorageService.saveItem('destinationId', destinationId.toString())
         this.localStorageService.saveItem('destinationDescription', destinationDescription.toString())
-        this.localStorageService.saveItem('returnUrl', '/calendar-schedule')
+        this.localStorageService.saveItem('returnUrl', '/availability')
         this.router.navigate(['/reservations/new'])
     }
 
