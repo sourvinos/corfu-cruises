@@ -8,10 +8,10 @@ import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
-export class InvoicingService extends DataService {
+export class InvoicingDisplayService extends DataService {
 
     constructor(httpClient: HttpClient) {
-        super(httpClient, environment.apiUrl + '/invoicing')
+        super(httpClient, environment.apiUrl + '/invoicingdisplay')
     }
 
     //#region public methods
