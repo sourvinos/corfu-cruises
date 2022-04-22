@@ -4,11 +4,13 @@ import { Observable, Subject, takeUntil } from 'rxjs'
 import { AccountService } from 'src/app/shared/services/account.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'side-menu-toggler',
     templateUrl: './side-menu-toggler.component.html',
-    styleUrls: ['./side-menu-toggler.component.css']
+    styleUrls: ['./side-menu-toggler.component.css'],
+    animations: [ slideFromLeft ]
 })
 
 export class SideMenuTogglerComponent {

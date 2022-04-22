@@ -81,6 +81,9 @@ export class LoginFormComponent {
             complete: () => {
                 this.goHome()
                 this.startIdleTimer()
+                setTimeout(() => {
+                    this.doSideMenuTasks()
+                }, 500)
             },
             error: (errorFromInterceptor) => {
                 this.showError(errorFromInterceptor)
@@ -106,6 +109,10 @@ export class LoginFormComponent {
         })
     }
 
+    private canShowSideMenu(): boolean {
+        return screen.height >= 1050
+    }
+
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
@@ -123,6 +130,12 @@ export class LoginFormComponent {
             { 'item': 'returnUrl', 'when': 'always' },
             { 'item': 'embarkation-criteria', 'when': 'production' },
         ])
+    }
+
+    private doSideMenuTasks(): void {
+        if (this.canShowSideMenu()) {
+            this.helperService.toggleScaleOnMainWindow()
+        }
     }
 
     private goHome(): void {
