@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
-import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
+import { Router } from '@angular/router'
 import { map, take } from 'rxjs/operators'
+// Custom
 import { AccountService } from './account.service'
 
 @Injectable({ providedIn: 'root' })
@@ -9,8 +10,6 @@ import { AccountService } from './account.service'
 export class AuthGuardService {
 
     constructor(private accountService: AccountService, private router: Router) { }
-
-    //#region lifecycle hooks
 
     canActivate(): Observable<boolean> {
         return this.accountService.isLoggedIn.pipe(take(1), map((loginStatus: boolean) => {
@@ -21,7 +20,5 @@ export class AuthGuardService {
             return true
         }))
     }
-
-    //#endregion
 
 }

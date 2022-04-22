@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { Observable, Subject, takeUntil } from 'rxjs'
-import { Router } from '@angular/router'
+import { NavigationEnd, Router } from '@angular/router'
 // Custom
 import { AccountService } from './../../../services/account.service'
 import { HelperService } from './../../../services/helper.service'
@@ -19,12 +19,19 @@ export class SideMenuComponent {
     //#region variables
 
     private ngunsubscribe = new Subject<void>()
+    private url: string
     public loginStatus: Observable<boolean>
     public menuItems: [] = []
 
     //#endregion
 
-    constructor(private accountService: AccountService, private helperService: HelperService, private interactionService: InteractionService, private messageMenuService: MessageMenuService, private router: Router) { }
+    constructor(private accountService: AccountService, private helperService: HelperService, private interactionService: InteractionService, private messageMenuService: MessageMenuService, private router: Router) {
+        this.router.events.subscribe((navigation) => {
+            if (navigation instanceof NavigationEnd) {
+                this.url = navigation.url
+            }
+        })
+    }
 
     //#region lifecycle hooks
 
@@ -52,9 +59,15 @@ export class SideMenuComponent {
     }
 
     public doNavigationTasks(feature: string): void {
-        this.doSideMenuTasks()
-        this.setActiveMenuItem(feature)
-        this.navigateToRoute(feature)
+        this.setMenuItemsAsInactive()
+        this.router.navigate([feature]).then(() => {
+            setTimeout(() => {
+                if (this.url.includes(feature)) {
+                    this.doSideMenuTasks()
+                    this.setActiveMenuItem(feature)
+                }
+            }, 100)
+        })
     }
 
     public doLogoutTasks(): void {
@@ -78,15 +91,14 @@ export class SideMenuComponent {
         }
     }
 
-    private navigateToRoute(feature: any): void {
-        this.router.navigate([feature])
+    private setActiveMenuItem(element: string) {
+        document.getElementById(element).classList.add('active')
     }
 
-    private setActiveMenuItem(element: string) {
+    private setMenuItemsAsInactive(): void {
         document.querySelectorAll('.menu-item').forEach(item => {
             item.classList.remove('active')
         })
-        document.getElementById(element).classList.add('active')
     }
 
     private sideMenuMustHide(): boolean {
