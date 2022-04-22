@@ -17,7 +17,7 @@ li {
 button {
     border: none;
     border-radius: 0;
-    padding: 0.5rem 1rem !important;
+    padding: 4px 1rem !important;
 }
 
 span {
