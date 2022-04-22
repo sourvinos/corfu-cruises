@@ -1,8 +1,8 @@
 using System;
 
-namespace API.Features.Invoicing {
+namespace API.Features.Invoicing.Display {
 
-    public class InvoicingReservationVM {
+    public class InvoicingDisplayReservationVM {
 
         public Guid ReservationId { get; set; }
         public string Destination { get; set; }

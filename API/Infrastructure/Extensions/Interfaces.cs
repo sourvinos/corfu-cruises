@@ -7,7 +7,7 @@ using API.Features.Embarkation;
 using API.Features.Embarkation.Display;
 using API.Features.Embarkation.Printer;
 using API.Features.Genders;
-using API.Features.Invoicing;
+using API.Features.Invoicing.Display;
 using API.Features.Manifest;
 using API.Features.Nationalities;
 using API.Features.Occupants;
@@ -39,7 +39,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IEmbarkationPrinterRepository, EmbarkationPrinterRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
-            services.AddTransient<IInvoicingRepository, InvoicingRepository>();
+            services.AddTransient<IInvoicingDisplayRepository, InvoicingDisplayRepository>();
             services.AddTransient<IManifestRepository, ManifestRepository>();
             services.AddTransient<INationalityRepository, NationalityRepository>();
             services.AddTransient<IOccupantRepository, OccupantRepository>();

@@ -1,6 +1,6 @@
-namespace API.Features.Invoicing {
+namespace API.Features.Invoicing.Display {
 
-    public class InvoicingHasTransferGroupDTO {
+    public class InvoicingDisplayHasTransferGroupDTO {
 
         public bool HasTransfer { get; set; }
         public int Adults { get; set; }
