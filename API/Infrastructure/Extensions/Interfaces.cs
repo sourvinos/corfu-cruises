@@ -1,3 +1,4 @@
+using API.Features.Availability;
 using API.Features.CoachRoutes;
 using API.Features.Customers;
 using API.Features.Destinations;
@@ -28,6 +29,7 @@ namespace API.Infrastructure.Extensions {
 
         public static void AddInterfaces(IServiceCollection services) {
             services.AddScoped<Token>();
+            services.AddTransient<IAvailabilityRepository, AvailabilityRepository>();
             services.AddTransient<ICoachRouteRepository, CoachRouteRepository>();
             services.AddTransient<ICrewRepository, CrewRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();

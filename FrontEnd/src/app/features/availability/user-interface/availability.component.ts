@@ -3,12 +3,11 @@ import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 // Custom
+import { AvailabilityService } from '../services/availability.service'
 import { DayViewModel } from '../classes/view-models/day-view-model'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
-import { ScheduleService } from 'src/app/features/schedules/classes/services/schedule.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -24,7 +23,6 @@ export class AvailabilityComponent {
 
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
-    private url = 'calendar'
     public feature = 'calendar'
     public icon = 'home'
     public parentUrl = '/'
@@ -33,19 +31,19 @@ export class AvailabilityComponent {
     private daysWithSchedule = []
     private startDate: any
     public days: DayViewModel[]
+    public isLoading: boolean
     public monthSelect: any[]
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    public isLoading: boolean
 
     // #endregion 
 
-    constructor(private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private router: Router, private scheduleService: ScheduleService) { }
+    constructor(private availabilityService: AvailabilityService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.getDaysFromDate(moment().month() + 1, moment().year())
-        this.getScheduleForMonth().then(() => {
+        this.getAvailabilityForMonth().then(() => {
             this.updateCalendar()
             this.fixCalendarHeight()
         })
@@ -81,7 +79,7 @@ export class AvailabilityComponent {
 
     public onChangeMonth(month: number): void {
         this.navigateToMonth(month)
-        this.getScheduleForMonth().then(() => {
+        this.getAvailabilityForMonth().then(() => {
             this.updateCalendar()
             this.fixCalendarHeight()
         })
@@ -167,10 +165,10 @@ export class AvailabilityComponent {
         }
     }
 
-    private getScheduleForMonth(): Promise<any> {
+    private getAvailabilityForMonth(): Promise<any> {
         this.isLoading = true
         const promise = new Promise((resolve) => {
-            this.scheduleService.getForCalendar(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
+            this.availabilityService.getForCalendar(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
                 this.daysWithSchedule = response
                 resolve(this.daysWithSchedule)
                 this.isLoading = false
