@@ -13,6 +13,13 @@ export class InvoicingPrinterService extends DataService {
         super(httpClient, environment.apiUrl + '/invoicingprinter')
     }
 
+    createCriteriaObject(date: string, customerId: number): any {
+        return {
+            date: date,
+            customerId: customerId,
+        }
+    }
+
     createReport(criteria: any): Observable<any> {
         return this.http.post(this.url + '/createreport/', criteria)
     }

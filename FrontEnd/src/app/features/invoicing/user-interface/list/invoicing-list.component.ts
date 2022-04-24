@@ -5,7 +5,6 @@ import { Subject } from 'rxjs'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InvoicingCriteriaVM } from '../../classes/view-models/invoicing-criteria-vm'
-import { InvoicingDisplayService } from '../../classes/services/invoicing-display.service'
 import { InvoicingPrinterService } from '../../classes/services/invoicing-printer.service'
 import { InvoicingVM } from '../../classes/view-models/invoicing-vm'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -14,7 +13,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { InvoicingPrintCriteriaVM } from '../../classes/view-models/invoicing-print-criteria-vm'
 
 @Component({
     selector: 'invoicing-list',
@@ -40,7 +38,7 @@ export class InvoicingListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private invoicingDisplayService: InvoicingDisplayService, private invoicingPrinterService: InvoicingPrinterService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService,) { }
+    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private invoicingPrinterService: InvoicingPrinterService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService,) { }
 
     //#region lifecycle hooks
 
@@ -65,20 +63,23 @@ export class InvoicingListComponent {
         })
     }
 
-    public exportSingleCustomer(date: string, customerId: string): void {
-        const jsonString = '{ "date": "2022-07-01", "customerId": "1" }'
-        const criteria = JSON.parse(jsonString)
-        this.invoicingPrinterService.createReport(criteria).subscribe((response) => {
-            this.invoicingPrinterService.openReport(response.response + '.pdf').subscribe({
-                next: (pdf) => {
-                    const blob = new Blob([pdf], { type: 'application/pdf' })
-                    const fileURL = URL.createObjectURL(blob)
-                    window.open(fileURL, '_blank')
-                },
-                error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-                }
-            })
+    public exportSingleCustomer(date: string, customerId: number): void {
+        this.invoicingPrinterService.createReport(this.invoicingPrinterService.createCriteriaObject(date, customerId)).subscribe({
+            next: (response) => {
+                this.invoicingPrinterService.openReport(response.filename + '.pdf').subscribe({
+                    next: (pdf) => {
+                        const blob = new Blob([pdf], { type: 'application/pdf' })
+                        const fileURL = URL.createObjectURL(blob)
+                        window.open(fileURL, '_blank')
+                    },
+                    error: (errorFromInterceptor) => {
+                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    }
+                })
+            },
+            error: (errorFromInterceptor) => {
+                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            }
         })
     }
 
@@ -140,7 +141,6 @@ export class InvoicingListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = listResolved.result
-            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

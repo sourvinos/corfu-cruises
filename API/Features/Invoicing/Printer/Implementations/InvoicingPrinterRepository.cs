@@ -1,13 +1,19 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using SelectPdf;
 
 namespace API.Features.Invoicing.Printer {
 
@@ -28,8 +34,7 @@ namespace API.Features.Invoicing.Printer {
                 .Include(x => x.PickupPoint).ThenInclude(x => x.CoachRoute)
                 .Include(x => x.Port)
                 .Include(x => x.Ship)
-                .Where(x => x.Date == Convert.ToDateTime(criteria.Date)
-                    && x.CustomerId == criteria.CustomerId)
+                .Where(x => x.Date == Convert.ToDateTime(criteria.Date) && x.CustomerId == criteria.CustomerId)
                 .AsEnumerable()
                 .GroupBy(x => x.Customer).OrderBy(x => x.Key.Description)
                 .Select(x => new InvoicingPrinterDTO {
@@ -58,12 +63,44 @@ namespace API.Features.Invoicing.Printer {
             return mapper.Map<InvoicingPrinterDTO, InvoicingPrinterVM>(record);
         }
 
+        public async Task<Response> CreatePDF(ViewEngineResult viewResult, ViewContext viewContext, InvoicingPrinterVM report) {
+            using var stringWriter = new StringWriter();
+            var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary()) { Model = report };
+            var view = new ViewContext(viewContext, viewResult.View, viewDictionary, viewContext.TempData, stringWriter, new HtmlHelperOptions());
+            var htmlToPdf = new HtmlToPdf();
+            htmlToPdf.Options.PdfPageSize = PdfPageSize.A4;
+            htmlToPdf.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+            htmlToPdf.Options.MarginLeft = 10;
+            htmlToPdf.Options.MarginRight = 10;
+            htmlToPdf.Options.MarginTop = 20;
+            htmlToPdf.Options.MarginBottom = 20;
+            await viewResult.View.RenderAsync(view);
+            var pdf = htmlToPdf.ConvertHtmlString(stringWriter.ToString());
+            var pdfBytes = pdf.Save();
+            if (!Directory.Exists("Reports")) {
+                Directory.CreateDirectory("Reports");
+            }
+            var filename = Guid.NewGuid().ToString("N");
+            using var streamWriter = new StreamWriter("Reports\\" + filename + ".pdf");
+            await streamWriter.BaseStream.WriteAsync(pdfBytes.AsMemory(0, pdfBytes.Length));
+            pdf.Close();
+            return new Response {
+                Filename = filename
+            };
+        }
+
         public FileStreamResult OpenReport(string filename) {
             byte[] byteArray = File.ReadAllBytes(directoryLocations.ReportsLocation + Path.DirectorySeparatorChar + filename);
             File.WriteAllBytes(filename, byteArray);
             MemoryStream memoryStream = new(byteArray);
             return new FileStreamResult(memoryStream, "application/pdf");
         }
+
+    }
+
+    public class Response {
+
+        public string Filename { get; set; }
 
     }
 
