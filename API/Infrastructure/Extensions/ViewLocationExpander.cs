@@ -10,6 +10,7 @@ namespace API.Infrastructure.Extensions {
                   "/Infrastructure/Email/Views/{0}.cshtml",
                   "/Features/Vouchers/Views/{0}.cshtml",
                   "/Features/Embarkation/Printer/Views/{0}.cshtml",
+                  "/Features/Invoicing/Printer/Views/{0}.cshtml",
               };
 
         public void PopulateValues(ViewLocationExpanderContext context) { }
