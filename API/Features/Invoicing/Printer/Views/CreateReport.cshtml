@@ -1,0 +1,232 @@
+@using API.Features.Vouchers
+@model API.Features.Invoicing.Printer.InvoicingPrinterVM
+
+<head>
+
+    <link href="http://fonts.cdnfonts.com/css/canter-bold" rel="stylesheet">
+    <link href="http://fonts.cdnfonts.com/css/pf-handbook-pro" rel="stylesheet">
+    <link href="http://fonts.cdnfonts.com/css/ubuntu-condensed-2" rel="stylesheet">
+
+    <style>
+
+        body {
+            background-color: lightblue;
+            height: 1650px;
+            margin: 0 auto;
+            width: 900px;
+        }
+
+        #header {
+            align-items: center;
+            display: flex;
+        }
+
+        #image {
+            height: 105px;
+            width: 105px;
+            @* background: url("background.svg") no-repeat center; *@
+            @* background-size: cover; *@
+        }
+
+        #logo-and-title {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            padding-left: 1rem;
+        }
+
+        #logo-text {
+            font-family: "Aka-Acid-CanterBold";
+            font-size: 36px;
+            line-height: normal;
+        }
+
+        #title {
+            font-family: "Ubuntu Condensed";
+            font-size: 18px;
+            font-weight: 100;
+        }
+
+        #criteria {
+            display: flex;
+            font-family: "Ubuntu Condensed";
+            margin-left: auto;
+        }
+
+        .pill {
+            background-color: #efefef;
+            border-radius: 5px;
+            margin-left: 0.5rem;
+            padding: 5px 10px;
+            text-align: right;
+        }
+
+        .label {
+            font-family: "PF Handbook Pro";
+            font-size: 16px;
+            line-height: initial;
+        }
+
+        .description {
+            font-family: "PF Handbook Pro";
+            font-size: 18px;
+            font-weight: 300;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 1rem;
+            font-family: "Ubuntu Condensed";
+        }
+
+        table th {
+            font-weight: 100;
+            padding: 0;
+        }
+
+        .ports {
+            margin: 0 auto;
+            width: 50%;
+        }
+
+        .number {
+            text-align: right;
+            padding-right: 1rem;
+            }
+
+        .first-column {
+            width: 5rem;
+        }
+
+        .column-narrow {
+            background-color: #efefef;
+            width: 3.5rem;
+        }
+
+        .column-wide {
+            background-color: #efefef;
+            text-align: center;
+            width: 10rem;
+        }
+
+        .total {
+            background-color: #efefef;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div id="header">
+            <div id="image">
+                <img src="@Logo.GetLogo()" width="105px" height="105px" />
+            </div>
+            <div id="logo-and-title">
+                <div id="logo-text">CORFU CRUISES</div>
+                <div id="title">TRIP REPORT</div>
+            </div>
+            <div id="criteria">
+                <div class="pill">
+                    <div class="label">DATE</div>
+                    <div class="description">@Model.Date</div>
+                </div>
+                <div class="pill">
+                    <div class="label">CUSTOMER</div>
+                    <div class="description">@Model.Customer.Description</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ports">
+            @foreach (var port in Model.PortGroup) {
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="column-wide"></th>
+                            <th class="column-narrow">Adults</th>
+                            <th class="column-narrow">Kids</th>
+                            <th class="column-narrow">Free</th>
+                            <th class="column-narrow">Total</th>
+                            <th class="column-wide"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < port.HasTransferGroup.Count(); i++) {
+                            <tr>
+                                @if (i == 0) {
+                                    <td rowspan="2" class="last-column">
+                                        @port.Port
+                                    </td>
+                                }
+                                <td class="number">@port.HasTransferGroup.ElementAt(i).Adults</td>
+                                <td class="number">@port.HasTransferGroup.ElementAt(i).Kids</td>
+                                <td class="number">@port.HasTransferGroup.ElementAt(i).Free</td>
+                                <td class="number">@port.HasTransferGroup.ElementAt(i).TotalPersons</td>
+                                @if (port.HasTransferGroup.ElementAt(i).HasTransfer) {
+                                    <td class="center">w/ Transfer</td>
+                                }
+                                @if (!port.HasTransferGroup.ElementAt(i).HasTransfer) {
+                                    <td class="center">w/o Transfer</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="center">@port.Port</td>
+                            <td class="total number">@port.Adults</td>
+                            <td class="total number">@port.Kids</td>
+                            <td class="total number">@port.Free</td>
+                            <td class="total number">@port.TotalPersons</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            }
+        </div>
+
+        <div class="reservations">
+            <table>
+                <thead>
+                    <th>Destination</th>
+                    <th>Ticket</th>
+                    <th>Ship</th>
+                    <th>Adults</th>
+                    <th>Kids</th>
+                    <th>Free</th>
+                    <th>Total</th>
+                    <th>Remarks</th>
+                </thead>
+                <tbody>
+                    @foreach (var reservation in Model.Reservations)
+
+                    {
+                        <tr>
+                            <td>@reservation.Destination</td>
+                            <td>@reservation.TicketNo</td>
+                            <td>@reservation.Ship</td>
+                            <td>@reservation.Adults</td>
+                            <td>@reservation.Kids</td>
+                            <td>@reservation.Free</td>
+                            <td>@reservation.TotalPersons</td>
+                            <td>@reservation.Remarks</td>
+                        </tr>
+
+
+
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>

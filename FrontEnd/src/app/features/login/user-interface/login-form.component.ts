@@ -83,7 +83,7 @@ export class LoginFormComponent {
                 this.startIdleTimer()
                 setTimeout(() => {
                     this.doSideMenuTasks()
-                }, 500)
+                }, 1000)
             },
             error: (errorFromInterceptor) => {
                 this.showError(errorFromInterceptor)

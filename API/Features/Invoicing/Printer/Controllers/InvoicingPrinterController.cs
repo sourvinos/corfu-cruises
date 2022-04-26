@@ -29,7 +29,7 @@ namespace API.Features.Invoicing.Printer {
         [Authorize(Roles = "admin")]
         public async Task<Response> CreateReport([FromBody] InvoicingPrinterCriteria criteria, InvoicingPrinterVM report) {
 
-            var viewResult = compositeViewEngine.FindView(ControllerContext, "InvoicingReport", false);
+            var viewResult = compositeViewEngine.FindView(ControllerContext, "CreateReport", false);
             var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary()) { Model = report };
             var viewContext = new ViewContext(ControllerContext, viewResult.View, viewDictionary, TempData, new StringWriter(), new HtmlHelperOptions());
             var result = repo.Get(criteria);
