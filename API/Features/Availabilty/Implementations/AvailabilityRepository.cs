@@ -106,7 +106,11 @@ namespace API.Features.Availability {
         private static int CalculateAvailableSeatsForPrimaryPort(IEnumerable<ScheduleViewModel> schedule, string date, int destinationId, int maxPassengers, int passengers) {
             var secondaryPort = schedule.FirstOrDefault(x => x.Date == date && x.DestinationId == destinationId && !x.IsPortPrimary);
             if (secondaryPort != null && secondaryPort.MaxPassengers != 0) {
-                return maxPassengers - passengers;
+                if (secondaryPort.Passengers > secondaryPort.MaxPassengers) {
+                    return maxPassengers - passengers - (secondaryPort.Passengers - secondaryPort.MaxPassengers);
+                } else {
+                    return maxPassengers - passengers;
+                }
             } else {
                 return maxPassengers - passengers - ((secondaryPort?.Passengers) ?? 0);
             }
