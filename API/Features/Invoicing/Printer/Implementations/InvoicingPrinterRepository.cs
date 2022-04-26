@@ -70,9 +70,9 @@ namespace API.Features.Invoicing.Printer {
             var htmlToPdf = new HtmlToPdf();
             htmlToPdf.Options.PdfPageSize = PdfPageSize.A4;
             htmlToPdf.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
-            htmlToPdf.Options.MarginLeft = 0;
-            htmlToPdf.Options.MarginRight = 0;
-            htmlToPdf.Options.MarginTop = 0;
+            htmlToPdf.Options.MarginLeft = 20;
+            htmlToPdf.Options.MarginRight = 20;
+            htmlToPdf.Options.MarginTop = 20;
             htmlToPdf.Options.MarginBottom = 0;
             await viewResult.View.RenderAsync(view);
             var pdf = htmlToPdf.ConvertHtmlString(stringWriter.ToString());
