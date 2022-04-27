@@ -102,7 +102,7 @@ export class SideMenuComponent {
     }
 
     private sideMenuMustHide(): boolean {
-        return screen.height < 1050
+        return true
     }
 
     private updateVariables(): void {
