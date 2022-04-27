@@ -24,7 +24,17 @@
 
     <ng-container *ngIf="records.passengerCount > 0">
         <div id="table-wrapper">
-            <p-table #table [autoLayout]="false" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="filteredRecords.embarkation" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table 
+            #table 
+            [autoLayout]="false" 
+            [globalFilterFields]="['ticketNo']" 
+            [scrollable]="true" 
+            [value]="filteredRecords.embarkation" 
+            dataKey="ticketNo" 
+            scrollHeight="flex" 
+            selectionMode="single" 
+            sortMode="multiple"
+            >
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 6%; max-width: 6%; border-top-left-radius: 10px;"></th>

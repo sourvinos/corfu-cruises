@@ -24,7 +24,7 @@
 
     <ng-container *ngIf="records.length > 0">
         <div id="table-wrapper">
-            <p-table [value]="records" sortField="customer" rowGroupMode="subheader" #table [autoLayout]="false" [scrollable]="true" dataKey="customer" scrollHeight="flex" groupRowsBy="customer">
+            <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="customer" groupRowsBy="customer" rowGroupMode="subheader" scrollHeight="flex" selectionMode="single" sortField="customer">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 3%; max-width: 3%; border-top-left-radius: 10px;"></th>

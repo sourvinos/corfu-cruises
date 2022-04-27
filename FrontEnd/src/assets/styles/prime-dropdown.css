@@ -19,10 +19,6 @@
     font-family: var(--font-family-handbook);
 }
 
-.p-dropdown-items-wrapper {
-    max-height: max-content !important;
-}
-
 .p-dropdown-panel .p-dropdown-items {
     padding: 0;
     text-align: left;

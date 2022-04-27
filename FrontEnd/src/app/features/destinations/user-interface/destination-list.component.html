@@ -5,7 +5,7 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="true" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
                     <th data-cy="column" style="min-width: 12%; max-width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>

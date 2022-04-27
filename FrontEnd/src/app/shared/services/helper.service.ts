@@ -36,35 +36,37 @@ export class HelperService {
     //#region public methods
 
     public changeScrollWheelSpeed(container: HTMLElement): any {
-        let scrollY = 0
-        const handleScrollReset = function () {
-            scrollY = container.scrollTop
-        }
-        const handleMouseWheel = function (e: any) {
-            e.preventDefault()
-            scrollY += environment.scrollWheelSpeed * e.deltaY
-            if (scrollY < 0) {
-                scrollY = 0
-            } else {
-                const limitY = container.scrollHeight - container.clientHeight
-                if (scrollY > limitY) {
-                    scrollY = limitY
+        if (container != null) {
+            let scrollY = 0
+            const handleScrollReset = function () {
+                scrollY = container.scrollTop
+            }
+            const handleMouseWheel = function (e: any) {
+                e.preventDefault()
+                scrollY += environment.scrollWheelSpeed * e.deltaY
+                if (scrollY < 0) {
+                    scrollY = 0
+                } else {
+                    const limitY = container.scrollHeight - container.clientHeight
+                    if (scrollY > limitY) {
+                        scrollY = limitY
+                    }
                 }
+                container.scrollTop = scrollY
             }
-            container.scrollTop = scrollY
-        }
-        let removed = false
-        container.addEventListener('mouseup', handleScrollReset, false)
-        container.addEventListener('mousedown', handleScrollReset, false)
-        container.addEventListener('mousewheel', handleMouseWheel, false)
-        return () => {
-            if (removed) {
-                return
+            let removed = false
+            container.addEventListener('mouseup', handleScrollReset, false)
+            container.addEventListener('mousedown', handleScrollReset, false)
+            container.addEventListener('mousewheel', handleMouseWheel, false)
+            return () => {
+                if (removed) {
+                    return
+                }
+                container.removeEventListener('mouseup', handleScrollReset, false)
+                container.removeEventListener('mousedown', handleScrollReset, false)
+                container.removeEventListener('mousewheel', handleMouseWheel, false)
+                removed = true
             }
-            container.removeEventListener('mouseup', handleScrollReset, false)
-            container.removeEventListener('mousedown', handleScrollReset, false)
-            container.removeEventListener('mousewheel', handleMouseWheel, false)
-            removed = true
         }
     }
 

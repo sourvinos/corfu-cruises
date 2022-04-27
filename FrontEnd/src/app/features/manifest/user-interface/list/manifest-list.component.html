@@ -28,7 +28,7 @@
 
     <ng-container *ngIf="records.passengers.length > 0">
         <div id="table-wrapper">
-            <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records.passengers" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records.passengers" scrollHeight="flex" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 10%; max-width: 10%;; border-top-left-radius: 10px;">{{ getLabel("headerOccupantDescription") }}</th>

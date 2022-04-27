@@ -39,4 +39,8 @@
     --color-has-no-transfer: #d94040;
     /* Timeout snackbar */
     --color-timeout-snackbar: #d94040;
+    /* Active side-menu item */
+    --color-sidemenu-active-item: #fde386;
+    /* Scrollbars */
+    --color-scrollbar-thumb: #ff4500;
 }
