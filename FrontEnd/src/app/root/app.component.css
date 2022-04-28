@@ -1,14 +1,15 @@
 #wrapper {
     background: linear-gradient(90deg, #ffffff 0%, var(--color-c) 100%);
+    background: var(--color-a) url("../../assets/images/background/background.svg") no-repeat center;
+    background-size: cover;
     display: flex;
     flex-direction: row;
     height: 100%;
     width: 100vw;
+    transition: all 3s ease;
 }
 
 #main {
-    background: var(--color-a) url("../../assets/images/background/background.svg") no-repeat center;
-    background-size: cover;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -18,6 +19,7 @@
 }
 
 #main.side-menu-is-visible {
+    background-color: var(--color-a);
     transform-origin: 90% 50%;
 }
 
