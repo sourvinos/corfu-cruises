@@ -3,7 +3,7 @@ import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
 import { EmojiService } from 'src/app/shared/services/emoji.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InvoicingCriteriaVM } from '../../classes/view-models/invoicing-criteria-vm'
 import { InvoicingPrinterService } from '../../classes/services/invoicing-printer.service'
 import { InvoicingVM } from '../../classes/view-models/invoicing-vm'
@@ -64,7 +64,7 @@ export class InvoicingListComponent {
     }
 
     public exportSingleCustomer(date: string, customerId: number): void {
-        this.invoicingPrinterService.createReport(this.invoicingPrinterService.createCriteriaObject(date, customerId)).subscribe({
+        this.invoicingPrinterService.createReport(this.invoicingPrinterService.createCriteriaObject(date, customerId)).pipe(indicate(this.isLoading)).subscribe({
             next: (response) => {
                 this.invoicingPrinterService.openReport(response.filename + '.pdf').subscribe({
                     next: (pdf) => {
