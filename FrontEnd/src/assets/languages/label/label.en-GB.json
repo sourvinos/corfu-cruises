@@ -577,19 +577,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Daily reservations report"
+                "description": "Daily reservations"
             },
             {
                 "id": "date",
                 "description": "Date"
-            },
-            {
-                "id": "summaryTab",
-                "description": "Summary"
-            },
-            {
-                "id": "listTab",
-                "description": "Records"
             },
             {
                 "id": "summaryHeaderDestinations",
@@ -702,6 +694,10 @@
             {
                 "id": "headerShip",
                 "description": "Ship"
+            },
+            {
+                "id": "headerTime",
+                "description": "Time"
             }
         ]
     },

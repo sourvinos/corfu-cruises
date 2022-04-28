@@ -584,14 +584,6 @@
                 "description": "Datum"
             },
             {
-                "id": "summaryTab",
-                "description": "Souhrn"
-            },
-            {
-                "id": "listTab",
-                "description": "Záznamy"
-            },
-            {
                 "id": "summaryHeaderDestinations",
                 "description": "Destinace"
             },
@@ -702,6 +694,10 @@
             {
                 "id": "headerShip",
                 "description": "Plavidlo"
+            },
+            {
+                "id": "headerTime",
+                "description": "Čas"
             }
         ]
     },

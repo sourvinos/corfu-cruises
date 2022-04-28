@@ -584,14 +584,6 @@
                 "description": "Datum"
             },
             {
-                "id": "summaryTab",
-                "description": "Kurzbericht"
-            },
-            {
-                "id": "listTab",
-                "description": "Aufzeichnungen"
-            },
-            {
                 "id": "summaryHeaderDestinations",
                 "description": "Reiseziele"
             },
@@ -702,6 +694,10 @@
             {
                 "id": "headerShip",
                 "description": "Schiff"
+            },
+            {
+                "id": "headerTime",
+                "description": "Zeit"
             }
         ]
     },

@@ -26,12 +26,13 @@
                         <th style="min-width: 5%; max-width: 5%;">{{ getLabel('headerRefNo') }}</th>
                         <th style="min-width: 5%; max-width: 5%;">{{ getLabel('headerTicketNo') }}</th>
                         <th style="min-width: 10%; max-width: 10%;">{{ getLabel('headerDestination') }}</th>
-                        <th style="min-width: 10%; max-width: 10%;">{{ getLabel('headerRoute') }}</th>
+                        <th style="min-width: 7%; max-width: 7%;">{{ getLabel('headerRoute') }}</th>
                         <th style="min-width: 10%; max-width: 10%;">{{ getLabel('headerCustomer') }}</th>
-                        <th style="min-width: 10%; max-width: 10%;">{{ getLabel('headerPickupPoint') }}</th>
-                        <th style="min-width: 3%; max-width: 3%;">{{ getLabel('headerAdults') }}</th>
-                        <th style="min-width: 3%; max-width: 3%;">{{ getLabel('headerKids') }}</th>
-                        <th style="min-width: 3%; max-width: 3%;">{{ getLabel('headerFree') }}</th>
+                        <th style="min-width: 13%; max-width: 13%;" pSortableColumn="pickupPointDescription">{{ getLabel('headerPickupPoint') }}<p-sortIcon field="description"></p-sortIcon></th>
+                        <!-- <th style="min-width: 3%; max-width: 3%;">{{ getLabel('headerAdults') }}</th> -->
+                        <!-- <th style="min-width: 3%; max-width: 3%;">{{ getLabel('headerKids') }}</th> -->
+                        <!-- <th style="min-width: 3%; max-width: 3%;">{{ getLabel('headerFree') }}</th> -->
+                        <th style="min-width: 6%; max-width: 6%;" pSortableColumn="pickupPointDescription">{{ getLabel('headerTime') }}<p-sortIcon field="description"></p-sortIcon></th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getEmoji('sum') }}</th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getEmoji('sum') }}<sub>1</sub></th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getLabel('headerPlusMinus') }}</th>
@@ -54,7 +55,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th style="min-width: 10%; max-width: 10%;">
+                        <th style="min-width: 7%; max-width: 7%;">
                             <p-columnFilter style="width: 100%;" field="coachRouteAbbreviation" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="dropdownCoachRoutes" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
@@ -76,7 +77,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th style="min-width: 10%; max-width: 10%;">
+                        <th style="min-width: 13%; max-width: 13%;">
                             <p-columnFilter style="width: 100%;" field="pickupPointDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="dropdownPickupPoints" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
@@ -87,9 +88,10 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th style="min-width: 3%; max-width: 3%;">
-                        <th style="min-width: 3%; max-width: 3%;">
-                        <th style="min-width: 3%; max-width: 3%;">
+                        <!-- <th style="min-width: 3%; max-width: 3%;"> -->
+                        <!-- <th style="min-width: 3%; max-width: 3%;"> -->
+                        <!-- <th style="min-width: 3%; max-width: 3%;"> -->
+                        <th style="min-width: 6%; max-width: 6%;"></th>
                         <th style="min-width: 3%; max-width: 3%;"></th>
                         <th style="min-width: 3%; max-width: 3%;"></th>
                         <th style="min-width: 3%; max-width: 3%;"></th>
@@ -134,12 +136,13 @@
                         <td style="min-width: 5%; max-width: 5%;">{{ formatRefNo(rowData.refNo) }}</td>
                         <td style="min-width: 5%; max-width: 5%;">{{ rowData.ticketNo }}</td>
                         <td style="min-width: 10%; max-width: 10%;">{{ rowData.destinationDescription }}</td>
-                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.coachRouteAbbreviation }}</td>
+                        <td style="min-width: 7%; max-width: 7%;">{{ rowData.coachRouteAbbreviation }}</td>
                         <td style="min-width: 10%; max-width: 10%;">{{ rowData.customerDescription }}</td>
-                        <td style="min-width: 10%; max-width: 10%;">{{ rowData.pickupPointDescription }}</td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.adults }}</td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.kids }}</td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.free }}</td>
+                        <td style="min-width: 13%; max-width: 13%;">{{ rowData.pickupPointDescription }}</td>
+                        <!-- <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.adults }}</td> -->
+                        <!-- <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.kids }}</td> -->
+                        <!-- <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.free }}</td> -->
+                        <td style="min-width: 6%; max-width: 6%; justify-content: center;">{{ rowData.time }}</td>
                         <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.totalPersons }}</td>
                         <td style="min-width: 3%; max-width: 3%; justify-content: flex-end;">{{ rowData.passengerCount }} ({{ rowData.passengerDifference * -1 }})</td>
                         <td style="min-width: 3%; max-width: 3%; justify-content: center;">{{ showEmoji(rowData.passengerDifference) }}</td>

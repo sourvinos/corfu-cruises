@@ -584,14 +584,6 @@
                 "description": "Date"
             },
             {
-                "id": "summaryTab",
-                "description": "Brievement"
-            },
-            {
-                "id": "listTab",
-                "description": "Inscriprtions"
-            },
-            {
                 "id": "summaryHeaderDestinations",
                 "description": "Destinations"
             },
@@ -702,6 +694,10 @@
             {
                 "id": "headerShip",
                 "description": " bateau"
+            },
+            {
+                "id": "headerTime",
+                "description": "Heure"
             }
         ]
     },

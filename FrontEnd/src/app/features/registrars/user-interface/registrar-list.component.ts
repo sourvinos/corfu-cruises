@@ -100,12 +100,10 @@ export class RegistrarListComponent {
     }
 
     private loadRecords(): Promise<any> {
-        const promise = new Promise((resolve) => {
+        const promise = new Promise(() => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
                 this.records = listResolved.list
-                resolve(this.records)
-                console.log(this.records)
             } else {
                 this.goBack()
                 this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

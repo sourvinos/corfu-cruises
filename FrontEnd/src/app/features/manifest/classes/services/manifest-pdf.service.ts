@@ -13,7 +13,7 @@ export class ManifestPdfService {
 
     //#region variables
 
-    private rowCount = 0
+    private rowCount: number
 
     //#endregion
 
@@ -22,6 +22,7 @@ export class ManifestPdfService {
     //#region public methods
 
     public createReport(manifest: ManifestVM): void {
+        this.rowCount = 0
         const dd = {
             pageMargins: 50,
             pageOrientation: 'portrait',
@@ -172,7 +173,7 @@ export class ManifestPdfService {
     }
 
     private createPdf(document: any): void {
-        pdfMake.createPdf(document).download('Manifest.pdf')
+        pdfMake.createPdf(document).open()
     }
 
     private formatField(type: any, field: string | number | Date): string {

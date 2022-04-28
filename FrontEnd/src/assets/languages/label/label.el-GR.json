@@ -584,14 +584,6 @@
                 "description": "Ημερομηνία"
             },
             {
-                "id": "summaryTab",
-                "description": "Συνοπτικά"
-            },
-            {
-                "id": "listTab",
-                "description": "Εγγραφές"
-            },
-            {
                 "id": "summaryHeaderDestinations",
                 "description": "Προορισμοί"
             },
@@ -702,6 +694,10 @@
             {
                 "id": "headerShip",
                 "description": "Πλοίο"
+            },
+            {
+                "id": "headerTime",
+                "description": "Ωρα"
             }
         ]
     },

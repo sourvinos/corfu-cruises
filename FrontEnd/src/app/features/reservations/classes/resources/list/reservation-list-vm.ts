@@ -7,6 +7,7 @@ export class ReservationListVM {
     free: number
     totalPersons: number
     ticketNo: string
+    time: string
     customerDescription: string
     destinationAbbreviation: string
     destinationDescription: string
