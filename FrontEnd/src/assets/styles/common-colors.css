@@ -51,7 +51,9 @@
     --color-criteria-c-border: #ac3824;
     --color-criteria-d: rgb(62 87 84 / 60%);
     --color-criteria-d-border: #3e5754;
-    /* Calendar */
+    /* Date picker calendar */
     --color-border: #ca874c;
     --color-range-between: rgb(201 135 77 / 60%);
+    /* Custom calendar */
+    --color-border-hover: #000000;
 }

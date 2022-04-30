@@ -28,6 +28,10 @@
     margin: 0 1rem 0 1rem;
 }
 
+#dialog-header h1 {
+    font-weight: 600 !important;
+}
+
 #dialog-content {
     color: var(--color-text);
     flex: 1;

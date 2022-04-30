@@ -13,7 +13,7 @@
         <ol id="calendar">
             <div *ngFor="let weekDay of weekDays" class="weekday-name">{{ getWeekday(weekDay) }}</div>
             <li data-cy="days" class="days" [id]="days[day.value - 1].date" *ngFor="let day of monthSelect;let first = first" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
-                <div class="date-card" [ngClass]="isToday(days[day.value - 1]) ? 'today' : 'notToday'" [ngClass]="hasDateSchedule(days[day.value - 1].date) ? 'has-schedule' : 'noSchedule'">
+                <div class="date-card" [ngClass]="{'has-date-schedule':hasDateSchedule(days[day.value - 1].date), 'is-today':isToday(days[day.value - 1])}">
                     <div class="day">{{ day?.value }}</div>
                     <div class="destination" *ngFor="let destination of days[day.value - 1].destinations" (click)="onDoReservationTasks(days[day.value - 1].date, destination.id, destination.description)">
                         <div class="destination-description">{{ destination.description }}</div>

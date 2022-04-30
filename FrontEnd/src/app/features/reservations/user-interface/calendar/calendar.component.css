@@ -78,19 +78,19 @@
     width: 100%;
 }
 
-.date-card.has-schedule {
-    background-color: var(--color-z);
-    cursor: pointer;
-    opacity: 1;
-    transition: all var(--change-theme-delay) ease-in;
-}
-
-.date-card.has-schedule:hover {
+.date-card.has-date-schedule {
     background-color: var(--color-b);
+    cursor: pointer;
+    opacity: 0.5;
+    transition: all 0.1s ease-in;
 }
 
-.today {
-    background-color: var(--color-f) !important;
+.date-card.has-date-schedule:hover {
+    box-shadow: 0.45rem 0.45rem 0.9rem -0.45rem var(--color-border-hover);
+}
+
+.is-today {
+    border: 0.125rem solid var(--color-a) !important;
 }
 
 .day {

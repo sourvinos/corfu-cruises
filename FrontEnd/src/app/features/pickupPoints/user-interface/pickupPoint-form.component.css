@@ -14,7 +14,8 @@
 }
 
 #panel-buttons button.mat-button-disabled {
-    border-bottom: 0.25rem solid var(--color-d);
+    background-color: transparent;
+    border-bottom: 0.25rem solid var(--color-a);
     border-radius: 0;
     color: var(--color-text) !important;
     font-size: var(--font-size-panel-buttons) !important;

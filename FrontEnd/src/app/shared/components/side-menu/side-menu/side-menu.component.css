@@ -21,9 +21,10 @@
 
 .menu-header {
     align-items: center;
-    color: var(--color-x) !important;
+    color: var(--color-c) !important;
     display: flex;
     font-size: var(--font-size-menu-headers);
+    opacity: 0.6;
     padding: 1rem 0;
 }
 

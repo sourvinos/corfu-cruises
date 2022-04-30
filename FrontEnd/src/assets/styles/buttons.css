@@ -48,7 +48,6 @@ button.transparent:hover {
 }
 
 button.tab {
-    background-color: var(--color-c) !important;
     padding-bottom: 5px;
 }
 

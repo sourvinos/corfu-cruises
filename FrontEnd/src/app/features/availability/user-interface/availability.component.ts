@@ -74,7 +74,8 @@ export class AvailabilityComponent {
     }
 
     public isToday(day: any): boolean {
-        return day.date == new Date().toISOString().substring(0, 10)
+        const me = new Date().toISOString().substring(0, 10)
+        return day.date == me
     }
 
     public onChangeMonth(month: number): void {
