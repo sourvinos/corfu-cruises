@@ -1,6 +1,11 @@
 <div id="theme-menu">
     <ul>
-        <li><button mat-menu-item><img src="/assets/images/themes/{{ getSelectedThemeIcon() }}.svg" width="25px"><span>{{ getLabel(defaultTheme) }}</span><img class="dropdown-arrow" src="/assets/images/menu/dropdown-arrow.svg"></button>
+        <li>
+            <button>
+                <img src="/assets/images/themes/{{ getSelectedThemeIcon() }}.svg" width="25px">
+                <span>{{ getLabel(defaultTheme) }}</span>
+                <span class="material-icons-outlined">expand_more</span>
+            </button>
             <!-- <ul class="sub-menu" (click)="hideMenu()">
                 <button mat-menu-item (click)="changeTheme('blue')"><img src="/assets/images/themes/blue.svg"><span>{{ getLabel('blue') }}</span></button>
                 <button mat-menu-item (click)="changeTheme('gray')"><img src="/assets/images/themes/gray.svg"><span>{{ getLabel('gray') }}</span></button>

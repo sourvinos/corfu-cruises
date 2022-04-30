@@ -8,20 +8,23 @@
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="min-width: 12%; max-width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 12%; max-width: 12%;" pSortableColumn="abbreviation">{{ getLabel('headerAbbreviation') }}<p-sortIcon field="abbreviation"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 76%; max-width: 76%; border-top-right-radius: 10px;" pSortableColumn="description">{{ getLabel('headerDescription') }}<p-sortIcon field="description"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 14%; max-width: 14%;" pSortableColumn="abbreviation">{{ getLabel('headerAbbreviation') }}<p-sortIcon field="abbreviation"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 76%; max-width: 76%;" pSortableColumn="description">{{ getLabel('headerDescription') }}<p-sortIcon field="description"></p-sortIcon></th>
                 </tr>
                 <tr>
-                    <th style="min-width: 12%; max-width: 12%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
-                    <th style="min-width: 12%; max-width: 12%;"><input data-cy="filter-abbreviation" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'abbreviation', 'contains')" [value]="$any(table).filters['abbreviation']?.value"></th>
+                    <th style="min-width: 10%; max-width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
+                    <th style="min-width: 14%; max-width: 14%;"><input data-cy="filter-abbreviation" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'abbreviation', 'contains')" [value]="$any(table).filters['abbreviation']?.value"></th>
                     <th style="min-width: 76%; max-width: 76%;"><input data-cy="filter-description" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
-                    <td style="min-width: 12%; max-width: 12%; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
-                    <td style="min-width: 12%; max-width: 12%; justify-content: center;">{{ rowData.abbreviation }}</td>
+                    <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="min-width: 10%; max-width: 10%; justify-content: center;">
+                        <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
+                        <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
+                    </td>
+                    <td style="min-width: 14%; max-width: 14%; justify-content: center;">{{ rowData.abbreviation }}</td>
                     <td style="min-width: 76%; max-width: 76%;">{{ rowData.description }}</td>
                 </tr>
             </ng-template>

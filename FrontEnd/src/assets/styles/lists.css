@@ -23,19 +23,20 @@
 #footer {
     align-items: center;
     display: flex;
-    justify-content: flex-end;
-    margin: var(--gap) var(--footer-right-margin) var(--gap) auto;
+    justify-content: space-between;
+    margin: var(--gap) var(--footer-right-margin) var(--gap) var(--gap);
 }
 
 #footer .button-group {
     display: flex;
     gap: 1rem;
+    margin-left: auto;
 }
 
-.icon-red {
-    color: var(--color-list-inactive-item);
-}
-
-.icon-green {
+.is-active {
     color: var(--color-list-active-item);
+}
+
+.is-not-active {
+    color: var(--color-list-inactive-item);
 }

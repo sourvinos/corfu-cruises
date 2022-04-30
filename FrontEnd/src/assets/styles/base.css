@@ -9,6 +9,7 @@
 @import "buttons.css";
 @import "calendar.css";
 @import "common-colors.css";
+@import "criteria.css";
 @import "dialogs.css";
 @import "headers.css";
 @import "input-error.css";
@@ -23,8 +24,6 @@
 @import "prime-input.css";
 @import "prime-list.css";
 @import "prime-table.css";
-@import "prime-top-menu.css";
-@import "radio.css";
 @import "scrollable.css";
 @import "slider.css";
 @import "snackbar.css";
@@ -89,6 +88,6 @@ p.instructions {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--color-scrollbar-thumb);
+    background-color: var(--color-a);
     min-height: 5rem;
 }

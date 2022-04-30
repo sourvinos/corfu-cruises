@@ -8,7 +8,7 @@ export class EmojiService {
         switch (emoji) {
             case 'error': return '❌ '
             case 'clock': return '⏱'
-            case 'no-results': return '😵'
+            case 'no-results': return '⛱️'
             case 'null': return '🚫'
             case 'ok': return '✔️'
             case 'warning': return '⚠️'

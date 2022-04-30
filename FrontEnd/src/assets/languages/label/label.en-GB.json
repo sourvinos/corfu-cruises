@@ -1495,6 +1495,10 @@
                 "description": "Ship"
             },
             {
+                "id": "headerPort",
+                "description": "Port"
+            },
+            {
                 "id": "headerTicketNo",
                 "description": "Ticket No"
             },

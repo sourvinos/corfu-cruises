@@ -1,6 +1,6 @@
 #wrapper {
-    background: linear-gradient(90deg, #ffffff 0%, var(--color-c) 100%);
-    background: var(--color-a) url("../../assets/images/background/background.svg") no-repeat center;
+    background: url("../../assets/images/background/background.svg") no-repeat center;
+    background-color: var(--color-c);
     background-size: cover;
     display: flex;
     flex-direction: row;
@@ -19,7 +19,9 @@
 }
 
 #main.side-menu-is-visible {
-    background-color: var(--color-a);
+    background-color: var(--color-background);
+    border-radius: 0.625rem;
+    border: 0.0625rem dotted gray;
     transform-origin: 90% 50%;
 }
 

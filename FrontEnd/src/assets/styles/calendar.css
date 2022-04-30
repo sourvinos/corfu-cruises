@@ -9,8 +9,7 @@
 
 #calendar-card {
     align-items: center;
-    background-color: var(--color-d);
-    border: 1px solid var(--color-c);
+    background-color: var(--color-b);
     box-shadow: none;
     display: flex;
     height: 100%;
@@ -19,7 +18,7 @@
 }
 
 .mat-calendar-controls {
-    color: var(--color-b);
+    color: var(--color-text);
     margin-top: 0 !important;
     margin-left: 10% calc(33% / 7 - 16px) !important;
 }
@@ -39,6 +38,7 @@
 
 .mat-calendar {
     height: max-content;
+    width: 90%;
 }
 
 .mat-calendar-table-header {
@@ -78,22 +78,23 @@
 
 .mat-calendar-body-cell-content {
     flex-direction: column;
+    font-size: var(--font-size-calendar-day);
 }
 
 .mat-calendar-body-today {
-    border: 1px solid var(--color-text) !important;
+    border: 1px solid var(--color-border) !important;
     font-weight: bold !important;
 }
 
 .mat-calendar-body-selected {
-    background-color: var(--color-b) !important;
+    background-color: var(--color-a) !important;
     font-weight: bold !important;
 }
 
 .mat-calendar-body-in-range {
-    background-color: var(--color-b) !important;
-    border: 1px solid var(--color-b);
+    background-color: var(--color-range-between) !important;
     border-radius: 50% !important;
+    border: 1px solid var(--color-border) !important;
 }
 
 .mat-calendar-body-in-range > div {
@@ -110,6 +111,6 @@
 }
 
 .mat-datepicker-content {
-    background-color: var(--color-d);
-    border: 1px solid var(--color-cd);
+    background-color: var(--color-b);
+    border: 1px solid var(--color-text);
 }

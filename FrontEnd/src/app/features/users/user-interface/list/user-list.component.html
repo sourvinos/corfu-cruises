@@ -8,11 +8,11 @@
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="min-width: 12%; max-width: 12%; border-top-left-radius: 10px;" pSortableColumn="isAdmin">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th style="min-width: 12%; max-width: 12%;" pSortableColumn="isAdmin">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
                     <th style="min-width: 12%; max-width: 12%;" pSortableColumn="isAdmin">{{ getLabel("headerIsAdmin") }}<p-sortIcon field="isAdmin"></p-sortIcon></th>
                     <th style="min-width: 30%; max-width: 30%;" pSortableColumn="userName">{{ getLabel("headerUsername") }}<p-sortIcon field="userName"></p-sortIcon></th>
                     <th style="min-width: 20%; max-width: 20%;" pSortableColumn="displayname">{{ getLabel("headerDisplayname") }}<p-sortIcon field="displayname"></p-sortIcon></th>
-                    <th style="min-width: 26%; max-width: 26%; border-top-right-radius: 10px;" pSortableColumn="email">{{ getLabel("headerEmail") }}<p-sortIcon field="email"></p-sortIcon></th>
+                    <th style="min-width: 26%; max-width: 26%;" pSortableColumn="email">{{ getLabel("headerEmail") }}<p-sortIcon field="email"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th style="min-width: 12%; max-width: 12%;"><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
@@ -24,8 +24,14 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
-                    <td style="min-width: 12%; max-width: 12%; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
-                    <td style="min-width: 12%; max-width: 12%; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isAdmin, 'icon-red pi-times': !rowData.isAdmin}"></i></td>
+                    <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="min-width: 12%; max-width: 12%; justify-content: center;">
+                        <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
+                        <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
+                    </td>
+                    <td [ngClass]="rowData.isAdmin ? 'is-active': 'is-not-active'" style="min-width: 12%; max-width: 12%; justify-content: center;">
+                        <span *ngIf="rowData.isAdmin" class="is-active material-icons-outlined">check_circle</span>
+                        <span *ngIf="!rowData.isAdmin" class="is-not-active material-icons-outlined">highlight_off</span>
+                    </td>
                     <td style="min-width: 30%; max-width: 30%; padding: 5px !important;">{{ rowData.userName }}</td>
                     <td style="min-width: 20%; max-width: 20%; padding: 5px !important;">{{ rowData.displayname }}</td>
                     <td style="min-width: 26%; max-width: 26%; padding: 5px !important;">{{ rowData.email }}</td>

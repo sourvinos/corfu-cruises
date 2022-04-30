@@ -7,12 +7,10 @@
 }
 
 .mat-dialog-container {
-    background-color: var(--color-a) !important;
     padding: 2rem !important;
 }
 
 #dialog {
-    background-color: var(--color-a) !important;
     display: flex;
     flex-direction: column;
     height: 100%;

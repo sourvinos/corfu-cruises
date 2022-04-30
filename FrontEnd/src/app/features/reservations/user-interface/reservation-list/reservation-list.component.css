@@ -9,33 +9,3 @@
     display: flex;
     margin-right: 1rem;
 }
-
-#totals {
-    align-items: center;
-    display: flex;
-    font-family: var(--font-family-handbook);
-    gap: 0.5rem;
-    justify-content: flex-end;
-    margin: 0 1rem 0 auto;
-    text-align: right;
-}
-
-#totals > div {
-    background-color: var(--color-d);
-    padding: 0.5rem;
-    border-radius: 0.3125rem;
-}
-
-#totals .label {
-    color: var(--color-text);
-    font-weight: bold;
-}
-
-#totals .sum {
-    color: var(--color-text);
-}
-
-#footer {
-    justify-content: space-between;
-    margin: var(--gap) var(--footer-right-margin) var(--gap) var(--footer-left-margin);
-}

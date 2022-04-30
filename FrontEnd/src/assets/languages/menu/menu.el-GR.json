@@ -1,87 +1,15 @@
 [
     {
+        "id": "reservations",
+        "description": "Κρατήσεις"
+    },
+    {
         "id": "dashboard",
         "description": "Κεντρικός πίνακας"
     },
     {
         "id": "availability",
         "description": "Διαθεσιμότητα"
-    },
-    {
-        "id": "editAccount",
-        "description": "Ο λογαριασμός μου"
-    },
-    {
-        "id": "logout",
-        "description": "Αποσύνδεση"
-    },
-    {
-        "id": "reservations",
-        "description": "Κρατήσεις"
-    },
-    {
-        "id": "ships",
-        "description": "Πλοία"
-    },
-    {
-        "id": "ships-crews",
-        "description": "Πληρώματα"
-    },
-    {
-        "id": "ships",
-        "description": "Πλοία"
-    },
-    {
-        "id": "ships-registrars",
-        "description": "Καταγραφείς επιβατών"
-    },
-    {
-        "id": "ships-shipOwners",
-        "description": "Πλοιοκτήτες"
-    },
-    {
-        "id": "ships-shipRoutes",
-        "description": "Διαδρομές πλοίων"
-    },
-    {
-        "id": "tables",
-        "description": "Πίνακες"
-    },
-    {
-        "id": "tables-coachRoutes",
-        "description": "Διαδρομές λεωφορείων"
-    },
-    {
-        "id": "tables-customers",
-        "description": "Πελάτες"
-    },
-    {
-        "id": "tables-destinations",
-        "description": "Προορισμοί"
-    },
-    {
-        "id": "tables-drivers",
-        "description": "Οδηγοί λεωφορείων"
-    },
-    {
-        "id": "tables-genders",
-        "description": "Φύλα"
-    },
-    {
-        "id": "tables-pickupPoints",
-        "description": "Σημεία παραλαβής"
-    },
-    {
-        "id": "tables-ports",
-        "description": "Λιμάνια"
-    },
-    {
-        "id": "tables-schedules",
-        "description": "Πρόγραμμα"
-    },
-    {
-        "id": "tables-users",
-        "description": "Χρήστες"
     },
     {
         "id": "tasks",
@@ -98,5 +26,69 @@
     {
         "id": "tasks-manifest",
         "description": "Κατάσταση πλοίου"
+    },
+    {
+        "id": "tables",
+        "description": "Πίνακες"
+    },
+    {
+        "id": "tables-customers",
+        "description": "Πελάτες"
+    },
+    {
+        "id": "tables-destinations",
+        "description": "Προορισμοί"
+    },
+    {
+        "id": "tables-pickupPoints",
+        "description": "Σημεία παραλαβής"
+    },
+    {
+        "id": "tables-drivers",
+        "description": "Οδηγοί λεωφορείων"
+    },
+    {
+        "id": "tables-coachRoutes",
+        "description": "Διαδρομές λεωφορείων"
+    },
+    {
+        "id": "tables-schedules",
+        "description": "Πρόγραμμα"
+    },
+    {
+        "id": "tables-genders",
+        "description": "Φύλα"
+    },
+    {
+        "id": "tables-ports",
+        "description": "Λιμάνια"
+    },
+    {
+        "id": "tables-users",
+        "description": "Χρήστες"
+    },
+    {
+        "id": "ships",
+        "description": "Πλοία"
+    },
+    {
+        "id": "ships-crews",
+        "description": "Πληρώματα"
+    },
+    {
+        "id": "ships-shipOwners",
+        "description": "Πλοιοκτήτες"
+    },
+    {
+        "id": "ships-registrars",
+        "description": "Καταγραφείς επιβατών"
+    },
+    {
+        "id": "ships-shipRoutes",
+        "description": "Διαδρομές πλοίων"
+    },
+    {
+        "id": "logout",
+        "description": "Αποσύνδεση"
     }
 ]

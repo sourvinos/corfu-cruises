@@ -10,13 +10,13 @@
 }
 
 .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
-    background-color: var(--color-c) !important;
+    background-color: var(--color-a) !important;
 }
 
 .mat-slide-toggle-thumb {
-    background-color: var(--color-d) !important;
+    background-color: var(--color-a) !important;
 }
 
 .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
-    background-color: var(--color-b) !important;
+    background-color: var(--color-a) !important;
 }

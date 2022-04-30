@@ -2,26 +2,22 @@
 
     <div *ngIf="records.passengers.length > 0" id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-        <div id="criteria-panel">
-            <div class="panel" id="date">
+        <div id="criteria">
+            <div>
+                <div class="description">{{ formatDateToLocale(records.date,true) }}</div>
                 <div class="label">{{ getLabel("criteriaDate") }}</div>
-                <div class="description odd">{{ formatDateToLocale(records.date,true) }}</div>
             </div>
-            <div class="panel" id="destination">
+            <div>
+                <div class="description">{{ records.destination }}</div>
                 <div class="label">{{ getLabel("criteriaDestination") }}</div>
-                <div class="description even">{{ records.destination }}</div>
             </div>
-            <div class="panel" id="port">
+            <div>
+                <div class="description">{{ records.port }}</div>
                 <div class="label">{{ getLabel("criteriaPort") }}</div>
-                <div class="description odd">{{ records.port }}</div>
             </div>
-            <div class="panel" id="ship">
+            <div>
+                <div class="description">{{ records.ship.description }}</div>
                 <div class="label">{{ getLabel("criteriaShip") }}</div>
-                <div class="description even">{{ records.ship.description }}</div>
-            </div>
-            <div class="panel" id="shipRoute">
-                <div class="label">{{ getLabel("criteriaShipRoute") }}</div>
-                <div class="description odd">{{ records.shipRoute.description }}</div>
             </div>
         </div>
     </div>
@@ -31,12 +27,12 @@
             <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records.passengers" scrollHeight="flex" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="min-width: 10%; max-width: 10%;; border-top-left-radius: 10px;">{{ getLabel("headerOccupantDescription") }}</th>
+                        <th style="min-width: 10%; max-width: 10%;;">{{ getLabel("headerOccupantDescription") }}</th>
                         <th style="min-width: 20%; max-width: 20%;">{{ getLabel("headerLastname") }}</th>
                         <th style="min-width: 20%; max-width: 20%;">{{ getLabel("headerFirstname") }}</th>
                         <th style="min-width: 20%; max-width: 20%;">{{ getLabel("headerNationality") }}</th>
                         <th style="min-width: 15%; max-width: 15%;">{{ getLabel("headerGender") }}</th>
-                        <th style="min-width: 15%; max-width: 15%; border-top-right-radius: 10px;">{{ getLabel("headerBirthdate") }}</th>
+                        <th style="min-width: 15%; max-width: 15%;">{{ getLabel("headerBirthdate") }}</th>
                     </tr>
                     <tr>
                         <th style="min-width: 10%; max-width: 10%;">
@@ -92,17 +88,17 @@
     </ng-container>
 
     <div *ngIf="records.passengers.length != 0" id="footer">
-        <div @slideFromLeft id="totals-panel">
-            <div class="panel" id="total-count">
-                <div class="count odd">{{ passengerCount + crewCount }}</div>
+        <div @slideFromLeft id="filters">
+            <div>
+                <div class="description">{{ passengerCount + crewCount }}</div>
                 <div class="label">{{ getLabel("countLabel") }}</div>
             </div>
-            <div class="panel" id="passenger-count">
-                <div class="count even">{{ passengerCount }}</div>
+            <div>
+                <div class="description">{{ passengerCount }}</div>
                 <div class="label">{{ getLabel("passengerCountLabel") }}</div>
             </div>
-            <div class="panel" id="crew-count">
-                <div class="count odd">{{ crewCount }}</div>
+            <div>
+                <div class="description">{{ crewCount }}</div>
                 <div class="label">{{ getLabel("crewCountLabel") }}</div>
             </div>
         </div>

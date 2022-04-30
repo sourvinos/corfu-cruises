@@ -1,12 +1,16 @@
 <div id="language-menu">
     <ul>
-        <li><button mat-menu-item><img src="/assets/images/languages/{{ getStoredLanguage() }}.svg" height="25px"><img class="dropdown-arrow" src="/assets/images/menu/dropdown-arrow.svg"></button>
+        <li>
+            <button>
+                <img src="/assets/images/languages/{{ getStoredLanguage() }}.svg" height="25px">
+                <span class="material-icons-outlined">expand_more</span>
+            </button>
             <ul class="sub-menu" (click)="hideMenu()">
-                <button mat-menu-item (click)="doLanguageTasks('el-gr')"><img src="/assets/images/languages/el-gr.svg"><span>Ελληνικά</span></button>
-                <button mat-menu-item (click)="doLanguageTasks('en-gb')"><img src="/assets/images/languages/en-gb.svg"><span>English</span></button>
-                <button mat-menu-item (click)="doLanguageTasks('de-de')"><img src="/assets/images/languages/de-de.svg"><span>Deutsch</span></button>
-                <button mat-menu-item (click)="doLanguageTasks('cs-cz')"><img src="/assets/images/languages/cs-cz.svg"><span>Česky</span></button>
-                <button mat-menu-item (click)="doLanguageTasks('fr-fr')"><img src="/assets/images/languages/fr-fr.svg"><span>Française</span></button>
+                <button class="hoverable" (click)="doLanguageTasks('el-gr')"><img src="/assets/images/languages/el-gr.svg"><span>Ελληνικά</span></button>
+                <button class="hoverable" (click)="doLanguageTasks('en-gb')"><img src="/assets/images/languages/en-gb.svg"><span>English</span></button>
+                <button class="hoverable" (click)="doLanguageTasks('de-de')"><img src="/assets/images/languages/de-de.svg"><span>Deutsch</span></button>
+                <button class="hoverable" (click)="doLanguageTasks('cs-cz')"><img src="/assets/images/languages/cs-cz.svg"><span>Česky</span></button>
+                <button class="hoverable" (click)="doLanguageTasks('fr-fr')"><img src="/assets/images/languages/fr-fr.svg"><span>Française</span></button>
             </ul>
         </li>
     </ul>

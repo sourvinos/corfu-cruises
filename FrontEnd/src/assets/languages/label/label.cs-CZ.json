@@ -1495,6 +1495,10 @@
                 "description": "Plavidlo"
             },
             {
+                "id": "headerPort",
+                "description": "Přístavt"
+            },
+            {
                 "id": "headerTicketNo",
                 "description": "Číslo lístku"
             },

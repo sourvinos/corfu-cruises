@@ -1495,6 +1495,10 @@
                 "description": "Πλοίο"
             },
             {
+                "id": "headerPort",
+                "description": "Λιμάνι"
+            },
+            {
                 "id": "headerTicketNo",
                 "description": "Αρ. εισιτηρίου"
             },

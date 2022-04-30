@@ -4,46 +4,36 @@
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
             <div>
-                <div class="label">{{ getLabel('date') }}</div>
                 <div class="description">{{ formatDate() }}</div>
+                <div class="label">{{ getLabel('date') }}</div>
             </div>
             <div>
-                <div class="label">{{ getLabel('destination') }}</div>
                 <div class="description">{{ replaceWildcardWithText(embarkationCriteria.destination) }}</div>
+                <div class="label">{{ getLabel('destination') }}</div>
             </div>
             <div>
-                <div class="label">{{ getLabel('port') }}</div>
                 <div class="description">{{ replaceWildcardWithText(embarkationCriteria.port) }}</div>
+                <div class="label">{{ getLabel('port') }}</div>
             </div>
             <div>
-                <div class="label">{{ getLabel('ship') }}</div>
                 <div class="description">{{ replaceWildcardWithText(embarkationCriteria.ship) }}</div>
+                <div class="label">{{ getLabel('ship') }}</div>
             </div>
         </div>
     </div>
 
     <ng-container *ngIf="records.passengerCount > 0">
         <div id="table-wrapper">
-            <p-table 
-            #table 
-            [autoLayout]="false" 
-            [globalFilterFields]="['ticketNo']" 
-            [scrollable]="true" 
-            [value]="filteredRecords.embarkation" 
-            dataKey="ticketNo" 
-            scrollHeight="flex" 
-            selectionMode="single" 
-            sortMode="multiple"
-            >
+            <p-table #table [autoLayout]="false" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="filteredRecords.embarkation" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="min-width: 6%; max-width: 6%; border-top-left-radius: 10px;"></th>
+                        <th style="min-width: 6%; max-width: 6%;"></th>
                         <th style="min-width: 6%; max-width: 6%;">{{ getLabel('remarks') }}</th>
                         <th style="min-width: 10%; max-width: 10%;">{{ getLabel('headerTicketNo') }}</th>
                         <th>{{ getLabel('headerCustomer') }}</th>
                         <th>{{ getLabel('headerDriver') }}</th>
                         <th>{{ getLabel('headerShip') }}</th>
-                        <th style="min-width: 7%; max-width: 7%; border-top-right-radius: 10px;">{{ getLabel('headerPersons') }}</th>
+                        <th style="min-width: 7%; max-width: 7%;">{{ getLabel('headerPersons') }}</th>
                     </tr>
                     <tr>
                         <th style="min-width: 6%; max-width: 6%;"></th>
@@ -138,7 +128,7 @@
         </div>
     </ng-container>
 
-    <div id="footer" *ngIf="records.passengerCount > 0">
+    <div *ngIf="records.passengerCount > 0" id="footer">
         <div @slideFromLeft id="filters">
             <div>
                 <div class="description">{{ records.passengerCount }}</div>

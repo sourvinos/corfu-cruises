@@ -4,20 +4,20 @@
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
             <div>
-                <div class="label">{{ getLabel('criteria-date') }}</div>
                 <div class="description">{{ formatDate() }}</div>
+                <div class="label">{{ getLabel('criteria-date') }}</div>
             </div>
             <div>
-                <div class="label">{{ getLabel('criteria-customer') }}</div>
                 <div class="description">{{ replaceWildcardWithText(invoicingCriteria.customer) }}</div>
+                <div class="label">{{ getLabel('criteria-customer') }}</div>
             </div>
             <div>
-                <div class="label">{{ getLabel('criteria-destination') }}</div>
                 <div class="description">{{ replaceWildcardWithText(invoicingCriteria.destination) }}</div>
+                <div class="label">{{ getLabel('criteria-destination') }}</div>
             </div>
             <div>
-                <div class="label">{{ getLabel('criteria-ship') }}</div>
                 <div class="description">{{ replaceWildcardWithText(invoicingCriteria.ship) }}</div>
+                <div class="label">{{ getLabel('criteria-ship') }}</div>
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
             <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" dataKey="customer" groupRowsBy="customer" rowGroupMode="subheader" scrollHeight="flex" selectionMode="single" sortField="customer">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="min-width: 3%; max-width: 3%; border-top-left-radius: 10px;"></th>
+                        <th style="min-width: 3%; max-width: 3%;"></th>
                         <th style="min-width: 15%; max-width: 15%;">{{ getLabel("headerDestination") }}</th>
                         <th style="min-width: 15%; max-width: 15%;">{{ getLabel("headerShip") }}</th>
                         <th style="min-width: 15%; max-width: 15%;">{{ getLabel("headerPort") }}</th>
@@ -38,7 +38,7 @@
                         <th style="min-width: 3%; max-width: 3%;">{{ getLabel("headerFree") }}</th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getEmoji('sum') }}</th>
                         <th style="min-width: 21%; max-width: 21%;">{{ getLabel("headerRemarks") }}</th>
-                        <th style="min-width: 3%; max-width: 3%; border-top-right-radius: 10px;"></th>
+                        <th style="min-width: 3%; max-width: 3%;"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-record>

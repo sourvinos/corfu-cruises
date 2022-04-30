@@ -13,19 +13,19 @@
 }
 
 .p-listbox .p-listbox-list .p-listbox-item.p-highlight {
-    background-color: var(--color-d);
-    border-left: 3px solid var(--color-c);
+    /* background-color: var(--color-d); */
+    /* border-left: 3px solid var(--color-c); */
     color: var(--color-text);
 }
 
 .p-listbox .p-listbox-list .p-listbox-item:focus {
-    background-color: var(--color-c);
-    border-left: 3px solid var(--color-b);
+    /* background-color: var(--color-c); */
+    /* border-left: 3px solid var(--color-b); */
     box-shadow: none;
     color: var(--color-text);
 }
 
 .p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled):hover {
-    background-color: var(--color-c);
+    /* background-color: var(--color-c); */
     color: var(--color-text);
 }

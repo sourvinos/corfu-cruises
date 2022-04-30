@@ -5,7 +5,7 @@
 }
 
 .selectable-day {
-    border-bottom: 5px solid var(--color-d);
+    border-bottom: 5px solid var(--color-x);
     color: var(--color-text);
     display: flex;
     font-family: var(--font-family-handbook);
@@ -16,10 +16,10 @@
 }
 
 .selectable-day:hover {
-    border-bottom: 5px solid var(--color-b);
+    border-bottom: 5px solid var(--color-a);
     cursor: pointer;
 }
 
 .active-selectable-day {
-    border-bottom: 5px solid var(--color-b) !important;
+    border-bottom: 5px solid var(--color-a) !important;
 }

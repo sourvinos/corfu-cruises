@@ -8,12 +8,12 @@
 }
 
 #footer {
-    color: var(--color-b);
+    color: var(--color-a);
     font-family: var(--font-family-handbook);
     font-size: 1.2rem;
 }
 
 a:link, a:visited {
-    color: var(--color-e);
+    color: var(--color-a);
     text-decoration: none;
 }

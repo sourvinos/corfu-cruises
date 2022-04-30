@@ -1,39 +1,44 @@
 <div *ngIf="loginStatus | async" id="side-menu" class="scrollable">
 
-    <div class="menu-header"><img [src]="getIcon('calendar.svg')">{{ getLabel('reservations') }}</div>
-
-    <div class="menu-items">
-        <div class="menu-item" id="reservations" (click)="doNavigationTasks('reservations')"><img [src]="getIcon('panel.svg')">{{ getLabel('dashboard') }}</div>
-        <div class="menu-item" id="availability" (click)="doNavigationTasks('availability')"><img [src]="getIcon('calendar.svg')">{{ getLabel('availability') }}</div>
+    <div class="group">
+        <div class="menu-header"><img [src]="getIcon('calendar.svg')">{{ getLabel('reservations') }}</div>
+        <div class="menu-items">
+            <div class="menu-item" id="reservations" (click)="doNavigationTasks('reservations')"><img [src]="getIcon('panel.svg')">{{ getLabel('dashboard') }}</div>
+            <div class="menu-item" id="availability" (click)="doNavigationTasks('availability')"><img [src]="getIcon('calendar.svg')">{{ getLabel('availability') }}</div>
+        </div>
     </div>
 
-    <div class="menu-header"><img [src]="getIcon('panel.svg')">{{ getLabel('tasks') }}</div>
-
-    <div class="menu-items">
-        <div class="menu-item" id="embarkation" (click)="doNavigationTasks('embarkation')"><img [src]="getIcon('ticket.svg')">{{ getLabel('tasks-embarkation') }}</div>
-        <div class="menu-item" id="invoicing" (click)="doNavigationTasks('invoicing')"><img [src]="getIcon('invoice.svg')">{{ getLabel('tasks-invoicing') }}</div>
-        <div class="menu-item" id="manifest" (click)="doNavigationTasks('manifest')"><img [src]="getIcon('manifest.svg')">{{ getLabel('tasks-manifest') }}</div>
+    <div class="group">
+        <div class="menu-header"><img [src]="getIcon('tasks.svg')">{{ getLabel('tasks') }}</div>
+        <div class="menu-items">
+            <div class="menu-item" id="embarkation" (click)="doNavigationTasks('embarkation')"><img [src]="getIcon('boarding.svg')">{{ getLabel('tasks-embarkation') }}</div>
+            <div class="menu-item" id="invoicing" (click)="doNavigationTasks('invoicing')"><img [src]="getIcon('invoice.svg')">{{ getLabel('tasks-invoicing') }}</div>
+            <div class="menu-item" id="manifest" (click)="doNavigationTasks('manifest')"><img [src]="getIcon('manifest.svg')">{{ getLabel('tasks-manifest') }}</div>
+        </div>
     </div>
 
-    <div class="menu-header"><img [src]="getIcon('tables.svg')">{{ getLabel('tables') }}</div>
-
-    <div class="menu-items">
-        <div class="menu-item" id="customers" (click)="doNavigationTasks('customers')"><img [src]="getIcon('persons.svg')">{{ getLabel('tables-customers') }}</div>
-        <div class="menu-item" id="destinations" (click)="doNavigationTasks('destinations')"><img [src]="getIcon('flag.svg')">{{ getLabel('tables-destinations') }}</div>
-        <div class="menu-item" id="pickupPoints" (click)="doNavigationTasks('pickupPoints')"><img [src]="getIcon('pickupPoint.svg')">{{ getLabel('tables-pickupPoints') }}</div>
-        <div class="menu-item" id="drivers" (click)="doNavigationTasks('drivers')"><img [src]="getIcon('driver.svg')">{{ getLabel('tables-drivers') }}</div>
-        <div class="menu-item" id="coachRoutes" (click)="doNavigationTasks('coachRoutes')"><img [src]="getIcon('route.svg')">{{ getLabel('tables-coachRoutes') }}</div>
-        <div class="menu-item" id="schedules" (click)="doNavigationTasks('schedules')"><img [src]="getIcon('calendar.svg')">{{ getLabel('tables-schedules') }}</div>
-        <div class="menu-item" id="genders" (click)="doNavigationTasks('genders')"><img [src]="getIcon('gender.svg')">{{ getLabel('tables-genders') }}</div>
-        <div class="menu-item" id="ports" (click)="doNavigationTasks('ports')"><img [src]="getIcon('anchor.svg')">{{ getLabel('tables-ports') }}</div>
-        <div class="menu-item" id="users" (click)="doNavigationTasks('users')"><img [src]="getIcon('persons.svg')">{{ getLabel('tables-users') }}</div>
-        <div class="menu-item" id="ships" (click)="doNavigationTasks('ships')"><img [src]="getIcon('ship.svg')">{{ getLabel('ships') }}</div>
-        <div class="menu-item" id="crews" (click)="doNavigationTasks('crews')"><img [src]="getIcon('persons.svg')">{{ getLabel('ships-crews') }}</div>
-        <div class="menu-item" id="shipOwners" (click)="doNavigationTasks('shipOwners')"><img [src]="getIcon('persons.svg')">{{ getLabel('ships-shipOwners') }}</div>
-        <div class="menu-item" id="registrars" (click)="doNavigationTasks('registrars')"><img [src]="getIcon('registrar.svg')">{{ getLabel('ships-registrars') }}</div>
-        <div class="menu-item" id="shipRoutes" (click)="doNavigationTasks('shipRoutes')"><img [src]="getIcon('route.svg')">{{ getLabel('ships-shipRoutes') }}</div>
+    <div class="group">
+        <div class="menu-header"><img [src]="getIcon('tables.svg')">{{ getLabel('tables') }}</div>
+        <div class="menu-items">
+            <div class="menu-item" id="customers" (click)="doNavigationTasks('customers')"><img [src]="getIcon('person.svg')">{{ getLabel('tables-customers') }}</div>
+            <div class="menu-item" id="destinations" (click)="doNavigationTasks('destinations')"><img [src]="getIcon('flag.svg')">{{ getLabel('tables-destinations') }}</div>
+            <div class="menu-item" id="pickupPoints" (click)="doNavigationTasks('pickupPoints')"><img [src]="getIcon('pickupPoint.svg')">{{ getLabel('tables-pickupPoints') }}</div>
+            <div class="menu-item" id="drivers" (click)="doNavigationTasks('drivers')"><img [src]="getIcon('driver.svg')">{{ getLabel('tables-drivers') }}</div>
+            <div class="menu-item" id="coachRoutes" (click)="doNavigationTasks('coachRoutes')"><img [src]="getIcon('coachRoute.svg')">{{ getLabel('tables-coachRoutes') }}</div>
+            <div class="menu-item" id="schedules" (click)="doNavigationTasks('schedules')"><img [src]="getIcon('calendar.svg')">{{ getLabel('tables-schedules') }}</div>
+            <div class="menu-item" id="genders" (click)="doNavigationTasks('genders')"><img [src]="getIcon('gender.svg')">{{ getLabel('tables-genders') }}</div>
+            <div class="menu-item" id="ports" (click)="doNavigationTasks('ports')"><img [src]="getIcon('anchor.svg')">{{ getLabel('tables-ports') }}</div>
+            <div class="menu-item" id="users" (click)="doNavigationTasks('users')"><img [src]="getIcon('user.svg')">{{ getLabel('tables-users') }}</div>
+            <div class="menu-item" id="ships" (click)="doNavigationTasks('ships')"><img [src]="getIcon('ship.svg')">{{ getLabel('ships') }}</div>
+            <div class="menu-item" id="crews" (click)="doNavigationTasks('crews')"><img [src]="getIcon('crew.svg')">{{ getLabel('ships-crews') }}</div>
+            <div class="menu-item" id="shipOwners" (click)="doNavigationTasks('shipOwners')"><img [src]="getIcon('shipOwner.svg')">{{ getLabel('ships-shipOwners') }}</div>
+            <div class="menu-item" id="registrars" (click)="doNavigationTasks('registrars')"><img [src]="getIcon('registrar.svg')">{{ getLabel('ships-registrars') }}</div>
+            <div class="menu-item" id="shipRoutes" (click)="doNavigationTasks('shipRoutes')"><img [src]="getIcon('shipRoute.svg')">{{ getLabel('ships-shipRoutes') }}</div>
+        </div>
     </div>
 
-    <div class="menu-header menu-item" (click)="doLogoutTasks()"><img [src]="getIcon('logout.svg')">{{ getLabel('logout') }}</div>
+    <div class="group">
+        <div class="menu-header menu-item" id="logout"><img [src]="getIcon('logout.svg')">{{ getLabel('logout') }}</div>
+    </div>
 
 </div>

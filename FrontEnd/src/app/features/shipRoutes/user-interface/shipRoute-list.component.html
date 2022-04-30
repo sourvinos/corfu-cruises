@@ -8,10 +8,10 @@
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
                     <th data-cy="column" style="min-width: 30%; max-width: 30%;" pSortableColumn="fromPort">{{ getLabel("headerFromPort") }}<p-sortIcon field="fromPort"></p-sortIcon></th>
                     <th data-cy="column" style="min-width: 30%; max-width: 30%;" pSortableColumn="viaPort">{{ getLabel("headerViaPort") }}<p-sortIcon field="viaPort"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 30%; max-width: 30%; border-top-right-radius: 10px;" pSortableColumn="toPort">{{ getLabel("headerToPort") }}<p-sortIcon field="toPort"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 30%; max-width: 30%;" pSortableColumn="toPort">{{ getLabel("headerToPort") }}<p-sortIcon field="toPort"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th style="min-width: 10%; max-width: 10%;">
@@ -24,7 +24,10 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
-                    <td style="min-width: 10%; max-width: 10%; padding: 5px !important; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
+                    <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="min-width: 10%; max-width: 10%; justify-content: center;">
+                        <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
+                        <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
+                    </td>
                     <td style="min-width: 30%; max-width: 30%;">{{ rowData.fromPort }}</td>
                     <td style="min-width: 30%; max-width: 30%;">{{ rowData.viaPort }}</td>
                     <td style="min-width: 30%; max-width: 30%;">{{ rowData.toPort }}</td>

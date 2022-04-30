@@ -8,21 +8,24 @@
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="min-width: 12%; width: 12%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 10%; width: 10%;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
                     <th data-cy="column" style="min-width: 50%; width: 50%;" pSortableColumn="description">{{ getLabel('headerFullname') }}<p-sortIcon field="description"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 38%; width: 38%; border-top-right-radius: 10px;" pSortableColumn="phones">{{ getLabel('headerPhones') }}<p-sortIcon field="phones"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 40%; width: 40%;" pSortableColumn="phones">{{ getLabel('headerPhones') }}<p-sortIcon field="phones"></p-sortIcon></th>
                 </tr>
                 <tr>
-                    <th style="min-width: 12%; width: 12%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
+                    <th style="min-width: 10%; width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
                     <th style="min-width: 50%; width: 50%;"><input data-cy="filter-description" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
-                    <th style="min-width: 38%; width: 38%;"><input data-cy="filter-phones" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'phones', 'contains')" [value]="$any(table).filters['phones']?.value"></th>
+                    <th style="min-width: 40%; width: 40%;"><input data-cy="filter-phones" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'phones', 'contains')" [value]="$any(table).filters['phones']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
-                    <td style="min-width: 12%; width: 12%; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
+                    <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="min-width: 10%; max-width: 10%; justify-content: center;">
+                        <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
+                        <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
+                    </td>
                     <td style="min-width: 50%; width: 50%; padding: 5px !important;">{{ rowData.description }}</td>
-                    <td style="min-width: 38%; width: 38%; padding: 5px !important;">{{ rowData.phones }}</td>
+                    <td style="min-width: 40%; width: 40%; padding: 5px !important;">{{ rowData.phones }}</td>
                 </tr>
             </ng-template>
         </p-table>

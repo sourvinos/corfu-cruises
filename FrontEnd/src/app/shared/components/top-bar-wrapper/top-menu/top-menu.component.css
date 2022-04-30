@@ -5,7 +5,7 @@
 
 #topmenu {
     align-items: center;
-    background: var(--color-b);
+    background: var(--color-a);
     border-radius: 0.3125rem;
     border: none;
     display: flex;

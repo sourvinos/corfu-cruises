@@ -11,24 +11,24 @@
 }
 
 #side-menu {
-    background-color: var(--color-c);
-    color: var(--color-text);
+    background-color: var(--color-a);
     display: flex;
     flex-direction: column;
     font-family: var(--font-family-handbook);
     height: 100%;
-    padding: 0 5.5rem 0 1.5rem;
+    padding: 0 5.5rem 1.5rem 1.5rem;
 }
 
 .menu-header {
     align-items: center;
+    color: var(--color-x) !important;
     display: flex;
     font-size: var(--font-size-menu-headers);
     padding: 1rem 0;
 }
 
-.menu-header:last-child {
-    margin: auto 0 0.75rem 0;
+.group:last-child {
+    margin-top: auto;
 }
 
 img {
@@ -37,7 +37,6 @@ img {
 }
 
 .menu-items {
-    background-color: var(--color-c);
     border-radius: 0.625rem;
     font-size: var(--font-size-menu-items);
     padding: 0 1rem;
@@ -46,12 +45,14 @@ img {
 .menu-item {
     align-items: center;
     border-radius: 0.3125rem;
+    color: var(--color-button-text);
     display: flex;
     padding: 0.3rem 0.5rem;
 }
 
-.menu-item:hover {
-    background-color: #ffd43b;
+.menu-item:hover, #logout:hover {
+    background-color: var(--color-d);
+    color: var(--color-a) !important;
     cursor: pointer;
     font-weight: 600;
 }

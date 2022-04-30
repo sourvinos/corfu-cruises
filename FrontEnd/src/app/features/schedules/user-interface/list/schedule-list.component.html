@@ -8,11 +8,11 @@
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-left-radius: 10px;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
                     <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="date">{{ getLabel("headerDate") }}<p-sortIcon field="date"></p-sortIcon></th>
                     <th data-cy="column" style="min-width: 40%; max-width: 40%;" pSortableColumn="destinationDescription">{{ getLabel("headerDestinationDescription") }}<p-sortIcon field="destinationDescription"></p-sortIcon></th>
                     <th data-cy="column" style="min-width: 30%; max-width: 30%; " pSortableColumn="portDescription">{{ getLabel("headerPortDescription") }}<p-sortIcon field="portDescription"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%; border-top-right-radius: 10px;" pSortableColumn="maxPassengers">{{ getLabel("headerMaxPassengers") }}<p-sortIcon field="maxPassengers"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="maxPassengers">{{ getLabel("headerMaxPassengers") }}<p-sortIcon field="maxPassengers"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th style="min-width: 10%; max-width: 10%;">
@@ -46,7 +46,10 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
-                    <td style="min-width: 10%; max-width: 10%; padding: 5px !important; justify-content: center;"><i class="pi" [ngClass]="{'icon-green pi-check': rowData.isActive, 'icon-red pi-times': !rowData.isActive}"></i></td>
+                    <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="min-width: 10%; max-width: 10%; justify-content: center;">
+                        <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
+                        <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
+                    </td>
                     <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ formatDateToLocale(rowData.date) }}</td>
                     <td style="min-width: 40%; max-width: 40%;">{{ rowData.destinationDescription }}</td>
                     <td style="min-width: 30%; max-width: 30%;">{{ rowData.portDescription }}</td>

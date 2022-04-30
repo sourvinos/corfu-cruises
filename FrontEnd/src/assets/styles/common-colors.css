@@ -1,6 +1,10 @@
 * {
     /*  Hamburger Menu */
     --color-hamburger-menu: #bd0034;
+    /* Background */
+    --color-background: #ffffff;
+    /* Ng-Tables */
+    --color-row-seperator: #bebebe;
     /*  Labels and Text */
     --color-text: #073d65;
     /*  Buttons */
@@ -8,8 +12,8 @@
     --color-button-background-delete: #d94040;
     /*  Checkboxes */
     --color-checkbox-background: #7ca19f;
-    /*  Tabs */
-    --color-list-active-item: #7ca19f;
+    /*  Lists */
+    --color-list-active-item: #32cd32;
     --color-list-inactive-item: #d94040;
     /* Reservation Form Tabs */
     --color-tab-overview: #fd7e14ff;
@@ -26,10 +30,7 @@
     --color-snackbar-background-warning: #ffc107;
     --color-snackbar-text: #efefef;
     /* Loader */
-    --color-loader: #ef65d6;
-    /* Theme menu */
-    --color-sun: #f6ff00;
-    --color-moon: #efefef;
+    --color-loader: #bd0034;
     /* Embarkation */
     --color-passenger-table: #f6f9fb;
     --color-embarkation-pending: #feedaf;
@@ -41,6 +42,16 @@
     --color-timeout-snackbar: #d94040;
     /* Active side-menu item */
     --color-sidemenu-active-item: #fde386;
-    /* Scrollbars */
-    --color-scrollbar-thumb: #ff4500;
+    /* Criteria (Top Right) & Totals (Bottom Left) */
+    --color-criteria-a: rgb(104 135 131 / 60%);
+    --color-criteria-a-border: #698984;
+    --color-criteria-b: rgb(201 135 77 / 60%);
+    --color-criteria-b-border: #ca874c;
+    --color-criteria-c: rgb(172 56 36 / 60%);
+    --color-criteria-c-border: #ac3824;
+    --color-criteria-d: rgb(62 87 84 / 60%);
+    --color-criteria-d-border: #3e5754;
+    /* Calendar */
+    --color-border: #ca874c;
+    --color-range-between: rgb(201 135 77 / 60%);
 }

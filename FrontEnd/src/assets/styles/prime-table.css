@@ -23,7 +23,7 @@
 }
 
 .p-datatable-scrollable-footer, .p-datatable-scrollable-header {
-    background-color: var(--color-c) !important;
+    background-color: var(--color-b) !important;
     overflow: visible !important;
 }
 
@@ -33,8 +33,8 @@
 }
 
 .p-datatable .p-datatable-thead > tr > th {
-    background-color: var(--color-c) !important;
-    border-right: 1px solid var(--color-a) !important;
+    background-color: var(--color-b) !important;
+    border-right: 1px solid var(--color-background) !important;
     border-width: 0 1px 0 0 !important;
     color: var(--color-text) !important;
     font-family: var(--font-family-ubuntu) !important;
@@ -53,11 +53,12 @@
 
 .p-datatable .p-datatable-tbody > tr {
     background-color: transparent !important;
-    border-bottom: 1px dotted var(--color-c) !important;
+    border-bottom: 1px dotted var(--color-row-seperator) !important;
     transition: all var(--change-theme-delay) ease;
 }
 
 .p-datatable .p-datatable-tbody > tr:focus {
+    background-color: var(--color-z) !important;
     outline: none !important;
 }
 
@@ -68,10 +69,6 @@
 .row-group > td {
     color: var(--color-text) !important;
     font-weight: bold;
-}
-
-.ui-state-highlight td {
-    background-color: var(--color-c) !important;
 }
 
 .p-datatable .p-datatable-tbody > tr > td {
@@ -91,14 +88,10 @@
 }
 
 .p-datatable .p-datatable-tfoot > tr > td {
-    background-color: var(--color-c);
+    /* background-color: var(--color-c); */
     border-radius: 0 0 10px 10px;
     border: none;
     justify-content: flex-end;
-}
-
-.p-datatable .p-datatable-tbody > tr.p-highlight > td {
-    background-color: var(--color-c) !important;
 }
 
 .p-datatable .p-sortable-column .p-sortable-column-icon {
@@ -132,7 +125,7 @@
 }
 
 .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
-    background-color: var(--color-a) !important;
+    background-color: var(--color-z) !important;
 }
 
 .p-button.p-button-text:enabled:focus, .p-button.p-button-outlined:enabled:focus {

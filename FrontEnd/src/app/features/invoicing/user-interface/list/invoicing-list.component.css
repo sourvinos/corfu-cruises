@@ -1,40 +1,5 @@
-#criteria {
-    align-items: center;
-    display: flex;
-    font-family: var(--font-family-handbook);
-    gap: 0.5rem;
-    justify-content: flex-end;
-    margin: 0 1rem 0 auto;
-    text-align: right;
-}
-
-#criteria > div {
-    background-color: var(--color-d);
-    padding: 0.5rem;
-    border-radius: 0.3125rem;
-}
-
-#criteria .label {
-    color: var(--color-text);
-    font-weight: bold;
-}
-
-#criteria .description {
-    color: var(--color-text);
-}
-
-.customer-totals {
-    background-color: var(--color-c) !important;
-}
-
 .clickable:hover {
     cursor: pointer;
-}
-
-.pi-file-pdf {
-    color: var(--color-e);
-    font-size: 1.5rem !important;
-    font-weight: 100;
 }
 
 .pivot {
@@ -43,13 +8,19 @@
 }
 
 .pivot .port {
+    width: 200px;
+}
+
+.pivot .port .footer {
+    border-left: 1px solid var(--color-row-seperator);
     padding: 5px;
     width: 200px;
 }
 
 .pivot .header, .pivot .footer {
-    background-color: var(--color-c);
-    border: 1px solid var(--color-a);
+    background-color: var(--color-b);
+    border-bottom: 1px solid var(--color-row-seperator);
+    border-top: 1px solid var(--color-row-seperator);
     font-weight: normal;
     text-align: center;
 }
@@ -59,7 +30,8 @@
 }
 
 .pivot .number {
-    border: 1px solid var(--color-a);
+    border-left: 1px solid var(--color-row-seperator);
+    border-right: 1px solid var(--color-row-seperator);
     padding: 4px 0 6px 0;
     text-align: center;
     width: 40px;
@@ -77,11 +49,7 @@
 
 .port-panel {
     border-radius: 0.625rem;
-    border: 0.0625rem solid var(--color-c);
+    border: 0.0625rem solid var(--color-row-seperator);
     margin: 0.5rem 0 0.5rem 5rem;
     padding: 1rem;
-}
-
-.port-panel:hover {
-    background-color: #fde386;
 }

@@ -15,22 +15,20 @@ li {
 }
 
 button {
+    background-color: var(--color-a);
+    border-radius: 0;
     border: none;
-    padding: 4px 1rem !important;
-}
-
-span {
-    margin: 0 0.5rem 0 0.5rem;
-}
-
-button:hover {
-    background-color: var(--color-c) !important;
-    color: var(--color-text);
-    cursor: pointer;
+    color: var(--color-button-text);
+    display: flex;
+    padding: 0.25rem 1rem !important;
 }
 
 button:hover span {
-    color: var(--color-text);
+    font-weight: bold;
+}
+
+span {
+    margin: 0 0 0 0.5rem;
 }
 
 li:hover .sub-menu {
@@ -91,7 +89,7 @@ li:hover .sub-menu {
 @keyframes enter {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(0.625rem);
     }
 
     to {

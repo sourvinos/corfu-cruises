@@ -1,0 +1,45 @@
+#criteria, #filters {
+    align-items: center;
+    display: flex;
+    font-family: var(--font-family-handbook);
+    gap: 0.5rem;
+    text-align: right;
+}
+
+#criteria {
+    margin: 0 1rem 0 auto;
+}
+
+#filters {
+    margin: 0 auto 0 1rem;
+}
+
+#criteria > div, #filters > div {
+    border-radius: 0.3125rem;
+    border: 0.0625rem solid;
+    padding: 0.5rem;
+}
+
+#criteria > div:nth-child(1), #filters > div:nth-child(1) {
+    background-color: var(--color-criteria-a);
+    border-color: var(--color-criteria-a-border);
+}
+
+#criteria > div:nth-child(2), #filters > div:nth-child(2) {
+    background-color: var(--color-criteria-b);
+    border-color: var(--color-criteria-b-border);
+}
+
+#criteria > div:nth-child(3), #filters > div:nth-child(3) {
+    background-color: var(--color-criteria-c);
+    border-color: var(--color-criteria-c-border);
+}
+
+#criteria > div:nth-child(4), #filters > div:nth-child(4) {
+    background-color: var(--color-criteria-d);
+    border-color: var(--color-criteria-d-border);
+}
+
+#criteria .label, #criteria .description, #filters .label, #filters .description {
+    color: var(--color-button-text);
+}
