@@ -56,4 +56,5 @@ img {
     color: var(--color-a) !important;
     cursor: pointer;
     font-weight: 600;
+    opacity: 1;
 }

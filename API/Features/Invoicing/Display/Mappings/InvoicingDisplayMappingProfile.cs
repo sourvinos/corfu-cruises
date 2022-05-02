@@ -16,7 +16,8 @@ namespace API.Features.Invoicing.Display {
                     Adults = x.Adults,
                     Kids = x.Kids,
                     Free = x.Free,
-                    TotalPersons = x.TotalPersons
+                    TotalPersons = x.TotalPersons,
+                    TotalPassengers = x.TotalPassengers
                 })))
                 .ForMember(x => x.Reservations, x => x.MapFrom(x => x.Reservations.Select(x => new InvoicingDisplayReservationVM {
                     ReservationId = x.ReservationId,

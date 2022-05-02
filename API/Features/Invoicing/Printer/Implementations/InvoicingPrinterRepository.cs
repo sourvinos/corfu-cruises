@@ -34,6 +34,7 @@ namespace API.Features.Invoicing.Printer {
                 .Include(x => x.PickupPoint).ThenInclude(x => x.CoachRoute)
                 .Include(x => x.Port)
                 .Include(x => x.Ship)
+                .Include(x => x.Passengers)
                 .Where(x => x.Date == Convert.ToDateTime(criteria.Date) && x.CustomerId == criteria.CustomerId)
                 .AsEnumerable()
                 .GroupBy(x => x.Customer).OrderBy(x => x.Key.Description)
@@ -48,11 +49,13 @@ namespace API.Features.Invoicing.Printer {
                             Kids = x.Sum(x => x.Kids),
                             Free = x.Sum(x => x.Free),
                             TotalPersons = x.Sum(x => x.TotalPersons),
+                            TotalPassengers = x.Sum(x => x.Passengers.Count(x => x.IsCheckedIn))
                         }).OrderBy(x => !x.HasTransfer),
                         Adults = x.Sum(x => x.Adults),
                         Kids = x.Sum(x => x.Kids),
                         Free = x.Sum(x => x.Free),
-                        TotalPersons = x.Sum(x => x.TotalPersons)
+                        TotalPersons = x.Sum(x => x.TotalPersons),
+                        TotalPassengers = x.Sum(x => x.Passengers.Count(x => x.IsCheckedIn))
                     }),
                     Adults = x.Sum(x => x.Adults),
                     Kids = x.Sum(x => x.Kids),

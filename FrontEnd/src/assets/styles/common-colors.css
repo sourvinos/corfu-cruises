@@ -36,8 +36,9 @@
     --color-embarkation-pending: #feedaf;
     --color-embarkation-complete: #c8e6c9;
     /* About transfer */
-    --color-has-transfer: #32cd32;
-    --color-has-no-transfer: #d94040;
+    --color-ok: #32cd32;
+    --color-warning: #fbc02d;
+    --color-error: #d94040;
     /* Timeout snackbar */
     --color-timeout-snackbar: #d94040;
     /* Active side-menu item */

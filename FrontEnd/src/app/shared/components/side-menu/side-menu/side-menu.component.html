@@ -37,8 +37,10 @@
         </div>
     </div>
 
-    <div class="group">
-        <div class="menu-header menu-item" id="logout"><img [src]="getIcon('logout.svg')">{{ getLabel('logout') }}</div>
+    <div class="group" (click)="doLogoutTasks()">
+        <div class="menu-header menu-item" id="logout">
+            <img [src]="getIcon('logout.svg')">{{ getLabel('logout') }}
+        </div>
     </div>
 
 </div>

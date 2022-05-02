@@ -159,6 +159,7 @@
                             <th class="column-narrow">Kids</th>
                             <th class="column-narrow">Free</th>
                             <th class="column-narrow">Total</th>
+                            <th class="column-narrow">Actual</th>
                             <th class="column-wide"></th>
                         </tr>
                     </thead>
@@ -167,13 +168,14 @@
                             <tr>
                                 @if (i == 0) {
                                     <td rowspan="2" class="last-column">
-                                        @port.Port
+                                        @* @port.Port *@
                                     </td>
                                 }
                                 <td class="number">@port.HasTransferGroup.ElementAt(i).Adults</td>
                                 <td class="number">@port.HasTransferGroup.ElementAt(i).Kids</td>
                                 <td class="number">@port.HasTransferGroup.ElementAt(i).Free</td>
                                 <td class="number">@port.HasTransferGroup.ElementAt(i).TotalPersons</td>
+                                <td class="number">@port.HasTransferGroup.ElementAt(i).TotalPassengers</td>
                                 @if (port.HasTransferGroup.ElementAt(i).HasTransfer) {
                                     <td class="center">w/ Transfer</td>
                                 }
@@ -190,6 +192,7 @@
                             <td class="total number">@port.Kids</td>
                             <td class="total number">@port.Free</td>
                             <td class="total number">@port.TotalPersons</td>
+                            <td class="total number">@port.TotalPassengers</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -216,15 +219,12 @@
                             <td>@reservation.Destination</td>
                             <td>@reservation.TicketNo</td>
                             <td>@reservation.Ship</td>
-                            <td>@reservation.Adults</td>
-                            <td>@reservation.Kids</td>
-                            <td>@reservation.Free</td>
-                            <td>@reservation.TotalPersons</td>
-                            <td>@reservation.Remarks</td>
+                            <td class="number">@reservation.Adults</td>
+                            <td class="number">@reservation.Kids</td>
+                            <td class="number">@reservation.Free</td>
+                            <td class="number">@reservation.TotalPersons</td>
+                            <td class="number">@reservation.Remarks</td>
                         </tr>
-
-
-
                     }
                 </tbody>
             </table>

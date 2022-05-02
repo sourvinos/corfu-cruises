@@ -7,6 +7,7 @@ namespace API.Features.Invoicing.Printer {
         public int Kids { get; set; }
         public int Free { get; set; }
         public int TotalPersons { get; set; }
+        public int TotalPassengers { get; set; }
     }
 
 }

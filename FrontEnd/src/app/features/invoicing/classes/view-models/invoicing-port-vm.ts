@@ -7,7 +7,8 @@ export class InvoicingPortVM {
         public adults: number,
         public kids: number,
         public free: number,
-        public totalPersons: number
+        public totalPersons: number,
+        public totalPassengers: number
 
     ) { }
 
@@ -21,7 +22,8 @@ export class HasTransferGroupVM {
         public adults: number,
         public kids: number,
         public free: number,
-        public totalPersons: number
+        public totalPersons: number,
+        public totalPassengers: number
 
     ) { }
 

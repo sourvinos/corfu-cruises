@@ -53,8 +53,8 @@
                         <td style="min-width: 15%; max-width: 15%;">{{ record.reservations[i].port }}</td>
                         <td style="min-width: 10%; max-width: 10%;">{{ record.reservations[i].ticketNo }}</td>
                         <td [ngClass]="record.reservations[i].hasTransfer ? 'has-transfer' : 'no-transfer'" style="min-width: 6%; max-width: 6%; justify-content: center;">
-                            <span *ngIf="record.reservations[i].hasTransfer" class="has-transfer material-icons-outlined">check_circle</span>
-                            <span *ngIf="!record.reservations[i].hasTransfer" class="has-no-transfer material-icons-outlined">highlight_off</span>
+                            <span *ngIf="record.reservations[i].hasTransfer" class="icon-ok material-icons-outlined">directions_bus</span>
+                            <span *ngIf="!record.reservations[i].hasTransfer" class="icon-error material-icons-outlined">directions_bus</span>
                         </td>
                         <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].adults }}</td>
                         <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].kids }}</td>
@@ -72,8 +72,8 @@
                                         <th class="header number">A</th>
                                         <th class="header number">K</th>
                                         <th class="header number">F</th>
-                                        <th class="header number">{{ getEmoji('sum') }}</th>
-                                        <th></th>
+                                        <th class="header number">Σ</th>
+                                        <th class="header number">Σ1</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -83,9 +83,13 @@
                                         <td class="number">{{ record.portGroup[i].hasTransferGroup[z].kids }}</td>
                                         <td class="number">{{ record.portGroup[i].hasTransferGroup[z].free }}</td>
                                         <td class="number">{{ record.portGroup[i].hasTransferGroup[z].totalPersons }}</td>
-                                        <td class="center">
-                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].hasTransfer" class="has-transfer material-icons-outlined">check_circle</span>
-                                            <span *ngIf="!record.portGroup[i].hasTransferGroup[z].hasTransfer" class="has-no-transfer material-icons-outlined">highlight_off</span>
+                                        <td class="number">{{ record.portGroup[i].hasTransferGroup[z].totalPassengers }}</td>
+                                        <td class="number">
+                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].hasTransfer" class="icon-ok material-icons-outlined">directions_bus</span>
+                                            <span *ngIf="!record.portGroup[i].hasTransferGroup[z].hasTransfer" class="icon-error material-icons-outlined">directions_bus</span>
+                                        </td>
+                                        <td class="number">
+                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].totalPersons != record.portGroup[i].hasTransferGroup[z].totalPassengers" class="icon-warning material-icons-outlined">warning_amber</span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -94,6 +98,8 @@
                                         <td class="number footer">{{ record.portGroup[i].kids }}</td>
                                         <td class="number footer">{{ record.portGroup[i].free }}</td>
                                         <td class="number footer">{{ record.portGroup[i].totalPersons }}</td>
+                                        <td class="number footer">{{ record.portGroup[i].totalPassengers }}</td>
+                                        <td class="number footer"></td>
                                     </tr>
                                 </tbody>
                             </table>

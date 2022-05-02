@@ -25,6 +25,7 @@ namespace API.Features.Invoicing.Display {
                 .Include(x => x.PickupPoint).ThenInclude(x => x.CoachRoute)
                 .Include(x => x.Port)
                 .Include(x => x.Ship)
+                .Include(x => x.Passengers)
                 .Where(x => x.Date == Convert.ToDateTime(date)
                     && ((customerId == "all") || x.CustomerId == int.Parse(customerId))
                     && ((destinationId == "all") || x.DestinationId == int.Parse(destinationId))
@@ -42,11 +43,13 @@ namespace API.Features.Invoicing.Display {
                             Kids = x.Sum(x => x.Kids),
                             Free = x.Sum(x => x.Free),
                             TotalPersons = x.Sum(x => x.TotalPersons),
+                            TotalPassengers = x.Sum(x => x.Passengers.Count(x => x.IsCheckedIn))
                         }).OrderBy(x => !x.HasTransfer),
                         Adults = x.Sum(x => x.Adults),
                         Kids = x.Sum(x => x.Kids),
                         Free = x.Sum(x => x.Free),
-                        TotalPersons = x.Sum(x => x.TotalPersons)
+                        TotalPersons = x.Sum(x => x.TotalPersons),
+                        TotalPassengers = x.Sum(x => x.Passengers.Count(x => x.IsCheckedIn))
                     }),
                     Adults = x.Sum(x => x.Adults),
                     Kids = x.Sum(x => x.Kids),
