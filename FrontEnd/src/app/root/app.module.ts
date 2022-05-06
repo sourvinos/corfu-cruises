@@ -22,7 +22,8 @@ import { ThemeMenuComponent } from '../shared/components/top-bar-wrapper/theme-m
 import { TopBarComponent } from '../shared/components/top-bar-wrapper/top-bar/top-bar.component'
 import { TopMenuComponent } from '../shared/components/top-bar-wrapper/top-menu/top-menu.component'
 // Utils
-import { JwtInterceptor } from '../shared/services/jwt.interceptor'
+import { JwtInterceptor } from '../shared/services/jwt.interceptor';
+import { AvailabilityMenuComponent } from '../shared/components/top-bar-wrapper/availability-menu/availability-menu.component'
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         SideMenuTogglerComponent,
         ThemeMenuComponent,
         TopBarComponent,
-        TopMenuComponent
+        TopMenuComponent,
+        AvailabilityMenuComponent
     ],
     imports: [
         AppRoutingModule,

@@ -1,0 +1,5 @@
+<div *ngIf="loginStatus | async">
+    <div (click)="doNavigationTasks('availability')" class="menu-item" id="top-menu-availability">
+        <img [src]="getIcon('calendar.svg')">{{ getLabel('availability') }}
+    </div>
+</div>
