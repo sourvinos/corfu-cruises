@@ -16,18 +16,18 @@
                                     <input matInput formControlName="refNo" readonly>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input type="text" [inputTabStop]="input" [matDatepicker]="picker" [placeholder]="getLabel('date')" data-cy="date" data-tabindex="1" formControlName="date" id="date" matInput>
+                                    <input type="text" [inputTabStop]="input" [matDatepicker]="picker" [placeholder]="getLabel('date')" [readonly]=!isAdmin data-cy="date" data-tabindex="1" formControlName="date" id="date" matInput>
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
                                     <mat-error *ngIf="date.hasError('required')">{{ getHint("required") }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="destinations" [placeholder]="getLabel('destination')" data-cy="destination-description" data-tabindex="2" formControlName="destination" matInput>
+                                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="destinations" [placeholder]="getLabel('destination')" [readonly]=!isAdmin data-cy="destination-description" data-tabindex="2" formControlName="destination" matInput>
                                     <mat-error *ngIf="destination.hasError('required')">{{ getHint("required") }}</mat-error>
                                     <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="customers" [placeholder]="getLabel('customer')" data-cy="customer-description" data-tabindex="3" formControlName="customer" matInput>
+                                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="customers" [placeholder]="getLabel('customer')" [readonly]=!isAdmin data-cy="customer-description" data-tabindex="3" formControlName="customer" matInput>
                                     <mat-error *ngIf="customer.hasError('required')">{{ getHint("required") }}</mat-error>
                                     <mat-error *ngIf="!customer.hasError('required') && customer.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                                 </mat-form-field>
