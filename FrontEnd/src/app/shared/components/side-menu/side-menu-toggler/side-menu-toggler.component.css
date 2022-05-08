@@ -11,6 +11,10 @@ span {
     transition: all 0.2s ease-in;
 }
 
-span:hover {
+span.enabled:hover {
     cursor: pointer;
+}
+
+span.not-enabled:hover {
+    cursor: not-allowed;
 }

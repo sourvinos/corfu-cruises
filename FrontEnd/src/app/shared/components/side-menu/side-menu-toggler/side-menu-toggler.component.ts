@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { Observable, Subject, takeUntil } from 'rxjs'
+import { Observable } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -10,22 +10,28 @@ import { slideFromLeft } from 'src/app/shared/animations/animations'
     selector: 'side-menu-toggler',
     templateUrl: './side-menu-toggler.component.html',
     styleUrls: ['./side-menu-toggler.component.css'],
-    animations: [ slideFromLeft ]
+    animations: [slideFromLeft]
 })
 
 export class SideMenuTogglerComponent {
 
     //#region variables
 
-    private unsubscribe = new Subject<void>()
-    public loginStatus: Observable<boolean>
     public isSideMenuOpen = false
+    public isTogglerEnabled = false
+    public loginStatus: Observable<boolean>
 
     //#endregion
 
     constructor(private accountService: AccountService, private helperService: HelperService, private interactionService: InteractionService) { }
 
     //#region lifecycle hooks
+
+    ngOnInit(): void {
+        this.interactionService.isAdmin.subscribe(response => {
+            this.isTogglerEnabled = response
+        })
+    }
 
     ngDoCheck(): void {
         this.updateVariables()
@@ -36,10 +42,12 @@ export class SideMenuTogglerComponent {
     //#region public methods
 
     public toggleSideMenu(): void {
-        this.isSideMenuOpen = this.helperService.toggleScaleOnMainWindow()
-        this.interactionService.sideMenuIsClosed.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-            this.isSideMenuOpen = false
-        })
+        if (this.isTogglerEnabled) {
+            this.isSideMenuOpen = this.helperService.toggleScaleOnMainWindow()
+            this.interactionService.sideMenuIsClosed.subscribe(() => {
+                this.isSideMenuOpen = false
+            })
+        }
     }
 
     //#endregion

@@ -10,10 +10,12 @@ export class InteractionService {
     private _refreshDateAdapter = new Subject<any>()
     private _refreshMenus = new Subject<any>()
     private _sideMenuIsClosed = new Subject<any>()
+    private _isAdmin = new Subject<boolean>()
 
     public refreshDateAdapter = this._refreshDateAdapter.asObservable()
     public refreshMenus = this._refreshMenus.asObservable()
     public sideMenuIsClosed = this._sideMenuIsClosed.asObservable()
+    public isAdmin = this._isAdmin.asObservable()
 
     //#endregion
 
@@ -29,6 +31,10 @@ export class InteractionService {
 
     public SideMenuIsClosed(): void {
         this._sideMenuIsClosed.next(null)
+    }
+
+    public UpdateSideMenuTogglerState(isAdmin: boolean): void {
+        this._isAdmin.next(isAdmin)
     }
 
     //#endregion

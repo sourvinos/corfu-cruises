@@ -9,14 +9,15 @@ import { AccountService } from '../../../shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from '../../../shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 
 @Component({
     selector: 'login-form',
@@ -44,7 +45,7 @@ export class LoginFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private formBuilder: FormBuilder, private helperService: HelperService, private idle: Idle, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private formBuilder: FormBuilder, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -81,9 +82,7 @@ export class LoginFormComponent {
             complete: () => {
                 this.goHome()
                 this.startIdleTimer()
-                setTimeout(() => {
-                    this.doSideMenuTasks()
-                }, 1000)
+                this.doSideMenuTogglerTasks()
             },
             error: (errorFromInterceptor) => {
                 this.showError(errorFromInterceptor)
@@ -109,10 +108,6 @@ export class LoginFormComponent {
         })
     }
 
-    private canShowSideMenu(): boolean {
-        return screen.height >= 1050
-    }
-
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
@@ -132,10 +127,10 @@ export class LoginFormComponent {
         ])
     }
 
-    private doSideMenuTasks(): void {
-        if (this.canShowSideMenu()) {
-            this.helperService.toggleScaleOnMainWindow()
-        }
+    private doSideMenuTogglerTasks(): void {
+        this.accountService.isConnectedUserAdmin().subscribe(response => {
+            this.interactionService.UpdateSideMenuTogglerState(response)
+        })
     }
 
     private goHome(): void {

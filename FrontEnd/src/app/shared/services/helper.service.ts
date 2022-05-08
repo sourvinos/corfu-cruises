@@ -27,7 +27,6 @@ export class HelperService {
     //#region variables
 
     private appName = environment.appName
-    private weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
     //#endregion
 

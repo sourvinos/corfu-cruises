@@ -6,9 +6,9 @@ import { map } from 'rxjs/operators'
 // Custom
 import { DataService } from './data.service'
 import { InteractionService } from './interaction.service'
-import { environment } from 'src/environments/environment'
-import { ResetPasswordViewModel } from 'src/app/features/users/classes/view-models/reset-password-view-model'
 import { LocalStorageService } from './local-storage.service'
+import { ResetPasswordViewModel } from 'src/app/features/users/classes/view-models/reset-password-view-model'
+import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 

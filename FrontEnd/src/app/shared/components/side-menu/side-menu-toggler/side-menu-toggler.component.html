@@ -1,4 +1,4 @@
-<span *ngIf="loginStatus | async" @slideFromLeft (click)="toggleSideMenu()" class="material-icons">
+<span *ngIf="loginStatus | async" @slideFromLeft [ngClass]="isTogglerEnabled ? 'enabled' : 'not-enabled'" (click)="toggleSideMenu()" class="material-icons">
     <span *ngIf="isSideMenuOpen">close</span>
     <span *ngIf="!isSideMenuOpen">menu</span>
 </span>
