@@ -90,5 +90,9 @@
     {
         "id": "logout",
         "description": "Αποσύνδεση"
+    },
+    {
+        "id": "my-reservations",
+        "description": "Οι κρατήσεις μου"
     }
 ]

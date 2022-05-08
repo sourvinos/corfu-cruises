@@ -98,5 +98,9 @@
     {
         "id": "tasks-manifest",
         "description": "Schiffsmanifest"
+    },
+    {
+        "id": "my-reservations",
+        "description": "Meine Vorbehalte"
     }
 ]

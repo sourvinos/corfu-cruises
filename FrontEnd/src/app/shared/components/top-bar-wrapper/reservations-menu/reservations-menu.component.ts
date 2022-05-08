@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 import { NavigationEnd, Router } from '@angular/router'
 import { Observable, Subject, takeUntil } from 'rxjs'
 // Custom
@@ -8,12 +8,12 @@ import { MessageMenuService } from 'src/app/shared/services/messages-menu.servic
 import { environment } from 'src/environments/environment'
 
 @Component({
-    selector: 'availability-menu',
-    templateUrl: './availability-menu.component.html',
-    styleUrls: ['./availability-menu.component.css']
+    selector: 'reservations-menu',
+    templateUrl: './reservations-menu.component.html',
+    styleUrls: ['./reservations-menu.component.css']
 })
 
-export class AvailabilityMenuComponent {
+export class ReservationsMenuComponent {
 
     //#region variables
 
@@ -29,6 +29,14 @@ export class AvailabilityMenuComponent {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
             }
+        })
+    }
+
+    //#region listeners
+
+    @HostListener('mouseenter') onMouseEnter(): void {
+        document.querySelectorAll('.sub-menu').forEach((item) => {
+            item.classList.remove('hidden')
         })
     }
 
@@ -90,6 +98,12 @@ export class AvailabilityMenuComponent {
 
     public getLabel(id: string): string {
         return this.messageMenuService.getDescription(this.menuItems, id)
+    }
+
+    public hideMenu(): void {
+        document.querySelectorAll('.sub-menu').forEach((item) => {
+            item.classList.add('hidden')
+        })
     }
 
     //#endregion

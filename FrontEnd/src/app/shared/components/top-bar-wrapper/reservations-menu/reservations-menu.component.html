@@ -1,0 +1,16 @@
+<div *ngIf="loginStatus | async">
+    <div id="reservations-menu">
+        <ul>
+            <li>
+                <button>
+                    <img [src]="getIcon('calendar.svg')" height="25px">
+                    <span class="material-icons-outlined">expand_more</span>
+                </button>
+                <ul class="sub-menu" (click)="hideMenu()">
+                    <button class="hoverable" (click)="doNavigationTasks('availability')"><img height="18px" [src]="getIcon('calendar.svg')"><span>{{ getLabel('availability') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('reservations')"><img height="18px" [src]="getIcon('reservations.svg')"><span>{{ getLabel('my-reservations') }}</span></button>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

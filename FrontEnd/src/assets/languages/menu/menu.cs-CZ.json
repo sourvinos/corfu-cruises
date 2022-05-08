@@ -98,5 +98,9 @@
     {
         "id": "tasks-manifest",
         "description": "Zpráva o plavidle"
+    },
+    {
+        "id": "my-reservations",
+        "description": "Moje výhrady"
     }
 ]

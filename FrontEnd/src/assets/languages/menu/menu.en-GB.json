@@ -98,5 +98,9 @@
     {
         "id": "tasks-manifest",
         "description": "Ship manifest"
+    },
+    {
+        "id": "my-reservations",
+        "description": "My reservations"
     }
 ]

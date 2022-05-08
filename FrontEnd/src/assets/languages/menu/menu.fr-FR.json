@@ -98,5 +98,9 @@
     {
         "id": "tasks-manifest",
         "description": "Manifeste du navire"
+    },
+    {
+        "id": "my-reservations",
+        "description": "Mes réserves"
     }
 ]
