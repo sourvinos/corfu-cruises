@@ -87,11 +87,8 @@ export class AvailabilityComponent {
     }
 
     public onDoReservationTasks(date: string, destinationId: number, destinationDescription: string): void {
-        this.localStorageService.saveItem('date', date)
-        this.localStorageService.saveItem('destinationId', destinationId.toString())
-        this.localStorageService.saveItem('destinationDescription', destinationDescription.toString())
-        this.localStorageService.saveItem('returnUrl', '/availability')
-        this.router.navigate(['/reservations/new'])
+        this.storeCriteria(date, destinationId, destinationDescription)
+        this.navigateToNewReservation()
     }
 
     //#endregion
@@ -134,6 +131,23 @@ export class AvailabilityComponent {
         ])
     }
 
+    private fixCalendarHeight(): void {
+        const calendar = document.getElementById('calendar')
+        calendar.style.gridTemplateRows = '30px repeat(' + this.calculateWeekCount(this.dateSelect.format('YYYY'), this.dateSelect.format('MM')) + ', 1fr)'
+    }
+
+    private getAvailabilityForMonth(): Promise<any> {
+        this.isLoading = true
+        const promise = new Promise((resolve) => {
+            this.availabilityService.getForCalendar(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
+                this.daysWithSchedule = response
+                resolve(this.daysWithSchedule)
+                this.isLoading = false
+            })
+        })
+        return promise
+    }
+
     private getDaysFromDate(month: number, year: number): void {
         this.startDate = utc(`${year}-${month}-01`, 'YYYY-MM-DD')
         this.days = []
@@ -156,6 +170,10 @@ export class AvailabilityComponent {
         this.monthSelect = arrayDays
     }
 
+    private goBack(): void {
+        this.router.navigate([this.parentUrl])
+    }
+
     private navigateToMonth(flag: number): void {
         if (flag < 0) {
             const prevDate = this.dateSelect.clone().subtract(1, 'month')
@@ -166,25 +184,15 @@ export class AvailabilityComponent {
         }
     }
 
-    private getAvailabilityForMonth(): Promise<any> {
-        this.isLoading = true
-        const promise = new Promise((resolve) => {
-            this.availabilityService.getForCalendar(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
-                this.daysWithSchedule = response
-                resolve(this.daysWithSchedule)
-                this.isLoading = false
-            })
-        })
-        return promise
+    private navigateToNewReservation() {
+        this.router.navigate(['/reservations/new'])
     }
 
-    private goBack(): void {
-        this.router.navigate([this.parentUrl])
-    }
-
-    private fixCalendarHeight(): void {
-        const calendar = document.getElementById('calendar')
-        calendar.style.gridTemplateRows = '30px repeat(' + this.calculateWeekCount(this.dateSelect.format('YYYY'), this.dateSelect.format('MM')) + ', 1fr)'
+    private storeCriteria(date: string, destinationId: number, destinationDescription: string): void {
+        this.localStorageService.saveItem('date', date)
+        this.localStorageService.saveItem('destinationId', destinationId.toString())
+        this.localStorageService.saveItem('destinationDescription', destinationDescription.toString())
+        this.localStorageService.saveItem('returnUrl', '/availability')
     }
 
     private updateCalendar(): void {

@@ -3,9 +3,9 @@
     <div id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div @slideFromRight id="month-selector">
-            <span class="material-icons month-arrows" (click)="onChangeMonth(-1)">chevron_left</span>
+            <span class="material-icons month-arrows" (click)="changeMonth(-1)">chevron_left</span>
             <h1 id="month-and-year">{{ getMonthAndYear() }}</h1>
-            <span class="material-icons month-arrows" (click)="onChangeMonth(1)">chevron_right</span>
+            <span class="material-icons month-arrows" (click)="changeMonth(1)">chevron_right</span>
         </div>
     </div>
 
@@ -13,9 +13,9 @@
         <ol id="calendar">
             <div *ngFor="let weekDay of weekDays" class="weekday-name">{{ getWeekday(weekDay) }}</div>
             <li data-cy="days" class="days" [id]="days[day.value - 1].date" *ngFor="let day of monthSelect;let first = first" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
-                <div class="date-card" [ngClass]="{'has-date-schedule':hasDateSchedule(days[day.value - 1].date), 'is-today':isToday(days[day.value - 1])}" (click)="onShowReservationsForSelectedDay(days[day.value - 1].date)">
+                <div class="date-card" [ngClass]="{'has-date-schedule':hasDateSchedule(days[day.value - 1].date), 'is-today':isToday(days[day.value - 1])}">
                     <div class="day">{{ day?.value }}</div>
-                    <div class="destination" *ngFor="let destination of days[day.value - 1].destinations">
+                    <div class="destination" *ngFor="let destination of days[day.value - 1].destinations" (click)="showReservationsForSelectedDay(days[day.value - 1].date, destination.id, destination.description)">
                         <div class="destination-description">{{ destination.description }}</div>
                         <div class="destination-passenger-count">{{ destination.passengerCount }}</div>
                     </div>

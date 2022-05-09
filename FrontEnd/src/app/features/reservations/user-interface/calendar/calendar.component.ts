@@ -60,6 +60,14 @@ export class CalendarComponent {
 
     //#region public methods
 
+    public changeMonth(flag: number): void {
+        this.navigateToMonth(flag)
+        this.getScheduleForMonth().then(() => {
+            this.updateCalendar()
+            this.fixCalendarHeight()
+        })
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -80,17 +88,9 @@ export class CalendarComponent {
         return day.date == new Date().toISOString().substring(0, 10)
     }
 
-    public onChangeMonth(flag: number): void {
-        this.navigateToMonth(flag)
-        this.getScheduleForMonth().then(() => {
-            this.updateCalendar()
-            this.fixCalendarHeight()
-        })
-    }
-
-    public onShowReservationsForSelectedDay(day: any): void {
-        if (this.hasDateSchedule(day)) {
-            this.storeDate(day)
+    public showReservationsForSelectedDay(date: any, destinationId: number, destinationDescription: string): void {
+        if (this.hasDateSchedule(date)) {
+            this.storeCriteria(date, destinationId, destinationDescription)
             this.navigateToList()
         }
     }
@@ -202,8 +202,10 @@ export class CalendarComponent {
         }
     }
 
-    private storeDate(day: string): void {
-        this.localStorageService.saveItem('date', day)
+    private storeCriteria(date: string, destinationId: number, destinationDescription: string): void {
+        this.localStorageService.saveItem('date', date)
+        this.localStorageService.saveItem('destinationId', destinationId.toString())
+        this.localStorageService.saveItem('destinationDescription', destinationDescription.toString())
     }
 
     private updateCalendar(): void {
