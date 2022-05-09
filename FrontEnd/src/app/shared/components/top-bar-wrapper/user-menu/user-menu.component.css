@@ -1,0 +1,16 @@
+button {
+    background-color: var(--color-a);
+    border-radius: 0;
+    border: none;
+    color: var(--color-button-text);
+    display: flex;
+    padding-right: 1rem;
+}
+
+button.hoverable:hover {
+    background-color: var(--color-d) !important;
+}
+
+img {
+    width: 1.3rem;
+}
