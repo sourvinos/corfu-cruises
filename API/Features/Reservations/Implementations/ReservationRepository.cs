@@ -356,6 +356,7 @@ namespace API.Features.Reservations {
                 .Include(x => x.Driver)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
+                .Include(x => x.Passengers)
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.UserId == connectedUser.UserId);
         }
 
