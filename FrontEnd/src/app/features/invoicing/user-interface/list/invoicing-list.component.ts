@@ -1,3 +1,4 @@
+import * as XLSX from 'xlsx'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
@@ -58,9 +59,11 @@ export class InvoicingListComponent {
     //#region public methods
 
     public exportAllCustomers(): void {
-        this.records.forEach((record: any) => {
-            this.exportSingleCustomer(record.date, record.customer.id)
-        })
+        const element = document.getElementById('table-wrapper')
+        const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element)
+        const wb: XLSX.WorkBook = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(wb, ws, 'Invoicing')
+        XLSX.writeFile(wb, 'Invoicing for ' + this.invoicingCriteria.date + '.xlsx')
     }
 
     public exportSingleCustomer(date: string, customerId: number): void {

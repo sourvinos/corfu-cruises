@@ -1528,7 +1528,7 @@
             },
             {
                 "id": "exportAllButton",
-                "description": "EXPORT ALL TO PDF"
+                "description": "EXPORT ALL TO XLS"
             },
             {
                 "id": "no-results",
