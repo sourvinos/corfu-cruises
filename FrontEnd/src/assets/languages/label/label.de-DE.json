@@ -641,7 +641,7 @@
             },
             {
                 "id": "headerRefNo",
-                "description": "Ref No"
+                "description": "RefNo"
             },
             {
                 "id": "headerTicketNo",
@@ -722,7 +722,7 @@
             },
             {
                 "id": "refNo",
-                "description": "Ref No"
+                "description": "RefNo"
             },
             {
                 "id": "date",
@@ -1295,12 +1295,12 @@
                 "description": "Einschiffung"
             },
             {
-                "id": "boarded",
-                "description": "OK"
+                "id": "headerRemarks",
+                "description": "Kommentare"
             },
             {
-                "id": "pending",
-                "description": "Ausstehende"
+                "id": "headerRefNo",
+                "description": "RefNo"
             },
             {
                 "id": "headerTicketNo",
@@ -1323,10 +1323,6 @@
                 "description": "Personen"
             },
             {
-                "id": "headerStatus",
-                "description": "Status"
-            },
-            {
                 "id": "headerLastname",
                 "description": "Name"
             },
@@ -1339,31 +1335,23 @@
                 "description": "Land"
             },
             {
-                "id": "createPDF",
-                "description": "PDF ERSTELLEN"
+                "id": "headerStatus",
+                "description": "Einschiffung"
             },
             {
-                "id": "scanOpenButton",
-                "description": "GUTSCHEIN SCANNEN"
-            },
-            {
-                "id": "scan-close-button",
-                "description": "X"
-            },
-            {
-                "id": "date",
+                "id": "criteriaDate",
                 "description": "Datum"
             },
             {
-                "id": "destination",
+                "id": "criteriaDestination",
                 "description": "Reiseziel"
             },
             {
-                "id": "port",
+                "id": "criteriaPort",
                 "description": "Hafen"
             },
             {
-                "id": "ship",
+                "id": "criteriaShip",
                 "description": "Schiff"
             },
             {
@@ -1384,11 +1372,31 @@
             },
             {
                 "id": "filterPending",
-                "description": "Ausstehend"
+                "description": "Ausstehende"
             },
             {
-                "id": "remarks",
-                "description": "Kommentare"
+                "id": "boarded",
+                "description": "OK"
+            },
+            {
+                "id": "pending",
+                "description": "ANHÄNGIG"
+            },
+            {
+                "id": "createPDF",
+                "description": "PDF ERSTELLEN"
+            },
+            {
+                "id": "scanOpenButton",
+                "description": "GUTSCHEIN SCANNEN"
+            },
+            {
+                "id": "scan-close-button",
+                "description": "X"
+            },
+            {
+                "id": "embarkAllPassengers",
+                "description": ""
             }
         ]
     },
@@ -2054,7 +2062,7 @@
         "labels": [
             {
                 "id": "placeholder",
-                "description": "Suche nach Ref No"
+                "description": "Suche nach RefNo"
             }
         ]
     },

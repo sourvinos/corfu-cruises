@@ -18,10 +18,21 @@ export class EmbarkationDisplayService extends DataService {
         return this.http.get<any>(this.url + '/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId + '/shipId/' + shipId)
     }
 
-    boardPassenger(id: number): Observable<any> {
+    embarkSinglePassenger(id: number): Observable<any> {
         const params = new HttpParams().set('id', id.toString())
-        return this.http.patch(this.url + '/doEmbarkation?', null, { params: params })
+        return this.http.patch(this.url + '/embarkSinglePassenger?', null, { params: params })
     }
+
+    embarkAllPassengers(id: number[]): Observable<any> {
+        let params = new HttpParams().set('id', id[0])
+        id.forEach((element, index) => {
+            if (index > 0) {
+                params = params.append('id', element)
+            }
+        })
+        return this.http.patch(this.url + '/embarkAllPassengers?', null, { params: params })
+    }
+
 
     getShipIdFromDesciption(description: string): Observable<number> {
         return this.http.get<any>(this.url + '/getShipIdFromDescription/' + description)

@@ -83,6 +83,10 @@ p.instructions {
     font-weight: 600;
 }
 
+.clickable:hover {
+    cursor: pointer;
+}
+
 ::-webkit-scrollbar {
     width: 3px;
 }

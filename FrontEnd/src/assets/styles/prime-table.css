@@ -85,6 +85,8 @@
 
 .p-datatable .p-datatable-tfoot {
     background-color: transparent !important;
+    display: flex !important;
+    justify-content: flex-end !important;
 }
 
 .p-datatable .p-datatable-tfoot > tr > td {

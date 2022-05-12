@@ -155,10 +155,10 @@ namespace API.Features.Reservations {
             };
         }
 
-        public void AssignToDriver(int driverId, string[] ids) {
+        public void AssignToDriver(int driverId, string[] id) {
             using var transaction = context.Database.BeginTransaction();
             var reservations = context.Reservations
-                .Where(x => ids.Contains(x.ReservationId.ToString()))
+                .Where(x => id.Contains(x.ReservationId.ToString()))
                 .ToList();
             reservations.ForEach(a => a.DriverId = driverId);
             context.SaveChanges();

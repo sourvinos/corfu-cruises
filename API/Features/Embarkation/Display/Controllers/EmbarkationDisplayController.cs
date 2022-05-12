@@ -29,10 +29,22 @@ namespace API.Features.Embarkation.Display {
             return await repo.GetShipIdFromDescription(description);
         }
 
-        [HttpPatch("doEmbarkation")]
+        [HttpPatch("embarkSinglePassenger")]
         [Authorize(Roles = "admin")]
-        public IActionResult DoEmbarkation(int id) {
-            if (repo.DoEmbarkation(id)) {
+        public IActionResult EmbarkSinglePassenger(int id) {
+            if (repo.EmbarkSinglePassenger(id)) {
+                return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
+            } else {
+                return StatusCode(404, new {
+                    response = ApiMessages.RecordNotFound()
+                });
+            }
+        }
+
+        [HttpPatch("embarkAllPassengers")]
+        [Authorize(Roles = "admin")]
+        public IActionResult EmbarkAllPassengers([FromQuery] int[] id) {
+            if (repo.EmbarkAllPassengers(id)) {
                 return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
             } else {
                 return StatusCode(404, new {

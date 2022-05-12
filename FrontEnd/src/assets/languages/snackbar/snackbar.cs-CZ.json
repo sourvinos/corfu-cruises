@@ -188,7 +188,7 @@
             },
             {
                 "id": "reservationCreated",
-                "message": "Ref No "
+                "message": "RefNo "
             },
             {
                 "id": "success",

@@ -18,6 +18,10 @@
     z-index: 1;
 }
 
+#embarkAllPassengers {
+    margin-top: 1rem;
+}
+
 .remarks:hover {
     cursor: pointer;
 }
@@ -37,3 +41,4 @@
 .complete {
     background-color: var(--color-embarkation-complete);
 }
+

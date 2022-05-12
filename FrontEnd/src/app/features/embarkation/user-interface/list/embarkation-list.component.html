@@ -5,19 +5,19 @@
         <div id="criteria">
             <div>
                 <div class="description">{{ formatDate() }}</div>
-                <div class="label">{{ getLabel('date') }}</div>
+                <div class="label">{{ getLabel('criteriaDate') }}</div>
             </div>
             <div>
                 <div class="description">{{ replaceWildcardWithText(embarkationCriteria.destination) }}</div>
-                <div class="label">{{ getLabel('destination') }}</div>
+                <div class="label">{{ getLabel('criteriaDestination') }}</div>
             </div>
             <div>
                 <div class="description">{{ replaceWildcardWithText(embarkationCriteria.port) }}</div>
-                <div class="label">{{ getLabel('port') }}</div>
+                <div class="label">{{ getLabel('criteriaPort') }}</div>
             </div>
             <div>
                 <div class="description">{{ replaceWildcardWithText(embarkationCriteria.ship) }}</div>
-                <div class="label">{{ getLabel('ship') }}</div>
+                <div class="label">{{ getLabel('criteriaShip') }}</div>
             </div>
         </div>
     </div>
@@ -28,19 +28,19 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 6%; max-width: 6%;"></th>
-                        <th style="min-width: 6%; max-width: 6%;">{{ getLabel('remarks') }}</th>
-                        <th style="min-width: 10%; max-width: 10%;">{{ getLabel('headerTicketNo') }}</th>
-                        <th>{{ getLabel('headerCustomer') }}</th>
-                        <th>{{ getLabel('headerDriver') }}</th>
-                        <th>{{ getLabel('headerShip') }}</th>
-                        <th style="min-width: 7%; max-width: 7%;">{{ getLabel('headerPersons') }}</th>
+                        <th style="min-width: 6%; max-width: 6%;">{{ getLabel('headerRemarks') }}</th>
+                        <th style="min-width: 10%; max-width: 10%;" pSortableColumn="refNo">{{ getLabel('headerRefNo') }}<p-sortIcon field="refNo"></p-sortIcon></th>
+                        <th style="min-width: 10%; max-width: 10%;" pSortableColumn="ticketNo">{{ getLabel('headerTicketNo') }}<p-sortIcon field="ticketNo"></p-sortIcon></th>
+                        <th pSortableColumn="customer">{{ getLabel('headerCustomer') }}<p-sortIcon field="customer"></p-sortIcon></th>
+                        <th pSortableColumn="driver">{{ getLabel('headerDriver') }}<p-sortIcon field="driver"></p-sortIcon></th>
+                        <th pSortableColumn="ship">{{ getLabel('headerShip') }}<p-sortIcon field="ship"></p-sortIcon></th>
+                        <th style="min-width: 7%; max-width: 7%;" pSortableColumn="totalPersons" >{{ getLabel('headerPersons') }}<p-sortIcon field="totalPersons"></p-sortIcon></th>
                     </tr>
                     <tr>
                         <th style="min-width: 6%; max-width: 6%;"></th>
                         <th style="min-width: 6%; max-width: 6%;"></th>
-                        <th style="min-width: 10%; max-width: 10%;">
-                            <p-columnFilter type="text" field="ticketNo" (input)="table.filterGlobal($event.target.value, 'contains')"></p-columnFilter>
-                        </th>
+                        <th style="min-width: 10%; max-width: 10%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
+                        <th style="min-width: 10%; max-width: 10%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
                         <th>
                             <p-columnFilter style="width: 100%;" field="customer" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -74,15 +74,14 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th style="min-width: 7%; max-width: 7%;">
-                            <p-columnFilter type="text" field="persons"></p-columnFilter>
-                        </th>
+                        <th style="min-width: 7%; max-width: 7%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'totalPersons', 'equals')" [value]="$any(table).filters['totalPersons']?.value"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-reservation let-expanded="expanded">
                     <tr>
                         <td style="min-width: 6%; max-width: 6%;"><button pButton pRipple [pRowToggler]="reservation" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'fas fa-angle-down' : 'fas fa-angle-right'"></button></td>
                         <td style="min-width: 6%; max-width: 6%; justify-content: center;"><span class="remarks" *ngIf="hasRemarks(reservation.remarks)" (click)="onShowRemarks(reservation.remarks)">{{ getEmoji('remarks') }}</span></td>
+                        <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ reservation.refNo }}</td>
                         <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ reservation.ticketNo }}</td>
                         <td>{{ reservation.customer }}</td>
                         <td>{{ reservation.driver }}</td>
@@ -98,25 +97,30 @@
                                 <p-table class="nested-table" [value]="reservation.passengers" dataKey="lastname">
                                     <ng-template pTemplate="header">
                                         <tr>
+                                            <th style="min-width: 10%; max-width: 10%; padding: 10px !important;">Id</th>
                                             <th style="min-width: 30%; max-width: 30%; padding: 10px !important;" pSortableColumn="lastname">{{ getLabel('headerLastname')}}<p-sortIcon field="lastname"></p-sortIcon></th>
-                                            <th style="min-width: 30%; max-width: 30%; padding: 10px !important;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
+                                            <th style="min-width: 20%; max-width: 20%; padding: 10px !important;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
                                             <th style="min-width: 20%; max-width: 20%; padding: 10px !important;" pSortableColumn="nationalityDescription">{{ getLabel('headerCountry') }}<p-sortIcon field="nationalityDescription"></p-sortIcon></th>
                                             <th style="min-width: 20%; max-width: 10%;" pSortableColumn="isCheckedIn">{{ getLabel('headerStatus') }}<p-sortIcon field="isCheckedIn"></p-sortIcon></th>
                                         </tr>
                                     </ng-template>
                                     <ng-template pTemplate="body" let-passenger>
                                         <tr class="passenger-row">
+                                            <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ passenger.id }}</td>
                                             <td style="min-width: 30%; max-width: 30%;">{{ passenger.lastname }}</td>
-                                            <td style="min-width: 30%; max-width: 30%;">{{ passenger.firstname }}</td>
+                                            <td style="min-width: 20%; max-width: 20%;">{{ passenger.firstname }}</td>
                                             <td style="min-width: 20%; max-width: 20%; justify-content: left;">
                                                 <img src="assets/images/nationalities/{{ passenger.nationalityCode }}.png" width="32" style="vertical-align: middle" />
                                                 <span style="overflow: hidden;">&nbsp;&nbsp;{{ passenger.nationalityDescription }}</span>
                                             </td>
-                                            <td (click)="onEmbarkPassenger(passenger.id)" class="embarkation-status" [ngClass]="passenger.isCheckedIn ? 'complete' : 'pending'" style="min-width: 19.9%; max-width: 19.9%; justify-content: center; margin-left: 3px;">
+                                            <td (click)="embarkSinglePassenger(passenger.id)" class="embarkation-status" [ngClass]="passenger.isCheckedIn ? 'complete' : 'pending'" style="min-width: 19.9%; max-width: 19.9%; justify-content: center; margin-left: 3px;">
                                                 <span *ngIf="passenger.isCheckedIn">{{ getLabel('boarded') }}</span>
                                                 <span *ngIf="!passenger.isCheckedIn">{{ getLabel('pending') }}</span>
                                             </td>
                                         </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="footer">
+                                        <button class="primary" id="embarkAllPassengers"mat-flat-button (click)="embarkAllPassengers(reservation.passengerIds)">{{ getLabel("embarkAllPassengers") }}</button>
                                     </ng-template>
                                 </p-table>
                             </div>
@@ -134,22 +138,22 @@
                 <div class="description">{{ records.passengerCount }}</div>
                 <div class="label">{{ getLabel('filterAll') }}</div>
             </div>
-            <div id="with-names" (click)="onDoFilterTasks('with-names')">
+            <div class="clickable" id="with-names" (click)="doFilterTasks('with-names')">
                 <div class="description">{{ records.passengerCountWithNames }}</div>
                 <div class="label">{{ getLabel('filterWithDetails') }}</div>
             </div>
-            <div id="boarded" (click)="onDoFilterTasks('boarded', getLabel('pending').toUpperCase())">
+            <div class="clickable" id="boarded" (click)="doFilterTasks('boarded', getLabel('pending').toUpperCase())">
                 <div class="description">{{ records.boardedCount }}</div>
                 <div class="label">{{ getLabel('filterBoarded') }}</div>
             </div>
-            <div id="pending" (click)="onDoFilterTasks('pending', getLabel('boarded').toUpperCase())">
+            <div class="clickable" id="pending" (click)="doFilterTasks('pending', getLabel('boarded').toUpperCase())">
                 <div class="description">{{ records.remainingCount }}</div>
                 <div class="label">{{ getLabel('filterPending')}}</div>
             </div>
         </div>
         <div>
             <div @slideFromRight class="button-group">
-                <button mat-flat-button class="primary" id="createPdf" (click)="onDoReportTasks()">{{ getLabel("createPDF") }}</button>
+                <button mat-flat-button class="primary" id="createPdf" (click)="doReportTasks()">{{ getLabel("createPDF") }}</button>
                 <button mat-flat-button class="primary" id="showScanner" (click)="onShowScanner()">{{ getLabel('scanOpenButton') }}</button>
             </div>
         </div>

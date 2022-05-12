@@ -15,11 +15,11 @@ namespace API.Features.Embarkation {
     public class EmbarkationDisplayRepository : Repository<Reservation>, IEmbarkationDisplayRepository {
 
         private readonly IMapper mapper;
-        private readonly TestingEnvironment testingSettings;
+        private readonly TestingEnvironment settings;
 
-        public EmbarkationDisplayRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> testingSettings) : base(appDbContext, testingSettings) {
+        public EmbarkationDisplayRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
             this.mapper = mapper;
-            this.testingSettings = testingSettings.Value;
+            this.settings = settings.Value;
         }
 
         public async Task<EmbarkationDisplayGroupVM<EmbarkationDisplayVM>> Get(string date, int destinationId, int portId, string shipId) {
@@ -49,13 +49,18 @@ namespace API.Features.Embarkation {
             return mapper.Map<EmbarkationDisplayGroupDto<Reservation>, EmbarkationDisplayGroupVM<EmbarkationDisplayVM>>(mainResult);
         }
 
-        public bool DoEmbarkation(int id) {
+        public async Task<int> GetShipIdFromDescription(string description) {
+            var ship = await context.Ships.FirstOrDefaultAsync(x => x.Description == description);
+            return ship.Id;
+        }
+
+        public bool EmbarkSinglePassenger(int id) {
             Passenger passenger = context.Passengers.Where(x => x.Id == id).FirstOrDefault();
             if (passenger != null) {
                 using var transaction = context.Database.BeginTransaction();
                 passenger.IsCheckedIn = !passenger.IsCheckedIn;
                 context.SaveChanges();
-                if (testingSettings.IsTesting) {
+                if (settings.IsTesting) {
                     transaction.Dispose();
                 } else {
                     transaction.Commit();
@@ -66,9 +71,19 @@ namespace API.Features.Embarkation {
             }
         }
 
-        public async Task<int> GetShipIdFromDescription(string description) {
-            var ship = await context.Ships.FirstOrDefaultAsync(x => x.Description == description);
-            return ship.Id;
+        public bool EmbarkAllPassengers(int[] id) {
+            using var transaction = context.Database.BeginTransaction();
+            var records = context.Passengers
+                .Where(x => id.Contains(x.Id))
+                .ToList();
+            records.ForEach(x => x.IsCheckedIn = true);
+            context.SaveChanges();
+            if (settings.IsTesting) {
+                transaction.Dispose();
+            } else {
+                transaction.Commit();
+            }
+            return true;
         }
 
     }

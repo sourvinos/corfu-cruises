@@ -6,6 +6,7 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
+import { EmbarkationCriteriaVM } from '../../classes/view-models/embarkation-criteria-vm'
 import { EmbarkationDisplayService } from '../../classes/services/embarkation-display.service'
 import { EmbarkationPrinterService } from '../../classes/services/embarkation-printer.service'
 import { EmbarkationVM } from '../../classes/view-models/embarkation-vm'
@@ -17,7 +18,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { EmbarkationCriteriaVM } from '../../classes/view-models/embarkation-criteria-vm'
 
 @Component({
     selector: 'embarkation-list',
@@ -116,12 +116,12 @@ export class EmbarkationListComponent {
         return remarks.length > 0 ? true : false
     }
 
-    public onDoFilterTasks(elementId: string, variable?: string): void {
+    public doFilterTasks(elementId: string, variable?: string): void {
         this.filterByEmbarkationStatus(variable)
         this.setActiveClassOnSelectedPill(elementId)
     }
 
-    public onDoReportTasks(): void {
+    public doReportTasks(): void {
         this.ships.forEach(ship => {
             this.embarkationDisplayService.getShipIdFromDesciption(ship.value).subscribe(shipId => {
                 const criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
@@ -147,8 +147,15 @@ export class EmbarkationListComponent {
         })
     }
 
-    public onEmbarkPassenger(id: number): void {
-        this.embarkationDisplayService.boardPassenger(id).pipe(indicate(this.isLoading)).subscribe(() => {
+    public embarkSinglePassenger(id: number): void {
+        this.embarkationDisplayService.embarkSinglePassenger(id).pipe(indicate(this.isLoading)).subscribe(() => {
+            this.refreshList()
+            this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+        })
+    }
+
+    public embarkAllPassengers(id: number[]): void {
+        this.embarkationDisplayService.embarkAllPassengers(id).pipe(indicate(this.isLoading)).subscribe(() => {
             this.refreshList()
             this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
         })
@@ -255,6 +262,7 @@ export class EmbarkationListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
+            console.log(this.filteredRecords)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

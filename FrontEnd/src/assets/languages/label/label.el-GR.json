@@ -641,7 +641,7 @@
             },
             {
                 "id": "headerRefNo",
-                "description": "Ref No"
+                "description": "RefNo"
             },
             {
                 "id": "headerTicketNo",
@@ -722,7 +722,7 @@
             },
             {
                 "id": "refNo",
-                "description": "Ref No"
+                "description": "RefNo"
             },
             {
                 "id": "date",
@@ -1295,12 +1295,12 @@
                 "description": "Επιβίβαση"
             },
             {
-                "id": "boarded",
-                "description": "ΟΚ"
+                "id": "headerRemarks",
+                "description": "Σχόλια"
             },
             {
-                "id": "pending",
-                "description": "ΕΚΚΡΕΜΕΙ"
+                "id": "headerRefNo",
+                "description": "RefNo"
             },
             {
                 "id": "headerTicketNo",
@@ -1323,10 +1323,6 @@
                 "description": "Άτομα"
             },
             {
-                "id": "headerStatus",
-                "description": "Επιβίβαση"
-            },
-            {
                 "id": "headerLastname",
                 "description": "Επώνυμο"
             },
@@ -1339,31 +1335,23 @@
                 "description": "Χώρα"
             },
             {
-                "id": "createPDF",
-                "description": "ΔΗΜΙΟΥΡΓΙΑ PDF"
+                "id": "headerStatus",
+                "description": "Επιβίβαση"
             },
             {
-                "id": "scanOpenButton",
-                "description": "ΣΚΑΝΑΡΙΣΜΑ ΚΟΥΠΟΝΙΟΥ"
-            },
-            {
-                "id": "scan-close-button",
-                "description": "X"
-            },
-            {
-                "id": "date",
+                "id": "criteriaDate",
                 "description": "Ημερομηνία"
             },
             {
-                "id": "destination",
+                "id": "criteriaDestination",
                 "description": "Προορισμός"
             },
             {
-                "id": "port",
+                "id": "criteriaPort",
                 "description": "Λιμάνι"
             },
             {
-                "id": "ship",
+                "id": "criteriaShip",
                 "description": "Πλοίο"
             },
             {
@@ -1384,11 +1372,31 @@
             },
             {
                 "id": "filterPending",
-                "description": "Εκκρεμούν"
+                "description": "Σε εκκρεμότητα"
             },
             {
-                "id": "remarks",
-                "description": "Σχόλια"
+                "id": "boarded",
+                "description": "ΟΚ"
+            },
+            {
+                "id": "pending",
+                "description": "ΕΚΚΡΕΜΕΙ"
+            },
+            {
+                "id": "createPDF",
+                "description": "ΔΗΜΙΟΥΡΓΙΑ PDF"
+            },
+            {
+                "id": "scanOpenButton",
+                "description": "ΣΚΑΝΑΡΙΣΜΑ ΚΟΥΠΟΝΙΟΥ"
+            },
+            {
+                "id": "scan-close-button",
+                "description": "X"
+            },
+            {
+                "id": "embarkAllPassengers",
+                "description": "ΕΠΙΒΙΒΑΣΗ ΟΛΩΝ"
             }
         ]
     },
@@ -2054,7 +2062,7 @@
         "labels": [
             {
                 "id": "placeholder",
-                "description": "Αναζήτηση με Ref No"
+                "description": "Αναζήτηση με RefNo"
             }
         ]
     },

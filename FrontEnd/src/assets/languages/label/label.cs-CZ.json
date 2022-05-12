@@ -641,7 +641,7 @@
             },
             {
                 "id": "headerRefNo",
-                "description": "Ref No"
+                "description": "RefNo"
             },
             {
                 "id": "headerTicketNo",
@@ -722,7 +722,7 @@
             },
             {
                 "id": "refNo",
-                "description": "Ref No"
+                "description": "RefNo"
             },
             {
                 "id": "date",
@@ -1295,12 +1295,12 @@
                 "description": "Nalodění"
             },
             {
-                "id": "boarded",
-                "description": "OK"
+                "id": "headerRemarks",
+                "description": "Komentáře"
             },
             {
-                "id": "pending",
-                "description": "Čekající"
+                "id": "headerRefNo",
+                "description": "RefNo"
             },
             {
                 "id": "headerTicketNo",
@@ -1323,10 +1323,6 @@
                 "description": "Osob"
             },
             {
-                "id": "headerStatus",
-                "description": "Postavení"
-            },
-            {
                 "id": "headerLastname",
                 "description": "Příjmení"
             },
@@ -1339,31 +1335,23 @@
                 "description": "Země"
             },
             {
-                "id": "createPDF",
-                "description": "VYTVOŘIT PDF"
+                "id": "headerStatus",
+                "description": "Nalodění"
             },
             {
-                "id": "scanOpenButton",
-                "description": "SKENOVAT POUKAZ"
-            },
-            {
-                "id": "scan-close-button",
-                "description": "X"
-            },
-            {
-                "id": "date",
+                "id": "criteriaDate",
                 "description": "Datum"
             },
             {
-                "id": "destination",
+                "id": "criteriaDestination",
                 "description": "Destinace"
             },
             {
-                "id": "port",
+                "id": "criteriaPort",
                 "description": "Přístav"
             },
             {
-                "id": "ship",
+                "id": "criteriaShip",
                 "description": "Plavidlo"
             },
             {
@@ -1387,8 +1375,28 @@
                 "description": "Čeká se na"
             },
             {
-                "id": "remarks",
-                "description": "Komentáře"
+                "id": "boarded",
+                "description": "OK"
+            },
+            {
+                "id": "pending",
+                "description": "ZAHÁJENÝ"
+            },
+            {
+                "id": "createPDF",
+                "description": "VYTVOŘIT PDF"
+            },
+            {
+                "id": "scanOpenButton",
+                "description": "SKENOVAT POUKAZ"
+            },
+            {
+                "id": "scan-close-button",
+                "description": "X"
+            },
+            {
+                "id": "embarkAllPassengers",
+                "description": ""
             }
         ]
     },
@@ -2054,7 +2062,7 @@
         "labels": [
             {
                 "id": "placeholder",
-                "description": "Hledat podle Ref No"
+                "description": "Hledat podle RefNo"
             }
         ]
     },

@@ -4,6 +4,7 @@ import { EmbarkationPassenger } from './embarkation-passenger-vm'
 export class EmbarkationReservationVM {
 
     reservationId: Guid
+    refNo: string
     ticketNo: string
     totalPersons: number
     customer: string
@@ -11,6 +12,7 @@ export class EmbarkationReservationVM {
     ship: string
     remarks: string
     isCheckedIn: string
+    passengerIds: number[]
 
     passengers: EmbarkationPassenger[]
 
