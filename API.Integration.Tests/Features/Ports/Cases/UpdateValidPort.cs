@@ -17,6 +17,7 @@ namespace API.Integration.Tests.Ports {
                 new TestPort {
                     Id = 1,
                     Description = Helpers.CreateRandomString(128),
+                    Abbreviation = Helpers.CreateRandomString(5),
                     IsPrimary = true
                 }
             };

@@ -140,6 +140,7 @@ export class PortFormComponent {
     private flattenForm(): PortWriteVM {
         const port = {
             id: this.form.value.id,
+            abbreviation: this.form.value.abbreviation,
             description: this.form.value.description,
             isPrimary: this.form.value.isPrimary,
             isActive: this.form.value.isActive
@@ -166,6 +167,7 @@ export class PortFormComponent {
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: 0,
+            abbreviation: ['', [Validators.required, Validators.maxLength(5)]],
             description: ['', [Validators.required, Validators.maxLength(128)]],
             isPrimary: false,
             isActive: true
@@ -175,6 +177,7 @@ export class PortFormComponent {
     private populateFields(result: PortReadVM): void {
         this.form.setValue({
             id: result.id,
+            abbreviation: result.abbreviation,
             description: result.description,
             isPrimary: result.isPrimary,
             isActive: result.isActive
@@ -222,6 +225,10 @@ export class PortFormComponent {
     //#endregion
 
     //#region getters
+
+    get abbreviation(): AbstractControl {
+        return this.form.get('abbreviation')
+    }
 
     get description(): AbstractControl {
         return this.form.get('description')

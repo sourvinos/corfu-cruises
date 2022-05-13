@@ -1,7 +1,7 @@
 export class PortViewModel {
 
     id: number
-    description: string
+    abbreviation: string
     maxPassengers: number
     passengerCount: number
     availableSeats: number

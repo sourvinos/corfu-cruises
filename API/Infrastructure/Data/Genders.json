@@ -1,26 +1,26 @@
 [
-	{
-		"Id" : 1,
-		"Description" : "MALE",
-		"IsActive" : 1,
-		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
-	},
-	{
-		"Id" : 2,
-		"Description" : "FEMALE",
-		"IsActive" : 1,
-		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
-	},
-	{
-		"Id" : 3,
-		"Description" : "OTHER",
-		"IsActive" : 0,
-		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
-	},
-	{
-		"Id" : 4,
-		"Description" : "INACTIVE",
-		"IsActive" : 0,
-		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
-	}
+    {
+        "Id": 1,
+        "Description": "MALE",
+        "IsActive": 1,
+        "UserId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    },
+    {
+        "Id": 2,
+        "Description": "FEMALE",
+        "IsActive": 1,
+        "UserId": "544c9930-ad76-4aa9-bb1c-8dd193508e05"
+    },
+    {
+        "Id": 3,
+        "Description": "OTHER",
+        "IsActive": 0,
+        "UserId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    },
+    {
+        "Id": 4,
+        "Description": "INACTIVE",
+        "IsActive": 0,
+        "UserId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    }
 ]

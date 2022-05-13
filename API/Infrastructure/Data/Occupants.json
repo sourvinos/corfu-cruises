@@ -1,20 +1,20 @@
 [
-	{
-		"Id" : 1,
-		"Description" : "CREW",
-		"IsActive" : 1,
-		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
-	},
-	{
-		"Id" : 2,
-		"Description" : "PASSENGER",
-		"IsActive" : 1,
-		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
-	},
-	{
-		"Id" : 3,
-		"Description" : "OTHER",
-		"IsActive" : 0,
-		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
-	}
+    {
+        "Id": 1,
+        "Description": "CREW",
+        "IsActive": 1,
+        "UserId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    },
+    {
+        "Id": 2,
+        "Description": "PASSENGER",
+        "IsActive": 1,
+        "UserId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    },
+    {
+        "Id": 3,
+        "Description": "OTHER",
+        "IsActive": 0,
+        "UserId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    }
 ]

@@ -7,7 +7,12 @@
     <div id="content">
         <form [formGroup]="form" autocomplete="off" data-cy="form">
             <mat-form-field>
-                <input [inputTabStop]="input" [placeholder]="getLabel('description')" data-cy="description" data-tabindex="1" formControlName="description" id="description" matInput>
+                <input [inputTabStop]="input" [placeholder]="getLabel('abbreviation')" data-cy="abbreviation" data-tabindex="1" formControlName="abbreviation" id="abbreviation" matInput>
+                <mat-error *ngIf="abbreviation.hasError('required')">{{ getHint("required") }}</mat-error>
+                <mat-error *ngIf="abbreviation.hasError('maxlength')">{{ getHint("maxLength", abbreviation.errors.maxlength.requiredLength) }}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input [inputTabStop]="input" [placeholder]="getLabel('description')" data-cy="description" data-tabindex="2" formControlName="description" id="description" matInput>
                 <mat-error *ngIf="description.hasError('required')">{{ getHint("required") }}</mat-error>
                 <mat-error *ngIf="description.hasError('maxlength')">{{ getHint("maxLength", description.errors.maxlength.requiredLength) }}</mat-error>
             </mat-form-field>

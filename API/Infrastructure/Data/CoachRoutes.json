@@ -1,83 +1,83 @@
 [
-	{
-		"Id" : 1,
-		"PortId" : 1,
-		"Description" : "NO TRANSFER - CORFU PORT",
-		"Abbreviation" : "CP",
-		"HasTransfer" : 0,
-		"IsActive" : 1,
-		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
-	},
-	{
-		"Id" : 2,
-		"PortId" : 1,
-		"Description" : "AG.STEFANOS - ARILLAS - PAGOI - CORFU PORT",
-		"Abbreviation" : "PAGOI",
-		"HasTransfer" : 1,
-		"IsActive" : 1,
-		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
-	},
-	{
-		"Id" : 3,
-		"PortId" : 1,
-		"Description" : "ACHARAVI - RODA - SIDARI - CORFU PORT",
-		"Abbreviation" : "ACH-SID",
-		"HasTransfer" : 1,
-		"IsActive" : 1,
-		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
-	},
-	{
-		"Id" : 4,
-		"PortId" : 1,
-		"Description" : "NISAKI - KALAMI - BARBATI - DASIA - GOUVIA - CORFU PORT",
-		"Abbreviation" : "NISAKI",
-		"HasTransfer" : 1,
-		"IsActive" : 1,
-		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
-	},
-	{
-		"Id" : 5,
-		"PortId" : 1,
-		"Description" : "PALEO - ERMONES - GLYFADA - PELEKA - AG.GORDIS - CORFU PORT",
-		"Abbreviation" : "WEST",
-		"HasTransfer" : 1,
-		"IsActive" : 1,
-		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
-	},
-	{
-		"Id" : 6,
-		"PortId" : 2,
-		"Description" : "NO TRANSFER - LEFKIMMI PORT",
-		"Abbreviation" : "LP",
-		"HasTransfer" : 0,
-		"IsActive" : 1,
-		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
-	},
-	{
-		"Id" : 7,
-		"PortId" : 2,
-		"Description" : "KAVOS",
-		"Abbreviation" : "KAVOS",
-		"HasTransfer" : 1,
-		"IsActive" : 1,
-		"UserId" : "544c9930-ad76-4aa9-bb1c-8dd193508e05"
-	},
-	{
-		"Id" : 8,
-		"PortId" : 2,
-		"Description" : "TOWN - PERAMA - MESONGHI - LEFKIMMI",
-		"Abbreviation" : "SOUTH",
-		"HasTransfer" : 1,
-		"IsActive" : 1,
-		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
-	},
-	{
-		"Id" : 9,
-		"PortId" : 1,
-		"Description" : "INACTIVE ROUTE",
-		"Abbreviation" : "INACTIVE",
-		"HasTransfer" : 1,
-		"IsActive" : 0,
-		"UserId" : "e7e014fd-5608-4936-866e-ec11fc8c16da"
-	}
+    {
+        "Id": 1,
+        "PortId": 1,
+        "Description": "NO TRANSFER - CORFU PORT",
+        "Abbreviation": "CP",
+        "HasTransfer": 0,
+        "IsActive": 1,
+        "UserId": "544c9930-ad76-4aa9-bb1c-8dd193508e05"
+    },
+    {
+        "Id": 2,
+        "PortId": 1,
+        "Description": "AG.STEFANOS - ARILLAS - PAGOI - CORFU PORT",
+        "Abbreviation": "PAGOI",
+        "HasTransfer": 1,
+        "IsActive": 1,
+        "UserId": "544c9930-ad76-4aa9-bb1c-8dd193508e05"
+    },
+    {
+        "Id": 3,
+        "PortId": 1,
+        "Description": "ACHARAVI - RODA - SIDARI - CORFU PORT",
+        "Abbreviation": "ACH-SID",
+        "HasTransfer": 1,
+        "IsActive": 1,
+        "UserId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    },
+    {
+        "Id": 4,
+        "PortId": 1,
+        "Description": "NISAKI - KALAMI - BARBATI - DASIA - GOUVIA - CORFU PORT",
+        "Abbreviation": "NISAKI",
+        "HasTransfer": 1,
+        "IsActive": 1,
+        "UserId": "544c9930-ad76-4aa9-bb1c-8dd193508e05"
+    },
+    {
+        "Id": 5,
+        "PortId": 1,
+        "Description": "PALEO - ERMONES - GLYFADA - PELEKA - AG.GORDIS - CORFU PORT",
+        "Abbreviation": "WEST",
+        "HasTransfer": 1,
+        "IsActive": 1,
+        "UserId": "544c9930-ad76-4aa9-bb1c-8dd193508e05"
+    },
+    {
+        "Id": 6,
+        "PortId": 2,
+        "Description": "NO TRANSFER - LEFKIMMI PORT",
+        "Abbreviation": "LP",
+        "HasTransfer": 0,
+        "IsActive": 1,
+        "UserId": "544c9930-ad76-4aa9-bb1c-8dd193508e05"
+    },
+    {
+        "Id": 7,
+        "PortId": 2,
+        "Description": "KAVOS",
+        "Abbreviation": "KAVOS",
+        "HasTransfer": 1,
+        "IsActive": 1,
+        "UserId": "544c9930-ad76-4aa9-bb1c-8dd193508e05"
+    },
+    {
+        "Id": 8,
+        "PortId": 2,
+        "Description": "TOWN - PERAMA - MESONGHI - LEFKIMMI",
+        "Abbreviation": "SOUTH",
+        "HasTransfer": 1,
+        "IsActive": 1,
+        "UserId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    },
+    {
+        "Id": 9,
+        "PortId": 1,
+        "Description": "INACTIVE ROUTE",
+        "Abbreviation": "INACTIVE",
+        "HasTransfer": 1,
+        "IsActive": 0,
+        "UserId": "e7e014fd-5608-4936-866e-ec11fc8c16da"
+    }
 ]

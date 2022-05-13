@@ -325,6 +325,10 @@
                 "description": "Beschreibung"
             },
             {
+                "id": "abbreviation",
+                "description": "Abk."
+            },
+            {
                 "id": "isPrimary",
                 "description": "Primär"
             },

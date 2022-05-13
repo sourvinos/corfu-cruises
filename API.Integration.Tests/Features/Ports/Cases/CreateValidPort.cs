@@ -1,6 +1,6 @@
-using API.Integration.Tests.Infrastructure;
 using System.Collections;
 using System.Collections.Generic;
+using API.Integration.Tests.Infrastructure;
 
 namespace API.Integration.Tests.Ports {
 
@@ -16,6 +16,7 @@ namespace API.Integration.Tests.Ports {
             return new object[] {
                 new TestPort {
                     Description = Helpers.CreateRandomString(128),
+                    Abbreviation= Helpers.CreateRandomString(5),
                     IsPrimary = true
                 }
             };

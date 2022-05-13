@@ -18,7 +18,7 @@
                     <div class="destination" *ngFor="let destination of days[day.value - 1].destinations" (click)="onDoReservationTasks(days[day.value - 1].date, destination.id, destination.description)">
                         <div class="destination-description">{{ destination.description }}</div>
                         <div class="ports" *ngFor="let port of destination.ports">
-                            <div>{{ port.description }}</div>
+                            <div>{{ port.abbreviation }}</div>
                             <div class="available-seats">{{ port.availableSeats }}</div>
                         </div>
                     </div>

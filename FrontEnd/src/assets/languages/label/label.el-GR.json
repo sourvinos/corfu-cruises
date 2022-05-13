@@ -325,6 +325,10 @@
                 "description": "Περιγραφή"
             },
             {
+                "id": "abbreviation",
+                "description": "Συντ."
+            },
+            {
                 "id": "isPrimary",
                 "description": "Πρωτεύον"
             },

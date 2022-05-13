@@ -31,7 +31,7 @@ namespace API.Features.Availability {
                     DestinationDescription = x.Destination.Description,
                     DestinationAbbreviation = x.Destination.Abbreviation,
                     PortId = x.PortId,
-                    PortDescription = x.Port.Description,
+                    PortAbbreviation = x.Port.Abbreviation,
                     IsPortPrimary = x.Port.IsPrimary,
                     MaxPassengers = x.MaxPassengers
                 });
@@ -67,10 +67,10 @@ namespace API.Features.Availability {
                         Description = x.Key.DestinationDescription,
                         PassengerCount = CalculatePassengerCountForDestination(reservations, x.Key.Date, x.Key.DestinationId),
                         AvailableSeats = CalculateAvailableSeatsForAllPorts(schedule, reservations, x.Key.Date, x.Key.DestinationId),
-                        Ports = x.GroupBy(x => new { x.PortId, x.Date, x.DestinationId, x.PortDescription, x.IsPortPrimary, x.MaxPassengers })
+                        Ports = x.GroupBy(x => new { x.PortId, x.Date, x.DestinationId, x.PortAbbreviation, x.IsPortPrimary, x.MaxPassengers })
                         .Select(x => new PortVM {
                             Id = x.Key.PortId,
-                            Description = x.Key.PortDescription,
+                            Abbreviation = x.Key.PortAbbreviation,
                             IsPrimary = x.Key.IsPortPrimary,
                             MaxPassengers = x.Key.MaxPassengers,
                             PassengerCount = x.Sum(x => x.Passengers),

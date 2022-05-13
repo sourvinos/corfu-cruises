@@ -325,6 +325,10 @@
                 "description": "Description"
             },
             {
+                "id": "abbreviation",
+                "description": "Abbr."
+            },
+            {
                 "id": "isPrimary",
                 "description": "Primary"
             },

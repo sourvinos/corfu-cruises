@@ -1,5 +1,6 @@
 {
     "id": 1,
+    "abbreviation": "CP",
     "description": "CORFU PORT",
     "isPrimary": true,
     "isActive": true,

@@ -2,6 +2,10 @@ context('Login', () => {
 
     describe('Correct credentials - Can login', () => {
 
+        beforeEach(() => {
+            cy.restoreLocalStorage()
+        })
+
         it('Goto login form', () => {
             cy.gotoLoginForm()
             cy.buttonShouldBeDisabled('login')
@@ -16,8 +20,8 @@ context('Login', () => {
             cy.buttonShouldBeEnabled('forgotPassword')
         })
 
-        it('Give the userName', () => {
-            cy.typeNotRandomChars('userName', 'john').elementShouldBeValid('userName')
+        it('Give the username', () => {
+            cy.typeNotRandomChars('username', 'john').elementShouldBeValid('username')
         })
 
         it('Login should be disabled', () => {
@@ -40,9 +44,18 @@ context('Login', () => {
             cy.buttonShouldBeEnabled('login')
         })
 
-        it('Click on login should login the user and goto the home page', () => {
+        it('Click on login should login the user', () => {
             cy.buttonClick('login')
-            cy.get('[data-cy=side-bar]')
+            cy.get('[data-cy="side-menu-toggler"]')
+        })
+
+        it('Side-menu-toggler should be clickable', () => {
+            cy.buttonClick('side-menu-toggler')
+            cy.get('[data-cy="side-menu"]')
+        })
+
+        afterEach(() => {
+            cy.saveLocalStorage()
         })
 
     })

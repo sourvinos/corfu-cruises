@@ -10,6 +10,15 @@ namespace API.UnitTests.Features.Ports {
         [Theory]
         [ClassData(typeof(ValidateStringNotEmpty))]
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
+        public void Invalid_Abbreviation(string abbreviation) {
+            new PortValidator()
+                .TestValidate(new PortWriteResource { Abbreviation = abbreviation })
+                .ShouldHaveValidationErrorFor(x => x.Abbreviation);
+        }
+
+        [Theory]
+        [ClassData(typeof(ValidateStringNotEmpty))]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new PortValidator()
                 .TestValidate(new PortWriteResource { Description = description })

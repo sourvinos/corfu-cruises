@@ -12,6 +12,7 @@ namespace API.Features.Ports {
             entity.Property(x => x.UserId).HasMaxLength(36).IsRequired(true);
             // Fields
             entity.Property(x => x.Description).HasMaxLength(128).IsRequired(true);
+            entity.Property(x => x.Abbreviation).HasMaxLength(5).IsRequired(true);
             entity.Property(x => x.IsPrimary);
             entity.Property(x => x.IsActive);
             // FK Constraints

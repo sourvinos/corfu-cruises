@@ -136,7 +136,7 @@
             },
             {
                 "id": "abbreviation",
-                "description": "Abbreviation."
+                "description": "Abr."
             },
             {
                 "id": "description",
@@ -325,6 +325,10 @@
                 "description": "Description"
             },
             {
+                "id": "abbreviation",
+                "description": "Abr."
+            },
+            {
                 "id": "isPrimary",
                 "description": "Primaire"
             },
@@ -380,7 +384,7 @@
             },
             {
                 "id": "abbreviation",
-                "description": "Abbreviation."
+                "description": "Abr."
             },
             {
                 "id": "description",

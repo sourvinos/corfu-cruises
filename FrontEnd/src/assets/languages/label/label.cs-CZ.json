@@ -115,7 +115,7 @@
             },
             {
                 "id": "headerAbbreviation",
-                "description": "Zkratka"
+                "description": "Zkr."
             },
             {
                 "id": "headerDescription",
@@ -136,7 +136,7 @@
             },
             {
                 "id": "abbreviation",
-                "description": "Zkratka"
+                "description": "Zkr."
             },
             {
                 "id": "description",
@@ -325,6 +325,10 @@
                 "description": "Popis"
             },
             {
+                "id": "abbreviation",
+                "description": "Zkr."
+            },
+            {
                 "id": "isPrimary",
                 "description": "Hlavní"
             },
@@ -380,7 +384,7 @@
             },
             {
                 "id": "abbreviation",
-                "description": "Zkratka"
+                "description": "Zkr."
             },
             {
                 "id": "description",
