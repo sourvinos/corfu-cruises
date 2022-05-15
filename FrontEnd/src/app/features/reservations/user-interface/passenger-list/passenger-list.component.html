@@ -18,7 +18,7 @@
                 <tr [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData)">
                     <td style="min-width: 50%; max-width: 50%;">{{ rowData.lastname }}</td>
                     <td style="min-width: 45%; max-width: 45%;">{{ rowData.firstname }}</td>
-                    <td style="min-width: 5%; max-width: 5%; justify-content: center;"><i *ngIf="isAdmin" (click)="onDeleteRow(rowData)" class="far fa-trash-alt"></i></td>
+                    <td style="min-width: 5%; max-width: 5%; justify-content: center;"><i (click)="onDeleteRow(rowData)" class="far fa-trash-alt"></i></td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">

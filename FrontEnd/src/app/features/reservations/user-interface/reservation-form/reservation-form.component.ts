@@ -64,6 +64,7 @@ export class ReservationFormComponent {
 
     private userId: string
     public isAdmin: boolean
+    public isNewRecord = false
     public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
@@ -88,9 +89,11 @@ export class ReservationFormComponent {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.getRecord(x.id).then(() => {
+                    this.setNewRecord(false)
                     this.doPostInitJobs()
                 })
             } else {
+                this.setNewRecord(true)
                 this.doPostInitJobs()
             }
         })
@@ -469,6 +472,10 @@ export class ReservationFormComponent {
         return passengers
     }
 
+    public mustBeAdminAndNewRecord(): boolean {
+        return this.isNewRecord || (this.isAdmin && !this.isNewRecord)
+    }
+
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
         const promise = new Promise((resolve) => {
             service.getActiveForDropdown().toPromise().then(
@@ -556,6 +563,10 @@ export class ReservationFormComponent {
                 }
             })
         }
+    }
+
+    private setNewRecord(isNewRecord: boolean): void {
+        this.isNewRecord = isNewRecord
     }
 
     private setLocale() {

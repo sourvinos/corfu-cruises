@@ -78,25 +78,19 @@ namespace API.Features.Reservations {
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             await AttachUserIdToRecordAsync(record);
-            if (await Identity.IsUserAdmin(httpContext)) {
-                var response = await reservationRepo.IsValid(record, scheduleRepo);
-                record = reservationRepo.UpdateForeignKeysWithNull(record);
-                if (response == 200) {
-                    await reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
-                    return StatusCode(200, new {
-                        message = record.RefNo
-                    });
-                } else {
-                    return GetErrorMessage(response);
-                }
-            } else {
-                return StatusCode(403, new {
-                    response = ApiMessages.InsufficientUserRights()
+            var response = await reservationRepo.IsValid(record, scheduleRepo);
+            record = reservationRepo.UpdateForeignKeysWithNull(record);
+            if (response == 200) {
+                await reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
+                return StatusCode(200, new {
+                    message = record.RefNo
                 });
+            } else {
+                return GetErrorMessage(response);
             }
         }
 

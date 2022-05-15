@@ -112,7 +112,9 @@ namespace API.Features.Reservations {
         public async Task<bool> Update(string id, Reservation updatedRecord) {
             using var transaction = context.Database.BeginTransaction();
             try {
-                await UpdateReservation(updatedRecord);
+                if (await Identity.IsUserAdmin(httpContextAccessor)) {
+                    await UpdateReservation(updatedRecord);
+                }
                 await RemovePassengers(GetPassengersForReservation(id));
                 await AddPassengers(updatedRecord);
                 if (settings.IsTesting) {
