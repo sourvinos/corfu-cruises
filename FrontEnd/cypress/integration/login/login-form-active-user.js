@@ -7,7 +7,7 @@ context('Login', () => {
         })
 
         it('Goto login form', () => {
-            cy.gotoLoginForm()
+            cy.goHome()
             cy.buttonShouldBeDisabled('login')
             cy.buttonShouldBeEnabled('forgotPassword')
         })

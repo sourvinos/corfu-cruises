@@ -48,9 +48,9 @@ context('Ports', () => {
             cy.clearField('filter-description')
         })
 
-        it('Goto the home page', () => {
-            cy.goHome()
-            cy.url().should('eq', Cypress.config().homeUrl + '/')
+        it('Goto back', () => {
+            cy.goBack()
+            cy.url().should('include', '/')
         })
 
         afterEach(() => {

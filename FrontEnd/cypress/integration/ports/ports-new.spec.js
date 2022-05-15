@@ -17,21 +17,22 @@ context('Ports', () => {
         })
 
         it('Give only the required fields', () => {
-            cy.typeRandomChars('description', 12).elementShouldBeValid('description')
+            cy.typeRandomChars('abbreviation', 5).elementShouldBeValid('abbreviation')
+            cy.typeRandomChars('description', 128).elementShouldBeValid('description')
             cy.buttonShouldBeEnabled('save')
         })
 
         it('Create record', () => {
-            cy.intercept('GET', Cypress.config().apiUrl + '/ports', { fixture:'ports/ports.json' }).as('getPorts')
-            cy.intercept('POST', Cypress.config().apiUrl + '/ports', { fixture:'ports/port.json' }).as('savePort')
+            cy.intercept('GET', Cypress.config().apiUrl + '/ports', { fixture: 'ports/ports.json' }).as('getPorts')
+            cy.intercept('POST', Cypress.config().apiUrl + '/ports', { fixture: 'ports/port.json' }).as('savePort')
             cy.get('[data-cy=save]').click()
             cy.wait('@savePort').its('response.statusCode').should('eq', 200)
-            cy.url().should('eq', Cypress.config().homeUrl + '/ports')
+            cy.url().should('include', '/ports')
         })
 
-        it('Goto the home page', () => {
-            cy.goHome()
-            cy.url().should('eq', Cypress.config().homeUrl + '/')
+        it('Goto back', () => {
+            cy.goBack()
+            cy.url().should('include', '/')
         })
 
         afterEach(() => {

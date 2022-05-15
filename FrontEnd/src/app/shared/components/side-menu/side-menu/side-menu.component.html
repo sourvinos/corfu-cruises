@@ -27,7 +27,7 @@
             <div class="menu-item" id="coachRoutes" (click)="doNavigationTasks('coachRoutes')"><img [src]="getIcon('coachRoute.svg')">{{ getLabel('tables-coachRoutes') }}</div>
             <div class="menu-item" id="schedules" (click)="doNavigationTasks('schedules')"><img [src]="getIcon('calendar.svg')">{{ getLabel('tables-schedules') }}</div>
             <div class="menu-item" id="genders" (click)="doNavigationTasks('genders')"><img [src]="getIcon('gender.svg')">{{ getLabel('tables-genders') }}</div>
-            <div class="menu-item" id="ports" (click)="doNavigationTasks('ports')"><img [src]="getIcon('anchor.svg')">{{ getLabel('tables-ports') }}</div>
+            <div class="menu-item" data-cy="ports-menu" id="ports" (click)="doNavigationTasks('ports')"><img [src]="getIcon('anchor.svg')">{{ getLabel('tables-ports') }}</div>
             <div class="menu-item" id="users" (click)="doNavigationTasks('users')"><img [src]="getIcon('user.svg')">{{ getLabel('tables-users') }}</div>
             <div class="menu-item" id="ships" (click)="doNavigationTasks('ships')"><img [src]="getIcon('ship.svg')">{{ getLabel('ships') }}</div>
             <div class="menu-item" id="crews" (click)="doNavigationTasks('crews')"><img [src]="getIcon('crew.svg')">{{ getLabel('ships-crews') }}</div>

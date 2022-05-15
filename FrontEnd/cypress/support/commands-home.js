@@ -1,5 +1,5 @@
 import 'cypress-localstorage-commands'
 
-Cypress.Commands.add('gotoLoginForm', () => {
+Cypress.Commands.add('goHome', () => {
     cy.visit('https://localhost:4200')
 })

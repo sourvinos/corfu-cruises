@@ -65,7 +65,7 @@ export class PortListComponent {
     }
 
     public onNewRecord(): void {
-        this.router.navigate([this.url + '/new'], { queryParams: { returnUrl: this.url } })
+        this.router.navigate([this.url + '/new'])
     }
 
     //#endregion

@@ -16,16 +16,16 @@ context('Ports', () => {
         })
 
         it('Update record', () => {
-            cy.intercept('GET', Cypress.config().apiUrl + '/ports', { fixture:'ports/ports.json' }).as('getPorts')
-            cy.intercept('PUT', Cypress.config().apiUrl + '/ports/1', { fixture:'ports/port.json' }).as('savePort')
+            cy.intercept('GET', Cypress.config().apiUrl + '/ports', { fixture: 'ports/ports.json' }).as('getPorts')
+            cy.intercept('PUT', Cypress.config().apiUrl + '/ports/1', { fixture: 'ports/port.json' }).as('savePort')
             cy.get('[data-cy=save]').click()
             cy.wait('@savePort').its('response.statusCode').should('eq', 200)
-            cy.url().should('eq', Cypress.config().homeUrl + '/ports')
+            cy.url().should('include', '/ports')
         })
 
-        it('Goto the home page', () => {
-            cy.goHome()
-            cy.url().should('eq', Cypress.config().homeUrl + '/')
+        it('Goto back', () => {
+            cy.goBack()
+            cy.url().should('include', '/')
         })
 
         afterEach(() => {

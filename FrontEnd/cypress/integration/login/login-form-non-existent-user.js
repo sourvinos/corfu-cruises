@@ -3,7 +3,7 @@ context('Login', () => {
     describe('Correct credentials - Non-existent user', () => {
 
         it('Goto login form', () => {
-            cy.gotoLoginForm()
+            cy.goHome()
             cy.buttonShouldBeDisabled('login')
             cy.buttonShouldBeEnabled('forgotPassword')
         })

@@ -1,25 +1,8 @@
 import 'cypress-localstorage-commands'
 
 Cypress.Commands.add('login', () => {
-    cy.request({
-        url: Cypress.config().apiUrl + '/auth/auth',
-        method: 'POST',
-        body: {
-            userName: 'john',
-            password: 'ec11fc8c16da',
-            grantType: 'password'
-        }
-    }).then(response => {
-        cy.setLocalStorage('displayname', response.displayname)
-        cy.setLocalStorage('expiration', response.expiration)
-        cy.setLocalStorage('jwt', response.token)
-        cy.setLocalStorage('loginStatus', '1')
-        cy.setLocalStorage('refreshToken', response.refresh_token)
-        cy.setLocalStorage('language', 'en-gb')
-        cy.setLocalStorage('theme', 'dark')
-    })
     cy.visit('https://localhost:4200')
-    cy.saveLocalStorage()
+    cy.buttonClick('login')
 })
 
 Cypress.Commands.add('logout', () => {
@@ -54,7 +37,7 @@ Cypress.Commands.add('elementShouldBeValid', (element) => {
 
 Cypress.Commands.add('elementShouldBeInvalid', (element) => {
     cy.get('[data-cy=' + element + ']')
-        .should('have.attr', 'aria-invalid', 'true')
+        .should('have.class', 'ng-invalid', 'true')
 })
 
 Cypress.Commands.add('buttonShouldBeEnabled', (button) => {
@@ -75,7 +58,10 @@ Cypress.Commands.add('clickOnDeleteAndAbort', () => {
 
 Cypress.Commands.add('goHome', () => {
     cy.get('[data-cy=companyLogo]').click()
-    cy.url().should('eq', Cypress.config().homeUrl + '/')
+})
+
+Cypress.Commands.add('goBack', () => {
+    cy.get('[data-cy=home-button]').click()
 })
 
 Cypress.Commands.add('clearField', (element) => {
