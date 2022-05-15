@@ -16,6 +16,11 @@ button.primary {
     color: var(--color-button-text) !important;
 }
 
+button.secondary {
+    background-color: var(--color-b) !important;
+    color: var(--color-text) !important;
+}
+
 button.primary:hover {
     opacity: 0.5;
 }

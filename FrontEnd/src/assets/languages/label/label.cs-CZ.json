@@ -240,6 +240,10 @@
             {
                 "id": "newButton",
                 "description": "NOVÝ"
+            },
+            {
+                "id": "export",
+                "description": "VYTVOŘIT PDF"
             }
         ]
     },

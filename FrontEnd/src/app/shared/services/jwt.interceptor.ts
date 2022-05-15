@@ -66,6 +66,7 @@ export class JwtInterceptor {
                         localStorage.setItem('displayname', tokenresponse.response.displayname)
                         localStorage.setItem('expiration', tokenresponse.response.expiration)
                         localStorage.setItem('refreshToken', tokenresponse.response.refreshToken)
+                        console.log('Token refreshed after expiration')
                         return next.handle(this.attachTokenToRequest(request))
                     }
                     return <any>this.accountService.logout()

@@ -240,6 +240,10 @@
             {
                 "id": "newButton",
                 "description": "ΝΕΟ"
+            },
+            {
+                "id": "export",
+                "description": "ΔΗΜΙΟΥΡΓΙΑ PDF"
             }
         ]
     },

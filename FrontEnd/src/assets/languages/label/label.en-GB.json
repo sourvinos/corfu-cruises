@@ -240,6 +240,10 @@
             {
                 "id": "newButton",
                 "description": "NEW"
+            },
+            {
+                "id": "export",
+                "description": "CREATE PDF"
             }
         ]
     },

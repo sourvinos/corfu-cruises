@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
@@ -9,7 +9,9 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { PickupPointPdfService } from '../classes/services/pickupPoint-pdf.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { Table } from 'primeng/table'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -21,7 +23,10 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 
 export class PickupPointListComponent {
 
+
     //#region variables
+
+    @ViewChild('table') table: Table | undefined
 
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
@@ -30,12 +35,13 @@ export class PickupPointListComponent {
     public icon = 'home'
     public parentUrl = '/'
     public records = []
+    public selectedRecords = []
 
     public dropdownRoutes = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointPdfService: PickupPointPdfService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -59,6 +65,15 @@ export class PickupPointListComponent {
     //#endregion
 
     //#region public methods
+
+    public export(): void {
+        console.log(this.selectedRecords)
+        this.pickupPointPdfService.createReport(this.selectedRecords)
+    }
+
+    public filterRecords(event) {
+        this.selectedRecords = event.filteredValue
+    }
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
@@ -108,6 +123,7 @@ export class PickupPointListComponent {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
                 this.records = listResolved.list
+                this.selectedRecords = listResolved.list
                 resolve(this.records)
             } else {
                 this.goBack()
