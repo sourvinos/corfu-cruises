@@ -158,7 +158,7 @@ export class ReservationFormComponent {
             }
         } else {
             this.passengerDifferenceIcon = this.emojiService.getEmoji('warning')
-            return false
+            return true
         }
     }
 
