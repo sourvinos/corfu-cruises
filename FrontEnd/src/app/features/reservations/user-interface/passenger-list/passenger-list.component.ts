@@ -23,7 +23,6 @@ export class PassengerListComponent {
 
     @Input() passengers: PassengerReadVM[] = []
     @Input() reservationId: Guid
-    @Input() isAdmin: boolean
     @Output() outputPassengerCount = new EventEmitter()
     @Output() outputPassengers = new EventEmitter()
     private ngUnsubscribe = new Subject<void>()
@@ -79,7 +78,7 @@ export class PassengerListComponent {
                 birthdate: passenger.birthdate,
                 remarks: passenger.remarks,
                 specialCare: passenger.specialCare,
-                isCheckedIn: passenger.isCheckedIn
+                isCheckedIn: passenger.isCheckedIn,
             }
         })
         dialog.afterClosed().subscribe((result: any) => {

@@ -1,15 +1,15 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
-import { Subject } from 'rxjs'
+import { firstValueFrom, Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 // Custom
-import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
-import { ShipRouteDropdownVM } from './../../../shipRoutes/classes/view-models/shipRoute-dropdown-vm'
-import { PortDropdownVM } from './../../../ports/classes/view-models/port-dropdown-vm'
-import { DriverDropdownVM } from './../../../drivers/classes/view-models/driver-dropdown-vm'
+import { AccountService } from 'src/app/shared/services/account.service'
+import { CoachRouteDropdownVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-dropdown-vm'
 import { CustomerDropdownVM } from './../../../customers/classes/view-models/customer-dropdown-vm'
+import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
+import { DriverDropdownVM } from './../../../drivers/classes/view-models/driver-dropdown-vm'
 import { DriverReportService } from '../../classes/driver-report/services/driver-report.service'
 import { DriverService } from 'src/app/features/drivers/classes/services/driver.service'
 import { EmojiService } from './../../../../shared/services/emoji.service'
@@ -17,15 +17,16 @@ import { HelperService } from './../../../../shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { PickupPointDropdownVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
+import { PortDropdownVM } from './../../../ports/classes/view-models/port-dropdown-vm'
 import { ReservationGroupVM } from '../../classes/resources/list/reservation-group-vm'
 import { ReservationService } from './../../classes/services/reservation.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToShipComponent } from '../reservation-to-ship/reservation-to-ship-form.component'
+import { ShipRouteDropdownVM } from './../../../shipRoutes/classes/view-models/shipRoute-dropdown-vm'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { PickupPointDropdownVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
-import { CoachRouteDropdownVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-dropdown-vm'
 
 @Component({
     selector: 'reservation-list',
@@ -48,7 +49,7 @@ export class ReservationListComponent {
     private windowTitle = 'Reservations'
     public feature = 'reservationList'
 
-
+    public isAdmin: boolean
     public highlighted: any
     public records = new ReservationGroupVM()
     public selectedRecords = []
@@ -64,7 +65,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -81,6 +82,7 @@ export class ReservationListComponent {
         this.initPersonTotals()
         this.updateTotals()
         this.populateDropdowns()
+        this.getConnectedUserRole()
     }
 
     ngAfterViewInit(): void {
@@ -195,10 +197,6 @@ export class ReservationListComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public isAdmin(): boolean {
-        return true
-    }
-
     public newRecord(): void {
         this.localStorageService.saveItem('returnUrl', this.url)
         this.router.navigate([this.parentUrl, 'new'])
@@ -274,6 +272,16 @@ export class ReservationListComponent {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
         }
+    }
+
+    private getConnectedUserRole(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            firstValueFrom(this.accountService.isConnectedUserAdmin()).then((response) => {
+                this.isAdmin = response
+                resolve(this.isAdmin)
+            })
+        })
+        return promise
     }
 
     private getDistinctDriverIds(reservations: any): any[] {

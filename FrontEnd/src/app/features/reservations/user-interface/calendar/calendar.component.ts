@@ -88,9 +88,9 @@ export class CalendarComponent {
         return day.date == new Date().toISOString().substring(0, 10)
     }
 
-    public showReservationsForSelectedDay(date: any, destinationId: number, destinationDescription: string): void {
+    public showReservationsForSelectedDay(date: any): void {
         if (this.hasDateSchedule(date)) {
-            this.storeCriteria(date, destinationId, destinationDescription)
+            this.storeCriteria(date)
             this.navigateToList()
         }
     }
@@ -202,10 +202,8 @@ export class CalendarComponent {
         }
     }
 
-    private storeCriteria(date: string, destinationId: number, destinationDescription: string): void {
+    private storeCriteria(date: string): void {
         this.localStorageService.saveItem('date', date)
-        this.localStorageService.saveItem('destinationId', destinationId.toString())
-        this.localStorageService.saveItem('destinationDescription', destinationDescription.toString())
     }
 
     private updateCalendar(): void {

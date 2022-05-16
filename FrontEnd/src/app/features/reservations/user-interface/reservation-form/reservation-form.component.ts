@@ -63,9 +63,10 @@ export class ReservationFormComponent {
     public parentUrl = ''
 
     private userId: string
-    public isAdmin: boolean
+    public isAdmin: false
     public isNewRecord = false
     public isLoading = new Subject<boolean>()
+    public barcode = { 'ticketNo': '', 'size': 128, 'level': 'M' }
 
     public isAutoCompleteDisabled = true
 
@@ -76,8 +77,6 @@ export class ReservationFormComponent {
     public pickupPoints: PickupPointDropdownVM[] = []
     public filteredPickupPoints: Observable<PickupPointDropdownVM[]>
 
-
-    public barcode = { 'ticketNo': '', 'size': 128, 'level': 'M' }
     public filteredDrivers: Observable<DriverDropdownVM[]>
     public filteredShips: Observable<DriverDropdownVM[]>
     public filteredPorts: Observable<PortDropdownVM[]>
@@ -108,6 +107,7 @@ export class ReservationFormComponent {
         this.subscribeToInteractionService()
         this.readStoredVariables()
         this.setLocale()
+        this.focusOnField()
     }
 
     ngOnDestroy(): void {
@@ -143,7 +143,7 @@ export class ReservationFormComponent {
     }
 
     public checkTotalPersonsAgainstPassengerCount(element?: any): boolean {
-        if (this.form.value.passengers) {
+        if (this.form.value.passengers.length > 0) {
             const passengerDifference = this.form.value.totalPersons - (element != null ? element : this.form.value.passengers.length)
             switch (true) {
                 case passengerDifference == 0:
@@ -156,13 +156,10 @@ export class ReservationFormComponent {
                     this.passengerDifferenceIcon = this.emojiService.getEmoji('warning')
                     return true
             }
+        } else {
+            this.passengerDifferenceIcon = this.emojiService.getEmoji('warning')
+            return false
         }
-    }
-
-    public doBarcodeTasks(): void {
-        this.createBarcodeFromTicketNo().then(() => {
-            this.convertCanvasToBase64()
-        })
     }
 
     public doPersonsCalculations(): void {
@@ -171,7 +168,9 @@ export class ReservationFormComponent {
     }
 
     public doVoucherTasksOnClient(): void {
-        this.voucherService.createVoucherOnClient(this.mapObjectToVoucher())
+        this.barcode.ticketNo = this.form.value.ticketNo
+        this.convertCanvasToBase64()
+        this.voucherService.createVoucherOnClient(this.createVoucherFromReservation())
     }
 
     public doVoucherTasksOnServer(): void {
@@ -190,8 +189,12 @@ export class ReservationFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public isConnectedUserAdmin(): boolean {
+    public userMustBeAdmin(): boolean {
         return this.isAdmin
+    }
+
+    public userMustBeAdminOrNewRecord(): boolean {
+        return this.isAdmin ? true : this.isNewRecord ? true : false
     }
 
     public onDelete(): void {
@@ -276,12 +279,27 @@ export class ReservationFormComponent {
         }, 500)
     }
 
-    private createBarcodeFromTicketNo(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            this.barcode.ticketNo = this.form.value.ticketNo
-            resolve(this.ticketNo)
-        })
-        return promise
+    private createVoucherFromReservation(): any {
+        const form = this.form.value
+        const voucher = {
+            'date': form.date,
+            'destinationDescription': form.destination.description,
+            'customerDescription': form.customer.description,
+            'pickupPointDescription': form.pickupPoint.description,
+            'pickupPointExactPoint': form.pickupPoint.exactPoint,
+            'pickupPointTime': form.pickupPoint.time,
+            'adults': form.adults,
+            'kids': form.kids,
+            'free': form.free,
+            'totalPersons': form.totalPersons,
+            'driverDescription': form.driver.description,
+            'ticketNo': form.ticketNo,
+            'remarks': form.remarks,
+            'validPassengerIcon': this.getValidPassengerIconForVoucher(this.validatePassengerCountForVoucher(form.totalPersons, form.passengers)),
+            'qr': form.ticketNo,
+            'passengers': this.mapVoucherPassengers()
+        }
+        return voucher
     }
 
     private doPostInitJobs() {
@@ -289,7 +307,6 @@ export class ReservationFormComponent {
             this.getConnectedUserRole().then(() => {
                 this.getLinkedCustomer().then(() => {
                     this.populateDropDowns()
-                    this.doBarcodeTasks()
                     this.updateReturnUrl()
                 })
             })
@@ -326,6 +343,10 @@ export class ReservationFormComponent {
             passengers: this.mapPassengers()
         }
         return reservation
+    }
+
+    private focusOnField(): void {
+        this.helperService.focusOnField('date')
     }
 
     private getConnectedUserId(): Promise<any> {
@@ -416,29 +437,6 @@ export class ReservationFormComponent {
         })
     }
 
-    private mapObjectToVoucher(): any {
-        const form = this.form.value
-        const voucher = {
-            'date': form.date,
-            'destinationDescription': form.destination.description,
-            'customerDescription': form.customer.description,
-            'pickupPointDescription': form.pickupPoint.description,
-            'pickupPointExactPoint': form.pickupPoint.exactPoint,
-            'pickupPointTime': form.pickupPoint.time,
-            'adults': form.adults,
-            'kids': form.kids,
-            'free': form.free,
-            'totalPersons': form.totalPersons,
-            'driverDescription': form.driver.description,
-            'ticketNo': form.ticketNo,
-            'remarks': form.remarks,
-            'validPassengerIcon': this.getValidPassengerIconForVoucher(this.validatePassengerCountForVoucher(form.totalPersons, form.passengers)),
-            'qr': form.ticketNo,
-            'passengers': this.mapVoucherPassengers()
-        }
-        return voucher
-    }
-
     private mapPassengers(): any {
         const form = this.form.value.passengers
         const passengers: PassengerWriteVM[] = []
@@ -470,10 +468,6 @@ export class ReservationFormComponent {
             passengers.push(passenger)
         })
         return passengers
-    }
-
-    public mustBeAdminAndNewRecord(): boolean {
-        return this.isNewRecord || (this.isAdmin && !this.isNewRecord)
     }
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
