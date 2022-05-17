@@ -30,8 +30,12 @@ namespace API.Infrastructure.Extensions {
         }
 
         public static Task<SimpleUser> GetConnectedUserId(IHttpContextAccessor httpContextAccessor) {
-            var response = new SimpleUser { UserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value };
-            return Task.Run(() => response);
+            return Task.Run(() => new SimpleUser { UserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value });
+        }
+
+        public static async Task<int> GetLinkedCustomerId(string userId, UserManager<UserExtended> userManager) {
+            var user = await userManager.FindByIdAsync(userId);
+            return (int)user.CustomerId;
         }
 
         public static Task<bool> IsUserAdmin(IHttpContextAccessor httpContextAccessor) {

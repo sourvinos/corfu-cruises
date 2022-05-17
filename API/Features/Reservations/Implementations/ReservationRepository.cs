@@ -9,11 +9,13 @@ using API.Features.Schedules;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Identity;
 using API.Infrastructure.Identity.Models;
 using API.Infrastructure.Implementations;
 using API.Infrastructure.Middleware;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -24,20 +26,22 @@ namespace API.Features.Reservations {
         private readonly IMapper mapper;
         private readonly TestingEnvironment settings;
         private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly UserManager<UserExtended> userManager;
 
-        public ReservationRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings, IHttpContextAccessor httpContextAccessor) : base(appDbContext, settings) {
+        public ReservationRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings, IHttpContextAccessor httpContextAccessor, UserManager<UserExtended> userManager) : base(appDbContext, settings) {
             this.mapper = mapper;
             this.settings = settings.Value;
             this.httpContextAccessor = httpContextAccessor;
+            this.userManager = userManager;
         }
 
         public async Task<ReservationGroupResource<ReservationListResource>> GetByDate(string date) {
             IEnumerable<Reservation> reservations;
-            var connectedUser = await Identity.GetConnectedUserId(httpContextAccessor);
             if (await Identity.IsUserAdmin(httpContextAccessor)) {
                 reservations = GetReservationsFromAllUsersByDate(date);
             } else {
-                reservations = GetReservationsForConnectedUserbyDate(date, connectedUser);
+                var connectedUser = await Identity.GetConnectedUserId(httpContextAccessor);
+                reservations = GetReservationsForLinkedCustomer(date, await Identity.GetLinkedCustomerId(connectedUser.UserId, userManager));
             }
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
@@ -351,7 +355,7 @@ namespace API.Features.Reservations {
                 .Where(x => x.Date == Convert.ToDateTime(date));
         }
 
-        private IEnumerable<Reservation> GetReservationsForConnectedUserbyDate(string date, SimpleUser connectedUser) {
+        private IEnumerable<Reservation> GetReservationsForLinkedCustomer(string date, int customerId) {
             return context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
@@ -359,7 +363,7 @@ namespace API.Features.Reservations {
                 .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
                 .Include(x => x.Passengers)
-                .Where(x => x.Date == Convert.ToDateTime(date) && x.UserId == connectedUser.UserId);
+                .Where(x => x.Date == Convert.ToDateTime(date) && x.CustomerId == customerId);
         }
 
         private IEnumerable<Reservation> GetReservationsFromAllUsersByRefNo(string refNo) {
@@ -417,6 +421,10 @@ namespace API.Features.Reservations {
         private async Task<Driver> GetDriver(int driverId) {
             return await context.Drivers
                 .FirstOrDefaultAsync(x => x.Id == driverId);
+        }
+
+        public Task<ReservationGroupResource<ReservationListResource>> GetByDate(string date, UserManager<SimpleUser> userManager) {
+            throw new NotImplementedException();
         }
 
     }
