@@ -54,10 +54,10 @@ namespace API.Features.Schedules {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PostScheduleAsync([FromBody] List<ScheduleWriteDto> records) {
+        public IActionResult PostSchedule([FromBody] List<ScheduleWriteDto> records) {
             var response = repo.IsValidOnNew(records);
             if (response == 200) {
-                await AttachUserIdToRecordOnNewAsync(records);
+                AttachUserIdToRecordOnNew(records);
                 repo.Create(mapper.Map<List<ScheduleWriteDto>, List<Schedule>>(records));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
@@ -70,10 +70,10 @@ namespace API.Features.Schedules {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PutScheduleAsync([FromBody] ScheduleWriteDto record) {
+        public IActionResult PutSchedule([FromBody] ScheduleWriteDto record) {
             var response = repo.IsValidOnUpdate(record);
             if (response == 200) {
-                repo.Update(mapper.Map<ScheduleWriteDto, Schedule>(await AttachUserIdToRecordOnUpdateAsync(record)));
+                repo.Update(mapper.Map<ScheduleWriteDto, Schedule>(AttachUserIdToRecordOnUpdateAsync(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -100,17 +100,17 @@ namespace API.Features.Schedules {
             });
         }
 
-        private async Task<List<ScheduleWriteDto>> AttachUserIdToRecordOnNewAsync(List<ScheduleWriteDto> records) {
+        private List<ScheduleWriteDto> AttachUserIdToRecordOnNew(List<ScheduleWriteDto> records) {
             foreach (var record in records) {
-                var userId = await Identity.GetConnectedUserId(httpContext);
-                record.UserId = userId.UserId;
+                var userId = Identity.GetConnectedUserId(httpContext);
+                record.UserId = userId;
             }
             return records;
         }
 
-        private async Task<ScheduleWriteDto> AttachUserIdToRecordOnUpdateAsync(ScheduleWriteDto record) {
-            var userId = await Identity.GetConnectedUserId(httpContext);
-            record.UserId = userId.UserId;
+        private ScheduleWriteDto AttachUserIdToRecordOnUpdateAsync(ScheduleWriteDto record) {
+            var userId = Identity.GetConnectedUserId(httpContext);
+            record.UserId = userId;
             return record;
         }
 

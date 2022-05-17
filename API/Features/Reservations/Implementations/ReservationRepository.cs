@@ -40,8 +40,8 @@ namespace API.Features.Reservations {
             if (await Identity.IsUserAdmin(httpContextAccessor)) {
                 reservations = GetReservationsFromAllUsersByDate(date);
             } else {
-                var connectedUser = await Identity.GetConnectedUserId(httpContextAccessor);
-                reservations = GetReservationsForLinkedCustomer(date, await Identity.GetLinkedCustomerId(connectedUser.UserId, userManager));
+                var userId = Identity.GetConnectedUserId(httpContextAccessor);
+                reservations = GetReservationsForLinkedCustomer(date, await Identity.GetLinkedCustomerId(userId, userManager));
             }
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
@@ -64,11 +64,11 @@ namespace API.Features.Reservations {
 
         public async Task<ReservationGroupResource<ReservationListResource>> GetByRefNo(string refNo) {
             IEnumerable<Reservation> reservations;
-            var connectedUser = await Identity.GetConnectedUserId(httpContextAccessor);
+            var userId = Identity.GetConnectedUserId(httpContextAccessor);
             if (await Identity.IsUserAdmin(httpContextAccessor)) {
                 reservations = GetReservationsFromAllUsersByRefNo(refNo);
             } else {
-                reservations = GetReservationsForConnectedUserbyRefNo(refNo, connectedUser);
+                reservations = GetReservationsForConnectedUserbyRefNo(refNo, userId);
             }
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
@@ -376,14 +376,14 @@ namespace API.Features.Reservations {
                 .Where(x => x.RefNo == refNo);
         }
 
-        private IEnumerable<Reservation> GetReservationsForConnectedUserbyRefNo(string refNo, SimpleUser connectedUser) {
+        private IEnumerable<Reservation> GetReservationsForConnectedUserbyRefNo(string refNo, string userId) {
             return context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
-                .Where(x => x.RefNo == refNo && x.UserId == connectedUser.UserId);
+                .Where(x => x.RefNo == refNo && x.UserId == userId);
         }
 
         private async Task<IEnumerable<Reservation>> GetReservationsByDateAndDriver(string date, int driverId) {
@@ -421,10 +421,6 @@ namespace API.Features.Reservations {
         private async Task<Driver> GetDriver(int driverId) {
             return await context.Drivers
                 .FirstOrDefaultAsync(x => x.Id == driverId);
-        }
-
-        public Task<ReservationGroupResource<ReservationListResource>> GetByDate(string date, UserManager<SimpleUser> userManager) {
-            throw new NotImplementedException();
         }
 
     }

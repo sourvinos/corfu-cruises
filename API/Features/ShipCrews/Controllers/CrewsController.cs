@@ -48,10 +48,10 @@ namespace API.Features.ShipCrews {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PostAsync([FromBody] CrewWriteResource record) {
+        public IActionResult Post([FromBody] CrewWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Create(mapper.Map<CrewWriteResource, Crew>(await AttachUserIdToRecordAsync(AttachOccupantIdToRecord(record))));
+                repo.Create(mapper.Map<CrewWriteResource, Crew>(AttachUserIdToRecord(AttachOccupantIdToRecord(record))));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
@@ -63,10 +63,10 @@ namespace API.Features.ShipCrews {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PutAsync([FromBody] CrewWriteResource record) {
+        public IActionResult Put([FromBody] CrewWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Update(mapper.Map<CrewWriteResource, Crew>(await AttachUserIdToRecordAsync(AttachOccupantIdToRecord(record))));
+                repo.Update(mapper.Map<CrewWriteResource, Crew>(AttachUserIdToRecord(AttachOccupantIdToRecord(record))));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -84,9 +84,9 @@ namespace API.Features.ShipCrews {
             });
         }
 
-        private async Task<CrewWriteResource> AttachUserIdToRecordAsync(CrewWriteResource record) {
-            var userId = await Identity.GetConnectedUserId(httpContext);
-            record.UserId = userId.UserId;
+        private CrewWriteResource AttachUserIdToRecord(CrewWriteResource record) {
+            var userId = Identity.GetConnectedUserId(httpContext);
+            record.UserId = userId;
             return record;
         }
 

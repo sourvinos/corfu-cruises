@@ -29,8 +29,8 @@ namespace API.Infrastructure.Extensions {
                 .AddDefaultTokenProviders();
         }
 
-        public static Task<SimpleUser> GetConnectedUserId(IHttpContextAccessor httpContextAccessor) {
-            return Task.Run(() => new SimpleUser { UserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value });
+        public static string GetConnectedUserId(IHttpContextAccessor httpContextAccessor) {
+            return httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString();
         }
 
         public static async Task<int> GetLinkedCustomerId(string userId, UserManager<UserExtended> userManager) {

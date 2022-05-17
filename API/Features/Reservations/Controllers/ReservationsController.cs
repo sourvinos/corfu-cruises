@@ -69,7 +69,7 @@ namespace API.Features.Reservations {
             if (response == 200) {
                 await AssignRefNoToNewReservationAsync(record);
                 await AttachPortIdToRecordAsync(record);
-                await AttachUserIdToRecordAsync(record);
+                AttachUserIdToRecord(record);
                 reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                 return StatusCode(200, new {
                     message = record.RefNo
@@ -83,7 +83,7 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
-            await AttachUserIdToRecordAsync(record);
+            AttachUserIdToRecord(record);
             var response = await reservationRepo.IsValid(record, scheduleRepo);
             record = reservationRepo.UpdateForeignKeysWithNull(record);
             if (response == 200) {
@@ -121,9 +121,9 @@ namespace API.Features.Reservations {
             });
         }
 
-        private async Task<ReservationWriteResource> AttachUserIdToRecordAsync(ReservationWriteResource record) {
-            var userId = await Identity.GetConnectedUserId(httpContext);
-            record.UserId = userId.UserId;
+        private ReservationWriteResource AttachUserIdToRecord(ReservationWriteResource record) {
+            var userId = Identity.GetConnectedUserId(httpContext);
+            record.UserId = userId;
             return record;
         }
 

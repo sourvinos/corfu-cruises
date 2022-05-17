@@ -47,10 +47,10 @@ namespace API.Features.CoachRoutes {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PostRouteAsync([FromBody] CoachRouteWriteDto record) {
+        public IActionResult PostRoute([FromBody] CoachRouteWriteDto record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Create(mapper.Map<CoachRouteWriteDto, CoachRoute>(await AttachUserIdToRecordAsync(record)));
+                repo.Create(mapper.Map<CoachRouteWriteDto, CoachRoute>(AttachUserIdToRecord(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
@@ -62,10 +62,10 @@ namespace API.Features.CoachRoutes {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PutRouteAsync([FromBody] CoachRouteWriteDto record) {
+        public IActionResult PutRoute([FromBody] CoachRouteWriteDto record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Update(mapper.Map<CoachRouteWriteDto, CoachRoute>(await AttachUserIdToRecordAsync(record)));
+                repo.Update(mapper.Map<CoachRouteWriteDto, CoachRoute>(AttachUserIdToRecord(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -83,9 +83,9 @@ namespace API.Features.CoachRoutes {
             });
         }
 
-        private async Task<CoachRouteWriteDto> AttachUserIdToRecordAsync(CoachRouteWriteDto record) {
-            var userId = await Identity.GetConnectedUserId(httpContext);
-            record.UserId = userId.UserId;
+        private CoachRouteWriteDto AttachUserIdToRecord(CoachRouteWriteDto record) {
+            var userId = Identity.GetConnectedUserId(httpContext);
+            record.UserId = userId;
             return record;
         }
 
