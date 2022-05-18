@@ -48,8 +48,8 @@ namespace API.Features.Ports {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PostPort([FromBody] PortWriteResource record) {
-            repo.Create(mapper.Map<PortWriteResource, Port>(AttachUserIdToRecord(record)));
+        public async Task<IActionResult> PostPort([FromBody] PortWriteResource record) {
+            repo.Create(mapper.Map<PortWriteResource, Port>(await AttachUserIdToRecord(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordCreated()
             });
@@ -58,8 +58,8 @@ namespace API.Features.Ports {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PutPort([FromBody] PortWriteResource record) {
-            repo.Update(mapper.Map<PortWriteResource, Port>(AttachUserIdToRecord(record)));
+        public async Task<IActionResult> PutPort([FromBody] PortWriteResource record) {
+            repo.Update(mapper.Map<PortWriteResource, Port>(await AttachUserIdToRecord(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordUpdated()
             });
@@ -74,9 +74,9 @@ namespace API.Features.Ports {
             });
         }
 
-        private PortWriteResource AttachUserIdToRecord(PortWriteResource record) {
-            var userId = Identity.GetConnectedUserId(httpContext);
-            record.UserId = userId;
+        private async Task<PortWriteResource> AttachUserIdToRecord(PortWriteResource record) {
+            var user = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = user.UserId;
             return record;
         }
 

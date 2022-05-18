@@ -67,7 +67,6 @@ export class PickupPointListComponent {
     //#region public methods
 
     public export(): void {
-        console.log(this.selectedRecords)
         this.pickupPointPdfService.createReport(this.selectedRecords)
     }
 

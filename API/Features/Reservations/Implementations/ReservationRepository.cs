@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using API.Features.Drivers;
 using API.Features.PickupPoints;
@@ -36,12 +35,13 @@ namespace API.Features.Reservations {
         }
 
         public async Task<ReservationGroupResource<ReservationListResource>> GetByDate(string date) {
-            IEnumerable<Reservation> reservations;
+            IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
             if (await Identity.IsUserAdmin(httpContextAccessor)) {
                 reservations = GetReservationsFromAllUsersByDate(date);
             } else {
-                var userId = Identity.GetConnectedUserId(httpContextAccessor);
-                reservations = GetReservationsForLinkedCustomer(date, await Identity.GetLinkedCustomerId(userId, userManager));
+                var simpleUser = await Identity.GetConnectedUserId(httpContextAccessor);
+                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
+                reservations = GetReservationsForLinkedCustomer(date, (int)connectedUserDetails.CustomerId);
             }
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
@@ -64,11 +64,13 @@ namespace API.Features.Reservations {
 
         public async Task<ReservationGroupResource<ReservationListResource>> GetByRefNo(string refNo) {
             IEnumerable<Reservation> reservations;
-            var userId = Identity.GetConnectedUserId(httpContextAccessor);
+            var connectedUser = await Identity.GetConnectedUserId(httpContextAccessor);
             if (await Identity.IsUserAdmin(httpContextAccessor)) {
                 reservations = GetReservationsFromAllUsersByRefNo(refNo);
             } else {
-                reservations = GetReservationsForConnectedUserbyRefNo(refNo, userId);
+                var simpleUser = await Identity.GetConnectedUserId(httpContextAccessor);
+                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
+                reservations = GetReservationsFromLinkedCustomerbyRefNo(refNo, (int)connectedUserDetails.CustomerId);
             }
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
@@ -100,8 +102,10 @@ namespace API.Features.Reservations {
                 .FirstAsync(x => x.ReservationId.ToString() == id);
         }
 
-        public Task<bool> DoesUserOwnRecord(string userId) {
-            return Task.Run(() => httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value == userId);
+        public async Task<bool> DoesUserOwnRecord(int customerId) {
+            var user = await Identity.GetConnectedUserId(httpContextAccessor);
+            var userDetails = Identity.GetConnectedUserDetails(userManager, user.UserId);
+            return userDetails.CustomerId == customerId;
         }
 
         public bool IsKeyUnique(ReservationWriteResource record) {
@@ -356,7 +360,7 @@ namespace API.Features.Reservations {
         }
 
         private IEnumerable<Reservation> GetReservationsForLinkedCustomer(string date, int customerId) {
-            return context.Reservations
+            var reservations = context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
@@ -364,6 +368,7 @@ namespace API.Features.Reservations {
                 .Include(x => x.Ship)
                 .Include(x => x.Passengers)
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.CustomerId == customerId);
+            return reservations;
         }
 
         private IEnumerable<Reservation> GetReservationsFromAllUsersByRefNo(string refNo) {
@@ -376,14 +381,14 @@ namespace API.Features.Reservations {
                 .Where(x => x.RefNo == refNo);
         }
 
-        private IEnumerable<Reservation> GetReservationsForConnectedUserbyRefNo(string refNo, string userId) {
+        private IEnumerable<Reservation> GetReservationsFromLinkedCustomerbyRefNo(string refNo, int customerId) {
             return context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
-                .Where(x => x.RefNo == refNo && x.UserId == userId);
+                .Where(x => x.RefNo == refNo && x.CustomerId == customerId);
         }
 
         private async Task<IEnumerable<Reservation>> GetReservationsByDateAndDriver(string date, int driverId) {

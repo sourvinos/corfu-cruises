@@ -20,7 +20,7 @@ namespace API.Integration.Tests.Reservations {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/reservations/byDate/2022-03-10";
+        private readonly string _url = "/reservations/byDate/2022-05-13";
 
         #endregion
 
@@ -48,18 +48,18 @@ namespace API.Integration.Tests.Reservations {
 
         [Fact]
         public async Task Active_Simple_Users_Can_List_Only_Owned() {
-            var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "matoula", "820343d9e828");
+            var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "simpleuser", "1234567890");
             var records = JsonSerializer.Deserialize<ReservationGroupResource<ReservationListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(3, records.Reservations.Count());
-            Assert.Equal(9, records.Persons);
+            Assert.Equal(6, records.Reservations.Count());
+            Assert.Equal(13, records.Persons);
         }
 
         [Fact]
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<ReservationGroupResource<ReservationListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(6, records.Reservations.Count());
-            Assert.Equal(22, records.Persons);
+            Assert.Equal(61, records.Reservations.Count());
+            Assert.Equal(170, records.Persons);
         }
 
     }

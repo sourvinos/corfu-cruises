@@ -2,11 +2,9 @@
 using API.Features.Schedules;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
-using API.Infrastructure.Identity;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Features.Reservations {
@@ -52,7 +50,7 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetById(string id) {
             var record = await reservationRepo.GetById(id);
-            if (await Identity.IsUserAdmin(httpContext) || await reservationRepo.DoesUserOwnRecord(record.UserId)) {
+            if (await Identity.IsUserAdmin(httpContext) || await reservationRepo.DoesUserOwnRecord(record.Customer.Id)) {
                 return StatusCode(200, record);
             } else {
                 return StatusCode(490, new {
@@ -69,7 +67,7 @@ namespace API.Features.Reservations {
             if (response == 200) {
                 await AssignRefNoToNewReservationAsync(record);
                 await AttachPortIdToRecordAsync(record);
-                AttachUserIdToRecord(record);
+                await AttachUserIdToRecord(record);
                 reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                 return StatusCode(200, new {
                     message = record.RefNo
@@ -83,7 +81,7 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
-            AttachUserIdToRecord(record);
+            await AttachUserIdToRecord(record);
             var response = await reservationRepo.IsValid(record, scheduleRepo);
             record = reservationRepo.UpdateForeignKeysWithNull(record);
             if (response == 200) {
@@ -121,9 +119,9 @@ namespace API.Features.Reservations {
             });
         }
 
-        private ReservationWriteResource AttachUserIdToRecord(ReservationWriteResource record) {
-            var userId = Identity.GetConnectedUserId(httpContext);
-            record.UserId = userId;
+        private async Task<ReservationWriteResource> AttachUserIdToRecord(ReservationWriteResource record) {
+            var user = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = user.UserId;
             return record;
         }
 

@@ -16,10 +16,11 @@ namespace API.Integration.Tests.Reservations {
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
-        private readonly string _adminUrl = "/reservations/byRefNo/bl52";
+        private readonly string _adminUrl = "/reservations/byRefNo/PA685";
         private readonly string _baseUrl;
-        private readonly string _notFoundUrl = "/reservations/byRefNo/xxxxxxxx";
-        private readonly string _simpleUserUrl = "/reservations/byRefNo/pa37";
+        private readonly string _notFoundUrl = "/reservations/byRefNo/PA685";
+        private readonly string _simpleUserUrl_not_owned = "/reservations/byRefNo/PA685";
+        private readonly string _simpleUserUrl_owned = "/reservations/byRefNo/PA616";
 
         #endregion
 
@@ -52,12 +53,12 @@ namespace API.Integration.Tests.Reservations {
 
         [Fact]
         public async Task Active_Simple_Users_Get_Empty_List_If_Not_Owned() {
-            await RecordFound.Action(_httpClient, _baseUrl, _adminUrl, "matoula", "820343d9e828");
+            await RecordFound.Action(_httpClient, _baseUrl, _simpleUserUrl_not_owned, "simpleuser", "1234567890");
         }
 
         [Fact]
         public async Task Active_Simple_Users_Can_Get_By_RefNo_If_Owned() {
-            await RecordFound.Action(_httpClient, _baseUrl, _simpleUserUrl, "matoula", "820343d9e828");
+            await RecordFound.Action(_httpClient, _baseUrl, _simpleUserUrl_owned, "simpleuser", "1234567890");
         }
 
         [Fact]

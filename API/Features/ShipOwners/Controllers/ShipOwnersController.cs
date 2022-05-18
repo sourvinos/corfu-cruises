@@ -48,8 +48,8 @@ namespace API.Features.ShipOwners {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PostShipOwner([FromBody] ShipOwnerWriteResource record) {
-            repo.Create(mapper.Map<ShipOwnerWriteResource, ShipOwner>(AttachUserIdToRecord(record)));
+        public async Task<IActionResult> PostShipOwnerAsync([FromBody] ShipOwnerWriteResource record) {
+            repo.Create(mapper.Map<ShipOwnerWriteResource, ShipOwner>(await AttachUserIdToRecord(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordCreated()
             });
@@ -58,8 +58,8 @@ namespace API.Features.ShipOwners {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PutShipOwner([FromBody] ShipOwnerWriteResource record) {
-            repo.Update(mapper.Map<ShipOwnerWriteResource, ShipOwner>(AttachUserIdToRecord(record)));
+        public async Task<IActionResult> PutShipOwnerAsync([FromBody] ShipOwnerWriteResource record) {
+            repo.Update(mapper.Map<ShipOwnerWriteResource, ShipOwner>(await AttachUserIdToRecord(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordUpdated()
             });
@@ -74,9 +74,9 @@ namespace API.Features.ShipOwners {
             });
         }
 
-        private ShipOwnerWriteResource AttachUserIdToRecord(ShipOwnerWriteResource record) {
-            var userId = Identity.GetConnectedUserId(httpContext);
-            record.UserId = userId;
+        private async Task<ShipOwnerWriteResource> AttachUserIdToRecord(ShipOwnerWriteResource record) {
+            var user = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = user.UserId;
             return record;
         }
 

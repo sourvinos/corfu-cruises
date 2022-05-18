@@ -47,8 +47,8 @@ namespace API.Features.Drivers {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PostDriver([FromBody] DriverWriteResource record) {
-            repo.Create(mapper.Map<DriverWriteResource, Driver>(AttachUserIdToRecord(record)));
+        public async Task<IActionResult> PostDriverAsync([FromBody] DriverWriteResource record) {
+            repo.Create(mapper.Map<DriverWriteResource, Driver>(await AttachUserIdToRecord(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordCreated()
             });
@@ -57,8 +57,8 @@ namespace API.Features.Drivers {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PutDriver([FromBody] DriverWriteResource record) {
-            repo.Update(mapper.Map<DriverWriteResource, Driver>(AttachUserIdToRecord(record)));
+        public async Task<IActionResult> PutDriverAsync([FromBody] DriverWriteResource record) {
+            repo.Update(mapper.Map<DriverWriteResource, Driver>(await AttachUserIdToRecord(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordUpdated()
             });
@@ -73,9 +73,9 @@ namespace API.Features.Drivers {
             });
         }
 
-        private DriverWriteResource AttachUserIdToRecord(DriverWriteResource record) {
-            var userId = Identity.GetConnectedUserId(httpContext);
-            record.UserId = userId;
+        private async Task<DriverWriteResource> AttachUserIdToRecord(DriverWriteResource record) {
+            var user = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = user.UserId;
             return record;
         }
 

@@ -47,10 +47,10 @@ namespace API.Features.Registrars {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult Post([FromBody] RegistrarWriteResource record) {
+        public async Task<IActionResult> Post([FromBody] RegistrarWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Create(mapper.Map<RegistrarWriteResource, Registrar>(AttachUserIdToRecord(record)));
+                repo.Create(mapper.Map<RegistrarWriteResource, Registrar>(await AttachUserIdToRecord(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
@@ -62,10 +62,10 @@ namespace API.Features.Registrars {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult Put([FromBody] RegistrarWriteResource record) {
+        public async Task<IActionResult> Put([FromBody] RegistrarWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Update(mapper.Map<RegistrarWriteResource, Registrar>(AttachUserIdToRecord(record)));
+                repo.Update(mapper.Map<RegistrarWriteResource, Registrar>(await AttachUserIdToRecord(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -83,9 +83,9 @@ namespace API.Features.Registrars {
             });
         }
 
-        private RegistrarWriteResource AttachUserIdToRecord(RegistrarWriteResource record) {
-            var userId = Identity.GetConnectedUserId(httpContext);
-            record.UserId = userId;
+        private async Task<RegistrarWriteResource> AttachUserIdToRecord(RegistrarWriteResource record) {
+            var user = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = user.UserId;
             return record;
         }
 

@@ -48,8 +48,8 @@ namespace API.Features.Customers {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PostCustomer([FromBody] CustomerWriteResource record) {
-            repo.Create(mapper.Map<CustomerWriteResource, Customer>(AttachUserIdToRecord(record)));
+        public async Task<IActionResult> PostCustomerAsync([FromBody] CustomerWriteResource record) {
+            repo.Create(mapper.Map<CustomerWriteResource, Customer>(await AttachUserIdToRecord(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordCreated()
             });
@@ -58,8 +58,8 @@ namespace API.Features.Customers {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PutCustomer([FromBody] CustomerWriteResource record) {
-            repo.Update(mapper.Map<CustomerWriteResource, Customer>(AttachUserIdToRecord(record)));
+        public async Task<IActionResult> PutCustomerAsync([FromBody] CustomerWriteResource record) {
+            repo.Update(mapper.Map<CustomerWriteResource, Customer>(await AttachUserIdToRecord(record)));
             return StatusCode(200, new {
                 response = ApiMessages.RecordUpdated()
             });
@@ -74,9 +74,9 @@ namespace API.Features.Customers {
             });
         }
 
-        private CustomerWriteResource AttachUserIdToRecord(CustomerWriteResource record) {
-            var userId = Identity.GetConnectedUserId(httpContext);
-            record.UserId = userId;
+        private async Task<CustomerWriteResource> AttachUserIdToRecord(CustomerWriteResource record) {
+            var user = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = user.UserId;
             return record;
         }
 

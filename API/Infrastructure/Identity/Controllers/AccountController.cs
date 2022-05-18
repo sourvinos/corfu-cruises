@@ -127,10 +127,10 @@ namespace API.Infrastructure.Identity {
 
         [Authorize]
         [HttpGet("[action]")]
-        public string GetConnectedUserId() {
+        public Task<SimpleUser> GetConnectedUserId() {
             return Extensions.Identity.GetConnectedUserId(httpContextAccessor);
         }
-
+        
     }
 
 }

@@ -11,7 +11,7 @@ namespace API.Features.Reservations {
         Task<DriverResult<Reservation>> GetByDateAndDriver(string date, int driverId);
         Task<ReservationReadResource> GetById(string id);
         Task<Reservation> GetByIdToDelete(string id);
-        Task<bool> DoesUserOwnRecord(string userId);
+        Task<bool> DoesUserOwnRecord(int customerId);
         bool IsKeyUnique(ReservationWriteResource record);
         Task<bool> Update(string id, Reservation updatedRecord);
         Task<int> GetPortIdFromPickupPointId(ReservationWriteResource record);

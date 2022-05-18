@@ -15,7 +15,6 @@ export class PickupPointPdfService {
     //#region public methods
 
     public createReport(pickupPoints: PickupPoint[]): void {
-        console.log(pickupPoints)
         const document = {
             defaultStyle: { fontSize: 7 },
             content: [

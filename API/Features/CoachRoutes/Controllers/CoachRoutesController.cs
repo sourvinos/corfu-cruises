@@ -47,10 +47,10 @@ namespace API.Features.CoachRoutes {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PostRoute([FromBody] CoachRouteWriteDto record) {
+        public async Task<IActionResult> PostRoute([FromBody] CoachRouteWriteDto record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Create(mapper.Map<CoachRouteWriteDto, CoachRoute>(AttachUserIdToRecord(record)));
+                repo.Create(mapper.Map<CoachRouteWriteDto, CoachRoute>(await AttachUserIdToRecord(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
@@ -62,10 +62,10 @@ namespace API.Features.CoachRoutes {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PutRoute([FromBody] CoachRouteWriteDto record) {
+        public async Task<IActionResult> PutRouteAsync([FromBody] CoachRouteWriteDto record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Update(mapper.Map<CoachRouteWriteDto, CoachRoute>(AttachUserIdToRecord(record)));
+                repo.Update(mapper.Map<CoachRouteWriteDto, CoachRoute>(await AttachUserIdToRecord(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -83,9 +83,9 @@ namespace API.Features.CoachRoutes {
             });
         }
 
-        private CoachRouteWriteDto AttachUserIdToRecord(CoachRouteWriteDto record) {
-            var userId = Identity.GetConnectedUserId(httpContext);
-            record.UserId = userId;
+        private async Task<CoachRouteWriteDto> AttachUserIdToRecord(CoachRouteWriteDto record) {
+            var user = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = user.UserId;
             return record;
         }
 

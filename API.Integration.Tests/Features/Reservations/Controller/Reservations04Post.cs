@@ -61,14 +61,14 @@ namespace API.Integration.Tests.Reservations {
         [Theory]
         [ClassData(typeof(ActiveSimpleUsersCanNotCreateWhenInvalid))]
         public async Task Active_Simple_Users_Can_Not_Create_When_Invalid(TestReservation record) {
-            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", record);
+            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]
         [ClassData(typeof(ActiveSimpleUsersCanCreateWhenValid))]
         public async Task Active_Simple_Users_Can_Create_When_Valid(TestReservation record) {
-            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", record);
+            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
         [Theory]

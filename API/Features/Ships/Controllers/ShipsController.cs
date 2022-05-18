@@ -48,10 +48,10 @@ namespace API.Features.Ships {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PostShip([FromBody] ShipWriteResource record) {
+        public async Task<IActionResult> PostShipAsync([FromBody] ShipWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Create(mapper.Map<ShipWriteResource, Ship>(AttachUserIdToRecord(record)));
+                repo.Create(mapper.Map<ShipWriteResource, Ship>(await AttachUserIdToRecord(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
@@ -63,10 +63,10 @@ namespace API.Features.Ships {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public IActionResult PutShip([FromBody] ShipWriteResource record) {
+        public async Task<IActionResult> PutShipAsync([FromBody] ShipWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Update(mapper.Map<ShipWriteResource, Ship>(AttachUserIdToRecord(record)));
+                repo.Update(mapper.Map<ShipWriteResource, Ship>(await AttachUserIdToRecord(record)));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -84,9 +84,9 @@ namespace API.Features.Ships {
             });
         }
 
-        private ShipWriteResource AttachUserIdToRecord(ShipWriteResource record) {
-            var userId = Identity.GetConnectedUserId(httpContext);
-            record.UserId = userId;
+        private async Task<ShipWriteResource> AttachUserIdToRecord(ShipWriteResource record) {
+            var user = await Identity.GetConnectedUserId(httpContext);
+            record.UserId = user.UserId;
             return record;
         }
 

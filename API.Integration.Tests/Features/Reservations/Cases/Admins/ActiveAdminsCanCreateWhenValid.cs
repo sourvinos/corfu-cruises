@@ -19,14 +19,12 @@ namespace API.Integration.Tests.Reservations {
                 new TestReservation {
                     CustomerId = 1,
                     DestinationId = 1,
-                    PickupPointId = 3,
-                    Date = "2022-03-01",
+                    PickupPointId = 642,
+                    Date = "2022-03-04",
                     TicketNo = "xxxx",
-                    Adults = 155,
+                    Adults = 2,
                     Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 123, OccupantId = 2, GenderId = 1 },
-                        new TestPassenger { Lastname = "ALONA", Firstname = "CUTLER", Birthdate = "1964-04-28", NationalityId = 127, OccupantId = 2, GenderId = 2 },
-                        new TestPassenger { Lastname = "LYA", Firstname = "TROWBRIDGE", Birthdate = "2015-01-21", NationalityId = 211, OccupantId = 2, GenderId = 1 },
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 123, OccupantId = 2, GenderId = 1 }
                     }
                 }
             };
@@ -37,8 +35,8 @@ namespace API.Integration.Tests.Reservations {
                 new TestReservation {
                     CustomerId = 1,
                     DestinationId = 1,
-                    PickupPointId = 3,
-                    Date = "2025-03-01",
+                    PickupPointId = 642,
+                    Date = "2022-12-04",
                     TicketNo = "xxxx",
                     Adults = 2,
                     Kids = 1,
@@ -58,8 +56,8 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 1,
                     DestinationId = 1,
                     DriverId = null,
-                    PickupPointId = 3,
-                    Date = "2022-03-01",
+                    PickupPointId = 642,
+                    Date = "2022-03-04",
                     TicketNo = "xxxx",
                     Adults = 3,
                 }
@@ -72,9 +70,9 @@ namespace API.Integration.Tests.Reservations {
                     StatusCode = 200,
                     CustomerId = 1,
                     DestinationId = 1,
-                    PickupPointId = 3,
+                    PickupPointId = 642,
                     ShipId = null,
-                    Date = "2022-03-01",
+                    Date = "2022-03-04",
                     TicketNo = "xxxx",
                     Adults = 3,
                 }

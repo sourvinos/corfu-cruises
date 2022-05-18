@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
@@ -6,6 +7,7 @@ using API.Infrastructure.Identity;
 using API.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace API.Infrastructure.Extensions {
@@ -29,13 +31,12 @@ namespace API.Infrastructure.Extensions {
                 .AddDefaultTokenProviders();
         }
 
-        public static string GetConnectedUserId(IHttpContextAccessor httpContextAccessor) {
-            return httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString();
+        public static Task<SimpleUser> GetConnectedUserId(IHttpContextAccessor httpContextAccessor) {
+            return Task.Run(() => new SimpleUser { UserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value });
         }
 
-        public static async Task<int> GetLinkedCustomerId(string userId, UserManager<UserExtended> userManager) {
-            var user = await userManager.FindByIdAsync(userId);
-            return (int)user.CustomerId;
+        public static UserExtended GetConnectedUserDetails(UserManager<UserExtended> userManager, string userId) {
+            return userManager.Users.SingleOrDefault(x => x.Id == userId); ;
         }
 
         public static Task<bool> IsUserAdmin(IHttpContextAccessor httpContextAccessor) {
