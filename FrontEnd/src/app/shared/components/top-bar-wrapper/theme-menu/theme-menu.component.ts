@@ -2,6 +2,7 @@ import { Component, HostListener, Inject } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 // Custom
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 
 @Component({
     selector: 'theme-menu',
@@ -18,7 +19,9 @@ export class ThemeMenuComponent {
 
     //#endregion
 
-    constructor(@Inject(DOCUMENT) private document: Document, private messageLabelService: MessageLabelService) { }
+    constructor(@Inject(DOCUMENT) private document: Document, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService) { }
+
+    //#region listeners
 
     @HostListener('mouseenter') onMouseEnter(): void {
         document.querySelectorAll('.sub-menu').forEach((item) => {
@@ -26,15 +29,22 @@ export class ThemeMenuComponent {
         })
     }
 
+    //#endregion
+
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.applyTheme()
+        this.applyTheme(this.localStorageService.getItem('theme') ? this.localStorageService.getItem('theme') : 'blue')
     }
 
     //#endregion
 
     //#region public methods
+
+    public changeTheme(theme: string): void {
+        this.applyTheme(theme)
+        this.updateLocalStorage()
+    }
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
@@ -54,8 +64,8 @@ export class ThemeMenuComponent {
 
     //#region private methods
 
-    private applyTheme(): void {
-        this.setSelectedTheme()
+    private applyTheme(theme: string): void {
+        this.setSelectedTheme(theme)
         this.attachStylesheetToHead()
     }
 
@@ -67,8 +77,12 @@ export class ThemeMenuComponent {
         headElement.appendChild(newLinkElement)
     }
 
-    private setSelectedTheme(): void {
-        this.defaultTheme = 'blue'
+    private setSelectedTheme(theme: string): void {
+        this.defaultTheme = theme
+    }
+
+    private updateLocalStorage(): void {
+        this.localStorageService.saveItem('theme', this.defaultTheme)
     }
 
     //#endregion

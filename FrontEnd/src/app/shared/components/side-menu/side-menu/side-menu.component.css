@@ -53,7 +53,6 @@ img {
 
 .menu-item:hover, #logout:hover {
     background-color: var(--color-d);
-    color: var(--color-a) !important;
     cursor: pointer;
     font-weight: 600;
     opacity: 1;

@@ -23,8 +23,8 @@ button {
     padding: 0.25rem 1rem !important;
 }
 
-button:hover span {
-    font-weight: bold;
+.sub-menu button:hover {
+    background-color: var(--color-d);
 }
 
 span {
@@ -49,7 +49,7 @@ li:hover .sub-menu {
 
 .sub-menu button {
     animation: enter 0.1s ease forwards;
-    background-color: var(--color-b);
+    background-color: var(--color-a);
     opacity: 0;
     padding: 1rem !important;
     transform-origin: bottom;
