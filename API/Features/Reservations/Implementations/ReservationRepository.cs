@@ -9,7 +9,6 @@ using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Identity;
-using API.Infrastructure.Identity.Models;
 using API.Infrastructure.Implementations;
 using API.Infrastructure.Middleware;
 using AutoMapper;

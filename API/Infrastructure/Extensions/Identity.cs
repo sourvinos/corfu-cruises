@@ -7,7 +7,6 @@ using API.Infrastructure.Identity;
 using API.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace API.Infrastructure.Extensions {

@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment'
 export class EmbarkationDisplayService extends DataService {
 
     constructor(httpClient: HttpClient) {
-        super(httpClient, environment.apiUrl + '/embarkationDisplay')
+        super(httpClient, environment.apiUrl + '/embarkation')
     }
 
     get(date: string, destinationId: number, portId: number, shipId: number): Observable<EmbarkationReservationVM> {

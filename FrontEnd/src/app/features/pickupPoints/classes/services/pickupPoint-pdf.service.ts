@@ -18,7 +18,7 @@ export class PickupPointPdfService {
         const document = {
             defaultStyle: { fontSize: 7 },
             content: [
-                this.table(pickupPoints, ['isActive', 'routeAbbreviation', 'description', 'exactPoint', 'time'], ['boolean', null, null, null, null])
+                this.buildTable(pickupPoints, ['isActive', 'routeAbbreviation', 'description', 'exactPoint', 'time'], ['boolean', null, null, null, null])
             ]
         }
         pdfMake.createPdf(document).open()
@@ -64,7 +64,7 @@ export class PickupPointPdfService {
         return dataRow
     }
 
-    private table(data: PickupPoint[], columns: any[], columnTypes: any[]): any {
+    private buildTable(data: PickupPoint[], columns: any[], columnTypes: any[]): any {
         return {
             table: {
                 headerRows: 1,

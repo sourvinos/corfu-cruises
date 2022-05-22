@@ -1,6 +1,6 @@
-namespace API.Features.Embarkation.Display {
+namespace API.Features.Embarkation {
 
-    public class EmbarkationDisplayPassengerVM {
+    public class EmbarkationPassengerVM {
 
         public int Id { get; set; }
         public string Lastname { get; set; }

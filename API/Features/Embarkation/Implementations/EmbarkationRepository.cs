@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Features.Embarkation.Display;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
@@ -12,17 +11,17 @@ using Microsoft.Extensions.Options;
 
 namespace API.Features.Embarkation {
 
-    public class EmbarkationDisplayRepository : Repository<Reservation>, IEmbarkationDisplayRepository {
+    public class EmbarkationRepository : Repository<Reservation>, IEmbarkationRepository {
 
         private readonly IMapper mapper;
         private readonly TestingEnvironment settings;
 
-        public EmbarkationDisplayRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
+        public EmbarkationRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
             this.mapper = mapper;
             this.settings = settings.Value;
         }
 
-        public async Task<EmbarkationDisplayGroupVM<EmbarkationDisplayVM>> Get(string date, int destinationId, int portId, string shipId) {
+        public async Task<EmbarkationGroupVM<EmbarkationVM>> Get(string date, int destinationId, int portId, string shipId) {
             var reservations = await context.Set<Reservation>()
                 .Include(x => x.Customer)
                 .Include(x => x.Driver)
@@ -46,7 +45,7 @@ namespace API.Features.Embarkation {
                 PassengerCountWithNoNames = totalPersons - passengers,
                 Embarkation = reservations.ToList()
             };
-            return mapper.Map<EmbarkationDisplayGroupDto<Reservation>, EmbarkationDisplayGroupVM<EmbarkationDisplayVM>>(mainResult);
+            return mapper.Map<EmbarkationDisplayGroupDto<Reservation>, EmbarkationGroupVM<EmbarkationVM>>(mainResult);
         }
 
         public async Task<int> GetShipIdFromDescription(string description) {

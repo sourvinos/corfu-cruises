@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using API.Features.Reservations;
 
-namespace API.Features.Embarkation.Display {
+namespace API.Features.Embarkation {
 
-    public class EmbarkationDisplayGroupDto<T> {
+    public class EmbarkationGroupVM<T> {
 
         public int PassengerCount { get; set; }
         public int PassengerCountWithNames { get; set; }
@@ -11,7 +10,7 @@ namespace API.Features.Embarkation.Display {
         public int RemainingCount { get; set; }
         public int PassengerCountWithNoNames { get; set; }
 
-        public List<Reservation> Embarkation { get; set; }
+        public IEnumerable<EmbarkationVM> Embarkation { get; set; }
 
     }
 

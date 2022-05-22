@@ -70,7 +70,7 @@ export class PickupPointListComponent {
         this.pickupPointPdfService.createReport(this.selectedRecords)
     }
 
-    public filterRecords(event) {
+    public filterRecords(event: { filteredValue: any[] }) {
         this.selectedRecords = event.filteredValue
     }
 

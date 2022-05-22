@@ -3,16 +3,16 @@ using API.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Features.Embarkation.Display {
+namespace API.Features.Embarkation {
 
     [Route("api/[controller]")]
-    public class EmbarkationDisplayController : ControllerBase {
+    public class EmbarkationController : ControllerBase {
 
         #region variables
 
-        private readonly IEmbarkationDisplayRepository repo;
+        private readonly IEmbarkationRepository repo;
 
-        public EmbarkationDisplayController(IEmbarkationDisplayRepository repo) {
+        public EmbarkationController(IEmbarkationRepository repo) {
             this.repo = repo;
         }
 
@@ -20,7 +20,7 @@ namespace API.Features.Embarkation.Display {
 
         [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/shipId/{shipId}")]
         [Authorize(Roles = "admin")]
-        public async Task<EmbarkationDisplayGroupVM<EmbarkationDisplayVM>> Get(string date, int destinationId, int portId, string shipId) {
+        public async Task<EmbarkationGroupVM<EmbarkationVM>> Get(string date, int destinationId, int portId, string shipId) {
             return await repo.Get(date, destinationId, portId, shipId);
         }
 

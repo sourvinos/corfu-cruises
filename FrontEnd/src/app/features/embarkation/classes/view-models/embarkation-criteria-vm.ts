@@ -3,9 +3,9 @@ export class EmbarkationCriteriaVM {
     constructor(
 
         public date: string,
-        public destination: string,
-        public port: string,
-        public ship: string
+        public destination: { id: number, description: string },
+        public port: { id: number, description: string },
+        public ship: { id: number, description: string },
 
     ) { }
 

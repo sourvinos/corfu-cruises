@@ -4,8 +4,6 @@ using API.Features.Customers;
 using API.Features.Destinations;
 using API.Features.Drivers;
 using API.Features.Embarkation;
-using API.Features.Embarkation.Display;
-using API.Features.Embarkation.Printer;
 using API.Features.Genders;
 using API.Features.Invoicing.Display;
 using API.Features.Invoicing.Printer;
@@ -36,8 +34,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IDestinationRepository, DestinationRepository>();
             services.AddTransient<IDriverRepository, DriverRepository>();
-            services.AddTransient<IEmbarkationDisplayRepository, EmbarkationDisplayRepository>();
-            services.AddTransient<IEmbarkationPrinterRepository, EmbarkationPrinterRepository>();
+            services.AddTransient<IEmbarkationRepository, EmbarkationRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
             services.AddTransient<IInvoicingDisplayRepository, InvoicingDisplayRepository>();

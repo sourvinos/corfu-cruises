@@ -8,7 +8,7 @@ import { ButtonClickService } from 'src/app/shared/services/button-click.service
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { EmbarkationCriteriaVM } from '../../classes/view-models/embarkation-criteria-vm'
 import { EmbarkationDisplayService } from '../../classes/services/embarkation-display.service'
-import { EmbarkationPrinterService } from '../../classes/services/embarkation-printer.service'
+import { EmbarkationPDFService } from '../../classes/services/embarkation-pdf.service'
 import { EmbarkationVM } from '../../classes/view-models/embarkation-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
@@ -51,10 +51,10 @@ export class EmbarkationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private embarkationDisplayService: EmbarkationDisplayService, private embarkationPrinterService: EmbarkationPrinterService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private embarkationDisplayService: EmbarkationDisplayService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
-                this.url = navigation.url
+                this.init(navigation)
                 this.loadRecords()
                 this.updatePassengerStatusPills()
                 this.populateCriteriaFromStoredVariables()
@@ -92,6 +92,10 @@ export class EmbarkationListComponent {
         this.filterByTicketNo(event)
     }
 
+    public filterRecords(event: { filteredValue: any[] }) {
+        this.filteredRecords.embarkation = event.filteredValue
+    }
+
     public formatDate(): string {
         return this.formatDateToLocale(this.embarkationCriteria.date, true)
     }
@@ -122,28 +126,8 @@ export class EmbarkationListComponent {
     }
 
     public doReportTasks(): void {
-        this.ships.forEach(ship => {
-            this.embarkationDisplayService.getShipIdFromDesciption(ship.value).subscribe(shipId => {
-                const criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
-                const criteriaObject = {
-                    date: criteria.date,
-                    destinationId: criteria.destination.id,
-                    portId: criteria.port.id,
-                    shipId: shipId
-                }
-                this.embarkationPrinterService.createReport(criteriaObject).pipe(indicate(this.isLoading)).subscribe((response) => {
-                    this.embarkationPrinterService.openReport(response.response + '.pdf').subscribe({
-                        next: (pdf) => {
-                            const blob = new Blob([pdf], { type: 'application/pdf' })
-                            const fileURL = URL.createObjectURL(blob)
-                            window.open(fileURL, '_blank')
-                        },
-                        error: (errorFromInterceptor) => {
-                            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-                        }
-                    })
-                })
-            })
+        this.getDistinctShipsFromFilteredRecords().forEach(ship => {
+            this.embarkationPDFService.createPDF(ship.value, this.filteredRecords.embarkation.filter(x => x.ship == ship.value))
         })
     }
 
@@ -167,7 +151,6 @@ export class EmbarkationListComponent {
     }
 
     public onShowScanner(): void {
-        console.log('Showing scanner window')
         this.searchTerm = ''
         this.scannerEnabled = true
         setTimeout(() => {
@@ -253,8 +236,21 @@ export class EmbarkationListComponent {
         })
     }
 
+    private getDistinctShipsFromFilteredRecords(): any[] {
+        const ships = []
+        const x = [... new Set(this.filteredRecords.embarkation.map(x => x.ship))]
+        x.forEach(element => {
+            ships.push({ label: element, value: element })
+        })
+        return ships
+    }
+
     private getLocale(): void {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+    }
+
+    private init(navigation: NavigationEnd): void {
+        this.url = navigation.url
     }
 
     private loadRecords(): void {
@@ -262,7 +258,6 @@ export class EmbarkationListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
-            console.log(this.filteredRecords)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
