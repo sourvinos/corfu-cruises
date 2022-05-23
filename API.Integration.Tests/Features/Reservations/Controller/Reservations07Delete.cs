@@ -8,7 +8,7 @@ using Xunit;
 namespace API.Integration.Tests.Reservations {
 
     [Collection("Sequence")]
-    public class Reservations06Delete : IClassFixture<AppSettingsFixture> {
+    public class Reservations07Delete : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -19,11 +19,11 @@ namespace API.Integration.Tests.Reservations {
         private readonly string _baseUrl;
         private readonly string _notFoundUrl = "/reservations/xxxxxxxx-5310-4f58-be17-xxxxxxxxxxxx";
         private readonly string _url = "/reservations/";
-        private readonly string _deleteUrl = "/reservations/0316855d-d5da-44a6-b09c-89a8d014a963";
+        private readonly string _deleteUrl = "/reservations/08da32ab-8ef2-42e4-85c5-6760c02b81c1";
 
         #endregion
 
-        public Reservations06Delete(AppSettingsFixture appsettings) {
+        public Reservations07Delete(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
@@ -52,7 +52,7 @@ namespace API.Integration.Tests.Reservations {
 
         [Fact]
         public async Task Active_Simple_Users_Can_Not_Delete() {
-            await Forbidden.Action(_httpClient, _baseUrl, _deleteUrl, _actionVerb, "matoula", "820343d9e828", null);
+            await Forbidden.Action(_httpClient, _baseUrl, _deleteUrl, _actionVerb, "simpleuser", "1234567890", null);
         }
 
         [Theory]

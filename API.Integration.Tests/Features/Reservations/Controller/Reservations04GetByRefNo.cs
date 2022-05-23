@@ -8,7 +8,7 @@ using Xunit;
 namespace API.Integration.Tests.Reservations {
 
     [Collection("Sequence")]
-    public class Reservations03GetByRefNo : IClassFixture<AppSettingsFixture> {
+    public class Reservations04GetByRefNo : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -24,7 +24,7 @@ namespace API.Integration.Tests.Reservations {
 
         #endregion
 
-        public Reservations03GetByRefNo(AppSettingsFixture appsettings) {
+        public Reservations04GetByRefNo(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;

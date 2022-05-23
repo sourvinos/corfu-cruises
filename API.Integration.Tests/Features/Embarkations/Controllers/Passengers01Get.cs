@@ -2,7 +2,6 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.Embarkation;
-using API.Features.Embarkation.Display;
 using API.Integration.Tests.Cases;
 using API.Integration.Tests.Infrastructure;
 using API.Integration.Tests.Responses;
@@ -54,10 +53,10 @@ namespace API.Integration.Tests.Embarkations {
         [Fact]
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
-            var records = JsonSerializer.Deserialize<EmbarkationDisplayGroupVM<EmbarkationDisplayVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            // Assert.Equal(38, records.TotalPersons);
-            // Assert.Equal(9, records.Boarded);
-            // Assert.Equal(12, records.Remaining);
+            var records = JsonSerializer.Deserialize<EmbarkationGroupVM<EmbarkationVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            Assert.Equal(38, records.PassengerCount);
+            Assert.Equal(9, records.BoardedCount);
+            Assert.Equal(12, records.RemainingCount);
         }
 
     }

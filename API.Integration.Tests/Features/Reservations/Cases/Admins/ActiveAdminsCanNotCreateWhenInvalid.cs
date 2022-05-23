@@ -9,30 +9,30 @@ namespace API.Integration.Tests.Reservations {
 
         public IEnumerator<object[]> GetEnumerator() {
             yield return Nothing_For_This_Day();
-            // yield return Nothing_For_This_Day_And_Destination();
-            // yield return Nothing_For_This_Day_And_Destination_And_Port();
-            // yield return Overbooking_From_Primary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed();
-            // yield return Overbooking_From_Secondary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed();
-            // yield return Overbooking_From_Primary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed();
-            // yield return Overbooking_From_Secondary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed();
-            // yield return Duplicate_Records_Are_Not_Allowed();
-            // yield return Passenger_Count_Is_Not_Correct();
-            // yield return Customer_Must_Be_Active();
-            // yield return Customer_Must_Exist();
-            // yield return Destination_Must_Be_Active();
-            // yield return Destination_Must_Exist();
-            // yield return Driver_Must_Be_Active();
-            // yield return Driver_Must_Exist();
-            // yield return Gender_Must_Be_Active();
-            // yield return Gender_Must_Exist();
-            // yield return Nationality_Must_Be_Active();
-            // yield return Nationality_Must_Exist();
-            // yield return Occupant_Must_Be_Active();
-            // yield return Occupant_Must_Exist();
-            // yield return PickupPoint_Must_Be_Active();
-            // yield return PickupPoint_Must_Exist();
-            // yield return Ship_Must_Be_Active();
-            // yield return Ship_Must_Exist();
+            yield return Nothing_For_This_Day_And_Destination();
+            yield return Nothing_For_This_Day_And_Destination_And_Port();
+            yield return Overbooking_From_Primary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed();
+            yield return Overbooking_From_Secondary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed();
+            yield return Overbooking_From_Primary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed();
+            yield return Overbooking_From_Secondary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed();
+            yield return Duplicate_Records_Are_Not_Allowed();
+            yield return Passenger_Count_Is_Not_Correct();
+            yield return Customer_Must_Be_Active();
+            yield return Customer_Must_Exist();
+            yield return Destination_Must_Be_Active();
+            yield return Destination_Must_Exist();
+            yield return Driver_Must_Be_Active();
+            yield return Driver_Must_Exist();
+            yield return Gender_Must_Be_Active();
+            yield return Gender_Must_Exist();
+            yield return Nationality_Must_Be_Active();
+            yield return Nationality_Must_Exist();
+            yield return Occupant_Must_Be_Active();
+            yield return Occupant_Must_Exist();
+            yield return PickupPoint_Must_Be_Active();
+            yield return PickupPoint_Must_Exist();
+            yield return Ship_Must_Be_Active();
+            yield return Ship_Must_Exist();
         }
 
         private static object[] Nothing_For_This_Day() {

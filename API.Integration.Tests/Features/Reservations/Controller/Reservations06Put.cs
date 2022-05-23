@@ -7,8 +7,10 @@ using Xunit;
 
 namespace API.Integration.Tests.Reservations {
 
+    // Last successful run: 2022-05-23
+
     [Collection("Sequence")]
-    public class Reservations05Put : IClassFixture<AppSettingsFixture> {
+    public class Reservations06Put : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -22,20 +24,20 @@ namespace API.Integration.Tests.Reservations {
 
         #endregion
 
-        public Reservations05Put(AppSettingsFixture appsettings) {
+        public Reservations06Put(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
         }
 
         [Theory]
-        [ClassData(typeof(AdminsCanUpdateOwnedByAnyone))]
+        [ClassData(typeof(AdminsCanUpdate))]
         public async Task Unauthorized_Not_Logged_In(TestReservation record) {
             await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "", "", record);
         }
 
         [Theory]
-        [ClassData(typeof(AdminsCanUpdateOwnedByAnyone))]
+        [ClassData(typeof(AdminsCanUpdate))]
         public async Task Unauthorized_Invalid_Credentials(TestReservation record) {
             await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "user-does-not-exist", "not-a-valid-password", record);
         }
@@ -47,13 +49,14 @@ namespace API.Integration.Tests.Reservations {
         }
 
         [Theory]
-        [ClassData(typeof(AdminsCanUpdateOwnedByAnyone))]
+        [ClassData(typeof(AdminsCanUpdate))]
         public async Task Active_Admins_Can_Update_When_Valid(TestReservation record) {
             await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
         }
 
         [Theory]
         [ClassData(typeof(ActiveAdminsCanNotUpdateWhenInvalid))]
+        // Last successful run: 2022-05-23
         public async Task Active_Admins_Can_Not_Update_When_Invalid(TestReservation record) {
             var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
