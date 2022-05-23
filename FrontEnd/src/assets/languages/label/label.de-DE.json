@@ -1331,6 +1331,10 @@
                 "description": "Personen"
             },
             {
+                "id": "headerPlusMinus",
+                "description": "+/-"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Name"
             },
@@ -1404,7 +1408,7 @@
             },
             {
                 "id": "embarkAllPassengers",
-                "description": ""
+                "description": "EMBARK ALLES"
             }
         ]
     },

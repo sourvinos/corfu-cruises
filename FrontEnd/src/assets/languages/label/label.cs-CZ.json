@@ -1331,6 +1331,10 @@
                 "description": "Osob"
             },
             {
+                "id": "headerPlusMinus",
+                "description": "+/-"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Příjmení"
             },
@@ -1404,7 +1408,7 @@
             },
             {
                 "id": "embarkAllPassengers",
-                "description": ""
+                "description": "EMBARK VŠE"
             }
         ]
     },

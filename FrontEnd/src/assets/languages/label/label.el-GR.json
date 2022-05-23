@@ -1331,6 +1331,10 @@
                 "description": "Άτομα"
             },
             {
+                "id": "headerPlusMinus",
+                "description": "+/-"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Επώνυμο"
             },

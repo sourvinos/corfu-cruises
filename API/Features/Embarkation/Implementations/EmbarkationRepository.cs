@@ -36,7 +36,7 @@ namespace API.Features.Embarkation {
             int totalPersons = reservations.Sum(x => x.TotalPersons);
             int passengers = reservations.Sum(c => c.Passengers.Count);
             int boarded = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);
-            int remaining = passengers - boarded;
+            int remaining = totalPersons - boarded;
             var mainResult = new EmbarkationDisplayGroupDto<Reservation> {
                 PassengerCount = totalPersons,
                 PassengerCountWithNames = passengers,

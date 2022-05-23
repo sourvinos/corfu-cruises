@@ -3,19 +3,19 @@
     <div *ngIf="records.passengerCount > 0" id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
-            <div>
+            <div class="pill">
                 <div class="description">{{ formatDate() }}</div>
                 <div class="label">{{ getLabel('criteriaDate') }}</div>
             </div>
-            <div>
+            <div class="pill">
                 <div class="description">{{ replaceWildcardWithText(embarkationCriteria.destination) }}</div>
                 <div class="label">{{ getLabel('criteriaDestination') }}</div>
             </div>
-            <div>
+            <div class="pill">
                 <div class="description">{{ replaceWildcardWithText(embarkationCriteria.port) }}</div>
                 <div class="label">{{ getLabel('criteriaPort') }}</div>
             </div>
-            <div>
+            <div class="pill">
                 <div class="description">{{ replaceWildcardWithText(embarkationCriteria.ship) }}</div>
                 <div class="label">{{ getLabel('criteriaShip') }}</div>
             </div>
@@ -24,7 +24,7 @@
 
     <ng-container *ngIf="records.passengerCount > 0">
         <div id="table-wrapper">
-            <p-table (onFilter)="filterRecords($event)" #table [autoLayout]="false" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.embarkation" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table (onFilter)="filterRecords($event)" #table [autoLayout]="false" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="filteredRecords.embarkation" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 6%; max-width: 6%;"></th>
@@ -34,7 +34,8 @@
                         <th pSortableColumn="customer">{{ getLabel('headerCustomer') }}<p-sortIcon field="customer"></p-sortIcon></th>
                         <th pSortableColumn="driver">{{ getLabel('headerDriver') }}<p-sortIcon field="driver"></p-sortIcon></th>
                         <th pSortableColumn="ship">{{ getLabel('headerShip') }}<p-sortIcon field="ship"></p-sortIcon></th>
-                        <th style="min-width: 7%; max-width: 7%;" pSortableColumn="totalPersons" >{{ getLabel('headerPersons') }}<p-sortIcon field="totalPersons"></p-sortIcon></th>
+                        <th style="min-width: 7%; max-width: 7%;">{{ getLabel('headerPersons') }}</th>
+                        <th style="min-width: 7%; max-width: 7%;">{{ getLabel('headerPlusMinus') }}</th>
                     </tr>
                     <tr>
                         <th style="min-width: 6%; max-width: 6%;"></th>
@@ -75,6 +76,7 @@
                             </p-columnFilter>
                         </th>
                         <th style="min-width: 7%; max-width: 7%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'totalPersons', 'equals')" [value]="$any(table).filters['totalPersons']?.value"></th>
+                        <th style="min-width: 7%; max-width: 7%;"></th>                        
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-reservation let-expanded="expanded">
@@ -87,6 +89,7 @@
                         <td>{{ reservation.driver }}</td>
                         <td>{{ reservation.ship }}</td>
                         <td style="min-width: 7%; max-width: 7%; justify-content: center;">{{ reservation.totalPersons }}</td>
+                        <td style="min-width: 7%; max-width: 7%; justify-content: center;">{{ showEmoji(reservation.totalPersons, reservation.passengers.length) }}</td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="rowexpansion" let-reservation>
@@ -120,7 +123,7 @@
                                         </tr>
                                     </ng-template>
                                     <ng-template pTemplate="footer">
-                                        <button class="primary" id="embarkAllPassengers"mat-flat-button (click)="embarkAllPassengers(reservation.passengerIds)">{{ getLabel("embarkAllPassengers") }}</button>
+                                        <button class="primary embark-all-psssengers" mat-flat-button (click)="embarkAllPassengers(reservation.passengerIds)">{{ getLabel("embarkAllPassengers") }}</button>
                                     </ng-template>
                                 </p-table>
                             </div>
@@ -134,13 +137,9 @@
 
     <div *ngIf="records.passengerCount > 0" id="footer">
         <div @slideFromLeft id="filters">
-            <div>
+            <div class="clickable" id="total" (click)="doFilterTasks('total', null)">
                 <div class="description">{{ records.passengerCount }}</div>
                 <div class="label">{{ getLabel('filterAll') }}</div>
-            </div>
-            <div class="clickable" id="with-names" (click)="doFilterTasks('with-names')">
-                <div class="description">{{ records.passengerCountWithNames }}</div>
-                <div class="label">{{ getLabel('filterWithDetails') }}</div>
             </div>
             <div class="clickable" id="boarded" (click)="doFilterTasks('boarded', getLabel('pending').toUpperCase())">
                 <div class="description">{{ records.boardedCount }}</div>
@@ -170,5 +169,5 @@
 </div>
 
 <div id="video">
-    <!-- <zxing-scanner [enable]="scannerEnabled" (scanSuccess)="doPostScanTasks($event)" (hasDevices)="hasDevices()" (camerasFound)="camerasFound()"></zxing-scanner> <button mat-flat-button class="secondary" id="scan-close-button" (click)="onHideScanner()">{{ getLabel('scan-close-button') }}</button> -->
+    <zxing-scanner [enable]="scannerEnabled" (scanSuccess)="doPostScanTasks($event)" (hasDevices)="hasDevices()" (camerasFound)="camerasFound()"></zxing-scanner> <button mat-flat-button class="secondary" id="scan-close-button" (click)="onHideScanner()">{{ getLabel('scan-close-button') }}</button>
 </div>

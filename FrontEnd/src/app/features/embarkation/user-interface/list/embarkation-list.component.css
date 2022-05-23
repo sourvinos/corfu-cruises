@@ -18,8 +18,8 @@
     z-index: 1;
 }
 
-#embarkAllPassengers {
-    margin-top: 1rem;
+.embark-all-psssengers {
+    margin: 1rem 1rem 0 0 !important;
 }
 
 .remarks:hover {
@@ -34,6 +34,10 @@
     cursor: pointer;
 }
 
+.pill {
+    min-width: 7rem;
+}
+
 .pending {
     background-color: var(--color-embarkation-pending);
 }
@@ -41,4 +45,3 @@
 .complete {
     background-color: var(--color-embarkation-complete);
 }
-

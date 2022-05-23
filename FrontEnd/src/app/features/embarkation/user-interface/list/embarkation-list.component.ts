@@ -170,6 +170,18 @@ export class EmbarkationListComponent {
         }
     }
 
+    public showEmoji(totalPersons: number, passengerCount: number): string {
+        if (totalPersons > passengerCount) {
+            return this.emojiService.getEmoji('warning')
+        }
+        if (totalPersons == passengerCount ) {
+            return this.emojiService.getEmoji('ok')
+        }
+        if (totalPersons < passengerCount) {
+            return this.emojiService.getEmoji('error')
+        }
+    }
+
     //#endregion
 
     //#region private methods
@@ -258,6 +270,7 @@ export class EmbarkationListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
+            console.log(this.filteredRecords)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
