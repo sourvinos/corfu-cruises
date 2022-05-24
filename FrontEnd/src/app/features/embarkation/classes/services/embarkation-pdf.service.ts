@@ -6,10 +6,10 @@ import 'src/assets/fonts/NotoSansMonoCondensedRegular.js'
 import 'src/assets/fonts/PFHandbookProThin.js'
 // Custom
 import { EmbarkationReservationVM } from '../view-models/embarkation-reservation-vm'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 import { environment } from 'src/environments/environment'
-import { HelperService } from 'src/app/shared/services/helper.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -82,7 +82,6 @@ export class EmbarkationPDFService {
         pdf.setFont('PFHandbookProThin')
         pdf.setTextColor(0, 0, 0)
         pdf.setFontSize(9)
-        console.log(isLastPage)
         pdf.text('Page: ' + pageCount.toString() + this.isLastPage(isLastPage), 202, 290, { align: 'right' })
     }
 
@@ -128,7 +127,8 @@ export class EmbarkationPDFService {
             this.getCustomer(index).padEnd(10, ' ') + ' ◽ ' +
             this.getDriver(index).padEnd(10, ' ') + ' ◽ ' +
             this.records[index].totalPersons.toString().padStart(3, ' ') + ' ◽ ' +
-            this.getRemarks(index)
+            this.getRemarks(index).padEnd(48, ' ') +
+            this.getPlusMinusIcon(index)
         return line
     }
 
@@ -138,6 +138,10 @@ export class EmbarkationPDFService {
 
     private getDriver(index: number): string {
         return this.records[index].driver == undefined ? '(EMPTY)' : this.records[index].driver.substring(0, 10)
+    }
+
+    private getPlusMinusIcon(index: number): string {
+        return this.records[index].totalPersons > this.records[index].passengers.length ? '!' : ''
     }
 
     private getRemarks(index: number): string {

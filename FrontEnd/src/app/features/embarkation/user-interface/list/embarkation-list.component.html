@@ -35,7 +35,7 @@
                         <th pSortableColumn="driver">{{ getLabel('headerDriver') }}<p-sortIcon field="driver"></p-sortIcon></th>
                         <th pSortableColumn="ship">{{ getLabel('headerShip') }}<p-sortIcon field="ship"></p-sortIcon></th>
                         <th style="min-width: 7%; max-width: 7%;">{{ getLabel('headerPersons') }}</th>
-                        <th style="min-width: 7%; max-width: 7%;">{{ getLabel('headerPlusMinus') }}</th>
+                        <th style="min-width: 5%; max-width: 5%;">{{ getLabel('headerPlusMinus') }}</th>
                     </tr>
                     <tr>
                         <th style="min-width: 6%; max-width: 6%;"></th>
@@ -76,7 +76,7 @@
                             </p-columnFilter>
                         </th>
                         <th style="min-width: 7%; max-width: 7%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'totalPersons', 'equals')" [value]="$any(table).filters['totalPersons']?.value"></th>
-                        <th style="min-width: 7%; max-width: 7%;"></th>                        
+                        <th style="min-width: 5%; max-width: 5%;"></th>                        
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-reservation let-expanded="expanded">
@@ -89,7 +89,7 @@
                         <td>{{ reservation.driver }}</td>
                         <td>{{ reservation.ship }}</td>
                         <td style="min-width: 7%; max-width: 7%; justify-content: center;">{{ reservation.totalPersons }}</td>
-                        <td style="min-width: 7%; max-width: 7%; justify-content: center;">{{ showEmoji(reservation.totalPersons, reservation.passengers.length) }}</td>
+                        <td style="min-width: 5%; max-width: 5%; justify-content: center;">{{ showEmoji(reservation.totalPersons, reservation.passengers.length) }}</td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="rowexpansion" let-reservation>

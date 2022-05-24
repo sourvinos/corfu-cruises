@@ -174,7 +174,7 @@ export class EmbarkationListComponent {
         if (totalPersons > passengerCount) {
             return this.emojiService.getEmoji('warning')
         }
-        if (totalPersons == passengerCount ) {
+        if (totalPersons == passengerCount) {
             return this.emojiService.getEmoji('ok')
         }
         if (totalPersons < passengerCount) {
@@ -208,7 +208,7 @@ export class EmbarkationListComponent {
     }
 
     private filterByEmbarkationStatus(variable?: string): void {
-        this.filteredRecords.embarkation = variable ? this.records.embarkation.filter(x => x.isCheckedIn != variable) : this.records.embarkation
+        this.filteredRecords.embarkation = variable ? this.records.embarkation.filter(x => x.isCheckedIn != variable) : this.filteredRecords.embarkation = this.records.embarkation
     }
 
     private filterByTicketNo(query: string): void {
@@ -270,7 +270,6 @@ export class EmbarkationListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
-            console.log(this.filteredRecords)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
