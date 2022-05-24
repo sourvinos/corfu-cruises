@@ -1409,6 +1409,10 @@
             {
                 "id": "embarkAllPassengers",
                 "description": "EMBARK VŠE"
+            },
+            {
+                "id": "no-passengers",
+                "description": "Nenašli jsme žádné cestující!"
             }
         ]
     },

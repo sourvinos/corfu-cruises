@@ -19,7 +19,7 @@
 }
 
 .embark-all-psssengers {
-    margin: 1rem 1rem 0 0 !important;
+    margin-top: 1rem;
 }
 
 .remarks:hover {
@@ -40,4 +40,24 @@
 
 .complete {
     background-color: var(--color-embarkation-complete);
+}
+
+.no-passengers {
+    background-color: var(--color-passenger-table);
+    border-radius: 10px;
+    font-family: var(--font-family-handbook);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0.3rem 10rem;
+    padding: 1rem;
+    text-align: center;
+    width: 100%;
+}
+
+.passengers-row {
+    background-color: var(--color-passenger-table);
+    border-radius: 10px;
+    margin: 0 10rem;
+    padding: 1rem;
+    width: 100%;
 }

@@ -7,8 +7,8 @@ import { Title } from '@angular/platform-browser'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { EmbarkationCriteriaVM } from '../../classes/view-models/embarkation-criteria-vm'
-import { EmbarkationDisplayService } from '../../classes/services/embarkation-display.service'
 import { EmbarkationPDFService } from '../../classes/services/embarkation-pdf.service'
+import { EmbarkationService } from '../../classes/services/embarkation-display.service'
 import { EmbarkationVM } from '../../classes/view-models/embarkation-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
@@ -51,7 +51,7 @@ export class EmbarkationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private embarkationDisplayService: EmbarkationDisplayService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private embarkationDisplayService: EmbarkationService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.init(navigation)
@@ -170,7 +170,7 @@ export class EmbarkationListComponent {
         }
     }
 
-    public showEmoji(totalPersons: number, passengerCount: number): string {
+    public calculateDifference(totalPersons: number, passengerCount: number): string {
         if (totalPersons > passengerCount) {
             return this.emojiService.getEmoji('warning')
         }
@@ -180,6 +180,10 @@ export class EmbarkationListComponent {
         if (totalPersons < passengerCount) {
             return this.emojiService.getEmoji('error')
         }
+    }
+
+    public showNoPassengersEmoji(): string {
+        return this.emojiService.getEmoji('no-passengers')
     }
 
     //#endregion
@@ -208,7 +212,7 @@ export class EmbarkationListComponent {
     }
 
     private filterByEmbarkationStatus(variable?: string): void {
-        this.filteredRecords.embarkation = variable ? this.records.embarkation.filter(x => x.isCheckedIn != variable) : this.filteredRecords.embarkation = this.records.embarkation
+        this.records.embarkation = variable ? this.records.embarkation.filter(x => x.isCheckedIn != variable) : this.records.embarkation = this.records.embarkation
     }
 
     private filterByTicketNo(query: string): void {

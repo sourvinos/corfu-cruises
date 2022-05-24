@@ -1409,6 +1409,10 @@
             {
                 "id": "embarkAllPassengers",
                 "description": "ΕΠΙΒΙΒΑΣΗ ΟΛΩΝ"
+            },
+            {
+                "id": "no-passengers",
+                "description": "Δεν βρήκαμε κανέναν επιβάτη!"
             }
         ]
     },

@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
-export class EmbarkationDisplayService extends DataService {
+export class EmbarkationService extends DataService {
 
     constructor(httpClient: HttpClient) {
         super(httpClient, environment.apiUrl + '/embarkation')
@@ -31,11 +31,6 @@ export class EmbarkationDisplayService extends DataService {
             }
         })
         return this.http.patch(this.url + '/embarkAllPassengers?', null, { params: params })
-    }
-
-
-    getShipIdFromDesciption(description: string): Observable<number> {
-        return this.http.get<any>(this.url + '/getShipIdFromDescription/' + description)
     }
 
 }

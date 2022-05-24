@@ -4,13 +4,13 @@ import { Observable, of } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 // Custom
 import { EmbarkationListResolved } from './embarkation-list-resolved'
-import { EmbarkationDisplayService } from '../services/embarkation-display.service'
+import { EmbarkationService } from '../services/embarkation-display.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class EmbarkationListResolver {
 
-    constructor(private embarkationDisplayService: EmbarkationDisplayService) { }
+    constructor(private embarkationDisplayService: EmbarkationService) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<EmbarkationListResolved> {
         return this.embarkationDisplayService.get(route.params.date, route.params.destinationId, route.params.portId, route.params.shipId)

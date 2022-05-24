@@ -1409,6 +1409,10 @@
             {
                 "id": "embarkAllPassengers",
                 "description": "EMBARK ALL"
+            },
+            {
+                "id": "no-passengers",
+                "description": "We didn't find any passengers!"
             }
         ]
     },
