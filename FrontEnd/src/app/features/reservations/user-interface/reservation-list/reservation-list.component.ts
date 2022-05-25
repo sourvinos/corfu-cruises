@@ -98,7 +98,7 @@ export class ReservationListComponent {
 
     //#region public methods
 
-    public onAssignToDriver(): void {
+    public assignToDriver(): void {
         if (this.isAnyRowSelected()) {
             this.saveSelectedIds()
             const dialogRef = this.dialog.open(ReservationToDriverComponent, {

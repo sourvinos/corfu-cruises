@@ -23,11 +23,14 @@ export class DriverReportService {
     //#region public methods
 
     public doReportTasks(driverIds: number[]): void {
+        driverIds.sort(function (a, b) { return a - b })
         driverIds.forEach(driverId => {
-            this.reservationService.getByDateAndDriver(this.localStorageService.getItem('date'), driverId).subscribe(response => {
-                this.mapObjectFromAPI(response)
-                this.createReport()
-            })
+            setTimeout(() => {
+                this.reservationService.getByDateAndDriver(this.localStorageService.getItem('date'), driverId).subscribe(response => {
+                    this.mapObjectFromAPI(response)
+                    this.createReport()
+                })
+            }, 5000)
         })
     }
 
