@@ -1,4 +1,3 @@
-using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using FluentValidation;
 

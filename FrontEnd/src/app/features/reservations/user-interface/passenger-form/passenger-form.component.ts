@@ -43,6 +43,9 @@ export class PassengerFormComponent {
     public input: InputTabStopDirective
     public parentUrl = null
 
+    public minBirthDate = new Date(new Date().getFullYear() - 99, 0, 1)
+    public maxBirthDate = new Date()
+
     public isAutoCompleteDisabled = true
     public genderAutocomplete: Observable<GenderAutocompleteVM[]>
     public nationalityAutocomplete: Observable<NationalityAutocompleteVM[]>

@@ -11,6 +11,7 @@ namespace API.Features.Embarkation {
                 .ForMember(x => x.Customer, x => x.MapFrom(x => x.Customer.Description))
                 .ForMember(x => x.Driver, x => x.MapFrom(x => x.Driver.Description))
                 .ForMember(x => x.Ship, x => x.MapFrom(x => x.Ship.Description))
+                .ForMember(x => x.TotalPersons, x => x.MapFrom(x => x.TotalPersons))
                 .ForMember(x => x.PassengerIds, x => x.MapFrom(x => x.Passengers.Select(x => x.Id)))
                 .ForMember(x => x.Passengers, x => x.MapFrom(x => x.Passengers.Select(passenger => new EmbarkationPassengerVM {
                     Id = passenger.Id,

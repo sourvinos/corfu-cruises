@@ -29,10 +29,11 @@
                 <mat-error *ngIf="!gender.hasError('required') && gender.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
             </mat-form-field>
             <mat-form-field style="width: 30% !important;">
-                <input type="text" matInput [placeholder]="getLabel('birthdate')" formControlName="birthdate" data-tabindex="5" id="birthdate" [inputTabStop]="input" [matDatepicker]="picker">
+                <input [inputTabStop]="input" [matDatepicker]="picker" [max]="maxBirthDate" [min]="minBirthDate" [placeholder]="getLabel('birthdate')" data-tabindex="5" formControlName="birthdate" id="birthdate" matInput type="text">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <mat-error *ngIf="birthdate.hasError('required')">{{ getHint("required") }}</mat-error>
+                <mat-error *ngIf="!birthdate.hasError('required')">{{ getHint("invalid") }}</mat-error>
             </mat-form-field>
         </div>
         <div class="group-field">

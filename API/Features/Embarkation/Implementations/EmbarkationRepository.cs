@@ -34,18 +34,15 @@ namespace API.Features.Embarkation {
                     && ((shipId == "all") || x.ShipId == int.Parse(shipId)))
                 .ToListAsync();
             int totalPersons = reservations.Sum(x => x.TotalPersons);
-            int passengers = reservations.Sum(c => c.Passengers.Count);
-            int boarded = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);
-            int remaining = totalPersons - boarded;
-            var mainResult = new EmbarkationDisplayGroupDto<Reservation> {
-                PassengerCount = totalPersons,
-                PassengerCountWithNames = passengers,
-                BoardedCount = boarded,
-                RemainingCount = remaining,
-                PassengerCountWithNoNames = totalPersons - passengers,
-                Embarkation = reservations.ToList()
+            int boardedPassengers = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);
+            int remainingCount = totalPersons - boardedPassengers;
+            var mainResult = new EmbarkationGroupDto<Reservation> {
+                TotalPersons = totalPersons,
+                BoardedPassengers = boardedPassengers,
+                RemainingCount = remainingCount,
+                Reservations = reservations.ToList()
             };
-            return mapper.Map<EmbarkationDisplayGroupDto<Reservation>, EmbarkationGroupVM<EmbarkationVM>>(mainResult);
+            return mapper.Map<EmbarkationGroupDto<Reservation>, EmbarkationGroupVM<EmbarkationVM>>(mainResult);
         }
 
         public async Task<int> GetShipIdFromDescription(string description) {

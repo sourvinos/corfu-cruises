@@ -50,6 +50,9 @@ export class CrewFormComponent {
     public parentUrl = '/crews'
     public isLoading = new Subject<boolean>()
 
+    public minBirthDate = new Date(new Date().getFullYear() - 99, 0, 1)
+    public maxBirthDate = new Date()
+
     public isAutoCompleteDisabled = true
     public genderDropdown: Observable<GenderAutocompleteVM[]>
     public nationalityDropdown: Observable<NationalityAutocompleteVM[]>

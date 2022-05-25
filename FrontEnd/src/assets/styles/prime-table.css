@@ -23,7 +23,6 @@
 }
 
 .p-datatable-scrollable-footer, .p-datatable-scrollable-header {
-    background-color: var(--color-b) !important;
     overflow: visible !important;
 }
 
@@ -84,7 +83,6 @@
 }
 
 .p-datatable .p-datatable-tfoot {
-    background-color: var(--color-b) !important;
     display: flex !important;
     justify-content: flex-end !important;
 }
