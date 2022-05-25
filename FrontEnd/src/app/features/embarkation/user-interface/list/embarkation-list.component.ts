@@ -120,11 +120,6 @@ export class EmbarkationListComponent {
         return remarks.length > 0 ? true : false
     }
 
-    public doFilterTasks(elementId: string, variable?: string): void {
-        this.filterByEmbarkationStatus(variable)
-        this.setActiveClassOnSelectedPill(elementId)
-    }
-
     public doReportTasks(): void {
         this.getDistinctShipsFromFilteredRecords().forEach(ship => {
             this.embarkationPDFService.createPDF(ship.value, this.filteredRecords.embarkation.filter(x => x.ship == ship.value))
@@ -209,10 +204,6 @@ export class EmbarkationListComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
-    }
-
-    private filterByEmbarkationStatus(variable?: string): void {
-        this.records.embarkation = variable ? this.records.embarkation.filter(x => x.isCheckedIn != variable) : this.records.embarkation = this.records.embarkation
     }
 
     private filterByTicketNo(query: string): void {
@@ -300,14 +291,6 @@ export class EmbarkationListComponent {
 
     private refreshList(): void {
         this.router.navigate([this.url])
-    }
-
-    private setActiveClassOnSelectedPill(elementId: string) {
-        const filters = document.getElementById('filters')
-        Array.from(filters.children).forEach(child => {
-            child.classList.remove('selected-filter')
-        })
-        document.getElementById(elementId).classList.add('selected-filter')
     }
 
     private setWindowTitle(): void {

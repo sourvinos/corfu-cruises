@@ -145,15 +145,15 @@
 
     <div *ngIf="records.passengerCount > 0" id="footer">
         <div @slideFromLeft id="filters">
-            <div class="clickable" id="total" (click)="doFilterTasks('total', null)">
+            <div id="total">
                 <div class="description">{{ records.passengerCount }}</div>
                 <div class="label">{{ getLabel('filterAll') }}</div>
             </div>
-            <div class="clickable" id="boarded" (click)="doFilterTasks('boarded', getLabel('pending').toUpperCase())">
+            <div id="boarded">
                 <div class="description">{{ records.boardedCount }}</div>
                 <div class="label">{{ getLabel('filterBoarded') }}</div>
             </div>
-            <div class="clickable" id="pending" (click)="doFilterTasks('pending', getLabel('boarded').toUpperCase())">
+            <div id="pending">
                 <div class="description">{{ records.remainingCount }}</div>
                 <div class="label">{{ getLabel('filterPending')}}</div>
             </div>
