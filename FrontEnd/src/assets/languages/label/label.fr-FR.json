@@ -1335,6 +1335,10 @@
                 "description": "+/-"
             },
             {
+                "id": "headerEmbarkationStatus",
+                "description": "Statut"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Nom de famille"
             },
@@ -1392,7 +1396,15 @@
             },
             {
                 "id": "pending",
-                "description": "EN INSTANCE"
+                "description": "EMBARQUER"
+            },
+            {
+                "id": "boardedFilter",
+                "description": "EMBARQUER"
+            },
+            {
+                "id": "pendingFilter",
+                "description": "EN ATTENTE"
             },
             {
                 "id": "createPDF",

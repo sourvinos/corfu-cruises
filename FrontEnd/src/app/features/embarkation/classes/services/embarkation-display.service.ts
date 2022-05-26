@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { DataService } from 'src/app/shared/services/data.service'
-import { EmbarkationReservationVM } from '../view-models/embarkation-reservation-vm'
+import { EmbarkationVM } from '../view-models/embarkation-vm'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
@@ -14,7 +14,7 @@ export class EmbarkationService extends DataService {
         super(httpClient, environment.apiUrl + '/embarkation')
     }
 
-    get(date: string, destinationId: number, portId: number, shipId: number): Observable<EmbarkationReservationVM> {
+    get(date: string, destinationId: number, portId: number, shipId: number): Observable<EmbarkationVM> {
         return this.http.get<any>(this.url + '/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId + '/shipId/' + shipId)
     }
 

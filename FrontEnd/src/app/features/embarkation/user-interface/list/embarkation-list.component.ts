@@ -9,7 +9,7 @@ import { DialogService } from 'src/app/shared/services/dialog.service'
 import { EmbarkationCriteriaVM } from '../../classes/view-models/embarkation-criteria-vm'
 import { EmbarkationPDFService } from '../../classes/services/embarkation-pdf.service'
 import { EmbarkationService } from '../../classes/services/embarkation-display.service'
-import { EmbarkationVM } from '../../classes/view-models/embarkation-vm'
+import { EmbarkationGroupVM } from '../../classes/view-models/embarkation-group-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -38,13 +38,14 @@ export class EmbarkationListComponent {
     public parentUrl = '/embarkation'
 
     public embarkationCriteria: EmbarkationCriteriaVM
-    public filteredRecords: EmbarkationVM
+    public filteredRecords: EmbarkationGroupVM
     public isLoading = new Subject<boolean>()
-    public records: EmbarkationVM
+    public records: EmbarkationGroupVM
 
     public customers = []
     public drivers = []
     public ships = []
+    public embarkationStatuses = []
 
     public scannerEnabled: boolean
     public searchTerm: string
@@ -61,6 +62,7 @@ export class EmbarkationListComponent {
                 this.getDistinctCustomers()
                 this.getDistinctDrivers()
                 this.getDistinctShips()
+                this.getDistinctEmbarkationStatus()
             }
         })
     }
@@ -106,6 +108,17 @@ export class EmbarkationListComponent {
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public getStatusText(reservationStatus: string): string {
+        switch (reservationStatus) {
+            case 'OK':
+                return this.getLabel('boardedFilter')
+            case 'PENDING':
+                return this.getLabel('pendingFilter')
+            default:
+                return this.emojiService.getEmoji('warning')
+        }
     }
 
     public goBack(): void {
@@ -175,6 +188,10 @@ export class EmbarkationListComponent {
         if (totalPersons < passengerCount) {
             return this.emojiService.getEmoji('error')
         }
+    }
+
+    public showEmbarkationStatus(embarkationStatus: any): string {
+        return embarkationStatus ? this.emojiService.getEmoji('ok') : this.emojiService.getEmoji('warning')
     }
 
     public showNoPassengersEmoji(): string {
@@ -250,6 +267,12 @@ export class EmbarkationListComponent {
             ships.push({ label: element, value: element })
         })
         return ships
+    }
+
+    private getDistinctEmbarkationStatus(): void {
+        this.embarkationStatuses = []
+        this.embarkationStatuses.push({ label: this.getLabel('boardedFilter'), value: 'OK' })
+        this.embarkationStatuses.push({ label: this.getLabel('pendingFilter'), value: 'PENDING' })
     }
 
     private getLocale(): void {

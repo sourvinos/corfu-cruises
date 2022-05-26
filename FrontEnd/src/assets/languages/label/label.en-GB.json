@@ -1335,6 +1335,10 @@
                 "description": "+/-"
             },
             {
+                "id": "headerEmbarkationStatus",
+                "description": "Status"
+            },
+            {
                 "id": "headerLastname",
                 "description": "Lastname"
             },
@@ -1380,7 +1384,7 @@
             },
             {
                 "id": "filterBoarded",
-                "description": "Boarded"
+                "description": "Embarked"
             },
             {
                 "id": "filterPending",
@@ -1388,10 +1392,18 @@
             },
             {
                 "id": "boarded",
-                "description": "ΟΚ"
+                "description": "OK"
             },
             {
                 "id": "pending",
+                "description": "EMBARK"
+            },
+            {
+                "id": "boardedFilter",
+                "description": "EMBARKED"
+            },
+            {
+                "id": "pendingFilter",
                 "description": "PENDING"
             },
             {
