@@ -5,7 +5,7 @@ import 'src/assets/fonts/ACCanterBold.js'
 import 'src/assets/fonts/NotoSansMonoCondensedRegular.js'
 import 'src/assets/fonts/PFHandbookProThin.js'
 // Custom
-import { EmbarkationReservationVM } from '../view-models/embarkation-reservation-vm'
+import { EmbarkationVM } from '../view-models/embarkation-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
@@ -24,7 +24,7 @@ export class EmbarkationPDFService {
     private pageHeight = 0
     private pdf = new jsPDF()
     private criteria: any
-    private records: EmbarkationReservationVM[]
+    private records: EmbarkationVM[]
 
     //#endregion
 
@@ -32,7 +32,7 @@ export class EmbarkationPDFService {
 
     //#region public methods
 
-    public createPDF(ship: string, records: EmbarkationReservationVM[]): void {
+    public createPDF(ship: string, records: EmbarkationVM[]): void {
         this.init(ship, records)
         this.addLogo(this.pdf)
         this.addTitle(this.pdf)
@@ -148,7 +148,7 @@ export class EmbarkationPDFService {
         return this.records[index].remarks.substring(0, 50)
     }
 
-    private init(ship: string, records: EmbarkationReservationVM[]): void {
+    private init(ship: string, records: EmbarkationVM[]): void {
         this.records = records
         this.nextLineTop = 20
         this.pageCount = 1

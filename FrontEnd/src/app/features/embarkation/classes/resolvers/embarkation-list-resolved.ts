@@ -1,7 +1,7 @@
-import { EmbarkationReservationVM } from '../view-models/embarkation-reservation-vm'
+import { EmbarkationVM } from '../view-models/embarkation-vm'
 
 export class EmbarkationListResolved {
 
-    constructor(public result: EmbarkationReservationVM, public error: any = null) { }
+    constructor(public result: EmbarkationVM, public error: any = null) { }
 
 }

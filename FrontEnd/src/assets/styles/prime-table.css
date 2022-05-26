@@ -84,7 +84,6 @@
 }
 
 .p-datatable .p-datatable-tfoot {
-    background-color: var(--color-b) !important;
     display: flex !important;
     justify-content: flex-end !important;
 }

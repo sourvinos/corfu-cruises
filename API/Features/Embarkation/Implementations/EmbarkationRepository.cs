@@ -39,10 +39,8 @@ namespace API.Features.Embarkation {
             int remaining = totalPersons - boarded;
             var mainResult = new EmbarkationDisplayGroupDto<Reservation> {
                 PassengerCount = totalPersons,
-                PassengerCountWithNames = passengers,
                 BoardedCount = boarded,
                 RemainingCount = remaining,
-                PassengerCountWithNoNames = totalPersons - passengers,
                 Embarkation = reservations.ToList()
             };
             return mapper.Map<EmbarkationDisplayGroupDto<Reservation>, EmbarkationGroupVM<EmbarkationVM>>(mainResult);

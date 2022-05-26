@@ -1,16 +1,21 @@
-import { EmbarkationReservationVM } from './embarkation-reservation-vm'
+import { Guid } from 'guid-typescript'
+import { EmbarkationPassenger } from './embarkation-passenger-vm'
 
 export class EmbarkationVM {
 
-    constructor(
+    reservationId: Guid
+    refNo: string
+    ticketNo: string
+    remarks: string
+    customer: string
+    driver: string
+    ship: string
+    totalPersons: number
+    embarkedPassengers: number
+    embarkationStatus: boolean
+    isCheckedIn: string
+    passengerIds: number[]
 
-        public passengerCount: number,
-        public passengerCountWithNames: number,
-        public boardedCount: number,
-        public remainingCount: number,
-        public passengerCountWithNoNames: number,
-        public embarkation: EmbarkationReservationVM[] = []
-
-    ) { }
+    passengers: EmbarkationPassenger[]
 
 }

@@ -6,10 +6,8 @@ namespace API.Features.Embarkation {
     public class EmbarkationDisplayGroupDto<T> {
 
         public int PassengerCount { get; set; }
-        public int PassengerCountWithNames { get; set; }
         public int BoardedCount { get; set; }
         public int RemainingCount { get; set; }
-        public int PassengerCountWithNoNames { get; set; }
 
         public List<Reservation> Embarkation { get; set; }
 

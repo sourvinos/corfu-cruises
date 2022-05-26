@@ -27,21 +27,27 @@
             <p-table (onFilter)="filterRecords($event)" #table [autoLayout]="false" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.embarkation" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="min-width: 6%; max-width: 6%;"></th>
+                        <th style="min-width: 3%; max-width: 3%;"></th>
                         <th style="min-width: 6%; max-width: 6%;">{{ getLabel('headerRemarks') }}</th>
                         <th style="min-width: 10%; max-width: 10%;" pSortableColumn="refNo">{{ getLabel('headerRefNo') }}<p-sortIcon field="refNo"></p-sortIcon></th>
                         <th style="min-width: 10%; max-width: 10%;" pSortableColumn="ticketNo">{{ getLabel('headerTicketNo') }}<p-sortIcon field="ticketNo"></p-sortIcon></th>
                         <th pSortableColumn="customer">{{ getLabel('headerCustomer') }}<p-sortIcon field="customer"></p-sortIcon></th>
                         <th pSortableColumn="driver">{{ getLabel('headerDriver') }}<p-sortIcon field="driver"></p-sortIcon></th>
                         <th pSortableColumn="ship">{{ getLabel('headerShip') }}<p-sortIcon field="ship"></p-sortIcon></th>
-                        <th style="min-width: 7%; max-width: 7%;">{{ getLabel('headerPersons') }}</th>
+                        <th style="min-width: 5%; max-width: 5%;">{{ getLabel('headerPersons') }}</th>
                         <th style="min-width: 5%; max-width: 5%;">{{ getLabel('headerPlusMinus') }}</th>
+                        <th style="min-width: 10%; max-width: 10%;" pSortableColumn="embarkationStatus">{{ getLabel('headerEmbarkationStatus') }}<p-sortIcon field="embarkationStatus"></p-sortIcon></th>
                     </tr>
                     <tr>
+                        <!-- Row expander -->
+                        <th style="min-width: 3%; max-width: 3%;"></th>
+                        <!-- Comments -->
                         <th style="min-width: 6%; max-width: 6%;"></th>
-                        <th style="min-width: 6%; max-width: 6%;"></th>
+                        <!-- RefNo -->
                         <th style="min-width: 10%; max-width: 10%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
+                        <!-- Ticket No -->
                         <th style="min-width: 10%; max-width: 10%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
+                        <!-- Customer -->
                         <th>
                             <p-columnFilter style="width: 100%;" field="customer" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -53,6 +59,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
+                        <!-- Driver -->
                         <th>
                             <p-columnFilter style="width: 100%;" field="driver" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -64,6 +71,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
+                        <!-- Ship -->
                         <th>
                             <p-columnFilter style="width: 100%;" field="ship" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -75,21 +83,36 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th style="min-width: 7%; max-width: 7%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'totalPersons', 'equals')" [value]="$any(table).filters['totalPersons']?.value"></th>
+                        <!-- Total persons -->
+                        <th style="min-width: 5%; max-width: 5%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'totalPersons', 'equals')" [value]="$any(table).filters['totalPersons']?.value"></th>
+                        <!-- +/- -->
                         <th style="min-width: 5%; max-width: 5%;"></th>                        
+                        <!-- EmbarkationStatus -->
+                        <th style="min-width: 10%; max-width: 10%;">
+                            <p-columnFilter style="width: 100%;" field="embarkationStatus" matchMode="contains" [showMenu]="false">
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-dropdown [ngModel]="value" [options]="embarkationStatuses" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option.label }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-reservation let-expanded="expanded">
                     <tr>
-                        <td style="min-width: 6%; max-width: 6%;"><button pButton pRipple [pRowToggler]="reservation" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'fas fa-angle-down' : 'fas fa-angle-right'"></button></td>
+                        <td style="min-width: 3%; max-width: 3%;"><button pButton pRipple [pRowToggler]="reservation" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'fas fa-angle-down' : 'fas fa-angle-right'"></button></td>
                         <td style="min-width: 6%; max-width: 6%; justify-content: center;"><span class="remarks" *ngIf="hasRemarks(reservation.remarks)" (click)="onShowRemarks(reservation.remarks)">{{ getEmoji('remarks') }}</span></td>
                         <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ reservation.refNo }}</td>
                         <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ reservation.ticketNo }}</td>
                         <td>{{ reservation.customer }}</td>
                         <td>{{ reservation.driver }}</td>
                         <td>{{ reservation.ship }}</td>
-                        <td style="min-width: 7%; max-width: 7%; justify-content: center;">{{ reservation.totalPersons }}</td>
+                        <td style="min-width: 5%; max-width: 5%; justify-content: center;">{{ reservation.totalPersons }}</td>
                         <td style="min-width: 5%; max-width: 5%; justify-content: center;">{{ calculateDifference(reservation.totalPersons, reservation.passengers.length) }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ getStatusText(reservation.embarkationStatus) }}</td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="rowexpansion" let-reservation>
@@ -177,5 +200,5 @@
 </div>
 
 <div id="video">
-    <zxing-scanner [enable]="scannerEnabled" (scanSuccess)="doPostScanTasks($event)" (hasDevices)="hasDevices()" (camerasFound)="camerasFound()"></zxing-scanner> <button mat-flat-button class="secondary" id="scan-close-button" (click)="onHideScanner()">{{ getLabel('scan-close-button') }}</button>
+    <zxing-scanner [enable]="scannerEnabled" (scanSuccess)="doPostScanTasks($event)" (hasDevices)="hasDevices()" (camerasFound)="camerasFound()"></zxing-scanner><button mat-flat-button class="secondary" id="scan-close-button" (click)="onHideScanner()">{{ getLabel('scan-close-button') }}</button>
 </div>
