@@ -1375,19 +1375,15 @@
                 "description": "Nic jsme nenašli!"
             },
             {
-                "id": "filterAll",
+                "id": "criteriaTotalPersons",
                 "description": "Celkem"
             },
             {
-                "id": "filterWithDetails",
-                "description": "S podrobnostmi"
-            },
-            {
-                "id": "filterBoarded",
+                "id": "criteriaEmbarkedPassengers",
                 "description": "Nastoupivší"
             },
             {
-                "id": "filterPending",
+                "id": "criteriaPendingPersons",
                 "description": "Čeká se na"
             },
             {

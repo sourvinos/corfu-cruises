@@ -1375,19 +1375,15 @@
                 "description": "We found nothing!"
             },
             {
-                "id": "filterAll",
+                "id": "criteriaTotalPersons",
                 "description": "Total"
             },
             {
-                "id": "filterWithDetails",
-                "description": "With details"
-            },
-            {
-                "id": "filterBoarded",
+                "id": "criteriaEmbarkedPassengers",
                 "description": "Embarked"
             },
             {
-                "id": "filterPending",
+                "id": "criteriaPendingPersons",
                 "description": "Pending"
             },
             {

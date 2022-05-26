@@ -95,7 +95,7 @@ export class EmbarkationListComponent {
     }
 
     public filterRecords(event: { filteredValue: any[] }) {
-        this.filteredRecords.embarkation = event.filteredValue
+        this.filteredRecords.reservations = event.filteredValue
     }
 
     public formatDate(): string {
@@ -135,7 +135,7 @@ export class EmbarkationListComponent {
 
     public doReportTasks(): void {
         this.getDistinctShipsFromFilteredRecords().forEach(ship => {
-            this.embarkationPDFService.createPDF(ship.value, this.filteredRecords.embarkation.filter(x => x.ship == ship.value))
+            this.embarkationPDFService.createPDF(ship.value, this.filteredRecords.reservations.filter(x => x.ship == ship.value))
         })
     }
 
@@ -224,10 +224,10 @@ export class EmbarkationListComponent {
     }
 
     private filterByTicketNo(query: string): void {
-        this.filteredRecords.embarkation = []
-        this.records.embarkation.forEach((record) => {
+        this.filteredRecords.reservations = []
+        this.records.reservations.forEach((record) => {
             if (record.ticketNo.toLowerCase().startsWith(query.toLowerCase())) {
-                this.filteredRecords.embarkation.push(record)
+                this.filteredRecords.reservations.push(record)
             }
         })
     }
@@ -238,7 +238,7 @@ export class EmbarkationListComponent {
 
     private getDistinctCustomers(): void {
         this.customers = []
-        const x = [... new Set(this.records.embarkation.map(x => x.customer))]
+        const x = [... new Set(this.records.reservations.map(x => x.customer))]
         x.forEach(element => {
             this.customers.push({ label: element, value: element })
         })
@@ -246,7 +246,7 @@ export class EmbarkationListComponent {
 
     private getDistinctDrivers(): void {
         this.drivers = []
-        const x = [... new Set(this.records.embarkation.map(x => x.driver))]
+        const x = [... new Set(this.records.reservations.map(x => x.driver))]
         x.forEach(element => {
             this.drivers.push({ label: element, value: element })
         })
@@ -254,7 +254,7 @@ export class EmbarkationListComponent {
 
     private getDistinctShips(): void {
         this.ships = []
-        const x = [... new Set(this.records.embarkation.map(x => x.ship))]
+        const x = [... new Set(this.records.reservations.map(x => x.ship))]
         x.forEach(element => {
             this.ships.push({ label: element, value: element })
         })
@@ -262,7 +262,7 @@ export class EmbarkationListComponent {
 
     private getDistinctShipsFromFilteredRecords(): any[] {
         const ships = []
-        const x = [... new Set(this.filteredRecords.embarkation.map(x => x.ship))]
+        const x = [... new Set(this.filteredRecords.reservations.map(x => x.ship))]
         x.forEach(element => {
             ships.push({ label: element, value: element })
         })
@@ -288,6 +288,7 @@ export class EmbarkationListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
+            console.log(this.filteredRecords)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
@@ -325,7 +326,7 @@ export class EmbarkationListComponent {
     }
 
     private updatePassengerStatusPills(): void {
-        this.records.embarkation.forEach(record => {
+        this.records.reservations.forEach(record => {
             if (record.passengers.filter(x => x.isCheckedIn).length == record.passengers.length) {
                 record.isCheckedIn = this.getLabel('boarded').toUpperCase()
             }

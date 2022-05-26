@@ -34,12 +34,12 @@ namespace API.Features.Embarkation {
                     && ((shipId == "all") || x.ShipId == int.Parse(shipId)))
                 .ToListAsync();
             int totalPersons = reservations.Sum(x => x.TotalPersons);
-            int boardedPassengers = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);
-            int remainingCount = totalPersons - boardedPassengers;
+            int embarkedPassengers = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);
+            int remainingPersons = totalPersons - embarkedPassengers;
             var mainResult = new EmbarkationGroupDto<Reservation> {
                 TotalPersons = totalPersons,
-                BoardedPassengers = boardedPassengers,
-                RemainingCount = remainingCount,
+                EmbarkedPassengers = embarkedPassengers,
+                PendingPersons = remainingPersons,
                 Reservations = reservations.ToList()
             };
             return mapper.Map<EmbarkationGroupDto<Reservation>, EmbarkationGroupVM<EmbarkationVM>>(mainResult);

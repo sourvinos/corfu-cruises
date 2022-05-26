@@ -1,6 +1,6 @@
 <div id="list">
 
-    <div *ngIf="records.passengerCount > 0" id="header">
+    <div *ngIf="records.totalPersons > 0" id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
             <div class="pill">
@@ -22,9 +22,9 @@
         </div>
     </div>
 
-    <ng-container *ngIf="records.passengerCount > 0">
+    <ng-container *ngIf="records.totalPersons > 0">
         <div id="table-wrapper">
-            <p-table (onFilter)="filterRecords($event)" #table [autoLayout]="false" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.embarkation" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table (onFilter)="filterRecords($event)" #table [autoLayout]="false" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.reservations" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 3%; max-width: 3%;"></th>
@@ -166,19 +166,19 @@
         </div>
     </ng-container>
 
-    <div *ngIf="records.passengerCount > 0" id="footer">
+    <div *ngIf="records.totalPersons > 0" id="footer">
         <div @slideFromLeft id="filters">
             <div id="total">
-                <div class="description">{{ records.passengerCount }}</div>
-                <div class="label">{{ getLabel('filterAll') }}</div>
+                <div class="description">{{ records.totalPersons }}</div>
+                <div class="label">{{ getLabel('criteriaTotalPersons') }}</div>
             </div>
             <div id="boarded">
-                <div class="description">{{ records.boardedCount }}</div>
-                <div class="label">{{ getLabel('filterBoarded') }}</div>
+                <div class="description">{{ records.embarkedPassengers }}</div>
+                <div class="label">{{ getLabel('criteriaEmbarkedPassengers') }}</div>
             </div>
             <div id="pending">
-                <div class="description">{{ records.remainingCount }}</div>
-                <div class="label">{{ getLabel('filterPending')}}</div>
+                <div class="description">{{ records.pendingPersons }}</div>
+                <div class="label">{{ getLabel('criteriaPendingPersons')}}</div>
             </div>
         </div>
         <div>
@@ -189,7 +189,7 @@
         </div>
     </div>
 
-    <ng-container *ngIf="records.passengerCount == 0">
+    <ng-container *ngIf="records.totalPersons == 0">
         <list-no-results [feature]="feature" [parentUrl]="parentUrl"></list-no-results>
     </ng-container>
 
