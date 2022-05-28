@@ -152,6 +152,7 @@ namespace API.Features.Reservations {
                 427 => StatusCode(427, new { response = ApiMessages.PortHasNoDepartures() }),
                 433 => StatusCode(433, new { response = ApiMessages.PortHasNoVacancy() }),
                 409 => StatusCode(409, new { response = ApiMessages.DuplicateRecord() }),
+                459 => StatusCode(459, new { response = ApiMessages.SimpleUserNightRestrictions() }),
                 _ => StatusCode(490, new { Response = ApiMessages.RecordNotSaved() }),
             };
         }

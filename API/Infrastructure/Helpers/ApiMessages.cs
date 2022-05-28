@@ -1,3 +1,5 @@
+using System;
+
 namespace API.Infrastructure.Helpers {
 
     public static class ApiMessages {
@@ -42,6 +44,7 @@ namespace API.Infrastructure.Helpers {
         public static string InvalidShipRouteToTime() { return "To time is missing or invalid"; }
         public static string FKNotFoundOrInactive(string fk) { return $"{fk} does not exist or is inactive"; }
         public static string InvalidMaxPassengers() { return "Maximum passengers must be between 0 and 999"; }
+        public static string SimpleUserNightRestrictions() { return "Time restriction are in effect"; }
 
         #endregion
 

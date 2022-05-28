@@ -154,12 +154,13 @@ namespace API.Features.Reservations {
                 var x when x == !IsValidGender(record) => 457,
                 var x when x == !IsValidOccupant(record) => 458,
                 var x when x == !IsCorrectPassengerCount(record) => 455,
-                var x when x == !UserCanAddReservationInThePast(record.Date) => 431,
+                var x when x == !UserCanAddReservationForToday(record.Date) => 431,
                 var x when x == !scheduleRepo.DayHasSchedule(record.Date) => 432,
                 var x when x == !scheduleRepo.DayHasScheduleForDestination(record.Date, record.DestinationId) => 430,
                 var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, await GetPortIdFromPickupPointId(record)) => 427,
                 var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, await GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsKeyUnique(record) => 409,
+                var x when x == SimpleUserHasNightRestrictions(record) => 459,
                 _ => 200,
             };
         }
@@ -238,8 +239,8 @@ namespace API.Features.Reservations {
             return port[0].MaxPassengers;
         }
 
-        private bool UserCanAddReservationInThePast(string date) {
-            return Identity.IsUserAdmin(httpContextAccessor).Result || DateTime.Parse(date) > DateTime.Now;
+        private bool UserCanAddReservationForToday(string date) {
+            return Identity.IsUserAdmin(httpContextAccessor).Result || IsLateMorning(date);
         }
 
         private bool IsValidCustomer(ReservationWriteResource record) {
@@ -425,6 +426,73 @@ namespace API.Features.Reservations {
         private async Task<Driver> GetDriver(int driverId) {
             return await context.Drivers
                 .FirstOrDefaultAsync(x => x.Id == driverId);
+        }
+
+        private bool SimpleUserHasNightRestrictions(ReservationWriteResource record) {
+            if (Identity.IsUserAdmin(httpContextAccessor).Result == false) {
+                if (HasTransfer(record.PickupPointId)) {
+                    if (IsReservationForTomorrow(record.Date)) {
+                        if (IsNight()) {
+                            return true;
+                        }
+                    }
+                    if (IsReservationForToday(record.Date)) {
+                        if (IsEarlyMorning()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        private bool HasTransfer(int pickupPointId) {
+            var pickupPoint = context.PickupPoints
+                .Include(x => x.CoachRoute)
+                .AsNoTracking()
+                .SingleOrDefault(x => x.Id == pickupPointId);
+            return pickupPoint.CoachRoute.HasTransfer;
+        }
+
+        private static bool IsReservationForTomorrow(string date) {
+            var tomorrow = DateHelpers.DateTimeToISOString(DateTime.Now.AddDays(1));
+            if (date == tomorrow) {
+                return true;
+            }
+            return false;
+        }
+
+        private static bool IsReservationForToday(string date) {
+            var today = DateHelpers.DateTimeToISOString(DateTime.Now);
+            if (date == today) {
+                return true;
+            }
+            return false;
+        }
+
+        private static bool IsNight() {
+            var timeNow = DateTime.Now.TimeOfDay;
+            if (timeNow.Hours >= 22 && timeNow.Minutes >= 00) {
+                return true;
+            }
+            return false;
+        }
+
+        private static bool IsEarlyMorning() {
+            var timeNow = DateTime.Now.TimeOfDay;
+            if (timeNow.Hours <= 07 && timeNow.Minutes <= 00) {
+                return true;
+            }
+            return false;
+        }
+
+        private static bool IsLateMorning(string date) {
+            var today = DateHelpers.DateTimeToISOString(DateTime.Now);
+            var timeNow = DateTime.Now.TimeOfDay;
+            if (date == today && timeNow.Hours >= 07 && timeNow.Minutes >= 01) {
+                return true;
+            }
+            return false;
         }
 
     }
