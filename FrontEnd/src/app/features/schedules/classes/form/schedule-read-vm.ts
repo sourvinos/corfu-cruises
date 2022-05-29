@@ -10,6 +10,7 @@ export class ScheduleReadVM {
         public port: PortDropdownVM,
         public date: string,
         public maxPassengers: number,
+        public departureTime: string,
         public isActive: boolean
 
     ) { }

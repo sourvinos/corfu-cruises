@@ -1137,6 +1137,10 @@
                 "description": "Maximum number of passengers"
             },
             {
+                "id": "departureTime",
+                "description": "Departure time"
+            },
+            {
                 "id": "saveButton",
                 "description": "SAVE"
             }
@@ -2053,6 +2057,10 @@
             {
                 "id": "maxPassengers",
                 "description": "Max number of passengers"
+            },
+            {
+                "id": "departureTime",
+                "description": "Departure time"
             },
             {
                 "id": "isActive",

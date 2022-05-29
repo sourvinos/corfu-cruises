@@ -154,13 +154,13 @@ namespace API.Features.Reservations {
                 var x when x == !IsValidGender(record) => 457,
                 var x when x == !IsValidOccupant(record) => 458,
                 var x when x == !IsCorrectPassengerCount(record) => 455,
-                var x when x == !UserCanAddReservationForToday(record.Date) => 431,
                 var x when x == !scheduleRepo.DayHasSchedule(record.Date) => 432,
                 var x when x == !scheduleRepo.DayHasScheduleForDestination(record.Date, record.DestinationId) => 430,
                 var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, await GetPortIdFromPickupPointId(record)) => 427,
                 var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, await GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsKeyUnique(record) => 409,
                 var x when x == SimpleUserHasNightRestrictions(record) => 459,
+                var x when x == SimpleUserCanNotAddReservationAfterDeparture(record) => 431,
                 _ => 200,
             };
         }
@@ -239,8 +239,8 @@ namespace API.Features.Reservations {
             return port[0].MaxPassengers;
         }
 
-        private bool UserCanAddReservationForToday(string date) {
-            return Identity.IsUserAdmin(httpContextAccessor).Result || IsLateMorning(date);
+        private bool SimpleUserCanNotAddReservationAfterDeparture(ReservationWriteResource record) {
+            return Identity.IsUserAdmin(httpContextAccessor).Result || IsNewReservationAfterDeparture(record);
         }
 
         private bool IsValidCustomer(ReservationWriteResource record) {
@@ -437,7 +437,7 @@ namespace API.Features.Reservations {
                         }
                     }
                     if (IsReservationForToday(record.Date)) {
-                        if (IsEarlyMorning()) {
+                        if (IsNewReservationBeforeDeparture(record)) {
                             return true;
                         }
                     }
@@ -478,21 +478,32 @@ namespace API.Features.Reservations {
             return false;
         }
 
-        private static bool IsEarlyMorning() {
-            var timeNow = DateTime.Now.TimeOfDay;
-            if (timeNow.Hours <= 07 && timeNow.Minutes <= 00) {
+        private bool IsNewReservationBeforeDeparture(ReservationWriteResource record) {
+            var date = DateTime.Now;
+            var departureTime = GetScheduleDepartureTime(record);
+            if (DateTime.Compare(date, departureTime) < 0) {
                 return true;
             }
             return false;
         }
 
-        private static bool IsLateMorning(string date) {
-            var today = DateHelpers.DateTimeToISOString(DateTime.Now);
-            var timeNow = DateTime.Now.TimeOfDay;
-            if (date == today && timeNow.Hours >= 07 && timeNow.Minutes >= 01) {
+        private bool IsNewReservationAfterDeparture(ReservationWriteResource record) {
+            var date = DateTime.Now;
+            var departureTime = GetScheduleDepartureTime(record);
+            if (DateTime.Compare(date, departureTime) > 0) {
                 return true;
             }
             return false;
+        }
+
+        private DateTime GetScheduleDepartureTime(ReservationWriteResource record) {
+            var portId = GetPortIdFromPickupPointId(record).ToString();
+            var schedule = context.Set<Schedule>()
+                .Where(x => x.Date.ToString() == record.Date && x.DestinationId == record.DestinationId && x.PortId.ToString() == portId)
+                .SingleOrDefault();
+            var departureTime = schedule.Date.ToString("yyyy-MM-dd") + " " + schedule.DepartureTime;
+            var departureTimeAsDate = DateTime.Parse(departureTime);
+            return departureTimeAsDate;
         }
 
     }

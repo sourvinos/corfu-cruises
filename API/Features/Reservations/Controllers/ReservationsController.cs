@@ -146,13 +146,13 @@ namespace API.Features.Reservations {
                 456 => StatusCode(456, new { response = ApiMessages.FKNotFoundOrInactive("Nationality Id for at least one passenger") }),
                 457 => StatusCode(457, new { response = ApiMessages.FKNotFoundOrInactive("Gender Id for at least one passenger") }),
                 458 => StatusCode(458, new { response = ApiMessages.FKNotFoundOrInactive("Occupant Id for at least one passenger") }),
-                431 => StatusCode(431, new { response = ApiMessages.UserCanNotAddReservationInThePast() }),
                 432 => StatusCode(432, new { response = ApiMessages.DayHasNoSchedule() }),
                 430 => StatusCode(430, new { response = ApiMessages.DayHasNoScheduleForDestination() }),
                 427 => StatusCode(427, new { response = ApiMessages.PortHasNoDepartures() }),
                 433 => StatusCode(433, new { response = ApiMessages.PortHasNoVacancy() }),
                 409 => StatusCode(409, new { response = ApiMessages.DuplicateRecord() }),
                 459 => StatusCode(459, new { response = ApiMessages.SimpleUserNightRestrictions() }),
+                431 => StatusCode(431, new { response = ApiMessages.SimpleUserCanNotAddReservationAfterDepartureTime() }),
                 _ => StatusCode(490, new { Response = ApiMessages.RecordNotSaved() }),
             };
         }

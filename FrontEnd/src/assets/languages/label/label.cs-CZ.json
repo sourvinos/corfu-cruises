@@ -1137,6 +1137,10 @@
                 "description": "Maximální počet cestujících"
             },
             {
+                "id": "departureTime",
+                "description": "Čas odjezdu"
+            },
+            {
                 "id": "saveButton",
                 "description": "ULOŽIT"
             }
@@ -2053,6 +2057,10 @@
             {
                 "id": "maxPassengers",
                 "description": "Maximální počet cestujících"
+            },
+            {
+                "id": "departureTime",
+                "description": "Čas odjezdu"
             },
             {
                 "id": "isActive",

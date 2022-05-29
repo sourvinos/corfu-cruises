@@ -32,6 +32,11 @@
                 <mat-error *ngIf="maxPassengers.hasError('required')">{{ getHint("required") }}</mat-error>
                 <mat-error *ngIf="!maxPassengers.hasError('required') && maxPassengers.hasError('min') || maxPassengers.hasError('max')">{{ getHint("invalid") }}</mat-error>
             </mat-form-field>
+            <mat-form-field>
+                <input [inputTabStop]="input" [placeholder]="getLabel('departureTime')" data-cy="departureTime" data-tabindex="6" formControlName="departureTime" id="departureTime" matInput>
+                <mat-error *ngIf="departureTime.hasError('required')">{{ getHint("required") }}</mat-error>
+                <mat-error *ngIf="!departureTime.hasError('required') && !departureTime.hasError('departureTime')">{{ getHint("invalid") }}</mat-error>
+            </mat-form-field>
             <div id="weekdays">
                 <div (click)="onToggleItem(weekDay, selectedWeekDays)" *ngFor="let weekDay of weekDays" [id]="weekDay" class="selectable-day">
                     <div class="description">{{ getWeekday(weekDay) }}</div>

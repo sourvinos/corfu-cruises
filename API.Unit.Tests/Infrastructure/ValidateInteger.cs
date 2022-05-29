@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace API.UnitTests.Infrastructure {
 
-    public class ValidateInteger : IEnumerable<object[]> {
+    public class ValidateZeroOrGreaterInteger : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

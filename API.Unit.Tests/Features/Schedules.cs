@@ -32,11 +32,20 @@ namespace API.UnitTests.Features.Schedules {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateInteger))]
+        [ClassData(typeof(ValidateZeroOrGreaterInteger))]
         public void Invalid_MaxPassengers(int maxPassengers) {
             new ScheduleValidator()
                 .TestValidate(new ScheduleWriteDto { MaxPassengers = maxPassengers })
                 .ShouldHaveValidationErrorFor(x => x.MaxPassengers);
+        }
+
+        [Theory]
+        [ClassData(typeof(ValidateStringNotEmpty))]
+        [ClassData(typeof(ValidateTime))]
+        public void Invalid_DepartureTime(string time) {
+            new ScheduleValidator()
+                .TestValidate(new ScheduleWriteDto { DepartureTime = time })
+                .ShouldHaveValidationErrorFor(x => x.DepartureTime);
         }
 
     }

@@ -15,6 +15,7 @@ namespace API.Features.Schedules {
             // Fields
             entity.Property(x => x.Date).HasColumnType("date").HasMaxLength(10).IsRequired(true);
             entity.Property(x => x.MaxPassengers).HasDefaultValue(0);
+            entity.Property(x => x.DepartureTime).HasMaxLength(5).IsRequired(true);
             entity.Property(x => x.IsActive);
             // FK Constraints
             entity.HasOne(x => x.Port).WithMany(x => x.Schedules).HasForeignKey(x => x.PortId).OnDelete(DeleteBehavior.Restrict);

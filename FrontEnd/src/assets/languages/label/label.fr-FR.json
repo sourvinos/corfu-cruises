@@ -1137,6 +1137,10 @@
                 "description": "Nombre maximal de passagers"
             },
             {
+                "id": "departureTime",
+                "description": "Heure de départ"
+            },
+            {
                 "id": "saveButton",
                 "description": "ENREGISTRER"
             }
@@ -2053,6 +2057,10 @@
             {
                 "id": "maxPassengers",
                 "description": "Nombre maximal de passagers"
+            },
+            {
+                "id": "departureTime",
+                "description": "Heure de départ"
             },
             {
                 "id": "isActive",

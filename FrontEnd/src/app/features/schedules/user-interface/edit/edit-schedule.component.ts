@@ -182,6 +182,7 @@ export class EditScheduleComponent {
             destinationId: this.form.value.destination.id,
             portId: this.form.value.port.id,
             maxPassengers: this.form.value.maxPassengers,
+            departureTime: this.form.value.departureTime,
             isActive: this.form.value.isActive
         }
         return schedule
@@ -211,6 +212,7 @@ export class EditScheduleComponent {
             destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             maxPassengers: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
+            departureTime: ['', [Validators.required, ValidationService.isTime]],
             isActive: true
         })
     }
@@ -241,6 +243,7 @@ export class EditScheduleComponent {
             destination: { 'id': result.destination.id, 'description': result.destination.description },
             port: { 'id': result.port.id, 'description': result.port.description },
             maxPassengers: result.maxPassengers,
+            departureTime: result.departureTime,
             isActive: result.isActive
         })
     }
@@ -299,6 +302,10 @@ export class EditScheduleComponent {
 
     get maxPassengers(): AbstractControl {
         return this.form.get('maxPassengers')
+    }
+
+    get departureTime(): AbstractControl {
+        return this.form.get('departureTime')
     }
 
     //#endregion

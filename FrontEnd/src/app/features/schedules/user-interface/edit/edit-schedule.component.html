@@ -27,6 +27,11 @@
                 <mat-error *ngIf="maxPassengers.hasError('required')">{{ getHint("required") }}</mat-error>
                 <mat-error *ngIf="!maxPassengers.hasError('required') && maxPassengers.hasError('min') || maxPassengers.hasError('max')">{{ getHint("invalid") }}</mat-error>
             </mat-form-field>
+            <mat-form-field>
+                <input [inputTabStop]="input" [placeholder]="getLabel('departureTime')" data-cy="departureTime" data-tabindex="5" formControlName="departureTime" id="departureTime" matInput>
+                <mat-error *ngIf="departureTime.hasError('required')">{{ getHint("required") }}</mat-error>
+                <mat-error *ngIf="!departureTime.hasError('required') && !departureTime.hasError('departureTime')">{{ getHint("invalid") }}</mat-error>
+            </mat-form-field>
             <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ getLabel("isActive") }}</mat-slide-toggle>
         </form>
         <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>

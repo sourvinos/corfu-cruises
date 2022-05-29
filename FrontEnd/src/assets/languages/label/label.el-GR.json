@@ -1137,6 +1137,10 @@
                 "description": "Μέγιστος αριθμός επιβατών"
             },
             {
+                "id": "departureTime",
+                "description": "Ωρα αναχώρησης"
+            },
+            {
                 "id": "saveButton",
                 "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
@@ -2053,6 +2057,10 @@
             {
                 "id": "maxPassengers",
                 "description": "Μέγιστος αριθμός επιβατών"
+            },
+            {
+                "id": "departureTime",
+                "description": "Ωρα αναχώρησης"
             },
             {
                 "id": "isActive",

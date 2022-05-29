@@ -8,7 +8,9 @@ namespace API.Integration.Tests.Reservations {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return Simple_Users_Can_Not_Create_Records_In_Past_Date();
+            // yield return Simple_Users_Can_Not_Create_Records_In_Past_Date();
+            yield return Simple_Users_Can_Not_Add_Reservation_With_Transfer_During_Night_Hours();
+            // yield return Simple_Users_Can_Not_Add_Reservation_After_Departure();
         }
 
         private static object[] Simple_Users_Can_Not_Create_Records_In_Past_Date() {
@@ -27,6 +29,36 @@ namespace API.Integration.Tests.Reservations {
                         new TestPassenger { Lastname = "ALONA", Firstname = "CUTLER", Birthdate = "1964-04-28", NationalityId = 127, OccupantId = 2, GenderId = 2 },
                         new TestPassenger { Lastname = "LYA", Firstname = "TROWBRIDGE", Birthdate = "2015-01-21", NationalityId = 211, OccupantId = 2, GenderId = 1 },
                     }
+                }
+            };
+        }
+
+        private static object[] Simple_Users_Can_Not_Add_Reservation_With_Transfer_During_Night_Hours() {
+            return new object[] {
+                new TestReservation {
+                    StatusCode = 459,
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 12,
+                    Date = "2022-05-29",
+                    TicketNo = "xxxx",
+                    Adults = 2,
+                    Kids = 1
+                }
+            };
+        }
+
+        private static object[] Simple_Users_Can_Not_Add_Reservation_After_Departure() {
+            return new object[] {
+                new TestReservation {
+                    StatusCode = 431,
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 12,
+                    Date = "2022-05-29",
+                    TicketNo = "xxxx",
+                    Adults = 2,
+                    Kids = 1
                 }
             };
         }

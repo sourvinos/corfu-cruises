@@ -15,6 +15,7 @@ namespace API.Features.Schedules {
         // Fields
         public DateTime Date { get; set; }
         public int MaxPassengers { get; set; }
+        public string DepartureTime { get; set; }
         public bool IsActive { get; set; }
         // FKs
         public string UserId { get; set; }
