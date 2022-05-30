@@ -32,7 +32,7 @@
             },
             {
                 "error": 431,
-                "message": "Eine Reservierung in der Vergangenheit kann nicht erstellt werden"
+                "message": "Eine Reservierung nach der Abreise kann nicht erstellt werden"
             },
             {
                 "error": 432,
@@ -77,6 +77,10 @@
             {
                 "error": 458,
                 "message": "Mindestens ein Beifahrer ist nicht vorhanden oder inaktiv"
+            },
+            {
+                "error": 459,
+                "message": "Zwischen 22:00 und Abreise sind keine neuen Reservierungen mit Transfer möglich"
             },
             {
                 "error": 490,

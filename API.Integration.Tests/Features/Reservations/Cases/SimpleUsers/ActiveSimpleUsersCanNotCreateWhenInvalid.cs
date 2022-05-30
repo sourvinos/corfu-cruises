@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using API.Infrastructure.Implementations;
 
 namespace API.Integration.Tests.Reservations {
 
@@ -8,19 +9,19 @@ namespace API.Integration.Tests.Reservations {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            // yield return Simple_Users_Can_Not_Create_Records_In_Past_Date();
+            // yield return Simple_Users_Can_Not_Create_Records_After_Departure();
             yield return Simple_Users_Can_Not_Add_Reservation_With_Transfer_During_Night_Hours();
             // yield return Simple_Users_Can_Not_Add_Reservation_After_Departure();
         }
 
-        private static object[] Simple_Users_Can_Not_Create_Records_In_Past_Date() {
+        private static object[] Simple_Users_Can_Not_Create_Records_After_Departure() {
             return new object[] {
                 new TestReservation {
                     StatusCode = 431,
                     CustomerId = 1,
                     DestinationId = 1,
-                    PickupPointId = 3,
-                    Date = "2022-02-03",
+                    PickupPointId = 12,
+                    Date = "2022-03-25",
                     TicketNo = "xxxx",
                     Adults = 2,
                     Kids = 1,
@@ -40,7 +41,7 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 12,
-                    Date = "2022-05-29",
+                    Date = "2022-05-30",
                     TicketNo = "xxxx",
                     Adults = 2,
                     Kids = 1

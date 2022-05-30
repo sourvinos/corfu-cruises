@@ -20,6 +20,8 @@ using API.Features.ShipOwners;
 using API.Features.ShipRoutes;
 using API.Features.Ships;
 using API.Infrastructure.Auth;
+using API.Infrastructure.Implementations;
+using API.Infrastructure.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace API.Infrastructure.Extensions {
@@ -50,6 +52,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IShipOwnerRepository, ShipOwnerRepository>();
             services.AddTransient<IShipRepository, ShipRepository>();
             services.AddTransient<IShipRouteRepository, ShipRouteRepository>();
+            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
         }
 
     }

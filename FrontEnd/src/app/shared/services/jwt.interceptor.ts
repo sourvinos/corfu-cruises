@@ -128,6 +128,8 @@ export class JwtInterceptor {
                 return throwError(() => new Error('457')) // gender does not exist or is inactive
             case 458:
                 return throwError(() => new Error('458')) // occupant does not exist or is inactive
+            case 459:
+                return throwError(() => new Error('459')) // reservation with transfer has night restrictions for simple user
             case 490:
                 return throwError(() => new Error('490')) // unableToSaveRecord
             case 491:

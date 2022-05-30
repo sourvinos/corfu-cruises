@@ -10,6 +10,7 @@ using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Identity;
 using API.Infrastructure.Implementations;
+using API.Infrastructure.Interfaces;
 using API.Infrastructure.Middleware;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -21,32 +22,34 @@ namespace API.Features.Reservations {
 
     public class ReservationRepository : Repository<Reservation>, IReservationRepository {
 
-        private readonly IMapper mapper;
-        private readonly TestingEnvironment settings;
-        private readonly IHttpContextAccessor httpContextAccessor;
-        private readonly UserManager<UserExtended> userManager;
+        private static IDateTimeProvider _dateTimeProvider;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMapper _mapper;
+        private readonly TestingEnvironment _settings;
+        private readonly UserManager<UserExtended> _userManager;
 
-        public ReservationRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings, IHttpContextAccessor httpContextAccessor, UserManager<UserExtended> userManager) : base(appDbContext, settings) {
-            this.mapper = mapper;
-            this.settings = settings.Value;
-            this.httpContextAccessor = httpContextAccessor;
-            this.userManager = userManager;
+        public ReservationRepository(AppDbContext appDbContext, IDateTimeProvider dateTimeProvider, IHttpContextAccessor httpContextAccessor, IMapper mapper, IOptions<TestingEnvironment> settings, UserManager<UserExtended> userManager) : base(appDbContext, settings) {
+            _dateTimeProvider = dateTimeProvider;
+            _httpContextAccessor = httpContextAccessor;
+            _mapper = mapper;
+            _settings = settings.Value;
+            _userManager = userManager;
         }
 
         public async Task<ReservationGroupResource<ReservationListResource>> GetByDate(string date) {
             IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
-            if (await Identity.IsUserAdmin(httpContextAccessor)) {
+            if (await Identity.IsUserAdmin(_httpContextAccessor)) {
                 reservations = GetReservationsFromAllUsersByDate(date);
             } else {
-                var simpleUser = await Identity.GetConnectedUserId(httpContextAccessor);
-                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
+                var simpleUser = await Identity.GetConnectedUserId(_httpContextAccessor);
+                var connectedUserDetails = Identity.GetConnectedUserDetails(_userManager, simpleUser.UserId);
                 reservations = GetReservationsForLinkedCustomer(date, (int)connectedUserDetails.CustomerId);
             }
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
                 Reservations = reservations.ToList(),
             };
-            return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
+            return _mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
         }
 
         public async Task<DriverResult<Reservation>> GetByDateAndDriver(string date, int driverId) {
@@ -57,25 +60,25 @@ namespace API.Features.Reservations {
                 DriverId = driver != null ? driverId : 0,
                 DriverDescription = driver != null ? driver.Description : "(EMPTY)",
                 Phones = driver != null ? driver.Phones : "(EMPTY)",
-                Reservations = mapper.Map<IEnumerable<Reservation>, IEnumerable<ReservationDriverListResource>>(reservations)
+                Reservations = _mapper.Map<IEnumerable<Reservation>, IEnumerable<ReservationDriverListResource>>(reservations)
             };
         }
 
         public async Task<ReservationGroupResource<ReservationListResource>> GetByRefNo(string refNo) {
             IEnumerable<Reservation> reservations;
-            var connectedUser = await Identity.GetConnectedUserId(httpContextAccessor);
-            if (await Identity.IsUserAdmin(httpContextAccessor)) {
+            var connectedUser = await Identity.GetConnectedUserId(_httpContextAccessor);
+            if (await Identity.IsUserAdmin(_httpContextAccessor)) {
                 reservations = GetReservationsFromAllUsersByRefNo(refNo);
             } else {
-                var simpleUser = await Identity.GetConnectedUserId(httpContextAccessor);
-                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
+                var simpleUser = await Identity.GetConnectedUserId(_httpContextAccessor);
+                var connectedUserDetails = Identity.GetConnectedUserDetails(_userManager, simpleUser.UserId);
                 reservations = GetReservationsFromLinkedCustomerbyRefNo(refNo, (int)connectedUserDetails.CustomerId);
             }
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
                 Reservations = reservations.ToList(),
             };
-            return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
+            return _mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
         }
 
         public async Task<ReservationReadResource> GetById(string reservationId) {
@@ -91,7 +94,7 @@ namespace API.Features.Reservations {
                 .Include(x => x.Passengers).ThenInclude(x => x.Gender)
                 .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId);
             return record != null
-                ? mapper.Map<Reservation, ReservationReadResource>(record)
+                ? _mapper.Map<Reservation, ReservationReadResource>(record)
                 : throw new RecordNotFound(ApiMessages.RecordNotFound());
         }
 
@@ -102,8 +105,8 @@ namespace API.Features.Reservations {
         }
 
         public async Task<bool> DoesUserOwnRecord(int customerId) {
-            var user = await Identity.GetConnectedUserId(httpContextAccessor);
-            var userDetails = Identity.GetConnectedUserDetails(userManager, user.UserId);
+            var user = await Identity.GetConnectedUserId(_httpContextAccessor);
+            var userDetails = Identity.GetConnectedUserDetails(_userManager, user.UserId);
             return userDetails.CustomerId == customerId;
         }
 
@@ -119,12 +122,12 @@ namespace API.Features.Reservations {
         public async Task<bool> Update(string id, Reservation updatedRecord) {
             using var transaction = context.Database.BeginTransaction();
             try {
-                if (await Identity.IsUserAdmin(httpContextAccessor)) {
+                if (await Identity.IsUserAdmin(_httpContextAccessor)) {
                     await UpdateReservation(updatedRecord);
                 }
                 await RemovePassengers(GetPassengersForReservation(id));
                 await AddPassengers(updatedRecord);
-                if (settings.IsTesting) {
+                if (_settings.IsTesting) {
                     transaction.Dispose();
                 } else {
                     transaction.Commit();
@@ -136,14 +139,15 @@ namespace API.Features.Reservations {
             }
         }
 
-        public async Task<int> GetPortIdFromPickupPointId(ReservationWriteResource record) {
-            PickupPoint pickupPoint = await context.PickupPoints
+        public int GetPortIdFromPickupPointId(ReservationWriteResource record) {
+            PickupPoint pickupPoint = context.PickupPoints
                 .Include(x => x.CoachRoute)
-                .FirstOrDefaultAsync(x => x.Id == record.PickupPointId);
+                .Where(x => x.Id == record.PickupPointId)
+                .FirstOrDefault();
             return pickupPoint.CoachRoute.PortId;
         }
 
-        public async Task<int> IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
+        public int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
             return true switch {
                 var x when x == !IsValidCustomer(record) => 450,
                 var x when x == !IsValidDestination(record) => 451,
@@ -156,8 +160,8 @@ namespace API.Features.Reservations {
                 var x when x == !IsCorrectPassengerCount(record) => 455,
                 var x when x == !scheduleRepo.DayHasSchedule(record.Date) => 432,
                 var x when x == !scheduleRepo.DayHasScheduleForDestination(record.Date, record.DestinationId) => 430,
-                var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, await GetPortIdFromPickupPointId(record)) => 427,
-                var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, await GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
+                var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, GetPortIdFromPickupPointId(record)) => 427,
+                var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsKeyUnique(record) => 409,
                 var x when x == SimpleUserHasNightRestrictions(record) => 459,
                 var x when x == SimpleUserCanNotAddReservationAfterDeparture(record) => 431,
@@ -172,7 +176,7 @@ namespace API.Features.Reservations {
                 .ToList();
             reservations.ForEach(a => a.DriverId = driverId);
             context.SaveChanges();
-            if (settings.IsTesting) {
+            if (_settings.IsTesting) {
                 transaction.Dispose();
             } else {
                 transaction.Commit();
@@ -186,7 +190,7 @@ namespace API.Features.Reservations {
                 .ToList();
             records.ForEach(a => a.ShipId = shipId);
             context.SaveChanges();
-            if (settings.IsTesting) {
+            if (_settings.IsTesting) {
                 transaction.Dispose();
             } else {
                 transaction.Commit();
@@ -240,7 +244,7 @@ namespace API.Features.Reservations {
         }
 
         private bool SimpleUserCanNotAddReservationAfterDeparture(ReservationWriteResource record) {
-            return Identity.IsUserAdmin(httpContextAccessor).Result || IsNewReservationAfterDeparture(record);
+            return Identity.IsUserAdmin(_httpContextAccessor).Result || IsNewReservationAfterDeparture(record);
         }
 
         private bool IsValidCustomer(ReservationWriteResource record) {
@@ -409,7 +413,7 @@ namespace API.Features.Reservations {
             context.Entry(refNo).State = EntityState.Modified;
             using var transaction = context.Database.BeginTransaction();
             await context.SaveChangesAsync();
-            if (settings.IsTesting) {
+            if (_settings.IsTesting) {
                 transaction.Dispose();
             } else {
                 transaction.Commit();
@@ -429,7 +433,7 @@ namespace API.Features.Reservations {
         }
 
         private bool SimpleUserHasNightRestrictions(ReservationWriteResource record) {
-            if (Identity.IsUserAdmin(httpContextAccessor).Result == false) {
+            if (Identity.IsUserAdmin(_httpContextAccessor).Result == false) {
                 if (HasTransfer(record.PickupPointId)) {
                     if (IsReservationForTomorrow(record.Date)) {
                         if (IsNight()) {
@@ -455,7 +459,7 @@ namespace API.Features.Reservations {
         }
 
         private static bool IsReservationForTomorrow(string date) {
-            var tomorrow = DateHelpers.DateTimeToISOString(DateTime.Now.AddDays(1));
+            var tomorrow = DateHelpers.DateTimeToISOString(_dateTimeProvider.GetCurrentTime().AddDays(1));
             if (date == tomorrow) {
                 return true;
             }
@@ -463,7 +467,7 @@ namespace API.Features.Reservations {
         }
 
         private static bool IsReservationForToday(string date) {
-            var today = DateHelpers.DateTimeToISOString(DateTime.Now);
+            var today = DateHelpers.DateTimeToISOString(_dateTimeProvider.GetCurrentTime());
             if (date == today) {
                 return true;
             }
@@ -471,15 +475,15 @@ namespace API.Features.Reservations {
         }
 
         private static bool IsNight() {
-            var timeNow = DateTime.Now.TimeOfDay;
-            if (timeNow.Hours >= 22 && timeNow.Minutes >= 00) {
+            var timeNow = _dateTimeProvider.GetCurrentTime().TimeOfDay;
+            if (timeNow.Hours >= 22) {
                 return true;
             }
             return false;
         }
 
         private bool IsNewReservationBeforeDeparture(ReservationWriteResource record) {
-            var date = DateTime.Now;
+            var date = _dateTimeProvider.GetCurrentTime();
             var departureTime = GetScheduleDepartureTime(record);
             if (DateTime.Compare(date, departureTime) < 0) {
                 return true;
@@ -488,7 +492,7 @@ namespace API.Features.Reservations {
         }
 
         private bool IsNewReservationAfterDeparture(ReservationWriteResource record) {
-            var date = DateTime.Now;
+            var date = _dateTimeProvider.GetCurrentTime();
             var departureTime = GetScheduleDepartureTime(record);
             if (DateTime.Compare(date, departureTime) > 0) {
                 return true;

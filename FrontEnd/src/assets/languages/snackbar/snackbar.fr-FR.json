@@ -32,7 +32,7 @@
             },
             {
                 "error": 431,
-                "message": "Une réservation dans le passé ne peut pas être créée"
+                "message": "Une réservation après le départ ne peut pas être créée"
             },
             {
                 "error": 432,
@@ -77,6 +77,10 @@
             {
                 "error": 458,
                 "message": "L'occupant d'au moins un passager n'existe pas ou est inactif."
+            },
+            {
+                "error": 459,
+                "message": "Entre 22h00 et le départ, les nouvelles réservations avec transfert ne sont pas possibles."
             },
             {
                 "error": 490,

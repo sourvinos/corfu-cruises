@@ -32,7 +32,7 @@
             },
             {
                 "error": 431,
-                "message": "Rezervaci v minulosti nelze vytvořit"
+                "message": "Rezervaci po odjezdu nelze vytvořit"
             },
             {
                 "error": 432,
@@ -77,6 +77,10 @@
             {
                 "error": 458,
                 "message": "Pohlaví cestujícího pro alespoň jednoho cestujícího neexistuje nebo je neaktivní"
+            },
+            {
+                "error": 459,
+                "message": "V době od 22:00 do odjezdu nejsou nové rezervace s přestupem možné"
             },
             {
                 "error": 490,

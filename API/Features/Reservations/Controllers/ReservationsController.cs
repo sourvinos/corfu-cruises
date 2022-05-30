@@ -63,10 +63,10 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PostReservationAsync([FromBody] ReservationWriteResource record) {
-            var response = await reservationRepo.IsValid(record, scheduleRepo);
+            var response = reservationRepo.IsValid(record, scheduleRepo);
             if (response == 200) {
                 await AssignRefNoToNewReservationAsync(record);
-                await AttachPortIdToRecordAsync(record);
+                AttachPortIdToRecord(record);
                 await AttachUserIdToRecord(record);
                 reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                 return StatusCode(200, new {
@@ -82,7 +82,7 @@ namespace API.Features.Reservations {
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             await AttachUserIdToRecord(record);
-            var response = await reservationRepo.IsValid(record, scheduleRepo);
+            var response = reservationRepo.IsValid(record, scheduleRepo);
             record = reservationRepo.UpdateForeignKeysWithNull(record);
             if (response == 200) {
                 await reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
@@ -125,8 +125,8 @@ namespace API.Features.Reservations {
             return record;
         }
 
-        private async Task<ReservationWriteResource> AttachPortIdToRecordAsync(ReservationWriteResource record) {
-            record.PortId = await reservationRepo.GetPortIdFromPickupPointId(record);
+        private ReservationWriteResource AttachPortIdToRecord(ReservationWriteResource record) {
+            record.PortId = reservationRepo.GetPortIdFromPickupPointId(record);
             return record;
         }
 
