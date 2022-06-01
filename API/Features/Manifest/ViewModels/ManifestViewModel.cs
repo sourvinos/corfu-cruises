@@ -9,7 +9,7 @@ namespace API.Features.Manifest {
 
         public string Date { get; set; }
         public DestinationViewModel Destination { get; set; }
-        public PortViewModel Port { get; set; }
+        public string Port { get; set; }
         public Ship Ship { get; set; }
         public ShipRoute ShipRoute { get; set; }
         public List<Passenger> Passengers { get; set; }

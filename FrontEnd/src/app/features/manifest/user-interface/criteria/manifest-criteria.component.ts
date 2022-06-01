@@ -174,11 +174,13 @@ export class ManifestCriteriaComponent {
         ], { relativeTo: this.activatedRoute })
     }
 
-    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
+    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string, includeWildcard?: boolean): Promise<any> {
         const promise = new Promise((resolve) => {
             service.getActiveForDropdown().toPromise().then(
                 (response: any) => {
                     this[table] = response
+                    if (includeWildcard)
+                        this[table].unshift({ 'id': 'all', 'description': '[⭐]' })
                     resolve(this[table])
                     this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
                 }, (errorFromInterceptor: number) => {
@@ -190,7 +192,7 @@ export class ManifestCriteriaComponent {
 
     private populateDropdowns(): void {
         this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
-        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
+        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description', true)
         this.populateDropDown(this.shipService, 'ships', 'filteredShips', 'ship', 'description')
         this.populateDropDown(this.shipRouteService, 'shipRoutes', 'filteredShipRoutes', 'shipRoute', 'description')
     }

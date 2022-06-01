@@ -4,15 +4,17 @@ import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
+import { ManifestVM } from '../../classes/view-models/manifest-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { ManifestVM } from '../../classes/view-models/manifest-vm'
-import { EmojiService } from 'src/app/shared/services/emoji.service'
+import { ManifestCriteriaVM } from '../../classes/view-models/manifest-criteria-vm'
 
 @Component({
     selector: 'manifest-list',
@@ -32,6 +34,8 @@ export class ManifestListComponent {
     public icon = 'arrow_back'
     public parentUrl = '/manifest'
 
+    public manifestCriteria: ManifestCriteriaVM
+
     public crewCount = 0
     public passengerCount = 0
     public records: ManifestVM
@@ -42,7 +46,7 @@ export class ManifestListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -51,6 +55,7 @@ export class ManifestListComponent {
         this.loadRecords()
         this.calculateTotals()
         this.addCrewToPassengers()
+        this.populateCriteriaFromStoredVariables()
         this.getDistinctGenders()
         this.getDistinctNationalities()
         this.getDistinctOccupants()
@@ -85,6 +90,14 @@ export class ManifestListComponent {
 
     public goBack(): void {
         this.router.navigate([this.parentUrl])
+    }
+
+    public replaceWildcardWithText(criteria: any): string {
+        if (criteria.description.includes(this.emojiService.getEmoji('wildcard'))) {
+            return this.emojiService.getEmoji('wildcard')
+        } else {
+            return criteria.description
+        }
     }
 
     //#endregion
@@ -146,9 +159,22 @@ export class ManifestListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = listResolved.result
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
+        }
+    }
+
+    private populateCriteriaFromStoredVariables(): void {
+        if (this.localStorageService.getItem('manifest-criteria')) {
+            const criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
+            this.manifestCriteria = {
+                date: criteria.date,
+                destination: criteria.destination.description,
+                port: criteria.port.description,
+                ship: criteria.ship.description
+            }
         }
     }
 

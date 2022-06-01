@@ -16,15 +16,13 @@ namespace API.Features.Manifest {
             this.mapper = mapper;
         }
 
-        public ManifestResource Get(string date, int destinationId, int portId, int shipId, int shipRouteId) {
+        public ManifestResource Get(string date, int destinationId, string portId, int shipId, int shipRouteId) {
             var manifest = new ManifestViewModel {
                 Date = date,
                 Destination = context.Destinations
                     .Select(x => new DestinationViewModel { Id = x.Id, Description = x.Description })
                     .FirstOrDefault(x => x.Id == destinationId),
-                Port = context.Ports
-                    .Select(x => new PortViewModel { Id = x.Id, Description = x.Description })
-                    .FirstOrDefault(x => x.Id == portId),
+                Port = GetPortDescription(portId),
                 Ship = context.Ships
                     .Include(x => x.ShipOwner)
                     .Include(x => x.Registrars.Where(x => x.IsActive))
@@ -39,14 +37,22 @@ namespace API.Features.Manifest {
                     .Include(x => x.Nationality)
                     .Include(x => x.Occupant)
                     .Include(x => x.Gender)
-                    .Where(x => x.Reservation.Date.ToString() == date &&
-                         x.Reservation.DestinationId == destinationId &&
-                         x.Reservation.ShipId == shipId &&
-                         x.Reservation.PickupPoint.CoachRoute.PortId == portId &&
-                         x.IsCheckedIn)
+                    .Where(x => x.Reservation.Date.ToString() == date
+                        && x.Reservation.DestinationId == destinationId
+                        && x.Reservation.ShipId == shipId
+                        && ((portId == "all") || x.Reservation.PickupPoint.CoachRoute.PortId == int.Parse(portId))
+                        && x.IsCheckedIn)
                     .ToList()
             };
             return mapper.Map<ManifestViewModel, ManifestResource>(manifest);
+        }
+
+        private string GetPortDescription(string portId) {
+            if (portId != "all") {
+                var port = context.Ports.FirstOrDefault(x => x.Id == int.Parse(portId));
+                return port.Description;
+            }
+            return portId;
         }
 
     }
