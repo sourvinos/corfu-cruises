@@ -9,7 +9,6 @@ namespace API.Features.Manifest {
         public ManifestMappingProfile() {
             CreateMap<ManifestViewModel, ManifestResource>()
                 .ForMember(x => x.Date, x => x.MapFrom(source => source.Date))
-                .ForMember(x => x.Port, x => x.MapFrom(source => source.Port))
                 .ForMember(x => x.Destination, x => x.MapFrom(source => source.Destination.Description))
                 .ForMember(x => x.Ship, x => x.MapFrom(source => new ManifestShipViewModel {
                     Description = source.Ship.Description,

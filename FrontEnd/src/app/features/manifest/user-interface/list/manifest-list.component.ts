@@ -92,14 +92,6 @@ export class ManifestListComponent {
         this.router.navigate([this.parentUrl])
     }
 
-    public replaceWildcardWithText(criteria: any): string {
-        if (criteria.description.includes(this.emojiService.getEmoji('wildcard'))) {
-            return this.emojiService.getEmoji('wildcard')
-        } else {
-            return criteria.description
-        }
-    }
-
     //#endregion
 
     //#region private methods
