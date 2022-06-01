@@ -10,7 +10,6 @@ using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Identity;
 using API.Infrastructure.Implementations;
-using API.Infrastructure.Interfaces;
 using API.Infrastructure.Middleware;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -22,14 +21,12 @@ namespace API.Features.Reservations {
 
     public class ReservationRepository : Repository<Reservation>, IReservationRepository {
 
-        private static IDateTimeProvider _dateTimeProvider;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMapper _mapper;
         private readonly TestingEnvironment _settings;
         private readonly UserManager<UserExtended> _userManager;
 
-        public ReservationRepository(AppDbContext appDbContext, IDateTimeProvider dateTimeProvider, IHttpContextAccessor httpContextAccessor, IMapper mapper, IOptions<TestingEnvironment> settings, UserManager<UserExtended> userManager) : base(appDbContext, settings) {
-            _dateTimeProvider = dateTimeProvider;
+        public ReservationRepository(AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor, IMapper mapper, IOptions<TestingEnvironment> settings, UserManager<UserExtended> userManager) : base(appDbContext, settings) {
             _httpContextAccessor = httpContextAccessor;
             _mapper = mapper;
             _settings = settings.Value;
@@ -244,7 +241,11 @@ namespace API.Features.Reservations {
         }
 
         private bool SimpleUserCanNotAddReservationAfterDeparture(ReservationWriteResource record) {
-            return Identity.IsUserAdmin(_httpContextAccessor).Result || IsNewReservationAfterDeparture(record);
+            if (Identity.IsUserAdmin(_httpContextAccessor).Result == false && IsNewReservationAfterDeparture(record)) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         private bool IsValidCustomer(ReservationWriteResource record) {
@@ -459,23 +460,25 @@ namespace API.Features.Reservations {
         }
 
         private static bool IsReservationForTomorrow(string date) {
-            var tomorrow = DateHelpers.DateTimeToISOString(_dateTimeProvider.GetCurrentTime().AddDays(1));
-            if (date == tomorrow) {
+            var tomorrow = DateHelpers.GetLocalDateTime().AddDays(1);
+            var tomorrowDate = DateHelpers.DateTimeToISOString(tomorrow);
+            if (date == tomorrowDate) {
                 return true;
             }
             return false;
         }
 
         private static bool IsReservationForToday(string date) {
-            var today = DateHelpers.DateTimeToISOString(_dateTimeProvider.GetCurrentTime());
-            if (date == today) {
+            var today = DateHelpers.GetLocalDateTime();
+            var todayDate = DateHelpers.DateTimeToISOString(today);
+            if (date == todayDate) {
                 return true;
             }
             return false;
         }
 
         private static bool IsNight() {
-            var timeNow = _dateTimeProvider.GetCurrentTime().TimeOfDay;
+            var timeNow = DateHelpers.GetLocalDateTime().TimeOfDay;
             if (timeNow.Hours >= 22) {
                 return true;
             }
@@ -483,16 +486,16 @@ namespace API.Features.Reservations {
         }
 
         private bool IsNewReservationBeforeDeparture(ReservationWriteResource record) {
-            var date = _dateTimeProvider.GetCurrentTime();
+            var timeNow = DateHelpers.GetLocalDateTime();
             var departureTime = GetScheduleDepartureTime(record);
-            if (DateTime.Compare(date, departureTime) < 0) {
+            if (DateTime.Compare(timeNow, departureTime) < 0) {
                 return true;
             }
             return false;
         }
 
         private bool IsNewReservationAfterDeparture(ReservationWriteResource record) {
-            var date = _dateTimeProvider.GetCurrentTime();
+            var date = DateHelpers.GetLocalDateTime();
             var departureTime = GetScheduleDepartureTime(record);
             if (DateTime.Compare(date, departureTime) > 0) {
                 return true;
