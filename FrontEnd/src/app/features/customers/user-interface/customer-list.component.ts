@@ -9,7 +9,7 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { ListResolved } from '../../../shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from '../../../shared/services/snackbar.service'
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -34,7 +34,7 @@ export class CustomerListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private sweetAlertService: SweetAlertService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -108,7 +108,7 @@ export class CustomerListComponent {
                 resolve(this.records)
             } else {
                 this.goBack()
-                this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
+                this.showError(this.messageSnackbarService.filterError(listResolved.error))
             }
         })
         return promise
@@ -118,8 +118,8 @@ export class CustomerListComponent {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
+    private showError(message: string): void {
+        this.sweetAlertService.open(message, 'error', true, false, 'OK', '', 0)
     }
 
     //#endregion

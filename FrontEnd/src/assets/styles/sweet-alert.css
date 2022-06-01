@@ -1,0 +1,30 @@
+:host {
+    display: flex;
+}
+
+/* .swal2-popup {
+    padding-bottom: 2rem !important;
+} */
+
+/* .swal2-icon {
+    border: 1px solid !important;
+} */
+
+.swal2-title {
+    font-family: var(--font-family-handbook);
+    font-weight: 500;
+}
+
+.swal2-html-container {
+    font-family: var(--font-family-handbook) !important;
+    /* font-size: 1.4rem; */
+    /* font-weight: 600 !important; */
+}
+
+.swal2-container.swal2-center > .swal2-popup {
+    background-color: #ffffff;
+}
+
+/* .swal2-styled.swal2-confirm {
+    background-color: var(--color-a) !important;
+} */
