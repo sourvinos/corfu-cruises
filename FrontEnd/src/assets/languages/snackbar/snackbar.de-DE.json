@@ -32,7 +32,7 @@
             },
             {
                 "error": 431,
-                "message": "Eine Reservierung nach der Abreise kann nicht erstellt werden"
+                "message": "Es ist nicht möglich, eine Reservierung nach der Abfahrt hinzuzufügen oder zu ändern."
             },
             {
                 "error": 432,

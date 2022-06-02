@@ -92,10 +92,10 @@ export class CustomerFormComponent {
                     complete: () => {
                         this.resetForm()
                         this.goBack()
-                        this.showSuccess(this.messageSnackbarService.recordDeleted())
+                        this.showSweetAlert(this.messageSnackbarService.recordDeleted(), 'success', false, false, 'OK', '', 1500)
                     },
                     error: (errorFromInterceptor) => {
-                        this.showError(this.messageSnackbarService.filterError(errorFromInterceptor))
+                        this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
                     }
                 })
             }
@@ -155,7 +155,7 @@ export class CustomerFormComponent {
             this.populateFields(result)
         }, errorFromInterceptor => {
             this.goBack()
-            this.showError(this.messageSnackbarService.filterError(errorFromInterceptor))
+            this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
         })
     }
 
@@ -199,10 +199,10 @@ export class CustomerFormComponent {
                 complete: () => {
                     this.resetForm()
                     this.goBack()
-                    this.showSuccess(this.messageSnackbarService.recordCreated())
+                    this.showSweetAlert(this.messageSnackbarService.recordCreated(), 'success', true, false, 'OK', '', 0)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showError(this.messageSnackbarService.filterError(errorFromInterceptor))
+                    this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
                 }
             })
         } else {
@@ -210,10 +210,10 @@ export class CustomerFormComponent {
                 complete: () => {
                     this.resetForm()
                     this.goBack()
-                    this.showSuccess(this.messageSnackbarService.recordUpdated())
+                    this.showSweetAlert(this.messageSnackbarService.recordUpdated(), 'success', true, false, 'OK', '', 0)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showError(this.messageSnackbarService.filterError(errorFromInterceptor))
+                    this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
                 }
             })
         }
@@ -223,12 +223,8 @@ export class CustomerFormComponent {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
-    private showError(message: string): void {
-        this.sweetAlertService.open(message, 'error', true, false, 'OK', '', 0)
-    }
-
-    private showSuccess(message: string): void {
-        this.sweetAlertService.open(message, 'success', true, false, 'OK', '', 0)
+    private showSweetAlert(message: string, icon: any, showOK: boolean, showCancel: boolean, okButtonText: string, cancelButtonText: string, timer: number): void {
+        this.sweetAlertService.open(message, icon, showOK, showCancel, okButtonText, cancelButtonText, timer)
     }
 
     //#endregion

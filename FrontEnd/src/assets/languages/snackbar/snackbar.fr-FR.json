@@ -32,7 +32,7 @@
             },
             {
                 "error": 431,
-                "message": "Une réservation après le départ ne peut pas être créée"
+                "message": "Il n'est pas possible d'ajouter ou de modifier une réservation après le départ."
             },
             {
                 "error": 432,

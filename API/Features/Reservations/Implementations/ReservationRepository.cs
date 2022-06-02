@@ -434,7 +434,7 @@ namespace API.Features.Reservations {
         }
 
         private bool SimpleUserHasNightRestrictions(ReservationWriteResource record) {
-            if (Identity.IsUserAdmin(_httpContextAccessor).Result == false) {
+            if (Identity.IsUserAdmin(_httpContextAccessor).Result == false && record.ReservationId == null) {
                 if (HasTransfer(record.PickupPointId)) {
                     if (IsReservationForTomorrow(record.Date)) {
                         if (IsNight()) {
