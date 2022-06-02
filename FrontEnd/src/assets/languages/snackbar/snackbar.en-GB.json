@@ -32,7 +32,7 @@
             },
             {
                 "error": 431,
-                "message": "A reservation after departure can not be created"
+                "message": "It's not possible to add or change a reservation after departure."
             },
             {
                 "error": 432,

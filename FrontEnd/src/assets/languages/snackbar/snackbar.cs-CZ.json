@@ -32,7 +32,7 @@
             },
             {
                 "error": 431,
-                "message": "Rezervaci po odjezdu nelze vytvořit"
+                "message": "Po odjezdu není možné rezervaci přidat nebo změnit."
             },
             {
                 "error": 432,

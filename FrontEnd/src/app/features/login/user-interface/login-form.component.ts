@@ -15,7 +15,7 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from '../../../shared/services/snackbar.service'
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -45,7 +45,7 @@ export class LoginFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private formBuilder: FormBuilder, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private formBuilder: FormBuilder, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private sweetAlertService: SweetAlertService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -152,19 +152,15 @@ export class LoginFormComponent {
     private showError(error: any): void {
         switch (error.status) {
             case 0:
-                this.showSnackbar(this.messageSnackbarService.noContactWithServer(), 'error')
+                this.sweetAlertService.open(this.messageSnackbarService.noContactWithServer(), 'error', true, false, 'OK', '', 0)
                 break
             case 401:
-                this.showSnackbar(this.messageSnackbarService.authenticationFailed(), 'error')
+                this.sweetAlertService.open(this.messageSnackbarService.authenticationFailed(), 'error', true, false, 'OK', '', 0)
                 break
             case 495:
-                this.showSnackbar(this.messageSnackbarService.accountNotConfirmed(), 'error')
+                this.sweetAlertService.open(this.messageSnackbarService.accountNotConfirmed(), 'error', true, false, 'OK', '', 0)
                 break
         }
-    }
-
-    private showSnackbar(message: string | string[], type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     private startIdleTimer(): void {

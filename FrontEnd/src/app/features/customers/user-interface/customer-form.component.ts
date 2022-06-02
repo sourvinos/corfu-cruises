@@ -15,7 +15,7 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -40,7 +40,7 @@ export class CustomerFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private sweetAlertService: SweetAlertService, private titleService: Title) {
         this.activatedRoute.params.subscribe(x => {
             x.id ? this.getRecord(x.id) : null
         })
@@ -92,10 +92,10 @@ export class CustomerFormComponent {
                     complete: () => {
                         this.resetForm()
                         this.goBack()
-                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                        this.showSweetAlert(this.messageSnackbarService.recordDeleted(), 'success', false, false, 'OK', '', 1500)
                     },
                     error: (errorFromInterceptor) => {
-                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                        this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
                     }
                 })
             }
@@ -154,8 +154,8 @@ export class CustomerFormComponent {
         this.customerService.getSingle(id).subscribe(result => {
             this.populateFields(result)
         }, errorFromInterceptor => {
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
             this.goBack()
+            this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
         })
     }
 
@@ -199,10 +199,10 @@ export class CustomerFormComponent {
                 complete: () => {
                     this.resetForm()
                     this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                    this.showSweetAlert(this.messageSnackbarService.recordCreated(), 'success', true, false, 'OK', '', 0)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
                 }
             })
         } else {
@@ -210,10 +210,10 @@ export class CustomerFormComponent {
                 complete: () => {
                     this.resetForm()
                     this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                    this.showSweetAlert(this.messageSnackbarService.recordUpdated(), 'success', true, false, 'OK', '', 0)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
                 }
             })
         }
@@ -223,8 +223,8 @@ export class CustomerFormComponent {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
+    private showSweetAlert(message: string, icon: any, showOK: boolean, showCancel: boolean, okButtonText: string, cancelButtonText: string, timer: number): void {
+        this.sweetAlertService.open(message, icon, showOK, showCancel, okButtonText, cancelButtonText, timer)
     }
 
     //#endregion

@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { firstValueFrom, Observable, Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
+import { firstValueFrom, Observable, Subject } from 'rxjs'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
@@ -17,6 +17,7 @@ import { DestinationService } from 'src/app/features/destinations/classes/servic
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverDropdownVM } from '../../../drivers/classes/view-models/driver-dropdown-vm'
 import { DriverService } from 'src/app/features/drivers/classes/services/driver.service'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
@@ -26,6 +27,7 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { OkIconService } from '../../classes/services/ok-icon.service'
+import { PassengerWriteVM } from '../../classes/view-models/passenger-write-vm'
 import { PickupPointDropdownVM } from '../../../pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
 import { PickupPointService } from 'src/app/features/pickupPoints/classes/services/pickupPoint.service'
 import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
@@ -34,14 +36,12 @@ import { ReservationReadVM } from '../../classes/resources/form/reservation/rese
 import { ReservationService } from '../../classes/services/reservation.service'
 import { ReservationWriteVM } from '../../classes/view-models/reservation-write-vm'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service'
 import { UserService } from 'src/app/features/users/classes/services/user.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
 import { VoucherService } from '../../classes/services/voucher.service'
 import { WarningIconService } from '../../classes/services/warning-icon.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import { PassengerWriteVM } from '../../classes/view-models/passenger-write-vm'
-import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
     selector: 'reservation-form',
@@ -84,7 +84,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private sweetAlertService: SweetAlertService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.getRecord(x.id).then(() => {
@@ -174,7 +174,7 @@ export class ReservationFormComponent {
     }
 
     public doVoucherTasksOnServer(): void {
-        this.showSnackbar(this.messageSnackbarService.featureNotAvailable(), 'warning')
+        this.showSweetAlert(this.messageSnackbarService.featureNotAvailable(), 'warning', true, false, 'OK', '', 0)
     }
 
     public enableOrDisableAutoComplete(event: any) {
@@ -203,11 +203,11 @@ export class ReservationFormComponent {
                 this.reservationService.delete(this.form.value.reservationId).subscribe({
                     complete: () => {
                         this.resetForm()
-                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
                         this.goBack()
+                        this.showSweetAlert(this.messageSnackbarService.recordDeleted(), 'success', false, false, 'OK', '', 1500)
                     },
                     error: (errorFromInterceptor) => {
-                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                        this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
                     },
                 })
             }
@@ -400,8 +400,8 @@ export class ReservationFormComponent {
                 this.populateFields(result)
                 resolve(result)
             }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
                 this.goBack()
+                this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
             })
         })
         return promise
@@ -478,7 +478,7 @@ export class ReservationFormComponent {
                     resolve(this[table])
                     this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
                 }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
                 })
         })
         return promise
@@ -539,10 +539,10 @@ export class ReservationFormComponent {
                 next: (response) => {
                     this.resetForm()
                     this.goBack()
-                    this.dialogService.open(this.messageSnackbarService.success(), 'infoColor', this.messageSnackbarService.reservationCreated() + this.helperService.formatRefNo(response.message, true), ['ok'])
+                    this.showSweetAlert('RefNo: ' + response.message, 'success', true, false, 'OK', '', 0)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
                 }
             })
         } else {
@@ -550,10 +550,10 @@ export class ReservationFormComponent {
                 complete: () => {
                     this.resetForm()
                     this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                    this.showSweetAlert(this.messageSnackbarService.recordUpdated(), 'success', true, false, 'OK', '', 0)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
                 }
             })
         }
@@ -571,8 +571,8 @@ export class ReservationFormComponent {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
+    private showSweetAlert(message: string, icon: any, showOK: boolean, showCancel: boolean, okButtonText: string, cancelButtonText: string, timer: number): void {
+        this.sweetAlertService.open(message, icon, showOK, showCancel, okButtonText, cancelButtonText, timer)
     }
 
     private subscribeToInteractionService(): void {
