@@ -170,11 +170,11 @@ export class HelperService {
 
     private getDateLocaleSeperator() {
         switch (this.localStorageService.getLanguage()) {
-            case 'cs-cz': return '.'
-            case 'de-de': return '.'
-            case 'el-gr': return '/'
-            case 'en-gb': return '/'
-            case 'fr-fr': return '/'
+            case 'cs': return '.'
+            case 'de': return '.'
+            case 'el': return '/'
+            case 'en': return '/'
+            case 'fr': return '/'
         }
     }
 

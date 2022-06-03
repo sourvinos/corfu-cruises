@@ -91,28 +91,28 @@ export class TopMenuComponent {
                 items: [
                     {
                         label: 'Ελληνικά',
-                        icon: 'flag el-gr',
-                        command: (): string => this.doLanguageTasks('el-gr')
+                        icon: 'flag el',
+                        command: (): string => this.doLanguageTasks('el')
                     },
                     {
                         label: 'English',
-                        icon: 'flag en-gb',
-                        command: (): string => this.doLanguageTasks('en-gb')
+                        icon: 'flag en',
+                        command: (): string => this.doLanguageTasks('en')
                     },
                     {
                         label: 'Deutsch',
-                        icon: 'flag de-de',
-                        command: (): string => this.doLanguageTasks('de-de')
+                        icon: 'flag de',
+                        command: (): string => this.doLanguageTasks('de')
                     },
                     {
                         label: 'Český',
-                        icon: 'flag cs-cz',
-                        command: (): string => this.doLanguageTasks('cs-cz')
+                        icon: 'flag cs',
+                        command: (): string => this.doLanguageTasks('cs')
                     },
                     {
                         label: 'Française',
-                        icon: 'flag fr-fr',
-                        command: (): string => this.doLanguageTasks('fr-fr')
+                        icon: 'flag fr',
+                        command: (): string => this.doLanguageTasks('fr')
                     },
                 ]
             }
@@ -138,7 +138,7 @@ export class TopMenuComponent {
     }
 
     private getLanguageIcon(): string {
-        const flag = this.localStorageService.getLanguage() == '' ? this.doLanguageTasks('en-gb') : this.localStorageService.getLanguage()
+        const flag = this.localStorageService.getLanguage() == '' ? this.doLanguageTasks('en') : this.localStorageService.getLanguage()
         return 'flag ' + flag
     }
 
