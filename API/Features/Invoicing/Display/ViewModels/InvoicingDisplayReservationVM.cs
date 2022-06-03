@@ -13,6 +13,8 @@ namespace API.Features.Invoicing.Display {
         public int Kids { get; set; }
         public int Free { get; set; }
         public int TotalPersons { get; set; }
+        public int EmbarkedPassengers { get; set; }
+        public int TotalNoShow { get; set; }
         public string Remarks { get; set; }
         public bool HasTransfer { get; set; }
 

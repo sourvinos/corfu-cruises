@@ -20,9 +20,10 @@ export class InvoicingPrinterService extends DataService {
         }
     }
 
-    createReport(criteria: any): Observable<any> {
-        return this.http.post(this.url + '/createreport/', criteria)
-    }
+
+    // createReport(criteria: any): Observable<any> {
+    //     return this.http.post(this.url + '/createreport/', criteria)
+    // }
 
     openReport(filename: string): Observable<any> {
         return this.http.get(this.url + '/openreport/' + filename, { responseType: 'arraybuffer' })

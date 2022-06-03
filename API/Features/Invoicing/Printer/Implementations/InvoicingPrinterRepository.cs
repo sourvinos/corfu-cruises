@@ -35,7 +35,10 @@ namespace API.Features.Invoicing.Printer {
                 .Include(x => x.Port)
                 .Include(x => x.Ship)
                 .Include(x => x.Passengers)
-                .Where(x => x.Date == Convert.ToDateTime(criteria.Date) && x.CustomerId == criteria.CustomerId)
+                .Where(x => x.Date == Convert.ToDateTime(criteria.Date)
+                    && x.CustomerId == int.Parse(criteria.CustomerId)
+                    && ((criteria.DestinationId == "all") || x.DestinationId == int.Parse(criteria.DestinationId))
+                    && ((criteria.ShipId == "all") || (x.ShipId == int.Parse(criteria.ShipId))))
                 .AsEnumerable()
                 .GroupBy(x => x.Customer).OrderBy(x => x.Key.Description)
                 .Select(x => new InvoicingPrinterDTO {

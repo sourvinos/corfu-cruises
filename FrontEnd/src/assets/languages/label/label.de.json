@@ -1559,8 +1559,8 @@
                 "description": "Kommentare"
             },
             {
-                "id": "headerTotals",
-                "description": "SUMME"
+                "id": "headerTotalPersons",
+                "description": "Σ"
             },
             {
                 "id": "exportAllButton",
