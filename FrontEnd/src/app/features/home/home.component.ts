@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, VERSION } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { HelperService } from '../../shared/services/helper.service'
@@ -15,6 +15,7 @@ export class HomeComponent {
 
     private windowTitle = 'Home'
     public companyLogo: any
+    public ngVersion: any
 
     //#endregion
 
@@ -25,6 +26,7 @@ export class HomeComponent {
     ngOnInit(): void {
         this.getAppName()
         this.setWindowTitle()
+        this.getNgVersion()
     }
 
     //#endregion
@@ -33,6 +35,10 @@ export class HomeComponent {
 
     private getAppName(): void {
         this.companyLogo = this.helperService.getApplicationTitle().split(' ')
+    }
+
+    private getNgVersion(): any {
+        this.ngVersion = VERSION.full
     }
 
     private setWindowTitle(): void {
