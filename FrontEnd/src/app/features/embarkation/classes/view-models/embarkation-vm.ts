@@ -8,6 +8,7 @@ export class EmbarkationVM {
     ticketNo: string
     remarks: string
     customer: string
+    destination: string
     driver: string
     ship: string
     totalPersons: number

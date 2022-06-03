@@ -43,6 +43,7 @@ export class EmbarkationListComponent {
     public records: EmbarkationGroupVM
 
     public customers = []
+    public destinations = []
     public drivers = []
     public ships = []
     public embarkationStatuses = []
@@ -60,6 +61,7 @@ export class EmbarkationListComponent {
                 this.updatePassengerStatusPills()
                 this.populateCriteriaFromStoredVariables()
                 this.getDistinctCustomers()
+                this.getDistinctDestinations()
                 this.getDistinctDrivers()
                 this.getDistinctShips()
                 this.getDistinctEmbarkationStatus()
@@ -244,6 +246,14 @@ export class EmbarkationListComponent {
         })
     }
 
+    private getDistinctDestinations(): void {
+        this.destinations = []
+        const x = [... new Set(this.records.reservations.map(x => x.destination))]
+        x.forEach(element => {
+            this.destinations.push({ label: element, value: element })
+        })
+    }
+
     private getDistinctDrivers(): void {
         this.drivers = []
         const x = [... new Set(this.records.reservations.map(x => x.driver))]
@@ -288,6 +298,7 @@ export class EmbarkationListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

@@ -31,6 +31,7 @@
                         <th style="min-width: 6%; max-width: 6%;">{{ getLabel('headerRemarks') }}</th>
                         <th style="min-width: 10%; max-width: 10%;" pSortableColumn="refNo">{{ getLabel('headerRefNo') }}<p-sortIcon field="refNo"></p-sortIcon></th>
                         <th style="min-width: 10%; max-width: 10%;" pSortableColumn="ticketNo">{{ getLabel('headerTicketNo') }}<p-sortIcon field="ticketNo"></p-sortIcon></th>
+                        <th pSortableColumn="destination">{{ getLabel('headerDestination') }}<p-sortIcon field="destination"></p-sortIcon></th>
                         <th pSortableColumn="customer">{{ getLabel('headerCustomer') }}<p-sortIcon field="customer"></p-sortIcon></th>
                         <th pSortableColumn="driver">{{ getLabel('headerDriver') }}<p-sortIcon field="driver"></p-sortIcon></th>
                         <th pSortableColumn="ship">{{ getLabel('headerShip') }}<p-sortIcon field="ship"></p-sortIcon></th>
@@ -47,6 +48,18 @@
                         <th style="min-width: 10%; max-width: 10%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
                         <!-- Ticket No -->
                         <th style="min-width: 10%; max-width: 10%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
+                        <!-- Destination -->
+                        <th>
+                            <p-columnFilter style="width: 100%;" field="destination" matchMode="equals" [showMenu]="false">
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-dropdown [ngModel]="value" [options]="destinations" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option.label }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
                         <!-- Customer -->
                         <th>
                             <p-columnFilter style="width: 100%;" field="customer" matchMode="equals" [showMenu]="false">
@@ -107,6 +120,7 @@
                         <td style="min-width: 6%; max-width: 6%; justify-content: center;"><span class="remarks" *ngIf="hasRemarks(reservation.remarks)" (click)="onShowRemarks(reservation.remarks)">{{ getEmoji('remarks') }}</span></td>
                         <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ reservation.refNo }}</td>
                         <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ reservation.ticketNo }}</td>
+                        <td>{{ reservation.destination }}</td>
                         <td>{{ reservation.customer }}</td>
                         <td>{{ reservation.driver }}</td>
                         <td>{{ reservation.ship }}</td>

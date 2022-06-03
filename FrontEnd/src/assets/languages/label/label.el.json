@@ -1319,6 +1319,10 @@
                 "description": "Eισιτήριο"
             },
             {
+                "id": "headerDestination",
+                "description": "Προορισμός"
+            },
+            {
                 "id": "headerCustomer",
                 "description": "Πελάτης"
             },

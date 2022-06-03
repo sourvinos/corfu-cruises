@@ -21,15 +21,16 @@ namespace API.Features.Embarkation {
             this.settings = settings.Value;
         }
 
-        public async Task<EmbarkationGroupVM<EmbarkationVM>> Get(string date, int destinationId, int portId, string shipId) {
+        public async Task<EmbarkationGroupVM<EmbarkationVM>> Get(string date, string destinationId, int portId, string shipId) {
             var reservations = await context.Set<Reservation>()
                 .Include(x => x.Customer)
+                .Include(x => x.Destination)
                 .Include(x => x.Driver)
                 .Include(x => x.Ship)
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                 .Where(x => x.ShipId != null)
                 .Where(x => x.Date == Convert.ToDateTime(date)
-                    && x.DestinationId == destinationId
+                    && ((destinationId == "all") || x.DestinationId == int.Parse(destinationId))
                     && x.PortId == portId
                     && ((shipId == "all") || x.ShipId == int.Parse(shipId)))
                 .ToListAsync();
