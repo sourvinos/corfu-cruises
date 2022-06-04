@@ -25,6 +25,8 @@ namespace API.Features.Invoicing.Display {
                     Kids = x.Kids,
                     Free = x.Free,
                     TotalPersons = x.TotalPersons,
+                    EmbarkedPassengers = x.Passengers.Count(x => x.IsCheckedIn),
+                    TotalNoShow = x.TotalPersons - x.Passengers.Count(x => x.IsCheckedIn),
                     TicketNo = x.TicketNo,
                     Remarks = x.Remarks,
                     HasTransfer = x.PickupPoint.CoachRoute.HasTransfer,

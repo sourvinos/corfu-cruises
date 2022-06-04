@@ -4,9 +4,8 @@ import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
 import { EmojiService } from 'src/app/shared/services/emoji.service'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InvoicingCriteriaVM } from '../../classes/view-models/invoicing-criteria-vm'
-import { InvoicingPrinterService } from '../../classes/services/invoicing-printer.service'
 import { InvoicingVM } from '../../classes/view-models/invoicing-vm'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
@@ -14,6 +13,8 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { InvoicingDisplayService } from '../../classes/services/invoicing-display.service'
+import { InvoicingPDFService } from '../../classes/services/invoicing-pdf.service'
 
 @Component({
     selector: 'invoicing-list',
@@ -34,12 +35,13 @@ export class InvoicingListComponent {
 
     public invoicingCriteria: InvoicingCriteriaVM
     public records: InvoicingVM[] = []
+    private customerRecords: any
     public filteredRecords: InvoicingVM[] = []
     public isLoading = new Subject<boolean>()
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private invoicingPrinterService: InvoicingPrinterService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService,) { }
+    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private invoicingDisplayService: InvoicingDisplayService, private invoicingPdfService: InvoicingPDFService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService,) { }
 
     //#region lifecycle hooks
 
@@ -66,24 +68,11 @@ export class InvoicingListComponent {
         XLSX.writeFile(wb, 'Invoicing for ' + this.invoicingCriteria.date + '.xlsx')
     }
 
-    public exportSingleCustomer(date: string, customerId: number): void {
-        this.invoicingPrinterService.createReport(this.invoicingPrinterService.createCriteriaObject(date, customerId)).pipe(indicate(this.isLoading)).subscribe({
-            next: (response) => {
-                this.invoicingPrinterService.openReport(response.filename + '.pdf').subscribe({
-                    next: (pdf) => {
-                        const blob = new Blob([pdf], { type: 'application/pdf' })
-                        const fileURL = URL.createObjectURL(blob)
-                        window.open(fileURL, '_blank')
-                    },
-                    error: (errorFromInterceptor) => {
-                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-                    }
-                })
-            },
-            error: (errorFromInterceptor) => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-            }
-        })
+    public exportSingleCustomer(customerId: number): void {
+        console.log('List', this.records)
+        const customer = this.records.find(x => x.customer.id == customerId)
+        console.log('Customer', customer)
+        this.invoicingPdfService.createPDF(customer)
     }
 
     public hasTransfer(value: any): boolean {
@@ -111,6 +100,18 @@ export class InvoicingListComponent {
             return this.emojiService.getEmoji('wildcard')
         } else {
             return criteria.description
+        }
+    }
+
+    public showEmoji(passengerDifference: number): string {
+        if (passengerDifference > 0) {
+            return this.emojiService.getEmoji('warning')
+        }
+        if (passengerDifference == 0) {
+            return this.emojiService.getEmoji('ok')
+        }
+        if (passengerDifference < 0) {
+            return this.emojiService.getEmoji('error')
         }
     }
 
@@ -143,7 +144,7 @@ export class InvoicingListComponent {
     private loadRecords(): void {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
-            this.records = listResolved.result
+            this.records = Object.assign([], listResolved.result)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')

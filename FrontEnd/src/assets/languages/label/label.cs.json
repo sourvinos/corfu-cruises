@@ -1563,8 +1563,8 @@
                 "description": "Komentáře"
             },
             {
-                "id": "headerTotals",
-                "description": "CELKEM"
+                "id": "headerTotalPersons",
+                "description": "Σ"
             },
             {
                 "id": "exportAllButton",

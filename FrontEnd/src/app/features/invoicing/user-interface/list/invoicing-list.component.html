@@ -28,15 +28,17 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 3%; max-width: 3%;"></th>
-                        <th style="min-width: 15%; max-width: 15%;">{{ getLabel("headerDestination") }}</th>
-                        <th style="min-width: 15%; max-width: 15%;">{{ getLabel("headerShip") }}</th>
-                        <th style="min-width: 15%; max-width: 15%;">{{ getLabel("headerPort") }}</th>
+                        <th>{{ getLabel("headerDestination") }}</th>
+                        <th>{{ getLabel("headerShip") }}</th>
+                        <th>{{ getLabel("headerPort") }}</th>
                         <th style="min-width: 10%; max-width: 10%;">{{ getLabel("headerTicketNo") }}</th>
                         <th style="min-width: 6%; max-width: 6%;">{{ getLabel("headerHasTransfer") }}</th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getLabel("headerAdults") }}</th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getLabel("headerKids") }}</th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getLabel("headerFree") }}</th>
-                        <th style="min-width: 3%; max-width: 3%;">{{ getEmoji('sum') }}</th>
+                        <th style="min-width: 3%; max-width: 3%;">{{ getLabel("headerTotalPersons") }}</th>
+                        <th style="min-width: 3%; max-width: 3%;">Σ<span class="subscript">1</span></th>
+                        <th colspan="2" style="min-width: 4%; max-width: 4%;">+/-</th>
                         <th style="min-width: 21%; max-width: 21%;">{{ getLabel("headerRemarks") }}</th>
                         <th style="min-width: 3%; max-width: 3%;"></th>
                     </tr>
@@ -44,13 +46,13 @@
                 <ng-template pTemplate="body" let-record>
                     <tr>
                         <td colspan="11">{{ record.customer.description }}</td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: center;" class="clickable" (click)="exportSingleCustomer(record.date,record.customer.id)">PDF</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: center;" class="clickable" (click)="exportSingleCustomer(record.customer.id)">PDF</td>
                     </tr>
                     <tr *ngFor="let x of record.reservations, let i = index">
                         <td style="min-width: 3%; max-width: 3%;"></td>
-                        <td style="min-width: 15%; max-width: 15%;">{{ record.reservations[i].destination }}</td>
-                        <td style="min-width: 15%; max-width: 15%;">{{ record.reservations[i].ship }}</td>
-                        <td style="min-width: 15%; max-width: 15%;">{{ record.reservations[i].port }}</td>
+                        <td>{{ record.reservations[i].destination }}</td>
+                        <td>{{ record.reservations[i].ship }}</td>
+                        <td>{{ record.reservations[i].port }}</td>
                         <td style="min-width: 10%; max-width: 10%;">{{ record.reservations[i].ticketNo }}</td>
                         <td [ngClass]="record.reservations[i].hasTransfer ? 'has-transfer' : 'no-transfer'" style="min-width: 6%; max-width: 6%; justify-content: center;">
                             <span *ngIf="record.reservations[i].hasTransfer" class="icon-ok material-icons-outlined">directions_bus</span>
@@ -60,6 +62,9 @@
                         <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].kids }}</td>
                         <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].free }}</td>
                         <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].totalPersons }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].embarkedPassengers }}</td>
+                        <td style="min-width: 2%; max-width: 2%; justify-content: right;">{{ record.reservations[i].totalPersons - record.reservations[i].embarkedPassengers }}</td>
+                        <td style="min-width: 2%; max-width: 2%;">{{ showEmoji(record.reservations[i].totalPersons - record.reservations[i].embarkedPassengers) }}</td>
                         <td style="min-width: 21%; max-width: 21%;">{{ record.reservations[i].remarks }}</td>
                         <td style="min-width: 3%; max-width: 3%;"></td>
                     </tr>
@@ -88,8 +93,9 @@
                                             <span *ngIf="record.portGroup[i].hasTransferGroup[z].hasTransfer" class="icon-ok material-icons-outlined">directions_bus</span>
                                             <span *ngIf="!record.portGroup[i].hasTransferGroup[z].hasTransfer" class="icon-error material-icons-outlined">directions_bus</span>
                                         </td>
-                                        <td class="number">
-                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].totalPersons != record.portGroup[i].hasTransferGroup[z].totalPassengers" class="icon-warning material-icons-outlined">warning_amber</span>
+                                        <td class="number" style="padding-bottom: 13px">
+                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].totalPersons == record.portGroup[i].hasTransferGroup[z].totalPassengers">{{ showEmoji(0) }}</span>
+                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].totalPersons != record.portGroup[i].hasTransferGroup[z].totalPassengers">{{ showEmoji(1) }}</span>
                                         </td>
                                     </tr>
                                     <tr>

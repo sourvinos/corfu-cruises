@@ -1563,8 +1563,8 @@
                 "description": "Σχόλια"
             },
             {
-                "id": "headerTotals",
-                "description": "ΣΥΝΟΛΑ"
+                "id": "headerTotalPersons",
+                "description": "Σ"
             },
             {
                 "id": "exportAllButton",

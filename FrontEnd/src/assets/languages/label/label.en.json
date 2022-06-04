@@ -1563,8 +1563,8 @@
                 "description": "Comments"
             },
             {
-                "id": "headerTotals",
-                "description": "TOTALS"
+                "id": "headerTotalPersons",
+                "description": "Σ"
             },
             {
                 "id": "exportAllButton",

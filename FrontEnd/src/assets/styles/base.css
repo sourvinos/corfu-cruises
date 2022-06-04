@@ -84,6 +84,11 @@ p.instructions {
     font-weight: 600;
 }
 
+.subscript {
+    font-size: 0.6875rem;
+    padding-top: 0.25rem;
+}
+
 .clickable:hover {
     cursor: pointer;
 }
