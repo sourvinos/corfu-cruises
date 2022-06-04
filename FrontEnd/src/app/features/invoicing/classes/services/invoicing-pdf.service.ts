@@ -34,14 +34,14 @@ export class InvoicingPDFService {
 
     public createPDF(record: any): void {
         console.log('PDF', record)
-        console.log('Process:', this.customer)
+        console.log('Process:', record.customer)
         this.init(record)
-        // this.addLogo(this.pdf)
-        // this.addTitle(this.pdf)
-        // this.addCriteria(this.pdf)
+        this.addLogo(this.pdf)
+        this.addTitle(this.pdf)
+        this.addCriteria(this.pdf, record)
         this.addPortGroup(this.pdf)
         this.addBody(this.pdf)
-        // this.addFooter(this.pageCount, this.pdf, true)
+        this.addFooter(this.pageCount, this.pdf, true)
         this.openPdf()
     }
 
@@ -49,21 +49,29 @@ export class InvoicingPDFService {
     //#endregion
     //#region private methods
 
-    private addCriteria(pdf: jsPDF): void {
+    private addCriteria(pdf: jsPDF, record: any): void {
         pdf.setFont('PFHandbookProThin')
         pdf.setTextColor(0, 0, 0)
         pdf.setFontSize(9)
-        pdf.text('Date: ' + this.helperService.formatISODateToLocale(this.criteria.date, true), 202, 12.5, { align: 'right' })
-        pdf.text('Destination: ' + this.criteria.destination.description, 202, 16.5, { align: 'right' })
-        pdf.text('Port: ' + this.criteria.port.description, 202, 20.5, { align: 'right' })
-        pdf.text('Ship: ' + this.criteria.ship, 202, 24.5, { align: 'right' })
+        pdf.text('Date: ' + this.helperService.formatISODateToLocale(record.date, true), 280, 12.5, { align: 'right' })
+        pdf.text('Customer: ' + record.customer.description, 280, 16.5, { align: 'right' })
     }
 
     private addPortGroup(pdf: jsPDF): void {
+        pdf.setFont('NotoSansMonoCondensedRegular')
+        pdf.setFontSize(8)
+        pdf.setTextColor(0, 0, 0)
         this.nextLineTop += this.lineGap + 12
+        pdf.text('Adults', 62, this.nextLineTop, { align: 'right' })
+        pdf.text('Kids', 72, this.nextLineTop, { align: 'right' })
+        pdf.text('Free', 82, this.nextLineTop, { align: 'right' })
+        pdf.text('Total', 93, this.nextLineTop, { align: 'right' })
+        pdf.text('Actual', 106, this.nextLineTop, { align: 'right' })
+        pdf.text('Transfer', 111, this.nextLineTop, { align: 'left' })
+        this.nextLineTop += this.lineGap
         for (let portGroupIndex = 0; portGroupIndex < this.customer.portGroup.length; portGroupIndex++) {
             for (let hasTransferGroupIndex = 0; hasTransferGroupIndex < this.customer.portGroup[portGroupIndex].hasTransferGroup.length; hasTransferGroupIndex++) {
-                pdf.text(this.buildTransferGroupLine(pdf, portGroupIndex, hasTransferGroupIndex), 30, this.nextLineTop)
+                pdf.text(this.buildTransferGroupLine(pdf, portGroupIndex, hasTransferGroupIndex), 57, this.nextLineTop)
                 this.nextLineTop += this.lineGap
             }
             pdf.text(this.buildPortGroupLine(pdf, portGroupIndex), 30, this.nextLineTop)
@@ -72,7 +80,19 @@ export class InvoicingPDFService {
     }
 
     private addBody(pdf: jsPDF): void {
-        this.nextLineTop += this.lineGap + 12
+        this.nextLineTop += this.lineGap + 5
+        pdf.text('Destination', 10, this.nextLineTop, { align: 'left' })
+        pdf.text('Port', 44, this.nextLineTop, { align: 'left' })
+        pdf.text('Ship', 71, this.nextLineTop, { align: 'left' })
+        pdf.text('Ticket No', 94, this.nextLineTop, { align: 'left' })
+        pdf.text('Adults', 132, this.nextLineTop, { align: 'right' })
+        pdf.text('Kids', 141, this.nextLineTop, { align: 'right' })
+        pdf.text('Free', 151, this.nextLineTop, { align: 'right' })
+        pdf.text('Total', 162, this.nextLineTop, { align: 'right' })
+        pdf.text('Actual', 174, this.nextLineTop, { align: 'right' })
+        pdf.text('N/S', 184, this.nextLineTop, { align: 'right' })
+        pdf.text('Transfer', 188, this.nextLineTop, { align: 'left' })
+        this.nextLineTop += this.lineGap
         for (let reservationIndex = 0; reservationIndex < this.customer.reservations.length; reservationIndex++) {
             // if (this.mustAddPage(this.nextLineTop + this.topMargin, this.pageHeight)) {
             // this.addFooter(this.pageCount, pdf, false)
@@ -112,33 +132,22 @@ export class InvoicingPDFService {
         pdf.text('Embarkation Report', 31.5, 22)
     }
 
-    // private buildPassengerLine(pdf: jsPDF, reservationIndex: number, passengeIndex: number): string {
-    //     pdf.setFont('NotoSansMonoCondensedRegular')
-    //     pdf.setFontSize(7)
-    //     pdf.setTextColor(22, 111, 164)
-    //     const passenger =
-    //         this.records[reservationIndex].passengers[passengeIndex].lastname.padEnd(30, ' ') + ' ' +
-    //         this.records[reservationIndex].passengers[passengeIndex].firstname.padEnd(20, ' ') + ' ' +
-    //         this.records[reservationIndex].passengers[passengeIndex].nationalityDescription.padEnd(30, ' ')
-    //     return passenger
-    // }
-
     private buildReservationLine(pdf: jsPDF, index: number): string {
         pdf.setFont('NotoSansMonoCondensedRegular')
         pdf.setFontSize(8)
         pdf.setTextColor(0, 0, 0)
         const line =
-            this.customer.reservations[index].destination.padEnd(20, ' ') + ' ◽ ' +
-            this.customer.reservations[index].port.padEnd(15, ' ') + ' ◽ ' +
-            this.customer.reservations[index].ship.padEnd(12, ' ') + ' ◽ ' +
-            this.customer.reservations[index].ticketNo.padEnd(20, ' ') + ' ◽ ' +
-            this.customer.reservations[index].adults.toString().padStart(3, ' ') + ' ◽ ' +
-            this.customer.reservations[index].kids.toString().padStart(3, ' ') + ' ◽ ' +
-            this.customer.reservations[index].free.toString().padStart(3, ' ') + ' ◽ ' +
-            this.customer.reservations[index].totalPersons.toString().padStart(3, ' ') + ' ◽ ' +
-            this.customer.reservations[index].embarkedPassengers.toString().padStart(3, ' ') + ' ◽ ' +
-            this.customer.reservations[index].totalNoShow.toString().padStart(3, ' ') + ' ◽ ' +
-            this.customer.reservations[index].hasTransfer + ' ◽ ' +
+            this.customer.reservations[index].destination.padEnd(20, ' ') + '   ' +
+            this.customer.reservations[index].port.padEnd(15, ' ') + '   ' +
+            this.customer.reservations[index].ship.padEnd(12, ' ') + '   ' +
+            this.customer.reservations[index].ticketNo.padEnd(20, ' ') + '   ' +
+            this.customer.reservations[index].adults.toString().padStart(3, ' ') + '   ' +
+            this.customer.reservations[index].kids.toString().padStart(3, ' ') + '   ' +
+            this.customer.reservations[index].free.toString().padStart(3, ' ') + '   ' +
+            this.customer.reservations[index].totalPersons.toString().padStart(5, ' ') + '   ' +
+            this.customer.reservations[index].embarkedPassengers.toString().padStart(4, ' ') + '   ' +
+            this.customer.reservations[index].totalNoShow.toString().padStart(4, ' ') + '   ' +
+            this.customer.reservations[index].hasTransfer + '   ' +
             this.customer.reservations[index].remarks.padEnd(11, ' ')
         return line
     }
@@ -148,7 +157,12 @@ export class InvoicingPDFService {
         pdf.setFontSize(8)
         pdf.setTextColor(0, 0, 0)
         const line =
-            this.customer.portGroup[index].adults.toString().padStart(3, ' ') + ' ◽ '
+            this.customer.portGroup[index].port.padEnd(17, ' ') + ' ' +
+            this.customer.portGroup[index].adults.toString().padStart(3, ' ') + '   ' +
+            this.customer.portGroup[index].kids.toString().padStart(4, ' ') + '   ' +
+            this.customer.portGroup[index].free.toString().padStart(4, ' ') + '   ' +
+            this.customer.portGroup[index].totalPersons.toString().padStart(4, ' ') + '   ' +
+            this.customer.portGroup[index].totalPassengers.toString().padStart(6, ' ') + '   '
         return line
     }
 
@@ -157,7 +171,12 @@ export class InvoicingPDFService {
         pdf.setFontSize(8)
         pdf.setTextColor(0, 0, 0)
         const line =
-            this.customer.portGroup[x].hasTransferGroup[z].adults.toString().padStart(3, ' ') + ' ◽ '
+            this.customer.portGroup[x].hasTransferGroup[z].adults.toString().padStart(3, ' ') + '   ' +
+            this.customer.portGroup[x].hasTransferGroup[z].kids.toString().padStart(4, ' ') + '   ' +
+            this.customer.portGroup[x].hasTransferGroup[z].free.toString().padStart(4, ' ') + '   ' +
+            this.customer.portGroup[x].hasTransferGroup[z].totalPersons.toString().padStart(4, ' ') + '   ' +
+            this.customer.portGroup[x].hasTransferGroup[z].totalPassengers.toString().padStart(6, ' ') + '   ' +
+            this.customer.portGroup[x].hasTransferGroup[z].hasTransfer
         return line
 
     }
@@ -184,7 +203,7 @@ export class InvoicingPDFService {
         this.pageCount = 1
         this.pdf = new jsPDF('landscape', 'mm', 'a4')
         this.pageHeight = parseInt(this.pdf.internal.pageSize.height.toFixed())
-        // this.populateCriteriaFromStoredVariables(ship)
+        this.populateCriteriaFromStoredVariables()
     }
 
     private isLastPage(isLastPage: boolean): string {
@@ -201,14 +220,14 @@ export class InvoicingPDFService {
         this.pdf.output('dataurlnewwindow')
     }
 
-    private populateCriteriaFromStoredVariables(ship: any): void {
-        if (this.localStorageService.getItem('embarkation-criteria')) {
-            const criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
+    private populateCriteriaFromStoredVariables(): void {
+        if (this.localStorageService.getItem('invoicing-criteria')) {
+            const criteria = JSON.parse(this.localStorageService.getItem('invoicing-criteria'))
             this.criteria = {
                 'date': criteria.date,
-                'destination': criteria.destination,
-                'port': criteria.port,
-                'ship': ship
+                'customer': criteria.customer.description,
+                'destination': criteria.destination.description,
+                'ship': criteria.ship.description
             }
         }
     }
