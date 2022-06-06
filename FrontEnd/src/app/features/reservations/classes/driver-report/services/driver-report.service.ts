@@ -25,12 +25,10 @@ export class DriverReportService {
     public doReportTasks(driverIds: number[]): void {
         driverIds.sort(function (a, b) { return a - b })
         driverIds.forEach(driverId => {
-            setTimeout(() => {
-                this.reservationService.getByDateAndDriver(this.localStorageService.getItem('date'), driverId).subscribe(response => {
-                    this.mapObjectFromAPI(response)
-                    this.createReport()
-                })
-            }, 5000)
+            this.reservationService.getByDateAndDriver(this.localStorageService.getItem('date'), driverId).subscribe(response => {
+                this.mapObjectFromAPI(response)
+                this.createReport()
+            })
         })
     }
 
@@ -58,7 +56,7 @@ export class DriverReportService {
                 ['time', 'ticketNo', 'pickupPointDescription', 'exactPoint', 'adults', 'kids', 'free', 'totalPersons', 'customerDescription', 'fullname', 'remarks', 'destinationAbbreviation'],
                 ['center', 'center', 'left', 'left', 'right', 'right', 'right', 'right', 'left', 'left', 'left', 'center'])
         }
-        this.createPdf(dd, this.driverReport.header.driverDescription)
+        this.createPdf(dd)
     }
 
     private table(reservations: any, columns: any[], align: any[]): any {
@@ -240,8 +238,8 @@ export class DriverReportService {
         return dataRow
     }
 
-    private createPdf(document: any, filename: any): void {
-        pdfMake.createPdf(document).download(filename + '.pdf')
+    private createPdf(document: any): void {
+        pdfMake.createPdf(document).open()
     }
 
     private mapObjectFromAPI(response: any): void {
