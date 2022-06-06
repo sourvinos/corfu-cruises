@@ -36,7 +36,7 @@ export class LanguageMenuComponent {
     }
 
     public getStoredLanguage(): string {
-        return this.localStorageService.getItem('language') == '' ? this.doLanguageTasks('en') : this.localStorageService.getItem('language')
+        return this.localStorageService.getItem('language') == '' ? this.doLanguageTasks('en-GB') : this.localStorageService.getItem('language')
     }
 
     public hideMenu(): void {

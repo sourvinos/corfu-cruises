@@ -70,6 +70,7 @@ export class ReservationListComponent {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
                 this.loadRecords()
+                this.populateDropdowns()
                 this.storeDate()
             }
         })
@@ -113,6 +114,7 @@ export class ReservationListComponent {
             dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
                     this.reservationService.assignToDriver(result, this.selectedRecords).subscribe(() => {
+                        this.clearSelectedRecords()
                         this.refreshList()
                         this.showSweetAlert(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'success', false, false, 'OK', '', 1500)
                     })
@@ -136,6 +138,7 @@ export class ReservationListComponent {
             dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
                     this.reservationService.assignToShip(result, this.selectedRecords).subscribe(() => {
+                        this.clearSelectedRecords()
                         this.refreshList()
                         this.showSweetAlert(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'success', false, false, 'OK', '', 1500)
                     })
@@ -171,7 +174,6 @@ export class ReservationListComponent {
     public doResetTableTasks(table: { reset: () => void }): void {
         this.clearFilterTextboxes()
         this.resetTable(table)
-        this.clearCheckboxes()
         this.clearSelectedRecords()
         this.updateTotals()
     }
@@ -228,13 +230,6 @@ export class ReservationListComponent {
 
     private changeScrollWheelSpeed(): void {
         this.helperService.changeScrollWheelSpeed(document.querySelector<HTMLElement>('.cdk-virtual-scroll-viewport'))
-    }
-
-    private clearCheckboxes(): void {
-        const items = document.querySelectorAll('.pi-check')
-        items.forEach(item => {
-            item.classList.remove('pi', 'pi-check')
-        })
     }
 
     private clearFilterTextboxes(): void {

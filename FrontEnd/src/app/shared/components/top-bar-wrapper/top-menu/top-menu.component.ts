@@ -92,27 +92,27 @@ export class TopMenuComponent {
                     {
                         label: 'Ελληνικά',
                         icon: 'flag el',
-                        command: (): string => this.doLanguageTasks('el')
+                        command: (): string => this.doLanguageTasks('el-GR')
                     },
                     {
                         label: 'English',
                         icon: 'flag en',
-                        command: (): string => this.doLanguageTasks('en')
+                        command: (): string => this.doLanguageTasks('en-GB')
                     },
                     {
                         label: 'Deutsch',
                         icon: 'flag de',
-                        command: (): string => this.doLanguageTasks('de')
+                        command: (): string => this.doLanguageTasks('de-DE')
                     },
                     {
                         label: 'Český',
                         icon: 'flag cs',
-                        command: (): string => this.doLanguageTasks('cs')
+                        command: (): string => this.doLanguageTasks('cs-CZ')
                     },
                     {
                         label: 'Française',
                         icon: 'flag fr',
-                        command: (): string => this.doLanguageTasks('fr')
+                        command: (): string => this.doLanguageTasks('fr-FR')
                     },
                 ]
             }
@@ -138,7 +138,7 @@ export class TopMenuComponent {
     }
 
     private getLanguageIcon(): string {
-        const flag = this.localStorageService.getLanguage() == '' ? this.doLanguageTasks('en') : this.localStorageService.getLanguage()
+        const flag = this.localStorageService.getLanguage() == '' ? this.doLanguageTasks('en-GB') : this.localStorageService.getLanguage()
         return 'flag ' + flag
     }
 

@@ -71,7 +71,7 @@ export class AccountService extends DataService {
 
     public login(userName: string, password: string): Observable<void> {
         const grantType = 'password'
-        const language = localStorage.getItem('language') || 'en'
+        const language = localStorage.getItem('language') || 'en-GB'
         return this.http.post<any>(this.urlToken, { language, userName, password, grantType }).pipe(map(response => {
             this.setLoginStatus(true)
             this.setLocalStorage(response)
