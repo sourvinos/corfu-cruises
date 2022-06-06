@@ -53,7 +53,7 @@ namespace API.Integration.Tests.Destinations {
         [Theory]
         [ClassData(typeof(UpdateValidDestination))]
         public async Task Active_Simple_Users_Can_Not_Update(TestDestination record) {
-            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", record);
+            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
         [Theory]

@@ -5,8 +5,7 @@ using API.Features.Destinations;
 using API.Features.Drivers;
 using API.Features.Embarkation;
 using API.Features.Genders;
-using API.Features.Invoicing.Display;
-using API.Features.Invoicing.Printer;
+using API.Features.Invoicing;
 using API.Features.Manifest;
 using API.Features.Nationalities;
 using API.Features.Occupants;
@@ -34,13 +33,13 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<ICoachRouteRepository, CoachRouteRepository>();
             services.AddTransient<ICrewRepository, CrewRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddTransient<IDestinationRepository, DestinationRepository>();
             services.AddTransient<IDriverRepository, DriverRepository>();
             services.AddTransient<IEmbarkationRepository, EmbarkationRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
-            services.AddTransient<IInvoicingDisplayRepository, InvoicingDisplayRepository>();
-            services.AddTransient<IInvoicingPrinterRepository, InvoicingPrinterRepository>();
+            services.AddTransient<IInvoicingRepository, InvoicingRepository>();
             services.AddTransient<IManifestRepository, ManifestRepository>();
             services.AddTransient<INationalityRepository, NationalityRepository>();
             services.AddTransient<IOccupantRepository, OccupantRepository>();
@@ -52,7 +51,6 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IShipOwnerRepository, ShipOwnerRepository>();
             services.AddTransient<IShipRepository, ShipRepository>();
             services.AddTransient<IShipRouteRepository, ShipRouteRepository>();
-            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
         }
 
     }

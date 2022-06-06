@@ -3,9 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Helpers;
+using API.Infrastructure.Exceptions;
 using API.Infrastructure.Implementations;
-using API.Infrastructure.Middleware;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -46,13 +45,12 @@ namespace API.Features.PickupPoints {
             if (record != null) {
                 return record;
             } else {
-                throw new RecordNotFound(ApiMessages.RecordNotFound());
+                throw new CustomException { HttpResponseCode = 404 };
             }
         }
 
         public async Task<PickupPoint> GetByIdToDelete(int id) {
-            return await context.Set<PickupPoint>()
-                .SingleOrDefaultAsync(x => x.Id == id);
+            return await context.Set<PickupPoint>().SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public void UpdateCoordinates(int id, string coordinates) {

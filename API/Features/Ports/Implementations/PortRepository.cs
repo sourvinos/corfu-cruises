@@ -35,8 +35,7 @@ namespace API.Features.Ports {
         }
 
         public async Task<Port> GetByIdToDelete(int id) {
-            return await context.Ports
-                .SingleOrDefaultAsync(m => m.Id == id);
+            return await context.Ports.SingleOrDefaultAsync(m => m.Id == id);
         }
 
     }

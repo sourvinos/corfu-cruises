@@ -35,8 +35,7 @@ namespace API.Features.Occupants {
         }
 
         public async Task<Occupant> GetByIdToDelete(int id) {
-            return await context.Occupants
-                .SingleOrDefaultAsync(m => m.Id == id);
+            return await context.Occupants.SingleOrDefaultAsync(m => m.Id == id);
         }
 
     }

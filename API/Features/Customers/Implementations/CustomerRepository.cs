@@ -35,8 +35,7 @@ namespace API.Features.Customers {
         }
 
         public async Task<Customer> GetByIdToDelete(int id) {
-            return await context.Customers
-                .SingleOrDefaultAsync(m => m.Id == id);
+            return await context.Customers.SingleOrDefaultAsync(m => m.Id == id);
         }
 
     }

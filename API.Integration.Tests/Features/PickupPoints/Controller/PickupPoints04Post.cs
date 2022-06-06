@@ -55,7 +55,7 @@ namespace API.Integration.Tests.PickupPoints {
         [Theory]
         [ClassData(typeof(CreateValidPickupPoint))]
         public async Task Active_Simple_Users_Can_Not_Create(TestPickupPoint record) {
-            await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", record);
+            await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
         [Theory]

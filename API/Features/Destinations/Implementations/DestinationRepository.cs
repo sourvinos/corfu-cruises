@@ -35,8 +35,7 @@ namespace API.Features.Destinations {
         }
 
         public async Task<Destination> GetByIdToDelete(int id) {
-            return await context.Destinations
-                .SingleOrDefaultAsync(x => x.Id == id);
+            return await context.Destinations.SingleOrDefaultAsync(x => x.Id == id);
         }
 
     }

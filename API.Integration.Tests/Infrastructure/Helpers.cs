@@ -14,11 +14,11 @@ namespace API.Integration.Tests.Infrastructure {
         private static readonly Random _random = new();
 
         public static TokenRequest CreateLoginCredentials(string username, string password, string grantType = "password") {
-            return (TokenRequest)(new() {
+            return new() {
                 Username = username,
                 Password = password,
                 GrantType = grantType
-            });
+            };
         }
 
         public static async Task<TokenResponse> Login(HttpClient httpClient, TokenRequest credentials) {

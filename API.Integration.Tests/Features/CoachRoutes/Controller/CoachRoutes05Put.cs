@@ -29,12 +29,6 @@ namespace API.Integration.Tests.CoachRoutes {
 
         [Theory]
         [ClassData(typeof(UpdateValidRoute))]
-        public async Task Unauthorized_Not_Logged_In(TestCoachRoute record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "", "", record);
-        }
-
-        [Theory]
-        [ClassData(typeof(UpdateValidRoute))]
         public async Task Unauthorized_Invalid_Credentials(TestCoachRoute record) {
             await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "user-does-not-exist", "not-a-valid-password", record);
         }
@@ -54,7 +48,7 @@ namespace API.Integration.Tests.CoachRoutes {
         [Theory]
         [ClassData(typeof(UpdateValidRoute))]
         public async Task Active_Simple_Users_Can_Not_Update(TestCoachRoute record) {
-            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", record);
+            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
         [Theory]

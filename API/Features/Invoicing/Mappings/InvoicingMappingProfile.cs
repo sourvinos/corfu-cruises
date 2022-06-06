@@ -1,16 +1,15 @@
-using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 
-namespace API.Features.Invoicing.Display {
+namespace API.Features.Invoicing {
 
-    public class InvoicingDisplayMappingProfile : Profile {
+    public class InvoicingMappingProfile : Profile {
 
-        public InvoicingDisplayMappingProfile() {
-            CreateMap<InvoicingDisplayDTO, InvoicingDisplayReportVM>()
+        public InvoicingMappingProfile() {
+            CreateMap<InvoicingDTO, InvoicingReportVM>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => x.Date))
                 .ForMember(x => x.Customer, x => x.MapFrom(x => x.Customer))
-                .ForMember(x => x.PortGroup, x => x.MapFrom(x => x.Ports.Select(x => new InvoicingDisplayPortDTO {
+                .ForMember(x => x.PortGroup, x => x.MapFrom(x => x.Ports.Select(x => new InvoicingPortDTO {
                     Port = x.Port,
                     HasTransferGroup = x.HasTransferGroup,
                     Adults = x.Adults,
@@ -19,7 +18,7 @@ namespace API.Features.Invoicing.Display {
                     TotalPersons = x.TotalPersons,
                     TotalPassengers = x.TotalPassengers
                 })))
-                .ForMember(x => x.Reservations, x => x.MapFrom(x => x.Reservations.Select(x => new InvoicingDisplayReservationVM {
+                .ForMember(x => x.Reservations, x => x.MapFrom(x => x.Reservations.Select(x => new InvoicingReservationVM {
                     ReservationId = x.ReservationId,
                     Adults = x.Adults,
                     Kids = x.Kids,

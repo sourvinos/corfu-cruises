@@ -35,15 +35,8 @@ namespace API.Features.ShipRoutes {
             return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<SimpleResource>>(records);
         }
 
-        // public new async Task<ShipRouteReadResource> GetById(int id) {
-        //     ShipRoute record = await context.ShipRoutes
-        //         .SingleOrDefaultAsync(x => x.Id == id);
-        //     return mapper.Map<ShipRoute, ShipRouteReadResource>(record);
-        // }
-
         public async Task<ShipRoute> GetByIdToDelete(int id) {
-            return await context.ShipRoutes
-                .SingleOrDefaultAsync(x => x.Id == id);
+            return await context.ShipRoutes.SingleOrDefaultAsync(x => x.Id == id);
         }
 
     }

@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
-using API.Infrastructure.Middleware;
+using API.Infrastructure.Exceptions;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -51,13 +50,12 @@ namespace API.Features.ShipCrews {
             if (record != null) {
                 return mapper.Map<Crew, CrewReadResource>(record);
             } else {
-                throw new RecordNotFound(ApiMessages.RecordNotFound());
+                throw new CustomException { HttpResponseCode = 404 };
             }
         }
 
         public async Task<Crew> GetByIdToDelete(int id) {
-            return await context.Crews
-                .SingleOrDefaultAsync(x => x.Id == id);
+            return await context.Crews.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public int IsValid(CrewWriteResource record) {

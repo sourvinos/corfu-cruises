@@ -16,8 +16,8 @@ namespace API.Integration.Tests.Cases {
         private static object[] Active_Simple_Users_Can_Login() {
             return new object[] {
                 new Login {
-                    Username = "matoula",
-                    Password = "820343d9e828"
+                    Username = "simpleuser",
+                    Password = "1234567890"
                 }
             };
         }

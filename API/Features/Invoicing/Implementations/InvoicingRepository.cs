@@ -8,17 +8,17 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace API.Features.Invoicing.Display {
+namespace API.Features.Invoicing {
 
-    public class InvoicingDisplayRepository : Repository<InvoicingDisplayRepository>, IInvoicingDisplayRepository {
+    public class InvoicingRepository : Repository<InvoicingRepository>, IInvoicingRepository {
 
         private readonly IMapper mapper;
 
-        public InvoicingDisplayRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
+        public InvoicingRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
             this.mapper = mapper;
         }
 
-        public IEnumerable<InvoicingDisplayReportVM> Get(string date, string customerId, string destinationId, string shipId) {
+        public IEnumerable<InvoicingReportVM> Get(string date, string customerId, string destinationId, string shipId) {
             var records = context.Set<Reservation>()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
@@ -32,10 +32,10 @@ namespace API.Features.Invoicing.Display {
                     && ((shipId == "all") || (x.ShipId == int.Parse(shipId))))
                 .AsEnumerable()
                 .GroupBy(x => x.Customer).OrderBy(x => x.Key.Description)
-                .Select(x => new InvoicingDisplayDTO {
+                .Select(x => new InvoicingDTO {
                     Date = date,
                     Customer = new SimpleResource { Id = x.Key.Id, Description = x.Key.Description },
-                    Ports = x.GroupBy(x => x.Port).OrderBy(x => !x.Key.IsPrimary).Select(x => new InvoicingDisplayPortDTO {
+                    Ports = x.GroupBy(x => x.Port).OrderBy(x => !x.Key.IsPrimary).Select(x => new InvoicingPortDTO {
                         Port = x.Key.Description,
                         HasTransferGroup = x.GroupBy(x => x.PickupPoint.CoachRoute.HasTransfer).Select(x => new HasTransferGroupDTO {
                             HasTransfer = x.Key,
@@ -57,7 +57,7 @@ namespace API.Features.Invoicing.Display {
                     TotalPersons = x.Sum(x => x.TotalPersons),
                     Reservations = x.OrderBy(x => !x.PickupPoint.CoachRoute.HasTransfer).ToList()
                 }).ToList();
-            return mapper.Map<IEnumerable<InvoicingDisplayDTO>, IEnumerable<InvoicingDisplayReportVM>>(records);
+            return mapper.Map<IEnumerable<InvoicingDTO>, IEnumerable<InvoicingReportVM>>(records);
         }
 
     }

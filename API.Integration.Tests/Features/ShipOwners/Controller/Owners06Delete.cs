@@ -47,7 +47,7 @@ namespace API.Integration.Tests.ShipOwners {
 
         [Fact]
         public async Task Active_Simple_Users_Can_Not_Delete() {
-            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", null);
+            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", null);
         }
 
         [Fact]

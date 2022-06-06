@@ -35,8 +35,7 @@ namespace API.Features.ShipOwners {
         }
 
         public async Task<ShipOwner> GetByIdToDelete(int id) {
-            return await context.ShipOwners
-                .SingleOrDefaultAsync(x => x.Id == id);
+            return await context.ShipOwners.SingleOrDefaultAsync(x => x.Id == id);
         }
 
     }

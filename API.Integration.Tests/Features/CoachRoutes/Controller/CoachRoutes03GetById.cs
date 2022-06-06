@@ -29,11 +29,6 @@ namespace API.Integration.Tests.CoachRoutes {
         }
 
         [Fact]
-        public async Task Unauthorized_Not_Logged_In() {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, null, null, null);
-        }
-
-        [Fact]
         public async Task Unauthorized_Invalid_Credentials() {
             await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "user-does-not-exist", "not-a-valid-password", null);
         }
@@ -46,7 +41,7 @@ namespace API.Integration.Tests.CoachRoutes {
 
         [Fact]
         public async Task Active_Simple_Users_Can_Not_Get_By_Id() {
-            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", null);
+            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", null);
         }
 
         [Fact]

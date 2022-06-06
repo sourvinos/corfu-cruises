@@ -4,9 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Helpers;
 using API.Infrastructure.Interfaces;
-using API.Infrastructure.Middleware;
+using API.Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Options;
@@ -36,7 +35,7 @@ namespace API.Infrastructure.Implementations {
             if (record != null) {
                 return record;
             } else {
-                throw new RecordNotFound(ApiMessages.RecordNotFound());
+                throw new CustomException { HttpResponseCode = 404 };
             }
         }
 
@@ -71,10 +70,10 @@ namespace API.Infrastructure.Implementations {
                     Save();
                     DisposeOrCommit(transaction);
                 } catch (Exception) {
-                    throw new RecordIsInUse(ApiMessages.RecordIsInUse());
+                    throw new CustomException { HttpResponseCode = 491 };
                 }
             } else {
-                throw new RecordNotFound(ApiMessages.RecordNotFound());
+                throw new CustomException { HttpResponseCode = 404 };
             }
         }
 

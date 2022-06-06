@@ -41,7 +41,7 @@ namespace API.Integration.Tests.Vouchers {
         [Theory]
         [ClassData(typeof(NewVoucher))]
         public async Task Active_Simple_Users_Can_Create(TestVoucher record) {
-            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", record);
+            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
         [Theory]

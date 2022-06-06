@@ -10,7 +10,7 @@ using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Identity;
 using API.Infrastructure.Implementations;
-using API.Infrastructure.Middleware;
+using API.Infrastructure.Exceptions;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -92,7 +92,7 @@ namespace API.Features.Reservations {
                 .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId);
             return record != null
                 ? _mapper.Map<Reservation, ReservationReadResource>(record)
-                : throw new RecordNotFound(ApiMessages.RecordNotFound());
+                : throw new CustomException { HttpResponseCode = 404 };
         }
 
         public async Task<Reservation> GetByIdToDelete(string id) {

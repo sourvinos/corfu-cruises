@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Helpers;
+using API.Infrastructure.Exceptions;
 using API.Infrastructure.Implementations;
-using API.Infrastructure.Middleware;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -27,7 +26,7 @@ namespace API.Features.CoachRoutes {
             return mapper.Map<IEnumerable<CoachRoute>, IEnumerable<CoachRouteListVM>>(records);
         }
 
-        public async  Task<IEnumerable<CoachRouteActiveForDropdownVM>> GetActiveForDropdown(){
+        public async Task<IEnumerable<CoachRouteActiveForDropdownVM>> GetActiveForDropdown() {
             List<CoachRoute> records = await context.CoachRoutes
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Abbreviation)
@@ -43,13 +42,12 @@ namespace API.Features.CoachRoutes {
             if (record != null) {
                 return mapper.Map<CoachRoute, CoachRouteReadDto>(record);
             } else {
-                throw new RecordNotFound(ApiMessages.RecordNotFound());
+                throw new CustomException { HttpResponseCode = 404 };
             }
         }
 
         public async Task<CoachRoute> GetByIdToDelete(int id) {
-            return await context.CoachRoutes
-                .SingleOrDefaultAsync(x => x.Id == id);
+            return await context.CoachRoutes.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public int IsValid(CoachRouteWriteDto record) {

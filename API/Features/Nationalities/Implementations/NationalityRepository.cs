@@ -35,8 +35,7 @@ namespace API.Features.Nationalities {
         }
 
         public async Task<Nationality> GetByIdToDelete(int id) {
-            return await context.Nationalities
-                .SingleOrDefaultAsync(m => m.Id == id);
+            return await context.Nationalities.SingleOrDefaultAsync(m => m.Id == id);
         }
 
     }

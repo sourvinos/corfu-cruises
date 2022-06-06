@@ -82,7 +82,6 @@ export class ReservationListComponent {
         this.setWindowTitle()
         this.initPersonTotals()
         this.updateTotals()
-        this.populateDropdowns()
         this.getConnectedUserRole()
     }
 
@@ -116,7 +115,7 @@ export class ReservationListComponent {
                     this.reservationService.assignToDriver(result, this.selectedRecords).subscribe(() => {
                         this.clearSelectedRecords()
                         this.refreshList()
-                        this.showSweetAlert(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'success', false, false, 'OK', '', 1500)
+                        this.showSweetAlert(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'success', true, false, 'OK', '', 0)
                     })
                 }
             })
@@ -140,7 +139,7 @@ export class ReservationListComponent {
                     this.reservationService.assignToShip(result, this.selectedRecords).subscribe(() => {
                         this.clearSelectedRecords()
                         this.refreshList()
-                        this.showSweetAlert(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'success', false, false, 'OK', '', 1500)
+                        this.showSweetAlert(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'success', true, false, 'OK', '', 0)
                     })
                 }
             })

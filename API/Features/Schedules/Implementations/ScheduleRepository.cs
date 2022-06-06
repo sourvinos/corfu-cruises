@@ -4,9 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
-using API.Infrastructure.Middleware;
+using API.Infrastructure.Exceptions;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -42,7 +41,7 @@ namespace API.Features.Schedules {
             if (record != null) {
                 return mapper.Map<Schedule, ScheduleReadDto>(record);
             } else {
-                throw new RecordNotFound(ApiMessages.RecordNotFound());
+                throw new CustomException { HttpResponseCode = 404 };
             }
         }
 

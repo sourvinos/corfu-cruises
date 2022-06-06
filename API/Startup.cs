@@ -2,9 +2,9 @@ using System;
 using API.Infrastructure.Auth;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Email;
+using API.Infrastructure.Exceptions;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Identity;
-using API.Infrastructure.Middleware;
 using API.Infrastructure.SeedData;
 using AutoMapper;
 using FluentValidation.AspNetCore;
@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace API {
 
@@ -55,6 +56,7 @@ namespace API {
             Authentication.AddAuthentication(Configuration, services);
             Interfaces.AddInterfaces(services);
             ModelValidations.AddModelValidation(services);
+            services.AddTransient<ExceptionHandling>();
             services.Configure<RazorViewEngineOptions>(options => options.ViewLocationExpanders.Add(new ViewLocationExpander()));
             services.AddAntiforgery(options => { options.Cookie.Name = "_af"; options.Cookie.HttpOnly = true; options.Cookie.SecurePolicy = CookieSecurePolicy.Always; options.HeaderName = "X-XSRF-TOKEN"; });
             services.AddAutoMapper(typeof(Startup));
@@ -97,9 +99,10 @@ namespace API {
             app.UseDefaultFiles();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseMiddleware<ErrorHandlerMiddleware>();
+            app.UseMiddleware<ExceptionHandling>();
             app.UseRouting();
             app.UseCors();
+            app.UseSerilogRequestLogging(configure => { configure.MessageTemplate = "HTTP {RequestMethod} {RequestPath} ({UserId}) responded {StatusCode} in {Elapsed:0.0000}ms"; });
             app.UseAuthentication();
             app.UseAuthorization();
         }

@@ -54,7 +54,7 @@ namespace API.Integration.Tests.ShipCrews {
         [Theory]
         [ClassData(typeof(CreateValidCrew))]
         public async Task Active_Simple_Users_Can_Not_Create(TestCrew record) {
-            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "matoula", "820343d9e828", record);
+            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
         [Theory]

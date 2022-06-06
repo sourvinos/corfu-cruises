@@ -35,8 +35,7 @@ namespace API.Features.Drivers {
         }
 
         public async Task<Driver> GetByIdToDelete(int id) {
-            return await context.Drivers
-                .SingleOrDefaultAsync(x => x.Id == id);
+            return await context.Drivers.SingleOrDefaultAsync(x => x.Id == id);
         }
 
     }

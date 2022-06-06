@@ -35,8 +35,7 @@ namespace API.Features.Genders {
         }
 
         public async Task<Gender> GetByIdToDelete(int id) {
-            return await context.Genders
-                .SingleOrDefaultAsync(x => x.Id == id);
+            return await context.Genders.SingleOrDefaultAsync(x => x.Id == id);
         }
 
     }
