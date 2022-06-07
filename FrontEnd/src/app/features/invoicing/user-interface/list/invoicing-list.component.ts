@@ -13,7 +13,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { InvoicingDisplayService } from '../../classes/services/invoicing-display.service'
+import { InvoicingService } from '../../classes/services/invoicing.service'
 import { InvoicingPDFService } from '../../classes/services/invoicing-pdf.service'
 
 @Component({
@@ -41,7 +41,7 @@ export class InvoicingListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private invoicingDisplayService: InvoicingDisplayService, private invoicingPdfService: InvoicingPDFService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService,) { }
+    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private invoicingService: InvoicingService, private invoicingPdfService: InvoicingPDFService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService,) { }
 
     //#region lifecycle hooks
 
