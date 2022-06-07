@@ -6,11 +6,11 @@ using API.Features.Drivers;
 using API.Features.PickupPoints;
 using API.Features.Schedules;
 using API.Infrastructure.Classes;
+using API.Infrastructure.Exceptions;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Identity;
 using API.Infrastructure.Implementations;
-using API.Infrastructure.Exceptions;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -159,6 +159,7 @@ namespace API.Features.Reservations {
                 var x when x == !scheduleRepo.DayHasScheduleForDestination(record.Date, record.DestinationId) => 430,
                 var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, GetPortIdFromPickupPointId(record)) => 427,
                 var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
+                var x when x == DoesNewOrUpdatedReservationCausesOverbooking(record.Date, record.ReservationId, record.DestinationId, record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsKeyUnique(record) => 409,
                 var x when x == SimpleUserHasNightRestrictions(record) => 459,
                 var x when x == SimpleUserCanNotAddReservationAfterDeparture(record) => 431,
@@ -230,6 +231,16 @@ namespace API.Features.Reservations {
         private static bool PortHasVacancy(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId, int reservationPersons) {
             int maxPassengers = GetPortMaxPassengers(scheduleRepo, fromDate, toDate, reservationId, destinationId, portId);
             return maxPassengers >= reservationPersons;
+        }
+
+        private bool DoesNewOrUpdatedReservationCausesOverbooking(string date, Guid? reservationId, int destinationId, int totalPersons) {
+            int maxPassengersForAllPorts = context.Schedules
+                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
+                .Sum(x => x.MaxPassengers);
+            int totalPersonsFromAllPorts = context.Reservations
+                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.ReservationId != reservationId)
+                .Sum(x => x.TotalPersons);
+            return totalPersonsFromAllPorts + totalPersons > maxPassengersForAllPorts;
         }
 
         private static int GetPortMaxPassengers(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId) {
