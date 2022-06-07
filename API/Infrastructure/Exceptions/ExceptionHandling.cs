@@ -11,11 +11,13 @@ namespace API.Infrastructure.Exceptions {
                 await next(context);
             } catch (CustomException e) {
                 if (e.HttpResponseCode == 404) {
+                    // Not Found
                     var message = CreateResponse(e.HttpResponseCode);
                     context.Response.StatusCode = message.StatusCode;
                     await context.Response.WriteAsJsonAsync(message);
                 }
                 if (e.HttpResponseCode == 491) {
+                    // Record Is In Use
                     var message = CreateResponse(e.HttpResponseCode);
                     context.Response.StatusCode = message.StatusCode;
                     await context.Response.WriteAsJsonAsync(message);
@@ -26,7 +28,7 @@ namespace API.Infrastructure.Exceptions {
         private static ErrorResponse CreateResponse(int httpErrorCode) {
             var message = new ErrorResponse {
                 StatusCode = httpErrorCode,
-                Message = ApiMessages.RecordNotFound()
+                Message = "This record was not found or can not be deleted because it's in use"
             };
             return message;
         }

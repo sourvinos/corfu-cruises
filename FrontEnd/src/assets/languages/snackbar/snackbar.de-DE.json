@@ -107,12 +107,8 @@
                 "message": "Für dieses Konto steht eine E-Mail-Bestätigung aus"
             },
             {
-                "error": 499,
-                "message": "Es ist etwas sehr Schlimmes passiert. Sofort abmelden"
-            },
-            {
                 "error": 500,
-                "message": "Es besteht keine Verbindung zur Datenbank"
+                "message": "Etwas ist schief gelaufen, aber es wurde gemeldet"
             },
             {
                 "id": "authenticationFailed",

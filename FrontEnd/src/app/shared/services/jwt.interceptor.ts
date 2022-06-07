@@ -90,8 +90,6 @@ export class JwtInterceptor {
 
     private trapError(err: number) {
         switch (err) {
-            case 0:
-                return throwError(() => new Error('500')) // no contact with api
             case 400:
                 return throwError(() => new Error('400')) // invalidModel
             case 403:
@@ -140,10 +138,8 @@ export class JwtInterceptor {
                 return throwError(() => new Error('493')) // unableToCreateFile
             case 494:
                 return throwError(() => new Error('494')) // unableToChangePassword
-            case 500:
-                return throwError(() => new Error('500')) // no contact with api
             default:
-                return throwError(() => new Error('499')) // unknown!
+                return throwError(() => new Error('500'))
         }
     }
 

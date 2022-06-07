@@ -107,12 +107,8 @@
                 "message": "This account is pending email confirmation"
             },
             {
-                "error": 499,
-                "message": "Stalo se něco velmi špatného. Okamžitě se odhlaste"
-            },
-            {
                 "error": 500,
-                "message": "Neexistuje žádné spojení s databází"
+                "message": "Něco se pokazilo, ale bylo to nahlášeno"
             },
             {
                 "id": "authenticationFailed",

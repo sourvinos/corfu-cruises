@@ -107,12 +107,8 @@
                 "message": "L'enregistrement de l'utilisateur n'a pas encore été confirmé"
             },
             {
-                "error": 499,
-                "message": "Quelque chose de très mauvais s'est produit. Déconnectez-vous immédiatement"
-            },
-            {
                 "error": 500,
-                "message": "Il n'y a pas de connexion avec la base de données"
+                "message": "Quelque chose a mal tourné, mais cela a été signalé"
             },
             {
                 "id": "authenticationFailed",
