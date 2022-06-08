@@ -21,32 +21,32 @@ namespace API.Features.Reservations {
 
     public class ReservationRepository : Repository<Reservation>, IReservationRepository {
 
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IMapper _mapper;
-        private readonly TestingEnvironment _settings;
-        private readonly UserManager<UserExtended> _userManager;
+        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IMapper mapper;
+        private readonly TestingEnvironment settings;
+        private readonly UserManager<UserExtended> userManager;
 
         public ReservationRepository(AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor, IMapper mapper, IOptions<TestingEnvironment> settings, UserManager<UserExtended> userManager) : base(appDbContext, settings) {
-            _httpContextAccessor = httpContextAccessor;
-            _mapper = mapper;
-            _settings = settings.Value;
-            _userManager = userManager;
+            this.httpContextAccessor = httpContextAccessor;
+            this.mapper = mapper;
+            this.settings = settings.Value;
+            this.userManager = userManager;
         }
 
         public async Task<ReservationGroupResource<ReservationListResource>> GetByDate(string date) {
             IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
-            if (await Identity.IsUserAdmin(_httpContextAccessor)) {
+            if (await Identity.IsUserAdmin(httpContextAccessor)) {
                 reservations = GetReservationsFromAllUsersByDate(date);
             } else {
-                var simpleUser = await Identity.GetConnectedUserId(_httpContextAccessor);
-                var connectedUserDetails = Identity.GetConnectedUserDetails(_userManager, simpleUser.UserId);
+                var simpleUser = await Identity.GetConnectedUserId(httpContextAccessor);
+                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
                 reservations = GetReservationsForLinkedCustomer(date, (int)connectedUserDetails.CustomerId);
             }
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
                 Reservations = reservations.ToList(),
             };
-            return _mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
+            return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
         }
 
         public async Task<DriverResult<Reservation>> GetByDateAndDriver(string date, int driverId) {
@@ -57,25 +57,25 @@ namespace API.Features.Reservations {
                 DriverId = driver != null ? driverId : 0,
                 DriverDescription = driver != null ? driver.Description : "(EMPTY)",
                 Phones = driver != null ? driver.Phones : "(EMPTY)",
-                Reservations = _mapper.Map<IEnumerable<Reservation>, IEnumerable<ReservationDriverListResource>>(reservations)
+                Reservations = mapper.Map<IEnumerable<Reservation>, IEnumerable<ReservationDriverListResource>>(reservations)
             };
         }
 
         public async Task<ReservationGroupResource<ReservationListResource>> GetByRefNo(string refNo) {
             IEnumerable<Reservation> reservations;
-            var connectedUser = await Identity.GetConnectedUserId(_httpContextAccessor);
-            if (await Identity.IsUserAdmin(_httpContextAccessor)) {
+            var connectedUser = await Identity.GetConnectedUserId(httpContextAccessor);
+            if (await Identity.IsUserAdmin(httpContextAccessor)) {
                 reservations = GetReservationsFromAllUsersByRefNo(refNo);
             } else {
-                var simpleUser = await Identity.GetConnectedUserId(_httpContextAccessor);
-                var connectedUserDetails = Identity.GetConnectedUserDetails(_userManager, simpleUser.UserId);
+                var simpleUser = await Identity.GetConnectedUserId(httpContextAccessor);
+                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
                 reservations = GetReservationsFromLinkedCustomerbyRefNo(refNo, (int)connectedUserDetails.CustomerId);
             }
             var mainResult = new MainResult<Reservation> {
                 Persons = reservations.Sum(x => x.TotalPersons),
                 Reservations = reservations.ToList(),
             };
-            return _mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
+            return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
         }
 
         public async Task<ReservationReadResource> GetById(string reservationId) {
@@ -91,7 +91,7 @@ namespace API.Features.Reservations {
                 .Include(x => x.Passengers).ThenInclude(x => x.Gender)
                 .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId);
             return record != null
-                ? _mapper.Map<Reservation, ReservationReadResource>(record)
+                ? mapper.Map<Reservation, ReservationReadResource>(record)
                 : throw new CustomException { HttpResponseCode = 404 };
         }
 
@@ -102,8 +102,8 @@ namespace API.Features.Reservations {
         }
 
         public async Task<bool> DoesUserOwnRecord(int customerId) {
-            var user = await Identity.GetConnectedUserId(_httpContextAccessor);
-            var userDetails = Identity.GetConnectedUserDetails(_userManager, user.UserId);
+            var user = await Identity.GetConnectedUserId(httpContextAccessor);
+            var userDetails = Identity.GetConnectedUserDetails(userManager, user.UserId);
             return userDetails.CustomerId == customerId;
         }
 
@@ -119,12 +119,12 @@ namespace API.Features.Reservations {
         public async Task<bool> Update(string id, Reservation updatedRecord) {
             using var transaction = context.Database.BeginTransaction();
             try {
-                if (await Identity.IsUserAdmin(_httpContextAccessor)) {
+                if (await Identity.IsUserAdmin(httpContextAccessor)) {
                     await UpdateReservation(updatedRecord);
                 }
                 await RemovePassengers(GetPassengersForReservation(id));
                 await AddPassengers(updatedRecord);
-                if (_settings.IsTesting) {
+                if (settings.IsTesting) {
                     transaction.Dispose();
                 } else {
                     transaction.Commit();
@@ -159,7 +159,7 @@ namespace API.Features.Reservations {
                 var x when x == !scheduleRepo.DayHasScheduleForDestination(record.Date, record.DestinationId) => 430,
                 var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, GetPortIdFromPickupPointId(record)) => 427,
                 var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
-                var x when x == DoesNewOrUpdatedReservationCausesOverbooking(record.Date, record.ReservationId, record.DestinationId, record.Adults + record.Kids + record.Free) => 433,
+                var x when x == !IsOverbookingAllowed(record.Date, record.ReservationId, record.DestinationId, record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsKeyUnique(record) => 409,
                 var x when x == SimpleUserHasNightRestrictions(record) => 459,
                 var x when x == SimpleUserCanNotAddReservationAfterDeparture(record) => 431,
@@ -174,7 +174,7 @@ namespace API.Features.Reservations {
                 .ToList();
             reservations.ForEach(a => a.DriverId = driverId);
             context.SaveChanges();
-            if (_settings.IsTesting) {
+            if (settings.IsTesting) {
                 transaction.Dispose();
             } else {
                 transaction.Commit();
@@ -188,7 +188,7 @@ namespace API.Features.Reservations {
                 .ToList();
             records.ForEach(a => a.ShipId = shipId);
             context.SaveChanges();
-            if (_settings.IsTesting) {
+            if (settings.IsTesting) {
                 transaction.Dispose();
             } else {
                 transaction.Commit();
@@ -228,19 +228,27 @@ namespace API.Features.Reservations {
             await context.SaveChangesAsync();
         }
 
-        private static bool PortHasVacancy(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId, int reservationPersons) {
-            int maxPassengers = GetPortMaxPassengers(scheduleRepo, fromDate, toDate, reservationId, destinationId, portId);
-            return maxPassengers >= reservationPersons;
+        private bool PortHasVacancy(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId, int reservationPersons) {
+            if (Identity.IsUserAdmin(httpContextAccessor).Result) {
+                return true;
+            } else {
+                int maxPassengers = GetPortMaxPassengers(scheduleRepo, fromDate, toDate, reservationId, destinationId, portId);
+                return maxPassengers >= reservationPersons;
+            }
         }
 
-        private bool DoesNewOrUpdatedReservationCausesOverbooking(string date, Guid? reservationId, int destinationId, int totalPersons) {
-            int maxPassengersForAllPorts = context.Schedules
-                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
-                .Sum(x => x.MaxPassengers);
-            int totalPersonsFromAllPorts = context.Reservations
-                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.ReservationId != reservationId)
-                .Sum(x => x.TotalPersons);
-            return totalPersonsFromAllPorts + totalPersons > maxPassengersForAllPorts;
+        private bool IsOverbookingAllowed(string date, Guid? reservationId, int destinationId, int totalPersons) {
+            if (Identity.IsUserAdmin(httpContextAccessor).Result) {
+                return true;
+            } else {
+                int maxPassengersForAllPorts = context.Schedules
+                    .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
+                    .Sum(x => x.MaxPassengers);
+                int totalPersonsFromAllPorts = context.Reservations
+                    .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.ReservationId != reservationId)
+                    .Sum(x => x.TotalPersons);
+                return totalPersonsFromAllPorts + totalPersons > maxPassengersForAllPorts;
+            }
         }
 
         private static int GetPortMaxPassengers(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId) {
@@ -252,7 +260,7 @@ namespace API.Features.Reservations {
         }
 
         private bool SimpleUserCanNotAddReservationAfterDeparture(ReservationWriteResource record) {
-            if (Identity.IsUserAdmin(_httpContextAccessor).Result == false && IsNewReservationAfterDeparture(record)) {
+            if (Identity.IsUserAdmin(httpContextAccessor).Result == false && IsNewReservationAfterDeparture(record)) {
                 return true;
             } else {
                 return false;
@@ -425,7 +433,7 @@ namespace API.Features.Reservations {
             context.Entry(refNo).State = EntityState.Modified;
             using var transaction = context.Database.BeginTransaction();
             await context.SaveChangesAsync();
-            if (_settings.IsTesting) {
+            if (settings.IsTesting) {
                 transaction.Dispose();
             } else {
                 transaction.Commit();
@@ -445,7 +453,7 @@ namespace API.Features.Reservations {
         }
 
         private bool SimpleUserHasNightRestrictions(ReservationWriteResource record) {
-            if (Identity.IsUserAdmin(_httpContextAccessor).Result == false && record.ReservationId == null) {
+            if (Identity.IsUserAdmin(httpContextAccessor).Result == false && record.ReservationId == null) {
                 if (HasTransfer(record.PickupPointId)) {
                     if (IsReservationForTomorrow(record.Date)) {
                         if (IsNight()) {
