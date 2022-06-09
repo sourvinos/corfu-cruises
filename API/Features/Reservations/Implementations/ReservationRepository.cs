@@ -158,11 +158,11 @@ namespace API.Features.Reservations {
                 var x when x == !scheduleRepo.DayHasSchedule(record.Date) => 432,
                 var x when x == !scheduleRepo.DayHasScheduleForDestination(record.Date, record.DestinationId) => 430,
                 var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, GetPortIdFromPickupPointId(record)) => 427,
+                var x when x == SimpleUserHasNightRestrictions(record) => 459,
+                var x when x == SimpleUserCanNotAddReservationAfterDeparture(record) => 431,
                 var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsOverbookingAllowed(record.Date, record.ReservationId, record.DestinationId, record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsKeyUnique(record) => 409,
-                var x when x == SimpleUserHasNightRestrictions(record) => 459,
-                var x when x == SimpleUserCanNotAddReservationAfterDeparture(record) => 431,
                 _ => 200,
             };
         }
@@ -247,8 +247,22 @@ namespace API.Features.Reservations {
                 int totalPersonsFromAllPorts = context.Reservations
                     .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.ReservationId != reservationId)
                     .Sum(x => x.TotalPersons);
-                return totalPersonsFromAllPorts + totalPersons > maxPassengersForAllPorts;
+                if (totalPersonsFromAllPorts + totalPersons > maxPassengersForAllPorts) {
+                    return false;
+                } else {
+                    return true;
+                }
             }
+        }
+
+        public bool IsOverbooked(string date, int destinationId) {
+            int maxPassengersForAllPorts = context.Schedules
+                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
+                .Sum(x => x.MaxPassengers);
+            int totalPersonsFromAllPorts = context.Reservations
+                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
+                .Sum(x => x.TotalPersons);
+            return totalPersonsFromAllPorts > maxPassengersForAllPorts;
         }
 
         private static int GetPortMaxPassengers(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId) {

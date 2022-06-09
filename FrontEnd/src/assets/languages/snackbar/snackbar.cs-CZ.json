@@ -32,7 +32,7 @@
             },
             {
                 "error": 431,
-                "message": "Po odjezdu není možné rezervaci přidat nebo změnit."
+                "message": "Po odjezdu není možné rezervaci přidat nebo změnit"
             },
             {
                 "error": 432,
@@ -80,7 +80,7 @@
             },
             {
                 "error": 459,
-                "message": "Nové rezervace s přestupem mezi 22:00 a odjezdem lodi nejsou povoleny. Kontaktujte nás, prosím, autobusy dostupnost."
+                "message": "Nové rezervace s přestupem mezi 22:00 a odjezdem lodi nejsou povoleny. Kontaktujte nás, prosím, autobusy dostupnost"
             },
             {
                 "error": 490,
@@ -120,7 +120,7 @@
             },
             {
                 "id": "askConfirmationToDelete",
-                "message": "Pokud budete pokračovat, tento záznam bude navždy ztracen"
+                "message": "Tento záznam bude navždy ztracen"
             },
             {
                 "id": "emailSent",
@@ -192,7 +192,7 @@
             },
             {
                 "id": "success",
-                "message": "Úspěch!"
+                "message": "Vše OK"
             },
             {
                 "id": "warning",

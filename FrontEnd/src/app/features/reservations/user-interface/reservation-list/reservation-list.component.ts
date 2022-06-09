@@ -8,7 +8,8 @@ import { firstValueFrom, Subject } from 'rxjs'
 import { AccountService } from 'src/app/shared/services/account.service'
 import { CoachRouteDropdownVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-dropdown-vm'
 import { CustomerDropdownVM } from './../../../customers/classes/view-models/customer-dropdown-vm'
-import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
+import { DestinationDropdownVM } from './../../../destinations/classes/view-models/destination-dropdown-vm'
+import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { DriverDropdownVM } from './../../../drivers/classes/view-models/driver-dropdown-vm'
 import { DriverReportService } from '../../classes/driver-report/services/driver-report.service'
 import { DriverService } from 'src/app/features/drivers/classes/services/driver.service'
@@ -48,12 +49,15 @@ export class ReservationListComponent {
     private url = ''
     private windowTitle = 'Reservations'
     public feature = 'reservationList'
+    public a: any
 
     public isAdmin: boolean
     public highlighted: any
     public records = new ReservationGroupVM()
     public selectedRecords = []
     public totals: any[] = []
+    private destinations: DestinationDropdownVM[] = []
+    public areDestinationsOverbooked = []
 
     public dropdownCustomers: CustomerDropdownVM[] = []
     public dropdownDestinations: DestinationDropdownVM[] = []
@@ -65,7 +69,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private sweetAlertService: SweetAlertService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private destinationService: DestinationService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private sweetAlertService: SweetAlertService, private titleService: Title, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -83,6 +87,7 @@ export class ReservationListComponent {
         this.initPersonTotals()
         this.updateTotals()
         this.getConnectedUserRole()
+        this.doDestinationForOverbookingTasks()
     }
 
     ngAfterViewInit(): void {
@@ -278,6 +283,24 @@ export class ReservationListComponent {
         return promise
     }
 
+    private getDistinctDestinations(reservations: any[], field: any): any {
+        const promise = new Promise((resolve) => {
+            let activeDestinations = []
+            let inter = []
+            const elements = [... new Set(reservations.map(x => x[field]))]
+            this.destinationService.getActiveForDropdown().subscribe(response => {
+                // console.log('Active', response)
+                activeDestinations = response
+                // console.log('Elements', elements)
+                // const intersection = activeDestinations.filter(element => elements.includes(element.description))
+                inter = activeDestinations.filter(element => elements.includes(element.description))
+                resolve(inter)
+                console.log(inter)
+            })
+        })
+        return promise
+    }
+
     private getDistinctDriverIds(reservations: any): any[] {
         const driverIds = []
         const x = [... new Set(reservations.map((x: { driverId: any }) => x.driverId))]
@@ -289,6 +312,22 @@ export class ReservationListComponent {
 
     private goBack(): void {
         this.router.navigate([this.parentUrl])
+    }
+
+    private doDestinationForOverbookingTasks(): void {
+        // const destinations = this.destinationService.getActiveForDropdown()
+        this.getDistinctDestinations(this.records.reservations, 'destinationDescription').then((response) => {
+            this.a = response
+            console.log('A', this.a)
+            this.a.forEach((destination, index) => {
+                this.reservationService.isDestinationOverbooked(this.localStorageService.getItem('date'), destination.id).subscribe((response) => {
+                    this.a[index].status = response
+                    // this.areDestinationsOverbooked[index] = response
+                })
+            })
+            console.log('SSS', this.a)
+        })
+        // console.log('P', distinctDestinations)
     }
 
     private populateDropdowns(): void {

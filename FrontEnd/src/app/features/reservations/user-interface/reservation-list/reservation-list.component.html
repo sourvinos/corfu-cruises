@@ -2,6 +2,7 @@
     
     <div id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <div *ngFor="let x of a">{{ x.description }} {{ x.status }}</div>
         <div id="criteria">
             <div *ngFor="let item of totals | slice:0:3">
                 <div class="description">{{ item.sum }}</div>

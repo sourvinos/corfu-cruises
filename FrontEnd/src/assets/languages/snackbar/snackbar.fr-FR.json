@@ -32,7 +32,7 @@
             },
             {
                 "error": 431,
-                "message": "Il n'est pas possible d'ajouter ou de modifier une réservation après le départ."
+                "message": "Il n'est pas possible d'ajouter ou de modifier une réservation après le départ"
             },
             {
                 "error": 432,
@@ -52,7 +52,7 @@
             },
             {
                 "error": 452,
-                "message": "Ce point de ramassage n'existe pas ou est inactif."
+                "message": "Ce point de ramassage n'existe pas ou est inactif"
             },
             {
                 "error": 453,
@@ -68,19 +68,19 @@
             },
             {
                 "error": 456,
-                "message": "La nationalité d'au moins un passager n'existe pas ou est inactive."
+                "message": "La nationalité d'au moins un passager n'existe pas ou est inactive"
             },
             {
                 "error": 457,
-                "message": "Le sexe d'au moins un passager n'existe pas ou est inactif."
+                "message": "Le sexe d'au moins un passager n'existe pas ou est inactif"
             },
             {
                 "error": 458,
-                "message": "L'occupant d'au moins un passager n'existe pas ou est inactif."
+                "message": "L'occupant d'au moins un passager n'existe pas ou est inactif"
             },
             {
                 "error": 459,
-                "message": "Les nouvelles réservations avec transfert entre 22h00 et le départ du navire ne sont pas autorisées. Veuillez nous contacter pour connaître la disponibilité des bus."
+                "message": "Les nouvelles réservations avec transfert entre 22h00 et le départ du navire ne sont pas autorisées. Veuillez nous contacter pour connaître la disponibilité des bus"
             },
             {
                 "error": 490,
@@ -120,7 +120,7 @@
             },
             {
                 "id": "askConfirmationToDelete",
-                "message": "Si vous continuez, l'enregistrement sera supprimé pour toujours"
+                "message": "Ce disque sera perdu à jamais"
             },
             {
                 "id": "emailSent",
@@ -192,7 +192,7 @@
             },
             {
                 "id": "success",
-                "message": "Succès!"
+                "message": "Tout est OK"
             },
             {
                 "id": "warning",

@@ -32,7 +32,7 @@
             },
             {
                 "error": 431,
-                "message": "Es ist nicht möglich, eine Reservierung nach der Abfahrt hinzuzufügen oder zu ändern."
+                "message": "Es ist nicht möglich, eine Reservierung nach der Abfahrt hinzuzufügen oder zu ändern"
             },
             {
                 "error": 432,
@@ -80,7 +80,7 @@
             },
             {
                 "error": 459,
-                "message": "Neue Reservierungen mit Transfer zwischen 22:00 Uhr und der Abfahrt des Schiffes sind nicht möglich. Bitte kontaktieren Sie uns Busse Verfügbarkeit."
+                "message": "Neue Reservierungen mit Transfer zwischen 22:00 Uhr und der Abfahrt des Schiffes sind nicht möglich. Bitte kontaktieren Sie uns Busse Verfügbarkeit"
             },
             {
                 "error": 490,
@@ -120,7 +120,7 @@
             },
             {
                 "id": "askConfirmationToDelete",
-                "message": "Wenn Sie fortfahren, ist dieser Datensatz für immer verloren"
+                "message": "Dieser Rekord wird für immer verloren sein"
             },
             {
                 "id": "emailSent",
@@ -192,7 +192,7 @@
             },
             {
                 "id": "success",
-                "message": "Erfolg!"
+                "message": "Alles OK"
             },
             {
                 "id": "warning",

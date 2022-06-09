@@ -17,7 +17,7 @@
     --change-component-theme-on-hover: 0.2s;
     /* Common sizes in all screen resolutions */
     --font-size-datepicker-header-month: 1.8rem;
-    --font-size-dialog: 1.5rem;
+    --font-size-modal: 1.5rem;
     --font-size-loading-message: 2rem;
     --font-size-logo-loader-first-child: 8rem;
     --font-size-logo-loader-second-child: 4.5rem;

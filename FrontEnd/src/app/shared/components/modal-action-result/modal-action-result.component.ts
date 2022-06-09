@@ -4,32 +4,24 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { MessageLabelService } from '../../services/messages-label.service'
 
 @Component({
-    selector: 'dialog-alert',
-    templateUrl: './dialog-alert.component.html',
-    styleUrls: ['./dialog-alert.component.css']
+    selector: 'modal-action-result',
+    templateUrl: './modal-action-result.component.html',
+    styleUrls: ['./modal-action-result.component.css']
 })
 
-export class DialogAlertComponent {
+export class ModalActionResultComponent {
 
     //#region variables
 
-    private feature = 'dialog'
+    private feature = 'modal-action-result'
     public content: string
+    public iconStyle: any
     public titleColor = ''
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<DialogAlertComponent>, private messageLabelService: MessageLabelService) {
-        switch (data.titleColor) {
-            case 'infoColor':
-                this.titleColor = '#529be7'
-                break
-            case 'warningColor':
-                this.titleColor = '#d94040'
-                break
-            default:
-                break
-        }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<ModalActionResultComponent>, private messageLabelService: MessageLabelService) {
+        this.iconStyle = data.iconStyle
     }
 
     //#region lifecycle hooks

@@ -14,6 +14,7 @@ import { ListNoResultsComponent } from '../components/list-no-results/list-no-re
 import { LoadingSpinnerComponent } from '../components/loading-spinner/loading-spinner.component'
 import { MapComponent } from '../components/map/map.component'
 import { MaterialModule } from './material.module'
+import { ModalActionResultComponent } from '../components/modal-action-result/modal-action-result.component'
 import { PrimeNgModule } from './primeng.module'
 import { QRCodeComponent } from '../components/qrCode/qrCode.component'
 import { SafeStylePipe } from '../pipes/safeStyle.pipe'
@@ -29,6 +30,7 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         ListNoResultsComponent,
         LoadingSpinnerComponent,
         MapComponent,
+        ModalActionResultComponent,
         QRCodeComponent,
         SafeStylePipe,
         SnackbarComponent
@@ -60,6 +62,7 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
     ],
     entryComponents: [
         DialogAlertComponent,
+        ModalActionResultComponent,
         SnackbarComponent
     ]
 })

@@ -36,12 +36,12 @@ import { ReservationReadVM } from '../../classes/resources/form/reservation/rese
 import { ReservationService } from '../../classes/services/reservation.service'
 import { ReservationWriteVM } from '../../classes/view-models/reservation-write-vm'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
-import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service'
 import { UserService } from 'src/app/features/users/classes/services/user.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
 import { VoucherService } from '../../classes/services/voucher.service'
 import { WarningIconService } from '../../classes/services/warning-icon.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 
 @Component({
     selector: 'reservation-form',
@@ -84,7 +84,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private sweetAlertService: SweetAlertService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.getRecord(x.id).then(() => {
@@ -174,7 +174,9 @@ export class ReservationFormComponent {
     }
 
     public doVoucherTasksOnServer(): void {
-        this.showSweetAlert(this.messageSnackbarService.featureNotAvailable(), 'warning', true, false, 'OK', '', 0)
+        this.modalActionResultService.open(this.messageSnackbarService.featureNotAvailable(), 'error', ['ok']).subscribe(() => {
+            this.goBack()
+        })
     }
 
     public enableOrDisableAutoComplete(event: any) {
@@ -202,12 +204,15 @@ export class ReservationFormComponent {
             if (response) {
                 this.reservationService.delete(this.form.value.reservationId).subscribe({
                     complete: () => {
-                        this.resetForm()
-                        this.goBack()
-                        this.showSweetAlert(this.messageSnackbarService.recordDeleted(), 'success', false, false, 'OK', '', 1500)
+                        this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
+                            this.resetForm()
+                            this.goBack()
+                        })
                     },
                     error: (errorFromInterceptor) => {
-                        this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
+                        this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok']).subscribe(() => {
+                            console.log('')
+                        })
                     },
                 })
             }
@@ -400,8 +405,9 @@ export class ReservationFormComponent {
                 this.populateFields(result)
                 resolve(result)
             }, errorFromInterceptor => {
-                this.goBack()
-                this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
+                this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok']).subscribe(() => {
+                    this.goBack()
+                })
             })
         })
         return promise
@@ -478,7 +484,9 @@ export class ReservationFormComponent {
                     resolve(this[table])
                     this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
                 }, (errorFromInterceptor: number) => {
-                    this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
+                    this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok']).subscribe(() => {
+                        this.goBack()
+                    })
                 })
         })
         return promise
@@ -537,23 +545,25 @@ export class ReservationFormComponent {
         if (reservation.reservationId.toString() == '') {
             this.reservationService.add(reservation).pipe(indicate(this.isLoading)).subscribe({
                 next: (response) => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSweetAlert('RefNo: ' + response.message, 'success', true, false, 'OK', '', 0)
+                    this.modalActionResultService.open('RefNo: ' + response.message, 'success', ['ok']).subscribe(() => {
+                        this.resetForm()
+                        this.goBack()
+                    })
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
+                    this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok'])
                 }
             })
         } else {
             this.reservationService.update(reservation.reservationId, reservation).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSweetAlert(this.messageSnackbarService.recordUpdated(), 'success', true, false, 'OK', '', 0)
+                    this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
+                        this.resetForm()
+                        this.goBack()
+                    })
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSweetAlert(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', true, false, 'OK', '', 0)
+                    this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok'])
                 }
             })
         }
@@ -569,10 +579,6 @@ export class ReservationFormComponent {
 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
-    }
-
-    private showSweetAlert(message: string, icon: any, showOK: boolean, showCancel: boolean, okButtonText: string, cancelButtonText: string, timer: number): void {
-        this.sweetAlertService.open(message, icon, showOK, showCancel, okButtonText, cancelButtonText, timer)
     }
 
     private subscribeToInteractionService(): void {

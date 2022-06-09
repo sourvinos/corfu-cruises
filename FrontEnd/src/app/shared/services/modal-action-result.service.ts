@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { Observable } from 'rxjs'
-import { DialogAlertComponent } from '../components/dialog-alert/dialog-alert.component'
+// Custom
+import { ModalActionResultComponent } from '../components/modal-action-result/modal-action-result.component'
 
 @Injectable({ providedIn: 'root' })
 
-export class DialogService {
+export class ModalActionResultService {
 
     //#region variables
 
     private response: any
+    public iconStyle: any
 
     //#endregion
 
@@ -17,15 +19,14 @@ export class DialogService {
 
     //#region public methods
 
-    public open(title: string, titleColor: string, message: string, actions: string[]): Observable<boolean> {
-        this.response = this.dialog.open(DialogAlertComponent, {
+    public open(message: string, iconStyle: string, actions: string[]): Observable<boolean> {
+        this.response = this.dialog.open(ModalActionResultComponent, {
             height: '30rem',
             width: '30rem',
             data: {
-                title: title,
-                titleColor: titleColor,
+                actions: actions,
+                iconStyle: iconStyle,
                 message: message,
-                actions: actions
             },
             panelClass: 'dialog'
         })

@@ -34,6 +34,12 @@ namespace API.Features.Reservations {
             return await reservationRepo.GetByDate(date);
         }
 
+        [HttpGet("isOverbooked/date/{date}/destinationId/{destinationId}")]
+        [Authorize(Roles = "user, admin")]
+        public bool IsOverbooked([FromRoute] string date, int destinationId) {
+            return reservationRepo.IsOverbooked(date, destinationId);
+        }
+
         [HttpGet("byDate/{date}/byDriver/{driverId}")]
         [Authorize(Roles = "admin")]
         public async Task<DriverResult<Reservation>> GetByDateAndDriver([FromRoute] string date, int driverId) {
@@ -65,7 +71,7 @@ namespace API.Features.Reservations {
         public async Task<IActionResult> PostReservationAsync([FromBody] ReservationWriteResource record) {
             var response = reservationRepo.IsValid(record, scheduleRepo);
             if (response == 200) {
-                await AssignRefNoToNewReservationAsync(record);
+                await AssignRefNoToNewReservation(record);
                 AttachPortIdToRecord(record);
                 await AttachUserIdToRecord(record);
                 reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
@@ -130,7 +136,7 @@ namespace API.Features.Reservations {
             return record;
         }
 
-        private async Task<ReservationWriteResource> AssignRefNoToNewReservationAsync(ReservationWriteResource record) {
+        private async Task<ReservationWriteResource> AssignRefNoToNewReservation(ReservationWriteResource record) {
             record.RefNo = await reservationRepo.AssignRefNoToNewReservation(record);
             return record;
         }
