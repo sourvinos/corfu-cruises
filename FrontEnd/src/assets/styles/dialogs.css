@@ -1,0 +1,55 @@
+* {
+    box-sizing: border-box !important;
+}
+
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+    opacity: 0 !important;
+}
+
+.mat-dialog-container {
+    padding: 2rem !important;
+}
+
+#dialog {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0;
+}
+
+#dialog-header {
+    align-items: left;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1.5rem;
+}
+
+#dialog-header #navigation {
+    margin: 0 1rem 0 1rem;
+}
+
+#dialog-header h1 {
+    font-weight: 600 !important;
+}
+
+#dialog-content {
+    color: var(--color-text);
+    flex: 1;
+    font-family: var(--font-family-handbook) !important;
+    font-size: var(--font-size-dialog) !important;
+    font-weight: var(--font-weight-dialog-content) !important;
+    line-height: 2rem;
+    overflow-y: scroll;
+}
+
+#dialog-footer {
+    padding-top: 2rem;
+    text-align: end;
+}
+
+.mat-dialog-actions {
+    justify-content: flex-end;
+    margin: 0;
+    min-height: 0;
+    padding: 0;
+}

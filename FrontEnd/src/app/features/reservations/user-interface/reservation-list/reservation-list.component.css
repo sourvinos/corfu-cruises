@@ -9,3 +9,8 @@
     display: flex;
     margin-right: 1rem;
 }
+
+#overbookings div {
+    background-color: var(--color-d);
+    border-color: var(--color-d);
+}

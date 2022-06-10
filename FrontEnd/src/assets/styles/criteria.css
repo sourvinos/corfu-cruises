@@ -1,4 +1,4 @@
-#criteria, #filters {
+#criteria, #filters, #overbookings {
     align-items: center;
     display: flex;
     font-family: var(--font-family-handbook);
@@ -7,14 +7,18 @@
 }
 
 #criteria {
-    margin: 0 1rem 0 auto;
+    margin: 0 1rem 0 1rem;
 }
 
 #filters {
     margin: 0 auto 0 1rem;
 }
 
-#criteria > div, #filters > div {
+#overbookings {
+    margin-left: auto;
+}
+
+#criteria > div, #filters > div, #overbookings > div {
     border-radius: 0.3125rem;
     border: 0.0625rem solid;
     padding: 0.5rem;
@@ -40,6 +44,6 @@
     border-color: var(--color-criteria-d-border);
 }
 
-#criteria .label, #criteria .description, #filters .label, #filters .description {
+#criteria .label, #criteria .description, #filters .label, #filters .description, #overbookings .label, #overbookings .description {
     color: var(--color-button-text);
 }

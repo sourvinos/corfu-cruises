@@ -18,6 +18,7 @@ import { HelperService } from './../../../../shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PickupPointDropdownVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
 import { PortDropdownVM } from './../../../ports/classes/view-models/port-dropdown-vm'
 import { ReservationGroupVM } from '../../classes/resources/list/reservation-group-vm'
@@ -26,7 +27,6 @@ import { ReservationToDriverComponent } from '../reservation-to-driver/reservati
 import { ReservationToShipComponent } from '../reservation-to-ship/reservation-to-ship-form.component'
 import { ShipRouteDropdownVM } from './../../../shipRoutes/classes/view-models/shipRoute-dropdown-vm'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
-import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -69,7 +69,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private destinationService: DestinationService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private sweetAlertService: SweetAlertService, private titleService: Title, public dialog: MatDialog) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private destinationService: DestinationService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private titleService: Title, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -118,9 +118,10 @@ export class ReservationListComponent {
             dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
                     this.reservationService.assignToDriver(result, this.selectedRecords).subscribe(() => {
-                        this.clearSelectedRecords()
-                        this.refreshList()
-                        this.showSweetAlert(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'success', true, false, 'OK', '', 0)
+                        this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
+                            this.clearSelectedRecords()
+                            this.refreshList()
+                        })
                     })
                 }
             })
@@ -142,9 +143,10 @@ export class ReservationListComponent {
             dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
                     this.reservationService.assignToShip(result, this.selectedRecords).subscribe(() => {
-                        this.clearSelectedRecords()
-                        this.refreshList()
-                        this.showSweetAlert(this.messageSnackbarService.selectedRecordsHaveBeenProcessed(), 'success', true, false, 'OK', '', 0)
+                        this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
+                            this.clearSelectedRecords()
+                            this.refreshList()
+                        })
                     })
                 }
             })
@@ -257,7 +259,7 @@ export class ReservationListComponent {
 
     private isAnyRowSelected(): boolean {
         if (this.selectedRecords.length == 0) {
-            this.showSweetAlert(this.messageSnackbarService.noRecordsSelected(), 'error', true, false, 'OK', '', 0)
+            this.modalActionResultService.open(this.messageSnackbarService.noRecordsSelected(), 'error', ['ok'])
             return false
         }
         return true
@@ -268,8 +270,9 @@ export class ReservationListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
         } else {
-            this.goBack()
-            this.showSweetAlert(this.messageSnackbarService.filterError(listResolved.error), 'error', true, false, 'OK', '', 0)
+            this.modalActionResultService.open(this.messageSnackbarService.filterError(listResolved.error), 'error', ['ok']).subscribe(() => {
+                this.goBack()
+            })
         }
     }
 
@@ -358,10 +361,6 @@ export class ReservationListComponent {
 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
-    }
-
-    private showSweetAlert(message: string, icon: any, showOK: boolean, showCancel: boolean, okButtonText: string, cancelButtonText: string, timer: number): void {
-        this.sweetAlertService.open(message, icon, showOK, showCancel, okButtonText, cancelButtonText, timer)
     }
 
     private storeDate(): void {
