@@ -292,13 +292,9 @@ export class ReservationListComponent {
             let inter = []
             const elements = [... new Set(reservations.map(x => x[field]))]
             this.destinationService.getActiveForDropdown().subscribe(response => {
-                // console.log('Active', response)
                 activeDestinations = response
-                // console.log('Elements', elements)
-                // const intersection = activeDestinations.filter(element => elements.includes(element.description))
                 inter = activeDestinations.filter(element => elements.includes(element.description))
                 resolve(inter)
-                console.log(inter)
             })
         })
         return promise
@@ -318,19 +314,14 @@ export class ReservationListComponent {
     }
 
     private doDestinationForOverbookingTasks(): void {
-        // const destinations = this.destinationService.getActiveForDropdown()
-        this.getDistinctDestinations(this.records.reservations, 'destinationDescription').then((response) => {
+        this.getDistinctDestinations(this.records.reservations, 'destinationDescription').then((response: any) => {
             this.a = response
-            console.log('A', this.a)
-            this.a.forEach((destination, index) => {
+            this.a.forEach((destination: { id: number }, index: string | number) => {
                 this.reservationService.isDestinationOverbooked(this.localStorageService.getItem('date'), destination.id).subscribe((response) => {
                     this.a[index].status = response
-                    // this.areDestinationsOverbooked[index] = response
                 })
             })
-            console.log('SSS', this.a)
         })
-        // console.log('P', distinctDestinations)
     }
 
     private populateDropdowns(): void {

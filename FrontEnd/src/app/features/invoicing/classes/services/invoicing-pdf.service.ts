@@ -33,8 +33,6 @@ export class InvoicingPDFService {
     //#region public methods
 
     public createPDF(record: any): void {
-        console.log('PDF', record)
-        console.log('Process:', record.customer)
         this.init(record)
         this.addLogo(this.pdf)
         this.addTitle(this.pdf)

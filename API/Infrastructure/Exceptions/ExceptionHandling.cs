@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using API.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Http;
 
 namespace API.Infrastructure.Exceptions {
@@ -28,7 +27,7 @@ namespace API.Infrastructure.Exceptions {
         private static ErrorResponse CreateResponse(int httpErrorCode) {
             var message = new ErrorResponse {
                 StatusCode = httpErrorCode,
-                Message = "This record was not found or can not be deleted because it's in use"
+                Message = "This record was not found or it's in use and can't be deleted"
             };
             return message;
         }

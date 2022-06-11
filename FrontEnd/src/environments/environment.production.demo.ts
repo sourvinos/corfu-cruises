@@ -1,8 +1,8 @@
-// ng build --output-path="\some directory" --configuration=production-local
+// ng build --output-path="release" --configuration=production.demo
 export const environment = {
-    apiUrl: 'https://localhost:1701/api',
-    appName: 'CORFU CRUISES',
-    clientUrl: 'https://localhost:1701',
+    apiUrl: 'http://timezones-001-site1.ftempurl.com/api',
+    appName: 'CORFU CRUISES DEMO',
+    clientUrl: 'http://timezones-001-site1.ftempurl.com',
     defaultLanguage: 'en-GB',
     defaultTheme: 'blue',
     emailFooter: {

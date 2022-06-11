@@ -24,7 +24,7 @@ import { TopBarComponent } from '../shared/components/top-bar-wrapper/top-bar/to
 import { TopMenuComponent } from '../shared/components/top-bar-wrapper/top-menu/top-menu.component'
 import { UserMenuComponent } from '../shared/components/top-bar-wrapper/user-menu/user-menu.component'
 // Utils
-import { JwtInterceptor } from '../shared/services/jwt.interceptor'
+import { MonitorInterceptor } from '../shared/services/jwt.interceptor'
 
 @NgModule({
     declarations: [
@@ -54,7 +54,10 @@ import { JwtInterceptor } from '../shared/services/jwt.interceptor'
         SharedModule,
     ],
     providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: MonitorInterceptor, multi: true
+        },
     ],
     bootstrap: [AppComponent]
 })

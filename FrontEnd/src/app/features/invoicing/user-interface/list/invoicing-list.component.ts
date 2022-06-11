@@ -69,9 +69,7 @@ export class InvoicingListComponent {
     }
 
     public exportSingleCustomer(customerId: number): void {
-        console.log('List', this.records)
         const customer = this.records.find(x => x.customer.id == customerId)
-        console.log('Customer', customer)
         this.invoicingPdfService.createPDF(customer)
     }
 
