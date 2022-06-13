@@ -7,17 +7,23 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { AccountService } from '../../../shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { CustomerService } from '../../customers/classes/services/customer.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+import { LocalbaseDataService } from 'src/app/shared/services/localbase-data.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { PortService } from '../../ports/classes/services/port.service'
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { DestinationService } from '../../destinations/classes/services/destination.service'
+import { DriverService } from '../../drivers/classes/services/driver.service'
+import { PickupPointService } from '../../pickupPoints/classes/services/pickupPoint.service'
 
 @Component({
     selector: 'login-form',
@@ -45,7 +51,29 @@ export class LoginFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private formBuilder: FormBuilder, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private sweetAlertService: SweetAlertService, private titleService: Title) { }
+    constructor(
+        private accountService: AccountService,
+        private buttonClickService: ButtonClickService,
+        private destinationService: DestinationService,
+        private formBuilder: FormBuilder,
+        private helperService: HelperService,
+        private portService: PortService,
+        private pickupPointService: PickupPointService,
+        private idle: Idle,
+        private interactionService: InteractionService,
+        private keyboardShortcutsService: KeyboardShortcuts,
+        private localStorageService: LocalStorageService,
+        private messageHintService: MessageHintService,
+        private driverService: DriverService,
+        private messageLabelService: MessageLabelService,
+        private messageSnackbarService: MessageSnackbarService,
+        private router: Router,
+        private sweetAlertService: SweetAlertService,
+        private titleService: Title,
+        private localbaseDataService: LocalbaseDataService,
+        private customerService: CustomerService
+    ) { }
+
 
     //#region lifecycle hooks
 
@@ -83,6 +111,7 @@ export class LoginFormComponent {
                 this.goHome()
                 this.startIdleTimer()
                 this.doSideMenuTogglerTasks()
+                this.populateLocalbaseFromAPI()
             },
             error: (errorFromInterceptor) => {
                 this.showError(errorFromInterceptor)
@@ -143,6 +172,14 @@ export class LoginFormComponent {
             password: [environment.login.password, Validators.required],
             isHuman: [environment.login.isHuman, Validators.requiredTrue]
         })
+    }
+
+    private populateLocalbaseFromAPI(): void {
+        setTimeout(() => { this.localbaseDataService.readFromAPI('ports', this.portService), 1000 })
+        setTimeout(() => { this.localbaseDataService.readFromAPI('destinations', this.destinationService) }, 2000)
+        setTimeout(() => { this.localbaseDataService.readFromAPI('drivers', this.driverService) }, 3000)
+        setTimeout(() => { this.localbaseDataService.readFromAPI('customers', this.customerService) }, 4000)
+        setTimeout(() => { this.localbaseDataService.readFromAPI('pickupPoints', this.pickupPointService) }, 5000)
     }
 
     private setWindowTitle(): void {

@@ -476,18 +476,17 @@ export class ReservationFormComponent {
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
         const promise = new Promise((resolve) => {
-            setTimeout(() => {
-                service.getActiveForDropdown().toPromise().then(
-                    (response: any) => {
-                        this[table] = response
-                        resolve(this[table])
-                        this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
-                    }, (errorFromInterceptor: number) => {
-                        this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok']).subscribe(() => {
-                            this.goBack()
-                        })
+            service.getActiveForDropdown().toPromise().then(
+                (response: any) => {
+                    this[table] = response
+                    resolve(this[table])
+                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
+                },
+                (errorFromInterceptor: number) => {
+                    this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok']).subscribe(() => {
+                        this.goBack()
                     })
-            }, 1000)
+                })
         })
         return promise
     }

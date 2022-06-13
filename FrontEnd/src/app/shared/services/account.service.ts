@@ -4,7 +4,7 @@ import { Injectable, NgZone } from '@angular/core'
 import { Router } from '@angular/router'
 import { map } from 'rxjs/operators'
 // Custom
-import { DataService } from './data.service'
+import { HttpDataService } from './http-data.service'
 import { InteractionService } from './interaction.service'
 import { LocalStorageService } from './local-storage.service'
 import { ResetPasswordViewModel } from 'src/app/features/users/classes/view-models/reset-password-view-model'
@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
-export class AccountService extends DataService {
+export class AccountService extends HttpDataService {
 
     //#region variables
 

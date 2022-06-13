@@ -1,12 +1,10 @@
-import { HttpClient } from '@angular/common/http'
 import { Guid } from 'guid-typescript'
+import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs'
 
-export class DataService {
+export class HttpDataService {
 
     constructor(public http: HttpClient, public url: string) { }
-
-    //#region public methods
 
     public getAll(): Observable<any[]> {
         return this.http.get<any[]>(this.url)
@@ -31,7 +29,5 @@ export class DataService {
         if (id != undefined)
             return this.http.delete<any>(this.url + '/' + id)
     }
-
-    //#endregion
 
 }

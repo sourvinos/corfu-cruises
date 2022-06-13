@@ -7,13 +7,13 @@ import pdfFonts from 'pdfmake/build/vfs_fonts'
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 // Custom
-import { DataService } from 'src/app/shared/services/data.service'
+import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { LogoService } from './logo.service'
 import { VoucherVM } from '../view-models/voucher-vm'
 
 @Injectable({ providedIn: 'root' })
 
-export class VoucherService extends DataService {
+export class VoucherService extends HttpDataService {
 
     constructor(http: HttpClient, private logoService: LogoService) {
         super(http, '/api/voucher')

@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { CustomerDropdownVM } from 'src/app/features/customers/classes/view-models/customer-dropdown-vm'
-import { DataService } from 'src/app/shared/services/data.service'
+import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
-export class CustomerService extends DataService {
+export class CustomerService extends HttpDataService {
 
     constructor(httpClient: HttpClient) {
         super(httpClient, environment.apiUrl + '/customers')

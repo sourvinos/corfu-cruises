@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
-import { DataService } from 'src/app/shared/services/data.service'
+import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { InvoicingVM } from '../view-models/invoicing-vm'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
-export class InvoicingService extends DataService {
+export class InvoicingService extends HttpDataService {
 
     constructor(httpClient: HttpClient) {
         super(httpClient, environment.apiUrl + '/invoicing')

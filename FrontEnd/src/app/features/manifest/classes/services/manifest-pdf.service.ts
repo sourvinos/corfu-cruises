@@ -1,11 +1,13 @@
-import pdfFonts from 'pdfmake/build/vfs_fonts'
-import pdfMake from 'pdfmake/build/pdfmake'
 import { Injectable } from '@angular/core'
-pdfMake.vfs = pdfFonts.pdfMake.vfs
+// Fonts
+import 'src/assets/fonts/ACCanterBold.js'
+import 'src/assets/fonts/NotoSansMonoCondensedRegular.js'
+import 'src/assets/fonts/PFHandbookProThin.js'
 // Custom
-import { ManifestPassengerVM } from '../view-models/manifest-passenger-vm'
-import { ManifestVM } from '../view-models/manifest-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { ManifestVM } from '../view-models/manifest-vm'
+import pdfMake from 'pdfmake/build/pdfmake'
+import { ManifestPassengerVM } from '../view-models/manifest-passenger-vm'
 
 @Injectable({ providedIn: 'root' })
 

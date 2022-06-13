@@ -1,13 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { DataService } from 'src/app/shared/services/data.service'
-import { environment } from 'src/environments/environment'
+// Custom
+import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { PickupPoint } from '../models/pickupPoint'
+import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
-export class PickupPointService extends DataService {
+export class PickupPointService extends HttpDataService {
 
     constructor(httpClient: HttpClient) {
         super(httpClient, environment.apiUrl + '/pickupPoints')

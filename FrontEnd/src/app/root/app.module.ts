@@ -8,7 +8,7 @@ import { NgModule } from '@angular/core'
 import { ScrollingModule } from '@angular/cdk/scrolling'
 // Modules
 import { AppRoutingModule } from './app.routing.module'
-import { LoginModule } from '../features/login/classes/login.module'
+import { LoginModule } from '../features/login/classes/modules/login.module'
 import { PrimeNgModule } from '../shared/modules/primeng.module'
 import { SharedModule } from 'src/app/shared/modules/shared.module'
 // Components

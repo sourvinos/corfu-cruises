@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { firstValueFrom } from 'rxjs'
 // Custom
-import { DataService } from 'src/app/shared/services/data.service'
+import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
-export class AvailabilityService extends DataService {
+export class AvailabilityService extends HttpDataService {
 
     constructor(httpClient: HttpClient) {
         super(httpClient, environment.apiUrl + '/availability')

@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { ChangePasswordViewModel } from '../view-models/change-password-view-model'
-import { DataService } from 'src/app/shared/services/data.service'
 import { HelperService } from '../../../../shared/services/helper.service'
+import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
-export class UserService extends DataService {
+export class UserService extends HttpDataService {
 
     constructor(httpClient: HttpClient, private helperService: HelperService) {
         super(httpClient, environment.apiUrl + '/users')

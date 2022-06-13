@@ -6,10 +6,10 @@ import 'src/assets/fonts/NotoSansMonoCondensedRegular.js'
 import 'src/assets/fonts/PFHandbookProThin.js'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { InvoicingVM } from '../view-models/invoicing-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 import { environment } from 'src/environments/environment'
-import { InvoicingVM } from '../view-models/invoicing-vm'
 
 @Injectable({ providedIn: 'root' })
 

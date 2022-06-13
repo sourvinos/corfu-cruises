@@ -2,13 +2,13 @@ import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
-import { DataService } from 'src/app/shared/services/data.service'
+import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { ReservationGroupVM } from '../resources/list/reservation-group-vm'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
-export class ReservationService extends DataService {
+export class ReservationService extends HttpDataService {
 
     constructor(httpClient: HttpClient) {
         super(httpClient, environment.apiUrl + '/reservations')

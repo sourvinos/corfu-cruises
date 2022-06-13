@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { firstValueFrom, Observable } from 'rxjs'
 // Custom
-import { DataService } from 'src/app/shared/services/data.service'
+import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { ScheduleDeleteVM } from './../form/schedule-delete-vm'
 import { ScheduleWriteVM } from '../form/schedule-write-vm'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
-export class ScheduleService extends DataService {
+export class ScheduleService extends HttpDataService {
 
     constructor(httpClient: HttpClient) {
         super(httpClient, environment.apiUrl + '/schedules')
