@@ -1,4 +1,4 @@
-export class NationalityAutocompleteVM {
+export class NationalityDropdownVM {
 
     constructor(
 

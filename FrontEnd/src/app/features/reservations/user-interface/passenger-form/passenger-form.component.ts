@@ -7,7 +7,6 @@ import { firstValueFrom, Observable, Subject } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { GenderAutocompleteVM } from 'src/app/features/genders/classes/view-models/gender-autocomplete-vm'
 import { AccountService } from 'src/app/shared/services/account.service'
 import { GenderService } from 'src/app/features/genders/classes/services/gender.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -17,12 +16,13 @@ import { LocalStorageService } from './../../../../shared/services/local-storage
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { NationalityAutocompleteVM } from 'src/app/features/nationalities/classes/view-models/nationality-autocomplete-vm'
+import { NationalityDropdownVM } from 'src/app/features/nationalities/classes/view-models/nationality-dropdown-vm'
 import { NationalityService } from 'src/app/features/nationalities/classes/services/nationality.service'
 import { PassengerReadVM } from '../../classes/view-models/passenger-read-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
+import { GenderDropdownVM } from 'src/app/features/genders/classes/view-models/gender-dropdown-vm'
 
 @Component({
     selector: 'passenger-form',
@@ -47,8 +47,11 @@ export class PassengerFormComponent {
     public maxBirthDate = new Date()
 
     public isAutoCompleteDisabled = true
-    public genderAutocomplete: Observable<GenderAutocompleteVM[]>
-    public nationalityAutocomplete: Observable<NationalityAutocompleteVM[]>
+
+    public genders: GenderDropdownVM[] = []
+    public filteredGenders: Observable<GenderDropdownVM[]>
+    public nationalities: NationalityDropdownVM[] = []
+    public filteredNationalities: Observable<NationalityDropdownVM[]>
 
     public isAdmin: boolean
 
@@ -181,23 +184,14 @@ export class PassengerFormComponent {
         })
     }
 
-    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
-        const promise = new Promise((resolve) => {
-            service.getActiveForDropdown().toPromise().then(
-                (response: any) => {
-                    this[table] = response
-                    resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
-                }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-                })
-        })
-        return promise
+    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string) {
+        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
     private populateDropdowns(): void {
-        this.populateDropDown(this.genderService, 'genders', 'genderAutocomplete', 'gender', 'description')
-        this.populateDropDown(this.nationalityService, 'nationalities', 'nationalityAutocomplete', 'nationality', 'description')
+        this.populateDropdownFromLocalStorage('genders', 'filteredGenders', 'gender', 'description')
+        this.populateDropdownFromLocalStorage('nationalities', 'filteredNationalities', 'nationality', 'description')
     }
 
     private populateFields(result: PassengerReadVM): void {

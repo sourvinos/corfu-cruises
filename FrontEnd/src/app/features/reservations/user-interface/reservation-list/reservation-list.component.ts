@@ -49,7 +49,7 @@ export class ReservationListComponent {
     private url = ''
     private windowTitle = 'Reservations'
     public feature = 'reservationList'
-    public a: any
+    public overbookedDestinations: any
 
     public isAdmin: boolean
     public highlighted: any
@@ -299,7 +299,7 @@ export class ReservationListComponent {
         })
         return promise
     }
-
+    
     private getDistinctDriverIds(reservations: any): any[] {
         const driverIds = []
         const x = [... new Set(reservations.map((x: { driverId: any }) => x.driverId))]
@@ -315,10 +315,10 @@ export class ReservationListComponent {
 
     private doDestinationForOverbookingTasks(): void {
         this.getDistinctDestinations(this.records.reservations, 'destinationDescription').then((response: any) => {
-            this.a = response
-            this.a.forEach((destination: { id: number }, index: string | number) => {
+            this.overbookedDestinations = response
+            this.overbookedDestinations.forEach((destination: { id: number }, index: string | number) => {
                 this.reservationService.isDestinationOverbooked(this.localStorageService.getItem('date'), destination.id).subscribe((response) => {
-                    this.a[index].status = response
+                    this.overbookedDestinations[index].status = response
                 })
             })
         })

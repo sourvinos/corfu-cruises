@@ -12,7 +12,7 @@ import { CrewReadVM } from '../classes/view-models/crew-read-vm'
 import { CrewService } from '../classes/services/crew.service'
 import { CrewWriteVM } from '../classes/view-models/crew-write-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { GenderAutocompleteVM } from '../../genders/classes/view-models/gender-autocomplete-vm'
+import { GenderDropdownVM } from '../../genders/classes/view-models/gender-dropdown-vm'
 import { GenderService } from 'src/app/features/genders/classes/services/gender.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -22,7 +22,7 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { NationalityAutocompleteVM } from '../../nationalities/classes/view-models/nationality-autocomplete-vm'
+import { NationalityDropdownVM } from '../../nationalities/classes/view-models/nationality-dropdown-vm'
 import { NationalityService } from 'src/app/features/nationalities/classes/services/nationality.service'
 import { ShipDropdownVM } from '../../ships/classes/view-models/ship-dropdown-vm'
 import { ShipService } from '../../ships/classes/services/ship.service'
@@ -54,9 +54,13 @@ export class CrewFormComponent {
     public maxBirthDate = new Date()
 
     public isAutoCompleteDisabled = true
-    public genderDropdown: Observable<GenderAutocompleteVM[]>
-    public nationalityDropdown: Observable<NationalityAutocompleteVM[]>
-    public shipDropdown: Observable<ShipDropdownVM[]>
+
+    public genders: GenderDropdownVM[] = []
+    public filteredGenders: Observable<GenderDropdownVM[]>
+    public nationalities: NationalityDropdownVM[] = []
+    public filteredNationalities: Observable<NationalityDropdownVM[]>
+    public ships: ShipDropdownVM[] = []
+    public filteredShips: Observable<ShipDropdownVM[]>
 
     //#endregion
 
@@ -170,10 +174,10 @@ export class CrewFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private filterArray(array: string, field: string, value: any): any[] {
+    private filterAutocomplete(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
-            return this[array].filter((element) =>
+            return this[array].filter((element: { [x: string]: string }) =>
                 element[field].toLowerCase().startsWith(filtervalue))
         }
     }
@@ -222,26 +226,15 @@ export class CrewFormComponent {
         })
     }
 
-    private populateDropDown(service: any, table: any, array: string, formField: string, modelProperty: string): Promise<any> {
-        const promise = new Promise((resolve) => {
-            service.getActiveForDropdown().toPromise().then(
-                (response: any) => {
-                    this[table] = response
-                    resolve(this[table])
-                    this[array] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
-                }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-                })
-        })
-        return promise
+    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string) {
+        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
     private populateDropDowns(): void {
-        this.populateDropDown(this.shipService, 'ships', 'shipDropdown', 'ship', 'description').then(() => {
-            this.populateDropDown(this.nationalityService, 'nationalities', 'nationalityDropdown', 'nationality', 'description').then(() => {
-                this.populateDropDown(this.genderService, 'genders', 'genderDropdown', 'gender', 'description')
-            })
-        })
+        this.populateDropdownFromLocalStorage('genders', 'filteredGenders', 'gender', 'description')
+        this.populateDropdownFromLocalStorage('nationalities', 'filteredNationalities', 'nationality', 'description')
+        this.populateDropdownFromLocalStorage('ships', 'filteredShips', 'ship', 'description')
     }
 
     private populateFields(result: CrewReadVM): void {

@@ -100,7 +100,7 @@
 }
 
 .p-datatable .p-sortable-column .p-sortable-column-badge {
-    background-color: var(--color-a);
+    background-color: var(--color-button-text);
     color: var(--color-text);
     margin-top: -0.25rem;
     transition: all 0.2s ease;

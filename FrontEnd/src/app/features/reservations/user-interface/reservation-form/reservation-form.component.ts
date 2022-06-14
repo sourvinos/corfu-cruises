@@ -76,10 +76,10 @@ export class ReservationFormComponent {
     public filteredCustomers: Observable<CustomerDropdownVM[]>
     public pickupPoints: PickupPointDropdownVM[] = []
     public filteredPickupPoints: Observable<PickupPointDropdownVM[]>
-
     public filteredDrivers: Observable<DriverDropdownVM[]>
     public filteredShips: Observable<DriverDropdownVM[]>
     public filteredPorts: Observable<PortDropdownVM[]>
+
     public passengerDifferenceIcon: string
 
     //#endregion
@@ -316,7 +316,7 @@ export class ReservationFormComponent {
         })
     }
 
-    private filterArray(array: string, field: string, value: any): any[] {
+    private filterAutocomplete(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
             return this[array].filter((element: { [x: string]: string }) =>
@@ -474,30 +474,18 @@ export class ReservationFormComponent {
         return passengers
     }
 
-    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
-        const promise = new Promise((resolve) => {
-            service.getActiveForDropdown().toPromise().then(
-                (response: any) => {
-                    this[table] = response
-                    resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
-                },
-                (errorFromInterceptor: number) => {
-                    this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok']).subscribe(() => {
-                        this.goBack()
-                    })
-                })
-        })
-        return promise
+    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string) {
+        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
     private populateDropDowns(): void {
-        this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
-        this.populateDropDown(this.customerService, 'customers', 'filteredCustomers', 'customer', 'description')
-        this.populateDropDown(this.pickupPointService, 'pickupPoints', 'filteredPickupPoints', 'pickupPoint', 'description')
-        this.populateDropDown(this.driverService, 'drivers', 'filteredDrivers', 'driver', 'description')
-        this.populateDropDown(this.shipService, 'ships', 'filteredShips', 'ship', 'description')
-        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
+        this.populateDropdownFromLocalStorage('customers', 'filteredCustomers', 'customer', 'description')
+        this.populateDropdownFromLocalStorage('destinations', 'filteredDestinations', 'destination', 'description')
+        this.populateDropdownFromLocalStorage('drivers', 'filteredDrivers', 'driver', 'description')
+        this.populateDropdownFromLocalStorage('pickupPoints', 'filteredPickupPoints', 'pickupPoint', 'description')
+        this.populateDropdownFromLocalStorage('ports', 'filteredPorts', 'port', 'description')
+        this.populateDropdownFromLocalStorage('ships', 'filteredShips', 'ship', 'description')
     }
 
     private populateFields(result: ReservationReadVM): void {

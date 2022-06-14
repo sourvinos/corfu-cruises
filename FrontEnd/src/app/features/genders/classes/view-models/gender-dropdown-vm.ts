@@ -1,4 +1,4 @@
-export class GenderAutocompleteVM {
+export class GenderDropdownVM {
 
     constructor(
 

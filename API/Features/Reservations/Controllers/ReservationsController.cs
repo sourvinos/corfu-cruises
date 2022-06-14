@@ -1,7 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using API.Features.Invoicing;
 using API.Features.Schedules;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Identity;
+using API.Infrastructure.Identity.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -63,6 +67,12 @@ namespace API.Features.Reservations {
                     response = ApiMessages.NotOwnRecord()
                 });
             }
+        }
+
+        [HttpGet("fromDate/{fromDate}/toDate/{toDate}")]
+        [Authorize(Roles = "user, admin")]
+        public Task<IEnumerable<InvoicingReportVM>> GetInvoicing(string fromDate, string toDate) {
+            return reservationRepo.GetSimpleUserInvoicing(fromDate, toDate);
         }
 
         [HttpPost]

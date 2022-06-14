@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
-import { NationalityAutocompleteVM } from '../view-models/nationality-autocomplete-vm'
+import { NationalityDropdownVM } from '../view-models/nationality-dropdown-vm'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
@@ -16,8 +16,8 @@ export class NationalityService extends HttpDataService {
 
     //#region public methods
 
-    getActiveForDropdown(): Observable<NationalityAutocompleteVM[]> {
-        return this.http.get<NationalityAutocompleteVM[]>(environment.apiUrl + '/nationalities/getActiveForDropdown')
+    getActiveForDropdown(): Observable<NationalityDropdownVM[]> {
+        return this.http.get<NationalityDropdownVM[]>(environment.apiUrl + '/nationalities/getActiveForDropdown')
     }
 
     //#endregion

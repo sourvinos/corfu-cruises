@@ -8,22 +8,24 @@ import { Title } from '@angular/platform-browser'
 import { AccountService } from '../../../shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerService } from '../../customers/classes/services/customer.service'
+import { DestinationService } from '../../destinations/classes/services/destination.service'
+import { DriverService } from '../../drivers/classes/services/driver.service'
+import { GenderService } from '../../genders/classes/services/gender.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
-import { LocalbaseDataService } from 'src/app/shared/services/localbase-data.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { NationalityService } from 'src/app/features/nationalities/classes/services/nationality.service'
+import { PickupPointService } from '../../pickupPoints/classes/services/pickupPoint.service'
 import { PortService } from '../../ports/classes/services/port.service'
+import { ShipService } from '../../ships/classes/services/ship.service'
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { DestinationService } from '../../destinations/classes/services/destination.service'
-import { DriverService } from '../../drivers/classes/services/driver.service'
-import { PickupPointService } from '../../pickupPoints/classes/services/pickupPoint.service'
 
 @Component({
     selector: 'login-form',
@@ -54,24 +56,26 @@ export class LoginFormComponent {
     constructor(
         private accountService: AccountService,
         private buttonClickService: ButtonClickService,
+        private customerService: CustomerService,
         private destinationService: DestinationService,
+        private driverService: DriverService,
         private formBuilder: FormBuilder,
+        private genderService: GenderService,
         private helperService: HelperService,
-        private portService: PortService,
-        private pickupPointService: PickupPointService,
         private idle: Idle,
         private interactionService: InteractionService,
         private keyboardShortcutsService: KeyboardShortcuts,
         private localStorageService: LocalStorageService,
         private messageHintService: MessageHintService,
-        private driverService: DriverService,
         private messageLabelService: MessageLabelService,
         private messageSnackbarService: MessageSnackbarService,
+        private nationalityService: NationalityService,
+        private pickupPointService: PickupPointService,
+        private portService: PortService,
         private router: Router,
+        private shipService: ShipService,
         private sweetAlertService: SweetAlertService,
         private titleService: Title,
-        private localbaseDataService: LocalbaseDataService,
-        private customerService: CustomerService
     ) { }
 
 
@@ -110,8 +114,8 @@ export class LoginFormComponent {
             complete: () => {
                 this.goHome()
                 this.startIdleTimer()
+                this.populateStorageFromAPI()
                 this.doSideMenuTogglerTasks()
-                this.populateLocalbaseFromAPI()
             },
             error: (errorFromInterceptor) => {
                 this.showError(errorFromInterceptor)
@@ -174,12 +178,15 @@ export class LoginFormComponent {
         })
     }
 
-    private populateLocalbaseFromAPI(): void {
-        setTimeout(() => { this.localbaseDataService.readFromAPI('ports', this.portService), 1000 })
-        setTimeout(() => { this.localbaseDataService.readFromAPI('destinations', this.destinationService) }, 2000)
-        setTimeout(() => { this.localbaseDataService.readFromAPI('drivers', this.driverService) }, 3000)
-        setTimeout(() => { this.localbaseDataService.readFromAPI('customers', this.customerService) }, 4000)
-        setTimeout(() => { this.localbaseDataService.readFromAPI('pickupPoints', this.pickupPointService) }, 5000)
+    private populateStorageFromAPI(): void {
+        this.customerService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('customers', JSON.stringify(response)) })
+        this.destinationService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('destinations', JSON.stringify(response)) })
+        this.driverService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('drivers', JSON.stringify(response)) })
+        this.genderService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('genders', JSON.stringify(response)) })
+        this.nationalityService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('nationalities', JSON.stringify(response)) })
+        this.pickupPointService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('pickupPoints', JSON.stringify(response)) })
+        this.portService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('ports', JSON.stringify(response)) })
+        this.shipService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('ships', JSON.stringify(response)) })
     }
 
     private setWindowTitle(): void {
