@@ -8,8 +8,8 @@ namespace API.Features.Embarkation {
 
         Task<EmbarkationGroupVM<EmbarkationVM>> Get(string date, string destinationId, int portId, string shipId);
         Task<int> GetShipIdFromDescription(string description);
-        bool EmbarkSinglePassenger(int id);
-        bool EmbarkAllPassengers(int[] id);
+        void EmbarkSinglePassenger(int id);
+        void EmbarkAllPassengers(int[] id);
     }
 
 }

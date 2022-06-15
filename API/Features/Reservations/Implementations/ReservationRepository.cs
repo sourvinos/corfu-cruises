@@ -117,9 +117,10 @@ namespace API.Features.Reservations {
                string.Equals(x.TicketNo, record.TicketNo, StringComparison.OrdinalIgnoreCase));
         }
 
-        public async Task<bool> Update(string id, Reservation updatedRecord) {
-            using var transaction = context.Database.BeginTransaction();
-            try {
+        public async Task Update(string id, Reservation updatedRecord) {
+            var strategy = context.Database.CreateExecutionStrategy();
+            await strategy.Execute(async () => {
+                using var transaction = context.Database.BeginTransaction();
                 if (await Identity.IsUserAdmin(httpContextAccessor)) {
                     await UpdateReservation(updatedRecord);
                 }
@@ -130,11 +131,7 @@ namespace API.Features.Reservations {
                 } else {
                     transaction.Commit();
                 }
-                return true;
-            } catch (Exception) {
-                transaction.Rollback();
-                return false;
-            }
+            });
         }
 
         public int GetPortIdFromPickupPointId(ReservationWriteResource record) {
@@ -169,31 +166,37 @@ namespace API.Features.Reservations {
         }
 
         public void AssignToDriver(int driverId, string[] id) {
-            using var transaction = context.Database.BeginTransaction();
-            var reservations = context.Reservations
-                .Where(x => id.Contains(x.ReservationId.ToString()))
-                .ToList();
-            reservations.ForEach(a => a.DriverId = driverId);
-            context.SaveChanges();
-            if (settings.IsTesting) {
-                transaction.Dispose();
-            } else {
-                transaction.Commit();
-            }
+            var strategy = context.Database.CreateExecutionStrategy();
+            strategy.Execute(() => {
+                using var transaction = context.Database.BeginTransaction();
+                var reservations = context.Reservations
+                    .Where(x => id.Contains(x.ReservationId.ToString()))
+                    .ToList();
+                reservations.ForEach(a => a.DriverId = driverId);
+                context.SaveChanges();
+                if (settings.IsTesting) {
+                    transaction.Dispose();
+                } else {
+                    transaction.Commit();
+                }
+            });
         }
 
         public void AssignToShip(int shipId, string[] ids) {
-            using var transaction = context.Database.BeginTransaction();
-            var records = context.Reservations
-                .Where(x => ids.Contains(x.ReservationId.ToString()))
-                .ToList();
-            records.ForEach(a => a.ShipId = shipId);
-            context.SaveChanges();
-            if (settings.IsTesting) {
-                transaction.Dispose();
-            } else {
-                transaction.Commit();
-            }
+            var strategy = context.Database.CreateExecutionStrategy();
+            strategy.Execute(() => {
+                using var transaction = context.Database.BeginTransaction();
+                var records = context.Reservations
+                    .Where(x => ids.Contains(x.ReservationId.ToString()))
+                    .ToList();
+                records.ForEach(a => a.ShipId = shipId);
+                context.SaveChanges();
+                if (settings.IsTesting) {
+                    transaction.Dispose();
+                } else {
+                    transaction.Commit();
+                }
+            });
         }
 
         public ReservationWriteResource UpdateForeignKeysWithNull(ReservationWriteResource reservation) {
@@ -446,13 +449,16 @@ namespace API.Features.Reservations {
             var refNo = context.RefNos.First();
             refNo.LastRefNo++;
             context.Entry(refNo).State = EntityState.Modified;
-            using var transaction = context.Database.BeginTransaction();
-            await context.SaveChangesAsync();
-            if (settings.IsTesting) {
-                transaction.Dispose();
-            } else {
-                transaction.Commit();
-            }
+            var strategy = context.Database.CreateExecutionStrategy();
+            await strategy.Execute(async () => {
+                using var transaction = context.Database.BeginTransaction();
+                await context.SaveChangesAsync();
+                // if (settings.IsTesting) {
+                //     transaction.Dispose();
+                // } else {
+                //     transaction.Commit();
+                // }
+            });
             return refNo.LastRefNo.ToString();
         }
 

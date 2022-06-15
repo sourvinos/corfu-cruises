@@ -17,7 +17,7 @@ namespace API.Features.Reservations {
         Task<Reservation> GetByIdToDelete(string id);
         Task<bool> DoesUserOwnRecord(int customerId);
         bool IsKeyUnique(ReservationWriteResource record);
-        Task<bool> Update(string id, Reservation updatedRecord);
+        Task Update(string id, Reservation updatedRecord);
         bool IsOverbooked(string date, int destinationId);
         int GetPortIdFromPickupPointId(ReservationWriteResource record);
         int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo);

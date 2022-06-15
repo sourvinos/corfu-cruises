@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
+using API.Infrastructure.Exceptions;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Embarkation {
@@ -14,11 +16,11 @@ namespace API.Features.Embarkation {
     public class EmbarkationRepository : Repository<Reservation>, IEmbarkationRepository {
 
         private readonly IMapper mapper;
-        private readonly TestingEnvironment settings;
+        private readonly TestingEnvironment testingSettings;
 
-        public EmbarkationRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
+        public EmbarkationRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> testingSettings) : base(appDbContext, testingSettings) {
             this.mapper = mapper;
-            this.settings = settings.Value;
+            this.testingSettings = testingSettings.Value;
         }
 
         public async Task<EmbarkationGroupVM<EmbarkationVM>> Get(string date, string destinationId, int portId, string shipId) {
@@ -51,36 +53,40 @@ namespace API.Features.Embarkation {
             return ship.Id;
         }
 
-        public bool EmbarkSinglePassenger(int id) {
+        public void EmbarkSinglePassenger(int id) {
             Passenger passenger = context.Passengers.Where(x => x.Id == id).FirstOrDefault();
             if (passenger != null) {
-                using var transaction = context.Database.BeginTransaction();
-                passenger.IsCheckedIn = !passenger.IsCheckedIn;
-                context.SaveChanges();
-                if (settings.IsTesting) {
-                    transaction.Dispose();
-                } else {
-                    transaction.Commit();
-                }
-                return true;
+                var strategy = context.Database.CreateExecutionStrategy();
+                strategy.Execute(() => {
+                    using var transaction = context.Database.BeginTransaction();
+                    passenger.IsCheckedIn = !passenger.IsCheckedIn;
+                    context.SaveChanges();
+                    DisposeOrCommit(transaction);
+                });
             } else {
-                return false;
+                throw new CustomException { HttpResponseCode = 404 };
             }
         }
 
-        public bool EmbarkAllPassengers(int[] id) {
-            using var transaction = context.Database.BeginTransaction();
-            var records = context.Passengers
-                .Where(x => id.Contains(x.Id))
-                .ToList();
-            records.ForEach(x => x.IsCheckedIn = true);
-            context.SaveChanges();
-            if (settings.IsTesting) {
+        public void EmbarkAllPassengers(int[] id) {
+            var strategy = context.Database.CreateExecutionStrategy();
+            strategy.Execute(() => {
+                using var transaction = context.Database.BeginTransaction();
+                var records = context.Passengers
+                    .Where(x => id.Contains(x.Id))
+                    .ToList();
+                records.ForEach(x => x.IsCheckedIn = true);
+                context.SaveChanges();
+                DisposeOrCommit(transaction);
+            });
+        }
+
+        private void DisposeOrCommit(IDbContextTransaction transaction) {
+            if (testingSettings.IsTesting) {
                 transaction.Dispose();
             } else {
                 transaction.Commit();
             }
-            return true;
         }
 
     }

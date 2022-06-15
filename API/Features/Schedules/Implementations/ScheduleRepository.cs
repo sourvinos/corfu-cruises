@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Implementations;
 using API.Infrastructure.Exceptions;
+using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -50,14 +50,13 @@ namespace API.Features.Schedules {
         }
 
         public void Create(List<Schedule> entities) {
-            using var transaction = context.Database.BeginTransaction();
-            context.AddRange(entities);
-            try {
+            var strategy = context.Database.CreateExecutionStrategy();
+            strategy.Execute(() => {
+                using var transaction = context.Database.BeginTransaction();
+                context.AddRange(entities);
                 Save();
                 DisposeOrCommit(transaction);
-            } catch (DbUpdateConcurrencyException) {
-                transaction.Dispose();
-            }
+            });
         }
 
         public void DeleteRange(List<ScheduleDeleteRangeDto> schedules) {
