@@ -52,7 +52,6 @@ namespace API {
         public void ConfigureProductionLiveServices(IServiceCollection services) {
             services.AddDbContextFactory<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("ProductionLive"), new MySqlServerVersion(new Version(8, 0, 19)), builder => {
                 builder.EnableStringComparisonTranslations();
-                builder.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null);
             }));
             ConfigureServices(services);
         }
