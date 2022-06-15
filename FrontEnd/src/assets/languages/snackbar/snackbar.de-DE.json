@@ -184,7 +184,7 @@
             },
             {
                 "id": "featureNotAvailable",
-                "message": "Diese Option ist nicht verfügbar"
+                "message": "Diese Option ist noch nicht verfügbar"
             },
             {
                 "id": "reservationCreated",

@@ -9,6 +9,7 @@ import { ReservationRoutingModule } from './reservation.routing.module'
 import { ReservationToDriverComponent } from './../../user-interface/reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToShipComponent } from '../../user-interface/reservation-to-ship/reservation-to-ship-form.component'
 import { SharedModule } from '../../../../shared/modules/shared.module'
+import { TotalsComponent } from '../../user-interface/totals/totals.component'
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { SharedModule } from '../../../../shared/modules/shared.module'
         ReservationListComponent,
         ReservationToDriverComponent,
         ReservationToShipComponent,
+        TotalsComponent
     ],
     imports: [
         SharedModule,

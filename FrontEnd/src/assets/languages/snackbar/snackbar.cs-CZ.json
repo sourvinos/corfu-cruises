@@ -184,7 +184,7 @@
             },
             {
                 "id": "featureNotAvailable",
-                "message": "Tato možnost není k dispozici"
+                "message": "Tato možnost zatím není k dispozici"
             },
             {
                 "id": "reservationCreated",

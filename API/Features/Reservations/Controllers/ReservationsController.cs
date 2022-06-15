@@ -4,8 +4,6 @@ using API.Features.Invoicing;
 using API.Features.Schedules;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
-using API.Infrastructure.Identity;
-using API.Infrastructure.Identity.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

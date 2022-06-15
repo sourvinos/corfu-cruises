@@ -94,5 +94,9 @@
     {
         "id": "my-reservations",
         "description": "Οι κρατήσεις μου"
+    },
+    {
+        "id": "my-totals",
+        "description": "Τα σύνολά μου"
     }
 ]

@@ -1,0 +1,34 @@
+<div id="form-wrapper">
+
+    <div id="header">
+        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+    </div>
+
+    <div id="content">
+        <form [formGroup]="form" autocomplete="off" data-cy="form">
+            <mat-form-field>
+                <mat-label>{{ getLabel("dateRange") }}</mat-label>
+                <mat-date-range-input [formGroup]="form" [rangePicker]="picker">
+                    <input [inputTabStop]="input" class="center" data-cy="fromDate" data-tabindex="3" formControlName="fromDate" id="fromDate" matInput matStartDate>
+                    <input [inputTabStop]="input" class="center" data-cy="toDate" data-tabindex="4" formControlName="toDate" id="toDate" matEndDate matInput>
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-error *ngIf="fromDate.hasError('required') || toDate.hasError('required')">{{ getHint("required") }}</mat-error>
+                <mat-error *ngIf="fromDate.hasError('matStartDateInvalid') || toDate.hasError('matEndDateInvalid')">{{ getHint("invalidPeriod") }}</mat-error>
+            </mat-form-field>
+        </form>
+        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+    </div>
+
+    <div id="footer">
+        <div @slideFromRight class="button-group">
+            <button (click)="getTotals()" [disabled]="!form.valid" class="primary" data-cy="save" id="save" mat-flat-button>{{ getLabel("saveButton") }}</button>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading | async">
+        <loading-spinner></loading-spinner>
+    </div>
+
+</div>

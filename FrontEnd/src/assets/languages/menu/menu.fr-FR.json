@@ -102,5 +102,9 @@
     {
         "id": "my-reservations",
         "description": "Mes réserves"
+    },
+    {
+        "id": "my-totals",
+        "description": "Mes totaux"
     }
 ]

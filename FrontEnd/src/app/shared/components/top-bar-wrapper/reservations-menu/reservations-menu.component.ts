@@ -5,6 +5,8 @@ import { Observable, Subject, takeUntil } from 'rxjs'
 import { AccountService } from 'src/app/shared/services/account.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { MessageMenuService } from 'src/app/shared/services/messages-menu.service'
+import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -24,7 +26,7 @@ export class ReservationsMenuComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private interactionService: InteractionService, private messageMenuService: MessageMenuService, private router: Router) {
+    constructor(private messageSnackbarService: MessageSnackbarService, private accountService: AccountService, private interactionService: InteractionService, private messageMenuService: MessageMenuService, private modalActionResultService: ModalActionResultService, private router: Router) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -91,6 +93,11 @@ export class ReservationsMenuComponent {
             }, 100)
         })
     }
+
+    public unavailable(): void {
+        this.modalActionResultService.open(this.messageSnackbarService.featureNotAvailable(), 'error', ['ok'])
+    }
+
 
     public getIcon(filename: string): string {
         return environment.menuIconDirectory + filename

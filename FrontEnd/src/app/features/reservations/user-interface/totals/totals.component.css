@@ -1,0 +1,28 @@
+#weekdays {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+}
+
+.selectable-day {
+    border-bottom: 5px solid var(--color-a);
+    color: var(--color-text);
+    display: flex;
+    font-family: var(--font-family-handbook);
+    font-size: var(--font-size-summary-block-item);
+    justify-content: space-between;
+    line-height: 1.8rem;
+    opacity: 0.2;
+    padding: 0.125rem 0.5rem 0.125rem 0.5rem;
+}
+
+.selectable-day:hover {
+    border-bottom: 5px solid var(--color-a);
+    cursor: pointer;
+    opacity: 1;
+}
+
+.active-selectable-day {
+    border-bottom: 5px solid var(--color-a) !important;
+    opacity: 1;
+}
