@@ -24,22 +24,22 @@
     padding: 0.5rem;
 }
 
-#criteria > div:nth-child(1), #filters > div:nth-child(1) {
+#criteria > div:nth-last-child(4), #filters > div:nth-child(1) {
     background-color: var(--color-criteria-a);
     border-color: var(--color-criteria-a-border);
 }
 
-#criteria > div:nth-child(2), #filters > div:nth-child(2) {
+#criteria > div:nth-last-child(3), #filters > div:nth-child(2) {
     background-color: var(--color-criteria-b);
     border-color: var(--color-criteria-b-border);
 }
 
-#criteria > div:nth-child(3), #filters > div:nth-child(3) {
+#criteria > div:nth-last-child(2), #filters > div:nth-child(3) {
     background-color: var(--color-criteria-c);
     border-color: var(--color-criteria-c-border);
 }
 
-#criteria > div:nth-child(4), #filters > div:nth-child(4) {
+#criteria > div:nth-last-child(1), #filters > div:nth-child(4) {
     background-color: var(--color-criteria-d);
     border-color: var(--color-criteria-d-border);
 }

@@ -2201,7 +2201,7 @@
             },
             {
                 "id": "exportAllButton",
-                "description": "ALLES ALS XLS EXPORTIEREN"
+                "description": "EXPORT ZUM XLS"
             },
             {
                 "id": "no-results",

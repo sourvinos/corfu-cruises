@@ -34,7 +34,6 @@
                 <ng-template pTemplate="body" let-record>
                     <tr>
                         <td colspan="11">{{ record.customer.description }}</td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: center;" class="clickable" (click)="exportSingleCustomer(record.customer.id)">PDF</td>
                     </tr>
                     <tr *ngFor="let x of record.reservations, let i = index">
                         <td style="min-width: 3%; max-width: 3%;"></td>

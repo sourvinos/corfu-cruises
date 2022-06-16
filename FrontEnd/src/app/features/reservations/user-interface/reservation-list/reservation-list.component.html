@@ -1,14 +1,12 @@
 <div id="list">
-    
+
     <div id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-        <div id="overbookings">
-            <div *ngFor="let x of overbookedDestinations">
+        <div id="criteria">
+            <div *ngFor="let x of overbookedDestinations" class="overbookedDestinations">
                 <div class="description">{{ x.status == true ? getEmoji('error'): getEmoji('ok') }}</div>
                 <div class="label">{{ x.description }}</div>
             </div>
-        </div>
-        <div id="criteria">
             <div *ngFor="let item of totals | slice:0:3">
                 <div class="description">{{ item.sum }}</div>
                 <div class="label">{{ getLabel(item.description) }}</div>
@@ -31,20 +29,30 @@
                         <th style="min-width: 2%; max-width: 2%;"></th>
                         <th style="min-width: 5%; max-width: 5%;">{{ getLabel('headerRefNo') }}</th>
                         <th style="min-width: 8%; max-width: 8%;">{{ getLabel('headerTicketNo') }}</th>
-                        <th style="min-width: 10%; max-width: 10%;" pSortableColumn="destinationDescription">{{ getLabel('headerDestination') }}<p-sortIcon field="destinationDescription"></p-sortIcon></th>
-                        <th style="min-width: 10%; max-width: 10%;" pSortableColumn="coachRouteAbbreviation">{{ getLabel('headerRoute') }}<p-sortIcon field="coachRouteAbbreviation"></p-sortIcon></th>
-                        <th style="min-width: 10%; max-width: 10%;" pSortableColumn="customerDescription">{{ getLabel('headerCustomer') }}<p-sortIcon field="customerDescription"></p-sortIcon></th>
-                        <th style="min-width: 13%; max-width: 13%;" pSortableColumn="pickupPointDescription">{{ getLabel('headerPickupPoint') }}<p-sortIcon field="pickupPointDescription"></p-sortIcon></th>
-                        <th style="min-width: 6%; max-width: 6%;" pSortableColumn="time">{{ getLabel('headerTime') }}<p-sortIcon field="time"></p-sortIcon></th>
+                        <th style="min-width: 10%; max-width: 10%;" pSortableColumn="destinationDescription">{{ getLabel('headerDestination') }}<p-sortIcon field="destinationDescription"></p-sortIcon>
+                        </th>
+                        <th style="min-width: 10%; max-width: 10%;" pSortableColumn="coachRouteAbbreviation">{{ getLabel('headerRoute') }}<p-sortIcon field="coachRouteAbbreviation"></p-sortIcon>
+                        </th>
+                        <th style="min-width: 10%; max-width: 10%;" pSortableColumn="customerDescription">{{ getLabel('headerCustomer') }}<p-sortIcon field="customerDescription"></p-sortIcon>
+                        </th>
+                        <th style="min-width: 13%; max-width: 13%;" pSortableColumn="pickupPointDescription">{{ getLabel('headerPickupPoint') }}<p-sortIcon field="pickupPointDescription"></p-sortIcon>
+                        </th>
+                        <th style="min-width: 6%; max-width: 6%;" pSortableColumn="time">{{ getLabel('headerTime') }}<p-sortIcon field="time"></p-sortIcon>
+                        </th>
                         <th style="min-width: 3%; max-width: 3%;">Σ</th>
                         <th style="min-width: 3%; max-width: 3%;">Σ1</th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getLabel('headerPlusMinus') }}</th>
-                        <th style="min-width: 10%; max-width: 10%;" pSortableColumn="driverDescription">{{ getLabel('headerDriver') }}<p-sortIcon field="driverDescription"></p-sortIcon></th>
-                        <th style="min-width: 10%; max-width: 10%;" pSortableColumn="portDescription">{{ getLabel('headerPort') }}<p-sortIcon field="portDescription"></p-sortIcon></th>
-                        <th style="min-width: 7%; max-width: 7%;" pSortableColumn="shipDescription">{{ getLabel('headerShip') }}<p-sortIcon field="shipDescription"></p-sortIcon></th>
+                        <th style="min-width: 10%; max-width: 10%;" pSortableColumn="driverDescription">{{ getLabel('headerDriver') }}<p-sortIcon field="driverDescription"></p-sortIcon>
+                        </th>
+                        <th style="min-width: 10%; max-width: 10%;" pSortableColumn="portDescription">{{ getLabel('headerPort') }}<p-sortIcon field="portDescription"></p-sortIcon>
+                        </th>
+                        <th style="min-width: 7%; max-width: 7%;" pSortableColumn="shipDescription">{{ getLabel('headerShip') }}<p-sortIcon field="shipDescription"></p-sortIcon>
+                        </th>
                     </tr>
                     <tr>
-                        <th style="min-width: 2%; max-width: 2%;"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                        <th style="min-width: 2%; max-width: 2%;">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
                         <th style="min-width: 5%; max-width: 5%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
                         <th style="min-width: 8%; max-width: 8%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
                         <th style="min-width: 10%; max-width: 10%;">
@@ -132,7 +140,9 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
                     <tr [class.ui-state-highlight]="rowData == highlighted" (click)="highlighted = rowData" (dblclick)="onEditRecord(rowData.reservationId)">
-                        <td style="width: 2%; max-width: 2%; justify-content: center;"><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
+                        <td style="width: 2%; max-width: 2%; justify-content: center;">
+                            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                        </td>
                         <td style="min-width: 5%; max-width: 5%;">{{ formatRefNo(rowData.refNo) }}</td>
                         <td style="min-width: 8%; max-width: 8%;">{{ rowData.ticketNo }}</td>
                         <td style="min-width: 10%; max-width: 10%;">{{ rowData.destinationDescription }}</td>
