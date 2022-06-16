@@ -2130,5 +2130,26 @@
                 "description": "Rouge"
             }
         ]
+    },
+    {
+        "feature": "totalsCriteria",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Σύνολα περιόδου"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Περίοδος"
+            },
+            {
+                "id": "searchDateHint",
+                "description": "Περίοδος κρατήσεων"
+            },
+            {
+                "id": "searchButton",
+                "description": "ΑΝΑΖΗΤΗΣΗ"
+            }
+        ]
     }
 ]

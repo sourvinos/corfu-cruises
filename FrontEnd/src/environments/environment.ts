@@ -20,9 +20,9 @@ export const environment = {
         token: 'pk.eyJ1Ijoic291cnZpbm9zIiwiYSI6ImNrajEwa3plbDRzY2gzMnFqcXppZzNhaDkifQ.JMR_dEvdaFTpQ2jiapPrhg'
     },
     login: {
-        username: 'john',
+        username: 'simpleuser',
         email: 'johnsourvinos@hotmail.com',
-        password: 'ec11fc8c16da',
+        password: '1234567890',
         isHuman: true
     },
     newUser: {

@@ -87,9 +87,9 @@ export class ReservationsMenuComponent {
     public doNavigationTasks(feature: string): void {
         this.router.navigate([feature]).then(() => {
             setTimeout(() => {
-                if (this.url.includes(feature)) {
-                    this.setActiveMenuItem(feature)
-                }
+                // if (this.url.includes(feature)) {
+                //     this.setActiveMenuItem(feature)
+                // }
             }, 100)
         })
     }

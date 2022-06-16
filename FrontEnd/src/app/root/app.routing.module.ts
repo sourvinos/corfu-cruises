@@ -9,7 +9,6 @@ import { ForgotPasswordFormComponent } from '../features/users/user-interface/fo
 import { HomeComponent } from '../features/home/home.component'
 import { LoginFormComponent } from '../features/login/user-interface/login-form.component'
 import { ResetPasswordFormComponent } from '../features/users/user-interface/reset-password/reset-password-form.component'
-import { TotalsComponent } from '../features/reservations/user-interface/totals/totals.component'
 // Guards
 import { AuthGuardService } from '../shared/services/auth-guard.service'
 
@@ -17,7 +16,7 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuardService], pathMatch: 'full' },
     { path: 'login', component: LoginFormComponent },
     { path: 'availability', component: AvailabilityComponent, canActivate: [AuthGuardService] },
-    { path: 'totals', component: TotalsComponent, canActivate: [AuthGuardService] },
+    { path: 'totals', loadChildren: () => import('../features/totals/classes/modules/totals.module').then(m => m.TotalsModule) },
     { path: 'coachRoutes', loadChildren: () => import('../features/coachRoutes/classes/modules/coachRoute.module').then(m => m.CoachRouteModule) },
     { path: 'crews', loadChildren: () => import('../features/crews/classes/modules/crew.module').then(m => m.CrewModule) },
     { path: 'customers', loadChildren: () => import('../features/customers/classes/modules/customer.module').then(m => m.CustomerModule) },

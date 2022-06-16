@@ -9,7 +9,7 @@
                 <ul class="sub-menu" (click)="hideMenu()">
                     <button class="hoverable" (click)="doNavigationTasks('availability')"><img width="20px" [src]="getIcon('calendar.svg')"><span>{{ getLabel('availability') }}</span></button>
                     <button class="hoverable" (click)="doNavigationTasks('reservations')"><img width="20px" [src]="getIcon('reservations.svg')"><span>{{ getLabel('my-reservations') }}</span></button>
-                    <button class="hoverable" (click)="unavailable()"><img width="20px" [src]="getIcon('total.svg')"><span>{{ getLabel('my-totals') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('totals')"><img width="20px" [src]="getIcon('total.svg')"><span>{{ getLabel('my-totals') }}</span></button>
                 </ul>
             </li>
         </ul>

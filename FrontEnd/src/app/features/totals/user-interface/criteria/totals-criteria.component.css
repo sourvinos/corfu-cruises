@@ -1,0 +1,13 @@
+#form {
+    align-items: center;
+    flex-direction: row !important;
+    height: 100%;
+}
+
+#field-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 2rem;
+    width: 100%;
+}

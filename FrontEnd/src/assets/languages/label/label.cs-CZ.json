@@ -2130,5 +2130,26 @@
                 "description": "Červená"
             }
         ]
+    },
+    {
+        "feature": "totalsCriteria",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Fakturace"
+            },
+            {
+                "id": "searchLabel",
+                "description": "Datum"
+            },
+            {
+                "id": "searchDateHint",
+                "description": "Vyplňte nebo vyberte datum"
+            },
+            {
+                "id": "searchButton",
+                "description": "VYHLEDÁVÁNÍ"
+            }
+        ]
     }
 ]
