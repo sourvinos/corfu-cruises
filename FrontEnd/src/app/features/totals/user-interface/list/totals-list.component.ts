@@ -65,7 +65,7 @@ export class TotalsListComponent {
         const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element)
         const wb: XLSX.WorkBook = XLSX.utils.book_new()
         XLSX.utils.book_append_sheet(wb, ws, 'Totals')
-        XLSX.writeFile(wb, 'Totals for ' + this.totalsCriteria.date + '.xlsx')
+        XLSX.writeFile(wb, 'TOTALS FOR ' + this.totalsCriteria.fromDate + ' ' + this.totalsCriteria.toDate + '.xlsx')
     }
 
     public exportSingleCustomer(customerId: number): void {
@@ -78,7 +78,7 @@ export class TotalsListComponent {
     }
 
     public formatDate(): string {
-        return this.formatDateToLocale(this.totalsCriteria.date, true)
+        return this.formatDateToLocale(this.totalsCriteria.fromDate, true) + ' - ' + this.formatDateToLocale(this.totalsCriteria.toDate, true)
     }
 
     public getEmoji(emoji: string): string {
@@ -153,10 +153,8 @@ export class TotalsListComponent {
         if (this.localStorageService.getItem('totals-criteria')) {
             const criteria = JSON.parse(this.localStorageService.getItem('totals-criteria'))
             this.totalsCriteria = {
-                date: criteria.date,
-                customer: criteria.customer,
-                destination: criteria.destination,
-                ship: criteria.ship
+                fromDate: criteria.fromDate,
+                toDate: criteria.toDate
             }
         }
     }

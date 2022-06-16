@@ -22,6 +22,7 @@ export class ReservationsMenuComponent {
     private ngunsubscribe = new Subject<void>()
     private url: string
     public loginStatus: Observable<boolean>
+    public isAdmin: boolean
     public menuItems: [] = []
 
     //#endregion
@@ -48,6 +49,9 @@ export class ReservationsMenuComponent {
         this.messageMenuService.getMessages().then((response) => {
             this.createMenu(response)
             this.subscribeToInteractionService()
+            this.interactionService.isAdmin.subscribe(response => {
+                this.isAdmin = response
+            })
         })
     }
 

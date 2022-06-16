@@ -1130,7 +1130,7 @@
             },
             {
                 "id": "dateRange",
-                "description": "Period"
+                "description": "Calendar period"
             },
             {
                 "id": "maxPassengers",
@@ -2139,16 +2139,85 @@
                 "description": "Σύνολα περιόδου"
             },
             {
-                "id": "searchLabel",
-                "description": "Περίοδος"
-            },
-            {
-                "id": "searchDateHint",
-                "description": "Περίοδος κρατήσεων"
+                "id": "dateRange",
+                "description": "Calendar period"
             },
             {
                 "id": "searchButton",
                 "description": "ΑΝΑΖΗΤΗΣΗ"
+            }
+        ]
+    },
+    {
+        "feature": "totalsList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Period totals"
+            },
+            {
+                "id": "headerCustomer",
+                "description": "Customer"
+            },
+            {
+                "id": "headerDestination",
+                "description": "Destination"
+            },
+            {
+                "id": "headerShip",
+                "description": "Ship"
+            },
+            {
+                "id": "headerPort",
+                "description": "Port"
+            },
+            {
+                "id": "headerTicketNo",
+                "description": "Ticket No"
+            },
+            {
+                "id": "headerHasTransfer",
+                "description": "Transfer"
+            },
+            {
+                "id": "headerAdults",
+                "description": "A"
+            },
+            {
+                "id": "headerKids",
+                "description": "K"
+            },
+            {
+                "id": "headerFree",
+                "description": "F"
+            },
+            {
+                "id": "headerRemarks",
+                "description": "Comments"
+            },
+            {
+                "id": "headerTotalPersons",
+                "description": "Σ"
+            },
+            {
+                "id": "exportAllButton",
+                "description": "EXPORT ALL TO XLS"
+            },
+            {
+                "id": "no-results",
+                "description": "We found nothing!"
+            },
+            {
+                "id": "has-transfer",
+                "description": "YES"
+            },
+            {
+                "id": "no-transfer",
+                "description": "NO"
+            },
+            {
+                "id": "criteria-date-range",
+                "description": "Calendar period"
             }
         ]
     }

@@ -1130,7 +1130,7 @@
             },
             {
                 "id": "dateRange",
-                "description": "Datum období"
+                "description": "Kalendářní interval"
             },
             {
                 "id": "maxPassengers",
@@ -2136,19 +2136,88 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Fakturace"
+                "description": "Celkové součty za období"
             },
             {
-                "id": "searchLabel",
-                "description": "Datum"
-            },
-            {
-                "id": "searchDateHint",
-                "description": "Vyplňte nebo vyberte datum"
+                "id": "dateRange",
+                "description": "Kalendářní interval"
             },
             {
                 "id": "searchButton",
                 "description": "VYHLEDÁVÁNÍ"
+            }
+        ]
+    },
+    {
+        "feature": "totalsList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Celkové součty za období"
+            },
+            {
+                "id": "headerCustomer",
+                "description": "Zákazník"
+            },
+            {
+                "id": "headerDestination",
+                "description": "Destinace"
+            },
+            {
+                "id": "headerShip",
+                "description": "Plavidlo"
+            },
+            {
+                "id": "headerPort",
+                "description": "Přístavt"
+            },
+            {
+                "id": "headerTicketNo",
+                "description": "Číslo lístku"
+            },
+            {
+                "id": "headerHasTransfer",
+                "description": "Převod"
+            },
+            {
+                "id": "headerAdults",
+                "description": "Do"
+            },
+            {
+                "id": "headerKids",
+                "description": "Dí"
+            },
+            {
+                "id": "headerFree",
+                "description": "Z"
+            },
+            {
+                "id": "headerRemarks",
+                "description": "Komentáře"
+            },
+            {
+                "id": "headerTotalPersons",
+                "description": "Σ"
+            },
+            {
+                "id": "exportAllButton",
+                "description": "EXPORTOVAT VŠE DO XLS"
+            },
+            {
+                "id": "no-results",
+                "description": "Nic jsme nenašli!"
+            },
+            {
+                "id": "has-transfer",
+                "description": "ANO"
+            },
+            {
+                "id": "no-transfer",
+                "description": "NE"
+            },
+            {
+                "id": "criteria-date-range",
+                "description": "Kalendářní interval"
             }
         ]
     }

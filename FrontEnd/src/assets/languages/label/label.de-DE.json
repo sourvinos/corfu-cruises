@@ -1130,7 +1130,7 @@
             },
             {
                 "id": "dateRange",
-                "description": "Zeitraum"
+                "description": "Kalenderintervall"
             },
             {
                 "id": "maxPassengers",
@@ -2136,19 +2136,88 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Σύνολα περιόδου"
+                "description": "Summen des Zeitraums"
             },
             {
-                "id": "searchLabel",
-                "description": "Περίοδος"
-            },
-            {
-                "id": "searchDateHint",
-                "description": "Περίοδος κρατήσεων"
+                "id": "dateRange",
+                "description": "Kalenderintervall"
             },
             {
                 "id": "searchButton",
-                "description": "ΑΝΑΖΗΤΗΣΗ"
+                "description": "SUCHEN"
+            }
+        ]
+    },
+    {
+        "feature": "totalsList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Summen des Zeitraums"
+            },
+            {
+                "id": "headerCustomer",
+                "description": "Kunde"
+            },
+            {
+                "id": "headerDestination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "headerShip",
+                "description": "Schiff"
+            },
+            {
+                "id": "headerPort",
+                "description": "Hafen"
+            },
+            {
+                "id": "headerTicketNo",
+                "description": "Ticketnummer"
+            },
+            {
+                "id": "headerHasTransfer",
+                "description": "Transfer"
+            },
+            {
+                "id": "headerAdults",
+                "description": "E"
+            },
+            {
+                "id": "headerKids",
+                "description": "K"
+            },
+            {
+                "id": "headerFree",
+                "description": "G"
+            },
+            {
+                "id": "headerRemarks",
+                "description": "Kommentare"
+            },
+            {
+                "id": "headerTotalPersons",
+                "description": "Σ"
+            },
+            {
+                "id": "exportAllButton",
+                "description": "ALLES ALS XLS EXPORTIEREN"
+            },
+            {
+                "id": "no-results",
+                "description": "Wir haben nichts gefunden!"
+            },
+            {
+                "id": "has-transfer",
+                "description": "JA"
+            },
+            {
+                "id": "no-transfer",
+                "description": "NEIN"
+            },
+            {
+                "id": "criteria-date-range",
+                "description": "Kalenderintervall"
             }
         ]
     }

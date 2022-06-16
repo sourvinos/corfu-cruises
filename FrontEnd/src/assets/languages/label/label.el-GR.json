@@ -1130,7 +1130,7 @@
             },
             {
                 "id": "dateRange",
-                "description": "Διάστημα"
+                "description": "Ημερολογιακό διάστημα"
             },
             {
                 "id": "maxPassengers",
@@ -2139,16 +2139,85 @@
                 "description": "Σύνολα περιόδου"
             },
             {
-                "id": "searchLabel",
-                "description": "Περίοδος"
-            },
-            {
-                "id": "searchDateHint",
-                "description": "Περίοδος κρατήσεων"
+                "id": "dateRange",
+                "description": "Ημερολογιακό διάστημα"
             },
             {
                 "id": "searchButton",
                 "description": "ΑΝΑΖΗΤΗΣΗ"
+            }
+        ]
+    },
+    {
+        "feature": "totalsList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Σύνολα περιόδου"
+            },
+            {
+                "id": "headerCustomer",
+                "description": "Πελάτης"
+            },
+            {
+                "id": "headerDestination",
+                "description": "Προορισμός"
+            },
+            {
+                "id": "headerShip",
+                "description": "Πλοίο"
+            },
+            {
+                "id": "headerPort",
+                "description": "Λιμάνι"
+            },
+            {
+                "id": "headerTicketNo",
+                "description": "Αρ. εισιτηρίου"
+            },
+            {
+                "id": "headerHasTransfer",
+                "description": "Μεταφορά"
+            },
+            {
+                "id": "headerAdults",
+                "description": "Ε"
+            },
+            {
+                "id": "headerKids",
+                "description": "Π"
+            },
+            {
+                "id": "headerFree",
+                "description": "Δ"
+            },
+            {
+                "id": "headerRemarks",
+                "description": "Σχόλια"
+            },
+            {
+                "id": "headerTotalPersons",
+                "description": "Σ"
+            },
+            {
+                "id": "exportAllButton",
+                "description": "ΕΞΑΓΩΓΗ ΟΛΩΝ ΣΕ XLS"
+            },
+            {
+                "id": "no-results",
+                "description": "Δεν βρήκαμε τίποτα!"
+            },
+            {
+                "id": "has-transfer",
+                "description": "ΝΑΙ"
+            },
+            {
+                "id": "no-transfer",
+                "description": "ΟΧΙ"
+            },
+            {
+                "id": "criteria-date-range",
+                "description": "Ημερολογιακό διάστημα"
             }
         ]
     }
