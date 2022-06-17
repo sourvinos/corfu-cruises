@@ -11,12 +11,9 @@ import { map, startWith, takeUntil } from 'rxjs/operators'
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerDropdownVM } from '../../../customers/classes/view-models/customer-dropdown-vm'
-import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
 import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
-import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverDropdownVM } from '../../../drivers/classes/view-models/driver-dropdown-vm'
-import { DriverService } from 'src/app/features/drivers/classes/services/driver.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -26,22 +23,19 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { OkIconService } from '../../classes/services/ok-icon.service'
 import { PassengerWriteVM } from '../../classes/view-models/passenger-write-vm'
 import { PickupPointDropdownVM } from '../../../pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
-import { PickupPointService } from 'src/app/features/pickupPoints/classes/services/pickupPoint.service'
 import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
-import { PortService } from 'src/app/features/ports/classes/services/port.service'
 import { ReservationReadVM } from '../../classes/resources/form/reservation/reservation-read-vm'
 import { ReservationService } from '../../classes/services/reservation.service'
 import { ReservationWriteVM } from '../../classes/view-models/reservation-write-vm'
-import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { UserService } from 'src/app/features/users/classes/services/user.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
 import { VoucherService } from '../../classes/services/voucher.service'
 import { WarningIconService } from '../../classes/services/warning-icon.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
-import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 
 @Component({
     selector: 'reservation-form',
@@ -84,7 +78,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private pickupPointService: PickupPointService, private portService: PortService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.getRecord(x.id).then(() => {
@@ -129,7 +123,6 @@ export class ReservationFormComponent {
             return true
         }
     }
-
     //#endregion
 
     //#region public methods
@@ -204,13 +197,10 @@ export class ReservationFormComponent {
             if (response) {
                 this.reservationService.delete(this.form.value.reservationId).subscribe({
                     complete: () => {
-                        this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
-                            this.resetForm()
-                            this.goBack()
-                        })
+                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.localStorageService.getItem('returnUrl'), this.form)
                     },
                     error: (errorFromInterceptor) => {
-                        this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok'])
+                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', this.localStorageService.getItem('returnUrl'), this.form, false)
                     },
                 })
             }
@@ -532,25 +522,19 @@ export class ReservationFormComponent {
         if (reservation.reservationId.toString() == '') {
             this.reservationService.add(reservation).pipe(indicate(this.isLoading)).subscribe({
                 next: (response) => {
-                    this.modalActionResultService.open('RefNo: ' + response.message, 'success', ['ok']).subscribe(() => {
-                        this.resetForm()
-                        this.goBack()
-                    })
+                    this.helperService.doPostSaveFormTasks('RefNo: ' + response.message, 'success', this.localStorageService.getItem('returnUrl'), this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok'])
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', this.localStorageService.getItem('returnUrl'), this.form, false)
                 }
             })
         } else {
             this.reservationService.update(reservation.reservationId, reservation).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
-                        this.resetForm()
-                        this.goBack()
-                    })
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.localStorageService.getItem('returnUrl'), this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok'])
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', this.localStorageService.getItem('returnUrl'), this.form, false)
                 }
             })
         }

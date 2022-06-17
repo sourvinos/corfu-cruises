@@ -1,9 +1,12 @@
+import { FormGroup } from '@angular/forms'
 import { Injectable } from '@angular/core'
+import { Router } from '@angular/router'
 import { defer, finalize, Observable, Subject } from 'rxjs'
 // Custom
 import { EmojiService } from './emoji.service'
 import { LocalStorageService } from './local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
+import { ModalActionResultService } from './modal-action-result.service'
 import { environment } from 'src/environments/environment'
 
 export function prepare<T>(callback: () => void): (source: Observable<T>) => Observable<T> {
@@ -30,7 +33,7 @@ export class HelperService {
 
     //#endregion
 
-    constructor(private emojiService: EmojiService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService) { }
+    constructor( private emojiService: EmojiService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region public methods
 
@@ -71,6 +74,15 @@ export class HelperService {
 
     public deviceDetector(): string {
         return 'desktop'
+    }
+
+    public doPostSaveFormTasks(message: string, iconType: string, returnUrl: string, form: FormGroup, goBack = true): void {
+        this.modalActionResultService.open(message, iconType, ['ok']).subscribe(() => {
+            if (goBack) {
+                form.reset()
+                this.router.navigate([returnUrl])
+            }
+        })
     }
 
     public enableOrDisableAutoComplete(event: { key: string }): boolean {
