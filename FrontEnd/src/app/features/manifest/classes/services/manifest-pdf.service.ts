@@ -1,3 +1,5 @@
+import pdfFonts from 'pdfmake/build/vfs_fonts'
+import pdfMake from 'pdfmake/build/pdfmake'
 import { Injectable } from '@angular/core'
 // Fonts
 import 'src/assets/fonts/ACCanterBold.js'
@@ -6,8 +8,9 @@ import 'src/assets/fonts/PFHandbookProThin.js'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ManifestVM } from '../view-models/manifest-vm'
-import pdfMake from 'pdfmake/build/pdfmake'
 import { ManifestPassengerVM } from '../view-models/manifest-passenger-vm'
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 @Injectable({ providedIn: 'root' })
 
@@ -72,9 +75,9 @@ export class ManifestPdfService {
                 paddingTop: {
                     margin: [0, 15, 0, 0]
                 },
-                defaultStyle: {
-                    font: 'Roboto'
-                }
+                // defaultStyle: {
+                //     font: 'Roboto'
+                // }
             }
         }
         this.createPdf(dd)
