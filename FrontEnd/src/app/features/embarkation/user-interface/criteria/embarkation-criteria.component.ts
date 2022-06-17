@@ -186,7 +186,7 @@ export class EmbarkationCriteriaComponent {
 
     private populateDropdowns(): void {
         this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description', true)
-        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
+        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description', true)
         this.populateDropDown(this.shipService, 'ships', 'filteredShips', 'ship', 'description', true)
     }
 

@@ -1,4 +1,5 @@
 // ng build --output-path="release" --configuration=production-local
+
 export const environment = {
     apiUrl: 'https://localhost:1701/api',
     appName: 'CORFU CRUISES',

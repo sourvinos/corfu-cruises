@@ -34,6 +34,7 @@
                         <th pSortableColumn="destination">{{ getLabel('headerDestination') }}<p-sortIcon field="destination"></p-sortIcon></th>
                         <th pSortableColumn="customer">{{ getLabel('headerCustomer') }}<p-sortIcon field="customer"></p-sortIcon></th>
                         <th pSortableColumn="driver">{{ getLabel('headerDriver') }}<p-sortIcon field="driver"></p-sortIcon></th>
+                        <th pSortableColumn="port">{{ getLabel('headerPort') }}<p-sortIcon field="port"></p-sortIcon></th>
                         <th pSortableColumn="ship">{{ getLabel('headerShip') }}<p-sortIcon field="ship"></p-sortIcon></th>
                         <th style="min-width: 5%; max-width: 5%;">{{ getLabel('headerPersons') }}</th>
                         <th style="min-width: 5%; max-width: 5%;">{{ getLabel('headerPlusMinus') }}</th>
@@ -84,6 +85,18 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
+                        <!-- Port -->
+                        <th>
+                            <p-columnFilter style="width: 100%;" field="port" matchMode="equals" [showMenu]="false">
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-dropdown [ngModel]="value" [options]="ports" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option.label }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
                         <!-- Ship -->
                         <th>
                             <p-columnFilter style="width: 100%;" field="ship" matchMode="equals" [showMenu]="false">
@@ -123,6 +136,7 @@
                         <td>{{ reservation.destination }}</td>
                         <td>{{ reservation.customer }}</td>
                         <td>{{ reservation.driver }}</td>
+                        <td>{{ reservation.port }}</td>
                         <td>{{ reservation.ship }}</td>
                         <td style="min-width: 5%; max-width: 5%; justify-content: center;">{{ reservation.totalPersons }}</td>
                         <td style="min-width: 5%; max-width: 5%; justify-content: center;">{{ calculateDifference(reservation.totalPersons, reservation.passengers.length) }}</td>

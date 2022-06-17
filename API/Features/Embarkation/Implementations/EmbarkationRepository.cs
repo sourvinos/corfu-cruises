@@ -23,17 +23,18 @@ namespace API.Features.Embarkation {
             this.testingSettings = testingSettings.Value;
         }
 
-        public async Task<EmbarkationGroupVM<EmbarkationVM>> Get(string date, string destinationId, int portId, string shipId) {
+        public async Task<EmbarkationGroupVM<EmbarkationVM>> Get(string date, string destinationId, string portId, string shipId) {
             var reservations = await context.Set<Reservation>()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
                 .Include(x => x.Ship)
+                .Include(x => x.Port)
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                 .Where(x => x.ShipId != null)
                 .Where(x => x.Date == Convert.ToDateTime(date)
                     && ((destinationId == "all") || x.DestinationId == int.Parse(destinationId))
-                    && x.PortId == portId
+                    && ((portId == "all") || x.PortId == int.Parse(portId))
                     && ((shipId == "all") || x.ShipId == int.Parse(shipId)))
                 .ToListAsync();
             int totalPersons = reservations.Sum(x => x.TotalPersons);

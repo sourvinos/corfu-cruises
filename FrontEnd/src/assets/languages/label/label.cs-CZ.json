@@ -1331,6 +1331,10 @@
                 "description": "Řidič"
             },
             {
+                "id": "headerPort",
+                "description": "Přístav"
+            },
+            {
                 "id": "headerShip",
                 "description": "Plavidlo"
             },

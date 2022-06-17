@@ -12,6 +12,7 @@ namespace API.Features.Embarkation {
                 .ForMember(x => x.Driver, x => x.MapFrom(x => x.Driver.Description))
                 .ForMember(x => x.Ship, x => x.MapFrom(x => x.Ship.Description))
                 .ForMember(x => x.Destination, x => x.MapFrom(x => x.Destination.Description))
+                .ForMember(x => x.Port, x => x.MapFrom(x => x.Port.Description))
                 .ForMember(x => x.TotalPersons, x => x.MapFrom(x => x.TotalPersons))
                 .ForMember(x => x.EmbarkedPassengers, x => x.MapFrom(x => x.Passengers.Count(x => x.IsCheckedIn)))
                 .ForMember(x => x.EmbarkationStatus, x => x.MapFrom(x => x.TotalPersons - x.Passengers.Count(x => x.IsCheckedIn) == 0 ? "OK" : x.Passengers.All(x => !x.IsCheckedIn) ? "PENDING" : "OKPENDING"))

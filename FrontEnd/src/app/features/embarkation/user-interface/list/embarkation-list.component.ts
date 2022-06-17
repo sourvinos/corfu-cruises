@@ -45,6 +45,7 @@ export class EmbarkationListComponent {
     public customers = []
     public destinations = []
     public drivers = []
+    public ports = []
     public ships = []
     public embarkationStatuses = []
 
@@ -64,6 +65,7 @@ export class EmbarkationListComponent {
                 this.getDistinctDestinations()
                 this.getDistinctDrivers()
                 this.getDistinctShips()
+                this.getDistinctPorts()
                 this.getDistinctEmbarkationStatus()
             }
         })
@@ -259,6 +261,14 @@ export class EmbarkationListComponent {
         const x = [... new Set(this.records.reservations.map(x => x.driver))]
         x.forEach(element => {
             this.drivers.push({ label: element, value: element })
+        })
+    }
+
+    private getDistinctPorts(): void {
+        this.ports = []
+        const x = [... new Set(this.records.reservations.map(x => x.port))]
+        x.forEach(element => {
+            this.ports.push({ label: element, value: element })
         })
     }
 
