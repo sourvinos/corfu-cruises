@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using API.Infrastructure.Auth;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Email;
@@ -9,6 +10,7 @@ using API.Infrastructure.SeedData;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -16,7 +18,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 // dotnet watch run --environment LocalDevelopment | LocalTesting | ProductionLive | ProductionDemo
 // dotnet publish /p:Configuration=Release /p:EnvironmentName=ProductionDemo | ProductionLive
@@ -116,13 +118,27 @@ namespace API {
         }
 
         public virtual void Configure(IApplicationBuilder app) {
+            app.UseExceptionHandler(appBuilder => {
+                appBuilder.Run(async context => {
+                    var logger = appBuilder.ApplicationServices.GetRequiredService<ILogger<Startup>>();
+                    var feature = context.Features.Get<IExceptionHandlerFeature>();
+                    if (feature.Error != null) {
+                        logger.LogError(feature.Error, "Exception!");
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        context.Response.ContentType = "application/json";
+                        await context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(new {
+                            error = "Something went wrong!",
+                            detail = feature.Error.Message
+                        }));
+                    }
+                });
+            });
             app.UseDefaultFiles();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseMiddleware<ExceptionHandling>();
             app.UseRouting();
             app.UseCors();
-            app.UseSerilogRequestLogging(configure => { configure.MessageTemplate = "HTTP {RequestMethod} {RequestPath} ({UserId}) responded {StatusCode} in {Elapsed:0.0000}ms"; });
             app.UseAuthentication();
             app.UseAuthorization();
         }

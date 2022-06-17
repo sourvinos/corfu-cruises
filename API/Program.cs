@@ -1,39 +1,39 @@
 using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Serilog;
+using Microsoft.Extensions.Logging;
+using NLog;
+using NLog.Web;
 
 namespace API {
 
-    public static class Program {
+    public class Program {
 
-        public static int Main(string[] args) {
-            Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateBootstrapLogger();
-            Log.Information("Starting up!");
+        public static void Main(string[] args) {
+            var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
             try {
+                logger.Debug("Init...");
                 CreateHostBuilder(args).Build().Run();
-                Log.Information("Stopped cleanly");
-                return 0;
-            } catch (Exception ex) {
-                Log.Fatal(ex, "An unhandled exception occured during bootstrapping");
-                return 1;
+            } catch (Exception exception) {
+                logger.Error(exception, "An exception has stopped the program from starting...");
+                throw;
             } finally {
-                Log.CloseAndFlush();
+                LogManager.Shutdown();
             }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) {
             return Host.CreateDefaultBuilder(args)
-                .UseSerilog((context, services, configuration) => configuration
-                    .ReadFrom.Configuration(context.Configuration)
-                    .ReadFrom.Services(services)
-                    .Enrich.FromLogContext()
-                    .WriteTo.Console())
                 .ConfigureWebHostDefaults(webBuilder => {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                .ConfigureLogging(logging => {
+                    logging.ClearProviders();
+                    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+                })
+                .UseNLog();
         }
-        
+
     }
 
 }
