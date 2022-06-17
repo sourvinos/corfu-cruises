@@ -453,11 +453,7 @@ namespace API.Features.Reservations {
             await strategy.Execute(async () => {
                 using var transaction = context.Database.BeginTransaction();
                 await context.SaveChangesAsync();
-                // if (settings.IsTesting) {
-                //     transaction.Dispose();
-                // } else {
-                //     transaction.Commit();
-                // }
+                transaction.Commit();
             });
             return refNo.LastRefNo.ToString();
         }
