@@ -17,14 +17,13 @@ export class DialogService {
 
     //#region public methods
 
-    public open(title: string, titleColor: string, message: string, actions: string[]): Observable<boolean> {
+    public open(message: string, iconStyle: string, actions: string[]): Observable<boolean> {
         this.response = this.dialog.open(DialogAlertComponent, {
             height: '30rem',
             width: '30rem',
             data: {
-                title: title,
-                titleColor: titleColor,
                 message: message,
+                iconStyle: iconStyle,
                 actions: actions
             },
             panelClass: 'dialog'

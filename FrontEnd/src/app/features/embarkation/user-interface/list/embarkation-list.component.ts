@@ -171,7 +171,7 @@ export class EmbarkationListComponent {
     }
 
     public onShowRemarks(remarks: string): void {
-        this.dialogService.open(this.getLabel('remarks'), 'warningColor', remarks, ['ok'])
+        this.dialogService.open(this.getLabel('remarks'), remarks, ['ok'])
     }
 
     public replaceWildcardWithText(criteria: any): string {

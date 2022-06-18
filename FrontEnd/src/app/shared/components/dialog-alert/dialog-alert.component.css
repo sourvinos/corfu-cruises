@@ -7,7 +7,85 @@
 }
 
 .mat-dialog-container {
-    padding: 2rem 4rem !important;
+    padding: 2rem !important;
+}
+
+svg {
+    display: block;
+    margin-bottom: 2rem;
+    margin: 0.625rem auto;
+    width: 100px;
+}
+
+.path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+}
+
+.path.circle {
+    animation: dash 0.9s ease-in-out;
+}
+
+.path.line {
+    animation: dash 0.9s 0.35s ease-in-out forwards;
+    stroke-dashoffset: 1000;
+}
+
+.path.check {
+    animation: dash-check 0.9s 0.35s ease-in-out forwards;
+    stroke-dashoffset: -100;
+}
+
+p.success {
+    color: #73af55;
+}
+
+p.warning {
+    color: #ffff0b;
+}
+
+p.error {
+    color: #d06079;
+}
+
+@-webkit-keyframes dash {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@-webkit-keyframes dash-check {
+    0% {
+        stroke-dashoffset: -100;
+    }
+
+    100% {
+        stroke-dashoffset: 900;
+    }
+}
+
+@keyframes dash-check {
+    0% {
+        stroke-dashoffset: -100;
+    }
+
+    100% {
+        stroke-dashoffset: 900;
+    }
 }
 
 #dialog {
@@ -22,11 +100,6 @@
     justify-content: center;
 }
 
-#dialog-header .material-symbols-outlined {
-    color: var(--color-snackbar-background-warning);
-    font-size: 6.25rem;
-}
-
 #dialog-content {
     color: var(--color-a);
     display: flex;
@@ -34,12 +107,12 @@
     font-size: var(--font-size-modal) !important;
     font-weight: var(--font-weight-dialog-content) !important;
     height: 100%;
-    justify-content: center;
     margin: 1rem 3rem;
+    justify-content: center;
 }
 
 #dialog-footer {
-    margin-top: 2rem;
+    padding-top: 2rem;
     text-align: center;
 }
 

@@ -88,7 +88,7 @@
             },
             {
                 "error": 491,
-                "message": "Dieser Datensatz wird verwendet und kann nicht gelöscht werden"
+                "message": "Es tut uns sehr leid, aber dieser Eintrag ist in Gebrauch und kann nicht gelöscht werden."
             },
             {
                 "error": 492,
@@ -116,7 +116,7 @@
             },
             {
                 "id": "askConfirmationToAbortEditing",
-                "message": "Wenn Sie fortfahren, gehen alle Änderungen verloren"
+                "message": "Wenn Sie fortfahren, gehen alle Änderungen verloren."
             },
             {
                 "id": "askConfirmationToDelete",
@@ -196,7 +196,7 @@
             },
             {
                 "id": "warning",
-                "message": "Achtung!"
+                "message": "Sollen wir diesen Eintrag löschen?"
             },
             {
                 "id": "timeoutWarning",

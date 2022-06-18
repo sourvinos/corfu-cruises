@@ -40,6 +40,10 @@ p.success {
     color: #73af55;
 }
 
+p.warning {
+    color: #ffff0b;
+}
+
 p.error {
     color: #d06079;
 }
@@ -103,11 +107,8 @@ p.error {
     font-size: var(--font-size-modal) !important;
     font-weight: var(--font-weight-dialog-content) !important;
     height: 100%;
+    justify-content: center;
     margin: 1rem 3rem;
-}
-
-#dialog-content span {
-    margin: 0 auto;
     text-align: center;
 }
 

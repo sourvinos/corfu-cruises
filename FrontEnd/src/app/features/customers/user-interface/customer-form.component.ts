@@ -40,24 +40,14 @@ export class CustomerFormComponent {
 
     //#endregion
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private buttonClickService: ButtonClickService,
-        private customerService: CustomerService,
-        private dialogService: DialogService,
-        private formBuilder: FormBuilder,
-        private helperService: HelperService,
-        private keyboardShortcutsService: KeyboardShortcuts,
-        private messageHintService: MessageHintService,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageSnackbarService,
-        private modalActionResultService: ModalActionResultService,
-        private router: Router,
-        private titleService: Title
-    ) {
-
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private titleService: Title) {
         this.activatedRoute.params.subscribe(x => {
-            x.id ? this.getRecord(x.id) : null
+            if (x.id) {
+                this.initForm()
+                this.loadRecord()
+            } else {
+                this.initForm()
+            }
         })
     }
 
@@ -65,7 +55,6 @@ export class CustomerFormComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.initForm()
         this.addShortcuts()
     }
 
@@ -76,7 +65,7 @@ export class CustomerFormComponent {
 
     canDeactivate(): boolean {
         if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToAbortEditing(), ['abort', 'ok']).subscribe(response => {
+            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
                     this.goBack()
@@ -101,7 +90,7 @@ export class CustomerFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(), 'warningColor', this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.customerService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {
@@ -176,6 +165,11 @@ export class CustomerFormComponent {
         })
     }
 
+    private loadRecord(): void {
+        this.activatedRoute.data.subscribe(data => { this.populateFields(data['customerForm']) })
+    }
+
+
     private goBack(): void {
         this.router.navigate([this.parentUrl])
     }
@@ -214,31 +208,19 @@ export class CustomerFormComponent {
         if (customer.id === 0) {
             this.customerService.add(customer).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
-                        this.resetForm()
-                        this.goBack()
-                    })
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok']).subscribe(() => {
-                        this.resetForm()
-                        this.goBack()
-                    })
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         } else {
             this.customerService.update(customer.id, customer).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
-                        this.resetForm()
-                        this.goBack()
-                    })
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok']).subscribe(() => {
-                        this.resetForm()
-                        this.goBack()
-                    })
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         }

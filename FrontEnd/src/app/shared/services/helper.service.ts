@@ -8,6 +8,7 @@ import { LocalStorageService } from './local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { ModalActionResultService } from './modal-action-result.service'
 import { environment } from 'src/environments/environment'
+import { DialogService } from './dialog.service'
 
 export function prepare<T>(callback: () => void): (source: Observable<T>) => Observable<T> {
     return (source: Observable<T>): Observable<T> => defer(() => {
@@ -33,7 +34,7 @@ export class HelperService {
 
     //#endregion
 
-    constructor( private emojiService: EmojiService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private dialogService: DialogService, private emojiService: EmojiService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region public methods
 
@@ -82,6 +83,12 @@ export class HelperService {
                 form.reset()
                 this.router.navigate([returnUrl])
             }
+        })
+    }
+
+    public confirmationToDelete(message: string, iconType: string, buttons: any[]): void {
+        this.dialogService.open(message, iconType, buttons).subscribe(response => {
+            return response
         })
     }
 

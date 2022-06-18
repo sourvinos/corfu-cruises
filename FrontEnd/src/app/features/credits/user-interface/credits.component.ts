@@ -71,7 +71,7 @@ export class CreditsComponent {
     }
 
     public onShowDeviceInfo(): void {
-        this.dialogService.open(this.messageSnackbarService.success(), 'infoColor', JSON.stringify(this.deviceDetectorService.getDeviceInfo()), ['ok'])
+        this.dialogService.open(this.messageSnackbarService.success(), JSON.stringify(this.deviceDetectorService.getDeviceInfo()), ['ok'])
     }
 
     //#endregion

@@ -88,7 +88,7 @@
             },
             {
                 "error": 491,
-                "message": "L'enregistrement est en cours d'utilisation et ne peut pas être supprimé"
+                "message": "Nous sommes désolés, mais cette entrée est en cours d'utilisation et ne peut être supprimée."
             },
             {
                 "error": 492,
@@ -116,7 +116,7 @@
             },
             {
                 "id": "askConfirmationToAbortEditing",
-                "message": "Si vous continuez, les modifications seront perdues"
+                "message": "Si vous continuez, les modifications seront perdues."
             },
             {
                 "id": "askConfirmationToDelete",
@@ -196,7 +196,7 @@
             },
             {
                 "id": "warning",
-                "message": "Attention!"
+                "message": "Devons-nous supprimer cette entrée?"
             },
             {
                 "id": "timeoutWarning",

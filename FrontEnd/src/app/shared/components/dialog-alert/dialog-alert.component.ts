@@ -15,21 +15,13 @@ export class DialogAlertComponent {
 
     private feature = 'dialog'
     public content: string
+    public iconStyle: any
     public titleColor = ''
 
     //#endregion
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<DialogAlertComponent>, private messageLabelService: MessageLabelService) {
-        switch (data.titleColor) {
-            case 'infoColor':
-                this.titleColor = '#529be7'
-                break
-            case 'warningColor':
-                this.titleColor = '#d94040'
-                break
-            default:
-                break
-        }
+        this.iconStyle = data.iconStyle
     }
 
     //#region lifecycle hooks

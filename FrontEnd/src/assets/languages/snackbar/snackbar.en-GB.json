@@ -88,7 +88,7 @@
             },
             {
                 "error": 491,
-                "message": "This record is in use and can not be deleted"
+                "message": "We are very sorry, but this record is in use and can't be deleted."
             },
             {
                 "error": 492,
@@ -116,7 +116,7 @@
             },
             {
                 "id": "askConfirmationToAbortEditing",
-                "message": "If you continue, all changes will be lost"
+                "message": "If you continue, all changes will be lost."
             },
             {
                 "id": "askConfirmationToDelete",
@@ -196,7 +196,7 @@
             },
             {
                 "id": "warning",
-                "message": "Warning!"
+                "message": "Shall we delete this record?"
             },
             {
                 "id": "timeoutWarning",

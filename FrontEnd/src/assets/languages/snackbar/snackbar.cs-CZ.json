@@ -88,7 +88,7 @@
             },
             {
                 "error": 491,
-                "message": "Tento záznam se používá a nelze jej smazat"
+                "message": "Je nám velmi líto, ale tento záznam je používán a nelze jej smazat."
             },
             {
                 "error": 492,
@@ -116,7 +116,7 @@
             },
             {
                 "id": "askConfirmationToAbortEditing",
-                "message": "Pokud budete pokračovat, všechny změny budou ztraceny"
+                "message": "Pokud budete pokračovat, všechny změny budou ztraceny."
             },
             {
                 "id": "askConfirmationToDelete",
@@ -196,7 +196,7 @@
             },
             {
                 "id": "warning",
-                "message": "Varování!"
+                "message": "Máme tento záznam smazat?"
             },
             {
                 "id": "timeoutWarning",
