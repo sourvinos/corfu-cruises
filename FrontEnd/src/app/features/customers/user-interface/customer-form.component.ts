@@ -44,18 +44,18 @@ export class CustomerFormComponent {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.initForm()
-                this.loadRecord()
+                this.getRecord(x.id)
             } else {
                 this.initForm()
             }
         })
     }
-
+    
     //#region lifecycle hooks
-
+    
     ngOnInit(): void {
-        this.setWindowTitle()
         this.addShortcuts()
+        this.focusOnField('description')
     }
 
     ngOnDestroy(): void {
@@ -94,10 +94,7 @@ export class CustomerFormComponent {
             if (response) {
                 this.customerService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {
-                        this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
-                            this.resetForm()
-                            this.goBack()
-                        })
+                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
                     error: (errorFromInterceptor) => {
                         this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok'])
@@ -155,20 +152,20 @@ export class CustomerFormComponent {
         return customer
     }
 
+    private focusOnField(field: string): void {
+        this.helperService.focusOnField(field)
+    }
+
     private getRecord(id: number): void {
-        this.customerService.getSingle(id).subscribe(result => {
-            this.populateFields(result)
-        }, errorFromInterceptor => {
-            this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok']).subscribe(() => {
-                this.goBack()
-            })
+        this.customerService.getSingle(id).subscribe({
+            next: (response) => {
+                this.populateFields(response)
+            },
+            error: (errorFromInterceptor) => {
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
+            }
         })
     }
-
-    private loadRecord(): void {
-        this.activatedRoute.data.subscribe(data => { this.populateFields(data['customerForm']) })
-    }
-
 
     private goBack(): void {
         this.router.navigate([this.parentUrl])
@@ -224,10 +221,6 @@ export class CustomerFormComponent {
                 }
             })
         }
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     //#endregion

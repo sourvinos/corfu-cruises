@@ -39,7 +39,6 @@ export class CustomerListComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
         this.loadRecords()
         this.addShortcuts()
     }
@@ -62,11 +61,11 @@ export class CustomerListComponent {
     }
 
     public onEditRecord(id: number): void {
-        this.router.navigate([this.url, id], { queryParams: { returnUrl: this.url } })
+        this.router.navigate([this.url, id])
     }
 
     public onNewRecord(): void {
-        this.router.navigate([this.url + '/new'], { queryParams: { returnUrl: this.url } })
+        this.router.navigate([this.url + '/new'])
     }
 
     //#endregion
@@ -112,10 +111,6 @@ export class CustomerListComponent {
             }
         })
         return promise
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showError(message: string): void {
