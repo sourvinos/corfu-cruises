@@ -1,0 +1,9 @@
+* {
+    --color-a: #ffffff;
+    --color-b: #efefef;
+    --color-c: #3d3b57;
+    --color-d: #c1bdbd;
+    --color-input-focus: #65b4ef;
+    --color-input-error: #d94040;
+    --color-input-selected-background: #65b3ef4d;
+}

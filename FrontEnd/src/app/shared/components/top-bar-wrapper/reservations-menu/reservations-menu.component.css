@@ -15,12 +15,13 @@ li {
 }
 
 button {
-    background-color: var(--color-a);
+    background-color: var(--color-b);
     border-radius: 0;
     border: none;
-    color: var(--color-button-text);
+    color: var(--color-c);
     display: flex;
     padding: 0.25rem 1rem !important;
+    transition: all var(--delay) ease-in !important;
 }
 
 button.hoverable:hover {
@@ -53,7 +54,7 @@ li:hover .sub-menu {
 
 .sub-menu button {
     animation: enter 0.1s ease forwards;
-    background-color: var(--color-a);
+    background-color: var(--color-b);
     justify-content: flex-start;
     opacity: 0;
     padding: 1rem !important;

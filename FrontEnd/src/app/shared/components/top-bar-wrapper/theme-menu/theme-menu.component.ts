@@ -1,8 +1,9 @@
-import { Component, HostListener, Inject } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 // Custom
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'theme-menu',
@@ -14,75 +15,51 @@ export class ThemeMenuComponent {
 
     //#region variables
 
-    private feature = 'theme'
-    public defaultTheme = 'blue'
+    private theme = environment.defaultTheme
+    public checked: boolean
 
     //#endregion
 
-    constructor(@Inject(DOCUMENT) private document: Document, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService) { }
-
-    //#region listeners
-
-    @HostListener('mouseenter') onMouseEnter(): void {
-        document.querySelectorAll('.sub-menu').forEach((item) => {
-            item.classList.remove('hidden')
-        })
-    }
-
-    //#endregion
+    constructor(@Inject(DOCUMENT) private document: Document, private interactionService: InteractionService, private localStorageService: LocalStorageService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.applyTheme(this.localStorageService.getItem('theme') ? this.localStorageService.getItem('theme') : 'blue')
+        this.theme = this.readTheme()
+        this.checked = this.theme == 'dark' ? true : false
+        this.attachStylesheetToHead()
     }
 
     //#endregion
 
     //#region public methods
 
-    public changeTheme(theme: string): void {
-        this.applyTheme(theme)
-        this.updateLocalStorage()
-    }
-
-    public getLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
-    }
-
-    public getSelectedThemeIcon(): string {
-        return this.defaultTheme
-    }
-
-    public hideMenu(): void {
-        document.querySelectorAll('.sub-menu').forEach((item) => {
-            item.classList.add('hidden')
-        })
+    public onChangeTheme(): void {
+        this.checked = !this.checked
+        this.theme = this.checked ? 'dark' : 'light'
+        this.attachStylesheetToHead()
+        this.saveTheme()
     }
 
     //#endregion
 
     //#region private methods
 
-    private applyTheme(theme: string): void {
-        this.setSelectedTheme(theme)
-        this.attachStylesheetToHead()
-    }
-
     private attachStylesheetToHead(): void {
         const headElement = this.document.getElementsByTagName('head')[0]
         const newLinkElement = this.document.createElement('link')
         newLinkElement.rel = 'stylesheet'
-        newLinkElement.href = this.defaultTheme + '.css'
+        newLinkElement.href = this.theme + '.css'
         headElement.appendChild(newLinkElement)
     }
 
-    private setSelectedTheme(theme: string): void {
-        this.defaultTheme = theme
+    private readTheme(): string {
+        return this.localStorageService.getItem('theme') == '' ? this.saveTheme() : this.localStorageService.getItem('theme')
     }
 
-    private updateLocalStorage(): void {
-        this.localStorageService.saveItem('theme', this.defaultTheme)
+    private saveTheme(): string {
+        this.localStorageService.saveItem('theme', this.theme)
+        return this.theme
     }
 
     //#endregion

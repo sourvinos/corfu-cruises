@@ -34,15 +34,22 @@
 }
 
 .month-arrows {
-    color: var(--color-text);
+    color: var(--color-c);
     cursor: pointer;
     padding: 0 1rem;
+    transition: all var(--delay) ease-in;
+}
+
+.month-arrows:last-child {
+    padding: 0;
 }
 
 #wrapper-calendar {
     display: flex;
     flex-direction: column;
     height: 100%;
+    margin: 0 auto;
+    width: 90%;
 }
 
 #calendar {
@@ -58,69 +65,98 @@
 .weekday-name {
     align-items: center;
     background: var(--color-b);
-    color: var(--color-text);
+    color: var(--color-c);
     display: flex;
     font-family: var(--font-family-ubuntu);
     justify-content: center;
     margin-bottom: 0.0625rem;
     padding: 0.3rem;
+    transition: all var(--delay) ease-in;
 }
 
 .date-card {
-    align-items: center;
-    background-color: var(--color-a);
+    background-color: var(--color-b);
+    border: 1px solid var(--color-a);
     display: flex;
     flex-direction: row;
     font-family: var(--font-family-montserrat), sans-serif;
     height: 100%;
     justify-content: left;
-    opacity: 0.35;
     width: 100%;
+    transition: background-color var(--delay) ease-in, border var(--delay) ease-in, transform 0.1s ease-in;
 }
 
-.date-card.has-date-schedule {
-    background-color: var(--color-b);
+.date-card.has-schedule {
     cursor: pointer;
-    opacity: 0.5;
+}
+
+.date-card.has-schedule:hover {
+    border-radius: 5px;
+    border: 1px solid var(--color-c);
+    transform: scale(1.1, 1.1);
     transition: all 0.1s ease-in;
-}
-
-.date-card.has-date-schedule:hover {
-    box-shadow: 0.45rem 0.45rem 0.9rem -0.45rem var(--color-border-hover);
-}
-
-.is-today {
-    border: 0.125rem solid var(--color-a) !important;
 }
 
 .day {
     align-items: center;
+    color: var(--color-c);
     display: flex;
     font-family: var(--font-family-montserrat), sans-serif;
     font-size: var(--font-size-calendar-day);
+    font-weight: 600;
+    height: 100%;
     justify-content: center;
     max-width: var(--font-size-calendar-day-min-max-width);
     min-width: var(--font-size-calendar-day-min-max-width);
+    transition: color var(--delay) ease-in;
+}
+
+.saturday {
+    background-color: var(--color-background-saturday);
+}
+
+.sunday {
+    background-color: var(--color-background-sunday);
+}
+
+.is-today {
+    background-color: var(--color-background-today) !important;
+}
+
+.destinations {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem 1rem 0;
+    width: 100%;
 }
 
 .destination {
     display: flex;
     flex-direction: row;
-    height: 100%;
     justify-content: space-between;
-    padding: 1rem 1rem 1rem 0;
+    padding-bottom: 0.5rem;
     width: 100%;
 }
 
 .destination-description {
-    color: var(--color-text);
+    color: var(--color-c);
     font-size: var(--font-size-calendar-destination);
     font-weight: bold;
+    transition: color var(--delay) ease-in;
 }
 
 .destination-passenger-count {
-    color: var(--color-text);
+    color: var(--color-c);
     font-family: monospace;
     font-size: var(--font-size-calendar-ports);
     padding-left: 0.5rem;
+    transition: color var(--delay) ease-in;
+}
+
+.is-today .day, .is-today .destination .destination-description, .is-today .destination .destination-passenger-count {
+    color: var(--color-today);
+}
+
+#footer {
+    margin: var(--gap) 0 0 0;
 }

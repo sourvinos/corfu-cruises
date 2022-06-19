@@ -1,60 +1,61 @@
 * {
     /*  Hamburger Menu */
-    --color-hamburger-menu: #bd0034;
+    --color-hamburger-menu: #d94040;
     /* Background */
     --color-background: #ffffff;
-    /* Ng-Tables */
+    /* Lists */
     --color-row-seperator: #bebebe;
-    /*  Labels and Text */
-    --color-text: #073d65;
+    --color-list-active-item: #7bc3b8;
+    --color-list-inactive-item: #fd99ab;
+    --color-scrollbar-thumb: #fbce46;
     /*  Buttons */
     --color-button-text: #ffffff;
     --color-button-background-delete: #d94040;
+    --color-button-background-primary: #13678a;
     /*  Checkboxes */
-    --color-checkbox-background: #7ca19f;
-    /*  Lists */
-    --color-list-active-item: #32cd32;
-    --color-list-inactive-item: #d94040;
+    --color-checkbox-background: #9bccc8;
     /* Reservation Form Tabs */
     --color-tab-overview: #fd7e14ff;
     --color-tab-passengers: #fea75fff;
     --color-tab-more: #fed1aaff;
-    /* Inputs */
-    --color-input: #073d65;
-    --color-input-focus: #65b4ef;
-    --color-input-error: #d94040;
-    --color-input-selected-background: #65b3ef4d;
     /* Snackbars */
-    --color-snackbar-background-success: #16a34a;
+    --color-snackbar-background-success: #698984;
     --color-snackbar-background-error: #d94040;
     --color-snackbar-background-warning: #ffc107;
     --color-snackbar-text: #efefef;
     /* Loader */
     --color-loader: #bd0034;
-    /* Embarkation */
-    --color-passenger-table: #f6f9fb;
-    --color-embarkation-pending: #feedaf;
-    --color-embarkation-complete: #c8e6c9;
-    /* About transfer */
-    --color-ok: #32cd32;
-    --color-warning: #fbc02d;
-    --color-error: #d94040;
     /* Timeout snackbar */
     --color-timeout-snackbar: #d94040;
     /* Active side-menu item */
     --color-sidemenu-active-item: #fde386;
     /* Criteria (Top Right) & Totals (Bottom Left) */
-    --color-criteria-a: rgb(104 135 131 / 60%);
+    --color-criteria-a: #688783;
     --color-criteria-a-border: #698984;
-    --color-criteria-b: rgb(201 135 77 / 60%);
+    --color-criteria-b: #c9874d;
     --color-criteria-b-border: #ca874c;
-    --color-criteria-c: rgb(172 56 36 / 60%);
+    --color-criteria-c: #ac3824;
     --color-criteria-c-border: #ac3824;
-    --color-criteria-d: rgb(62 87 84 / 60%);
+    --color-criteria-d: #799f9a;
     --color-criteria-d-border: #3e5754;
     /* Date picker calendar */
     --color-border: #ca874c;
     --color-range-between: rgb(201 135 77 / 60%);
     /* Custom calendar */
-    --color-border-hover: #000000;
+    --color-background-saturday: #f29c6b;
+    --color-background-sunday: #f26513;
+    --color-background-today: #aacdab;
+    --color-today: #3d3b57;
+    --color-background-weekday: #efefef;
+    /* Theme menu */
+    --color-sun: #f6ff00;
+    --color-moon: #efefef;
+    /* Embarkation */
+    --color-embarkation-complete: #c8e6c9;
+    --color-embarkation-pending: #feedaf;
+    --color-button-do-embarkation: #3d3b57;
+    /* Invoicing */
+    --color-has-transfer: #c8e6c9;
+    --color-has-no-transfer: #fd99ab;
+    --color-persons-warning: #fbc02d;
 }

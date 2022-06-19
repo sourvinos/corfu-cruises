@@ -1,14 +1,15 @@
 button {
-    background-color: var(--color-a);
+    background-color: var(--color-b);
     border-radius: 0;
     border: none;
     color: var(--color-button-text);
     display: flex;
     padding-right: 1rem;
+    transition: all var(--delay) ease-in;
 }
 
 button.hoverable:hover {
-    background-color: var(--color-d) !important;
+    background-color: var(--color-c) !important;
 }
 
 img {

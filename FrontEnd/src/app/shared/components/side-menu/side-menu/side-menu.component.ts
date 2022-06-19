@@ -26,7 +26,7 @@ export class SideMenuComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private helperService: HelperService, private localStorageService: LocalStorageService, private interactionService: InteractionService, private messageMenuService: MessageMenuService, private router: Router) {
+    constructor(private accountService: AccountService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageMenuService: MessageMenuService, private router: Router) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -52,7 +52,7 @@ export class SideMenuComponent {
     //#region public methods
 
     public getIcon(filename: string): string {
-        return environment.menuIconDirectory + filename
+        return environment.menuIconDirectory + filename + '-' + this.localStorageService.getItem('theme') + '.svg'
     }
 
     public getLabel(id: string): string {
@@ -61,8 +61,8 @@ export class SideMenuComponent {
 
     public doNavigationTasks(feature: string): void {
         this.setMenuItemsAsInactive()
+        this.clearStoredPrimeTableFilters()
         this.router.navigate([feature]).then(() => {
-            this.localStorageService.clearStoredPrimeTableFilters()
             setTimeout(() => {
                 if (this.url.includes(feature)) {
                     this.doSideMenuTasks()
@@ -81,6 +81,10 @@ export class SideMenuComponent {
     //#endregion
 
     //#region private methods
+
+    private clearStoredPrimeTableFilters(): void {
+        this.localStorageService.clearStoredPrimeTableFilters()
+    }
 
     private createMenu(response: any): void {
         this.menuItems = response

@@ -80,17 +80,30 @@ export class CalendarComponent {
         return this.messageCalendarService.getDescription('weekdays', id)
     }
 
-    public hasDateSchedule(date: string): boolean {
-        return this.daysWithSchedule.find(x => x.date == date)
+    public hasSchedule(day: any): boolean {
+        return this.daysWithSchedule.find(x => x.date == day.date)
     }
 
     public isToday(day: any): boolean {
         return day.date == new Date().toISOString().substring(0, 10)
     }
 
+    public isSaturday(day: any): boolean {
+        const isSaturday = new Date(day.date).getDay()
+        if (isSaturday == 6)
+            return true
+    }
+
+    public isSunday(day: any): boolean {
+        const isSunday = new Date(day.date).getDay()
+        if (isSunday == 0)
+            return true
+    }
+
     public showReservationsForSelectedDay(date: any): void {
-        if (this.hasDateSchedule(date)) {
-            this.storeCriteria(date)
+        if (this.hasSchedule(date)) {
+            this.storeCriteria(date.date)
+            this.clearStoredPrimeTableFilters()
             this.navigateToList()
         }
     }
@@ -125,6 +138,10 @@ export class CalendarComponent {
         }
         const result = Math.ceil((lastDate - diff) / 7)
         return result + 1
+    }
+
+    private clearStoredPrimeTableFilters(): void {
+        this.localStorageService.clearStoredPrimeTableFilters()
     }
 
     private clearStoredVariables() {

@@ -101,10 +101,10 @@ p.error {
 }
 
 #dialog-content {
-    color: var(--color-a);
+    color: var(--color-c);
     display: flex;
     font-family: var(--font-family-handbook) !important;
-    font-size: var(--font-size-modal) !important;
+    font-size: var(--font-size-modal-text) !important;
     font-weight: var(--font-weight-dialog-content) !important;
     height: 100%;
     justify-content: center;

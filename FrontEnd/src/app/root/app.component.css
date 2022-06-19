@@ -1,6 +1,6 @@
 #wrapper {
     background: url("../../assets/images/background/background.svg") no-repeat center;
-    background-color: var(--color-c);
+    background-color: var(--color-a);
     background-size: cover;
     display: flex;
     flex-direction: row;
@@ -19,9 +19,9 @@
 }
 
 #main.side-menu-is-visible {
-    background-color: var(--color-background);
     border-radius: 0.625rem;
     border: 0.0625rem dotted gray;
+    opacity: 0.8;
     transform-origin: 90% 50%;
 }
 

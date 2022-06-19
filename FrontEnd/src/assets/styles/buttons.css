@@ -7,11 +7,12 @@ button {
     justify-content: center;
     min-width: 0 !important;
     outline: 0 !important;
-    transition: all var(--change-component-theme-on-hover) ease;
+    padding-top: 0.0625rem !important;
+    transition: all var(--delay) ease-in;
 }
 
 button.primary {
-    background-color: var(--color-a) !important;
+    background-color: var(--color-button-background-primary) !important;
     color: var(--color-button-text) !important;
 }
 
@@ -34,7 +35,7 @@ button.delete:hover {
 }
 
 button.reverse {
-    color: var(--color-text) !important;
+    color: var(--color-c) !important;
 }
 
 button.bold {
@@ -43,12 +44,16 @@ button.bold {
 
 button.transparent {
     background-color: transparent !important;
-    color: var(--color-text) !important;
+    color: var(--color-c) !important;
 }
 
 button.transparent:hover {
     background-color: var(--color-a) !important;
     color: var(--color-button-text) !important;
+}
+
+.mat-menu-item:hover:not([disabled]), .mat-menu-item.cdk-program-focused:not([disabled]), .mat-menu-item-highlighted:not([disabled]):hover {
+    background-color: var(--color-a) !important;
 }
 
 button.tab {
@@ -81,7 +86,9 @@ button:not(:disabled) {
 }
 
 .mat-mini-fab .mat-button-wrapper {
+    color: var(--color-c);
     line-height: 23px !important;
+    transition: color var(--delay) ease-in;
 }
 
 .mat-button-toggle-label-content {

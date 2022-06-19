@@ -13,15 +13,23 @@
         <ol id="calendar">
             <div *ngFor="let weekDay of weekDays" class="weekday-name">{{ getWeekday(weekDay) }}</div>
             <li data-cy="days" class="days" [id]="days[day.value - 1].date" *ngFor="let day of monthSelect;let first = first" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
-                <div class="date-card" [ngClass]="{'has-date-schedule':hasDateSchedule(days[day.value - 1].date), 'is-today':isToday(days[day.value - 1])}">
+                <div (click)="showReservationsForSelectedDay(days[day.value - 1])" [ngClass]="{ 'saturday':isSaturday(days[day.value - 1]), 'sunday':isSunday(days[day.value - 1]), 'is-today':isToday(days[day.value - 1]), 'has-schedule':hasSchedule(days[day.value - 1]) }" class="date-card">
                     <div class="day">{{ day?.value }}</div>
-                    <div class="destination" *ngFor="let destination of days[day.value - 1].destinations" (click)="showReservationsForSelectedDay(days[day.value - 1].date)">
-                        <div class="destination-description">{{ destination.description }}</div>
-                        <div class="destination-passenger-count">{{ destination.passengerCount }}</div>
+                    <div class="destinations">
+                        <div class="destination" *ngFor="let destination of days[day.value - 1].destinations">
+                            <div class="destination-description">{{ destination.description }}</div>
+                            <div class="destination-passenger-count">{{ destination.passengerCount }}</div>
+                        </div>
                     </div>
                 </div>
             </li>
         </ol>
+    </div>
+
+    <div id="footer">
+        <div @slideFromRight class="button-group">
+            <button class="primary" data-cy="save" id="save" mat-flat-button>NEW</button>
+        </div>
     </div>
 
     <div *ngIf="isLoading">

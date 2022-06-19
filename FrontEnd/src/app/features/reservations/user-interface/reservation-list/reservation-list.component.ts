@@ -76,6 +76,7 @@ export class ReservationListComponent {
                 this.loadRecords()
                 this.populateDropdowns()
                 this.storeDate()
+                this.clearSelectedRecords()
             }
         })
     }
@@ -299,7 +300,7 @@ export class ReservationListComponent {
         })
         return promise
     }
-    
+
     private getDistinctDriverIds(reservations: any): any[] {
         const driverIds = []
         const x = [... new Set(reservations.map((x: { driverId: any }) => x.driverId))]

@@ -6,8 +6,6 @@ import { AccountService } from 'src/app/shared/services/account.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageMenuService } from 'src/app/shared/services/messages-menu.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -28,7 +26,7 @@ export class ReservationsMenuComponent {
 
     //#endregion
 
-    constructor(private messageSnackbarService: MessageSnackbarService, private accountService: AccountService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageMenuService: MessageMenuService, private modalActionResultService: ModalActionResultService, private router: Router) {
+    constructor(private accountService: AccountService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageMenuService: MessageMenuService, private router: Router) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -43,8 +41,6 @@ export class ReservationsMenuComponent {
             item.classList.remove('hidden')
         })
     }
-
-    //#endregion
 
     //#region lifecycle hooks
 
@@ -70,6 +66,10 @@ export class ReservationsMenuComponent {
         this.menuItems = response
     }
 
+    private setActiveMenuItem(element: string) {
+        document.getElementById(element).classList.add('active')
+    }
+
     private subscribeToInteractionService(): void {
         this.interactionService.refreshMenus.pipe(takeUntil(this.ngunsubscribe)).subscribe(() => {
             this.messageMenuService.getMessages().then((response) => {
@@ -88,17 +88,11 @@ export class ReservationsMenuComponent {
     //#region public methods
 
     public doNavigationTasks(feature: string): void {
-        this.localStorageService.clearStoredPrimeTableFilters()
         this.router.navigate([feature])
     }
 
-    public unavailable(): void {
-        this.modalActionResultService.open(this.messageSnackbarService.featureNotAvailable(), 'error', ['ok'])
-    }
-
-
     public getIcon(filename: string): string {
-        return environment.menuIconDirectory + filename
+        return environment.menuIconDirectory + filename + '-' + this.localStorageService.getItem('theme') + '.svg'
     }
 
     public getLabel(id: string): string {

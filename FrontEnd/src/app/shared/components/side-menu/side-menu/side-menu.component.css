@@ -2,7 +2,7 @@
     height: 100%;
     position: absolute;
     transform: translateX(-21rem);
-    transition: all 0.5s ease;
+    transition: all var(--delay) ease-in;
     width: 21rem;
 }
 
@@ -17,6 +17,7 @@
     font-family: var(--font-family-handbook);
     height: 100%;
     padding: 0 5.5rem 1.5rem 1.5rem;
+    transition: all var(--delay) ease-in;
 }
 
 .menu-header {
@@ -46,13 +47,13 @@ img {
 .menu-item {
     align-items: center;
     border-radius: 0.3125rem;
-    color: var(--color-button-text);
+    color: var(--color-c);
     display: flex;
     padding: 0.3rem 0.5rem;
 }
 
 .menu-item:hover, #logout:hover {
-    background-color: var(--color-d);
+    background-color: var(--color-b);
     cursor: pointer;
     font-weight: 600;
     opacity: 1;

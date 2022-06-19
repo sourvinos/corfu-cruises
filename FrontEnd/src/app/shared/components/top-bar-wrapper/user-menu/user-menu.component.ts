@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 import { AccountService } from 'src/app/shared/services/account.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -20,7 +21,7 @@ export class UserMenuComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private helperService: HelperService, private interactionService: InteractionService) { }
+    constructor(private accountService: AccountService, private helperService: HelperService, private localStorageService: LocalStorageService, private interactionService: InteractionService) { }
 
     //#region lifecycle hooks
 
@@ -39,13 +40,13 @@ export class UserMenuComponent {
     }
 
     public getIcon(filename: string): string {
-        return environment.menuIconDirectory + filename
+        return environment.menuIconDirectory + filename + '-' + this.localStorageService.getItem('theme') + '.svg'
     }
 
     //#endregion
 
     //#region private methods
-    
+
     private updateVariables(): void {
         this.loginStatus = this.accountService.isLoggedIn
     }
