@@ -7,6 +7,10 @@ export class LocalStorageService {
 
     //#region public methods
 
+    public clearStoredPrimeTableFilters(): void {
+        sessionStorage.clear()
+    }
+
     public getItem(item: string): string {
         return localStorage.getItem(item) || ''
     }

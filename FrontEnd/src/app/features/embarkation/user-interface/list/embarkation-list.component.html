@@ -24,7 +24,7 @@
 
     <ng-container *ngIf="records.totalPersons > 0">
         <div id="table-wrapper">
-            <p-table (onFilter)="filterRecords($event)" #table [autoLayout]="false" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.reservations" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table #table [autoLayout]="false" (onFilter)="filterRecords($event)" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.reservations" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="embarkation-list" stateStorage="session">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 3%; max-width: 3%;"></th>
@@ -112,7 +112,7 @@
                         <!-- Total persons -->
                         <th style="min-width: 5%; max-width: 5%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'totalPersons', 'equals')" [value]="$any(table).filters['totalPersons']?.value"></th>
                         <!-- +/- -->
-                        <th style="min-width: 5%; max-width: 5%;"></th>                        
+                        <th style="min-width: 5%; max-width: 5%;"></th>
                         <!-- EmbarkationStatus -->
                         <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter style="width: 100%;" field="embarkationStatus" matchMode="contains" [showMenu]="false">
@@ -150,10 +150,14 @@
                                 <p-table class="nested-table" [value]="reservation.passengers" dataKey="lastname">
                                     <ng-template pTemplate="header">
                                         <tr>
-                                            <th style="min-width: 40%; max-width: 40%; padding: 10px !important;" pSortableColumn="lastname">{{ getLabel('headerLastname')}}<p-sortIcon field="lastname"></p-sortIcon></th>
-                                            <th style="min-width: 30%; max-width: 30%; padding: 10px !important;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
-                                            <th style="min-width: 20%; max-width: 20%; padding: 10px !important;" pSortableColumn="nationalityDescription">{{ getLabel('headerCountry') }}<p-sortIcon field="nationalityDescription"></p-sortIcon></th>
-                                            <th style="min-width: 10%; max-width: 10%;" pSortableColumn="isCheckedIn">{{ getLabel('headerStatus') }}<p-sortIcon field="isCheckedIn"></p-sortIcon></th>
+                                            <th style="min-width: 40%; max-width: 40%; padding: 10px !important;" pSortableColumn="lastname">{{ getLabel('headerLastname')}}<p-sortIcon field="lastname"></p-sortIcon>
+                                            </th>
+                                            <th style="min-width: 30%; max-width: 30%; padding: 10px !important;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon>
+                                            </th>
+                                            <th style="min-width: 20%; max-width: 20%; padding: 10px !important;" pSortableColumn="nationalityDescription">{{ getLabel('headerCountry') }}<p-sortIcon field="nationalityDescription"></p-sortIcon>
+                                            </th>
+                                            <th style="min-width: 10%; max-width: 10%;" pSortableColumn="isCheckedIn">{{ getLabel('headerStatus') }}<p-sortIcon field="isCheckedIn"></p-sortIcon>
+                                            </th>
                                         </tr>
                                     </ng-template>
                                     <ng-template pTemplate="body" let-passenger>

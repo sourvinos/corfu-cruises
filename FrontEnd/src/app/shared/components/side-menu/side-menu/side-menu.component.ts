@@ -1,10 +1,11 @@
 import { Component } from '@angular/core'
-import { Observable, Subject, takeUntil } from 'rxjs'
 import { NavigationEnd, Router } from '@angular/router'
+import { Observable, Subject, takeUntil } from 'rxjs'
 // Custom
 import { AccountService } from './../../../services/account.service'
 import { HelperService } from './../../../services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageMenuService } from 'src/app/shared/services/messages-menu.service'
 import { environment } from './../../../../../environments/environment'
 
@@ -25,7 +26,7 @@ export class SideMenuComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private helperService: HelperService, private interactionService: InteractionService, private messageMenuService: MessageMenuService, private router: Router) {
+    constructor(private accountService: AccountService, private helperService: HelperService, private localStorageService: LocalStorageService, private interactionService: InteractionService, private messageMenuService: MessageMenuService, private router: Router) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -61,6 +62,7 @@ export class SideMenuComponent {
     public doNavigationTasks(feature: string): void {
         this.setMenuItemsAsInactive()
         this.router.navigate([feature]).then(() => {
+            this.localStorageService.clearStoredPrimeTableFilters()
             setTimeout(() => {
                 if (this.url.includes(feature)) {
                     this.doSideMenuTasks()
