@@ -33,6 +33,7 @@
 }
 
 .mat-calendar-next-button {
+    color: var(--color-c) !important;
     margin-right: 0.2rem !important;
 }
 
@@ -46,6 +47,7 @@
 }
 
 .mat-calendar-controls .mat-button .mat-button-wrapper {
+    color: var(--color-c);
     font-family: var(--font-family-ubuntu);
     font-size: var(--font-size-datepicker-header-month);
 }
@@ -77,6 +79,7 @@
 }
 
 .mat-calendar-body-cell-content {
+    color: var(--color-c);
     flex-direction: column;
     font-size: var(--font-size-calendar-day);
 }
@@ -104,6 +107,10 @@
 .mat-calendar-body-cell::before, .mat-calendar-body-cell::after, .mat-calendar-body-cell-preview {
     height: 0 !important;
     width: 0 !important;
+}
+
+.mat-calendar-previous-button {
+    color: var(--color-c) !important;
 }
 
 .mat-date-range-input-start-wrapper {

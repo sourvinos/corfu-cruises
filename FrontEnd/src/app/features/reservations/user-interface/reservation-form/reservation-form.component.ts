@@ -193,15 +193,15 @@ export class ReservationFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(), this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.reservationService.delete(this.form.value.reservationId).subscribe({
+                this.reservationService.delete(this.form.value.reservationId).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.localStorageService.getItem('returnUrl'), this.form)
                     },
                     error: (errorFromInterceptor) => {
-                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', this.localStorageService.getItem('returnUrl'), this.form, false)
-                    },
+                        this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok'])
+                    }
                 })
             }
         })

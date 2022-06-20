@@ -92,7 +92,7 @@ export class ReservationsMenuComponent {
     }
 
     public getIcon(filename: string): string {
-        return environment.menuIconDirectory + filename + '-' + this.localStorageService.getItem('theme') + '.svg'
+        return environment.menuIconDirectory + filename + '-' + this.localStorageService.getItem('my-theme') + '.svg'
     }
 
     public getLabel(id: string): string {

@@ -11,7 +11,7 @@
 }
 
 .mat-option-text {
-    color: var(--color-text) !important;
+    color: var(--color-c) !important;
     display: flex !important;
     justify-content: space-between;
 }
@@ -22,4 +22,8 @@
 
 .mat-option-text > span:last-child {
     width: 3rem !important;
+}
+
+.mat-option.mat-active {
+    background-color: var(--color-a);
 }

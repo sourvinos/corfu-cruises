@@ -98,6 +98,6 @@ p.instructions {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--color-a);
+    background-color: var(--color-scrollbar-thumb);
     min-height: 5rem;
 }

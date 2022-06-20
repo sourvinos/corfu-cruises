@@ -54,11 +54,11 @@ export class ThemeMenuComponent {
     }
 
     private readTheme(): string {
-        return this.localStorageService.getItem('theme') == '' ? this.saveTheme() : this.localStorageService.getItem('theme')
+        return this.localStorageService.getItem('my-theme') == '' ? this.saveTheme() : this.localStorageService.getItem('my-theme')
     }
 
     private saveTheme(): string {
-        this.localStorageService.saveItem('theme', this.theme)
+        this.localStorageService.saveItem('my-theme', this.theme)
         return this.theme
     }
 

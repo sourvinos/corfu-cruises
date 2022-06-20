@@ -76,7 +76,7 @@ export class ReservationListComponent {
                 this.loadRecords()
                 this.populateDropdowns()
                 this.storeDate()
-                this.clearSelectedRecords()
+                this.clearStorage(false, false)
             }
         })
     }
@@ -121,6 +121,7 @@ export class ReservationListComponent {
                     this.reservationService.assignToDriver(result, this.selectedRecords).subscribe(() => {
                         this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
                             this.clearSelectedRecords()
+                            this.clearStorage(false, true)
                             this.refreshList()
                         })
                     })
@@ -146,6 +147,7 @@ export class ReservationListComponent {
                     this.reservationService.assignToShip(result, this.selectedRecords).subscribe(() => {
                         this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
                             this.clearSelectedRecords()
+                            this.clearStorage(false, true)
                             this.refreshList()
                         })
                     })
@@ -181,7 +183,7 @@ export class ReservationListComponent {
     public doResetTableTasks(table: { reset: () => void }): void {
         this.clearFilterTextboxes()
         this.resetTable(table)
-        this.clearSelectedRecords()
+        this.clearStorage(true, true)
         this.updateTotals()
     }
 
@@ -248,6 +250,11 @@ export class ReservationListComponent {
 
     private clearSelectedRecords(): void {
         this.selectedRecords = []
+    }
+
+    private clearStorage(all: boolean, selectedRows: boolean): void {
+        all ? this.localStorageService.clearSessionStorage('reservation-list', 'all') : null
+        selectedRows ? this.localStorageService.clearSessionStorage('reservation-list', 'selected-rows') : null
     }
 
     private initPersonTotals(): void {

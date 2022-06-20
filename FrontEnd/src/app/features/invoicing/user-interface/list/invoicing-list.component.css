@@ -17,6 +17,7 @@
     background-color: var(--color-b);
     border-bottom: 1px solid var(--color-row-seperator);
     border-top: 1px solid var(--color-row-seperator);
+    color: var(--color-c);
     font-weight: normal;
     text-align: center;
 }
@@ -28,6 +29,7 @@
 .pivot .number {
     border-left: 1px solid var(--color-row-seperator);
     border-right: 1px solid var(--color-row-seperator);
+    color: var(--color-c);
     justify-content: center;
     padding: 4px 0 6px 0;
     text-align: center;
@@ -35,7 +37,7 @@
 }
 
 .icon-ok {
-    color: var(--color-ok);
+    color: var(--color-has-transfer);
 }
 
 .icon-warning {
@@ -43,7 +45,7 @@
 }
 
 .icon-error {
-    color: var(--color-error);
+    color: var(--color-has-no-transfer);
 }
 
 .port-panel {

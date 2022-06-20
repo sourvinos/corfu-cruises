@@ -7,7 +7,7 @@
     --color-row-seperator: #bebebe;
     --color-list-active-item: #7bc3b8;
     --color-list-inactive-item: #fd99ab;
-    --color-scrollbar-thumb: #fbce46;
+    --color-scrollbar-thumb: #d94040;
     /*  Buttons */
     --color-button-text: #ffffff;
     --color-button-background-delete: #d94040;
@@ -24,7 +24,7 @@
     --color-snackbar-background-warning: #ffc107;
     --color-snackbar-text: #efefef;
     /* Loader */
-    --color-loader: #bd0034;
+    --color-loader: #9bccc8;
     /* Timeout snackbar */
     --color-timeout-snackbar: #d94040;
     /* Active side-menu item */

@@ -61,3 +61,7 @@
     padding: 1rem;
     width: 100%;
 }
+
+.embarkation-status span {
+    color: var(--color-button-do-embarkation);
+}

@@ -2,7 +2,7 @@
     background-color: transparent;
     border-radius: 0;
     border: none;
-    color: var(--color-text);
+    color: var(--color-c) !important;
     font-family: var(--font-family-handbook);
     font-size: 1rem !important;
     font-weight: 300;
@@ -12,11 +12,11 @@
 }
 
 .p-inputtext:enabled:hover {
-    background-color: revert !important;
+    background-color: var(--color-a) !important;
 }
 
 .p-inputtext:enabled:focus {
-    background-color: revert !important;
+    background-color: var(--color-a) !important;
     border: none;
     box-shadow: none;
 }

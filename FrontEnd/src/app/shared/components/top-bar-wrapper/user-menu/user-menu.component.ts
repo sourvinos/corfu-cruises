@@ -40,7 +40,7 @@ export class UserMenuComponent {
     }
 
     public getIcon(filename: string): string {
-        return environment.menuIconDirectory + filename + '-' + this.localStorageService.getItem('theme') + '.svg'
+        return environment.menuIconDirectory + filename + '-' + this.localStorageService.getItem('my-theme') + '.svg'
     }
 
     //#endregion

@@ -48,7 +48,7 @@ button.transparent {
 }
 
 button.transparent:hover {
-    background-color: var(--color-a) !important;
+    background-color: var(--color-button-background-primary) !important;
     color: var(--color-button-text) !important;
 }
 
