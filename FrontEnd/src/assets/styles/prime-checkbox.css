@@ -9,7 +9,8 @@
 
 .p-checkbox .p-checkbox-box {
     background-color: var(--color-a) !important;
-    border-color: var(--color-d) !important;
+    border: 0.1875rem solid var(--color-b) !important;
+
 }
 
 .p-checkbox .p-checkbox-box.p-highlight {

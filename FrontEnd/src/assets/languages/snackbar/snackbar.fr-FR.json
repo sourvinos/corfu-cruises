@@ -4,87 +4,87 @@
         "labels": [
             {
                 "error": 400,
-                "message": "Le modèle n'est pas valide"
+                "message": "Le modèle n'est pas valide."
             },
             {
                 "error": 401,
-                "message": "L'authentification n'a pas réussi"
+                "message": "L'authentification n'a pas réussi."
             },
             {
                 "error": 403,
-                "message": "Cette operation necessite une autorisation de niveau superieur"
+                "message": "Cette operation necessite une autorisation de niveau superieur."
             },
             {
                 "error": 404,
-                "message": "L'enregistrement n'est pas trouve"
+                "message": "L'enregistrement n'est pas trouve."
             },
             {
                 "error": 409,
-                "message": "L'enregistrement n'est pas unique"
+                "message": "L'enregistrement n'est pas unique."
             },
             {
                 "error": 427,
-                "message": "Pour ce jour, destination et port, aucun trajet n'est prévu"
+                "message": "Pour ce jour, destination et port, aucun trajet n'est prévu."
             },
             {
                 "error": 430,
-                "message": "Pour ce jour et cette destination, aucun trajet n'est prévu"
+                "message": "Pour ce jour et cette destination, aucun trajet n'est prévu."
             },
             {
                 "error": 431,
-                "message": "Il n'est pas possible d'ajouter ou de modifier une réservation après le départ"
+                "message": "Il n'est pas possible d'ajouter ou de modifier une réservation après le départ."
             },
             {
                 "error": 432,
-                "message": "Pour cette journée, aucun trajet n'est prévu"
+                "message": "Pour cette journée, aucun trajet n'est prévu."
             },
             {
                 "error": 433,
-                "message": "Cette réservation entraînera une surréservation"
+                "message": "Cette réservation entraînera une surréservation."
             },
             {
                 "error": 450,
-                "message": "Ce client n'existe pas ou est inactif"
+                "message": "Ce client n'existe pas ou est inactif."
             },
             {
                 "error": 451,
-                "message": "Cette destination n'existe pas ou est inactive"
+                "message": "Cette destination n'existe pas ou est inactive."
             },
             {
                 "error": 452,
-                "message": "Ce point de ramassage n'existe pas ou est inactif"
+                "message": "Ce point de ramassage n'existe pas ou est inactif."
             },
             {
                 "error": 453,
-                "message": "Ce conducteur n'existe pas ou est inactif"
+                "message": "Ce conducteur n'existe pas ou est inactif."
             },
             {
                 "error": 454,
-                "message": "Ce navire n'existe pas ou est inactif"
+                "message": "Ce navire n'existe pas ou est inactif."
             },
             {
                 "error": 455,
-                "message": "Le nombre de passagers n'est pas correct"
+                "message": "Le nombre de passagers n'est pas correct."
             },
             {
                 "error": 456,
-                "message": "La nationalité d'au moins un passager n'existe pas ou est inactive"
+                "message": "La nationalité d'au moins un passager n'existe pas ou est inactive."
             },
             {
                 "error": 457,
-                "message": "Le sexe d'au moins un passager n'existe pas ou est inactif"
+                "message": "Le sexe d'au moins un passager n'existe pas ou est inactif."
             },
             {
                 "error": 458,
-                "message": "L'occupant d'au moins un passager n'existe pas ou est inactif"
+                "message": "L'occupant d'au moins un passager n'existe pas ou est inactif."
             },
             {
                 "error": 459,
-                "message": "Les nouvelles réservations avec transfert entre 22h00 et le départ du navire ne sont pas autorisées. Veuillez nous contacter pour connaître la disponibilité des bus"
+                "message": "Les nouvelles réservations avec transfert entre 22h00 et le départ du navire ne sont pas autorisées. Veuillez nous contacter pour connaître la disponibilité des bus."
             },
             {
                 "error": 490,
-                "message": "L'enregistrement n'a pas ete sauve"
+                "message": "L'enregistrement n'a pas ete sauve."
             },
             {
                 "error": 491,
@@ -92,27 +92,27 @@
             },
             {
                 "error": 492,
-                "message": "L'utilisateur avec ces informations ne peut pas être créé"
+                "message": "L'utilisateur avec ces informations ne peut pas être créé."
             },
             {
                 "error": 493,
-                "message": "Le fichier n'a pas été créé"
+                "message": "Le fichier n'a pas été créé."
             },
             {
                 "error": 494,
-                "message": "Le mot de passe ne peut pas changer"
+                "message": "Le mot de passe ne peut pas changer."
             },
             {
                 "error": 495,
-                "message": "L'enregistrement de l'utilisateur n'a pas encore été confirmé"
+                "message": "L'enregistrement de l'utilisateur n'a pas encore été confirmé."
             },
             {
                 "error": 500,
-                "message": "Quelque chose a mal tourné, mais cela a été signalé"
+                "message": "Quelque chose a mal tourné, mais cela a été signalé."
             },
             {
                 "id": "authenticationFailed",
-                "message": "Authentification échouée"
+                "message": "Authentification échouée."
             },
             {
                 "id": "askConfirmationToAbortEditing",
@@ -120,71 +120,71 @@
             },
             {
                 "id": "askConfirmationToDelete",
-                "message": "Ce disque sera perdu à jamais"
+                "message": "Ce disque sera perdu à jamais."
             },
             {
                 "id": "emailSent",
-                "message": "Un email d'instructions a été envoyé"
+                "message": "Un email d'instructions a été envoyé."
             },
             {
                 "id": "emptyEmail",
-                "message": "L' adresse email ne peut pas être vide"
+                "message": "L' adresse email ne peut pas être vide."
             },
             {
                 "id": "fileCreated",
-                "message": "Le fichier a été créé"
+                "message": "Le fichier a été créé."
             },
             {
                 "id": "formIsDirty",
-                "message": "Avant de continuer, les modifications doivent être enregistrées"
+                "message": "Avant de continuer, les modifications doivent être enregistrées."
             },
             {
                 "id": "noRecordsSelected",
-                "message": "Vous n'avez pas sélectionné d'inscriptions"
+                "message": "Vous n'avez pas sélectionné d'inscriptions."
             },
             {
                 "id": "noResults",
-                "message": "Avec ces critères, nous n'avons rien trouvé"
+                "message": "Avec ces critères, nous n'avons rien trouvé."
             },
             {
                 "id": "noVideoDevicesFound",
-                "message": "Aucune caméra trouvée sur votre appareil"
+                "message": "Aucune caméra trouvée sur votre appareil."
             },
             {
                 "id": "passwordChanged",
-                "message": "Mot de passe modifié, vous devez vous reconnecter"
+                "message": "Mot de passe modifié, vous devez vous reconnecter."
             },
             {
                 "id": "recordCreated",
-                "message": "Un enregistrement a été créé"
+                "message": "Un enregistrement a été créé."
             },
             {
                 "id": "recordDeleted",
-                "message": "Cet enregistrement a été supprimé"
+                "message": "Cet enregistrement a été supprimé."
             },
             {
                 "id": "recordUpdated",
-                "message": "Cet enregistrement a été mis à jour"
+                "message": "Cet enregistrement a été mis à jour."
             },
             {
                 "id": "selectedRecordsHaveBeenProcessed",
-                "message": "Tous les enregistrements sont mis a jour"
+                "message": "Tous les enregistrements sont mis a jour."
             },
             {
                 "id": "unableToResetPassword",
-                "message": "Impossible de réinitialiser le mot de passe"
+                "message": "Impossible de réinitialiser le mot de passe."
             },
             {
                 "id": "wrongPassengerCount",
-                "message": "Le nombre de passagers ne correspond pas au nombre total de personnes"
+                "message": "Le nombre de passagers ne correspond pas au nombre total de personnes."
             },
             {
                 "id": "noContactWithServer",
-                "message": "Il n'y a pas de réponse de la base de données"
+                "message": "Il n'y a pas de réponse de la base de données."
             },
             {
                 "id": "featureNotAvailable",
-                "message": "Cette option n'est pas encore disponible"
+                "message": "Cette option n'est pas encore disponible."
             },
             {
                 "id": "reservationCreated",
@@ -192,7 +192,7 @@
             },
             {
                 "id": "success",
-                "message": "Tout est OK"
+                "message": "Tout est OK."
             },
             {
                 "id": "warning",
@@ -200,7 +200,7 @@
             },
             {
                 "id": "timeoutWarning",
-                "message": "Je pense que l'utilisateur fait quelque chose d'autre! Déconnexion dans xx"
+                "message": "Je pense que l'utilisateur fait quelque chose d'autre! Déconnexion dans xx."
             }
         ]
     }

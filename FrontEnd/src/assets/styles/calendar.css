@@ -25,7 +25,7 @@
 
 .mat-calendar-body-label {
     opacity: 0;
-    padding: 0 0 1rem 0 !important;
+    padding: 0 !important;
 }
 
 .mat-calendar-period-button {
@@ -43,7 +43,7 @@
 }
 
 .mat-calendar-table-header {
-    color: var(--color-b);
+    color: var(--color-c);
 }
 
 .mat-calendar-controls .mat-button .mat-button-wrapper {

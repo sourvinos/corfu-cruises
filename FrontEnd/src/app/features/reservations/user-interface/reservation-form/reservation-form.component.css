@@ -41,7 +41,7 @@
 }
 
 :host ::ng-deep .mat-tab-label .mat-tab-label-content {
-    color: var(--color-text) !important;
+    color: var(--color-button-text) !important;
     font-weight: bold !important;
 }
 

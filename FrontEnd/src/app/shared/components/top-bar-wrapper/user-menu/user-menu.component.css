@@ -5,7 +5,6 @@ button {
     color: var(--color-button-text);
     display: flex;
     padding-right: 1rem;
-    transition: all var(--delay) ease-in;
 }
 
 button.hoverable:hover {

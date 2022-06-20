@@ -21,15 +21,10 @@ button {
     color: var(--color-c);
     display: flex;
     padding: 0.25rem 1rem !important;
-    transition: all var(--delay) ease-in !important;
 }
 
 button.hoverable:hover {
-    background-color: var(--color-d) !important;
-}
-
-button:hover span {
-    font-weight: bold;
+    background-color: var(--color-e) !important;
 }
 
 span {

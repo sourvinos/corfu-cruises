@@ -819,6 +819,14 @@
             {
                 "id": "saveButton",
                 "description": "ΑΠΟΘΗΚΕΥΣΗ"
+            },
+            {
+                "id": "createVoucherOnServer",
+                "description": "Αποστολή κουπονιού σε email"
+            },
+            {
+                "id": "createVoucherOnClient",
+                "description": "Εκτύπωση κουπονιού"
             }
         ]
     },

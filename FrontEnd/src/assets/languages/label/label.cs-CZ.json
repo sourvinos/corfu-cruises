@@ -819,6 +819,14 @@
             {
                 "id": "saveButton",
                 "description": "ULOŽIT"
+            },
+            {
+                "id": "createVoucherOnServer",
+                "description": "Odeslat voucher na e-mail"
+            },
+            {
+                "id": "createVoucherOnClient",
+                "description": "Vytisknout poukaz"
             }
         ]
     },

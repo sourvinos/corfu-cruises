@@ -4,87 +4,87 @@
         "labels": [
             {
                 "error": 400,
-                "message": "The model is invalid"
+                "message": "The model is invalid."
             },
             {
                 "error": 401,
-                "message": "Authentication was not successful"
+                "message": "Authentication was not successful."
             },
             {
                 "error": 403,
-                "message": "This action requires higher authorization level"
+                "message": "This action requires higher authorization level."
             },
             {
                 "error": 404,
-                "message": "This record can not be found"
+                "message": "This record can not be found."
             },
             {
                 "error": 409,
-                "message": "This record in not unique"
+                "message": "This record in not unique."
             },
             {
                 "error": 427,
-                "message": "For this day, destination and port, no trips are scheduled"
+                "message": "For this day, destination and port, no trips are scheduled."
             },
             {
                 "error": 430,
-                "message": "For this day and destination, no trips are scheduled"
+                "message": "For this day and destination, no trips are scheduled."
             },
             {
                 "error": 431,
-                "message": "It's not possible to add or change a reservation after departure"
+                "message": "It's not possible to add or change a reservation after departure."
             },
             {
                 "error": 432,
-                "message": "For this day, no trips are scheduled"
+                "message": "For this day, no trips are scheduled."
             },
             {
                 "error": 433,
-                "message": "This reservation will cause overbooking"
+                "message": "This reservation will cause overbooking."
             },
             {
                 "error": 450,
-                "message": "This customer does not exist or is inactive"
+                "message": "This customer does not exist or is inactive."
             },
             {
                 "error": 451,
-                "message": "This destination does not exist or is inactive"
+                "message": "This destination does not exist or is inactive."
             },
             {
                 "error": 452,
-                "message": "This pickup point does not exist or is inactive"
+                "message": "This pickup point does not exist or is inactive."
             },
             {
                 "error": 453,
-                "message": "This driver does not exist or is inactive"
+                "message": "This driver does not exist or is inactive."
             },
             {
                 "error": 454,
-                "message": "This ship does not exist or is inactive"
+                "message": "This ship does not exist or is inactive."
             },
             {
                 "error": 455,
-                "message": "The passenger count is not correct"
+                "message": "The passenger count is not correct."
             },
             {
                 "error": 456,
-                "message": "Nationality for at least one passenger does not exist or is inactive"
+                "message": "Nationality for at least one passenger does not exist or is inactive."
             },
             {
                 "error": 457,
-                "message": "Gender for at least one passenger does not exist or is inactive"
+                "message": "Gender for at least one passenger does not exist or is inactive."
             },
             {
                 "error": 458,
-                "message": "Occupant for at least one passenger does not exist or is inactive"
+                "message": "Occupant for at least one passenger does not exist or is inactive."
             },
             {
                 "error": 459,
-                "message": "New reservations with transfer between 22:00 and the ship's departure are not allowed. Please contact our office for buses availability"
+                "message": "New reservations with transfer between 22:00 and the ship's departure are not allowed. Please contact our office for buses availability."
             },
             {
                 "error": 490,
-                "message": "This record could not be saved"
+                "message": "This record could not be saved."
             },
             {
                 "error": 491,
@@ -92,27 +92,27 @@
             },
             {
                 "error": 492,
-                "message": "A user with these details can not be created"
+                "message": "A user with these details can not be created."
             },
             {
                 "error": 493,
-                "message": "The file was not created"
+                "message": "The file was not created."
             },
             {
                 "error": 494,
-                "message": "The password can not be changed"
+                "message": "The password can not be changed."
             },
             {
                 "error": 495,
-                "message": "This account is pending email confirmation"
+                "message": "This account is pending email confirmation."
             },
             {
                 "error": 500,
-                "message": "Something went not so well, but it has been reported"
+                "message": "Something went not so well, but it has been reported."
             },
             {
                 "id": "authenticationFailed",
-                "message": "Authentication was not successful"
+                "message": "Authentication was not successful."
             },
             {
                 "id": "askConfirmationToAbortEditing",
@@ -120,71 +120,71 @@
             },
             {
                 "id": "askConfirmationToDelete",
-                "message": "This record will be lost for ever"
+                "message": "This record will be lost for ever."
             },
             {
                 "id": "emailSent",
-                "message": "An email was sent with instructions"
+                "message": "An email was sent with instructions."
             },
             {
                 "id": "emptyEmail",
-                "message": "The email can not be empty"
+                "message": "The email can not be empty."
             },
             {
                 "id": "fileCreated",
-                "message": "The file was created"
+                "message": "The file was created."
             },
             {
                 "id": "formIsDirty",
-                "message": "Before you continue, all changes must be saved"
+                "message": "Before you continue, all changes must be saved."
             },
             {
                 "id": "noRecordsSelected",
-                "message": "You have not selected any records"
+                "message": "You have not selected any records."
             },
             {
                 "id": "noResults",
-                "message": "We didn't find anything"
+                "message": "We didn't find anything."
             },
             {
                 "id": "noVideoDevicesFound",
-                "message": "There are no cameras on your device"
+                "message": "There are no cameras on your device."
             },
             {
                 "id": "passwordChanged",
-                "message": "The password was changed, you must login again"
+                "message": "The password was changed, you must login again."
             },
             {
                 "id": "recordCreated",
-                "message": "A record was created"
+                "message": "A record was created."
             },
             {
                 "id": "recordDeleted",
-                "message": "This record was deleted"
+                "message": "This record was deleted."
             },
             {
                 "id": "recordUpdated",
-                "message": "This record was updated"
+                "message": "This record was updated."
             },
             {
                 "id": "selectedRecordsHaveBeenProcessed",
-                "message": "All selected records have been updated"
+                "message": "All selected records have been updated."
             },
             {
                 "id": "unableToResetPassword",
-                "message": "The password can not be reset"
+                "message": "The password can not be reset."
             },
             {
                 "id": "wrongPassengerCount",
-                "message": "The number of passengers must be equal to total persons"
+                "message": "The number of passengers must be equal to total persons."
             },
             {
                 "id": "noContactWithServer",
-                "message": "There is no response from the database"
+                "message": "There is no response from the database."
             },
             {
                 "id": "featureNotAvailable",
-                "message": "This option is not yet available"
+                "message": "This option is not yet available."
             },
             {
                 "id": "reservationCreated",
@@ -192,7 +192,7 @@
             },
             {
                 "id": "success",
-                "message": "Everything OK"
+                "message": "Everything OK."
             },
             {
                 "id": "warning",
@@ -200,7 +200,7 @@
             },
             {
                 "id": "timeoutWarning",
-                "message": "I think the user is doing something else! Logout in xx"
+                "message": "I think the user is doing something else! Logout in xx."
             }
         ]
     }

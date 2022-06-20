@@ -8,7 +8,6 @@ button {
     min-width: 0 !important;
     outline: 0 !important;
     padding-top: 0.0625rem !important;
-    transition: all var(--delay) ease-in;
 }
 
 button.primary {
@@ -22,7 +21,7 @@ button.secondary {
 }
 
 button.primary:hover {
-    opacity: 0.5;
+    background-color: var(--color-button-background-primary-hover) !important;
 }
 
 button.delete {
@@ -31,7 +30,7 @@ button.delete {
 }
 
 button.delete:hover {
-    opacity: 0.5;
+    background-color: var(--color-button-background-delete-hover) !important;
 }
 
 button.reverse {
@@ -88,7 +87,7 @@ button:not(:disabled) {
 .mat-mini-fab .mat-button-wrapper {
     color: var(--color-c);
     line-height: 23px !important;
-    transition: color var(--delay) ease-in;
+    transition: color 0.2s ease-in;
 }
 
 .mat-button-toggle-label-content {

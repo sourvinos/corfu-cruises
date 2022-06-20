@@ -40,6 +40,10 @@ p.success {
     color: #73af55;
 }
 
+p.info {
+    color: blue;
+}
+
 p.warning {
     color: #ffff0b;
 }

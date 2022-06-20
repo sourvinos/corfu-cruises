@@ -3,7 +3,6 @@
     cursor: pointer;
     display: flex;
     outline: 0;
-    transition: color var(--delay) ease-in;
 }
 
 #logo-image {
@@ -19,5 +18,4 @@
     font-weight: var(--font-weight-logo);
     line-height: 2.25rem;
     margin: 0.125rem 0 0 var(--logo-left-margin);
-    transition: all var(--delay) ease-in;
 }

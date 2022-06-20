@@ -819,6 +819,14 @@
             {
                 "id": "saveButton",
                 "description": "SAVE"
+            },
+            {
+                "id": "createVoucherOnServer",
+                "description": "Send voucher to email"
+            },
+            {
+                "id": "createVoucherOnClient",
+                "description": "Print voucher"
             }
         ]
     },

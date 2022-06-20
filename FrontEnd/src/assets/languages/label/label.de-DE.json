@@ -819,6 +819,14 @@
             {
                 "id": "saveButton",
                 "description": "SPEICHERN"
+            },
+            {
+                "id": "createVoucherOnServer",
+                "description": "Gutschein per E-Mail versenden"
+            },
+            {
+                "id": "createVoucherOnClient",
+                "description": "Gutschein drucken"
             }
         ]
     },

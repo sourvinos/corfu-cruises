@@ -37,7 +37,6 @@
     color: var(--color-c);
     cursor: pointer;
     padding: 0 1rem;
-    transition: all var(--delay) ease-in;
 }
 
 .month-arrows:last-child {
@@ -71,7 +70,6 @@
     justify-content: center;
     margin-bottom: 0.0625rem;
     padding: 0.3rem;
-    transition: all var(--delay) ease-in;
 }
 
 .date-card {
@@ -108,7 +106,6 @@
     justify-content: center;
     max-width: var(--font-size-calendar-day-min-max-width);
     min-width: var(--font-size-calendar-day-min-max-width);
-    transition: color var(--delay) ease-in;
 }
 
 .saturday {
@@ -142,7 +139,6 @@
     color: var(--color-c);
     font-size: var(--font-size-calendar-destination);
     font-weight: bold;
-    transition: color var(--delay) ease-in;
 }
 
 .destination-passenger-count {
@@ -150,7 +146,6 @@
     font-family: monospace;
     font-size: var(--font-size-calendar-ports);
     padding-left: 0.5rem;
-    transition: color var(--delay) ease-in;
 }
 
 .is-today .day, .is-today .destination .destination-description, .is-today .destination .destination-passenger-count {

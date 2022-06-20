@@ -81,7 +81,6 @@ p.instructions {
 
 .active {
     background-color: var(--color-sidemenu-active-item);
-    font-weight: 600;
 }
 
 .subscript {

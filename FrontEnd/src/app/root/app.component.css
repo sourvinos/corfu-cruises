@@ -6,7 +6,7 @@
     flex-direction: row;
     height: 100%;
     width: 100vw;
-    transition: all 3s ease;
+    transition: all var(--delay) ease-in;
 }
 
 #main {
@@ -15,7 +15,7 @@
     height: 100%;
     overflow: hidden;
     width: 100%;
-    transition: all 0.5s ease;
+    transition: all var(--delay) ease-in;
 }
 
 #main.side-menu-is-visible {
@@ -29,7 +29,6 @@
     flex: 1;
     justify-content: center;
     overflow-y: hidden;
-    transition: background-color var(--change-theme-delay) ease;
 }
 
 #menu-button {
@@ -61,7 +60,7 @@
     font-size: 1.25rem;
     padding: 0.625rem 1rem 0.625rem 1rem;
     position: absolute;
-    transition: width 0.2s ease-in-out;
+    transition: width var(--delay) ease-in;
 }
 
 #timeout-warning::after {

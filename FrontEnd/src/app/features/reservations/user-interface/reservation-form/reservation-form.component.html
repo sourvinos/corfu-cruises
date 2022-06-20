@@ -204,6 +204,6 @@
 </mat-autocomplete>
 
 <ng-template #voucherMenu>
-    <button mat-menu-item class="primary" (click)="doVoucherTasksOnServer()"><span>Send voucher to email</span></button>
-    <button mat-menu-item class="primary" (click)="doVoucherTasksOnClient()"><span>Print voucher</span></button>
+    <button mat-menu-item class="reverse bold" (click)="doVoucherTasksOnServer()"><span>{{ getLabel('createVoucherOnServer') }}</span></button>
+    <button mat-menu-item class="reverse bold" (click)="doVoucherTasksOnClient()"><span>{{ getLabel('createVoucherOnClient') }}</span></button>
 </ng-template>

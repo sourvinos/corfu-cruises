@@ -17,7 +17,6 @@
     font-family: var(--font-family-handbook);
     height: 100%;
     padding: 0 5.5rem 1.5rem 1.5rem;
-    transition: all var(--delay) ease-in;
 }
 
 .menu-header {
@@ -55,6 +54,6 @@ img {
 .menu-item:hover, #logout:hover {
     background-color: var(--color-b);
     cursor: pointer;
-    font-weight: 600;
     opacity: 1;
+    transition: color 0.2s ease-in;
 }

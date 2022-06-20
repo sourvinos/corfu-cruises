@@ -11,24 +11,26 @@
     /*  Buttons */
     --color-button-text: #ffffff;
     --color-button-background-delete: #d94040;
+    --color-button-background-delete-hover: #ff7a7a;
     --color-button-background-primary: #13678a;
+    --color-button-background-primary-hover: #799f9a;
     /*  Checkboxes */
     --color-checkbox-background: #9bccc8;
     /* Reservation Form Tabs */
-    --color-tab-overview: #fd7e14ff;
-    --color-tab-passengers: #fea75fff;
-    --color-tab-more: #fed1aaff;
+    --color-tab-overview: #5f80a7;
+    --color-tab-passengers: #829ebe;
+    --color-tab-more: #acbed3;
     /* Snackbars */
     --color-snackbar-background-success: #698984;
     --color-snackbar-background-error: #d94040;
     --color-snackbar-background-warning: #ffc107;
     --color-snackbar-text: #efefef;
     /* Loader */
-    --color-loader: #9bccc8;
+    --color-loader: #f26513;
     /* Timeout snackbar */
     --color-timeout-snackbar: #d94040;
     /* Active side-menu item */
-    --color-sidemenu-active-item: #fde386;
+    --color-sidemenu-active-item: #dbaf10;
     /* Criteria (Top Right) & Totals (Bottom Left) */
     --color-criteria-a: #688783;
     --color-criteria-a-border: #698984;
@@ -58,4 +60,10 @@
     --color-has-transfer: #c8e6c9;
     --color-has-no-transfer: #fd99ab;
     --color-persons-warning: #fbc02d;
+    /* Input */
+    --color-input-focus: #65b4ef;
+    --color-input-error: #e57b7b;
+    --color-input-selected-background: #65b3ef4d;
+    /* Links */
+    --color-link: #d94040;
 }

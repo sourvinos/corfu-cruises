@@ -13,7 +13,7 @@
     --font-weight-snackbar: 300;
     --font-weight-table-header: 300 !important;
     /* Theme change delays */
-    --delay: 0.2s;
+    --delay: 0.5s;
     /* Common sizes in all screen resolutions */
     --font-size-datepicker-header-month: 1.8rem;
     --font-size-dialog: 1.5rem;

@@ -819,6 +819,14 @@
             {
                 "id": "saveButton",
                 "description": "ENREGISTRER"
+            },
+            {
+                "id": "createVoucherOnServer",
+                "description": "Envoyer un bon d'achat par e-mail"
+            },
+            {
+                "id": "createVoucherOnClient",
+                "description": "Imprimer le bon d'achat"
             }
         ]
     },

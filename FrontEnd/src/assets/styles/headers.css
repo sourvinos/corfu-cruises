@@ -5,7 +5,6 @@ h1 {
     font-weight: var(--font-weight-header) !important;
     margin: 0 !important;
     padding: 0 !important;
-    transition: color var(--delay) ease-in;
 }
 
 h6 {
@@ -14,5 +13,4 @@ h6 {
     font-weight: var(--font-weight-header) !important;
     margin: 0 !important;
     padding: 0 !important;
-    transition: color var(--delay) ease-in;
 }
