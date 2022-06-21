@@ -111,7 +111,8 @@ p.error {
     font-size: var(--font-size-modal-text) !important;
     font-weight: var(--font-weight-dialog-content) !important;
     height: 100%;
-    margin: 1rem 3rem;
+    justify-content: center;
+    margin: 1rem 2.5rem;
     text-align: center;
 }
 

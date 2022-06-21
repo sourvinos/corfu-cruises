@@ -120,7 +120,11 @@
             },
             {
                 "id": "emailSent",
-                "message": "An email was sent with instructions."
+                "message": "We sent you an email with instructions how to set a new password."
+            },
+            {
+                "id": "emailNotSent",
+                "message": "We can't send you an email right now, please try again in a little while."
             },
             {
                 "id": "emptyEmail",

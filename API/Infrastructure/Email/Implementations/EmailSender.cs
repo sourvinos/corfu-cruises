@@ -60,26 +60,23 @@ namespace API.Infrastructure.Email {
         }
 
         public SendEmailResponse SendResetPasswordEmail(string displayName, string userEmail, string callbackUrl, string language) {
-
-            var message = new MimeMessage();
-            var builder = new BodyBuilder {
-                HtmlBody = UpdateResetPasswordWithVariables(displayName, callbackUrl)
-            };
-
-            message.Body = builder.ToMessageBody();
-            message.From.Add(new MailboxAddress(settings.From, settings.UserName));
-            message.To.Add(new MailboxAddress(displayName, userEmail));
-            message.Subject = "Your request for new password";
-
-            using (var client = new MailKit.Net.Smtp.SmtpClient()) {
-                client.Connect(settings.SmtpClient, settings.Port, false);
-                client.Authenticate(settings.UserName, settings.Password);
-                client.Send(message);
-                client.Disconnect(true);
+            try {
+                var message = new MimeMessage();
+                var builder = new BodyBuilder { HtmlBody = UpdateResetPasswordWithVariables(displayName, callbackUrl) };
+                message.Body = builder.ToMessageBody();
+                message.From.Add(new MailboxAddress(settings.From, settings.UserName));
+                message.To.Add(new MailboxAddress(displayName, userEmail));
+                message.Subject = "Your request for new password";
+                using (var client = new MailKit.Net.Smtp.SmtpClient()) {
+                    client.Connect(settings.SmtpClient, settings.Port, false);
+                    client.Authenticate(settings.UserName, settings.Password);
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+                return new SendEmailResponse();
+            } catch (Exception exception) {
+                return new SendEmailResponse { ErrorMsg = exception.Message };
             }
-
-            return new SendEmailResponse();
-
         }
 
         public Response SendVoucher(VoucherEmail voucher) {

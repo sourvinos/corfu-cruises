@@ -843,7 +843,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "SUBMIT"
+                "description": "CONTINUE"
             },
             {
                 "id": "weNeedYourEmail",
@@ -2233,7 +2233,7 @@
             },
             {
                 "id": "next-button",
-                "description": "NEXT"
+                "description": "CONTINUE"
             }
         ]
     }

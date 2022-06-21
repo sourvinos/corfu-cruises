@@ -843,7 +843,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "SPEICHERN"
+                "description": "WEITER"
             },
             {
                 "id": "weNeedYourEmail",
@@ -2233,7 +2233,7 @@
             },
             {
                 "id": "next-button",
-                "description": "NÄCHSTES"
+                "description": "WEITER"
             }
         ]
     }

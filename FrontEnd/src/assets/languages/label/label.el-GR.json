@@ -843,7 +843,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "ΑΠΟΘΗΚΕΥΣΗ"
+                "description": "ΣΥΝΕΧΕΙΑ"
             },
             {
                 "id": "weNeedYourEmail",
@@ -2233,7 +2233,7 @@
             },
             {
                 "id": "next-button",
-                "description": "ΕΠΟΜΕΝΟ"
+                "description": "ΣΥΝΕΧΕΙΑ"
             }
         ]
     }

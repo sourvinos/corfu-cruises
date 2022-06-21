@@ -843,7 +843,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "POKRAČOVAT"
             },
             {
                 "id": "weNeedYourEmail",
@@ -2233,7 +2233,7 @@
             },
             {
                 "id": "next-button",
-                "description": "DALŠÍ"
+                "description": "POKRAČOVAT"
             }
         ]
     }

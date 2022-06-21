@@ -120,7 +120,11 @@
             },
             {
                 "id": "emailSent",
-                "message": "Un email d'instructions a été envoyé."
+                "message": "Nous vous avons envoyé un courriel contenant les instructions pour définir un nouveau mot de passe."
+            },
+            {
+                "id": "emailNotSent",
+                "message": "Nous ne pouvons pas vous envoyer d'e-mail pour le moment, veuillez réessayer dans un petit moment."
             },
             {
                 "id": "emptyEmail",

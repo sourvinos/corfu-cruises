@@ -120,7 +120,11 @@
             },
             {
                 "id": "emailSent",
-                "message": "Pokud budete pokračovat, tento záznam bude navždy ztracen."
+                "message": "Zaslali jsme vám e-mail s pokyny k nastavení nového hesla."
+            },
+            {
+                "id": "emailNotSent",
+                "message": "Nyní vám nemůžeme poslat e-mail, zkuste to prosím za chvíli znovu."
             },
             {
                 "id": "emptyEmail",

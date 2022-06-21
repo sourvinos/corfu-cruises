@@ -6,14 +6,14 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { DialogService } from 'src/app/shared/services/dialog.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -35,10 +35,11 @@ export class ForgotPasswordFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/login'
+    public isLoading = new Subject<boolean>()
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -47,6 +48,7 @@ export class ForgotPasswordFormComponent {
         this.initForm()
         this.populateFields()
         this.addShortcuts()
+        this.focusOnField('email')
     }
 
     ngOnDestroy(): void {
@@ -68,13 +70,13 @@ export class ForgotPasswordFormComponent {
     }
 
     public onSave(): void {
-        this.accountService.forgotPassword(this.form.value).subscribe({
+        this.accountService.forgotPassword(this.form.value).pipe(indicate(this.isLoading)).subscribe({
             complete: () => {
                 this.goBack()
-                this.showSnackbar(this.messageSnackbarService.emailSent(), 'info')
+                this.showMessage(this.messageSnackbarService.emailSent(), 'info')
             },
             error: () => {
-                this.showSnackbar(this.messageSnackbarService.invalidModel(), 'error')
+                this.showMessage(this.messageSnackbarService.emailNotSent(), 'error')
             }
         })
     }
@@ -101,6 +103,10 @@ export class ForgotPasswordFormComponent {
         })
     }
 
+    private focusOnField(field: string): void {
+        this.helperService.focusOnField(field)
+    }
+
     private goBack(): void {
         this.router.navigate([this.parentUrl])
     }
@@ -109,7 +115,7 @@ export class ForgotPasswordFormComponent {
         this.form = this.formBuilder.group({
             email: ['', [Validators.required, Validators.email]],
             returnUrl: '',
-            language: ['']
+            language: ''
         })
     }
 
@@ -125,8 +131,8 @@ export class ForgotPasswordFormComponent {
         this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
+    private showMessage(message: string, type: string): void {
+        this.dialogService.open(message, type, ['ok'])
     }
 
     //#endregion

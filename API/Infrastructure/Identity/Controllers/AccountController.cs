@@ -65,8 +65,10 @@ namespace API.Infrastructure.Identity {
                     string tokenEncoded = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
                     string baseUrl = $"{model.ReturnUrl}";
                     string passwordResetLink = Url.Content($"{baseUrl}/#/resetPassword?email={model.Email}&token={tokenEncoded}");
-                    emailSender.SendResetPasswordEmail(user.Displayname, user.Email, passwordResetLink, model.Language);
-                    return StatusCode(200, new { response = ApiMessages.EmailInstructions() });
+                    var response = emailSender.SendResetPasswordEmail(user.Displayname, user.Email, passwordResetLink, model.Language);
+                    return response.Successful
+                        ? StatusCode(200, new { response = ApiMessages.EmailInstructions() })
+                        : StatusCode(500, new { response = ApiMessages.EmailNotSent() });
                 }
                 return StatusCode(200, new { response = ApiMessages.EmailInstructions() });
             }
@@ -130,7 +132,7 @@ namespace API.Infrastructure.Identity {
         public Task<SimpleUser> GetConnectedUserId() {
             return Extensions.Identity.GetConnectedUserId(httpContextAccessor);
         }
-        
+
     }
 
 }

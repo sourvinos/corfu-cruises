@@ -52,6 +52,7 @@ export class MessageSnackbarService {
     public askConfirmationToDelete(): string { return this.getDescription(this.feature, 'askConfirmationToDelete') }
     public authenticationFailed(): string { return this.getDescription(this.feature, 'authenticationFailed') }
     public emailSent(): string { return this.getDescription(this.feature, 'emailSent') }
+    public emailNotSent(): string { return this.getDescription(this.feature, 'emailNotSent') }
     public formIsDirty(): string { return this.getDescription(this.feature, 'formIsDirty') }
     public noVideoDevicesFound(): string { return this.getDescription(this.feature, 'noVideoDevicesFound') }
     public noRecordsSelected(): string { return this.getDescription(this.feature, 'noRecordsSelected') }

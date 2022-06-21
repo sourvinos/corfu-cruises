@@ -120,7 +120,11 @@
             },
             {
                 "id": "emailSent",
-                "message": "Eine E-Mail mit Anweisungen wurde gesendet."
+                "message": "Wir haben Ihnen eine E-Mail mit Anweisungen zum Einrichten eines neuen Passworts geschickt."
+            },
+            {
+                "id": "emailNotSent",
+                "message": "Wir können Ihnen im Moment keine E-Mail senden. Bitte versuchen Sie es in Kürze erneut."
             },
             {
                 "id": "emptyEmail",
