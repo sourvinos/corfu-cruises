@@ -1,10 +1,6 @@
 @media only screen and (min-width: 1441px) {
     * {
-        --calendar-gap: 1rem;
-        --font-size-button: 110%;
         --font-size-calendar-day-min-max-width: 3.125rem;
-        --font-size-calendar-day: 1.2rem;
-        --font-size-calendar-content: 0.8125rem;
         --font-size-checkbox: 120%;
         --font-size-criteria-labels: 130%;
         --font-size-h1: 1.7rem;
@@ -26,10 +22,7 @@
         --footer-right-margin: 3.5rem;
         --gap: 1.5rem;
         --header-margin-bottom: 1rem;
-        --header-margin-top: 0;
         --header-right-margin: 5rem;
         --logo-left-margin: 5rem;
-        --side-bar-width: 17rem;
-        --top-bar-height: 105px;
     }
 }

@@ -15,6 +15,9 @@
     /* Theme change delays */
     --delay: 0.5s;
     /* Common sizes in all screen resolutions */
+    --font-size-calendar-content: 0.85rem;
+    --font-size-button: 100%;
+    --font-size-calendar-day: 1rem;
     --font-size-datepicker-header-month: 1.8rem;
     --font-size-dialog: 1.5rem;
     --font-size-loading-message: 2rem;

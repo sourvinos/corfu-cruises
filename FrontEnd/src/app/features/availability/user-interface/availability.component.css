@@ -101,7 +101,6 @@
     display: flex;
     font-family: var(--font-family-montserrat), sans-serif;
     font-size: var(--font-size-calendar-day);
-    font-weight: 600;
     height: 100%;
     justify-content: center;
     max-width: var(--font-size-calendar-day-min-max-width);
@@ -127,6 +126,11 @@
     width: 100%;
 }
 
+.destinations * {
+    font-family: var(--font-family-ubuntu);
+    font-size: var(--font-size-calendar-content);
+}
+
 .destination {
     display: flex;
     flex-direction: column;
@@ -137,7 +141,6 @@
 
 .destination-description {
     color: var(--color-c);
-    font-size: var(--font-size-calendar-content);
 }
 
 .ports {
@@ -152,14 +155,9 @@
     flex-direction: row;
 }
 
-.port-description {
-    font-size: var(--font-size-calendar-content);
-}
-
 .port-available-seats {
     color: var(--color-c);
     font-family: monospace;
-    font-size: var(--font-size-calendar-content);
     padding-left: 0.5rem;
 }
 

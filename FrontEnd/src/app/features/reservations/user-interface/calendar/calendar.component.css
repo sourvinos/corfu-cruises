@@ -77,7 +77,6 @@
     border: 1px solid var(--color-a);
     display: flex;
     flex-direction: row;
-    font-family: var(--font-family-montserrat), sans-serif;
     height: 100%;
     justify-content: left;
     width: 100%;
@@ -101,7 +100,6 @@
     display: flex;
     font-family: var(--font-family-montserrat), sans-serif;
     font-size: var(--font-size-calendar-day);
-    font-weight: 600;
     height: 100%;
     justify-content: center;
     max-width: var(--font-size-calendar-day-min-max-width);
@@ -127,6 +125,11 @@
     width: 100%;
 }
 
+.destinations * {
+    font-family: var(--font-family-ubuntu);
+    font-size: var(--font-size-calendar-content);
+}
+
 .destination {
     display: flex;
     flex-direction: row;
@@ -137,14 +140,11 @@
 
 .destination-description {
     color: var(--color-c);
-    font-size: var(--font-size-calendar-content);
-    font-weight: bold;
 }
 
 .destination-passenger-count {
     color: var(--color-c);
     font-family: monospace;
-    font-size: var(--font-size-calendar-content);
     padding-left: 0.5rem;
 }
 

@@ -9,7 +9,7 @@
 #header {
     align-items: center;
     display: flex;
-    margin: var(--header-margin-top) var(--header-right-margin) var(--header-margin-bottom) 1rem !important;
+    margin: 0 var(--header-right-margin) var(--header-margin-bottom) 1rem !important;
 }
 
 #header #navigation {
