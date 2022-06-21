@@ -103,10 +103,6 @@
                 "message": "Das Passwort kann nicht geändert werden."
             },
             {
-                "error": 495,
-                "message": "Für dieses Konto steht eine E-Mail-Bestätigung aus."
-            },
-            {
                 "error": 500,
                 "message": "Etwas ist schief gelaufen, aber es wurde gemeldet."
             },

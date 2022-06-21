@@ -9,6 +9,7 @@ import { AccountService } from '../../../shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerService } from '../../customers/classes/services/customer.service'
 import { DestinationService } from '../../destinations/classes/services/destination.service'
+import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverService } from '../../drivers/classes/services/driver.service'
 import { GenderService } from '../../genders/classes/services/gender.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
@@ -23,7 +24,6 @@ import { NationalityService } from 'src/app/features/nationalities/classes/servi
 import { PickupPointService } from '../../pickupPoints/classes/services/pickupPoint.service'
 import { PortService } from '../../ports/classes/services/port.service'
 import { ShipService } from '../../ships/classes/services/ship.service'
-import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -53,31 +53,7 @@ export class LoginFormComponent {
 
     //#endregion
 
-    constructor(
-        private accountService: AccountService,
-        private buttonClickService: ButtonClickService,
-        private customerService: CustomerService,
-        private destinationService: DestinationService,
-        private driverService: DriverService,
-        private formBuilder: FormBuilder,
-        private genderService: GenderService,
-        private helperService: HelperService,
-        private idle: Idle,
-        private interactionService: InteractionService,
-        private keyboardShortcutsService: KeyboardShortcuts,
-        private localStorageService: LocalStorageService,
-        private messageHintService: MessageHintService,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageSnackbarService,
-        private nationalityService: NationalityService,
-        private pickupPointService: PickupPointService,
-        private portService: PortService,
-        private router: Router,
-        private shipService: ShipService,
-        private sweetAlertService: SweetAlertService,
-        private titleService: Title,
-    ) { }
-
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -196,13 +172,10 @@ export class LoginFormComponent {
     private showError(error: any): void {
         switch (error.status) {
             case 0:
-                this.sweetAlertService.open(this.messageSnackbarService.noContactWithServer(), 'error', true, false, 'OK', '', 0)
+                this.dialogService.open(this.messageSnackbarService.noContactWithServer(), 'error', ['ok'])
                 break
             case 401:
-                this.sweetAlertService.open(this.messageSnackbarService.authenticationFailed(), 'error', true, false, 'OK', '', 0)
-                break
-            case 495:
-                this.sweetAlertService.open(this.messageSnackbarService.accountNotConfirmed(), 'error', true, false, 'OK', '', 0)
+                this.dialogService.open(this.messageSnackbarService.authenticationFailed(), 'error', ['ok'])
                 break
         }
     }

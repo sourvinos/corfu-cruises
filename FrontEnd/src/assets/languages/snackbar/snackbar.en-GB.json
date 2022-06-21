@@ -103,10 +103,6 @@
                 "message": "The password can not be changed."
             },
             {
-                "error": 495,
-                "message": "This account is pending email confirmation."
-            },
-            {
                 "error": 500,
                 "message": "Something went not so well, but it has been reported."
             },

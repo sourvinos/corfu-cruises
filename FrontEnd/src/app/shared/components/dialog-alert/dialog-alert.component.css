@@ -112,7 +112,7 @@ p.error {
     font-weight: var(--font-weight-dialog-content) !important;
     height: 100%;
     margin: 1rem 3rem;
-    justify-content: center;
+    text-align: center;
 }
 
 #dialog-footer {

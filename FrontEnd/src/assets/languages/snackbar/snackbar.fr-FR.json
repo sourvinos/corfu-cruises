@@ -103,10 +103,6 @@
                 "message": "Le mot de passe ne peut pas changer."
             },
             {
-                "error": 495,
-                "message": "L'enregistrement de l'utilisateur n'a pas encore été confirmé."
-            },
-            {
                 "error": 500,
                 "message": "Quelque chose a mal tourné, mais cela a été signalé."
             },

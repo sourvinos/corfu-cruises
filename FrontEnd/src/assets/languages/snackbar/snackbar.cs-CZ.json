@@ -103,10 +103,6 @@
                 "message": "Heslo nelze změnit."
             },
             {
-                "error": 495,
-                "message": "This account is pending email confirmation."
-            },
-            {
                 "error": 500,
                 "message": "Něco se pokazilo, ale bylo to nahlášeno."
             },

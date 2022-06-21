@@ -19,7 +19,6 @@ namespace API.Infrastructure.Helpers {
 
         #region Errors
 
-        public static string AccountNotConfirmed() { return "This account is pending email confirmation."; }
         public static string RecordIsInUse() { return "This record is in use and can not be deleted."; }
         public static string AuthenticationFailed() { return "Authentication failed."; }
         public static string RecordNotFound() { return "Record not found."; }
