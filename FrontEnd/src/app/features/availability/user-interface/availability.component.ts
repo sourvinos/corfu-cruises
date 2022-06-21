@@ -3,11 +3,12 @@ import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 // Custom
-import { AvailabilityService } from '../services/availability.service'
+import { AvailabilityService } from '../classes/services/availability.service'
 import { DayViewModel } from '../classes/view-models/day-view-model'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
+import { MessageLabelService } from './../../../shared/services/messages-label.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -23,7 +24,7 @@ export class AvailabilityComponent {
 
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
-    public feature = 'calendar'
+    public feature = 'availability'
     public icon = 'home'
     public parentUrl = '/'
 
@@ -34,10 +35,11 @@ export class AvailabilityComponent {
     public isLoading: boolean
     public monthSelect: any[]
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    public isDestinationSelected = false
 
     // #endregion 
 
-    constructor(private availabilityService: AvailabilityService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private router: Router) { }
+    constructor(private availabilityService: AvailabilityService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -52,14 +54,17 @@ export class AvailabilityComponent {
     }
 
     ngOnDestroy(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.cleanup()
         this.unlisten()
     }
 
     //#endregion 
 
     //#region public methods
+
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
+    }
 
     public getMonthAndYear(): string {
         return this.messageCalendarService.getDescription('months', this.startDate.month() + 1) + ' ' + this.startDate.year()
@@ -69,13 +74,24 @@ export class AvailabilityComponent {
         return this.messageCalendarService.getDescription('weekdays', id)
     }
 
-    public hasDateSchedule(date: string): boolean {
-        return this.daysWithSchedule.find(x => x.date == date)
+    public hasSchedule(day: any): boolean {
+        return this.daysWithSchedule.find(x => x.date == day.date)
     }
 
     public isToday(day: any): boolean {
-        const me = new Date().toISOString().substring(0, 10)
-        return day.date == me
+        return day.date == new Date().toISOString().substring(0, 10)
+    }
+
+    public isSaturday(day: any): boolean {
+        const isSaturday = new Date(day.date).getDay()
+        if (isSaturday == 6)
+            return true
+    }
+
+    public isSunday(day: any): boolean {
+        const isSunday = new Date(day.date).getDay()
+        if (isSunday == 0)
+            return true
     }
 
     public onChangeMonth(month: number): void {
@@ -88,7 +104,7 @@ export class AvailabilityComponent {
 
     public onDoReservationTasks(date: string, destinationId: number, destinationDescription: string): void {
         this.storeCriteria(date, destinationId, destinationDescription)
-        this.navigateToNewReservation()
+        this.isDestinationSelected = true
     }
 
     //#endregion
@@ -129,6 +145,11 @@ export class AvailabilityComponent {
             { 'item': 'destinationId', 'when': 'always' },
             { 'item': 'destinationDescription', 'when': 'always' }
         ])
+    }
+
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
     private fixCalendarHeight(): void {
@@ -184,7 +205,7 @@ export class AvailabilityComponent {
         }
     }
 
-    private navigateToNewReservation() {
+    public navigateToNewReservation() {
         this.router.navigate(['/reservations/new'])
     }
 

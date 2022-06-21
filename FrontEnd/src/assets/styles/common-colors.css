@@ -30,7 +30,7 @@
     /* Timeout snackbar */
     --color-timeout-snackbar: #d94040;
     /* Active side-menu item */
-    --color-sidemenu-active-item: #dbaf10;
+    --color-sidemenu-active-item: #ff9800;
     /* Criteria (Top Right) & Totals (Bottom Left) */
     --color-criteria-a: #688783;
     --color-criteria-a-border: #698984;
@@ -47,7 +47,6 @@
     --color-background-saturday: #f29c6b;
     --color-background-sunday: #f26513;
     --color-background-today: #aacdab;
-    --color-today: #3d3b57;
     --color-background-weekday: #efefef;
     /* Theme menu */
     --color-sun: #f6ff00;

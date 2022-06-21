@@ -1113,15 +1113,6 @@
         ]
     },
     {
-        "feature": "calendar",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Dostupnost"
-            }
-        ]
-    },
-    {
         "feature": "scheduleCreateForm",
         "labels": [
             {
@@ -2230,6 +2221,19 @@
             {
                 "id": "criteria-date-range",
                 "description": "Kalendářní interval"
+            }
+        ]
+    },
+    {
+        "feature": "availability",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Dostupnost"
+            },
+            {
+                "id": "next-button",
+                "description": "DALŠÍ"
             }
         ]
     }

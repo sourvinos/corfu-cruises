@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter'
+import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar'
@@ -30,6 +31,7 @@ import { MatTabsModule } from '@angular/material/tabs'
         MatInputModule,
         MatMenuModule,
         MatMomentDateModule,
+        MatRadioModule,
         MatSelectModule,
         MatSlideToggleModule,
         MatSnackBarModule,

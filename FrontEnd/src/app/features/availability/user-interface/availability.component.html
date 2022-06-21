@@ -13,18 +13,28 @@
         <ol id="calendar">
             <div *ngFor="let weekDay of weekDays" class="weekday-name">{{ getWeekday(weekDay) }}</div>
             <li data-cy="days" class="days" [id]="days[day.value - 1].date" *ngFor="let day of monthSelect;let first = first" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
-                <div class="date-card" [ngClass]="{'has-date-schedule':hasDateSchedule(days[day.value - 1].date), 'is-today':isToday(days[day.value - 1])}">
+                <div [ngClass]="{ 'saturday':isSaturday(days[day.value - 1]), 'sunday':isSunday(days[day.value - 1]), 'is-today':isToday(days[day.value - 1]), 'has-schedule':hasSchedule(days[day.value - 1]) }" class="date-card">
                     <div class="day">{{ day?.value }}</div>
-                    <div class="destination" *ngFor="let destination of days[day.value - 1].destinations" (click)="onDoReservationTasks(days[day.value - 1].date, destination.id, destination.description)">
-                        <div class="destination-description">{{ destination.description }}</div>
-                        <div class="ports" *ngFor="let port of destination.ports">
-                            <div>{{ port.abbreviation }}</div>
-                            <div class="available-seats">{{ port.availableSeats }}</div>
-                        </div>
+                    <div class="destinations">
+                        <mat-radio-button *ngFor="let destination of days[day.value - 1].destinations" (click)="onDoReservationTasks(days[day.value - 1].date, destination.id, destination.description)" class="destination">
+                            <div class="destination-description">{{ destination.description }}</div>
+                            <div class="ports">
+                                <div class="port" *ngFor="let port of destination.ports">
+                                    <div class="port-description">{{ port.abbreviation }}</div>
+                                    <div class="port-available-seats">{{ port.availableSeats }}</div>
+                                </div>
+                            </div>
+                        </mat-radio-button>
                     </div>
                 </div>
             </li>
         </ol>
+    </div>
+
+    <div id="footer">
+        <div @slideFromRight class="button-group">
+            <button class="primary" id="next" [disabled]="!isDestinationSelected" mat-flat-button (click)="navigateToNewReservation()">{{ getLabel('next-button') }}</button>
+        </div>
     </div>
 
     <div *ngIf="isLoading">

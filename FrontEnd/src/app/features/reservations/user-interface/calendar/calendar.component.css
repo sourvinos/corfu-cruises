@@ -137,19 +137,15 @@
 
 .destination-description {
     color: var(--color-c);
-    font-size: var(--font-size-calendar-destination);
+    font-size: var(--font-size-calendar-content);
     font-weight: bold;
 }
 
 .destination-passenger-count {
     color: var(--color-c);
     font-family: monospace;
-    font-size: var(--font-size-calendar-ports);
+    font-size: var(--font-size-calendar-content);
     padding-left: 0.5rem;
-}
-
-.is-today .day, .is-today .destination .destination-description, .is-today .destination .destination-passenger-count {
-    color: var(--color-today);
 }
 
 #footer {
