@@ -22,7 +22,6 @@ label {
     cursor: pointer;
     display: flex;
     padding: 0.3125rem;
-    /* transition: all var(--delay) ease-in; */
 }
 
 label:hover {
