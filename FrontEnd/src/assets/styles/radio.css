@@ -1,9 +1,13 @@
-.mat-radio-outer-circle {
-    border-color: var(--color-c) !important;
+.mat-radio-inner-circle {
+    background-color: var(--color-c) !important;
 }
 
-.mat-radio-button.mat-accent .mat-radio-inner-circle {
-    background-color: var(--color-c);
+.mat-radio-outer-circle {
+    border: 1px solid var(--color-c) !important;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked {
+    border-width: 0.0625rem !important;
 }
 
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple {
@@ -11,5 +15,5 @@
 }
 
 .mat-radio-label-content {
-    width: 100% !important;
+    width: 100%;
 }
