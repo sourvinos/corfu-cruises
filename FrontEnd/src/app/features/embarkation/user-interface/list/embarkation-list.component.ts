@@ -199,7 +199,7 @@ export class EmbarkationListComponent {
     }
 
     public showNoPassengersEmoji(): string {
-        return this.emojiService.getEmoji('no-passengers')
+        return this.emojiService.getEmoji('null')
     }
 
     //#endregion

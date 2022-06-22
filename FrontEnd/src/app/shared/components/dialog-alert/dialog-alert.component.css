@@ -36,22 +36,6 @@ svg {
     stroke-dashoffset: -100;
 }
 
-p.success {
-    color: #73af55;
-}
-
-p.info {
-    color: blue;
-}
-
-p.warning {
-    color: #ffff0b;
-}
-
-p.error {
-    color: #d06079;
-}
-
 @-webkit-keyframes dash {
     0% {
         stroke-dashoffset: 1000;

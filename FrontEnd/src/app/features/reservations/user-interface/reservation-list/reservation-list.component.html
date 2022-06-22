@@ -3,7 +3,7 @@
     <div id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
-            <div *ngFor="let x of overbookedDestinations" class="overbookedDestinations">
+            <div *ngFor="let x of overbookedDestinations" class="overbooked-destinations">
                 <div class="description">{{ x.status == true ? getEmoji('error'): getEmoji('ok') }}</div>
                 <div class="label">{{ x.description }}</div>
             </div>
@@ -167,7 +167,7 @@
 </div>
 
 <ng-template #contextMenu>
-    <button mat-menu-item class="reverse bold" (click)="assignToDriver()"><span>{{ getLabel('assignToDriverButton') }}</span></button>
-    <button mat-menu-item class="reverse bold" (click)="assignToShip()"><span>{{ getLabel('assignToShipButton') }}</span></button>
-    <button mat-menu-item class="reverse bold" (click)="createPdf()"><span>{{ getLabel('createPdfButton') }}</span></button>
+    <button mat-menu-item class="reverse" (click)="assignToDriver()"><span>{{ getLabel('assignToDriverButton') }}</span></button>
+    <button mat-menu-item class="reverse" (click)="assignToShip()"><span>{{ getLabel('assignToShipButton') }}</span></button>
+    <button mat-menu-item class="reverse" (click)="createPdf()"><span>{{ getLabel('createPdfButton') }}</span></button>
 </ng-template>

@@ -93,3 +93,7 @@ button:not(:disabled) {
 .mat-button-toggle-label-content {
     line-height: 2.5rem !important;
 }
+
+.mat-icon {
+    color: var(--color-c);
+}

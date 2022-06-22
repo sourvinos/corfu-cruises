@@ -86,36 +86,6 @@
                                 "input": "src/assets/themes/dark.css",
                                 "bundleName": "dark",
                                 "inject": false
-                            },
-                            {
-                                "input": "src/assets/themes/blue.css",
-                                "bundleName": "blue",
-                                "inject": false
-                            },
-                            {
-                                "input": "src/assets/themes/gray.css",
-                                "bundleName": "gray",
-                                "inject": false
-                            },
-                            {
-                                "input": "src/assets/themes/green.css",
-                                "bundleName": "green",
-                                "inject": false
-                            },
-                            {
-                                "input": "src/assets/themes/olive.css",
-                                "bundleName": "olive",
-                                "inject": false
-                            },
-                            {
-                                "input": "src/assets/themes/orange.css",
-                                "bundleName": "orange",
-                                "inject": false
-                            },
-                            {
-                                "input": "src/assets/themes/red.css",
-                                "bundleName": "red",
-                                "inject": false
                             }
                         ],
                         "scripts": []
