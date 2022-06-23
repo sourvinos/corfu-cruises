@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -7,6 +8,8 @@ using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Identity;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -20,13 +23,15 @@ namespace API.Infrastructure.Auth {
         #region variables
 
         private readonly AppDbContext db;
+        private readonly IMapper mapper;
         private readonly TokenSettings settings;
         private readonly UserManager<UserExtended> userManager;
 
         #endregion
 
-        public AuthController(AppDbContext db, IOptions<TokenSettings> settings, UserManager<UserExtended> userManager) {
+        public AuthController(AppDbContext db, IMapper mapper, IOptions<TokenSettings> settings, UserManager<UserExtended> userManager) {
             this.db = db;
+            this.mapper = mapper;
             this.settings = settings.Value;
             this.userManager = userManager;
         }
@@ -55,6 +60,12 @@ namespace API.Infrastructure.Auth {
             return StatusCode(404, new {
                 response = ApiMessages.LogoutError()
             });
+        }
+
+        [HttpGet("[action]")]
+        [Authorize(Roles = "admin")]
+        public IEnumerable<TokenVM> GetConnectedUsers() {
+            return mapper.Map<IEnumerable<Token>, IEnumerable<TokenVM>>(db.Tokens.ToList()).Where(x => x.IsLoggedIn);
         }
 
         private async Task<IActionResult> GenerateNewToken(TokenRequest model) {
@@ -104,7 +115,7 @@ namespace API.Infrastructure.Auth {
                     new Claim(ClaimTypes.Role, roles.FirstOrDefault()),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                    new Claim("LoggedOn", DateTime.Now.ToString()),
+                    new Claim("LoggedOn", DateTime.UtcNow.ToString())
                     }),
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature),
                 Issuer = settings.Site,
@@ -113,13 +124,14 @@ namespace API.Infrastructure.Auth {
             };
             var newtoken = tokenHandler.CreateToken(tokenDescriptor);
             var encodedToken = tokenHandler.WriteToken(newtoken);
-            return new TokenResponse() {
+            var response = new TokenResponse() {
                 UserId = user.Id,
                 Displayname = user.Displayname,
                 Token = encodedToken,
                 RefreshToken = refreshToken,
                 Expiration = newtoken.ValidTo,
             };
+            return response;
         }
 
         private async Task<IActionResult> RefreshToken(TokenRequest model) {
