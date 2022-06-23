@@ -167,9 +167,7 @@ export class ReservationFormComponent {
     }
 
     public doVoucherTasksOnServer(): void {
-        this.modalActionResultService.open(this.messageSnackbarService.featureNotAvailable(), 'error', ['ok']).subscribe(() => {
-            this.goBack()
-        })
+        this.modalActionResultService.open(this.messageSnackbarService.featureNotAvailable(), 'error', ['ok'])
     }
 
     public enableOrDisableAutoComplete(event: any) {

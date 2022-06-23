@@ -35,7 +35,6 @@ export class AvailabilityComponent {
     public isLoading: boolean
     public monthSelect: any[]
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    public isDestinationSelected = false
 
     // #endregion 
 
@@ -104,7 +103,7 @@ export class AvailabilityComponent {
 
     public onDoReservationTasks(date: string, destinationId: number, destinationDescription: string): void {
         this.storeCriteria(date, destinationId, destinationDescription)
-        this.isDestinationSelected = true
+        this.navigateToNewReservation()
     }
 
     //#endregion
@@ -206,7 +205,7 @@ export class AvailabilityComponent {
     }
 
     public navigateToNewReservation() {
-        this.router.navigate(['/reservations/new'])
+        setTimeout(() => { this.router.navigate(['/reservations/new']) }, 500)
     }
 
     private storeCriteria(date: string, destinationId: number, destinationDescription: string): void {
