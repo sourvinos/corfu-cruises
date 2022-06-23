@@ -61,6 +61,19 @@ export class AvailabilityComponent {
 
     //#region public methods
 
+    public changeMonth(month: number): void {
+        this.navigateToMonth(month)
+        this.getAvailabilityForMonth().then(() => {
+            this.updateCalendar()
+            this.fixCalendarHeight()
+        })
+    }
+
+    public doReservationTasks(date: string, destinationId: number, destinationDescription: string): void {
+        this.storeCriteria(date, destinationId, destinationDescription)
+        this.navigateToNewReservation()
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -77,33 +90,16 @@ export class AvailabilityComponent {
         return this.daysWithSchedule.find(x => x.date == day.date)
     }
 
-    public isToday(day: any): boolean {
-        return day.date == new Date().toISOString().substring(0, 10)
-    }
-
     public isSaturday(day: any): boolean {
-        const isSaturday = new Date(day.date).getDay()
-        if (isSaturday == 6)
-            return true
+        return new Date(day.date).getDay() == 6
     }
 
     public isSunday(day: any): boolean {
-        const isSunday = new Date(day.date).getDay()
-        if (isSunday == 0)
-            return true
+        return new Date(day.date).getDay() == 0
     }
 
-    public onChangeMonth(month: number): void {
-        this.navigateToMonth(month)
-        this.getAvailabilityForMonth().then(() => {
-            this.updateCalendar()
-            this.fixCalendarHeight()
-        })
-    }
-
-    public onDoReservationTasks(date: string, destinationId: number, destinationDescription: string): void {
-        this.storeCriteria(date, destinationId, destinationDescription)
-        this.navigateToNewReservation()
+    public isToday(day: any): boolean {
+        return day.date == new Date().toISOString().substring(0, 10)
     }
 
     //#endregion

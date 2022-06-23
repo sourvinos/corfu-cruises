@@ -3,9 +3,9 @@
     <div id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div @slideFromRight id="month-selector">
-            <span class="material-icons month-arrows" (click)="onChangeMonth(-1)">chevron_left</span>
+            <span class="material-icons month-arrows" (click)="changeMonth(-1)">chevron_left</span>
             <h1 id="month-and-year">{{ getMonthAndYear() }}</h1>
-            <span class="material-icons month-arrows" (click)="onChangeMonth(1)">chevron_right</span>
+            <span class="material-icons month-arrows" (click)="changeMonth(1)">chevron_right</span>
         </div>
     </div>
 
@@ -16,7 +16,7 @@
                 <div [ngClass]="{ 'saturday':isSaturday(days[day.value - 1]), 'sunday':isSunday(days[day.value - 1]), 'is-today':isToday(days[day.value - 1]), 'has-schedule':hasSchedule(days[day.value - 1]) }" class="date-card">
                     <div class="day">{{ day?.value }}</div>
                     <div class="destinations">
-                        <mat-radio-button *ngFor="let destination of days[day.value - 1].destinations" (click)="onDoReservationTasks(days[day.value - 1].date, destination.id, destination.description)" class="destination">
+                        <mat-radio-button *ngFor="let destination of days[day.value - 1].destinations" (click)="doReservationTasks(days[day.value - 1].date, destination.id, destination.description)" class="destination">
                             <div class="destination-description">{{ destination.description }}</div>
                             <div class="ports">
                                 <div class="port" *ngFor="let port of destination.ports">
