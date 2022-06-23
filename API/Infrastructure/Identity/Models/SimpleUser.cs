@@ -1,4 +1,4 @@
-namespace API.Infrastructure.Identity.Models {
+namespace API.Infrastructure.Identity {
 
     public class SimpleUser {
 

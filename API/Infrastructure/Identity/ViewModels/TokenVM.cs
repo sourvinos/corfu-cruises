@@ -1,6 +1,6 @@
 using System;
 
-namespace API.Infrastructure.Auth {
+namespace API.Infrastructure.Identity {
 
     public class TokenVM {
 

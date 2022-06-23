@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -8,8 +7,6 @@ using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Identity;
-using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -23,15 +20,14 @@ namespace API.Infrastructure.Auth {
         #region variables
 
         private readonly AppDbContext db;
-        private readonly IMapper mapper;
         private readonly TokenSettings settings;
         private readonly UserManager<UserExtended> userManager;
 
         #endregion
 
-        public AuthController(AppDbContext db, IMapper mapper, IOptions<TokenSettings> settings, UserManager<UserExtended> userManager) {
+        public AuthController(AppDbContext db, IOptions<TokenSettings> settings, UserManager<UserExtended> userManager) {
             this.db = db;
-            this.mapper = mapper;
+
             this.settings = settings.Value;
             this.userManager = userManager;
         }
@@ -60,12 +56,6 @@ namespace API.Infrastructure.Auth {
             return StatusCode(404, new {
                 response = ApiMessages.LogoutError()
             });
-        }
-
-        [HttpGet("[action]")]
-        [Authorize(Roles = "admin")]
-        public IEnumerable<TokenVM> GetConnectedUsers() {
-            return mapper.Map<IEnumerable<Token>, IEnumerable<TokenVM>>(db.Tokens.ToList()).Where(x => x.IsLoggedIn);
         }
 
         private async Task<IActionResult> GenerateNewToken(TokenRequest model) {

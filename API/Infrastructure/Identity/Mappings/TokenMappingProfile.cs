@@ -1,7 +1,8 @@
 using System;
+using API.Infrastructure.Auth;
 using AutoMapper;
 
-namespace API.Infrastructure.Auth {
+namespace API.Infrastructure.Identity {
 
     public class TokenMappingProfile : Profile {
 
