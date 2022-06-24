@@ -454,6 +454,10 @@
             {
                 "id": "newButton",
                 "description": "ΝΕΟΣ"
+            },
+            {
+                "id": "showConnectedUsers",
+                "description": "ΣΥΝΔΕΔΕΜΕΝΟΙ ΧΡΗΣΤΕΣ"
             }
         ]
     },
@@ -2234,6 +2238,31 @@
             {
                 "id": "next-button",
                 "description": "ΣΥΝΕΧΕΙΑ"
+            }
+        ]
+    },
+    {
+        "feature": "connectedUserList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Συνδεδεμένοι χρήστες"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "headerId",
+                "description": "Id"
+            },
+            {
+                "id": "headerCreatedDate",
+                "description": "Σύνδεση"
+            },
+            {
+                "id": "headerExpiryDate",
+                "description": "Αυτόματη αποσύνδεση"
             }
         ]
     }

@@ -11,6 +11,9 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { DialogService } from 'src/app/shared/services/dialog.service'
+import { MatDialog } from '@angular/material/dialog'
+import { ListConnectedUsersComponent } from '../list-connected/list-connected-users.component'
 
 @Component({
     selector: 'user-list',
@@ -33,7 +36,7 @@ export class UserListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(public dialog: MatDialog, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -62,6 +65,10 @@ export class UserListComponent {
 
     public onNewRecord(): void {
         this.router.navigate([this.url + '/new'], { queryParams: { returnUrl: this.url } })
+    }
+
+    public showConnectedUsers(): void {
+        this.dialog.open(ListConnectedUsersComponent, {})
     }
 
     //#endregion

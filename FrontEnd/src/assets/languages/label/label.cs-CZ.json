@@ -454,6 +454,10 @@
             {
                 "id": "newButton",
                 "description": "NOVÝ"
+            },
+            {
+                "id": "showConnectedUsers",
+                "description": "PŘIPOJENÝCH UŽIVATELŮ"
             }
         ]
     },
@@ -2234,6 +2238,31 @@
             {
                 "id": "next-button",
                 "description": "POKRAČOVAT"
+            }
+        ]
+    },
+    {
+        "feature": "connectedUserList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Připojení uživatelé"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "headerId",
+                "description": "Id"
+            },
+            {
+                "id": "headerCreatedDate",
+                "description": "Přihlásit se"
+            },
+            {
+                "id": "headerExpiryDate",
+                "description": "Auto odhlášení"
             }
         ]
     }

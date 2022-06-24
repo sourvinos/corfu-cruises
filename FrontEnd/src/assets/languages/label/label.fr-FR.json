@@ -454,6 +454,10 @@
             {
                 "id": "newButton",
                 "description": "NOUVEL"
+            },
+            {
+                "id": "showConnectedUsers",
+                "description": "UTILISATEURS CONNECTÉS"
             }
         ]
     },
@@ -2234,6 +2238,31 @@
             {
                 "id": "next-button",
                 "description": "CONTINUER"
+            }
+        ]
+    },
+    {
+        "feature": "connectedUserList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Utilisateurs connectés"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "headerId",
+                "description": "Id"
+            },
+            {
+                "id": "headerCreatedDate",
+                "description": "Connexion"
+            },
+            {
+                "id": "headerExpiryDate",
+                "description": "Déconnexion auto"
             }
         ]
     }

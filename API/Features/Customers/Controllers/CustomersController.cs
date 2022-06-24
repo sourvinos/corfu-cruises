@@ -3,10 +3,12 @@ using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.SignalR;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace API.Features.Customers {
 
@@ -17,12 +19,15 @@ namespace API.Features.Customers {
 
         private readonly ICustomerRepository repo;
         private readonly IHttpContextAccessor httpContext;
+        private readonly IHubContext<AnnouncementHub> hubContext;
         private readonly IMapper mapper;
+
 
         #endregion
 
-        public CustomersController(ICustomerRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
+        public CustomersController(ICustomerRepository repo, IHttpContextAccessor httpContext, IHubContext<AnnouncementHub> hubContext, IMapper mapper) {
             this.httpContext = httpContext;
+            this.hubContext = hubContext;
             this.mapper = mapper;
             this.repo = repo;
         }
@@ -60,6 +65,7 @@ namespace API.Features.Customers {
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PutCustomerAsync([FromBody] CustomerWriteResource record) {
             repo.Update(mapper.Map<CustomerWriteResource, Customer>(await AttachUserIdToRecord(record)));
+            await hubContext.Clients.All.SendAsync("BroadcastMessage", record);
             return StatusCode(200, new {
                 response = ApiMessages.RecordUpdated()
             });

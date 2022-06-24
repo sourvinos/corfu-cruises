@@ -454,6 +454,10 @@
             {
                 "id": "newButton",
                 "description": "NEW"
+            },
+            {
+                "id": "showConnectedUsers",
+                "description": "CONNECTED USERS"
             }
         ]
     },
@@ -2234,6 +2238,31 @@
             {
                 "id": "next-button",
                 "description": "CONTINUE"
+            }
+        ]
+    },
+    {
+        "feature": "connectedUserList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Connected users"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "headerId",
+                "description": "Id"
+            },
+            {
+                "id": "headerCreatedDate",
+                "description": "Login"
+            },
+            {
+                "id": "headerExpiryDate",
+                "description": "Auto logout"
             }
         ]
     }

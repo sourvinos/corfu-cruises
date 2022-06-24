@@ -8,7 +8,7 @@
         <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="min-width: 12%; max-width: 12%;" pSortableColumn="isAdmin">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th style="min-width: 12%; max-width: 12%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
                     <th style="min-width: 12%; max-width: 12%;" pSortableColumn="isAdmin">{{ getLabel("headerIsAdmin") }}<p-sortIcon field="isAdmin"></p-sortIcon></th>
                     <th style="min-width: 30%; max-width: 30%;" pSortableColumn="userName">{{ getLabel("headerUsername") }}<p-sortIcon field="userName"></p-sortIcon></th>
                     <th style="min-width: 20%; max-width: 20%;" pSortableColumn="displayname">{{ getLabel("headerDisplayname") }}<p-sortIcon field="displayname"></p-sortIcon></th>
@@ -42,6 +42,7 @@
 
     <div id="footer">
         <div @slideFromRight class="button-group">
+            <button mat-flat-button class="secondary" (click)="showConnectedUsers()">{{ getLabel('showConnectedUsers') }}</button>
             <button data-cy="new" mat-flat-button class="primary" id="new" (click)="onNewRecord()">{{ getLabel("newButton") }}</button>
         </div>
     </div>
