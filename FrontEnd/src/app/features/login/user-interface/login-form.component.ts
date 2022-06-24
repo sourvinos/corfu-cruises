@@ -93,7 +93,7 @@ export class LoginFormComponent {
                 this.startIdleTimer()
                 this.populateStorageFromAPI()
                 this.doSideMenuTogglerTasks()
-                this.hubService.startConnection()
+                this.openSignalRConnection()
             },
             error: (errorFromInterceptor) => {
                 this.showError(errorFromInterceptor)
@@ -154,6 +154,10 @@ export class LoginFormComponent {
             password: [environment.login.password, Validators.required],
             isHuman: [environment.login.isHuman, Validators.requiredTrue]
         })
+    }
+
+    private openSignalRConnection(): void {
+        this.hubService.openConnection()
     }
 
     private populateStorageFromAPI(): void {

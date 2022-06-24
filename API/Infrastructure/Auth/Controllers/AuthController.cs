@@ -27,7 +27,6 @@ namespace API.Infrastructure.Auth {
 
         public AuthController(AppDbContext db, IOptions<TokenSettings> settings, UserManager<UserExtended> userManager) {
             this.db = db;
-
             this.settings = settings.Value;
             this.userManager = userManager;
         }

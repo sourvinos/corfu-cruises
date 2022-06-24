@@ -1,27 +1,33 @@
-import { Injectable } from '@angular/core'
 import * as signalR from '@microsoft/signalr'
+import { Injectable } from '@angular/core'
+// Custom
+import { InteractionService } from './interaction.service'
+import { environment } from './../../../environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
 export class HubService {
 
+    constructor(private interactionService: InteractionService) { }
+
     private connection = new signalR.HubConnectionBuilder()
-        .withUrl('https://localhost:5001/customers')
+        .withUrl(environment.url + '/auth')
         .build()
 
-    public startConnection(): void {
+    public openConnection(): void {
         this.connection.start()
-        this.connection.on('BroadcastMessage', (data: any) => {
-            console.log('OK: ', data)
+        this.connection.on('BroadcastMessage', (connectedUserCount: any) => {
+            this.interactionService.ConnectedUserCount(connectedUserCount)
+            console.log('OK: ', connectedUserCount)
         })
     }
 
     public closeConnection(): void {
         this.connection.stop()
-    }
-
-    public SendData(message: string): void {
-        this.connection.invoke('BroadcastData', message)
+        this.connection.on('BroadcastMessage', (connectedUserCount: any) => {
+            this.interactionService.ConnectedUserCount(connectedUserCount)
+            console.log('OK: ', connectedUserCount)
+        })
     }
 
 }

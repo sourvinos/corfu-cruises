@@ -2,6 +2,7 @@
 
 export const environment = {
     apiUrl: 'https://localhost:5001/api',
+    url: 'https://localhost:5001',
     appName: 'CORFU CRUISES',
     clientUrl: 'https://localhost:4200',
     defaultLanguage: 'en-GB',

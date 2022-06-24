@@ -86,7 +86,7 @@ export class AccountService extends HttpDataService {
         this.clearStoredVariables()
         this.refreshMenus()
         this.navigateToLogin()
-        this.hubService.closeConnection()
+        this.closeSignalRConnection()
     }
 
     public register(formData: any): Observable<any> {
@@ -124,6 +124,10 @@ export class AccountService extends HttpDataService {
             { 'item': 'embarkation-criteria', 'when': 'production' },
             { 'item': 'invoicing-criteria', 'when': 'production' },
         ])
+    }
+
+    private closeSignalRConnection(): void {
+        this.hubService.closeConnection()
     }
 
     private navigateToLogin(): void {

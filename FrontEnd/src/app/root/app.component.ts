@@ -31,7 +31,6 @@ export class AppComponent {
 
     constructor(private hubService: HubService, private accountService: AccountService, private cd: ChangeDetectorRef, private emojiService: EmojiService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private messageSnackbarService: MessageSnackbarService, private router: Router) {
         this.initIdleService()
-        // this.hubService.startConnection()
         this.router.events.subscribe((routerEvent) => {
             if (routerEvent instanceof NavigationStart) {
                 this.isLoading = true

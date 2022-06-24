@@ -99,7 +99,7 @@ namespace API {
             Configure(app);
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
-                endpoints.MapHub<AnnouncementHub>("/customers");
+                endpoints.MapHub<ConnectedUserHub>("/auth");
             });
         }
 

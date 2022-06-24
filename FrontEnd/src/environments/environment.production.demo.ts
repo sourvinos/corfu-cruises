@@ -2,6 +2,7 @@
 
 export const environment = {
     apiUrl: 'http://timezones-001-site1.ftempurl.com/api',
+    url: 'http://timezones-001-site1.ftempurl.com',
     appName: 'CORFU CRUISES DEMO',
     clientUrl: 'http://timezones-001-site1.ftempurl.com',
     defaultLanguage: 'en-GB',
