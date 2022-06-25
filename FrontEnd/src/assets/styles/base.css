@@ -94,6 +94,7 @@ p.instructions {
 }
 
 ::-webkit-scrollbar {
+    height: 5px;
     width: 3px;
 }
 
