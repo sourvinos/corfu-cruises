@@ -199,8 +199,8 @@
                 "message": "Shall we delete this record?"
             },
             {
-                "id": "timeoutWarning",
-                "message": "I think the user is doing something else! Logout in xx."
+                "id": "userDisconnected",
+                "message": "You have been inactive for too long and we have disconnected you, in order to save resources."
             }
         ]
     }

@@ -7,6 +7,7 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { AccountService } from '../../../shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { ConnectedUserHubService } from 'src/app/shared/services/connected-user-hub.service'
 import { CustomerService } from '../../customers/classes/services/customer.service'
 import { DestinationService } from '../../destinations/classes/services/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
@@ -26,7 +27,6 @@ import { PortService } from '../../ports/classes/services/port.service'
 import { ShipService } from '../../ships/classes/services/ship.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { ConnectedUserHubService } from 'src/app/shared/services/connected-user-hub.service'
 
 @Component({
     selector: 'login-form',
@@ -47,14 +47,13 @@ export class LoginFormComponent {
     public input: InputTabStopDirective
     public parentUrl = null
 
-    public countdown = 0
     public hidePassword = true
     public idleState = 'NOT_STARTED'
     public isLoading = new Subject<boolean>()
 
     //#endregion
 
-    constructor(private hubService: ConnectedUserHubService, private accountService: AccountService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private titleService: Title) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private connectedUserhubService: ConnectedUserHubService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -128,13 +127,14 @@ export class LoginFormComponent {
         this.localStorageService.deleteItems([
             { 'item': 'date', 'when': 'always' },
             { 'item': 'displayname', 'when': 'always' },
+            { 'item': 'embarkation-criteria', 'when': 'production' },
             { 'item': 'expiration', 'when': 'always' },
+            { 'item': 'invocing-criteria', 'when': 'production' },
             { 'item': 'jwt', 'when': 'always' },
             { 'item': 'loginStatus', 'when': 'always' },
+            { 'item': 'manifest-criteria', 'when': 'production' },
             { 'item': 'refreshToken', 'when': 'always' },
-            { 'item': 'refNo', 'when': 'always' },
             { 'item': 'returnUrl', 'when': 'always' },
-            { 'item': 'embarkation-criteria', 'when': 'production' },
         ])
     }
 
@@ -157,7 +157,7 @@ export class LoginFormComponent {
     }
 
     private openSignalRConnection(): void {
-        this.hubService.openConnection()
+        this.connectedUserhubService.openConnection()
     }
 
     private populateStorageFromAPI(): void {
@@ -189,7 +189,6 @@ export class LoginFormComponent {
     private startIdleTimer(): void {
         this.idle.watch()
         this.idleState = 'NOT_IDLE'
-        this.countdown = 0
     }
 
     //#endregion

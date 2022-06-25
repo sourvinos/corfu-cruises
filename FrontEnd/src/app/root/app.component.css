@@ -50,23 +50,6 @@
     animation: running-progress 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-#timeout-warning {
-    background-color: var(--color-timeout-snackbar);
-    border-radius: 0 0.3125rem 0.3125rem 0;
-    bottom: calc(var(--gap) * 2);
-    box-shadow: 5px 5px 10px -5px #000000;
-    color: var(--color-button-text);
-    font-family: var(--font-family-handbook);
-    font-size: 1.25rem;
-    padding: 0.625rem 1rem 0.625rem 1rem;
-    position: absolute;
-    transition: width var(--delay) ease-in;
-}
-
-#timeout-warning::after {
-    content: "";
-}
-
 @keyframes running-progress {
     0% {
         margin-left: 0;

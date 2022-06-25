@@ -3,14 +3,12 @@ import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router'
 // Custom
 import { AccountService } from '../shared/services/account.service'
-import { EmojiService } from '../shared/services/emoji.service'
 import { HelperService } from '../shared/services/helper.service'
 import { InteractionService } from '../shared/services/interaction.service'
 import { MessageSnackbarService } from '../shared/services/messages-snackbar.service'
-import { Observable } from 'rxjs'
+import { ModalActionResultService } from '../shared/services/modal-action-result.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft } from '../shared/animations/animations'
-import { ConnectedUserHubService } from '../shared/services/connected-user-hub.service'
 
 @Component({
     selector: 'root',
@@ -24,12 +22,10 @@ export class AppComponent {
     //#region variables
 
     public isLoading = true
-    public countdown = 0
-    public loginStatus: Observable<boolean>
 
     //#endregion
 
-    constructor(private hubService: ConnectedUserHubService, private accountService: AccountService, private cd: ChangeDetectorRef, private emojiService: EmojiService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private messageSnackbarService: MessageSnackbarService, private router: Router) {
+    constructor(private accountService: AccountService, private cd: ChangeDetectorRef, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
         this.initIdleService()
         this.router.events.subscribe((routerEvent) => {
             if (routerEvent instanceof NavigationStart) {
@@ -49,37 +45,28 @@ export class AppComponent {
 
     //#endregion
 
-    //#region public methods
-
-    public getEmoji(): string {
-        return this.emojiService.getEmoji('clock')
-    }
-
-    public getMessage(): string {
-        return this.messageSnackbarService.timeoutWarning(this.countdown) + '"'
-    }
-
-    //#endregion
-
     //#region private methods
 
     private initIdleService(): void {
-        this.idle.setIdle(environment.idleSettings.idle)
-        this.idle.setTimeout(environment.idleSettings.timeout)
+        this.interactionService.isAdmin.subscribe((response) => {
+            if (response) {
+                this.idle.setIdle(environment.idleSettings.admins.idle)
+                this.idle.setTimeout(environment.idleSettings.admins.timeout)
+            } else {
+                this.idle.setIdle(environment.idleSettings.simpleUsers.idle)
+                this.idle.setTimeout(environment.idleSettings.simpleUsers.timeout)
+            }
+        })
         this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES)
         this.idle.watch()
         this.idle.onIdleEnd.subscribe(() => {
-            this.countdown = 0
             this.cd.detectChanges()
         })
-        this.idle.onTimeoutWarning.subscribe(seconds => {
-            this.countdown = seconds
-        })
         this.idle.onTimeout.subscribe(() => {
-            this.countdown = 0
             this.helperService.hideSideMenuAndRestoreScale()
             this.interactionService.SideMenuIsClosed()
             this.accountService.logout()
+            this.modalActionResultService.open(this.messageSnackbarService.userDisconnected(), 'info', ['ok'])
         })
     }
 

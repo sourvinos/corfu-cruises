@@ -199,8 +199,8 @@
                 "message": "Devons-nous supprimer cette entrée?"
             },
             {
-                "id": "timeoutWarning",
-                "message": "Je pense que l'utilisateur fait quelque chose d'autre! Déconnexion dans xx."
+                "id": "userDisconnected",
+                "message": "Vous avez été inactif pendant trop longtemps et nous vous avons déconnecté, afin d'économiser des ressources."
             }
         ]
     }

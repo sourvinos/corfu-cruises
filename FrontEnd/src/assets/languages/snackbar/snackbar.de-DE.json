@@ -199,8 +199,8 @@
                 "message": "Sollen wir diesen Eintrag löschen?"
             },
             {
-                "id": "timeoutWarning",
-                "message": "Ich glaube, der Benutzer macht etwas anderes! Abmeldung in xx."
+                "id": "userDisconnected",
+                "message": "Sie waren zu lange inaktiv und wir haben Ihre Verbindung getrennt, um Ressourcen zu sparen."
             }
         ]
     }

@@ -199,8 +199,8 @@
                 "message": "Máme tento záznam smazat?"
             },
             {
-                "id": "timeoutWarning",
-                "message": "Myslím, že uživatel dělá něco jiného! Odhlášení za xx."
+                "id": "userDisconnected",
+                "message": "Byli jste příliš dlouho neaktivní, a proto jsme vás odpojili, abychom ušetřili zdroje."
             }
         ]
     }

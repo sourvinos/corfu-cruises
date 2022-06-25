@@ -96,7 +96,7 @@ svg {
     font-weight: var(--font-weight-dialog-content) !important;
     height: 100%;
     justify-content: center;
-    margin: 1rem 3rem;
+    margin: 0 3rem;
     text-align: center;
 }
 

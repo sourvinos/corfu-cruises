@@ -71,7 +71,7 @@ export class MessageSnackbarService {
     public fileNotCreated(): string { return this.getDescription(this.feature, 'fileNotCreated') }
     public noContactWithServer(): string { return this.getDescription(this.feature, 'noContactWithServer') }
     public featureNotAvailable(): string { return this.getDescription(this.feature, 'featureNotAvailable') }
-    public timeoutWarning(countdown: number): string { return this.getDescription(this.feature, 'timeoutWarning', countdown) }
+    public userDisconnected(): string { return this.getDescription(this.feature, 'userDisconnected') }
     public success(): string { return this.getDescription(this.feature, 'success') }
     public warning(): string { return this.getDescription(this.feature, 'warning') }
 

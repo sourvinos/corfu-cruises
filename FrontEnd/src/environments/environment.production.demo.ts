@@ -13,8 +13,14 @@ export const environment = {
         lineC: '© Corfu Cruises 2022, Corfu - Greece'
     },
     idleSettings: {
-        idle: 300,
-        timeout: 60
+        admins: {
+            idle: 840,
+            timeout: 60
+        },
+        simpleUsers: {
+            idle: 60,
+            timeout: 60
+        }
     },
     menuIconDirectory: 'assets/images/menu/',
     isWideScreen: 1920,

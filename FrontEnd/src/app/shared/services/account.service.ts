@@ -4,12 +4,12 @@ import { Injectable, NgZone } from '@angular/core'
 import { Router } from '@angular/router'
 import { map } from 'rxjs/operators'
 // Custom
+import { ConnectedUserHubService } from './connected-user-hub.service'
 import { HttpDataService } from './http-data.service'
 import { InteractionService } from './interaction.service'
 import { LocalStorageService } from './local-storage.service'
 import { ResetPasswordViewModel } from 'src/app/features/users/classes/view-models/reset-password-view-model'
 import { environment } from 'src/environments/environment'
-import { ConnectedUserHubService } from './connected-user-hub.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -29,7 +29,7 @@ export class AccountService extends HttpDataService {
 
     //#endregion
 
-    constructor(private hubService: ConnectedUserHubService, private localStorageService: LocalStorageService, private interactionService: InteractionService, httpClient: HttpClient, private router: Router, private ngZone: NgZone) {
+    constructor(httpClient: HttpClient, private hubService: ConnectedUserHubService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private ngZone: NgZone, private router: Router) {
         super(httpClient, environment.apiUrl)
     }
 
