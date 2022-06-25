@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace API.Infrastructure.SignalR {
+namespace API.Infrastructure.Notifications {
 
     public static class ConnectedUser {
 

@@ -9,7 +9,7 @@ import { InteractionService } from './interaction.service'
 import { LocalStorageService } from './local-storage.service'
 import { ResetPasswordViewModel } from 'src/app/features/users/classes/view-models/reset-password-view-model'
 import { environment } from 'src/environments/environment'
-import { HubService } from './hub.service'
+import { ConnectedUserHubService } from './connected-user-hub.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -29,7 +29,7 @@ export class AccountService extends HttpDataService {
 
     //#endregion
 
-    constructor(private hubService: HubService, private localStorageService: LocalStorageService, private interactionService: InteractionService, httpClient: HttpClient, private router: Router, private ngZone: NgZone) {
+    constructor(private hubService: ConnectedUserHubService, private localStorageService: LocalStorageService, private interactionService: InteractionService, httpClient: HttpClient, private router: Router, private ngZone: NgZone) {
         super(httpClient, environment.apiUrl)
     }
 

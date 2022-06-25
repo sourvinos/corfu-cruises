@@ -6,8 +6,8 @@ using API.Infrastructure.Email;
 using API.Infrastructure.Exceptions;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Identity;
+using API.Infrastructure.Notifications;
 using API.Infrastructure.SeedData;
-using API.Infrastructure.SignalR;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -115,6 +115,7 @@ namespace API {
             Configure(app);
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
+                endpoints.MapHub<ConnectedUserHub>("/auth");
             });
         }
 
@@ -123,6 +124,7 @@ namespace API {
             Configure(app);
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
+                endpoints.MapHub<ConnectedUserHub>("/auth");
             });
         }
 

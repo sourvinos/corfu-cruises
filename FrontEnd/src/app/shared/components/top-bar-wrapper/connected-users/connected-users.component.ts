@@ -2,7 +2,6 @@ import { Component } from '@angular/core'
 import { Observable, Subject, takeUntil } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { environment } from 'src/environments/environment'
@@ -18,12 +17,12 @@ export class ConnectedUsersComponent {
     //#region variables
 
     private unsubscribe = new Subject<void>()
-    public loginStatus: Observable<boolean>
     public connectedUserCount: number
+    public loginStatus: Observable<boolean>
 
     //#endregion
 
-    constructor(private accountService: AccountService, private helperService: HelperService, private localStorageService: LocalStorageService, private interactionService: InteractionService) { }
+    constructor(private accountService: AccountService, private interactionService: InteractionService, private localStorageService: LocalStorageService) { }
 
     //#region lifecycle hooks
 
@@ -35,9 +34,17 @@ export class ConnectedUsersComponent {
         this.updateVariables()
     }
 
+    //#endregion
+
+    //#region public methods
+
     public getIcon(filename: string): string {
         return environment.menuIconDirectory + filename + '-' + this.localStorageService.getItem('my-theme') + '.svg'
     }
+
+    //#endregion
+
+    //#region private methods
 
     private subscribeToInteractionService(): void {
         this.interactionService.connectedUserCount.pipe(takeUntil(this.unsubscribe)).subscribe((response) => {
@@ -48,5 +55,7 @@ export class ConnectedUsersComponent {
     private updateVariables(): void {
         this.loginStatus = this.accountService.isLoggedIn
     }
+
+    //#endregion
 
 }

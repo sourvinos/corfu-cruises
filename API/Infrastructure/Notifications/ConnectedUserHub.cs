@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
-namespace API.Infrastructure.SignalR {
+namespace API.Infrastructure.Notifications {
 
     public class ConnectedUserHub : Hub {
 

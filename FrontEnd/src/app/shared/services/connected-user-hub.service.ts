@@ -2,11 +2,11 @@ import * as signalR from '@microsoft/signalr'
 import { Injectable } from '@angular/core'
 // Custom
 import { InteractionService } from './interaction.service'
-import { environment } from './../../../environments/environment'
+import { environment } from '../../../environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
-export class HubService {
+export class ConnectedUserHubService {
 
     constructor(private interactionService: InteractionService) { }
 
@@ -17,16 +17,14 @@ export class HubService {
     public openConnection(): void {
         this.connection.start()
         this.connection.on('BroadcastMessage', (connectedUserCount: any) => {
-            this.interactionService.ConnectedUserCount(connectedUserCount)
-            console.log('OK: ', connectedUserCount)
+            this.interactionService.RefreshConnectedUserCount(connectedUserCount)
         })
     }
 
     public closeConnection(): void {
         this.connection.stop()
         this.connection.on('BroadcastMessage', (connectedUserCount: any) => {
-            this.interactionService.ConnectedUserCount(connectedUserCount)
-            console.log('OK: ', connectedUserCount)
+            this.interactionService.RefreshConnectedUserCount(connectedUserCount)
         })
     }
 

@@ -39,7 +39,7 @@ export class InteractionService {
         this._isAdmin.next(isAdmin)
     }
 
-    public ConnectedUserCount(count: number): void {
+    public RefreshConnectedUserCount(count: number): void {
         this._connectedUserCount.next(count)
     }
 

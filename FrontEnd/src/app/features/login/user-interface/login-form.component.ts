@@ -26,7 +26,7 @@ import { PortService } from '../../ports/classes/services/port.service'
 import { ShipService } from '../../ships/classes/services/ship.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { HubService } from 'src/app/shared/services/hub.service'
+import { ConnectedUserHubService } from 'src/app/shared/services/connected-user-hub.service'
 
 @Component({
     selector: 'login-form',
@@ -54,7 +54,7 @@ export class LoginFormComponent {
 
     //#endregion
 
-    constructor(private hubService: HubService, private accountService: AccountService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private titleService: Title) { }
+    constructor(private hubService: ConnectedUserHubService, private accountService: AccountService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
