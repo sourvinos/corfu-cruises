@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading.Tasks;
 using API.Infrastructure.Email;
 using API.Infrastructure.Helpers;
-using API.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

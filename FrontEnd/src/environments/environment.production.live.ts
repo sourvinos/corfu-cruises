@@ -2,6 +2,7 @@
 
 export const environment = {
     apiUrl: 'https://appcorfucruises.com/api',
+    url: 'https://appcorfucruises.com',
     appName: 'CORFU CRUISES',
     clientUrl: 'https://appcorfucruises.com',
     defaultLanguage: 'en-GB',

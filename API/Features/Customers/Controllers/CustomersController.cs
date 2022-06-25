@@ -19,6 +19,7 @@ namespace API.Features.Customers {
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
 
+
         #endregion
 
         public CustomersController(ICustomerRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
@@ -60,6 +61,7 @@ namespace API.Features.Customers {
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PutCustomerAsync([FromBody] CustomerWriteResource record) {
             repo.Update(mapper.Map<CustomerWriteResource, Customer>(await AttachUserIdToRecord(record)));
+            // SendNotificationsToClients();
             return StatusCode(200, new {
                 response = ApiMessages.RecordUpdated()
             });
@@ -79,6 +81,7 @@ namespace API.Features.Customers {
             record.UserId = user.UserId;
             return record;
         }
+
 
     }
 

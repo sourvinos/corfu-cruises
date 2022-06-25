@@ -10,6 +10,7 @@ import { MessageSnackbarService } from '../shared/services/messages-snackbar.ser
 import { Observable } from 'rxjs'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft } from '../shared/animations/animations'
+import { ConnectedUserHubService } from '../shared/services/connected-user-hub.service'
 
 @Component({
     selector: 'root',
@@ -28,7 +29,7 @@ export class AppComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private cd: ChangeDetectorRef, private emojiService: EmojiService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private messageSnackbarService: MessageSnackbarService, private router: Router) {
+    constructor(private hubService: ConnectedUserHubService, private accountService: AccountService, private cd: ChangeDetectorRef, private emojiService: EmojiService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private messageSnackbarService: MessageSnackbarService, private router: Router) {
         this.initIdleService()
         this.router.events.subscribe((routerEvent) => {
             if (routerEvent instanceof NavigationStart) {

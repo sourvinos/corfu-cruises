@@ -4,7 +4,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Identity;
-using API.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;

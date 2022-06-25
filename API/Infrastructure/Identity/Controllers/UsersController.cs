@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Infrastructure.Auth;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Email;
 using API.Infrastructure.Helpers;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +18,17 @@ namespace API.Infrastructure.Identity {
 
         #region variables
 
+        private readonly AppDbContext dbContext;
         private readonly IEmailSender emailSender;
+        private readonly IMapper mapper;
         private readonly UserManager<UserExtended> userManager;
 
         #endregion
 
-        public UsersController(IEmailSender emailSender, UserManager<UserExtended> userManager) {
+        public UsersController(AppDbContext dbContext, IEmailSender emailSender, IMapper mapper, UserManager<UserExtended> userManager) {
+            this.dbContext = dbContext;
             this.emailSender = emailSender;
+            this.mapper = mapper;
             this.userManager = userManager;
         }
 
@@ -37,6 +43,12 @@ namespace API.Infrastructure.Identity {
                 IsAdmin = u.IsAdmin,
                 IsActive = u.IsActive
             }).OrderBy(o => o.UserName).AsNoTracking().ToListAsync();
+        }
+
+        [HttpGet("[action]")]
+        [Authorize(Roles = "admin")]
+        public IEnumerable<TokenVM> GetConnectedUsers() {
+            return mapper.Map<IEnumerable<Token>, IEnumerable<TokenVM>>(dbContext.Tokens.ToList()).Where(x => x.IsLoggedIn);
         }
 
         [HttpGet("{id}")]

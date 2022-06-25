@@ -6,6 +6,7 @@ using API.Infrastructure.Email;
 using API.Infrastructure.Exceptions;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Identity;
+using API.Infrastructure.Notifications;
 using API.Infrastructure.SeedData;
 using AutoMapper;
 using FluentValidation.AspNetCore;
@@ -72,6 +73,7 @@ namespace API {
             Authentication.AddAuthentication(Configuration, services);
             Interfaces.AddInterfaces(services);
             ModelValidations.AddModelValidation(services);
+            services.AddSignalR();
             services.AddTransient<ExceptionHandling>();
             services.Configure<RazorViewEngineOptions>(options => options.ViewLocationExpanders.Add(new ViewLocationExpander()));
             services.AddAntiforgery(options => { options.Cookie.Name = "_af"; options.Cookie.HttpOnly = true; options.Cookie.SecurePolicy = CookieSecurePolicy.Always; options.HeaderName = "X-XSRF-TOKEN"; });
@@ -95,7 +97,10 @@ namespace API {
         public void ConfigureLocalDevelopment(IApplicationBuilder app) {
             app.UseDeveloperExceptionPage();
             Configure(app);
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseEndpoints(endpoints => {
+                endpoints.MapControllers();
+                endpoints.MapHub<ConnectedUserHub>("/auth");
+            });
         }
 
         public void ConfigureLocalTesting(IApplicationBuilder app, RoleManager<IdentityRole> roleManager, UserManager<UserExtended> userManager, AppDbContext context) {
@@ -108,13 +113,19 @@ namespace API {
         public void ConfigureProductionLive(IApplicationBuilder app) {
             app.UseHsts();
             Configure(app);
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseEndpoints(endpoints => {
+                endpoints.MapControllers();
+                endpoints.MapHub<ConnectedUserHub>("/auth");
+            });
         }
 
         public void ConfigureProductionDemo(IApplicationBuilder app) {
             app.UseHsts();
             Configure(app);
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseEndpoints(endpoints => {
+                endpoints.MapControllers();
+                endpoints.MapHub<ConnectedUserHub>("/auth");
+            });
         }
 
         public virtual void Configure(IApplicationBuilder app) {

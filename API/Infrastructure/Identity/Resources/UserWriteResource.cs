@@ -1,5 +1,3 @@
-using API.Infrastructure.Classes;
-
 namespace API.Infrastructure.Identity {
 
     public class UserWriteResource {

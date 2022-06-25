@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Features.Invoicing;
 using API.Features.Schedules;
-using API.Infrastructure.Identity;
-using API.Infrastructure.Identity.Models;
 using API.Infrastructure.Interfaces;
 
 namespace API.Features.Reservations {

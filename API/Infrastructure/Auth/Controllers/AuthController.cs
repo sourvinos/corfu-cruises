@@ -104,7 +104,7 @@ namespace API.Infrastructure.Auth {
                     new Claim(ClaimTypes.Role, roles.FirstOrDefault()),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                    new Claim("LoggedOn", DateTime.Now.ToString()),
+                    new Claim("LoggedOn", DateTime.UtcNow.ToString())
                     }),
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature),
                 Issuer = settings.Site,
@@ -113,13 +113,14 @@ namespace API.Infrastructure.Auth {
             };
             var newtoken = tokenHandler.CreateToken(tokenDescriptor);
             var encodedToken = tokenHandler.WriteToken(newtoken);
-            return new TokenResponse() {
+            var response = new TokenResponse() {
                 UserId = user.Id,
                 Displayname = user.Displayname,
                 Token = encodedToken,
                 RefreshToken = refreshToken,
                 Expiration = newtoken.ValidTo,
             };
+            return response;
         }
 
         private async Task<IActionResult> RefreshToken(TokenRequest model) {

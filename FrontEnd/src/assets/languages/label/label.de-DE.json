@@ -454,6 +454,10 @@
             {
                 "id": "newButton",
                 "description": "NEUER"
+            },
+            {
+                "id": "showConnectedUsers",
+                "description": "ANGESCHLOSSENE BENUTZER"
             }
         ]
     },
@@ -2234,6 +2238,31 @@
             {
                 "id": "next-button",
                 "description": "WEITER"
+            }
+        ]
+    },
+    {
+        "feature": "connectedUserList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Angeschlossene Benutzer"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "headerId",
+                "description": "Id"
+            },
+            {
+                "id": "headerCreatedDate",
+                "description": "Anmeldung"
+            },
+            {
+                "id": "headerExpiryDate",
+                "description": "Automatisch abmelden"
             }
         ]
     }

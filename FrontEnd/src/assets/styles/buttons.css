@@ -17,10 +17,10 @@ button.primary {
 
 button.secondary {
     background-color: var(--color-b) !important;
-    color: var(--color-text) !important;
+    color: var(--color-c) !important;
 }
 
-button.primary:hover {
+button.primary:hover, button.secondary:hover {
     background-color: var(--color-button-background-primary-hover) !important;
 }
 
