@@ -3,13 +3,13 @@
     flex-direction: column;
     height: 100%;
     overflow: hidden;
-    padding: 0.5rem var(--gap) 0.5rem var(--gap);
+    padding: 0 1rem;
 }
 
 #header {
     align-items: center;
     display: flex;
-    margin: 0 var(--header-right-margin) var(--header-margin-bottom) 1rem !important;
+    margin: 0 0 var(--header-margin-bottom) 0 !important;
 }
 
 #header #navigation {
@@ -47,7 +47,7 @@
     align-items: center;
     display: flex;
     justify-content: flex-end;
-    margin: var(--gap) var(--footer-right-margin) var(--gap) auto;
+    padding: var(--gap) 0 var(--gap) 1rem;
 }
 
 #footer .button-group {

@@ -2,5 +2,5 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: var(--gap) var(--header-right-margin) var(--gap) 5rem;
+    padding: var(--gap) 1rem;
 }

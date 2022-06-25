@@ -3,7 +3,7 @@
     flex-direction: column;
     height: 100%;
     overflow: hidden;
-    padding: 0 var(--gap) 0 var(--gap);
+    padding: 0 1rem;
     width: 100%;
 }
 
@@ -24,7 +24,7 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    margin: var(--gap) var(--footer-right-margin) var(--gap) var(--gap);
+    padding: var(--gap) 0 var(--gap) 1rem;
 }
 
 #footer .button-group {
