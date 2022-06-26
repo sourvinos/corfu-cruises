@@ -13,3 +13,7 @@
 .overbooked-destinations * {
     color: var(--color-c) !important;
 }
+
+#footer {
+    padding: var(--gap) 2rem var(--gap) 1rem;
+}

@@ -2,5 +2,5 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: var(--gap) 1rem;
+    padding: var(--gap) 2rem;
 }

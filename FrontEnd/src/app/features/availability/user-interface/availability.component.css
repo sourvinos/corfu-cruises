@@ -15,9 +15,7 @@
 }
 
 #header {
-    display: flex;
     justify-content: space-between;
-    margin: 0 0 var(--gap) 1.5rem;
 }
 
 #month-selector {
