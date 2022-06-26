@@ -31,14 +31,15 @@ input:disabled {
     pointer-events: all !important;
 }
 
+input:-webkit-autofill, input:-webkit-autofill:focus {
+    font-size: var(--font-size-input) !important;
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+
 .mat-form-field {
     line-height: 132%;
     width: 100% !important;
     margin-top: var(--form-field-margin) !important;
-}
-
-input:-webkit-autofill, input:-webkit-autofill:focus, input:-webkit-autofill:active, input:-webkit-autofill:hover {
-    font-size: var(--font-size-input) !important;
 }
 
 .mat-form-field-infix {
