@@ -15,12 +15,12 @@ input::selection {
 }
 
 input.mat-input-element {
+    caret-color: var(--color-c) !important;
     margin-top: 5px !important;
 }
 
-input[type="text"], input[type="email"], input[type="number"], input[type="password"], input.mat-form-field-autofill-control {
+input[type="text"], input[type="email"], input[type="number"], input[type="password"], input:-webkit-autofill, input:-webkit-autofill:active {
     background-clip: content-box;
-    caret-color: var(--color-text);
     cursor: text !important;
     font-size: var(--font-size-input) !important;
     outline: none;
@@ -31,9 +31,9 @@ input:disabled {
     pointer-events: all !important;
 }
 
-input:-webkit-autofill, input:-webkit-autofill:focus {
-    font-size: var(--font-size-input) !important;
-    transition: background-color 600000s 0s, color 600000s 0s;
+input:-internal-autofill-previewed, input:-internal-autofill-selected {
+    -webkit-text-fill-color: var(--color-c) !important;
+    transition: background-color 5000s ease-in-out 0s !important;
 }
 
 .mat-form-field {
