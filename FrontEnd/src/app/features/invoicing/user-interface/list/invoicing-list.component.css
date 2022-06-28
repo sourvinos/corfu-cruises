@@ -1,3 +1,8 @@
+.customer-description {
+    color: var(--color-customer) !important;
+    transform: scale(1, 1.5);
+}
+
 .pivot {
     font-family: var(--font-family-ubuntu);
     width: max-content;
@@ -34,18 +39,6 @@
     padding: 4px 0 6px 0;
     text-align: center;
     width: 40px;
-}
-
-.icon-ok {
-    color: var(--color-has-transfer);
-}
-
-.icon-warning {
-    color: var(--color-warning);
-}
-
-.icon-error {
-    color: var(--color-has-no-transfer);
 }
 
 .port-panel {

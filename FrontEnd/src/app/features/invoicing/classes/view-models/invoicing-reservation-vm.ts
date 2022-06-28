@@ -1,21 +1,17 @@
-export class InvoicingReservationVM {
+export interface InvoicingReservationVM {
 
-    constructor(
-
-        public reservationId: string,
-        public destination: string,
-        public ship: string,
-        public port: string,
-        public ticketNo: string,
-        public adults: number,
-        public kids: number,
-        public free: number,
-        public totalPersons: number,
-        public embarkedPassengers: number,
-        public totalNoShow: number,
-        public remarks: string,
-        public hasTransfer: boolean
-
-    ) { }
+    reservationId: string,
+    destination: string,
+    ship: string,
+    port: string,
+    ticketNo: string,
+    adults: number,
+    kids: number,
+    free: number,
+    totalPersons: number,
+    embarkedPassengers: number,
+    totalNoShow: number,
+    remarks: string,
+    hasTransfer: boolean
 
 }

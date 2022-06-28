@@ -8,7 +8,7 @@ import 'src/assets/fonts/PFHandbookProThin.js'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
-import { TotalsVM } from '../view-models/totals-vm'
+import { TotalsVM } from '../view-models/simple-user-totals-vm'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })

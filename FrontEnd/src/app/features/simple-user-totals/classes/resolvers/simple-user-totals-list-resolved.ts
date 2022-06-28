@@ -1,4 +1,4 @@
-import { TotalsVM } from '../view-models/totals-vm'
+import { TotalsVM } from '../view-models/simple-user-totals-vm'
 
 export class TotalsListResolved {
 

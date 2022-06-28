@@ -1,13 +1,9 @@
-export class InvoicingTransferGroupVM {
+export interface InvoicingTransferGroupVM {
 
-    constructor(
-
-        public hasTransfer: boolean,
-        public adults: number,
-        public kids: number,
-        public free: number,
-        public totalPersons: number
-
-    ) { }
+    hasTransfer: boolean,
+    adults: number,
+    kids: number,
+    free: number,
+    totalPersons: number
 
 }

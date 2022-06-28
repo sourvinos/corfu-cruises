@@ -11,15 +11,15 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { TotalsCriteriaVM } from '../../classes/view-models/totals-criteria-vm'
-import { TotalsVM } from '../../classes/view-models/totals-vm'
-import { TotalsService } from '../../classes/services/totals.service'
-import { TotalsPDFService } from '../../classes/services/totals-pdf.service'
+import { TotalsCriteriaVM } from '../../classes/view-models/simple-user-totals-criteria-vm'
+import { TotalsVM } from '../../classes/view-models/simple-user-totals-vm'
+import { TotalsService } from '../../classes/services/simple-user-totals.service'
+import { TotalsPDFService } from '../../classes/services/simple-user-totals-pdf.service'
 
 @Component({
     selector: 'totals-list',
-    templateUrl: './totals-list.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './totals-list.component.css'],
+    templateUrl: './simple-user-totals-list.component.html',
+    styleUrls: ['../../../../../assets/styles/lists.css', './simple-user-totals-list.component.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 

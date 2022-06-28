@@ -6,15 +6,14 @@ import { Subject } from 'rxjs'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InvoicingCriteriaVM } from '../../classes/view-models/invoicing-criteria-vm'
+import { InvoicingPDFService } from '../../classes/services/invoicing-pdf.service'
 import { InvoicingVM } from '../../classes/view-models/invoicing-vm'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { InvoicingService } from '../../classes/services/invoicing.service'
-import { InvoicingPDFService } from '../../classes/services/invoicing-pdf.service'
 
 @Component({
     selector: 'invoicing-list',
@@ -35,13 +34,11 @@ export class InvoicingListComponent {
 
     public invoicingCriteria: InvoicingCriteriaVM
     public records: InvoicingVM[] = []
-    private customerRecords: any
-    public filteredRecords: InvoicingVM[] = []
     public isLoading = new Subject<boolean>()
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private invoicingService: InvoicingService, private invoicingPdfService: InvoicingPDFService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService,) { }
+    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private invoicingPdfService: InvoicingPDFService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -69,20 +66,12 @@ export class InvoicingListComponent {
     }
 
     public exportSingleCustomer(customerId: number): void {
-        const customer = this.records.find(x => x.customer.id == customerId)
-        this.invoicingPdfService.createPDF(customer)
-    }
-
-    public hasTransfer(value: any): boolean {
-        return value ? true : false
+        const customerRecords = this.records.find(x => x.customer.id == customerId)
+        this.invoicingPdfService.createPDF(customerRecords)
     }
 
     public formatDate(): string {
         return this.formatDateToLocale(this.invoicingCriteria.date, true)
-    }
-
-    public getEmoji(emoji: string): string {
-        return this.emojiService.getEmoji(emoji)
     }
 
     public getLabel(id: string): string {
@@ -101,18 +90,6 @@ export class InvoicingListComponent {
         }
     }
 
-    public showEmoji(passengerDifference: number): string {
-        if (passengerDifference > 0) {
-            return this.emojiService.getEmoji('warning')
-        }
-        if (passengerDifference == 0) {
-            return this.emojiService.getEmoji('ok')
-        }
-        if (passengerDifference < 0) {
-            return this.emojiService.getEmoji('error')
-        }
-    }
-
     //#endregion
 
     //#region private methods
@@ -125,7 +102,7 @@ export class InvoicingListComponent {
                 }
             }
         }, {
-            priority: 2,
+            priority: 0,
             inputs: true
         })
     }
@@ -144,8 +121,9 @@ export class InvoicingListComponent {
         if (listResolved.error === null) {
             this.records = Object.assign([], listResolved.result)
         } else {
-            this.goBack()
-            this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
+            this.modalActionResultService.open(this.messageSnackbarService.filterError(listResolved.error), 'error', ['ok']).subscribe(() => {
+                this.goBack()
+            })
         }
     }
 
@@ -159,10 +137,6 @@ export class InvoicingListComponent {
                 ship: criteria.ship
             }
         }
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     //#endregion

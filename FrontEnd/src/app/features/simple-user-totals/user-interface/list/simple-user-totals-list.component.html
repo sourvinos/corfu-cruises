@@ -32,9 +32,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-record>
-                    <tr>
-                        <td colspan="11">{{ record.customer.description }}</td>
-                    </tr>
+                    <tr><td colspan="11">{{ record.customer.description }}</td></tr>
                     <tr *ngFor="let x of record.reservations, let i = index">
                         <td style="min-width: 3%; max-width: 3%;"></td>
                         <td>{{ record.reservations[i].destination }}</td>
@@ -76,13 +74,13 @@
                                         <td class="number">{{ record.portGroup[i].hasTransferGroup[z].free }}</td>
                                         <td class="number">{{ record.portGroup[i].hasTransferGroup[z].totalPersons }}</td>
                                         <td class="number">{{ record.portGroup[i].hasTransferGroup[z].totalPassengers }}</td>
-                                        <td class="number">
+                                        <td class="number no-border">
                                             <span *ngIf="record.portGroup[i].hasTransferGroup[z].hasTransfer" class="icon-ok material-icons-outlined">directions_bus</span>
                                             <span *ngIf="!record.portGroup[i].hasTransferGroup[z].hasTransfer" class="icon-error material-icons-outlined">directions_bus</span>
                                         </td>
-                                        <td class="number" style="padding-bottom: 13px">
-                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].totalPersons == record.portGroup[i].hasTransferGroup[z].totalPassengers">{{ showEmoji(0) }}</span>
-                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].totalPersons != record.portGroup[i].hasTransferGroup[z].totalPassengers">{{ showEmoji(1) }}</span>
+                                        <td class="number no-border">
+                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].totalPersons == record.portGroup[i].hasTransferGroup[z].totalPassengers" class="icon-ok material-icons-outlined">report_problem</span>
+                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].totalPersons != record.portGroup[i].hasTransferGroup[z].totalPassengers" class="icon-warning material-icons-outlined">report_problem</span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -92,7 +90,7 @@
                                         <td class="number footer">{{ record.portGroup[i].free }}</td>
                                         <td class="number footer">{{ record.portGroup[i].totalPersons }}</td>
                                         <td class="number footer">{{ record.portGroup[i].totalPassengers }}</td>
-                                        <td class="number footer"></td>
+                                        <!-- <td class="number footer"></td> -->
                                     </tr>
                                 </tbody>
                             </table>

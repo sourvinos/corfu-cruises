@@ -1,14 +1,10 @@
-import { GenericResource } from './../resources/generic-resource'
+import { CustomerVM } from './customer-vm'
 
-export class InvoicingCriteriaVM {
+export interface InvoicingCriteriaVM {
 
-    constructor(
-
-        public date: string,
-        public customer: GenericResource,
-        public destination: string,
-        public ship: string
-
-    ) { }
+    date: string,
+    customer: CustomerVM,
+    destination: string,
+    ship: string
 
 }

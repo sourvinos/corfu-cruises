@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 // Custom
-import { InvoicingService } from '../services/invoicing.service'
 import { InvoicingListResolved } from './invoicing-list-resolved'
+import { InvoicingService } from '../services/invoicing.service'
 
 @Injectable({ providedIn: 'root' })
 

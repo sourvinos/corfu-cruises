@@ -45,8 +45,8 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-record>
                     <tr>
-                        <td colspan="11">{{ record.customer.description }}</td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: center;" class="clickable" (click)="exportSingleCustomer(record.customer.id)">PDF</td>
+                        <td class="customer-description" colspan="11">{{ record.customer.description }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: center;" class="clickable" (click)="exportSingleCustomer(record.customer.id)"><img src="/assets/images/tables/pdf.svg"></td>
                     </tr>
                     <tr *ngFor="let x of record.reservations, let i = index">
                         <td style="min-width: 3%; max-width: 3%;"></td>
@@ -58,13 +58,16 @@
                             <span *ngIf="record.reservations[i].hasTransfer" class="icon-ok material-icons-outlined">directions_bus</span>
                             <span *ngIf="!record.reservations[i].hasTransfer" class="icon-error material-icons-outlined">directions_bus</span>
                         </td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].adults }}</td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].kids }}</td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].free }}</td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].totalPersons }}</td>
-                        <td style="min-width: 3%; max-width: 3%; justify-content: right;">{{ record.reservations[i].embarkedPassengers }}</td>
-                        <td style="min-width: 2%; max-width: 2%; justify-content: right;">{{ record.reservations[i].totalPersons - record.reservations[i].embarkedPassengers }}</td>
-                        <td style="min-width: 2%; max-width: 2%;">{{ showEmoji(record.reservations[i].totalPersons - record.reservations[i].embarkedPassengers) }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: center;">{{ record.reservations[i].adults }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: center;">{{ record.reservations[i].kids }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: center;">{{ record.reservations[i].free }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: center;">{{ record.reservations[i].totalPersons }}</td>
+                        <td style="min-width: 3%; max-width: 3%; justify-content: center;">{{ record.reservations[i].embarkedPassengers }}</td>
+                        <td style="min-width: 2%; max-width: 2%; justify-content: center;">{{ record.reservations[i].totalPersons - record.reservations[i].embarkedPassengers }}</td>
+                        <td style="min-width: 2%; max-width: 2%;" class="material-icons-outlined">
+                            <span *ngIf="record.reservations[i].totalPersons - record.reservations[i].embarkedPassengers == 0" class="icon-ok material-icons-outlined">check_circle</span>
+                            <span *ngIf="record.reservations[i].totalPersons - record.reservations[i].embarkedPassengers != 0" class="icon-warning material-icons-outlined">report_problem</span>
+                        </td>
                         <td style="min-width: 21%; max-width: 21%;">{{ record.reservations[i].remarks }}</td>
                         <td style="min-width: 3%; max-width: 3%;"></td>
                     </tr>
@@ -89,13 +92,13 @@
                                         <td class="number">{{ record.portGroup[i].hasTransferGroup[z].free }}</td>
                                         <td class="number">{{ record.portGroup[i].hasTransferGroup[z].totalPersons }}</td>
                                         <td class="number">{{ record.portGroup[i].hasTransferGroup[z].totalPassengers }}</td>
-                                        <td class="number">
+                                        <td class="number no-border">
                                             <span *ngIf="record.portGroup[i].hasTransferGroup[z].hasTransfer" class="icon-ok material-icons-outlined">directions_bus</span>
                                             <span *ngIf="!record.portGroup[i].hasTransferGroup[z].hasTransfer" class="icon-error material-icons-outlined">directions_bus</span>
                                         </td>
-                                        <td class="number" style="padding-bottom: 13px">
-                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].totalPersons == record.portGroup[i].hasTransferGroup[z].totalPassengers">{{ showEmoji(0) }}</span>
-                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].totalPersons != record.portGroup[i].hasTransferGroup[z].totalPassengers">{{ showEmoji(1) }}</span>
+                                        <td class="number no-border">
+                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].totalPersons == record.portGroup[i].hasTransferGroup[z].totalPassengers" class="icon-ok material-icons-outlined">check_circle</span>
+                                            <span *ngIf="record.portGroup[i].hasTransferGroup[z].totalPersons != record.portGroup[i].hasTransferGroup[z].totalPassengers" class="icon-warning material-icons-outlined">report_problem</span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -105,7 +108,6 @@
                                         <td class="number footer">{{ record.portGroup[i].free }}</td>
                                         <td class="number footer">{{ record.portGroup[i].totalPersons }}</td>
                                         <td class="number footer">{{ record.portGroup[i].totalPassengers }}</td>
-                                        <td class="number footer"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -116,7 +118,7 @@
         </div>
         <div id="footer">
             <div @slideFromRight class="button-group">
-                <button data-cy="new" mat-flat-button class="primary" (click)="exportAllCustomers()">{{ getLabel("exportAllButton") }}</button>
+                <button mat-flat-button class="primary" (click)="exportAllCustomers()">{{ getLabel("exportAllButton") }}</button>
             </div>
         </div>
     </ng-container>

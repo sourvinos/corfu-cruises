@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 // Custom
 import { AuthGuardService } from 'src/app/shared/services/auth-guard.service'
-import { TotalsCriteriaComponent } from '../../user-interface/criteria/totals-criteria.component'
-import { TotalsListComponent } from '../../user-interface/list/totals-list.component'
-import { TotalsListResolver } from '../resolvers/totals-list.resolver'
+import { TotalsCriteriaComponent } from '../../user-interface/criteria/simple-user-totals-criteria.component'
+import { TotalsListComponent } from '../../user-interface/list/simple-user-totals-list.component'
+import { TotalsListResolver } from '../resolvers/simple-user-totals-list.resolver'
 
 const routes: Routes = [
     { path: '', component: TotalsCriteriaComponent, canActivate: [AuthGuardService] },

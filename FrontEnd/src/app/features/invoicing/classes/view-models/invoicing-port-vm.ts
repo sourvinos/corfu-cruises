@@ -1,30 +1,22 @@
-export class InvoicingPortVM {
+export interface InvoicingPortVM {
 
-    constructor(
-
-        public port: string,
-        public hasTransferGroup: HasTransferGroupVM[],
-        public adults: number,
-        public kids: number,
-        public free: number,
-        public totalPersons: number,
-        public totalPassengers: number
-
-    ) { }
+    port: string,
+    hasTransferGroup: HasTransferGroupVM[],
+    adults: number,
+    kids: number,
+    free: number,
+    totalPersons: number,
+    totalPassengers: number
 
 }
 
-export class HasTransferGroupVM {
+export interface HasTransferGroupVM {
 
-    constructor(
-
-        public hasTransfer: boolean,
-        public adults: number,
-        public kids: number,
-        public free: number,
-        public totalPersons: number,
-        public totalPassengers: number
-
-    ) { }
+    hasTransfer: boolean,
+    adults: number,
+    kids: number,
+    free: number,
+    totalPersons: number,
+    totalPassengers: number
 
 }

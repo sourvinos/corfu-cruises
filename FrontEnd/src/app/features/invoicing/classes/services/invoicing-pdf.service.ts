@@ -7,7 +7,6 @@ import 'src/assets/fonts/PFHandbookProThin.js'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InvoicingVM } from '../view-models/invoicing-vm'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 import { environment } from 'src/environments/environment'
 
@@ -23,12 +22,11 @@ export class InvoicingPDFService {
     private nextLineTop = this.topMargin
     private pageHeight = 0
     private pdf = new jsPDF()
-    private criteria: any
     private customer: InvoicingVM
 
     //#endregion
 
-    constructor(private helperService: HelperService, private localStorageService: LocalStorageService, private logoService: LogoService) { }
+    constructor(private helperService: HelperService, private logoService: LogoService) { }
 
     //#region public methods
 
@@ -43,16 +41,16 @@ export class InvoicingPDFService {
         this.openPdf()
     }
 
-
     //#endregion
+
     //#region private methods
 
     private addCriteria(pdf: jsPDF, record: any): void {
         pdf.setFont('PFHandbookProThin')
         pdf.setTextColor(0, 0, 0)
         pdf.setFontSize(9)
-        pdf.text('Date: ' + this.helperService.formatISODateToLocale(record.date, true), 280, 12.5, { align: 'right' })
-        pdf.text('Customer: ' + record.customer.description, 280, 16.5, { align: 'right' })
+        pdf.text('Date: ' + this.helperService.formatISODateToLocale(record.date, true), 286, 12, { align: 'right' })
+        pdf.text('Customer: ' + record.customer.description, 286, 16, { align: 'right' })
     }
 
     private addPortGroup(pdf: jsPDF): void {
@@ -90,13 +88,14 @@ export class InvoicingPDFService {
         pdf.text('Actual', 174, this.nextLineTop, { align: 'right' })
         pdf.text('N/S', 184, this.nextLineTop, { align: 'right' })
         pdf.text('Transfer', 188, this.nextLineTop, { align: 'left' })
+        pdf.text('Remarks', 204, this.nextLineTop, { align: 'left' })
         this.nextLineTop += this.lineGap
         for (let reservationIndex = 0; reservationIndex < this.customer.reservations.length; reservationIndex++) {
-            // if (this.mustAddPage(this.nextLineTop + this.topMargin, this.pageHeight)) {
-            // this.addFooter(this.pageCount, pdf, false)
-            // this.pageCount++
-            // this.nextLineTop = this.addPageAndResetTopMargin(pdf)
-            // }
+            if (this.mustAddPage(this.nextLineTop + this.topMargin, this.pageHeight)) {
+                this.addFooter(this.pageCount, pdf, false)
+                this.pageCount++
+                this.nextLineTop = this.addPageAndResetTopMargin(pdf)
+            }
             pdf.text(this.buildReservationLine(pdf, reservationIndex), 10, this.nextLineTop)
             this.nextLineTop += this.lineGap
         }
@@ -106,11 +105,11 @@ export class InvoicingPDFService {
         pdf.setFont('PFHandbookProThin')
         pdf.setTextColor(0, 0, 0)
         pdf.setFontSize(9)
-        pdf.text('Page: ' + pageCount.toString() + this.isLastPage(isLastPage), 202, 290, { align: 'right' })
+        pdf.text('Page: ' + pageCount.toString() + this.isLastPage(isLastPage), 286, 200, { align: 'right' })
     }
 
     private addLogo(pdf: jsPDF): void {
-        pdf.addImage(this.logoService.getLogo(), 'JPEG', 10.3, 10, 15, 15)
+        pdf.addImage(this.logoService.getLogo(), 'JPEG', 10, 10, 15, 15)
         pdf.setFont('ACCanterBold')
         pdf.setFontSize(20)
         pdf.setTextColor(173, 0, 0)
@@ -127,7 +126,7 @@ export class InvoicingPDFService {
         pdf.setFont('PFHandbookProThin')
         pdf.setFontSize(10)
         pdf.setTextColor(0, 0, 0)
-        pdf.text('Embarkation Report', 31.5, 22)
+        pdf.text('Invoicing Report', 31, 22)
     }
 
     private buildReservationLine(pdf: jsPDF, index: number): string {
@@ -138,15 +137,15 @@ export class InvoicingPDFService {
             this.customer.reservations[index].destination.padEnd(20, ' ') + '   ' +
             this.customer.reservations[index].port.padEnd(15, ' ') + '   ' +
             this.customer.reservations[index].ship.padEnd(12, ' ') + '   ' +
-            this.customer.reservations[index].ticketNo.padEnd(20, ' ') + '   ' +
+            this.customer.reservations[index].ticketNo.substring(0, 18).padEnd(20, ' ') + '   ' +
             this.customer.reservations[index].adults.toString().padStart(3, ' ') + '   ' +
             this.customer.reservations[index].kids.toString().padStart(3, ' ') + '   ' +
             this.customer.reservations[index].free.toString().padStart(3, ' ') + '   ' +
             this.customer.reservations[index].totalPersons.toString().padStart(5, ' ') + '   ' +
             this.customer.reservations[index].embarkedPassengers.toString().padStart(4, ' ') + '   ' +
             this.customer.reservations[index].totalNoShow.toString().padStart(4, ' ') + '   ' +
-            this.customer.reservations[index].hasTransfer + '   ' +
-            this.customer.reservations[index].remarks.padEnd(11, ' ')
+            this.formatTransfer(this.customer.reservations[index].hasTransfer) + '  ' +
+            this.customer.reservations[index].remarks.substring(0, 55)
         return line
     }
 
@@ -174,26 +173,14 @@ export class InvoicingPDFService {
             this.customer.portGroup[x].hasTransferGroup[z].free.toString().padStart(4, ' ') + '   ' +
             this.customer.portGroup[x].hasTransferGroup[z].totalPersons.toString().padStart(4, ' ') + '   ' +
             this.customer.portGroup[x].hasTransferGroup[z].totalPassengers.toString().padStart(6, ' ') + '   ' +
-            this.customer.portGroup[x].hasTransferGroup[z].hasTransfer
+            this.formatTransfer(this.customer.portGroup[x].hasTransferGroup[z].hasTransfer) + '   '
         return line
 
     }
 
-    // private getCustomer(index: number): string {
-    //     return this.records[index].customer.substring(0, 10)
-    // }
-
-    // private getDriver(index: number): string {
-    //     return this.records[index].driver == undefined ? '(EMPTY)' : this.records[index].driver.substring(0, 10)
-    // }
-
-    // private getPlusMinusIcon(index: number): string {
-    //     return this.records[index].totalPersons > this.records[index].passengers.length ? '!' : ''
-    // }
-
-    // private getRemarks(index: number): string {
-    //     return this.records[index].remarks.substring(0, 50)
-    // }
+    private formatTransfer(hasTransfer: any): string {
+        return hasTransfer ? 'YES      ' : 'NO       '
+    }
 
     private init(record: any): void {
         this.customer = Object.assign([], record)
@@ -201,7 +188,6 @@ export class InvoicingPDFService {
         this.pageCount = 1
         this.pdf = new jsPDF('landscape', 'mm', 'a4')
         this.pageHeight = parseInt(this.pdf.internal.pageSize.height.toFixed())
-        this.populateCriteriaFromStoredVariables()
     }
 
     private isLastPage(isLastPage: boolean): string {
@@ -216,18 +202,6 @@ export class InvoicingPDFService {
 
     private openPdf(): void {
         this.pdf.output('dataurlnewwindow')
-    }
-
-    private populateCriteriaFromStoredVariables(): void {
-        if (this.localStorageService.getItem('invoicing-criteria')) {
-            const criteria = JSON.parse(this.localStorageService.getItem('invoicing-criteria'))
-            this.criteria = {
-                'date': criteria.date,
-                'customer': criteria.customer.description,
-                'destination': criteria.destination.description,
-                'ship': criteria.ship.description
-            }
-        }
     }
 
     //#endregion

@@ -56,9 +56,9 @@
     --color-embarkation-pending: #feedaf;
     --color-button-do-embarkation: #3d3b57;
     /* Invoicing */
-    --color-has-transfer: #c8e6c9;
-    --color-has-no-transfer: #fd99ab;
-    --color-persons-warning: #fbc02d;
+    --color-icon-ok: #75d378;
+    --color-icon-error: #fd99ab;
+    --color-icon-warning: #fbc02d;
     /* Input */
     --color-input-focus: #65b4ef;
     --color-input-error: #e57b7b;
@@ -67,4 +67,6 @@
     --color-link: #d94040;
     /* User count */
     --color-user-count: #d94040;
+    /* Invoicing customer */
+    --color-customer: #e57b7b;
 }

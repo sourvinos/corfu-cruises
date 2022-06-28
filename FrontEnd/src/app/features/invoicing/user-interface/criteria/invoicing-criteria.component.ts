@@ -8,10 +8,8 @@ import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerDropdownVM } from 'src/app/features/customers/classes/view-models/customer-dropdown-vm'
-import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
 import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
-import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
-import { GenericResource } from '../../classes/resources/generic-resource'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
@@ -19,13 +17,9 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ShipDropdownVM } from 'src/app/features/ships/classes/view-models/ship-dropdown-vm'
-import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
     selector: 'invoicing-criteria',
@@ -52,12 +46,12 @@ export class InvoicingCriteriaComponent {
     public destinations: DestinationDropdownVM[] = []
     public filteredDestinations: Observable<DestinationDropdownVM[]>
     public ships: ShipDropdownVM[] = []
-    public filteredShips: Observable<GenericResource[]>
+    public filteredShips: Observable<ShipDropdownVM[]>
     public selected: Date | null
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private shipService: ShipService) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -132,7 +126,7 @@ export class InvoicingCriteriaComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private filterArray(array: string, field: string, value: any): any[] {
+    private filterAutocomplete(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
             return this[array].filter((element: { [x: string]: string }) =>
@@ -158,28 +152,23 @@ export class InvoicingCriteriaComponent {
     }
 
     private navigateToList(): void {
-        this.router.navigate(['date', this.form.value.date, 'customerId', this.form.value.customer.id, 'destinationId', this.form.value.destination.id, 'shipId', this.form.value.ship.id], { relativeTo: this.activatedRoute })
+        this.router.navigate([
+            'date', this.form.value.date,
+            'customerId', this.form.value.customer.id,
+            'destinationId', this.form.value.destination.id,
+            'shipId', this.form.value.ship.id], { relativeTo: this.activatedRoute })
     }
 
-    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
-        const promise = new Promise((resolve) => {
-            service.getActiveForDropdown().toPromise().then(
-                (response: any) => {
-                    this[table] = response
-                    this[table].unshift({ 'id': 'all', 'description': '[⭐]' })
-                    resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
-                }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
-                })
-        })
-        return promise
+    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string, includeWildCard: boolean) {
+        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        includeWildCard ? this[table].unshift({ 'id': 'all', 'description': '[⭐]' }) : null
+        this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
     private populateDropdowns(): void {
-        this.populateDropDown(this.customerService, 'customers', 'filteredCustomers', 'customer', 'description')
-        this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
-        this.populateDropDown(this.shipService, 'ships', 'filteredShips', 'ship', 'description')
+        this.populateDropdownFromLocalStorage('customers', 'filteredCustomers', 'customer', 'description', true)
+        this.populateDropdownFromLocalStorage('destinations', 'filteredDestinations', 'destination', 'description', true)
+        this.populateDropdownFromLocalStorage('ships', 'filteredShips', 'ship', 'description', true)
     }
 
     private populateFieldsFromStoredVariables(): void {
@@ -204,10 +193,6 @@ export class InvoicingCriteriaComponent {
 
     private setLocale(): void {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     private storeCriteria(): void {

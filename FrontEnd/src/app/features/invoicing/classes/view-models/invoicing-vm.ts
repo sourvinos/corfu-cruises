@@ -1,15 +1,11 @@
-import { GenericResource } from './../resources/generic-resource'
-import { InvoicingReservationVM } from './invoicing-reservation-vm'
+import { CustomerVM } from './customer-vm'
 import { InvoicingPortVM } from './invoicing-port-vm'
+import { InvoicingReservationVM } from './invoicing-reservation-vm'
 
-export class InvoicingVM {
+export interface InvoicingVM {
 
-    constructor(
-
-        public customer: GenericResource,
-        public portGroup: InvoicingPortVM[] = [],
-        public reservations: InvoicingReservationVM[] = [],
-
-    ) { }
+    customer: CustomerVM,
+    portGroup: InvoicingPortVM[],
+    reservations: InvoicingReservationVM[],
 
 }

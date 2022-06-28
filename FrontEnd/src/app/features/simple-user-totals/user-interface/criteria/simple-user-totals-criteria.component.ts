@@ -18,8 +18,8 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 
 @Component({
     selector: 'totals-criteria',
-    templateUrl: './totals-criteria.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './totals-criteria.component.css'],
+    templateUrl: './simple-user-totals-criteria.component.html',
+    styleUrls: ['../../../../../assets/styles/forms.css', './simple-user-totals-criteria.component.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 

@@ -84,6 +84,11 @@ p.instructions {
     background-color: var(--color-sidemenu-active-item);
 }
 
+.no-border {
+    border-left: 0.0625rem solid transparent !important;
+    border-right: 0.0625rem solid transparent !important;
+}
+
 .subscript {
     font-size: 0.6875rem;
     padding-top: 0.25rem;
@@ -91,6 +96,18 @@ p.instructions {
 
 .clickable:hover {
     cursor: pointer;
+}
+
+.icon-ok {
+    color: var(--color-icon-ok);
+}
+
+.icon-error {
+    color: var(--color-icon-error);
+}
+
+.icon-warning {
+    color: var(--color-icon-warning);
 }
 
 ::-webkit-scrollbar {

@@ -16,7 +16,7 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuardService], pathMatch: 'full' },
     { path: 'login', component: LoginFormComponent },
     { path: 'availability', component: AvailabilityComponent, canActivate: [AuthGuardService] },
-    { path: 'totals', loadChildren: () => import('../features/totals/classes/modules/totals.module').then(m => m.TotalsModule) },
+    { path: 'totals', loadChildren: () => import('../features/simple-user-totals/classes/modules/simple-user-totals.module').then(m => m.TotalsModule) },
     { path: 'coachRoutes', loadChildren: () => import('../features/coachRoutes/classes/modules/coachRoute.module').then(m => m.CoachRouteModule) },
     { path: 'crews', loadChildren: () => import('../features/crews/classes/modules/crew.module').then(m => m.CrewModule) },
     { path: 'customers', loadChildren: () => import('../features/customers/classes/modules/customer.module').then(m => m.CustomerModule) },

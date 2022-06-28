@@ -1,4 +1,4 @@
-export class GenericResource {
+export interface CustomerVM {
 
     id: number
     description: string

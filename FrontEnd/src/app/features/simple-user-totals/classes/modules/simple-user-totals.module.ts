@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core'
 // Custom
 import { SharedModule } from 'src/app/shared/modules/shared.module'
-import { TotalsCriteriaComponent } from '../../user-interface/criteria/totals-criteria.component'
-import { TotalsListComponent } from '../../user-interface/list/totals-list.component'
-import { TotalsRoutingModule } from './totals.routing.module'
+import { TotalsCriteriaComponent } from '../../user-interface/criteria/simple-user-totals-criteria.component'
+import { TotalsListComponent } from '../../user-interface/list/simple-user-totals-list.component'
+import { TotalsRoutingModule } from './simple-user-totals.routing.module'
 
 @NgModule({
     declarations: [

@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 // Custom
-import { TotalsListResolved } from './totals-list-resolved'
-import { TotalsService } from '../services/totals.service'
+import { TotalsListResolved } from './simple-user-totals-list-resolved'
+import { TotalsService } from '../services/simple-user-totals.service'
 
 @Injectable({ providedIn: 'root' })
 
