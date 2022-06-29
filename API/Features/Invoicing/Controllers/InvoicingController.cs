@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +18,9 @@ namespace API.Features.Invoicing {
             this.repo = repo;
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "user, admin")]
         [HttpGet("fromDate/{fromDate}/toDate/{toDate}/customerId/{customerId}/destinationId/{destinationId}/shipId/{shipId}")]
-        public IEnumerable<InvoicingReportVM> Get(string fromDate, string toDate, string customerId, string destinationId, string shipId) {
+        public Task<IEnumerable<InvoicingReportVM>> Get(string fromDate, string toDate, string customerId, string destinationId, string shipId) {
             return repo.Get(fromDate, toDate, customerId, destinationId, shipId);
         }
 

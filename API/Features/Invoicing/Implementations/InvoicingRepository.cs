@@ -1,11 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
+using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Identity;
 using API.Infrastructure.Implementations;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -13,13 +18,18 @@ namespace API.Features.Invoicing {
 
     public class InvoicingRepository : Repository<InvoicingRepository>, IInvoicingRepository {
 
+        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IMapper mapper;
+        private readonly UserManager<UserExtended> userManager;
 
-        public InvoicingRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
+        public InvoicingRepository(AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor, IMapper mapper, IOptions<TestingEnvironment> settings, UserManager<UserExtended> userManager) : base(appDbContext, settings) {
+            this.httpContextAccessor = httpContextAccessor;
             this.mapper = mapper;
+            this.userManager = userManager;
         }
 
-        public IEnumerable<InvoicingReportVM> Get(string fromDate, string toDate, string customerId, string destinationId, string shipId) {
+        public async Task<IEnumerable<InvoicingReportVM>> Get(string fromDate, string toDate, string customerId, string destinationId, string shipId) {
+            customerId = await GetConnectedCustomerIdForConnectedUser(customerId);
             var records = context.Set<Reservation>()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
@@ -58,6 +68,16 @@ namespace API.Features.Invoicing {
                     Reservations = x.OrderBy(x => !x.PickupPoint.CoachRoute.HasTransfer).ToList()
                 }).ToList();
             return mapper.Map<IEnumerable<InvoicingDTO>, IEnumerable<InvoicingReportVM>>(records);
+        }
+
+        private async Task<string> GetConnectedCustomerIdForConnectedUser(string customerId) {
+            var isUserAdmin = await Identity.IsUserAdmin(httpContextAccessor);
+            if (isUserAdmin == false) {
+                var simpleUser = await Identity.GetConnectedUserId(httpContextAccessor);
+                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
+                return connectedUserDetails.CustomerId.ToString();
+            }
+            return customerId;
         }
 
     }

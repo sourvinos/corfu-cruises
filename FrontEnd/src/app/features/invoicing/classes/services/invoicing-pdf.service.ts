@@ -129,7 +129,7 @@ export class InvoicingPDFService {
         pdf.setFont('PFHandbookProThin')
         pdf.setFontSize(10)
         pdf.setTextColor(0, 0, 0)
-        pdf.text('Invoicing Report', 36, 22)
+        pdf.text('Billing Report', 36, 22)
     }
 
     private buildReservationLine(pdf: jsPDF, index: number): string {

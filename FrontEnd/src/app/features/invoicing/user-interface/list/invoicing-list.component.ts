@@ -62,7 +62,7 @@ export class InvoicingListComponent {
         const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element)
         const wb: XLSX.WorkBook = XLSX.utils.book_new()
         XLSX.utils.book_append_sheet(wb, ws, 'Invoicing')
-        XLSX.writeFile(wb, 'Invoicing for ' + this.invoicingCriteria.fromDate + '.xlsx')
+        XLSX.writeFile(wb, 'Billings for ' + this.invoicingCriteria.fromDate + '.xlsx')
     }
 
     public exportSingleCustomer(customerId: number): void {
