@@ -1494,7 +1494,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Facturation"
+                "description": "Facturation au client"
             },
             {
                 "id": "searchLabel",
@@ -1503,6 +1503,10 @@
             {
                 "id": "searchDateHint",
                 "description": "Donnez Date"
+            },
+            {
+                "id": "dateRange",
+                "description": "Plage de dates"
             },
             {
                 "id": "customer",
@@ -1527,7 +1531,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Facturation"
+                "description": "Facturation au client"
             },
             {
                 "id": "headerCustomer",

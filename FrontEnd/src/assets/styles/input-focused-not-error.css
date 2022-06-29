@@ -25,3 +25,7 @@
 .mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper {
     color: var(--color-input-focus);
 }
+
+.mat-start-date input:focus {
+    padding-bottom: 0 !important;
+}

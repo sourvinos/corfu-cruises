@@ -114,6 +114,8 @@
 }
 
 .mat-date-range-input-start-wrapper {
+    margin-bottom: 8px !important;
+    overflow: inherit !important;
     width: 100% !important;
 }
 

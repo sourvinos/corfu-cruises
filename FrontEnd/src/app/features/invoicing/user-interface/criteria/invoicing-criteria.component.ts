@@ -8,7 +8,6 @@ import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerDropdownVM } from 'src/app/features/customers/classes/view-models/customer-dropdown-vm'
-import { DateRange } from '@angular/material/datepicker'
 import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -49,8 +48,6 @@ export class InvoicingCriteriaComponent {
     public ships: ShipDropdownVM[] = []
     public filteredShips: Observable<ShipDropdownVM[]>
 
-    public selectedDateRange: DateRange<Date>
-
     //#endregion
 
     constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router) { }
@@ -62,10 +59,9 @@ export class InvoicingCriteriaComponent {
         this.initForm()
         this.populateDropdowns()
         this.populateFieldsFromStoredVariables()
-        this.updateCalendarRangeFromFormFields()
+        // this.updateCalendarRangeFromFormFields()
         this.setLocale()
         this.subscribeToInteractionService()
-        this.focusOnField()
     }
 
     ngOnDestroy(): void {
@@ -86,6 +82,7 @@ export class InvoicingCriteriaComponent {
     }
 
     public doTasks(): void {
+        this.updateFormWithISODates()
         this.storeCriteria()
         this.navigateToList()
     }
@@ -100,22 +97,6 @@ export class InvoicingCriteriaComponent {
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
-    }
-
-    public updateSelectedRange(date: Date): void {
-        if (this.selectedDateRange && this.selectedDateRange.start && date >= this.selectedDateRange.start && !this.selectedDateRange.end) {
-            this.selectedDateRange = new DateRange(this.selectedDateRange.start, date)
-            this.form.patchValue({
-                fromDate: moment(this.selectedDateRange.start).utc(true).format('YYYY-MM-DD'),
-                toDate: moment(this.selectedDateRange.end).utc(true).format('YYYY-MM-DD')
-            })
-        } else {
-            this.selectedDateRange = new DateRange(date, null)
-            this.form.patchValue({
-                fromDate: moment(this.selectedDateRange.start).utc(true).format('YYYY-MM-DD'),
-                toDate: moment(this.selectedDateRange.start).utc(true).format('YYYY-MM-DD')
-            })
-        }
     }
 
     //#endregion
@@ -147,10 +128,6 @@ export class InvoicingCriteriaComponent {
             return this[array].filter((element: { [x: string]: string }) =>
                 element[field].toLowerCase().startsWith(filtervalue))
         }
-    }
-
-    private focusOnField(): void {
-        this.helperService.focusOnField('customer')
     }
 
     private goBack(): void {
@@ -223,8 +200,13 @@ export class InvoicingCriteriaComponent {
         })
     }
 
-    private updateCalendarRangeFromFormFields(): void {
-        this.selectedDateRange = new DateRange(new Date(this.form.value.fromDate), new Date(this.form.value.toDate))
+    private updateFormWithISODates(): void {
+        this.form.patchValue(
+            {
+                fromDate: moment(this.form.value.fromDate).utc(true).format('YYYY-MM-DD'),
+                toDate: moment(this.form.value.toDate).utc(true).format('YYYY-MM-DD')
+            }
+        )
     }
 
     //#endregion

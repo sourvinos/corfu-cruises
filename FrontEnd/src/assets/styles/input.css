@@ -77,3 +77,7 @@ input:-internal-autofill-previewed, input:-internal-autofill-selected {
     align-items: center !important;
     display: flex !important;
 }
+
+.mat-date-range-input-separator {
+    color: transparent !important;
+}

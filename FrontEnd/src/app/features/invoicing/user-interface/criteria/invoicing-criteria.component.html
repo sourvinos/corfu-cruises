@@ -6,27 +6,34 @@
 
     <div id="content">
         <form id="form" [formGroup]="form" autocomplete="off">
-            <div id="calendar-wrapper">
-                <mat-card id="calendar-card">
-                    <mat-calendar (selectedChange)="updateSelectedRange($event)" [selected]="selectedDateRange"></mat-calendar>
-                </mat-card>
-            </div>
             <div id="field-wrapper">
+                <!-- Dates -->
+                <mat-form-field>
+                    <mat-label>{{ getLabel("dateRange") }}</mat-label>
+                    <mat-date-range-input [formGroup]="form" [rangePicker]="picker">
+                        <input [inputTabStop]="input" class="center" data-cy="fromDate" data-tabindex="1" formControlName="fromDate" id="fromDate" matInput matStartDate>
+                        <input [inputTabStop]="input" class="center" data-cy="toDate" data-tabindex="2" formControlName="toDate" id="toDate" matEndDate matInput>
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                    <mat-error *ngIf="fromDate.hasError('required') || toDate.hasError('required')">{{ getHint("required") }}</mat-error>
+                    <mat-error *ngIf="fromDate.hasError('matStartDateInvalid') || toDate.hasError('matEndDateInvalid')">{{ getHint("invalidPeriod") }}</mat-error>
+                </mat-form-field>
                 <!-- Customer -->
                 <mat-form-field>
-                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="customers" [placeholder]="getLabel('customer')" data-cy="customer-description" data-tabindex="1" formControlName="customer" id="customer" matInput>
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="customers" [placeholder]="getLabel('customer')" data-cy="customer-description" data-tabindex="3" formControlName="customer" id="customer" matInput>
                     <mat-error *ngIf="customer.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="!customer.hasError('required') && customer.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
                 <!-- Destination -->
                 <mat-form-field>
-                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="destinations" [placeholder]="getLabel('destination')" data-cy="destination-description" data-tabindex="2" formControlName="destination" id="destination" matInput>
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="destinations" [placeholder]="getLabel('destination')" data-cy="destination-description" data-tabindex="4" formControlName="destination" id="destination" matInput>
                     <mat-error *ngIf="destination.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
                 <!-- Ship -->
                 <mat-form-field>
-                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ships" [placeholder]="getLabel('ship')" data-cy="ship-description" data-tabindex="3" formControlName="ship" id="ship" matInput>
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ships" [placeholder]="getLabel('ship')" data-cy="ship-description" data-tabindex="5" formControlName="ship" id="ship" matInput>
                     <mat-error *ngIf="ship.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>

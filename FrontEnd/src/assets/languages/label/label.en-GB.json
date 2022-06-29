@@ -1494,7 +1494,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Invoicing"
+                "description": "Customer billing"
             },
             {
                 "id": "searchLabel",
@@ -1503,6 +1503,10 @@
             {
                 "id": "searchDateHint",
                 "description": "Select or enter date"
+            },
+            {
+                "id": "dateRange",
+                "description": "Date range"
             },
             {
                 "id": "customer",
@@ -1527,7 +1531,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Invoicing"
+                "description": "Customer billing"
             },
             {
                 "id": "headerCustomer",
