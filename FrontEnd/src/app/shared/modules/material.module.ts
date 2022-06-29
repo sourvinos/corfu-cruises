@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core'
 // Custom
-import { MAT_DATE_LOCALE } from '@angular/material/core'
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core'
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
-import { MatDatepickerModule } from '@angular/material/datepicker'
+import { DefaultMatCalendarRangeStrategy, MatDatepickerModule, MatRangeDateSelectionModel, MAT_DATE_RANGE_SELECTION_STRATEGY } from '@angular/material/datepicker'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
@@ -31,6 +31,7 @@ import { MatTabsModule } from '@angular/material/tabs'
         MatInputModule,
         MatMenuModule,
         MatMomentDateModule,
+        MatNativeDateModule,
         MatRadioModule,
         MatSelectModule,
         MatSlideToggleModule,
@@ -41,7 +42,8 @@ import { MatTabsModule } from '@angular/material/tabs'
         { provide: MAT_DATE_LOCALE, useValue: '' },
         { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } },
         { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1500 } },
-        { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
+        { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+        { provide: MAT_DATE_RANGE_SELECTION_STRATEGY, useClass: DefaultMatCalendarRangeStrategy }, DefaultMatCalendarRangeStrategy, MatRangeDateSelectionModel
     ]
 })
 

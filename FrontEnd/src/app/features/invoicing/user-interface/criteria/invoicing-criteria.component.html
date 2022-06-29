@@ -8,7 +8,7 @@
         <form id="form" [formGroup]="form" autocomplete="off">
             <div id="calendar-wrapper">
                 <mat-card id="calendar-card">
-                    <mat-calendar [(selected)]="selected"></mat-calendar>
+                    <mat-calendar (selectedChange)="updateSelectedRange($event)" [selected]="selectedDateRange"></mat-calendar>
                 </mat-card>
             </div>
             <div id="field-wrapper">
@@ -37,7 +37,7 @@
 
     <div id="footer">
         <div @slideFromRight class="button-group">
-            <button (click)="onDoTasks()" [disabled]="!form.valid" class="primary" id="search" mat-flat-button>{{ getLabel("searchButton") }}</button>
+            <button (click)="doTasks()" [disabled]="!form.valid" class="primary" id="search" mat-flat-button>{{ getLabel("searchButton") }}</button>
         </div>
     </div>
 

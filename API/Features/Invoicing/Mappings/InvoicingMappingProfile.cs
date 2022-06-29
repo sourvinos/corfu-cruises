@@ -7,7 +7,6 @@ namespace API.Features.Invoicing {
 
         public InvoicingMappingProfile() {
             CreateMap<InvoicingDTO, InvoicingReportVM>()
-                .ForMember(x => x.Date, x => x.MapFrom(x => x.Date))
                 .ForMember(x => x.Customer, x => x.MapFrom(x => x.Customer))
                 .ForMember(x => x.PortGroup, x => x.MapFrom(x => x.Ports.Select(x => new InvoicingPortDTO {
                     Port = x.Port,

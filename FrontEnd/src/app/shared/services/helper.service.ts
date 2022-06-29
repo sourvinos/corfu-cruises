@@ -174,6 +174,14 @@ export class HelperService {
         }
     }
 
+    public getISODate(date?: string): string {
+        if (date) {
+            return date
+        } else {
+            return new Date().toISOString().substring(0, 10)
+        }
+    }
+
     //#endregion
 
     //#region private methods

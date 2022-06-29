@@ -5,10 +5,12 @@ import 'src/assets/fonts/ACCanterBold.js'
 import 'src/assets/fonts/NotoSansMonoCondensedRegular.js'
 import 'src/assets/fonts/PFHandbookProThin.js'
 // Custom
-import { HelperService } from 'src/app/shared/services/helper.service'
+
 import { InvoicingVM } from '../view-models/invoicing-vm'
+import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 import { environment } from 'src/environments/environment'
+import { HelperService } from 'src/app/shared/services/helper.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -26,7 +28,7 @@ export class InvoicingPDFService {
 
     //#endregion
 
-    constructor(private helperService: HelperService, private logoService: LogoService) { }
+    constructor(private helperService: HelperService, private localStorageService: LocalStorageService, private logoService: LogoService) { }
 
     //#region public methods
 
@@ -49,7 +51,8 @@ export class InvoicingPDFService {
         pdf.setFont('PFHandbookProThin')
         pdf.setTextColor(0, 0, 0)
         pdf.setFontSize(9)
-        pdf.text('Date: ' + this.helperService.formatISODateToLocale(record.date, true), 286, 12, { align: 'right' })
+        const criteria = JSON.parse(this.localStorageService.getItem('invoicing-criteria'))
+        pdf.text('Period: ' + this.helperService.formatISODateToLocale(criteria.fromDate) + ' - ' + this.helperService.formatISODateToLocale(criteria.toDate), 286, 12, { align: 'right' })
         pdf.text('Customer: ' + record.customer.description, 286, 16, { align: 'right' })
     }
 
@@ -126,7 +129,7 @@ export class InvoicingPDFService {
         pdf.setFont('PFHandbookProThin')
         pdf.setFontSize(10)
         pdf.setTextColor(0, 0, 0)
-        pdf.text('Invoicing Report', 31, 22)
+        pdf.text('Invoicing Report', 36, 22)
     }
 
     private buildReservationLine(pdf: jsPDF, index: number): string {

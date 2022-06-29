@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
+using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,7 @@ namespace API.Features.Invoicing {
             this.mapper = mapper;
         }
 
-        public IEnumerable<InvoicingReportVM> Get(string date, string customerId, string destinationId, string shipId) {
+        public IEnumerable<InvoicingReportVM> Get(string fromDate, string toDate, string customerId, string destinationId, string shipId) {
             var records = context.Set<Reservation>()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
@@ -26,15 +27,14 @@ namespace API.Features.Invoicing {
                 .Include(x => x.Port)
                 .Include(x => x.Ship)
                 .Include(x => x.Passengers)
-                .Where(x => x.Date == Convert.ToDateTime(date)
+                .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate)
                     && ((customerId == "all") || x.CustomerId == int.Parse(customerId))
                     && ((destinationId == "all") || x.DestinationId == int.Parse(destinationId))
                     && ((shipId == "all") || (x.ShipId == int.Parse(shipId))))
                 .AsEnumerable()
-                .GroupBy(x => x.Customer).OrderBy(x => x.Key.Description)
+                .GroupBy(x => new { x.Customer }).OrderBy(x => x.Key.Customer.Description)
                 .Select(x => new InvoicingDTO {
-                    Date = date,
-                    Customer = new SimpleResource { Id = x.Key.Id, Description = x.Key.Description },
+                    Customer = new SimpleResource { Id = x.Key.Customer.Id, Description = x.Key.Customer.Description },
                     Ports = x.GroupBy(x => x.Port).OrderBy(x => !x.Key.IsPrimary).Select(x => new InvoicingPortDTO {
                         Port = x.Key.Description,
                         HasTransferGroup = x.GroupBy(x => x.PickupPoint.CoachRoute.HasTransfer).Select(x => new HasTransferGroupDTO {

@@ -62,7 +62,7 @@ export class InvoicingListComponent {
         const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element)
         const wb: XLSX.WorkBook = XLSX.utils.book_new()
         XLSX.utils.book_append_sheet(wb, ws, 'Invoicing')
-        XLSX.writeFile(wb, 'Invoicing for ' + this.invoicingCriteria.date + '.xlsx')
+        XLSX.writeFile(wb, 'Invoicing for ' + this.invoicingCriteria.fromDate + '.xlsx')
     }
 
     public exportSingleCustomer(customerId: number): void {
@@ -70,8 +70,12 @@ export class InvoicingListComponent {
         this.invoicingPdfService.createPDF(customerRecords)
     }
 
-    public formatDate(): string {
-        return this.formatDateToLocale(this.invoicingCriteria.date, true)
+    public formatDatePeriod(): string {
+        if (this.invoicingCriteria.fromDate == this.invoicingCriteria.toDate) {
+            return this.formatDateToLocale(this.invoicingCriteria.fromDate, true)
+        } else {
+            return this.formatDateToLocale(this.invoicingCriteria.fromDate, true) + ' - ' + this.formatDateToLocale(this.invoicingCriteria.toDate, true)
+        }
     }
 
     public getLabel(id: string): string {
@@ -131,7 +135,8 @@ export class InvoicingListComponent {
         if (this.localStorageService.getItem('invoicing-criteria')) {
             const criteria = JSON.parse(this.localStorageService.getItem('invoicing-criteria'))
             this.invoicingCriteria = {
-                date: criteria.date,
+                fromDate: criteria.fromDate,
+                toDate: criteria.toDate,
                 customer: criteria.customer,
                 destination: criteria.destination,
                 ship: criteria.ship

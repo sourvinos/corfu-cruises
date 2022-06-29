@@ -8,6 +8,7 @@ import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerDropdownVM } from 'src/app/features/customers/classes/view-models/customer-dropdown-vm'
+import { DateRange } from '@angular/material/datepicker'
 import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -47,7 +48,8 @@ export class InvoicingCriteriaComponent {
     public filteredDestinations: Observable<DestinationDropdownVM[]>
     public ships: ShipDropdownVM[] = []
     public filteredShips: Observable<ShipDropdownVM[]>
-    public selected: Date | null
+
+    public selectedDateRange: DateRange<Date>
 
     //#endregion
 
@@ -60,13 +62,10 @@ export class InvoicingCriteriaComponent {
         this.initForm()
         this.populateDropdowns()
         this.populateFieldsFromStoredVariables()
+        this.updateCalendarRangeFromFormFields()
         this.setLocale()
         this.subscribeToInteractionService()
         this.focusOnField()
-    }
-
-    ngDoCheck(): void {
-        this.form.patchValue({ date: moment(this.selected).utc(true).format('YYYY-MM-DD') })
     }
 
     ngOnDestroy(): void {
@@ -86,6 +85,11 @@ export class InvoicingCriteriaComponent {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
+    public doTasks(): void {
+        this.storeCriteria()
+        this.navigateToList()
+    }
+
     public enableOrDisableAutoComplete(event: any) {
         this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
@@ -98,9 +102,20 @@ export class InvoicingCriteriaComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onDoTasks(): void {
-        this.storeCriteria()
-        this.navigateToList()
+    public updateSelectedRange(date: Date): void {
+        if (this.selectedDateRange && this.selectedDateRange.start && date >= this.selectedDateRange.start && !this.selectedDateRange.end) {
+            this.selectedDateRange = new DateRange(this.selectedDateRange.start, date)
+            this.form.patchValue({
+                fromDate: moment(this.selectedDateRange.start).utc(true).format('YYYY-MM-DD'),
+                toDate: moment(this.selectedDateRange.end).utc(true).format('YYYY-MM-DD')
+            })
+        } else {
+            this.selectedDateRange = new DateRange(date, null)
+            this.form.patchValue({
+                fromDate: moment(this.selectedDateRange.start).utc(true).format('YYYY-MM-DD'),
+                toDate: moment(this.selectedDateRange.start).utc(true).format('YYYY-MM-DD')
+            })
+        }
     }
 
     //#endregion
@@ -144,7 +159,8 @@ export class InvoicingCriteriaComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            date: ['', [Validators.required]],
+            fromDate: ['', [Validators.required]],
+            toDate: ['', [Validators.required]],
             customer: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             ship: ['', [Validators.required, ValidationService.RequireAutocomplete]],
@@ -153,7 +169,8 @@ export class InvoicingCriteriaComponent {
 
     private navigateToList(): void {
         this.router.navigate([
-            'date', this.form.value.date,
+            'fromDate', this.form.value.fromDate,
+            'toDate', this.form.value.toDate,
             'customerId', this.form.value.customer.id,
             'destinationId', this.form.value.destination.id,
             'shipId', this.form.value.ship.id], { relativeTo: this.activatedRoute })
@@ -174,16 +191,17 @@ export class InvoicingCriteriaComponent {
     private populateFieldsFromStoredVariables(): void {
         if (this.localStorageService.getItem('invoicing-criteria')) {
             const criteria = JSON.parse(this.localStorageService.getItem('invoicing-criteria'))
-            this.selected = criteria.date
             this.form.setValue({
-                date: criteria.date,
+                fromDate: criteria.fromDate,
+                toDate: criteria.toDate,
                 customer: criteria.customer,
                 destination: criteria.destination,
                 ship: criteria.ship
             })
         } else {
             this.form.patchValue({
-                date: new Date().toISOString(),
+                fromDate: this.helperService.getISODate(),
+                toDate: this.helperService.getISODate(),
                 customer: { id: 'all', description: '[' + this.emojiService.getEmoji('wildcard') + ']' },
                 destination: { id: 'all', description: '[' + this.emojiService.getEmoji('wildcard') + ']' },
                 ship: { id: 'all', description: '[' + this.emojiService.getEmoji('wildcard') + ']' }
@@ -205,12 +223,20 @@ export class InvoicingCriteriaComponent {
         })
     }
 
+    private updateCalendarRangeFromFormFields(): void {
+        this.selectedDateRange = new DateRange(new Date(this.form.value.fromDate), new Date(this.form.value.toDate))
+    }
+
     //#endregion
 
     //#region getters
 
-    get date(): AbstractControl {
-        return this.form.get('date')
+    get fromDate(): AbstractControl {
+        return this.form.get('fromDate')
+    }
+
+    get toDate(): AbstractControl {
+        return this.form.get('toDate')
     }
 
     get customer(): AbstractControl {

@@ -561,10 +561,9 @@ namespace API.Features.Reservations {
                  .Include(x => x.Passengers)
                  .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate) && x.CustomerId == userDetails.CustomerId)
                  .AsEnumerable()
-                 .GroupBy(x => x.Customer).OrderBy(x => x.Key.Description)
+                 .GroupBy(x => new { x.Date, x.Customer }).OrderBy(x => new { x.Key.Date, x.Key.Customer.Description })
                  .Select(x => new InvoicingDTO {
-                     Date = fromDate + " - " + toDate,
-                     Customer = new SimpleResource { Id = x.Key.Id, Description = x.Key.Description },
+                     Customer = new SimpleResource { Id = x.Key.Customer.Id, Description = x.Key.Customer.Description },
                      Ports = x.GroupBy(x => x.Port).OrderBy(x => !x.Key.IsPrimary).Select(x => new InvoicingPortDTO {
                          Port = x.Key.Description,
                          HasTransferGroup = x.GroupBy(x => x.PickupPoint.CoachRoute.HasTransfer).Select(x => new HasTransferGroupDTO {

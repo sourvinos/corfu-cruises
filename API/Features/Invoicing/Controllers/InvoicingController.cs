@@ -18,9 +18,9 @@ namespace API.Features.Invoicing {
         }
 
         [Authorize(Roles = "admin")]
-        [HttpGet("date/{date}/customerId/{customerId}/destinationId/{destinationId}/shipId/{shipId}")]
-        public IEnumerable<InvoicingReportVM> Get(string date, string customerId, string destinationId, string shipId) {
-            return repo.Get(date, customerId, destinationId, shipId);
+        [HttpGet("fromDate/{fromDate}/toDate/{toDate}/customerId/{customerId}/destinationId/{destinationId}/shipId/{shipId}")]
+        public IEnumerable<InvoicingReportVM> Get(string fromDate, string toDate, string customerId, string destinationId, string shipId) {
+            return repo.Get(fromDate, toDate, customerId, destinationId, shipId);
         }
 
     }
