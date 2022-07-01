@@ -137,7 +137,7 @@ export class InvoicingPDFService {
         pdf.setFontSize(8)
         pdf.setTextColor(0, 0, 0)
         const line =
-            this.customer.reservations[index].destination.padEnd(20, ' ') + '   ' +
+            this.customer.reservations[index].destination.padEnd(20, ' ').substring(0, 20) + '   ' +
             this.customer.reservations[index].port.padEnd(15, ' ') + '   ' +
             this.customer.reservations[index].ship.padEnd(12, ' ') + '   ' +
             this.customer.reservations[index].ticketNo.substring(0, 18).padEnd(20, ' ') + '   ' +
