@@ -12,7 +12,7 @@ namespace API.Features.Schedules {
             // Fields
             RuleFor(x => x.Date).Must(DateHelpers.BeCorrectFormat).WithMessage(ApiMessages.DateHasWrongFormat());
             RuleFor(x => x.MaxPassengers).InclusiveBetween(0, 999).WithMessage(ApiMessages.InvalidMaxPassengers());
-            RuleFor(x => x.DepartureTime).Must(TimeHelpers.BeValidTime).WithMessage(ApiMessages.InvalidDepartureTime());;
+            RuleFor(x => x.DepartureTime).Must(TimeHelpers.BeValidTime).WithMessage(ApiMessages.InvalidDepartureTime());
         }
 
     }

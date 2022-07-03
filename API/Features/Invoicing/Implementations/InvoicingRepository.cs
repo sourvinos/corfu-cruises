@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
-using API.Infrastructure.Helpers;
 using API.Infrastructure.Identity;
 using API.Infrastructure.Implementations;
 using AutoMapper;
@@ -72,7 +71,7 @@ namespace API.Features.Invoicing {
 
         private async Task<string> GetConnectedCustomerIdForConnectedUser(string customerId) {
             var isUserAdmin = await Identity.IsUserAdmin(httpContextAccessor);
-            if (isUserAdmin == false) {
+            if (!isUserAdmin) {
                 var simpleUser = await Identity.GetConnectedUserId(httpContextAccessor);
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
                 return connectedUserDetails.CustomerId.ToString();

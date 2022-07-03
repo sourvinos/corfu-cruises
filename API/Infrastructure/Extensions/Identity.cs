@@ -34,7 +34,7 @@ namespace API.Infrastructure.Extensions {
         }
 
         public static UserExtended GetConnectedUserDetails(UserManager<UserExtended> userManager, string userId) {
-            return userManager.Users.SingleOrDefault(x => x.Id == userId); ;
+            return userManager.Users.SingleOrDefault(x => x.Id == userId);
         }
 
         public static Task<bool> IsUserAdmin(IHttpContextAccessor httpContextAccessor) {

@@ -251,11 +251,7 @@ namespace API.Features.Reservations {
                 int totalPersonsFromAllPorts = context.Reservations
                     .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.ReservationId != reservationId)
                     .Sum(x => x.TotalPersons);
-                if (totalPersonsFromAllPorts + totalPersons > maxPassengersForAllPorts) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return totalPersonsFromAllPorts + totalPersons <= maxPassengersForAllPorts;
             }
         }
 
@@ -278,11 +274,7 @@ namespace API.Features.Reservations {
         }
 
         private bool SimpleUserCanNotAddReservationAfterDeparture(ReservationWriteResource record) {
-            if (Identity.IsUserAdmin(httpContextAccessor).Result == false && IsNewReservationAfterDeparture(record)) {
-                return true;
-            } else {
-                return false;
-            }
+            return !Identity.IsUserAdmin(httpContextAccessor).Result && IsNewReservationAfterDeparture(record);
         }
 
         private bool IsValidCustomer(ReservationWriteResource record) {
@@ -470,7 +462,7 @@ namespace API.Features.Reservations {
         }
 
         private bool SimpleUserHasNightRestrictions(ReservationWriteResource record) {
-            if (Identity.IsUserAdmin(httpContextAccessor).Result == false && record.ReservationId == null) {
+            if (!Identity.IsUserAdmin(httpContextAccessor).Result && record.ReservationId == null) {
                 if (HasTransfer(record.PickupPointId)) {
                     if (IsReservationForTomorrow(record.Date)) {
                         if (IsNight()) {
@@ -498,45 +490,30 @@ namespace API.Features.Reservations {
         private static bool IsReservationForTomorrow(string date) {
             var tomorrow = DateHelpers.GetLocalDateTime().AddDays(1);
             var tomorrowDate = DateHelpers.DateTimeToISOString(tomorrow);
-            if (date == tomorrowDate) {
-                return true;
-            }
-            return false;
+            return date == tomorrowDate;
         }
 
         private static bool IsReservationForToday(string date) {
             var today = DateHelpers.GetLocalDateTime();
             var todayDate = DateHelpers.DateTimeToISOString(today);
-            if (date == todayDate) {
-                return true;
-            }
-            return false;
+            return date == todayDate;
         }
 
         private static bool IsNight() {
             var timeNow = DateHelpers.GetLocalDateTime().TimeOfDay;
-            if (timeNow.Hours >= 22) {
-                return true;
-            }
-            return false;
+            return timeNow.Hours >= 22;
         }
 
         private bool IsNewReservationBeforeDeparture(ReservationWriteResource record) {
             var timeNow = DateHelpers.GetLocalDateTime();
             var departureTime = GetScheduleDepartureTime(record);
-            if (DateTime.Compare(timeNow, departureTime) < 0) {
-                return true;
-            }
-            return false;
+            return DateTime.Compare(timeNow, departureTime) < 0;
         }
 
         private bool IsNewReservationAfterDeparture(ReservationWriteResource record) {
             var date = DateHelpers.GetLocalDateTime();
             var departureTime = GetScheduleDepartureTime(record);
-            if (DateTime.Compare(date, departureTime) > 0) {
-                return true;
-            }
-            return false;
+            return DateTime.Compare(date, departureTime) > 0;
         }
 
         private DateTime GetScheduleDepartureTime(ReservationWriteResource record) {

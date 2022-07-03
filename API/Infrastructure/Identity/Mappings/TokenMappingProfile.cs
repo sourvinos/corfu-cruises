@@ -9,7 +9,7 @@ namespace API.Infrastructure.Identity {
         public TokenMappingProfile() {
             CreateMap<Token, TokenVM>()
                 .ForMember(x => x.ExpiryDate, x => x.MapFrom(x => x.CreatedDate.AddHours(1)))
-                .ForMember(x => x.Now, x => x.MapFrom(x => DateTime.UtcNow))
+                .ForMember(x => x.Now, x => x.MapFrom(_ => DateTime.UtcNow))
                 .ForMember(x => x.Duration, x => x.MapFrom(x => (DateTime.UtcNow - x.CreatedDate).TotalHours))
                 .ForMember(x => x.IsLoggedIn, x => x.MapFrom<DurationResolver>());
         }
