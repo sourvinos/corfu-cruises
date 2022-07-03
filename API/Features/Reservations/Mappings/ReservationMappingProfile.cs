@@ -40,8 +40,7 @@ namespace API.Features.Reservations {
                     }
                 }));
             // Read passenger
-            CreateMap<Passenger, PassengerReadResource>()
-                .ForMember(x => x.Birthdate, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Birthdate)));
+            CreateMap<Passenger, PassengerReadResource>();
             // Write reservation
             CreateMap<ReservationWriteResource, Reservation>();
             // Write passenger

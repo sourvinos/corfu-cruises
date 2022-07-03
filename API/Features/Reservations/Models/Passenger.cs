@@ -17,7 +17,7 @@ namespace API.Features.Reservations {
         // Fields
         public string Lastname { get; set; }
         public string Firstname { get; set; }
-        public DateTime Birthdate { get; set; }
+        public string Birthdate { get; set; }
         public string Remarks { get; set; }
         public string SpecialCare { get; set; }
         public bool IsCheckedIn { get; set; }

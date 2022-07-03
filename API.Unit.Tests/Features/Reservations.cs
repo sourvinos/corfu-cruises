@@ -72,6 +72,62 @@ namespace API.UnitTests.Features.Reservations {
                .ShouldHaveValidationErrorFor(x => x.Remarks);
         }
 
+        [Theory]
+        [ClassData(typeof(ValidateDate))]
+        public void Invalid_Passenger_Birthdate(string date) {
+            new PassengerValidator()
+                .TestValidate(new PassengerWriteResource { Birthdate = date })
+                .ShouldHaveValidationErrorFor(x => x.Birthdate);
+        }
+
+        [Theory]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
+        public void Invalid_Passenger_Lastname(string lastname) {
+            new PassengerValidator()
+               .TestValidate(new PassengerWriteResource { Lastname = lastname })
+               .ShouldHaveValidationErrorFor(x => x.Lastname);
+        }
+
+        [Theory]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
+        public void Invalid_Passenger_Firstname(string firstname) {
+            new PassengerValidator()
+               .TestValidate(new PassengerWriteResource { Firstname = firstname })
+               .ShouldHaveValidationErrorFor(x => x.Firstname);
+        }
+
+        [Theory]
+        [ClassData(typeof(ValidateFK))]
+        public void Invalid_Passenger_GenderId(int genderId) {
+            new PassengerValidator()
+               .TestValidate(new PassengerWriteResource { GenderId = genderId })
+               .ShouldHaveValidationErrorFor(x => x.GenderId);
+        }
+
+        [Theory]
+        [ClassData(typeof(ValidateFK))]
+        public void Invalid_Passenger_NationalityId(int nationalityId) {
+            new PassengerValidator()
+               .TestValidate(new PassengerWriteResource { NationalityId = nationalityId })
+               .ShouldHaveValidationErrorFor(x => x.NationalityId);
+        }
+
+        [Theory]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
+        public void Invalid_Passenger_SpecialCare(string specialCare) {
+            new PassengerValidator()
+               .TestValidate(new PassengerWriteResource { SpecialCare = specialCare })
+               .ShouldHaveValidationErrorFor(x => x.SpecialCare);
+        }
+
+        [Theory]
+        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
+        public void Invalid_Passenger_Remarks(string remarks) {
+            new PassengerValidator()
+               .TestValidate(new PassengerWriteResource { Remarks = remarks })
+               .ShouldHaveValidationErrorFor(x => x.Remarks);
+        }
+
     }
 
 }

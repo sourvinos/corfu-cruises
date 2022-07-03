@@ -31,4 +31,18 @@ namespace API.Features.Reservations {
 
     }
 
+    public class PassengerValidator : AbstractValidator<PassengerWriteResource> {
+
+        public PassengerValidator() {
+            RuleFor(x => x.NationalityId).NotEmpty();
+            RuleFor(x => x.GenderId).NotEmpty();
+            RuleFor(x => x.Firstname).NotEmpty().MaximumLength(128);
+            RuleFor(x => x.Lastname).NotEmpty().MaximumLength(128);
+            RuleFor(x => x.Birthdate).Must(DateHelpers.BeCorrectFormat);
+            RuleFor(x => x.SpecialCare).MaximumLength(128);
+            RuleFor(x => x.Remarks).MaximumLength(128);
+        }
+
+    }
+
 }
