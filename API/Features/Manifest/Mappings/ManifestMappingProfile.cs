@@ -61,7 +61,7 @@ namespace API.Features.Manifest {
                 .ForMember(x => x.Passengers, x => x.MapFrom(source => source.Passengers.Select(passenger => new ManifestPassengerViewModel {
                     Lastname = passenger.Lastname,
                     Firstname = passenger.Firstname,
-                    Birthdate = passenger.Birthdate,
+                    Birthdate = DateHelpers.DateTimeToISOString(passenger.Birthdate),
                     Remarks = passenger.Remarks,
                     SpecialCare = passenger.SpecialCare,
                     NationalityCode = passenger.Nationality.Code,
