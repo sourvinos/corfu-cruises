@@ -11,8 +11,8 @@ namespace API.Features.Reservations {
             RuleFor(x => x.DestinationId).NotEmpty();
             RuleFor(x => x.PickupPointId).NotEmpty();
             // Fields
-            RuleFor(x => x.Date).Must(DateHelpers.BeCorrectFormat).WithMessage(ApiMessages.DateHasWrongFormat());
-            RuleFor(x => x.Email).Must(EmailHelpers.BeEmptyOrValidEmailAddress).WithMessage(ApiMessages.EmailHasWrongFormat()).MaximumLength(128);
+            RuleFor(x => x.Date).Must(DateHelpers.BeCorrectFormat);
+            RuleFor(x => x.Email).Must(EmailHelpers.BeEmptyOrValidEmailAddress).MaximumLength(128);
             RuleFor(x => x.Phones).MaximumLength(128);
             RuleFor(x => x.Remarks).MaximumLength(128);
             RuleFor(x => x.TicketNo).NotEmpty().MaximumLength(128);
@@ -23,7 +23,7 @@ namespace API.Features.Reservations {
                 passenger.RuleFor(x => x.OccupantId).NotEmpty();
                 passenger.RuleFor(x => x.Lastname).NotEmpty().MaximumLength(128);
                 passenger.RuleFor(x => x.Firstname).NotEmpty().MaximumLength(128);
-                passenger.RuleFor(x => x.Birthdate).Must(DateHelpers.BeCorrectFormat).WithMessage(ApiMessages.DateHasWrongFormat());
+                passenger.RuleFor(x => x.Birthdate).Must(DateHelpers.BeCorrectFormat);
                 passenger.RuleFor(x => x.Remarks).MaximumLength(128);
                 passenger.RuleFor(x => x.SpecialCare).MaximumLength(128);
             });

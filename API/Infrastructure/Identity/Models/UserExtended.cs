@@ -31,7 +31,6 @@ namespace API.Infrastructure.Identity {
         // Navigation
         public Customer Customer { get; set; }
         public List<CoachRoute> CoachRoutes { get; set; }
-        public List<Crew> Crews { get; set; }
         public List<Customer> Customers { get; set; }
         public List<Destination> Destinations { get; set; }
         public List<Driver> Drivers { get; set; }
@@ -44,6 +43,7 @@ namespace API.Infrastructure.Identity {
         public List<Reservation> Reservations { get; set; }
         public List<Schedule> Schedules { get; set; }
         public List<Ship> Ships { get; set; }
+        public List<ShipCrew> ShipCrews { get; set; }
         public List<ShipOwner> ShipOwners { get; set; }
         public List<ShipRoute> ShipRoutes { get; set; }
         public List<Token> Tokens { get; set; }

@@ -30,7 +30,6 @@ namespace API.Infrastructure.Classes {
         #region DbSets
 
         public DbSet<CoachRoute> CoachRoutes { get; set; }
-        public DbSet<Crew> Crews { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Destination> Destinations { get; set; }
         public DbSet<Driver> Drivers { get; set; }
@@ -45,6 +44,7 @@ namespace API.Infrastructure.Classes {
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Ship> Ships { get; set; }
+        public DbSet<ShipCrew> ShipCrews { get; set; }
         public DbSet<ShipOwner> ShipOwners { get; set; }
         public DbSet<ShipRoute> ShipRoutes { get; set; }
         public DbSet<Token> Tokens { get; set; }
@@ -62,7 +62,7 @@ namespace API.Infrastructure.Classes {
         }
 
         private static void ApplyConfigurations(ModelBuilder modelBuilder) {
-            modelBuilder.ApplyConfiguration(new CrewsConfig());
+            modelBuilder.ApplyConfiguration(new CoachRoutesConfig());
             modelBuilder.ApplyConfiguration(new CustomersConfig());
             modelBuilder.ApplyConfiguration(new DestinationsConfig());
             modelBuilder.ApplyConfiguration(new DriversConfig());
@@ -75,8 +75,8 @@ namespace API.Infrastructure.Classes {
             modelBuilder.ApplyConfiguration(new RefNosConfig());
             modelBuilder.ApplyConfiguration(new RegistrarsConfig());
             modelBuilder.ApplyConfiguration(new ReservationsConfig());
-            modelBuilder.ApplyConfiguration(new CoachRoutesConfig());
             modelBuilder.ApplyConfiguration(new SchedulesConfig());
+            modelBuilder.ApplyConfiguration(new ShipCrewsConfig());
             modelBuilder.ApplyConfiguration(new ShipOwnersConfig());
             modelBuilder.ApplyConfiguration(new ShipRoutesConfig());
             modelBuilder.ApplyConfiguration(new ShipsConfig());

@@ -24,7 +24,6 @@ namespace API.Infrastructure.Extensions {
 
         public static void AddModelValidation(IServiceCollection services) {
             services.AddTransient<IValidator<CoachRouteWriteDto>, CoachRouteValidator>();
-            services.AddTransient<IValidator<CrewWriteResource>, CrewValidator>();
             services.AddTransient<IValidator<CustomerWriteResource>, CustomerValidator>();
             services.AddTransient<IValidator<DestinationWriteResource>, DestinationValidator>();
             services.AddTransient<IValidator<DriverWriteResource>, DriverValidator>();
@@ -37,6 +36,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IValidator<RegistrarWriteResource>, RegistrarValidator>();
             services.AddTransient<IValidator<ReservationWriteResource>, ReservationValidator>();
             services.AddTransient<IValidator<ScheduleWriteDto>, ScheduleValidator>();
+            services.AddTransient<IValidator<ShipCrewWriteResource>, ShipCrewValidator>();
             services.AddTransient<IValidator<ShipRouteWriteResource>, ShipRouteValidator>();
             services.AddTransient<IValidator<ShipWriteResource>, ShipValidator>();
             services.AddTransient<IValidator<Voucher>, VoucherValidator>();

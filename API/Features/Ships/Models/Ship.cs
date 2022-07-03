@@ -27,7 +27,7 @@ namespace API.Features.Ships {
         // Navigation
         public ShipOwner ShipOwner { get; set; }
         public UserExtended User { get; set; }
-        public List<Crew> Crews { get; set; }
+        public List<ShipCrew> ShipCrews { get; set; }
         public List<Registrar> Registrars { get; set; }
         public List<Reservation> Reservations { get; set; }
 

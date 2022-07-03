@@ -1,6 +1,6 @@
 namespace API.Features.ShipCrews {
 
-    public class CrewWriteResource {
+    public class ShipCrewWriteResource {
 
         public int Id { get; set; }
         public int GenderId { get; set; }

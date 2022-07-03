@@ -7,7 +7,7 @@ using API.Infrastructure.Identity;
 
 namespace API.Features.ShipCrews {
 
-    public class Crew {
+    public class ShipCrew {
 
         // PK
         public int Id { get; set; }

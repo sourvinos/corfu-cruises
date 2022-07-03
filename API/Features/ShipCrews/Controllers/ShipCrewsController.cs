@@ -11,17 +11,17 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Features.ShipCrews {
 
     [Route("api/[controller]")]
-    public class CrewsController : ControllerBase {
+    public class ShipCrewsController : ControllerBase {
 
         #region variables
 
-        private readonly ICrewRepository repo;
+        private readonly IShipCrewRepository repo;
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
 
         #endregion
 
-        public CrewsController(ICrewRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
+        public ShipCrewsController(IShipCrewRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
             this.httpContext = httpContext;
             this.mapper = mapper;
             this.repo = repo;
@@ -29,7 +29,7 @@ namespace API.Features.ShipCrews {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<CrewListResource>> Get() {
+        public async Task<IEnumerable<ShipCrewListResource>> Get() {
             return await repo.Get();
         }
 
@@ -41,17 +41,17 @@ namespace API.Features.ShipCrews {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<CrewReadResource> GetCrew(int id) {
+        public async Task<ShipCrewReadResource> GetCrew(int id) {
             return await repo.GetById(id);
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PostAsync([FromBody] CrewWriteResource record) {
+        public async Task<IActionResult> PostAsync([FromBody] ShipCrewWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Create(mapper.Map<CrewWriteResource, Crew>(await AttachUserIdToRecord(AttachOccupantIdToRecord(record))));
+                repo.Create(mapper.Map<ShipCrewWriteResource, ShipCrew>(await AttachUserIdToRecord(AttachOccupantIdToRecord(record))));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordCreated()
                 });
@@ -63,10 +63,10 @@ namespace API.Features.ShipCrews {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PutAsync([FromBody] CrewWriteResource record) {
+        public async Task<IActionResult> PutAsync([FromBody] ShipCrewWriteResource record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Update(mapper.Map<CrewWriteResource, Crew>(await AttachUserIdToRecord(AttachOccupantIdToRecord(record))));
+                repo.Update(mapper.Map<ShipCrewWriteResource, ShipCrew>(await AttachUserIdToRecord(AttachOccupantIdToRecord(record))));
                 return StatusCode(200, new {
                     response = ApiMessages.RecordUpdated()
                 });
@@ -84,13 +84,13 @@ namespace API.Features.ShipCrews {
             });
         }
 
-        private async Task<CrewWriteResource> AttachUserIdToRecord(CrewWriteResource record) {
+        private async Task<ShipCrewWriteResource> AttachUserIdToRecord(ShipCrewWriteResource record) {
             var user = await Identity.GetConnectedUserId(httpContext);
             record.UserId = user.UserId;
             return record;
         }
 
-        private static CrewWriteResource AttachOccupantIdToRecord(CrewWriteResource record) {
+        private static ShipCrewWriteResource AttachOccupantIdToRecord(ShipCrewWriteResource record) {
             record.OccupantId = 1;
             return record;
         }

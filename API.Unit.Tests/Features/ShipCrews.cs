@@ -10,24 +10,24 @@ namespace API.UnitTests.Features.ShipCrews {
         [Theory]
         [ClassData(typeof(ValidateFK))]
         public void Invalid_GenderId(int genderId) {
-            new CrewValidator()
-                .TestValidate(new CrewWriteResource { GenderId = genderId })
+            new ShipCrewValidator()
+                .TestValidate(new ShipCrewWriteResource { GenderId = genderId })
                 .ShouldHaveValidationErrorFor(x => x.GenderId);
         }
 
         [Theory]
         [ClassData(typeof(ValidateFK))]
         public void Invalid_NationalityId(int nationalityId) {
-            new CrewValidator()
-                .TestValidate(new CrewWriteResource { NationalityId = nationalityId })
+            new ShipCrewValidator()
+                .TestValidate(new ShipCrewWriteResource { NationalityId = nationalityId })
                 .ShouldHaveValidationErrorFor(x => x.NationalityId);
         }
 
         [Theory]
         [ClassData(typeof(ValidateFK))]
         public void Invalid_ShipId(int shipId) {
-            new CrewValidator()
-                .TestValidate(new CrewWriteResource { ShipId = shipId })
+            new ShipCrewValidator()
+                .TestValidate(new ShipCrewWriteResource { ShipId = shipId })
                 .ShouldHaveValidationErrorFor(x => x.ShipId);
         }
 
@@ -35,8 +35,8 @@ namespace API.UnitTests.Features.ShipCrews {
         [ClassData(typeof(ValidateStringNotEmpty))]
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Lastname(string lastname) {
-            new CrewValidator()
-                .TestValidate(new CrewWriteResource { Lastname = lastname })
+            new ShipCrewValidator()
+                .TestValidate(new ShipCrewWriteResource { Lastname = lastname })
                 .ShouldHaveValidationErrorFor(x => x.Lastname);
         }
 
@@ -44,16 +44,16 @@ namespace API.UnitTests.Features.ShipCrews {
         [ClassData(typeof(ValidateStringNotEmpty))]
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Firstname(string firstname) {
-            new CrewValidator()
-                .TestValidate(new CrewWriteResource { Firstname = firstname })
+            new ShipCrewValidator()
+                .TestValidate(new ShipCrewWriteResource { Firstname = firstname })
                 .ShouldHaveValidationErrorFor(x => x.Firstname);
         }
 
         [Theory]
         [ClassData(typeof(ValidateDate))]
         public void Invalid_Birthdate(string birthdate) {
-            new CrewValidator()
-                .TestValidate(new CrewWriteResource { Birthdate = birthdate })
+            new ShipCrewValidator()
+                .TestValidate(new ShipCrewWriteResource { Birthdate = birthdate })
                 .ShouldHaveValidationErrorFor(x => x.Birthdate);
         }
 

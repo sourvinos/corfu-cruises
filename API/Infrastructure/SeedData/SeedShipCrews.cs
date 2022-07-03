@@ -7,13 +7,13 @@ using Newtonsoft.Json;
 
 namespace API.Infrastructure.SeedData {
 
-    public static class SeedDatabaseCrews {
+    public static class SeedDatabaseShipCrews {
 
-        public static void SeedCrews(AppDbContext context) {
-            if (!context.Crews.Any()) {
+        public static void SeedShipCrews(AppDbContext context) {
+            if (!context.ShipCrews.Any()) {
                 string crewsJSON = File.ReadAllText("Infrastructure" + Path.DirectorySeparatorChar + "Data" + Path.DirectorySeparatorChar + "Crews.json");
-                List<Crew> crews = JsonConvert.DeserializeObject<List<Crew>>(crewsJSON);
-                context.Crews.AddRange(crews);
+                List<ShipCrew> crews = JsonConvert.DeserializeObject<List<ShipCrew>>(crewsJSON);
+                context.ShipCrews.AddRange(crews);
                 context.SaveChanges();
             }
         }

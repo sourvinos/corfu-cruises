@@ -24,12 +24,12 @@ namespace API.Infrastructure.SeedData {
             SeedDatabaseShipOwners.SeedShipOwners(context);
             SeedDatabaseShipRoutes.SeedShipRoutes(context);
             // With dependencies on other tables
-            SeedDatabaseShips.SeedShips(context);
-            SeedDatabaseCrews.SeedCrews(context);
-            SeedDatabaseRoutes.SeedCoachRoutes(context);
             SeedDatabasePickupPoints.SeedPickupPoints(context);
             SeedDatabaseRegistrars.SeedRegistrars(context);
+            SeedDatabaseRoutes.SeedCoachRoutes(context);
             SeedDatabaseSchedules.SeedSchedules(context);
+            SeedDatabaseShipCrews.SeedShipCrews(context);
+            SeedDatabaseShips.SeedShips(context);
             // Reservations
             SeedDatabaseReservations.SeedReservations(context);
             SeedDatabasePassengers.SeedPassengers(context);

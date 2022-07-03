@@ -26,10 +26,10 @@ namespace API.Features.Manifest {
                 Ship = context.Ships
                     .Include(x => x.ShipOwner)
                     .Include(x => x.Registrars.Where(x => x.IsActive))
-                    .Include(x => x.Crews.Where(x => x.IsActive))
-                    .Include(x => x.Crews.Where(x => x.IsActive)).ThenInclude(x => x.Gender)
-                    .Include(x => x.Crews.Where(x => x.IsActive)).ThenInclude(x => x.Nationality)
-                    .Include(x => x.Crews.Where(x => x.IsActive)).ThenInclude(x => x.Occupant)
+                    .Include(x => x.ShipCrews.Where(x => x.IsActive))
+                    .Include(x => x.ShipCrews.Where(x => x.IsActive)).ThenInclude(x => x.Gender)
+                    .Include(x => x.ShipCrews.Where(x => x.IsActive)).ThenInclude(x => x.Nationality)
+                    .Include(x => x.ShipCrews.Where(x => x.IsActive)).ThenInclude(x => x.Occupant)
                     .FirstOrDefault(x => x.Id == shipId),
                 ShipRoute = context.ShipRoutes
                     .FirstOrDefault(x => x.Id == shipRouteId),

@@ -10,9 +10,9 @@ namespace API.Features.Schedules {
             RuleFor(x => x.PortId).NotEmpty();
             RuleFor(x => x.DestinationId).NotEmpty();
             // Fields
-            RuleFor(x => x.Date).Must(DateHelpers.BeCorrectFormat).WithMessage(ApiMessages.DateHasWrongFormat());
-            RuleFor(x => x.MaxPassengers).InclusiveBetween(0, 999).WithMessage(ApiMessages.InvalidMaxPassengers());
-            RuleFor(x => x.DepartureTime).Must(TimeHelpers.BeValidTime).WithMessage(ApiMessages.InvalidDepartureTime());
+            RuleFor(x => x.Date).Must(DateHelpers.BeCorrectFormat);
+            RuleFor(x => x.MaxPassengers).InclusiveBetween(0, 999);
+            RuleFor(x => x.DepartureTime).Must(TimeHelpers.BeValidTime);
         }
 
     }

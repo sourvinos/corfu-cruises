@@ -66,7 +66,12 @@ export class CrewFormComponent {
 
     constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private crewService: CrewService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title) {
         this.activatedRoute.params.subscribe(x => {
-            x.id ? this.getRecord(x.id).then(() => { this.populateDropDowns() }) : this.populateDropDowns()
+            if (x.id) {
+                this.initForm()
+                this.getRecord(x.id)
+            } else {
+                this.initForm()
+            }
         })
     }
 
@@ -74,8 +79,8 @@ export class CrewFormComponent {
 
     ngOnInit(): void {
         this.setWindowTitle()
-        this.initForm()
         this.addShortcuts()
+        this.populateDropDowns()
         this.subscribeToInteractionService()
         this.setLocale()
     }

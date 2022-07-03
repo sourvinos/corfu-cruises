@@ -37,7 +37,7 @@ namespace API.Features.Manifest {
                         })
                         .OrderBy(x => !x.IsPrimary)
                         .ToList(),
-                    Crew = source.Ship.Crews
+                    Crew = source.Ship.ShipCrews
                         .ConvertAll(crew => new ManifestCrewViewModel {
                             Lastname = crew.Lastname,
                             Firstname = crew.Firstname,

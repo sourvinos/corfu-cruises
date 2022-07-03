@@ -16,7 +16,7 @@ namespace API.Features.Genders {
         public string UserId { get; set; }
         // Navigation
         public UserExtended User { get; set; }
-        public List<Crew> Crews { get; set; }
+        public List<ShipCrew> ShipCrews { get; set; }
         public List<Passenger> Passengers { get; set; }
 
     }

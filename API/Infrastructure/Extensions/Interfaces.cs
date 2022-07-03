@@ -32,7 +32,6 @@ namespace API.Infrastructure.Extensions {
             services.AddScoped<Token>();
             services.AddTransient<IAvailabilityRepository, AvailabilityRepository>();
             services.AddTransient<ICoachRouteRepository, CoachRouteRepository>();
-            services.AddTransient<ICrewRepository, CrewRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddTransient<IDestinationRepository, DestinationRepository>();
@@ -49,6 +48,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IRegistrarRepository, RegistrarRepository>();
             services.AddTransient<IReservationRepository, ReservationRepository>();
             services.AddTransient<IScheduleRepository, ScheduleRepository>();
+            services.AddTransient<IShipCrewRepository, ShipCrewRepository>();
             services.AddTransient<IShipOwnerRepository, ShipOwnerRepository>();
             services.AddTransient<IShipRepository, ShipRepository>();
             services.AddTransient<IShipRouteRepository, ShipRouteRepository>();

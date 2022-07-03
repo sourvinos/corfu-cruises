@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment'
 export class CrewService extends HttpDataService {
 
     constructor(httpClient: HttpClient) {
-        super(httpClient, environment.apiUrl + '/crews')
+        super(httpClient, environment.apiUrl + '/shipCrews')
     }
 
 }

@@ -19,11 +19,9 @@ namespace API.Infrastructure.Helpers {
 
         #region Errors
 
-        public static string RecordIsInUse() { return "This record is in use and can not be deleted."; }
         public static string AuthenticationFailed() { return "Authentication failed."; }
         public static string RecordNotFound() { return "Record not found."; }
         public static string RecordNotSaved() { return "Record not saved."; }
-        public static string FileNotCreated() { return "File not created."; }
         public static string InvalidModel() { return "The model is invalid."; }
         public static string EmailNotSent() { return "Email not sent."; }
         public static string DateHasWrongFormat() { return "Date must be in 'YYYY-MM-DD' format"; }
@@ -35,15 +33,8 @@ namespace API.Infrastructure.Helpers {
         public static string PortHasNoVacancy() { return "Overbooking in not allowed."; }
         public static string LogoutError() { return "The user is not logged in."; }
         public static string NotOwnRecord() { return "This record belongs to another user."; }
-        public static string InsufficientUserRights() { return "This action requires higher authorization level."; }
-        public static string UserCanNotAddReservationInThePast() { return "Reservations for past dates are not allowed."; }
         public static string InvalidPassengerCount() { return "Total persons must be equal or greater than the passenger count."; }
-        public static string InvalidShipRouteFromTime() { return "From time is missing or invalid"; }
-        public static string InvalidShipRouteViaTime() { return "Via time is invalid"; }
-        public static string InvalidShipRouteToTime() { return "To time is missing or invalid"; }
-        public static string InvalidDepartureTime() { return "Departure time is missing or invalid"; }
         public static string FKNotFoundOrInactive(string fk) { return $"{fk} does not exist or is inactive"; }
-        public static string InvalidMaxPassengers() { return "Maximum passengers must be between 0 and 999"; }
         public static string SimpleUserNightRestrictions() { return "New reservations for the next day with transfer after 22:00 are not allowed"; }
         public static string SimpleUserCanNotAddReservationAfterDepartureTime() { return "Reservations after departure are not allowed"; }
 

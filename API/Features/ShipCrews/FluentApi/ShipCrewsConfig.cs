@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace API.Features.ShipCrews {
 
-    internal class CrewsConfig : IEntityTypeConfiguration<Crew> {
+    internal class ShipCrewsConfig : IEntityTypeConfiguration<ShipCrew> {
 
-        public void Configure(EntityTypeBuilder<Crew> entity) {
+        public void Configure(EntityTypeBuilder<ShipCrew> entity) {
             // PK
             entity.Property(x => x.Id).ValueGeneratedOnAdd();
             // FKs
@@ -20,10 +20,10 @@ namespace API.Features.ShipCrews {
             entity.Property(p => p.Birthdate).HasColumnType("date").IsRequired(true);
             entity.Property(x => x.IsActive);
             // FK Constraints
-            entity.HasOne(x => x.Gender).WithMany(x => x.Crews).HasForeignKey(x => x.GenderId).OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(x => x.Nationality).WithMany(x => x.Crews).HasForeignKey(x => x.NationalityId).OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(x => x.Ship).WithMany(x => x.Crews).HasForeignKey(x => x.ShipId).OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(x => x.User).WithMany(x => x.Crews).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.Gender).WithMany(x => x.ShipCrews).HasForeignKey(x => x.GenderId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.Nationality).WithMany(x => x.ShipCrews).HasForeignKey(x => x.NationalityId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.Ship).WithMany(x => x.ShipCrews).HasForeignKey(x => x.ShipId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.User).WithMany(x => x.ShipCrews).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
         }
 
     }

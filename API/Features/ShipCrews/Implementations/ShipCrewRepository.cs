@@ -10,16 +10,16 @@ using Microsoft.Extensions.Options;
 
 namespace API.Features.ShipCrews {
 
-    public class CrewRepository : Repository<Crew>, ICrewRepository {
+    public class ShipCrewRepository : Repository<ShipCrew>, IShipCrewRepository {
 
         private readonly IMapper mapper;
 
-        public CrewRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
+        public ShipCrewRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<CrewListResource>> Get() {
-            List<Crew> records = await context.Crews
+        public async Task<IEnumerable<ShipCrewListResource>> Get() {
+            List<ShipCrew> records = await context.ShipCrews
                 .Include(x => x.Ship)
                 .Include(x => x.Gender)
                 .Include(x => x.Nationality)
@@ -29,36 +29,36 @@ namespace API.Features.ShipCrews {
                             .ThenBy(x => x.Birthdate)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Crew>, IEnumerable<CrewListResource>>(records);
+            return mapper.Map<IEnumerable<ShipCrew>, IEnumerable<ShipCrewListResource>>(records);
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            List<Crew> records = await context.Crews
+            List<ShipCrew> records = await context.ShipCrews
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ThenByDescending(x => x.Birthdate)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Crew>, IEnumerable<SimpleResource>>(records);
+            return mapper.Map<IEnumerable<ShipCrew>, IEnumerable<SimpleResource>>(records);
         }
 
-        public new async Task<CrewReadResource> GetById(int id) {
-            Crew record = await context.Crews
+        public new async Task<ShipCrewReadResource> GetById(int id) {
+            ShipCrew record = await context.ShipCrews
                 .Include(x => x.Ship)
                 .Include(x => x.Gender)
                 .Include(x => x.Nationality)
                 .SingleOrDefaultAsync(x => x.Id == id);
             if (record != null) {
-                return mapper.Map<Crew, CrewReadResource>(record);
+                return mapper.Map<ShipCrew, ShipCrewReadResource>(record);
             } else {
                 throw new CustomException { HttpResponseCode = 404 };
             }
         }
 
-        public async Task<Crew> GetByIdToDelete(int id) {
-            return await context.Crews.SingleOrDefaultAsync(x => x.Id == id);
+        public async Task<ShipCrew> GetByIdToDelete(int id) {
+            return await context.ShipCrews.SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public int IsValid(CrewWriteResource record) {
+        public int IsValid(ShipCrewWriteResource record) {
             return true switch {
                 var x when x == !IsValidGender(record) => 450,
                 var x when x == !IsValidNationality(record) => 451,
@@ -67,7 +67,7 @@ namespace API.Features.ShipCrews {
             };
         }
 
-        private bool IsValidGender(CrewWriteResource record) {
+        private bool IsValidGender(ShipCrewWriteResource record) {
             if (record.Id == 0) {
                 return context.Genders.SingleOrDefault(x => x.Id == record.GenderId && x.IsActive) != null;
             }
@@ -75,14 +75,14 @@ namespace API.Features.ShipCrews {
 
         }
 
-        private bool IsValidNationality(CrewWriteResource record) {
+        private bool IsValidNationality(ShipCrewWriteResource record) {
             if (record.Id == 0) {
                 return context.Nationalities.SingleOrDefault(x => x.Id == record.NationalityId && x.IsActive) != null;
             }
             return context.Nationalities.SingleOrDefault(x => x.Id == record.NationalityId) != null;
         }
 
-        private bool IsValidShip(CrewWriteResource record) {
+        private bool IsValidShip(ShipCrewWriteResource record) {
             if (record.Id == 0) {
                 return context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
             }
