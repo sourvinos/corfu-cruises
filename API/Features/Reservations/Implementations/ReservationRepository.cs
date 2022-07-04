@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Features.Drivers;
-using API.Features.Invoicing;
 using API.Features.PickupPoints;
 using API.Features.Schedules;
 using API.Infrastructure.Classes;
@@ -209,6 +208,16 @@ namespace API.Features.Reservations {
             return await GetDestinationAbbreviation(record) + await IncrementRefNoByOne();
         }
 
+        public bool IsOverbooked(string date, int destinationId) {
+            int maxPassengersForAllPorts = context.Schedules
+                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
+                .Sum(x => x.MaxPassengers);
+            int totalPersonsFromAllPorts = context.Reservations
+                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
+                .Sum(x => x.TotalPersons);
+            return totalPersonsFromAllPorts > maxPassengersForAllPorts;
+        }
+
         private IEnumerable<Passenger> GetPassengersForReservation(string id) {
             return context.Set<Passenger>()
                 .Where(x => x.ReservationId.ToString() == id)
@@ -253,16 +262,6 @@ namespace API.Features.Reservations {
                     .Sum(x => x.TotalPersons);
                 return totalPersonsFromAllPorts + totalPersons <= maxPassengersForAllPorts;
             }
-        }
-
-        public bool IsOverbooked(string date, int destinationId) {
-            int maxPassengersForAllPorts = context.Schedules
-                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
-                .Sum(x => x.MaxPassengers);
-            int totalPersonsFromAllPorts = context.Reservations
-                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
-                .Sum(x => x.TotalPersons);
-            return totalPersonsFromAllPorts > maxPassengersForAllPorts;
         }
 
         private static int GetPortMaxPassengers(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId) {
@@ -524,46 +523,6 @@ namespace API.Features.Reservations {
             var departureTime = schedule.Date.ToString("yyyy-MM-dd") + " " + schedule.DepartureTime;
             var departureTimeAsDate = DateTime.Parse(departureTime);
             return departureTimeAsDate;
-        }
-
-        public async Task<IEnumerable<InvoicingReportVM>> GetSimpleUserInvoicing(string fromDate, string toDate) {
-            var simpleUser = await Identity.GetConnectedUserId(httpContextAccessor);
-            var userDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
-            var records = context.Set<Reservation>()
-                 .Include(x => x.Customer)
-                 .Include(x => x.Destination)
-                 .Include(x => x.PickupPoint).ThenInclude(x => x.CoachRoute)
-                 .Include(x => x.Port)
-                 .Include(x => x.Ship)
-                 .Include(x => x.Passengers)
-                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate) && x.CustomerId == userDetails.CustomerId)
-                 .AsEnumerable()
-                 .GroupBy(x => new { x.Date, x.Customer }).OrderBy(x => new { x.Key.Date, x.Key.Customer.Description })
-                 .Select(x => new InvoicingDTO {
-                     Customer = new SimpleResource { Id = x.Key.Customer.Id, Description = x.Key.Customer.Description },
-                     Ports = x.GroupBy(x => x.Port).OrderBy(x => !x.Key.IsPrimary).Select(x => new InvoicingPortDTO {
-                         Port = x.Key.Description,
-                         HasTransferGroup = x.GroupBy(x => x.PickupPoint.CoachRoute.HasTransfer).Select(x => new HasTransferGroupDTO {
-                             HasTransfer = x.Key,
-                             Adults = x.Sum(x => x.Adults),
-                             Kids = x.Sum(x => x.Kids),
-                             Free = x.Sum(x => x.Free),
-                             TotalPersons = x.Sum(x => x.TotalPersons),
-                             TotalPassengers = x.Sum(x => x.Passengers.Count(x => x.IsCheckedIn))
-                         }).OrderBy(x => !x.HasTransfer),
-                         Adults = x.Sum(x => x.Adults),
-                         Kids = x.Sum(x => x.Kids),
-                         Free = x.Sum(x => x.Free),
-                         TotalPersons = x.Sum(x => x.TotalPersons),
-                         TotalPassengers = x.Sum(x => x.Passengers.Count(x => x.IsCheckedIn))
-                     }),
-                     Adults = x.Sum(x => x.Adults),
-                     Kids = x.Sum(x => x.Kids),
-                     Free = x.Sum(x => x.Free),
-                     TotalPersons = x.Sum(x => x.TotalPersons),
-                     Reservations = x.OrderBy(x => !x.PickupPoint.CoachRoute.HasTransfer).ToList()
-                 }).ToList();
-            return mapper.Map<IEnumerable<InvoicingDTO>, IEnumerable<InvoicingReportVM>>(records);
         }
 
     }

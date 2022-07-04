@@ -1,7 +1,7 @@
 @media only screen and (min-width: 1441px) {
     * {
         --font-size-calendar-day-min-max-width: 3.125rem;
-        --font-size-calendar-content: 0.85rem;
+        --font-size-calendar-content: 0.80rem;
         --font-size-checkbox: 120%;
         --font-size-h1: 1.7rem;
         --font-size-input-hint: 90%;
