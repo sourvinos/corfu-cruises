@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
-using API.Infrastructure.Exceptions;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -39,11 +38,7 @@ namespace API.Features.Ships {
             var record = await context.Ships
                 .Include(x => x.ShipOwner)
                 .SingleOrDefaultAsync(x => x.Id == id);
-            if (record != null) {
-                return mapper.Map<Ship, ShipReadResource>(record);
-            } else {
-                throw new CustomException { HttpResponseCode = 404 };
-            }
+            return mapper.Map<Ship, ShipReadResource>(record);
         }
 
         public async Task<Ship> GetByIdToDelete(int id) {

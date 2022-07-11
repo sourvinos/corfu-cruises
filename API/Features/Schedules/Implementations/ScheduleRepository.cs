@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Exceptions;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -38,11 +37,7 @@ namespace API.Features.Schedules {
                 .Include(p => p.Port)
                 .Include(p => p.Destination)
                 .SingleOrDefaultAsync(m => m.Id == scheduleId);
-            if (record != null) {
-                return mapper.Map<Schedule, ScheduleReadDto>(record);
-            } else {
-                throw new CustomException { HttpResponseCode = 404 };
-            }
+            return mapper.Map<Schedule, ScheduleReadDto>(record);
         }
 
         public async Task<Schedule> GetByIdToDelete(int id) {

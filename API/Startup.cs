@@ -1,17 +1,17 @@
 using System;
-using System.Net;
 using API.Infrastructure.Auth;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Email;
 using API.Infrastructure.Exceptions;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Identity;
+using API.Infrastructure.Implementations;
 using API.Infrastructure.Notifications;
 using API.Infrastructure.SeedData;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 
 // dotnet watch run --environment LocalDevelopment | LocalTesting | ProductionLive | ProductionDemo
 // dotnet publish /p:Configuration=Release /p:EnvironmentName=ProductionDemo | ProductionLive
@@ -72,8 +72,11 @@ namespace API {
             Authentication.AddAuthentication(Configuration, services);
             Interfaces.AddInterfaces(services);
             ModelValidations.AddModelValidation(services);
+            services.AddTransient<ExceptionMiddleware>();
+            // services.AddProblemDetails(x => {
+            //     x.IncludeExceptionDetails = (x, z) => Environment.EnvironmentName == "LocalDevelopment" || Environment.EnvironmentName == "LocalTesting";
+            // });
             services.AddSignalR();
-            services.AddTransient<ExceptionHandling>();
             services.Configure<RazorViewEngineOptions>(options => options.ViewLocationExpanders.Add(new ViewLocationExpander()));
             services.AddAntiforgery(options => { options.Cookie.Name = "_af"; options.Cookie.HttpOnly = true; options.Cookie.SecurePolicy = CookieSecurePolicy.Always; options.HeaderName = "X-XSRF-TOKEN"; });
             services.AddAutoMapper(typeof(Startup));
@@ -128,25 +131,11 @@ namespace API {
         }
 
         public virtual void Configure(IApplicationBuilder app) {
-            app.UseExceptionHandler(appBuilder => {
-                appBuilder.Run(async context => {
-                    var logger = appBuilder.ApplicationServices.GetRequiredService<ILogger<Startup>>();
-                    var feature = context.Features.Get<IExceptionHandlerFeature>();
-                    if (feature.Error != null) {
-                        logger.LogError(feature.Error, "Exception!");
-                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        context.Response.ContentType = "application/json";
-                        await context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(new {
-                            error = "Something went wrong!",
-                            detail = feature.Error.Message
-                        }));
-                    }
-                });
-            });
+            // app.UseProblemDetails();
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseDefaultFiles();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseMiddleware<ExceptionHandling>();
             app.UseRouting();
             app.UseCors();
             app.UseAuthentication();

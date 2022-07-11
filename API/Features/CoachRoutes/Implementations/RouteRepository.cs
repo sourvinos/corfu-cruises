@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Exceptions;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -39,11 +38,7 @@ namespace API.Features.CoachRoutes {
             CoachRoute record = await context.CoachRoutes
                 .Include(x => x.Port)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (record != null) {
-                return mapper.Map<CoachRoute, CoachRouteReadDto>(record);
-            } else {
-                throw new CustomException { HttpResponseCode = 404 };
-            }
+            return mapper.Map<CoachRoute, CoachRouteReadDto>(record);
         }
 
         public async Task<CoachRoute> GetByIdToDelete(int id) {

@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
-using API.Infrastructure.Exceptions;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -42,11 +41,7 @@ namespace API.Features.Registrars {
             Registrar record = await context.Registrars
                 .Include(x => x.Ship)
                 .SingleOrDefaultAsync(x => x.Id == id);
-            if (record != null) {
-                return mapper.Map<Registrar, RegistrarReadResource>(record);
-            } else {
-                throw new CustomException { HttpResponseCode = 404 };
-            }
+            return mapper.Map<Registrar, RegistrarReadResource>(record);
         }
 
         public async Task<Registrar> GetByIdToDelete(int id) {
