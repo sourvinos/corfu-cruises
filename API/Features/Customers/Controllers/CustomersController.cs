@@ -52,7 +52,7 @@ namespace API.Features.Customers {
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> PostCustomerAsync([FromBody] CustomerWriteResource record) {
             repo.Create(mapper.Map<CustomerWriteResource, Customer>(await AttachUserIdToRecord(record)));
-            return CreateOKResponse();
+            return ApiResponses.OK();
         }
 
         [HttpPut("{id}")]
@@ -60,14 +60,14 @@ namespace API.Features.Customers {
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> PutCustomerAsync([FromBody] CustomerWriteResource record) {
             repo.Update(mapper.Map<CustomerWriteResource, Customer>(await AttachUserIdToRecord(record)));
-            return CreateOKResponse();
+            return ApiResponses.OK();
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> DeleteCustomer([FromRoute] int id) {
             repo.Delete(await repo.GetByIdToDelete(id));
-            return CreateOKResponse();
+            return ApiResponses.OK();
         }
 
         private async Task<CustomerWriteResource> AttachUserIdToRecord(CustomerWriteResource record) {
@@ -76,14 +76,6 @@ namespace API.Features.Customers {
             return record;
         }
 
-        private static Response CreateOKResponse() {
-            return new Response {
-                StatusCode = 200,
-                Icon = Icons.Success.ToString(),
-                Message = ApiMessages.OK()
-            };
-        }
-
-    }
+     }
 
 }
