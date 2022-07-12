@@ -2,10 +2,18 @@ using System;
 
 namespace API.Infrastructure.Helpers {
 
+    public enum Icons {
+        Success,
+        Info,
+        Warning,
+        Error
+    }
+
     public static class ApiMessages {
 
         #region Info
 
+        public static string OK() { return "OK"; }
         public static string EmailInstructions() { return "An email was sent with instructions."; }
         public static string PasswordChanged() { return "Password was changed successfully."; }
         public static string PasswordReset() { return "Password was reset successfully."; }
@@ -20,7 +28,7 @@ namespace API.Infrastructure.Helpers {
         #region Errors
 
         public static string AuthenticationFailed() { return "Authentication failed."; }
-        public static string RecordNotFound() { return "Record not found."; }
+        public static string RecordNotFound() { return "This record was not found."; }
         public static string RecordNotSaved() { return "Record not saved."; }
         public static string InvalidModel() { return "The model is invalid."; }
         public static string EmailNotSent() { return "Email not sent."; }
@@ -32,6 +40,7 @@ namespace API.Infrastructure.Helpers {
         public static string PortHasNoDepartures() { return "For this day and destination, nothing is scheduled to depart from the given port."; }
         public static string PortHasNoVacancy() { return "Overbooking in not allowed."; }
         public static string LogoutError() { return "The user is not logged in."; }
+        public static string RecordInUse() { return "This record is in use and can't be deleted."; }
         public static string NotOwnRecord() { return "This record belongs to another user."; }
         public static string InvalidPassengerCount() { return "Total persons must be equal or greater than the passenger count."; }
         public static string FKNotFoundOrInactive(string fk) { return $"{fk} does not exist or is inactive"; }

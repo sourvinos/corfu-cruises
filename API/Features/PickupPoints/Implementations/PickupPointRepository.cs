@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Exceptions;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -39,14 +38,9 @@ namespace API.Features.PickupPoints {
         }
 
         public new async Task<PickupPoint> GetById(int id) {
-            var record = await context.Set<PickupPoint>()
+            return await context.Set<PickupPoint>()
                 .Include(x => x.CoachRoute)
                 .SingleOrDefaultAsync(x => x.Id == id);
-            if (record != null) {
-                return record;
-            } else {
-                throw new CustomException { HttpResponseCode = 404 };
-            }
         }
 
         public async Task<PickupPoint> GetByIdToDelete(int id) {

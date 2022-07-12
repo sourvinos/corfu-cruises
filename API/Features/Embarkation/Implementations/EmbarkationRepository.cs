@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Exceptions;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -56,17 +55,13 @@ namespace API.Features.Embarkation {
 
         public void EmbarkSinglePassenger(int id) {
             Passenger passenger = context.Passengers.Where(x => x.Id == id).FirstOrDefault();
-            if (passenger != null) {
-                var strategy = context.Database.CreateExecutionStrategy();
-                strategy.Execute(() => {
-                    using var transaction = context.Database.BeginTransaction();
-                    passenger.IsCheckedIn = !passenger.IsCheckedIn;
-                    context.SaveChanges();
-                    DisposeOrCommit(transaction);
-                });
-            } else {
-                throw new CustomException { HttpResponseCode = 404 };
-            }
+            var strategy = context.Database.CreateExecutionStrategy();
+            strategy.Execute(() => {
+                using var transaction = context.Database.BeginTransaction();
+                passenger.IsCheckedIn = !passenger.IsCheckedIn;
+                context.SaveChanges();
+                DisposeOrCommit(transaction);
+            });
         }
 
         public void EmbarkAllPassengers(int[] id) {

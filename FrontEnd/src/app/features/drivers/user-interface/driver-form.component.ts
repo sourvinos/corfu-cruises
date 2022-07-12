@@ -95,7 +95,7 @@ export class DriverFormComponent {
                         this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
                     },
                     error: (errorFromInterceptor) => {
-                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                        this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
                     }
                 })
             }
@@ -151,7 +151,7 @@ export class DriverFormComponent {
             this.populateFields(result)
         }, errorFromInterceptor => {
             this.goBack()
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
         })
     }
 
@@ -190,7 +190,7 @@ export class DriverFormComponent {
                     this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
                 }
             })
         } else {
@@ -201,7 +201,7 @@ export class DriverFormComponent {
                     this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
                 }
             })
         }

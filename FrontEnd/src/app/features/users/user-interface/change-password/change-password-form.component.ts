@@ -134,7 +134,7 @@ export class ChangePasswordFormComponent {
             this.populateFields(result)
         }, errorFromInterceptor => {
             this.goBack()
-            this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+            this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
         })
     }
 
@@ -172,7 +172,7 @@ export class ChangePasswordFormComponent {
                 this.showSnackbar(this.messageSnackbarService.passwordChanged(), 'info')
             },
             error: (errorFromInterceptor) => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
             }
         })
     }

@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Exceptions;
 using API.Infrastructure.Implementations;
+using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -58,7 +58,13 @@ namespace API.Features.CoachRoutes {
         }
 
         private bool IsValidPort(CoachRouteWriteDto record) {
-            return context.Ports.SingleOrDefault(x => x.Id == record.PortId && x.IsActive) != null;
+            bool isValid = false;
+            if (record.Id == 0) {
+                isValid = context.Ports.SingleOrDefault(x => x.Id == record.PortId && x.IsActive) != null;
+            } else {
+                isValid = context.Ports.SingleOrDefault(x => x.Id == record.PortId) != null;
+            }
+            return isValid;
         }
 
     }

@@ -6,7 +6,6 @@ using API.Features.Drivers;
 using API.Features.PickupPoints;
 using API.Features.Schedules;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Exceptions;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Identity;
@@ -90,9 +89,7 @@ namespace API.Features.Reservations {
                 .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
                 .Include(x => x.Passengers).ThenInclude(x => x.Gender)
                 .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId);
-            return record != null
-                ? mapper.Map<Reservation, ReservationReadResource>(record)
-                : throw new CustomException { HttpResponseCode = 404 };
+            return mapper.Map<Reservation, ReservationReadResource>(record);
         }
 
         public async Task<Reservation> GetByIdToDelete(string id) {

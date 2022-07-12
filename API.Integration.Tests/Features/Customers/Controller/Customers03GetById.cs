@@ -17,7 +17,7 @@ namespace API.Integration.Tests.Customers {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _notFoundUrl = "/customers/999";
+        private readonly string _notFoundUrl = "/customers/9999";
         private readonly string _url = "/customers/1";
 
         #endregion
@@ -47,11 +47,6 @@ namespace API.Integration.Tests.Customers {
         [Fact]
         public async Task Active_Simple_Users_Can_Not_Get_By_Id() {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", null);
-        }
-
-        [Fact]
-        public async Task Active_Admins_Not_Found_When_Not_Exists() {
-            await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
         }
 
         [Fact]

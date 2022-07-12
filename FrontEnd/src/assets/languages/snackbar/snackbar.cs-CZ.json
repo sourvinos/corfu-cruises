@@ -3,6 +3,10 @@
         "feature": "snackbarMessages",
         "labels": [
             {
+                "error": 200,
+                "message": "Vše OK."
+            },
+            {
                 "error": 400,
                 "message": "Model je neplatný."
             },

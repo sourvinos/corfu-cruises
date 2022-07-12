@@ -4,8 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Exceptions;
 using API.Infrastructure.Interfaces;
+using API.Infrastructure.Responses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Options;
@@ -31,47 +31,38 @@ namespace API.Infrastructure.Implementations {
         }
 
         public async Task<T> GetById(int id) {
-            var record = await context.Set<T>().FindAsync(id);
-            if (record != null) {
-                return record;
+            var entity = await context.Set<T>().FindAsync(id);
+            if (entity != null) {
+                return entity;
             } else {
                 throw new CustomException { HttpResponseCode = 404 };
             }
         }
 
         public void Create(T entity) {
-            var strategy = context.Database.CreateExecutionStrategy();
-            strategy.Execute(() => {
-                using var transaction = context.Database.BeginTransaction();
-                context.Add(entity);
-                Save();
-                DisposeOrCommit(transaction);
-            });
+            using var transaction = context.Database.BeginTransaction();
+            context.Add(entity);
+            Save();
+            DisposeOrCommit(transaction);
         }
 
         public void Update(T entity) {
-            var strategy = context.Database.CreateExecutionStrategy();
-            strategy.Execute(() => {
-                using var transaction = context.Database.BeginTransaction();
-                context.Entry(entity).State = EntityState.Modified;
-                Save();
-                DisposeOrCommit(transaction);
-            });
+            using var transaction = context.Database.BeginTransaction();
+            context.Entry(entity).State = EntityState.Modified;
+            Save();
+            DisposeOrCommit(transaction);
         }
 
         public void Delete(T entity) {
             if (entity != null) {
-                var strategy = context.Database.CreateExecutionStrategy();
-                strategy.Execute(() => {
-                    using var transaction = context.Database.BeginTransaction();
-                    try {
-                        RemoveEntity(entity);
-                        Save();
-                        DisposeOrCommit(transaction);
-                    } catch (Exception) {
-                        throw new CustomException { HttpResponseCode = 491 };
-                    }
-                });
+                using var transaction = context.Database.BeginTransaction();
+                try {
+                    RemoveEntity(entity);
+                    Save();
+                    DisposeOrCommit(transaction);
+                } catch (Exception) {
+                    throw new CustomException { HttpResponseCode = 491 };
+                }
             } else {
                 throw new CustomException { HttpResponseCode = 404 };
             }

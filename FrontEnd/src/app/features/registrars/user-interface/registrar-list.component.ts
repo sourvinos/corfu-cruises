@@ -106,7 +106,7 @@ export class RegistrarListComponent {
                 this.records = listResolved.list
             } else {
                 this.goBack()
-                this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
+                this.showSnackbar(this.messageSnackbarService.filterResponse(listResolved.error), 'error')
             }
         })
         return promise

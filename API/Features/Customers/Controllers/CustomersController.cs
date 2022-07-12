@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -49,31 +50,24 @@ namespace API.Features.Customers {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PostCustomerAsync([FromBody] CustomerWriteResource record) {
+        public async Task<Response> PostCustomerAsync([FromBody] CustomerWriteResource record) {
             repo.Create(mapper.Map<CustomerWriteResource, Customer>(await AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordCreated()
-            });
+            return CreateOKResponse();
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PutCustomerAsync([FromBody] CustomerWriteResource record) {
+        public async Task<Response> PutCustomerAsync([FromBody] CustomerWriteResource record) {
             repo.Update(mapper.Map<CustomerWriteResource, Customer>(await AttachUserIdToRecord(record)));
-            // SendNotificationsToClients();
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
+            return CreateOKResponse();
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteCustomer([FromRoute] int id) {
+        public async Task<Response> DeleteCustomer([FromRoute] int id) {
             repo.Delete(await repo.GetByIdToDelete(id));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordDeleted()
-            });
+            return CreateOKResponse();
         }
 
         private async Task<CustomerWriteResource> AttachUserIdToRecord(CustomerWriteResource record) {
@@ -82,6 +76,13 @@ namespace API.Features.Customers {
             return record;
         }
 
+        private static Response CreateOKResponse() {
+            return new Response {
+                StatusCode = 200,
+                Icon = Icons.Success.ToString(),
+                Message = ApiMessages.OK()
+            };
+        }
 
     }
 

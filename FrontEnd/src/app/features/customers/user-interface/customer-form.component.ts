@@ -50,9 +50,9 @@ export class CustomerFormComponent {
             }
         })
     }
-    
+
     //#region lifecycle hooks
-    
+
     ngOnInit(): void {
         this.addShortcuts()
         this.focusOnField('description')
@@ -97,7 +97,7 @@ export class CustomerFormComponent {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
                     error: (errorFromInterceptor) => {
-                        this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok'])
+                        this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
                     }
                 })
             }
@@ -162,7 +162,7 @@ export class CustomerFormComponent {
                 this.populateFields(response)
             },
             error: (errorFromInterceptor) => {
-                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
             }
         })
     }
@@ -208,7 +208,7 @@ export class CustomerFormComponent {
                     this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         } else {
@@ -217,7 +217,7 @@ export class CustomerFormComponent {
                     this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         }
