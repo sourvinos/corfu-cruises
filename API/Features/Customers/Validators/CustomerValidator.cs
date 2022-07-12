@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace API.Features.Customers {
 
-    public class CustomerValidator : AbstractValidator<CustomerWriteResource> {
+    public class CustomerValidator : AbstractValidator<CustomerWriteDto> {
 
         public CustomerValidator() {
             RuleFor(x => x.Description).NotEmpty().MaximumLength(128);

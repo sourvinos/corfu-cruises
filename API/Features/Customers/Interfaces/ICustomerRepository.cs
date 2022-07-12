@@ -7,7 +7,7 @@ namespace API.Features.Customers {
 
     public interface ICustomerRepository : IRepository<Customer> {
 
-        Task<IEnumerable<CustomerListResource>> Get();
+        Task<IEnumerable<CustomerListDto>> Get();
         Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
         Task<Customer> GetByIdToDelete(int id);
 

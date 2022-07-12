@@ -232,6 +232,7 @@ _Pvt_Extensions
 
 # Custom
 FrontEnd/package-lock.json
+FrontEnd/ssl/*.*
 **/*.pdf
 appsettings.json
 ToDo.txt

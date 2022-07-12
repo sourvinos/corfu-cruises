@@ -1,6 +1,6 @@
 ﻿namespace API.Features.Customers {
 
-    public class CustomerWriteResource {
+    public class CustomerWriteDto {
 
         public int Id { get; set; }
         public string Description { get; set; }

@@ -31,7 +31,7 @@ namespace API.Features.Customers {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<CustomerListResource>> Get() {
+        public async Task<IEnumerable<CustomerListDto>> Get() {
             return await repo.Get();
         }
 
@@ -43,23 +43,23 @@ namespace API.Features.Customers {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<CustomerReadResource> GetCustomer(int id) {
-            return mapper.Map<Customer, CustomerReadResource>(await repo.GetById(id));
+        public async Task<CustomerReadDto> GetCustomer(int id) {
+            return mapper.Map<Customer, CustomerReadDto>(await repo.GetById(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostCustomerAsync([FromBody] CustomerWriteResource record) {
-            repo.Create(mapper.Map<CustomerWriteResource, Customer>(await AttachUserIdToRecord(record)));
+        public async Task<Response> PostCustomerAsync([FromBody] CustomerWriteDto record) {
+            repo.Create(mapper.Map<CustomerWriteDto, Customer>(await AttachUserIdToRecord(record)));
             return ApiResponses.OK();
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutCustomerAsync([FromBody] CustomerWriteResource record) {
-            repo.Update(mapper.Map<CustomerWriteResource, Customer>(await AttachUserIdToRecord(record)));
+        public async Task<Response> PutCustomerAsync([FromBody] CustomerWriteDto record) {
+            repo.Update(mapper.Map<CustomerWriteDto, Customer>(await AttachUserIdToRecord(record)));
             return ApiResponses.OK();
         }
 
@@ -70,7 +70,7 @@ namespace API.Features.Customers {
             return ApiResponses.OK();
         }
 
-        private async Task<CustomerWriteResource> AttachUserIdToRecord(CustomerWriteResource record) {
+        private async Task<CustomerWriteDto> AttachUserIdToRecord(CustomerWriteDto record) {
             var user = await Identity.GetConnectedUserId(httpContext);
             record.UserId = user.UserId;
             return record;

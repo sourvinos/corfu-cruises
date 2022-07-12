@@ -6,10 +6,10 @@ namespace API.Features.Customers {
     public class CustomerMappingProfile : Profile {
 
         public CustomerMappingProfile() {
-            CreateMap<Customer, CustomerListResource>();
-            CreateMap<Customer, CustomerReadResource>();
+            CreateMap<Customer, CustomerListDto>();
+            CreateMap<Customer, CustomerReadDto>();
             CreateMap<Customer, SimpleResource>();
-            CreateMap<CustomerWriteResource, Customer>();
+            CreateMap<CustomerWriteDto, Customer>();
         }
 
     }
