@@ -19,7 +19,7 @@ namespace API.Integration.Tests.Destinations {
         private readonly string _baseUrl;
         private readonly string _inUseUrl = "/destinations/1";
         private readonly string _notFoundUrl = "/destinations/999";
-        private readonly string _url = "/destinations/4";
+        private readonly string _url = "/destinations/7";
 
         #endregion
 

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -40,37 +41,31 @@ namespace API.Features.Destinations {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<DestinationReadResource> GetById(int id) {
+        public async Task<DestinationReadResource> GetDestination(int id) {
             return mapper.Map<Destination, DestinationReadResource>(await repo.GetById(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PostDestinationAsync([FromBody] DestinationWriteResource record) {
+        public async Task<Response> PostDestinationAsync([FromBody] DestinationWriteResource record) {
             repo.Create(mapper.Map<DestinationWriteResource, Destination>(await AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordCreated()
-            });
+            return ApiResponses.OK();
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PutDestinationAsync([FromBody] DestinationWriteResource record) {
+        public async Task<Response> PutDestinationAsync([FromBody] DestinationWriteResource record) {
             repo.Update(mapper.Map<DestinationWriteResource, Destination>(await AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
+            return ApiResponses.OK();
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteDestination([FromRoute] int id) {
+        public async Task<Response> DeleteDestination([FromRoute] int id) {
             repo.Delete(await repo.GetByIdToDelete(id));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordDeleted()
-            });
+            return ApiResponses.OK();
         }
 
         private async Task<DestinationWriteResource> AttachUserIdToRecord(DestinationWriteResource record) {
