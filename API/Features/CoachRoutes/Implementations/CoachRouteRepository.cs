@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
+using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -38,7 +39,11 @@ namespace API.Features.CoachRoutes {
             CoachRoute record = await context.CoachRoutes
                 .Include(x => x.Port)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            return mapper.Map<CoachRoute, CoachRouteReadDto>(record);
+            if (record != null) {
+                return mapper.Map<CoachRoute, CoachRouteReadDto>(record);
+            } else {
+                throw new CustomException { HttpResponseCode = 404 };
+            }
         }
 
         public async Task<CoachRoute> GetByIdToDelete(int id) {
@@ -53,7 +58,13 @@ namespace API.Features.CoachRoutes {
         }
 
         private bool IsValidPort(CoachRouteWriteDto record) {
-            return context.Ports.SingleOrDefault(x => x.Id == record.PortId && x.IsActive) != null;
+            bool isValid = false;
+            if (record.Id == 0) {
+                isValid = context.Ports.SingleOrDefault(x => x.Id == record.PortId && x.IsActive) != null;
+            } else {
+                isValid = context.Ports.SingleOrDefault(x => x.Id == record.PortId) != null;
+            }
+            return isValid;
         }
 
     }

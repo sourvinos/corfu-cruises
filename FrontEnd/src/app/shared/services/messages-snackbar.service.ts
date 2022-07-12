@@ -75,7 +75,7 @@ export class MessageSnackbarService {
     public success(): string { return this.getDescription(this.feature, 'success') }
     public warning(): string { return this.getDescription(this.feature, 'warning') }
 
-    public filterError(error: any, feature = 'snackbarMessages'): string {
+    public filterResponse(error: any, feature = 'snackbarMessages'): string {
         let returnValue = ''
         this.messages.filter((f: { feature: string; labels: any[] }) => {
             if (f.feature === feature) {

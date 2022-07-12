@@ -1,15 +1,15 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { CustomerService } from '../classes/services/customer.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from '../../../shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -34,7 +34,7 @@ export class CustomerListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private sweetAlertService: SweetAlertService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -56,15 +56,22 @@ export class CustomerListComponent {
 
     //#region public methods
 
+    public editRecord(id: number): void {
+        this.customerService.getSingle(id).subscribe({
+            next: () => {
+                this.router.navigate([this.url, id])
+            },
+            error: (errorFromInterceptor) => {
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
+            }
+        })
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onEditRecord(id: number): void {
-        this.router.navigate([this.url, id])
-    }
-
-    public onNewRecord(): void {
+    public newRecord(): void {
         this.router.navigate([this.url + '/new'])
     }
 
@@ -102,19 +109,15 @@ export class CustomerListComponent {
     private loadRecords(): Promise<any> {
         const promise = new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
-            if (listResolved.error === null) {
+            if (listResolved.error == null) {
                 this.records = listResolved.list
                 resolve(this.records)
             } else {
                 this.goBack()
-                this.showError(this.messageSnackbarService.filterError(listResolved.error))
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
         })
         return promise
-    }
-
-    private showError(message: string): void {
-        this.sweetAlertService.open(message, 'error', true, false, 'OK', '', 0)
     }
 
     //#endregion

@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.Invoicing;
-using API.Features.Invoicing.Display;
 using API.Integration.Tests.Infrastructure;
 using API.Integration.Tests.Responses;
 using Xunit;
@@ -21,7 +20,7 @@ namespace API.Integration.Tests.Invoicing {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/invoicing/date/2022-02-01/customer/all/destination/all/ship/all";
+        private readonly string _url = "/invoicing/fromdate/2022-02-01/todate/2022-02-28/customer/all/destination/all/ship/all";
 
         #endregion
 
@@ -49,7 +48,7 @@ namespace API.Integration.Tests.Invoicing {
         [Fact]
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
-            var records = JsonSerializer.Deserialize<IEnumerable<InvoicingDisplayReportVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var records = JsonSerializer.Deserialize<IEnumerable<InvoicingReportVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(130, records.Sum(x => x.PortGroup.Sum(x => x.TotalPersons)));
         }
 

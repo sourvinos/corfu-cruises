@@ -125,7 +125,7 @@ export class InvoicingListComponent {
         if (listResolved.error === null) {
             this.records = Object.assign([], listResolved.result)
         } else {
-            this.modalActionResultService.open(this.messageSnackbarService.filterError(listResolved.error), 'error', ['ok']).subscribe(() => {
+            this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
                 this.goBack()
             })
         }

@@ -70,7 +70,7 @@ export class ReservationToDriverComponent {
                     this[table] = response
                     resolve(this[table])
                 }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
                 })
         })
         return promise

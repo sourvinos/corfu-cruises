@@ -198,7 +198,7 @@ export class ReservationFormComponent {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.localStorageService.getItem('returnUrl'), this.form)
                     },
                     error: (errorFromInterceptor) => {
-                        this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok'])
+                        this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
                     }
                 })
             }
@@ -391,7 +391,7 @@ export class ReservationFormComponent {
                 this.populateFields(result)
                 resolve(result)
             }, errorFromInterceptor => {
-                this.modalActionResultService.open(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', ['ok']).subscribe(() => {
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok']).subscribe(() => {
                     this.goBack()
                 })
             })
@@ -440,7 +440,7 @@ export class ReservationFormComponent {
                 occupantId: 2,
                 lastname: passenger.lastname,
                 firstname: passenger.firstname,
-                birthdate: passenger.birthdate,
+                birthdate: moment(passenger.birthdate).format('YYYY-MM-DD'),
                 specialCare: passenger.specialCare,
                 remarks: passenger.remarks,
                 isCheckedIn: passenger.isCheckedIn
@@ -523,7 +523,7 @@ export class ReservationFormComponent {
                     this.helperService.doPostSaveFormTasks('RefNo: ' + response.message, 'success', this.localStorageService.getItem('returnUrl'), this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', this.localStorageService.getItem('returnUrl'), this.form, false)
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.localStorageService.getItem('returnUrl'), this.form, false)
                 }
             })
         } else {
@@ -532,7 +532,7 @@ export class ReservationFormComponent {
                     this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.localStorageService.getItem('returnUrl'), this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterError(errorFromInterceptor), 'error', this.localStorageService.getItem('returnUrl'), this.form, false)
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.localStorageService.getItem('returnUrl'), this.form, false)
                 }
             })
         }

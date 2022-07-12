@@ -264,7 +264,7 @@ export class NewScheduleComponent {
                     resolve(this[table])
                     this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
                 }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
                 })
         })
         return promise
@@ -289,12 +289,12 @@ export class NewScheduleComponent {
                         this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
                     },
                     error: (errorFromInterceptor) => {
-                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                        this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
                     }
                 })
             },
             error: (errorFromInterceptor) => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
             }
         })
     }

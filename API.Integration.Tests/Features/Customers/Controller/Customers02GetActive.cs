@@ -18,7 +18,7 @@ namespace API.Integration.Tests.Customers {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly int _expectedRecordCount = 19;
+        private readonly int _expectedRecordCount = 122;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
         private readonly string _url = "/customers/getActiveForDropdown";

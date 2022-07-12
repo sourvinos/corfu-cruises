@@ -153,7 +153,7 @@ export class ManifestListComponent {
             this.records = listResolved.result
         } else {
             this.goBack()
-            this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
+            this.showSnackbar(this.messageSnackbarService.filterResponse(listResolved.error), 'error')
         }
     }
 

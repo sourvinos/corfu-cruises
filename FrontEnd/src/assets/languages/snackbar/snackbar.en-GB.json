@@ -3,6 +3,10 @@
         "feature": "snackbarMessages",
         "labels": [
             {
+                "error": 200,
+                "message": "Everything OK."
+            },
+            {
                 "error": 400,
                 "message": "The model is invalid."
             },

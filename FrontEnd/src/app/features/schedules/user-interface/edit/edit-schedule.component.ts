@@ -126,7 +126,7 @@ export class EditScheduleComponent {
                         this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
                     },
                     error: (errorFromInterceptor) => {
-                        this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                        this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
                     }
                 })
             }
@@ -195,7 +195,7 @@ export class EditScheduleComponent {
                 resolve(result)
             }, errorFromInterceptor => {
                 this.goBack()
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
             })
         })
         return promise
@@ -225,7 +225,7 @@ export class EditScheduleComponent {
                     resolve(this[table])
                     this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
                 }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
                 })
         })
         return promise
@@ -261,7 +261,7 @@ export class EditScheduleComponent {
                 this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
             },
             error: (errorFromInterceptor) => {
-                this.showSnackbar(this.messageSnackbarService.filterError(errorFromInterceptor), 'error')
+                this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
             }
         })
     }

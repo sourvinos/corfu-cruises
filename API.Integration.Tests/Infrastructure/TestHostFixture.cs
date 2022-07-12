@@ -17,7 +17,7 @@ namespace API.Integration.Tests.Infrastructure {
             var builder = Program.CreateHostBuilder(null)
                 .ConfigureWebHost(webHost => {
                     webHost.UseTestServer();
-                    webHost.UseEnvironment("Testing");
+                    webHost.UseEnvironment("LocalTesting");
                 });
             var host = builder.Start();
             ServiceProvider = host.Services;

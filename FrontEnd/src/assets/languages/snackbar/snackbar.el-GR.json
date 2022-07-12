@@ -3,6 +3,10 @@
         "feature": "snackbarMessages",
         "labels": [
             {
+                "error": 200,
+                "message": "Όλα εντάξει."
+            },
+            {
                 "error": 400,
                 "message": "Το μοντέλο είναι λάθος."
             },

@@ -310,7 +310,7 @@ export class EmbarkationListComponent {
             this.filteredRecords = Object.assign([], this.records)
         } else {
             this.goBack()
-            this.showSnackbar(this.messageSnackbarService.filterError(listResolved.error), 'error')
+            this.showSnackbar(this.messageSnackbarService.filterResponse(listResolved.error), 'error')
         }
     }
 

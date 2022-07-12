@@ -2,15 +2,13 @@ using System;
 using API.Infrastructure.Auth;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Email;
-using API.Infrastructure.Exceptions;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Identity;
-using API.Infrastructure.Implementations;
 using API.Infrastructure.Notifications;
+using API.Infrastructure.Responses;
 using API.Infrastructure.SeedData;
 using AutoMapper;
 using FluentValidation.AspNetCore;
-using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -19,7 +17,6 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 // dotnet watch run --environment LocalDevelopment | LocalTesting | ProductionLive | ProductionDemo
 // dotnet publish /p:Configuration=Release /p:EnvironmentName=ProductionDemo | ProductionLive
@@ -39,7 +36,6 @@ namespace API {
         public void ConfigureLocalDevelopmentServices(IServiceCollection services) {
             services.AddDbContextFactory<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("LocalDevelopment"), new MySqlServerVersion(new Version(8, 0, 19)), builder => {
                 builder.EnableStringComparisonTranslations();
-                builder.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null);
             }));
             ConfigureServices(services);
         }
@@ -61,7 +57,6 @@ namespace API {
         public void ConfigureProductionDemoServices(IServiceCollection services) {
             services.AddDbContextFactory<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("ProductionDemo"), new MySqlServerVersion(new Version(8, 0, 19)), builder => {
                 builder.EnableStringComparisonTranslations();
-                builder.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null);
             }));
             ConfigureServices(services);
         }
@@ -72,10 +67,7 @@ namespace API {
             Authentication.AddAuthentication(Configuration, services);
             Interfaces.AddInterfaces(services);
             ModelValidations.AddModelValidation(services);
-            services.AddTransient<ExceptionMiddleware>();
-            // services.AddProblemDetails(x => {
-            //     x.IncludeExceptionDetails = (x, z) => Environment.EnvironmentName == "LocalDevelopment" || Environment.EnvironmentName == "LocalTesting";
-            // });
+            services.AddTransient<ResponseMiddleware>();
             services.AddSignalR();
             services.Configure<RazorViewEngineOptions>(options => options.ViewLocationExpanders.Add(new ViewLocationExpander()));
             services.AddAntiforgery(options => { options.Cookie.Name = "_af"; options.Cookie.HttpOnly = true; options.Cookie.SecurePolicy = CookieSecurePolicy.Always; options.HeaderName = "X-XSRF-TOKEN"; });
@@ -131,8 +123,7 @@ namespace API {
         }
 
         public virtual void Configure(IApplicationBuilder app) {
-            // app.UseProblemDetails();
-            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<ResponseMiddleware>();
             app.UseDefaultFiles();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
