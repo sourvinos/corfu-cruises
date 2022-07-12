@@ -17,12 +17,12 @@ namespace API.Features.Destinations {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<DestinationListResource>> Get() {
+        public async Task<IEnumerable<DestinationListDto>> Get() {
             List<Destination> records = await context.Destinations
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationListResource>>(records);
+            return mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationListDto>>(records);
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {

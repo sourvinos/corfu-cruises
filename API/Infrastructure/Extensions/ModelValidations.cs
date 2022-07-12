@@ -25,7 +25,7 @@ namespace API.Infrastructure.Extensions {
         public static void AddModelValidation(IServiceCollection services) {
             services.AddTransient<IValidator<CoachRouteWriteDto>, CoachRouteValidator>();
             services.AddTransient<IValidator<CustomerWriteResource>, CustomerValidator>();
-            services.AddTransient<IValidator<DestinationWriteResource>, DestinationValidator>();
+            services.AddTransient<IValidator<DestinationWriteDto>, DestinationValidator>();
             services.AddTransient<IValidator<DriverWriteResource>, DriverValidator>();
             services.AddTransient<IValidator<GenderWriteResource>, GenderValidator>();
             services.AddTransient<IValidator<NationalityWriteResource>, NationalityValidator>();

@@ -29,7 +29,7 @@ namespace API.Features.Destinations {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<DestinationListResource>> Get() {
+        public async Task<IEnumerable<DestinationListDto>> Get() {
             return await repo.Get();
         }
 
@@ -41,23 +41,23 @@ namespace API.Features.Destinations {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<DestinationReadResource> GetDestination(int id) {
-            return mapper.Map<Destination, DestinationReadResource>(await repo.GetById(id));
+        public async Task<DestinationReadDto> GetDestination(int id) {
+            return mapper.Map<Destination, DestinationReadDto>(await repo.GetById(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostDestinationAsync([FromBody] DestinationWriteResource record) {
-            repo.Create(mapper.Map<DestinationWriteResource, Destination>(await AttachUserIdToRecord(record)));
+        public async Task<Response> PostDestinationAsync([FromBody] DestinationWriteDto record) {
+            repo.Create(mapper.Map<DestinationWriteDto, Destination>(await AttachUserIdToRecord(record)));
             return ApiResponses.OK();
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutDestinationAsync([FromBody] DestinationWriteResource record) {
-            repo.Update(mapper.Map<DestinationWriteResource, Destination>(await AttachUserIdToRecord(record)));
+        public async Task<Response> PutDestinationAsync([FromBody] DestinationWriteDto record) {
+            repo.Update(mapper.Map<DestinationWriteDto, Destination>(await AttachUserIdToRecord(record)));
             return ApiResponses.OK();
         }
 
@@ -68,7 +68,7 @@ namespace API.Features.Destinations {
             return ApiResponses.OK();
         }
 
-        private async Task<DestinationWriteResource> AttachUserIdToRecord(DestinationWriteResource record) {
+        private async Task<DestinationWriteDto> AttachUserIdToRecord(DestinationWriteDto record) {
             var user = await Identity.GetConnectedUserId(httpContext);
             record.UserId = user.UserId;
             return record;

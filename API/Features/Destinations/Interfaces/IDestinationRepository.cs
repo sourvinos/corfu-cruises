@@ -7,7 +7,7 @@ namespace API.Features.Destinations {
 
     public interface IDestinationRepository : IRepository<Destination> {
 
-        Task<IEnumerable<DestinationListResource>> Get();
+        Task<IEnumerable<DestinationListDto>> Get();
         Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
         Task<Destination> GetByIdToDelete(int id);
 
