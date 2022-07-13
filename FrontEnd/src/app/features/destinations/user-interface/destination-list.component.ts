@@ -1,15 +1,15 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { DestinationService } from '../classes/services/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -29,16 +29,16 @@ export class DestinationListComponent {
     public feature = 'destinationList'
     public icon = 'home'
     public parentUrl = '/'
+
     public records = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private destinationService: DestinationService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
         this.loadRecords()
         this.addShortcuts()
     }
@@ -56,15 +56,22 @@ export class DestinationListComponent {
 
     //#region public methods
 
+    public editRecord(id: number): void {
+        this.destinationService.getSingle(id).subscribe({
+            next: () => {
+                this.router.navigate([this.url, id])
+            },
+            error: (errorFromInterceptor) => {
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
+            }
+        })
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onEditRecord(id: number): void {
-        this.router.navigate([this.url, id], { queryParams: { returnUrl: this.url } })
-    }
-
-    public onNewRecord(): void {
+    public newRecord(): void {
         this.router.navigate([this.url + '/new'], { queryParams: { returnUrl: this.url } })
     }
 
@@ -107,18 +114,10 @@ export class DestinationListComponent {
                 resolve(this.records)
             } else {
                 this.goBack()
-                this.showSnackbar(this.messageSnackbarService.filterResponse(listResolved.error), 'error')
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
         })
         return promise
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     //#endregion
