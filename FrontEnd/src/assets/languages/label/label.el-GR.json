@@ -355,7 +355,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Δρομολόγια λεωφορείων"
+                "description": "Διαδρομές λεωφορείων"
             },
             {
                 "id": "headerIsActive",
@@ -384,7 +384,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Δρομολόγιο λεωφορείου"
+                "description": "Διαδρομή λεωφορείου"
             },
             {
                 "id": "abbreviation",

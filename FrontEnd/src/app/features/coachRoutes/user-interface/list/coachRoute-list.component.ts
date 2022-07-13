@@ -54,15 +54,15 @@ export class CoachRouteListComponent {
 
     //#region public methods
 
+    public editRecord(id: number): void {
+        this.router.navigate([this.url, id])
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onEditRecord(id: number): void {
-        this.router.navigate([this.url, id])
-    }
-
-    public onNewRecord(): void {
+    public newRecord(): void {
         this.router.navigate([this.url + '/new'])
     }
 

@@ -1,10 +1,6 @@
-export class CoachRouteDropdownVM {
+export interface CoachRouteDropdownVM {
 
-    constructor(
-
-        public id: number,
-        public abbreviation: string
-
-    ) { }
+    id: number
+    abbreviation: string
 
 }

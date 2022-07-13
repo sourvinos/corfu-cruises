@@ -1,14 +1,10 @@
-export class CoachRouteWriteDTO {
+export interface CoachRouteWriteDTO {
 
-    constructor(
-
-        public id: number,
-        public portId: number,
-        public abbreviation: string,
-        public description: string,
-        public hasTransfer: boolean,
-        public isActive: boolean,
-
-    ) { }
+    id: number
+    portId: number
+    abbreviation: string
+    description: string
+    hasTransfer: boolean
+    isActive: boolean
 
 }

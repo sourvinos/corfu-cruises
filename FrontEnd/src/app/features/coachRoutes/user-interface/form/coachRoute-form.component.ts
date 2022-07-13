@@ -1,8 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
@@ -13,20 +12,19 @@ import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
-import { MapComponent } from 'src/app/shared/components/map/map.component'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
-import { PortService } from 'src/app/features/ports/classes/services/port.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'coach-route-form',
     templateUrl: './coachRoute-form.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './coachRoute-form.component.css'],
+    styleUrls: ['../../../../../assets/styles/forms.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
@@ -47,15 +45,16 @@ export class CoachRouteFormComponent {
     public ports: PortDropdownVM[] = []
     public filteredPorts: Observable<PortDropdownVM[]>
 
-    public activePanel: string
-
     //#endregion
 
-    @ViewChild(MapComponent) child: MapComponent
-
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private coachRouteService: CoachRouteService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private coachRouteService: CoachRouteService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
         this.activatedRoute.params.subscribe(x => {
-            x.id ? this.getRecord(x.id) : null
+            if (x.id) {
+                this.initForm()
+                this.getRecord(x.id)
+            } else {
+                this.initForm()
+            }
         })
     }
 
@@ -63,9 +62,7 @@ export class CoachRouteFormComponent {
 
     ngOnInit(): void {
         this.addShortcuts()
-        this.focusOnField()
-        this.initForm()
-        this.onFocusFormPanel()
+        this.focusOnField('abbreviation')
         this.populateDropdowns()
     }
 
@@ -113,34 +110,18 @@ export class CoachRouteFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(), this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.coachRouteService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {
-                        this.resetForm()
-                        this.goBack()
-                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
                     error: (errorFromInterceptor) => {
-                        this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                        this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
                     }
                 })
             }
         })
-    }
-
-    public onFocusFormPanel(): void {
-        this.activePanel = 'form'
-        document.getElementById('formTab').classList.add('active')
-        document.getElementById('mapTab').classList.remove('active')
-        document.getElementById('form').style.display = 'flex'
-    }
-
-    public onFocusMapPanel(): void {
-        this.activePanel = 'map'
-        document.getElementById('formTab').classList.remove('active')
-        document.getElementById('mapTab').classList.add('active')
-        document.getElementById('map-outer-wrapper').style.display = 'flex'
     }
 
     public onSave(): void {
@@ -197,21 +178,19 @@ export class CoachRouteFormComponent {
         return coachRoute
     }
 
-    private focusOnField() {
-        this.helperService.focusOnField('abbreviation')
+    private focusOnField(field: string): void {
+        this.helperService.focusOnField(field)
     }
 
-    private getRecord(id: number): Promise<any> {
-        const promise = new Promise((resolve) => {
-            this.coachRouteService.getSingle(id).subscribe(result => {
-                this.populateFields(result)
-                resolve(result)
-            }, errorFromInterceptor => {
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
-            })
+    private getRecord(id: number): void {
+        this.coachRouteService.getSingle(id).subscribe({
+            next: (response) => {
+                this.populateFields(response)
+            },
+            error: (errorFromInterceptor) => {
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
+            }
         })
-        return promise
     }
 
     private goBack(): void {
@@ -229,22 +208,13 @@ export class CoachRouteFormComponent {
         })
     }
 
-    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
-        const promise = new Promise((resolve) => {
-            service.getActiveForDropdown().toPromise().then(
-                (response: any) => {
-                    this[table] = response
-                    resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
-                }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
-                })
-        })
-        return promise
+    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string) {
+        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
     private populateDropdowns(): void {
-        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
+        this.populateDropdownFromLocalStorage('ports', 'filteredPorts', 'port', 'description')
     }
 
     private populateFields(result: CoachRouteReadDTO): void {
@@ -266,30 +236,22 @@ export class CoachRouteFormComponent {
         if (coachRoute.id === 0) {
             this.coachRouteService.add(coachRoute).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         } else {
             this.coachRouteService.update(coachRoute.id, coachRoute).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         }
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     //#endregion

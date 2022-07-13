@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core'
 import { ActivatedRouteSnapshot } from '@angular/router'
+import { Injectable } from '@angular/core'
+// Custom
 import { CoachRouteService } from '../services/coachRoute.service'
 
 @Injectable({ providedIn: 'root' })
