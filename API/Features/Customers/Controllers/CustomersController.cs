@@ -20,7 +20,6 @@ namespace API.Features.Customers {
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
 
-
         #endregion
 
         public CustomersController(ICustomerRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {

@@ -6,9 +6,9 @@ namespace API.Features.CoachRoutes {
 
     public interface ICoachRouteRepository : IRepository<CoachRoute> {
 
-        Task<IEnumerable<CoachRouteListVM>> Get();
+        Task<IEnumerable<CoachRouteListDto>> Get();
         Task<IEnumerable<CoachRouteActiveForDropdownVM>> GetActiveForDropdown();
-        new Task<CoachRouteReadDto> GetById(int id);
+        new Task<CoachRoute> GetById(int id);
         Task<CoachRoute> GetByIdToDelete(int id);
         int IsValid(CoachRouteWriteDto record);
 

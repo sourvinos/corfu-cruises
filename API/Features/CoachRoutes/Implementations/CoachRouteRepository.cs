@@ -18,12 +18,12 @@ namespace API.Features.CoachRoutes {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<CoachRouteListVM>> Get() {
+        public async Task<IEnumerable<CoachRouteListDto>> Get() {
             List<CoachRoute> records = await context.CoachRoutes
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<CoachRoute>, IEnumerable<CoachRouteListVM>>(records);
+            return mapper.Map<IEnumerable<CoachRoute>, IEnumerable<CoachRouteListDto>>(records);
         }
 
         public async Task<IEnumerable<CoachRouteActiveForDropdownVM>> GetActiveForDropdown() {
@@ -35,12 +35,12 @@ namespace API.Features.CoachRoutes {
             return mapper.Map<IEnumerable<CoachRoute>, IEnumerable<CoachRouteActiveForDropdownVM>>(records);
         }
 
-        public new async Task<CoachRouteReadDto> GetById(int id) {
+        public new async Task<CoachRoute> GetById(int id) {
             CoachRoute record = await context.CoachRoutes
                 .Include(x => x.Port)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (record != null) {
-                return mapper.Map<CoachRoute, CoachRouteReadDto>(record);
+                return record;
             } else {
                 throw new CustomException { HttpResponseCode = 404 };
             }

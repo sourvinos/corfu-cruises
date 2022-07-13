@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,20 +16,20 @@ namespace API.Features.CoachRoutes {
         #region variables
 
         private readonly ICoachRouteRepository repo;
-        private readonly IHttpContextAccessor httpContext;
+        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IMapper mapper;
 
         #endregion
 
-        public CoachRoutesController(ICoachRouteRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
-            this.httpContext = httpContext;
+        public CoachRoutesController(ICoachRouteRepository repo, IHttpContextAccessor httpContextAccessor, IMapper mapper) {
+            this.httpContextAccessor = httpContextAccessor;
             this.mapper = mapper;
             this.repo = repo;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<CoachRouteListVM>> Get() {
+        public async Task<IEnumerable<CoachRouteListDto>> Get() {
             return await repo.Get();
         }
 
@@ -41,19 +42,17 @@ namespace API.Features.CoachRoutes {
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<CoachRouteReadDto> GetRoute(int id) {
-            return await repo.GetById(id);
+            return mapper.Map<CoachRoute, CoachRouteReadDto>(await repo.GetById(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PostRoute([FromBody] CoachRouteWriteDto record) {
+        public async Task<Response> PostRouteAsync([FromBody] CoachRouteWriteDto record) {
             var response = repo.IsValid(record);
             if (response == 200) {
                 repo.Create(mapper.Map<CoachRouteWriteDto, CoachRoute>(await AttachUserIdToRecord(record)));
-                return StatusCode(200, new {
-                    response = ApiMessages.RecordCreated()
-                });
+                return ApiResponses.OK();
             } else {
                 return GetErrorMessage(response);
             }
@@ -62,13 +61,11 @@ namespace API.Features.CoachRoutes {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PutRouteAsync([FromBody] CoachRouteWriteDto record) {
+        public async Task<Response> PutRouteAsync([FromBody] CoachRouteWriteDto record) {
             var response = repo.IsValid(record);
             if (response == 200) {
                 repo.Update(mapper.Map<CoachRouteWriteDto, CoachRoute>(await AttachUserIdToRecord(record)));
-                return StatusCode(200, new {
-                    response = ApiMessages.RecordUpdated()
-                });
+                return ApiResponses.OK();
             } else {
                 return GetErrorMessage(response);
             }
@@ -76,22 +73,22 @@ namespace API.Features.CoachRoutes {
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteRoute([FromRoute] int id) {
+        public async Task<Response> DeleteRoute([FromRoute] int id) {
             repo.Delete(await repo.GetByIdToDelete(id));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordDeleted()
-            });
+            return ApiResponses.OK();
         }
 
         private async Task<CoachRouteWriteDto> AttachUserIdToRecord(CoachRouteWriteDto record) {
-            var user = await Identity.GetConnectedUserId(httpContext);
+            var user = await Identity.GetConnectedUserId(httpContextAccessor);
             record.UserId = user.UserId;
             return record;
         }
 
-        private IActionResult GetErrorMessage(int errorCode) {
+        private Response GetErrorMessage(int errorCode) {
+            httpContextAccessor.HttpContext.Response.StatusCode = errorCode;
             return errorCode switch {
-                _ => StatusCode(450, new { Response = ApiMessages.FKNotFoundOrInactive("Port") }),
+                450 => new Response { StatusCode = 450, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Port") },
+                _ => new Response { Message = ApiMessages.RecordNotSaved() },
             };
         }
 

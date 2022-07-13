@@ -1,6 +1,6 @@
 namespace API.Features.CoachRoutes {
 
-    public class CoachRouteListVM {
+    public class CoachRouteListDto {
 
         public int Id { get; set; }
         public string Description { get; set; }
