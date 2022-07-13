@@ -1,10 +1,6 @@
-export class CustomerDropdownVM {
+export interface CustomerDropdownVM {
 
-    constructor(
-
-        public id: number,
-        public description: string
-
-    ) { }
+    id: number
+    description: string
 
 }

@@ -5,9 +5,9 @@ import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { CustomerReadVM } from '../classes/view-models/customer-read-vm'
+import { CustomerReadDto } from '../classes/dtos/customer-read-dto'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
-import { CustomerWriteVM } from '../classes/view-models/customer-write-vm'
+import { CustomerWriteDto } from '../classes/dtos/customer-write-dto'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -138,7 +138,7 @@ export class CustomerFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private flattenForm(): CustomerWriteVM {
+    private flattenForm(): CustomerWriteDto {
         const customer = {
             id: this.form.value.id,
             description: this.form.value.description,
@@ -184,7 +184,7 @@ export class CustomerFormComponent {
         })
     }
 
-    private populateFields(result: CustomerReadVM): void {
+    private populateFields(result: CustomerReadDto): void {
         this.form.setValue({
             id: result.id,
             description: result.description,
@@ -201,7 +201,7 @@ export class CustomerFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(customer: CustomerWriteVM): void {
+    private saveRecord(customer: CustomerWriteDto): void {
         if (customer.id === 0) {
             this.customerService.add(customer).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {

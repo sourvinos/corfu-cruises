@@ -1,4 +1,4 @@
-export interface Customer {
+export interface CustomerReadDto {
 
     id: number
     description: string
@@ -8,5 +8,6 @@ export interface Customer {
     personInCharge: string
     email: string
     isActive: boolean
+
 
 }
