@@ -4,9 +4,9 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Subject } from 'rxjs'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DestinationReadVM } from '../classes/view-models/destination-read-vm'
+import { DestinationReadDto } from '../classes/dtos/destination-read-dto'
 import { DestinationService } from '../classes/services/destination.service'
-import { DestinationWriteVM } from '../classes/view-models/destination-write-vm'
+import { DestinationWriteDto } from '../classes/dtos/destination-write-dto'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -137,7 +137,7 @@ export class DestinationFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private flattenForm(): DestinationWriteVM {
+    private flattenForm(): DestinationWriteDto {
         const destination = {
             id: this.form.value.id,
             abbreviation: this.form.value.abbreviation,
@@ -175,7 +175,7 @@ export class DestinationFormComponent {
         })
     }
 
-    private populateFields(result: DestinationReadVM): void {
+    private populateFields(result: DestinationReadDto): void {
         this.form.setValue({
             id: result.id,
             abbreviation: result.abbreviation,
@@ -188,7 +188,7 @@ export class DestinationFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(destination: DestinationWriteVM): void {
+    private saveRecord(destination: DestinationWriteDto): void {
         if (destination.id === 0) {
             this.destinationService.add(destination).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
