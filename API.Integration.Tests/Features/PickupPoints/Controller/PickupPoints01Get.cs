@@ -18,7 +18,7 @@ namespace API.Integration.Tests.PickupPoints {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly int _expectedRecordCount = 338;
+        private readonly int _expectedRecordCount = 675;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
         private readonly string _url = "/pickupPoints";
@@ -55,7 +55,7 @@ namespace API.Integration.Tests.PickupPoints {
         [Fact]
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
-            var records = JsonSerializer.Deserialize<List<PickupPointListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var records = JsonSerializer.Deserialize<List<PickupPointListDto>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(_expectedRecordCount, records.Count);
         }
 

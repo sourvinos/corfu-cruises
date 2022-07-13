@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace API.Features.PickupPoints {
 
-    public class PickupPointValidator : AbstractValidator<PickupPointWriteResource> {
+    public class PickupPointValidator : AbstractValidator<PickupPointWriteDto> {
 
         public PickupPointValidator() {
             RuleFor(x => x.RouteId).NotEmpty();

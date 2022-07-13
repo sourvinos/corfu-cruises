@@ -7,7 +7,7 @@ namespace API.Features.PickupPoints {
 
         public PickupPointMappingProfile() {
             // List
-            CreateMap<PickupPoint, PickupPointListResource>()
+            CreateMap<PickupPoint, PickupPointListDto>()
                 .ForMember(x => x.RouteAbbreviation, x => x.MapFrom(x => x.CoachRoute.Abbreviation));
             // Dropdown
             CreateMap<PickupPoint, PickupPointWithPortDropdownResource>()
@@ -17,10 +17,10 @@ namespace API.Features.PickupPoints {
                 .ForMember(x => x.Time, x => x.MapFrom(x => x.Time))
                 .ForMember(x => x.Port, x => x.MapFrom(x => new { x.CoachRoute.Port.Id, x.CoachRoute.Port.Description }));
             // Read
-            CreateMap<PickupPoint, PickupPointReadResource>()
+            CreateMap<PickupPoint, PickupPointReadDto>()
                 .ForMember(x => x.Route, x => x.MapFrom(x => new { x.CoachRoute.Id, x.CoachRoute.Abbreviation }));
             // Write
-            CreateMap<PickupPointWriteResource, PickupPoint>();
+            CreateMap<PickupPointWriteDto, PickupPoint>();
         }
 
     }

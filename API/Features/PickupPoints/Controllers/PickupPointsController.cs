@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,21 +16,21 @@ namespace API.Features.PickupPoints {
 
         #region variables
 
-        private readonly IHttpContextAccessor httpContext;
+        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IMapper mapper;
         private readonly IPickupPointRepository repo;
 
         #endregion
 
-        public PickupPointsController(IPickupPointRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
-            this.httpContext = httpContext;
+        public PickupPointsController(IHttpContextAccessor httpContextAccessor, IMapper mapper, IPickupPointRepository repo) {
+            this.httpContextAccessor = httpContextAccessor;
             this.mapper = mapper;
             this.repo = repo;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<PickupPointListResource>> Get() {
+        public async Task<IEnumerable<PickupPointListDto>> Get() {
             return await repo.Get();
         }
 
@@ -41,20 +42,18 @@ namespace API.Features.PickupPoints {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<PickupPointReadResource> GetPickupPoint(int id) {
-            return mapper.Map<PickupPoint, PickupPointReadResource>(await repo.GetById(id));
+        public async Task<PickupPointReadDto> GetPickupPoint(int id) {
+            return mapper.Map<PickupPoint, PickupPointReadDto>(await repo.GetById(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PostPickupPointAsync([FromBody] PickupPointWriteResource record) {
+        public async Task<Response> PostPickupPointAsync([FromBody] PickupPointWriteDto record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Create(mapper.Map<PickupPointWriteResource, PickupPoint>(await AttachUserIdToRecord(record)));
-                return StatusCode(200, new {
-                    response = ApiMessages.RecordCreated()
-                });
+                repo.Create(mapper.Map<PickupPointWriteDto, PickupPoint>(await AttachUserIdToRecord(record)));
+                return ApiResponses.OK();
             } else {
                 return GetErrorMessage(response);
             }
@@ -63,13 +62,11 @@ namespace API.Features.PickupPoints {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PutPickupPointAsync([FromBody] PickupPointWriteResource record) {
+        public async Task<Response> PutPickupPointAsync([FromBody] PickupPointWriteDto record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Update(mapper.Map<PickupPointWriteResource, PickupPoint>(await AttachUserIdToRecord(record)));
-                return StatusCode(200, new {
-                    response = ApiMessages.RecordUpdated()
-                });
+                repo.Update(mapper.Map<PickupPointWriteDto, PickupPoint>(await AttachUserIdToRecord(record)));
+                return ApiResponses.OK();
             } else {
                 return GetErrorMessage(response);
             }
@@ -77,33 +74,30 @@ namespace API.Features.PickupPoints {
 
         [HttpPatch("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> PatchPickupPoint([FromQuery(Name = "id")] int id, [FromQuery(Name = "coordinates")] string coordinates) {
+        public async Task<Response> PatchPickupPointAsync([FromQuery(Name = "id")] int id, [FromQuery(Name = "coordinates")] string coordinates) {
             await repo.GetById(id);
             repo.UpdateCoordinates(id, coordinates);
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
+            return ApiResponses.OK();
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeletePickupPoint([FromRoute] int id) {
+        public async Task<Response> DeletePickupPoint([FromRoute] int id) {
             repo.Delete(await repo.GetByIdToDelete(id));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordDeleted()
-            });
+            return ApiResponses.OK();
         }
 
-        private async Task<PickupPointWriteResource> AttachUserIdToRecord(PickupPointWriteResource record) {
-            var user = await Identity.GetConnectedUserId(httpContext);
+        private async Task<PickupPointWriteDto> AttachUserIdToRecord(PickupPointWriteDto record) {
+            var user = await Identity.GetConnectedUserId(httpContextAccessor);
             record.UserId = user.UserId;
             return record;
         }
 
-        private IActionResult GetErrorMessage(int errorCode) {
+        private Response GetErrorMessage(int errorCode) {
+            httpContextAccessor.HttpContext.Response.StatusCode = errorCode;
             return errorCode switch {
-                450 => StatusCode(450, new { response = ApiMessages.FKNotFoundOrInactive("Route Id") }),
-                _ => StatusCode(490, new { Response = ApiMessages.RecordNotSaved() }),
+                450 => new Response { StatusCode = 450, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Route") },
+                _ => new Response { Message = ApiMessages.RecordNotSaved() },
             };
         }
 
