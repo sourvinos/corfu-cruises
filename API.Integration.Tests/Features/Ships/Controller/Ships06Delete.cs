@@ -17,9 +17,9 @@ namespace API.Integration.Tests.Ships {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "delete";
         private readonly string _baseUrl;
-        private readonly string _inUseUrl = "/ships/1";
+        private readonly string _inUseUrl = "/ships/6";
         private readonly string _notFoundUrl = "/ships/999";
-        private readonly string _url = "/ships/3";
+        private readonly string _url = "/ships/9";
 
         #endregion
 

@@ -53,7 +53,13 @@ namespace API.Features.Ships {
         }
 
         private bool IsValidShipOwner(ShipWriteDto record) {
-            return context.ShipOwners.SingleOrDefault(x => x.Id == record.ShipOwnerId && x.IsActive) != null;
+           bool isValid = false;
+            if (record.Id == 0) {
+                isValid = context.ShipOwners.SingleOrDefault(x => x.Id == record.ShipOwnerId && x.IsActive) != null;
+            } else {
+                isValid = context.ShipOwners.SingleOrDefault(x => x.Id == record.ShipOwnerId) != null;
+            }
+            return isValid;
         }
 
     }
