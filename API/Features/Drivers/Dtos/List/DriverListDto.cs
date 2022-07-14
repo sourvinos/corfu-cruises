@@ -1,6 +1,6 @@
 namespace API.Features.Drivers {
 
-    public class DriverListResource {
+    public class DriverListDto {
 
         public int Id { get; set; }
         public string Description { get; set; }

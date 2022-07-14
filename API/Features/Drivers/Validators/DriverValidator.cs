@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace API.Features.Drivers {
 
-    public class DriverValidator : AbstractValidator<DriverWriteResource> {
+    public class DriverValidator : AbstractValidator<DriverWriteDto> {
 
         public DriverValidator() {
             RuleFor(x => x.Description).NotEmpty().MaximumLength(128);

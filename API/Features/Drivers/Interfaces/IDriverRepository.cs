@@ -7,7 +7,7 @@ namespace API.Features.Drivers {
 
     public interface IDriverRepository : IRepository<Driver> {
 
-        Task<IEnumerable<DriverListResource>> Get();
+        Task<IEnumerable<DriverListDto>> Get();
         Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
         Task<Driver> GetByIdToDelete(int id);
 

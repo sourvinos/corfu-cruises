@@ -6,10 +6,10 @@ namespace API.Features.Drivers {
     public class DriverMappingProfile : Profile {
 
         public DriverMappingProfile() {
-            CreateMap<Driver, DriverListResource>();
-            CreateMap<Driver, DriverReadResource>();
+            CreateMap<Driver, DriverListDto>();
+            CreateMap<Driver, DriverReadDto>();
             CreateMap<Driver, SimpleResource>();
-            CreateMap<DriverWriteResource, Driver>();
+            CreateMap<DriverWriteDto, Driver>();
         }
 
     }

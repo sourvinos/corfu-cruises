@@ -17,12 +17,12 @@ namespace API.Features.Drivers {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<DriverListResource>> Get() {
+        public async Task<IEnumerable<DriverListDto>> Get() {
             List<Driver> records = await context.Drivers
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Driver>, IEnumerable<DriverListResource>>(records);
+            return mapper.Map<IEnumerable<Driver>, IEnumerable<DriverListDto>>(records);
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {

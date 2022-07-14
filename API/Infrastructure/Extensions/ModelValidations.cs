@@ -26,7 +26,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IValidator<CoachRouteWriteDto>, CoachRouteValidator>();
             services.AddTransient<IValidator<CustomerWriteDto>, CustomerValidator>();
             services.AddTransient<IValidator<DestinationWriteDto>, DestinationValidator>();
-            services.AddTransient<IValidator<DriverWriteResource>, DriverValidator>();
+            services.AddTransient<IValidator<DriverWriteDto>, DriverValidator>();
             services.AddTransient<IValidator<GenderWriteResource>, GenderValidator>();
             services.AddTransient<IValidator<NationalityWriteResource>, NationalityValidator>();
             services.AddTransient<IValidator<OccupantWriteResource>, OccupantValidator>();

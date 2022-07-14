@@ -19,7 +19,7 @@ namespace API.Integration.Tests.Drivers {
         private readonly string _baseUrl;
         private readonly string _inUseUrl = "/drivers/1";
         private readonly string _notFoundUrl = "/drivers/999";
-        private readonly string _url = "/drivers/4";
+        private readonly string _url = "/drivers/29";
 
         #endregion
 
