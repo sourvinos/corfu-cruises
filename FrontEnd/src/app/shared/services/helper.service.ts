@@ -153,7 +153,7 @@ export class HelperService {
             const input = <HTMLInputElement>document.getElementById(element)
             input.focus()
             input.select()
-        }, 500)
+        }, 1000)
     }
 
     public hideSideMenuAndRestoreScale(): void {

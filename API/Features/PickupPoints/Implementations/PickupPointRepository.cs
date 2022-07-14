@@ -70,9 +70,9 @@ namespace API.Features.PickupPoints {
         private bool IsValidRoute(PickupPointWriteDto record) {
             bool isValid = false;
             if (record.Id == 0) {
-                isValid = context.CoachRoutes.SingleOrDefault(x => x.Id == record.RouteId && x.IsActive) != null;
+                isValid = context.CoachRoutes.SingleOrDefault(x => x.Id == record.CoachRouteId && x.IsActive) != null;
             } else {
-                isValid = context.Ports.SingleOrDefault(x => x.Id == record.RouteId) != null;
+                isValid = context.CoachRoutes.SingleOrDefault(x => x.Id == record.CoachRouteId) != null;
             }
             return isValid;
         }

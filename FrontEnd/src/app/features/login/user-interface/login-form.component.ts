@@ -27,6 +27,7 @@ import { PortService } from '../../ports/classes/services/port.service'
 import { ShipService } from '../../ships/classes/services/ship.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { CoachRouteService } from '../../coachRoutes/classes/services/coachRoute.service'
 
 @Component({
     selector: 'login-form',
@@ -53,7 +54,7 @@ export class LoginFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private connectedUserhubService: ConnectedUserHubService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private titleService: Title) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private coachRouteService: CoachRouteService, private connectedUserhubService: ConnectedUserHubService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -161,6 +162,7 @@ export class LoginFormComponent {
     }
 
     private populateStorageFromAPI(): void {
+        this.coachRouteService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('coachRoutes', JSON.stringify(response)) })
         this.customerService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('customers', JSON.stringify(response)) })
         this.destinationService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('destinations', JSON.stringify(response)) })
         this.driverService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('drivers', JSON.stringify(response)) })

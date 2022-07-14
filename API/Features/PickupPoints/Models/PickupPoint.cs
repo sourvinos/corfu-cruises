@@ -10,7 +10,7 @@ namespace API.Features.PickupPoints {
         // PK
         public int Id { get; set; }
         // FKs
-        public int RouteId { get; set; }
+        public int CoachRouteId { get; set; }
         // Fields
         public string Description { get; set; }
         public string ExactPoint { get; set; }

@@ -9,7 +9,7 @@ namespace API.Features.PickupPoints {
         public string Coordinates { get; set; }
         public bool IsActive { get; set; }
 
-        public CoachRouteDropdownVM Route { get; set; }
+        public CoachRouteDropdownVM CoachRoute { get; set; }
 
     }
 

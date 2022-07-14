@@ -255,7 +255,7 @@
                 "description": "Abholstelle"
             },
             {
-                "id": "route",
+                "id": "coachRoute",
                 "description": "Busroute"
             },
             {

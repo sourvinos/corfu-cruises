@@ -1,12 +1,10 @@
-export class PickupPoint {
+import { CoachRouteVM } from '../view-models/coachRoute-vm'
+
+export interface PickupPointVM {
 
     id: number
     description: string
-    route: {
-        id: number
-        abbreviation: string
-        description: string
-    }
+    coachRoute: CoachRouteVM
     exactPoint: string
     time: string
     coordinates: string

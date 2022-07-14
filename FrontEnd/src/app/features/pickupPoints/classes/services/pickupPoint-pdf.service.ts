@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core'
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 // Custom
 import { BooleanIconService } from 'src/app/shared/services/boolean-icon.service'
-import { PickupPoint } from '../models/pickupPoint'
+import { PickupPointVM } from '../view-models/pickupPoint-vm'
 
 @Injectable({ providedIn: 'root' })
 
@@ -14,7 +14,7 @@ export class PickupPointPdfService {
 
     //#region public methods
 
-    public createReport(pickupPoints: PickupPoint[]): void {
+    public createReport(pickupPoints: PickupPointVM[]): void {
         const document = {
             defaultStyle: { fontSize: 7 },
             content: [
@@ -28,7 +28,7 @@ export class PickupPointPdfService {
 
     //#region private methods
 
-    private buildTableBody(data: PickupPoint[], columns: any[], columnTypes: any[]): void {
+    private buildTableBody(data: PickupPointVM[], columns: any[], columnTypes: any[]): void {
         const body: any = []
         body.push(this.createTableHeaders())
         data.forEach((row: any) => {
@@ -64,7 +64,7 @@ export class PickupPointPdfService {
         return dataRow
     }
 
-    private buildTable(data: PickupPoint[], columns: any[], columnTypes: any[]): any {
+    private buildTable(data: PickupPointVM[], columns: any[], columnTypes: any[]): any {
         return {
             table: {
                 headerRows: 1,

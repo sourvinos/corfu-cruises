@@ -18,7 +18,7 @@ namespace API.Features.PickupPoints {
                 .ForMember(x => x.Port, x => x.MapFrom(x => new { x.CoachRoute.Port.Id, x.CoachRoute.Port.Description }));
             // Read
             CreateMap<PickupPoint, PickupPointReadDto>()
-                .ForMember(x => x.Route, x => x.MapFrom(x => new { x.CoachRoute.Id, x.CoachRoute.Abbreviation }));
+                .ForMember(x => x.CoachRoute, x => x.MapFrom(x => new { x.CoachRoute.Id, x.CoachRoute.Abbreviation }));
             // Write
             CreateMap<PickupPointWriteDto, PickupPoint>();
         }

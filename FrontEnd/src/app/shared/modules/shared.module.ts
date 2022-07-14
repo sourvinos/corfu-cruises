@@ -12,7 +12,6 @@ import { HomeButtonAndTitleComponent } from '../components/home-button-and-title
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { ListNoResultsComponent } from '../components/list-no-results/list-no-results.component'
 import { LoadingSpinnerComponent } from '../components/loading-spinner/loading-spinner.component'
-import { MapComponent } from '../components/map/map.component'
 import { MaterialModule } from './material.module'
 import { ModalActionResultComponent } from '../components/modal-action-result/modal-action-result.component'
 import { PrimeNgModule } from './primeng.module'
@@ -29,7 +28,6 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         InputTabStopDirective,
         ListNoResultsComponent,
         LoadingSpinnerComponent,
-        MapComponent,
         ModalActionResultComponent,
         QRCodeComponent,
         SafeStylePipe,
@@ -51,7 +49,6 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         InputTabStopDirective,
         ListNoResultsComponent,
         LoadingSpinnerComponent,
-        MapComponent,
         MaterialModule,
         PrimeNgModule,
         QRCodeComponent,
