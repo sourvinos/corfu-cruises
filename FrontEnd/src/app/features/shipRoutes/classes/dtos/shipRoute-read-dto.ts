@@ -1,4 +1,4 @@
-export interface ShipRoute {
+export interface ShipRouteReadDto {
 
     id: number
     description: string

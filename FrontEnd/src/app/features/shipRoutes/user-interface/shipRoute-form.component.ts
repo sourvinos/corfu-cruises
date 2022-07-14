@@ -12,9 +12,9 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { ShipRouteReadVM } from '../classes/view-models/shipRoute-read-vm'
+import { ShipRouteReadDto } from '../classes/dtos/shipRoute-read-dto'
 import { ShipRouteService } from '../classes/services/shipRoute.service'
-import { ShipRouteWriteVM } from '../classes/view-models/shipRoute-write-vm'
+import { ShipRouteWriteDto } from '../classes/dtos/shipRoute-write-dto'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
@@ -147,7 +147,7 @@ export class ShipRouteFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private flattenForm(): ShipRouteWriteVM {
+    private flattenForm(): ShipRouteWriteDto {
         const shipRoute = {
             id: this.form.value.id,
             description: this.form.value.description,
@@ -186,7 +186,7 @@ export class ShipRouteFormComponent {
         })
     }
 
-    private populateFields(result: ShipRouteReadVM): void {
+    private populateFields(result: ShipRouteReadDto): void {
         this.form.setValue({
             id: result.id,
             description: result.description,
@@ -201,7 +201,7 @@ export class ShipRouteFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(shipRoute: ShipRouteWriteVM): void {
+    private saveRecord(shipRoute: ShipRouteWriteDto): void {
         if (shipRoute.id === 0) {
             this.shipRouteService.add(shipRoute).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
