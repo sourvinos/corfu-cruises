@@ -1,4 +1,4 @@
-export interface Gender {
+export interface GenderReadDto {
     
     id: number
     description: string

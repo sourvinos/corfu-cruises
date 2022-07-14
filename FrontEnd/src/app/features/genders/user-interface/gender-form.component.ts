@@ -2,20 +2,19 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { GenderReadVM } from '../classes/view-models/gender-read-vm'
+import { GenderReadDto } from '../classes/dtos/gender-read-dto'
 import { GenderService } from '../classes/services/gender.service'
-import { GenderWriteVM } from '../classes/view-models/gender-write-vm'
+import { GenderWriteDto } from '../classes/dtos/gender-write-dto'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -40,18 +39,22 @@ export class GenderFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
         this.activatedRoute.params.subscribe(x => {
-            x.id ? this.getRecord(x.id) : null
+            if (x.id) {
+                this.initForm()
+                this.getRecord(x.id)
+            } else {
+                this.initForm()
+            }
         })
     }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
-        this.initForm()
         this.addShortcuts()
+        this.focusOnField('description')
     }
 
     ngOnDestroy(): void {
@@ -86,16 +89,14 @@ export class GenderFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(), this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.genderService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {
-                        this.resetForm()
-                        this.goBack()
-                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
                     error: (errorFromInterceptor) => {
-                        this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                        this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
                     }
                 })
             }
@@ -136,7 +137,7 @@ export class GenderFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private flattenForm(): GenderWriteVM {
+    private flattenForm(): GenderWriteDto {
         const gender = {
             id: this.form.value.id,
             description: this.form.value.description,
@@ -145,12 +146,18 @@ export class GenderFormComponent {
         return gender
     }
 
+    private focusOnField(field: string): void {
+        this.helperService.focusOnField(field)
+    }
+
     private getRecord(id: number): void {
-        this.genderService.getSingle(id).subscribe(result => {
-            this.populateFields(result)
-        }, errorFromInterceptor => {
-            this.goBack()
-            this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+        this.genderService.getSingle(id).subscribe({
+            next: (response) => {
+                this.populateFields(response)
+            },
+            error: (errorFromInterceptor) => {
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
+            }
         })
     }
 
@@ -166,7 +173,7 @@ export class GenderFormComponent {
         })
     }
 
-    private populateFields(result: GenderReadVM): void {
+    private populateFields(result: GenderReadDto): void {
         this.form.setValue({
             id: result.id,
             description: result.description,
@@ -178,38 +185,26 @@ export class GenderFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(gender: GenderWriteVM): void {
+    private saveRecord(gender: GenderWriteDto): void {
         if (gender.id === 0) {
             this.genderService.add(gender).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         } else {
             this.genderService.update(gender.id, gender).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         }
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     //#endregion

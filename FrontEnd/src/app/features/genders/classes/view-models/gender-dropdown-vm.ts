@@ -1,10 +1,6 @@
-export class GenderDropdownVM {
-
-    constructor(
-
-        public id: number,
-        public description: string
-
-    ) { }
+export interface GenderDropdownVM {
+    
+    id: number
+    description: string
 
 }

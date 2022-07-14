@@ -1,4 +1,4 @@
-export interface Gender {
+export interface GenderWriteDto {
     
     id: number
     description: string
