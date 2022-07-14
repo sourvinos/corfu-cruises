@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Idle } from '@ng-idle/core'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 // Custom
 import { AccountService } from '../../../shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { CoachRouteService } from '../../coachRoutes/classes/services/coachRoute.service'
 import { ConnectedUserHubService } from 'src/app/shared/services/connected-user-hub.service'
 import { CustomerService } from '../../customers/classes/services/customer.service'
 import { DestinationService } from '../../destinations/classes/services/destination.service'
@@ -24,10 +24,10 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { NationalityService } from 'src/app/features/nationalities/classes/services/nationality.service'
 import { PickupPointService } from '../../pickupPoints/classes/services/pickupPoint.service'
 import { PortService } from '../../ports/classes/services/port.service'
+import { ShipOwnerService } from '../../shipOwners/classes/services/shipOwner.service'
 import { ShipService } from '../../ships/classes/services/ship.service'
 import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { CoachRouteService } from '../../coachRoutes/classes/services/coachRoute.service'
 
 @Component({
     selector: 'login-form',
@@ -54,12 +54,11 @@ export class LoginFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private coachRouteService: CoachRouteService, private connectedUserhubService: ConnectedUserHubService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private titleService: Title) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private coachRouteService: CoachRouteService, private connectedUserhubService: ConnectedUserHubService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private shipOwnerService: ShipOwnerService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
         this.clearStoredVariables()
@@ -171,10 +170,7 @@ export class LoginFormComponent {
         this.pickupPointService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('pickupPoints', JSON.stringify(response)) })
         this.portService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('ports', JSON.stringify(response)) })
         this.shipService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('ships', JSON.stringify(response)) })
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle())
+        this.shipOwnerService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('shipOwners', JSON.stringify(response)) })
     }
 
     private showError(error: any): void {
