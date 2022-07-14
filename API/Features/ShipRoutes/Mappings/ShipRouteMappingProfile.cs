@@ -6,10 +6,10 @@ namespace API.Features.ShipRoutes {
     public class ShipRouteMappingProfile : Profile {
 
         public ShipRouteMappingProfile() {
-            CreateMap<ShipRoute, ShipRouteListResource>();
+            CreateMap<ShipRoute, ShipRouteListDto>();
             CreateMap<ShipRoute, SimpleResource>();
-            CreateMap<ShipRoute, ShipRouteReadResource>();
-            CreateMap<ShipRouteWriteResource, ShipRoute>();
+            CreateMap<ShipRoute, ShipRouteReadDto>();
+            CreateMap<ShipRouteWriteDto, ShipRoute>();
         }
 
     }

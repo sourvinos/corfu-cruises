@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace API.Features.ShipRoutes {
 
-    public class ShipRouteValidator : AbstractValidator<ShipRouteWriteResource> {
+    public class ShipRouteValidator : AbstractValidator<ShipRouteWriteDto> {
 
         public ShipRouteValidator() {
             RuleFor(x => x.Description).NotEmpty().MaximumLength(128);

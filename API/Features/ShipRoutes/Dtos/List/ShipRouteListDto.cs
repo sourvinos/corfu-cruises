@@ -1,6 +1,6 @@
 namespace API.Features.ShipRoutes {
 
-    public class ShipRouteListResource {
+    public class ShipRouteListDto {
 
         public int Id { get; set; }
         public string Description { get; set; }
