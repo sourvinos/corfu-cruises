@@ -1,10 +1,6 @@
-export class DriverDropdownVM {
+export interface DriverDropdownVM {
 
-    constructor(
-
-        public id: number,
-        public description: string
-
-    ) { }
+    id: number
+    description: string
 
 }

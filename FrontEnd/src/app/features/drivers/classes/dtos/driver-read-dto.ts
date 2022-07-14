@@ -1,4 +1,4 @@
-export interface Driver {
+export interface DriverReadDto {
 
     id: number
     description: string
