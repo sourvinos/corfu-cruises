@@ -17,12 +17,12 @@ namespace API.Features.Genders {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<GenderListResource>> Get() {
+        public async Task<IEnumerable<GenderListDto>> Get() {
             List<Gender> records = await context.Genders
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Gender>, IEnumerable<GenderListResource>>(records);
+            return mapper.Map<IEnumerable<Gender>, IEnumerable<GenderListDto>>(records);
         }
 
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {

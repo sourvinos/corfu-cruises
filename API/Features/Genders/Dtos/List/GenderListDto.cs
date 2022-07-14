@@ -1,6 +1,6 @@
-﻿namespace API.Features.Genders {
+namespace API.Features.Genders {
 
-    public class GenderReadResource {
+    public class GenderListDto {
 
         public int Id { get; set; }
         public string Description { get; set; }

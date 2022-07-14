@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -16,20 +17,20 @@ namespace API.Features.Genders {
         #region variables
 
         private readonly IGenderRepository repo;
-        private readonly IHttpContextAccessor httpContext;
+        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IMapper mapper;
 
         #endregion
 
-        public GendersController(IGenderRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
-            this.httpContext = httpContext;
-            this.repo = repo;
+        public GendersController(IGenderRepository repo, IHttpContextAccessor httpContextAccessor, IMapper mapper) {
+            this.httpContextAccessor = httpContextAccessor;
             this.mapper = mapper;
+            this.repo = repo;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<GenderListResource>> Get() {
+        public async Task<IEnumerable<GenderListDto>> Get() {
             return await repo.Get();
         }
 
@@ -41,41 +42,35 @@ namespace API.Features.Genders {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<GenderReadResource> GetGender(int id) {
-            return mapper.Map<Gender, GenderReadResource>(await repo.GetById(id));
+        public async Task<GenderReadDto> GetGender(int id) {
+            return mapper.Map<Gender, GenderReadDto>(await repo.GetById(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PostGenderAsync([FromBody] GenderWriteResource record) {
-            repo.Create(mapper.Map<GenderWriteResource, Gender>(await AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordCreated()
-            });
+        public async Task<Response> PostGenderAsync([FromBody] GenderWriteDto record) {
+            repo.Create(mapper.Map<GenderWriteDto, Gender>(await AttachUserIdToRecord(record)));
+            return ApiResponses.OK();
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PutGenderAsync([FromBody] GenderWriteResource record) {
-            repo.Update(mapper.Map<GenderWriteResource, Gender>(await AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
+        public async Task<Response> PutGenderAsync([FromBody] GenderWriteDto record) {
+            repo.Update(mapper.Map<GenderWriteDto, Gender>(await AttachUserIdToRecord(record)));
+            return ApiResponses.OK();
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteGender([FromRoute] int id) {
+        public async Task<Response> DeleteGender([FromRoute] int id) {
             repo.Delete(await repo.GetByIdToDelete(id));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordDeleted()
-            });
+            return ApiResponses.OK();
         }
 
-        private async Task<GenderWriteResource> AttachUserIdToRecord(GenderWriteResource record) {
-            var user = await Identity.GetConnectedUserId(httpContext);
+        private async Task<GenderWriteDto> AttachUserIdToRecord(GenderWriteDto record) {
+            var user = await Identity.GetConnectedUserId(httpContextAccessor);
             record.UserId = user.UserId;
             return record;
         }
