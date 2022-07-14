@@ -18,7 +18,6 @@ using API.Features.ShipCrews;
 using API.Features.ShipOwners;
 using API.Features.ShipRoutes;
 using API.Features.Ships;
-using API.Features.Totals;
 using API.Infrastructure.Auth;
 using API.Infrastructure.Implementations;
 using API.Infrastructure.Interfaces;
@@ -52,7 +51,6 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IShipOwnerRepository, ShipOwnerRepository>();
             services.AddTransient<IShipRepository, ShipRepository>();
             services.AddTransient<IShipRouteRepository, ShipRouteRepository>();
-            services.AddTransient<ITotalsRepository, TotalsRepository>();
         }
 
     }

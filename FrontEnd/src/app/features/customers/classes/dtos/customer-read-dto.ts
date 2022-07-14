@@ -9,5 +9,4 @@ export interface CustomerReadDto {
     email: string
     isActive: boolean
 
-
 }

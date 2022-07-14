@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace API.Features.Ships {
 
-    public class ShipValidator : AbstractValidator<ShipWriteResource> {
+    public class ShipValidator : AbstractValidator<ShipWriteDto> {
 
         public ShipValidator() {
             RuleFor(x => x.ShipOwnerId).NotEmpty();

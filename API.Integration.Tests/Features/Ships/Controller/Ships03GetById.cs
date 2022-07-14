@@ -18,7 +18,7 @@ namespace API.Integration.Tests.Ships {
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
         private readonly string _notFoundUrl = "/ships/999";
-        private readonly string _url = "/ships/1";
+        private readonly string _url = "/ships/6";
 
         #endregion
 

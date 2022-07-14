@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,46 +16,44 @@ namespace API.Features.Ships {
 
         #region variables
 
-        private readonly IShipRepository repo;
-        private readonly IHttpContextAccessor httpContext;
+        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IMapper mapper;
+        private readonly IShipRepository repo;
 
         #endregion
 
-        public ShipsController(IShipRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
-            this.httpContext = httpContext;
+        public ShipsController(IShipRepository repo, IHttpContextAccessor httpContextAccessor, IMapper mapper) {
+            this.httpContextAccessor = httpContextAccessor;
             this.mapper = mapper;
             this.repo = repo;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<ShipListResource>> Get() {
-            return await repo.Get();
+        public async Task<IEnumerable<ShipListDto>> Get() {
+            return mapper.Map<IEnumerable<Ship>, IEnumerable<ShipListDto>>(await repo.Get());
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            return await repo.GetActiveForDropdown();
+            return mapper.Map<IEnumerable<Ship>, IEnumerable<SimpleResource>>(await repo.GetActiveForDropdown());
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ShipReadResource> GetShip(int id) {
-            return await repo.GetById(id);
+        public async Task<ShipReadDto> GetShip(int id) {
+            return mapper.Map<Ship, ShipReadDto>(await repo.GetById(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PostShipAsync([FromBody] ShipWriteResource record) {
+        public async Task<Response> PostShipAsync([FromBody] ShipWriteDto record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Create(mapper.Map<ShipWriteResource, Ship>(await AttachUserIdToRecord(record)));
-                return StatusCode(200, new {
-                    response = ApiMessages.RecordCreated()
-                });
+                repo.Create(mapper.Map<ShipWriteDto, Ship>(await AttachUserIdToRecord(record)));
+                return ApiResponses.OK();
             } else {
                 return GetErrorMessage(response);
             }
@@ -63,13 +62,11 @@ namespace API.Features.Ships {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PutShipAsync([FromBody] ShipWriteResource record) {
+        public async Task<Response> PutShipAsync([FromBody] ShipWriteDto record) {
             var response = repo.IsValid(record);
             if (response == 200) {
-                repo.Update(mapper.Map<ShipWriteResource, Ship>(await AttachUserIdToRecord(record)));
-                return StatusCode(200, new {
-                    response = ApiMessages.RecordUpdated()
-                });
+                repo.Update(mapper.Map<ShipWriteDto, Ship>(await AttachUserIdToRecord(record)));
+                return ApiResponses.OK();
             } else {
                 return GetErrorMessage(response);
             }
@@ -77,22 +74,22 @@ namespace API.Features.Ships {
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteShip([FromRoute] int id) {
+        public async Task<Response> DeleteShip([FromRoute] int id) {
             repo.Delete(await repo.GetByIdToDelete(id));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordDeleted()
-            });
+            return ApiResponses.OK();
         }
 
-        private async Task<ShipWriteResource> AttachUserIdToRecord(ShipWriteResource record) {
-            var user = await Identity.GetConnectedUserId(httpContext);
+        private async Task<ShipWriteDto> AttachUserIdToRecord(ShipWriteDto record) {
+            var user = await Identity.GetConnectedUserId(httpContextAccessor);
             record.UserId = user.UserId;
             return record;
         }
 
-        private IActionResult GetErrorMessage(int errorCode) {
+        private Response GetErrorMessage(int errorCode) {
+            httpContextAccessor.HttpContext.Response.StatusCode = errorCode;
             return errorCode switch {
-                _ => StatusCode(450, new { Response = ApiMessages.FKNotFoundOrInactive("Ship owner") }),
+                450 => new Response { StatusCode = 450, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Ship owner") },
+                _ => new Response { Message = ApiMessages.RecordNotSaved() },
             };
         }
 

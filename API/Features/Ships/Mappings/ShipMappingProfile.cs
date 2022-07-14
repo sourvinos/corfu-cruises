@@ -6,11 +6,11 @@ namespace API.Features.Ships {
     public class ShipMappingProfile : Profile {
 
         public ShipMappingProfile() {
-            CreateMap<Ship, ShipListResource>()
+            CreateMap<Ship, ShipListDto>()
                 .ForMember(r => r.OwnerDescription, x => x.MapFrom(x => x.ShipOwner.Description));
-            CreateMap<Ship, ShipReadResource>();
+            CreateMap<Ship, ShipReadDto>();
             CreateMap<Ship, SimpleResource>();
-            CreateMap<ShipWriteResource, Ship>();
+            CreateMap<ShipWriteDto, Ship>();
         }
 
     }

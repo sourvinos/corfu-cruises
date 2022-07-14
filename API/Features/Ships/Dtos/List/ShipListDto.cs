@@ -1,6 +1,6 @@
 namespace API.Features.Ships {
 
-    public class ShipListResource {
+    public class ShipListDto {
 
         public int Id { get; set; }
         public string Description { get; set; }

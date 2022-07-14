@@ -2,7 +2,7 @@ using API.Infrastructure.Classes;
 
 namespace API.Features.Ships {
 
-    public class ShipReadResource {
+    public class ShipReadDto {
 
         public int Id { get; set; }
         public string Description { get; set; }
