@@ -1,10 +1,6 @@
-export class ShipOwnerDropdownVM {
+export interface ShipOwnerDropdownVM {
 
-    constructor(
-
-        public id: number,
-        public description: string
-        
-    ) { }
+    id: number
+    description: string
 
 }
