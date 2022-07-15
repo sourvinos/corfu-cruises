@@ -1,4 +1,4 @@
-export interface Registrar {
+export interface RegistrarWriteDto {
 
     id: number
     shipId: number

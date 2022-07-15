@@ -1,7 +1,9 @@
-export interface Registrar {
+import { ShipDropdownVM } from '../../../ships/classes/view-models/ship-dropdown-vm'
+
+export interface RegistrarReadDto {
 
     id: number
-    shipId: number
+    ship: ShipDropdownVM
     fullname: string
     phones: string
     email: string

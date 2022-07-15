@@ -2,23 +2,21 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { RegistrarReadVM } from '../classes/view-models/registrar-read-vm'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { RegistrarReadDto } from '../classes/dtos/registrar-read-dto'
 import { RegistrarService } from '../classes/services/registrar.service'
-import { RegistrarWriteVM } from '../classes/view-models/registrar-write-vm'
+import { RegistrarWriteDto } from '../classes/dtos/registrar-write-dto'
 import { ShipDropdownVM } from '../../ships/classes/view-models/ship-dropdown-vm'
-import { ShipService } from '../../ships/classes/services/ship.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { map, startWith } from 'rxjs/operators'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
@@ -49,19 +47,23 @@ export class RegistrarFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private registrarService: RegistrarService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private registrarService: RegistrarService, private router: Router) {
         this.activatedRoute.params.subscribe(x => {
-            x.id ? this.getRecord(x.id) : null
+            if (x.id) {
+                this.initForm()
+                this.getRecord(x.id)
+            } else {
+                this.initForm()
+            }
         })
     }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
-        this.initForm()
         this.addShortcuts()
-        this.populateDropDowns()
+        this.focusOnField('fullname')
+        this.populateDropdowns()
     }
 
     ngOnDestroy(): void {
@@ -108,16 +110,14 @@ export class RegistrarFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(), this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.registrarService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {
-                        this.resetForm()
-                        this.goBack()
-                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
                     error: (errorFromInterceptor) => {
-                        this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                        this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
                     }
                 })
             }
@@ -166,7 +166,7 @@ export class RegistrarFormComponent {
         }
     }
 
-    private flattenForm(): RegistrarWriteVM {
+    private flattenForm(): RegistrarWriteDto {
         const registrar = {
             id: this.form.value.id,
             shipId: this.form.value.ship.id,
@@ -181,17 +181,19 @@ export class RegistrarFormComponent {
         return registrar
     }
 
-    private getRecord(id: number): Promise<any> {
-        const promise = new Promise((resolve) => {
-            this.registrarService.getSingle(id).subscribe(result => {
-                this.populateFields(result)
-                resolve(result)
-            }, errorFromInterceptor => {
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
-            })
+    private focusOnField(field: string): void {
+        this.helperService.focusOnField(field)
+    }
+
+    private getRecord(id: number): void {
+        this.registrarService.getSingle(id).subscribe({
+            next: (response) => {
+                this.populateFields(response)
+            },
+            error: (errorFromInterceptor) => {
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
+            }
         })
-        return promise
     }
 
     private goBack(): void {
@@ -212,27 +214,16 @@ export class RegistrarFormComponent {
         })
     }
 
-    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string, addWildCard = false): Promise<any> {
-        const promise = new Promise((resolve) => {
-            service.getActiveForDropdown().toPromise().then(
-                (response: any[]) => {
-                    if (addWildCard)
-                        response.unshift({ id: null, description: this.emojiService.getEmoji('wildcard') })
-                    this[table] = response
-                    resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
-                }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
-                })
-        })
-        return promise
+    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string) {
+        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
-    private populateDropDowns(): void {
-        this.populateDropDown(this.shipService, 'ships', 'filteredShips', 'ship', 'description')
+    private populateDropdowns(): void {
+        this.populateDropdownFromLocalStorage('ships', 'filteredShips', 'ship', 'description')
     }
 
-    private populateFields(result: RegistrarReadVM): void {
+    private populateFields(result: RegistrarReadDto): void {
         this.form.setValue({
             id: result.id,
             fullname: result.fullname,
@@ -250,38 +241,26 @@ export class RegistrarFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(registrar: RegistrarWriteVM): void {
+    private saveRecord(registrar: RegistrarWriteDto): void {
         if (registrar.id === 0) {
             this.registrarService.add(registrar).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         } else {
             this.registrarService.update(registrar.id, registrar).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         }
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     //#endregion
