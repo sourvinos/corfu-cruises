@@ -17,7 +17,7 @@ namespace API.IntegrationTests.PickupPoints {
             return new object[] {
                 new TestPickupPoint {
                     StatusCode = 450,
-                    RouteId = 99,
+                    CoachRouteId = 99,
                     Description = Helpers.CreateRandomString(128),
                     ExactPoint = Helpers.CreateRandomString(128),
                     Time = "08:00",
@@ -30,7 +30,7 @@ namespace API.IntegrationTests.PickupPoints {
             return new object[] {
                 new TestPickupPoint {
                     StatusCode = 450,
-                    RouteId = 9,
+                    CoachRouteId = 9,
                     Description = Helpers.CreateRandomString(128),
                     ExactPoint = Helpers.CreateRandomString(128),
                     Time = "08:00",

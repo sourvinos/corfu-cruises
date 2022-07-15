@@ -15,7 +15,7 @@ namespace API.IntegrationTests.PickupPoints {
         private static object[] ValidRecord() {
             return new object[] {
                 new TestPickupPoint {
-                    RouteId = 1,
+                    CoachRouteId = 1,
                     Description = Helpers.CreateRandomString(128),
                     ExactPoint = Helpers.CreateRandomString(128),
                     Time = "08:00",

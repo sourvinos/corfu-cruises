@@ -16,11 +16,12 @@ namespace API.IntegrationTests.PickupPoints {
             return new object[] {
                 new TestPickupPoint {
                     Id = 1,
-                    RouteId = 1,
+                    CoachRouteId = 4,
                     Description = Helpers.CreateRandomString(128),
                     ExactPoint = Helpers.CreateRandomString(128),
                     Time = "08:00",
-                    Coordinates = Helpers.CreateRandomString(128)
+                    Coordinates = Helpers.CreateRandomString(128),
+                    IsActive = true
                 }
             };
         }
