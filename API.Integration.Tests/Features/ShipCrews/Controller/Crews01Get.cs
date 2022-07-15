@@ -18,10 +18,10 @@ namespace API.Integration.Tests.ShipCrews {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly int _expectedRecordCount = 20;
+        private readonly int _expectedRecordCount = 12;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/crews";
+        private readonly string _url = "/shipCrews";
 
         #endregion
 

@@ -13,8 +13,6 @@ namespace API.IntegrationTests.ShipCrews {
             yield return Gender_Must_Be_Active();
             yield return Nationality_Must_Exist();
             yield return Nationality_Must_Be_Active();
-            yield return Occupant_Must_Exist();
-            yield return Occupant_Must_Be_Active();
             yield return Ship_Must_Exist();
             yield return Ship_Must_Be_Active();
         }
@@ -26,7 +24,7 @@ namespace API.IntegrationTests.ShipCrews {
                     GenderId = 5,
                     NationalityId = 1,
                     OccupantId = 1,
-                    ShipId = 1,
+                    ShipId = 6,
                     Lastname = Helpers.CreateRandomString(128),
                     Firstname = Helpers.CreateRandomString(128),
                     Birthdate = "1970-01-01",
@@ -41,7 +39,7 @@ namespace API.IntegrationTests.ShipCrews {
                     GenderId = 3,
                     NationalityId = 1,
                     OccupantId = 1,
-                    ShipId = 1,
+                    ShipId = 6,
                     Lastname = Helpers.CreateRandomString(128),
                     Firstname = Helpers.CreateRandomString(128),
                     Birthdate = "1970-01-01",
@@ -55,7 +53,7 @@ namespace API.IntegrationTests.ShipCrews {
                     StatusCode = 451,
                     GenderId = 1,
                     NationalityId = 999,
-                    ShipId = 1,
+                    ShipId = 6,
                     Lastname = Helpers.CreateRandomString(128),
                     Firstname = Helpers.CreateRandomString(128),
                     Birthdate = "1970-01-01",
@@ -69,7 +67,7 @@ namespace API.IntegrationTests.ShipCrews {
                     StatusCode = 451,
                     GenderId = 1,
                     NationalityId = 3,
-                    ShipId = 1,
+                    ShipId = 6,
                     Lastname = Helpers.CreateRandomString(128),
                     Firstname = Helpers.CreateRandomString(128),
                     Birthdate = "1970-01-01",
@@ -77,43 +75,13 @@ namespace API.IntegrationTests.ShipCrews {
             };
         }
 
-        private static object[] Occupant_Must_Exist() {
-            return new object[] {
-                new TestCrew {
-                    StatusCode = 452,
-                    GenderId = 1,
-                    NationalityId = 1,
-                    OccupantId = 999,
-                    ShipId = 4,
-                    Lastname = Helpers.CreateRandomString(128),
-                    Firstname = Helpers.CreateRandomString(128),
-                    Birthdate = "1970-01-01"
-                }
-            };
-        }
-
-        private static object[] Occupant_Must_Be_Active() {
-            return new object[] {
-                new TestCrew {
-                    StatusCode = 452,
-                    GenderId = 1,
-                    NationalityId = 1,
-                    OccupantId = 3,
-                    ShipId = 4,
-                    Lastname = Helpers.CreateRandomString(128),
-                    Firstname = Helpers.CreateRandomString(128),
-                    Birthdate = "1970-01-01"
-                }
-            };
-        }
-
         private static object[] Ship_Must_Exist() {
             return new object[] {
                 new TestCrew {
-                    StatusCode = 453,
+                    StatusCode = 452,
                     GenderId = 1,
                     NationalityId = 1,
-                    ShipId = 4,
+                    ShipId = 99,
                     Lastname = Helpers.CreateRandomString(128),
                     Firstname = Helpers.CreateRandomString(128),
                     Birthdate = "1970-01-01"
@@ -124,10 +92,10 @@ namespace API.IntegrationTests.ShipCrews {
         private static object[] Ship_Must_Be_Active() {
             return new object[] {
                 new TestCrew {
-                    StatusCode = 453,
+                    StatusCode = 452,
                     GenderId = 1,
                     NationalityId = 1,
-                    ShipId = 2,
+                    ShipId = 8,
                     Lastname = Helpers.CreateRandomString(128),
                     Firstname = Helpers.CreateRandomString(128),
                     Birthdate = "1970-01-01"

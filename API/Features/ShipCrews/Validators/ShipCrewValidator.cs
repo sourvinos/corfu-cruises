@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace API.Features.ShipCrews {
 
-    public class ShipCrewValidator : AbstractValidator<ShipCrewWriteResource> {
+    public class ShipCrewValidator : AbstractValidator<ShipCrewWriteDto> {
 
         public ShipCrewValidator() {
             RuleFor(x => x.GenderId).NotEmpty();

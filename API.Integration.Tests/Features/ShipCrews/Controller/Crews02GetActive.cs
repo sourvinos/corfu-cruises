@@ -21,7 +21,7 @@ namespace API.Integration.Tests.ShipCrews {
         private readonly int _expectedRecordCount = 12;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/crews/getActiveForDropdown";
+        private readonly string _url = "/shipCrews/getActiveForDropdown";
 
         #endregion
 

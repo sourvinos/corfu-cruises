@@ -15,11 +15,11 @@ namespace API.IntegrationTests.ShipCrews {
         private static object[] ValidRecord() {
             return new object[] {
                 new TestCrew {
-                    Id = 1,
+                    Id = 21,
                     GenderId = 1,
                     NationalityId = 1,
                     OccupantId = 1,
-                    ShipId = 1,
+                    ShipId = 6,
                     Lastname = Helpers.CreateRandomString(128),
                     Firstname = Helpers.CreateRandomString(128),
                     Birthdate = "1970-01-01"

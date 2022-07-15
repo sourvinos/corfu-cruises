@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using API.Integration.Tests.Infrastructure;
@@ -17,7 +18,7 @@ namespace API.Integration.Tests.ShipCrews {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "post";
         private readonly string _baseUrl;
-        private readonly string _url = "/crews";
+        private readonly string _url = "/shipCrews";
 
         #endregion
 
@@ -55,6 +56,13 @@ namespace API.Integration.Tests.ShipCrews {
         [ClassData(typeof(CreateValidCrew))]
         public async Task Active_Simple_Users_Can_Not_Create(TestCrew record) {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
+        }
+
+        [Theory]
+        [ClassData(typeof(CreateInvalidCrew))]
+        public async Task Active_Admins_Can_Not_Create_When_Invalid(TestCrew record) {
+            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
+            Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]

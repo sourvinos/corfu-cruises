@@ -1,17 +1,17 @@
-using API.Infrastructure.Classes;
-
 namespace API.Features.ShipCrews {
 
-    public class ShipCrewReadResource {
+    public class ShipCrewWriteDto {
 
         public int Id { get; set; }
-        public SimpleResource Gender { get; set; }
-        public SimpleResource Nationality { get; set; }
-        public SimpleResource Ship { get; set; }
+        public int GenderId { get; set; }
+        public int NationalityId { get; set; }
+        public int OccupantId { get; set; }
+        public int ShipId { get; set; }
         public string Lastname { get; set; }
         public string Firstname { get; set; }
         public string Birthdate { get; set; }
         public bool IsActive { get; set; }
+        public string UserId { get; set; }
 
     }
 

@@ -17,8 +17,8 @@ namespace API.Integration.Tests.ShipCrews {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _notFoundUrl = "/crews/999";
-        private readonly string _url = "/crews/1";
+        private readonly string _notFoundUrl = "/shipCrews/999";
+        private readonly string _url = "/shipCrews/21";
 
         #endregion
 
