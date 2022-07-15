@@ -4,16 +4,11 @@ import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { CrewReadVM } from '../classes/view-models/crew-read-vm'
-import { CrewService } from '../classes/services/crew.service'
-import { CrewWriteVM } from '../classes/view-models/crew-write-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { GenderDropdownVM } from '../../genders/classes/view-models/gender-dropdown-vm'
-import { GenderService } from 'src/app/features/genders/classes/services/gender.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
@@ -22,22 +17,23 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { NationalityDropdownVM } from '../../nationalities/classes/view-models/nationality-dropdown-vm'
-import { NationalityService } from 'src/app/features/nationalities/classes/services/nationality.service'
+import { ShipCrewReadDto } from '../classes/dtos/shipCrew-read-dto'
+import { ShipCrewService } from '../classes/services/shipCrew.service'
+import { ShipCrewWriteDto } from '../classes/dtos/shipCrew-write-dto'
 import { ShipDropdownVM } from '../../ships/classes/view-models/ship-dropdown-vm'
-import { ShipService } from '../../ships/classes/services/ship.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
-    selector: 'crew-form',
-    templateUrl: './crew-form.component.html',
+    selector: 'ship-crew-form',
+    templateUrl: './shipCrew-form.component.html',
     styleUrls: ['../../../../assets/styles/forms.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
-export class CrewFormComponent {
+export class ShipCrewFormComponent {
 
     //#region variables
 
@@ -47,7 +43,7 @@ export class CrewFormComponent {
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public parentUrl = '/crews'
+    public parentUrl = '/shipCrews'
     public isLoading = new Subject<boolean>()
 
     public minBirthDate = new Date(new Date().getFullYear() - 99, 0, 1)
@@ -64,7 +60,7 @@ export class CrewFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private crewService: CrewService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private router: Router, private shipService: ShipService, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private crewService: ShipCrewService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private shipCrewService: ShipCrewService,) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.initForm()
@@ -78,8 +74,8 @@ export class CrewFormComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
         this.addShortcuts()
+        this.focusOnField('lastname')
         this.populateDropDowns()
         this.subscribeToInteractionService()
         this.setLocale()
@@ -129,16 +125,14 @@ export class CrewFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(), this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.crewService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {
-                        this.resetForm()
-                        this.goBack()
-                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
                     error: (errorFromInterceptor) => {
-                        this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                        this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
                     }
                 })
             }
@@ -187,7 +181,7 @@ export class CrewFormComponent {
         }
     }
 
-    private flattenForm(): CrewWriteVM {
+    private flattenForm(): ShipCrewWriteDto {
         const crew = {
             id: this.form.value.id,
             shipId: this.form.value.ship.id,
@@ -201,17 +195,19 @@ export class CrewFormComponent {
         return crew
     }
 
-    private getRecord(id: number): Promise<any> {
-        const promise = new Promise((resolve) => {
-            this.crewService.getSingle(id).subscribe(result => {
-                this.populateFields(result)
-                resolve(result)
-            }, errorFromInterceptor => {
-                this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
-                this.goBack()
-            })
+    private focusOnField(field: string): void {
+        this.helperService.focusOnField(field)
+    }
+
+    private getRecord(id: number): void {
+        this.crewService.getSingle(id).subscribe({
+            next: (response) => {
+                this.populateFields(response)
+            },
+            error: (errorFromInterceptor) => {
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
+            }
         })
-        return promise
     }
 
     private goBack(): void {
@@ -242,7 +238,7 @@ export class CrewFormComponent {
         this.populateDropdownFromLocalStorage('ships', 'filteredShips', 'ship', 'description')
     }
 
-    private populateFields(result: CrewReadVM): void {
+    private populateFields(result: ShipCrewReadDto): void {
         this.form.setValue({
             id: result.id,
             lastname: result.lastname,
@@ -259,27 +255,23 @@ export class CrewFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(crew: CrewWriteVM): void {
-        if (crew.id === 0) {
-            this.crewService.add(crew).pipe(indicate(this.isLoading)).subscribe({
+    private saveRecord(shipCrew: ShipCrewWriteDto): void {
+        if (shipCrew.id === 0) {
+            this.shipCrewService.add(shipCrew).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         } else {
-            this.crewService.update(crew.id, crew).pipe(indicate(this.isLoading)).subscribe({
+            this.shipCrewService.update(shipCrew.id, shipCrew).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         }
@@ -287,14 +279,6 @@ export class CrewFormComponent {
 
     private setLocale() {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     private subscribeToInteractionService(): void {

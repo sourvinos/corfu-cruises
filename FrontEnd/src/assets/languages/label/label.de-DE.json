@@ -1940,7 +1940,7 @@
         ]
     },
     {
-        "feature": "crewList",
+        "feature": "shipCrewList",
         "labels": [
             {
                 "id": "header",

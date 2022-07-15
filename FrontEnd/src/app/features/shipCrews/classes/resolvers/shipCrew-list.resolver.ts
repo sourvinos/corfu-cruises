@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 // Custom
-import { CrewService } from '../services/crew.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
+import { ShipCrewService } from '../services/shipCrew.service'
 
 @Injectable({ providedIn: 'root' })
 
-export class CrewListResolver  {
+export class ShipCrewListResolver  {
 
-    constructor(private crewService: CrewService) { }
+    constructor(private crewService: ShipCrewService) { }
 
     resolve(): Observable<ListResolved> {
         return this.crewService.getAll()
             .pipe(
-                map((crewList) => new ListResolved(crewList)),
+                map((shipCrewList) => new ListResolved(shipCrewList)),
                 catchError((err: any) => of(new ListResolved(null, err)))
             )
     }

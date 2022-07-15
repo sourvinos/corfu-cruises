@@ -1,13 +1,13 @@
 import { ActivatedRouteSnapshot } from '@angular/router'
 import { Injectable } from '@angular/core'
 // Custom
-import { CrewService } from '../services/crew.service'
+import { ShipCrewService } from '../services/shipCrew.service'
 
 @Injectable({ providedIn: 'root' })
 
-export class CrewFormResolver {
+export class ShipCrewFormResolver {
 
-    constructor(private crewService: CrewService) { }
+    constructor(private crewService: ShipCrewService) { }
 
     resolve(route: ActivatedRouteSnapshot): any {
         const response = this.crewService.getSingle(route.params.id)
