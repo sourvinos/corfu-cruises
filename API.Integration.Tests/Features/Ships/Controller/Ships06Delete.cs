@@ -19,7 +19,7 @@ namespace API.Integration.Tests.Ships {
         private readonly string _baseUrl;
         private readonly string _inUseUrl = "/ships/6";
         private readonly string _notFoundUrl = "/ships/999";
-        private readonly string _url = "/ships/9";
+        private readonly string _url = "/ships/10";
 
         #endregion
 

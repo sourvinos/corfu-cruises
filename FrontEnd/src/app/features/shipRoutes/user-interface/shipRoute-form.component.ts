@@ -2,7 +2,6 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
@@ -12,10 +11,10 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { ShipRouteReadDto } from '../classes/dtos/shipRoute-read-dto'
 import { ShipRouteService } from '../classes/services/shipRoute.service'
 import { ShipRouteWriteDto } from '../classes/dtos/shipRoute-write-dto'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -41,18 +40,22 @@ export class ShipRouteFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private shipRouteService: ShipRouteService, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private shipRouteService: ShipRouteService) {
         this.activatedRoute.params.subscribe(x => {
-            x.id ? this.getRecord(x.id) : null
+            if (x.id) {
+                this.initForm()
+                this.getRecord(x.id)
+            } else {
+                this.initForm()
+            }
         })
     }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
-        this.initForm()
         this.addShortcuts()
+        this.focusOnField('description')
     }
 
     ngOnDestroy(): void {
@@ -87,16 +90,14 @@ export class ShipRouteFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(), this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.shipRouteService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {
-                        this.resetForm()
-                        this.goBack()
-                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
                     error: (errorFromInterceptor) => {
-                        this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                        this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
                     }
                 })
             }
@@ -125,16 +126,6 @@ export class ShipRouteFormComponent {
                 if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
                     this.buttonClickService.clickOnButton(event, 'save')
                 }
-            },
-            'Alt.C': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'abort')
-                }
-            },
-            'Alt.O': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length !== 0) {
-                    this.buttonClickService.clickOnButton(event, 'ok')
-                }
             }
         }, {
             priority: 0,
@@ -162,12 +153,18 @@ export class ShipRouteFormComponent {
         return shipRoute
     }
 
+    private focusOnField(field: string): void {
+        this.helperService.focusOnField(field)
+    }
+
     private getRecord(id: number): void {
-        this.shipRouteService.getSingle(id).subscribe(result => {
-            this.populateFields(result)
-        }, errorFromInterceptor => {
-            this.goBack()
-            this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+        this.shipRouteService.getSingle(id).subscribe({
+            next: (response) => {
+                this.populateFields(response)
+            },
+            error: (errorFromInterceptor) => {
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
+            }
         })
     }
 
@@ -205,34 +202,22 @@ export class ShipRouteFormComponent {
         if (shipRoute.id === 0) {
             this.shipRouteService.add(shipRoute).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         } else {
             this.shipRouteService.update(shipRoute.id, shipRoute).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         }
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     //#endregion
