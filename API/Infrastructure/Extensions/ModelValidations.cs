@@ -33,7 +33,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IValidator<PickupPointWriteDto>, PickupPointValidator>();
             services.AddTransient<IValidator<PortWriteResource>, PortValidator>();
             services.AddTransient<IValidator<RegisterViewModel>, RegisterValidator>();
-            services.AddTransient<IValidator<RegistrarWriteResource>, RegistrarValidator>();
+            services.AddTransient<IValidator<RegistrarWriteDto>, RegistrarValidator>();
             services.AddTransient<IValidator<ReservationWriteResource>, ReservationValidator>();
             services.AddTransient<IValidator<ScheduleWriteDto>, ScheduleValidator>();
             services.AddTransient<IValidator<ShipCrewWriteDto>, ShipCrewValidator>();

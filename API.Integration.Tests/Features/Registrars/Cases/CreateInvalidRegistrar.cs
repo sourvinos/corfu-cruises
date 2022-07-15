@@ -17,7 +17,7 @@ namespace API.Integration.Tests.Registrars {
             return new object[] {
                 new TestRegistrar {
                     StatusCode = 450,
-                    ShipId = 4,
+                    ShipId = 99,
                     Fullname = Helpers.CreateRandomString(128)
                 }
             };
@@ -27,7 +27,7 @@ namespace API.Integration.Tests.Registrars {
             return new object[] {
                 new TestRegistrar {
                     StatusCode = 450,
-                    ShipId = 2,
+                    ShipId = 8,
                     Fullname = Helpers.CreateRandomString(128)
                 }
             };

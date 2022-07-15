@@ -1,9 +1,11 @@
+using API.Infrastructure.Classes;
+
 namespace API.Features.Registrars {
 
-    public class RegistrarWriteResource {
+    public class RegistrarReadDto {
 
         public int Id { get; set; }
-        public int ShipId { get; set; }
+        public SimpleResource Ship { get; set; }
         public string Fullname { get; set; }
         public string Phones { get; set; }
         public string Email { get; set; }

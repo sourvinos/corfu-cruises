@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
-using AutoMapper;
+using API.Infrastructure.Responses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -11,51 +11,49 @@ namespace API.Features.Registrars {
 
     public class RegistrarRepository : Repository<Registrar>, IRegistrarRepository {
 
-        private readonly IMapper mapper;
+        public RegistrarRepository(AppDbContext appDbContext, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) { }
 
-        public RegistrarRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
-            this.mapper = mapper;
-        }
-
-        async Task<IEnumerable<RegistrarListResource>> IRegistrarRepository.Get() {
-            List<Registrar> records = await context.Registrars
+        async Task<IEnumerable<Registrar>> IRegistrarRepository.Get() {
+            var records = await context.Registrars
                 .Include(x => x.Ship)
-                .OrderBy(x => x.Ship.Description)
-                    .ThenBy(x => !x.IsPrimary)
-                        .ThenBy(x => x.Fullname)
+                .OrderBy(x => x.Ship.Description).ThenBy(x => !x.IsPrimary).ThenBy(x => x.Fullname)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Registrar>, IEnumerable<RegistrarListResource>>(records);
+            return records;
         }
 
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            List<Registrar> records = await context.Registrars
+        public async Task<IEnumerable<Registrar>> GetActiveForDropdown() {
+            var records = await context.Registrars
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Fullname)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Registrar>, IEnumerable<SimpleResource>>(records);
+            return records;
         }
 
-        public new async Task<RegistrarReadResource> GetById(int id) {
-            Registrar record = await context.Registrars
+        public new async Task<Registrar> GetById(int id) {
+            var record = await context.Registrars
                 .Include(x => x.Ship)
-                .SingleOrDefaultAsync(x => x.Id == id);
-            return mapper.Map<Registrar, RegistrarReadResource>(record);
+                .SingleOrDefaultAsync(m => m.Id == id);
+            if (record != null) {
+                return record;
+            } else {
+                throw new CustomException { HttpResponseCode = 404 };
+            }
         }
 
         public async Task<Registrar> GetByIdToDelete(int id) {
             return await context.Registrars.SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public int IsValid(RegistrarWriteResource record) {
+        public int IsValid(RegistrarWriteDto record) {
             return true switch {
                 var x when x == !IsValidShip(record) => 450,
                 _ => 200,
             };
         }
 
-        private bool IsValidShip(RegistrarWriteResource record) {
+        private bool IsValidShip(RegistrarWriteDto record) {
             if (record.Id == 0) {
                 return context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
             }

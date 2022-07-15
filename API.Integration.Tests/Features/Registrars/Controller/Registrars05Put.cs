@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using API.Integration.Tests.Infrastructure;
@@ -16,7 +17,7 @@ namespace API.Integration.Tests.Registrars {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "put";
         private readonly string _baseUrl;
-        private readonly string _url = "/registrars/1";
+        private readonly string _url = "/registrars/7";
 
         #endregion
 
@@ -54,6 +55,13 @@ namespace API.Integration.Tests.Registrars {
         [ClassData(typeof(UpdateValidRegistrar))]
         public async Task Active_Simple_Users_Can_Not_Update(TestRegistrar record) {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
+        }
+
+        [Theory]
+        [ClassData(typeof(UpdateInvalidRegistrar))]
+        public async Task Active_Admins_Can_Not_Update_When_Invalid(TestRegistrar record) {
+            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
+            Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]

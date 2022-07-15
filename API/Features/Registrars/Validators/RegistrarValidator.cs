@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace API.Features.Registrars {
 
-    public class RegistrarValidator : AbstractValidator<RegistrarWriteResource> {
+    public class RegistrarValidator : AbstractValidator<RegistrarWriteDto> {
 
         public RegistrarValidator() {
             RuleFor(x => x.ShipId).NotEmpty();

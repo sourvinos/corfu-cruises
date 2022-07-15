@@ -15,7 +15,7 @@ namespace API.Integration.Tests.Registrars {
         private static object[] ValidRecord() {
             return new object[] {
                 new TestRegistrar {
-                    ShipId = 1,
+                    ShipId = 7,
                     Fullname = Helpers.CreateRandomString(128)
                 }
             };

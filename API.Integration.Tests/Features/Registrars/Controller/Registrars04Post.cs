@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using API.Integration.Tests.Infrastructure;
@@ -54,6 +55,13 @@ namespace API.Integration.Tests.Registrars {
         [ClassData(typeof(CreateValidRegistrar))]
         public async Task Active_Simple_Users_Can_Not_Create(TestRegistrar record) {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
+        }
+
+        [Theory]
+        [ClassData(typeof(CreateInvalidRegistrar))]
+        public async Task Active_Admins_Can_Not_Create_When_Invalid(TestRegistrar record) {
+            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
+            Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]
