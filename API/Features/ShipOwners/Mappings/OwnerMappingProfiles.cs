@@ -6,10 +6,10 @@ namespace API.Features.ShipOwners {
     public class ShipOwnerMappingProfile : Profile {
 
         public ShipOwnerMappingProfile() {
-            CreateMap<ShipOwner, ShipOwnerListResource>();
-            CreateMap<ShipOwner, ShipOwnerReadResource>();
+            CreateMap<ShipOwner, ShipOwnerListDto>();
+            CreateMap<ShipOwner, ShipOwnerReadDto>();
             CreateMap<ShipOwner, SimpleResource>();
-            CreateMap<ShipOwnerWriteResource, ShipOwner>();
+            CreateMap<ShipOwnerWriteDto, ShipOwner>();
         }
 
     }

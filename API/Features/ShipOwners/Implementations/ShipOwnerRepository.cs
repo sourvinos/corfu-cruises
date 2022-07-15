@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -11,27 +10,23 @@ namespace API.Features.ShipOwners {
 
     public class ShipOwnerRepository : Repository<ShipOwner>, IShipOwnerRepository {
 
-        private readonly IMapper mapper;
+        public ShipOwnerRepository(AppDbContext context, IOptions<TestingEnvironment> settings) : base(context, settings) { }
 
-        public ShipOwnerRepository(AppDbContext context, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, settings) {
-            this.mapper = mapper;
-        }
-
-        public async Task<IEnumerable<ShipOwnerListResource>> Get() {
+        public async Task<IEnumerable<ShipOwner>> Get() {
             List<ShipOwner> records = await context.ShipOwners
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerListResource>>(records);
+            return records;
         }
 
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<ShipOwner>> GetActiveForDropdown() {
             List<ShipOwner> records = await context.ShipOwners
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<SimpleResource>>(records);
+            return records;
         }
 
         public async Task<ShipOwner> GetByIdToDelete(int id) {

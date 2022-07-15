@@ -1,6 +1,6 @@
 namespace API.Features.ShipOwners {
 
-    public class ShipOwnerReadResource {
+    public class ShipOwnerReadDto {
 
         public int Id { get; set; }
         public string Description { get; set; }

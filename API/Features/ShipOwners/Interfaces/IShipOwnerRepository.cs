@@ -7,8 +7,8 @@ namespace API.Features.ShipOwners {
 
     public interface IShipOwnerRepository : IRepository<ShipOwner> {
 
-        Task<IEnumerable<ShipOwnerListResource>> Get();
-        Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
+        Task<IEnumerable<ShipOwner>> Get();
+        Task<IEnumerable<ShipOwner>> GetActiveForDropdown();
         Task<ShipOwner> GetByIdToDelete(int id);
 
     }

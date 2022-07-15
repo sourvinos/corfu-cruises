@@ -17,7 +17,7 @@ namespace API.Integration.Tests.ShipOwners {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "put";
         private readonly string _baseUrl;
-        private readonly string _url = "/shipOwners/1";
+        private readonly string _url = "/shipOwners/4";
 
         #endregion
 

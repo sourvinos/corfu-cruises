@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace API.Features.ShipOwners {
 
-    public class ShipOwnerValidator : AbstractValidator<ShipOwnerWriteResource> {
+    public class ShipOwnerValidator : AbstractValidator<ShipOwnerWriteDto> {
 
         public ShipOwnerValidator() {
             RuleFor(x => x.Description).NotEmpty().MaximumLength(128);

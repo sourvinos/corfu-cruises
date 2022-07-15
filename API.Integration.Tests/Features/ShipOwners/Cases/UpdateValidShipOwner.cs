@@ -15,7 +15,7 @@ namespace API.IntegrationTests.ShipOwners {
         private static object[] ValidRecord() {
             return new object[] {
                 new TestShipOwner {
-                    Id = 1,
+                    Id = 4,
                     Description = Helpers.CreateRandomString(128)
                 }
             };

@@ -1,6 +1,6 @@
 ﻿namespace API.Features.ShipOwners {
 
-    public class ShipOwnerWriteResource {
+    public class ShipOwnerWriteDto {
 
         public int Id { get; set; }
         public string Description { get; set; }

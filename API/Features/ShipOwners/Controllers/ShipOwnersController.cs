@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,67 +16,61 @@ namespace API.Features.ShipOwners {
 
         #region variables
 
-        private readonly IHttpContextAccessor httpContext;
+        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IMapper mapper;
         private readonly IShipOwnerRepository repo;
 
         #endregion
 
-        public ShipOwnersController(IShipOwnerRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
-            this.httpContext = httpContext;
+        public ShipOwnersController(IHttpContextAccessor httpContextAccessor, IMapper mapper, IShipOwnerRepository repo) {
+            this.httpContextAccessor = httpContextAccessor;
             this.mapper = mapper;
             this.repo = repo;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<ShipOwnerListResource>> Get() {
-            return await repo.Get();
+        public async Task<IEnumerable<ShipOwnerListDto>> Get() {
+            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerListDto>>(await repo.Get());
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            return await repo.GetActiveForDropdown();
+            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<SimpleResource>>(await repo.GetActiveForDropdown());
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ShipOwnerReadResource> GetShipOwner(int id) {
-            return mapper.Map<ShipOwner, ShipOwnerReadResource>(await repo.GetById(id));
+        public async Task<ShipOwnerReadDto> GetShipOwner(int id) {
+            return mapper.Map<ShipOwner, ShipOwnerReadDto>(await repo.GetById(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PostShipOwnerAsync([FromBody] ShipOwnerWriteResource record) {
-            repo.Create(mapper.Map<ShipOwnerWriteResource, ShipOwner>(await AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordCreated()
-            });
+        public async Task<Response> PostShipOwnerAsync([FromBody] ShipOwnerWriteDto record) {
+            repo.Create(mapper.Map<ShipOwnerWriteDto, ShipOwner>(await AttachUserIdToRecord(record)));
+            return ApiResponses.OK();
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PutShipOwnerAsync([FromBody] ShipOwnerWriteResource record) {
-            repo.Update(mapper.Map<ShipOwnerWriteResource, ShipOwner>(await AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
+        public async Task<Response> PutShipOwnerAsync([FromBody] ShipOwnerWriteDto record) {
+            repo.Update(mapper.Map<ShipOwnerWriteDto, ShipOwner>(await AttachUserIdToRecord(record)));
+            return ApiResponses.OK();
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteShipOwner([FromRoute] int id) {
+        public async Task<Response> DeleteShipOwner([FromRoute] int id) {
             repo.Delete(await repo.GetByIdToDelete(id));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordDeleted()
-            });
+            return ApiResponses.OK();
         }
 
-        private async Task<ShipOwnerWriteResource> AttachUserIdToRecord(ShipOwnerWriteResource record) {
-            var user = await Identity.GetConnectedUserId(httpContext);
+        private async Task<ShipOwnerWriteDto> AttachUserIdToRecord(ShipOwnerWriteDto record) {
+            var user = await Identity.GetConnectedUserId(httpContextAccessor);
             record.UserId = user.UserId;
             return record;
         }
