@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
-using AutoMapper;
+using API.Infrastructure.Responses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -11,31 +11,32 @@ namespace API.Features.Ports {
 
     public class PortRepository : Repository<Port>, IPortRepository {
 
-        private readonly IMapper mapper;
+        public PortRepository(AppDbContext appDbContext, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) { }
 
-        public PortRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
-            this.mapper = mapper;
-        }
-
-        public async Task<IEnumerable<PortListResource>> Get() {
-            List<Port> records = await context.Ports
+        public async Task<IEnumerable<Port>> Get() {
+            var records = await context.Ports
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Port>, IEnumerable<PortListResource>>(records);
+            return records;
         }
 
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            List<Port> records = await context.Set<Port>()
+        public async Task<IEnumerable<Port>> GetActiveForDropdown() {
+            var records = await context.Set<Port>()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Port>, IEnumerable<SimpleResource>>(records);
+            return records;
         }
 
         public async Task<Port> GetByIdToDelete(int id) {
-            return await context.Ports.SingleOrDefaultAsync(m => m.Id == id);
+            var record = await context.Ports.SingleOrDefaultAsync(x => x.Id == id);
+            if (record != null) {
+                return record;
+            } else {
+                throw new CustomException { HttpResponseCode = 404 };
+            }
         }
 
     }

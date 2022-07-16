@@ -6,10 +6,10 @@ namespace API.Features.Ports {
     public class PortMappingProfile : Profile {
 
         public PortMappingProfile() {
-            CreateMap<Port, PortListResource>();
-            CreateMap<Port, PortReadResource>();
+            CreateMap<Port, PortListDto>();
+            CreateMap<Port, PortReadDto>();
             CreateMap<Port, SimpleResource>();
-            CreateMap<PortWriteResource, Port>();
+            CreateMap<PortWriteDto, Port>();
 
         }
 
