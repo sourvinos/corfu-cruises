@@ -1,110 +1,28 @@
 [
-    {
-        "id": "dashboard",
-        "description": "Panneau principal"
-    },
-    {
-        "id": "availability",
-        "description": "Disponibilité"
-    },
-    {
-        "id": "editAccount",
-        "description": "Mon compte"
-    },
-    {
-        "id": "logout",
-        "description": "Quitter"
-    },
-    {
-        "id": "reservations",
-        "description": "Reservations"
-    },
-    {
-        "id": "ships",
-        "description": "Navires"
-    },
-    {
-        "id": "ships-crews",
-        "description": "Équipes"
-    },
-    {
-        "id": "ships",
-        "description": "File"
-    },
-    {
-        "id": "ships-registrars",
-        "description": "Enregistreurs de passagers"
-    },
-    {
-        "id": "ships-shipOwners",
-        "description": "Armateurs"
-    },
-    {
-        "id": "ships-shipRoutes",
-        "description": "Routes maritimes"
-    },
-    {
-        "id": "tables",
-        "description": "Tables"
-    },
-    {
-        "id": "tables-coachRoutes",
-        "description": "Routes de bus"
-    },
-    {
-        "id": "tables-customers",
-        "description": "Clients"
-    },
-    {
-        "id": "tables-destinations",
-        "description": "Destinations"
-    },
-    {
-        "id": "tables-drivers",
-        "description": "Conducteurs"
-    },
-    {
-        "id": "tables-genders",
-        "description": "Genres"
-    },
-    {
-        "id": "tables-pickupPoints",
-        "description": "Points de collecte"
-    },
-    {
-        "id": "tables-ports",
-        "description": "Ports"
-    },
-    {
-        "id": "tables-schedules",
-        "description": "Horaires"
-    },
-    {
-        "id": "tables-users",
-        "description": "Utilisateurs"
-    },
-    {
-        "id": "tasks",
-        "description": "Tâches"
-    },
-    {
-        "id": "tasks-embarkation",
-        "description": "Embarquement"
-    },
-    {
-        "id": "tasks-invoicing",
-        "description": "Facturation au client"
-    },
-    {
-        "id": "tasks-manifest",
-        "description": "Manifeste du navire"
-    },
-    {
-        "id": "my-reservations",
-        "description": "Mes réserves"
-    },
-    {
-        "id": "my-totals",
-        "description": "Mes facturations"
-    }
+    { "id": "availability", "description": "Disponibilité" },
+    { "id": "dashboard", "description": "Panneau principal" },
+    { "id": "logout", "description": "Quitter" },
+    { "id": "my-account", "description": "Mon compte" },
+    { "id": "my-billings", "description": "Mes facturations" },
+    { "id": "my-reservations", "description": "Mes réserves" },
+    { "id": "reservations", "description": "Reservations" },
+    { "id": "ships", "description": "Navires" },
+    { "id": "ships-crews", "description": "Équipes" },
+    { "id": "ships-registrars", "description": "Enregistreurs de passagers" },
+    { "id": "ships-shipOwners", "description": "Armateurs" },
+    { "id": "ships-shipRoutes", "description": "Routes maritimes" },
+    { "id": "tables", "description": "Tables" },
+    { "id": "tables-coachRoutes", "description": "Routes de bus" },
+    { "id": "tables-customers", "description": "Clients" },
+    { "id": "tables-destinations", "description": "Destinations" },
+    { "id": "tables-drivers", "description": "Conducteurs" },
+    { "id": "tables-genders", "description": "Genres" },
+    { "id": "tables-pickupPoints", "description": "Points de collecte" },
+    { "id": "tables-ports", "description": "Ports" },
+    { "id": "tables-schedules", "description": "Horaires" },
+    { "id": "tables-users", "description": "Utilisateurs" },
+    { "id": "tasks", "description": "Tâches" },
+    { "id": "tasks-embarkation", "description": "Embarquement" },
+    { "id": "tasks-invoicing", "description": "Facturation au client" },
+    { "id": "tasks-manifest", "description": "Manifeste du navire" }
 ]

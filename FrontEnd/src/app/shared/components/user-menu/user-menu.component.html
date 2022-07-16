@@ -1,0 +1,17 @@
+<div *ngIf="loginStatus | async">
+    <div id="user-menu">
+        <ul>
+            <li>
+                <button>
+                    <img [src]="getIcon('user')" height="25px">
+                    <span>{{ getUserDisplayname() }}</span>
+                    <span class="material-icons-outlined">expand_more</span>
+                </button>
+                <ul class="sub-menu" (click)="hideMenu()">
+                    <button class="hoverable" (click)="editAccount()"><img width="20px" [src]="getIcon('registrar')"><span>{{ getLabel('my-account') }}</span></button>
+                    <button class="hoverable" (click)="logout()"><img width="20px" [src]="getIcon('logout')"><span>{{ getLabel('logout') }}</span></button>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

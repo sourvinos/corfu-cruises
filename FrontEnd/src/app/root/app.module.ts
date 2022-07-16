@@ -23,7 +23,7 @@ import { SideMenuTogglerComponent } from '../shared/components/side-menu/side-me
 import { ThemeMenuComponent } from '../shared/components/top-bar-wrapper/theme-menu/theme-menu.component'
 import { TopBarComponent } from '../shared/components/top-bar-wrapper/top-bar/top-bar.component'
 import { TopMenuComponent } from '../shared/components/top-bar-wrapper/top-menu/top-menu.component'
-import { UserMenuComponent } from '../shared/components/top-bar-wrapper/user-menu/user-menu.component'
+import { UserMenuComponent } from '../shared/components/user-menu/user-menu.component'
 // Utils
 import { MonitorInterceptor } from '../shared/services/jwt.interceptor'
 

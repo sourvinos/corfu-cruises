@@ -42,6 +42,8 @@ export class ReservationsMenuComponent {
         })
     }
 
+    //#endregion
+
     //#region lifecycle hooks
 
     ngOnInit(): void {
