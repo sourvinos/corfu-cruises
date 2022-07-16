@@ -1,10 +1,6 @@
-export class PortDropdownVM {
+export interface PortDropdownVM {
 
-    constructor(
-
-        public id: number,
-        public description: string
-
-    ) { }
+    id: number
+    description: string
 
 }

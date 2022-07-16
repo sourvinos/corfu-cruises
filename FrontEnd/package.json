@@ -3,7 +3,7 @@
     "version": "2.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --ssl --ssl-cert ssl\\server.crt --ssl-key ssl\\server.key",
+        "start": "ng serve --ssl --ssl-cert ssl\\localhost+5.pem --ssl-key ssl\\localhost+5-key.pem",
         "build": "ng build",
         "lint": "eslint ./",
         "e2e": "cypress open"

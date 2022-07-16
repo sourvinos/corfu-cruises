@@ -1,4 +1,4 @@
-export interface Port {
+export interface PortWriteDto {
 
     id: number
     abbreviation: string

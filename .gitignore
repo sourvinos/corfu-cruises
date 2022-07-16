@@ -56,7 +56,7 @@ dlldata.c
 **/node_modules
 
 FrontEnd/package-lock.json
-**/ssl
+FrontEnd/ssl/*.*
 **/*.pdf
 appsettings.json
 ToDo.txt

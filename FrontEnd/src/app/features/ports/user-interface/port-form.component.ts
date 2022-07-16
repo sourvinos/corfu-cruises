@@ -2,7 +2,6 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
@@ -12,10 +11,10 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { PortReadVM } from '../classes/view-models/port-read-vm'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { PortReadDto } from '../classes/dtos/port-read-dto'
 import { PortService } from '../classes/services/port.service'
-import { PortWriteVM } from '../classes/view-models/port-write-vm'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { PortWriteDto } from '../classes/dtos/port-write-vm'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -40,18 +39,22 @@ export class PortFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private portService: PortService, private router: Router) {
         this.activatedRoute.params.subscribe(x => {
-            x.id ? this.getRecord(x.id) : null
+            if (x.id) {
+                this.initForm()
+                this.getRecord(x.id)
+            } else {
+                this.initForm()
+            }
         })
     }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
-        this.initForm()
         this.addShortcuts()
+        this.focusOnField('abbreviation')
     }
 
     ngOnDestroy(): void {
@@ -86,16 +89,14 @@ export class PortFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(), this.messageSnackbarService.askConfirmationToDelete(), ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.portService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {
-                        this.resetForm()
-                        this.goBack()
-                        this.showSnackbar(this.messageSnackbarService.recordDeleted(), 'info')
+                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
                     error: (errorFromInterceptor) => {
-                        this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                        this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
                     }
                 })
             }
@@ -105,7 +106,6 @@ export class PortFormComponent {
     public onSave(): void {
         this.saveRecord(this.flattenForm())
     }
-
 
     //#endregion
 
@@ -137,7 +137,7 @@ export class PortFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private flattenForm(): PortWriteVM {
+    private flattenForm(): PortWriteDto {
         const port = {
             id: this.form.value.id,
             abbreviation: this.form.value.abbreviation,
@@ -148,14 +148,17 @@ export class PortFormComponent {
         return port
     }
 
+    private focusOnField(field: string): void {
+        this.helperService.focusOnField(field)
+    }
+
     private getRecord(id: number): void {
         this.portService.getSingle(id).subscribe({
-            next: (result) => {
-                this.populateFields(result)
+            next: (response) => {
+                this.populateFields(response)
             },
             error: (errorFromInterceptor) => {
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
             }
         })
     }
@@ -174,7 +177,7 @@ export class PortFormComponent {
         })
     }
 
-    private populateFields(result: PortReadVM): void {
+    private populateFields(result: PortReadDto): void {
         this.form.setValue({
             id: result.id,
             abbreviation: result.abbreviation,
@@ -188,38 +191,26 @@ export class PortFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(port: PortWriteVM): void {
+    private saveRecord(port: PortWriteDto): void {
         if (port.id === 0) {
             this.portService.add(port).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         } else {
             this.portService.update(port.id, port).pipe(indicate(this.isLoading)).subscribe({
                 complete: () => {
-                    this.resetForm()
-                    this.goBack()
-                    this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 },
                 error: (errorFromInterceptor) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
                 }
             })
         }
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     //#endregion

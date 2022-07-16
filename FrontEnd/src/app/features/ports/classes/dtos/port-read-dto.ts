@@ -1,4 +1,4 @@
-export interface Port {
+export interface PortReadDto {
 
     id: number
     abbreviation: string
