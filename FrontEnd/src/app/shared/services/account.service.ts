@@ -4,7 +4,6 @@ import { Injectable, NgZone } from '@angular/core'
 import { Router } from '@angular/router'
 import { map } from 'rxjs/operators'
 // Custom
-import { ConnectedUserHubService } from './connected-user-hub.service'
 import { HttpDataService } from './http-data.service'
 import { InteractionService } from './interaction.service'
 import { LocalStorageService } from './local-storage.service'
@@ -29,7 +28,7 @@ export class AccountService extends HttpDataService {
 
     //#endregion
 
-    constructor(httpClient: HttpClient, private hubService: ConnectedUserHubService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private ngZone: NgZone, private router: Router) {
+    constructor(httpClient: HttpClient, private interactionService: InteractionService, private localStorageService: LocalStorageService, private ngZone: NgZone, private router: Router) {
         super(httpClient, environment.apiUrl)
     }
 
@@ -86,7 +85,6 @@ export class AccountService extends HttpDataService {
         this.clearStoredVariables()
         this.refreshMenus()
         this.navigateToLogin()
-        this.closeSignalRConnection()
     }
 
     public register(formData: any): Observable<any> {
@@ -124,10 +122,6 @@ export class AccountService extends HttpDataService {
             { 'item': 'embarkation-criteria', 'when': 'production' },
             { 'item': 'invoicing-criteria', 'when': 'production' },
         ])
-    }
-
-    private closeSignalRConnection(): void {
-        this.hubService.closeConnection()
     }
 
     private navigateToLogin(): void {

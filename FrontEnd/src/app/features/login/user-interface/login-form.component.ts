@@ -7,7 +7,6 @@ import { Subject } from 'rxjs'
 import { AccountService } from '../../../shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CoachRouteService } from '../../coachRoutes/classes/services/coachRoute.service'
-import { ConnectedUserHubService } from 'src/app/shared/services/connected-user-hub.service'
 import { CustomerService } from '../../customers/classes/services/customer.service'
 import { DestinationService } from '../../destinations/classes/services/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
@@ -54,7 +53,7 @@ export class LoginFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private coachRouteService: CoachRouteService, private connectedUserhubService: ConnectedUserHubService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private shipOwnerService: ShipOwnerService) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private coachRouteService: CoachRouteService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private shipOwnerService: ShipOwnerService) { }
 
     //#region lifecycle hooks
 
@@ -92,7 +91,6 @@ export class LoginFormComponent {
                 this.startIdleTimer()
                 this.populateStorageFromAPI()
                 this.doSideMenuTogglerTasks()
-                this.openSignalRConnection()
             },
             error: (errorFromInterceptor) => {
                 this.showError(errorFromInterceptor)
@@ -154,10 +152,6 @@ export class LoginFormComponent {
             password: [environment.login.password, Validators.required],
             isHuman: [environment.login.isHuman, Validators.requiredTrue]
         })
-    }
-
-    private openSignalRConnection(): void {
-        this.connectedUserhubService.openConnection()
     }
 
     private populateStorageFromAPI(): void {
