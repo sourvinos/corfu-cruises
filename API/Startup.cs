@@ -4,7 +4,6 @@ using API.Infrastructure.Classes;
 using API.Infrastructure.Email;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Identity;
-using API.Infrastructure.Notifications;
 using API.Infrastructure.Responses;
 using API.Infrastructure.SeedData;
 using AutoMapper;
@@ -93,7 +92,6 @@ namespace API {
             Configure(app);
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
-                endpoints.MapHub<ConnectedUserHub>("/auth");
             });
         }
 
@@ -109,7 +107,6 @@ namespace API {
             Configure(app);
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
-                endpoints.MapHub<ConnectedUserHub>("/auth");
             });
         }
 
@@ -118,7 +115,6 @@ namespace API {
             Configure(app);
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
-                endpoints.MapHub<ConnectedUserHub>("/auth");
             });
         }
 
