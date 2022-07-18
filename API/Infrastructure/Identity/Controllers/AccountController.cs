@@ -1,9 +1,10 @@
-using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using API.Infrastructure.Email;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -19,39 +20,27 @@ namespace API.Infrastructure.Identity {
         private readonly IEmailSender emailSender;
         private readonly SignInManager<UserExtended> signInManager;
         private readonly UserManager<UserExtended> userManager;
+        private readonly IMapper mapper;
 
-        public AccountController(IHttpContextAccessor httpContextAccessor, UserManager<UserExtended> userManager, SignInManager<UserExtended> signInManager, IEmailSender emailSender) {
+        public AccountController(IMapper mapper, IHttpContextAccessor httpContextAccessor, UserManager<UserExtended> userManager, SignInManager<UserExtended> signInManager, IEmailSender emailSender) {
             this.httpContextAccessor = httpContextAccessor;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.emailSender = emailSender;
+            this.mapper = mapper;
         }
 
+        [HttpPost]
         [Authorize(Roles = "admin")]
-        [HttpPost("[action]")]
-        public async Task<IActionResult> Register([FromBody] RegisterViewModel formData) {
-            if (ModelState.IsValid) {
-                var user = new UserExtended {
-                    UserName = formData.UserName,
-                    Displayname = formData.Displayname,
-                    CustomerId = formData.CustomerId,
-                    Email = formData.Email,
-                    IsAdmin = formData.IsAdmin,
-                    IsActive = formData.IsActive,
-                    EmailConfirmed = true,
-                    SecurityStamp = Guid.NewGuid().ToString()
-                };
-                var result = await userManager.CreateAsync(user, formData.Password);
-                if (result.Succeeded) {
-                    await userManager.AddToRoleAsync(user, user.IsAdmin ? "Admin" : "User");
-                    return StatusCode(200, new {
-                        response = ApiMessages.RecordCreated()
-                    });
-                } else {
-                    return StatusCode(492, new { response = result.Errors.Select(x => x.Description) });
-                }
+        public async Task<Responses.Response> PostUserAsync([FromBody] NewUserDto record) {
+            var user = mapper.Map<NewUserDto, UserExtended>(record);
+            var result = await userManager.CreateAsync(user, record.Password);
+            if (result.Succeeded) {
+                await userManager.AddToRoleAsync(user, user.IsAdmin ? "Admin" : "User");
+                return ApiResponses.OK();
+            } else {
+                throw new CustomException { HttpResponseCode = 492 };
             }
-            return StatusCode(400, new { response = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage) });
         }
 
         [AllowAnonymous]

@@ -2,24 +2,21 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Component } from '@angular/core'
 import { Observable, Subject } from 'rxjs'
 import { Router } from '@angular/router'
-import { Title } from '@angular/platform-browser'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { ConfirmValidParentMatcher, ValidationService } from '../../../../shared/services/validation.service'
 import { CustomerDropdownVM } from '../../../customers/classes/view-models/customer-dropdown-vm'
-import { CustomerService } from '../../../customers/classes/services/customer.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from '../../../../shared/services/keyboard-shortcuts.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { UserNewDTO } from '../../classes/dtos/new-user-dto'
-import { UserService } from '../../classes/services/user.service'
+import { UserNewDto } from '../../classes/dtos/new-user-dto'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -40,6 +37,7 @@ export class NewUserFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public parentUrl = '/users'
+    public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public customers: CustomerDropdownVM[] = []
@@ -50,15 +48,15 @@ export class NewUserFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
-        this.populateDropDowns()
+        this.focusOnField('userName')
+        this.populateDropdowns()
     }
 
     ngOnDestroy(): void {
@@ -108,18 +106,6 @@ export class NewUserFormComponent {
         this.saveRecord(this.flattenForm())
     }
 
-    public onSendLoginCredentials(): void {
-        this.flattenForm()
-        this.userService.sendLoginCredentials(this.form).subscribe({
-            complete: () => {
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-            },
-            error: (errorFromInterceptor) => {
-                this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
-            }
-        })
-    }
-
     //#endregion
 
     //#region private methods
@@ -155,7 +141,7 @@ export class NewUserFormComponent {
         }
     }
 
-    private flattenForm(): UserNewDTO {
+    private flattenForm(): UserNewDto {
         const user = {
             userName: this.form.value.userName,
             displayname: this.form.value.displayname,
@@ -167,6 +153,10 @@ export class NewUserFormComponent {
             isActive: this.form.value.isActive
         }
         return user
+    }
+
+    private focusOnField(field: string): void {
+        this.helperService.focusOnField(field)
     }
 
     private goBack(): void {
@@ -188,48 +178,30 @@ export class NewUserFormComponent {
         })
     }
 
-    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
-        const promise = new Promise((resolve) => {
-            service.getActiveForDropdown().toPromise().then(
-                (response: any) => {
-                    this[table] = response
-                    this[table].unshift({ 'id': 'null', 'description': '[⭐]' })
-                    resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
-                }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
-                })
-        })
-        return promise
+    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string, includeWildcard?: boolean) {
+        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        if (includeWildcard)
+            this[table].unshift({ 'id': 'all', 'description': '[⭐]' })
+        this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
-    private populateDropDowns(): void {
-        this.populateDropDown(this.customerService, 'customers', 'filteredCustomers', 'customer', 'description')
+    private populateDropdowns(): void {
+        this.populateDropdownFromLocalStorage('customers', 'filteredCustomers', 'customer', 'description', true)
     }
 
     private resetForm(): void {
         this.form.reset()
     }
 
-    private saveRecord(user: UserNewDTO): void {
-        this.accountService.register(user).subscribe({
+    private saveRecord(user: UserNewDto): void {
+        this.accountService.add(user).pipe(indicate(this.isLoading)).subscribe({
             complete: () => {
-                this.resetForm()
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
             },
             error: (errorFromInterceptor) => {
-                this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
         })
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
-    }
-
-    private showSnackbar(message: string | string[], type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     //#endregion

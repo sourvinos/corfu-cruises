@@ -22,7 +22,7 @@ export class AccountService extends HttpDataService {
     private urlForgotPassword = this.apiUrl + '/account/forgotPassword'
     private urlGetConnectedUserId = this.apiUrl + '/account/getConnectedUserId'
     private urlIsAdmin = this.apiUrl + '/account/isConnectedUserAdmin'
-    private urlRegister = this.apiUrl + '/account/register'
+    private urlRegister = this.apiUrl + '/account'
     private urlResetPassword = this.apiUrl + '/account/resetPassword'
     private urlToken = this.apiUrl + '/auth/auth'
 
@@ -87,7 +87,7 @@ export class AccountService extends HttpDataService {
         this.navigateToLogin()
     }
 
-    public register(formData: any): Observable<any> {
+    public add(formData: any): Observable<any> {
         return this.http.post<any>(this.urlRegister, formData)
     }
 

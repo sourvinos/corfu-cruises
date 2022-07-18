@@ -65,7 +65,6 @@ namespace API {
             Identity.AddIdentity(services);
             Authentication.AddAuthentication(Configuration, services);
             Interfaces.AddInterfaces(services);
-            ModelValidations.AddModelValidation(services);
             services.AddTransient<ResponseMiddleware>();
             services.AddSignalR();
             services.Configure<RazorViewEngineOptions>(options => options.ViewLocationExpanders.Add(new ViewLocationExpander()));
@@ -78,8 +77,9 @@ namespace API {
                         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                         options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                     })
-                    .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
+                    .AddFluentValidation();
             services.AddEmailSenders();
+            ModelValidations.AddModelValidation(services);
             services.Configure<CookiePolicyOptions>(options => { options.CheckConsentNeeded = _ => true; options.MinimumSameSitePolicy = SameSiteMode.None; });
             services.Configure<EmailSettings>(options => Configuration.GetSection("EmailSettings").Bind(options));
             services.Configure<TokenSettings>(options => Configuration.GetSection("TokenSettings").Bind(options));

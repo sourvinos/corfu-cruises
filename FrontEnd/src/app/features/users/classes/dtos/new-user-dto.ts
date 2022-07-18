@@ -1,4 +1,4 @@
-export class UserNewDTO {
+export interface UserNewDto {
 
     userName: string
     displayname: string

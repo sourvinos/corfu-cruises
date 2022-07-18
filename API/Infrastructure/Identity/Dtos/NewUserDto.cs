@@ -1,6 +1,6 @@
 namespace API.Infrastructure.Identity {
 
-    public class RegisterViewModel {
+    public class NewUserDto {
 
         public string UserName { get; set; }
         public string Displayname { get; set; }

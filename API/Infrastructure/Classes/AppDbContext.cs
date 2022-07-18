@@ -1,4 +1,5 @@
-﻿using API.Features.Customers;
+﻿using API.Features.CoachRoutes;
+using API.Features.Customers;
 using API.Features.Destinations;
 using API.Features.Drivers;
 using API.Features.Genders;
@@ -8,7 +9,6 @@ using API.Features.PickupPoints;
 using API.Features.Ports;
 using API.Features.Registrars;
 using API.Features.Reservations;
-using API.Features.CoachRoutes;
 using API.Features.Schedules;
 using API.Features.ShipCrews;
 using API.Features.ShipOwners;

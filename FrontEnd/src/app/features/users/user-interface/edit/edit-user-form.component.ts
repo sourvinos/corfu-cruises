@@ -10,7 +10,7 @@ import { ButtonClickService } from 'src/app/shared/services/button-click.service
 import { CustomerDropdownVM } from '../../../customers/classes/view-models/customer-dropdown-vm'
 import { CustomerService } from '../../../customers/classes/services/customer.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { UserWriteVM } from '../../classes/dtos/user-write-vm'
+import { UpdateUserDto } from '../../classes/dtos/update-user-dto'
 import { EditUserViewModel } from './../../classes/view-models/edit-user-view-model'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
@@ -183,7 +183,7 @@ export class EditUserFormComponent {
         }
     }
 
-    private flattenForm(): UserWriteVM {
+    private flattenForm(): UpdateUserDto {
         const user = {
             id: this.form.getRawValue().id,
             userName: this.form.getRawValue().userName,
@@ -282,7 +282,7 @@ export class EditUserFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(user: UserWriteVM): void {
+    private saveRecord(user: UpdateUserDto): void {
         this.flattenForm()
         this.userService.update(user.id, user).pipe(indicate(this.isLoading)).subscribe({
             complete: () => {
