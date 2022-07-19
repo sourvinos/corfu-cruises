@@ -66,7 +66,6 @@ namespace API {
             Authentication.AddAuthentication(Configuration, services);
             Interfaces.AddInterfaces(services);
             services.AddTransient<ResponseMiddleware>();
-            services.AddSignalR();
             services.Configure<RazorViewEngineOptions>(options => options.ViewLocationExpanders.Add(new ViewLocationExpander()));
             services.AddAntiforgery(options => { options.Cookie.Name = "_af"; options.Cookie.HttpOnly = true; options.Cookie.SecurePolicy = CookieSecurePolicy.Always; options.HeaderName = "X-XSRF-TOKEN"; });
             services.AddAutoMapper(typeof(Startup));

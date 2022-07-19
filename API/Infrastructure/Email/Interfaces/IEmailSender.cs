@@ -1,4 +1,3 @@
-using API.Features.Vouchers;
 using API.Infrastructure.Identity;
 
 namespace API.Infrastructure.Email {
@@ -8,8 +7,6 @@ namespace API.Infrastructure.Email {
         SendEmailResponse SendLoginCredentials(LoginCredentialsViewModel model, string loginLink);
 
         SendEmailResponse SendResetPasswordEmail(string displayName, string userEmail, string callbackUrl, string language);
-
-        Response SendVoucher(VoucherEmail voucher);
 
     }
 

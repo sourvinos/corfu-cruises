@@ -13,7 +13,6 @@ using API.Features.Schedules;
 using API.Features.ShipCrews;
 using API.Features.ShipRoutes;
 using API.Features.Ships;
-using API.Features.Vouchers;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -37,7 +36,6 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IValidator<ShipCrewWriteDto>, ShipCrewValidator>();
             services.AddTransient<IValidator<ShipRouteWriteDto>, ShipRouteValidator>();
             services.AddTransient<IValidator<ShipWriteDto>, ShipValidator>();
-            services.AddTransient<IValidator<Voucher>, VoucherValidator>();
        }
 
     }

@@ -1,7 +1,4 @@
 using System;
-using System.IO;
-using System.Linq;
-using API.Features.Vouchers;
 using API.Infrastructure.Identity;
 using Microsoft.Extensions.Options;
 using MimeKit;
@@ -77,47 +74,6 @@ namespace API.Infrastructure.Email {
             } catch (Exception exception) {
                 return new SendEmailResponse { ErrorMsg = exception.Message };
             }
-        }
-
-        public Response SendVoucher(VoucherEmail voucher) {
-
-            try {
-
-                var message = new MimeMessage();
-                var multipart = new Multipart("mixed");
-
-                var attachment = new MimePart("image", "gif") {
-                    Content = new MimeContent(File.OpenRead($@"Vouchers\\Voucher{voucher.TicketNo}.pdf"), ContentEncoding.Default),
-                    ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
-                    ContentTransferEncoding = ContentEncoding.Base64,
-                    FileName = Path.GetFileName($@"Vouchers\\Voucher{voucher.TicketNo}.pdf")
-                };
-
-                message.From.Add(new MailboxAddress("", settings.UserName));
-                message.To.Add(new MailboxAddress("", voucher.Email));
-                message.Subject = "Your Reservation With " + settings.From + " Is Ready!";
-
-                multipart.Add(attachment);
-                message.Body = multipart;
-
-                using (var client = new MailKit.Net.Smtp.SmtpClient()) {
-                    client.Connect(settings.SmtpClient, settings.Port, false);
-                    client.Authenticate(settings.UserName, settings.Password);
-                    client.Send(message);
-                    client.Disconnect(true);
-                }
-
-                foreach (var part in message.BodyParts.OfType<MimePart>())
-                    part.Content?.Stream.Dispose();
-
-                return new Response { Message = "OK" };
-
-            } catch (Exception exception) {
-
-                return new Response { Message = exception.Message };
-
-            }
-
         }
 
         private static string UpdateResetPasswordWithVariables(string displayName, string callbackUrl) {

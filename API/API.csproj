@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <UserSecretsId>8ed50324-bf19-4348-82e5-963811228a6f</UserSecretsId>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
         <IsPackable>false</IsPackable>
         <BuildServerSideRenderer>false</BuildServerSideRenderer>
@@ -11,28 +11,24 @@
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="8.0.0" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
-        <PackageReference Include="EntityFrameworkCore.Exceptions.MySQL" Version="3.1.4" />
-        <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
-        <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="5.4.1" />
-        <PackageReference Include="MailKit" Version="3.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.10" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.10" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.10" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="5.0.17" />
-        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
+        <PackageReference Include="EntityFrameworkCore.Exceptions.MySQL" Version="6.0.3" />
+        <PackageReference Include="FluentValidation.AspNetCore" Version="11.1.2" />
+        <PackageReference Include="MailKit" Version="3.3.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.7" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.7" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.7" />
+        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.10">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.7">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
-        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.3" />
-        <PackageReference Include="QRCoder" Version="1.4.3" />
-        <PackageReference Include="Select.HtmlToPdf.NetCore" Version="21.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
     </ItemGroup>
 
 </Project>
