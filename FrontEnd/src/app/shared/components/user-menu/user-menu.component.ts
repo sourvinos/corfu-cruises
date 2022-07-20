@@ -7,6 +7,8 @@ import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageMenuService } from '../../services/messages-menu.service'
+import { MessageSnackbarService } from '../../services/messages-snackbar.service'
+import { ModalActionResultService } from '../../services/modal-action-result.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -25,7 +27,7 @@ export class UserMenuComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageMenuService: MessageMenuService, private router: Router) { }
+    constructor(private accountService: AccountService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageMenuService: MessageMenuService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region listeners
 
@@ -53,9 +55,7 @@ export class UserMenuComponent {
     //#region public methods
 
     public editAccount(): void {
-        this.accountService.getConnectedUserId().subscribe(response => {
-            this.router.navigate(['/users/' + response.userId], { queryParams: { returnUrl: '/' } })
-        })
+        this.modalActionResultService.open(this.messageSnackbarService.featureNotAvailable(), 'error', ['ok'])
     }
 
     public getLabel(id: string): string {
