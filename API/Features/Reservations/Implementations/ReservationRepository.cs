@@ -239,7 +239,7 @@ namespace API.Features.Reservations {
         }
 
         private bool PortHasVacancy(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId, int reservationPersons) {
-            if (Identity.IsUserAdmin(httpContextAccessor).Result) {
+            if (Identity.IsUserAdmin(httpContextAccessor).Result || reservationId != null) {
                 return true;
             } else {
                 int maxPassengers = GetPortMaxPassengers(scheduleRepo, fromDate, toDate, reservationId, destinationId, portId);
@@ -248,7 +248,7 @@ namespace API.Features.Reservations {
         }
 
         private bool IsOverbookingAllowed(string date, Guid? reservationId, int destinationId, int totalPersons) {
-            if (Identity.IsUserAdmin(httpContextAccessor).Result) {
+            if (Identity.IsUserAdmin(httpContextAccessor).Result || reservationId != null) {
                 return true;
             } else {
                 int maxPassengersForAllPorts = context.Schedules
