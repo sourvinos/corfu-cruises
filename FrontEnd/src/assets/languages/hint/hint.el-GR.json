@@ -31,6 +31,14 @@
         {
             "id": "invalidPeriod",
             "description": "Το διάστημα δεν είναι σωστό"
+        },
+        {
+            "id": "containsIllegalCharacters",
+            "description": "Επιτρέπονται μόνο αλφαριθμητικοί χαρακτήρες ή υπογραμμίσεις (κάτω παύλα)."
+        },
+        {
+            "id": "beginsOrEndsWithSpace",
+            "description": "Το πεδίο δεν μπορεί να αρχίζει ή να τελειώνει με ένα ή περισσότερα κενά."
         }
     ]
 }

@@ -31,6 +31,14 @@
         {
             "id": "invalidPeriod",
             "description": "La période n'est pas valide"
+        },
+        {
+            "id": "containsIllegalCharacters",
+            "description": "Seuls les caractères alphanumériques ou les caractères de soulignement sont autorisés."
+        },
+        {
+            "id": "beginsOrEndsWithSpace",
+            "description": "Ce champ ne peut pas commencer ou se terminer par un ou plusieurs espaces."
         }
     ]
 }

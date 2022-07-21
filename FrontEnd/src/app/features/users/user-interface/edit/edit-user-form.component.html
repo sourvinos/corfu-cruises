@@ -10,11 +10,13 @@
                 <input [inputTabStop]="input" [placeholder]="getLabel('userName')" data-cy="userName" data-tabindex="1" formControlName="userName" id="userName" matInput>
                 <mat-error *ngIf="userName.hasError('required')">{{ getHint("required") }}</mat-error>
                 <mat-error *ngIf="userName.hasError('maxlength')">{{ getHint("maxLength", userName.errors.maxlength.requiredLength) }}</mat-error>
+                <mat-error *ngIf="!userName.hasError('required') && userName.hasError('containsIllegalCharacters')">{{ getHint("containsIllegalCharacters") }}</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input [inputTabStop]="input" [placeholder]="getLabel('displayname')" data-cy="displayname" data-tabindex="2" formControlName="displayname" id="displayname" matInput>
                 <mat-error *ngIf="displayname.hasError('required')">{{ getHint("required") }}</mat-error>
                 <mat-error *ngIf="displayname.hasError('maxlength')">{{ getHint("maxLength", displayname.errors.maxlength.requiredLength) }}</mat-error>
+                <mat-error *ngIf="!displayname.hasError('required') && displayname.hasError('beginsOrEndsWithSpace')">{{ getHint("beginsOrEndsWithSpace") }}</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="customers" [placeholder]="getLabel('customer')" [readonly]=!isAdmin data-cy="customer-description" data-tabindex="3" formControlName="customer" matInput>

@@ -55,7 +55,9 @@ export class UserMenuComponent {
     //#region public methods
 
     public editAccount(): void {
-        this.modalActionResultService.open(this.messageSnackbarService.featureNotAvailable(), 'error', ['ok'])
+        this.accountService.getConnectedUserId().subscribe(response => {
+            this.router.navigate(['/users/' + response.userId], { queryParams: { returnUrl: '/' } })
+        })
     }
 
     public getLabel(id: string): string {

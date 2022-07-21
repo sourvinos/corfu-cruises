@@ -107,6 +107,10 @@
                 "message": "Le mot de passe ne peut pas changer."
             },
             {
+                "error": 497,
+                "message": "Nous ne sommes pas en mesure de continuer. Veuillez vous assurer que le nom d'utilisateur et/ou l'email n'appartiennent pas à un autre utilisateur."
+            },
+            {
                 "error": 500,
                 "message": "Quelque chose a mal tourné, mais cela a été signalé."
             },

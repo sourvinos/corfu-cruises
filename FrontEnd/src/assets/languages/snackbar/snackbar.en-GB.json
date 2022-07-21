@@ -107,6 +107,10 @@
                 "message": "The password can not be changed."
             },
             {
+                "error": 497,
+                "message": "We are unable to continue. Please make sure that the username and/or the email don't belong to another user."
+            },
+            {
                 "error": 500,
                 "message": "Something went not so well, but it has been reported."
             },

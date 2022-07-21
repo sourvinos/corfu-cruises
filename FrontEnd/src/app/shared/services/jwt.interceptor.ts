@@ -138,6 +138,8 @@ export class MonitorInterceptor {
                 return throwError(() => new Error('493')) // unableToCreateFile
             case 494:
                 return throwError(() => new Error('494')) // unableToChangePassword
+            case 497:
+                return throwError(() => new Error('497')) // Unable to update user
             default:
                 return throwError(() => new Error('500'))
         }

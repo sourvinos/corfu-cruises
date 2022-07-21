@@ -107,6 +107,10 @@
                 "message": "Heslo nelze změnit."
             },
             {
+                "error": 497,
+                "message": "Nemůžeme pokračovat. Ujistěte se prosím, že uživatelské jméno a/nebo e-mail nepatří jinému uživateli."
+            },
+            {
                 "error": 500,
                 "message": "Něco se pokazilo, ale bylo to nahlášeno."
             },

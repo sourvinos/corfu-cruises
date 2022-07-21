@@ -3,8 +3,6 @@ using System.Text;
 using System.Threading.Tasks;
 using API.Infrastructure.Email;
 using API.Infrastructure.Helpers;
-using API.Infrastructure.Responses;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -20,27 +18,12 @@ namespace API.Infrastructure.Identity {
         private readonly IEmailSender emailSender;
         private readonly SignInManager<UserExtended> signInManager;
         private readonly UserManager<UserExtended> userManager;
-        private readonly IMapper mapper;
 
-        public AccountController(IMapper mapper, IHttpContextAccessor httpContextAccessor, UserManager<UserExtended> userManager, SignInManager<UserExtended> signInManager, IEmailSender emailSender) {
+        public AccountController(IHttpContextAccessor httpContextAccessor, UserManager<UserExtended> userManager, SignInManager<UserExtended> signInManager, IEmailSender emailSender) {
             this.httpContextAccessor = httpContextAccessor;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.emailSender = emailSender;
-            this.mapper = mapper;
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "admin")]
-        public async Task<Responses.Response> PostUserAsync([FromBody] NewUserDto record) {
-            var user = mapper.Map<NewUserDto, UserExtended>(record);
-            var result = await userManager.CreateAsync(user, record.Password);
-            if (result.Succeeded) {
-                await userManager.AddToRoleAsync(user, user.IsAdmin ? "Admin" : "User");
-                return ApiResponses.OK();
-            } else {
-                throw new CustomException { HttpResponseCode = 492 };
-            }
         }
 
         [AllowAnonymous]

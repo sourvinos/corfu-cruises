@@ -24,7 +24,7 @@ namespace API.Infrastructure.Responses {
             var result = JsonConvert.SerializeObject(new Response {
                 StatusCode = e.HttpResponseCode,
                 Icon = Icons.Error.ToString(),
-                Message = e.HttpResponseCode == 404 ? ApiMessages.RecordNotFound() : ApiMessages.RecordInUse()
+                Message = GetErrorMessage(e.HttpResponseCode)
             });
             return httpContext.Response.WriteAsync(result);
         }
@@ -38,6 +38,16 @@ namespace API.Infrastructure.Responses {
                 Message = e.Message
             });
             return httpContext.Response.WriteAsync(result);
+        }
+
+        private static string GetErrorMessage(int httpResponseCode) {
+            return httpResponseCode switch {
+                404 => ApiMessages.RecordNotFound(),
+                492 => ApiMessages.RecordInUse(),
+                493 => ApiMessages.RecordNotSaved(),
+                497 => ApiMessages.UnableToUpdateUser(),
+                _ => ApiMessages.UnknownError(),
+            };
         }
 
     }

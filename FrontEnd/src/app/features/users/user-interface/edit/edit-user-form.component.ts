@@ -2,24 +2,23 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { firstValueFrom, Observable, Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerDropdownVM } from '../../../customers/classes/view-models/customer-dropdown-vm'
-import { CustomerService } from '../../../customers/classes/services/customer.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { UpdateUserDto } from '../../classes/dtos/update-user-dto'
 import { EditUserViewModel } from './../../classes/view-models/edit-user-view-model'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from '../../../../shared/services/keyboard-shortcuts.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { UpdateUserDto } from '../../classes/dtos/update-user-dto'
 import { UserService } from '../../classes/services/user.service'
 import { ValidationService } from '../../../../shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
@@ -53,10 +52,11 @@ export class EditUserFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService) {
-        this.activatedRoute.params.subscribe((userId) => {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private userService: UserService) {
+        this.activatedRoute.params.subscribe((x) => {
+            this.initForm()
             activatedRoute.queryParams.subscribe(response => {
-                response.returnUrl == '/' ? this.editUserFromTopMenu() : this.editUserFromList(userId)
+                response.returnUrl == '/' ? this.editUserFromTopMenu() : this.editUserFromList(x)
             })
         })
     }
@@ -64,9 +64,8 @@ export class EditUserFormComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
-        this.initForm()
         this.addShortcuts()
+        this.focusOnField('userName')
     }
 
     ngOnDestroy(): void {
@@ -114,7 +113,11 @@ export class EditUserFormComponent {
 
     public onChangePassword(): void {
         if (this.form.dirty) {
-            this.showSnackbar(this.messageSnackbarService.formIsDirty(), 'error')
+            this.dialogService.open(this.messageSnackbarService.formIsDirty(), 'warning', ['abort', 'ok']).subscribe(response => {
+                if (response) {
+                    this.router.navigate(['/users/' + this.form.value.id + '/changePassword'])
+                }
+            })
         } else {
             this.router.navigate(['/users/' + this.form.value.id + '/changePassword'])
         }
@@ -196,14 +199,17 @@ export class EditUserFormComponent {
         return user
     }
 
+    private focusOnField(field: string): void {
+        this.helperService.focusOnField(field)
+    }
+
     private getRecord(userId: string): Promise<any> {
         const promise = new Promise((resolve) => {
             this.userService.getSingle(userId).subscribe(result => {
                 this.populateFields(result)
                 resolve(result)
             }, errorFromInterceptor => {
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
             })
         })
         return promise
@@ -237,8 +243,8 @@ export class EditUserFormComponent {
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: '',
-            userName: ['', [Validators.required, Validators.maxLength(32)]],
-            displayname: ['', [Validators.required, Validators.maxLength(32)]],
+            userName: ['', [Validators.required, Validators.maxLength(32), ValidationService.containsIllegalCharacters]],
+            displayname: ['', [Validators.required, Validators.maxLength(32), ValidationService.beginsOrEndsWithSpace]],
             customer: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             email: [{ value: '' }, [Validators.required, Validators.email, Validators.maxLength(128)]],
             isAdmin: [{ value: false }],
@@ -246,24 +252,14 @@ export class EditUserFormComponent {
         })
     }
 
-    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string, addWildCard = false): Promise<any> {
-        const promise = new Promise((resolve) => {
-            service.getActiveForDropdown().toPromise().then(
-                (response: any[]) => {
-                    if (addWildCard)
-                        response.unshift({ id: null, description: this.emojiService.getEmoji('wildcard') })
-                    this[table] = response
-                    resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
-                }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
-                })
-        })
-        return promise
+    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string, includeWildCard: boolean) {
+        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        includeWildCard ? this[table].unshift({ 'id': 'all', 'description': '[⭐]' }) : null
+        this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
     private populateDropDowns(): void {
-        this.populateDropDown(this.customerService, 'customers', 'filteredCustomers', 'customer', 'description', true)
+        this.populateDropdownFromLocalStorage('customers', 'filteredCustomers', 'customer', 'description', true)
     }
 
     private populateFields(result: EditUserViewModel): void {
@@ -286,21 +282,12 @@ export class EditUserFormComponent {
         this.flattenForm()
         this.userService.update(user.id, user).pipe(indicate(this.isLoading)).subscribe({
             complete: () => {
-                this.resetForm()
-                this.goBack()
-                this.showSnackbar(this.messageSnackbarService.recordUpdated(), 'info')
-            }, error: (errorFromInterceptor) => {
-                this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
+            },
+            error: (errorFromInterceptor) => {
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
         })
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     //#endregion

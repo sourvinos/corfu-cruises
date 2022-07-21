@@ -46,6 +46,8 @@ namespace API.Infrastructure.Helpers {
         public static string FKNotFoundOrInactive(string fk) { return $"{fk} does not exist or is inactive"; }
         public static string SimpleUserNightRestrictions() { return "New reservations for the next day with transfer after 22:00 are not allowed"; }
         public static string SimpleUserCanNotAddReservationAfterDepartureTime() { return "Reservations after departure are not allowed"; }
+        public static string UnknownError() { return "Something exceptional has happened."; }
+        public static string UnableToUpdateUser() { return "We were unable to update this user. Make sure that the username and the email are unique."; }
 
         #endregion
 

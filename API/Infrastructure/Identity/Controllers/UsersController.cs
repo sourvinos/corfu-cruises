@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Infrastructure.Auth;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Email;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,15 +18,13 @@ namespace API.Infrastructure.Identity {
 
         #region variables
 
-        private readonly AppDbContext dbContext;
         private readonly IEmailSender emailSender;
         private readonly IMapper mapper;
         private readonly UserManager<UserExtended> userManager;
 
         #endregion
 
-        public UsersController(AppDbContext dbContext, IEmailSender emailSender, IMapper mapper, UserManager<UserExtended> userManager) {
-            this.dbContext = dbContext;
+        public UsersController(IEmailSender emailSender, IMapper mapper, UserManager<UserExtended> userManager) {
             this.emailSender = emailSender;
             this.mapper = mapper;
             this.userManager = userManager;
@@ -34,8 +32,8 @@ namespace API.Infrastructure.Identity {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<UserListViewModel>> Get() {
-            return await userManager.Users.Select(u => new UserListViewModel {
+        public async Task<IEnumerable<UserListDto>> Get() {
+            return await userManager.Users.Select(u => new UserListDto {
                 Id = u.Id,
                 UserName = u.UserName,
                 Displayname = u.Displayname,
@@ -43,12 +41,6 @@ namespace API.Infrastructure.Identity {
                 IsAdmin = u.IsAdmin,
                 IsActive = u.IsActive
             }).OrderBy(o => o.UserName).AsNoTracking().ToListAsync();
-        }
-
-        [HttpGet("[action]")]
-        [Authorize(Roles = "admin")]
-        public IEnumerable<TokenVM> GetConnectedUsers() {
-            return mapper.Map<IEnumerable<Token>, IEnumerable<TokenVM>>(dbContext.Tokens.ToList()).Where(x => x.IsLoggedIn);
         }
 
         [HttpGet("{id}")]
@@ -63,7 +55,7 @@ namespace API.Infrastructure.Identity {
                     response = ApiMessages.RecordNotFound()
                 });
             }
-            UserReadResource vm = new() {
+            UserReadDto vm = new() {
                 Id = record.Id,
                 UserName = record.UserName,
                 Displayname = record.Displayname,
@@ -78,32 +70,40 @@ namespace API.Infrastructure.Identity {
             return StatusCode(200, vm);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public async Task<Response> PostUserAsync([FromBody] UserNewDto record) {
+            var user = mapper.Map<UserNewDto, UserExtended>(record);
+            var result = await userManager.CreateAsync(user, record.Password);
+            if (result.Succeeded) {
+                await userManager.AddToRoleAsync(user, user.IsAdmin ? "Admin" : "User");
+                return ApiResponses.OK();
+            } else {
+                throw new CustomException { HttpResponseCode = 495 };
+            }
+        }
+
         [HttpPut("{id}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IActionResult> PutUser([FromRoute] string id, [FromBody] UserWriteResource record) {
-            if (id == record.Id && ModelState.IsValid) {
-                UserExtended user = await userManager.FindByIdAsync(id);
-                if (record != null) {
-                    await UpdateUser(user, record);
+        public async Task<Response> PutUserAsync([FromRoute] string id, [FromBody] UserUpdateDto record) {
+            UserExtended user = await userManager.FindByIdAsync(id);
+            if (user != null) {
+                if (await UpdateUser(CreateUpdatedUser(user, record))) {
                     await UpdateRole(user);
-                    return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
+                    return ApiResponses.OK();
+                } else {
+                    throw new CustomException { HttpResponseCode = 497 };
                 }
-                return StatusCode(404, new {
-                    response = ApiMessages.RecordNotFound()
-                });
+            } else {
+                throw new CustomException { HttpResponseCode = 404 };
             }
-            return StatusCode(400, new {
-                response = ApiMessages.InvalidModel()
-            });
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteUser(string id) {
+        public async Task<Response> DeleteUserAsync(string id) {
             await userManager.DeleteAsync(await userManager.FindByIdAsync(id));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordDeleted()
-            });
+            return ApiResponses.OK();
         }
 
         [HttpPost("[action]")]
@@ -118,14 +118,19 @@ namespace API.Infrastructure.Identity {
             return StatusCode(496, new { response = ApiMessages.EmailNotSent() });
         }
 
-        private async Task<IdentityResult> UpdateUser(UserExtended user, UserWriteResource record) {
+        private static UserExtended CreateUpdatedUser(UserExtended user, UserUpdateDto record) {
             user.UserName = record.UserName;
             user.Displayname = record.Displayname;
             user.CustomerId = record.CustomerId == 0 ? null : record.CustomerId;
             user.Email = record.Email;
             user.IsAdmin = record.IsAdmin;
             user.IsActive = record.IsActive;
-            return await userManager.UpdateAsync(user);
+            return user;
+        }
+
+        private async Task<bool> UpdateUser(UserExtended user) {
+            var result = await userManager.UpdateAsync(user);
+            return result.Succeeded;
         }
 
         private async Task UpdateRole(UserExtended user) {

@@ -8,8 +8,19 @@ export class ValidationService {
         return isValid ? null : { childrenNotEqual: true }
     }
 
+    static beginsOrEndsWithSpace(control: AbstractControl): { [key: string]: any } {
+        const pattern = /(^\s+)|(\s+$)/
+        console.log('Pattern', pattern.test(control.value))
+        return pattern.test(control.value) ? { beginsOrEndsWithSpace: true } : null
+    }
+
     static containsSpace(control: AbstractControl): { [key: string]: any } {
         return control.value && (control.value as string).indexOf(' ') !== -1 ? { containsSpace: true } : null
+    }
+
+    static containsIllegalCharacters(control: AbstractControl): { [key: string]: any } {
+        const pattern = /^[a-zA-Z\d-_]+$/
+        return pattern.test(control.value) ? null : { containsIllegalCharacters: true }
     }
 
     static isGreaterThanZero(control: AbstractControl): { [key: string]: any } {

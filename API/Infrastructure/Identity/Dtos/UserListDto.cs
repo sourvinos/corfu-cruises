@@ -1,6 +1,6 @@
 namespace API.Infrastructure.Identity {
 
-    public class UserListViewModel {
+    public class UserListDto {
 
         public string Id { get; set; }
         public string UserName { get; set; }

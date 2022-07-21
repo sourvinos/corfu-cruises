@@ -107,6 +107,10 @@
                 "message": "Das Passwort kann nicht geändert werden."
             },
             {
+                "error": 497,
+                "message": "Wir können nicht fortfahren. Bitte vergewissern Sie sich, dass der Benutzername und/oder die E-Mail nicht zu einem anderen Benutzer gehören."
+            },
+            {
                 "error": 500,
                 "message": "Etwas ist schief gelaufen, aber es wurde gemeldet."
             },

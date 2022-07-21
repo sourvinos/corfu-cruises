@@ -31,6 +31,14 @@
         {
             "id": "invalidPeriod",
             "description": "Lhůta není platná"
+        },
+        {
+            "id": "containsIllegalCharacters",
+            "description": "Povoleny jsou pouze alfanumerické znaky nebo podtržítka."
+        },
+        {
+            "id": "beginsOrEndsWithSpace",
+            "description": "Toto pole nesmí začínat ani končit jednou nebo více mezerami."
         }
     ]
 }

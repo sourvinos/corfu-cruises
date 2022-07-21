@@ -1,6 +1,6 @@
 namespace API.Infrastructure.Identity {
 
-    public class NewUserDto {
+    public class UserNewDto {
 
         public string UserName { get; set; }
         public string Displayname { get; set; }

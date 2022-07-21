@@ -165,7 +165,7 @@ export class NewUserFormComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            userName: ['', [Validators.required, Validators.maxLength(32), ValidationService.containsSpace]],
+            userName: ['', [Validators.required, Validators.maxLength(32), ValidationService.containsIllegalCharacters]],
             displayname: ['', [Validators.required, Validators.maxLength(32)]],
             customer: ['', ValidationService.RequireAutocomplete],
             email: ['', [Validators.required, Validators.maxLength(128), Validators.email]],

@@ -31,6 +31,14 @@
         {
             "id": "invalidPeriod",
             "description": "Der Zeitraum ist ungültig"
+        },
+        {
+            "id": "containsIllegalCharacters",
+            "description": "Es sind nur alphanumerische Zeichen oder Unterstriche erlaubt."
+        },
+        {
+            "id": "beginsOrEndsWithSpace",
+            "description": "Dieses Feld darf nicht mit einem oder mehreren Leerzeichen beginnen oder enden."
         }
     ]
 }
