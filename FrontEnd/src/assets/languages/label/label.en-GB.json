@@ -2269,5 +2269,35 @@
                 "description": "Auto logout"
             }
         ]
+    },
+    {
+        "feature": "myAccount",
+        "labels": [
+            {
+                "id": "edit",
+                "description": "Edit my account"
+            },
+            {
+                "id": "changePassword",
+                "description": "Change password"
+            }
+        ]
+    },
+    {
+        "feature": "myAccount",
+        "labels": [
+            {
+                "id": "header",
+                "description": "My Account"
+            },
+            {
+                "id": "edit",
+                "description": "Edit my personal info"
+            },
+            {
+                "id": "changePassword",
+                "description": "Change my password"
+            }
+        ]
     }
 ]

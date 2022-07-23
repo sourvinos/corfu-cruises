@@ -2269,5 +2269,35 @@
                 "description": "Auto odhlášení"
             }
         ]
+    },
+    {
+        "feature": "myAccount",
+        "labels": [
+            {
+                "id": "edit",
+                "description": "Upravit můj účet"
+            },
+            {
+                "id": "changePassword",
+                "description": "Změna mého hesla"
+            }
+        ]
+    },
+    {
+        "feature": "myAccount",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Můj účet"
+            },
+            {
+                "id": "edit",
+                "description": "Upravit mé osobní údaje"
+            },
+            {
+                "id": "changePassword",
+                "description": "Změna mého hesla"
+            }
+        ]
     }
 ]

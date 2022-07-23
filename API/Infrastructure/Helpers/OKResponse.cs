@@ -12,6 +12,15 @@ namespace API.Infrastructure.Helpers {
             };
         }
 
+        public static Response NotFound() {
+            return new Response {
+                StatusCode = 404,
+                Icon = Icons.Warning.ToString(),
+                Message = ApiMessages.RecordNotFound()
+            };
+
+        }
+
     }
 
 }

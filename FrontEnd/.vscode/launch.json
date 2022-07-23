@@ -1,5 +1,6 @@
 {
     "version": "0.2.0",
+    "justMyCode": false,
     "configurations": [
         {
             "name": "FrontEnd Debug",
@@ -15,7 +16,7 @@
                 "webpack://?:*/*": "${workspaceFolder}/*"
             },
             "skipFiles": [
-                "${workspaceFolder}/node_modules/**/*.js",
+                "<node_internals>/**"
             ]
         }
     ]

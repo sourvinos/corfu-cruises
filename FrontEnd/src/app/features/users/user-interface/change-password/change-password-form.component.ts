@@ -16,7 +16,6 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { UserService } from '../../classes/services/user.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -36,14 +35,14 @@ export class ChangePasswordFormComponent {
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public parentUrl = '/users'
+    public parentUrl = '/myAccount'
 
     public confirmValidParentMatcher = new ConfirmValidParentMatcher()
     public hidePassword = true
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: UserService) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: AccountService) {
         this.activatedRoute.params.subscribe(x => {
             x.id ? this.getRecord(x.id) : null
         })
@@ -139,7 +138,7 @@ export class ChangePasswordFormComponent {
     }
 
     private goBack(): void {
-        this.router.navigate(['../'], { relativeTo: this.activatedRoute })
+        this.router.navigate([this.parentUrl])
     }
 
     private initForm(): void {
@@ -165,7 +164,7 @@ export class ChangePasswordFormComponent {
     }
 
     private saveRecord(vm: ChangePasswordViewModel): void {
-        this.userService.updatePassword(vm).subscribe({
+        this.accountService.changePassword(vm).subscribe({
             complete: () => {
                 this.resetForm()
                 this.accountService.logout()

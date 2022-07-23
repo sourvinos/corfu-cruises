@@ -19,7 +19,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { UpdateUserDto } from '../../classes/dtos/update-user-dto'
-import { UserService } from '../../classes/services/user.service'
 import { ValidationService } from '../../../../shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -40,7 +39,7 @@ export class EditUserFormComponent {
     public form: FormGroup
     public icon = null
     public input: InputTabStopDirective
-    public parentUrl = null
+    public parentUrl = '/myAccount'
     public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
@@ -52,13 +51,22 @@ export class EditUserFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private userService: UserService) {
-        this.activatedRoute.params.subscribe((x) => {
-            this.initForm()
-            activatedRoute.queryParams.subscribe(response => {
-                response.returnUrl == '/' ? this.editUserFromTopMenu() : this.editUserFromList(x)
-            })
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private userService: AccountService) {
+        this.activatedRoute.params.subscribe(x => {
+            if (x.id) {
+                this.initForm()
+                this.getRecord(x.id)
+            } else {
+                this.initForm()
+            }
         })
+        // this.activatedRoute.params.subscribe((x) => {
+        //     this.initForm()
+        //     this.doEditTasks(x)
+        //     // activatedRoute.queryParams.subscribe(response => {
+        //     //     response.returnUrl == '/' ? this.editUserFromTopMenu() : this.editUserFromList(x)
+        //     // })
+        // })
     }
 
     //#region lifecycle hooks
@@ -111,18 +119,6 @@ export class EditUserFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onChangePassword(): void {
-        if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.formIsDirty(), 'warning', ['abort', 'ok']).subscribe(response => {
-                if (response) {
-                    this.router.navigate(['/users/' + this.form.value.id + '/changePassword'])
-                }
-            })
-        } else {
-            this.router.navigate(['/users/' + this.form.value.id + '/changePassword'])
-        }
-    }
-
     public onSave(): void {
         this.saveRecord(this.flattenForm())
     }
@@ -154,28 +150,12 @@ export class EditUserFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private editUserFromList(x: { [x: string]: any; id?: any }) {
-        this.getConnectedUserRole().then(() => {
-            this.getRecord(x.id).then(() => {
-                this.parentUrl = '/users'
-                this.icon = 'arrow_back'
-                this.header = 'header'
-                this.populateDropDowns()
-            })
-        })
-    }
-
-    private editUserFromTopMenu() {
-        this.getConnectedUserRole().then(() => new Promise(() => {
-            this.getConnectedUserId().then((response) => {
-                this.getRecord(response).then(() => {
-                    this.parentUrl = '/'
-                    this.icon = 'home'
-                    this.header = 'my-header'
-                    this.populateDropDowns()
-                })
-            })
-        }))
+    private doEditTasks(x: { [x: string]: any; id?: any }) {
+        // this.getConnectedUserRole().then(() => {
+        this.getRecord(x.id)
+        this.populateDropDowns()
+        // })
+        // })
     }
 
     private filterAutocomplete(array: string, field: string, value: any): any[] {
@@ -203,16 +183,15 @@ export class EditUserFormComponent {
         this.helperService.focusOnField(field)
     }
 
-    private getRecord(userId: string): Promise<any> {
-        const promise = new Promise((resolve) => {
-            this.userService.getSingle(userId).subscribe(result => {
-                this.populateFields(result)
-                resolve(result)
-            }, errorFromInterceptor => {
+    private getRecord(id: string): void {
+        this.userService.getSingle(id).subscribe({
+            next: (response) => {
+                this.populateFields(response)
+            },
+            error: (errorFromInterceptor) => {
                 this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
-            })
+            }
         })
-        return promise
     }
 
     private getConnectedUserId(): Promise<any> {

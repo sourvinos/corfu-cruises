@@ -80,6 +80,10 @@ export class UserMenuComponent {
         this.accountService.logout()
     }
 
+    public myAccount():void{
+        this.router.navigate(['myAccount'])
+    }
+
     //#endregion
 
     //#region private methods

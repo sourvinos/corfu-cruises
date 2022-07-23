@@ -9,6 +9,7 @@ import { InteractionService } from './interaction.service'
 import { LocalStorageService } from './local-storage.service'
 import { ResetPasswordViewModel } from 'src/app/features/users/classes/view-models/reset-password-view-model'
 import { environment } from 'src/environments/environment'
+import { ChangePasswordViewModel } from 'src/app/features/users/classes/view-models/change-password-view-model'
 
 @Injectable({ providedIn: 'root' })
 
@@ -33,6 +34,10 @@ export class AccountService extends HttpDataService {
     }
 
     //#region public methods
+
+    public changePassword(formData: ChangePasswordViewModel): Observable<any> {
+        return this.http.post<any>(environment.apiUrl + '/changePassword/', formData)
+    }
 
     public forgotPassword(formData: any): Observable<any> {
         return this.http.post<any>(this.urlForgotPassword, formData)

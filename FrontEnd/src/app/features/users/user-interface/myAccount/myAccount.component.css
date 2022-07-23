@@ -1,0 +1,33 @@
+#content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: start;
+    margin: var(--gap) auto;
+    width: 50%;
+}
+
+.button-wrapper {
+    border-radius: 8px;
+    border: 1px solid var(--color-b);
+    padding: 1rem;
+    transition: background-color 0.2s ease-in;
+}
+
+.button-wrapper:hover {
+    background-color: var(--color-d);
+    cursor: pointer;
+}
+
+.button-content {
+    align-items: center;
+    color: var(--color-button-text);
+    display: flex;
+}
+
+span {
+    color: var(--color-c);
+    font-family: var(--font-family-handbook);
+    font-size: var(--font-size-dialog);
+    margin-left: 2rem;
+}
