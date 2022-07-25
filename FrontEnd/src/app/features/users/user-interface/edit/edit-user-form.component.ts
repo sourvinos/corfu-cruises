@@ -10,6 +10,7 @@ import { CustomerDropdownVM } from '../../../customers/classes/view-models/custo
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { EditUserViewModel } from './../../classes/view-models/edit-user-view-model'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
+import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from '../../../../shared/services/keyboard-shortcuts.service'
@@ -19,6 +20,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { UpdateUserDto } from '../../classes/dtos/update-user-dto'
+import { UserService } from '../../classes/services/user.service'
 import { ValidationService } from '../../../../shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -37,36 +39,27 @@ export class EditUserFormComponent {
     private unsubscribe = new Subject<void>()
     public feature = 'editUserForm'
     public form: FormGroup
-    public icon = null
+    public icon = ''
     public input: InputTabStopDirective
-    public parentUrl = '/myAccount'
+    public parentUrl = ''
     public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
     public customers: CustomerDropdownVM[] = []
     public filteredCustomers: Observable<CustomerDropdownVM[]>
 
+    private user: EditUserViewModel
     public header = ''
     public isAdmin: boolean
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private userService: AccountService) {
-        this.activatedRoute.params.subscribe(x => {
-            if (x.id) {
-                this.initForm()
-                this.getRecord(x.id)
-            } else {
-                this.initForm()
-            }
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private userService: UserService) {
+        this.initForm()
+        this.getRecord().then(() => {
+            this.populateFields(this.user)
+            this.updateReturnUrl()
         })
-        // this.activatedRoute.params.subscribe((x) => {
-        //     this.initForm()
-        //     this.doEditTasks(x)
-        //     // activatedRoute.queryParams.subscribe(response => {
-        //     //     response.returnUrl == '/' ? this.editUserFromTopMenu() : this.editUserFromList(x)
-        //     // })
-        // })
     }
 
     //#region lifecycle hooks
@@ -111,6 +104,27 @@ export class EditUserFormComponent {
         this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
 
+    public changePassword(): void {
+        this.accountService.getConnectedUserId().subscribe(response => {
+            if (response.userId != this.form.value.id) {
+                this.dialogService.open(this.messageSnackbarService.passwordCanBeChangedOnlyByAccountOwner(), 'error', ['ok'])
+            } else {
+                if (this.form.dirty) {
+                    this.dialogService.open(this.messageSnackbarService.formIsDirty(), 'warning', ['abort', 'ok']).subscribe(response => {
+                        if (response) {
+                            this.onSave(false).then(() => {
+                                this.resetForm()
+                                this.router.navigate(['/users/' + this.user.id + '/changePassword'])
+                            })
+                        }
+                    })
+                } else {
+                    this.router.navigate(['/users/' + this.user.id + '/changePassword'])
+                }
+            }
+        })
+    }
+
     public getHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
     }
@@ -119,8 +133,12 @@ export class EditUserFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onSave(): void {
-        this.saveRecord(this.flattenForm())
+    public onSave(showResult: boolean): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.saveRecord(this.flattenForm(), showResult)
+            resolve(null)
+        })
+        return promise
     }
 
     //#endregion
@@ -150,12 +168,24 @@ export class EditUserFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private doEditTasks(x: { [x: string]: any; id?: any }) {
-        // this.getConnectedUserRole().then(() => {
-        this.getRecord(x.id)
-        this.populateDropDowns()
-        // })
-        // })
+    private editUserFromList() {
+        this.getConnectedUserRole().then(() => {
+            this.parentUrl = '/users'
+            this.icon = 'arrow_back'
+            this.header = 'header'
+            this.populateDropDowns()
+        })
+    }
+
+    private editUserFromTopMenu() {
+        this.getConnectedUserRole().then(() => new Promise(() => {
+            this.getConnectedUserId().then(() => {
+                this.parentUrl = '/'
+                this.icon = 'home'
+                this.header = 'my-header'
+                this.populateDropDowns()
+            })
+        }))
     }
 
     private filterAutocomplete(array: string, field: string, value: any): any[] {
@@ -183,15 +213,18 @@ export class EditUserFormComponent {
         this.helperService.focusOnField(field)
     }
 
-    private getRecord(id: string): void {
-        this.userService.getSingle(id).subscribe({
-            next: (response) => {
-                this.populateFields(response)
-            },
-            error: (errorFromInterceptor) => {
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
+    private getRecord(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            const formResolved: FormResolved = this.activatedRoute.snapshot.data['userForm']
+            if (formResolved.error === null) {
+                this.user = formResolved.record
+                resolve(this.user)
+            } else {
+                this.goBack()
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
         })
+        return promise
     }
 
     private getConnectedUserId(): Promise<any> {
@@ -257,16 +290,19 @@ export class EditUserFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(user: UpdateUserDto): void {
-        this.flattenForm()
+    private saveRecord(user: UpdateUserDto, showResult: boolean): void {
         this.userService.update(user.id, user).pipe(indicate(this.isLoading)).subscribe({
             complete: () => {
-                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
+                showResult ? this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form) : null
             },
             error: (errorFromInterceptor) => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
         })
+    }
+
+    private updateReturnUrl(): void {
+        this.localStorageService.getItem('returnUrl') == '/' ? this.editUserFromTopMenu() : this.editUserFromList()
     }
 
     //#endregion

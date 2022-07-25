@@ -159,10 +159,6 @@
                 "message": "Aucune caméra trouvée sur votre appareil."
             },
             {
-                "id": "passwordChanged",
-                "message": "Mot de passe modifié, vous devez vous reconnecter."
-            },
-            {
                 "id": "recordCreated",
                 "message": "Un enregistrement a été créé."
             },
@@ -209,6 +205,10 @@
             {
                 "id": "userDisconnected",
                 "message": "Vous avez été inactif pendant trop longtemps et nous vous avons déconnecté, afin d'économiser des ressources."
+            },
+            {
+                "id": "passwordCanBeChangedOnlyByAccountOwner",
+                "message": "Le mot de passe ne peut être modifié que par le propriétaire du compte."
             }
         ]
     }

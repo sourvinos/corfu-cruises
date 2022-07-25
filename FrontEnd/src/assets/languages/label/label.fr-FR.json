@@ -2269,35 +2269,5 @@
                 "description": "Déconnexion auto"
             }
         ]
-    },
-    {
-        "feature": "myAccount",
-        "labels": [
-            {
-                "id": "edit",
-                "description": "Modifier mon compte"
-            },
-            {
-                "id": "changePassword",
-                "description": "Changer mon mot de passe"
-            }
-        ]
-    },
-    {
-        "feature": "myAccount",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Mon compte"
-            },
-            {
-                "id": "edit",
-                "description": "Modifier mes informations personnelles"
-            },
-            {
-                "id": "changePassword",
-                "description": "Changer mon mot de passe"
-            }
-        ]
     }
 ]

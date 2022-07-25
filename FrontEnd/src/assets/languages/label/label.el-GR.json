@@ -2269,22 +2269,5 @@
                 "description": "Αυτόματη αποσύνδεση"
             }
         ]
-    },
-    {
-        "feature": "myAccount",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Ο λογαριασμός μου"
-            },
-            {
-                "id": "edit",
-                "description": "Επεξεργασία των προσωπικών μου στοιχείων"
-            },
-            {
-                "id": "changePassword",
-                "description": "Αλλαγή κωδικού πρόσβασης"
-            }
-        ]
     }
 ]

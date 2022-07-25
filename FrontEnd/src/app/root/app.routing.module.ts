@@ -8,7 +8,6 @@ import { EmptyPageComponent } from '../shared/components/empty-page/empty-page.c
 import { ForgotPasswordFormComponent } from '../features/users/user-interface/forgot-password/forgot-password-form.component'
 import { HomeComponent } from '../features/home/home.component'
 import { LoginFormComponent } from '../features/login/user-interface/login-form.component'
-import { MyAccountComponent } from '../features/users/user-interface/myAccount/myAccount.component'
 import { ResetPasswordFormComponent } from '../features/users/user-interface/reset-password/reset-password-form.component'
 // Guards
 import { AuthGuardService } from '../shared/services/auth-guard.service'
@@ -16,7 +15,6 @@ import { AuthGuardService } from '../shared/services/auth-guard.service'
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuardService], pathMatch: 'full' },
     { path: 'availability', component: AvailabilityComponent, canActivate: [AuthGuardService] },
-    { path: 'myAccount', component: MyAccountComponent, canActivate: [AuthGuardService] },
     { path: 'coachRoutes', loadChildren: () => import('../features/coachRoutes/classes/modules/coachRoute.module').then(m => m.CoachRouteModule) },
     { path: 'credits', component: CreditsComponent },
     { path: 'customers', loadChildren: () => import('../features/customers/classes/modules/customer.module').then(m => m.CustomerModule) },

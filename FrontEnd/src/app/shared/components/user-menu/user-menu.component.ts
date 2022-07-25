@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core'
-import { Observable, Subject, takeUntil } from 'rxjs'
+import { firstValueFrom, Observable, Subject, takeUntil } from 'rxjs'
 import { Router } from '@angular/router'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
@@ -56,7 +56,8 @@ export class UserMenuComponent {
 
     public editAccount(): void {
         this.accountService.getConnectedUserId().subscribe(response => {
-            this.router.navigate(['/users/' + response.userId], { queryParams: { returnUrl: '/' } })
+            this.localStorageService.saveItem('returnUrl', '/')
+            this.router.navigate(['/users/' + response.userId])
         })
     }
 
@@ -80,8 +81,11 @@ export class UserMenuComponent {
         this.accountService.logout()
     }
 
-    public myAccount():void{
-        this.router.navigate(['myAccount'])
+    public editRecord(): void {
+        this.getConnectedUserId().then((response) => {
+            this.localStorageService.saveItem('returnUrl', '/')
+            this.router.navigate(['/users/' + response])
+        })
     }
 
     //#endregion
@@ -92,6 +96,15 @@ export class UserMenuComponent {
         this.menuItems = response
     }
 
+
+    private getConnectedUserId(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            firstValueFrom(this.accountService.getConnectedUserId()).then((response) => {
+                resolve(response.userId)
+            })
+        })
+        return promise
+    }
     public getUserDisplayname(): string {
         let userDisplayName = ''
         this.accountService.getUserDisplayname.subscribe(result => {

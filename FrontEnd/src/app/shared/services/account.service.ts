@@ -36,7 +36,7 @@ export class AccountService extends HttpDataService {
     //#region public methods
 
     public changePassword(formData: ChangePasswordViewModel): Observable<any> {
-        return this.http.post<any>(environment.apiUrl + '/changePassword/', formData)
+        return this.http.post<any>(environment.apiUrl + '/account/changePassword/', formData)
     }
 
     public forgotPassword(formData: any): Observable<any> {

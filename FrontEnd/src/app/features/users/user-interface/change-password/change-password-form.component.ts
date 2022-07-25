@@ -2,7 +2,6 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
@@ -15,7 +14,6 @@ import { KeyboardShortcuts, Unlisten } from '../../../../shared/services/keyboar
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -35,25 +33,27 @@ export class ChangePasswordFormComponent {
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public parentUrl = '/myAccount'
+    public parentUrl = '/users'
 
     public confirmValidParentMatcher = new ConfirmValidParentMatcher()
     public hidePassword = true
+    private userId: string
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title, private userService: AccountService) {
-        this.activatedRoute.params.subscribe(x => {
-            x.id ? this.getRecord(x.id) : null
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router) {
+        this.activatedRoute.params.subscribe(response => {
+            this.parentUrl = this.parentUrl + '/' + response.id
+            this.userId = response.id
         })
     }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
         this.initForm()
         this.addShortcuts()
+        this.focusOnField('currentPassword')
     }
 
     ngOnDestroy(): void {
@@ -128,13 +128,8 @@ export class ChangePasswordFormComponent {
         return vm
     }
 
-    private getRecord(id: string): void {
-        this.userService.getSingle(id).subscribe(result => {
-            this.populateFields(result)
-        }, errorFromInterceptor => {
-            this.goBack()
-            this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
-        })
+    private focusOnField(field: string): void {
+        this.helperService.focusOnField(field)
     }
 
     private goBack(): void {
@@ -143,7 +138,7 @@ export class ChangePasswordFormComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            userId: '',
+            userId: this.userId,
             currentPassword: ['', [Validators.required]],
             passwords: this.formBuilder.group({
                 password: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(128), ValidationService.containsSpace]],
@@ -153,12 +148,6 @@ export class ChangePasswordFormComponent {
 
     }
 
-    private populateFields(result: { id: any }): void {
-        this.form.patchValue({
-            userId: result.id
-        })
-    }
-
     private resetForm(): void {
         this.form.reset()
     }
@@ -166,22 +155,14 @@ export class ChangePasswordFormComponent {
     private saveRecord(vm: ChangePasswordViewModel): void {
         this.accountService.changePassword(vm).subscribe({
             complete: () => {
-                this.resetForm()
-                this.accountService.logout()
-                this.showSnackbar(this.messageSnackbarService.passwordChanged(), 'info')
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', '', this.form, false).then(() => {
+                    this.accountService.logout()
+                })
             },
             error: (errorFromInterceptor) => {
-                this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
         })
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     //#endregion

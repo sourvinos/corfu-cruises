@@ -159,10 +159,6 @@
                 "message": "Na vašem zařízení nejsou žádné kamery."
             },
             {
-                "id": "passwordChanged",
-                "message": "Heslo bylo změněno, musíte se znovu přihlásit."
-            },
-            {
                 "id": "recordCreated",
                 "message": "Byl vytvořen záznam."
             },
@@ -209,6 +205,10 @@
             {
                 "id": "userDisconnected",
                 "message": "Byli jste příliš dlouho neaktivní, a proto jsme vás odpojili, abychom ušetřili zdroje."
+            },
+            {
+                "id": "passwordCanBeChangedOnlyByAccountOwner",
+                "message": "Heslo může změnit pouze vlastník účtu."
             }
         ]
     }

@@ -125,7 +125,7 @@ export class ResetPasswordFormComponent {
     private saveRecord(form: ResetPasswordViewModel): void {
         this.accountService.resetPassword(form).subscribe({
             complete: () => {
-                this.showSnackbar(this.messageSnackbarService.passwordChanged(), 'info')
+                this.showSnackbar(this.messageSnackbarService.success(), 'info')
                 this.router.navigate(['/login'])
             },
             error: () => {

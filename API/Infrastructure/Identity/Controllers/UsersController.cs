@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Infrastructure.Auth;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Email;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -20,19 +18,15 @@ namespace API.Infrastructure.Identity {
 
         #region variables
 
-        private readonly AppDbContext dbContext;
         private readonly IEmailSender emailSender;
         private readonly IHttpContextAccessor httpContextAccessor;
-        private readonly IMapper mapper;
         private readonly UserManager<UserExtended> userManager;
 
         #endregion
 
-        public UsersController(AppDbContext dbContext, IEmailSender emailSender, IHttpContextAccessor httpContextAccessor, IMapper mapper, UserManager<UserExtended> userManager) {
-            this.dbContext = dbContext;
+        public UsersController(IEmailSender emailSender, IHttpContextAccessor httpContextAccessor, UserManager<UserExtended> userManager) {
             this.emailSender = emailSender;
             this.httpContextAccessor = httpContextAccessor;
-            this.mapper = mapper;
             this.userManager = userManager;
         }
 

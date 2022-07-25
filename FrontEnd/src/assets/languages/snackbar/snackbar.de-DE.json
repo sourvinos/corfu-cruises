@@ -159,10 +159,6 @@
                 "message": "Es befinden sich keine Kameras auf Ihrem Gerät."
             },
             {
-                "id": "passwordChanged",
-                "message": "Das Passwort wurde geändert, Sie müssen sich erneut anmelden."
-            },
-            {
                 "id": "recordCreated",
                 "message": "Ein Datensatz wurde erstellt."
             },
@@ -209,6 +205,10 @@
             {
                 "id": "userDisconnected",
                 "message": "Sie waren zu lange inaktiv und wir haben Ihre Verbindung getrennt, um Ressourcen zu sparen."
+            },
+            {
+                "id": "passwordCanBeChangedOnlyByAccountOwner",
+                "message": "Das Passwort kann nur vom Besitzer des Kontos geändert werden."
             }
         ]
     }

@@ -77,13 +77,15 @@ export class HelperService {
         return 'desktop'
     }
 
-    public doPostSaveFormTasks(message: string, iconType: string, returnUrl: string, form: FormGroup, goBack = true): void {
-        this.modalActionResultService.open(message, iconType, ['ok']).subscribe(() => {
-            if (goBack) {
+    public doPostSaveFormTasks(message: string, iconType: string, returnUrl: string, form: FormGroup, goBack = true): Promise<any> {
+        const promise = new Promise((resolve) => {
+            this.modalActionResultService.open(message, iconType, ['ok']).subscribe(() => {
                 form.reset()
-                this.router.navigate([returnUrl])
-            }
+                goBack ? this.router.navigate([returnUrl]) : null
+                resolve(null)
+            })
         })
+        return promise
     }
 
     public confirmationToDelete(message: string, iconType: string, buttons: any[]): void {

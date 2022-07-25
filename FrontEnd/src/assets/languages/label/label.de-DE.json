@@ -2269,35 +2269,5 @@
                 "description": "Automatisch abmelden"
             }
         ]
-    },
-    {
-        "feature": "myAccount",
-        "labels": [
-            {
-                "id": "edit",
-                "description": "Mein Konto bearbeiten"
-            },
-            {
-                "id": "changePassword",
-                "description": "Mein Passwort ändern"
-            }
-        ]
-    },
-    {
-        "feature": "myAccount",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Mein Konto"
-            },
-            {
-                "id": "edit",
-                "description": "Meine persönlichen Daten bearbeiten"
-            },
-            {
-                "id": "changePassword",
-                "description": "Mein Passwort ändern"
-            }
-        ]
     }
 ]

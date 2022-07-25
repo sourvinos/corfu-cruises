@@ -10,7 +10,6 @@ export class ValidationService {
 
     static beginsOrEndsWithSpace(control: AbstractControl): { [key: string]: any } {
         const pattern = /(^\s+)|(\s+$)/
-        console.log('Pattern', pattern.test(control.value))
         return pattern.test(control.value) ? { beginsOrEndsWithSpace: true } : null
     }
 

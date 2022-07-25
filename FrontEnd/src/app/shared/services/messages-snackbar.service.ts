@@ -56,7 +56,6 @@ export class MessageSnackbarService {
     public formIsDirty(): string { return this.getDescription(this.feature, 'formIsDirty') }
     public noVideoDevicesFound(): string { return this.getDescription(this.feature, 'noVideoDevicesFound') }
     public noRecordsSelected(): string { return this.getDescription(this.feature, 'noRecordsSelected') }
-    public passwordChanged(): string { return this.getDescription(this.feature, 'passwordChanged') }
     public recordCreated(): string { return this.getDescription(this.feature, 'recordCreated') }
     public reservationCreated(): string { return this.getDescription(this.feature, 'reservationCreated') }
     public fileCreated(): string { return this.getDescription(this.feature, 'fileCreated') }
@@ -68,7 +67,7 @@ export class MessageSnackbarService {
     public invalidModel(): string { return this.getDescription(this.feature, 'invalidModel') }
     public wrongPassengerCount(): string { return this.getDescription(this.feature, 'wrongPassengerCount') }
     public emptyEmail(): string { return this.getDescription(this.feature, 'emptyEmail') }
-    public fileNotCreated(): string { return this.getDescription(this.feature, 'fileNotCreated') }
+    public passwordCanBeChangedOnlyByAccountOwner(): string { return this.getDescription(this.feature, 'passwordCanBeChangedOnlyByAccountOwner') }
     public noContactWithServer(): string { return this.getDescription(this.feature, 'noContactWithServer') }
     public featureNotAvailable(): string { return this.getDescription(this.feature, 'featureNotAvailable') }
     public userDisconnected(): string { return this.getDescription(this.feature, 'userDisconnected') }

@@ -24,7 +24,7 @@
                 <mat-error *ngIf="!customer.hasError('required') && customer.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input [inputTabStop]="input" [placeholder]="getLabel('email')" [readonly]=!isAdmin data-cy="email" data-tabindex="4" formControlName="email" id="email" matInput type="email">
+                <input [inputTabStop]="input" [placeholder]="getLabel('email')" data-cy="email" data-tabindex="4" formControlName="email" id="email" matInput type="email">
                 <mat-error *ngIf="email.hasError('required')">{{ getHint("required") }}</mat-error>
                 <mat-error *ngIf="email.hasError('email')">{{ getHint("invalid") }}</mat-error>
             </mat-form-field>
@@ -36,7 +36,8 @@
 
     <div id="footer">
         <div @slideFromRight class="button-group">
-            <button (click)="onSave()" [disabled]=!form.valid class="primary" data-cy="save" id="save" mat-flat-button>{{ getLabel("saveButton") }}</button>
+            <button (click)="changePassword()" class="transparent" data-cy="changePassword" id="changePassword" mat-flat-button>{{ getLabel("changePasswordButton") }}</button>
+            <button (click)="onSave(true)" [disabled]=!form.valid class="primary" data-cy="save" id="save" mat-flat-button>{{ getLabel("saveButton") }}</button>
         </div>
     </div>
 

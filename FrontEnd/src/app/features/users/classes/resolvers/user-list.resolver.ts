@@ -12,11 +12,10 @@ export class UserListResolver {
     constructor(private userService: UserService) { }
 
     resolve(): Observable<ListResolved> {
-        return this.userService.getAll()
-            .pipe(
-                map((userList) => new ListResolved(userList)),
-                catchError((err) => of(new ListResolved(null, err)))
-            )
+        return this.userService.getAll().pipe(
+            map((userList) => new ListResolved(userList)),
+            catchError((err) => of(new ListResolved(null, err)))
+        )
     }
 
 }

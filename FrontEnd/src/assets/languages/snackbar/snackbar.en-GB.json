@@ -159,10 +159,6 @@
                 "message": "There are no cameras on your device."
             },
             {
-                "id": "passwordChanged",
-                "message": "The password was changed, you must login again."
-            },
-            {
                 "id": "recordCreated",
                 "message": "A record was created."
             },
@@ -209,6 +205,10 @@
             {
                 "id": "userDisconnected",
                 "message": "You have been inactive for too long and we have disconnected you, in order to save resources."
+            },
+            {
+                "id": "passwordCanBeChangedOnlyByAccountOwner",
+                "message": "The password can be changed only by the owner of the account."
             }
         ]
     }
