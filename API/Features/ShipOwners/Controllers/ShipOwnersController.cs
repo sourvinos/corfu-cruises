@@ -35,7 +35,7 @@ namespace API.Features.ShipOwners {
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<SimpleResource>>(await repo.GetActiveForDropdown());
         }
