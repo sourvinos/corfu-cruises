@@ -31,6 +31,7 @@ import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-
 import { ReservationReadVM } from '../../classes/resources/form/reservation/reservation-read-vm'
 import { ReservationService } from '../../classes/services/reservation.service'
 import { ReservationWriteVM } from '../../classes/view-models/reservation-write-vm'
+import { UserService } from 'src/app/features/users/classes/services/user.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
 import { VoucherService } from '../../classes/services/voucher.service'
 import { WarningIconService } from '../../classes/services/warning-icon.service'
@@ -77,7 +78,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private titleService: Title, private userService: AccountService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.getRecord(x.id).then(() => {
