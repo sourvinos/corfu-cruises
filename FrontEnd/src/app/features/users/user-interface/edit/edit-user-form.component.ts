@@ -169,20 +169,20 @@ export class EditUserFormComponent {
     }
 
     private editUserFromList() {
+        this.parentUrl = '/users'
+        this.icon = 'arrow_back'
+        this.header = 'header'
         this.getConnectedUserRole().then(() => {
-            this.parentUrl = '/users'
-            this.icon = 'arrow_back'
-            this.header = 'header'
             this.populateDropDowns()
         })
     }
 
     private editUserFromTopMenu() {
+        this.parentUrl = '/'
+        this.icon = 'home'
+        this.header = 'my-header'
         this.getConnectedUserRole().then(() => new Promise(() => {
             this.getConnectedUserId().then(() => {
-                this.parentUrl = '/'
-                this.icon = 'home'
-                this.header = 'my-header'
                 this.populateDropDowns()
             })
         }))
