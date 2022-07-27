@@ -57,14 +57,7 @@ export class CustomerListComponent {
     //#region public methods
 
     public editRecord(id: number): void {
-        this.customerService.getSingle(id).subscribe({
-            next: () => {
-                this.router.navigate([this.url, id])
-            },
-            error: (errorFromInterceptor) => {
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
-            }
-        })
+        this.router.navigate([this.url, id])
     }
 
     public getLabel(id: string): string {
