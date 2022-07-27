@@ -11,11 +11,10 @@ export class CustomerListResolver {
     constructor(private customerService: CustomerService) { }
 
     resolve(): Observable<ListResolved> {
-        return this.customerService.getAll()
-            .pipe(
-                map((customerList) => new ListResolved(customerList)),
-                catchError((err: any) => of(new ListResolved(null, err)))
-            )
+        return this.customerService.getAll().pipe(
+            map((customerList) => new ListResolved(customerList)),
+            catchError((err: any) => of(new ListResolved(null, err)))
+        )
     }
 
 }

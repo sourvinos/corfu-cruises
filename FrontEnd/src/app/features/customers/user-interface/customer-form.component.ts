@@ -8,6 +8,7 @@ import { CustomerReadDto } from '../classes/dtos/customer-read-dto'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
 import { CustomerWriteDto } from '../classes/dtos/customer-write-dto'
 import { DialogService } from 'src/app/shared/services/dialog.service'
+import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -28,14 +29,14 @@ export class CustomerFormComponent {
 
     //#region variables
 
+    private customer: CustomerReadDto
     private unlisten: Unlisten
-    private unsubscribe = new Subject<void>()
     public feature = 'customerForm'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public parentUrl = '/customers'
     public isLoading = new Subject<boolean>()
+    public parentUrl = '/customers'
 
     //#endregion
 
@@ -43,7 +44,8 @@ export class CustomerFormComponent {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.initForm()
-                this.getRecord(x.id)
+                this.getRecord()
+                this.populateFields(this.customer)
             } else {
                 this.initForm()
             }
@@ -58,7 +60,6 @@ export class CustomerFormComponent {
     }
 
     ngOnDestroy(): void {
-        this.cleanup()
         this.unlisten()
     }
 
@@ -114,7 +115,7 @@ export class CustomerFormComponent {
     private addShortcuts(): void {
         this.unlisten = this.keyboardShortcutsService.listen({
             'Escape': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
+                if (document.getElementsByClassName('cdk-overlay-pane').length == 0) {
                     this.buttonClickService.clickOnButton(event, 'goBack')
                 }
             },
@@ -122,7 +123,7 @@ export class CustomerFormComponent {
                 this.buttonClickService.clickOnButton(event, 'delete')
             },
             'Alt.S': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
+                if (document.getElementsByClassName('cdk-overlay-pane').length == 0) {
                     this.buttonClickService.clickOnButton(event, 'save')
                 }
             }
@@ -130,11 +131,6 @@ export class CustomerFormComponent {
             priority: 0,
             inputs: true
         })
-    }
-
-    private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
     }
 
     private flattenForm(): CustomerWriteDto {
@@ -155,15 +151,18 @@ export class CustomerFormComponent {
         this.helperService.focusOnField(field)
     }
 
-    private getRecord(id: number): void {
-        this.customerService.getSingle(id).subscribe({
-            next: (response) => {
-                this.populateFields(response)
-            },
-            error: (errorFromInterceptor) => {
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
+    private getRecord(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            const formResolved: FormResolved = this.activatedRoute.snapshot.data['customerForm']
+            if (formResolved.error == null) {
+                this.customer = formResolved.record
+                resolve(this.customer)
+            } else {
+                this.goBack()
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
         })
+        return promise
     }
 
     private goBack(): void {
@@ -201,25 +200,14 @@ export class CustomerFormComponent {
     }
 
     private saveRecord(customer: CustomerWriteDto): void {
-        if (customer.id === 0) {
-            this.customerService.add(customer).pipe(indicate(this.isLoading)).subscribe({
-                complete: () => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
-                },
-                error: (errorFromInterceptor) => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
-                }
-            })
-        } else {
-            this.customerService.update(customer.id, customer).pipe(indicate(this.isLoading)).subscribe({
-                complete: () => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
-                },
-                error: (errorFromInterceptor) => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
-                }
-            })
-        }
+        this.customerService.save(customer).pipe(indicate(this.isLoading)).subscribe({
+            complete: () => {
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
+            },
+            error: (errorFromInterceptor) => {
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
+            }
+        })
     }
 
     //#endregion
