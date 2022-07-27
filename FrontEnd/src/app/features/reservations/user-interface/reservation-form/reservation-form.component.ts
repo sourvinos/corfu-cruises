@@ -274,6 +274,7 @@ export class ReservationFormComponent {
         const form = this.form.value
         const voucher = {
             'date': form.date,
+            'refNo': form.refNo,
             'destinationDescription': form.destination.description,
             'customerDescription': form.customer.description,
             'pickupPointDescription': form.pickupPoint.description,

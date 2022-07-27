@@ -59,6 +59,7 @@ export class VoucherService extends HttpDataService {
                         body: [
                             [{ text: '' }, { text: '' }],
                             [{ text: 'Details', colSpan: 2, alignment: 'center', fontSize: 18 }],
+                            [{ text: 'RefNo', style: 'paddingLeft' }, { text: voucher.refNo }],
                             [{ text: 'Ticket No', style: 'paddingLeft' }, { text: voucher.ticketNo }],
                             [{ text: 'Customer', style: 'paddingLeft' }, { text: voucher.customerDescription }],
                             [{ text: 'Remarks', style: 'paddingLeft' }, { text: voucher.remarks }],

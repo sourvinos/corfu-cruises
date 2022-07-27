@@ -3,6 +3,7 @@ import { VoucherPassengerVM } from './voucher-passenger-vm'
 export class VoucherVM {
 
     date: string
+    refNo: string
     ticketNo: string
     destinationDescription: string
     customerDescription: string
