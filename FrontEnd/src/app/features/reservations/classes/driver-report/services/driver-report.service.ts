@@ -49,12 +49,12 @@ export class DriverReportService {
         const dd = {
             pageMargins: [50, 40, 50, 50],
             pageOrientation: 'landscape',
-            defaultStyle: { fontSize: 8 },
+            defaultStyle: { fontSize: 7 },
             header: this.createPageHeader(),
             footer: this.createPageFooter(),
             content: this.table(this.driverReport.reservations,
-                ['time', 'ticketNo', 'pickupPointDescription', 'exactPoint', 'adults', 'kids', 'free', 'totalPersons', 'customerDescription', 'fullname', 'remarks', 'destinationAbbreviation'],
-                ['center', 'center', 'left', 'left', 'right', 'right', 'right', 'right', 'left', 'left', 'left', 'center'])
+                ['time', 'refNo', 'ticketNo', 'pickupPointDescription', 'exactPoint', 'adults', 'kids', 'free', 'totalPersons', 'customerDescription', 'fullname', 'remarks', 'destinationAbbreviation'],
+                ['center', 'center', 'center', 'left', 'left', 'right', 'right', 'right', 'right', 'left', 'left', 'left', 'center'])
         }
         this.createPdf(dd)
     }
@@ -66,7 +66,7 @@ export class DriverReportService {
                 dontBreakRows: true,
                 body: this.buildTableBody(reservations, columns, align),
                 heights: 10,
-                widths: [20, 40, '*', '*', 15, 15, 15, 15, 50, 100, 150, 20],
+                widths: [20, 40, 40, '*', '*', 15, 15, 15, 15, 50, 100, 150, 20],
             },
             layout: {
                 vLineColor: function (i: number, node: { table: { widths: string | any[] } }): any { return (i === 1 || i === node.table.widths.length - 1) ? '#dddddd' : '#dddddd' },
@@ -114,6 +114,7 @@ export class DriverReportService {
     private createTableHeaders(): any[] {
         return [
             { text: 'TIME', style: 'tableHeader', alignment: 'center' },
+            { text: 'REFNO', style: 'tableHeader', alignment: 'center' },
             { text: 'TICKET NO', style: 'tableHeader', alignment: 'center' },
             { text: 'PICKUP POINT', style: 'tableHeader', alignment: 'center' },
             { text: 'EXACT POINT', style: 'tableHeader', alignment: 'center' },
@@ -130,6 +131,7 @@ export class DriverReportService {
 
     private createPickupPointTotalLine(pickupPoint: string, total: any[]): any[] {
         return [
+            { text: '' },
             { text: '' },
             { text: '' },
             { text: 'TOTAL FROM ' + pickupPoint },
@@ -205,6 +207,7 @@ export class DriverReportService {
         dataRow.push(
             { text: '' },
             { text: '' },
+            { text: '' },
             { text: 'TOTAL FOR ' + data },
             { text: String(totals[0]) === '0' ? '' : String(totals[0]), alignment: 'right', fillColor: 'white' },
             { text: String(totals[1]) === '0' ? '' : String(totals[1]), alignment: 'right', fillColor: 'white' },
@@ -222,6 +225,7 @@ export class DriverReportService {
     private createBlankLine(): any {
         const dataRow = []
         dataRow.push(
+            { text: '' },
             { text: '' },
             { text: '' },
             { text: '' },
@@ -263,6 +267,7 @@ export class DriverReportService {
         const reservations = []
         response.forEach((reservation: ReportReservationVM) => {
             reservations.push({
+                'refNo': reservation.refNo,
                 'time': reservation.time,
                 'ticketNo': reservation.ticketNo,
                 'pickupPointDescription': reservation.pickupPointDescription,

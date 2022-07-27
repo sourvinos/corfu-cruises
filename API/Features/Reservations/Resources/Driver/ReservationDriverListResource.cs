@@ -2,6 +2,7 @@ namespace API.Features.Reservations {
 
     public class ReservationDriverListResource {
 
+        public string RefNo { get; set; }
         public string Time { get; set; }
         public string TicketNo { get; set; }
         public string PickupPointDescription { get; set; }

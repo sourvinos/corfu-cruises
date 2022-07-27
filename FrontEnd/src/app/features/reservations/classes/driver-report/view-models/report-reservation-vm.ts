@@ -1,20 +1,17 @@
-export class ReportReservationVM {
+export interface ReportReservationVM {
 
-    constructor(
-
-        public time: string,
-        public ticketNo: string,
-        public pickupPointDescription: string,
-        public exactPoint: string,
-        public adults: number,
-        public kids: number,
-        public free: number,
-        public totalPersons: number,
-        public customerDescription: string,
-        public fullname: string,
-        public remarks: string,
-        public destinationAbbreviation: string
-
-    ) { }
+    refNo: string
+    time: string
+    ticketNo: string
+    pickupPointDescription: string
+    exactPoint: string
+    adults: number
+    kids: number
+    free: number
+    totalPersons: number
+    customerDescription: string
+    fullname: string
+    remarks: string
+    destinationAbbreviation: string
 
 }

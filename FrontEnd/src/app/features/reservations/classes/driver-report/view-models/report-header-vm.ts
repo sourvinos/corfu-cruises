@@ -1,12 +1,8 @@
-export class ReportHeaderVM {
+export interface ReportHeaderVM {
 
-    constructor(
-
-        public date: string,
-        public driverId: number,
-        public driverDescription: string,
-        public phones: string
-
-    ) { }
+    date: string
+    driverId: number
+    driverDescription: string
+    phones: string
 
 }
