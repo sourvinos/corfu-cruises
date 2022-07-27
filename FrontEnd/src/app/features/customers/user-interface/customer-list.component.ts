@@ -3,7 +3,6 @@ import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { CustomerService } from '../classes/services/customer.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from '../../../shared/classes/list-resolved'
@@ -29,12 +28,11 @@ export class CustomerListComponent {
     public feature = 'customerList'
     public icon = 'home'
     public parentUrl = '/'
-
     public records = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 

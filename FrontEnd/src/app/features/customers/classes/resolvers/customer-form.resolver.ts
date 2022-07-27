@@ -16,14 +16,6 @@ export class CustomerFormResolver {
             map((customerForm) => new FormResolved(customerForm)),
             catchError((err: any) => of(new FormResolved(null, err)))
         )
-        // this.customerService.getSingle(route.params.id).pipe(takeUntil(this.unsubscribe)).subscribe(response => {
-        //     return response
-        // })
     }
-    // return this.customerService.getSingle(route.params.id).pipe(takeUntil(this.unsubscribe))
-
-    // this.customerService.getSingle(12).pipe(takeUntil(this.unsubscribe)).subscribe(response => {
-    //     this.customer = response
-    // })
-
+    
 }
