@@ -8,6 +8,7 @@ import { DestinationReadDto } from '../classes/dtos/destination-read-dto'
 import { DestinationService } from '../classes/services/destination.service'
 import { DestinationWriteDto } from '../classes/dtos/destination-write-dto'
 import { DialogService } from 'src/app/shared/services/dialog.service'
+import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
@@ -28,14 +29,14 @@ export class DestinationFormComponent {
 
     //#region variables
 
+    private destination: DestinationReadDto
     private unlisten: Unlisten
-    private unsubscribe = new Subject<void>()
     public feature = 'destinationForm'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public parentUrl = '/destinations'
     public isLoading = new Subject<boolean>()
+    public parentUrl = '/destinations'
 
     //#endregion
 
@@ -43,7 +44,8 @@ export class DestinationFormComponent {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.initForm()
-                this.getRecord(x.id)
+                this.getRecord()
+                this.populateFields(this.destination)
             } else {
                 this.initForm()
             }
@@ -58,7 +60,6 @@ export class DestinationFormComponent {
     }
 
     ngOnDestroy(): void {
-        this.cleanup()
         this.unlisten()
     }
 
@@ -132,11 +133,6 @@ export class DestinationFormComponent {
         })
     }
 
-    private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
-    }
-
     private flattenForm(): DestinationWriteDto {
         const destination = {
             id: this.form.value.id,
@@ -151,15 +147,18 @@ export class DestinationFormComponent {
         this.helperService.focusOnField(field)
     }
 
-    private getRecord(id: number): void {
-        this.destinationService.getSingle(id).subscribe({
-            next: (response) => {
-                this.populateFields(response)
-            },
-            error: (errorFromInterceptor) => {
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
+    private getRecord(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            const formResolved: FormResolved = this.activatedRoute.snapshot.data['destinationForm']
+            if (formResolved.error == null) {
+                this.destination = formResolved.record
+                resolve(this.destination)
+            } else {
+                this.goBack()
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
         })
+        return promise
     }
 
     private goBack(): void {
@@ -189,25 +188,14 @@ export class DestinationFormComponent {
     }
 
     private saveRecord(destination: DestinationWriteDto): void {
-        if (destination.id === 0) {
-            this.destinationService.add(destination).pipe(indicate(this.isLoading)).subscribe({
-                complete: () => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
-                },
-                error: (errorFromInterceptor) => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
-                }
-            })
-        } else {
-            this.destinationService.update(destination.id, destination).pipe(indicate(this.isLoading)).subscribe({
-                complete: () => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
-                },
-                error: (errorFromInterceptor) => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
-                }
-            })
-        }
+        this.destinationService.save(destination).pipe(indicate(this.isLoading)).subscribe({
+            complete: () => {
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
+            },
+            error: (errorFromInterceptor) => {
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
+            }
+        })
     }
 
     //#endregion

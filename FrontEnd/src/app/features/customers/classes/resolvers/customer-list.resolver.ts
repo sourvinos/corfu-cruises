@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
-import { ListResolved } from '../../../../shared/classes/list-resolved'
+// Custom
 import { CustomerService } from '../services/customer.service'
+import { ListResolved } from '../../../../shared/classes/list-resolved'
 
 @Injectable({ providedIn: 'root' })
 

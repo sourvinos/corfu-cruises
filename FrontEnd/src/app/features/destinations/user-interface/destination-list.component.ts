@@ -3,7 +3,6 @@ import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DestinationService } from '../classes/services/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
@@ -29,12 +28,11 @@ export class DestinationListComponent {
     public feature = 'destinationList'
     public icon = 'home'
     public parentUrl = '/'
-
     public records = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private destinationService: DestinationService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -57,14 +55,7 @@ export class DestinationListComponent {
     //#region public methods
 
     public editRecord(id: number): void {
-        this.destinationService.getSingle(id).subscribe({
-            next: () => {
-                this.router.navigate([this.url, id])
-            },
-            error: (errorFromInterceptor) => {
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
-            }
-        })
+        this.router.navigate([this.url, id])
     }
 
     public getLabel(id: string): string {

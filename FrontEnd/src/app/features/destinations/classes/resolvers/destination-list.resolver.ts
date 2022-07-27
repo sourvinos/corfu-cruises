@@ -12,11 +12,10 @@ export class DestinationListResolver {
     constructor(private destinationService: DestinationService) { }
 
     resolve(): Observable<ListResolved> {
-        return this.destinationService.getAll()
-            .pipe(
-                map((customerList) => new ListResolved(customerList)),
-                catchError((err: any) => of(new ListResolved(null, err)))
-            )
+        return this.destinationService.getAll().pipe(
+            map((customerList) => new ListResolved(customerList)),
+            catchError((err: any) => of(new ListResolved(null, err)))
+        )
     }
 
 }
