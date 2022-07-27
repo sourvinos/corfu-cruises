@@ -1550,6 +1550,10 @@
                 "description": "Port"
             },
             {
+                "id": "headerRefNo",
+                "description": "RefNo"
+            },
+            {
                 "id": "headerTicketNo",
                 "description": "Billet"
             },

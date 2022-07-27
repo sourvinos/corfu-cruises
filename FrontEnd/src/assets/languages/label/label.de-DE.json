@@ -1550,6 +1550,10 @@
                 "description": "Hafen"
             },
             {
+                "id": "headerRefNo",
+                "description": "RefNo"
+            },
+            {
                 "id": "headerTicketNo",
                 "description": "Ticketnummer"
             },

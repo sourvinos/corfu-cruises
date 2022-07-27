@@ -18,6 +18,7 @@ namespace API.Features.Invoicing {
                     TotalPassengers = x.TotalPassengers
                 })))
                 .ForMember(x => x.Reservations, x => x.MapFrom(x => x.Reservations.Select(x => new InvoicingReservationVM {
+                    RefNo = x.RefNo,
                     ReservationId = x.ReservationId,
                     Adults = x.Adults,
                     Kids = x.Kids,

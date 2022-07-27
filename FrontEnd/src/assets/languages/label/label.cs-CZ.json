@@ -1550,6 +1550,10 @@
                 "description": "Přístavt"
             },
             {
+                "id": "headerRefNo",
+                "description": "RefNo"
+            },
+            {
                 "id": "headerTicketNo",
                 "description": "Číslo lístku"
             },

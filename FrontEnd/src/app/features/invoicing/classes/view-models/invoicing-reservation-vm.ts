@@ -1,5 +1,6 @@
 export interface InvoicingReservationVM {
 
+    refNo: string,
     reservationId: string,
     destination: string,
     ship: string,

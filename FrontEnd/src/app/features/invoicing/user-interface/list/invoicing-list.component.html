@@ -31,6 +31,7 @@
                         <th>{{ getLabel("headerDestination") }}</th>
                         <th>{{ getLabel("headerShip") }}</th>
                         <th>{{ getLabel("headerPort") }}</th>
+                        <th style="min-width: 10%; max-width: 10%;">RefNo</th>
                         <th style="min-width: 10%; max-width: 10%;">{{ getLabel("headerTicketNo") }}</th>
                         <th style="min-width: 6%; max-width: 6%;">{{ getLabel("headerHasTransfer") }}</th>
                         <th style="min-width: 3%; max-width: 3%;">{{ getLabel("headerAdults") }}</th>
@@ -53,6 +54,7 @@
                         <td>{{ record.reservations[i].destination }}</td>
                         <td>{{ record.reservations[i].ship }}</td>
                         <td>{{ record.reservations[i].port }}</td>
+                        <td style="min-width: 10%; max-width: 10%;">{{ record.reservations[i].refNo }}</td>
                         <td style="min-width: 10%; max-width: 10%;">{{ record.reservations[i].ticketNo }}</td>
                         <td [ngClass]="record.reservations[i].hasTransfer ? 'has-transfer' : 'no-transfer'" style="min-width: 6%; max-width: 6%; justify-content: center;">
                             <span *ngIf="record.reservations[i].hasTransfer" class="icon-ok material-icons-outlined">directions_bus</span>
