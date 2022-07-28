@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Title } from '@angular/platform-browser'
 import { firstValueFrom, Observable, Subject } from 'rxjs'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
@@ -15,6 +14,7 @@ import { DestinationDropdownVM } from 'src/app/features/destinations/classes/vie
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverDropdownVM } from '../../../drivers/classes/view-models/driver-dropdown-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
+import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
@@ -25,15 +25,15 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { OkIconService } from '../../classes/services/ok-icon.service'
-import { PassengerWriteVM } from '../../classes/view-models/passenger-write-vm'
+import { PassengerWriteDto } from '../../classes/dtos/form/passenger-write-dto'
 import { PickupPointDropdownVM } from '../../../pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
 import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
-import { ReservationReadVM } from '../../classes/resources/form/reservation/reservation-read-vm'
+import { ReservationReadDto } from '../../classes/dtos/form/reservation-read-dto'
 import { ReservationService } from '../../classes/services/reservation.service'
-import { ReservationWriteVM } from '../../classes/view-models/reservation-write-vm'
+import { ReservationWriteDto } from '../../classes/dtos/form/reservation-write-dto'
 import { UserService } from 'src/app/features/users/classes/services/user.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
-import { VoucherService } from '../../classes/services/voucher.service'
+import { VoucherService } from '../../classes/voucher/services/voucher.service'
 import { WarningIconService } from '../../classes/services/warning-icon.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
@@ -49,6 +49,7 @@ export class ReservationFormComponent {
     //#region variables
 
     private unlisten: Unlisten
+    private reservation: ReservationReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'reservationForm'
     public form: FormGroup
@@ -78,14 +79,16 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private titleService: Title, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
         this.activatedRoute.params.subscribe(x => {
+            this.initForm()
             if (x.id) {
-                this.getRecord(x.id).then(() => {
-                    this.setNewRecord(false)
-                    this.doPostInitJobs()
-                })
+                this.getRecord()
+                this.populateFields(this.reservation)
+                this.setNewRecord(false)
+                this.doPostInitJobs()
             } else {
+                this.readStoredVariables()
                 this.setNewRecord(true)
                 this.doPostInitJobs()
             }
@@ -95,13 +98,10 @@ export class ReservationFormComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
         this.addShortcuts()
-        this.initForm()
         this.subscribeToInteractionService()
-        this.readStoredVariables()
         this.setLocale()
-        this.focusOnField()
+        this.focusOnField('date')
     }
 
     ngOnDestroy(): void {
@@ -313,9 +313,9 @@ export class ReservationFormComponent {
         }
     }
 
-    private flattenForm(): ReservationWriteVM {
+    private flattenForm(): ReservationWriteDto {
         const form = this.form.value
-        const reservation: ReservationWriteVM = {
+        const reservation: ReservationWriteDto = {
             reservationId: form.reservationId,
             customerId: form.customer.id,
             destinationId: form.destination.id,
@@ -337,8 +337,8 @@ export class ReservationFormComponent {
         return reservation
     }
 
-    private focusOnField(): void {
-        this.helperService.focusOnField('date')
+    private focusOnField(field: string): void {
+        this.helperService.focusOnField(field)
     }
 
     private getConnectedUserId(): Promise<any> {
@@ -386,16 +386,16 @@ export class ReservationFormComponent {
         }
     }
 
-    private getRecord(id: number): Promise<any> {
+    private getRecord(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.reservationService.getSingle(id).subscribe(result => {
-                this.populateFields(result)
-                resolve(result)
-            }, errorFromInterceptor => {
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok']).subscribe(() => {
-                    this.goBack()
-                })
-            })
+            const formResolved: FormResolved = this.activatedRoute.snapshot.data['reservationForm']
+            if (formResolved.error == null) {
+                this.reservation = formResolved.record
+                resolve(this.reservation)
+            } else {
+                this.goBack()
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
+            }
         })
         return promise
     }
@@ -432,9 +432,9 @@ export class ReservationFormComponent {
 
     private mapPassengers(): any {
         const form = this.form.value.passengers
-        const passengers: PassengerWriteVM[] = []
+        const passengers: PassengerWriteDto[] = []
         form.forEach((passenger: any) => {
-            const x: PassengerWriteVM = {
+            const x: PassengerWriteDto = {
                 reservationId: passenger.reservationId,
                 genderId: passenger.gender.id,
                 nationalityId: passenger.nationality.id,
@@ -477,7 +477,7 @@ export class ReservationFormComponent {
         this.populateDropdownFromLocalStorage('ships', 'filteredShips', 'ship', 'description')
     }
 
-    private populateFields(result: ReservationReadVM): void {
+    private populateFields(result: ReservationReadDto): void {
         this.form.setValue({
             reservationId: result.reservationId,
             date: result.date,
@@ -517,26 +517,15 @@ export class ReservationFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(reservation: ReservationWriteVM): void {
-        if (reservation.reservationId.toString() == '') {
-            this.reservationService.add(reservation).pipe(indicate(this.isLoading)).subscribe({
-                next: (response) => {
-                    this.helperService.doPostSaveFormTasks('RefNo: ' + response.message, 'success', this.localStorageService.getItem('returnUrl'), this.form)
-                },
-                error: (errorFromInterceptor) => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.localStorageService.getItem('returnUrl'), this.form, false)
-                }
-            })
-        } else {
-            this.reservationService.update(reservation.reservationId, reservation).pipe(indicate(this.isLoading)).subscribe({
-                complete: () => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.localStorageService.getItem('returnUrl'), this.form)
-                },
-                error: (errorFromInterceptor) => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.localStorageService.getItem('returnUrl'), this.form, false)
-                }
-            })
-        }
+    private saveRecord(reservation: ReservationWriteDto): void {
+        this.reservationService.save(reservation).pipe(indicate(this.isLoading)).subscribe({
+            next: (response) => {
+                this.helperService.doPostSaveFormTasks('RefNo: ' + response.message, 'success', this.parentUrl, this.form)
+            },
+            error: (errorFromInterceptor) => {
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false, false)
+            }
+        })
     }
 
     private setNewRecord(isNewRecord: boolean): void {
@@ -545,10 +534,6 @@ export class ReservationFormComponent {
 
     private setLocale() {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private subscribeToInteractionService(): void {

@@ -8,8 +8,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
-import { LogoService } from './logo.service'
-import { VoucherVM } from '../view-models/voucher-vm'
+import { LogoService } from '../../services/logo.service'
+import { VoucherDto } from '../dtos/voucher-dto'
 
 @Injectable({ providedIn: 'root' })
 
@@ -21,7 +21,7 @@ export class VoucherService extends HttpDataService {
 
     //#region public methods
 
-    public createVoucherOnClient(voucher: VoucherVM): void {
+    public createVoucherOnClient(voucher: VoucherDto): void {
         const rows = []
         rows.push([{ text: '' }, { text: '' }])
         rows.push([{ text: 'Passengers', colSpan: 2, alignment: 'center', fontSize: 18 }])

@@ -1,6 +1,6 @@
 import { Guid } from 'guid-typescript'
 
-export class PassengerWriteVM {
+export interface PassengerWriteDto {
 
     reservationId: Guid
     genderId: number

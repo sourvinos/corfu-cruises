@@ -3,7 +3,7 @@ import { Guid } from 'guid-typescript'
 import { GenderDropdownVM } from 'src/app/features/genders/classes/view-models/gender-dropdown-vm'
 import { NationalityDropdownVM } from 'src/app/features/nationalities/classes/view-models/nationality-dropdown-vm'
 
-export class PassengerReadVM {
+export interface PassengerReadDto {
 
     id: number
     reservationId: Guid

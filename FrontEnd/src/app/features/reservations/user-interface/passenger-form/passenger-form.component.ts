@@ -18,7 +18,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { NationalityDropdownVM } from 'src/app/features/nationalities/classes/view-models/nationality-dropdown-vm'
 import { NationalityService } from 'src/app/features/nationalities/classes/services/nationality.service'
-import { PassengerReadVM } from '../../classes/view-models/passenger-read-vm'
+import { PassengerReadDto } from '../../classes/dtos/form/passenger-read-dto'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
@@ -57,7 +57,7 @@ export class PassengerFormComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: PassengerReadVM, private accountService: AccountService, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogRef: MatDialogRef<PassengerFormComponent>, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private snackbarService: SnackbarService) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: PassengerReadDto, private accountService: AccountService, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogRef: MatDialogRef<PassengerFormComponent>, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private snackbarService: SnackbarService) { }
 
     //#region lifecycle hooks
 
@@ -194,7 +194,7 @@ export class PassengerFormComponent {
         this.populateDropdownFromLocalStorage('nationalities', 'filteredNationalities', 'nationality', 'description')
     }
 
-    private populateFields(result: PassengerReadVM): void {
+    private populateFields(result: PassengerReadDto): void {
         this.form.setValue({
             id: result.id,
             reservationId: result.reservationId,

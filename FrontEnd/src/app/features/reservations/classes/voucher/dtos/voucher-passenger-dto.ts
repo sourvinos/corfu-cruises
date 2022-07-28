@@ -1,5 +1,4 @@
-
-export class VoucherPassengerVM {
+export interface VoucherPassengerDto {
 
     firstname: string
     lastname: string

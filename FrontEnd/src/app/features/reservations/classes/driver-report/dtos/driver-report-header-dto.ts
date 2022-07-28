@@ -1,4 +1,4 @@
-export interface ReportHeaderVM {
+export interface DriverReportHeaderDto {
 
     date: string
     driverId: number

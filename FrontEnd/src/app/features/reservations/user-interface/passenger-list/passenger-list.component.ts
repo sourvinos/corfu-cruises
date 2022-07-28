@@ -6,7 +6,7 @@ import { Table } from 'primeng/table'
 // Custom
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { PassengerFormComponent } from '../passenger-form/passenger-form.component'
-import { PassengerReadVM } from '../../classes/view-models/passenger-read-vm'
+import { PassengerReadDto } from '../../classes/dtos/form/passenger-read-dto'
 import { AccountService } from 'src/app/shared/services/account.service'
 
 @Component({
@@ -21,7 +21,7 @@ export class PassengerListComponent {
 
     @ViewChild('table') table: Table | undefined
 
-    @Input() passengers: PassengerReadVM[] = []
+    @Input() passengers: PassengerReadDto[] = []
     @Input() reservationId: Guid
     @Output() outputPassengerCount = new EventEmitter()
     @Output() outputPassengers = new EventEmitter()
@@ -47,7 +47,7 @@ export class PassengerListComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onDeleteRow(record: PassengerReadVM): void {
+    public onDeleteRow(record: PassengerReadDto): void {
         const index = this.passengers.indexOf(record)
         this.passengers.splice(index, 1)
         this.outputPassengerCount.emit(this.passengers.length)
@@ -66,7 +66,7 @@ export class PassengerListComponent {
 
     //#region private methods
 
-    private sendPassengerToForm(passenger: PassengerReadVM): void {
+    private sendPassengerToForm(passenger: PassengerReadDto): void {
         const dialog = this.dialog.open(PassengerFormComponent, {
             data: {
                 id: passenger.id,

@@ -77,10 +77,10 @@ export class HelperService {
         return 'desktop'
     }
 
-    public doPostSaveFormTasks(message: string, iconType: string, returnUrl: string, form: FormGroup, goBack = true): Promise<any> {
+    public doPostSaveFormTasks(message: string, iconType: string, returnUrl: string, form: FormGroup, formReset = true, goBack = true): Promise<any> {
         const promise = new Promise((resolve) => {
             this.modalActionResultService.open(message, iconType, ['ok']).subscribe(() => {
-                form.reset()
+                formReset ? form.reset() : null
                 goBack ? this.router.navigate([returnUrl]) : null
                 resolve(null)
             })

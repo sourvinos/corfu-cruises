@@ -1,4 +1,4 @@
-export class ReservationListVM {
+export interface ReservationListDto {
 
     reservationId: string
     date: string

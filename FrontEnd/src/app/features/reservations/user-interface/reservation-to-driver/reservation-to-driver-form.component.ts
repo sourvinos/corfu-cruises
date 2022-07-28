@@ -2,10 +2,8 @@ import { Component, Inject, NgZone } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 // Custom
 import { Driver } from 'src/app/features/drivers/classes/models/driver'
-import { DriverService } from '../../../drivers/classes/services/driver.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from './../../../../shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -25,7 +23,7 @@ export class ReservationToDriverComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<ReservationToDriverComponent>, private driverService: DriverService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private ngZone: NgZone, private snackbarService: SnackbarService) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<ReservationToDriverComponent>, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private ngZone: NgZone,) { }
 
     //#region lifecycle hooks
 
@@ -63,25 +61,12 @@ export class ReservationToDriverComponent {
 
     //#region private methods
 
-    private populateList(service: any, table: any): Promise<any> {
-        const promise = new Promise((resolve) => {
-            service.getActiveForDropdown().toPromise().then(
-                (response: any) => {
-                    this[table] = response
-                    resolve(this[table])
-                }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
-                })
-        })
-        return promise
+    private populateListFromLocalStorage(table: string) {
+        this[table] = JSON.parse(this.localStorageService.getItem(table))
     }
 
     private populateLists(): void {
-        this.populateList(this.driverService, 'drivers')
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
+        this.populateListFromLocalStorage('drivers')
     }
 
     private unselectAllItems(): void {

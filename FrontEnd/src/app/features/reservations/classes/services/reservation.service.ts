@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
-import { ReservationGroupVM } from '../resources/list/reservation-group-vm'
+import { ReservationGroupDto } from '../dtos/list/reservation-group-dto'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
@@ -14,16 +14,24 @@ export class ReservationService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/reservations')
     }
 
-    getByDate(date: string): Observable<ReservationGroupVM> {
-        return this.http.get<ReservationGroupVM>(this.url + '/byDate/' + date)
+    getByDate(date: string): Observable<ReservationGroupDto> {
+        return this.http.get<ReservationGroupDto>(this.url + '/byDate/' + date)
     }
 
     getByDateAndDriver(date: string, driverId: number): Observable<any> {
         return this.http.get<any>(this.url + '/byDate/' + date + '/byDriver/' + driverId)
     }
 
-    getByRefNo(refNo: string): Observable<ReservationGroupVM> {
-        return this.http.get<ReservationGroupVM>(this.url + '/byRefNo/' + refNo)
+    getByRefNo(refNo: string): Observable<ReservationGroupDto> {
+        return this.http.get<ReservationGroupDto>(this.url + '/byRefNo/' + refNo)
+    }
+
+    public save(formData: any): Observable<any> {
+        if (formData.reservationId == '') {
+            return this.http.post<any>(this.url, formData)
+        } else {
+            return this.http.put<any>(this.url + '/' + formData.reservationId, formData)
+        }
     }
 
     assignToDriver(driverId: string, records: any[]): Observable<any> {

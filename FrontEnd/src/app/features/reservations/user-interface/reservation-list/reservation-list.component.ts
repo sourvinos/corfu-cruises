@@ -21,13 +21,14 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PickupPointDropdownVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
 import { PortDropdownVM } from './../../../ports/classes/view-models/port-dropdown-vm'
-import { ReservationGroupVM } from '../../classes/resources/list/reservation-group-vm'
+import { ReservationGroupDto } from '../../classes/dtos/list/reservation-group-dto'
 import { ReservationService } from './../../classes/services/reservation.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToShipComponent } from '../reservation-to-ship/reservation-to-ship-form.component'
 import { ShipRouteDropdownVM } from './../../../shipRoutes/classes/view-models/shipRoute-dropdown-vm'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { ListResolved } from 'src/app/shared/classes/list-resolved'
 
 @Component({
     selector: 'reservation-list',
@@ -43,20 +44,17 @@ export class ReservationListComponent {
     @ViewChild('table') table: Table | undefined
 
     public parentUrl = '/reservations'
-    private resolver = 'reservationList'
     private unsubscribe = new Subject<void>()
     public icon = 'arrow_back'
     private url = ''
-    private windowTitle = 'Reservations'
     public feature = 'reservationList'
     public overbookedDestinations: any
 
     public isAdmin: boolean
     public highlighted: any
-    public records = new ReservationGroupVM()
+    public reservationGroupDto: ReservationGroupDto
     public selectedRecords = []
     public totals: any[] = []
-    private destinations: DestinationDropdownVM[] = []
     public areDestinationsOverbooked = []
 
     public dropdownCustomers: CustomerDropdownVM[] = []
@@ -84,7 +82,6 @@ export class ReservationListComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
         this.initPersonTotals()
         this.updateTotals()
         this.getConnectedUserRole()
@@ -170,14 +167,14 @@ export class ReservationListComponent {
 
     public calculateTotals(event?: { filteredValue: any[] }): void {
         setTimeout(() => {
-            this.totals[0].sum = this.records.persons
+            this.totals[0].sum = this.reservationGroupDto.persons
             this.totals[1].sum = event.filteredValue.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
             this.totals[2].sum = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
         }, 500)
     }
 
     public createPdf(): void {
-        this.driverReportService.doReportTasks(this.getDistinctDriverIds(this.records.reservations))
+        this.driverReportService.doReportTasks(this.getDistinctDriverIds(this.reservationGroupDto.reservations))
     }
 
     public doResetTableTasks(table: { reset: () => void }): void {
@@ -187,7 +184,7 @@ export class ReservationListComponent {
         this.updateTotals()
     }
 
-    public onEditRecord(id: string): void {
+    public editRecord(id: string): void {
         this.localStorageService.saveItem('returnUrl', this.url)
         this.router.navigate([this.parentUrl, id])
     }
@@ -273,15 +270,18 @@ export class ReservationListComponent {
         return true
     }
 
-    private loadRecords(): void {
-        const listResolved = this.activatedRoute.snapshot.data[this.resolver]
-        if (listResolved.error === null) {
-            this.records = listResolved.result
-        } else {
-            this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
+    private loadRecords(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
+            if (listResolved.error === null) {
+                this.reservationGroupDto = listResolved.list
+                resolve(this.reservationGroupDto)
+            } else {
                 this.goBack()
-            })
-        }
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
+            }
+        })
+        return promise
     }
 
     private getConnectedUserRole(): Promise<any> {
@@ -322,7 +322,7 @@ export class ReservationListComponent {
     }
 
     private doDestinationForOverbookingTasks(): void {
-        this.getDistinctDestinations(this.records.reservations, 'destinationDescription').then((response: any) => {
+        this.getDistinctDestinations(this.reservationGroupDto.reservations, 'destinationDescription').then((response: any) => {
             this.overbookedDestinations = response
             this.overbookedDestinations.forEach((destination: { id: number }, index: string | number) => {
                 this.reservationService.isDestinationOverbooked(this.localStorageService.getItem('date'), destination.id).subscribe((response) => {
@@ -333,13 +333,13 @@ export class ReservationListComponent {
     }
 
     private populateDropdowns(): void {
-        this.dropdownCoachRoutes = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'coachRouteAbbreviation')
-        this.dropdownCustomers = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'customerDescription')
-        this.dropdownDestinations = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'destinationDescription')
-        this.dropdownDrivers = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'driverDescription')
-        this.dropdownPickupPoints = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'pickupPointDescription')
-        this.dropdownPorts = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'portDescription')
-        this.dropdownShips = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'shipDescription')
+        this.dropdownCoachRoutes = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'coachRouteAbbreviation')
+        this.dropdownCustomers = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'customerDescription')
+        this.dropdownDestinations = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'destinationDescription')
+        this.dropdownDrivers = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'driverDescription')
+        this.dropdownPickupPoints = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'pickupPointDescription')
+        this.dropdownPorts = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'portDescription')
+        this.dropdownShips = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'shipDescription')
     }
 
     private resetTable(table: { reset: any }): void {
@@ -358,14 +358,10 @@ export class ReservationListComponent {
         })
     }
 
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
-    }
-
     private storeDate(): void {
         if (this.url.includes('byRefNo')) {
-            if (this.records.reservations.length > 0) {
-                this.localStorageService.saveItem('date', this.records.reservations[0].date)
+            if (this.reservationGroupDto.reservations.length > 0) {
+                this.localStorageService.saveItem('date', this.reservationGroupDto.reservations[0].date)
             } else {
                 this.localStorageService.deleteItems([
                     { 'item': 'date', 'when': 'always' }
@@ -376,8 +372,8 @@ export class ReservationListComponent {
 
     private updateTotals(): void {
         Promise.resolve(null).then(() => {
-            this.totals[0].sum = this.records.persons
-            this.totals[1].sum = this.records.reservations.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
+            this.totals[0].sum = this.reservationGroupDto.persons
+            this.totals[1].sum = this.reservationGroupDto.reservations.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
             this.totals[2].sum = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
         })
     }

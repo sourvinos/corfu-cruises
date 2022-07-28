@@ -1,11 +1,9 @@
 import { Component, Inject, NgZone } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 // Custom
+import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { ShipDropdownVM } from '../../../ships/classes/view-models/ship-dropdown-vm'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -25,7 +23,7 @@ export class ReservationToShipComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<ReservationToShipComponent>, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private ngZone: NgZone, private shipService: ShipService, private snackbarService: SnackbarService) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<ReservationToShipComponent>, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private ngZone: NgZone) { }
 
     //#region lifecycle hooks
 
@@ -63,25 +61,12 @@ export class ReservationToShipComponent {
 
     //#region private methods
 
-    private populateList(service: any, table: any): Promise<any> {
-        const promise = new Promise((resolve) => {
-            service.getActiveForDropdown().toPromise().then(
-                (response: any) => {
-                    this[table] = response
-                    resolve(this[table])
-                }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
-                })
-        })
-        return promise
+    private populateListFromLocalStorage(table: string) {
+        this[table] = JSON.parse(this.localStorageService.getItem(table))
     }
 
     private populateLists(): void {
-        this.populateList(this.shipService, 'ships')
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
+        this.populateListFromLocalStorage('ships')
     }
 
     private unselectAllItems(): void {

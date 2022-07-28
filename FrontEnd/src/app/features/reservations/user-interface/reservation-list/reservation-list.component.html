@@ -22,7 +22,7 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table (onFilter)="calculateTotals($event)" (onHeaderCheckboxToggle)="toggleVisibleRows()" (onRowSelect)="rowSelect($event)" (onRowUnselect)="rowUnselect($event)" [(selection)]="selectedRecords" [autoLayout]="false" [scrollable]="true" [value]="records.reservations" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="reservationId" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="reservation-list" stateStorage="session">
+        <p-table #table (onFilter)="calculateTotals($event)" (onHeaderCheckboxToggle)="toggleVisibleRows()" (onRowSelect)="rowSelect($event)" (onRowUnselect)="rowUnselect($event)" [(selection)]="selectedRecords" [autoLayout]="false" [scrollable]="true" [value]="reservationGroupDto.reservations" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="reservationId" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="reservation-list" stateStorage="session">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="min-width: 2%; max-width: 2%;"></th>
@@ -128,7 +128,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
-                <tr [class.ui-state-highlight]="rowData == highlighted" (click)="highlighted = rowData" (dblclick)="onEditRecord(rowData.reservationId)">
+                <tr [class.ui-state-highlight]="rowData == highlighted" (click)="highlighted = rowData" (dblclick)="editRecord(rowData.reservationId)">
                     <td style="width: 2%; max-width: 2%; justify-content: center;"><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
                     <td style="min-width: 5%; max-width: 5%;">{{ formatRefNo(rowData.refNo) }}</td>
                     <td style="min-width: 8%; max-width: 8%;">{{ rowData.ticketNo }}</td>

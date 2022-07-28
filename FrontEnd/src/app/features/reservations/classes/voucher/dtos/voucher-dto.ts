@@ -1,6 +1,6 @@
-import { VoucherPassengerVM } from './voucher-passenger-vm'
+import { VoucherPassengerDto } from './voucher-passenger-dto'
 
-export class VoucherVM {
+export interface VoucherDto {
 
     date: string
     refNo: string
@@ -13,7 +13,7 @@ export class VoucherVM {
     driverDescription: string
     remarks: string
     qr: string
-    passengers: VoucherPassengerVM[]
+    passengers: VoucherPassengerDto[]
     adults: string
     kids: string
     free: string

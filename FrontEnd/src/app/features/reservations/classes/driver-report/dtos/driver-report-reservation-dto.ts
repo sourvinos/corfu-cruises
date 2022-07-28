@@ -1,4 +1,4 @@
-export interface ReportReservationVM {
+export interface DriverReportReservationDto {
 
     refNo: string
     time: string
