@@ -16,6 +16,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { FormResolved } from 'src/app/shared/classes/form-resolved'
 
 @Component({
     selector: 'driver-form',
@@ -28,14 +29,14 @@ export class DriverFormComponent {
 
     //#region variables 
 
+    private driver: DriverReadDto
     private unlisten: Unlisten
-    private unsubscribe = new Subject<void>()
     public feature = 'driverForm'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public parentUrl = '/drivers'
     public isLoading = new Subject<boolean>()
+    public parentUrl = '/drivers'
 
     //#endregion
 
@@ -43,7 +44,8 @@ export class DriverFormComponent {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.initForm()
-                this.getRecord(x.id)
+                this.getRecord()
+                this.populateFields(this.driver)
             } else {
                 this.initForm()
             }
@@ -58,7 +60,6 @@ export class DriverFormComponent {
     }
 
     ngOnDestroy(): void {
-        this.cleanup()
         this.unlisten()
     }
 
@@ -132,11 +133,6 @@ export class DriverFormComponent {
         })
     }
 
-    private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
-    }
-
     private flattenForm(): DriverWriteDto {
         const driver = {
             id: this.form.value.id,
@@ -151,15 +147,18 @@ export class DriverFormComponent {
         this.helperService.focusOnField(field)
     }
 
-    private getRecord(id: number): void {
-        this.driverService.getSingle(id).subscribe({
-            next: (response) => {
-                this.populateFields(response)
-            },
-            error: (errorFromInterceptor) => {
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
+    private getRecord(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            const formResolved: FormResolved = this.activatedRoute.snapshot.data['driverForm']
+            if (formResolved.error == null) {
+                this.driver = formResolved.record
+                resolve(this.driver)
+            } else {
+                this.goBack()
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
         })
+        return promise
     }
 
     private goBack(): void {
@@ -188,26 +187,15 @@ export class DriverFormComponent {
         this.form.reset()
     }
 
-    private saveRecord(customer: DriverWriteDto): void {
-        if (customer.id === 0) {
-            this.driverService.add(customer).pipe(indicate(this.isLoading)).subscribe({
-                complete: () => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
-                },
-                error: (errorFromInterceptor) => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
-                }
-            })
-        } else {
-            this.driverService.update(customer.id, customer).pipe(indicate(this.isLoading)).subscribe({
-                complete: () => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
-                },
-                error: (errorFromInterceptor) => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
-                }
-            })
-        }
+    private saveRecord(driver: DriverWriteDto): void {
+        this.driverService.save(driver).pipe(indicate(this.isLoading)).subscribe({
+            complete: () => {
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
+            },
+            error: (errorFromInterceptor) => {
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
+            }
+        })
     }
 
     //#endregion
