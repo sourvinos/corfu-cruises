@@ -96,7 +96,7 @@
             },
             {
                 "error": 492,
-                "message": "Uživatele s těmito údaji nelze vytvořit."
+                "message": "Uživatele s těmito údaji nelze vytvořit. Ujistěte se, že uživatelské jméno a e-mail jsou jedinečné."
             },
             {
                 "error": 493,

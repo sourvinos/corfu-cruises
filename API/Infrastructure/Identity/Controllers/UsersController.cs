@@ -5,6 +5,7 @@ using API.Infrastructure.Classes;
 using API.Infrastructure.Email;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -20,13 +21,15 @@ namespace API.Infrastructure.Identity {
 
         private readonly IEmailSender emailSender;
         private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IMapper mapper;
         private readonly UserManager<UserExtended> userManager;
 
         #endregion
 
-        public UsersController(IEmailSender emailSender, IHttpContextAccessor httpContextAccessor, UserManager<UserExtended> userManager) {
+        public UsersController(IEmailSender emailSender, IHttpContextAccessor httpContextAccessor, IMapper mapper, UserManager<UserExtended> userManager) {
             this.emailSender = emailSender;
             this.httpContextAccessor = httpContextAccessor;
+            this.mapper = mapper;
             this.userManager = userManager;
         }
 
@@ -68,6 +71,19 @@ namespace API.Infrastructure.Identity {
                 IsActive = record.IsActive
             };
             return StatusCode(200, vm);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public async Task<Response> PostUser([FromBody] UserNewDto record) {
+            var user = mapper.Map<UserNewDto, UserExtended>(record);
+            var result = await userManager.CreateAsync(user, record.Password);
+            if (result.Succeeded) {
+                await userManager.AddToRoleAsync(user, user.IsAdmin ? "Admin" : "User");
+                return ApiResponses.OK();
+            } else {
+                throw new CustomException { HttpResponseCode = 492 };
+            }
         }
 
         [HttpPut("{id}")]

@@ -40,6 +40,7 @@ namespace API.Infrastructure.Helpers {
         public static string PortHasNoDepartures() { return "For this day and destination, nothing is scheduled to depart from the given port."; }
         public static string PortHasNoVacancy() { return "Overbooking in not allowed."; }
         public static string LogoutError() { return "The user is not logged in."; }
+        public static string UnableToCreateUser() { return "We were unable to create this user. Make sure that the username and the email are unique."; }
         public static string RecordInUse() { return "This record is in use and can't be deleted."; }
         public static string NotOwnRecord() { return "This record belongs to another user."; }
         public static string InvalidPassengerCount() { return "Total persons must be equal or greater than the passenger count."; }

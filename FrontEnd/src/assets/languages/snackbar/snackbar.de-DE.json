@@ -96,7 +96,7 @@
             },
             {
                 "error": 492,
-                "message": "Ein Benutzer mit diesen Angaben kann nicht erstellt werden."
+                "message": "Ein Benutzer mit diesen Angaben kann nicht erstellt werden. Stellen Sie sicher, dass der Benutzername und die E-Mail eindeutig sind."
             },
             {
                 "error": 493,

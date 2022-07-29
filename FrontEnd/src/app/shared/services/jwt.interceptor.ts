@@ -91,9 +91,9 @@ export class MonitorInterceptor {
     private trapError(err: number) {
         switch (err) {
             case 400:
-                return throwError(() => new Error('400')) // invalidModel
+                return throwError(() => new Error('400')) // invalid model
             case 403:
-                return throwError(() => new Error('403')) // unauthorized
+                return throwError(() => new Error('403')) // insufficient user rights
             case 404:
                 return throwError(() => new Error('404')) // not found
             case 409:
@@ -129,13 +129,13 @@ export class MonitorInterceptor {
             case 459:
                 return throwError(() => new Error('459')) // reservation with transfer has night restrictions for simple user
             case 490:
-                return throwError(() => new Error('490')) // unableToSaveRecord
+                return throwError(() => new Error('490')) // reservation belongs to another user or simple user can't update reservation
             case 491:
                 return throwError(() => new Error('491')) // recordInUse
             case 492:
-                return throwError(() => new Error('492')) // unableToRegisterUser
+                return throwError(() => new Error('492')) // unable to create user
             case 493:
-                return throwError(() => new Error('493')) // unableToCreateFile
+                return throwError(() => new Error('493')) // record not saved
             case 494:
                 return throwError(() => new Error('494')) // unableToChangePassword
             case 497:

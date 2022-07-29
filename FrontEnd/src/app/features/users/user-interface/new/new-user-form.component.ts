@@ -4,7 +4,6 @@ import { Observable, Subject } from 'rxjs'
 import { Router } from '@angular/router'
 import { map, startWith } from 'rxjs/operators'
 // Custom
-import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { ConfirmValidParentMatcher, ValidationService } from '../../../../shared/services/validation.service'
 import { CustomerDropdownVM } from '../../../customers/classes/view-models/customer-dropdown-vm'
@@ -17,6 +16,7 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { UserNewDto } from '../../classes/dtos/new-user-dto'
+import { UserService } from '../../classes/services/user.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -48,7 +48,7 @@ export class NewUserFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
+    constructor(private userService: UserService, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -145,7 +145,7 @@ export class NewUserFormComponent {
         const user = {
             userName: this.form.value.userName,
             displayname: this.form.value.displayname,
-            customerId: this.form.value.customer.id == 'null' ? null : this.form.value.customer.id,
+            customerId: this.form.value.customer.id == 'all' ? null : this.form.value.customer.id,
             email: this.form.value.email,
             password: this.form.value.passwords.password,
             confirmPassword: this.form.value.passwords.confirmPassword,
@@ -194,12 +194,12 @@ export class NewUserFormComponent {
     }
 
     private saveRecord(user: UserNewDto): void {
-        this.accountService.add(user).pipe(indicate(this.isLoading)).subscribe({
+        this.userService.add(user).pipe(indicate(this.isLoading)).subscribe({
             complete: () => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
             },
             error: (errorFromInterceptor) => {
-                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false, false)
             }
         })
     }

@@ -43,7 +43,8 @@ namespace API.Infrastructure.Responses {
         private static string GetErrorMessage(int httpResponseCode) {
             return httpResponseCode switch {
                 404 => ApiMessages.RecordNotFound(),
-                492 => ApiMessages.RecordInUse(),
+                491 => ApiMessages.RecordInUse(),
+                492 => ApiMessages.UnableToCreateUser(),
                 493 => ApiMessages.RecordNotSaved(),
                 497 => ApiMessages.UnableToUpdateUser(),
                 498 => ApiMessages.InvalidModel(),
