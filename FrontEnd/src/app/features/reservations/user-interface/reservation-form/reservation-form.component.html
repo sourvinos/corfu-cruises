@@ -155,10 +155,6 @@
         </div>
     </div>
 
-    <div id="qr-code">
-        <qr-code [value]="barcode.ticketNo" [size]="barcode.size" [level]="barcode.level"></qr-code>
-    </div>
-
     <div *ngIf="isLoading | async">
         <loading-spinner></loading-spinner>
     </div>

@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { NgModule } from '@angular/core'
-import { QRCodeModule } from 'angular2-qrcode'
 import { RouterModule } from '@angular/router'
 import { ZXingScannerModule } from '@zxing/ngx-scanner'
 // Custom
@@ -15,7 +14,6 @@ import { LoadingSpinnerComponent } from '../components/loading-spinner/loading-s
 import { MaterialModule } from './material.module'
 import { ModalActionResultComponent } from '../components/modal-action-result/modal-action-result.component'
 import { PrimeNgModule } from './primeng.module'
-import { QRCodeComponent } from '../components/qrCode/qrCode.component'
 import { SafeStylePipe } from '../pipes/safeStyle.pipe'
 import { SnackbarComponent } from '../components/snackbar/snackbar.component'
 
@@ -29,7 +27,6 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         ListNoResultsComponent,
         LoadingSpinnerComponent,
         ModalActionResultComponent,
-        QRCodeComponent,
         SafeStylePipe,
         SnackbarComponent
     ],
@@ -38,7 +35,6 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         FormsModule,
         MaterialModule,
         PrimeNgModule,
-        QRCodeModule,
         ZXingScannerModule
     ],
     exports: [
@@ -51,8 +47,6 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component'
         LoadingSpinnerComponent,
         MaterialModule,
         PrimeNgModule,
-        QRCodeComponent,
-        QRCodeModule,
         ReactiveFormsModule,
         RouterModule,
         ZXingScannerModule

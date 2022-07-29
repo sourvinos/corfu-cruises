@@ -1,4 +1,3 @@
-import html2canvas from 'html2canvas'
 import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
@@ -61,7 +60,6 @@ export class ReservationFormComponent {
     public isAdmin: false
     public isNewRecord = false
     public isLoading = new Subject<boolean>()
-    public barcode = { 'ticketNo': '', 'size': 128, 'level': 'M' }
 
     public isAutoCompleteDisabled = true
 
@@ -161,8 +159,6 @@ export class ReservationFormComponent {
     }
 
     public doVoucherTasksOnClient(): void {
-        this.barcode.ticketNo = this.form.value.ticketNo
-        this.convertCanvasToBase64()
         this.voucherService.createVoucherOnClient(this.createVoucherFromReservation())
     }
 
@@ -260,14 +256,6 @@ export class ReservationFormComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
-    }
-
-    private convertCanvasToBase64(): void {
-        setTimeout(() => {
-            html2canvas(document.querySelector('#qr-code')).then(canvas => {
-                this.form.patchValue({ imageBase64: canvas.toDataURL() })
-            })
-        }, 500)
     }
 
     private createVoucherFromReservation(): any {
