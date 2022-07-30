@@ -8,7 +8,7 @@ namespace API.Features.PickupPoints {
         public PickupPointMappingProfile() {
             // List
             CreateMap<PickupPoint, PickupPointListDto>()
-                .ForMember(x => x.RouteAbbreviation, x => x.MapFrom(x => x.CoachRoute.Abbreviation));
+                .ForMember(x => x.CoachRouteAbbreviation, x => x.MapFrom(x => x.CoachRoute.Abbreviation));
             // Dropdown
             CreateMap<PickupPoint, PickupPointWithPortDropdownResource>()
                 .ForMember(x => x.Id, x => x.MapFrom(x => x.Id))

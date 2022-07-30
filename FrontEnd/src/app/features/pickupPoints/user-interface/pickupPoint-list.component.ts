@@ -1,7 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
-import { Subject } from 'rxjs'
-import { Title } from '@angular/platform-browser'
+import { Component } from '@angular/core'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -9,10 +7,10 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PickupPointPdfService } from '../classes/services/pickupPoint-pdf.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { Table } from 'primeng/table'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { PickupPointListVM } from '../classes/view-models/pickupPoint-list-vm'
 
 @Component({
     selector: 'pickupPoint-list',
@@ -26,45 +24,39 @@ export class PickupPointListComponent {
 
     //#region variables
 
-    @ViewChild('table') table: Table | undefined
-
     private unlisten: Unlisten
-    private unsubscribe = new Subject<void>()
     private url = 'pickupPoints'
     public feature = 'pickupPointList'
     public icon = 'home'
     public parentUrl = '/'
-    public records = []
-    public selectedRecords = []
+    public records: PickupPointListVM[]
+    public selectedRecords: PickupPointListVM[]
 
     public dropdownRoutes = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pickupPointPdfService: PickupPointPdfService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private pickupPointPdfService: PickupPointPdfService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
-        this.loadRecords().then(() => {
-            this.populateDropdownFilters()
-        })
+        this.loadRecords()
+        this.populateDropdownFilters()
         this.addShortcuts()
     }
 
-    ngAfterViewInit(): void {
-        this.changeScrollWheelSpeed()
-    }
-
     ngOnDestroy(): void {
-        this.cleanup()
         this.unlisten()
     }
 
     //#endregion
 
     //#region public methods
+
+    public editRecord(id: number): void {
+        this.router.navigate([this.url, id])
+    }
 
     public export(): void {
         this.pickupPointPdfService.createReport(this.selectedRecords)
@@ -78,12 +70,8 @@ export class PickupPointListComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onEditRecord(id: number): void {
-        this.router.navigate([this.url, id], { queryParams: { returnUrl: this.url } })
-    }
-
-    public onNewRecord(): void {
-        this.router.navigate([this.url + '/new'], { queryParams: { returnUrl: this.url } })
+    public newRecord(): void {
+        this.router.navigate([this.url + '/new'])
     }
 
     //#endregion
@@ -104,15 +92,6 @@ export class PickupPointListComponent {
         })
     }
 
-    private changeScrollWheelSpeed(): void {
-        this.helperService.changeScrollWheelSpeed(document.querySelector<HTMLElement>('.cdk-virtual-scroll-viewport'))
-    }
-
-    private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
-    }
-
     private goBack(): void {
         this.router.navigate([this.parentUrl])
     }
@@ -126,22 +105,14 @@ export class PickupPointListComponent {
                 resolve(this.records)
             } else {
                 this.goBack()
-                this.showSnackbar(this.messageSnackbarService.filterResponse(listResolved.error), 'error')
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
         })
         return promise
     }
 
     private populateDropdownFilters() {
-        this.dropdownRoutes = this.helperService.getDistinctRecords(this.records, 'routeAbbreviation')
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
+        this.dropdownRoutes = this.helperService.getDistinctRecords(this.records, 'coachRouteAbbreviation')
     }
 
     //#endregion
