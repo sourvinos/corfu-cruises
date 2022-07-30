@@ -111,6 +111,10 @@
                 "message": "Wir können nicht fortfahren. Bitte vergewissern Sie sich, dass der Benutzername und/oder die E-Mail nicht zu einem anderen Benutzer gehören."
             },
             {
+                "error": 499,
+                "message": "Wir können nicht fortfahren. Der verbundene Benutzer kann nicht gelöscht werden."
+            },
+            {
                 "error": 500,
                 "message": "Etwas ist schief gelaufen, aber es wurde gemeldet."
             },

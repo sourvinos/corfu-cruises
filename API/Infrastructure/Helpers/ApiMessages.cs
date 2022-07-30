@@ -31,6 +31,7 @@ namespace API.Infrastructure.Helpers {
         public static string RecordNotFound() { return "This record was not found."; }
         public static string RecordNotSaved() { return "Record not saved."; }
         public static string InvalidModel() { return "The model is invalid."; }
+        public static string UnableToDeleteConnectedUser() { return "The connected user can't be deleted."; }
         public static string EmailNotSent() { return "Email not sent."; }
         public static string DateHasWrongFormat() { return "Date must be in 'YYYY-MM-DD' format"; }
         public static string EmailHasWrongFormat() { return "Email is not in the correct format"; }

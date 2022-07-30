@@ -111,6 +111,10 @@
                 "message": "We are unable to continue. Please make sure that the username and/or the email don't belong to another user."
             },
             {
+                "error": 499,
+                "message": "We are unable to continue. The connected user can't be deleted."
+            },
+            {
                 "error": 500,
                 "message": "Something went not so well, but it has been reported."
             },

@@ -133,6 +133,21 @@ export class EditUserFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
+    public onDelete(): void {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', ['abort', 'ok']).subscribe(response => {
+            if (response) {
+                this.userService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                    complete: () => {
+                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
+                    },
+                    error: (errorFromInterceptor) => {
+                        this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
+                    }
+                })
+            }
+        })
+    }
+
     public onSave(showResult: boolean): Promise<any> {
         const promise = new Promise((resolve) => {
             this.saveRecord(this.flattenForm(), showResult)

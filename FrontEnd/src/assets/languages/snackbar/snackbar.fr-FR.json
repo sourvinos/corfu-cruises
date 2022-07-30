@@ -111,6 +111,10 @@
                 "message": "Nous ne sommes pas en mesure de continuer. Veuillez vous assurer que le nom d'utilisateur et/ou l'email n'appartiennent pas à un autre utilisateur."
             },
             {
+                "error": 499,
+                "message": "Nous ne sommes pas en mesure de continuer. L'utilisateur connecté ne peut pas être supprimé."
+            },
+            {
                 "error": 500,
                 "message": "Quelque chose a mal tourné, mais cela a été signalé."
             },

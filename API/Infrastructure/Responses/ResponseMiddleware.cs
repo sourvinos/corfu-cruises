@@ -48,6 +48,7 @@ namespace API.Infrastructure.Responses {
                 493 => ApiMessages.RecordNotSaved(),
                 497 => ApiMessages.UnableToUpdateUser(),
                 498 => ApiMessages.InvalidModel(),
+                499 => ApiMessages.UnableToDeleteConnectedUser(),
                 _ => ApiMessages.UnknownError(),
             };
         }

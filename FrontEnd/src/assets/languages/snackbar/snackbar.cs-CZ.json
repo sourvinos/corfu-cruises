@@ -111,6 +111,10 @@
                 "message": "Nemůžeme pokračovat. Ujistěte se prosím, že uživatelské jméno a/nebo e-mail nepatří jinému uživateli."
             },
             {
+                "error": 499,
+                "message": "Nemůžeme pokračovat. Připojeného uživatele nelze odstranit."
+            },
+            {
                 "error": 500,
                 "message": "Něco se pokazilo, ale bylo to nahlášeno."
             },

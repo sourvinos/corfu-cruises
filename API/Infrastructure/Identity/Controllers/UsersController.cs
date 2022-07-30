@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -108,11 +109,18 @@ namespace API.Infrastructure.Identity {
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteUser(string id) {
-            await userManager.DeleteAsync(await userManager.FindByIdAsync(id));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordDeleted()
-            });
+        public async Task<Response> DeleteUser(string id) {
+            var user = await Extensions.Identity.GetConnectedUserId(httpContextAccessor);
+            if (id == user.UserId) {
+                throw new CustomException { HttpResponseCode = 499 };
+            } else {
+                try {
+                    IdentityResult result = await userManager.DeleteAsync(await userManager.FindByIdAsync(id));
+                    return ApiResponses.OK();
+                } catch (Exception) {
+                    throw new CustomException { HttpResponseCode = 491 };
+                }
+            }
         }
 
         [HttpPost("[action]")]

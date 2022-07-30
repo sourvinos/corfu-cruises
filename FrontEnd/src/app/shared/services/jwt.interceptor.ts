@@ -140,6 +140,8 @@ export class MonitorInterceptor {
                 return throwError(() => new Error('494')) // unableToChangePassword
             case 497:
                 return throwError(() => new Error('497')) // Unable to update user
+            case 499:
+                return throwError(() => new Error('499')) // Unable to delete connected user
             default:
                 return throwError(() => new Error('500'))
         }
