@@ -103,7 +103,7 @@ export class CalendarComponent {
     public showReservationsForSelectedDay(date: any): void {
         if (this.hasSchedule(date)) {
             this.storeCriteria(date.date)
-            this.clearStoredPrimeTableFilters()
+            this.clearTableFilters()
             this.navigateToList()
         }
     }
@@ -140,7 +140,7 @@ export class CalendarComponent {
         return result + 1
     }
 
-    private clearStoredPrimeTableFilters(): void {
+    private clearTableFilters(): void {
         this.localStorageService.clearStoredPrimeTableFilters()
     }
 

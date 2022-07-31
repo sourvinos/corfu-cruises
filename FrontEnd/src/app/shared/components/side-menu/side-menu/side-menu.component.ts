@@ -61,7 +61,6 @@ export class SideMenuComponent {
 
     public doNavigationTasks(feature: string): void {
         this.setMenuItemsAsInactive()
-        this.clearStoredPrimeTableFilters()
         this.router.navigate([feature]).then(() => {
             setTimeout(() => {
                 if (this.url.includes(feature)) {
@@ -81,10 +80,6 @@ export class SideMenuComponent {
     //#endregion
 
     //#region private methods
-
-    private clearStoredPrimeTableFilters(): void {
-        this.localStorageService.clearStoredPrimeTableFilters()
-    }
 
     private createMenu(response: any): void {
         this.menuItems = response
