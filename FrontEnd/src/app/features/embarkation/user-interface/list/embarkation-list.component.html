@@ -24,7 +24,7 @@
 
     <ng-container *ngIf="records.totalPersons > 0">
         <div id="table-wrapper">
-            <p-table #table [autoLayout]="false" (onFilter)="filterRecords($event)" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.reservations" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="embarkation-list" stateStorage="session">
+            <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="33" [virtualScroll]="true" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="embarkation-list" stateStorage="session">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 3%; max-width: 3%;"></th>
@@ -53,7 +53,7 @@
                         <th>
                             <p-columnFilter style="width: 100%;" field="destination" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="destinations" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [ngModel]="value" [options]="dropdownDestinations" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option.label }}</span>
                                         </ng-template>
@@ -65,7 +65,7 @@
                         <th>
                             <p-columnFilter style="width: 100%;" field="customer" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="customers" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [ngModel]="value" [options]="dropdownCustomers" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option.label }}</span>
                                         </ng-template>
@@ -77,7 +77,7 @@
                         <th>
                             <p-columnFilter style="width: 100%;" field="driver" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="drivers" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [ngModel]="value" [options]="dropdownDrivers" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option.label }}</span>
                                         </ng-template>
@@ -89,7 +89,7 @@
                         <th>
                             <p-columnFilter style="width: 100%;" field="port" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="ports" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [ngModel]="value" [options]="dropdownPorts" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option.label }}</span>
                                         </ng-template>
@@ -101,7 +101,7 @@
                         <th>
                             <p-columnFilter style="width: 100%;" field="ship" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="ships" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [ngModel]="value" [options]="dropdownShips" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option.label }}</span>
                                         </ng-template>
@@ -117,7 +117,7 @@
                         <th style="min-width: 10%; max-width: 10%;">
                             <p-columnFilter style="width: 100%;" field="embarkationStatus" matchMode="contains" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="embarkationStatuses" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [ngModel]="value" [options]="dropdownEmbarkationStatuses" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option.label }}</span>
                                         </ng-template>

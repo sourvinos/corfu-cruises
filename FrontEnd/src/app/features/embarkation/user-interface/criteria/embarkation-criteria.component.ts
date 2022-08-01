@@ -106,6 +106,7 @@ export class EmbarkationCriteriaComponent {
 
     public onDoTasks(): void {
         this.storeCriteria()
+        this.clearTableFilters()
         this.navigateToList()
     }
 
@@ -127,6 +128,10 @@ export class EmbarkationCriteriaComponent {
             priority: 0,
             inputs: true
         })
+    }
+
+    private clearTableFilters(): void {
+        this.localStorageService.clearStoredPrimeTableFilters()
     }
 
     private cleanup(): void {

@@ -5,17 +5,22 @@ import { Subject } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { CustomerDropdownVM } from 'src/app/features/customers/classes/view-models/customer-dropdown-vm'
+import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
+import { DriverDropdownVM } from 'src/app/features/drivers/classes/view-models/driver-dropdown-vm'
 import { EmbarkationCriteriaVM } from '../../classes/view-models/embarkation-criteria-vm'
+import { EmbarkationGroupVM } from '../../classes/view-models/embarkation-group-vm'
 import { EmbarkationPDFService } from '../../classes/services/embarkation-pdf.service'
 import { EmbarkationService } from '../../classes/services/embarkation-display.service'
-import { EmbarkationGroupVM } from '../../classes/view-models/embarkation-group-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
+import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
+import { ShipDropdownVM } from 'src/app/features/ships/classes/view-models/ship-dropdown-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -42,12 +47,12 @@ export class EmbarkationListComponent {
     public isLoading = new Subject<boolean>()
     public records: EmbarkationGroupVM
 
-    public customers = []
-    public destinations = []
-    public drivers = []
-    public ports = []
-    public ships = []
-    public embarkationStatuses = []
+    public dropdownCustomers: CustomerDropdownVM[] = []
+    public dropdownDestinations: DestinationDropdownVM[] = []
+    public dropdownDrivers: DriverDropdownVM[] = []
+    public dropdownPorts: PortDropdownVM[] = []
+    public dropdownShips: ShipDropdownVM[] = []
+    public dropdownEmbarkationStatuses = []
 
     public scannerEnabled: boolean
     public searchTerm: string
@@ -61,11 +66,7 @@ export class EmbarkationListComponent {
                 this.loadRecords()
                 this.updatePassengerStatusPills()
                 this.populateCriteriaFromStoredVariables()
-                this.getDistinctCustomers()
-                this.getDistinctDestinations()
-                this.getDistinctDrivers()
-                this.getDistinctShips()
-                this.getDistinctPorts()
+                this.populateDropdowns()
                 this.getDistinctEmbarkationStatus()
             }
         })
@@ -76,7 +77,6 @@ export class EmbarkationListComponent {
     ngOnInit(): void {
         this.addShortcuts()
         this.getLocale()
-        this.setWindowTitle()
     }
 
     ngOnDestroy(): void {
@@ -240,44 +240,10 @@ export class EmbarkationListComponent {
         return this.helperService.formatISODateToLocale(date, showWeekday)
     }
 
-    private getDistinctCustomers(): void {
-        this.customers = []
-        const x = [... new Set(this.records.reservations.map(x => x.customer))]
-        x.forEach(element => {
-            this.customers.push({ label: element, value: element })
-        })
-    }
-
-    private getDistinctDestinations(): void {
-        this.destinations = []
-        const x = [... new Set(this.records.reservations.map(x => x.destination))]
-        x.forEach(element => {
-            this.destinations.push({ label: element, value: element })
-        })
-    }
-
-    private getDistinctDrivers(): void {
-        this.drivers = []
-        const x = [... new Set(this.records.reservations.map(x => x.driver))]
-        x.forEach(element => {
-            this.drivers.push({ label: element, value: element })
-        })
-    }
-
-    private getDistinctPorts(): void {
-        this.ports = []
-        const x = [... new Set(this.records.reservations.map(x => x.port))]
-        x.forEach(element => {
-            this.ports.push({ label: element, value: element })
-        })
-    }
-
-    private getDistinctShips(): void {
-        this.ships = []
-        const x = [... new Set(this.records.reservations.map(x => x.ship))]
-        x.forEach(element => {
-            this.ships.push({ label: element, value: element })
-        })
+    private getDistinctEmbarkationStatus(): void {
+        this.dropdownEmbarkationStatuses = []
+        this.dropdownEmbarkationStatuses.push({ label: this.getLabel('boardedFilter'), value: 'OK' })
+        this.dropdownEmbarkationStatuses.push({ label: this.getLabel('pendingFilter'), value: 'PENDING' })
     }
 
     private getDistinctShipsFromFilteredRecords(): any[] {
@@ -287,12 +253,6 @@ export class EmbarkationListComponent {
             ships.push({ label: element, value: element })
         })
         return ships
-    }
-
-    private getDistinctEmbarkationStatus(): void {
-        this.embarkationStatuses = []
-        this.embarkationStatuses.push({ label: this.getLabel('boardedFilter'), value: 'OK' })
-        this.embarkationStatuses.push({ label: this.getLabel('pendingFilter'), value: 'PENDING' })
     }
 
     private getLocale(): void {
@@ -326,6 +286,14 @@ export class EmbarkationListComponent {
         }
     }
 
+    private populateDropdowns(): void {
+        this.dropdownCustomers = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'customer')
+        this.dropdownDestinations = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'destination')
+        this.dropdownDrivers = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'driver')
+        this.dropdownPorts = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'port')
+        this.dropdownShips = this.helperService.populateTableFiltersDropdowns(this.records.reservations, 'ship')
+    }
+
     private positionVideo(): void {
         document.getElementById('video').style.left = (window.outerWidth / 2) - 320 + 'px'
         document.getElementById('video').style.top = (document.getElementById('wrapper').clientHeight / 2) - 240 + 'px'
@@ -334,10 +302,6 @@ export class EmbarkationListComponent {
 
     private refreshList(): void {
         this.router.navigate([this.url])
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
     }
 
     private showSnackbar(message: string, type: string): void {
