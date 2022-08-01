@@ -61,7 +61,7 @@ namespace API.Features.Reservations {
         }
 
         public async Task<ReservationGroupResource<ReservationListResource>> GetByRefNo(string refNo) {
-            IEnumerable<Reservation> reservations;
+            IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
             var connectedUser = await Identity.GetConnectedUserId(httpContextAccessor);
             if (await Identity.IsUserAdmin(httpContextAccessor)) {
                 reservations = GetReservationsFromAllUsersByRefNo(refNo);
@@ -408,6 +408,7 @@ namespace API.Features.Reservations {
                 .Include(x => x.Driver)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
+                .Include(x => x.Passengers)
                 .Where(x => x.RefNo == refNo);
         }
 
