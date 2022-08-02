@@ -105,12 +105,14 @@ namespace API.Features.Reservations {
         }
 
         public bool IsKeyUnique(ReservationWriteResource record) {
-            return !context.Reservations.Any(x =>
-               x.Date == Convert.ToDateTime(record.Date) &&
-               x.ReservationId != record.ReservationId &&
-               x.DestinationId == record.DestinationId &&
-               x.CustomerId == record.CustomerId &&
-               string.Equals(x.TicketNo, record.TicketNo, StringComparison.OrdinalIgnoreCase));
+            return !context.Reservations
+                .AsNoTracking()
+                .Any(x =>
+                    x.Date == Convert.ToDateTime(record.Date) &&
+                    x.ReservationId != record.ReservationId &&
+                    x.DestinationId == record.DestinationId &&
+                    x.CustomerId == record.CustomerId &&
+                    string.Equals(x.TicketNo, record.TicketNo, StringComparison.OrdinalIgnoreCase));
         }
 
         public async Task Update(string id, Reservation updatedRecord) {
@@ -132,6 +134,7 @@ namespace API.Features.Reservations {
 
         public int GetPortIdFromPickupPointId(ReservationWriteResource record) {
             PickupPoint pickupPoint = context.PickupPoints
+                .AsNoTracking()
                 .Include(x => x.CoachRoute)
                 .Where(x => x.Id == record.PickupPointId)
                 .FirstOrDefault();
@@ -207,16 +210,19 @@ namespace API.Features.Reservations {
 
         public bool IsOverbooked(string date, int destinationId) {
             int maxPassengersForAllPorts = context.Schedules
+                .AsNoTracking()
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
                 .Sum(x => x.MaxPassengers);
             int totalPersonsFromAllPorts = context.Reservations
+                .AsNoTracking()
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
                 .Sum(x => x.TotalPersons);
             return totalPersonsFromAllPorts > maxPassengersForAllPorts;
         }
 
         private IEnumerable<Passenger> GetPassengersForReservation(string id) {
-            return context.Set<Passenger>()
+            return context.Passengers
+                .AsNoTracking()
                 .Where(x => x.ReservationId.ToString() == id)
                 .ToList();
         }
@@ -252,9 +258,11 @@ namespace API.Features.Reservations {
                 return true;
             } else {
                 int maxPassengersForAllPorts = context.Schedules
+                    .AsNoTracking()
                     .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
                     .Sum(x => x.MaxPassengers);
                 int totalPersonsFromAllPorts = context.Reservations
+                    .AsNoTracking()
                     .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.ReservationId != reservationId)
                     .Sum(x => x.TotalPersons);
                 return totalPersonsFromAllPorts + totalPersons <= maxPassengersForAllPorts;
@@ -275,33 +283,33 @@ namespace API.Features.Reservations {
 
         private bool IsValidCustomer(ReservationWriteResource record) {
             if (record.ReservationId == null) {
-                return context.Customers.SingleOrDefault(x => x.Id == record.CustomerId && x.IsActive) != null;
+                return context.Customers.AsNoTracking().SingleOrDefault(x => x.Id == record.CustomerId && x.IsActive) != null;
             }
-            return context.Customers.SingleOrDefault(x => x.Id == record.CustomerId) != null;
+            return context.Customers.AsNoTracking().SingleOrDefault(x => x.Id == record.CustomerId) != null;
         }
 
         private bool IsValidDestination(ReservationWriteResource record) {
             if (record.ReservationId == null) {
-                return context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId && x.IsActive) != null;
+                return context.Destinations.AsNoTracking().SingleOrDefault(x => x.Id == record.DestinationId && x.IsActive) != null;
             }
-            return context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId) != null;
+            return context.Destinations.AsNoTracking().SingleOrDefault(x => x.Id == record.DestinationId) != null;
         }
 
         private bool IsValidPickupPoint(ReservationWriteResource record) {
             if (record.ReservationId == null) {
-                return context.PickupPoints.SingleOrDefault(x => x.Id == record.PickupPointId && x.IsActive) != null;
+                return context.PickupPoints.AsNoTracking().SingleOrDefault(x => x.Id == record.PickupPointId && x.IsActive) != null;
             }
-            return context.PickupPoints.SingleOrDefault(x => x.Id == record.PickupPointId) != null;
+            return context.PickupPoints.AsNoTracking().SingleOrDefault(x => x.Id == record.PickupPointId) != null;
         }
 
         private bool IsValidDriver(ReservationWriteResource record) {
             if (record.DriverId != null && record.DriverId != 0) {
                 if (record.ReservationId == null) {
-                    var driver = context.Drivers.SingleOrDefault(x => x.Id == record.DriverId && x.IsActive);
+                    var driver = context.Drivers.AsNoTracking().SingleOrDefault(x => x.Id == record.DriverId && x.IsActive);
                     if (driver == null)
                         return false;
                 } else {
-                    var driver = context.Drivers.SingleOrDefault(x => x.Id == record.DriverId);
+                    var driver = context.Drivers.AsNoTracking().SingleOrDefault(x => x.Id == record.DriverId);
                     if (driver == null)
                         return false;
                 }
@@ -312,11 +320,11 @@ namespace API.Features.Reservations {
         private bool IsValidShip(ReservationWriteResource record) {
             if (record.ShipId != null && record.ShipId != 0) {
                 if (record.ReservationId == null) {
-                    var ship = context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive);
+                    var ship = context.Ships.AsNoTracking().SingleOrDefault(x => x.Id == record.ShipId && x.IsActive);
                     if (ship == null)
                         return false;
                 } else {
-                    var ship = context.Ships.SingleOrDefault(x => x.Id == record.ShipId);
+                    var ship = context.Ships.AsNoTracking().SingleOrDefault(x => x.Id == record.ShipId);
                     if (ship == null)
                         return false;
                 }
@@ -338,9 +346,9 @@ namespace API.Features.Reservations {
                 bool isValid = false;
                 foreach (var passenger in record.Passengers) {
                     if (record.ReservationId == null) {
-                        isValid = context.Nationalities.SingleOrDefault(x => x.Id == passenger.NationalityId && x.IsActive) != null;
+                        isValid = context.Nationalities.AsNoTracking().SingleOrDefault(x => x.Id == passenger.NationalityId && x.IsActive) != null;
                     } else {
-                        isValid = context.Nationalities.SingleOrDefault(x => x.Id == passenger.NationalityId) != null;
+                        isValid = context.Nationalities.AsNoTracking().SingleOrDefault(x => x.Id == passenger.NationalityId) != null;
                     }
                 }
                 return record.Passengers.Count == 0 || isValid;
@@ -353,9 +361,9 @@ namespace API.Features.Reservations {
                 bool isValid = false;
                 foreach (var passenger in record.Passengers) {
                     if (record.ReservationId == null) {
-                        isValid = context.Genders.SingleOrDefault(x => x.Id == passenger.GenderId && x.IsActive) != null;
+                        isValid = context.Genders.AsNoTracking().SingleOrDefault(x => x.Id == passenger.GenderId && x.IsActive) != null;
                     } else {
-                        isValid = context.Genders.SingleOrDefault(x => x.Id == passenger.GenderId) != null;
+                        isValid = context.Genders.AsNoTracking().SingleOrDefault(x => x.Id == passenger.GenderId) != null;
                     }
                 }
                 return record.Passengers.Count == 0 || isValid;
@@ -368,9 +376,9 @@ namespace API.Features.Reservations {
                 bool isValid = false;
                 foreach (var passenger in record.Passengers) {
                     if (record.ReservationId == null) {
-                        isValid = context.Occupants.SingleOrDefault(x => x.Id == passenger.OccupantId && x.IsActive) != null;
+                        isValid = context.Occupants.AsNoTracking().SingleOrDefault(x => x.Id == passenger.OccupantId && x.IsActive) != null;
                     } else {
-                        isValid = context.Occupants.SingleOrDefault(x => x.Id == passenger.OccupantId) != null;
+                        isValid = context.Occupants.AsNoTracking().SingleOrDefault(x => x.Id == passenger.OccupantId) != null;
                     }
                 }
                 return record.Passengers.Count == 0 || isValid;
@@ -380,6 +388,7 @@ namespace API.Features.Reservations {
 
         private IEnumerable<Reservation> GetReservationsFromAllUsersByDate(string date) {
             return context.Reservations
+                .AsNoTracking()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
@@ -391,6 +400,7 @@ namespace API.Features.Reservations {
 
         private IEnumerable<Reservation> GetReservationsForLinkedCustomer(string date, int customerId) {
             var reservations = context.Reservations
+                .AsNoTracking()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
@@ -403,6 +413,7 @@ namespace API.Features.Reservations {
 
         private IEnumerable<Reservation> GetReservationsFromAllUsersByRefNo(string refNo) {
             return context.Reservations
+                .AsNoTracking()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
@@ -414,6 +425,7 @@ namespace API.Features.Reservations {
 
         private IEnumerable<Reservation> GetReservationsFromLinkedCustomerbyRefNo(string refNo, int customerId) {
             return context.Reservations
+                .AsNoTracking()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
@@ -424,6 +436,7 @@ namespace API.Features.Reservations {
 
         private async Task<IEnumerable<Reservation>> GetReservationsByDateAndDriver(string date, int driverId) {
             return await context.Reservations
+                .AsNoTracking()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
@@ -449,12 +462,14 @@ namespace API.Features.Reservations {
 
         private async Task<string> GetDestinationAbbreviation(ReservationWriteResource record) {
             var destination = await context.Destinations
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == record.DestinationId);
             return destination.Abbreviation;
         }
 
         private async Task<Driver> GetDriver(int driverId) {
             return await context.Drivers
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == driverId);
         }
 
@@ -478,6 +493,7 @@ namespace API.Features.Reservations {
 
         private bool HasTransfer(int pickupPointId) {
             var pickupPoint = context.PickupPoints
+                .AsNoTracking()
                 .Include(x => x.CoachRoute)
                 .AsNoTracking()
                 .SingleOrDefault(x => x.Id == pickupPointId);
@@ -516,6 +532,7 @@ namespace API.Features.Reservations {
         private DateTime GetScheduleDepartureTime(ReservationWriteResource record) {
             var portId = GetPortIdFromPickupPointId(record).ToString();
             var schedule = context.Set<Schedule>()
+                .AsNoTracking()
                 .Where(x => x.Date.ToString() == record.Date && x.DestinationId == record.DestinationId && x.PortId.ToString() == portId)
                 .SingleOrDefault();
             var departureTime = schedule.Date.ToString("yyyy-MM-dd") + " " + schedule.DepartureTime;
