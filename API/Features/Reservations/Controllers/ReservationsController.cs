@@ -69,17 +69,17 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PostReservationAsync([FromBody] ReservationWriteResource record) {
-            var response = reservationRepo.IsValid(record, scheduleRepo);
-            if (response == 200) {
+            var response = reservationRepo.IsValidAsync(record, scheduleRepo);
+            if (await response == 200) {
                 await AssignRefNoToNewReservation(record);
-                AttachPortIdToRecord(record);
+                await AttachPortIdToRecordAsync(record);
                 await AttachUserIdToRecord(record);
                 reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                 return StatusCode(200, new {
                     message = record.RefNo
                 });
             } else {
-                return GetErrorMessage(response);
+                return GetErrorMessage(await response);
             }
         }
 
@@ -88,15 +88,16 @@ namespace API.Features.Reservations {
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             await AttachUserIdToRecord(record);
-            var response = reservationRepo.IsValid(record, scheduleRepo);
+            await AttachPortIdToRecordAsync(record);
+            var response = reservationRepo.IsValidAsync(record, scheduleRepo);
             record = reservationRepo.UpdateForeignKeysWithNull(record);
-            if (response == 200) {
+            if (await response == 200) {
                 await reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
                 return StatusCode(200, new {
                     message = record.RefNo
                 });
             } else {
-                return GetErrorMessage(response);
+                return GetErrorMessage(await response);
             }
         }
 
@@ -131,8 +132,8 @@ namespace API.Features.Reservations {
             return record;
         }
 
-        private ReservationWriteResource AttachPortIdToRecord(ReservationWriteResource record) {
-            record.PortId = reservationRepo.GetPortIdFromPickupPointId(record);
+        private async Task<ReservationWriteResource> AttachPortIdToRecordAsync(ReservationWriteResource record) {
+            record.PortId = await reservationRepo.GetPortIdFromPickupPointId(record);
             return record;
         }
 

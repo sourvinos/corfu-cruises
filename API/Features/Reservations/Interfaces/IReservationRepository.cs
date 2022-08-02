@@ -15,8 +15,8 @@ namespace API.Features.Reservations {
         bool IsKeyUnique(ReservationWriteResource record);
         Task Update(string id, Reservation updatedRecord);
         bool IsOverbooked(string date, int destinationId);
-        int GetPortIdFromPickupPointId(ReservationWriteResource record);
-        int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo);
+        Task<int> GetPortIdFromPickupPointId(ReservationWriteResource record);
+        Task<int> IsValidAsync(ReservationWriteResource record, IScheduleRepository scheduleRepo);
         void AssignToDriver(int driverId, string[] ids);
         void AssignToShip(int shipId, string[] ids);
         ReservationWriteResource UpdateForeignKeysWithNull(ReservationWriteResource reservation);

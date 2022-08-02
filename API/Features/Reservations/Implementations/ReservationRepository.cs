@@ -95,7 +95,7 @@ namespace API.Features.Reservations {
         public async Task<Reservation> GetByIdToDelete(string id) {
             return await context.Reservations
                 .Include(x => x.Passengers)
-                .FirstAsync(x => x.ReservationId.ToString() == id);
+                .SingleOrDefaultAsync(x => x.ReservationId.ToString() == id);
         }
 
         public async Task<bool> IsUserOwner(int customerId) {
@@ -132,16 +132,15 @@ namespace API.Features.Reservations {
             });
         }
 
-        public int GetPortIdFromPickupPointId(ReservationWriteResource record) {
-            PickupPoint pickupPoint = context.PickupPoints
+        public async Task<int> GetPortIdFromPickupPointId(ReservationWriteResource record) {
+            PickupPoint pickupPoint = await context.PickupPoints
                 .AsNoTracking()
                 .Include(x => x.CoachRoute)
-                .Where(x => x.Id == record.PickupPointId)
-                .FirstOrDefault();
+                .SingleOrDefaultAsync(x => x.Id == record.DestinationId);
             return pickupPoint.CoachRoute.PortId;
         }
 
-        public int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
+        public async Task<int> IsValidAsync(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
             return true switch {
                 var x when x == !IsValidCustomer(record) => 450,
                 var x when x == !IsValidDestination(record) => 451,
@@ -154,24 +153,24 @@ namespace API.Features.Reservations {
                 var x when x == !IsCorrectPassengerCount(record) => 455,
                 var x when x == !scheduleRepo.DayHasSchedule(record.Date) => 432,
                 var x when x == !scheduleRepo.DayHasScheduleForDestination(record.Date, record.DestinationId) => 430,
-                var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, GetPortIdFromPickupPointId(record)) => 427,
+                var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, await GetPortIdFromPickupPointId(record)) => 427,
                 var x when x == SimpleUserHasNightRestrictions(record) => 459,
                 var x when x == SimpleUserCanNotAddReservationAfterDeparture(record) => 431,
-                var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
+                var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, await GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsOverbookingAllowed(record.Date, record.ReservationId, record.DestinationId, record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsKeyUnique(record) => 409,
                 _ => 200,
             };
         }
 
-        public void AssignToDriver(int driverId, string[] id) {
+        public void AssignToDriver(int driverId, string[] ids) {
             var strategy = context.Database.CreateExecutionStrategy();
             strategy.Execute(() => {
                 using var transaction = context.Database.BeginTransaction();
-                var reservations = context.Reservations
-                    .Where(x => id.Contains(x.ReservationId.ToString()))
+                var records = context.Reservations
+                    .Where(x => ids.Contains(x.ReservationId.ToString()))
                     .ToList();
-                reservations.ForEach(a => a.DriverId = driverId);
+                records.ForEach(a => a.DriverId = driverId);
                 context.SaveChanges();
                 if (settings.IsTesting) {
                     transaction.Dispose();
@@ -463,14 +462,14 @@ namespace API.Features.Reservations {
         private async Task<string> GetDestinationAbbreviation(ReservationWriteResource record) {
             var destination = await context.Destinations
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == record.DestinationId);
+                .SingleOrDefaultAsync(x => x.Id == record.DestinationId);
             return destination.Abbreviation;
         }
 
         private async Task<Driver> GetDriver(int driverId) {
             return await context.Drivers
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == driverId);
+                .SingleOrDefaultAsync(x => x.Id == driverId);
         }
 
         private bool SimpleUserHasNightRestrictions(ReservationWriteResource record) {
