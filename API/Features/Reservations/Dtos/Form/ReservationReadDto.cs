@@ -3,7 +3,7 @@ using API.Infrastructure.Classes;
 
 namespace API.Features.Reservations {
 
-    public class ReservationReadResource {
+    public class ReservationReadDto {
 
         public string ReservationId { get; set; }
 
@@ -21,11 +21,11 @@ namespace API.Features.Reservations {
 
         public SimpleResource Customer { get; set; }
         public SimpleResource Destination { get; set; }
-        public PickupPointWithPortDropdownResource PickupPoint { get; set; }
+        public PickupPointWithPortDropdownDto PickupPoint { get; set; }
         public SimpleResource Driver { get; set; }
         public SimpleResource Ship { get; set; }
 
-        public List<PassengerReadResource> Passengers { get; set; }
+        public List<PassengerReadDto> Passengers { get; set; }
 
     }
 

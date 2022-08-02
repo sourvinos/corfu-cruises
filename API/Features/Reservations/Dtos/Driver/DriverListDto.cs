@@ -1,6 +1,6 @@
 namespace API.Features.Reservations {
 
-    public class ReservationDriverListResource {
+    public class DriverListDto {
 
         public string RefNo { get; set; }
         public string Time { get; set; }

@@ -28,14 +28,14 @@ namespace API.Features.PickupPoints {
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointListDto>>(pickupPoints);
         }
 
-        public async Task<IEnumerable<PickupPointWithPortDropdownResource>> GetActiveWithPortForDropdown() {
+        public async Task<IEnumerable<PickupPointWithPortDropdownDto>> GetActiveWithPortForDropdown() {
             List<PickupPoint> pickupPoints = await context.Set<PickupPoint>()
                 .Include(x => x.CoachRoute).ThenInclude(x => x.Port)
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Time).ThenBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointWithPortDropdownResource>>(pickupPoints);
+            return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointWithPortDropdownDto>>(pickupPoints);
         }
 
         public new async Task<PickupPoint> GetById(int id) {
