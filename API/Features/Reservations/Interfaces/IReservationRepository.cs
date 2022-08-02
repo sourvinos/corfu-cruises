@@ -11,7 +11,7 @@ namespace API.Features.Reservations {
         Task<DriverResult<Reservation>> GetByDateAndDriver(string date, int driverId);
         Task<ReservationReadResource> GetById(string id);
         Task<Reservation> GetByIdToDelete(string id);
-        Task<bool> DoesUserOwnRecord(int customerId);
+        Task<bool> IsUserOwner(int customerId);
         bool IsKeyUnique(ReservationWriteResource record);
         Task Update(string id, Reservation updatedRecord);
         bool IsOverbooked(string date, int destinationId);

@@ -98,7 +98,7 @@ namespace API.Features.Reservations {
                 .FirstAsync(x => x.ReservationId.ToString() == id);
         }
 
-        public async Task<bool> DoesUserOwnRecord(int customerId) {
+        public async Task<bool> IsUserOwner(int customerId) {
             var user = await Identity.GetConnectedUserId(httpContextAccessor);
             var userDetails = Identity.GetConnectedUserDetails(userManager, user.UserId);
             return userDetails.CustomerId == customerId;
@@ -235,12 +235,12 @@ namespace API.Features.Reservations {
         private async Task AddPassengers(Reservation updatedRecord) {
             var records = new List<Passenger>();
             records.AddRange(updatedRecord.Passengers);
-            context.Set<Passenger>().AddRange(records);
+            context.Passengers.AddRange(records);
             await context.SaveChangesAsync();
         }
 
         private async Task RemovePassengers(IEnumerable<Passenger> passengers) {
-            context.Set<Passenger>().RemoveRange(passengers);
+            context.Passengers.RemoveRange(passengers);
             await context.SaveChangesAsync();
         }
 
@@ -278,7 +278,7 @@ namespace API.Features.Reservations {
         }
 
         private bool SimpleUserCanNotAddReservationAfterDeparture(ReservationWriteResource record) {
-            return !Identity.IsUserAdmin(httpContextAccessor).Result && IsNewReservationAfterDeparture(record);
+            return !Identity.IsUserAdmin(httpContextAccessor).Result && IsAfterDeparture(record);
         }
 
         private bool IsValidCustomer(ReservationWriteResource record) {
@@ -476,13 +476,13 @@ namespace API.Features.Reservations {
         private bool SimpleUserHasNightRestrictions(ReservationWriteResource record) {
             if (!Identity.IsUserAdmin(httpContextAccessor).Result && record.ReservationId == null) {
                 if (HasTransfer(record.PickupPointId)) {
-                    if (IsReservationForTomorrow(record.Date)) {
-                        if (IsNight()) {
+                    if (IsForTomorrow(record.Date)) {
+                        if (IsBetweenClosingTimeAndMidnight()) {
                             return true;
                         }
                     }
-                    if (IsReservationForToday(record.Date)) {
-                        if (IsNewReservationBeforeDeparture(record)) {
+                    if (IsForToday(record.Date)) {
+                        if (IsBetweenMidnightAndDeparture(record)) {
                             return true;
                         }
                     }
@@ -500,30 +500,30 @@ namespace API.Features.Reservations {
             return pickupPoint.CoachRoute.HasTransfer;
         }
 
-        private static bool IsReservationForTomorrow(string date) {
+        private static bool IsForTomorrow(string date) {
             var tomorrow = DateHelpers.GetLocalDateTime().AddDays(1);
             var tomorrowDate = DateHelpers.DateTimeToISOString(tomorrow);
             return date == tomorrowDate;
         }
 
-        private static bool IsReservationForToday(string date) {
+        private static bool IsForToday(string date) {
             var today = DateHelpers.GetLocalDateTime();
             var todayDate = DateHelpers.DateTimeToISOString(today);
             return date == todayDate;
         }
 
-        private static bool IsNight() {
+        private static bool IsBetweenClosingTimeAndMidnight() {
             var timeNow = DateHelpers.GetLocalDateTime().TimeOfDay;
             return timeNow.Hours >= 22;
         }
 
-        private bool IsNewReservationBeforeDeparture(ReservationWriteResource record) {
+        private bool IsBetweenMidnightAndDeparture(ReservationWriteResource record) {
             var timeNow = DateHelpers.GetLocalDateTime();
             var departureTime = GetScheduleDepartureTime(record);
             return DateTime.Compare(timeNow, departureTime) < 0;
         }
 
-        private bool IsNewReservationAfterDeparture(ReservationWriteResource record) {
+        private bool IsAfterDeparture(ReservationWriteResource record) {
             var date = DateHelpers.GetLocalDateTime();
             var departureTime = GetScheduleDepartureTime(record);
             return DateTime.Compare(date, departureTime) > 0;
@@ -531,7 +531,7 @@ namespace API.Features.Reservations {
 
         private DateTime GetScheduleDepartureTime(ReservationWriteResource record) {
             var portId = GetPortIdFromPickupPointId(record).ToString();
-            var schedule = context.Set<Schedule>()
+            var schedule = context.Schedules
                 .AsNoTracking()
                 .Where(x => x.Date.ToString() == record.Date && x.DestinationId == record.DestinationId && x.PortId.ToString() == portId)
                 .SingleOrDefault();

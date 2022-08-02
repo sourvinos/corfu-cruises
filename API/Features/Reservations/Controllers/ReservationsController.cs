@@ -56,7 +56,7 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         public async Task<IActionResult> GetById(string id) {
             var record = await reservationRepo.GetById(id);
-            if (await Identity.IsUserAdmin(httpContext) || await reservationRepo.DoesUserOwnRecord(record.Customer.Id)) {
+            if (await Identity.IsUserAdmin(httpContext) || await reservationRepo.IsUserOwner(record.Customer.Id)) {
                 return StatusCode(200, record);
             } else {
                 return StatusCode(490, new {
