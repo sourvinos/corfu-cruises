@@ -36,7 +36,7 @@ namespace API.Features.PickupPoints {
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<PickupPointWithPortDropdownDto>> GetActiveForDropdown() {
+        public async Task<IEnumerable<PickupPointWithPortDropdownResource>> GetActiveForDropdown() {
             return await repo.GetActiveWithPortForDropdown();
         }
 

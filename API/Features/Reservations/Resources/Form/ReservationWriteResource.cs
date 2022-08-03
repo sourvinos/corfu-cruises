@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace API.Features.Reservations {
 
-    public class ReservationWriteDto {
+    public class ReservationWriteResource {
 
         public Guid? ReservationId { get; set; }
         public int CustomerId { get; set; }
@@ -23,7 +23,7 @@ namespace API.Features.Reservations {
         public string Remarks { get; set; }
         public string UserId { get; set; }
 
-        public List<PassengerWriteDto> Passengers { get; set; }
+        public List<PassengerWriteResource> Passengers { get; set; }
 
     }
 

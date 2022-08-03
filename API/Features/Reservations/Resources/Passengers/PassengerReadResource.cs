@@ -3,7 +3,7 @@ using API.Infrastructure.Classes;
 
 namespace API.Features.Reservations {
 
-    public class PassengerReadDto {
+    public class PassengerReadResource {
 
         public int Id { get; set; }
 

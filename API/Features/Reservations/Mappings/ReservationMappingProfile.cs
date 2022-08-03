@@ -11,7 +11,7 @@ namespace API.Features.Reservations {
 
         public ReservationMappingProfile() {
             // List
-            CreateMap<Reservation, ReservationListDto>()
+            CreateMap<Reservation, ReservationListResource>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Date)))
                 .ForMember(x => x.CoachRouteAbbreviation, x => x.MapFrom(x => x.PickupPoint.CoachRoute.Abbreviation))
                 .ForMember(x => x.DriverDescription, x => x.NullSubstitute("(EMPTY)"))
@@ -20,16 +20,16 @@ namespace API.Features.Reservations {
                 .ForMember(x => x.PassengerCount, x => x.MapFrom(x => x.Passengers.Count))
                 .ForMember(x => x.PassengerDifference, x => x.MapFrom(x => x.TotalPersons - x.Passengers.Count));
             // DriverList
-            CreateMap<Reservation, DriverListDto>()
+            CreateMap<Reservation, ReservationDriverListResource>()
                 .ForMember(x => x.ExactPoint, x => x.MapFrom(x => x.PickupPoint.ExactPoint))
                 .ForMember(x => x.Time, x => x.MapFrom(x => x.PickupPoint.Time))
                 .ForMember(x => x.Fullname, x => x.MapFrom(x => x.Passengers.FirstOrDefault().Lastname + " " + x.Passengers.FirstOrDefault().Firstname));
             // Read reservation
-            CreateMap<Reservation, ReservationReadDto>()
+            CreateMap<Reservation, ReservationReadResource>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Date)))
                 .ForMember(x => x.Driver, x => x.NullSubstitute(new Driver { Id = 0, Description = "(EMPTY)" }))
                 .ForMember(x => x.Ship, x => x.NullSubstitute(new Ship { Id = 0, Description = "(EMPTY)" }))
-                .ForMember(x => x.PickupPoint, x => x.MapFrom(r => new PickupPointWithPortDropdownDto {
+                .ForMember(x => x.PickupPoint, x => x.MapFrom(r => new PickupPointWithPortDropdownResource {
                     Id = r.PickupPoint.Id,
                     Description = r.PickupPoint.Description,
                     ExactPoint = r.PickupPoint.ExactPoint,
@@ -40,12 +40,12 @@ namespace API.Features.Reservations {
                     }
                 }));
             // Read passenger
-            CreateMap<Passenger, PassengerReadDto>()
+            CreateMap<Passenger, PassengerReadResource>()
                 .ForMember(x => x.Birthdate, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Birthdate)));
             // Write reservation
-            CreateMap<ReservationWriteDto, Reservation>();
+            CreateMap<ReservationWriteResource, Reservation>();
             // Write passenger
-            CreateMap<PassengerWriteDto, Passenger>();
+            CreateMap<PassengerWriteResource, Passenger>();
         }
 
     }

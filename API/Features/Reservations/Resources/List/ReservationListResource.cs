@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 
 namespace API.Features.Reservations {
 
-    public class ReservationListDto {
+    public class ReservationListResource {
 
         public Guid ReservationId { get; set; }
 

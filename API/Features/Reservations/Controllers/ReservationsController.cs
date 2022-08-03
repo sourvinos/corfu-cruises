@@ -30,7 +30,7 @@ namespace API.Features.Reservations {
 
         [HttpGet("byDate/{date}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationDto<ReservationListDto>> GetByDate([FromRoute] string date) {
+        public async Task<ReservationGroupResource<ReservationListResource>> GetByDate([FromRoute] string date) {
             return await reservationRepo.GetByDate(date);
         }
 
@@ -42,13 +42,13 @@ namespace API.Features.Reservations {
 
         [HttpGet("byDate/{date}/byDriver/{driverId}")]
         [Authorize(Roles = "admin")]
-        public async Task<DriverDto<Reservation>> GetByDateAndDriver([FromRoute] string date, int driverId) {
+        public async Task<DriverResult<Reservation>> GetByDateAndDriver([FromRoute] string date, int driverId) {
             return await reservationRepo.GetByDateAndDriver(date, driverId);
         }
 
         [HttpGet("byRefNo/{refNo}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationDto<ReservationListDto>> GetByRefNo([FromRoute] string refNo) {
+        public async Task<ReservationGroupResource<ReservationListResource>> GetByRefNo([FromRoute] string refNo) {
             return await reservationRepo.GetByRefNo(refNo);
         }
 
@@ -68,13 +68,13 @@ namespace API.Features.Reservations {
         [HttpPost]
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PostReservationAsync([FromBody] ReservationWriteDto record) {
+        public async Task<IActionResult> PostReservationAsync([FromBody] ReservationWriteResource record) {
             var response = reservationRepo.IsValidAsync(record, scheduleRepo);
             if (await response == 200) {
                 await AssignRefNoToNewReservation(record);
                 await AttachPortIdToRecordAsync(record);
                 await AttachUserIdToRecord(record);
-                reservationRepo.Create(mapper.Map<ReservationWriteDto, Reservation>(record));
+                reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
                 return StatusCode(200, new {
                     message = record.RefNo
                 });
@@ -86,13 +86,13 @@ namespace API.Features.Reservations {
         [HttpPut("{id}")]
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteDto record) {
+        public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             await AttachUserIdToRecord(record);
             await AttachPortIdToRecordAsync(record);
             var response = reservationRepo.IsValidAsync(record, scheduleRepo);
             record = reservationRepo.UpdateForeignKeysWithNull(record);
             if (await response == 200) {
-                await reservationRepo.Update(id, mapper.Map<ReservationWriteDto, Reservation>(record));
+                await reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
                 return StatusCode(200, new {
                     message = record.RefNo
                 });
@@ -126,18 +126,18 @@ namespace API.Features.Reservations {
             });
         }
 
-        private async Task<ReservationWriteDto> AttachUserIdToRecord(ReservationWriteDto record) {
+        private async Task<ReservationWriteResource> AttachUserIdToRecord(ReservationWriteResource record) {
             var user = await Identity.GetConnectedUserId(httpContext);
             record.UserId = user.UserId;
             return record;
         }
 
-        private async Task<ReservationWriteDto> AttachPortIdToRecordAsync(ReservationWriteDto record) {
+        private async Task<ReservationWriteResource> AttachPortIdToRecordAsync(ReservationWriteResource record) {
             record.PortId = await reservationRepo.GetPortIdFromPickupPointId(record);
             return record;
         }
 
-        private async Task<ReservationWriteDto> AssignRefNoToNewReservation(ReservationWriteDto record) {
+        private async Task<ReservationWriteResource> AssignRefNoToNewReservation(ReservationWriteResource record) {
             record.RefNo = await reservationRepo.AssignRefNoToNewReservation(record);
             return record;
         }

@@ -32,8 +32,8 @@ namespace API.Features.Reservations {
             this.userManager = userManager;
         }
 
-        public async Task<ReservationDto<ReservationListDto>> GetByDate(string date) {
-            IEnumerable<Reservation> reservations;
+        public async Task<ReservationGroupResource<ReservationListResource>> GetByDate(string date) {
+            IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
             if (await Identity.IsUserAdmin(httpContextAccessor)) {
                 reservations = GetReservationsFromAllUsersByDate(date);
             } else {
@@ -41,23 +41,28 @@ namespace API.Features.Reservations {
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
                 reservations = GetReservationsForLinkedCustomer(date, (int)connectedUserDetails.CustomerId);
             }
-            return mapper.Map<IEnumerable<Reservation>, ReservationDto<ReservationListDto>>(reservations);
+            var mainResult = new MainResult<Reservation> {
+                Persons = reservations.Sum(x => x.TotalPersons),
+                Reservations = reservations.ToList(),
+            };
+            return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
         }
 
-        public async Task<DriverDto<Reservation>> GetByDateAndDriver(string date, int driverId) {
+        public async Task<DriverResult<Reservation>> GetByDateAndDriver(string date, int driverId) {
             var driver = await GetDriver(driverId);
             var reservations = await GetReservationsByDateAndDriver(date, driverId);
-            return new DriverDto<Reservation> {
+            return new DriverResult<Reservation> {
                 Date = date,
                 DriverId = driver != null ? driverId : 0,
                 DriverDescription = driver != null ? driver.Description : "(EMPTY)",
                 Phones = driver != null ? driver.Phones : "(EMPTY)",
-                Reservations = mapper.Map<IEnumerable<Reservation>, IEnumerable<DriverListDto>>(reservations)
+                Reservations = mapper.Map<IEnumerable<Reservation>, IEnumerable<ReservationDriverListResource>>(reservations)
             };
         }
 
-        public async Task<ReservationDto<ReservationListDto>> GetByRefNo(string refNo) {
-            IEnumerable<Reservation> reservations;
+        public async Task<ReservationGroupResource<ReservationListResource>> GetByRefNo(string refNo) {
+            IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
+            var connectedUser = await Identity.GetConnectedUserId(httpContextAccessor);
             if (await Identity.IsUserAdmin(httpContextAccessor)) {
                 reservations = GetReservationsFromAllUsersByRefNo(refNo);
             } else {
@@ -65,10 +70,14 @@ namespace API.Features.Reservations {
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
                 reservations = GetReservationsFromLinkedCustomerbyRefNo(refNo, (int)connectedUserDetails.CustomerId);
             }
-            return mapper.Map<IEnumerable<Reservation>, ReservationDto<ReservationListDto>>(reservations);
+            var mainResult = new MainResult<Reservation> {
+                Persons = reservations.Sum(x => x.TotalPersons),
+                Reservations = reservations.ToList(),
+            };
+            return mapper.Map<MainResult<Reservation>, ReservationGroupResource<ReservationListResource>>(mainResult);
         }
 
-        public async Task<ReservationReadDto> GetById(string reservationId) {
+        public async Task<ReservationReadResource> GetById(string reservationId) {
             var record = await context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
@@ -80,7 +89,7 @@ namespace API.Features.Reservations {
                 .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
                 .Include(x => x.Passengers).ThenInclude(x => x.Gender)
                 .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId);
-            return mapper.Map<Reservation, ReservationReadDto>(record);
+            return mapper.Map<Reservation, ReservationReadResource>(record);
         }
 
         public async Task<Reservation> GetByIdToDelete(string id) {
@@ -95,7 +104,7 @@ namespace API.Features.Reservations {
             return userDetails.CustomerId == customerId;
         }
 
-        public bool IsKeyUnique(ReservationWriteDto record) {
+        public bool IsKeyUnique(ReservationWriteResource record) {
             return !context.Reservations
                 .AsNoTracking()
                 .Any(x =>
@@ -123,7 +132,7 @@ namespace API.Features.Reservations {
             });
         }
 
-        public async Task<int> GetPortIdFromPickupPointId(ReservationWriteDto record) {
+        public async Task<int> GetPortIdFromPickupPointId(ReservationWriteResource record) {
             PickupPoint pickupPoint = await context.PickupPoints
                 .AsNoTracking()
                 .Include(x => x.CoachRoute)
@@ -131,7 +140,7 @@ namespace API.Features.Reservations {
             return pickupPoint.CoachRoute.PortId;
         }
 
-        public async Task<int> IsValidAsync(ReservationWriteDto record, IScheduleRepository scheduleRepo) {
+        public async Task<int> IsValidAsync(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
             return true switch {
                 var x when x == !IsValidCustomer(record) => 450,
                 var x when x == !IsValidDestination(record) => 451,
@@ -188,13 +197,13 @@ namespace API.Features.Reservations {
             });
         }
 
-        public ReservationWriteDto UpdateForeignKeysWithNull(ReservationWriteDto reservation) {
+        public ReservationWriteResource UpdateForeignKeysWithNull(ReservationWriteResource reservation) {
             if (reservation.DriverId == 0) reservation.DriverId = null;
             if (reservation.ShipId == 0) reservation.ShipId = null;
             return reservation;
         }
 
-        public async Task<string> AssignRefNoToNewReservation(ReservationWriteDto record) {
+        public async Task<string> AssignRefNoToNewReservation(ReservationWriteResource record) {
             return await GetDestinationAbbreviation(record) + await IncrementRefNoByOne();
         }
 
@@ -267,32 +276,32 @@ namespace API.Features.Reservations {
             return port[0].MaxPassengers;
         }
 
-        private bool SimpleUserCanNotAddReservationAfterDeparture(ReservationWriteDto record) {
+        private bool SimpleUserCanNotAddReservationAfterDeparture(ReservationWriteResource record) {
             return !Identity.IsUserAdmin(httpContextAccessor).Result && IsAfterDeparture(record);
         }
 
-        private bool IsValidCustomer(ReservationWriteDto record) {
+        private bool IsValidCustomer(ReservationWriteResource record) {
             if (record.ReservationId == null) {
                 return context.Customers.AsNoTracking().SingleOrDefault(x => x.Id == record.CustomerId && x.IsActive) != null;
             }
             return context.Customers.AsNoTracking().SingleOrDefault(x => x.Id == record.CustomerId) != null;
         }
 
-        private bool IsValidDestination(ReservationWriteDto record) {
+        private bool IsValidDestination(ReservationWriteResource record) {
             if (record.ReservationId == null) {
                 return context.Destinations.AsNoTracking().SingleOrDefault(x => x.Id == record.DestinationId && x.IsActive) != null;
             }
             return context.Destinations.AsNoTracking().SingleOrDefault(x => x.Id == record.DestinationId) != null;
         }
 
-        private bool IsValidPickupPoint(ReservationWriteDto record) {
+        private bool IsValidPickupPoint(ReservationWriteResource record) {
             if (record.ReservationId == null) {
                 return context.PickupPoints.AsNoTracking().SingleOrDefault(x => x.Id == record.PickupPointId && x.IsActive) != null;
             }
             return context.PickupPoints.AsNoTracking().SingleOrDefault(x => x.Id == record.PickupPointId) != null;
         }
 
-        private bool IsValidDriver(ReservationWriteDto record) {
+        private bool IsValidDriver(ReservationWriteResource record) {
             if (record.DriverId != null && record.DriverId != 0) {
                 if (record.ReservationId == null) {
                     var driver = context.Drivers.AsNoTracking().SingleOrDefault(x => x.Id == record.DriverId && x.IsActive);
@@ -307,7 +316,7 @@ namespace API.Features.Reservations {
             return true;
         }
 
-        private bool IsValidShip(ReservationWriteDto record) {
+        private bool IsValidShip(ReservationWriteResource record) {
             if (record.ShipId != null && record.ShipId != 0) {
                 if (record.ReservationId == null) {
                     var ship = context.Ships.AsNoTracking().SingleOrDefault(x => x.Id == record.ShipId && x.IsActive);
@@ -322,7 +331,7 @@ namespace API.Features.Reservations {
             return true;
         }
 
-        private static bool IsCorrectPassengerCount(ReservationWriteDto record) {
+        private static bool IsCorrectPassengerCount(ReservationWriteResource record) {
             if (record.Passengers != null) {
                 if (record.Passengers.Count != 0) {
                     return record.Passengers.Count <= record.Adults + record.Kids + record.Free;
@@ -331,7 +340,7 @@ namespace API.Features.Reservations {
             return true;
         }
 
-        private bool IsValidNationality(ReservationWriteDto record) {
+        private bool IsValidNationality(ReservationWriteResource record) {
             if (record.Passengers != null) {
                 bool isValid = false;
                 foreach (var passenger in record.Passengers) {
@@ -346,7 +355,7 @@ namespace API.Features.Reservations {
             return true;
         }
 
-        private bool IsValidGender(ReservationWriteDto record) {
+        private bool IsValidGender(ReservationWriteResource record) {
             if (record.Passengers != null) {
                 bool isValid = false;
                 foreach (var passenger in record.Passengers) {
@@ -361,7 +370,7 @@ namespace API.Features.Reservations {
             return true;
         }
 
-        private bool IsValidOccupant(ReservationWriteDto record) {
+        private bool IsValidOccupant(ReservationWriteResource record) {
             if (record.Passengers != null) {
                 bool isValid = false;
                 foreach (var passenger in record.Passengers) {
@@ -450,7 +459,7 @@ namespace API.Features.Reservations {
             return refNo.LastRefNo.ToString();
         }
 
-        private async Task<string> GetDestinationAbbreviation(ReservationWriteDto record) {
+        private async Task<string> GetDestinationAbbreviation(ReservationWriteResource record) {
             var destination = await context.Destinations
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == record.DestinationId);
@@ -463,7 +472,7 @@ namespace API.Features.Reservations {
                 .SingleOrDefaultAsync(x => x.Id == driverId);
         }
 
-        private bool SimpleUserHasNightRestrictions(ReservationWriteDto record) {
+        private bool SimpleUserHasNightRestrictions(ReservationWriteResource record) {
             if (!Identity.IsUserAdmin(httpContextAccessor).Result && record.ReservationId == null) {
                 if (HasTransfer(record.PickupPointId)) {
                     if (IsForTomorrow(record.Date)) {
@@ -507,19 +516,19 @@ namespace API.Features.Reservations {
             return timeNow.Hours >= 22;
         }
 
-        private bool IsBetweenMidnightAndDeparture(ReservationWriteDto record) {
+        private bool IsBetweenMidnightAndDeparture(ReservationWriteResource record) {
             var timeNow = DateHelpers.GetLocalDateTime();
             var departureTime = GetScheduleDepartureTime(record);
             return DateTime.Compare(timeNow, departureTime) < 0;
         }
 
-        private bool IsAfterDeparture(ReservationWriteDto record) {
+        private bool IsAfterDeparture(ReservationWriteResource record) {
             var date = DateHelpers.GetLocalDateTime();
             var departureTime = GetScheduleDepartureTime(record);
             return DateTime.Compare(date, departureTime) > 0;
         }
 
-        private DateTime GetScheduleDepartureTime(ReservationWriteDto record) {
+        private DateTime GetScheduleDepartureTime(ReservationWriteResource record) {
             var portId = GetPortIdFromPickupPointId(record).ToString();
             var schedule = context.Schedules
                 .AsNoTracking()
