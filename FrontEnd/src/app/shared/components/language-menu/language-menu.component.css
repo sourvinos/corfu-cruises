@@ -15,7 +15,7 @@ li {
 }
 
 button {
-    background-color: var(--color-b);
+    background-color: transparent;
     border-radius: 0;
     border: none;
     color: var(--color-c);

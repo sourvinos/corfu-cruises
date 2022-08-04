@@ -3,6 +3,18 @@
         "feature": "loginForm",
         "labels": [
             {
+                "id": "title-top",
+                "description": "Willkommen bei"
+            },
+            {
+                "id": "title-middle",
+                "description": "CORFU CRUISES B2B"
+            },
+            {
+                "id": "title-bottom",
+                "description": "Korfu, Benitses, Lefkimmi, Kavos"
+            },
+            {
                 "id": "header",
                 "description": "Anmeldung"
             },

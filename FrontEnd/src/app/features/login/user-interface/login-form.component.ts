@@ -26,13 +26,11 @@ import { PortService } from '../../ports/classes/services/port.service'
 import { ShipOwnerService } from '../../shipOwners/classes/services/shipOwner.service'
 import { ShipService } from '../../ships/classes/services/ship.service'
 import { environment } from 'src/environments/environment'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'login-form',
     templateUrl: './login-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css', './login-form.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../assets/styles/forms.css', './login-form.component.css']
 })
 
 export class LoginFormComponent {
@@ -78,6 +76,11 @@ export class LoginFormComponent {
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public getLineA(): string {
+        const lineA = this.helperService.getApplicationTitle[0]
+        return lineA
     }
 
     public onForgotPassword(): void {

@@ -3,6 +3,18 @@
         "feature": "loginForm",
         "labels": [
             {
+                "id": "title-top",
+                "description": "Καλώς ήρθατε στην"
+            },
+            {
+                "id": "title-middle",
+                "description": "CORFU CRUISES B2B"
+            },
+            {
+                "id": "title-bottom",
+                "description": "Κέρκυρα, Μπενίτσες, Λευκίμμη, Κάβος"
+            },
+            {
                 "id": "header",
                 "description": "Σύνδεση"
             },

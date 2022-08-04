@@ -1,4 +1,11 @@
-<div id="form-wrapper">
+<div id="login-form">
+
+    <div id="top">
+        <language-menu></language-menu>
+        <theme-menu></theme-menu>
+    </div>
+
+    <login-logo></login-logo>
 
     <div id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
@@ -23,10 +30,8 @@
     </div>
 
     <div id="footer">
-        <div @slideFromRight class="button-group">
-            <button (click)="onForgotPassword()" class="transparent" data-cy="forgotPassword" id="forgotPassword" mat-flat-button>{{ getLabel("forgotPasswordButton") }}</button>
-            <button (click)="onLogin()" [disabled]="!form.valid" class="primary" data-cy="login" id="login" mat-flat-button>{{ getLabel("loginButton") }}</button>
-        </div>
+        <button (click)="onForgotPassword()" class="transparent" data-cy="forgotPassword" id="forgotPassword" mat-flat-button>{{ getLabel("forgotPasswordButton") }}</button>
+        <button (click)="onLogin()" [disabled]="!form.valid" class="primary" data-cy="login" id="login" mat-flat-button>{{ getLabel("loginButton") }}</button>
     </div>
 
     <div *ngIf="isLoading | async">

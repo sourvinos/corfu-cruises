@@ -31,7 +31,7 @@ export class LogoComponent {
 
     private updateLogoImage(): void {
         this.companyLogoText = this.helperService.getApplicationTitle()
-        this.companyLogoImagePathname = '/assets/images/icons/logo.png'
+        this.companyLogoImagePathname = '/assets/images/icons/logo.svg'
     }
 
     //#endregion
