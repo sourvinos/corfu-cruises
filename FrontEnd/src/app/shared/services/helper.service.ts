@@ -1,14 +1,13 @@
-import { FormGroup } from '@angular/forms'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { defer, finalize, Observable, Subject } from 'rxjs'
 // Custom
+import { DialogService } from './dialog.service'
 import { EmojiService } from './emoji.service'
 import { LocalStorageService } from './local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { ModalActionResultService } from './modal-action-result.service'
 import { environment } from 'src/environments/environment'
-import { DialogService } from './dialog.service'
 
 export function prepare<T>(callback: () => void): (source: Observable<T>) => Observable<T> {
     return (source: Observable<T>): Observable<T> => defer(() => {
@@ -77,7 +76,7 @@ export class HelperService {
         return 'desktop'
     }
 
-    public doPostSaveFormTasks(message: string, iconType: string, returnUrl: string, form: FormGroup, formReset = true, goBack = true): Promise<any> {
+    public doPostSaveFormTasks(message: string, iconType: string, returnUrl: string, form: any, formReset = true, goBack = true): Promise<any> {
         const promise = new Promise((resolve) => {
             this.modalActionResultService.open(message, iconType, ['ok']).subscribe(() => {
                 formReset ? form.reset() : null
