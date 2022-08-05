@@ -8,7 +8,7 @@ import { Component } from '@angular/core'
 
 export class TopBarComponent {
 
-    public isLoginVisible: boolean
+    public isLoginOrForgotPasswordVisible: boolean
 
     public onClickMenu(): void {
         document.getElementById('hamburger-menu').classList.toggle('visible')
@@ -16,13 +16,20 @@ export class TopBarComponent {
     }
 
     ngDoCheck(): void {
-        const element = document.getElementById('login-form')
-        if (typeof (element) != 'undefined' && element != null) {
-            this.isLoginVisible = true
+        if (this.isFormVisible('login-form') || this.isFormVisible('forgot-password-form')) {
+            this.isLoginOrForgotPasswordVisible = true
         } else {
-            this.isLoginVisible = false
+            this.isLoginOrForgotPasswordVisible = false
         }
+    }
 
+    private isFormVisible(formName: string): boolean {
+        const element = document.getElementById(formName)
+        if (typeof (element) != 'undefined' && element != null) {
+            return true
+        } else {
+            return false
+        }
     }
 
 }

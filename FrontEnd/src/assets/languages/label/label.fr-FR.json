@@ -12,7 +12,7 @@
             },
             {
                 "id": "title-bottom",
-                "description": "Corfu, Benitses, Lefkimmi, Kavos"
+                "description": "Corfu ville, Benitses, Lefkimmi, Kavos"
             },
             {
                 "id": "header",
@@ -851,7 +851,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Perte de mot de passe"
+                "description": "J'ai oublié mon mot de passe"
             },
             {
                 "id": "email",

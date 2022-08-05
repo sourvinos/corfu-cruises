@@ -12,7 +12,7 @@
             },
             {
                 "id": "title-bottom",
-                "description": "Κέρκυρα, Μπενίτσες, Λευκίμμη, Κάβος"
+                "description": "Πόλη Κέρκυρας, Μπενίτσες, Λευκίμμη, Κάβος"
             },
             {
                 "id": "header",
@@ -851,7 +851,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Απώλεια κωδικού"
+                "description": "Ξέχασα τον κωδικό μου"
             },
             {
                 "id": "email",

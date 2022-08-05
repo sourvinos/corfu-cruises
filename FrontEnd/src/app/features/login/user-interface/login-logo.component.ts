@@ -5,7 +5,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 @Component({
     selector: 'login-logo',
     templateUrl: './login-logo.component.html',
-    styleUrls: ['./login-logo.component.css']
+    styleUrls: ['../../../shared/styles/login-forgot-password-logo.css']
 })
 
 export class LoginLogoComponent {

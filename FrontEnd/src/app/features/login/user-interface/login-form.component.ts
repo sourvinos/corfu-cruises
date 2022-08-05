@@ -30,7 +30,7 @@ import { environment } from 'src/environments/environment'
 @Component({
     selector: 'login-form',
     templateUrl: './login-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css', './login-form.component.css']
+    styleUrls: ['../../../../assets/styles/forms.css', '../../../shared/styles/login-forgot-password-form.css']
 })
 
 export class LoginFormComponent {
@@ -59,6 +59,7 @@ export class LoginFormComponent {
         this.initForm()
         this.addShortcuts()
         this.clearStoredVariables()
+        this.focusOnField('username')
     }
 
     ngOnDestroy(): void {
@@ -143,6 +144,10 @@ export class LoginFormComponent {
         this.accountService.isConnectedUserAdmin().subscribe(response => {
             this.interactionService.UpdateSideMenuTogglerState(response)
         })
+    }
+
+    private focusOnField(field: string): void {
+        this.helperService.focusOnField(field)
     }
 
     private goHome(): void {
