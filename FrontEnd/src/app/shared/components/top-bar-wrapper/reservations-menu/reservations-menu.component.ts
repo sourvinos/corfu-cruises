@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core'
-import { NavigationEnd, Router } from '@angular/router'
+import { Router } from '@angular/router'
 import { Observable, Subject, takeUntil } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
@@ -19,20 +19,13 @@ export class ReservationsMenuComponent {
     //#region variables
 
     private ngunsubscribe = new Subject<void>()
-    private url: string
     public loginStatus: Observable<boolean>
-    public isAdmin: boolean
+    public isAdmin = true
     public menuItems: [] = []
 
     //#endregion
 
-    constructor(private accountService: AccountService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageMenuService: MessageMenuService, private router: Router) {
-        this.router.events.subscribe((navigation) => {
-            if (navigation instanceof NavigationEnd) {
-                this.url = navigation.url
-            }
-        })
-    }
+    constructor(private accountService: AccountService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageMenuService: MessageMenuService, private router: Router) { }
 
     //#region listeners
 
@@ -50,9 +43,7 @@ export class ReservationsMenuComponent {
         this.messageMenuService.getMessages().then((response) => {
             this.createMenu(response)
             this.subscribeToInteractionService()
-            this.interactionService.isAdmin.subscribe(response => {
-                this.isAdmin = response
-            })
+
         })
     }
 
@@ -68,10 +59,6 @@ export class ReservationsMenuComponent {
         this.menuItems = response
     }
 
-    private setActiveMenuItem(element: string) {
-        document.getElementById(element).classList.add('active')
-    }
-
     private subscribeToInteractionService(): void {
         this.interactionService.refreshMenus.pipe(takeUntil(this.ngunsubscribe)).subscribe(() => {
             this.messageMenuService.getMessages().then((response) => {
@@ -83,6 +70,9 @@ export class ReservationsMenuComponent {
 
     private updateVariables(): void {
         this.loginStatus = this.accountService.isLoggedIn
+        this.interactionService.isAdmin.subscribe(response => {
+            this.isAdmin = response
+        })
     }
 
     //#endregion
