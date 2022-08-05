@@ -3,6 +3,18 @@
         "feature": "loginForm",
         "labels": [
             {
+                "id": "title-top",
+                "description": "Welcome to"
+            },
+            {
+                "id": "title-middle",
+                "description": "CORFU CRUISES B2B"
+            },
+            {
+                "id": "title-bottom",
+                "description": "Corfu town, Benitses, Lefkimmi, Kavos"
+            },
+            {
                 "id": "header",
                 "description": "Login"
             },
@@ -839,7 +851,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Forgot password"
+                "description": "I forgot my password"
             },
             {
                 "id": "email",

@@ -3,6 +3,18 @@
         "feature": "loginForm",
         "labels": [
             {
+                "id": "title-top",
+                "description": "Καλώς ήρθατε στην"
+            },
+            {
+                "id": "title-middle",
+                "description": "CORFU CRUISES B2B"
+            },
+            {
+                "id": "title-bottom",
+                "description": "Πόλη Κέρκυρας, Μπενίτσες, Λευκίμμη, Κάβος"
+            },
+            {
                 "id": "header",
                 "description": "Σύνδεση"
             },
@@ -839,7 +851,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Απώλεια κωδικού"
+                "description": "Ξέχασα τον κωδικό μου"
             },
             {
                 "id": "email",

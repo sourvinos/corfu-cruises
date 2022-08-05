@@ -13,13 +13,11 @@ import { PrimeNgModule } from '../shared/modules/primeng.module'
 import { SharedModule } from 'src/app/shared/modules/shared.module'
 // Components
 import { AppComponent } from './app.component'
-import { LanguageMenuComponent } from '../shared/components/language-menu/language-menu.component'
 import { LogoComponent } from '../shared/components/top-bar-wrapper/logo/logo.component'
 import { ReservationsMenuComponent } from '../shared/components/top-bar-wrapper/reservations-menu/reservations-menu.component'
 import { SearchByRefBoxComponent } from '../shared/components/top-bar-wrapper/search-byRef-box/search-byRef-box.component'
 import { SideMenuComponent } from './../shared/components/side-menu/side-menu/side-menu.component'
 import { SideMenuTogglerComponent } from '../shared/components/side-menu/side-menu-toggler/side-menu-toggler.component'
-import { ThemeMenuComponent } from '../shared/components/top-bar-wrapper/theme-menu/theme-menu.component'
 import { TopBarComponent } from '../shared/components/top-bar-wrapper/top-bar/top-bar.component'
 import { TopMenuComponent } from '../shared/components/top-bar-wrapper/top-menu/top-menu.component'
 import { UserMenuComponent } from '../shared/components/user-menu/user-menu.component'
@@ -29,13 +27,11 @@ import { MonitorInterceptor } from '../shared/services/jwt.interceptor'
 @NgModule({
     declarations: [
         AppComponent,
-        LanguageMenuComponent,
         LogoComponent,
         ReservationsMenuComponent,
         SearchByRefBoxComponent,
         SideMenuComponent,
         SideMenuTogglerComponent,
-        ThemeMenuComponent,
         TopBarComponent,
         TopMenuComponent,
         UserMenuComponent
