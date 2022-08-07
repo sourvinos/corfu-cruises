@@ -213,7 +213,6 @@
             }
         }
     },
-    "defaultProject": "FrontEnd",
     "cli": {
       "analytics": false
     }

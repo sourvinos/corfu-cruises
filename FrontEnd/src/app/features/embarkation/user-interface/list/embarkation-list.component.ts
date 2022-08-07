@@ -137,9 +137,7 @@ export class EmbarkationListComponent {
     }
 
     public doReportTasks(): void {
-        this.getDistinctShipsFromFilteredRecords().forEach(ship => {
-            this.embarkationPDFService.createPDF(this.filteredRecords.reservations.filter(x => x.ship == ship.value))
-        })
+        this.embarkationPDFService.createPDF(this.filteredRecords.reservations)
     }
 
     public embarkSinglePassenger(id: number): void {

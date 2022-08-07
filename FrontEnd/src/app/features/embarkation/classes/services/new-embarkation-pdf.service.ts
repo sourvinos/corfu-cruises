@@ -1,10 +1,6 @@
 import pdfMake from 'pdfmake/build/pdfmake'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import { Injectable } from '@angular/core'
-// Fonts
-import 'src/assets/fonts/ACCanterBold.js'
-import 'src/assets/fonts/NotoSansMonoCondensedRegular.js'
-import 'src/assets/fonts/PFHandbookProThin.js'
 // Custom
 import { EmbarkationVM } from '../view-models/embarkation-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -30,42 +26,69 @@ export class NewEmbarkationPDFService {
     //#region public methods
 
     public createPDF(records: EmbarkationVM[]): void {
-        console.log(records)
         this.records = records
+        console.log(this.records)
         this.createReservationLine()
-        this.populateCriteriaFromStoredVariables('CAPTAIN BILL')
+        this.populateCriteriaFromStoredVariables()
+
         const dd = {
-            pageMargins: 30,
+            background: [
+                {
+                    image: this.logoService.getLogo(),
+                    width: '1000',
+                    opacity: 0.03
+                }
+            ],
+            info: {
+                title: 'Awesonme document',
+                filename: 'Boo.pdf'
+            },
             pageOrientation: 'portrait',
             pageSize: 'A4',
-            defaultStyle: { fontSize: 6 },
-            content:
-                [
-                    {
-                        table: {
-                            body: [
-                                [this.createLogo(), this.createTitle(), [this.createCriteria()]]
-                            ],
-                            widths: ['20%', '40%', '40%'],
-                            heights: 60,
-                        }, layout: 'noBorders'
-                    }, {
-                        table: {
-                            body: this.rows
-                        }, layout: ''
+            content: [
+                {
+                    margin: [-10, 0, 0, 20],
+                    columns: [
+                        {
+                            type: 'none',
+                            ul: [
+                                { text: 'Corfu Cruises', fontSize: 20, alignment: 'left', color: '#0a5f91', margin: [-5, 0, 0, 0] },
+                                { text: 'Embarkation Report', fontSize: 10, alignment: 'left', color: '#22a7f2', margin: [-4, 0, 0, 0] }
+                            ]
+                        },
+                        {
+                            type: 'none',
+                            ul: [
+                                { text: 'Date: ' + this.helperService.formatISODateToLocale(this.criteria.date), alignment: 'right', fontSize: 8, color: '#0a5f91' },
+                                { text: 'Destination: ' + this.singleOrAllCriteria(this.criteria.destination), alignment: 'right', fontSize: 8, color: '#0a5f91' },
+                                { text: 'Port: ' + this.singleOrAllCriteria(this.criteria.port), alignment: 'right', fontSize: 8, color: '#0a5f91' },
+                                { text: 'Ship: ' + this.singleOrAllCriteria(this.criteria.ship), alignment: 'right', fontSize: 8, color: '#0a5f91' }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    table: {
+                        headerRows: 1,
+                        widths: ['*', '*', '*', '*', '*', '*', '*', '*', 25],
+                        body: this.rows,
+                    }, layout: 'lightHorizontalLines'
+                },
+            ],
+            footer: (currentPage: { toString: () => string }, pageCount: string) => {
+                return {
+                    layout: 'noBorders',
+                    margin: [0, 10, 40, 10],
+                    table: {
+                        widths: ['*', 'auto'],
+                        body: [
+                            [
+                                { text: '' },
+                                { text: 'Page ' + currentPage.toString() + ' of ' + pageCount, alignment: 'right', fontSize: 6 }
+                            ]
+                        ]
                     }
-                ],
-            styles: {
-                table: {
-                    fontSize: 6,
-                    bold: false
-                },
-                paddingLeft: {
-                    margin: [50, 0, 0, 0]
-                },
-                paddingTop: {
-                    margin: [0, 15, 0, 0]
-                },
+                }
             }
         }
         this.createPdf(dd)
@@ -76,53 +99,65 @@ export class NewEmbarkationPDFService {
     //#region private methods
 
     private createPdf(document: any): void {
-        // pdfMake.fonts = {
-        //     Roboto: { normal: 'Roboto-Regular.ttf' }
-        // }
         pdfMake.createPdf(document).open()
     }
 
     //#endregion
 
-    private createLogo(): any[] {
-        return [{ image: this.logoService.getLogo(), fit: [40, 40], alignment: 'center' }]
-    }
-
-    private createTitle(): any[] {
-        return [
-            { text: 'CORFU CRUISES', style: 'tableHeader', alignment: 'center', bold: true, fontSize: 14 },
-            { text: 'Embarkation Report', style: 'tableHeader', alignment: 'center', bold: true }
-        ]
-    }
-
-    private createCriteria(): any[] {
-        return [
-            { text: 'Date ' + this.criteria.date, style: 'tableHeader', alignment: 'right', bold: true },
-            { text: 'Destination ' + this.criteria.destination.description, style: 'tableHeader', alignment: 'right', bold: true },
-            { text: 'Port ' + this.criteria.port.description, style: 'tableHeader', alignment: 'right', bold: true },
-            { text: 'Ship ' + this.criteria.ship, style: 'tableHeader', alignment: 'right', bold: true },
-        ]
-    }
-
-    private populateCriteriaFromStoredVariables(ship: any): void {
+    private populateCriteriaFromStoredVariables(): void {
         if (this.localStorageService.getItem('embarkation-criteria')) {
             const criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
             this.criteria = {
                 'date': criteria.date,
                 'destination': criteria.destination,
                 'port': criteria.port,
-                'ship': ship
+                'ship': criteria.ship
             }
         }
     }
 
     private createReservationLine(): void {
+        this.rows.push([
+            { text: 'RefNo', fontSize: 6, margin: [0, 0, 0, 0] },
+            { text: 'TicketNo', fontSize: 6 },
+            { text: 'Destination', fontSize: 6 },
+            { text: 'Customer', fontSize: 6 },
+            { text: 'Driver', fontSize: 6 },
+            { text: 'Port', fontSize: 6 },
+            { text: 'Ship', fontSize: 6 },
+            { text: 'Remarks', fontSize: 6 },
+            { text: 'Persons', fontSize: 6, alignment: 'right' }
+        ])
         for (const reservation of this.records) {
-            this.rows.push([{ text: reservation.refNo }, { text: reservation.ticketNo }, { text: reservation.customer }, { text: reservation.driver }, { text: reservation.totalPersons, alignment: 'right' }, { text: reservation.remarks },])
+            this.rows.push([
+                { text: reservation.refNo, fontSize: 5, margin: [0, 0, 0, 0] },
+                { text: reservation.ticketNo, fontSize: 5 },
+                { text: reservation.destination, fontSize: 5 },
+                { text: reservation.customer, fontSize: 5 },
+                { text: reservation.driver, fontSize: 5 },
+                { text: reservation.port, fontSize: 5 },
+                { text: reservation.ship, fontSize: 5 },
+                { text: reservation.remarks, fontSize: 5 },
+                { text: reservation.totalPersons, alignment: 'right', fontSize: 5 },
+            ])
             for (const passenger of reservation.passengers) {
-                this.rows.push([{}, { text: passenger.lastname, colSpan: 2, alignment: 'left' }, {}, { text: passenger.firstname, colSpan: 3, alignment: 'left' }, {}, {}])
+                this.rows.push([
+                    { text: '' },
+                    { text: '' },
+                    { text: passenger.lastname, colSpan: 2, alignment: 'left', fontSize: 5 },
+                    { text: '' },
+                    { text: passenger.firstname, colSpan: 3, alignment: 'left', fontSize: 5 },
+                    { text: '' },
+                    { text: '' },
+                    { text: '' },
+                    { text: '' }
+                ])
             }
         }
+    }
+
+    private singleOrAllCriteria(criteria: { id: string; description: string }): string {
+        return criteria.id == 'all' ? 'ALL' : criteria.description
     }
 
 }
