@@ -1,11 +1,14 @@
-import pdfMake from 'pdfmake/build/pdfmake'
-import pdfFonts from 'pdfmake/build/vfs_fonts'
 import { Injectable } from '@angular/core'
 // Custom
 import { EmbarkationVM } from '../view-models/embarkation-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
+// Fonts
+import pdfMake from 'pdfmake/build/pdfmake'
+import pdfFonts from 'pdfmake/build/vfs_fonts'
+import { strPFHandbookPro } from '../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
+import { strAkaAcidCanterBold } from '../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
@@ -26,11 +29,22 @@ export class NewEmbarkationPDFService {
     //#region public methods
 
     public createPDF(records: EmbarkationVM[]): void {
+        pdfFonts.pdfMake.vfs['AkaAcidCanterBold'] = strAkaAcidCanterBold
+        pdfFonts.pdfMake.vfs['PFHandbookPro'] = strPFHandbookPro
+        pdfMake.fonts = {
+            Roboto: {
+                normal: 'Roboto-Regular.ttf',
+            },
+            PFHandbookPro: {
+                normal: 'PFHandbookPro',
+            },
+            AkaAcidCanterBold: {
+                normal: 'AkaAcidCanterBold'
+            }
+        }
         this.records = records
-        console.log(this.records)
         this.createReservationLine()
         this.populateCriteriaFromStoredVariables()
-
         const dd = {
             background: [
                 {
@@ -51,18 +65,26 @@ export class NewEmbarkationPDFService {
                     columns: [
                         {
                             type: 'none',
+                            width: 60,
+                            margin: [0, -6, 0, 0],
                             ul: [
-                                { text: 'Corfu Cruises', fontSize: 20, alignment: 'left', color: '#0a5f91', margin: [-5, 0, 0, 0] },
-                                { text: 'Embarkation Report', fontSize: 10, alignment: 'left', color: '#22a7f2', margin: [-4, 0, 0, 0] }
+                                { image: this.logoService.getLogo(), fit: [40, 40], alignment: 'left' },
                             ]
                         },
                         {
                             type: 'none',
                             ul: [
-                                { text: 'Date: ' + this.helperService.formatISODateToLocale(this.criteria.date), alignment: 'right', fontSize: 8, color: '#0a5f91' },
-                                { text: 'Destination: ' + this.singleOrAllCriteria(this.criteria.destination), alignment: 'right', fontSize: 8, color: '#0a5f91' },
-                                { text: 'Port: ' + this.singleOrAllCriteria(this.criteria.port), alignment: 'right', fontSize: 8, color: '#0a5f91' },
-                                { text: 'Ship: ' + this.singleOrAllCriteria(this.criteria.ship), alignment: 'right', fontSize: 8, color: '#0a5f91' }
+                                { text: 'Corfu Cruises', alignment: 'left', color: '#0a5f91', fontSize: 20, margin: [-5, 0, 0, 0], style: 'AkaAcidCanterBold' },
+                                { text: 'Embarkation Report', alignment: 'left', color: '#22a7f2', fontSize: 10, margin: [-4, 0, 0, 0] }
+                            ]
+                        },
+                        {
+                            type: 'none',
+                            ul: [
+                                { text: 'Date: ' + this.helperService.formatISODateToLocale(this.criteria.date), alignment: 'right', color: '#0a5f91', fontSize: 8 },
+                                { text: 'Destination: ' + this.singleOrAllCriteria(this.criteria.destination), alignment: 'right', color: '#0a5f91', fontSize: 8 },
+                                { text: 'Port: ' + this.singleOrAllCriteria(this.criteria.port), alignment: 'right', color: '#0a5f91', fontSize: 8 },
+                                { text: 'Ship: ' + this.singleOrAllCriteria(this.criteria.ship), alignment: 'right', color: '#0a5f91', fontSize: 8 }
                             ]
                         }
                     ]
@@ -75,6 +97,16 @@ export class NewEmbarkationPDFService {
                     }, layout: 'lightHorizontalLines'
                 },
             ],
+            styles: {
+                AkaAcidCanterBold: {
+                    font: 'AkaAcidCanterBold',
+                }, PFHandbookPro: {
+                    font: 'PFHandbookPro',
+                }
+            },
+            defaultStyle: {
+                font: 'PFHandbookPro',
+            },
             footer: (currentPage: { toString: () => string }, pageCount: string) => {
                 return {
                     layout: 'noBorders',
