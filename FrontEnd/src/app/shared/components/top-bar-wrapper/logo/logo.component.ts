@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 
 @Component({
     selector: 'logo',
@@ -12,26 +13,25 @@ export class LogoComponent {
 
     //#region variables
 
-    public companyLogoImagePathname: any
     public companyLogoText: any
 
     //#endregion
 
-    constructor(private helperService: HelperService) { }
+    constructor(private helperService: HelperService, private logoService: LogoService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.updateLogoImage()
+        this.companyLogoText = this.helperService.getApplicationTitle()
     }
 
     //#endregion
 
-    //#region private methods
 
-    private updateLogoImage(): void {
-        this.companyLogoText = this.helperService.getApplicationTitle()
-        this.companyLogoImagePathname = '/assets/images/icons/logo.svg'
+    //#region public methods
+
+    public getLogo(): any {
+        return this.logoService.getLogo()
     }
 
     //#endregion

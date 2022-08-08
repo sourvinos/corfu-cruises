@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 // Custom
+import { LogoService } from '../../reservations/classes/services/logo.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 
 @Component({
@@ -16,12 +17,16 @@ export class LoginLogoComponent {
 
     //#endregion
 
-    constructor(private messageLabelService: MessageLabelService) { }
+    constructor(private logoService: LogoService, private messageLabelService: MessageLabelService) { }
 
     //#region public methods
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public getLogo(): string {
+        return this.logoService.getLogo()
     }
 
     //#endregion
