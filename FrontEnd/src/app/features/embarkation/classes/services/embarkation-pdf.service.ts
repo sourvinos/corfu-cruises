@@ -1,186 +1,237 @@
 import { Injectable } from '@angular/core'
-import { jsPDF } from 'jspdf'
-// Fonts
-import 'src/assets/fonts/ACCanterBold.js'
-import 'src/assets/fonts/NotoSansMonoCondensedRegular.js'
-import 'src/assets/fonts/PFHandbookProThin.js'
 // Custom
 import { EmbarkationVM } from '../view-models/embarkation-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
-import { environment } from 'src/environments/environment'
+// Fonts
+import pdfMake from 'pdfmake/build/pdfmake'
+import pdfFonts from 'pdfmake/build/vfs_fonts'
+import { strPFHandbookPro } from '../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
+import { strAkaAcidCanterBold } from '../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 @Injectable({ providedIn: 'root' })
 
 export class EmbarkationPDFService {
 
-    //#region variables
-
-    private topMargin = 20
-    private lineGap = 4
-    private pageCount: number
-    private nextLineTop = this.topMargin
-    private pageHeight = 0
-    private pdf = new jsPDF()
-    private criteria: any
-    private records: EmbarkationVM[]
-
-    //#endregion
-
     constructor(private helperService: HelperService, private localStorageService: LocalStorageService, private logoService: LogoService) { }
 
     //#region public methods
 
-    public createPDF(ship: string, records: EmbarkationVM[]): void {
-        this.init(ship, records)
-        this.addLogo(this.pdf)
-        this.addTitle(this.pdf)
-        this.addCriteria(this.pdf)
-        this.addBody(this.pdf)
-        this.addFooter(this.pageCount, this.pdf, true)
-        this.openPdf()
+    public createPDF(records: EmbarkationVM[]): void {
+        this.setFonts()
+        const dd = {
+            background: this.setBackgroundImage(),
+            info: this.setPageInfo(),
+            pageOrientation: 'portrait',
+            pageSize: 'A4',
+            content: [
+                {
+                    margin: [-10, 0, 0, 20],
+                    columns: [
+                        this.setLogo(),
+                        this.setTitle(),
+                        this.setCriteria(this.populateCriteriaFromStoredVariables())
+                    ]
+                },
+                {
+                    table: {
+                        headerRows: 1,
+                        widths: ['*', '*', '*', '*', '*', '*', '*', '*', 25],
+                        body: this.createLines(records),
+                    }, layout: 'lightHorizontalLines'
+                },
+            ],
+            styles: {
+                AkaAcidCanterBold: {
+                    font: 'AkaAcidCanterBold',
+                }, PFHandbookPro: {
+                    font: 'PFHandbookPro',
+                }
+            },
+            defaultStyle: {
+                font: 'PFHandbookPro',
+            },
+            footer: (currentPage: { toString: () => string }, pageCount: string) => {
+                return this.setFooter(currentPage, pageCount)
+            }
+        }
+        this.createPdf(dd)
     }
 
     //#endregion
 
     //#region private methods
 
-    private addCriteria(pdf: jsPDF): void {
-        pdf.setFont('PFHandbookProThin')
-        pdf.setTextColor(0, 0, 0)
-        pdf.setFontSize(9)
-        pdf.text('Date: ' + this.helperService.formatISODateToLocale(this.criteria.date, true), 202, 12.5, { align: 'right' })
-        pdf.text('Destination: ' + this.criteria.destination.description, 202, 16.5, { align: 'right' })
-        pdf.text('Port: ' + this.criteria.port.description, 202, 20.5, { align: 'right' })
-        pdf.text('Ship: ' + this.criteria.ship, 202, 24.5, { align: 'right' })
+    private createPdf(document: any): void {
+        pdfMake.createPdf(document).open()
     }
 
-    private addBody(pdf: jsPDF): void {
-        this.nextLineTop += this.lineGap + 12
-        for (let reservationIndex = 0; reservationIndex < this.records.length; reservationIndex++) {
-            if (this.mustAddPage(this.nextLineTop + this.topMargin, this.pageHeight)) {
-                this.addFooter(this.pageCount, pdf, false)
-                this.pageCount++
-                this.nextLineTop = this.addPageAndResetTopMargin(pdf)
-            }
-            pdf.text(this.buildReservationLine(pdf, reservationIndex), 10, this.nextLineTop)
-            for (let passengerIndex = 0; passengerIndex < this.records[reservationIndex].passengers.length; passengerIndex++) {
-                this.nextLineTop += this.lineGap
-                if (this.mustAddPage(this.nextLineTop + this.topMargin, this.pageHeight)) {
-                    this.addFooter(this.pageCount, pdf, false)
-                    this.pageCount++
-                    this.nextLineTop = this.addPageAndResetTopMargin(pdf)
-                }
-                pdf.text(this.buildPassengerLine(pdf, reservationIndex, passengerIndex), 20, this.nextLineTop)
-            }
-            this.nextLineTop += this.lineGap
-        }
-    }
-
-    private addFooter(pageCount: number, pdf: jsPDF, isLastPage: boolean): void {
-        pdf.setFont('PFHandbookProThin')
-        pdf.setTextColor(0, 0, 0)
-        pdf.setFontSize(9)
-        pdf.text('Page: ' + pageCount.toString() + this.isLastPage(isLastPage), 202, 290, { align: 'right' })
-    }
-
-    private addLogo(pdf: jsPDF): void {
-        pdf.addImage(this.logoService.getLogo(), 'JPEG', 10.3, 10, 15, 15)
-        pdf.setFont('ACCanterBold')
-        pdf.setFontSize(20)
-        pdf.setTextColor(173, 0, 0)
-        pdf.text(environment.appName, 30, 18)
-    }
-
-    private addPageAndResetTopMargin(pdf: jsPDF): number {
-        pdf.addPage()
-        this.topMargin = 10
-        return this.topMargin
-    }
-
-    private addTitle(pdf: jsPDF): void {
-        pdf.setFont('PFHandbookProThin')
-        pdf.setFontSize(10)
-        pdf.setTextColor(0, 0, 0)
-        pdf.text('Embarkation Report', 31.5, 22)
-    }
-
-    private buildPassengerLine(pdf: jsPDF, reservationIndex: number, passengeIndex: number): string {
-        pdf.setFont('NotoSansMonoCondensedRegular')
-        pdf.setFontSize(7)
-        pdf.setTextColor(22, 111, 164)
-        const passenger =
-            this.records[reservationIndex].passengers[passengeIndex].lastname.padEnd(30, ' ') + ' ' +
-            this.records[reservationIndex].passengers[passengeIndex].firstname.padEnd(20, ' ') + ' ' +
-            this.records[reservationIndex].passengers[passengeIndex].nationalityDescription.padEnd(30, ' ')
-        return passenger
-    }
-
-    private buildReservationLine(pdf: jsPDF, index: number): string {
-        pdf.setFont('NotoSansMonoCondensedRegular')
-        pdf.setFontSize(8)
-        pdf.setTextColor(0, 0, 0)
-        const line =
-            this.records[index].refNo.padEnd(11, ' ') + ' ◽ ' +
-            this.records[index].ticketNo.padEnd(30, ' ') + ' ◽ ' +
-            this.getCustomer(index).padEnd(10, ' ') + ' ◽ ' +
-            this.getDriver(index).padEnd(10, ' ') + ' ◽ ' +
-            this.records[index].totalPersons.toString().padStart(3, ' ') + ' ◽ ' +
-            this.getRemarks(index).padEnd(48, ' ') +
-            this.getPlusMinusIcon(index)
-        return line
-    }
-
-    private getCustomer(index: number): string {
-        return this.records[index].customer.substring(0, 10)
-    }
-
-    private getDriver(index: number): string {
-        return this.records[index].driver == undefined ? '(EMPTY)' : this.records[index].driver.substring(0, 10)
-    }
-
-    private getPlusMinusIcon(index: number): string {
-        return this.records[index].totalPersons > this.records[index].passengers.length ? '!' : ''
-    }
-
-    private getRemarks(index: number): string {
-        return this.records[index].remarks.substring(0, 50)
-    }
-
-    private init(ship: string, records: EmbarkationVM[]): void {
-        this.records = records
-        this.nextLineTop = 20
-        this.pageCount = 1
-        this.pdf = new jsPDF('p', 'mm', 'a4')
-        this.pageHeight = parseInt(this.pdf.internal.pageSize.height.toFixed())
-        this.populateCriteriaFromStoredVariables(ship)
-    }
-
-    private isLastPage(isLastPage: boolean): string {
-        return isLastPage ? ' Last page' : ''
-    }
-
-    private mustAddPage(nextLineTop: number, pageHeight: number): boolean {
-        if (nextLineTop > pageHeight) {
-            return true
-        }
-    }
-
-    private openPdf(): void {
-        this.pdf.output('dataurlnewwindow')
-    }
-
-    private populateCriteriaFromStoredVariables(ship: any): void {
+    private populateCriteriaFromStoredVariables(): any {
         if (this.localStorageService.getItem('embarkation-criteria')) {
             const criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
-            this.criteria = {
+            return {
                 'date': criteria.date,
                 'destination': criteria.destination,
                 'port': criteria.port,
-                'ship': ship
+                'ship': criteria.ship
             }
         }
+    }
+
+    private createLines(records: EmbarkationVM[]): any[] {
+        const rows = []
+        rows.push([
+            { text: 'RefNo', fontSize: 6, margin: [0, 0, 0, 0] },
+            { text: 'TicketNo', fontSize: 6 },
+            { text: 'Destination', fontSize: 6 },
+            { text: 'Customer', fontSize: 6 },
+            { text: 'Driver', fontSize: 6 },
+            { text: 'Port', fontSize: 6 },
+            { text: 'Ship', fontSize: 6 },
+            { text: 'Remarks', fontSize: 6 },
+            { text: 'Persons', fontSize: 6, alignment: 'right' }
+        ])
+        for (const reservation of records) {
+            rows.push([
+                { text: reservation.refNo, fontSize: 5, margin: [0, 0, 0, 0] },
+                { text: reservation.ticketNo, fontSize: 5 },
+                { text: reservation.destination, fontSize: 5 },
+                { text: reservation.customer, fontSize: 5 },
+                { text: reservation.driver, fontSize: 5 },
+                { text: reservation.port, fontSize: 5 },
+                { text: reservation.ship, fontSize: 5 },
+                { text: reservation.remarks, fontSize: 5 },
+                { text: reservation.totalPersons, alignment: 'right', fontSize: 5 }
+            ])
+            if (reservation.passengers.length > 0) {
+                let index = 0
+                for (const passenger of reservation.passengers) {
+                    rows.push([
+                        { text: '' },
+                        { text: '' },
+                        { text: this.formatPassengerCount(++index) + passenger.lastname, colSpan: 2, alignment: 'left', fontSize: 5, margin: [10, 0, 0, 0] },
+                        { text: '' },
+                        { text: passenger.firstname, colSpan: 3, alignment: 'left', fontSize: 5 },
+                        { text: '' },
+                        { text: '' },
+                        { text: '' },
+                        { text: '' }
+                    ])
+                }
+            } else {
+                rows.push([
+                    { text: '' },
+                    { text: '' },
+                    { text: 'We didn\'t find any passengers!', colSpan: 2, alignment: 'left', fontSize: 5, margin: [10, 0, 0, 0] },
+                    { text: '' },
+                    { text: '' },
+                    { text: '' },
+                    { text: '' },
+                    { text: '' },
+                    { text: '' }
+                ])
+            }
+        }
+        return rows
+    }
+
+    private singleOrAllCriteria(criteria: { id: string; description: string }): string {
+        return criteria.id == 'all' ? 'ALL' : criteria.description
+    }
+
+    private setFonts(): void {
+        pdfFonts.pdfMake.vfs['AkaAcidCanterBold'] = strAkaAcidCanterBold
+        pdfFonts.pdfMake.vfs['PFHandbookPro'] = strPFHandbookPro
+        pdfMake.fonts = {
+            Roboto: {
+                normal: 'Roboto-Regular.ttf',
+            },
+            PFHandbookPro: {
+                normal: 'PFHandbookPro',
+            },
+            AkaAcidCanterBold: {
+                normal: 'AkaAcidCanterBold'
+            }
+        }
+    }
+
+    private setBackgroundImage(): any[] {
+        const backgroundImage = [
+            {
+                image: this.logoService.getLogo(),
+                width: '1000',
+                opacity: 0.03
+            }
+        ]
+        return backgroundImage
+    }
+
+    private setPageInfo(): any {
+        const pageInfo = {
+            title: 'Embarkation',
+            filename: 'Boos.pdf'
+        }
+        return pageInfo
+    }
+
+    private setLogo(): any {
+        const logo = {
+            type: 'none',
+            width: 60,
+            margin: [0, -6, 0, 0],
+            ul: [
+                { image: this.logoService.getLogo(), fit: [40, 40], alignment: 'left' },
+            ]
+        }
+        return logo
+    }
+
+    private setTitle(): any {
+        const title = {
+            type: 'none',
+            ul: [
+                { text: 'Corfu Cruises', alignment: 'left', color: '#0a5f91', fontSize: 20, margin: [-5, 0, 0, 0], style: 'AkaAcidCanterBold' },
+                { text: 'Embarkation Report', alignment: 'left', color: '#22a7f2', fontSize: 10, margin: [-4, 0, 0, 0] }
+            ]
+        }
+        return title
+    }
+
+    private setCriteria(criteriaFromStorage: any): any {
+        const criteria = {
+            type: 'none',
+            ul: [
+                { text: 'Date: ' + this.helperService.formatISODateToLocale(criteriaFromStorage.date, true), alignment: 'right', color: '#0a5f91', fontSize: 8 },
+                { text: 'Destination: ' + this.singleOrAllCriteria(criteriaFromStorage.destination), alignment: 'right', color: '#0a5f91', fontSize: 8 },
+                { text: 'Port: ' + this.singleOrAllCriteria(criteriaFromStorage.port), alignment: 'right', color: '#0a5f91', fontSize: 8 },
+                { text: 'Ship: ' + this.singleOrAllCriteria(criteriaFromStorage.ship), alignment: 'right', color: '#0a5f91', fontSize: 8 }
+            ]
+        }
+        return criteria
+    }
+
+    private setFooter(currentPage: { toString: any }, pageCount: string): any {
+        const footer = {
+            layout: 'noBorders',
+            margin: [0, 10, 40, 10],
+            table: {
+                widths: ['100%'],
+                body: [
+                    [
+                        { text: 'Page ' + currentPage.toString() + ' of ' + pageCount, alignment: 'right', fontSize: 6 }
+                    ]
+                ]
+            }
+        }
+        return footer
+    }
+
+    private formatPassengerCount(index: number): string {
+        const paddedValue = '0' + index
+        return paddedValue.substring(paddedValue.length - 2) + '. '
     }
 
     //#endregion
