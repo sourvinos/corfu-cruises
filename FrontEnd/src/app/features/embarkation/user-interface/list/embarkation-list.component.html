@@ -4,20 +4,20 @@
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
             <div class="pill">
+                <img [src]="getIcon('calendar')">
                 <div class="description">{{ formatDate() }}</div>
-                <div class="label">{{ getLabel('criteriaDate') }}</div>
             </div>
             <div class="pill">
+                <img [src]="getIcon('destination')">
                 <div class="description">{{ replaceWildcardWithText(embarkationCriteria.destination) }}</div>
-                <div class="label">{{ getLabel('criteriaDestination') }}</div>
             </div>
             <div class="pill">
+                <img [src]="getIcon('port')">
                 <div class="description">{{ replaceWildcardWithText(embarkationCriteria.port) }}</div>
-                <div class="label">{{ getLabel('criteriaPort') }}</div>
             </div>
             <div class="pill">
-                <div class="description">{{ replaceWildcardWithText(embarkationCriteria.ship) }}</div>
-                <div class="label">{{ getLabel('criteriaShip') }}</div>
+                <img [src]="getIcon('ship')">
+                <div class="description">{{ replaceWildcardWithText(embarkationCriteria.ship) }}</div>                
             </div>
         </div>
     </div>

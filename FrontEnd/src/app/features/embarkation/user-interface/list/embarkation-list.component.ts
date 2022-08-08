@@ -10,6 +10,7 @@ import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverDropdownVM } from 'src/app/features/drivers/classes/view-models/driver-dropdown-vm'
 import { EmbarkationCriteriaVM } from '../../classes/view-models/embarkation-criteria-vm'
 import { EmbarkationGroupVM } from '../../classes/view-models/embarkation-group-vm'
+import { EmbarkationPDFService } from '../../classes/services/embarkation-pdf.service'
 import { EmbarkationService } from '../../classes/services/embarkation-display.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
@@ -20,8 +21,8 @@ import { MessageSnackbarService } from '../../../../shared/services/messages-sna
 import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { ShipDropdownVM } from 'src/app/features/ships/classes/view-models/ship-dropdown-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { EmbarkationPDFService } from '../../classes/services/embarkation-pdf.service'
 
 @Component({
     selector: 'embarkation-list',
@@ -109,6 +110,10 @@ export class EmbarkationListComponent {
         return this.emojiService.getEmoji(emoji)
     }
 
+    public getIcon(filename: string): string {
+        return environment.criteriaIconDirectory + filename + '.svg'
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -181,7 +186,7 @@ export class EmbarkationListComponent {
 
     public replaceWildcardWithText(criteria: any): string {
         if (criteria.description.includes(this.emojiService.getEmoji('wildcard'))) {
-            return this.emojiService.getEmoji('wildcard')
+            return '[ ALL ]'
         } else {
             return criteria.description
         }

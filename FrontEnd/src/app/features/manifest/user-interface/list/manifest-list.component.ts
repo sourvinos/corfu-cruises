@@ -8,13 +8,13 @@ import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+import { ManifestCriteriaVM } from '../../classes/view-models/manifest-criteria-vm'
 import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
 import { ManifestVM } from '../../classes/view-models/manifest-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
-import { ManifestCriteriaVM } from '../../classes/view-models/manifest-criteria-vm'
 
 @Component({
     selector: 'manifest-list',
