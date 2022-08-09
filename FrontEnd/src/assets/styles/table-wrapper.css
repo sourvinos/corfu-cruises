@@ -1,5 +1,5 @@
 #table-wrapper {
-    background-color: transparent;
+    background-color: var(--color-a);
     height: inherit;
     overflow: hidden;
     padding: 0 1rem;
