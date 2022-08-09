@@ -32,14 +32,14 @@
     /* Active side-menu item */
     --color-sidemenu-active-item: #ff9800;
     /* Criteria (Top Right) & Totals (Bottom Left) */
-    --color-criteria-a: #688783;
-    --color-criteria-a-border: #698984;
-    --color-criteria-b: #c9874d;
-    --color-criteria-b-border: #ca874c;
-    --color-criteria-c: #ac3824;
-    --color-criteria-c-border: #ac3824;
-    --color-criteria-d: #799f9a;
-    --color-criteria-d-border: #3e5754;
+    --color-criteria-a: #1786cb;
+    --color-criteria-a-border: #1786cb;
+    --color-criteria-b: #709524;
+    --color-criteria-b-border: #709524;
+    --color-criteria-c: #f27016;
+    --color-criteria-c-border: #f27016;
+    --color-criteria-d: #e52b74;
+    --color-criteria-d-border: #e52b74;
     /* Date picker calendar */
     --color-border: #ca874c;
     --color-range-between: rgb(201 135 77 / 60%);

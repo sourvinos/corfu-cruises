@@ -1382,22 +1382,6 @@
                 "description": "Nalodění"
             },
             {
-                "id": "criteriaDate",
-                "description": "Datum"
-            },
-            {
-                "id": "criteriaDestination",
-                "description": "Destinace"
-            },
-            {
-                "id": "criteriaPort",
-                "description": "Přístav"
-            },
-            {
-                "id": "criteriaShip",
-                "description": "Plavidlo"
-            },
-            {
                 "id": "no-results",
                 "description": "Nic jsme nenašli!"
             },

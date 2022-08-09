@@ -19,11 +19,12 @@
 }
 
 #criteria > div, #filters > div, #overbookings > div {
-    align-items: flex-start;
+    align-items: center;
     border-radius: 0.3125rem;
     border: 0.0625rem solid;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 0.8rem;
     min-width: 8rem;
     padding: 0.5rem;
 }
@@ -54,5 +55,5 @@
 
 #criteria .label, #criteria .description, #filters .label, #filters .description, #overbookings .label, #overbookings .description {
     color: var(--color-button-text);
-    margin-top: 0.55rem;
+    font-weight: bold;
 }

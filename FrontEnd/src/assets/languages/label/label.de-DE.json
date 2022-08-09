@@ -1382,22 +1382,6 @@
                 "description": "Einschiffung"
             },
             {
-                "id": "criteriaDate",
-                "description": "Datum"
-            },
-            {
-                "id": "criteriaDestination",
-                "description": "Reiseziel"
-            },
-            {
-                "id": "criteriaPort",
-                "description": "Hafen"
-            },
-            {
-                "id": "criteriaShip",
-                "description": "Schiff"
-            },
-            {
                 "id": "no-results",
                 "description": "Wir haben nichts gefunden!"
             },

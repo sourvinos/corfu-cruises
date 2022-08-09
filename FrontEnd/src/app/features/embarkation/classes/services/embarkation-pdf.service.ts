@@ -183,7 +183,7 @@ export class EmbarkationPDFService {
             width: 60,
             margin: [0, -6, 0, 0],
             ul: [
-                { image: this.logoService.getLogo(), fit: [40, 40], alignment: 'left' },
+                { image: this.logoService.getLogo('light'), fit: [40, 40], alignment: 'left' },
             ]
         }
         return logo

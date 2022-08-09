@@ -1382,22 +1382,6 @@
                 "description": "Επιβίβαση"
             },
             {
-                "id": "criteriaDate",
-                "description": "Ημερομηνία"
-            },
-            {
-                "id": "criteriaDestination",
-                "description": "Προορισμός"
-            },
-            {
-                "id": "criteriaPort",
-                "description": "Λιμάνι"
-            },
-            {
-                "id": "criteriaShip",
-                "description": "Πλοίο"
-            },
-            {
                 "id": "no-results",
                 "description": "Δεν βρήκαμε τίποτα!"
             },

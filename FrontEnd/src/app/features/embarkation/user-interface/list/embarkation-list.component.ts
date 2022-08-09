@@ -186,7 +186,7 @@ export class EmbarkationListComponent {
 
     public replaceWildcardWithText(criteria: any): string {
         if (criteria.description.includes(this.emojiService.getEmoji('wildcard'))) {
-            return '[ ALL ]'
+            return this.emojiService.getEmoji('wildcard')
         } else {
             return criteria.description
         }

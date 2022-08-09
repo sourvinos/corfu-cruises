@@ -7,17 +7,15 @@ export class InteractionService {
 
     //#region variables
 
+    private _isAdmin = new Subject<boolean>()
     private _refreshDateAdapter = new Subject<any>()
     private _refreshMenus = new Subject<any>()
     private _sideMenuIsClosed = new Subject<any>()
-    private _isAdmin = new Subject<boolean>()
-    private _connectedUserCount = new Subject<number>()
 
+    public isAdmin = this._isAdmin.asObservable()
     public refreshDateAdapter = this._refreshDateAdapter.asObservable()
     public refreshMenus = this._refreshMenus.asObservable()
     public sideMenuIsClosed = this._sideMenuIsClosed.asObservable()
-    public isAdmin = this._isAdmin.asObservable()
-    public connectedUserCount = this._connectedUserCount.asObservable()
 
     //#endregion
 
@@ -37,10 +35,6 @@ export class InteractionService {
 
     public UpdateSideMenuTogglerState(isAdmin: boolean): void {
         this._isAdmin.next(isAdmin)
-    }
-
-    public RefreshConnectedUserCount(count: number): void {
-        this._connectedUserCount.next(count)
     }
 
     //#endregion

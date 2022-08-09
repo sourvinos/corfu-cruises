@@ -1382,22 +1382,6 @@
                 "description": "Embarquement"
             },
             {
-                "id": "criteriaDate",
-                "description": "Date"
-            },
-            {
-                "id": "criteriaDestination",
-                "description": "Destination"
-            },
-            {
-                "id": "criteriaPort",
-                "description": "Port"
-            },
-            {
-                "id": "criteriaShip",
-                "description": "Navire"
-            },
-            {
                 "id": "no-results",
                 "description": "Nous n'avons rien trouvé !"
             },

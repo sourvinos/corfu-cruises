@@ -7,8 +7,12 @@ export class LogoService {
 
     constructor(private localStorageService: LocalStorageService) { }
 
-    public getLogo(): string {
-        return this.localStorageService.getItem('my-theme') == 'light' ? this.getLogoLight() : this.getLogoDark()
+    public getLogo(color?: string): string {
+        if (color == null) {
+            return this.localStorageService.getItem('my-theme') == 'light' ? this.getLogoLight() : this.getLogoDark()
+        } else {
+            return color == 'light' ? this.getLogoLight() : this.getLogoDark()
+        }
     }
 
     private getLogoLight(): string {
