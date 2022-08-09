@@ -27,6 +27,7 @@ import { ReservationToDriverComponent } from '../reservation-to-driver/reservati
 import { ReservationToShipComponent } from '../reservation-to-ship/reservation-to-ship-form.component'
 import { ShipRouteDropdownVM } from './../../../shipRoutes/classes/view-models/shipRoute-dropdown-vm'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
+import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -182,8 +183,12 @@ export class ReservationListComponent {
         }, 500)
     }
 
-    public formatDateToLocale() {
-        return this.helperService.formatISODateToLocale(this.localStorageService.getItem('date'), true)
+    public formatDate(): string {
+        if (this.localStorageService.getItem('date')) {
+            return this.helperService.formatISODateToLocale(this.localStorageService.getItem('date'), true)
+        } else {
+            return '-'
+        }
     }
 
     public formatRefNo(refNo: string): string {
@@ -192,6 +197,10 @@ export class ReservationListComponent {
 
     public getEmoji(emoji: string): string {
         return this.emojiService.getEmoji(emoji)
+    }
+
+    public getIcon(filename: string): string {
+        return environment.criteriaIconDirectory + filename + '.svg'
     }
 
     public getLabel(id: string): string {
@@ -213,10 +222,6 @@ export class ReservationListComponent {
 
     public rowUnselect(event: { data: { totalPersons: number } }): void {
         this.totals[2].sum -= event.data.totalPersons
-    }
-
-    public showDate(): string {
-        return this.localStorageService.getItem('date') ? this.formatDateToLocale() : '-'
     }
 
     public toggleVisibleRows(): void {
@@ -305,6 +310,7 @@ export class ReservationListComponent {
             this.overbookedDestinations.forEach((destination: { id: number }, index: string | number) => {
                 this.reservationService.isDestinationOverbooked(this.localStorageService.getItem('date'), destination.id).subscribe((response) => {
                     this.overbookedDestinations[index].status = response
+                    console.log(this.overbookedDestinations[index].status)
                 })
             })
         })

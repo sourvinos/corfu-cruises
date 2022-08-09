@@ -15,7 +15,7 @@
 }
 
 #overbookings {
-    margin-left: auto;
+    margin-left: 1rem;
 }
 
 #criteria > div, #filters > div, #overbookings > div {
@@ -33,24 +33,24 @@
     width: 1.5625rem;
 }
 
-#criteria > div:nth-last-child(4), #filters > div:nth-child(1) {
+.pill:nth-child(1) {
     background-color: var(--color-criteria-a);
-    border-color: var(--color-criteria-a-border);
+    border-color: var(--color-criteria-a-border) !important;
 }
 
-#criteria > div:nth-last-child(3), #filters > div:nth-child(2) {
+.pill:nth-child(2) {
     background-color: var(--color-criteria-b);
-    border-color: var(--color-criteria-b-border);
+    border-color: var(--color-criteria-b-border) !important;
 }
 
-#criteria > div:nth-last-child(2), #filters > div:nth-child(3) {
+.pill:nth-child(3) {
     background-color: var(--color-criteria-c);
-    border-color: var(--color-criteria-c-border);
+    border-color: var(--color-criteria-c-border) !important;
 }
 
-#criteria > div:nth-last-child(1), #filters > div:nth-child(4) {
+.pill:nth-child(4) {
     background-color: var(--color-criteria-d);
-    border-color: var(--color-criteria-d-border);
+    border-color: var(--color-criteria-d-border) !important;
 }
 
 #criteria .label, #criteria .description, #filters .label, #filters .description, #overbookings .label, #overbookings .description {

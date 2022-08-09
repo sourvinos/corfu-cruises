@@ -3,17 +3,21 @@
     <div id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
-            <div *ngFor="let x of overbookedDestinations" class="overbooked-destinations">
-                <div class="description">{{ x.status == true ? getEmoji('error'): getEmoji('ok') }}</div>
-                <div class="label">{{ x.description }}</div>
+            <div class="pill">
+                <img [src]="getIcon('calendar')">
+                <div class="description">{{ formatDate() }}</div>
             </div>
-            <div *ngFor="let item of totals | slice:0:3">
-                <div class="description">{{ item.sum }}</div>
-                <div class="label">{{ getLabel(item.description) }}</div>
+            <div class="pill">
+                <img [src]="getIcon('total')">
+                <div class="description">{{ totals[0].sum }}</div>
             </div>
-            <div>
-                <div class="description">{{ showDate() }}</div>
-                <div class="label">{{ getLabel('date') }}</div>
+            <div class="pill">
+                <img [src]="getIcon('visible')">
+                <div class="description">{{ totals[1].sum }}</div>
+            </div>
+            <div class="pill">
+                <img [src]="getIcon('selected')">
+                <div class="description">{{ totals[2].sum }}</div>
             </div>
         </div>
         <button mat-flat-button class="primary" (click)="doResetTableTasks(table)">
@@ -129,7 +133,9 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr [class.ui-state-highlight]="rowData == highlighted" (click)="highlighted = rowData" (dblclick)="editRecord(rowData.reservationId)">
-                    <td style="width: 2%; max-width: 2%; justify-content: center;"><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
+                    <td style="width: 2%; max-width: 2%; justify-content: center;">
+                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                    </td>
                     <td style="min-width: 5%; max-width: 5%;">{{ formatRefNo(rowData.refNo) }}</td>
                     <td style="min-width: 8%; max-width: 8%;">{{ rowData.ticketNo }}</td>
                     <td style="min-width: 10%; max-width: 10%;">{{ rowData.destinationDescription }}</td>
@@ -156,6 +162,12 @@
             <mat-menu #menu="matMenu" class="primary">
                 <ng-container *ngTemplateOutlet="contextMenu"></ng-container>
             </mat-menu>
+        </div>
+        <div id="overbookings">
+            <div *ngFor="let x of overbookedDestinations" class="pill">
+                <img [src]="getIcon(x.status == true ? 'error' : 'ok')">
+                <div class="description">{{ x.description }}</div>
+            </div>
         </div>
         <div @slideFromRight class="button-group">
             <button data-cy="new" mat-flat-button class="primary" id="new" (click)="newRecord()">{{ getLabel('newButton') }}</button>
