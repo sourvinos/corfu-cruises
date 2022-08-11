@@ -1534,6 +1534,10 @@
                 "description": "Zákazník"
             },
             {
+                "id": "headerDate",
+                "description": "Datum"
+            },
+            {
                 "id": "headerDestination",
                 "description": "Destinace"
             },

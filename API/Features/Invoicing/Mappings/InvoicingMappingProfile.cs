@@ -1,4 +1,5 @@
 using System.Linq;
+using API.Infrastructure.Helpers;
 using AutoMapper;
 
 namespace API.Features.Invoicing {
@@ -18,6 +19,7 @@ namespace API.Features.Invoicing {
                     TotalPassengers = x.TotalPassengers
                 })))
                 .ForMember(x => x.Reservations, x => x.MapFrom(x => x.Reservations.Select(x => new InvoicingReservationVM {
+                    Date = DateHelpers.DateTimeToISOString(x.Date),
                     RefNo = x.RefNo,
                     ReservationId = x.ReservationId,
                     Adults = x.Adults,

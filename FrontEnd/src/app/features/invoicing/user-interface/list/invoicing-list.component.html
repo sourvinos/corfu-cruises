@@ -28,6 +28,7 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 3%; max-width: 3%;"></th>
+                        <th>{{ getLabel("headerDate") }}</th>
                         <th>{{ getLabel("headerDestination") }}</th>
                         <th>{{ getLabel("headerShip") }}</th>
                         <th>{{ getLabel("headerPort") }}</th>
@@ -51,6 +52,7 @@
                     </tr>
                     <tr *ngFor="let x of record.reservations, let i = index">
                         <td style="min-width: 3%; max-width: 3%;"></td>
+                        <td style="justify-content: center;">{{ formatDateToLocale(record.reservations[i].date) }}</td>
                         <td>{{ record.reservations[i].destination }}</td>
                         <td>{{ record.reservations[i].ship }}</td>
                         <td>{{ record.reservations[i].port }}</td>

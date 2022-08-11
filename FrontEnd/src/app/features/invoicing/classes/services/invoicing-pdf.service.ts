@@ -92,7 +92,8 @@ export class InvoicingPDFService {
         pdf.text('N/S', 184, this.nextLineTop, { align: 'right' })
         pdf.text('Transfer', 188, this.nextLineTop, { align: 'left' })
         pdf.text('Remarks', 204, this.nextLineTop, { align: 'left' })
-        pdf.text('RefNo', 279, this.nextLineTop, { align: 'left' })
+        pdf.text('RefNo', 261, this.nextLineTop, { align: 'left' })
+        pdf.text('Date', 272, this.nextLineTop, { align: 'left' })
         this.nextLineTop += this.lineGap
         for (let reservationIndex = 0; reservationIndex < this.customer.reservations.length; reservationIndex++) {
             if (this.mustAddPage(this.nextLineTop + this.topMargin, this.pageHeight)) {
@@ -149,8 +150,9 @@ export class InvoicingPDFService {
             this.customer.reservations[index].embarkedPassengers.toString().padStart(4, ' ') + '   ' +
             this.customer.reservations[index].totalNoShow.toString().padStart(4, ' ') + '   ' +
             this.formatTransfer(this.customer.reservations[index].hasTransfer) + '  ' +
-            this.customer.reservations[index].remarks.substring(0, 49).padEnd(49, ' ') + ' ' +
-            this.customer.reservations[index].refNo.toString()
+            this.customer.reservations[index].remarks.substring(0, 37).padEnd(37, ' ') + ' ' +
+            this.customer.reservations[index].refNo.toString() + ' ' +
+            this.helperService.formatISODateToLocale(this.customer.reservations[index].date)
         return line
     }
 

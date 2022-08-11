@@ -1534,6 +1534,10 @@
                 "description": "Kunde"
             },
             {
+                "id": "headerDate",
+                "description": "Datum"
+            },
+            {
                 "id": "headerDestination",
                 "description": "Reiseziel"
             },

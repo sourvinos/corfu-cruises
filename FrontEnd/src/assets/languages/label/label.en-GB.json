@@ -1534,6 +1534,10 @@
                 "description": "Customer"
             },
             {
+                "id": "headerDate",
+                "description": "Date"
+            },
+            {
                 "id": "headerDestination",
                 "description": "Destination"
             },

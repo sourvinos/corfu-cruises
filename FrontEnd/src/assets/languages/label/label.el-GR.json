@@ -1534,6 +1534,10 @@
                 "description": "Πελάτης"
             },
             {
+                "id": "headerDate",
+                "description": "Ημερομηνία"
+            },
+            {
                 "id": "headerDestination",
                 "description": "Προορισμός"
             },

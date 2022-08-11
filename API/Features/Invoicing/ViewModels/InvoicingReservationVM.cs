@@ -4,6 +4,7 @@ namespace API.Features.Invoicing {
 
     public class InvoicingReservationVM {
 
+        public string Date { get; set; }
         public string RefNo { get; set; }
         public Guid ReservationId { get; set; }
         public string Destination { get; set; }

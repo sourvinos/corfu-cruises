@@ -64,8 +64,9 @@ namespace API.Features.Invoicing {
                     Kids = x.Sum(x => x.Kids),
                     Free = x.Sum(x => x.Free),
                     TotalPersons = x.Sum(x => x.TotalPersons),
-                    Reservations = x.OrderBy(x => !x.PickupPoint.CoachRoute.HasTransfer).ToList()
-                }).ToList();
+                    Reservations = x.OrderBy(x => x.Date).ThenBy(x => !x.PickupPoint.CoachRoute.HasTransfer).ToList()
+                })
+                .ToList();
             return mapper.Map<IEnumerable<InvoicingDTO>, IEnumerable<InvoicingReportVM>>(records);
         }
 

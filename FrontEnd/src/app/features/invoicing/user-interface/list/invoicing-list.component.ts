@@ -78,6 +78,10 @@ export class InvoicingListComponent {
         }
     }
 
+    public formatDateToLocale(date: string, showWeekday = false): string {
+        return this.helperService.formatISODateToLocale(date, showWeekday)
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -114,10 +118,6 @@ export class InvoicingListComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
-    }
-
-    private formatDateToLocale(date: string, showWeekday = false): string {
-        return this.helperService.formatISODateToLocale(date, showWeekday)
     }
 
     private loadRecords(): void {

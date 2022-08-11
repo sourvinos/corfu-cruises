@@ -67,6 +67,7 @@ export class InvoicingCriteriaComponent {
         this.showConnectedCustomerInDropdown()
         this.setLocale()
         this.subscribeToInteractionService()
+        this.focusOnField()
     }
 
     ngOnDestroy(): void {
@@ -137,6 +138,10 @@ export class InvoicingCriteriaComponent {
             return this[array].filter((element: { [x: string]: string }) =>
                 element[field].toLowerCase().startsWith(filtervalue))
         }
+    }
+
+    private focusOnField(): void {
+        this.helperService.focusOnField('fromDate')
     }
 
     private getConnectedUserId(): Promise<any> {
