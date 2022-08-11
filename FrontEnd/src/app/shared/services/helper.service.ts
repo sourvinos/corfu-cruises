@@ -138,10 +138,10 @@ export class HelperService {
         const elements = [... new Set(records.map(x => x[field]))]
         elements.forEach(element => {
             if (typeof (element) == 'string') {
-                array.push({ label: element == '(EMPTY)' ? this.emojiService.getEmoji('wildcard') : element, value: element })
+                array.push({ label: element == '(EMPTY)' ? '(EMPTY)' : element, value: element })
             }
             if (typeof (element) == 'object') {
-                array.push({ label: element.description == '(EMPTY)' ? this.emojiService.getEmoji('wildcard') : element.description, value: element.description })
+                array.push({ label: element.description == '(EMPTY)' ? '(EMPTY)' : element.description, value: element.description })
             }
 
         })
