@@ -9,15 +9,15 @@
             </div>
             <div class="pill">
                 <img [src]="getIcon('total')">
-                <div class="description">{{ totals[0].sum }}</div>
+                <div class="number description">{{ totals[0].sum }}</div>
             </div>
             <div class="pill">
-                <img [src]="getIcon('visible')">
-                <div class="description">{{ totals[1].sum }}</div>
+                <img [src]="getIcon('filter')">
+                <div class="number description">{{ totals[1].sum }}</div>
             </div>
             <div class="pill">
                 <img [src]="getIcon('selected')">
-                <div class="description">{{ totals[2].sum }}</div>
+                <div class="number description">{{ totals[2].sum }}</div>
             </div>
         </div>
         <button mat-flat-button class="primary" (click)="doResetTableTasks(table)">

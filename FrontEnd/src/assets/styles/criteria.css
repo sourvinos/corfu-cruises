@@ -33,6 +33,11 @@
     width: 1.5625rem;
 }
 
+.pill .number {
+    padding-right: 0.2rem;
+    transform: scale(1.5, 1);
+}
+
 .pill:nth-child(1) {
     background-color: var(--color-criteria-a);
     border-color: var(--color-criteria-a-border) !important;
@@ -56,4 +61,6 @@
 #criteria .label, #criteria .description, #filters .label, #filters .description, #overbookings .label, #overbookings .description {
     color: var(--color-button-text);
     font-weight: bold;
+    margin-left: auto;
 }
+

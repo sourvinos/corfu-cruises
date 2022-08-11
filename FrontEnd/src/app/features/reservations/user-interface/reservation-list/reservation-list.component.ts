@@ -310,7 +310,6 @@ export class ReservationListComponent {
             this.overbookedDestinations.forEach((destination: { id: number }, index: string | number) => {
                 this.reservationService.isDestinationOverbooked(this.localStorageService.getItem('date'), destination.id).subscribe((response) => {
                     this.overbookedDestinations[index].status = response
-                    console.log(this.overbookedDestinations[index].status)
                 })
             })
         })
