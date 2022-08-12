@@ -136,7 +136,7 @@ namespace API.Features.Reservations {
             PickupPoint pickupPoint = await context.PickupPoints
                 .AsNoTracking()
                 .Include(x => x.CoachRoute)
-                .SingleOrDefaultAsync(x => x.Id == record.DestinationId);
+                .SingleOrDefaultAsync(x => x.Id == record.PickupPointId);
             return pickupPoint.CoachRoute.PortId;
         }
 
