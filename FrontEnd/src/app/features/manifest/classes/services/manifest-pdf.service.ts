@@ -1,14 +1,13 @@
-import pdfFonts from 'pdfmake/build/vfs_fonts'
-import pdfMake from 'pdfmake/build/pdfmake'
 import { Injectable } from '@angular/core'
-// Fonts
-import 'src/assets/fonts/ACCanterBold.js'
-import 'src/assets/fonts/NotoSansMonoCondensedRegular.js'
-import 'src/assets/fonts/PFHandbookProThin.js'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { ManifestVM } from '../view-models/manifest-vm'
 import { ManifestPassengerVM } from '../view-models/manifest-passenger-vm'
+import { ManifestVM } from '../view-models/manifest-vm'
+// Fonts
+import pdfFonts from 'pdfmake/build/vfs_fonts'
+import pdfMake from 'pdfmake/build/pdfmake'
+import { strAkaAcidCanterBold } from '../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
+import { strPFHandbookPro } from '../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
@@ -27,12 +26,12 @@ export class ManifestPdfService {
     //#region public methods
 
     public createReport(manifest: ManifestVM): void {
+        this.setFonts()
         this.rowCount = 0
         const dd = {
             pageMargins: 50,
             pageOrientation: 'portrait',
             pageSize: 'A4',
-            defaultStyle: { fontSize: 7 },
             content:
                 [
                     {
@@ -65,19 +64,25 @@ export class ManifestPdfService {
                     }
                 ],
             styles: {
-                table: {
-                    fontSize: 7,
-                    bold: false
+                AkaAcidCanterBold: {
+                    font: 'AkaAcidCanterBold',
                 },
+                PFHandbookPro: {
+                    font: 'PFHandbookPro',
+                },
+                // table: {
+                //     fontSize: 7,
+                // },
                 paddingLeft: {
                     margin: [50, 0, 0, 0]
                 },
                 paddingTop: {
                     margin: [0, 15, 0, 0]
-                },
-                // defaultStyle: {
-                //     font: 'Roboto'
-                // }
+                }
+            },
+            defaultStyle: {
+                font: 'PFHandbookPro',
+                fontSize: 7
             }
         }
         this.createPdf(dd)
@@ -156,15 +161,15 @@ export class ManifestPdfService {
 
     private createTableHeaders(): any[] {
         return [
-            { text: 'Α/Α', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΕΠΩΝΥΜΟ', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΟΝΟΜΑ', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΗΜΕΡΟΜΗΝΙΑ ΓΕΝΝΗΣΗΣ', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΙΘΑΓΕΝΕΙΑ', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΙΔΙΟΤΗΤΑ', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΦΥΛΟ', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΕΙΔΙΚΗ ΦΡΟΝΤΙΔΑ', style: 'tableHeader', alignment: 'center', bold: true },
-            { text: 'ΠΑΡΑΤΗΡΗΣΕΙΣ', style: 'tableHeader', alignment: 'center', bold: true },
+            { text: 'Α/Α', style: 'tableHeader', alignment: 'center' },
+            { text: 'ΕΠΩΝΥΜΟ', style: 'tableHeader', alignment: 'center' },
+            { text: 'ΟΝΟΜΑ', style: 'tableHeader', alignment: 'center' },
+            { text: 'ΗΜΕΡΟΜΗΝΙΑ ΓΕΝΝΗΣΗΣ', style: 'tableHeader', alignment: 'center' },
+            { text: 'ΙΘΑΓΕΝΕΙΑ', style: 'tableHeader', alignment: 'center' },
+            { text: 'ΙΔΙΟΤΗΤΑ', style: 'tableHeader', alignment: 'center' },
+            { text: 'ΦΥΛΟ', style: 'tableHeader', alignment: 'center' },
+            { text: 'ΕΙΔΙΚΗ ΦΡΟΝΤΙΔΑ', style: 'tableHeader', alignment: 'center' },
+            { text: 'ΠΑΡΑΤΗΡΗΣΕΙΣ', style: 'tableHeader', alignment: 'center' },
         ]
     }
 
@@ -201,6 +206,19 @@ export class ManifestPdfService {
             }
         })
         return dataRow
+    }
+
+    private setFonts(): void {
+        pdfFonts.pdfMake.vfs['AkaAcidCanterBold'] = strAkaAcidCanterBold
+        pdfFonts.pdfMake.vfs['PFHandbookPro'] = strPFHandbookPro
+        pdfMake.fonts = {
+            PFHandbookPro: {
+                normal: 'PFHandbookPro',
+            },
+            AkaAcidCanterBold: {
+                normal: 'AkaAcidCanterBold'
+            }
+        }
     }
 
     private table(data: ManifestVM, columnTypes: any[], columns: any[], align: any[]): any {
