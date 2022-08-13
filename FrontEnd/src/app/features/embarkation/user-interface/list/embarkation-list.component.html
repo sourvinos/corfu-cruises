@@ -202,15 +202,15 @@
         <div @slideFromLeft id="filters">
             <div class="pill" id="total">
                 <img [src]="getIcon('total')">
-                <div class="description">{{ records.totalPersons }}</div>
+                <div class="number description">{{ records.totalPersons }}</div>
             </div>
             <div class="pill" id="boarded">
                 <img [src]="getIcon('boarded')">
-                <div class="description">{{ records.embarkedPassengers }}</div>
+                <div class="number description">{{ records.embarkedPassengers }}</div>
             </div>
             <div class="pill" id="pending">
                 <img [src]="getIcon('pending')">
-                <div class="description">{{ records.pendingPersons }}</div>
+                <div class="number description">{{ records.pendingPersons }}</div>
             </div>
         </div>
         <div>

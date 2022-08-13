@@ -3,15 +3,10 @@
     display: flex;
     font-family: var(--font-family-handbook);
     gap: 0.5rem;
-    text-align: right;
 }
 
 #criteria {
     margin: 0 1rem 0 auto;
-}
-
-#filters {
-    margin: 0 auto 0 1rem;
 }
 
 #overbookings {
@@ -35,7 +30,7 @@
 
 .pill .number {
     padding-right: 0.2rem;
-    transform: scale(1.5, 1);
+    transform: scale(1.1, 2.0);
 }
 
 .pill:nth-child(1) {

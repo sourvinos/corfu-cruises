@@ -1,7 +1,7 @@
 :host {
     background-color: transparent;
     height: 2.5rem;
-    margin-right: 0.375rem;
+    margin: 0 0.5rem 0 -0.3125rem;
 }
 
 span {
