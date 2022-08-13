@@ -200,15 +200,15 @@
 
     <div *ngIf="records.totalPersons > 0" id="footer">
         <div @slideFromLeft id="filters">
-            <div id="total">
+            <div class="pill" id="total">
                 <img [src]="getIcon('total')">
                 <div class="description">{{ records.totalPersons }}</div>
             </div>
-            <div id="boarded">
+            <div class="pill" id="boarded">
                 <img [src]="getIcon('boarded')">
                 <div class="description">{{ records.embarkedPassengers }}</div>
             </div>
-            <div id="pending">
+            <div class="pill" id="pending">
                 <img [src]="getIcon('pending')">
                 <div class="description">{{ records.pendingPersons }}</div>
             </div>
