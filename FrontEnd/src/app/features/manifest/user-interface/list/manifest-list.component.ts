@@ -15,6 +15,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'manifest-list',
@@ -76,12 +77,16 @@ export class ManifestListComponent {
         this.pdfService.createReport(this.records)
     }
 
-    public formatDateToLocale(date: string, showWeekday = false): string {
+    public formatDate(date: string, showWeekday = false): string {
         return this.helperService.formatISODateToLocale(date, showWeekday)
     }
 
     public getEmoji(emoji: string): string {
         return this.emojiService.getEmoji(emoji)
+    }
+
+    public getIcon(filename: string): string {
+        return environment.criteriaIconDirectory + filename + '.svg'
     }
 
     public getLabel(id: string): string {

@@ -3,17 +3,17 @@
     <div *ngIf="records.passengers.length > 0" id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
-            <div>
-                <div class="description">{{ formatDateToLocale(records.date,true) }}</div>
-                <div class="label">{{ getLabel("criteriaDate") }}</div>
+            <div class="pill">
+                <img [src]="getIcon('calendar')">
+                <div class="description">{{ formatDate(records.date,true) }}</div>
             </div>
-            <div>
+            <div class="pill">
+                <img [src]="getIcon('destination')">
                 <div class="description">{{ records.destination }}</div>
-                <div class="label">{{ getLabel("criteriaDestination") }}</div>
             </div>
-            <div>
+            <div class="pill">
+                <img [src]="getIcon('ship')">
                 <div class="description">{{ records.ship.description }}</div>
-                <div class="label">{{ getLabel("criteriaShip") }}</div>
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@
                         <td style="min-width: 20%; max-width: 20%;">{{ rowData.firstname }}</td>
                         <td style="min-width: 20%; max-width: 20%;">{{ rowData.nationalityDescription }}</td>
                         <td style="min-width: 15%; max-width: 15%;">{{ rowData.genderDescription }}</td>
-                        <td style="min-width: 15%; max-width: 15%; justify-content: center;">{{ formatDateToLocale(rowData.birthdate) }}</td>
+                        <td style="min-width: 15%; max-width: 15%; justify-content: center;">{{ formatDate(rowData.birthdate) }}</td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -85,17 +85,17 @@
 
     <div *ngIf="records.passengers.length != 0" id="footer">
         <div @slideFromLeft id="filters">
-            <div>
-                <div class="description">{{ passengerCount + crewCount }}</div>
-                <div class="label">{{ getLabel("countLabel") }}</div>
+            <div class="pill">
+                <img [src]="getIcon('total')">
+                <div class="number description">{{ passengerCount + crewCount }}</div>
             </div>
-            <div>
-                <div class="description">{{ passengerCount }}</div>
-                <div class="label">{{ getLabel("passengerCountLabel") }}</div>
+            <div class="pill">
+                <img [src]="getIcon('person')">
+                <div class="number description">{{ passengerCount }}</div>
             </div>
-            <div>
-                <div class="description">{{ crewCount }}</div>
-                <div class="label">{{ getLabel("crewCountLabel") }}</div>
+            <div class="pill">
+                <img [src]="getIcon('crew')">
+                <div class="number description">{{ crewCount }}</div>
             </div>
         </div>
         <div @slideFromRight class="button-group">
