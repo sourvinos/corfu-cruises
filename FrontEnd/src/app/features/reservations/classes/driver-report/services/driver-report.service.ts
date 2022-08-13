@@ -1,4 +1,3 @@
-import pdfMake from 'pdfmake/build/pdfmake'
 import { Injectable } from '@angular/core'
 // Custom
 import { DriverReportDto } from '../dtos/driver-report-dto'
@@ -7,6 +6,12 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { DriverReportHeaderDto } from '../dtos/driver-report-header-dto'
 import { DriverReportReservationDto } from '../dtos/driver-report-reservation-dto'
 import { ReservationService } from '../../services/reservation.service'
+import pdfFonts from 'pdfmake/build/vfs_fonts'
+import pdfMake from 'pdfmake/build/pdfmake'
+import { strAkaAcidCanterBold } from '../../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
+import { strPFHandbookPro } from '../../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 @Injectable({ providedIn: 'root' })
 
@@ -46,12 +51,24 @@ export class DriverReportService {
     }
 
     private createReport(): void {
+        this.setFonts()
         const dd = {
             pageMargins: [50, 40, 50, 50],
             pageOrientation: 'landscape',
-            defaultStyle: { fontSize: 7 },
             header: this.createPageHeader(),
             footer: this.createPageFooter(),
+            styles: {
+                AkaAcidCanterBold: {
+                    font: 'AkaAcidCanterBold',
+                },
+                PFHandbookPro: {
+                    font: 'PFHandbookPro',
+                },
+            },
+            defaultStyle: {
+                font: 'PFHandbookPro',
+                fontSize: 7
+            },
             content: this.table(this.driverReport.reservations,
                 ['time', 'refNo', 'ticketNo', 'pickupPointDescription', 'exactPoint', 'adults', 'kids', 'free', 'totalPersons', 'customerDescription', 'fullname', 'remarks', 'destinationAbbreviation'],
                 ['center', 'center', 'center', 'left', 'left', 'right', 'right', 'right', 'right', 'left', 'left', 'left', 'center'])
@@ -283,6 +300,19 @@ export class DriverReportService {
             })
         })
         return reservations
+    }
+
+    private setFonts(): void {
+        pdfFonts.pdfMake.vfs['AkaAcidCanterBold'] = strAkaAcidCanterBold
+        pdfFonts.pdfMake.vfs['PFHandbookPro'] = strPFHandbookPro
+        pdfMake.fonts = {
+            PFHandbookPro: {
+                normal: 'PFHandbookPro',
+            },
+            AkaAcidCanterBold: {
+                normal: 'AkaAcidCanterBold'
+            }
+        }
     }
 
     //#endregion

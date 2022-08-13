@@ -70,9 +70,6 @@ export class ManifestPdfService {
                 PFHandbookPro: {
                     font: 'PFHandbookPro',
                 },
-                // table: {
-                //     fontSize: 7,
-                // },
                 paddingLeft: {
                     margin: [50, 0, 0, 0]
                 },
