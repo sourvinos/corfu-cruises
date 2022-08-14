@@ -1,15 +1,17 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import pdfMake from 'pdfmake/build/pdfmake'
-import pdfFonts from 'pdfmake/build/vfs_fonts'
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs
-
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { LogoService } from '../../services/logo.service'
 import { VoucherDto } from '../dtos/voucher-dto'
+// Fonts
+import pdfMake from 'pdfmake/build/pdfmake'
+import pdfFonts from 'pdfmake/build/vfs_fonts'
+import { strPFHandbookPro } from '../../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
+import { strAkaAcidCanterBold } from '../../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 @Injectable({ providedIn: 'root' })
 
@@ -22,6 +24,7 @@ export class VoucherService extends HttpDataService {
     //#region public methods
 
     public createVoucherOnClient(voucher: VoucherDto): void {
+        this.setFonts()
         const rows = []
         rows.push([{ text: '' }, { text: '' }])
         rows.push([{ text: 'Passengers', colSpan: 2, alignment: 'center', fontSize: 18 }])
@@ -30,11 +33,13 @@ export class VoucherService extends HttpDataService {
         }
         const dd = {
             pageMargins: [130, 30, 130, 250],
+            pageOrientation: 'portrait',
+            pageSize: 'A4',
             content: [
                 {
                     table: {
                         body: [
-                            [{ image: this.logoService.getLogo(), fit: [120, 120], alignment: 'center' }]
+                            [{ image: this.logoService.getLogo('light'), fit: [120, 120], alignment: 'center' }]
                         ],
                         widths: ['100%'],
                         heights: 130,
@@ -95,29 +100,12 @@ export class VoucherService extends HttpDataService {
                     layout: 'lightHorizontalLines'
                 },
             ],
-            footer: {
-                columns: [
-                    { width: '*', text: '' },
-                    {
-                        width: 'auto',
-                        table: {
-                            body: [
-                                [{ image: voucher.validPassengerIcon, fit: [32, 32], alignment: 'center' }],
-                                [{ text: 'Adults: ' + voucher.adults + ' ' + 'Kids: ' + voucher.kids + ' ' + 'Free: ' + voucher.free + ' ' + 'Total persons: ' + voucher.totalPersons, alignment: 'center' }],
-                                [{ qr: voucher.qr, alignment: 'center', width: 200, style: ['paddingTop'], foreground: 'darkslategray' }],
-                                [{ text: 'Problems or questions? Call us at +30 26620 61400', alignment: 'center', style: ['small', 'paddingTop'] }],
-                                [{ text: 'or email at info@corfucruises.com', alignment: 'center', style: 'small' }],
-                                [{ text: '© Corfu Cruises 2021, Corfu - Greece', alignment: 'center', style: 'small' }],
-                            ],
-                        },
-                        layout: 'noBorders'
-                    },
-                    { width: '*', text: '' }
-                ]
-            },
             styles: {
-                small: {
-                    fontSize: 8
+                AkaAcidCanterBold: {
+                    font: 'AkaAcidCanterBold',
+                },
+                PFHandbookPro: {
+                    font: 'PFHandbookPro',
                 },
                 paddingLeft: {
                     margin: [50, 0, 0, 0]
@@ -125,9 +113,33 @@ export class VoucherService extends HttpDataService {
                 paddingTop: {
                     margin: [0, 15, 0, 0]
                 },
-                defaultStyle: {
-                    font: 'Roboto'
-                }
+                small: {
+                    fontSize: 8
+                },
+
+            },
+            defaultStyle: {
+                font: 'PFHandbookPro',
+            },
+            footer: {
+                columns: [
+                    { width: '*', text: '' },
+                    {
+                        width: '*',
+                        table: {
+                            body: [
+                                [{ image: voucher.validPassengerIcon, fit: [32, 32], alignment: 'center' }],
+                                [{ text: 'Adults: ' + voucher.adults + ' ' + 'Kids: ' + voucher.kids + ' ' + 'Free: ' + voucher.free + ' ' + 'Total persons: ' + voucher.totalPersons, alignment: 'center' }],
+                                [{ qr: voucher.qr, alignment: 'center', width: 200, style: ['paddingTop'], foreground: 'darkslategray' }],
+                                [{ text: 'Problems or questions? Call us at +30 26620 61400', alignment: 'center', style: ['small', 'paddingTop'] }],
+                                [{ text: 'or email at info@corfucruises.com', alignment: 'center', style: 'small' }],
+                                [{ text: '© Corfu Cruises 2022, Corfu - Greece', alignment: 'center', style: 'small' }],
+                            ],
+                        },
+                        layout: 'noBorders'
+                    },
+                    { width: '*', text: '' }
+                ]
             }
         }
         this.createPdf(dd)
@@ -146,10 +158,20 @@ export class VoucherService extends HttpDataService {
     //#region private methods   
 
     private createPdf(document: any): void {
-        pdfMake.fonts = {
-            Roboto: { normal: 'Roboto-Regular.ttf' }
-        }
         pdfMake.createPdf(document).open()
+    }
+
+    private setFonts(): void {
+        pdfFonts.pdfMake.vfs['AkaAcidCanterBold'] = strAkaAcidCanterBold
+        pdfFonts.pdfMake.vfs['PFHandbookPro'] = strPFHandbookPro
+        pdfMake.fonts = {
+            PFHandbookPro: {
+                normal: 'PFHandbookPro',
+            },
+            AkaAcidCanterBold: {
+                normal: 'AkaAcidCanterBold'
+            }
+        }
     }
 
     //#endregion
