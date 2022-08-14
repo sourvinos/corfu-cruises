@@ -46,7 +46,9 @@
 #footer {
     align-items: center;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: row;
+    justify-content: right;
+    margin-top: auto;
     padding: var(--gap) 2rem;
 }
 

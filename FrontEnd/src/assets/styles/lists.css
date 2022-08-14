@@ -13,7 +13,6 @@
 }
 
 .content, #content {
-    flex: 1;
     overflow-x: hidden;
     overflow-y: auto;
     width: auto;
@@ -23,6 +22,7 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
+    margin-top: auto;
     padding: var(--gap) 2rem;
 }
 

@@ -57,6 +57,7 @@ dlldata.c
 
 FrontEnd/package-lock.json
 FrontEnd/ssl/*.*
+FrontEnd/.firebase/*.*
 **/*.pdf
 appsettings.json
 ToDo.txt
