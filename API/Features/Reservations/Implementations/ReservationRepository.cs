@@ -132,15 +132,15 @@ namespace API.Features.Reservations {
             });
         }
 
-        public async Task<int> GetPortIdFromPickupPointId(ReservationWriteResource record) {
-            PickupPoint pickupPoint = await context.PickupPoints
+        public int GetPortIdFromPickupPointId(ReservationWriteResource record) {
+            PickupPoint pickupPoint =  context.PickupPoints
                 .AsNoTracking()
                 .Include(x => x.CoachRoute)
-                .SingleOrDefaultAsync(x => x.Id == record.PickupPointId);
+                .SingleOrDefault(x => x.Id == record.PickupPointId);
             return pickupPoint.CoachRoute.PortId;
         }
 
-        public async Task<int> IsValidAsync(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
+        public int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo) {
             return true switch {
                 var x when x == !IsValidCustomer(record) => 450,
                 var x when x == !IsValidDestination(record) => 451,
@@ -153,10 +153,10 @@ namespace API.Features.Reservations {
                 var x when x == !IsCorrectPassengerCount(record) => 455,
                 var x when x == !scheduleRepo.DayHasSchedule(record.Date) => 432,
                 var x when x == !scheduleRepo.DayHasScheduleForDestination(record.Date, record.DestinationId) => 430,
-                var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, await GetPortIdFromPickupPointId(record)) => 427,
+                var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, GetPortIdFromPickupPointId(record)) => 427,
                 var x when x == SimpleUserHasNightRestrictions(record) => 459,
                 var x when x == SimpleUserCanNotAddReservationAfterDeparture(record) => 431,
-                var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, await GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
+                var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsOverbookingAllowed(record.Date, record.ReservationId, record.DestinationId, record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsKeyUnique(record) => 409,
                 _ => 200,
