@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core'
 // Custom
 import { DriverReportDto } from '../dtos/driver-report-dto'
-import { HelperService } from 'src/app/shared/services/helper.service'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { DriverReportHeaderDto } from '../dtos/driver-report-header-dto'
 import { DriverReportReservationDto } from '../dtos/driver-report-reservation-dto'
+import { HelperService } from 'src/app/shared/services/helper.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { ReservationService } from '../../services/reservation.service'
+// Fonts
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import pdfMake from 'pdfmake/build/pdfmake'
-import { strAkaAcidCanterBold } from '../../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
-import { strPFHandbookPro } from '../../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
+import { strUbuntuCondensed } from '../../../../../../assets/fonts/UbuntuCondensed.Base64.encoded'
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
@@ -66,8 +66,8 @@ export class DriverReportService {
                 },
             },
             defaultStyle: {
-                font: 'PFHandbookPro',
-                fontSize: 7
+                font: 'UbuntuCondensed',
+                fontSize: 8
             },
             content: this.table(this.driverReport.reservations,
                 ['time', 'refNo', 'ticketNo', 'pickupPointDescription', 'exactPoint', 'adults', 'kids', 'free', 'totalPersons', 'customerDescription', 'fullname', 'remarks', 'destinationAbbreviation'],
@@ -151,12 +151,12 @@ export class DriverReportService {
             { text: '' },
             { text: '' },
             { text: '' },
-            { text: 'TOTAL FROM ' + pickupPoint },
+            { text: 'TOTAL FROM ' + pickupPoint, colSpan: 2 },
+            { text: '' },
             { text: String(total[0]) === '0' ? '' : String(total[0]), alignment: 'right', fillColor: 'white' },
             { text: String(total[1]) === '0' ? '' : String(total[1]), alignment: 'right', fillColor: 'white' },
             { text: String(total[2]) === '0' ? '' : String(total[2]), alignment: 'right', fillColor: 'white' },
             { text: String(total[3]) === '0' ? '' : String(total[3]), alignment: 'right', fillColor: 'white' },
-            { text: '' },
             { text: '' },
             { text: '' },
             { text: '' },
@@ -225,12 +225,12 @@ export class DriverReportService {
             { text: '' },
             { text: '' },
             { text: '' },
-            { text: 'TOTAL FOR ' + data },
+            { text: 'TOTAL FOR ' + data, colSpan: 2 },
+            { text: '' },
             { text: String(totals[0]) === '0' ? '' : String(totals[0]), alignment: 'right', fillColor: 'white' },
             { text: String(totals[1]) === '0' ? '' : String(totals[1]), alignment: 'right', fillColor: 'white' },
             { text: String(totals[2]) === '0' ? '' : String(totals[2]), alignment: 'right', fillColor: 'white' },
             { text: String(totals[3]) === '0' ? '' : String(totals[3]), alignment: 'right', fillColor: 'white' },
-            { text: '' },
             { text: '' },
             { text: '' },
             { text: '' },
@@ -303,14 +303,10 @@ export class DriverReportService {
     }
 
     private setFonts(): void {
-        pdfFonts.pdfMake.vfs['AkaAcidCanterBold'] = strAkaAcidCanterBold
-        pdfFonts.pdfMake.vfs['PFHandbookPro'] = strPFHandbookPro
+        pdfFonts.pdfMake.vfs['UbuntuCondensed'] = strUbuntuCondensed
         pdfMake.fonts = {
-            PFHandbookPro: {
-                normal: 'PFHandbookPro',
-            },
-            AkaAcidCanterBold: {
-                normal: 'AkaAcidCanterBold'
+            UbuntuCondensed: {
+                normal: 'UbuntuCondensed'
             }
         }
     }
