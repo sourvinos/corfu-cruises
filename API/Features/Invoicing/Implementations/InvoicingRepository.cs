@@ -43,6 +43,8 @@ namespace API.Features.Invoicing {
                 .AsEnumerable()
                 .GroupBy(x => new { x.Customer }).OrderBy(x => x.Key.Customer.Description)
                 .Select(x => new InvoicingDTO {
+                    FromDate = fromDate,
+                    ToDate = toDate,
                     Customer = new SimpleResource { Id = x.Key.Customer.Id, Description = x.Key.Customer.Description },
                     Ports = x.GroupBy(x => x.Port).OrderBy(x => !x.Key.IsPrimary).Select(x => new InvoicingPortDTO {
                         Port = x.Key.Description,
