@@ -7,6 +7,8 @@ namespace API.Features.Invoicing {
 
     public class InvoicingDTO {
 
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
         public SimpleResource Customer { get; set; }
         public IEnumerable<InvoicingPortDTO> Ports { get; set; }
         public IEnumerable<InvoicingHasTransferGroupDTO> HasTransferGroup { get; set; }

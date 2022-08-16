@@ -4,8 +4,10 @@ import { InvoicingReservationVM } from './invoicing-reservation-vm'
 
 export interface InvoicingVM {
 
-    customer: CustomerVM,
-    portGroup: InvoicingPortVM[],
-    reservations: InvoicingReservationVM[],
+    fromDate: string
+    toDate: string
+    customer: CustomerVM
+    portGroup: InvoicingPortVM[]
+    reservations: InvoicingReservationVM[]
 
 }
