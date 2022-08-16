@@ -13,6 +13,7 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { environment } from 'src/environments/environment'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
@@ -80,6 +81,10 @@ export class InvoicingListComponent {
 
     public formatDateToLocale(date: string, showWeekday = false): string {
         return this.helperService.formatISODateToLocale(date, showWeekday)
+    }
+
+    public getIcon(filename: string): string {
+        return environment.criteriaIconDirectory + filename + '.svg'
     }
 
     public getLabel(id: string): string {

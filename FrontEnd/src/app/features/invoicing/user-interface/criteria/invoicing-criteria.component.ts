@@ -230,9 +230,9 @@ export class InvoicingCriteriaComponent {
             this.form.patchValue({
                 fromDate: this.helperService.getISODate(),
                 toDate: this.helperService.getISODate(),
-                customer: { id: 'all', description: '[' + this.emojiService.getEmoji('wildcard') + ']' },
-                destination: { id: 'all', description: '[' + this.emojiService.getEmoji('wildcard') + ']' },
-                ship: { id: 'all', description: '[' + this.emojiService.getEmoji('wildcard') + ']' }
+                customer: { id: 'all', description: this.emojiService.getEmoji('wildcard') },
+                destination: { id: 'all', description: this.emojiService.getEmoji('wildcard') },
+                ship: { id: 'all', description: this.emojiService.getEmoji('wildcard') }
             })
         }
     }

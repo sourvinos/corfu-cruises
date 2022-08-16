@@ -3,21 +3,21 @@
     <div *ngIf="records.length > 0" id="header">
         <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
-            <div>
+            <div class="pill">
+                <img [src]="getIcon('calendar')">
                 <div class="description">{{ formatDatePeriod() }}</div>
-                <div class="label">{{ getLabel('criteria-date') }}</div>
             </div>
-            <div>
+            <div class="pill">
+                <img [src]="getIcon('person')">
                 <div class="description">{{ replaceWildcardWithText(invoicingCriteria.customer) }}</div>
-                <div class="label">{{ getLabel('criteria-customer') }}</div>
             </div>
-            <div>
+            <div class="pill">
+                <img [src]="getIcon('destination')">
                 <div class="description">{{ replaceWildcardWithText(invoicingCriteria.destination) }}</div>
-                <div class="label">{{ getLabel('criteria-destination') }}</div>
             </div>
-            <div>
+            <div class="pill">
+                <img [src]="getIcon('ship')">
                 <div class="description">{{ replaceWildcardWithText(invoicingCriteria.ship) }}</div>
-                <div class="label">{{ getLabel('criteria-ship') }}</div>
             </div>
         </div>
     </div>
