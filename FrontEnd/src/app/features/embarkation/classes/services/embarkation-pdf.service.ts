@@ -5,10 +5,10 @@ import { HelperService } from 'src/app/shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 // Fonts
-import pdfMake from 'pdfmake/build/pdfmake'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
-import { strPFHandbookPro } from '../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
+import pdfMake from 'pdfmake/build/pdfmake'
 import { strAkaAcidCanterBold } from '../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
+import { strPFHandbookPro } from '../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
@@ -146,9 +146,6 @@ export class EmbarkationPDFService {
         pdfFonts.pdfMake.vfs['AkaAcidCanterBold'] = strAkaAcidCanterBold
         pdfFonts.pdfMake.vfs['PFHandbookPro'] = strPFHandbookPro
         pdfMake.fonts = {
-            Roboto: {
-                normal: 'Roboto-Regular.ttf',
-            },
             PFHandbookPro: {
                 normal: 'PFHandbookPro',
             },

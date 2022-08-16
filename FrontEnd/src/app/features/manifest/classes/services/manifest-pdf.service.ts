@@ -2,18 +2,12 @@ import { Injectable } from '@angular/core'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ManifestPassengerVM } from '../view-models/manifest-passenger-vm'
-<<<<<<< HEAD
 import { ManifestVM } from '../view-models/manifest-vm'
 // Fonts
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import pdfMake from 'pdfmake/build/pdfmake'
 import { strAkaAcidCanterBold } from '../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
 import { strPFHandbookPro } from '../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
-=======
-// Fonts
-import pdfFonts from 'pdfmake/build/vfs_fonts'
-import pdfMake from 'pdfmake/build/pdfmake'
->>>>>>> new-invoicing-pdf
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
