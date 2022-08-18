@@ -1,228 +1,213 @@
 import { Injectable } from '@angular/core'
-// Custom
-import { HelperService } from 'src/app/shared/services/helper.service'
-import { InvoicingPortVM } from '../view-models/invoicing-port-vm'
-import { InvoicingReservationVM } from '../view-models/invoicing-reservation-vm'
-import { InvoicingVM } from '../view-models/invoicing-vm'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
-import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
+import { jsPDF } from 'jspdf'
 // Fonts
-import pdfFonts from 'pdfmake/build/vfs_fonts'
-import pdfMake from 'pdfmake/build/pdfmake'
-import { strAkaAcidCanterBold } from '../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
-import { strPFHandbookPro } from '../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs
+import 'src/assets/fonts/ACCanterBold.js'
+import 'src/assets/fonts/NotoSansMonoCondensedRegular.js'
+import 'src/assets/fonts/PFHandbookProThin.js'
+// Custom
+import { InvoicingVM } from '../view-models/invoicing-vm'
+import { LocalStorageService } from './../../../../shared/services/local-storage.service'
+import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
+import { environment } from 'src/environments/environment'
+import { HelperService } from 'src/app/shared/services/helper.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class InvoicingPDFService {
 
+    //#region variables
+
+    private topMargin = 20
+    private lineGap = 4
+    private pageCount: number
+    private nextLineTop = this.topMargin
+    private pageHeight = 0
+    private pdf = new jsPDF()
+    private customer: InvoicingVM
+
+    //#endregion
+
     constructor(private helperService: HelperService, private localStorageService: LocalStorageService, private logoService: LogoService) { }
 
     //#region public methods
 
-    public createPDF(record: InvoicingVM): void {
-        this.setFonts()
-        const dd = {
-            background: this.setBackgroundImage(),
-            info: this.setPageInfo(),
-            pageOrientation: 'landscape',
-            pageSize: 'A4',
-            content: [
-                {
-                    margin: [-10, 0, 0, 20],
-                    columns: [
-                        this.setLogo(),
-                        this.setTitle(),
-                        this.setCriteria(record)
-                    ]
-                },
-                {
-                    table: {
-                        body: this.createPortGroup(record.portGroup)
-                    },
-                },
-                {
-                    margin: [0, 10, 0, 0],
-                    table: {
-                        body: this.createReservationLines(record.reservations)
-                    },
-                },
-            ],
-            styles: {
-                AkaAcidCanterBold: {
-                    font: 'AkaAcidCanterBold',
-                }, PFHandbookPro: {
-                    font: 'PFHandbookPro',
-                }
-            },
-            defaultStyle: {
-                font: 'PFHandbookPro',
-            },
-            footer: (currentPage: { toString: () => string }, pageCount: string) => {
-                return this.setFooter(currentPage, pageCount)
-            }
-        }
-        this.createPdf(dd)
+    public createPDF(record: any): void {
+        this.init(record)
+        this.addLogo(this.pdf)
+        this.addTitle(this.pdf)
+        this.addCriteria(this.pdf, record)
+        this.addPortGroup(this.pdf)
+        this.addBody(this.pdf)
+        this.addFooter(this.pageCount, this.pdf, true)
+        this.openPdf()
     }
 
     //#endregion
 
     //#region private methods
 
-    private createPdf(document: any): void {
-        pdfMake.createPdf(document).open()
+    private addCriteria(pdf: jsPDF, record: any): void {
+        pdf.setFont('PFHandbookProThin')
+        pdf.setTextColor(0, 0, 0)
+        pdf.setFontSize(9)
+        const criteria = JSON.parse(this.localStorageService.getItem('invoicing-criteria'))
+        pdf.text('Period: ' + this.helperService.formatISODateToLocale(criteria.fromDate) + ' - ' + this.helperService.formatISODateToLocale(criteria.toDate), 286, 12, { align: 'right' })
+        pdf.text('Customer: ' + record.customer.description, 286, 16, { align: 'right' })
     }
 
-    private createPortGroup(portGroup: InvoicingPortVM[]): any {
-        const rows = []
-        rows.push([
-            { text: 'Adults', fontSize: 6 },
-            { text: 'Kids', fontSize: 6 },
-            { text: 'Free', fontSize: 6 },
-            { text: 'Total', fontSize: 6 },
-            { text: 'Actual', fontSize: 6 },
-            { text: 'N/S', fontSize: 6 },
-            { text: 'Transfer', fontSize: 6 }
-        ])
-        for (const transfer of portGroup) {
-            for (const port of transfer.hasTransferGroup) {
-                rows.push([
-                    { text: port.adults, alignment: 'right', fontSize: 5 },
-                    { text: port.kids, alignment: 'right', fontSize: 5 },
-                    { text: port.free, alignment: 'right', fontSize: 5 },
-                    { text: port.totalPersons, alignment: 'right', fontSize: 5 },
-                    { text: port.totalPassengers, alignment: 'right', fontSize: 5 },
-                    { text: port.totalPersons - port.totalPassengers, alignment: 'right', fontSize: 5 },
-                    { text: port.hasTransfer, alignment: 'left', fontSize: 5 },
-                ])
+    private addPortGroup(pdf: jsPDF): void {
+        pdf.setFont('NotoSansMonoCondensedRegular')
+        pdf.setFontSize(8)
+        pdf.setTextColor(0, 0, 0)
+        this.nextLineTop += this.lineGap + 12
+        pdf.text('Adults', 62, this.nextLineTop, { align: 'right' })
+        pdf.text('Kids', 72, this.nextLineTop, { align: 'right' })
+        pdf.text('Free', 82, this.nextLineTop, { align: 'right' })
+        pdf.text('Total', 93, this.nextLineTop, { align: 'right' })
+        pdf.text('Actual', 106, this.nextLineTop, { align: 'right' })
+        pdf.text('Transfer', 111, this.nextLineTop, { align: 'left' })
+        this.nextLineTop += this.lineGap
+        for (let portGroupIndex = 0; portGroupIndex < this.customer.portGroup.length; portGroupIndex++) {
+            for (let hasTransferGroupIndex = 0; hasTransferGroupIndex < this.customer.portGroup[portGroupIndex].hasTransferGroup.length; hasTransferGroupIndex++) {
+                pdf.text(this.buildTransferGroupLine(pdf, portGroupIndex, hasTransferGroupIndex), 57, this.nextLineTop)
+                this.nextLineTop += this.lineGap
             }
+            pdf.text(this.buildPortGroupLine(pdf, portGroupIndex), 30, this.nextLineTop)
+            this.nextLineTop += this.lineGap
         }
-        return rows
     }
 
-    private setFonts(): void {
-        pdfFonts.pdfMake.vfs['AkaAcidCanterBold'] = strAkaAcidCanterBold
-        pdfFonts.pdfMake.vfs['PFHandbookPro'] = strPFHandbookPro
-        pdfMake.fonts = {
-            PFHandbookPro: {
-                normal: 'PFHandbookPro',
-            },
-            AkaAcidCanterBold: {
-                normal: 'AkaAcidCanterBold'
+    private addBody(pdf: jsPDF): void {
+        this.nextLineTop += this.lineGap + 5
+        pdf.text('Destination', 10, this.nextLineTop, { align: 'left' })
+        pdf.text('Port', 44, this.nextLineTop, { align: 'left' })
+        pdf.text('Ship', 71, this.nextLineTop, { align: 'left' })
+        pdf.text('Ticket No', 94, this.nextLineTop, { align: 'left' })
+        pdf.text('Adults', 132, this.nextLineTop, { align: 'right' })
+        pdf.text('Kids', 141, this.nextLineTop, { align: 'right' })
+        pdf.text('Free', 151, this.nextLineTop, { align: 'right' })
+        pdf.text('Total', 162, this.nextLineTop, { align: 'right' })
+        pdf.text('Actual', 174, this.nextLineTop, { align: 'right' })
+        pdf.text('N/S', 184, this.nextLineTop, { align: 'right' })
+        pdf.text('Transfer', 188, this.nextLineTop, { align: 'left' })
+        pdf.text('Remarks', 204, this.nextLineTop, { align: 'left' })
+        pdf.text('RefNo', 261, this.nextLineTop, { align: 'left' })
+        pdf.text('Date', 272, this.nextLineTop, { align: 'left' })
+        this.nextLineTop += this.lineGap
+        for (let reservationIndex = 0; reservationIndex < this.customer.reservations.length; reservationIndex++) {
+            if (this.mustAddPage(this.nextLineTop + this.topMargin, this.pageHeight)) {
+                this.addFooter(this.pageCount, pdf, false)
+                this.pageCount++
+                this.nextLineTop = this.addPageAndResetTopMargin(pdf)
             }
+            pdf.text(this.buildReservationLine(pdf, reservationIndex), 10, this.nextLineTop)
+            this.nextLineTop += this.lineGap
         }
     }
 
-    private setBackgroundImage(): any[] {
-        const backgroundImage = [
-            {
-                image: this.logoService.getLogo('light'),
-                width: '1000',
-                opacity: 0.03
-            }
-        ]
-        return backgroundImage
+    private addFooter(pageCount: number, pdf: jsPDF, isLastPage: boolean): void {
+        pdf.setFont('PFHandbookProThin')
+        pdf.setTextColor(0, 0, 0)
+        pdf.setFontSize(9)
+        pdf.text('Page: ' + pageCount.toString() + this.isLastPage(isLastPage), 286, 200, { align: 'right' })
     }
 
-    private setPageInfo(): any {
-        const pageInfo = {
-            title: 'Billing Report',
-            filename: 'Boos.pdf'
-        }
-        return pageInfo
+    private addLogo(pdf: jsPDF): void {
+        pdf.addImage(this.logoService.getLogo(), 'JPEG', 10, 10, 15, 15)
+        pdf.setFont('ACCanterBold')
+        pdf.setFontSize(20)
+        pdf.setTextColor(173, 0, 0)
+        pdf.text(environment.appName, 30, 18)
     }
 
-    private setLogo(): any {
-        const logo = {
-            type: 'none',
-            width: 60,
-            margin: [0, -6, 0, 0],
-            ul: [
-                { image: this.logoService.getLogo('light'), fit: [40, 40], alignment: 'left' },
-            ]
-        }
-        return logo
+    private addPageAndResetTopMargin(pdf: jsPDF): number {
+        pdf.addPage()
+        this.topMargin = 10
+        return this.topMargin
     }
 
-    private setTitle(): any {
-        const title = {
-            type: 'none',
-            ul: [
-                { text: 'Corfu Cruises', alignment: 'left', color: '#0a5f91', fontSize: 20, margin: [-5, 0, 0, 0], style: 'AkaAcidCanterBold' },
-                { text: 'Billing Report', alignment: 'left', color: '#22a7f2', fontSize: 10, margin: [-4, 0, 0, 0] }
-            ]
-        }
-        return title
+    private addTitle(pdf: jsPDF): void {
+        pdf.setFont('PFHandbookProThin')
+        pdf.setFontSize(10)
+        pdf.setTextColor(0, 0, 0)
+        pdf.text('Billing Report', 36, 22)
     }
 
-    private setCriteria(record: InvoicingVM): any {
-        const fromDate = this.helperService.formatISODateToLocale(record.fromDate)
-        const toDate = this.helperService.formatISODateToLocale(record.toDate)
-        const criteria = {
-            type: 'none',
-            ul: [
-                { text: 'Date range: ' + fromDate + ' - ' + toDate, alignment: 'right', color: '#0a5f91', fontSize: 8 },
-                { text: 'Customer: ' + record.customer.description, alignment: 'right', color: '#0a5f91', fontSize: 8 }
-            ]
-        }
-        return criteria
+    private buildReservationLine(pdf: jsPDF, index: number): string {
+        pdf.setFont('NotoSansMonoCondensedRegular')
+        pdf.setFontSize(8)
+        pdf.setTextColor(0, 0, 0)
+        const line =
+            this.customer.reservations[index].destination.padEnd(20, ' ').substring(0, 20) + '   ' +
+            this.customer.reservations[index].port.padEnd(15, ' ') + '   ' +
+            this.customer.reservations[index].ship.padEnd(12, ' ') + '   ' +
+            this.customer.reservations[index].ticketNo.substring(0, 18).padEnd(20, ' ') + '   ' +
+            this.customer.reservations[index].adults.toString().padStart(3, ' ') + '   ' +
+            this.customer.reservations[index].kids.toString().padStart(3, ' ') + '   ' +
+            this.customer.reservations[index].free.toString().padStart(3, ' ') + '   ' +
+            this.customer.reservations[index].totalPersons.toString().padStart(5, ' ') + '   ' +
+            this.customer.reservations[index].embarkedPassengers.toString().padStart(4, ' ') + '   ' +
+            this.customer.reservations[index].totalNoShow.toString().padStart(4, ' ') + '   ' +
+            this.formatTransfer(this.customer.reservations[index].hasTransfer) + '  ' +
+            this.customer.reservations[index].remarks.substring(0, 37).padEnd(37, ' ') + ' ' +
+            this.customer.reservations[index].refNo.toString() + ' ' +
+            this.helperService.formatISODateToLocale(this.customer.reservations[index].date)
+        return line
     }
 
-    private setFooter(currentPage: { toString: any }, pageCount: string): any {
-        const footer = {
-            layout: 'noBorders',
-            margin: [0, 10, 40, 10],
-            table: {
-                widths: ['100%'],
-                body: [
-                    [
-                        { text: 'Page ' + currentPage.toString() + ' of ' + pageCount, alignment: 'right', fontSize: 6 }
-                    ]
-                ]
-            }
-        }
-        return footer
+    private buildPortGroupLine(pdf: jsPDF, index: number): string {
+        pdf.setFont('NotoSansMonoCondensedRegular')
+        pdf.setFontSize(8)
+        pdf.setTextColor(0, 0, 0)
+        const line =
+            this.customer.portGroup[index].port.padEnd(17, ' ') + ' ' +
+            this.customer.portGroup[index].adults.toString().padStart(3, ' ') + '   ' +
+            this.customer.portGroup[index].kids.toString().padStart(4, ' ') + '   ' +
+            this.customer.portGroup[index].free.toString().padStart(4, ' ') + '   ' +
+            this.customer.portGroup[index].totalPersons.toString().padStart(4, ' ') + '   ' +
+            this.customer.portGroup[index].totalPassengers.toString().padStart(6, ' ') + '   '
+        return line
     }
 
-    private createReservationLines(reservations: InvoicingReservationVM[]): any[] {
-        const rows = []
-        rows.push([
-            { text: 'Date', fontSize: 6 },
-            { text: 'Destination', fontSize: 6 },
-            { text: 'Ship', fontSize: 6 },
-            { text: 'Port', fontSize: 6 },
-            { text: 'RefNo', fontSize: 6 },
-            { text: 'TicketNo', fontSize: 6 },
-            { text: 'Transfer', fontSize: 6 },
-            { text: 'Adults', fontSize: 6 },
-            { text: 'Kids', fontSize: 6 },
-            { text: 'Free', fontSize: 6 },
-            { text: 'Total', fontSize: 6 },
-            { text: 'Actual', fontSize: 6 },
-            { text: 'N/S', fontSize: 6 },
-            { text: 'Remarks', fontSize: 6 },
-        ])
-        for (const reservation of reservations) {
-            rows.push([
-                { text: reservation.date, alignment: 'left', fontSize: 5 },
-                { text: reservation.destination, alignment: 'left', fontSize: 5 },
-                { text: reservation.ship, alignment: 'left', fontSize: 5 },
-                { text: reservation.port, alignment: 'left', fontSize: 5 },
-                { text: reservation.refNo, alignment: 'left', fontSize: 5 },
-                { text: reservation.ticketNo, alignment: 'left', fontSize: 5 },
-                { text: reservation.hasTransfer, alignment: 'left', fontSize: 5 },
-                { text: reservation.adults, alignment: 'right', fontSize: 5 },
-                { text: reservation.kids, alignment: 'right', fontSize: 5 },
-                { text: reservation.free, alignment: 'right', fontSize: 5 },
-                { text: reservation.totalPersons, alignment: 'right', fontSize: 5 },
-                { text: reservation.embarkedPassengers, alignment: 'right', fontSize: 5 },
-                { text: reservation.totalNoShow, alignment: 'right', fontSize: 5 },
-                { text: reservation.remarks, alignment: 'left', fontSize: 5 },
-            ])
+    private buildTransferGroupLine(pdf: jsPDF, x: number, z: number): string {
+        pdf.setFont('NotoSansMonoCondensedRegular')
+        pdf.setFontSize(8)
+        pdf.setTextColor(0, 0, 0)
+        const line =
+            this.customer.portGroup[x].hasTransferGroup[z].adults.toString().padStart(3, ' ') + '   ' +
+            this.customer.portGroup[x].hasTransferGroup[z].kids.toString().padStart(4, ' ') + '   ' +
+            this.customer.portGroup[x].hasTransferGroup[z].free.toString().padStart(4, ' ') + '   ' +
+            this.customer.portGroup[x].hasTransferGroup[z].totalPersons.toString().padStart(4, ' ') + '   ' +
+            this.customer.portGroup[x].hasTransferGroup[z].totalPassengers.toString().padStart(6, ' ') + '   ' +
+            this.formatTransfer(this.customer.portGroup[x].hasTransferGroup[z].hasTransfer) + '   '
+        return line
+
+    }
+
+    private formatTransfer(hasTransfer: any): string {
+        return hasTransfer ? 'YES      ' : 'NO       '
+    }
+
+    private init(record: any): void {
+        this.customer = Object.assign([], record)
+        this.nextLineTop = 20
+        this.pageCount = 1
+        this.pdf = new jsPDF('landscape', 'mm', 'a4')
+        this.pageHeight = parseInt(this.pdf.internal.pageSize.height.toFixed())
+    }
+
+    private isLastPage(isLastPage: boolean): string {
+        return isLastPage ? ' Last page' : ''
+    }
+
+    private mustAddPage(nextLineTop: number, pageHeight: number): boolean {
+        if (nextLineTop > pageHeight) {
+            return true
         }
-        return rows
+    }
+
+    private openPdf(): void {
+        this.pdf.output('dataurlnewwindow')
     }
 
     //#endregion

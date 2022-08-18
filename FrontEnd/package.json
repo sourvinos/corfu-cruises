@@ -1,9 +1,9 @@
 {
     "name": "corfucruises",
-    "version": "2.0.0",
+    "version": "0.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --ssl --ssl-cert ssl\\localhost+5.pem --ssl-key ssl\\localhost+5-key.pem",
+        "start": "ng serve --ssl --ssl-cert ssl\\localhost.pem --ssl-key ssl\\localhost-key.pem",
         "build": "ng build",
         "lint": "eslint ./",
         "e2e": "cypress open"
@@ -27,6 +27,7 @@
         "file-saver": "2.0.5",
         "font-awesome": "4.7.0",
         "guid-typescript": "1.0.9",
+        "jspdf": "2.5.1",
         "jwt-decode": "3.1.2",
         "leaflet": "1.7.1",
         "leaflet.markercluster": "1.5.3",
