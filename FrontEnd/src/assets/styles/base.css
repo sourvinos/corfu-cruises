@@ -118,11 +118,12 @@ p.instructions {
 }
 
 ::-webkit-scrollbar {
-    height: 5px;
-    width: 3px;
+    width: 0.8rem;
 }
 
 ::-webkit-scrollbar-thumb {
+    background-clip: padding-box;
     background-color: var(--color-scrollbar-thumb);
-    min-height: 5rem;
+    border-radius: 9999px;
+    border: 0.25rem solid rgba(0, 0, 0, 0);
 }
