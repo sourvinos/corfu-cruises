@@ -26,8 +26,7 @@
 }
 
 #content {
-    flex: 1;
-    justify-content: center;
+    height: inherit;
 }
 
 #menu-button {
