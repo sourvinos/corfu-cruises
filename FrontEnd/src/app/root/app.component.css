@@ -28,7 +28,6 @@
 #content {
     flex: 1;
     justify-content: center;
-    overflow-y: scroll;
 }
 
 #menu-button {
