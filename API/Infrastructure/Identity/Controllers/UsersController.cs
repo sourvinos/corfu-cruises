@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Infrastructure.Classes;
 using API.Infrastructure.Email;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
@@ -49,29 +48,21 @@ namespace API.Infrastructure.Identity {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IActionResult> GetUser(string id) {
+        public async Task<Response> GetUser(string id) {
             UserExtended record = await userManager.Users
                 .Include(x => x.Customer)
                 .DefaultIfEmpty()
                 .SingleOrDefaultAsync(x => x.Id == id);
-            if (record == null) {
-                return StatusCode(404, new {
-                    response = ApiMessages.RecordNotFound()
-                });
-            }
-            UserReadDto vm = new() {
-                Id = record.Id,
-                UserName = record.UserName,
-                Displayname = record.Displayname,
-                Customer = new SimpleResource {
-                    Id = (record.Customer?.Id) ?? 0,
-                    Description = (record.Customer?.Description) ?? "(EMPTY)"
-                },
-                Email = record.Email,
-                IsAdmin = record.IsAdmin,
-                IsActive = record.IsActive
+            return record == null ? new Response {
+                Code = 404,
+                Icon = Icons.Error.ToString(),
+                Message = ApiMessages.RecordNotFound()
+            } : new Response {
+                Code = 200,
+                Icon = Icons.Info.ToString(),
+                Message = ApiMessages.OK(),
+                Body = mapper.Map<UserExtended, UserReadDto>(record)
             };
-            return StatusCode(200, vm);
         }
 
         [HttpPost]
@@ -81,9 +72,17 @@ namespace API.Infrastructure.Identity {
             var result = await userManager.CreateAsync(user, record.Password);
             if (result.Succeeded) {
                 await userManager.AddToRoleAsync(user, user.IsAdmin ? "Admin" : "User");
-                return ApiResponses.OK();
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
             } else {
-                throw new CustomException { HttpResponseCode = 492 };
+                return new Response {
+                    Code = 492,
+                    Icon = Icons.Error.ToString(),
+                    Message = ApiMessages.NotUniqueUser()
+                };
             }
         }
 
@@ -92,18 +91,34 @@ namespace API.Infrastructure.Identity {
         public async Task<Response> PutUser([FromRoute] string id, [FromBody] UserUpdateDto record) {
             if (ModelState.IsValid) {
                 UserExtended user = await userManager.FindByIdAsync(id);
-                if (record != null) {
+                if (user != null) {
                     if (await UpdateUserAsync(user, record)) {
                         await UpdateRole(user);
-                        return ApiResponses.OK();
+                        return new Response {
+                            Code = 200,
+                            Icon = Icons.Success.ToString(),
+                            Message = ApiMessages.OK()
+                        };
                     } else {
-                        throw new CustomException { HttpResponseCode = 498 };
+                        return new Response {
+                            Code = 498,
+                            Icon = Icons.Error.ToString(),
+                            Message = ApiMessages.NotUniqueUser()
+                        };
                     }
                 } else {
-                    throw new CustomException { HttpResponseCode = 404 };
+                    return new Response {
+                        Code = 404,
+                        Icon = Icons.Error.ToString(),
+                        Message = ApiMessages.RecordNotFound()
+                    };
                 }
             } else {
-                throw new CustomException { HttpResponseCode = 498 };
+                return new Response {
+                    Code = 498,
+                    Icon = Icons.Error.ToString(),
+                    Message = ApiMessages.RecordNotSaved()
+                };
             }
         }
 
@@ -112,35 +127,51 @@ namespace API.Infrastructure.Identity {
         public async Task<Response> DeleteUser(string id) {
             var user = await Extensions.Identity.GetConnectedUserId(httpContextAccessor);
             if (id == user.UserId) {
-                throw new CustomException { HttpResponseCode = 499 };
+                return new Response {
+                    Code = 499,
+                    Icon = Icons.Error.ToString(),
+                    Message = ApiMessages.UnableToDeleteConnectedUser()
+                };
             } else {
                 try {
                     IdentityResult result = await userManager.DeleteAsync(await userManager.FindByIdAsync(id));
-                    return ApiResponses.OK();
+                    return new Response {
+                        Code = 200,
+                        Icon = Icons.Success.ToString(),
+                        Message = ApiMessages.OK()
+                    };
                 } catch (Exception) {
-                    throw new CustomException { HttpResponseCode = 491 };
+                    return new Response {
+                        Code = 491,
+                        Icon = Icons.Error.ToString(),
+                        Message = ApiMessages.RecordInUse()
+                    };
                 }
             }
         }
 
         [HttpPost("[action]")]
         [Authorize(Roles = "admin")]
-        public IActionResult SendLoginCredentials([FromBody] LoginCredentialsViewModel model) {
+        public Response SendLoginCredentials([FromBody] LoginCredentialsViewModel model) {
             string baseUrl = $"{Request.Scheme}://{Request.Host.Value}{Request.PathBase.Value}";
             string loginLink = Url.Content($"{baseUrl}/login");
             var result = emailSender.SendLoginCredentials(model, loginLink);
             if (result.Successful) {
-                return StatusCode(200, new { response = ApiMessages.EmailInstructions() });
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                return new Response {
+                    Code = 496,
+                    Icon = Icons.Error.ToString(),
+                    Message = ApiMessages.EmailNotSent()
+                };
             }
-            return StatusCode(496, new { response = ApiMessages.EmailNotSent() });
         }
 
         private async Task<bool> UpdateUserAsync(UserExtended user, UserUpdateDto record) {
-            var result = await userManager.UpdateAsync(await CreateUpdatedUserAsync(user, record));
-            return result.Succeeded;
-        }
-
-        private async Task<UserExtended> CreateUpdatedUserAsync(UserExtended user, UserUpdateDto record) {
             user.UserName = record.UserName;
             user.Displayname = record.Displayname;
             if (await IsAdmin()) {
@@ -149,7 +180,8 @@ namespace API.Infrastructure.Identity {
                 user.IsAdmin = record.IsAdmin;
                 user.IsActive = record.IsActive;
             }
-            return user;
+            var result = await userManager.UpdateAsync(user);
+            return result.Succeeded;
         }
 
         private async Task UpdateRole(UserExtended user) {

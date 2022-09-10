@@ -93,9 +93,9 @@ namespace API.Features.ShipCrews {
         private Response GetErrorMessage(int errorCode) {
             httpContextAccessor.HttpContext.Response.StatusCode = errorCode;
             return errorCode switch {
-                450 => new Response { StatusCode = 450, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Gender") },
-                451 => new Response { StatusCode = 451, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Nationality") },
-                452 => new Response { StatusCode = 452, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Ship") },
+                450 => new Response { Code = 450, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Gender") },
+                451 => new Response { Code = 451, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Nationality") },
+                452 => new Response { Code = 452, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Ship") },
                 _ => new Response { Message = ApiMessages.RecordNotSaved() }
             };
         }

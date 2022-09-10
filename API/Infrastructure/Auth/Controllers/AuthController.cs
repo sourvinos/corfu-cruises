@@ -49,7 +49,7 @@ namespace API.Infrastructure.Auth {
                 db.Tokens.RemoveRange(tokens);
                 db.SaveChanges();
                 return StatusCode(200, new {
-                    response = ApiMessages.LogoutSuccess()
+                    response = ApiMessages.OK()
                 });
             }
             return StatusCode(404, new {

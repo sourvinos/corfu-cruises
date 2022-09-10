@@ -42,8 +42,18 @@ namespace API.Features.Customers {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<CustomerReadDto> GetCustomer(int id) {
-            return mapper.Map<Customer, CustomerReadDto>(await repo.GetById(id));
+        public async Task<Response> GetCustomer(int id) {
+            var customer = await repo.GetById(id);
+            return customer == null ? new Response {
+                Code = 404,
+                Icon = Icons.Error.ToString(),
+                Message = ApiMessages.RecordNotFound()
+            } : new Response {
+                Code = 200,
+                Icon = Icons.Info.ToString(),
+                Message = ApiMessages.OK(),
+                Body = mapper.Map<Customer, CustomerReadDto>(customer)
+            };
         }
 
         [HttpPost]
@@ -51,7 +61,11 @@ namespace API.Features.Customers {
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> PostCustomerAsync([FromBody] CustomerWriteDto record) {
             repo.Create(mapper.Map<CustomerWriteDto, Customer>(await AttachUserIdToRecord(record)));
-            return ApiResponses.OK();
+            return new Response {
+                Code = 200,
+                Icon = Icons.Success.ToString(),
+                Message = ApiMessages.OK()
+            };
         }
 
         [HttpPut("{id}")]
@@ -59,14 +73,22 @@ namespace API.Features.Customers {
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> PutCustomerAsync([FromBody] CustomerWriteDto record) {
             repo.Update(mapper.Map<CustomerWriteDto, Customer>(await AttachUserIdToRecord(record)));
-            return ApiResponses.OK();
+            return new Response {
+                Code = 200,
+                Icon = Icons.Success.ToString(),
+                Message = ApiMessages.OK()
+            };
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> DeleteCustomer([FromRoute] int id) {
             repo.Delete(await repo.GetByIdToDelete(id));
-            return ApiResponses.OK();
+            return new Response {
+                Code = 200,
+                Icon = Icons.Success.ToString(),
+                Message = ApiMessages.OK()
+            };
         }
 
         private async Task<CustomerWriteDto> AttachUserIdToRecord(CustomerWriteDto record) {

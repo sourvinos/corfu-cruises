@@ -2,6 +2,7 @@
 using API.Features.Schedules;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -68,36 +69,48 @@ namespace API.Features.Reservations {
         [HttpPost]
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PostReservationAsync([FromBody] ReservationWriteResource record) {
-            var response = reservationRepo.IsValid(record, scheduleRepo);
-            if (response == 200) {
+        public async Task<Response> PostReservationAsync([FromBody] ReservationWriteResource record) {
+            var responseCode = reservationRepo.IsValid(record, scheduleRepo);
+            if (responseCode == 200) {
                 await AssignRefNoToNewReservation(record);
                 AttachPortIdToRecord(record);
                 await AttachUserIdToRecord(record);
                 reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
-                return StatusCode(200, new {
-                    message = record.RefNo
-                });
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = record.RefNo
+                };
             } else {
-                return GetErrorMessage(response);
+                return new Response {
+                    Code = responseCode,
+                    Icon = Icons.Error.ToString(),
+                    Message = GetMessage(responseCode)
+                };
             }
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
+        public async Task<Response> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
             await AttachUserIdToRecord(record);
             AttachPortIdToRecord(record);
-            var response = reservationRepo.IsValid(record, scheduleRepo);
-            record = reservationRepo.UpdateForeignKeysWithNull(record);
-            if (response == 200) {
+            var responseCode = reservationRepo.IsValid(record, scheduleRepo);
+            if (responseCode == 200) {
+                record = reservationRepo.UpdateForeignKeysWithNull(record);
                 await reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
-                return StatusCode(200, new {
-                    message = record.RefNo
-                });
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = record.RefNo
+                };
             } else {
-                return GetErrorMessage(response);
+                return new Response {
+                    Code = responseCode,
+                    Icon = Icons.Error.ToString(),
+                    Message = GetMessage(responseCode)
+                };
             }
         }
 
@@ -142,25 +155,25 @@ namespace API.Features.Reservations {
             return record;
         }
 
-        private IActionResult GetErrorMessage(int errorCode) {
+        private static string GetMessage(int errorCode) {
             return errorCode switch {
-                450 => StatusCode(450, new { response = ApiMessages.FKNotFoundOrInactive("Customer Id") }),
-                451 => StatusCode(451, new { response = ApiMessages.FKNotFoundOrInactive("Destination Id") }),
-                452 => StatusCode(452, new { response = ApiMessages.FKNotFoundOrInactive("Pickup point Id") }),
-                453 => StatusCode(453, new { response = ApiMessages.FKNotFoundOrInactive("Driver Id") }),
-                454 => StatusCode(454, new { response = ApiMessages.FKNotFoundOrInactive("Ship Id") }),
-                455 => StatusCode(455, new { response = ApiMessages.InvalidPassengerCount() }),
-                456 => StatusCode(456, new { response = ApiMessages.FKNotFoundOrInactive("Nationality Id for at least one passenger") }),
-                457 => StatusCode(457, new { response = ApiMessages.FKNotFoundOrInactive("Gender Id for at least one passenger") }),
-                458 => StatusCode(458, new { response = ApiMessages.FKNotFoundOrInactive("Occupant Id for at least one passenger") }),
-                432 => StatusCode(432, new { response = ApiMessages.DayHasNoSchedule() }),
-                430 => StatusCode(430, new { response = ApiMessages.DayHasNoScheduleForDestination() }),
-                427 => StatusCode(427, new { response = ApiMessages.PortHasNoDepartures() }),
-                433 => StatusCode(433, new { response = ApiMessages.PortHasNoVacancy() }),
-                409 => StatusCode(409, new { response = ApiMessages.DuplicateRecord() }),
-                459 => StatusCode(459, new { response = ApiMessages.SimpleUserNightRestrictions() }),
-                431 => StatusCode(431, new { response = ApiMessages.SimpleUserCanNotAddReservationAfterDepartureTime() }),
-                _ => StatusCode(490, new { Response = ApiMessages.RecordNotSaved() }),
+                450 => ApiMessages.FKNotFoundOrInactive("Customer Id"),
+                451 => ApiMessages.FKNotFoundOrInactive("Destination Id"),
+                452 => ApiMessages.FKNotFoundOrInactive("Pickup point Id"),
+                453 => ApiMessages.FKNotFoundOrInactive("Driver Id"),
+                454 => ApiMessages.FKNotFoundOrInactive("Ship Id"),
+                455 => ApiMessages.InvalidPassengerCount(),
+                456 => ApiMessages.FKNotFoundOrInactive("Nationality Id for at least one passenger"),
+                457 => ApiMessages.FKNotFoundOrInactive("Gender Id for at least one passenger"),
+                458 => ApiMessages.FKNotFoundOrInactive("Occupant Id for at least one passenger"),
+                432 => ApiMessages.DayHasNoSchedule(),
+                430 => ApiMessages.DayHasNoScheduleForDestination(),
+                427 => ApiMessages.PortHasNoDepartures(),
+                433 => ApiMessages.PortHasNoVacancy(),
+                409 => ApiMessages.DuplicateRecord(),
+                459 => ApiMessages.SimpleUserNightRestrictions(),
+                431 => ApiMessages.SimpleUserCanNotAddReservationAfterDepartureTime(),
+                _ => ApiMessages.RecordNotSaved()
             };
         }
 

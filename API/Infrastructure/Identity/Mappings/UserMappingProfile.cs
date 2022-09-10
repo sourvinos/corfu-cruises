@@ -9,6 +9,7 @@ namespace API.Infrastructure.Identity {
             CreateMap<UserNewDto, UserExtended>()
                 .ForMember(x => x.EmailConfirmed, x => x.MapFrom(x => true))
                 .ForMember(x => x.SecurityStamp, x => x.MapFrom(x => Guid.NewGuid().ToString()));
+            CreateMap<UserExtended, UserReadDto>();
         }
 
     }

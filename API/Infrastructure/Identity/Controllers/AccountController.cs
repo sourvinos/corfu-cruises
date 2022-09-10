@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using API.Infrastructure.Email;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -28,22 +29,16 @@ namespace API.Infrastructure.Identity {
 
         [AllowAnonymous]
         [HttpPost("[action]")]
-        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewModel model) {
+        public async Task<Response> ForgotPassword([FromBody] ForgotPasswordViewModel model) {
             if (ModelState.IsValid) {
-                var user = await userManager.FindByEmailAsync(model.Email);
-                if (user != null && await userManager.IsEmailConfirmedAsync(user)) {
-                    string token = await userManager.GeneratePasswordResetTokenAsync(user);
-                    string tokenEncoded = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
-                    string baseUrl = $"{model.ReturnUrl}";
-                    string passwordResetLink = Url.Content($"{baseUrl}/#/resetPassword?email={model.Email}&token={tokenEncoded}");
-                    var response = emailSender.SendResetPasswordEmail(user.Displayname, user.Email, passwordResetLink, model.Language);
-                    return response.Successful
-                        ? StatusCode(200, new { response = ApiMessages.EmailInstructions() })
-                        : StatusCode(500, new { response = ApiMessages.EmailNotSent() });
-                }
-                return StatusCode(200, new { response = ApiMessages.EmailInstructions() });
+                return await SendEmailAsync(model);
+            } else {
+                return new Response {
+                    Code = 497,
+                    Icon = Icons.Error.ToString(),
+                    Message = ApiMessages.InvalidModel()
+                };
             }
-            return StatusCode(400, new { response = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage) });
         }
 
         [AllowAnonymous]
@@ -65,7 +60,7 @@ namespace API.Infrastructure.Identity {
                     var result = await userManager.ResetPasswordAsync(user, Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(model.Token)), model.Password);
                     if (result.Succeeded) {
                         await signInManager.RefreshSignInAsync(user);
-                        return StatusCode(200, new { response = ApiMessages.PasswordReset() });
+                        return StatusCode(200, new { response = ApiMessages.OK() });
                     }
                     return StatusCode(494, new { response = result.Errors.Select(x => x.Description) });
                 }
@@ -83,7 +78,7 @@ namespace API.Infrastructure.Identity {
                     var result = await userManager.ChangePasswordAsync(user, vm.CurrentPassword, vm.Password);
                     if (result.Succeeded) {
                         await signInManager.RefreshSignInAsync(user);
-                        return StatusCode(200, new { response = ApiMessages.PasswordChanged() });
+                        return StatusCode(200, new { response = ApiMessages.OK() });
                     }
                     return StatusCode(494, new { response = result.Errors.Select(x => x.Description) });
                 }
@@ -102,6 +97,32 @@ namespace API.Infrastructure.Identity {
         [HttpGet("[action]")]
         public Task<SimpleUser> GetConnectedUserId() {
             return Extensions.Identity.GetConnectedUserId(httpContextAccessor);
+        }
+
+        private async Task<Response> SendEmailAsync(ForgotPasswordViewModel model) {
+            var user = await userManager.FindByEmailAsync(model.Email);
+            if (user != null && await userManager.IsEmailConfirmedAsync(user)) {
+                string token = await userManager.GeneratePasswordResetTokenAsync(user);
+                string tokenEncoded = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+                string baseUrl = $"{model.ReturnUrl}";
+                string passwordResetLink = Url.Content($"{baseUrl}/#/resetPassword?email={model.Email}&token={tokenEncoded}");
+                var response = emailSender.SendResetPasswordEmail(user.Displayname, user.Email, passwordResetLink, model.Language);
+                return response.Successful ? new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                } : new Response {
+                    Code = 498,
+                    Icon = Icons.Error.ToString(),
+                    Message = ApiMessages.EmailNotSent()
+                };
+            } else {
+                return new Response {
+                    Code = 498,
+                    Icon = Icons.Error.ToString(),
+                    Message = ApiMessages.EmailNotSent()
+                };
+            }
         }
 
     }

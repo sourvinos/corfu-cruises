@@ -22,7 +22,7 @@ namespace API.Infrastructure.Responses {
             httpContext.Response.StatusCode = e.HttpResponseCode;
             httpContext.Response.ContentType = "application/json";
             var result = JsonConvert.SerializeObject(new Response {
-                StatusCode = e.HttpResponseCode,
+                Code = e.HttpResponseCode,
                 Icon = Icons.Error.ToString(),
                 Message = GetErrorMessage(e.HttpResponseCode)
             });
@@ -33,7 +33,7 @@ namespace API.Infrastructure.Responses {
             httpContext.Response.StatusCode = 500;
             httpContext.Response.ContentType = "application/json";
             var result = JsonConvert.SerializeObject(new Response {
-                StatusCode = 500,
+                Code = 500,
                 Icon = Icons.Error.ToString(),
                 Message = e.Message
             });
@@ -44,10 +44,6 @@ namespace API.Infrastructure.Responses {
             return httpResponseCode switch {
                 404 => ApiMessages.RecordNotFound(),
                 491 => ApiMessages.RecordInUse(),
-                492 => ApiMessages.UnableToCreateUser(),
-                493 => ApiMessages.RecordNotSaved(),
-                497 => ApiMessages.UnableToUpdateUser(),
-                498 => ApiMessages.InvalidModel(),
                 499 => ApiMessages.UnableToDeleteConnectedUser(),
                 _ => ApiMessages.UnknownError(),
             };

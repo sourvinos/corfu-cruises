@@ -88,7 +88,7 @@ namespace API.Features.Registrars {
         private Response GetErrorMessage(int errorCode) {
             httpContextAccessor.HttpContext.Response.StatusCode = errorCode;
             return errorCode switch {
-                450 => new Response { StatusCode = 450, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Ship") },
+                450 => new Response { Code = 450, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Ship") },
                 _ => new Response { Message = ApiMessages.RecordNotSaved() },
             };
         }
