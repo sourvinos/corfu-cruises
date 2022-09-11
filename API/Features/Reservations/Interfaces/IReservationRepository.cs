@@ -6,21 +6,21 @@ namespace API.Features.Reservations {
 
     public interface IReservationRepository : IRepository<Reservation> {
 
-        Task<ReservationGroupResource<ReservationListResource>> GetByDate(string date);
-        Task<ReservationGroupResource<ReservationListResource>> GetByRefNo(string refNo);
-        Task<DriverResult<Reservation>> GetByDateAndDriver(string date, int driverId);
-        Task<ReservationReadResource> GetById(string id);
+        Task<ReservationGroupVM<ReservationListVM>> GetByDate(string date);
+        Task<ReservationGroupVM<ReservationListVM>> GetByRefNo(string refNo);
+        Task<ReservationDriverGroupVM<Reservation>> GetByDateAndDriver(string date, int driverId);
+        Task<Reservation> GetById(string id);
         Task<Reservation> GetByIdToDelete(string id);
         Task<bool> IsUserOwner(int customerId);
-        bool IsKeyUnique(ReservationWriteResource record);
+        bool IsKeyUnique(ReservationWriteDto record);
         Task Update(string id, Reservation updatedRecord);
         bool IsOverbooked(string date, int destinationId);
-        int GetPortIdFromPickupPointId(ReservationWriteResource record);
-        int IsValid(ReservationWriteResource record, IScheduleRepository scheduleRepo);
+        int GetPortIdFromPickupPointId(ReservationWriteDto record);
+        int IsValid(ReservationWriteDto record, IScheduleRepository scheduleRepo);
         void AssignToDriver(int driverId, string[] ids);
         void AssignToShip(int shipId, string[] ids);
-        ReservationWriteResource UpdateForeignKeysWithNull(ReservationWriteResource reservation);
-        Task<string> AssignRefNoToNewReservation(ReservationWriteResource record);
+        ReservationWriteDto UpdateForeignKeysWithNull(ReservationWriteDto reservation);
+        Task<string> AssignRefNoToNewReservation(ReservationWriteDto record);
 
     }
 

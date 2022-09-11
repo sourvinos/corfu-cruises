@@ -31,51 +31,60 @@ namespace API.Features.Reservations {
 
         [HttpGet("byDate/{date}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationGroupResource<ReservationListResource>> GetByDate([FromRoute] string date) {
+        public async Task<ReservationGroupVM<ReservationListVM>> GetByDateAsync([FromRoute] string date) {
             return await reservationRepo.GetByDate(date);
-        }
-
-        [HttpGet("isOverbooked/date/{date}/destinationId/{destinationId}")]
-        [Authorize(Roles = "user, admin")]
-        public bool IsOverbooked([FromRoute] string date, int destinationId) {
-            return reservationRepo.IsOverbooked(date, destinationId);
         }
 
         [HttpGet("byDate/{date}/byDriver/{driverId}")]
         [Authorize(Roles = "admin")]
-        public async Task<DriverResult<Reservation>> GetByDateAndDriver([FromRoute] string date, int driverId) {
+        public async Task<ReservationDriverGroupVM<Reservation>> GetByDateAndDriverAsync([FromRoute] string date, int driverId) {
             return await reservationRepo.GetByDateAndDriver(date, driverId);
         }
 
         [HttpGet("byRefNo/{refNo}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationGroupResource<ReservationListResource>> GetByRefNo([FromRoute] string refNo) {
+        public async Task<ReservationGroupVM<ReservationListVM>> GetByRefNoAsync([FromRoute] string refNo) {
             return await reservationRepo.GetByRefNo(refNo);
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IActionResult> GetById(string id) {
+        public async Task<Response> GetById(string id) {
             var record = await reservationRepo.GetById(id);
-            if (await Identity.IsUserAdmin(httpContext) || await reservationRepo.IsUserOwner(record.Customer.Id)) {
-                return StatusCode(200, record);
+            if (record == null) {
+                return new Response {
+                    Code = 404,
+                    Icon = Icons.Error.ToString(),
+                    Message = ApiMessages.RecordNotFound()
+                };
             } else {
-                return StatusCode(490, new {
-                    response = ApiMessages.NotOwnRecord()
-                });
+                if (await Identity.IsUserAdmin(httpContext) || await reservationRepo.IsUserOwner(record.Customer.Id)) {
+                    return new Response {
+                        Code = 200,
+                        Icon = Icons.Info.ToString(),
+                        Message = ApiMessages.OK(),
+                        Body = mapper.Map<Reservation, ReservationReadDto>(record)
+                    };
+                } else {
+                    return new Response {
+                        Code = 490,
+                        Icon = Icons.Error.ToString(),
+                        Message = ApiMessages.NotOwnRecord(),
+                    };
+                }
             }
         }
 
         [HttpPost]
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostReservationAsync([FromBody] ReservationWriteResource record) {
+        public async Task<Response> PostReservationAsync([FromBody] ReservationWriteDto record) {
             var responseCode = reservationRepo.IsValid(record, scheduleRepo);
             if (responseCode == 200) {
                 await AssignRefNoToNewReservation(record);
                 AttachPortIdToRecord(record);
                 await AttachUserIdToRecord(record);
-                reservationRepo.Create(mapper.Map<ReservationWriteResource, Reservation>(record));
+                reservationRepo.Create(mapper.Map<ReservationWriteDto, Reservation>(record));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -93,13 +102,13 @@ namespace API.Features.Reservations {
         [HttpPut("{id}")]
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutReservation([FromRoute] string id, [FromBody] ReservationWriteResource record) {
+        public async Task<Response> PutReservation([FromRoute] string id, [FromBody] ReservationWriteDto record) {
             await AttachUserIdToRecord(record);
             AttachPortIdToRecord(record);
             var responseCode = reservationRepo.IsValid(record, scheduleRepo);
             if (responseCode == 200) {
                 record = reservationRepo.UpdateForeignKeysWithNull(record);
-                await reservationRepo.Update(id, mapper.Map<ReservationWriteResource, Reservation>(record));
+                await reservationRepo.Update(id, mapper.Map<ReservationWriteDto, Reservation>(record));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -116,41 +125,64 @@ namespace API.Features.Reservations {
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteReservation([FromRoute] string id) {
-            reservationRepo.Delete(await reservationRepo.GetByIdToDelete(id));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordDeleted()
-            });
+        public async Task<Response> DeleteReservation([FromRoute] string id) {
+            var record = await reservationRepo.GetByIdToDelete(id);
+            if (record == null) {
+                return new Response {
+                    Code = 404,
+                    Icon = Icons.Error.ToString(),
+                    Message = ApiMessages.RecordNotFound()
+                };
+            } else {
+                reservationRepo.Delete(record);
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            }
         }
 
         [HttpPatch("assignToDriver")]
         [Authorize(Roles = "admin")]
-        public IActionResult AssignToDriver(int driverId, [FromQuery(Name = "id")] string[] ids) {
+        public Response AssignToDriver(int driverId, [FromQuery(Name = "id")] string[] ids) {
             reservationRepo.AssignToDriver(driverId, ids);
-            return StatusCode(200, new { response = ApiMessages.RecordUpdated() });
+            return new Response {
+                Code = 200,
+                Icon = Icons.Success.ToString(),
+                Message = ApiMessages.OK()
+            };
         }
 
         [HttpPatch("assignToShip")]
         [Authorize(Roles = "admin")]
-        public IActionResult AssignToShip(int shipId, [FromQuery(Name = "id")] string[] ids) {
+        public Response AssignToShip(int shipId, [FromQuery(Name = "id")] string[] ids) {
             reservationRepo.AssignToShip(shipId, ids);
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
+            return new Response {
+                Code = 200,
+                Icon = Icons.Success.ToString(),
+                Message = ApiMessages.OK()
+            };
         }
 
-        private async Task<ReservationWriteResource> AttachUserIdToRecord(ReservationWriteResource record) {
+        [HttpGet("isOverbooked/date/{date}/destinationId/{destinationId}")]
+        [Authorize(Roles = "user, admin")]
+        public bool IsOverbooked([FromRoute] string date, int destinationId) {
+            return reservationRepo.IsOverbooked(date, destinationId);
+        }
+
+        private async Task<ReservationWriteDto> AttachUserIdToRecord(ReservationWriteDto record) {
             var user = await Identity.GetConnectedUserId(httpContext);
             record.UserId = user.UserId;
             return record;
         }
 
-        private ReservationWriteResource AttachPortIdToRecord(ReservationWriteResource record) {
+        private ReservationWriteDto AttachPortIdToRecord(ReservationWriteDto record) {
             record.PortId = reservationRepo.GetPortIdFromPickupPointId(record);
             return record;
         }
 
-        private async Task<ReservationWriteResource> AssignRefNoToNewReservation(ReservationWriteResource record) {
+        private async Task<ReservationWriteDto> AssignRefNoToNewReservation(ReservationWriteDto record) {
             record.RefNo = await reservationRepo.AssignRefNoToNewReservation(record);
             return record;
         }

@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace API.Features.Reservations {
 
-    public class ReservationValidator : AbstractValidator<ReservationWriteResource> {
+    public class ReservationValidator : AbstractValidator<ReservationWriteDto> {
 
         public ReservationValidator() {
             // FKs
@@ -31,7 +31,7 @@ namespace API.Features.Reservations {
 
     }
 
-    public class PassengerValidator : AbstractValidator<PassengerWriteResource> {
+    public class PassengerValidator : AbstractValidator<PassengerWriteDto> {
 
         public PassengerValidator() {
             RuleFor(x => x.NationalityId).NotEmpty();

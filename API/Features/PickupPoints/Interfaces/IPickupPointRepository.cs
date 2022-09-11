@@ -8,7 +8,7 @@ namespace API.Features.PickupPoints {
     public interface IPickupPointRepository : IRepository<PickupPoint> {
 
         Task<IEnumerable<PickupPointListDto>> Get();
-        Task<IEnumerable<PickupPointWithPortDropdownResource>> GetActiveWithPortForDropdown();
+        Task<IEnumerable<PickupPointWithPortVM>> GetActiveWithPortForDropdown();
         new Task<PickupPoint> GetById(int pickupPointId);
         Task<PickupPoint> GetByIdToDelete(int pickupPointId);
         int IsValid(PickupPointWriteDto record);

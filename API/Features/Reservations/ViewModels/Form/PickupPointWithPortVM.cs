@@ -2,7 +2,7 @@ using API.Infrastructure.Classes;
 
 namespace API.Features.Reservations {
 
-    public class PickupPointWithPortDropdownResource {
+    public class PickupPointWithPortVM {
 
         public int Id { get; set; }
         public string Description { get; set; }
