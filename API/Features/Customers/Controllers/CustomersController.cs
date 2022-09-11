@@ -30,19 +30,19 @@ namespace API.Features.Customers {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<CustomerListDto>> Get() {
+        public async Task<IEnumerable<CustomerListDto>> GetAsync() {
             return await repo.Get();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdownAsync() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> GetCustomer(int id) {
+        public async Task<Response> GetCustomerAsync(int id) {
             var customer = await repo.GetById(id);
             return customer == null ? new Response {
                 Code = 404,
@@ -83,12 +83,21 @@ namespace API.Features.Customers {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> DeleteCustomer([FromRoute] int id) {
-            repo.Delete(await repo.GetByIdToDelete(id));
-            return new Response {
-                Code = 200,
-                Icon = Icons.Success.ToString(),
-                Message = ApiMessages.OK()
-            };
+            var customer = await repo.GetById(id);
+            if (customer == null) {
+                return new Response {
+                    Code = 404,
+                    Icon = Icons.Error.ToString(),
+                    Message = ApiMessages.RecordNotFound()
+                };
+            } else {
+                repo.Delete(await repo.GetByIdToDelete(id));
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            }
         }
 
         private async Task<CustomerWriteDto> AttachUserIdToRecord(CustomerWriteDto record) {

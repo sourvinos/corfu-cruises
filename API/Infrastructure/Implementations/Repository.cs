@@ -54,17 +54,13 @@ namespace API.Infrastructure.Implementations {
         }
 
         public void Delete(T entity) {
-            if (entity != null) {
-                using var transaction = context.Database.BeginTransaction();
-                try {
-                    RemoveEntity(entity);
-                    Save();
-                    DisposeOrCommit(transaction);
-                } catch (Exception) {
-                    throw new CustomException { HttpResponseCode = 491 };
-                }
-            } else {
-                throw new CustomException { HttpResponseCode = 404 };
+            using var transaction = context.Database.BeginTransaction();
+            try {
+                RemoveEntity(entity);
+                Save();
+                DisposeOrCommit(transaction);
+            } catch (Exception) {
+                throw new CustomException { HttpResponseCode = 491 };
             }
         }
 
