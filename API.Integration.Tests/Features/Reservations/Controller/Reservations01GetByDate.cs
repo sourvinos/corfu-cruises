@@ -49,7 +49,7 @@ namespace API.Integration.Tests.Reservations {
         [Fact]
         public async Task Active_Simple_Users_Can_List_Only_Owned() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "simpleuser", "1234567890");
-            var records = JsonSerializer.Deserialize<ReservationGroupResource<ReservationListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var records = JsonSerializer.Deserialize<ReservationGroupVM<ReservationListVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(6, records.Reservations.Count());
             Assert.Equal(13, records.Persons);
         }
@@ -57,7 +57,7 @@ namespace API.Integration.Tests.Reservations {
         [Fact]
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
-            var records = JsonSerializer.Deserialize<ReservationGroupResource<ReservationListResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var records = JsonSerializer.Deserialize<ReservationGroupVM<ReservationListVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(61, records.Reservations.Count());
             Assert.Equal(170, records.Persons);
         }

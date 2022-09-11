@@ -10,7 +10,7 @@
         public string PersonInCharge { get; set; }
         public string Email { get; set; }
         public bool IsActive { get; set; }
-        public string UserId { get; set; } = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
+        public string UserId { get; set; }
 
     }
 

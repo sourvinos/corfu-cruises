@@ -50,6 +50,11 @@ namespace API.Integration.Tests.Customers {
         }
 
         [Fact]
+        public async Task Active_Admins_Not_Found_When_Not_Exists() {
+            await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
+        }
+
+        [Fact]
         public async Task Active_Admins_Can_Get_By_Id() {
             await RecordFound.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
         }

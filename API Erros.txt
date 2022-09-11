@@ -1,0 +1,9 @@
+409 = Reservation is not unique: Date, Customer, Destination and TicketNo already exist
+427 = There are no departures from the selected port (Departures from other ports might exist)
+430 = There are no trips to the selected destination for the selected date (Trips to other destinations might exist)
+431 = Simple users can't create reservations after ship's departure
+432 = There are no trips for the selected date
+433 = Simple users are not allowed to cause overbooking
+455 = Passenger count should be less or equal to total persons
+497 = Invalid model
+498 = Email not sent. Possible causes: User was not found, User was not confirmed, Server error

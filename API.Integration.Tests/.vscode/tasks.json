@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "API.Integration.Tests/API.Integration.Tests.csproj",
+                "${workspaceFolder}/API.Integration.Tests.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -20,7 +20,7 @@
             "args": [
                 "watch",
                 "run",
-                "API.Integration.Tests/API.Integration.Tests.csproj",
+                "${workspaceFolder}/API.Integration.Tests.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

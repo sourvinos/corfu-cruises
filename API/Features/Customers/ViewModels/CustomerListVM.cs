@@ -1,8 +1,6 @@
-using API.Infrastructure.Classes;
-
 namespace API.Features.Customers {
 
-    public class CustomerListDto : IEntity {
+    public class CustomerListVM {
 
         public int Id { get; set; }
         public string Description { get; set; }

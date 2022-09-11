@@ -30,7 +30,7 @@ namespace API.Features.Customers {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<CustomerListDto>> GetAsync() {
+        public async Task<IEnumerable<CustomerListVM>> GetAsync() {
             return await repo.Get();
         }
 
@@ -82,7 +82,7 @@ namespace API.Features.Customers {
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> DeleteCustomer([FromRoute] int id) {
+        public async Task<Response> DeleteCustomerAsync([FromRoute] int id) {
             var customer = await repo.GetById(id);
             if (customer == null) {
                 return new Response {
