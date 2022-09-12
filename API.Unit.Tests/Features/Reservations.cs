@@ -11,7 +11,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateFK))]
         public void Invalid_CustomerId(int customerId) {
             new ReservationValidator()
-                .TestValidate(new ReservationWriteResource { CustomerId = customerId })
+                .TestValidate(new ReservationWriteDto { CustomerId = customerId })
                 .ShouldHaveValidationErrorFor(x => x.CustomerId);
         }
 
@@ -19,7 +19,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateFK))]
         public void Invalid_DestinationId(int destinationId) {
             new ReservationValidator()
-                .TestValidate(new ReservationWriteResource { DestinationId = destinationId })
+                .TestValidate(new ReservationWriteDto { DestinationId = destinationId })
                 .ShouldHaveValidationErrorFor(x => x.DestinationId);
         }
 
@@ -27,7 +27,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateFK))]
         public void Invalid_PickupPointId(int pickupPointId) {
             new ReservationValidator()
-                .TestValidate(new ReservationWriteResource { PickupPointId = pickupPointId })
+                .TestValidate(new ReservationWriteDto { PickupPointId = pickupPointId })
                 .ShouldHaveValidationErrorFor(x => x.PickupPointId);
         }
 
@@ -35,7 +35,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateDate))]
         public void Invalid_Date(string date) {
             new ReservationValidator()
-                .TestValidate(new ReservationWriteResource { Date = date })
+                .TestValidate(new ReservationWriteDto { Date = date })
                 .ShouldHaveValidationErrorFor(x => x.Date);
         }
 
@@ -44,7 +44,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_TicketNo(string ticketNo) {
             new ReservationValidator()
-                .TestValidate(new ReservationWriteResource { TicketNo = ticketNo })
+                .TestValidate(new ReservationWriteDto { TicketNo = ticketNo })
                 .ShouldHaveValidationErrorFor(x => x.TicketNo);
         }
 
@@ -52,7 +52,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateEmail))]
         public void Invalid_Email(string email) {
             new ReservationValidator()
-               .TestValidate(new ReservationWriteResource { Email = email })
+               .TestValidate(new ReservationWriteDto { Email = email })
                .ShouldHaveValidationErrorFor(x => x.Email);
         }
 
@@ -60,7 +60,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Phones(string phones) {
             new ReservationValidator()
-               .TestValidate(new ReservationWriteResource { Phones = phones })
+               .TestValidate(new ReservationWriteDto { Phones = phones })
                .ShouldHaveValidationErrorFor(x => x.Phones);
         }
 
@@ -68,7 +68,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Remarks(string remarks) {
             new ReservationValidator()
-               .TestValidate(new ReservationWriteResource { Remarks = remarks })
+               .TestValidate(new ReservationWriteDto { Remarks = remarks })
                .ShouldHaveValidationErrorFor(x => x.Remarks);
         }
 
@@ -76,7 +76,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateDate))]
         public void Invalid_Passenger_Birthdate(string date) {
             new PassengerValidator()
-                .TestValidate(new PassengerWriteResource { Birthdate = date })
+                .TestValidate(new PassengerWriteDto { Birthdate = date })
                 .ShouldHaveValidationErrorFor(x => x.Birthdate);
         }
 
@@ -84,7 +84,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Passenger_Lastname(string lastname) {
             new PassengerValidator()
-               .TestValidate(new PassengerWriteResource { Lastname = lastname })
+               .TestValidate(new PassengerWriteDto { Lastname = lastname })
                .ShouldHaveValidationErrorFor(x => x.Lastname);
         }
 
@@ -92,7 +92,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Passenger_Firstname(string firstname) {
             new PassengerValidator()
-               .TestValidate(new PassengerWriteResource { Firstname = firstname })
+               .TestValidate(new PassengerWriteDto { Firstname = firstname })
                .ShouldHaveValidationErrorFor(x => x.Firstname);
         }
 
@@ -100,7 +100,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateFK))]
         public void Invalid_Passenger_GenderId(int genderId) {
             new PassengerValidator()
-               .TestValidate(new PassengerWriteResource { GenderId = genderId })
+               .TestValidate(new PassengerWriteDto { GenderId = genderId })
                .ShouldHaveValidationErrorFor(x => x.GenderId);
         }
 
@@ -108,7 +108,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateFK))]
         public void Invalid_Passenger_NationalityId(int nationalityId) {
             new PassengerValidator()
-               .TestValidate(new PassengerWriteResource { NationalityId = nationalityId })
+               .TestValidate(new PassengerWriteDto { NationalityId = nationalityId })
                .ShouldHaveValidationErrorFor(x => x.NationalityId);
         }
 
@@ -116,7 +116,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Passenger_SpecialCare(string specialCare) {
             new PassengerValidator()
-               .TestValidate(new PassengerWriteResource { SpecialCare = specialCare })
+               .TestValidate(new PassengerWriteDto { SpecialCare = specialCare })
                .ShouldHaveValidationErrorFor(x => x.SpecialCare);
         }
 
@@ -124,7 +124,7 @@ namespace API.UnitTests.Features.Reservations {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Passenger_Remarks(string remarks) {
             new PassengerValidator()
-               .TestValidate(new PassengerWriteResource { Remarks = remarks })
+               .TestValidate(new PassengerWriteDto { Remarks = remarks })
                .ShouldHaveValidationErrorFor(x => x.Remarks);
         }
 

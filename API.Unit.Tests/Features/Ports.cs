@@ -12,7 +12,7 @@ namespace API.UnitTests.Features.Ports {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Abbreviation(string abbreviation) {
             new PortValidator()
-                .TestValidate(new PortWriteResource { Abbreviation = abbreviation })
+                .TestValidate(new PortWriteDto { Abbreviation = abbreviation })
                 .ShouldHaveValidationErrorFor(x => x.Abbreviation);
         }
 
@@ -21,7 +21,7 @@ namespace API.UnitTests.Features.Ports {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new PortValidator()
-                .TestValidate(new PortWriteResource { Description = description })
+                .TestValidate(new PortWriteDto { Description = description })
                 .ShouldHaveValidationErrorFor(x => x.Description);
         }
 

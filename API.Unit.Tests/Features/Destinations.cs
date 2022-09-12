@@ -12,7 +12,7 @@ namespace API.UnitTests.Features.Destinations {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Abbreviation(string abbreviation) {
             new DestinationValidator()
-                .TestValidate(new DestinationWriteResource { Abbreviation = abbreviation })
+                .TestValidate(new DestinationWriteDto { Abbreviation = abbreviation })
                 .ShouldHaveValidationErrorFor(x => x.Abbreviation);
         }
 
@@ -21,7 +21,7 @@ namespace API.UnitTests.Features.Destinations {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new DestinationValidator()
-                .TestValidate(new DestinationWriteResource { Description = description })
+                .TestValidate(new DestinationWriteDto { Description = description })
                 .ShouldHaveValidationErrorFor(x => x.Description);
         }
 

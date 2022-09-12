@@ -12,7 +12,7 @@ namespace API.UnitTests.Features.Customers {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new CustomerValidator()
-                .TestValidate(new CustomerWriteResource { Description = description })
+                .TestValidate(new CustomerWriteDto { Description = description })
                 .ShouldHaveValidationErrorFor(x => x.Description);
         }
 
@@ -20,7 +20,7 @@ namespace API.UnitTests.Features.Customers {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Profession(string profession) {
             new CustomerValidator()
-               .TestValidate(new CustomerWriteResource { Profession = profession })
+               .TestValidate(new CustomerWriteDto { Profession = profession })
                .ShouldHaveValidationErrorFor(x => x.Profession);
         }
 
@@ -28,7 +28,7 @@ namespace API.UnitTests.Features.Customers {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Address(string address) {
             new CustomerValidator()
-                .TestValidate(new CustomerWriteResource { Address = address })
+                .TestValidate(new CustomerWriteDto { Address = address })
                 .ShouldHaveValidationErrorFor(x => x.Address);
         }
 
@@ -36,7 +36,7 @@ namespace API.UnitTests.Features.Customers {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Phones(string phones) {
             new CustomerValidator()
-               .TestValidate(new CustomerWriteResource { Phones = phones })
+               .TestValidate(new CustomerWriteDto { Phones = phones })
                .ShouldHaveValidationErrorFor(x => x.Phones);
         }
 
@@ -44,7 +44,7 @@ namespace API.UnitTests.Features.Customers {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_PersonInCharge(string personInCharge) {
             new CustomerValidator()
-                .TestValidate(new CustomerWriteResource { PersonInCharge = personInCharge })
+                .TestValidate(new CustomerWriteDto { PersonInCharge = personInCharge })
                 .ShouldHaveValidationErrorFor(x => x.PersonInCharge);
         }
 
@@ -52,7 +52,7 @@ namespace API.UnitTests.Features.Customers {
         [ClassData(typeof(ValidateEmail))]
         public void Invalid_Email(string email) {
             new CustomerValidator()
-               .TestValidate(new CustomerWriteResource { Email = email })
+               .TestValidate(new CustomerWriteDto { Email = email })
                .ShouldHaveValidationErrorFor(x => x.Email);
         }
 

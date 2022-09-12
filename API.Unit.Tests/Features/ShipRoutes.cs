@@ -12,7 +12,7 @@ namespace API.UnitTests.Features.ShipRoutes {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new ShipRouteValidator()
-                .TestValidate(new ShipRouteWriteResource { Description = description })
+                .TestValidate(new ShipRouteWriteDto { Description = description })
                 .ShouldHaveValidationErrorFor(x => x.Description);
         }
 
@@ -21,7 +21,7 @@ namespace API.UnitTests.Features.ShipRoutes {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_FromPort(string fromPort) {
             new ShipRouteValidator()
-                .TestValidate(new ShipRouteWriteResource { FromPort = fromPort })
+                .TestValidate(new ShipRouteWriteDto { FromPort = fromPort })
                 .ShouldHaveValidationErrorFor(x => x.FromPort);
         }
 
@@ -30,7 +30,7 @@ namespace API.UnitTests.Features.ShipRoutes {
         [ClassData(typeof(ValidateTime))]
         public void Invalid_FromTime(string fromTime) {
             new ShipRouteValidator()
-                .TestValidate(new ShipRouteWriteResource { FromTime = fromTime })
+                .TestValidate(new ShipRouteWriteDto { FromTime = fromTime })
                 .ShouldHaveValidationErrorFor(x => x.FromTime);
         }
 
@@ -38,7 +38,7 @@ namespace API.UnitTests.Features.ShipRoutes {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_ViaPort(string viaPort) {
             new ShipRouteValidator()
-                .TestValidate(new ShipRouteWriteResource { ViaPort = viaPort })
+                .TestValidate(new ShipRouteWriteDto { ViaPort = viaPort })
                 .ShouldHaveValidationErrorFor(x => x.ViaPort);
         }
 
@@ -46,7 +46,7 @@ namespace API.UnitTests.Features.ShipRoutes {
         [ClassData(typeof(ValidateTime))]
         public void Invalid_ViaTime(string viaTime) {
             new ShipRouteValidator()
-                .TestValidate(new ShipRouteWriteResource { ViaTime = viaTime })
+                .TestValidate(new ShipRouteWriteDto { ViaTime = viaTime })
                 .ShouldHaveValidationErrorFor(x => x.ViaTime);
         }
 
@@ -55,7 +55,7 @@ namespace API.UnitTests.Features.ShipRoutes {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_ToPort(string toPort) {
             new ShipRouteValidator()
-                .TestValidate(new ShipRouteWriteResource { ToPort = toPort })
+                .TestValidate(new ShipRouteWriteDto { ToPort = toPort })
                 .ShouldHaveValidationErrorFor(x => x.ToPort);
         }
 
@@ -64,7 +64,7 @@ namespace API.UnitTests.Features.ShipRoutes {
         [ClassData(typeof(ValidateTime))]
         public void Invalid_ToTime(string toTime) {
             new ShipRouteValidator()
-                .TestValidate(new ShipRouteWriteResource { ToTime = toTime })
+                .TestValidate(new ShipRouteWriteDto { ToTime = toTime })
                 .ShouldHaveValidationErrorFor(x => x.ToTime);
         }
 

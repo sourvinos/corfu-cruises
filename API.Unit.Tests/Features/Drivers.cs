@@ -12,7 +12,7 @@ namespace API.UnitTests.Features.Drivers {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new DriverValidator()
-                .TestValidate(new DriverWriteResource { Description = description })
+                .TestValidate(new DriverWriteDto { Description = description })
                 .ShouldHaveValidationErrorFor(x => x.Description);
         }
 
@@ -20,7 +20,7 @@ namespace API.UnitTests.Features.Drivers {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Phones(string phones) {
             new DriverValidator()
-                .TestValidate(new DriverWriteResource { Phones = phones })
+                .TestValidate(new DriverWriteDto { Phones = phones })
                 .ShouldHaveValidationErrorFor(x => x.Phones);
         }
 

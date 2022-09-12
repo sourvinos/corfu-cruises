@@ -11,7 +11,7 @@ namespace API.UnitTests.Features.ShipCrews {
         [ClassData(typeof(ValidateFK))]
         public void Invalid_GenderId(int genderId) {
             new ShipCrewValidator()
-                .TestValidate(new ShipCrewWriteResource { GenderId = genderId })
+                .TestValidate(new ShipCrewWriteDto { GenderId = genderId })
                 .ShouldHaveValidationErrorFor(x => x.GenderId);
         }
 
@@ -19,7 +19,7 @@ namespace API.UnitTests.Features.ShipCrews {
         [ClassData(typeof(ValidateFK))]
         public void Invalid_NationalityId(int nationalityId) {
             new ShipCrewValidator()
-                .TestValidate(new ShipCrewWriteResource { NationalityId = nationalityId })
+                .TestValidate(new ShipCrewWriteDto { NationalityId = nationalityId })
                 .ShouldHaveValidationErrorFor(x => x.NationalityId);
         }
 
@@ -27,7 +27,7 @@ namespace API.UnitTests.Features.ShipCrews {
         [ClassData(typeof(ValidateFK))]
         public void Invalid_ShipId(int shipId) {
             new ShipCrewValidator()
-                .TestValidate(new ShipCrewWriteResource { ShipId = shipId })
+                .TestValidate(new ShipCrewWriteDto { ShipId = shipId })
                 .ShouldHaveValidationErrorFor(x => x.ShipId);
         }
 
@@ -36,7 +36,7 @@ namespace API.UnitTests.Features.ShipCrews {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Lastname(string lastname) {
             new ShipCrewValidator()
-                .TestValidate(new ShipCrewWriteResource { Lastname = lastname })
+                .TestValidate(new ShipCrewWriteDto { Lastname = lastname })
                 .ShouldHaveValidationErrorFor(x => x.Lastname);
         }
 
@@ -45,7 +45,7 @@ namespace API.UnitTests.Features.ShipCrews {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Firstname(string firstname) {
             new ShipCrewValidator()
-                .TestValidate(new ShipCrewWriteResource { Firstname = firstname })
+                .TestValidate(new ShipCrewWriteDto { Firstname = firstname })
                 .ShouldHaveValidationErrorFor(x => x.Firstname);
         }
 
@@ -53,7 +53,7 @@ namespace API.UnitTests.Features.ShipCrews {
         [ClassData(typeof(ValidateDate))]
         public void Invalid_Birthdate(string birthdate) {
             new ShipCrewValidator()
-                .TestValidate(new ShipCrewWriteResource { Birthdate = birthdate })
+                .TestValidate(new ShipCrewWriteDto { Birthdate = birthdate })
                 .ShouldHaveValidationErrorFor(x => x.Birthdate);
         }
 

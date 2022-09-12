@@ -11,8 +11,8 @@ namespace API.UnitTests.Features.PickupPoints {
         [ClassData(typeof(ValidateFK))]
         public void Invalid_RouteId(int routeId) {
             new PickupPointValidator()
-                .TestValidate(new PickupPointWriteResource { RouteId = routeId })
-                .ShouldHaveValidationErrorFor(x => x.RouteId);
+                .TestValidate(new PickupPointWriteDto { CoachRouteId = routeId })
+                .ShouldHaveValidationErrorFor(x => x.CoachRouteId);
         }
 
         [Theory]
@@ -20,7 +20,7 @@ namespace API.UnitTests.Features.PickupPoints {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new PickupPointValidator()
-                .TestValidate(new PickupPointWriteResource { Description = description })
+                .TestValidate(new PickupPointWriteDto { Description = description })
                 .ShouldHaveValidationErrorFor(x => x.Description);
         }
 
@@ -29,7 +29,7 @@ namespace API.UnitTests.Features.PickupPoints {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_ExactPoint(string exactPoint) {
             new PickupPointValidator()
-                .TestValidate(new PickupPointWriteResource { ExactPoint = exactPoint })
+                .TestValidate(new PickupPointWriteDto { ExactPoint = exactPoint })
                 .ShouldHaveValidationErrorFor(x => x.ExactPoint);
         }
 
@@ -38,7 +38,7 @@ namespace API.UnitTests.Features.PickupPoints {
         [ClassData(typeof(ValidateTime))]
         public void Invalid_Time(string time) {
             new PickupPointValidator()
-                .TestValidate(new PickupPointWriteResource { Time = time })
+                .TestValidate(new PickupPointWriteDto { Time = time })
                 .ShouldHaveValidationErrorFor(x => x.Time);
         }
 
@@ -47,7 +47,7 @@ namespace API.UnitTests.Features.PickupPoints {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Coordinates(string coordinates) {
             new PickupPointValidator()
-                .TestValidate(new PickupPointWriteResource { Coordinates = coordinates })
+                .TestValidate(new PickupPointWriteDto { Coordinates = coordinates })
                 .ShouldHaveValidationErrorFor(x => x.Coordinates);
         }
 

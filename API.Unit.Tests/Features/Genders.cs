@@ -12,7 +12,7 @@ namespace API.UnitTests.Features.Genders {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new GenderValidator()
-                .TestValidate(new GenderWriteResource { Description = description })
+                .TestValidate(new GenderWriteDto { Description = description })
                 .ShouldHaveValidationErrorFor(x => x.Description);
         }
 

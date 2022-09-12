@@ -11,7 +11,7 @@ namespace API.UnitTests.Features.Registrars {
         [ClassData(typeof(ValidateFK))]
         public void Invalid_ShipId(int shipId) {
             new RegistrarValidator()
-                .TestValidate(new RegistrarWriteResource { ShipId = shipId })
+                .TestValidate(new RegistrarWriteDto { ShipId = shipId })
                 .ShouldHaveValidationErrorFor(x => x.ShipId);
         }
 
@@ -20,7 +20,7 @@ namespace API.UnitTests.Features.Registrars {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Fullname(string fullname) {
             new RegistrarValidator()
-                .TestValidate(new RegistrarWriteResource { Fullname = fullname })
+                .TestValidate(new RegistrarWriteDto { Fullname = fullname })
                 .ShouldHaveValidationErrorFor(x => x.Fullname);
         }
 
@@ -28,7 +28,7 @@ namespace API.UnitTests.Features.Registrars {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Phones(string phones) {
             new RegistrarValidator()
-                .TestValidate(new RegistrarWriteResource { Phones = phones })
+                .TestValidate(new RegistrarWriteDto { Phones = phones })
                 .ShouldHaveValidationErrorFor(x => x.Phones);
         }
 
@@ -36,7 +36,7 @@ namespace API.UnitTests.Features.Registrars {
         [ClassData(typeof(ValidateEmail))]
         public void Invalid_Email(string email) {
             new RegistrarValidator()
-                .TestValidate(new RegistrarWriteResource { Email = email })
+                .TestValidate(new RegistrarWriteDto { Email = email })
                 .ShouldHaveValidationErrorFor(x => x.Email);
         }
 
@@ -44,7 +44,7 @@ namespace API.UnitTests.Features.Registrars {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Fax(string fax) {
             new RegistrarValidator()
-                .TestValidate(new RegistrarWriteResource { Fax = fax })
+                .TestValidate(new RegistrarWriteDto { Fax = fax })
                 .ShouldHaveValidationErrorFor(x => x.Fax);
         }
 
@@ -52,7 +52,7 @@ namespace API.UnitTests.Features.Registrars {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Address(string address) {
             new RegistrarValidator()
-                .TestValidate(new RegistrarWriteResource { Address = address })
+                .TestValidate(new RegistrarWriteDto { Address = address })
                 .ShouldHaveValidationErrorFor(x => x.Address);
         }
 

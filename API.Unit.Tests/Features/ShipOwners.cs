@@ -12,7 +12,7 @@ namespace API.UnitTests.Features.ShipOwners {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Description(string description) {
             new ShipOwnerValidator()
-                .TestValidate(new ShipOwnerWriteResource { Description = description })
+                .TestValidate(new ShipOwnerWriteDto { Description = description })
                 .ShouldHaveValidationErrorFor(x => x.Description);
         }
 
@@ -20,7 +20,7 @@ namespace API.UnitTests.Features.ShipOwners {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Profession(string profession) {
             new ShipOwnerValidator()
-                .TestValidate(new ShipOwnerWriteResource { Profession = profession })
+                .TestValidate(new ShipOwnerWriteDto { Profession = profession })
                 .ShouldHaveValidationErrorFor(x => x.Profession);
         }
 
@@ -28,7 +28,7 @@ namespace API.UnitTests.Features.ShipOwners {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Address(string address) {
             new ShipOwnerValidator()
-                .TestValidate(new ShipOwnerWriteResource { Address = address })
+                .TestValidate(new ShipOwnerWriteDto { Address = address })
                 .ShouldHaveValidationErrorFor(x => x.Address);
         }
 
@@ -36,7 +36,7 @@ namespace API.UnitTests.Features.ShipOwners {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_TaxNo(string taxNo) {
             new ShipOwnerValidator()
-                .TestValidate(new ShipOwnerWriteResource { TaxNo = taxNo })
+                .TestValidate(new ShipOwnerWriteDto { TaxNo = taxNo })
                 .ShouldHaveValidationErrorFor(x => x.TaxNo);
         }
 
@@ -44,7 +44,7 @@ namespace API.UnitTests.Features.ShipOwners {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_City(string city) {
             new ShipOwnerValidator()
-                .TestValidate(new ShipOwnerWriteResource { City = city })
+                .TestValidate(new ShipOwnerWriteDto { City = city })
                 .ShouldHaveValidationErrorFor(x => x.City);
         }
 
@@ -52,7 +52,7 @@ namespace API.UnitTests.Features.ShipOwners {
         [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
         public void Invalid_Phones(string phones) {
             new ShipOwnerValidator()
-                .TestValidate(new ShipOwnerWriteResource { Phones = phones })
+                .TestValidate(new ShipOwnerWriteDto { Phones = phones })
                 .ShouldHaveValidationErrorFor(x => x.Phones);
         }
 
@@ -60,7 +60,7 @@ namespace API.UnitTests.Features.ShipOwners {
         [ClassData(typeof(ValidateEmail))]
         public void Invalid_Email(string email) {
             new ShipOwnerValidator()
-                .TestValidate(new ShipOwnerWriteResource { Email = email })
+                .TestValidate(new ShipOwnerWriteDto { Email = email })
                 .ShouldHaveValidationErrorFor(x => x.Email);
         }
 
