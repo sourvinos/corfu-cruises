@@ -115,10 +115,8 @@ namespace API.Features.Reservations {
                     Message = record.RefNo
                 };
             } else {
-                return new Response {
-                    Code = responseCode,
-                    Icon = Icons.Error.ToString(),
-                    Message = GetMessage(responseCode)
+                throw new CustomException() {
+                    ResponseCode = responseCode
                 };
             }
         }
@@ -189,22 +187,20 @@ namespace API.Features.Reservations {
 
         private static string GetMessage(int errorCode) {
             return errorCode switch {
+                409 => ApiMessages.DuplicateRecord(),
+                410 => ApiMessages.InvalidDateDestinationOrPort(),
+                433 => ApiMessages.PortHasNoVacancy(),
+                455 => ApiMessages.InvalidPassengerCount(),
                 450 => ApiMessages.FKNotFoundOrInactive("Customer Id"),
+                431 => ApiMessages.SimpleUserCanNotAddReservationAfterDepartureTime(),
                 451 => ApiMessages.FKNotFoundOrInactive("Destination Id"),
                 452 => ApiMessages.FKNotFoundOrInactive("Pickup point Id"),
                 453 => ApiMessages.FKNotFoundOrInactive("Driver Id"),
                 454 => ApiMessages.FKNotFoundOrInactive("Ship Id"),
-                455 => ApiMessages.InvalidPassengerCount(),
                 456 => ApiMessages.FKNotFoundOrInactive("Nationality Id for at least one passenger"),
                 457 => ApiMessages.FKNotFoundOrInactive("Gender Id for at least one passenger"),
                 458 => ApiMessages.FKNotFoundOrInactive("Occupant Id for at least one passenger"),
-                432 => ApiMessages.DayHasNoSchedule(),
-                430 => ApiMessages.DayHasNoScheduleForDestination(),
-                427 => ApiMessages.PortHasNoDepartures(),
-                433 => ApiMessages.PortHasNoVacancy(),
-                409 => ApiMessages.DuplicateRecord(),
                 459 => ApiMessages.SimpleUserNightRestrictions(),
-                431 => ApiMessages.SimpleUserCanNotAddReservationAfterDepartureTime(),
                 _ => ApiMessages.RecordNotSaved()
             };
         }

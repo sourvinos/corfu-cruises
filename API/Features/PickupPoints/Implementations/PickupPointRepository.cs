@@ -45,7 +45,7 @@ namespace API.Features.PickupPoints {
             if (record != null) {
                 return record;
             } else {
-                throw new CustomException { HttpResponseCode = 404 };
+                throw new CustomException { ResponseCode = 404 };
             }
         }
 

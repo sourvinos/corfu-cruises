@@ -133,15 +133,16 @@ namespace API.Features.Reservations {
         }
 
         public int GetPortIdFromPickupPointId(ReservationWriteDto record) {
-            PickupPoint pickupPoint =  context.PickupPoints
+            PickupPoint pickupPoint = context.PickupPoints
                 .AsNoTracking()
                 .Include(x => x.CoachRoute)
                 .SingleOrDefault(x => x.Id == record.PickupPointId);
-            return pickupPoint.CoachRoute.PortId;
+            return pickupPoint != null ? pickupPoint.CoachRoute.PortId : 0;
         }
 
         public int IsValid(ReservationWriteDto record, IScheduleRepository scheduleRepo) {
             return true switch {
+                var x when x == !IsKeyUnique(record) => 409,
                 var x when x == !IsValidCustomer(record) => 450,
                 var x when x == !IsValidDestination(record) => 451,
                 var x when x == !IsValidPickupPoint(record) => 452,
@@ -151,14 +152,11 @@ namespace API.Features.Reservations {
                 var x when x == !IsValidGender(record) => 457,
                 var x when x == !IsValidOccupant(record) => 458,
                 var x when x == !IsCorrectPassengerCount(record) => 455,
-                var x when x == !scheduleRepo.DayHasSchedule(record.Date) => 432,
-                var x when x == !scheduleRepo.DayHasScheduleForDestination(record.Date, record.DestinationId) => 430,
-                var x when x == !scheduleRepo.PortHasDepartures(record.Date, record.DestinationId, GetPortIdFromPickupPointId(record)) => 427,
-                var x when x == SimpleUserHasNightRestrictions(record) => 459,
-                var x when x == SimpleUserCanNotAddReservationAfterDeparture(record) => 431,
+                var x when x == !scheduleRepo.PortHasDepartureForDateAndDestination(record.Date, record.DestinationId, GetPortIdFromPickupPointId(record)) => 410,
                 var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsOverbookingAllowed(record.Date, record.ReservationId, record.DestinationId, record.Adults + record.Kids + record.Free) => 433,
-                var x when x == !IsKeyUnique(record) => 409,
+                var x when x == SimpleUserHasNightRestrictions(record) => 459,
+                var x when x == SimpleUserCanNotAddReservationAfterDeparture(record) => 431,
                 _ => 200,
             };
         }

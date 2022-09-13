@@ -7,18 +7,14 @@ namespace API.Integration.Tests.Reservations {
     public class ActiveAdminsCanNotUpdateWhenInvalid : IEnumerable<object[]> {
 
         // Last successful run: 2022-05-23
-    
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
+            yield return Duplicate_Records_Are_Not_Allowed();
             yield return Nothing_For_This_Day();
             yield return Nothing_For_This_Day_And_Destination();
             yield return Nothing_For_This_Day_And_Destination_And_Port();
-            yield return Overbooking_From_Primary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed();
-            yield return Overbooking_From_Secondary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed();
-            yield return Overbooking_From_Primary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed();
-            yield return Overbooking_From_Secondary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed();
-            yield return Duplicate_Records_Are_Not_Allowed();
             yield return Passenger_Count_Is_Not_Correct();
             yield return Customer_Must_Exist();
             yield return Destination_Must_Exist();
@@ -33,13 +29,12 @@ namespace API.Integration.Tests.Reservations {
         private static object[] Nothing_For_This_Day() {
             return new object[] {
                 new TestReservation {
-                    StatusCode = 432,
+                    StatusCode = 410,
                     ReservationId = Guid.Parse("08da3262-6a70-4d76-88ca-3af058930134"),
                     CustomerId = 38,
                     DestinationId = 1,
                     DriverId = null,
                     PickupPointId = 133,
-                    PortId = 1,
                     ShipId = null,
                     Date = "2022-01-01",
                     RefNo = "PA776",
@@ -56,15 +51,14 @@ namespace API.Integration.Tests.Reservations {
         private static object[] Nothing_For_This_Day_And_Destination() {
             return new object[] {
                 new TestReservation {
-                    StatusCode = 430,
+                    StatusCode = 410,
                     ReservationId = Guid.Parse("08da3262-6a70-4d76-88ca-3af058930134"),
                     CustomerId = 38,
                     DestinationId = 3,
                     DriverId = null,
                     PickupPointId = 133,
-                    PortId = 1,
                     ShipId = null,
-                    Date = "2022-05-13",
+                    Date = "2022-05-01",
                     RefNo = "PA776",
                     TicketNo = "D5",
                     Adults = 2,
@@ -79,15 +73,14 @@ namespace API.Integration.Tests.Reservations {
         private static object[] Nothing_For_This_Day_And_Destination_And_Port() {
             return new object[] {
                 new TestReservation {
-                    StatusCode = 427,
+                    StatusCode = 410,
                     ReservationId = Guid.Parse("08da2e7e-8aeb-4bd3-80d0-9dadeeff2832"),
                     CustomerId = 12,
-                    DestinationId = 7,
+                    DestinationId = 1,
                     DriverId = null,
                     PickupPointId = 266,
-                    PortId = 2,
                     ShipId = 6,
-                    Date = "2022-05-05",
+                    Date = "2022-03-04",
                     RefNo = "PRT507",
                     TicketNo = "Eagle Travel",
                     Adults = 5,
@@ -98,66 +91,6 @@ namespace API.Integration.Tests.Reservations {
                         new TestPassenger { Lastname = "ADEONOJOBI", Firstname = "PETER", Birthdate = "1965-11-11", NationalityId = 89, OccupantId = 2, GenderId = 1 },
                         new TestPassenger { Lastname = "DERBY ", Firstname = "ELAINE", Birthdate = "1964-12-12", NationalityId = 89, OccupantId = 2, GenderId = 2 }
                     }
-                }
-            };
-        }
-
-        private static object[] Overbooking_From_Primary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed() {
-            return new object[] {
-                new TestReservation {
-                    StatusCode = 433,
-                    ReservationId = Guid.Parse("08da2e7e-8aeb-4bd3-80d0-9dadeeff2832"),
-                    Date = "2022-05-05",
-                    CustomerId = 12,
-                    DestinationId = 7,
-                    PickupPointId = 507,
-                    Adults = 138,
-                    TicketNo = "Eagle Travel"
-                }
-            };
-        }
-
-        private static object[] Overbooking_From_Secondary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed() {
-            return new object[] {
-                new TestReservation {
-                    StatusCode = 433,
-                    ReservationId = Guid.Parse("08da26c6-001a-4d35-8cfb-e3875620dc0d"),
-                    Date = "2022-04-30",
-                    CustomerId = 72,
-                    DestinationId = 3,
-                    PickupPointId = 266,
-                    Adults = 161,
-                    TicketNo = "xxxxxx"
-                }
-            };
-        }
-
-        private static object[] Overbooking_From_Primary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed() {
-            return new object[] {
-                new TestReservation {
-                    ReservationId = Guid.Parse("08da28f1-0d1f-4cc5-851b-0832668cc79a"),
-                    StatusCode = 433,
-                    Date = "2022-05-01",
-                    CustomerId = 4,
-                    DestinationId = 1,
-                    PickupPointId = 29,
-                    Adults = 148,
-                    TicketNo = "21"
-                }
-            };
-        }
-
-        private static object[] Overbooking_From_Secondary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed() {
-            return new object[] {
-                new TestReservation {
-                    StatusCode = 433,
-                    ReservationId = Guid.Parse("08da2863-15d9-4338-81fa-637a52371163"),
-                    Date = "2022-05-01",
-                    CustomerId = 2,
-                    DestinationId = 1,
-                    PickupPointId = 248,
-                    Adults = 98,
-                    TicketNo = "xxxxxx"
                 }
             };
         }
@@ -205,7 +138,6 @@ namespace API.Integration.Tests.Reservations {
                     DestinationId = 1,
                     DriverId = 18,
                     PickupPointId = 248,
-                    PortId = 2,
                     ShipId = 6,
                     Date = "2022-05-01",
                     RefNo = "PA175",
@@ -229,9 +161,9 @@ namespace API.Integration.Tests.Reservations {
                     DestinationId = 99,
                     DriverId = 18,
                     PickupPointId = 248,
-                    PortId = 2,
                     ShipId = 6,
                     Date = "2022-05-01",
+                    RefNo = "PA175",
                     TicketNo = "21",
                     Adults = 2
                 }
@@ -247,7 +179,6 @@ namespace API.Integration.Tests.Reservations {
                     DestinationId = 1,
                     DriverId = 99,
                     PickupPointId = 248,
-                    PortId = 2,
                     ShipId = 6,
                     Date = "2022-05-01",
                     TicketNo = "21",
@@ -265,7 +196,6 @@ namespace API.Integration.Tests.Reservations {
                     DestinationId = 1,
                     DriverId = 18,
                     PickupPointId = 248,
-                    PortId = 2,
                     ShipId = 6,
                     Date = "2022-05-01",
                     TicketNo = "21",
@@ -289,7 +219,6 @@ namespace API.Integration.Tests.Reservations {
                     DestinationId = 1,
                     DriverId = 18,
                     PickupPointId = 248,
-                    PortId = 2,
                     ShipId = 6,
                     Date = "2022-05-01",
                     TicketNo = "21",
@@ -313,7 +242,6 @@ namespace API.Integration.Tests.Reservations {
                     DestinationId = 1,
                     DriverId = 18,
                     PickupPointId = 248,
-                    PortId = 2,
                     ShipId = 6,
                     Date = "2022-05-01",
                     TicketNo = "21",
@@ -337,10 +265,10 @@ namespace API.Integration.Tests.Reservations {
                     DestinationId = 1,
                     DriverId = 18,
                     PickupPointId = 999,
-                    PortId = 0,
                     ShipId = 6,
                     Date = "2022-05-01",
                     TicketNo = "21",
+                    RefNo = "PA175",
                     Adults = 2,
                     Free = 1
                 }
@@ -356,7 +284,6 @@ namespace API.Integration.Tests.Reservations {
                     DestinationId = 1,
                     DriverId = 18,
                     PickupPointId = 248,
-                    PortId = 0,
                     ShipId = 9,
                     Date = "2022-05-01",
                     TicketNo = "21",

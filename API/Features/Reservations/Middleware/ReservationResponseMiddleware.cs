@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace API.Infrastructure.Responses {
 
-    public class ResponseMiddleware : IMiddleware {
+    public class ReservationResponseMiddleware : IMiddleware {
 
         public async Task InvokeAsync(HttpContext httpContext, RequestDelegate next) {
             try {
@@ -19,12 +19,12 @@ namespace API.Infrastructure.Responses {
         }
 
         private static Task CreateCustomErrorResponse(HttpContext httpContext, CustomException e) {
-            httpContext.Response.StatusCode = e.HttpResponseCode;
+            httpContext.Response.StatusCode = e.ResponseCode;
             httpContext.Response.ContentType = "application/json";
             var result = JsonConvert.SerializeObject(new Response {
-                Code = e.HttpResponseCode,
+                Code = e.ResponseCode,
                 Icon = Icons.Error.ToString(),
-                Message = GetErrorMessage(e.HttpResponseCode)
+                Message = GetErrorMessage(e.ResponseCode)
             });
             return httpContext.Response.WriteAsync(result);
         }
@@ -42,9 +42,20 @@ namespace API.Infrastructure.Responses {
 
         private static string GetErrorMessage(int httpResponseCode) {
             return httpResponseCode switch {
-                404 => ApiMessages.RecordNotFound(),
-                491 => ApiMessages.RecordInUse(),
-                499 => ApiMessages.UnableToDeleteConnectedUser(),
+                409 => ApiMessages.DuplicateRecord(),
+                450 => ApiMessages.InvalidCustomer(),
+                451 => ApiMessages.InvalidDestination(),
+                452 => ApiMessages.InvalidPickupPoint(),
+                453 => ApiMessages.InvalidDriver(),
+                454 => ApiMessages.InvalidShip(),
+                456 => ApiMessages.InvalidNationality(),
+                457 => ApiMessages.InvalidGender(),
+                458 => ApiMessages.InvalidOccupant(),
+                410 => ApiMessages.InvalidDateDestinationOrPort(),
+                431 => ApiMessages.SimpleUserCanNotAddReservationAfterDepartureTime(),
+                433 => ApiMessages.PortHasNoVacancy(),
+                459 => ApiMessages.SimpleUserNightRestrictions(),
+                455 => ApiMessages.InvalidPassengerCount(),
                 _ => ApiMessages.UnknownError(),
             };
         }

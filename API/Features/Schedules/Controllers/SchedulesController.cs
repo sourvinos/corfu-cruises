@@ -45,10 +45,10 @@ namespace API.Features.Schedules {
             return await repo.GetById(id);
         }
 
-        [HttpGet("[action]/date/{date}")]
+        [HttpGet("[action]/date/{date}/destinationId/{destinationId}/portid/{portId}")]
         [Authorize(Roles = "user, admin")]
-        public bool IsSchedule(string date) {
-            return repo.DayHasSchedule(date);
+        public bool IsSchedule(string date, int destinationId, int portId) {
+            return repo.PortHasDepartureForDateAndDestination(date, destinationId, portId);
         }
 
         [HttpPost]

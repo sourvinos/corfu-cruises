@@ -76,21 +76,7 @@ namespace API.Features.Schedules {
             return UpdateCalendarData(schedules, reservations);
         }
 
-        public bool DayHasSchedule(string date) {
-            var schedule = context.Set<Schedule>()
-                .Where(x => x.Date.ToString() == date)
-                .ToList();
-            return schedule.Count != 0;
-        }
-
-        public bool DayHasScheduleForDestination(string date, int destinationId) {
-            var schedule = context.Set<Schedule>()
-                .Where(x => x.Date.ToString() == date && x.DestinationId == destinationId)
-                .ToList();
-            return schedule.Count != 0;
-        }
-
-        public bool PortHasDepartures(string date, int destinationId, int portId) {
+        public bool PortHasDepartureForDateAndDestination(string date, int destinationId, int portId) {
             var schedule = context.Set<Schedule>()
                 .Where(x => x.Date.ToString() == date && x.DestinationId == destinationId && x.PortId == portId && x.IsActive)
                 .ToList();

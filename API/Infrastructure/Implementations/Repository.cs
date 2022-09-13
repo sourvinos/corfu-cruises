@@ -35,7 +35,7 @@ namespace API.Infrastructure.Implementations {
             if (entity != null) {
                 return entity;
             } else {
-                throw new CustomException { HttpResponseCode = 404 };
+                throw new CustomException { ResponseCode = 404 };
             }
         }
 
@@ -60,7 +60,7 @@ namespace API.Infrastructure.Implementations {
                 Save();
                 DisposeOrCommit(transaction);
             } catch (Exception) {
-                throw new CustomException { HttpResponseCode = 491 };
+                throw new CustomException { ResponseCode = 491 };
             }
         }
 

@@ -9,9 +9,7 @@ namespace API.Features.Schedules {
 
         Task<IEnumerable<ScheduleListViewModel>> GetForList();
         IEnumerable<ScheduleReservationGroup> DoCalendarTasks(string fromDate, string toDate, Guid? reservationId);
-        bool DayHasSchedule(string date);
-        bool DayHasScheduleForDestination(string date, int destinationId);
-        bool PortHasDepartures(string date, int destinationId, int portId);
+        bool PortHasDepartureForDateAndDestination(string date, int destinationId, int portId);
         new Task<ScheduleReadDto> GetById(int scheduleId);
         void Create(List<Schedule> entity);
         Task<Schedule> GetByIdToDelete(int id);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace API.Integration.Tests.Reservations {
 
-    public class AdminsCanUpdate : IEnumerable<object[]> {
+    public class ActiveAdminsCanUpdate : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
