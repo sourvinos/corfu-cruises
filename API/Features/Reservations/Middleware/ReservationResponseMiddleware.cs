@@ -56,6 +56,7 @@ namespace API.Infrastructure.Responses {
                 433 => ApiMessages.PortHasNoVacancy(),
                 459 => ApiMessages.SimpleUserNightRestrictions(),
                 455 => ApiMessages.InvalidPassengerCount(),
+                490 => ApiMessages.NotOwnRecord(),
                 _ => ApiMessages.UnknownError(),
             };
         }

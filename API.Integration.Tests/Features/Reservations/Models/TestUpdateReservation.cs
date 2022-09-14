@@ -4,12 +4,12 @@ using API.Integration.Tests.Infrastructure;
 
 namespace API.Integration.Tests.Reservations {
 
-    public class TestReservation : ITestEntity {
+    public class TestUpdateReservation : ITestEntity {
 
         public int StatusCode { get; set; }
 
         public int Id { get; set; }
-        public Guid? ReservationId { get; set; }
+        public Guid ReservationId { get; set; }
         public int CustomerId { get; set; }
         public int DestinationId { get; set; }
         public int PickupPointId { get; set; }

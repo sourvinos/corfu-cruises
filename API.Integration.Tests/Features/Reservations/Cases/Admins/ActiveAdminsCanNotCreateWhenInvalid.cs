@@ -37,7 +37,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Nothing_For_This_Day() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 432,
                     Date = "2022-01-01",
                     CustomerId = 1,
@@ -50,7 +50,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Nothing_For_This_Day_And_Destination() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 430,
                     Date = "2022-06-03",
                     CustomerId = 1,
@@ -63,7 +63,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Nothing_For_This_Day_And_Destination_And_Port() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 427,
                     Date = "2022-06-03",
                     CustomerId = 1,
@@ -76,7 +76,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Overbooking_From_Primary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 433,
                     Date = "2022-03-01",
                     CustomerId = 1,
@@ -90,7 +90,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Overbooking_From_Secondary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 433,
                     Date = "2022-03-01",
                     CustomerId = 1,
@@ -104,7 +104,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Overbooking_From_Primary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 433,
                     Date = "2022-03-02",
                     CustomerId = 1,
@@ -118,7 +118,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Overbooking_From_Secondary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 433,
                     Date = "2022-03-02",
                     CustomerId = 1,
@@ -132,7 +132,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Duplicate_Records_Are_Not_Allowed() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 409,
                     Date = "2022-03-01",
                     CustomerId = 3,
@@ -145,7 +145,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Customer_Must_Exist() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 450,
                     Date = "2022-03-01",
                     CustomerId = 99,
@@ -158,7 +158,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Customer_Must_Be_Active() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 450,
                     Date = "2022-03-01",
                     CustomerId = 20,
@@ -171,7 +171,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Destination_Must_Exist() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 451,
                     Date = "2022-03-01",
                     CustomerId = 1,
@@ -185,7 +185,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Destination_Must_Be_Active() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 451,
                     Date = "2022-03-01",
                     CustomerId = 1,
@@ -199,7 +199,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] PickupPoint_Must_Exist() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 452,
                     Date = "2022-03-01",
                     CustomerId = 1,
@@ -213,7 +213,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] PickupPoint_Must_Be_Active() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 452,
                     Date = "2022-03-01",
                     CustomerId = 1,
@@ -227,7 +227,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Driver_Must_Exist() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 453,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -242,7 +242,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Driver_Must_Be_Active() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 453,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -257,7 +257,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Ship_Must_Exist() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 454,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -272,7 +272,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Ship_Must_Be_Active() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 454,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -287,7 +287,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Passenger_Count_Is_Not_Correct() {
             return new object[]{
-                new TestReservation{
+                new TestNewReservation{
                     StatusCode = 455,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -306,7 +306,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Nationality_Must_Exist() {
             return new object[]{
-                new TestReservation{
+                new TestNewReservation{
                     StatusCode = 456,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -323,7 +323,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Nationality_Must_Be_Active() {
             return new object[]{
-                new TestReservation{
+                new TestNewReservation{
                     StatusCode = 456,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -340,7 +340,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Gender_Must_Exist() {
             return new object[]{
-                new TestReservation{
+                new TestNewReservation{
                     StatusCode = 457,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -357,7 +357,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Gender_Must_Be_Active() {
             return new object[]{
-                new TestReservation{
+                new TestNewReservation{
                     StatusCode = 457,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -374,7 +374,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Occupant_Must_Exist() {
             return new object[]{
-                new TestReservation{
+                new TestNewReservation{
                     StatusCode = 458,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -391,7 +391,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Occupant_Must_Be_Active() {
             return new object[]{
-                new TestReservation{
+                new TestNewReservation{
                     StatusCode = 458,
                     CustomerId = 1,
                     DestinationId = 1,

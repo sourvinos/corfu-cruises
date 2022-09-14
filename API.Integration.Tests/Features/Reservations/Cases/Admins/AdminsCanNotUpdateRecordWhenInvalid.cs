@@ -6,8 +6,6 @@ namespace API.Integration.Tests.Reservations {
 
     public class ActiveAdminsCanNotUpdateWhenInvalid : IEnumerable<object[]> {
 
-        // Last successful run: 2022-05-23
-
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
@@ -28,7 +26,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Nothing_For_This_Day() {
             return new object[] {
-                new TestReservation {
+                new TestUpdateReservation {
                     StatusCode = 410,
                     ReservationId = Guid.Parse("08da3262-6a70-4d76-88ca-3af058930134"),
                     CustomerId = 38,
@@ -50,7 +48,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Nothing_For_This_Day_And_Destination() {
             return new object[] {
-                new TestReservation {
+                new TestUpdateReservation {
                     StatusCode = 410,
                     ReservationId = Guid.Parse("08da3262-6a70-4d76-88ca-3af058930134"),
                     CustomerId = 38,
@@ -72,7 +70,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Nothing_For_This_Day_And_Destination_And_Port() {
             return new object[] {
-                new TestReservation {
+                new TestUpdateReservation {
                     StatusCode = 410,
                     ReservationId = Guid.Parse("08da2e7e-8aeb-4bd3-80d0-9dadeeff2832"),
                     CustomerId = 12,
@@ -97,7 +95,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Duplicate_Records_Are_Not_Allowed() {
             return new object[] {
-                new TestReservation {
+                new TestUpdateReservation {
                     StatusCode = 409,
                     ReservationId = Guid.Parse("08da2863-15d9-4338-81fa-637a52371163"),
                     Date = "2022-05-01",
@@ -111,7 +109,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Passenger_Count_Is_Not_Correct() {
             return new object[]{
-                new TestReservation{
+                new TestUpdateReservation{
                     StatusCode = 455,
                     ReservationId = Guid.Parse("08da2863-15d9-4338-81fa-637a52371163"),
                     CustomerId = 2,
@@ -131,7 +129,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Customer_Must_Exist() {
             return new object[] {
-                new TestReservation {
+                new TestUpdateReservation {
                     StatusCode = 450,
                     ReservationId = Guid.Parse("08da2863-15d9-4338-81fa-637a52371163"),
                     CustomerId = 999,
@@ -154,7 +152,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Destination_Must_Exist() {
             return new object[] {
-                new TestReservation {
+                new TestUpdateReservation {
                     StatusCode = 451,
                     ReservationId = Guid.Parse("08da2863-15d9-4338-81fa-637a52371163"),
                     CustomerId = 2,
@@ -172,7 +170,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Driver_Must_Exist() {
             return new object[] {
-                new TestReservation {
+                new TestUpdateReservation {
                     StatusCode = 453,
                     ReservationId = Guid.Parse("08da2863-15d9-4338-81fa-637a52371163"),
                     CustomerId = 2,
@@ -189,7 +187,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Gender_Must_Exist() {
             return new object[] {
-                new TestReservation {
+                new TestUpdateReservation {
                     StatusCode = 457,
                     ReservationId = Guid.Parse("08da2863-15d9-4338-81fa-637a52371163"),
                     CustomerId = 2,
@@ -212,7 +210,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Nationality_Must_Exist() {
             return new object[]{
-                new TestReservation{
+                new TestUpdateReservation{
                     StatusCode = 456,
                     ReservationId = Guid.Parse("08da2863-15d9-4338-81fa-637a52371163"),
                     CustomerId = 2,
@@ -235,7 +233,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Occupant_Must_Exist() {
             return new object[] {
-                new TestReservation {
+                new TestUpdateReservation {
                     StatusCode = 458,
                     ReservationId = Guid.Parse("08da2863-15d9-4338-81fa-637a52371163"),
                     CustomerId = 2,
@@ -258,7 +256,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] PickupPoint_Must_Exist() {
             return new object[] {
-                new TestReservation{
+                new TestUpdateReservation{
                     StatusCode = 452,
                     ReservationId = Guid.Parse("08da2863-15d9-4338-81fa-637a52371163"),
                     CustomerId = 2,
@@ -277,7 +275,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Ship_Must_Exist() {
             return new object[] {
-                new TestReservation{
+                new TestUpdateReservation{
                     StatusCode = 454,
                     ReservationId = Guid.Parse("08da2863-15d9-4338-81fa-637a52371163"),
                     CustomerId = 2,

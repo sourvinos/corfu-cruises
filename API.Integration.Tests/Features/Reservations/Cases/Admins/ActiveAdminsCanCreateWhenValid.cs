@@ -16,7 +16,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Active_Admins_Can_Create_Reservations_In_Past_Date() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 642,
@@ -32,7 +32,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Active_Admins_Can_Create_Reservations_In_Future_Date() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 642,
@@ -51,7 +51,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Active_Admins_Can_Create_With_Null_Driver() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 200,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -66,7 +66,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Active_Admins_Can_Create_With_Null_Ship() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 200,
                     CustomerId = 1,
                     DestinationId = 1,

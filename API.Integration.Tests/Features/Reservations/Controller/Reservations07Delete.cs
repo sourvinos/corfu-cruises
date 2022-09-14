@@ -57,7 +57,7 @@ namespace API.Integration.Tests.Reservations {
 
         [Theory]
         [ClassData(typeof(ActiveAdminsCanDeleteOwnedByAnyone))]
-        public async Task Active_Admins_Can_Delete(TestReservation record) {
+        public async Task Active_Admins_Can_Delete(TestNewReservation record) {
             await RecordDeleted.Action(_httpClient, _baseUrl, _url + record.ReservationId.ToString(), "john", "ec11fc8c16da");
         }
 

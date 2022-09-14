@@ -13,7 +13,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Simple_Users_Can_Create_Records_In_Future_Date() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 3,

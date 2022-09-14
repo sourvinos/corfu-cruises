@@ -92,6 +92,13 @@ namespace API.Features.Reservations {
             return record;
         }
 
+        public async Task<Reservation> GetByIdAsNoTracking(string reservationId) {
+            var record = await context.Reservations
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId);
+            return record;
+        }
+
         public async Task<Reservation> GetByIdToDelete(string id) {
             return await context.Reservations
                 .Include(x => x.Passengers)
@@ -152,7 +159,7 @@ namespace API.Features.Reservations {
                 var x when x == !IsValidGender(record) => 457,
                 var x when x == !IsValidOccupant(record) => 458,
                 var x when x == !IsCorrectPassengerCount(record) => 455,
-                var x when x == !scheduleRepo.PortHasDepartureForDateAndDestination(record.Date, record.DestinationId, GetPortIdFromPickupPointId(record)) => 410,
+                var x when x == !PortHasDepartureForDateAndDestination(scheduleRepo, record) => 410,
                 var x when x == !PortHasVacancy(scheduleRepo, record.Date, record.Date, record.ReservationId, record.DestinationId, GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
                 var x when x == !IsOverbookingAllowed(record.Date, record.ReservationId, record.DestinationId, record.Adults + record.Kids + record.Free) => 433,
                 var x when x == SimpleUserHasNightRestrictions(record) => 459,
@@ -195,12 +202,6 @@ namespace API.Features.Reservations {
             });
         }
 
-        public ReservationWriteDto UpdateForeignKeysWithNull(ReservationWriteDto reservation) {
-            if (reservation.DriverId == 0) reservation.DriverId = null;
-            if (reservation.ShipId == 0) reservation.ShipId = null;
-            return reservation;
-        }
-
         public async Task<string> AssignRefNoToNewReservation(ReservationWriteDto record) {
             return await GetDestinationAbbreviation(record) + await IncrementRefNoByOne();
         }
@@ -239,6 +240,10 @@ namespace API.Features.Reservations {
         private async Task RemovePassengers(IEnumerable<Passenger> passengers) {
             context.Passengers.RemoveRange(passengers);
             await context.SaveChangesAsync();
+        }
+
+        private bool PortHasDepartureForDateAndDestination(IScheduleRepository scheduleRepo, ReservationWriteDto record) {
+            return scheduleRepo.PortHasDepartureForDateAndDestination(record.Date, record.DestinationId, GetPortIdFromPickupPointId(record));
         }
 
         private bool PortHasVacancy(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId, int reservationPersons) {

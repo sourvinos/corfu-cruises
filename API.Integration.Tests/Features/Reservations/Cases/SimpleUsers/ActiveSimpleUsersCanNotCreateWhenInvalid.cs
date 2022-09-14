@@ -16,7 +16,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Simple_Users_Can_Not_Create_Records_After_Departure() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 431,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -36,7 +36,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Simple_Users_Can_Not_Add_Reservation_With_Transfer_During_Night_Hours() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 459,
                     CustomerId = 1,
                     DestinationId = 1,
@@ -51,7 +51,7 @@ namespace API.Integration.Tests.Reservations {
 
         private static object[] Simple_Users_Can_Not_Add_Reservation_After_Departure() {
             return new object[] {
-                new TestReservation {
+                new TestNewReservation {
                     StatusCode = 431,
                     CustomerId = 1,
                     DestinationId = 1,

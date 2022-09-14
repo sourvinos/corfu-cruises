@@ -103,20 +103,27 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> PutReservation([FromRoute] string id, [FromBody] ReservationWriteDto record) {
-            await AttachUserIdToRecord(record);
-            AttachPortIdToRecord(record);
-            var responseCode = reservationRepo.IsValid(record, scheduleRepo);
-            if (responseCode == 200) {
-                record = reservationRepo.UpdateForeignKeysWithNull(record);
-                await reservationRepo.Update(id, mapper.Map<ReservationWriteDto, Reservation>(record));
-                return new Response {
-                    Code = 200,
-                    Icon = Icons.Success.ToString(),
-                    Message = record.RefNo
-                };
+            var reservation = await reservationRepo.GetByIdAsNoTracking(id);
+            if (await Identity.IsUserAdmin(httpContext) || await reservationRepo.IsUserOwner(reservation.CustomerId)) {
+                var responseCode = reservationRepo.IsValid(record, scheduleRepo);
+                if (responseCode == 200) {
+                    AttachPortIdToRecord(record);
+                    UpdateForeignKeysWithNull(record);
+                    await AttachUserIdToRecord(record);
+                    await reservationRepo.Update(id, mapper.Map<ReservationWriteDto, Reservation>(record));
+                    return new Response {
+                        Code = 200,
+                        Icon = Icons.Success.ToString(),
+                        Message = record.RefNo
+                    };
+                } else {
+                    throw new CustomException() {
+                        ResponseCode = responseCode
+                    };
+                }
             } else {
                 throw new CustomException() {
-                    ResponseCode = responseCode
+                    ResponseCode = 490
                 };
             }
         }
@@ -203,6 +210,12 @@ namespace API.Features.Reservations {
                 459 => ApiMessages.SimpleUserNightRestrictions(),
                 _ => ApiMessages.RecordNotSaved()
             };
+        }
+
+        private static ReservationWriteDto UpdateForeignKeysWithNull(ReservationWriteDto reservation) {
+            if (reservation.DriverId == 0) reservation.DriverId = null;
+            if (reservation.ShipId == 0) reservation.ShipId = null;
+            return reservation;
         }
 
     }

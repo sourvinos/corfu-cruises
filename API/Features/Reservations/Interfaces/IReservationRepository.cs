@@ -10,6 +10,7 @@ namespace API.Features.Reservations {
         Task<ReservationGroupVM<ReservationListVM>> GetByRefNo(string refNo);
         Task<ReservationDriverGroupVM<Reservation>> GetByDateAndDriver(string date, int driverId);
         Task<Reservation> GetById(string id);
+        Task<Reservation> GetByIdAsNoTracking(string id);
         Task<Reservation> GetByIdToDelete(string id);
         Task<bool> IsUserOwner(int customerId);
         bool IsKeyUnique(ReservationWriteDto record);
@@ -19,7 +20,6 @@ namespace API.Features.Reservations {
         int IsValid(ReservationWriteDto record, IScheduleRepository scheduleRepo);
         void AssignToDriver(int driverId, string[] ids);
         void AssignToShip(int shipId, string[] ids);
-        ReservationWriteDto UpdateForeignKeysWithNull(ReservationWriteDto reservation);
         Task<string> AssignRefNoToNewReservation(ReservationWriteDto record);
 
     }
