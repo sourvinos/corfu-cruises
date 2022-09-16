@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -11,39 +12,37 @@ namespace API.Integration.Tests.Reservations {
             yield return Nothing_For_This_Day();
             yield return Nothing_For_This_Day_And_Destination();
             yield return Nothing_For_This_Day_And_Destination_And_Port();
-            yield return Overbooking_From_Primary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed();
-            yield return Overbooking_From_Secondary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed();
-            yield return Overbooking_From_Primary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed();
-            yield return Overbooking_From_Secondary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed();
             yield return Duplicate_Records_Are_Not_Allowed();
             yield return Passenger_Count_Is_Not_Correct();
-            yield return Customer_Must_Be_Active();
             yield return Customer_Must_Exist();
-            yield return Destination_Must_Be_Active();
+            yield return Customer_Must_Be_Active();
             yield return Destination_Must_Exist();
-            yield return Driver_Must_Be_Active();
-            yield return Driver_Must_Exist();
-            yield return Gender_Must_Be_Active();
-            yield return Gender_Must_Exist();
-            yield return Nationality_Must_Be_Active();
-            yield return Nationality_Must_Exist();
-            yield return Occupant_Must_Be_Active();
-            yield return Occupant_Must_Exist();
+            yield return Destination_Must_Be_Active();
             yield return PickupPoint_Must_Be_Active();
             yield return PickupPoint_Must_Exist();
-            yield return Ship_Must_Be_Active();
-            yield return Ship_Must_Exist();
+            yield return Gender_Must_Exist();
+            yield return Gender_Must_Be_Active();
+            yield return Nationality_Must_Exist();
+            yield return Nationality_Must_Be_Active();
+            yield return Occupant_Must_Exist();
+            yield return Occupant_Must_Be_Active();
         }
 
         private static object[] Nothing_For_This_Day() {
             return new object[] {
                 new TestNewReservation {
-                    StatusCode = 432,
-                    Date = "2022-01-01",
+                    StatusCode = 410,
+                    Date = "2022-03-01",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
-                    PickupPointId = 642,
-                    TicketNo = "xxxxxx"
+                    PickupPointId = 133,
+                    TicketNo = "D5",
+                    Adults = 2,
+                    Passengers = new List<TestPassenger>() {
+                        new TestPassenger { Lastname = "TIMMINS", Firstname = "JOAN", Birthdate = "2065-08-21", NationalityId = 70, OccupantId = 2, GenderId = 2 },
+                        new TestPassenger { Lastname = "TIMMINS", Firstname = "ALAN", Birthdate = "2065-07-17", NationalityId = 70, OccupantId = 2, GenderId = 1 },
+                    }
                 }
             };
         }
@@ -51,12 +50,18 @@ namespace API.Integration.Tests.Reservations {
         private static object[] Nothing_For_This_Day_And_Destination() {
             return new object[] {
                 new TestNewReservation {
-                    StatusCode = 430,
-                    Date = "2022-06-03",
+                    StatusCode = 410,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 3,
-                    PickupPointId = 1,
-                    TicketNo = "xxxxxx"
+                    PickupPointId = 133,
+                    TicketNo = "D5",
+                    Adults = 2,
+                    Passengers = new List<TestPassenger>() {
+                        new TestPassenger { Lastname = "TIMMINS", Firstname = "JOAN", Birthdate = "2065-08-21", NationalityId = 70, OccupantId = 2, GenderId = 2 },
+                        new TestPassenger { Lastname = "TIMMINS", Firstname = "ALAN", Birthdate = "2065-07-17", NationalityId = 70, OccupantId = 2, GenderId = 1 },
+                    }
                 }
             };
         }
@@ -64,68 +69,21 @@ namespace API.Integration.Tests.Reservations {
         private static object[] Nothing_For_This_Day_And_Destination_And_Port() {
             return new object[] {
                 new TestNewReservation {
-                    StatusCode = 427,
-                    Date = "2022-06-03",
+                    StatusCode = 410,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 3, 2, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 266,
-                    TicketNo = "xxxxxx"
-                }
-            };
-        }
-
-        private static object[] Overbooking_From_Primary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 433,
-                    Date = "2022-03-01",
-                    CustomerId = 1,
-                    DestinationId = 1,
-                    PickupPointId = 3,
-                    Adults = 156,
-                    TicketNo = "xxxxxx"
-                }
-            };
-        }
-
-        private static object[] Overbooking_From_Secondary_Port_With_No_Departures_From_Secondary_Port_Is_Not_Allowed() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 433,
-                    Date = "2022-03-01",
-                    CustomerId = 1,
-                    DestinationId = 1,
-                    PickupPointId = 266,
-                    Adults = 156,
-                    TicketNo = "xxxxxx"
-                }
-            };
-        }
-
-        private static object[] Overbooking_From_Primary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 433,
-                    Date = "2022-03-02",
-                    CustomerId = 1,
-                    DestinationId = 1,
-                    PickupPointId = 3,
-                    Adults = 163,
-                    TicketNo = "xxxxxx"
-                }
-            };
-        }
-
-        private static object[] Overbooking_From_Secondary_Port_With_Departures_From_Secondary_Port_Is_Not_Allowed() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 433,
-                    Date = "2022-03-02",
-                    CustomerId = 1,
-                    DestinationId = 1,
-                    PickupPointId = 266,
-                    Adults = 378,
-                    TicketNo = "xxxxxx"
+                    TicketNo = "Eagle Travel",
+                    Adults = 5,
+                    Passengers = new List<TestPassenger>() {
+                        new TestPassenger { Lastname = "sacomono", Firstname = "MARIECLEO", Birthdate = "1981-08-14", NationalityId = 89, OccupantId = 2, GenderId = 2 },
+                        new TestPassenger { Lastname = "KAGREN", Firstname = "BIRCH", Birthdate = "1957-12-13", NationalityId = 89, OccupantId = 2, GenderId = 2 },
+                        new TestPassenger { Lastname = "ANDREW", Firstname = "SUZAN", Birthdate = "1975-08-21", NationalityId = 89, OccupantId = 2, GenderId = 2 },
+                        new TestPassenger { Lastname = "ADEONOJOBI", Firstname = "PETER", Birthdate = "1965-11-11", NationalityId = 89, OccupantId = 2, GenderId = 1 },
+                        new TestPassenger { Lastname = "DERBY ", Firstname = "ELAINE", Birthdate = "1964-12-12", NationalityId = 89, OccupantId = 2, GenderId = 2 }
+                    }
                 }
             };
         }
@@ -134,153 +92,13 @@ namespace API.Integration.Tests.Reservations {
             return new object[] {
                 new TestNewReservation {
                     StatusCode = 409,
-                    Date = "2022-03-01",
-                    CustomerId = 3,
-                    DestinationId = 1,
-                    PickupPointId = 266,
-                    TicketNo = "xxxxx"
-                }
-            };
-        }
-
-        private static object[] Customer_Must_Exist() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 450,
-                    Date = "2022-03-01",
-                    CustomerId = 99,
-                    DestinationId = 1,
-                    PickupPointId = 285,
-                    TicketNo = "xxxxxx"
-                }
-            };
-        }
-
-        private static object[] Customer_Must_Be_Active() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 450,
-                    Date = "2022-03-01",
-                    CustomerId = 20,
-                    DestinationId = 1,
-                    PickupPointId = 285,
-                    TicketNo = "xxxxxx"
-                }
-            };
-        }
-
-        private static object[] Destination_Must_Exist() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 451,
-                    Date = "2022-03-01",
-                    CustomerId = 1,
-                    DestinationId = 99,
-                    PickupPointId = 285,
-                    Adults = 2,
-                    TicketNo = "xxxxx"
-                }
-            };
-        }
-
-        private static object[] Destination_Must_Be_Active() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 451,
-                    Date = "2022-03-01",
-                    CustomerId = 1,
-                    DestinationId = 5,
-                    PickupPointId = 285,
-                    Adults = 2,
-                    TicketNo = "xxxxx"
-                }
-            };
-        }
-
-        private static object[] PickupPoint_Must_Exist() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 452,
-                    Date = "2022-03-01",
+                    Date = "2022-03-02",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
-                    PickupPointId = 999,
-                    Adults = 2,
-                    TicketNo = "xxxxx"
-                }
-            };
-        }
-
-        private static object[] PickupPoint_Must_Be_Active() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 452,
-                    Date = "2022-03-01",
-                    CustomerId = 1,
-                    DestinationId = 1,
-                    PickupPointId = 23,
-                    Adults = 2,
-                    TicketNo = "xxxxx"
-                }
-            };
-        }
-
-        private static object[] Driver_Must_Exist() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 453,
-                    CustomerId = 1,
-                    DestinationId = 1,
-                    DriverId = 99,
-                    PickupPointId = 3,
-                    Date = "2022-03-01",
-                    TicketNo = "xxxx",
-                    Adults = 3,
-                }
-            };
-        }
-
-        private static object[] Driver_Must_Be_Active() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 453,
-                    CustomerId = 1,
-                    DestinationId = 1,
-                    DriverId = 6,
-                    PickupPointId = 3,
-                    Date = "2022-03-01",
-                    TicketNo = "xxxx",
-                    Adults = 3,
-                }
-            };
-        }
-
-        private static object[] Ship_Must_Exist() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 454,
-                    CustomerId = 1,
-                    DestinationId = 1,
-                    PickupPointId = 3,
-                    ShipId = 99,
-                    Date = "2022-03-01",
-                    TicketNo = "xxxx",
-                    Adults = 3,
-                }
-            };
-        }
-
-        private static object[] Ship_Must_Be_Active() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 454,
-                    CustomerId = 1,
-                    DestinationId = 1,
-                    ShipId = 2,
-                    PickupPointId = 3,
-                    Date = "2022-03-01",
-                    TicketNo = "xxxx",
-                    Adults = 3,
+                    PickupPointId = 125,
+                    TicketNo = "A123",
+                    Adults = 2
                 }
             };
         }
@@ -289,10 +107,11 @@ namespace API.Integration.Tests.Reservations {
             return new object[]{
                 new TestNewReservation{
                     StatusCode = 455,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 3, 5, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
-                    PickupPointId = 3,
-                    Date = "2022-03-01",
+                    PickupPointId = 642,
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
@@ -304,36 +123,60 @@ namespace API.Integration.Tests.Reservations {
             };
         }
 
-        private static object[] Nationality_Must_Exist() {
-            return new object[]{
-                new TestNewReservation{
-                    StatusCode = 456,
-                    CustomerId = 1,
+        private static object[] Customer_Must_Exist() {
+            return new object[] {
+                new TestNewReservation {
+                    StatusCode = 450,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    CustomerId = 999,
                     DestinationId = 1,
-                    PickupPointId = 3,
-                    Date = "2022-03-01",
-                    TicketNo = "xxxx",
-                    Adults = 2,
-                    Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 999, OccupantId = 2, GenderId = 3 },
-                    }
+                    PickupPointId = 285,
+                    TicketNo = "xxxxxx"
                 }
             };
         }
 
-        private static object[] Nationality_Must_Be_Active() {
-            return new object[]{
-                new TestNewReservation{
-                    StatusCode = 456,
-                    CustomerId = 1,
+        private static object[] Customer_Must_Be_Active() {
+            return new object[] {
+                new TestNewReservation {
+                    StatusCode = 450,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    CustomerId = 63,
                     DestinationId = 1,
-                    PickupPointId = 3,
-                    Date = "2022-03-01",
-                    TicketNo = "xxxx",
+                    PickupPointId = 642,
+                    TicketNo = "xxxxxx"
+                }
+            };
+        }
+
+        private static object[] Destination_Must_Exist() {
+            return new object[] {
+                new TestNewReservation {
+                    StatusCode = 451,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    CustomerId = 1,
+                    DestinationId = 999,
+                    PickupPointId = 266,
                     Adults = 2,
-                    Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 3, OccupantId = 2, GenderId = 3 },
-                    }
+                    TicketNo = "xxxxx"
+                }
+            };
+        }
+
+        private static object[] Destination_Must_Be_Active() {
+            return new object[] {
+                new TestNewReservation {
+                    StatusCode = 451,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    CustomerId = 1,
+                    DestinationId = 6,
+                    PickupPointId = 285,
+                    Adults = 2,
+                    TicketNo = "xxxxx"
                 }
             };
         }
@@ -342,10 +185,11 @@ namespace API.Integration.Tests.Reservations {
             return new object[]{
                 new TestNewReservation{
                     StatusCode = 457,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
-                    PickupPointId = 3,
-                    Date = "2022-03-01",
+                    PickupPointId = 12,
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
@@ -359,10 +203,11 @@ namespace API.Integration.Tests.Reservations {
             return new object[]{
                 new TestNewReservation{
                     StatusCode = 457,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
-                    PickupPointId = 3,
-                    Date = "2022-03-01",
+                    PickupPointId = 12,
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
@@ -372,18 +217,37 @@ namespace API.Integration.Tests.Reservations {
             };
         }
 
-        private static object[] Occupant_Must_Exist() {
+        private static object[] Nationality_Must_Exist() {
             return new object[]{
                 new TestNewReservation{
-                    StatusCode = 458,
+                    StatusCode = 456,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
-                    PickupPointId = 3,
-                    Date = "2022-03-01",
+                    PickupPointId = 12,
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 1, OccupantId = 4, GenderId = 1 },
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 999, OccupantId = 2, GenderId = 3 },
+                    }
+                }
+            };
+        }
+
+        private static object[] Nationality_Must_Be_Active() {
+            return new object[]{
+                new TestNewReservation{
+                    StatusCode = 456,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 12,
+                    TicketNo = "xxxx",
+                    Adults = 2,
+                    Passengers = new List<TestPassenger>() {
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 3, OccupantId = 2, GenderId = 3 },
                     }
                 }
             };
@@ -393,15 +257,64 @@ namespace API.Integration.Tests.Reservations {
             return new object[]{
                 new TestNewReservation{
                     StatusCode = 458,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
-                    PickupPointId = 3,
-                    Date = "2022-03-01",
+                    PickupPointId = 12,
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
                         new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 1, OccupantId = 3, GenderId = 1 },
                     }
+                }
+            };
+        }
+
+        private static object[] Occupant_Must_Exist() {
+            return new object[]{
+                new TestNewReservation{
+                    StatusCode = 458,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 12,
+                    TicketNo = "xxxx",
+                    Adults = 2,
+                    Passengers = new List<TestPassenger>() {
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 1, OccupantId = 4, GenderId = 1 },
+                    }
+                }
+            };
+        }
+
+        private static object[] PickupPoint_Must_Be_Active() {
+            return new object[] {
+                new TestNewReservation {
+                    StatusCode = 452,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 23,
+                    Adults = 2,
+                    TicketNo = "xxxxx"
+                }
+            };
+        }
+
+        private static object[] PickupPoint_Must_Exist() {
+            return new object[] {
+                new TestNewReservation {
+                    StatusCode = 452,
+                    Date = "2022-03-04",
+                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 999,
+                    Adults = 2,
+                    TicketNo = "xxxxx"
                 }
             };
         }

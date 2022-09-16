@@ -16,8 +16,7 @@ namespace API.Infrastructure.Helpers {
         }
 
         public static DateTime GetLocalDateTime() {
-            DateTime localDate = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "E. Europe Standard Time");
-            return localDate;
+            return TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "E. Europe Standard Time");
         }
 
     }

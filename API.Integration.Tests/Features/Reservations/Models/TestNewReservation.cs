@@ -17,6 +17,7 @@ namespace API.Integration.Tests.Reservations {
         public int? DriverId { get; set; }
         public int? ShipId { get; set; }
         public string Date { get; set; }
+        public DateTime TestDateNow { get; set; }
         public string RefNo { get; set; }
         public string TicketNo { get; set; }
         public string Email { get; set; }

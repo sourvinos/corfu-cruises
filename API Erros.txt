@@ -7,3 +7,9 @@
 455 = Passenger count should be less or equal to total persons
 497 = Invalid model
 498 = Email not sent. Possible causes: User was not found, User was not confirmed, Server error
+
+The reservation for 05/05/2020 is invalid for one of the following reasons:
+a) Nothing is scheduled for this day (we have a day-off!)
+b) We don't go to PAXOS-ANTIPAXOS (even though we go somewhere else)
+c) There are no departures from LEFKIMMI PORT to PAXOS-ANTIPAXOS (even though we depart from another port to PAXOS-ANTIPAXOS)
+

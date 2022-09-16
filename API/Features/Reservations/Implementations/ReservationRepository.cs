@@ -22,13 +22,13 @@ namespace API.Features.Reservations {
 
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IMapper mapper;
-        private readonly TestingEnvironment settings;
+        private readonly TestingEnvironment testingEnvironment;
         private readonly UserManager<UserExtended> userManager;
 
-        public ReservationRepository(AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor, IMapper mapper, IOptions<TestingEnvironment> settings, UserManager<UserExtended> userManager) : base(appDbContext, settings) {
+        public ReservationRepository(AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor, IMapper mapper, IOptions<TestingEnvironment> testingEnvironment, UserManager<UserExtended> userManager) : base(appDbContext, testingEnvironment) {
             this.httpContextAccessor = httpContextAccessor;
             this.mapper = mapper;
-            this.settings = settings.Value;
+            this.testingEnvironment = testingEnvironment.Value;
             this.userManager = userManager;
         }
 
@@ -131,7 +131,7 @@ namespace API.Features.Reservations {
                 }
                 await RemovePassengers(GetPassengersForReservation(id));
                 await AddPassengers(updatedRecord);
-                if (settings.IsTesting) {
+                if (testingEnvironment.IsTesting) {
                     transaction.Dispose();
                 } else {
                     transaction.Commit();
@@ -177,7 +177,7 @@ namespace API.Features.Reservations {
                     .ToList();
                 records.ForEach(a => a.DriverId = driverId);
                 context.SaveChanges();
-                if (settings.IsTesting) {
+                if (testingEnvironment.IsTesting) {
                     transaction.Dispose();
                 } else {
                     transaction.Commit();
@@ -194,7 +194,7 @@ namespace API.Features.Reservations {
                     .ToList();
                 records.ForEach(a => a.ShipId = shipId);
                 context.SaveChanges();
-                if (settings.IsTesting) {
+                if (testingEnvironment.IsTesting) {
                     transaction.Dispose();
                 } else {
                     transaction.Commit();
@@ -478,12 +478,12 @@ namespace API.Features.Reservations {
         private bool SimpleUserHasNightRestrictions(ReservationWriteDto record) {
             if (!Identity.IsUserAdmin(httpContextAccessor).Result && record.ReservationId == null) {
                 if (HasTransfer(record.PickupPointId)) {
-                    if (IsForTomorrow(record.Date)) {
-                        if (IsBetweenClosingTimeAndMidnight()) {
+                    if (IsForTomorrow(record)) {
+                        if (IsBetweenClosingTimeAndMidnight(record)) {
                             return true;
                         }
                     }
-                    if (IsForToday(record.Date)) {
+                    if (IsForToday(record)) {
                         if (IsBetweenMidnightAndDeparture(record)) {
                             return true;
                         }
@@ -502,20 +502,20 @@ namespace API.Features.Reservations {
             return pickupPoint.CoachRoute.HasTransfer;
         }
 
-        private static bool IsForTomorrow(string date) {
-            var tomorrow = DateHelpers.GetLocalDateTime().AddDays(1);
+        private bool IsForTomorrow(ReservationWriteDto record) {
+            var tomorrow = testingEnvironment.IsTesting ? record.TestDateNow.AddDays(1) : DateHelpers.GetLocalDateTime().AddDays(1);
             var tomorrowDate = DateHelpers.DateTimeToISOString(tomorrow);
-            return date == tomorrowDate;
+            return record.Date == tomorrowDate;
         }
 
-        private static bool IsForToday(string date) {
-            var today = DateHelpers.GetLocalDateTime();
+        private bool IsForToday(ReservationWriteDto record) {
+            var today = testingEnvironment.IsTesting ? record.TestDateNow : DateHelpers.GetLocalDateTime();
             var todayDate = DateHelpers.DateTimeToISOString(today);
-            return date == todayDate;
+            return record.Date == todayDate;
         }
 
-        private static bool IsBetweenClosingTimeAndMidnight() {
-            var timeNow = DateHelpers.GetLocalDateTime().TimeOfDay;
+        private bool IsBetweenClosingTimeAndMidnight(ReservationWriteDto record) {
+            var timeNow = testingEnvironment.IsTesting ? record.TestDateNow.TimeOfDay : DateHelpers.GetLocalDateTime().TimeOfDay;
             return timeNow.Hours >= 22;
         }
 
@@ -526,9 +526,9 @@ namespace API.Features.Reservations {
         }
 
         private bool IsAfterDeparture(ReservationWriteDto record) {
-            var date = DateHelpers.GetLocalDateTime();
-            var departureTime = GetScheduleDepartureTime(record);
-            return DateTime.Compare(date, departureTime) > 0;
+            var now = testingEnvironment.IsTesting ? record.TestDateNow : DateHelpers.GetLocalDateTime();
+            var departure = GetScheduleDepartureTime(record);
+            return DateTime.Compare(now, departure) > 0;
         }
 
         private DateTime GetScheduleDepartureTime(ReservationWriteDto record) {

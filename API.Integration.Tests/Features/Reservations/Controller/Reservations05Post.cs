@@ -52,16 +52,16 @@ namespace API.Integration.Tests.Reservations {
         }
 
         [Theory]
-        [ClassData(typeof(ActiveAdminsCanNotCreateWhenInvalid))]
-        public async Task Active_Admins_Can_Not_Create_When_Invalid(TestNewReservation record) {
-            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
+        [ClassData(typeof(ActiveSimpleUsersCanNotCreateWhenInvalid))]
+        public async Task Active_Simple_Users_Can_Not_Create_When_Invalid(TestNewReservation record) {
+            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]
-        [ClassData(typeof(ActiveSimpleUsersCanNotCreateWhenInvalid))]
-        public async Task Active_Simple_Users_Can_Not_Create_When_Invalid(TestNewReservation record) {
-            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
+        [ClassData(typeof(ActiveAdminsCanNotCreateWhenInvalid))]
+        public async Task Active_Admins_Can_Not_Create_When_Invalid(TestNewReservation record) {
+            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
