@@ -17,7 +17,7 @@ namespace API.Integration.Tests.Reservations {
         private static object[] Active_Admins_Can_Delete_Own_Records() {
             return new object[] {
                 new TestNewReservation {
-                    ReservationId = Guid.Parse("08da3187-afd4-4df3-8675-72360bf1ec90")
+                    ReservationId = Guid.Parse("08da1dc9-17fa-4a11-8177-afa0c6ce06ea")
                 }
             };
         }
@@ -25,7 +25,7 @@ namespace API.Integration.Tests.Reservations {
         private static object[] Active_Admins_Can_Delete_Records_Owned_By_Other_Admins() {
             return new object[] {
                 new TestNewReservation {
-                    ReservationId = Guid.Parse("08da31a2-0d53-4306-86fb-5fe2af9d9fcf")
+                    ReservationId = Guid.Parse("08da276d-5e6a-40a5-83cf-5e7f6762f28f")
                 }
             };
         }
@@ -33,7 +33,7 @@ namespace API.Integration.Tests.Reservations {
         private static object[] Active_Admins_Can_Delete_Records_Owned_By_Simple_Users() {
             return new object[] {
                 new TestNewReservation {
-                    ReservationId = Guid.Parse("6a3f5493-c495-4740-ae80-fa2cd7b8697a")
+                    ReservationId = Guid.Parse("08da22a5-4424-41ab-8bbf-0026535e0920")
                 }
             };
         }
