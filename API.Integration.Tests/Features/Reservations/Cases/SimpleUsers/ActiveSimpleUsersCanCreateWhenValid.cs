@@ -10,6 +10,8 @@ namespace API.Integration.Tests.Reservations {
 
         public IEnumerator<object[]> GetEnumerator() {
             yield return Simple_Users_Can_Create_Records_For_Future_Date();
+            yield return Simple_Users_Can_Create_Records_WithOut_Transfer_For_Next_Day_Between_Closing_Time_And_Midnight();
+            yield return Simple_Users_Can_Create_Records_WithOut_Transfer_For_Next_Day_Between_Midnight_And_Departure();
         }
 
         private static object[] Simple_Users_Can_Create_Records_For_Future_Date() {
@@ -20,6 +22,36 @@ namespace API.Integration.Tests.Reservations {
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 12,
+                    TicketNo = "xxxx",
+                    Adults = 3,
+                    Passengers = new List<TestPassenger>()
+                }
+            };
+        }
+
+        private static object[] Simple_Users_Can_Create_Records_WithOut_Transfer_For_Next_Day_Between_Closing_Time_And_Midnight() {
+            return new object[] {
+                new TestNewReservation {
+                    Date = "2022-09-15",
+                    TestDateNow = new DateTime(2022, 09, 14, 23, 30, 0),
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 507,
+                    TicketNo = "xxxx",
+                    Adults = 3,
+                    Passengers = new List<TestPassenger>()
+                }
+            };
+        }
+
+        private static object[] Simple_Users_Can_Create_Records_WithOut_Transfer_For_Next_Day_Between_Midnight_And_Departure() {
+            return new object[] {
+                new TestNewReservation {
+                    Date = "2022-09-15",
+                    TestDateNow = new DateTime(2022, 09, 14, 04, 45, 0),
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 507,
                     TicketNo = "xxxx",
                     Adults = 3,
                     Passengers = new List<TestPassenger>()
