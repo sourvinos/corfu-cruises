@@ -52,10 +52,8 @@ namespace API.Features.Reservations {
         public async Task<Response> GetById(string id) {
             var record = await reservationRepo.GetById(id);
             if (record == null) {
-                return new Response {
-                    Code = 404,
-                    Icon = Icons.Error.ToString(),
-                    Message = ApiMessages.RecordNotFound()
+                throw new CustomException() {
+                    ResponseCode = 404
                 };
             } else {
                 if (await Identity.IsUserAdmin(httpContext) || await reservationRepo.IsUserOwner(record.Customer.Id)) {
@@ -66,10 +64,8 @@ namespace API.Features.Reservations {
                         Body = mapper.Map<Reservation, ReservationReadDto>(record)
                     };
                 } else {
-                    return new Response {
-                        Code = 490,
-                        Icon = Icons.Error.ToString(),
-                        Message = ApiMessages.NotOwnRecord(),
+                    throw new CustomException() {
+                        ResponseCode = 490
                     };
                 }
             }
