@@ -33,7 +33,7 @@ namespace API.Integration.Tests.Reservations {
         private static object[] Simple_Users_Can_Not_Add_Reservation_With_Transfer_For_Today_Between_Midnight_And_Departure() {
             return new object[] {
                 new TestNewReservation {
-                    StatusCode = 431,
+                    StatusCode = 459,
                     Date = "2022-05-29",
                     TestDateNow = new DateTime(2022, 5, 29, 06, 30, 00),
                     CustomerId = 1,

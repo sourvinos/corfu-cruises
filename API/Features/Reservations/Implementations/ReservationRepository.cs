@@ -520,15 +520,15 @@ namespace API.Features.Reservations {
         }
 
         private bool IsBetweenMidnightAndDeparture(ReservationWriteDto record) {
-            var timeNow = DateHelpers.GetLocalDateTime();
+            var timeNow = testingEnvironment.IsTesting ? record.TestDateNow : DateHelpers.GetLocalDateTime();
             var departureTime = GetScheduleDepartureTime(record);
             return DateTime.Compare(timeNow, departureTime) < 0;
         }
 
         private bool IsAfterDeparture(ReservationWriteDto record) {
-            var now = testingEnvironment.IsTesting ? record.TestDateNow : DateHelpers.GetLocalDateTime();
-            var departure = GetScheduleDepartureTime(record);
-            return DateTime.Compare(now, departure) > 0;
+            var timeNow = testingEnvironment.IsTesting ? record.TestDateNow : DateHelpers.GetLocalDateTime();
+            var departureTime = GetScheduleDepartureTime(record);
+            return DateTime.Compare(timeNow, departureTime) > 0;
         }
 
         private DateTime GetScheduleDepartureTime(ReservationWriteDto record) {
