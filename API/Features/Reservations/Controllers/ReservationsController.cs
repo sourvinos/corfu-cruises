@@ -131,10 +131,8 @@ namespace API.Features.Reservations {
         public async Task<Response> DeleteReservation([FromRoute] string id) {
             var record = await reservationRepo.GetByIdToDelete(id);
             if (record == null) {
-                return new Response {
-                    Code = 404,
-                    Icon = Icons.Error.ToString(),
-                    Message = ApiMessages.RecordNotFound()
+                throw new CustomException() {
+                    ResponseCode = 404
                 };
             } else {
                 reservationRepo.Delete(record);
