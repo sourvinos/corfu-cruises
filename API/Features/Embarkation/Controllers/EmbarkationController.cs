@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,11 +32,13 @@ namespace API.Features.Embarkation {
 
         [HttpPatch("embarkSinglePassenger")]
         [Authorize(Roles = "admin")]
-        public IActionResult EmbarkSinglePassenger(int id) {
+        public Response EmbarkSinglePassengerAsync(int id) {
             repo.EmbarkSinglePassenger(id);
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
+            return new Response {
+                Code = 200,
+                Icon = Icons.Success.ToString(),
+                Message = ApiMessages.OK()
+            };
         }
 
         [HttpPatch("embarkAllPassengers")]

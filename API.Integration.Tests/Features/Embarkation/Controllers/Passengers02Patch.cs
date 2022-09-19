@@ -16,7 +16,8 @@ namespace API.Integration.Tests.Embarkations {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "patch";
         private readonly string _baseUrl;
-        private readonly string _url = "/embarkations/doEmbarkation?id=1";
+        private readonly string _url = "/embarkation/embarkSinglePassenger?id=903";
+        private readonly string _notFoundUrl = "/embarkation/embarkSinglePassenger?id=999999";
 
         #endregion
 
@@ -37,14 +38,19 @@ namespace API.Integration.Tests.Embarkations {
         }
 
         [Theory]
-        [ClassData(typeof(UpdateValidPassenger))]
+        [ClassData(typeof(FoundPassenger))]
         public async Task Active_Simple_Users_Can_Not_Update(TestPassenger record) {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
+        [Fact]
+        public async Task Active_Admins_Not_Found_When_Not_Exists() {
+            await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
+        }
+
         [Theory]
-        [ClassData(typeof(UpdateValidPassenger))]
-        public async Task Active_Admins_Can_Update_When_Valid(TestPassenger record) {
+        [ClassData(typeof(FoundPassenger))]
+        public async Task Active_Admins_Can_Update_When_Found(TestPassenger record) {
             await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
         }
 

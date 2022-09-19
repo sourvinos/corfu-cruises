@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace API.Integration.Tests.Embarkations {
 
-    public class UpdateValidPassenger : IEnumerable<object[]> {
+    public class FoundPassenger : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -14,7 +14,7 @@ namespace API.Integration.Tests.Embarkations {
         private static object[] ValidRecord() {
             return new object[] {
                 new TestPassenger {
-                    Id = 1
+                    Id = 903
                 }
             };
         }

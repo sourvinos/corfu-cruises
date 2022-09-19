@@ -48,6 +48,10 @@ namespace API.Features.Embarkation {
             return mapper.Map<EmbarkationGroupDto<Reservation>, EmbarkationGroupVM<EmbarkationVM>>(mainResult);
         }
 
+        public async Task<Passenger> GetPassengerById(int id) {
+            return await context.Passengers.Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
         public async Task<int> GetShipIdFromDescription(string description) {
             var ship = await context.Ships.FirstOrDefaultAsync(x => x.Description == description);
             return ship.Id;
