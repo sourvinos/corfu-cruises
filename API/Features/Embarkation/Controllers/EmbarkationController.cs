@@ -32,22 +32,51 @@ namespace API.Features.Embarkation {
 
         [HttpPatch("embarkSinglePassenger")]
         [Authorize(Roles = "admin")]
-        public Response EmbarkSinglePassengerAsync(int id) {
-            repo.EmbarkSinglePassenger(id);
-            return new Response {
-                Code = 200,
-                Icon = Icons.Success.ToString(),
-                Message = ApiMessages.OK()
-            };
+        public async Task<Response> EmbarkSinglePassenger(int id) {
+            var passenger = await repo.GetPassengerById(id, false);
+            if (passenger == null) {
+                return new Response {
+                    Code = 404,
+                    Icon = Icons.Error.ToString(),
+                    Message = ApiMessages.RecordNotFound()
+                };
+            } else {
+                repo.EmbarkSinglePassenger(id);
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            }
         }
 
         [HttpPatch("embarkAllPassengers")]
         [Authorize(Roles = "admin")]
-        public IActionResult EmbarkAllPassengers([FromQuery] int[] id) {
+        public async Task<Response> EmbarkAllPassengers([FromQuery] int[] id) {
             repo.EmbarkAllPassengers(id);
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
+            if (await CheckAllPassengersExist(id)) {
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                return new Response {
+                    Code = 404,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.EmbarkedPassengerWasNotFound()
+                };
+            };
+        }
+
+        private async Task<bool> CheckAllPassengersExist(int[] id) {
+            foreach (var passengerId in id) {
+                var passenger = await repo.GetPassengerById(passengerId, false);
+                if (passenger == null) {
+                    return false;
+                }
+            }
+            return true;
         }
 
     }

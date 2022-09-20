@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace API.Integration.Tests.Embarkations {
 
-    public class FoundPassenger : IEnumerable<object[]> {
+    public class FoundSinglePassenger : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

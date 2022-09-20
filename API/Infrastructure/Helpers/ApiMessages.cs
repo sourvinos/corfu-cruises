@@ -49,6 +49,7 @@ namespace API.Infrastructure.Helpers {
         public static string InvalidPassengerCount() { return "Total persons must be equal or greater than the passenger count."; }
         public static string SimpleUserNightRestrictions() { return "New reservations for the next day with transfer after 22:00 are not allowed"; }
         public static string SimpleUserCanNotAddReservationAfterDepartureTime() { return "Reservations after departure are not allowed"; }
+        public static string EmbarkedPassengerWasNotFound() { return "OK, but at least one of the passengers was not found."; }
 
         #endregion
 

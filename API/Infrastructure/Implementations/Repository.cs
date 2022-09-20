@@ -31,12 +31,11 @@ namespace API.Infrastructure.Implementations {
         }
 
         public async Task<T> GetById(int id) {
-            var entity = await context.Set<T>().FindAsync(id);
-            if (entity != null) {
-                return entity;
-            } else {
-                throw new CustomException { ResponseCode = 404 };
-            }
+            return await context.Set<T>().FindAsync(id);
+        }
+
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges) {
+            return !trackChanges ? context.Set<T>().Where(expression).AsNoTracking() : context.Set<T>().Where(expression);
         }
 
         public void Create(T entity) {
