@@ -39,28 +39,19 @@ namespace API.Features.Embarkation {
             int totalPersons = reservations.Sum(x => x.TotalPersons);
             int embarkedPassengers = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);
             int remainingPersons = totalPersons - embarkedPassengers;
-            var mainResult = new EmbarkationGroupDto<Reservation> {
+            var mainResult = new EmbarkationGroup<Reservation> {
                 TotalPersons = totalPersons,
                 EmbarkedPassengers = embarkedPassengers,
                 PendingPersons = remainingPersons,
                 Reservations = reservations.ToList()
             };
-            return mapper.Map<EmbarkationGroupDto<Reservation>, EmbarkationGroupVM<EmbarkationVM>>(mainResult);
+            return mapper.Map<EmbarkationGroup<Reservation>, EmbarkationGroupVM<EmbarkationVM>>(mainResult);
         }
-
-        // public async Task<Passenger> GetPassengerById(int id) {
-        //     return await context.Passengers.Where(x => x.Id == id).FirstOrDefaultAsync();
-        // }
 
         public async Task<Passenger> GetPassengerById(int id, bool trackChanges) {
             return trackChanges
                 ? await context.Passengers.Where(x => x.Id == id).FirstOrDefaultAsync()
                 : await context.Passengers.Where(x => x.Id == id).AsNoTracking().FirstOrDefaultAsync();
-        }
-
-        public async Task<int> GetShipIdFromDescription(string description) {
-            var ship = await context.Ships.FirstOrDefaultAsync(x => x.Description == description);
-            return ship.Id;
         }
 
         public void EmbarkSinglePassenger(int id) {

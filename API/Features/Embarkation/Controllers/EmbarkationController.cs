@@ -25,11 +25,6 @@ namespace API.Features.Embarkation {
             return await repo.Get(date, destinationId, portId, shipId);
         }
 
-        [HttpGet("[action]/{description}")]
-        public async Task<int> GetShipIdFromDescription(string description) {
-            return await repo.GetShipIdFromDescription(description);
-        }
-
         [HttpPatch("embarkSinglePassenger")]
         [Authorize(Roles = "admin")]
         public async Task<Response> EmbarkSinglePassenger(int id) {

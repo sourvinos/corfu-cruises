@@ -3,7 +3,7 @@ using API.Features.Reservations;
 
 namespace API.Features.Embarkation {
 
-    public class EmbarkationGroupDto<T> {
+    public class EmbarkationGroup<T> {
 
         public int TotalPersons { get; set; }
         public int EmbarkedPassengers { get; set; }
