@@ -30,36 +30,38 @@ namespace API.Features.Customers {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<CustomerListVM>> GetAsync() {
+        public async Task<IEnumerable<CustomerListVM>> Get() {
             return await repo.Get();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdownAsync() {
+        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
             return await repo.GetActiveForDropdown();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> GetCustomerAsync(int id) {
-            var customer = await repo.GetById(id);
-            return customer == null ? new Response {
-                Code = 404,
-                Icon = Icons.Error.ToString(),
-                Message = ApiMessages.RecordNotFound()
-            } : new Response {
-                Code = 200,
-                Icon = Icons.Info.ToString(),
-                Message = ApiMessages.OK(),
-                Body = mapper.Map<Customer, CustomerReadDto>(customer)
-            };
+        public async Task<Response> GetCustomer(int id) {
+            var customer = await repo.GetEmployee(id, false);
+            if (customer != null) {
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Info.ToString(),
+                    Message = ApiMessages.OK(),
+                    Body = mapper.Map<Customer, CustomerReadDto>(customer)
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostCustomerAsync([FromBody] CustomerWriteDto record) {
+        public async Task<Response> PostCustomer([FromBody] CustomerWriteDto record) {
             repo.Create(mapper.Map<CustomerWriteDto, Customer>(await AttachUserIdToRecord(record)));
             return new Response {
                 Code = 200,
@@ -71,31 +73,36 @@ namespace API.Features.Customers {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutCustomerAsync([FromBody] CustomerWriteDto record) {
-            repo.Update(mapper.Map<CustomerWriteDto, Customer>(await AttachUserIdToRecord(record)));
-            return new Response {
-                Code = 200,
-                Icon = Icons.Success.ToString(),
-                Message = ApiMessages.OK()
-            };
-        }
-
-        [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
-        public async Task<Response> DeleteCustomerAsync([FromRoute] int id) {
-            var customer = await repo.GetById(id);
-            if (customer == null) {
-                return new Response {
-                    Code = 404,
-                    Icon = Icons.Error.ToString(),
-                    Message = ApiMessages.RecordNotFound()
-                };
-            } else {
-                repo.Delete(await repo.GetByIdToDelete(id));
+        public async Task<Response> PutCustomer([FromBody] CustomerWriteDto record) {
+            var customer = await repo.GetEmployee(record.Id, false);
+            if (customer != null) {
+                repo.Update(mapper.Map<CustomerWriteDto, Customer>(await AttachUserIdToRecord(record)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
                     Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
+        public async Task<Response> DeleteCustomer([FromRoute] int id) {
+            var customer = await repo.GetEmployee(id, false);
+            if (customer != null) {
+                repo.Delete(customer);
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
                 };
             }
         }

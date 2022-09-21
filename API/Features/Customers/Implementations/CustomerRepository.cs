@@ -34,6 +34,10 @@ namespace API.Features.Customers {
             return mapper.Map<IEnumerable<Customer>, IEnumerable<SimpleResource>>(records);
         }
 
+        public async Task<Customer> GetEmployee(int id, bool trackChanges) {
+            return await FindByCondition(x => x.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
+        }
+
         public async Task<Customer> GetByIdToDelete(int id) {
             return await context.Customers.SingleOrDefaultAsync(m => m.Id == id);
         }

@@ -57,6 +57,7 @@ namespace API.Infrastructure.Responses {
                 459 => ApiMessages.SimpleUserNightRestrictions(),
                 455 => ApiMessages.InvalidPassengerCount(),
                 490 => ApiMessages.NotOwnRecord(),
+                491 => ApiMessages.RecordInUse(),
                 _ => ApiMessages.UnknownError(),
             };
         }

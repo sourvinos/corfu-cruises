@@ -47,7 +47,7 @@ namespace API.Infrastructure.Implementations {
 
         public void Update(T entity) {
             using var transaction = context.Database.BeginTransaction();
-            context.Entry(entity).State = EntityState.Modified;
+            context.Set<T>().Update(entity);
             Save();
             DisposeOrCommit(transaction);
         }

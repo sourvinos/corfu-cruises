@@ -10,6 +10,7 @@ namespace API.Infrastructure.Interfaces {
 
         Task<IEnumerable<T>> Get(Expression<Func<T, bool>> expression);
         Task<IEnumerable<T>> GetActive(Expression<Func<T, bool>> expression);
+        IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges);
         Task<T> GetById(int id);
         void Create(T entity);
         void Update(T entity);

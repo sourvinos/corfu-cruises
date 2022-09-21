@@ -9,6 +9,7 @@ namespace API.Features.Customers {
 
         Task<IEnumerable<CustomerListVM>> Get();
         Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
+        Task<Customer> GetEmployee(int id, bool trackChanges);
         Task<Customer> GetByIdToDelete(int id);
 
     }
