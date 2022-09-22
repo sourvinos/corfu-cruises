@@ -12,6 +12,7 @@ namespace API.Integration.Tests.Reservations {
             yield return Simple_Users_Can_Not_Add_Reservation_With_Transfer_For_Tomorrow_Between_Closing_Time_And_Midnight();
             yield return Simple_Users_Can_Not_Add_Reservation_With_Transfer_For_Today_Between_Midnight_And_Departure();
             yield return Simple_Users_Can_Not_Add_Reservations_After_Departure();
+            yield return Simple_Users_Can_Not_Add_Reservations_Which_Cause_Overbooking_From_Primary_Port();
         }
 
         private static object[] Simple_Users_Can_Not_Add_Reservation_With_Transfer_For_Tomorrow_Between_Closing_Time_And_Midnight() {
@@ -63,6 +64,22 @@ namespace API.Integration.Tests.Reservations {
                         new TestPassenger { Lastname = "ALONA", Firstname = "CUTLER", Birthdate = "1964-04-28", NationalityId = 127, OccupantId = 2, GenderId = 2 },
                         new TestPassenger { Lastname = "LYA", Firstname = "TROWBRIDGE", Birthdate = "2015-01-21", NationalityId = 211, OccupantId = 2, GenderId = 1 },
                     }
+                }
+            };
+        }
+
+        private static object[] Simple_Users_Can_Not_Add_Reservations_Which_Cause_Overbooking_From_Primary_Port() {
+            return new object[] {
+                new TestNewReservation {
+                    StatusCode = 433,
+                    Date = "2022-09-15",
+                    TestDateNow = new DateTime(2022, 09, 14, 12, 0, 0),
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 12,
+                    TicketNo = "xxxx",
+                    Adults = 500,
+                    Passengers = new List<TestPassenger>()
                 }
             };
         }

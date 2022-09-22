@@ -17,7 +17,7 @@ namespace API.Integration.Tests.Reservations {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "delete";
         private readonly string _baseUrl;
-        private readonly string _notFoundUrl = "/reservations/xxxxxxxx-5310-4f58-be17-xxxxxxxxxxxx";
+        private readonly string _notFoundUrl = "/reservations/b140036a-5b03-4098-9774-8878f252fdb7";
         private readonly string _url = "/reservations";
         private readonly string _deleteUrl = "/reservations/08da32ab-8ef2-42e4-85c5-6760c02b81c1";
 

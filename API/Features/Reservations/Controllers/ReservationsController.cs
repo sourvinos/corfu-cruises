@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using API.Features.Schedules;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
@@ -31,50 +32,50 @@ namespace API.Features.Reservations {
 
         [HttpGet("byDate/{date}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationGroupVM<ReservationListVM>> GetByDateAsync([FromRoute] string date) {
+        public async Task<ReservationGroupVM<ReservationListVM>> GetByDate([FromRoute] string date) {
             return await reservationRepo.GetByDate(date);
         }
 
         [HttpGet("byDate/{date}/byDriver/{driverId}")]
         [Authorize(Roles = "admin")]
-        public async Task<ReservationDriverGroupVM<Reservation>> GetByDateAndDriverAsync([FromRoute] string date, int driverId) {
+        public async Task<ReservationDriverGroupVM<Reservation>> GetByDateAndDriver([FromRoute] string date, int driverId) {
             return await reservationRepo.GetByDateAndDriver(date, driverId);
         }
 
         [HttpGet("byRefNo/{refNo}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationGroupVM<ReservationListVM>> GetByRefNoAsync([FromRoute] string refNo) {
+        public async Task<ReservationGroupVM<ReservationListVM>> GetByRefNo([FromRoute] string refNo) {
             return await reservationRepo.GetByRefNo(refNo);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{reservationId}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<Response> GetById(string id) {
-            var record = await reservationRepo.GetById(id);
-            if (record == null) {
-                throw new CustomException() {
-                    ResponseCode = 404
-                };
-            } else {
-                if (await Identity.IsUserAdmin(httpContext) || await reservationRepo.IsUserOwner(record.Customer.Id)) {
+        public async Task<Response> GetById(string reservationId) {
+            var reservation = await reservationRepo.GetReservation(Guid.Parse(reservationId), false);
+            if (reservation != null) {
+                if (await Identity.IsUserAdmin(httpContext) || await reservationRepo.IsUserOwner(reservation.CustomerId)) {
                     return new Response {
                         Code = 200,
                         Icon = Icons.Info.ToString(),
                         Message = ApiMessages.OK(),
-                        Body = mapper.Map<Reservation, ReservationReadDto>(record)
+                        Body = mapper.Map<Reservation, ReservationReadDto>(reservation)
                     };
                 } else {
                     throw new CustomException() {
                         ResponseCode = 490
                     };
                 }
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
             }
         }
 
         [HttpPost]
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostReservationAsync([FromBody] ReservationWriteDto record) {
+        public async Task<Response> PostReservation([FromBody] ReservationWriteDto record) {
             var responseCode = reservationRepo.IsValid(record, scheduleRepo);
             if (responseCode == 200) {
                 await AssignRefNoToNewReservation(record);
@@ -97,45 +98,51 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> PutReservation([FromRoute] string id, [FromBody] ReservationWriteDto record) {
-            var reservation = await reservationRepo.GetByIdAsNoTracking(id);
-            if (await Identity.IsUserAdmin(httpContext) || await reservationRepo.IsUserOwner(reservation.CustomerId)) {
-                var responseCode = reservationRepo.IsValid(record, scheduleRepo);
-                if (responseCode == 200) {
-                    AttachPortIdToRecord(record);
-                    UpdateForeignKeysWithNull(record);
-                    await AttachUserIdToRecord(record);
-                    await reservationRepo.Update(id, mapper.Map<ReservationWriteDto, Reservation>(record));
-                    return new Response {
-                        Code = 200,
-                        Icon = Icons.Success.ToString(),
-                        Message = record.RefNo
-                    };
+            var reservation = await reservationRepo.GetReservation(record.ReservationId, false);
+            if (reservation != null) {
+                if (await Identity.IsUserAdmin(httpContext) || await reservationRepo.IsUserOwner(reservation.CustomerId)) {
+                    var responseCode = reservationRepo.IsValid(record, scheduleRepo);
+                    if (responseCode == 200) {
+                        AttachPortIdToRecord(record);
+                        UpdateForeignKeysWithNull(record);
+                        await AttachUserIdToRecord(record);
+                        await reservationRepo.Update(id, mapper.Map<ReservationWriteDto, Reservation>(record));
+                        return new Response {
+                            Code = 200,
+                            Icon = Icons.Success.ToString(),
+                            Message = record.RefNo
+                        };
+                    } else {
+                        throw new CustomException() {
+                            ResponseCode = responseCode
+                        };
+                    }
                 } else {
                     throw new CustomException() {
-                        ResponseCode = responseCode
+                        ResponseCode = 490
                     };
                 }
             } else {
                 throw new CustomException() {
-                    ResponseCode = 490
+                    ResponseCode = 404
                 };
             }
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> DeleteReservation([FromRoute] string id) {
-            var record = await reservationRepo.GetByIdToDelete(id);
-            if (record == null) {
-                throw new CustomException() {
-                    ResponseCode = 404
-                };
-            } else {
-                reservationRepo.Delete(record);
+        public async Task<Response> DeleteReservation([FromRoute] Guid id) {
+            var reservation = await reservationRepo.GetReservation(id, false);
+            if (reservation != null) {
+                reservationRepo.Delete(reservation);
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
                     Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
                 };
             }
         }

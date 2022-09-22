@@ -8,7 +8,7 @@ using Xunit;
 namespace API.Integration.Tests.Reservations {
 
     [Collection("Sequence")]
-    public class Reservations03GetById : IClassFixture<AppSettingsFixture> {
+    public class Reservations03GetByReservationId : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -18,13 +18,13 @@ namespace API.Integration.Tests.Reservations {
         private readonly string _actionVerb = "get";
         private readonly string _adminUrl = "/reservations/08da3032-efea-4de7-8a43-4800d3652fc8";
         private readonly string _baseUrl;
-        private readonly string _notFoundUrl = "/reservations/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
+        private readonly string _notFoundUrl = "/reservations/b140036a-5b03-4098-9774-8878f252fdb7";
         private readonly string _simpleUserUrl_owned = "/reservations/08da31b2-a2e0-4923-8890-6631bd75e779";
         private readonly string _simpleUserUrl_not_owned = "/reservations/08da3187-afd4-4df3-8675-72360bf1ec90";
 
         #endregion
 
-        public Reservations03GetById(AppSettingsFixture appsettings) {
+        public Reservations03GetByReservationId(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
@@ -52,17 +52,17 @@ namespace API.Integration.Tests.Reservations {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_Get_By_Id_Not_Owned() {
+        public async Task Active_Simple_Users_Can_Not_Get_By_Reservation_Id_Not_Owned() {
             await RecordNotOwned.Action(_httpClient, _baseUrl, _simpleUserUrl_not_owned, "simpleuser", "1234567890");
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Get_By_Id_If_Owned() {
+        public async Task Active_Simple_Users_Can_Get_By_Reservation_Id_If_Owned() {
             await RecordFound.Action(_httpClient, _baseUrl, _simpleUserUrl_owned, "simpleuser", "1234567890");
         }
 
         [Fact]
-        public async Task Active_Admins_Can_Get_By_Id() {
+        public async Task Active_Admins_Can_Get_By_Reservation_Id() {
             await RecordFound.Action(_httpClient, _baseUrl, _adminUrl, "john", "ec11fc8c16da");
         }
 
