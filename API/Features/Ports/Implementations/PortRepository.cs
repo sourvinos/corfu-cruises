@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
 using API.Infrastructure.Responses;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -11,14 +12,17 @@ namespace API.Features.Ports {
 
     public class PortRepository : Repository<Port>, IPortRepository {
 
-        public PortRepository(AppDbContext appDbContext, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) { }
+        private readonly IMapper mapper;
 
-        public async Task<IEnumerable<Port>> Get() {
+        public PortRepository(AppDbContext appDbContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
+            this.mapper = mapper;
+        }
+
+        public async Task<IEnumerable<PortListVM>> Get() {
             var records = await context.Ports
-                .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return records;
+            return mapper.Map<IEnumerable<Port>, IEnumerable<PortListVM>>(records);
         }
 
         public async Task<IEnumerable<Port>> GetActiveForDropdown() {
@@ -28,6 +32,10 @@ namespace API.Features.Ports {
                 .AsNoTracking()
                 .ToListAsync();
             return records;
+        }
+
+        public async Task<Port> GetPort(int id, bool trackChanges) {
+            return await FindByCondition(x => x.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
         }
 
         public async Task<Port> GetByIdToDelete(int id) {

@@ -13,7 +13,7 @@ namespace API.Features.Ports {
         // Fields
         public string Description { get; set; }
         public string Abbreviation { get; set; }
-        public bool IsPrimary { get; set; }
+        public int Sequence { get; set; }
         public bool IsActive { get; set; }
         // FKs
         public string UserId { get; set; }

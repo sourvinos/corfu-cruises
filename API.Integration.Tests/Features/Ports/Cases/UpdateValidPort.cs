@@ -18,7 +18,7 @@ namespace API.Integration.Tests.Ports {
                     Id = 1,
                     Description = Helpers.CreateRandomString(128),
                     Abbreviation = Helpers.CreateRandomString(5),
-                    IsPrimary = true
+                    Sequence = 1
                 }
             };
         }

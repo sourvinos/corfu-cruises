@@ -32,7 +32,6 @@ namespace API.Features.Availability {
                     DestinationAbbreviation = x.Destination.Abbreviation,
                     PortId = x.PortId,
                     PortAbbreviation = x.Port.Abbreviation,
-                    IsPortPrimary = x.Port.IsPrimary,
                     MaxPassengers = x.MaxPassengers
                 });
             return response.ToList();

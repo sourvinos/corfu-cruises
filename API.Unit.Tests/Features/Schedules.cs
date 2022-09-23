@@ -32,7 +32,7 @@ namespace API.UnitTests.Features.Schedules {
         }
 
         [Theory]
-        [ClassData(typeof(ValidateZeroOrGreaterInteger))]
+        [ClassData(typeof(ValidateIntegerBetweenZeroAndOneThousand))]
         public void Invalid_MaxPassengers(int maxPassengers) {
             new ScheduleValidator()
                 .TestValidate(new ScheduleWriteDto { MaxPassengers = maxPassengers })

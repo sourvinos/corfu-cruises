@@ -25,6 +25,14 @@ namespace API.UnitTests.Features.Ports {
                 .ShouldHaveValidationErrorFor(x => x.Description);
         }
 
+        [Theory]
+        [ClassData(typeof(ValidateIntegerBetweenOneAndTen))]
+        public void Invalid_Sequence(int sequence) {
+            new PortValidator()
+                .TestValidate(new PortWriteDto { Sequence = sequence })
+                .ShouldHaveValidationErrorFor(x => x.Sequence);
+        }
+
     }
 
 }

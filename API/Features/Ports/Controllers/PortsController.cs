@@ -30,8 +30,8 @@ namespace API.Features.Ports {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<PortListDto>> Get() {
-            return mapper.Map<IEnumerable<Port>, IEnumerable<PortListDto>>(await repo.Get());
+        public async Task<IEnumerable<PortListVM>> Get() {
+            return await repo.Get();
         }
 
         [HttpGet("[action]")]
@@ -42,31 +42,69 @@ namespace API.Features.Ports {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<PortReadDto> GetPort(int id) {
-            return mapper.Map<Port, PortReadDto>(await repo.GetById(id));
+        public async Task<Response> GetPort(int id) {
+            var port = await repo.GetPort(id, false);
+            if (port != null) {
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Info.ToString(),
+                    Message = ApiMessages.OK(),
+                    Body = mapper.Map<Port, PortReadDto>(port)
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostPort([FromBody] PortWriteDto record) {
-            repo.Create(mapper.Map<PortWriteDto, Port>(await AttachUserIdToRecord(record)));
-            return ApiResponses.OK();
+        public async Task<Response> PostPort([FromBody] PortWriteDto port) {
+            repo.Create(mapper.Map<PortWriteDto, Port>(await AttachUserIdToRecord(port)));
+            return new Response {
+                Code = 200,
+                Icon = Icons.Success.ToString(),
+                Message = ApiMessages.OK()
+            };
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> PutPort([FromBody] PortWriteDto record) {
-            repo.Update(mapper.Map<PortWriteDto, Port>(await AttachUserIdToRecord(record)));
-            return ApiResponses.OK();
+            var port = await repo.GetPort(record.Id, false);
+            if (port != null) {
+                repo.Update(mapper.Map<PortWriteDto, Port>(await AttachUserIdToRecord(record)));
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> DeletePort([FromRoute] int id) {
-            repo.Delete(await repo.GetByIdToDelete(id));
-            return ApiResponses.OK();
+            var port = await repo.GetPort(id, false);
+            if (port != null) {
+                repo.Delete(port);
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         private async Task<PortWriteDto> AttachUserIdToRecord(PortWriteDto record) {

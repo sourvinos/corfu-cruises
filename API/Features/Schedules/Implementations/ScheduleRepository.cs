@@ -110,7 +110,6 @@ namespace API.Features.Schedules {
                     DestinationAbbreviation = x.Destination.Abbreviation,
                     PortId = x.PortId,
                     PortDescription = x.Port.Description,
-                    IsPortPrimary = x.Port.IsPrimary,
                     MaxPassengers = x.MaxPassengers
                 });
             return response.ToList();

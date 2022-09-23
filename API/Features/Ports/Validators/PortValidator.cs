@@ -7,6 +7,7 @@ namespace API.Features.Ports {
         public PortValidator() {
             RuleFor(x => x.Description).NotEmpty().MaximumLength(128);
             RuleFor(x => x.Abbreviation).NotEmpty().MaximumLength(5);
+            RuleFor(x => x.Sequence).NotEmpty().InclusiveBetween(1, 10);
         }
 
     }
