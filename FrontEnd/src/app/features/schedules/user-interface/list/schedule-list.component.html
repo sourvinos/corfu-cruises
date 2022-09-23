@@ -5,7 +5,7 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
+        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="true" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
                     <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
@@ -15,10 +15,8 @@
                     <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="maxPassengers">{{ getLabel("headerMaxPassengers") }}<p-sortIcon field="maxPassengers"></p-sortIcon></th>
                 </tr>
                 <tr>
-                    <th style="min-width: 10%; max-width: 10%;">
-                        <p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter>
-                    </th>
-                    <th></th>
+                    <th style="min-width: 10%; max-width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
+                    <th style="min-width: 10%; max-width: 10%;"><input data-cy="filter-date" type="text" class="p-inputtext center" (input)="table.filter($event.target.value, 'formattedDate', 'startsWith')" [value]="$any(table).filters['formattedDate']?.value"></th>
                     <th style="min-width: 40%; max-width: 40%;">
                         <p-columnFilter style="width: 100%;" field="destinationDescription" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -50,7 +48,7 @@
                         <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
                         <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
                     </td>
-                    <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ formatDateToLocale(rowData.date) }}</td>
+                    <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ rowData.formattedDate }}</td>
                     <td style="min-width: 40%; max-width: 40%;">{{ rowData.destinationDescription }}</td>
                     <td style="min-width: 30%; max-width: 30%;">{{ rowData.portDescription }}</td>
                     <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ rowData.maxPassengers }}</td>

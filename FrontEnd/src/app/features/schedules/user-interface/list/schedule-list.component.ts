@@ -1,14 +1,16 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
-import { Subject } from 'rxjs'
+import { Subject, takeUntil } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ScheduleListVM } from './../../classes/view-models/schedule-list-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
@@ -29,7 +31,7 @@ export class ScheduleListComponent {
     public feature = 'scheduleList'
     public icon = 'home'
     public parentUrl = '/'
-    public records = []
+    public records: ScheduleListVM[] = []
 
     public dropdownDates = []
     public dropdownDestinations = []
@@ -37,16 +39,18 @@ export class ScheduleListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.setWindowTitle()
         this.loadRecords().then(() => {
+            this.formatTableDateColumnToLocale()
             this.populateDropdownFilters()
         })
         this.addShortcuts()
+        this.subscribeToInteractionService()
     }
 
     ngAfterViewInit(): void {
@@ -105,6 +109,12 @@ export class ScheduleListComponent {
         this.unsubscribe.unsubscribe()
     }
 
+    private formatTableDateColumnToLocale(): void {
+        this.records.forEach(record => {
+            record.formattedDate = this.helperService.formatISODateToLocale(record.date)
+        })
+    }
+
     private goBack(): void {
         this.router.navigate([this.parentUrl])
     }
@@ -135,6 +145,12 @@ export class ScheduleListComponent {
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+            this.formatTableDateColumnToLocale()
+        })
     }
 
     //#endregion
