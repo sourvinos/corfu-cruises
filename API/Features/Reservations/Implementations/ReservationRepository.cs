@@ -25,7 +25,7 @@ namespace API.Features.Reservations {
         private readonly TestingEnvironment testingEnvironment;
         private readonly UserManager<UserExtended> userManager;
 
-        public ReservationRepository(AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor, IMapper mapper, IOptions<TestingEnvironment> testingEnvironment, UserManager<UserExtended> userManager) : base(appDbContext, testingEnvironment) {
+        public ReservationRepository(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, IOptions<TestingEnvironment> testingEnvironment, UserManager<UserExtended> userManager) : base(context, testingEnvironment) {
             this.httpContextAccessor = httpContextAccessor;
             this.mapper = mapper;
             this.testingEnvironment = testingEnvironment.Value;
@@ -241,7 +241,7 @@ namespace API.Features.Reservations {
             if (Identity.IsUserAdmin(httpContextAccessor).Result || reservationId != Guid.Empty) {
                 return true;
             } else {
-                int maxPassengers = GetPortMaxPassengers(scheduleRepo, fromDate, toDate, reservationId, destinationId, portId);
+                int maxPassengers = GetPortMaxPassengers(fromDate, destinationId, portId);
                 return maxPassengers >= reservationPersons;
             }
         }
@@ -262,12 +262,14 @@ namespace API.Features.Reservations {
             }
         }
 
-        private static int GetPortMaxPassengers(IScheduleRepository scheduleRepo, string fromDate, string toDate, Guid? reservationId, int destinationId, int portId) {
-            IEnumerable<ScheduleReservationGroup> schedule = scheduleRepo.DoCalendarTasks(fromDate, toDate, reservationId).ToList();
-            var port = schedule.Select(x => x.Destinations.SingleOrDefault(x => x.Id == destinationId).Ports.SingleOrDefault(x => x.Id == portId)).Select(x => new {
-                MaxPassengers = x.AvailableSeats
-            }).ToList();
-            return port[0].MaxPassengers;
+        private int GetPortMaxPassengers(string date, int destinationId, int portId) {
+            var port = context.Ports.AsNoTracking().Where(x => x.Id == portId).FirstOrDefault();
+            var maxPassengers = context.Schedules
+                .AsNoTracking()
+                .Include(x => x.Port)
+                .Where(x => x.Date.ToString() == date && x.DestinationId == destinationId && x.Port.StopOrder <= port.StopOrder && x.Port.IsActive)
+                .Sum(x => x.MaxPassengers);
+            return maxPassengers;
         }
 
         private bool SimpleUserCanNotAddReservationAfterDeparture(ReservationWriteDto record) {
