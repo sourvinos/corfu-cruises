@@ -46,7 +46,7 @@ namespace API.Features.Invoicing {
                     FromDate = fromDate,
                     ToDate = toDate,
                     Customer = new SimpleResource { Id = x.Key.Customer.Id, Description = x.Key.Customer.Description },
-                    Ports = x.GroupBy(x => x.Port).OrderBy(x => x.Key.Sequence).Select(x => new InvoicingPortDTO {
+                    Ports = x.GroupBy(x => x.Port).OrderBy(x => x.Key.StopOrder).Select(x => new InvoicingPortDTO {
                         Port = x.Key.Description,
                         HasTransferGroup = x.GroupBy(x => x.PickupPoint.CoachRoute.HasTransfer).Select(x => new HasTransferGroupDTO {
                             HasTransfer = x.Key,

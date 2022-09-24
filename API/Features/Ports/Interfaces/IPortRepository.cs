@@ -6,10 +6,10 @@ namespace API.Features.Ports {
 
     public interface IPortRepository : IRepository<Port> {
 
-        Task<IEnumerable<PortListVM>> Get();
-        Task<IEnumerable<Port>> GetActiveForDropdown();
-        Task<Port> GetPort(int id, bool trackChanges);
-        Task<Port> GetByIdToDelete(int id);
+        Task<IEnumerable<Port>> Get();
+        Task<IEnumerable<Port>> GetActive();
+        Task<Port> GetById(int id, bool trackChanges);
+        int IsValid(PortWriteDto port);
 
     }
 

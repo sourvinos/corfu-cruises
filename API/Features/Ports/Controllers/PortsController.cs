@@ -16,34 +16,34 @@ namespace API.Features.Ports {
 
         #region variables
 
-        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
-        private readonly IPortRepository repo;
+        private readonly IPortRepository portRepository;
 
         #endregion
 
-        public PortsController(IHttpContextAccessor httpContextAccessor, IMapper mapper, IPortRepository repo) {
-            this.httpContextAccessor = httpContextAccessor;
+        public PortsController(IHttpContextAccessor httpContext, IMapper mapper, IPortRepository portRepository) {
+            this.httpContext = httpContext;
             this.mapper = mapper;
-            this.repo = repo;
+            this.portRepository = portRepository;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
         public async Task<IEnumerable<PortListVM>> Get() {
-            return await repo.Get();
+            return mapper.Map<IEnumerable<Port>, IEnumerable<PortListVM>>(await portRepository.Get());
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            return mapper.Map<IEnumerable<Port>, IEnumerable<SimpleResource>>(await repo.GetActiveForDropdown());
+        public async Task<IEnumerable<SimpleResource>> GetActive() {
+            return mapper.Map<IEnumerable<Port>, IEnumerable<SimpleResource>>(await portRepository.GetActive());
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> GetPort(int id) {
-            var port = await repo.GetPort(id, false);
+        public async Task<Response> GetById(int id) {
+            var port = await portRepository.GetById(id, false);
             if (port != null) {
                 return new Response {
                     Code = 200,
@@ -61,27 +61,41 @@ namespace API.Features.Ports {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostPort([FromBody] PortWriteDto port) {
-            repo.Create(mapper.Map<PortWriteDto, Port>(await AttachUserIdToRecord(port)));
-            return new Response {
-                Code = 200,
-                Icon = Icons.Success.ToString(),
-                Message = ApiMessages.OK()
-            };
-        }
-
-        [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
-        [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutPort([FromBody] PortWriteDto record) {
-            var port = await repo.GetPort(record.Id, false);
-            if (port != null) {
-                repo.Update(mapper.Map<PortWriteDto, Port>(await AttachUserIdToRecord(record)));
+        public async Task<Response> Post([FromBody] PortWriteDto port) {
+            var responseCode = portRepository.IsValid(port);
+            if (responseCode == 200) {
+                portRepository.Create(mapper.Map<PortWriteDto, Port>(await AttachUserIdToRecord(port)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
                     Message = ApiMessages.OK()
                 };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = responseCode
+                };
+            }
+        }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
+        [ServiceFilter(typeof(ModelValidationAttribute))]
+        public async Task<Response> Put([FromBody] PortWriteDto port) {
+            var x = await portRepository.GetById(port.Id, false);
+            if (x != null) {
+                var responseCode = portRepository.IsValid(port);
+                if (responseCode == 200) {
+                    portRepository.Update(mapper.Map<PortWriteDto, Port>(await AttachUserIdToRecord(port)));
+                    return new Response {
+                        Code = 200,
+                        Icon = Icons.Success.ToString(),
+                        Message = ApiMessages.OK()
+                    };
+                } else {
+                    throw new CustomException() {
+                        ResponseCode = responseCode
+                    };
+                }
             } else {
                 throw new CustomException() {
                     ResponseCode = 404
@@ -91,10 +105,10 @@ namespace API.Features.Ports {
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> DeletePort([FromRoute] int id) {
-            var port = await repo.GetPort(id, false);
+        public async Task<Response> Delete([FromRoute] int id) {
+            var port = await portRepository.GetById(id, false);
             if (port != null) {
-                repo.Delete(port);
+                portRepository.Delete(port);
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -108,7 +122,7 @@ namespace API.Features.Ports {
         }
 
         private async Task<PortWriteDto> AttachUserIdToRecord(PortWriteDto record) {
-            var user = await Identity.GetConnectedUserId(httpContextAccessor);
+            var user = await Identity.GetConnectedUserId(httpContext);
             record.UserId = user.UserId;
             return record;
         }
