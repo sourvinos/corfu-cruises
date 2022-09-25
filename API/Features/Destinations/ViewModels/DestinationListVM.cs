@@ -1,6 +1,6 @@
 namespace API.Features.Destinations {
 
-    public class DestinationListDto {
+    public class DestinationListVM {
 
         public int Id { get; set; }
         public string Description { get; set; }

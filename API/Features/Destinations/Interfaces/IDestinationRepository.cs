@@ -7,9 +7,9 @@ namespace API.Features.Destinations {
 
     public interface IDestinationRepository : IRepository<Destination> {
 
-        Task<IEnumerable<DestinationListDto>> Get();
-        Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
-        Task<Destination> GetByIdToDelete(int id);
+        Task<IEnumerable<DestinationListVM>> Get();
+        Task<IEnumerable<SimpleResource>> GetActive();
+        Task<Destination> GetById(int id, bool trackChanges);
 
     }
 

@@ -30,43 +30,81 @@ namespace API.Features.Destinations {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<DestinationListDto>> Get() {
+        public async Task<IEnumerable<DestinationListVM>> Get() {
             return await repo.Get();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            return await repo.GetActiveForDropdown();
+        public async Task<IEnumerable<SimpleResource>> GetActive() {
+            return await repo.GetActive();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<DestinationReadDto> GetDestination(int id) {
-            return mapper.Map<Destination, DestinationReadDto>(await repo.GetById(id));
+        public async Task<Response> GetById(int id) {
+            var destination = await repo.GetById(id, false);
+            if (destination != null) {
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Info.ToString(),
+                    Message = ApiMessages.OK(),
+                    Body = mapper.Map<Destination, DestinationReadDto>(destination)
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostDestinationAsync([FromBody] DestinationWriteDto record) {
+        public async Task<Response> Post([FromBody] DestinationWriteDto record) {
             repo.Create(mapper.Map<DestinationWriteDto, Destination>(await AttachUserIdToRecord(record)));
-            return ApiResponses.OK();
+            return new Response {
+                Code = 200,
+                Icon = Icons.Success.ToString(),
+                Message = ApiMessages.OK()
+            };
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutDestinationAsync([FromBody] DestinationWriteDto record) {
-            repo.Update(mapper.Map<DestinationWriteDto, Destination>(await AttachUserIdToRecord(record)));
-            return ApiResponses.OK();
+        public async Task<Response> Put([FromBody] DestinationWriteDto record) {
+            var destination = await repo.GetById(record.Id, false);
+            if (destination != null) {
+                repo.Update(mapper.Map<DestinationWriteDto, Destination>(await AttachUserIdToRecord(record)));
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> DeleteDestination([FromRoute] int id) {
-            repo.Delete(await repo.GetByIdToDelete(id));
-            return ApiResponses.OK();
+        public async Task<Response> Delete([FromRoute] int id) {
+            var destination = await repo.GetById(id, false);
+            if (destination != null) {
+                repo.Delete(destination);
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         private async Task<DestinationWriteDto> AttachUserIdToRecord(DestinationWriteDto record) {

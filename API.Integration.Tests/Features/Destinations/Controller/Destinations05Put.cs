@@ -57,6 +57,12 @@ namespace API.Integration.Tests.Destinations {
         }
 
         [Theory]
+        [ClassData(typeof(UpdateInvalidDestination))]
+        public async Task Active_Admins_Can_Not_Update_When_Invalid(TestDestination record) {
+            await RecordNotFound.Action(_httpClient, _baseUrl, _url + "/" + record.Id, "john", "ec11fc8c16da");
+        }
+
+        [Theory]
         [ClassData(typeof(UpdateValidDestination))]
         public async Task Active_Admins_Can_Update_When_Valid(TestDestination record) {
             await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);

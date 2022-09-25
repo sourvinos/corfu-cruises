@@ -6,7 +6,7 @@ namespace API.Features.Destinations {
     public class DestinationMappingProfile : Profile {
 
         public DestinationMappingProfile() {
-            CreateMap<Destination, DestinationListDto>();
+            CreateMap<Destination, DestinationListVM>();
             CreateMap<Destination, DestinationReadDto>();
             CreateMap<Destination, SimpleResource>();
             CreateMap<DestinationWriteDto, Destination>();

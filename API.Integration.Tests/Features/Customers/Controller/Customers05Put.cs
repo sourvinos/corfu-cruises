@@ -64,7 +64,7 @@ namespace API.Integration.Tests.Customers {
 
         [Theory]
         [ClassData(typeof(UpdateInvalidCustomer))]
-        public async Task Active_Admins_Can_Not_Update_When_Valid(TestCustomer record) {
+        public async Task Active_Admins_Can_Not_Update_When_Invalid(TestCustomer record) {
             await RecordNotFound.Action(_httpClient, _baseUrl, _url + "/" + record.Id, "john", "ec11fc8c16da");
         }
 

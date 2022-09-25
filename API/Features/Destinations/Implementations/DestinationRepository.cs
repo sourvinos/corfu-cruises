@@ -17,15 +17,15 @@ namespace API.Features.Destinations {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<DestinationListDto>> Get() {
+        public async Task<IEnumerable<DestinationListVM>> Get() {
             List<Destination> records = await context.Destinations
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationListDto>>(records);
+            return mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationListVM>>(records);
         }
 
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<SimpleResource>> GetActive() {
             List<Destination> records = await context.Destinations
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
@@ -34,8 +34,8 @@ namespace API.Features.Destinations {
             return mapper.Map<IEnumerable<Destination>, IEnumerable<SimpleResource>>(records);
         }
 
-        public async Task<Destination> GetByIdToDelete(int id) {
-            return await context.Destinations.SingleOrDefaultAsync(x => x.Id == id);
+        public async Task<Destination> GetById(int id, bool trackChanges) {
+            return await FindByCondition(x => x.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
         }
 
     }
