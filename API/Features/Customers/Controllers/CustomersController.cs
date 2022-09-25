@@ -36,14 +36,14 @@ namespace API.Features.Customers {
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            return await repo.GetActiveForDropdown();
+        public async Task<IEnumerable<SimpleResource>> GetActive() {
+            return await repo.GetActive();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> GetCustomer(int id) {
-            var customer = await repo.GetEmployee(id, false);
+        public async Task<Response> GetById(int id) {
+            var customer = await repo.GetById(id, false);
             if (customer != null) {
                 return new Response {
                     Code = 200,
@@ -61,7 +61,7 @@ namespace API.Features.Customers {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostCustomer([FromBody] CustomerWriteDto record) {
+        public async Task<Response> Post([FromBody] CustomerWriteDto record) {
             repo.Create(mapper.Map<CustomerWriteDto, Customer>(await AttachUserIdToRecord(record)));
             return new Response {
                 Code = 200,
@@ -73,8 +73,8 @@ namespace API.Features.Customers {
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutCustomer([FromBody] CustomerWriteDto record) {
-            var customer = await repo.GetEmployee(record.Id, false);
+        public async Task<Response> Put([FromBody] CustomerWriteDto record) {
+            var customer = await repo.GetById(record.Id, false);
             if (customer != null) {
                 repo.Update(mapper.Map<CustomerWriteDto, Customer>(await AttachUserIdToRecord(record)));
                 return new Response {
@@ -91,8 +91,8 @@ namespace API.Features.Customers {
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> DeleteCustomer([FromRoute] int id) {
-            var customer = await repo.GetEmployee(id, false);
+        public async Task<Response> Delete([FromRoute] int id) {
+            var customer = await repo.GetById(id, false);
             if (customer != null) {
                 repo.Delete(customer);
                 return new Response {

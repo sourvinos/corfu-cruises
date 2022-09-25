@@ -8,9 +8,8 @@ namespace API.Features.Customers {
     public interface ICustomerRepository : IRepository<Customer> {
 
         Task<IEnumerable<CustomerListVM>> Get();
-        Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
-        Task<Customer> GetEmployee(int id, bool trackChanges);
-        Task<Customer> GetByIdToDelete(int id);
+        Task<IEnumerable<SimpleResource>> GetActive();
+        Task<Customer> GetById(int id, bool trackChanges);
 
     }
 

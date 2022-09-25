@@ -25,7 +25,7 @@ namespace API.Features.Customers {
             return mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerListVM>>(records);
         }
 
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
+        public async Task<IEnumerable<SimpleResource>> GetActive() {
             List<Customer> records = await context.Customers
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
@@ -34,12 +34,8 @@ namespace API.Features.Customers {
             return mapper.Map<IEnumerable<Customer>, IEnumerable<SimpleResource>>(records);
         }
 
-        public async Task<Customer> GetEmployee(int id, bool trackChanges) {
+        public async Task<Customer> GetById(int id, bool trackChanges) {
             return await FindByCondition(x => x.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
-        }
-
-        public async Task<Customer> GetByIdToDelete(int id) {
-            return await context.Customers.SingleOrDefaultAsync(m => m.Id == id);
         }
 
     }
