@@ -42,6 +42,7 @@ namespace API.Infrastructure.Responses {
 
         private static string GetErrorMessage(int httpResponseCode) {
             return httpResponseCode switch {
+                404 => ApiMessages.RecordNotFound(),
                 409 => ApiMessages.DuplicateRecord(),
                 450 => ApiMessages.InvalidCustomer(),
                 451 => ApiMessages.InvalidDestination(),

@@ -12,7 +12,9 @@ namespace API.Integration.Tests.Reservations {
             yield return Simple_Users_Can_Not_Add_Reservation_With_Transfer_For_Tomorrow_Between_Closing_Time_And_Midnight();
             yield return Simple_Users_Can_Not_Add_Reservation_With_Transfer_For_Today_Between_Midnight_And_Departure();
             yield return Simple_Users_Can_Not_Add_Reservations_After_Departure();
-            yield return Simple_Users_Can_Not_Add_Reservations_Which_Cause_Overbooking_From_Primary_Port();
+            yield return Simple_Users_Can_Not_Add_Reservations_Which_Cause_Overbooking_From_First_Port();
+            yield return Simple_Users_Can_Not_Add_Reservations_Which_Cause_Overbooking_From_Second_Port();
+            yield return Simple_Users_Can_Not_Add_Reservations_Which_Cause_Overbooking_From_Fourth_Port() ;
         }
 
         private static object[] Simple_Users_Can_Not_Add_Reservation_With_Transfer_For_Tomorrow_Between_Closing_Time_And_Midnight() {
@@ -68,17 +70,49 @@ namespace API.Integration.Tests.Reservations {
             };
         }
 
-        private static object[] Simple_Users_Can_Not_Add_Reservations_Which_Cause_Overbooking_From_Primary_Port() {
+        private static object[] Simple_Users_Can_Not_Add_Reservations_Which_Cause_Overbooking_From_First_Port() {
             return new object[] {
                 new TestNewReservation {
                     StatusCode = 433,
-                    Date = "2022-09-15",
-                    TestDateNow = new DateTime(2022, 09, 14, 12, 0, 0),
+                    Date = "2022-05-06",
+                    TestDateNow = new DateTime(2022, 05, 05, 12, 0, 0),
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 12,
                     TicketNo = "xxxx",
-                    Adults = 500,
+                    Adults = 145,
+                    Passengers = new List<TestPassenger>()
+                }
+            };
+        }
+
+        private static object[] Simple_Users_Can_Not_Add_Reservations_Which_Cause_Overbooking_From_Second_Port() {
+            return new object[] {
+                new TestNewReservation {
+                    StatusCode = 433,
+                    Date = "2022-05-06",
+                    TestDateNow = new DateTime(2022, 05, 05, 12, 0, 0),
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 687,
+                    TicketNo = "xxxx",
+                    Adults = 245,
+                    Passengers = new List<TestPassenger>()
+                }
+            };
+        }
+
+        private static object[] Simple_Users_Can_Not_Add_Reservations_Which_Cause_Overbooking_From_Fourth_Port() {
+            return new object[] {
+                new TestNewReservation {
+                    StatusCode = 433,
+                    Date = "2022-05-06",
+                    TestDateNow = new DateTime(2022, 05, 05, 12, 0, 0),
+                    CustomerId = 1,
+                    DestinationId = 1,
+                    PickupPointId = 266,
+                    TicketNo = "xxxx",
+                    Adults = 169,
                     Passengers = new List<TestPassenger>()
                 }
             };
