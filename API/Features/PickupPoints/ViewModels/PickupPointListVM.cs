@@ -1,6 +1,6 @@
 namespace API.Features.PickupPoints {
 
-    public class PickupPointListDto {
+    public class PickupPointListVM {
 
         public int Id { get; set; }
         public string Description { get; set; }
