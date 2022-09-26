@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.Ships;
+using API.Infrastructure.Classes;
 using API.Integration.Tests.Cases;
 using API.Integration.Tests.Infrastructure;
 using API.Integration.Tests.Responses;
@@ -55,7 +56,7 @@ namespace API.Integration.Tests.Ships {
         [Fact]
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
-            var records = JsonSerializer.Deserialize<List<ShipListDto>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(_expectedRecordCount, records.Count);
         }
 

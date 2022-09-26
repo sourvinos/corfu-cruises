@@ -44,6 +44,7 @@ namespace API.Infrastructure.Responses {
             return httpResponseCode switch {
                 404 => ApiMessages.RecordNotFound(),
                 409 => ApiMessages.DuplicateRecord(),
+                449 => ApiMessages.InvalidShipOwner(),
                 450 => ApiMessages.InvalidCustomer(),
                 451 => ApiMessages.InvalidDestination(),
                 452 => ApiMessages.InvalidPickupPoint(),

@@ -52,6 +52,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IShipRepository, ShipRepository>();
             services.AddTransient<IShipRouteRepository, ShipRouteRepository>();
             services.AddTransient<IValidReservation, ValidReservation>();
+            services.AddTransient<IShipValidation, ShipValidation>();
         }
 
     }

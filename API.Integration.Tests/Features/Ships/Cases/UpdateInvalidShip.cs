@@ -16,7 +16,7 @@ namespace API.Integration.Tests.Ships {
             return new object[] {
                 new TestShip {
                     Id = 6,
-                    StatusCode = 450,
+                    StatusCode = 449,
                     ShipOwnerId = 7,
                     Description = Helpers.CreateRandomString(5),
                 }

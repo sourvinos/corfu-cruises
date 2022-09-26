@@ -42,6 +42,7 @@ namespace API.Infrastructure.Helpers {
         public static string InvalidDestination() { return "The destination doesn't exist."; }
         public static string InvalidDriver() { return "The driver doesn't exist."; }
         public static string InvalidShip() { return "The ship doesn't exist."; }
+        public static string InvalidShipOwner() { return "The shipowner doesn't exist or is inactive."; }
         public static string InvalidNationality() { return "The nationality doesn't exist."; }
         public static string InvalidGender() { return "The gender doesn't exist."; }
         public static string InvalidOccupant() { return "The occupant doesn't exist."; }

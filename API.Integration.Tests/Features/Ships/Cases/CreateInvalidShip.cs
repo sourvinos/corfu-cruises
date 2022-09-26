@@ -16,8 +16,8 @@ namespace API.Integration.Tests.Ships {
         private static object[] ShipOwner_Must_Exist() {
             return new object[] {
                 new TestShip {
-                    StatusCode = 450,
-                    ShipOwnerId = 6,
+                    StatusCode = 449,
+                    ShipOwnerId = 1,
                     Description = Helpers.CreateRandomString(5),
                 }
             };
@@ -26,8 +26,8 @@ namespace API.Integration.Tests.Ships {
         private static object[] ShipOwner_Must_Be_Active() {
             return new object[] {
                 new TestShip {
-                    StatusCode = 450,
-                    ShipOwnerId = 5,
+                    StatusCode = 449,
+                    ShipOwnerId = 6,
                     Description = Helpers.CreateRandomString(5),
                 }
             };
