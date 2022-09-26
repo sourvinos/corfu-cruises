@@ -27,10 +27,10 @@ namespace API.UnitTests.Features.Ports {
 
         [Theory]
         [ClassData(typeof(ValidateIntegerBetweenOneAndTen))]
-        public void Invalid_Sequence(int sequence) {
+        public void Invalid_Port_Order(int stopOrder) {
             new PortValidator()
-                .TestValidate(new PortWriteDto { Sequence = sequence })
-                .ShouldHaveValidationErrorFor(x => x.Sequence);
+                .TestValidate(new PortWriteDto { StopOrder = stopOrder })
+                .ShouldHaveValidationErrorFor(x => x.StopOrder);
         }
 
     }

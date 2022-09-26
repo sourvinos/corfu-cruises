@@ -29,6 +29,7 @@ namespace API.Infrastructure.Extensions {
 
         public static void AddInterfaces(IServiceCollection services) {
             services.AddScoped<Token>();
+            // Repos
             services.AddTransient<IAvailabilityRepository, AvailabilityRepository>();
             services.AddTransient<ICoachRouteRepository, CoachRouteRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
@@ -51,8 +52,10 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IShipOwnerRepository, ShipOwnerRepository>();
             services.AddTransient<IShipRepository, ShipRepository>();
             services.AddTransient<IShipRouteRepository, ShipRouteRepository>();
-            services.AddTransient<IValidReservation, ValidReservation>();
+            // Validations
+            services.AddTransient<IPortValidation, PortValidation>();
             services.AddTransient<IShipValidation, ShipValidation>();
+            services.AddTransient<IValidReservation, ValidReservation>();
         }
 
     }

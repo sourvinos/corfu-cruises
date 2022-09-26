@@ -17,7 +17,7 @@ namespace API.Integration.Tests.Ports {
                 new TestPort {
                     Description = Helpers.CreateRandomString(128),
                     Abbreviation= Helpers.CreateRandomString(5),
-                    StopOrder = 4
+                    StopOrder = 6
                 }
             };
         }

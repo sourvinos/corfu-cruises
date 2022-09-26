@@ -60,7 +60,7 @@ namespace API.Infrastructure.Responses {
                 455 => ApiMessages.InvalidPassengerCount(),
                 490 => ApiMessages.NotOwnRecord(),
                 491 => ApiMessages.RecordInUse(),
-                493 => ApiMessages.PortSequenceOutOfBounds(),
+                493 => ApiMessages.InvalidPortOrder(),
                 _ => ApiMessages.UnknownError(),
             };
         }
