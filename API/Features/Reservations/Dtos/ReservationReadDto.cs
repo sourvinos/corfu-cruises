@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using API.Features.PickupPoints;
 using API.Infrastructure.Classes;
 
 namespace API.Features.Reservations {
@@ -21,7 +22,7 @@ namespace API.Features.Reservations {
 
         public SimpleResource Customer { get; set; }
         public SimpleResource Destination { get; set; }
-        public PickupPointWithPortVM PickupPoint { get; set; }
+        public PickupPointActiveVM PickupPoint { get; set; }
         public SimpleResource Driver { get; set; }
         public SimpleResource Ship { get; set; }
 

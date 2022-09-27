@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Features.Reservations;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Implementations;
@@ -31,31 +30,32 @@ namespace API.Features.PickupPoints {
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointListVM>>(pickupPoints);
         }
 
-        public async Task<IEnumerable<PickupPointWithPortVM>> GetActive() {
-            List<PickupPoint> pickupPoints = await context.Set<PickupPoint>()
-                .Include(x => x.CoachRoute).ThenInclude(x => x.Port)
+        public async Task<IEnumerable<PickupPointActiveVM>> GetActive() {
+            List<PickupPoint> pickupPoints = await context.PickupPoints
+                .Include(x => x.CoachRoute)
+                    .ThenInclude(x => x.Port)
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Time).ThenBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointWithPortVM>>(pickupPoints);
+            return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointActiveVM>>(pickupPoints);
         }
 
         public async Task<PickupPoint> GetById(int id, bool includeTables) {
             return includeTables
-                ? await context.Set<PickupPoint>()
+                ? await context.PickupPoints
                     .Include(x => x.CoachRoute)
                     .AsNoTracking()
                     .SingleOrDefaultAsync(x => x.Id == id)
-                : await context.Set<PickupPoint>()
+                : await context.PickupPoints
                     .AsNoTracking()
                     .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<PickupPointWriteDto> AttachUserIdToRecord(PickupPointWriteDto record) {
+        public async Task<PickupPointWriteDto> AttachUserIdToDto(PickupPointWriteDto pickupPoint) {
             var user = await Identity.GetConnectedUserId(httpContext);
-            record.UserId = user.UserId;
-            return record;
+            pickupPoint.UserId = user.UserId;
+            return pickupPoint;
         }
 
     }

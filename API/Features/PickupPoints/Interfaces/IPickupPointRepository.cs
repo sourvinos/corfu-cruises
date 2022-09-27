@@ -8,9 +8,9 @@ namespace API.Features.PickupPoints {
     public interface IPickupPointRepository : IRepository<PickupPoint> {
 
         Task<IEnumerable<PickupPointListVM>> Get();
-        Task<IEnumerable<PickupPointWithPortVM>> GetActive();
+        Task<IEnumerable<PickupPointActiveVM>> GetActive();
         Task<PickupPoint> GetById(int id, bool includeTables);
-        Task<PickupPointWriteDto> AttachUserIdToRecord(PickupPointWriteDto record);
+        Task<PickupPointWriteDto> AttachUserIdToDto(PickupPointWriteDto pickupPoint);
 
     }
 

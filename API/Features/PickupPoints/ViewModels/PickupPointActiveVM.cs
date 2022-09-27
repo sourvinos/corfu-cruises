@@ -1,8 +1,8 @@
 using API.Infrastructure.Classes;
 
-namespace API.Features.Reservations {
+namespace API.Features.PickupPoints {
 
-    public class PickupPointWithPortVM {
+    public class PickupPointActiveVM {
 
         public int Id { get; set; }
         public string Description { get; set; }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Features.Reservations;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
@@ -35,7 +34,7 @@ namespace API.Features.PickupPoints {
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<PickupPointWithPortVM>> GetActive() {
+        public async Task<IEnumerable<PickupPointActiveVM>> GetActive() {
             return await pickupPointRepo.GetActive();
         }
 
@@ -63,7 +62,7 @@ namespace API.Features.PickupPoints {
         public async Task<Response> Post([FromBody] PickupPointWriteDto pickupPoint) {
             var x = pickupPointValidation.IsValid(pickupPoint);
             if (x == 200) {
-                pickupPointRepo.Create(mapper.Map<PickupPointWriteDto, PickupPoint>(await pickupPointRepo.AttachUserIdToRecord(pickupPoint)));
+                pickupPointRepo.Create(mapper.Map<PickupPointWriteDto, PickupPoint>(await pickupPointRepo.AttachUserIdToDto(pickupPoint)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -84,7 +83,7 @@ namespace API.Features.PickupPoints {
             if (x != null) {
                 var z = pickupPointValidation.IsValid(pickupPoint);
                 if (z == 200) {
-                    pickupPointRepo.Update(mapper.Map<PickupPointWriteDto, PickupPoint>(await pickupPointRepo.AttachUserIdToRecord(pickupPoint)));
+                    pickupPointRepo.Update(mapper.Map<PickupPointWriteDto, PickupPoint>(await pickupPointRepo.AttachUserIdToDto(pickupPoint)));
                     return new Response {
                         Code = 200,
                         Icon = Icons.Success.ToString(),
