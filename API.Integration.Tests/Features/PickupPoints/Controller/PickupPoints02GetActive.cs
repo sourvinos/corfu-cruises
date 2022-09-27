@@ -18,10 +18,9 @@ namespace API.Integration.Tests.PickupPoints {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly int _expectedRecordCount = 354;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/pickupPoints/getActiveForDropdown";
+        private readonly string _url = "/pickupPoints/getActive";
 
         #endregion
 
@@ -49,10 +48,10 @@ namespace API.Integration.Tests.PickupPoints {
 
         [Theory]
         [ClassData(typeof(ActiveUsersCanLogin))]
-        public async Task Active_Users_Can_Get_Active_For_Dropdown(Login login) {
+        public async Task Active_Users_Can_Get_Active(Login login) {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, login.Username, login.Password);
             var records = JsonSerializer.Deserialize<List<PickupPointWithPortVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(_expectedRecordCount, records.Count);
+            Assert.Equal(355, records.Count);
         }
 
     }

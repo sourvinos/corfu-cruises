@@ -31,7 +31,7 @@ namespace API.Features.PickupPoints {
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointListVM>>(pickupPoints);
         }
 
-        public async Task<IEnumerable<PickupPointWithPortVM>> GetActiveWithPort() {
+        public async Task<IEnumerable<PickupPointWithPortVM>> GetActive() {
             List<PickupPoint> pickupPoints = await context.Set<PickupPoint>()
                 .Include(x => x.CoachRoute).ThenInclude(x => x.Port)
                 .Where(x => x.IsActive)
@@ -41,15 +41,15 @@ namespace API.Features.PickupPoints {
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointWithPortVM>>(pickupPoints);
         }
 
-        public async Task<PickupPoint> GetById(int id, bool trackChanges) {
-            return await FindByCondition(x => x.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
-        }
-
-        public void UpdateCoordinates(int id, string coordinates) {
-            List<PickupPoint> pickupPoints = context.Set<PickupPoint>()
-                .Where(x => x.Id == id).ToList();
-            pickupPoints.ForEach(x => x.Coordinates = coordinates);
-            context.SaveChanges();
+        public async Task<PickupPoint> GetById(int id, bool includeTables) {
+            return includeTables
+                ? await context.Set<PickupPoint>()
+                    .Include(x => x.CoachRoute)
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync(x => x.Id == id)
+                : await context.Set<PickupPoint>()
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<PickupPointWriteDto> AttachUserIdToRecord(PickupPointWriteDto record) {

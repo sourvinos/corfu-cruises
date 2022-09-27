@@ -35,7 +35,9 @@ namespace API.Infrastructure.Implementations {
         }
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges) {
-            return !trackChanges ? context.Set<T>().Where(expression).AsNoTracking() : context.Set<T>().Where(expression);
+            return !trackChanges
+                ? context.Set<T>().Where(expression).AsNoTracking()
+                : context.Set<T>().Where(expression);
         }
 
         public void Create(T entity) {
@@ -47,6 +49,7 @@ namespace API.Infrastructure.Implementations {
 
         public void Update(T entity) {
             using var transaction = context.Database.BeginTransaction();
+            context.Entry(entity).State = EntityState.Modified;
             context.Set<T>().Update(entity);
             Save();
             DisposeOrCommit(transaction);

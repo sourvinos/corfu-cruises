@@ -15,7 +15,7 @@ namespace API.IntegrationTests.PickupPoints {
         private static object[] Route_Must_Exist() {
             return new object[] {
                 new TestPickupPoint {
-                    StatusCode = 450,
+                    StatusCode = 408,
                     Id = 1,
                     CoachRouteId = 99,
                     Description = Helpers.CreateRandomString(128),

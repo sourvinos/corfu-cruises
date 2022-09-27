@@ -36,13 +36,13 @@ namespace API.Features.PickupPoints {
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<PickupPointWithPortVM>> GetActive() {
-            return await pickupPointRepo.GetActiveWithPort();
+            return await pickupPointRepo.GetActive();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> GetById(int id) {
-            var x = await pickupPointRepo.GetById(id, false);
+            var x = await pickupPointRepo.GetById(id, true);
             if (x != null) {
                 return new Response {
                     Code = 200,
@@ -60,10 +60,10 @@ namespace API.Features.PickupPoints {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> Post([FromBody] PickupPointWriteDto record) {
-            var x = pickupPointValidation.IsValid(record);
+        public async Task<Response> Post([FromBody] PickupPointWriteDto pickupPoint) {
+            var x = pickupPointValidation.IsValid(pickupPoint);
             if (x == 200) {
-                pickupPointRepo.Create(mapper.Map<PickupPointWriteDto, PickupPoint>(await pickupPointRepo.AttachUserIdToRecord(record)));
+                pickupPointRepo.Create(mapper.Map<PickupPointWriteDto, PickupPoint>(await pickupPointRepo.AttachUserIdToRecord(pickupPoint)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -76,7 +76,7 @@ namespace API.Features.PickupPoints {
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] PickupPointWriteDto pickupPoint) {
@@ -102,28 +102,10 @@ namespace API.Features.PickupPoints {
             }
         }
 
-        [HttpPatch("{id}")]
-        [Authorize(Roles = "admin")]
-        public async Task<Response> Patch([FromQuery(Name = "id")] int id, [FromQuery(Name = "coordinates")] string coordinates) {
-            var x = await pickupPointRepo.GetById(id, true);
-            if (x != null) {
-                pickupPointRepo.UpdateCoordinates(id, coordinates);
-                return new Response {
-                    Code = 200,
-                    Icon = Icons.Success.ToString(),
-                    Message = ApiMessages.OK()
-                };
-            } else {
-                throw new CustomException() {
-                    ResponseCode = 404
-                };
-            }
-        }
-
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var x = await pickupPointRepo.GetById(id, true);
+            var x = await pickupPointRepo.GetById(id, false);
             if (x != null) {
                 pickupPointRepo.Delete(x);
                 return new Response {
