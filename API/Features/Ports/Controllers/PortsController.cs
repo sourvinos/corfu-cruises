@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
@@ -34,8 +33,8 @@ namespace API.Features.Ports {
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActive() {
+        [Authorize(Roles = "admin")]
+        public async Task<IEnumerable<PortActiveVM>> GetActive() {
             return await portRepo.GetActive();
         }
 
@@ -63,7 +62,7 @@ namespace API.Features.Ports {
         public async Task<Response> Post([FromBody] PortWriteDto port) {
             var x = portValidation.IsValid(port);
             if (x == 200) {
-                portRepo.Create(mapper.Map<PortWriteDto, Port>(await portRepo.AttachUserIdToRecord(port)));
+                portRepo.Create(mapper.Map<PortWriteDto, Port>(await portRepo.AttachUserIdToDto(port)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -76,7 +75,7 @@ namespace API.Features.Ports {
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] PortWriteDto port) {
@@ -84,7 +83,7 @@ namespace API.Features.Ports {
             if (x != null) {
                 var z = portValidation.IsValid(port);
                 if (z == 200) {
-                    portRepo.Update(mapper.Map<PortWriteDto, Port>(await portRepo.AttachUserIdToRecord(port)));
+                    portRepo.Update(mapper.Map<PortWriteDto, Port>(await portRepo.AttachUserIdToDto(port)));
                     return new Response {
                         Code = 200,
                         Icon = Icons.Success.ToString(),
@@ -119,7 +118,7 @@ namespace API.Features.Ports {
                 };
             }
         }
- 
+
     }
 
 }

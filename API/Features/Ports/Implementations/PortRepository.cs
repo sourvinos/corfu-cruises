@@ -13,8 +13,8 @@ namespace API.Features.Ports {
 
     public class PortRepository : Repository<Port>, IPortRepository {
 
-        private readonly IMapper mapper;
         private readonly IHttpContextAccessor httpContext;
+        private readonly IMapper mapper;
 
         public PortRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
             this.httpContext = httpContext;
@@ -22,30 +22,30 @@ namespace API.Features.Ports {
         }
 
         public async Task<IEnumerable<PortListVM>> Get() {
-            var records = await context.Ports
+            var ports = await context.Ports
                 .OrderBy(x => x.StopOrder)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Port>, IEnumerable<PortListVM>>(records);
+            return mapper.Map<IEnumerable<Port>, IEnumerable<PortListVM>>(ports);
         }
 
-        public async Task<IEnumerable<SimpleResource>> GetActive() {
-            var records = await context.Set<Port>()
+        public async Task<IEnumerable<PortActiveVM>> GetActive() {
+            var activePorts = await context.Ports
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Port>, IEnumerable<SimpleResource>>(records);
+            return mapper.Map<IEnumerable<Port>, IEnumerable<PortActiveVM>>(activePorts);
         }
 
-        public async Task<Port> GetById(int id, bool trackChanges) {
-            return await FindByCondition(x => x.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
+        public async Task<Port> GetById(int id, bool includeTables) {
+            return await context.Ports.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<PortWriteDto> AttachUserIdToRecord(PortWriteDto record) {
+        public async Task<PortWriteDto> AttachUserIdToDto(PortWriteDto port) {
             var user = await Identity.GetConnectedUserId(httpContext);
-            record.UserId = user.UserId;
-            return record;
+            port.UserId = user.UserId;
+            return port;
         }
 
     }
