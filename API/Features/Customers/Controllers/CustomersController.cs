@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Features.Customers {
@@ -16,40 +14,38 @@ namespace API.Features.Customers {
 
         #region variables
 
-        private readonly ICustomerRepository repo;
-        private readonly IHttpContextAccessor httpContext;
+        private readonly ICustomerRepository customerRepo;
         private readonly IMapper mapper;
 
         #endregion
 
-        public CustomersController(ICustomerRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
-            this.httpContext = httpContext;
+        public CustomersController(ICustomerRepository customerRepo, IMapper mapper) {
+            this.customerRepo = customerRepo;
             this.mapper = mapper;
-            this.repo = repo;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
         public async Task<IEnumerable<CustomerListVM>> Get() {
-            return await repo.Get();
+            return await customerRepo.Get();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActive() {
-            return await repo.GetActive();
+        public async Task<IEnumerable<CustomerActiveVM>> GetActive() {
+            return await customerRepo.GetActive();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> GetById(int id) {
-            var customer = await repo.GetById(id, false);
-            if (customer != null) {
+            var x = await customerRepo.GetById(id, false);
+            if (x != null) {
                 return new Response {
                     Code = 200,
                     Icon = Icons.Info.ToString(),
                     Message = ApiMessages.OK(),
-                    Body = mapper.Map<Customer, CustomerReadDto>(customer)
+                    Body = mapper.Map<Customer, CustomerReadDto>(x)
                 };
             } else {
                 throw new CustomException() {
@@ -61,8 +57,8 @@ namespace API.Features.Customers {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> Post([FromBody] CustomerWriteDto record) {
-            repo.Create(mapper.Map<CustomerWriteDto, Customer>(await AttachUserIdToRecord(record)));
+        public async Task<Response> Post([FromBody] CustomerWriteDto customer) {
+            customerRepo.Create(mapper.Map<CustomerWriteDto, Customer>(await customerRepo.AttachUserIdToDto(customer)));
             return new Response {
                 Code = 200,
                 Icon = Icons.Success.ToString(),
@@ -70,13 +66,13 @@ namespace API.Features.Customers {
             };
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> Put([FromBody] CustomerWriteDto record) {
-            var customer = await repo.GetById(record.Id, false);
-            if (customer != null) {
-                repo.Update(mapper.Map<CustomerWriteDto, Customer>(await AttachUserIdToRecord(record)));
+        public async Task<Response> Put([FromBody] CustomerWriteDto customer) {
+            var x = await customerRepo.GetById(customer.Id, false);
+            if (x != null) {
+                customerRepo.Update(mapper.Map<CustomerWriteDto, Customer>(await customerRepo.AttachUserIdToDto(customer)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -92,9 +88,9 @@ namespace API.Features.Customers {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var customer = await repo.GetById(id, false);
+            var customer = await customerRepo.GetById(id, true);
             if (customer != null) {
-                repo.Delete(customer);
+                customerRepo.Delete(customer);
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -105,12 +101,6 @@ namespace API.Features.Customers {
                     ResponseCode = 404
                 };
             }
-        }
-
-        private async Task<CustomerWriteDto> AttachUserIdToRecord(CustomerWriteDto record) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            record.UserId = user.UserId;
-            return record;
         }
 
     }

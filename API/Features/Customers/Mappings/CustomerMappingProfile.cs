@@ -1,4 +1,3 @@
-using API.Infrastructure.Classes;
 using AutoMapper;
 
 namespace API.Features.Customers {
@@ -8,7 +7,7 @@ namespace API.Features.Customers {
         public CustomerMappingProfile() {
             CreateMap<Customer, CustomerListVM>();
             CreateMap<Customer, CustomerReadDto>();
-            CreateMap<Customer, SimpleResource>();
+            CreateMap<Customer, CustomerActiveVM>();
             CreateMap<CustomerWriteDto, Customer>();
         }
 

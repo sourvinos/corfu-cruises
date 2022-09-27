@@ -18,7 +18,6 @@ namespace API.Integration.Tests.Customers {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly int _expectedRecordCount = 122;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
         private readonly string _url = "/customers/getActive";
@@ -52,7 +51,7 @@ namespace API.Integration.Tests.Customers {
         public async Task Active_Users_Can_Get_Active(Login login) {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, login.Username, login.Password);
             var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(_expectedRecordCount, records.Count);
+            Assert.Equal(122, records.Count);
         }
 
     }
