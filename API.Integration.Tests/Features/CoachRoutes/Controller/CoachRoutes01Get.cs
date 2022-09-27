@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using API.Features.CoachRoutes;
 using API.Infrastructure.Classes;
 using API.Integration.Tests.Cases;
 using API.Integration.Tests.Infrastructure;
@@ -18,7 +19,6 @@ namespace API.Integration.Tests.CoachRoutes {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly int _expectedRecordCount = 9;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
         private readonly string _url = "/coachRoutes";
@@ -50,8 +50,8 @@ namespace API.Integration.Tests.CoachRoutes {
         [Fact]
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
-            var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(_expectedRecordCount, records.Count);
+            var records = JsonSerializer.Deserialize<List<CoachRouteListVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            Assert.Equal(10, records.Count);
         }
 
     }

@@ -23,7 +23,7 @@ namespace API.Features.PickupPoints {
         }
 
         public async Task<IEnumerable<PickupPointListVM>> Get() {
-            List<PickupPoint> pickupPoints = await context.Set<PickupPoint>()
+            List<PickupPoint> pickupPoints = await context.PickupPoints
                 .Include(x => x.CoachRoute)
                 .OrderBy(x => x.CoachRoute.Abbreviation).ThenBy(x => x.Time).ThenBy(x => x.Description)
                 .AsNoTracking()

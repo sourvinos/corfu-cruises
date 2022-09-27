@@ -17,7 +17,7 @@ namespace API.Integration.Tests.CoachRoutes {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "put";
         private readonly string _baseUrl;
-        private readonly string _url = "/coachRoutes/1";
+        private readonly string _url = "/coachRoutes";
 
         #endregion
 

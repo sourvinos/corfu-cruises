@@ -6,11 +6,10 @@ namespace API.Features.CoachRoutes {
 
     public interface ICoachRouteRepository : IRepository<CoachRoute> {
 
-        Task<IEnumerable<CoachRouteListDto>> Get();
-        Task<IEnumerable<CoachRouteActiveForDropdownVM>> GetActiveForDropdown();
-        new Task<CoachRoute> GetById(int id);
-        Task<CoachRoute> GetByIdToDelete(int id);
-        int IsValid(CoachRouteWriteDto record);
+        Task<IEnumerable<CoachRouteListVM>> Get();
+        Task<IEnumerable<CoachRouteActiveVM>> GetActive();
+        Task<CoachRoute> GetById(int id, bool includeTables);
+        Task<CoachRouteWriteDto> AttachUserIdToDto(CoachRouteWriteDto coachRoute);
 
     }
 

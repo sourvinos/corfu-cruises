@@ -53,6 +53,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IShipRepository, ShipRepository>();
             services.AddTransient<IShipRouteRepository, ShipRouteRepository>();
             // Validations
+            services.AddTransient<ICoachRouteValidation, CoachRouteValidation>();
             services.AddTransient<IPickupPointValidation, PickupPointValidation>();
             services.AddTransient<IPortValidation, PortValidation>();
             services.AddTransient<IShipValidation, ShipValidation>();

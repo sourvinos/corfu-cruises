@@ -5,7 +5,6 @@ using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Features.CoachRoutes {
@@ -15,81 +14,109 @@ namespace API.Features.CoachRoutes {
 
         #region variables
 
-        private readonly ICoachRouteRepository repo;
-        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly ICoachRouteRepository coachRouteRepo;
+        private readonly ICoachRouteValidation coachRouteValidation;
         private readonly IMapper mapper;
 
         #endregion
 
-        public CoachRoutesController(ICoachRouteRepository repo, IHttpContextAccessor httpContextAccessor, IMapper mapper) {
-            this.httpContextAccessor = httpContextAccessor;
+        public CoachRoutesController(ICoachRouteRepository coachRouteRepo, ICoachRouteValidation coachRouteValidation, IMapper mapper) {
+            this.coachRouteRepo = coachRouteRepo;
+            this.coachRouteValidation = coachRouteValidation;
             this.mapper = mapper;
-            this.repo = repo;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<CoachRouteListDto>> Get() {
-            return await repo.Get();
+        public async Task<IEnumerable<CoachRouteListVM>> Get() {
+            return await coachRouteRepo.Get();
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<CoachRouteActiveForDropdownVM>> GetActiveForDropdown() {
-            return await repo.GetActiveForDropdown();
+        [Authorize(Roles = "admin")]
+        public async Task<IEnumerable<CoachRouteActiveVM>> GetActive() {
+            return await coachRouteRepo.GetActive();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<CoachRouteReadDto> GetRoute(int id) {
-            return mapper.Map<CoachRoute, CoachRouteReadDto>(await repo.GetById(id));
+        public async Task<Response> GetById(int id) {
+            var x = await coachRouteRepo.GetById(id, true);
+            if (x != null) {
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Info.ToString(),
+                    Message = ApiMessages.OK(),
+                    Body = mapper.Map<CoachRoute, CoachRouteReadDto>(x)
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostRouteAsync([FromBody] CoachRouteWriteDto record) {
-            var response = repo.IsValid(record);
-            if (response == 200) {
-                repo.Create(mapper.Map<CoachRouteWriteDto, CoachRoute>(await AttachUserIdToRecord(record)));
-                return ApiResponses.OK();
+        public async Task<Response> Post([FromBody] CoachRouteWriteDto coachRoute) {
+            var x = coachRouteValidation.IsValid(coachRoute);
+            if (x == 200) {
+                coachRouteRepo.Create(mapper.Map<CoachRouteWriteDto, CoachRoute>(await coachRouteRepo.AttachUserIdToDto(coachRoute)));
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
             } else {
-                return GetErrorMessage(response);
+                throw new CustomException() {
+                    ResponseCode = x
+                };
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutRouteAsync([FromBody] CoachRouteWriteDto record) {
-            var response = repo.IsValid(record);
-            if (response == 200) {
-                repo.Update(mapper.Map<CoachRouteWriteDto, CoachRoute>(await AttachUserIdToRecord(record)));
-                return ApiResponses.OK();
+        public async Task<Response> Put([FromBody] CoachRouteWriteDto coachRoute) {
+            var x = await coachRouteRepo.GetById(coachRoute.Id, false);
+            if (x != null) {
+                var z = coachRouteValidation.IsValid(coachRoute);
+                if (z == 200) {
+                    coachRouteRepo.Update(mapper.Map<CoachRouteWriteDto, CoachRoute>(await coachRouteRepo.AttachUserIdToDto(coachRoute)));
+                    return new Response {
+                        Code = 200,
+                        Icon = Icons.Success.ToString(),
+                        Message = ApiMessages.OK()
+                    };
+                } else {
+                    throw new CustomException() {
+                        ResponseCode = z
+                    };
+                }
             } else {
-                return GetErrorMessage(response);
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
             }
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> DeleteRoute([FromRoute] int id) {
-            repo.Delete(await repo.GetByIdToDelete(id));
-            return ApiResponses.OK();
-        }
-
-        private async Task<CoachRouteWriteDto> AttachUserIdToRecord(CoachRouteWriteDto record) {
-            var user = await Identity.GetConnectedUserId(httpContextAccessor);
-            record.UserId = user.UserId;
-            return record;
-        }
-
-        private Response GetErrorMessage(int errorCode) {
-            httpContextAccessor.HttpContext.Response.StatusCode = errorCode;
-            return errorCode switch {
-                450 => new Response { Code = 450, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Port") },
-                _ => new Response { Message = ApiMessages.RecordNotSaved() },
-            };
+        public async Task<Response> Delete([FromRoute] int id) {
+            var x = await coachRouteRepo.GetById(id, false);
+            if (x != null) {
+                coachRouteRepo.Delete(x);
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
     }

@@ -1,3 +1,5 @@
+using API.Features.CoachRoutes;
+
 namespace API.Features.PickupPoints {
 
     public class PickupPointReadDto {
@@ -9,7 +11,7 @@ namespace API.Features.PickupPoints {
         public string Coordinates { get; set; }
         public bool IsActive { get; set; }
 
-        public CoachRouteVM CoachRoute { get; set; }
+        public CoachRouteActiveVM CoachRoute { get; set; }
 
     }
 
