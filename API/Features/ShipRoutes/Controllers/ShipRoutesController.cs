@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Features.ShipRoutes {
@@ -16,63 +14,93 @@ namespace API.Features.ShipRoutes {
 
         #region variables
 
-        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IMapper mapper;
-        private readonly IShipRouteRepository repo;
+        private readonly IShipRouteRepository shipRouteRepo;
 
         #endregion
 
-        public ShipRoutesController(IHttpContextAccessor httpContextAccessor, IMapper mapper, IShipRouteRepository repo) {
-            this.httpContextAccessor = httpContextAccessor;
+        public ShipRoutesController(IMapper mapper, IShipRouteRepository shipRouteRepo) {
             this.mapper = mapper;
-            this.repo = repo;
+            this.shipRouteRepo = shipRouteRepo;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<ShipRouteListDto>> Get() {
-            return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<ShipRouteListDto>>(await repo.Get());
+        public async Task<IEnumerable<ShipRouteListVM>> Get() {
+            return await shipRouteRepo.Get();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<SimpleResource>>(await repo.GetActiveForDropdown());
+        public async Task<IEnumerable<ShipRouteActiveVM>> GetActive() {
+            return await shipRouteRepo.GetActive();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ShipRouteReadDto> GetShipRoute(int id) {
-            return mapper.Map<ShipRoute, ShipRouteReadDto>(await repo.GetById(id));
+        public async Task<Response> GetById(int id) {
+            var x = await shipRouteRepo.GetById(id);
+            if (x != null) {
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Info.ToString(),
+                    Message = ApiMessages.OK(),
+                    Body = mapper.Map<ShipRoute, ShipRouteReadDto>(x)
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostShipRouteAsync([FromBody] ShipRouteWriteDto record) {
-            repo.Create(mapper.Map<ShipRouteWriteDto, ShipRoute>(await AttachUserIdToRecord(record)));
-            return ApiResponses.OK();
+        public async Task<Response> Post([FromBody] ShipRouteWriteDto shipRoute) {
+            shipRouteRepo.Create(mapper.Map<ShipRouteWriteDto, ShipRoute>(await shipRouteRepo.AttachUserIdToDto(shipRoute)));
+            return new Response {
+                Code = 200,
+                Icon = Icons.Success.ToString(),
+                Message = ApiMessages.OK()
+            };
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutShipRouteAsync([FromBody] ShipRouteWriteDto record) {
-            repo.Update(mapper.Map<ShipRouteWriteDto, ShipRoute>(await AttachUserIdToRecord(record)));
-            return ApiResponses.OK();
+        public async Task<Response> Put([FromBody] ShipRouteWriteDto shipRoute) {
+            var x = await shipRouteRepo.GetById(shipRoute.Id);
+            if (x != null) {
+                shipRouteRepo.Update(mapper.Map<ShipRouteWriteDto, ShipRoute>(await shipRouteRepo.AttachUserIdToDto(shipRoute)));
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> DeleteShipRoute([FromRoute] int id) {
-            repo.Delete(await repo.GetByIdToDelete(id));
-            return ApiResponses.OK();
-        }
-
-        private async Task<ShipRouteWriteDto> AttachUserIdToRecord(ShipRouteWriteDto record) {
-            var user = await Identity.GetConnectedUserId(httpContextAccessor);
-            record.UserId = user.UserId;
-            return record;
+        public async Task<Response> Delete([FromRoute] int id) {
+            var x = await shipRouteRepo.GetById(id);
+            if (x != null) {
+                shipRouteRepo.Delete(x);
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
     }
