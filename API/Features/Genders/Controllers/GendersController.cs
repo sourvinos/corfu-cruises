@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Features.Genders {
@@ -16,63 +14,94 @@ namespace API.Features.Genders {
 
         #region variables
 
-        private readonly IGenderRepository repo;
-        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IGenderRepository genderRepo;
         private readonly IMapper mapper;
 
         #endregion
 
-        public GendersController(IGenderRepository repo, IHttpContextAccessor httpContextAccessor, IMapper mapper) {
-            this.httpContextAccessor = httpContextAccessor;
+        public GendersController(IGenderRepository genderRepo, IMapper mapper) {
             this.mapper = mapper;
-            this.repo = repo;
+            this.genderRepo = genderRepo;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<GenderListDto>> Get() {
-            return await repo.Get();
+        public async Task<IEnumerable<GenderListVM>> Get() {
+            return await genderRepo.Get();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            return await repo.GetActiveForDropdown();
+        public async Task<IEnumerable<GenderActiveVM>> GetActive() {
+            return await genderRepo.GetActive();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<GenderReadDto> GetGender(int id) {
-            return mapper.Map<Gender, GenderReadDto>(await repo.GetById(id));
+        public async Task<Response> GetById(int id) {
+            var x = await genderRepo.GetById(id, false);
+            if (x != null) {
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Info.ToString(),
+                    Message = ApiMessages.OK(),
+                    Body = mapper.Map<Gender, GenderReadDto>(x)
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostGenderAsync([FromBody] GenderWriteDto record) {
-            repo.Create(mapper.Map<GenderWriteDto, Gender>(await AttachUserIdToRecord(record)));
-            return ApiResponses.OK();
+        public async Task<Response> Post([FromBody] GenderWriteDto gender) {
+            genderRepo.Create(mapper.Map<GenderWriteDto, Gender>(await genderRepo.AttachUserIdToDto(gender)));
+            return new Response {
+                Code = 200,
+                Icon = Icons.Success.ToString(),
+                Message = ApiMessages.OK()
+            };
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutGenderAsync([FromBody] GenderWriteDto record) {
-            repo.Update(mapper.Map<GenderWriteDto, Gender>(await AttachUserIdToRecord(record)));
-            return ApiResponses.OK();
+        public async Task<Response> Put([FromBody] GenderWriteDto gender) {
+            var x = await genderRepo.GetById(gender.Id, false);
+            if (x != null) {
+                genderRepo.Update(mapper.Map<GenderWriteDto, Gender>(await genderRepo.AttachUserIdToDto(gender)));
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> DeleteGender([FromRoute] int id) {
-            repo.Delete(await repo.GetByIdToDelete(id));
-            return ApiResponses.OK();
-        }
+        public async Task<Response> Delete([FromRoute] int id) {
+            var gender = await genderRepo.GetById(id, true);
+            if (gender != null) {
+                genderRepo.Delete(gender);
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
 
-        private async Task<GenderWriteDto> AttachUserIdToRecord(GenderWriteDto record) {
-            var user = await Identity.GetConnectedUserId(httpContextAccessor);
-            record.UserId = user.UserId;
-            return record;
         }
 
     }

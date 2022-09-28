@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Infrastructure.Classes;
 using API.Infrastructure.Interfaces;
 
 namespace API.Features.Genders {
 
     public interface IGenderRepository : IRepository<Gender> {
 
-        Task<IEnumerable<GenderListDto>> Get();
-        Task<IEnumerable<SimpleResource>> GetActiveForDropdown();
-        Task<Gender> GetByIdToDelete(int id);
+        Task<IEnumerable<GenderListVM>> Get();
+        Task<IEnumerable<GenderActiveVM>> GetActive();
+        Task<Gender> GetById(int id, bool trackChanges);
+        Task<GenderWriteDto> AttachUserIdToDto(GenderWriteDto port);
 
     }
 
