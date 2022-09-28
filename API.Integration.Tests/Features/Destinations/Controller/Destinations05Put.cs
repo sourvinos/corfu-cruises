@@ -16,7 +16,8 @@ namespace API.Integration.Tests.Destinations {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "put";
         private readonly string _baseUrl;
-        private readonly string _url = "/destinations/1";
+        private readonly string _url = "/destinations";
+        private readonly string _notFoundUrl = "/destinations/999";
 
         #endregion
 
@@ -56,10 +57,9 @@ namespace API.Integration.Tests.Destinations {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
-        [Theory]
-        [ClassData(typeof(UpdateInvalidDestination))]
-        public async Task Active_Admins_Can_Not_Update_When_Invalid(TestDestination record) {
-            await RecordNotFound.Action(_httpClient, _baseUrl, _url + "/" + record.Id, "john", "ec11fc8c16da");
+        [Fact]
+        public async Task Active_Admins_Can_Not_Update_When_Not_Found() {
+            await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
         }
 
         [Theory]

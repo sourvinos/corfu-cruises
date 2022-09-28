@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Features.Destinations {
@@ -16,40 +14,38 @@ namespace API.Features.Destinations {
 
         #region variables
 
-        private readonly IDestinationRepository repo;
-        private readonly IHttpContextAccessor httpContext;
+        private readonly IDestinationRepository destinationRepo;
         private readonly IMapper mapper;
 
         #endregion
 
-        public DestinationsController(IDestinationRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
-            this.httpContext = httpContext;
+        public DestinationsController(IDestinationRepository destinationRepo, IMapper mapper) {
+            this.destinationRepo = destinationRepo;
             this.mapper = mapper;
-            this.repo = repo;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
         public async Task<IEnumerable<DestinationListVM>> Get() {
-            return await repo.Get();
+            return await destinationRepo.Get();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActive() {
-            return await repo.GetActive();
+        public async Task<IEnumerable<DestinationActiveVM>> GetActive() {
+            return await destinationRepo.GetActive();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> GetById(int id) {
-            var destination = await repo.GetById(id, false);
-            if (destination != null) {
+            var x = await destinationRepo.GetById(id);
+            if (x != null) {
                 return new Response {
                     Code = 200,
                     Icon = Icons.Info.ToString(),
                     Message = ApiMessages.OK(),
-                    Body = mapper.Map<Destination, DestinationReadDto>(destination)
+                    Body = mapper.Map<Destination, DestinationReadDto>(x)
                 };
             } else {
                 throw new CustomException() {
@@ -61,8 +57,8 @@ namespace API.Features.Destinations {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> Post([FromBody] DestinationWriteDto record) {
-            repo.Create(mapper.Map<DestinationWriteDto, Destination>(await AttachUserIdToRecord(record)));
+        public async Task<Response> Post([FromBody] DestinationWriteDto destination) {
+            destinationRepo.Create(mapper.Map<DestinationWriteDto, Destination>(await destinationRepo.AttachUserIdToDto(destination)));
             return new Response {
                 Code = 200,
                 Icon = Icons.Success.ToString(),
@@ -70,13 +66,13 @@ namespace API.Features.Destinations {
             };
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> Put([FromBody] DestinationWriteDto record) {
-            var destination = await repo.GetById(record.Id, false);
-            if (destination != null) {
-                repo.Update(mapper.Map<DestinationWriteDto, Destination>(await AttachUserIdToRecord(record)));
+        public async Task<Response> Put([FromBody] DestinationWriteDto destination) {
+            var x = await destinationRepo.GetById(destination.Id);
+            if (x != null) {
+                destinationRepo.Update(mapper.Map<DestinationWriteDto, Destination>(await destinationRepo.AttachUserIdToDto(destination)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -92,9 +88,9 @@ namespace API.Features.Destinations {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var destination = await repo.GetById(id, false);
-            if (destination != null) {
-                repo.Delete(destination);
+            var x = await destinationRepo.GetById(id);
+            if (x != null) {
+                destinationRepo.Delete(x);
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -105,12 +101,6 @@ namespace API.Features.Destinations {
                     ResponseCode = 404
                 };
             }
-        }
-
-        private async Task<DestinationWriteDto> AttachUserIdToRecord(DestinationWriteDto record) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            record.UserId = user.UserId;
-            return record;
         }
 
     }

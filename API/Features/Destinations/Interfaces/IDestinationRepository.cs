@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Infrastructure.Classes;
 using API.Infrastructure.Interfaces;
 
 namespace API.Features.Destinations {
@@ -8,8 +7,9 @@ namespace API.Features.Destinations {
     public interface IDestinationRepository : IRepository<Destination> {
 
         Task<IEnumerable<DestinationListVM>> Get();
-        Task<IEnumerable<SimpleResource>> GetActive();
-        Task<Destination> GetById(int id, bool trackChanges);
+        Task<IEnumerable<DestinationActiveVM>> GetActive();
+        new Task<Destination> GetById(int id);
+        Task<DestinationWriteDto> AttachUserIdToDto(DestinationWriteDto destination);
 
     }
 
