@@ -15,7 +15,7 @@ namespace API.Integration.Tests.Registrars {
         private static object[] Ship_Must_Exist() {
             return new object[] {
                 new TestRegistrar {
-                    StatusCode = 450,
+                    StatusCode = 454,
                     Id = 7,
                     ShipId = 99,
                     Fullname = Helpers.CreateRandomString(128)

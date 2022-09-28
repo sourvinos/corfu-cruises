@@ -6,11 +6,10 @@ namespace API.Features.Registrars {
 
     public interface IRegistrarRepository : IRepository<Registrar> {
 
-        Task<IEnumerable<Registrar>> Get();
-        Task<IEnumerable<Registrar>> GetActiveForDropdown();
-        new Task<Registrar> GetById(int RegistrarId);
-        Task<Registrar> GetByIdToDelete(int RegistrarId);
-        int IsValid(RegistrarWriteDto record);
+        Task<IEnumerable<RegistrarListVM>> Get();
+        Task<IEnumerable<RegistrarActiveVM>> GetActive();
+        Task<Registrar> GetById(int id, bool includeTables);
+        Task<RegistrarWriteDto> AttachUserIdToDto(RegistrarWriteDto registar);
 
     }
 

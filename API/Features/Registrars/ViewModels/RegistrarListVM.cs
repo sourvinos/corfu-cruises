@@ -1,6 +1,6 @@
 namespace API.Features.Registrars {
 
-    public class RegistrarListDto {
+    public class RegistrarListVM {
 
         public int Id { get; set; }
         public string ShipDescription { get; set; }

@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Features.Registrars {
@@ -16,81 +14,110 @@ namespace API.Features.Registrars {
 
         #region variables
 
-        private readonly IRegistrarRepository repo;
-        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IMapper mapper;
+        private readonly IRegistrarRepository registrarRepo;
+        private readonly IRegistrarValidation registrarValidation;
 
         #endregion
 
-        public RegistrarsController(IRegistrarRepository repo, IHttpContextAccessor httpContextAccessor, IMapper mapper) {
-            this.httpContextAccessor = httpContextAccessor;
+        public RegistrarsController(IMapper mapper, IRegistrarRepository registrarRepo, IRegistrarValidation registrarValidation) {
             this.mapper = mapper;
-            this.repo = repo;
+            this.registrarRepo = registrarRepo;
+            this.registrarValidation = registrarValidation;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<RegistrarListDto>> Get() {
-            return mapper.Map<IEnumerable<Registrar>, IEnumerable<RegistrarListDto>>(await repo.Get());
+        public async Task<IEnumerable<RegistrarListVM>> Get() {
+            return await registrarRepo.Get();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            return mapper.Map<IEnumerable<Registrar>, IEnumerable<SimpleResource>>(await repo.GetActiveForDropdown());
+        public async Task<IEnumerable<RegistrarActiveVM>> GetActive() {
+            return await registrarRepo.GetActive();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<RegistrarReadDto> GetRegistrar(int id) {
-            return mapper.Map<Registrar, RegistrarReadDto>(await repo.GetById(id));
+        public async Task<Response> GetById(int id) {
+            var x = await registrarRepo.GetById(id, true);
+            if (x != null) {
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Info.ToString(),
+                    Message = ApiMessages.OK(),
+                    Body = mapper.Map<Registrar, RegistrarReadDto>(x)
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostRegistrarAsync([FromBody] RegistrarWriteDto record) {
-            var response = repo.IsValid(record);
-            if (response == 200) {
-                repo.Create(mapper.Map<RegistrarWriteDto, Registrar>(await AttachUserIdToRecord(record)));
-                return ApiResponses.OK();
+        public async Task<Response> Post([FromBody] RegistrarWriteDto registrar) {
+            var x = registrarValidation.IsValid(registrar);
+            if (x == 200) {
+                registrarRepo.Create(mapper.Map<RegistrarWriteDto, Registrar>(await registrarRepo.AttachUserIdToDto(registrar)));
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
             } else {
-                return GetErrorMessage(response);
+                throw new CustomException() {
+                    ResponseCode = x
+                };
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutRegistrarAsync([FromBody] RegistrarWriteDto record) {
-            var response = repo.IsValid(record);
-            if (response == 200) {
-                repo.Update(mapper.Map<RegistrarWriteDto, Registrar>(await AttachUserIdToRecord(record)));
-                return ApiResponses.OK();
+        public async Task<Response> Put([FromBody] RegistrarWriteDto registrar) {
+            var x = await registrarRepo.GetById(registrar.Id, false);
+            if (x != null) {
+                var z = registrarValidation.IsValid(registrar);
+                if (z == 200) {
+                    registrarRepo.Update(mapper.Map<RegistrarWriteDto, Registrar>(await registrarRepo.AttachUserIdToDto(registrar)));
+                    return new Response {
+                        Code = 200,
+                        Icon = Icons.Success.ToString(),
+                        Message = ApiMessages.OK()
+                    };
+                } else {
+                    throw new CustomException() {
+                        ResponseCode = z
+                    };
+                }
             } else {
-                return GetErrorMessage(response);
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
             }
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            repo.Delete(await repo.GetByIdToDelete(id));
-            return ApiResponses.OK();
-        }
+            var x = await registrarRepo.GetById(id, false);
+            if (x != null) {
+                registrarRepo.Delete(x);
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
 
-        private async Task<RegistrarWriteDto> AttachUserIdToRecord(RegistrarWriteDto record) {
-            var user = await Identity.GetConnectedUserId(httpContextAccessor);
-            record.UserId = user.UserId;
-            return record;
-        }
-
-        private Response GetErrorMessage(int errorCode) {
-            httpContextAccessor.HttpContext.Response.StatusCode = errorCode;
-            return errorCode switch {
-                450 => new Response { Code = 450, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Ship") },
-                _ => new Response { Message = ApiMessages.RecordNotSaved() },
-            };
         }
 
     }

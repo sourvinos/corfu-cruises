@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
+using API.Infrastructure.Extensions;
 using API.Infrastructure.Implementations;
-using API.Infrastructure.Responses;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -11,53 +13,47 @@ namespace API.Features.Registrars {
 
     public class RegistrarRepository : Repository<Registrar>, IRegistrarRepository {
 
-        public RegistrarRepository(AppDbContext appDbContext, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) { }
+        private readonly IMapper mapper;
+        private readonly IHttpContextAccessor httpContext;
 
-        async Task<IEnumerable<Registrar>> IRegistrarRepository.Get() {
-            var records = await context.Registrars
+        public RegistrarRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
+            this.httpContext = httpContext;
+            this.mapper = mapper;
+        }
+
+        public async Task<IEnumerable<RegistrarListVM>> Get() {
+            var registrars = await context.Registrars
                 .Include(x => x.Ship)
                 .OrderBy(x => x.Ship.Description).ThenBy(x => !x.IsPrimary).ThenBy(x => x.Fullname)
                 .AsNoTracking()
                 .ToListAsync();
-            return records;
+            return mapper.Map<IEnumerable<Registrar>, IEnumerable<RegistrarListVM>>(registrars);
         }
 
-        public async Task<IEnumerable<Registrar>> GetActiveForDropdown() {
-            var records = await context.Registrars
+        public async Task<IEnumerable<RegistrarActiveVM>> GetActive() {
+            var registrars = await context.Registrars
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Fullname)
                 .AsNoTracking()
                 .ToListAsync();
-            return records;
+            return mapper.Map<IEnumerable<Registrar>, IEnumerable<RegistrarActiveVM>>(registrars);
         }
 
-        public new async Task<Registrar> GetById(int id) {
-            var record = await context.Registrars
-                .Include(x => x.Ship)
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (record != null) {
-                return record;
-            } else {
-                throw new CustomException { ResponseCode = 404 };
-            }
+        public async Task<Registrar> GetById(int id, bool includeTables) {
+            return includeTables
+                ? await context.Registrars
+                    .Include(x => x.Ship)
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync(x => x.Id == id)
+                : await context.Registrars
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Registrar> GetByIdToDelete(int id) {
-            return await context.Registrars.SingleOrDefaultAsync(x => x.Id == id);
-        }
-
-        public int IsValid(RegistrarWriteDto record) {
-            return true switch {
-                var x when x == !IsValidShip(record) => 450,
-                _ => 200,
-            };
-        }
-
-        private bool IsValidShip(RegistrarWriteDto record) {
-            if (record.Id == 0) {
-                return context.Ships.SingleOrDefault(x => x.Id == record.ShipId && x.IsActive) != null;
-            }
-            return context.Ships.SingleOrDefault(x => x.Id == record.ShipId) != null;
+        public async Task<RegistrarWriteDto> AttachUserIdToDto(RegistrarWriteDto pickupPoint) {
+            var user = await Identity.GetConnectedUserId(httpContext);
+            pickupPoint.UserId = user.UserId;
+            return pickupPoint;
         }
 
     }

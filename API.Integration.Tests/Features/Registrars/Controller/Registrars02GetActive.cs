@@ -18,10 +18,9 @@ namespace API.Integration.Tests.Registrars {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly int _expectedRecordCount = 4;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/registrars/getActiveForDropdown";
+        private readonly string _url = "/registrars/getActive";
 
         #endregion
 
@@ -48,15 +47,15 @@ namespace API.Integration.Tests.Registrars {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_Get_Active_For_Dropdown() {
+        public async Task Active_Simple_Users_Can_Not_Get_Active() {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", null);
         }
 
         [Fact]
-        public async Task Active_Admins_Can_Get_Active_For_Dropdown() {
+        public async Task Active_Admins_Can_Get_Active() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(_expectedRecordCount, records.Count);
+            Assert.Equal(4, records.Count);
         }
 
     }
