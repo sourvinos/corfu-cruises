@@ -6,8 +6,6 @@ namespace API.Features.CoachRoutes {
 
         public RouteMappingProfile() {
             CreateMap<CoachRouteWriteDto, CoachRoute>();
-            CreateMap<CoachRoute, CoachRouteActiveVM>();
-            CreateMap<CoachRoute, CoachRouteReadDto>();
         }
 
     }

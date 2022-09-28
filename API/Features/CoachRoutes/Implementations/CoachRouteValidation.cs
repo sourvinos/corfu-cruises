@@ -18,8 +18,8 @@ namespace API.Features.CoachRoutes {
 
         private bool IsValidPort(CoachRouteWriteDto coachRoute) {
             return coachRoute.Id == 0
-            ? context.Ports.SingleOrDefault(x => x.Id == coachRoute.PortId && x.IsActive) != null
-            : context.Ports.SingleOrDefault(x => x.Id == coachRoute.PortId) != null;
+                ? context.Ports.SingleOrDefault(x => x.Id == coachRoute.PortId && x.IsActive) != null
+                : context.Ports.SingleOrDefault(x => x.Id == coachRoute.PortId) != null;
         }
 
     }

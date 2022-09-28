@@ -33,7 +33,7 @@ namespace API.Features.CoachRoutes {
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<CoachRouteActiveVM>> GetActive() {
             return await coachRouteRepo.GetActive();
         }

@@ -29,6 +29,12 @@ namespace API.Integration.Tests.CoachRoutes {
 
         [Theory]
         [ClassData(typeof(CreateValidCoachRoute))]
+        public async Task Unauthorized_Not_Logged_In(TestCoachRoute record) {
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "", "", record);
+        }
+
+        [Theory]
+        [ClassData(typeof(CreateValidCoachRoute))]
         public async Task Unauthorized_Invalid_Credentials(TestCoachRoute record) {
             await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "user-does-not-exist", "not-a-valid-password", record);
         }

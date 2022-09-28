@@ -29,6 +29,11 @@ namespace API.Integration.Tests.CoachRoutes {
         }
 
         [Fact]
+        public async Task Unauthorized_Not_Logged_In() {
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, null, null, null);
+        }
+
+        [Fact]
         public async Task Unauthorized_Invalid_Credentials() {
             await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "user-does-not-exist", "not-a-valid-password", null);
         }

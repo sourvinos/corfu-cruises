@@ -18,6 +18,7 @@ namespace API.Integration.Tests.CoachRoutes {
         private readonly string _actionVerb = "put";
         private readonly string _baseUrl;
         private readonly string _url = "/coachRoutes";
+        private readonly string _notFoundUrl = "/coachRoutes/999";
 
         #endregion
 
@@ -25,6 +26,12 @@ namespace API.Integration.Tests.CoachRoutes {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
+        }
+
+        [Theory]
+        [ClassData(typeof(UpdateValidRoute))]
+        public async Task Unauthorized_Not_Logged_In(TestCoachRoute record) {
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "", "", record);
         }
 
         [Theory]
@@ -49,6 +56,11 @@ namespace API.Integration.Tests.CoachRoutes {
         [ClassData(typeof(UpdateValidRoute))]
         public async Task Active_Simple_Users_Can_Not_Update(TestCoachRoute record) {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
+        }
+
+        [Fact]
+        public async Task Active_Admins_Can_Not_Update_When_Not_Found() {
+            await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
         }
 
         [Theory]
