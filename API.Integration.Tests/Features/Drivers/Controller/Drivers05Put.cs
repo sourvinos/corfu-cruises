@@ -16,7 +16,8 @@ namespace API.Integration.Tests.Drivers {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "put";
         private readonly string _baseUrl;
-        private readonly string _url = "/drivers/1";
+        private readonly string _url = "/drivers";
+        private readonly string _notFoundUrl = "/drivers/999";
 
         #endregion
 
@@ -54,6 +55,11 @@ namespace API.Integration.Tests.Drivers {
         [ClassData(typeof(UpdateValidDriver))]
         public async Task Active_Simple_Users_Can_Not_Update(TestDriver record) {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
+        }
+
+         [Fact]
+        public async Task Active_Admins_Can_Not_Update_When_Not_Found() {
+            await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
         }
 
         [Theory]
