@@ -68,7 +68,6 @@ namespace API.Infrastructure.Classes {
             modelBuilder.ApplyConfiguration(new DriversConfig());
             modelBuilder.ApplyConfiguration(new GendersConfig());
             modelBuilder.ApplyConfiguration(new NationalitiesConfig());
-            modelBuilder.ApplyConfiguration(new OccupantsConfig());
             modelBuilder.ApplyConfiguration(new PassengersConfig());
             modelBuilder.ApplyConfiguration(new PickupPointsConfig());
             modelBuilder.ApplyConfiguration(new PortsConfig());

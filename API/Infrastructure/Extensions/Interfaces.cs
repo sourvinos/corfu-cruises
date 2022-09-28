@@ -42,7 +42,6 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IInvoicingRepository, InvoicingRepository>();
             services.AddTransient<IManifestRepository, ManifestRepository>();
             services.AddTransient<INationalityRepository, NationalityRepository>();
-            services.AddTransient<IOccupantRepository, OccupantRepository>();
             services.AddTransient<IPickupPointRepository, PickupPointRepository>();
             services.AddTransient<IPortRepository, PortRepository>();
             services.AddTransient<IRegistrarRepository, RegistrarRepository>();
