@@ -22,7 +22,7 @@ namespace API.Features.Customers {
         }
 
         public async Task<IEnumerable<CustomerListVM>> Get() {
-            List<Customer> customers = await context.Customers
+            var customers = await context.Customers
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
@@ -30,16 +30,18 @@ namespace API.Features.Customers {
         }
 
         public async Task<IEnumerable<CustomerActiveVM>> GetActive() {
-            List<Customer> activeCustomers = await context.Customers
+            var customers = await context.Customers
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerActiveVM>>(activeCustomers);
+            return mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerActiveVM>>(customers);
         }
 
-        public async Task<Customer> GetById(int id, bool includeTables) {
-            return await context.Customers.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
+        public new async Task<Customer> GetById(int id) {
+            return await context.Customers
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<CustomerWriteDto> AttachUserIdToDto(CustomerWriteDto customer) {

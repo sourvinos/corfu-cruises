@@ -8,8 +8,8 @@ namespace API.Features.Customers {
 
         Task<IEnumerable<CustomerListVM>> Get();
         Task<IEnumerable<CustomerActiveVM>> GetActive();
-        Task<Customer> GetById(int id, bool trackChanges);
-        Task<CustomerWriteDto> AttachUserIdToDto(CustomerWriteDto port);
+        new Task<Customer> GetById(int id);
+        Task<CustomerWriteDto> AttachUserIdToDto(CustomerWriteDto customer);
 
     }
 
