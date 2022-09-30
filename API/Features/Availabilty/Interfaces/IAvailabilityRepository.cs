@@ -4,7 +4,7 @@ namespace API.Features.Availability {
 
     public interface IAvailabilityRepository {
 
-        IEnumerable<AvailabilityVM> DoCalendarTasks(string fromDate, string toDate);
+        IList<ScheduleVM> CalculateFreeSeats(string fromDate, string toDate);
 
     }
 

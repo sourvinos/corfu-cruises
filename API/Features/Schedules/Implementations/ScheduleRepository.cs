@@ -115,12 +115,12 @@ namespace API.Features.Schedules {
             return response.ToList();
         }
 
-        private IEnumerable<ReservationViewModel> GetReservationsForPeriod(string fromDate, string toDate, Guid? reservationId) {
+        private IEnumerable<ReservationVM> GetReservationsForPeriod(string fromDate, string toDate, Guid? reservationId) {
             var response = context.Set<Reservation>()
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate) && x.ReservationId != reservationId)
                 .OrderBy(x => x.Date).ThenBy(x => x.DestinationId).ThenBy(x => x.PortId)
                 .GroupBy(x => new { x.Date, x.DestinationId, x.PortId })
-                .Select(x => new ReservationViewModel {
+                .Select(x => new ReservationVM {
                     Date = x.Key.Date.ToString(),
                     DestinationId = x.Key.DestinationId,
                     PortId = x.Key.PortId,
@@ -129,7 +129,7 @@ namespace API.Features.Schedules {
             return response.ToList();
         }
 
-        private static IEnumerable<ScheduleReservationGroup> UpdateCalendarData(IEnumerable<ScheduleViewModel> schedule, IEnumerable<ReservationViewModel> reservations) {
+        private static IEnumerable<ScheduleReservationGroup> UpdateCalendarData(IEnumerable<ScheduleViewModel> schedule, IEnumerable<ReservationVM> reservations) {
             foreach (var item in schedule) {
                 var x = reservations.FirstOrDefault(x => x.Date == item.Date && x.DestinationId == item.DestinationId && x.PortId == item.PortId);
                 item.Passengers = (x?.TotalPersons) ?? 0;
@@ -158,7 +158,7 @@ namespace API.Features.Schedules {
             return response.ToList();
         }
 
-        private static int CalculateAvailableSeatsForAllPorts(IEnumerable<ScheduleViewModel> schedule, IEnumerable<ReservationViewModel> reservations, string date, int destinationId) {
+        private static int CalculateAvailableSeatsForAllPorts(IEnumerable<ScheduleViewModel> schedule, IEnumerable<ReservationVM> reservations, string date, int destinationId) {
             var maxPassengers = CalculateMaxPassengers(schedule, date, destinationId);
             var passengers = CalculatePassengerCountForDestination(reservations, date, destinationId);
             return maxPassengers - passengers;
@@ -172,7 +172,7 @@ namespace API.Features.Schedules {
             }
         }
 
-        private static int CalculatePassengerCountForDestination(IEnumerable<ReservationViewModel> reservations, string date, int destinationId) {
+        private static int CalculatePassengerCountForDestination(IEnumerable<ReservationVM> reservations, string date, int destinationId) {
             return reservations.Where(x => x.Date == date && x.DestinationId == destinationId).Sum(x => x.TotalPersons);
         }
 

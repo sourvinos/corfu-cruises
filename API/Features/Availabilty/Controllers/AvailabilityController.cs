@@ -17,10 +17,16 @@ namespace API.Features.Availability {
             this.repo = repo;
         }
 
+        // [HttpGet("from/{fromdate}/to/{todate}")]
+        // [Authorize(Roles = "user, admin")]
+        // public IEnumerable<ReservationVM> GetForCalendar(string fromDate, string toDate) {
+        //     return repo.DoCalendarTasks(fromDate, toDate);
+        // }
+
         [HttpGet("from/{fromdate}/to/{todate}")]
         [Authorize(Roles = "user, admin")]
-        public IEnumerable<AvailabilityVM> GetForCalendar(string fromDate, string toDate) {
-            return repo.DoCalendarTasks(fromDate, toDate);
+        public IEnumerable<ScheduleVM> GetForCalendar(string fromDate, string toDate) {
+            return repo.CalculateFreeSeats(fromDate, toDate);
         }
 
     }

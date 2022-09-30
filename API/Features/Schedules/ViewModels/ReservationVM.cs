@@ -1,6 +1,6 @@
 namespace API.Features.Schedules {
 
-    public class ReservationViewModel {
+    public class ReservationVM {
 
         public string Date { get; set; }
         public int DestinationId { get; set; }
