@@ -22,30 +22,32 @@ namespace API.Features.Genders {
         }
 
         public async Task<IEnumerable<GenderListVM>> Get() {
-            List<Gender> records = await context.Genders
+            var genders = await context.Genders
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Gender>, IEnumerable<GenderListVM>>(records);
+            return mapper.Map<IEnumerable<Gender>, IEnumerable<GenderListVM>>(genders);
         }
 
         public async Task<IEnumerable<GenderActiveVM>> GetActive() {
-            List<Gender> records = await context.Set<Gender>()
+            var genders = await context.Genders
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Gender>, IEnumerable<GenderActiveVM>>(records);
+            return mapper.Map<IEnumerable<Gender>, IEnumerable<GenderActiveVM>>(genders);
         }
 
-        public async Task<Gender> GetById(int id, bool includeTables) {
-            return await context.Genders.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
+        public new async Task<Gender> GetById(int id) {
+            return await context.Genders
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<GenderWriteDto> AttachUserIdToDto(GenderWriteDto driver) {
+        public async Task<GenderWriteDto> AttachUserIdToDto(GenderWriteDto gender) {
             var user = await Identity.GetConnectedUserId(httpContext);
-            driver.UserId = user.UserId;
-            return driver;
+            gender.UserId = user.UserId;
+            return gender;
         }
 
     }

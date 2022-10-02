@@ -39,7 +39,7 @@ namespace API.Features.Genders {
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> GetById(int id) {
-            var x = await genderRepo.GetById(id, false);
+            var x = await genderRepo.GetById(id);
             if (x != null) {
                 return new Response {
                     Code = 200,
@@ -70,7 +70,7 @@ namespace API.Features.Genders {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] GenderWriteDto gender) {
-            var x = await genderRepo.GetById(gender.Id, false);
+            var x = await genderRepo.GetById(gender.Id);
             if (x != null) {
                 genderRepo.Update(mapper.Map<GenderWriteDto, Gender>(await genderRepo.AttachUserIdToDto(gender)));
                 return new Response {
@@ -88,9 +88,9 @@ namespace API.Features.Genders {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var gender = await genderRepo.GetById(id, true);
-            if (gender != null) {
-                genderRepo.Delete(gender);
+            var x = await genderRepo.GetById(id);
+            if (x != null) {
+                genderRepo.Delete(x);
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -101,7 +101,6 @@ namespace API.Features.Genders {
                     ResponseCode = 404
                 };
             }
-
         }
 
     }

@@ -8,8 +8,8 @@ namespace API.Features.Genders {
 
         Task<IEnumerable<GenderListVM>> Get();
         Task<IEnumerable<GenderActiveVM>> GetActive();
-        Task<Gender> GetById(int id, bool trackChanges);
-        Task<GenderWriteDto> AttachUserIdToDto(GenderWriteDto port);
+        new Task<Gender> GetById(int id);
+        Task<GenderWriteDto> AttachUserIdToDto(GenderWriteDto gender);
 
     }
 
