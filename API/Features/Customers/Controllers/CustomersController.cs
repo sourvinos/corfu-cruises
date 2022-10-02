@@ -88,9 +88,9 @@ namespace API.Features.Customers {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var customer = await customerRepo.GetById(id);
-            if (customer != null) {
-                customerRepo.Delete(customer);
+            var x = await customerRepo.GetById(id);
+            if (x != null) {
+                customerRepo.Delete(x);
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
