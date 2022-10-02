@@ -12,7 +12,7 @@ namespace API.Features.Reservations {
 
         public ReservationMappingProfile() {
             // List
-            CreateMap<Reservation, ReservationListVM>()
+            CreateMap<Reservation, ReservationMappedListVM>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Date)))
                 .ForMember(x => x.CoachRouteAbbreviation, x => x.MapFrom(x => x.PickupPoint.CoachRoute.Abbreviation))
                 .ForMember(x => x.DriverDescription, x => x.NullSubstitute("(EMPTY)"))

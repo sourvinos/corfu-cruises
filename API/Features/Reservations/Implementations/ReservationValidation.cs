@@ -15,20 +15,22 @@ using Microsoft.Extensions.Options;
 
 namespace API.Features.Reservations {
 
-    public class ValidReservation : Repository<Reservation>, IValidReservation {
+    public class ReservationValidation : Repository<Reservation>, IReservationValidation {
 
-        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IHttpContextAccessor httpContext;
+        private readonly IReservationAvailability reservationAvailability;
         private readonly TestingEnvironment testingEnvironment;
         private readonly UserManager<UserExtended> userManager;
 
-        public ValidReservation(AppDbContext context, IHttpContextAccessor httpContextAccessor, IOptions<TestingEnvironment> testingEnvironment, UserManager<UserExtended> userManager) : base(context, testingEnvironment) {
-            this.httpContextAccessor = httpContextAccessor;
+        public ReservationValidation(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment, IReservationAvailability reservationAvailability, UserManager<UserExtended> userManager) : base(context, testingEnvironment) {
+            this.httpContext = httpContext;
+            this.reservationAvailability = reservationAvailability;
             this.testingEnvironment = testingEnvironment.Value;
             this.userManager = userManager;
         }
 
         public async Task<bool> IsUserOwner(int customerId) {
-            var user = await Identity.GetConnectedUserId(httpContextAccessor);
+            var user = await Identity.GetConnectedUserId(httpContext);
             var userDetails = Identity.GetConnectedUserDetails(userManager, user.UserId);
             return userDetails.CustomerId == customerId;
         }
@@ -65,7 +67,7 @@ namespace API.Features.Reservations {
                 var x when x == !IsValidOccupant(record) => 458,
                 var x when x == !IsCorrectPassengerCount(record) => 455,
                 var x when x == !PortHasDepartureForDateAndDestination(scheduleRepo, record) => 410,
-                var x when x == !CalculatePortFreeSeats(record.Date, record.ReservationId, record.DestinationId, GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
+                var x when x == SimpleUserCausesOverbooking(record.Date, record.ReservationId, record.DestinationId, GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
                 var x when x == SimpleUserHasNightRestrictions(record) => 459,
                 var x when x == SimpleUserCanNotAddReservationAfterDeparture(record) => 431,
                 _ => 200,
@@ -88,38 +90,16 @@ namespace API.Features.Reservations {
             return scheduleRepo.PortHasDepartureForDateAndDestination(record.Date, record.DestinationId, GetPortIdFromPickupPointId(record));
         }
 
-        private bool CalculatePortFreeSeats(string fromDate, Guid? reservationId, int destinationId, int portId, int reservationPersons) {
-            if (Identity.IsUserAdmin(httpContextAccessor).Result || reservationId != Guid.Empty) {
-                return true;
+        private bool SimpleUserCausesOverbooking(string date, Guid? reservationId, int destinationId, int portId, int reservationPersons) {
+            if (Identity.IsUserAdmin(httpContext).Result || reservationId != Guid.Empty) {
+                return false;
             } else {
-                int maxPassengers = CalculatePortMaxPassengers(fromDate, destinationId, portId);
-                int reservationPassengers = CalculateReservationPassengers(fromDate, destinationId, portId, reservationId);
-                return maxPassengers >= reservationPassengers + reservationPersons;
+                return reservationAvailability.CalculateAvailability(date, destinationId, portId).Last().FreeSeats < reservationPersons;
             }
         }
 
-        private int CalculatePortMaxPassengers(string date, int destinationId, int portId) {
-            var departurePort = context.Ports.AsNoTracking().Where(x => x.Id == portId).FirstOrDefault();
-            var maxPassengers = context.Schedules
-                .AsNoTracking()
-                .Include(x => x.Port)
-                .Where(x => x.Date.ToString() == date && x.DestinationId == destinationId && x.Port.StopOrder <= departurePort.StopOrder && x.Port.IsActive)
-                .Sum(x => x.MaxPassengers);
-            return maxPassengers;
-        }
-
-        private int CalculateReservationPassengers(string date, int destinationId, int portId, Guid? reservationId) {
-            var departurePort = context.Ports.AsNoTracking().Where(x => x.Id == portId).FirstOrDefault();
-            var reservationPassengers = context.Reservations
-                .AsNoTracking()
-                .Include(x => x.Port)
-                .Where(x => x.Date.ToString() == date & x.DestinationId == destinationId && x.Port.StopOrder <= departurePort.StopOrder && x.ReservationId != reservationId)
-                .Sum(x => x.TotalPersons);
-            return reservationPassengers;
-        }
-
         private bool SimpleUserCanNotAddReservationAfterDeparture(ReservationWriteDto record) {
-            return !Identity.IsUserAdmin(httpContextAccessor).Result && IsAfterDeparture(record);
+            return !Identity.IsUserAdmin(httpContext).Result && IsAfterDeparture(record);
         }
 
         private bool IsValidCustomer(ReservationWriteDto record) {
@@ -228,7 +208,7 @@ namespace API.Features.Reservations {
         }
 
         private bool SimpleUserHasNightRestrictions(ReservationWriteDto record) {
-            if (!Identity.IsUserAdmin(httpContextAccessor).Result && record.ReservationId == Guid.Empty) {
+            if (!Identity.IsUserAdmin(httpContext).Result && record.ReservationId == Guid.Empty) {
                 if (HasTransfer(record.PickupPointId)) {
                     if (IsForTomorrow(record)) {
                         if (IsBetweenClosingTimeAndMidnight(record)) {

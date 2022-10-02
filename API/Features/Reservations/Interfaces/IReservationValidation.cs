@@ -1,10 +1,9 @@
 using System.Threading.Tasks;
 using API.Features.Schedules;
-using API.Infrastructure.Interfaces;
 
 namespace API.Features.Reservations {
 
-    public interface IValidReservation : IRepository<Reservation> {
+    public interface IReservationValidation {
 
         Task<bool> IsUserOwner(int customerId);
         bool IsKeyUnique(ReservationWriteDto record);

@@ -1,12 +1,13 @@
 using System;
 using System.Threading.Tasks;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace API.Infrastructure.Responses {
+namespace API.Infrastructure.Middleware {
 
-    public class ReservationResponseMiddleware : IMiddleware {
+    public class ResponseMiddleware : IMiddleware {
 
         public async Task InvokeAsync(HttpContext httpContext, RequestDelegate next) {
             try {

@@ -72,13 +72,13 @@ namespace API.Integration.Tests.Reservations {
             return new object[] {
                 new TestUpdateReservation {
                     StatusCode = 410,
-                    ReservationId = Guid.Parse("08da2e7e-8aeb-4bd3-80d0-9dadeeff2832"),
+                    ReservationId = Guid.Parse("08da1f85-2fec-4911-8580-4cc7adba706f"),
                     CustomerId = 12,
                     DestinationId = 1,
                     DriverId = null,
                     PickupPointId = 266,
                     ShipId = 6,
-                    Date = "2022-03-04",
+                    Date = "2022-03-01",
                     RefNo = "PRT507",
                     TicketNo = "Eagle Travel",
                     Adults = 5,

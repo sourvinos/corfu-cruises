@@ -4,7 +4,7 @@ using API.Infrastructure.Classes;
 using API.Infrastructure.Email;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Identity;
-using API.Infrastructure.Responses;
+using API.Infrastructure.Middleware;
 using API.Infrastructure.SeedData;
 using AutoMapper;
 using FluentValidation.AspNetCore;
@@ -65,7 +65,7 @@ namespace API {
             Identity.AddIdentity(services);
             Authentication.AddAuthentication(Configuration, services);
             Interfaces.AddInterfaces(services);
-            services.AddTransient<ReservationResponseMiddleware>();
+            services.AddTransient<ResponseMiddleware>();
             services.Configure<RazorViewEngineOptions>(options => options.ViewLocationExpanders.Add(new ViewLocationExpander()));
             services.AddAntiforgery(options => { options.Cookie.Name = "_af"; options.Cookie.HttpOnly = true; options.Cookie.SecurePolicy = CookieSecurePolicy.Always; options.HeaderName = "X-XSRF-TOKEN"; });
             services.AddAutoMapper(typeof(Startup));
@@ -118,7 +118,7 @@ namespace API {
         }
 
         public virtual void Configure(IApplicationBuilder app) {
-            app.UseMiddleware<ReservationResponseMiddleware>();
+            app.UseMiddleware<ResponseMiddleware>();
             app.UseDefaultFiles();
             app.UseHttpsRedirection();
             app.UseStaticFiles();

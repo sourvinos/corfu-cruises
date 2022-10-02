@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 namespace API.Features.Reservations {
 
-    public class ReservationGroupVM<T> {
+    public class ReservationMappedGroupVM<T> {
 
         public int Persons { get; set; }
  
-        public IEnumerable<ReservationListVM> Reservations { get; set; }
+        public IEnumerable<ReservationMappedListVM> Reservations { get; set; }
 
     }
 

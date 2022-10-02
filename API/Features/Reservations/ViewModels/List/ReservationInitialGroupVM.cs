@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace API.Features.Reservations {
 
-    public class ReservationGroup<T> {
+    public class ReservationInitialGroupVM<T> {
 
         public int Persons { get; set; }
         

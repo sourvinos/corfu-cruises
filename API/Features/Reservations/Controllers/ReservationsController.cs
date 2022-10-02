@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Features.Schedules;
 using API.Infrastructure.Extensions;
@@ -16,15 +17,17 @@ namespace API.Features.Reservations {
 
         #region variables
 
+        private readonly IReservationAvailability availabilityCalculator;
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
         private readonly IReservationRepository reservationRepo;
+        private readonly IReservationValidation validReservation;
         private readonly IScheduleRepository scheduleRepo;
-        private readonly IValidReservation validReservation;
 
         #endregion
 
-        public ReservationsController(IHttpContextAccessor httpContextAccessor, IMapper mapper, IReservationRepository reservationRepo, IScheduleRepository scheduleRepo, IValidReservation validReservation) {
+        public ReservationsController(IReservationAvailability availabilityCalculator, IHttpContextAccessor httpContextAccessor, IMapper mapper, IReservationRepository reservationRepo, IScheduleRepository scheduleRepo, IReservationValidation validReservation) {
+            this.availabilityCalculator = availabilityCalculator;
             this.httpContext = httpContextAccessor;
             this.mapper = mapper;
             this.reservationRepo = reservationRepo;
@@ -34,7 +37,7 @@ namespace API.Features.Reservations {
 
         [HttpGet("byDate/{date}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationGroupVM<ReservationListVM>> GetByDate([FromRoute] string date) {
+        public async Task<ReservationMappedGroupVM<ReservationMappedListVM>> GetByDate([FromRoute] string date) {
             return await reservationRepo.GetByDate(date);
         }
 
@@ -46,7 +49,7 @@ namespace API.Features.Reservations {
 
         [HttpGet("byRefNo/{refNo}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationGroupVM<ReservationListVM>> GetByRefNo([FromRoute] string refNo) {
+        public async Task<ReservationMappedGroupVM<ReservationMappedListVM>> GetByRefNo([FromRoute] string refNo) {
             return await reservationRepo.GetByRefNo(refNo);
         }
 
@@ -175,6 +178,12 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         public bool IsOverbooked([FromRoute] string date, int destinationId) {
             return validReservation.IsOverbooked(date, destinationId);
+        }
+
+        [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}")]
+        [Authorize(Roles = "user, admin")]
+        public IList<ReservationAvailabilityVM> CalculateAvailability(string date, int destinationId, int portId) {
+            return availabilityCalculator.CalculateAvailability(date, destinationId, portId);
         }
 
         private async Task<ReservationWriteDto> AttachUserIdToRecord(ReservationWriteDto record) {

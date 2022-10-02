@@ -1,4 +1,3 @@
-using API.Features.Availability;
 using API.Features.CoachRoutes;
 using API.Features.Customers;
 using API.Features.Destinations;
@@ -8,7 +7,6 @@ using API.Features.Genders;
 using API.Features.Invoicing;
 using API.Features.Manifest;
 using API.Features.Nationalities;
-using API.Features.Occupants;
 using API.Features.PickupPoints;
 using API.Features.Ports;
 using API.Features.Registrars;
@@ -29,8 +27,8 @@ namespace API.Infrastructure.Extensions {
 
         public static void AddInterfaces(IServiceCollection services) {
             services.AddScoped<Token>();
-            // Repos
-            services.AddTransient<IAvailabilityRepository, AvailabilityRepository>();
+            // Database
+            services.AddTransient<IReservationAvailability, ReservationAvailability>();
             services.AddTransient<ICoachRouteRepository, CoachRouteRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
@@ -57,7 +55,9 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IPortValidation, PortValidation>();
             services.AddTransient<IRegistrarValidation, RegistrarValidation>();
             services.AddTransient<IShipValidation, ShipValidation>();
-            services.AddTransient<IValidReservation, ValidReservation>();
+            services.AddTransient<IReservationValidation, ReservationValidation>();
+            // Misc
+            services.AddTransient<IReservationAvailability, ReservationAvailability>();
         }
 
     }
