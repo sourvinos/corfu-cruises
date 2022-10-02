@@ -38,8 +38,10 @@ namespace API.Features.Drivers {
             return mapper.Map<IEnumerable<Driver>, IEnumerable<DriverActiveVM>>(activeDrivers);
         }
 
-        public async Task<Driver> GetById(int id, bool includeTables) {
-            return await context.Drivers.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
+        public new async Task<Driver> GetById(int id) {
+            return await context.Drivers
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<DriverWriteDto> AttachUserIdToDto(DriverWriteDto driver) {

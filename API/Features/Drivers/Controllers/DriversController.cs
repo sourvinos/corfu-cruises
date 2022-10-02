@@ -39,7 +39,7 @@ namespace API.Features.Drivers {
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> GetById(int id) {
-            var x = await driverRepo.GetById(id, false);
+            var x = await driverRepo.GetById(id);
             if (x != null) {
                 return new Response {
                     Code = 200,
@@ -57,7 +57,7 @@ namespace API.Features.Drivers {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostDriverAsync([FromBody] DriverWriteDto driver) {
+        public async Task<Response> Post([FromBody] DriverWriteDto driver) {
             driverRepo.Create(mapper.Map<DriverWriteDto, Driver>(await driverRepo.AttachUserIdToDto(driver)));
             return new Response {
                 Code = 200,
@@ -69,8 +69,8 @@ namespace API.Features.Drivers {
         [HttpPut]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutDriverAsync([FromBody] DriverWriteDto driver) {
-            var x = await driverRepo.GetById(driver.Id, false);
+        public async Task<Response> Put([FromBody] DriverWriteDto driver) {
+            var x = await driverRepo.GetById(driver.Id);
             if (x != null) {
                 driverRepo.Update(mapper.Map<DriverWriteDto, Driver>(await driverRepo.AttachUserIdToDto(driver)));
                 return new Response {
@@ -87,8 +87,8 @@ namespace API.Features.Drivers {
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> DeleteDriver([FromRoute] int id) {
-            var driver = await driverRepo.GetById(id, true);
+        public async Task<Response> Delete([FromRoute] int id) {
+            var driver = await driverRepo.GetById(id);
             if (driver != null) {
                 driverRepo.Delete(driver);
                 return new Response {

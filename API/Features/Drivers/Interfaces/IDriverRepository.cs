@@ -8,8 +8,8 @@ namespace API.Features.Drivers {
 
         Task<IEnumerable<DriverListVM>> Get();
         Task<IEnumerable<DriverActiveVM>> GetActive();
-        Task<Driver> GetById(int id, bool trackChanges);
-        Task<DriverWriteDto> AttachUserIdToDto(DriverWriteDto port);
+        new Task<Driver> GetById(int id);
+        Task<DriverWriteDto> AttachUserIdToDto(DriverWriteDto driver);
 
     }
 
