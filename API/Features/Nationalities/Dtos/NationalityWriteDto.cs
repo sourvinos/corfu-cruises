@@ -1,6 +1,6 @@
 ﻿namespace API.Features.Nationalities {
 
-    public class NationalityWriteResource {
+    public class NationalityWriteDto {
 
         public int Id { get; set; }
         public string Code { get; set; }

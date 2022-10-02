@@ -27,7 +27,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IValidator<DestinationWriteDto>, DestinationValidator>();
             services.AddTransient<IValidator<DriverWriteDto>, DriverValidator>();
             services.AddTransient<IValidator<GenderWriteDto>, GenderValidator>();
-            services.AddTransient<IValidator<NationalityWriteResource>, NationalityValidator>();
+            services.AddTransient<IValidator<NationalityWriteDto>, NationalityValidator>();
             services.AddTransient<IValidator<PickupPointWriteDto>, PickupPointValidator>();
             services.AddTransient<IValidator<PortWriteDto>, PortValidator>();
             services.AddTransient<IValidator<RegistrarWriteDto>, RegistrarValidator>();

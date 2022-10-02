@@ -1,6 +1,6 @@
 namespace API.Features.Nationalities {
 
-    public class NationalityListResource {
+    public class NationalityListVM {
 
         public int Id { get; set; }
         public string Description { get; set; }

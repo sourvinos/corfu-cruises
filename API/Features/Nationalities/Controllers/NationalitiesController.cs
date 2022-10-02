@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Features.Nationalities {
@@ -15,69 +14,93 @@ namespace API.Features.Nationalities {
 
         #region variables
 
-        private readonly INationalityRepository repo;
-        private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
+        private readonly INationalityRepository nationalityRepo;
 
         #endregion
 
-        public NationalitiesController(INationalityRepository repo, IHttpContextAccessor httpContext, IMapper mapper) {
-            this.httpContext = httpContext;
-            this.repo = repo;
+        public NationalitiesController(IMapper mapper, INationalityRepository nationalityRepo) {
             this.mapper = mapper;
+            this.nationalityRepo = nationalityRepo;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<NationalityListResource>> Get() {
-            return await repo.Get();
+        public async Task<IEnumerable<NationalityListVM>> Get() {
+            return await nationalityRepo.Get();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            return await repo.GetActiveForDropdown();
+        public async Task<IEnumerable<NationalityActiveVM>> GetActive() {
+            return await nationalityRepo.GetActive();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<NationalityReadResource> GetNationality(int id) {
-            return mapper.Map<Nationality, NationalityReadResource>(await repo.GetById(id));
+        public async Task<Response> GetById(int id) {
+            var x = await nationalityRepo.GetById(id);
+            if (x != null) {
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Info.ToString(),
+                    Message = ApiMessages.OK(),
+                    Body = mapper.Map<Nationality, NationalityReadDto>(x)
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PostNationalityAsync([FromBody] NationalityWriteResource record) {
-            repo.Create(mapper.Map<NationalityWriteResource, Nationality>(await AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordCreated()
-            });
+        public async Task<Response> Post([FromBody] NationalityWriteDto nationality) {
+            nationalityRepo.Create(mapper.Map<NationalityWriteDto, Nationality>(await nationalityRepo.AttachUserIdToDto(nationality)));
+            return new Response {
+                Code = 200,
+                Icon = Icons.Success.ToString(),
+                Message = ApiMessages.OK()
+            };
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<IActionResult> PutNationalityAsync([FromBody] NationalityWriteResource record) {
-            repo.Update(mapper.Map<NationalityWriteResource, Nationality>(await AttachUserIdToRecord(record)));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordUpdated()
-            });
+        public async Task<Response> Put([FromBody] NationalityWriteDto nationality) {
+            var x = await nationalityRepo.GetById(nationality.Id);
+            if (x != null) {
+                nationalityRepo.Update(mapper.Map<NationalityWriteDto, Nationality>(await nationalityRepo.AttachUserIdToDto(nationality)));
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteNationality([FromRoute] int id) {
-            repo.Delete(await repo.GetByIdToDelete(id));
-            return StatusCode(200, new {
-                response = ApiMessages.RecordDeleted()
-            });
-        }
-
-        private async Task<NationalityWriteResource> AttachUserIdToRecord(NationalityWriteResource record) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            record.UserId = user.UserId;
-            return record;
+        public async Task<Response> Delete([FromRoute] int id) {
+            var x = await nationalityRepo.GetById(id);
+            if (x != null) {
+                nationalityRepo.Delete(x);
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
     }

@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using API.Infrastructure.Classes;
+using API.Features.Nationalities;
 using API.Integration.Tests.Cases;
 using API.Integration.Tests.Infrastructure;
 using API.Integration.Tests.Responses;
@@ -21,7 +21,7 @@ namespace API.Integration.Tests.Nationalities {
         private readonly int _expectedRecordCount = 250;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/nationalities/getActiveForDropdown";
+        private readonly string _url = "/nationalities/getActive";
 
         #endregion
 
@@ -49,9 +49,9 @@ namespace API.Integration.Tests.Nationalities {
 
         [Theory]
         [ClassData(typeof(ActiveUsersCanLogin))]
-        public async Task Active_Users_Can_Get_Active_For_Dropdown(Login login) {
+        public async Task Active_Users_Can_Get_Active(Login login) {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, login.Username, login.Password);
-            var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var records = JsonSerializer.Deserialize<List<NationalityActiveVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(_expectedRecordCount, records.Count);
         }
 
