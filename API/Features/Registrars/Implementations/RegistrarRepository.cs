@@ -50,10 +50,10 @@ namespace API.Features.Registrars {
                     .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<RegistrarWriteDto> AttachUserIdToDto(RegistrarWriteDto pickupPoint) {
+        public async Task<RegistrarWriteDto> AttachUserIdToDto(RegistrarWriteDto registrar) {
             var user = await Identity.GetConnectedUserId(httpContext);
-            pickupPoint.UserId = user.UserId;
-            return pickupPoint;
+            registrar.UserId = user.UserId;
+            return registrar;
         }
 
     }
