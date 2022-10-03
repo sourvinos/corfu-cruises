@@ -1,6 +1,6 @@
 namespace API.Features.ShipOwners {
 
-    public class ShipOwnerListDto {
+    public class ShipOwnerListVM {
 
         public int Id { get; set; }
         public string Description { get; set; }

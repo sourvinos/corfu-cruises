@@ -2,7 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
+using API.Infrastructure.Extensions;
 using API.Infrastructure.Implementations;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -10,27 +13,41 @@ namespace API.Features.ShipOwners {
 
     public class ShipOwnerRepository : Repository<ShipOwner>, IShipOwnerRepository {
 
-        public ShipOwnerRepository(AppDbContext context, IOptions<TestingEnvironment> settings) : base(context, settings) { }
+        private readonly IHttpContextAccessor httpContext;
+        private readonly IMapper mapper;
 
-        public async Task<IEnumerable<ShipOwner>> Get() {
-            List<ShipOwner> records = await context.ShipOwners
+        public ShipOwnerRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, settings) {
+            this.httpContext = httpContext;
+            this.mapper = mapper;
+        }
+
+        public async Task<IEnumerable<ShipOwnerListVM>> Get() {
+            var shipOwners = await context.ShipOwners
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return records;
+            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerListVM>>(shipOwners);
         }
 
-        public async Task<IEnumerable<ShipOwner>> GetActiveForDropdown() {
-            List<ShipOwner> records = await context.ShipOwners
+        public async Task<IEnumerable<ShipOwnerActiveVM>> GetActive() {
+            var shipOwners = await context.ShipOwners
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return records;
+            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerActiveVM>>(shipOwners);
         }
 
-        public async Task<ShipOwner> GetByIdToDelete(int id) {
-            return await context.ShipOwners.SingleOrDefaultAsync(x => x.Id == id);
+        public new async Task<ShipOwner> GetById(int id) {
+            return await context.ShipOwners
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<ShipOwnerWriteDto> AttachUserIdToDto(ShipOwnerWriteDto shipOwner) {
+            var user = await Identity.GetConnectedUserId(httpContext);
+            shipOwner.UserId = user.UserId;
+            return shipOwner;
         }
 
     }

@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Features.ShipOwners {
@@ -16,63 +14,93 @@ namespace API.Features.ShipOwners {
 
         #region variables
 
-        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IMapper mapper;
-        private readonly IShipOwnerRepository repo;
+        private readonly IShipOwnerRepository shipOwnerRepo;
 
         #endregion
 
-        public ShipOwnersController(IHttpContextAccessor httpContextAccessor, IMapper mapper, IShipOwnerRepository repo) {
-            this.httpContextAccessor = httpContextAccessor;
+        public ShipOwnersController(IMapper mapper, IShipOwnerRepository shipOwnerRepo) {
             this.mapper = mapper;
-            this.repo = repo;
+            this.shipOwnerRepo = shipOwnerRepo;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<ShipOwnerListDto>> Get() {
-            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerListDto>>(await repo.Get());
+        public async Task<IEnumerable<ShipOwnerListVM>> Get() {
+            return await shipOwnerRepo.Get();
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<SimpleResource>>(await repo.GetActiveForDropdown());
+        [Authorize(Roles = "admin")]
+        public async Task<IEnumerable<ShipOwnerActiveVM>> GetActive() {
+            return await shipOwnerRepo.GetActive();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ShipOwnerReadDto> GetShipOwner(int id) {
-            return mapper.Map<ShipOwner, ShipOwnerReadDto>(await repo.GetById(id));
+        public async Task<Response> GetById(int id) {
+            var x = await shipOwnerRepo.GetById(id);
+            if (x != null) {
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Info.ToString(),
+                    Message = ApiMessages.OK(),
+                    Body = mapper.Map<ShipOwner, ShipOwnerReadDto>(x)
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostShipOwnerAsync([FromBody] ShipOwnerWriteDto record) {
-            repo.Create(mapper.Map<ShipOwnerWriteDto, ShipOwner>(await AttachUserIdToRecord(record)));
-            return ApiResponses.OK();
+        public async Task<Response> Post([FromBody] ShipOwnerWriteDto record) {
+            shipOwnerRepo.Create(mapper.Map<ShipOwnerWriteDto, ShipOwner>(await shipOwnerRepo.AttachUserIdToDto(record)));
+            return new Response {
+                Code = 200,
+                Icon = Icons.Success.ToString(),
+                Message = ApiMessages.OK()
+            };
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutShipOwnerAsync([FromBody] ShipOwnerWriteDto record) {
-            repo.Update(mapper.Map<ShipOwnerWriteDto, ShipOwner>(await AttachUserIdToRecord(record)));
-            return ApiResponses.OK();
+        public async Task<Response> Put([FromBody] ShipOwnerWriteDto shipOwner) {
+            var x = await shipOwnerRepo.GetById(shipOwner.Id);
+            if (x != null) {
+                shipOwnerRepo.Update(mapper.Map<ShipOwnerWriteDto, ShipOwner>(await shipOwnerRepo.AttachUserIdToDto(shipOwner)));
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> DeleteShipOwner([FromRoute] int id) {
-            repo.Delete(await repo.GetByIdToDelete(id));
-            return ApiResponses.OK();
-        }
-
-        private async Task<ShipOwnerWriteDto> AttachUserIdToRecord(ShipOwnerWriteDto record) {
-            var user = await Identity.GetConnectedUserId(httpContextAccessor);
-            record.UserId = user.UserId;
-            return record;
+        public async Task<Response> Delete([FromRoute] int id) {
+            var x = await shipOwnerRepo.GetById(id);
+            if (x != null) {
+                shipOwnerRepo.Delete(x);
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
     }
