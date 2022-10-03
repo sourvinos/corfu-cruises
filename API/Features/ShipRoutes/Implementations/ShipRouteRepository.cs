@@ -33,6 +33,7 @@ namespace API.Features.ShipRoutes {
             var shipRoutes = await context.ShipRoutes
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
+                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<ShipRouteActiveVM>>(shipRoutes);
         }
