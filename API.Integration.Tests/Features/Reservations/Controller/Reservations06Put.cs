@@ -30,33 +30,33 @@ namespace API.Integration.Tests.Reservations {
         [Theory]
         [ClassData(typeof(ActiveAdminsCanUpdateWhenValid))]
         public async Task Unauthorized_Not_Logged_In(TestUpdateReservation record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url + "/" + record.ReservationId.ToString(), _actionVerb, "", "", record);
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "", "", record);
         }
 
         [Theory]
         [ClassData(typeof(ActiveAdminsCanUpdateWhenValid))]
         public async Task Unauthorized_Invalid_Credentials(TestUpdateReservation record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url + "/" + record.ReservationId.ToString(), _actionVerb, "user-does-not-exist", "not-a-valid-password", record);
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "user-does-not-exist", "not-a-valid-password", record);
         }
 
         [Theory]
         [ClassData(typeof(ActiveSimpleUsersCanNotUpdate))]
         public async Task Active_Simple_Users_Can_Not_Update(TestUpdateReservation record) {
-            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url + "/" + record.ReservationId.ToString(), _actionVerb, "simpleuser", "1234567890", record);
+            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]
         [ClassData(typeof(ActiveAdminsCanNotUpdateWhenInvalid))]
         public async Task Active_Admins_Can_Not_Update_When_Invalid(TestUpdateReservation record) {
-            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url + "/" + record.ReservationId.ToString(), _actionVerb, "john", "ec11fc8c16da", record);
+            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]
         [ClassData(typeof(ActiveAdminsCanUpdateWhenValid))]
         public async Task Active_Admins_Can_Update_When_Valid(TestUpdateReservation record) {
-            await RecordSaved.Action(_httpClient, _baseUrl, _url + "/" + record.ReservationId.ToString(), _actionVerb, "john", "ec11fc8c16da", record);
+            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
         }
 
     }

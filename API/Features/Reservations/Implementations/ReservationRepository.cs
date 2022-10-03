@@ -17,13 +17,13 @@ namespace API.Features.Reservations {
 
     public class ReservationRepository : Repository<Reservation>, IReservationRepository {
 
-        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
         private readonly TestingEnvironment testingEnvironment;
         private readonly UserManager<UserExtended> userManager;
 
-        public ReservationRepository(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, IOptions<TestingEnvironment> testingEnvironment, UserManager<UserExtended> userManager) : base(context, testingEnvironment) {
-            this.httpContextAccessor = httpContextAccessor;
+        public ReservationRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> testingEnvironment, UserManager<UserExtended> userManager) : base(context, testingEnvironment) {
+            this.httpContext = httpContext;
             this.mapper = mapper;
             this.testingEnvironment = testingEnvironment.Value;
             this.userManager = userManager;
@@ -31,10 +31,10 @@ namespace API.Features.Reservations {
 
         public async Task<ReservationMappedGroupVM<ReservationMappedListVM>> GetByDate(string date) {
             IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
-            if (await Identity.IsUserAdmin(httpContextAccessor)) {
+            if (await Identity.IsUserAdmin(httpContext)) {
                 reservations = GetReservationsFromAllUsersByDate(date);
             } else {
-                var simpleUser = await Identity.GetConnectedUserId(httpContextAccessor);
+                var simpleUser = await Identity.GetConnectedUserId(httpContext);
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
                 reservations = GetReservationsForLinkedCustomer(date, (int)connectedUserDetails.CustomerId);
             }
@@ -47,11 +47,11 @@ namespace API.Features.Reservations {
 
         public async Task<ReservationMappedGroupVM<ReservationMappedListVM>> GetByRefNo(string refNo) {
             IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
-            var connectedUser = await Identity.GetConnectedUserId(httpContextAccessor);
-            if (await Identity.IsUserAdmin(httpContextAccessor)) {
+            var connectedUser = await Identity.GetConnectedUserId(httpContext);
+            if (await Identity.IsUserAdmin(httpContext)) {
                 reservations = GetReservationsFromAllUsersByRefNo(refNo);
             } else {
-                var simpleUser = await Identity.GetConnectedUserId(httpContextAccessor);
+                var simpleUser = await Identity.GetConnectedUserId(httpContext);
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
                 reservations = GetReservationsFromLinkedCustomerbyRefNo(refNo, (int)connectedUserDetails.CustomerId);
             }
@@ -74,31 +74,30 @@ namespace API.Features.Reservations {
             };
         }
 
-        public async Task<Reservation> GetById(string reservationId) {
-            var record = await context.Reservations
-                .Include(x => x.Customer)
-                .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
-                .Include(x => x.Destination)
-                .Include(x => x.Driver)
-                .Include(x => x.Ship)
-                .Include(x => x.User)
-                .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
-                .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
-                .Include(x => x.Passengers).ThenInclude(x => x.Gender)
-                .AsNoTracking()
-                .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId);
-            return record;
-        }
-
-        public async Task<Reservation> IsFound(Guid reservationId, bool trackChanges) {
-            return await FindByCondition(x => x.ReservationId.Equals(reservationId), trackChanges).SingleOrDefaultAsync();
+        public async Task<Reservation> GetById(string reservationId, bool includeTables) {
+            return includeTables
+                ? await context.Reservations
+                    .Include(x => x.Customer)
+                    .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
+                    .Include(x => x.Destination)
+                    .Include(x => x.Driver)
+                    .Include(x => x.Ship)
+                    .Include(x => x.User)
+                    .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
+                    .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
+                    .Include(x => x.Passengers).ThenInclude(x => x.Gender)
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId)
+                : await context.Reservations
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId);
         }
 
         public async Task Update(string id, Reservation updatedRecord) {
             var strategy = context.Database.CreateExecutionStrategy();
             await strategy.Execute(async () => {
                 using var transaction = context.Database.BeginTransaction();
-                if (await Identity.IsUserAdmin(httpContextAccessor)) {
+                if (await Identity.IsUserAdmin(httpContext)) {
                     await UpdateReservation(updatedRecord);
                 }
                 await RemovePassengers(GetPassengersForReservation(id));
@@ -115,10 +114,10 @@ namespace API.Features.Reservations {
             var strategy = context.Database.CreateExecutionStrategy();
             strategy.Execute(() => {
                 using var transaction = context.Database.BeginTransaction();
-                var records = context.Reservations
+                var reservations = context.Reservations
                     .Where(x => ids.Contains(x.ReservationId.ToString()))
                     .ToList();
-                records.ForEach(a => a.DriverId = driverId);
+                reservations.ForEach(a => a.DriverId = driverId);
                 context.SaveChanges();
                 if (testingEnvironment.IsTesting) {
                     transaction.Dispose();
@@ -132,10 +131,10 @@ namespace API.Features.Reservations {
             var strategy = context.Database.CreateExecutionStrategy();
             strategy.Execute(() => {
                 using var transaction = context.Database.BeginTransaction();
-                var records = context.Reservations
+                var reservations = context.Reservations
                     .Where(x => ids.Contains(x.ReservationId.ToString()))
                     .ToList();
-                records.ForEach(a => a.ShipId = shipId);
+                reservations.ForEach(a => a.ShipId = shipId);
                 context.SaveChanges();
                 if (testingEnvironment.IsTesting) {
                     transaction.Dispose();
@@ -145,8 +144,14 @@ namespace API.Features.Reservations {
             });
         }
 
-        public async Task<string> AssignRefNoToNewReservation(ReservationWriteDto record) {
-            return await GetDestinationAbbreviation(record) + await IncrementRefNoByOne();
+        public async Task<string> AssignRefNoToNewReservation(ReservationWriteDto reservation) {
+            return await GetDestinationAbbreviation(reservation) + await IncrementRefNoByOne();
+        }
+
+        public async Task<ReservationWriteDto> AttachUserIdToDto(ReservationWriteDto reservation) {
+            var user = await Identity.GetConnectedUserId(httpContext);
+            reservation.UserId = user.UserId;
+            return reservation;
         }
 
         private IEnumerable<Passenger> GetPassengersForReservation(string id) {
