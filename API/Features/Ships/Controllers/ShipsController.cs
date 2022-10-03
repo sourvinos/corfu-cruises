@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Features.Ships {
@@ -16,15 +14,13 @@ namespace API.Features.Ships {
 
         #region variables
 
-        private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
         private readonly IShipRepository shipRepo;
         private readonly IShipValidation shipValidation;
 
         #endregion
 
-        public ShipsController(IHttpContextAccessor httpContext, IMapper mapper, IShipRepository shipRepo, IShipValidation shipValidation) {
-            this.httpContext = httpContext;
+        public ShipsController(IMapper mapper, IShipRepository shipRepo, IShipValidation shipValidation) {
             this.mapper = mapper;
             this.shipRepo = shipRepo;
             this.shipValidation = shipValidation;
@@ -32,20 +28,20 @@ namespace API.Features.Ships {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<SimpleResource>> Get() {
+        public async Task<IEnumerable<ShipListVM>> Get() {
             return await shipRepo.Get();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActive() {
+        public async Task<IEnumerable<ShipActiveVM>> GetActive() {
             return await shipRepo.GetActive();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> GetById(int id) {
-            var x = await shipRepo.GetById(id, false);
+            var x = await shipRepo.GetById(id, true);
             if (x != null) {
                 return new Response {
                     Code = 200,
@@ -66,8 +62,7 @@ namespace API.Features.Ships {
         public async Task<Response> Post([FromBody] ShipWriteDto ship) {
             var x = shipValidation.IsValid(ship);
             if (x == 200) {
-                await AttachUserIdToRecord(ship);
-                shipRepo.Create(mapper.Map<ShipWriteDto, Ship>(ship));
+                shipRepo.Create(mapper.Map<ShipWriteDto, Ship>(await shipRepo.AttachUserIdToDto(ship)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -80,7 +75,7 @@ namespace API.Features.Ships {
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> PutShip([FromBody] ShipWriteDto ship) {
@@ -88,8 +83,7 @@ namespace API.Features.Ships {
             if (x != null) {
                 var z = shipValidation.IsValid(ship);
                 if (z == 200) {
-                    await AttachUserIdToRecord(ship);
-                    shipRepo.Update(mapper.Map<ShipWriteDto, Ship>(await AttachUserIdToRecord(ship)));
+                    shipRepo.Update(mapper.Map<ShipWriteDto, Ship>(await shipRepo.AttachUserIdToDto(ship)));
                     return new Response {
                         Code = 200,
                         Icon = Icons.Success.ToString(),
@@ -110,7 +104,7 @@ namespace API.Features.Ships {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> DeleteShip([FromRoute] int id) {
-            var x = await shipRepo.GetById(id, true);
+            var x = await shipRepo.GetById(id, false);
             if (x != null) {
                 shipRepo.Delete(x);
                 return new Response {
@@ -123,12 +117,6 @@ namespace API.Features.Ships {
                     ResponseCode = 404
                 };
             }
-        }
-
-        private async Task<ShipWriteDto> AttachUserIdToRecord(ShipWriteDto record) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            record.UserId = user.UserId;
-            return record;
         }
 
     }

@@ -4,7 +4,7 @@ namespace API.Features.Ships {
 
     public interface IShipValidation : IRepository<Ship> {
 
-        int IsValid(ShipWriteDto record);
+        int IsValid(ShipWriteDto ship);
 
     }
 

@@ -9,17 +9,17 @@ namespace API.Features.Ships {
 
         public ShipValidation(AppDbContext appDbContext, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) { }
 
-        public int IsValid(ShipWriteDto record) {
+        public int IsValid(ShipWriteDto ship) {
             return true switch {
-                var x when x == !IsValidShipOwner(record) => 449,
+                var x when x == !IsValidShipOwner(ship) => 449,
                 _ => 200,
             };
         }
 
-        private bool IsValidShipOwner(ShipWriteDto record) {
-            return record.Id == 0 
-                ? context.ShipOwners.SingleOrDefault(x => x.Id == record.ShipOwnerId && x.IsActive) != null 
-                : context.ShipOwners.SingleOrDefault(x => x.Id == record.ShipOwnerId) != null;
+        private bool IsValidShipOwner(ShipWriteDto ship) {
+            return ship.Id == 0 
+                ? context.ShipOwners.SingleOrDefault(x => x.Id == ship.ShipOwnerId && x.IsActive) != null 
+                : context.ShipOwners.SingleOrDefault(x => x.Id == ship.ShipOwnerId) != null;
         }
 
     }
