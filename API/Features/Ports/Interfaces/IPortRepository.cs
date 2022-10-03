@@ -8,7 +8,7 @@ namespace API.Features.Ports {
 
         Task<IEnumerable<PortListVM>> Get();
         Task<IEnumerable<PortActiveVM>> GetActive();
-        Task<Port> GetById(int id, bool trackChanges);
+        new Task<Port> GetById(int id);
         Task<PortWriteDto> AttachUserIdToDto(PortWriteDto port);
 
     }

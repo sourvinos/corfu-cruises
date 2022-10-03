@@ -41,7 +41,7 @@ namespace API.Features.Ports {
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> GetById(int id) {
-            var x = await portRepo.GetById(id, false);
+            var x = await portRepo.GetById(id);
             if (x != null) {
                 return new Response {
                     Code = 200,
@@ -79,7 +79,7 @@ namespace API.Features.Ports {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] PortWriteDto port) {
-            var x = await portRepo.GetById(port.Id, false);
+            var x = await portRepo.GetById(port.Id);
             if (x != null) {
                 var z = portValidation.IsValid(port);
                 if (z == 200) {
@@ -104,7 +104,7 @@ namespace API.Features.Ports {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var x = await portRepo.GetById(id, true);
+            var x = await portRepo.GetById(id);
             if (x != null) {
                 portRepo.Delete(x);
                 return new Response {

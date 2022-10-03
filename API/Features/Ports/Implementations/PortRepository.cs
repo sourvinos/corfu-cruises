@@ -30,16 +30,18 @@ namespace API.Features.Ports {
         }
 
         public async Task<IEnumerable<PortActiveVM>> GetActive() {
-            var activePorts = await context.Ports
+            var ports = await context.Ports
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<Port>, IEnumerable<PortActiveVM>>(activePorts);
+            return mapper.Map<IEnumerable<Port>, IEnumerable<PortActiveVM>>(ports);
         }
 
-        public async Task<Port> GetById(int id, bool includeTables) {
-            return await context.Ports.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
+        public new async Task<Port> GetById(int id) {
+            return await context.Ports
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<PortWriteDto> AttachUserIdToDto(PortWriteDto port) {

@@ -17,7 +17,7 @@ namespace API.Integration.Tests.Ports {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "put";
         private readonly string _baseUrl;
-        private readonly string _url = "/ports/1";
+        private readonly string _url = "/ports";
         private readonly string _notFoundUrl = "/ports/999";
 
         #endregion

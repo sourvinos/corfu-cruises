@@ -19,7 +19,6 @@ namespace API.Integration.Tests.Ports {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly int _expectedRecordCount = 5;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
         private readonly string _url = "/ports";
@@ -57,7 +56,7 @@ namespace API.Integration.Tests.Ports {
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<List<PortListVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(_expectedRecordCount, records.Count);
+            Assert.Equal(5, records.Count);
         }
 
     }
