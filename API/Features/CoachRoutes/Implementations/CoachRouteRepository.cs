@@ -22,7 +22,7 @@ namespace API.Features.CoachRoutes {
         }
 
         public async Task<IEnumerable<CoachRouteListVM>> Get() {
-            List<CoachRoute> coachRoutes = await context.CoachRoutes
+            var coachRoutes = await context.CoachRoutes
                 .OrderBy(x => x.Description)
                 .AsNoTracking()
                 .ToListAsync();
@@ -30,12 +30,12 @@ namespace API.Features.CoachRoutes {
         }
 
         public async Task<IEnumerable<CoachRouteActiveVM>> GetActive() {
-            List<CoachRoute> records = await context.CoachRoutes
+            var coachRoutes = await context.CoachRoutes
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Abbreviation)
                 .AsNoTracking()
                 .ToListAsync();
-            return mapper.Map<IEnumerable<CoachRoute>, IEnumerable<CoachRouteActiveVM>>(records);
+            return mapper.Map<IEnumerable<CoachRoute>, IEnumerable<CoachRouteActiveVM>>(coachRoutes);
         }
 
         public async Task<CoachRoute> GetById(int id, bool includeTables) {
