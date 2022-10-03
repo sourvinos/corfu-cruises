@@ -22,7 +22,7 @@ namespace API.Features.PickupPoints {
         }
 
         public async Task<IEnumerable<PickupPointListVM>> Get() {
-            List<PickupPoint> pickupPoints = await context.PickupPoints
+            var pickupPoints = await context.PickupPoints
                 .Include(x => x.CoachRoute)
                 .OrderBy(x => x.CoachRoute.Abbreviation).ThenBy(x => x.Time).ThenBy(x => x.Description)
                 .AsNoTracking()
@@ -31,9 +31,8 @@ namespace API.Features.PickupPoints {
         }
 
         public async Task<IEnumerable<PickupPointActiveVM>> GetActive() {
-            List<PickupPoint> pickupPoints = await context.PickupPoints
-                .Include(x => x.CoachRoute)
-                    .ThenInclude(x => x.Port)
+            var pickupPoints = await context.PickupPoints
+                .Include(x => x.CoachRoute).ThenInclude(x => x.Port)
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Time).ThenBy(x => x.Description)
                 .AsNoTracking()
