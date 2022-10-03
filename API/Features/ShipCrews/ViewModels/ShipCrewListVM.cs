@@ -1,6 +1,6 @@
 namespace API.Features.ShipCrews {
 
-    public class ShipCrewListDto {
+    public class ShipCrewListVM {
 
         public int Id { get; set; }
         public string ShipDescription { get; set; }

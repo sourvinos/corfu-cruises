@@ -6,11 +6,10 @@ namespace API.Features.ShipCrews {
 
     public interface IShipCrewRepository : IRepository<ShipCrew> {
 
-        Task<IEnumerable<ShipCrew>> Get();
-        Task<IEnumerable<ShipCrew>> GetActiveForDropdown();
-        new Task<ShipCrew> GetById(int id);
-        Task<ShipCrew> GetByIdToDelete(int id);
-        int IsValid(ShipCrewWriteDto record);
+        Task<IEnumerable<ShipCrewListVM>> Get();
+        Task<IEnumerable<ShipCrewActiveVM>> GetActive();
+        Task<ShipCrew> GetById(int id, bool includeTables);
+        Task<ShipCrewWriteDto> AttachUserIdToDto(ShipCrewWriteDto shipCrew);
 
     }
 

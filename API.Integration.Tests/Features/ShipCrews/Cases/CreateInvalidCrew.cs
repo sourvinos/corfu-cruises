@@ -20,7 +20,7 @@ namespace API.IntegrationTests.ShipCrews {
         private static object[] Gender_Must_Exist() {
             return new object[] {
                 new TestCrew {
-                    StatusCode = 450,
+                    StatusCode = 457,
                     GenderId = 5,
                     NationalityId = 1,
                     OccupantId = 1,
@@ -35,7 +35,7 @@ namespace API.IntegrationTests.ShipCrews {
         private static object[] Gender_Must_Be_Active() {
             return new object[] {
                 new TestCrew {
-                    StatusCode = 450,
+                    StatusCode = 457,
                     GenderId = 3,
                     NationalityId = 1,
                     OccupantId = 1,
@@ -50,7 +50,7 @@ namespace API.IntegrationTests.ShipCrews {
         private static object[] Nationality_Must_Exist() {
             return new object[] {
                 new TestCrew {
-                    StatusCode = 451,
+                    StatusCode = 456,
                     GenderId = 1,
                     NationalityId = 999,
                     ShipId = 6,
@@ -64,7 +64,7 @@ namespace API.IntegrationTests.ShipCrews {
         private static object[] Nationality_Must_Be_Active() {
             return new object[] {
                 new TestCrew {
-                    StatusCode = 451,
+                    StatusCode = 456,
                     GenderId = 1,
                     NationalityId = 3,
                     ShipId = 6,
@@ -78,7 +78,7 @@ namespace API.IntegrationTests.ShipCrews {
         private static object[] Ship_Must_Exist() {
             return new object[] {
                 new TestCrew {
-                    StatusCode = 452,
+                    StatusCode = 454,
                     GenderId = 1,
                     NationalityId = 1,
                     ShipId = 99,
@@ -92,7 +92,7 @@ namespace API.IntegrationTests.ShipCrews {
         private static object[] Ship_Must_Be_Active() {
             return new object[] {
                 new TestCrew {
-                    StatusCode = 452,
+                    StatusCode = 454,
                     GenderId = 1,
                     NationalityId = 1,
                     ShipId = 8,

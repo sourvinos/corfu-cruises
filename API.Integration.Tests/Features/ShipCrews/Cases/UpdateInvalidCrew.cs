@@ -17,8 +17,8 @@ namespace API.IntegrationTests.ShipCrews {
         private static object[] Gender_Must_Exist() {
             return new object[] {
                 new TestCrew {
-                    StatusCode = 450,
-                    Id = 1,
+                    StatusCode = 457,
+                    Id = 21,
                     GenderId = 5,
                     NationalityId = 1,
                     ShipId = 6,
@@ -32,8 +32,8 @@ namespace API.IntegrationTests.ShipCrews {
         private static object[] Nationality_Must_Exist() {
             return new object[] {
                 new TestCrew {
-                    StatusCode = 451,
-                    Id = 1,
+                    StatusCode = 456,
+                    Id = 21,
                     GenderId = 1,
                     NationalityId = 999,
                     ShipId = 6,
@@ -47,8 +47,8 @@ namespace API.IntegrationTests.ShipCrews {
         private static object[] Ship_Must_Exist() {
             return new object[] {
                 new TestCrew {
-                    StatusCode = 452,
-                    Id = 1,
+                    StatusCode = 454,
+                    Id = 21,
                     GenderId = 1,
                     NationalityId = 1,
                     ShipId = 99,

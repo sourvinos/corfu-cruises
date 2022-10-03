@@ -54,8 +54,9 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IPickupPointValidation, PickupPointValidation>();
             services.AddTransient<IPortValidation, PortValidation>();
             services.AddTransient<IRegistrarValidation, RegistrarValidation>();
-            services.AddTransient<IShipValidation, ShipValidation>();
             services.AddTransient<IReservationValidation, ReservationValidation>();
+            services.AddTransient<IShipCrewValidation, ShipCrewValidation>();
+            services.AddTransient<IShipValidation, ShipValidation>();
             // Misc
             services.AddTransient<IReservationAvailability, ReservationAvailability>();
         }

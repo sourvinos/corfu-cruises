@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Features.ShipCrews {
@@ -16,88 +14,109 @@ namespace API.Features.ShipCrews {
 
         #region variables
 
-        private readonly IShipCrewRepository repo;
-        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IMapper mapper;
+        private readonly IShipCrewRepository shipCrewRepo;
+        private readonly IShipCrewValidation shipCrewValidation;
 
         #endregion
 
-        public ShipCrewsController(IShipCrewRepository repo, IHttpContextAccessor httpContextAccessor, IMapper mapper) {
-            this.httpContextAccessor = httpContextAccessor;
+        public ShipCrewsController(IMapper mapper, IShipCrewRepository shipCrewRepo, IShipCrewValidation shipCrewValidation) {
             this.mapper = mapper;
-            this.repo = repo;
+            this.shipCrewRepo = shipCrewRepo;
+            this.shipCrewValidation = shipCrewValidation;
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<ShipCrewListDto>> Get() {
-            return mapper.Map<IEnumerable<ShipCrew>, IEnumerable<ShipCrewListDto>>(await repo.Get());
+        public async Task<IEnumerable<ShipCrewListVM>> Get() {
+            return await shipCrewRepo.Get();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<SimpleResource>> GetActiveForDropdown() {
-            return mapper.Map<IEnumerable<ShipCrew>, IEnumerable<SimpleResource>>(await repo.GetActiveForDropdown());
+        public async Task<IEnumerable<ShipCrewActiveVM>> GetActive() {
+            return await shipCrewRepo.GetActive();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ShipCrewReadDto> GetCrew(int id) {
-            return mapper.Map<ShipCrew, ShipCrewReadDto>(await repo.GetById(id));
+        public async Task<Response> GetById(int id) {
+            var x = await shipCrewRepo.GetById(id, true);
+            if (x != null) {
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Info.ToString(),
+                    Message = ApiMessages.OK(),
+                    Body = mapper.Map<ShipCrew, ShipCrewReadDto>(x)
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostAsync([FromBody] ShipCrewWriteDto record) {
-            var response = repo.IsValid(record);
-            if (response == 200) {
-                repo.Create(mapper.Map<ShipCrewWriteDto, ShipCrew>(await AttachUserIdToRecord(AttachOccupantIdToRecord(record))));
-                return ApiResponses.OK();
+        public async Task<Response> Post([FromBody] ShipCrewWriteDto shipCrew) {
+            var x = shipCrewValidation.IsValid(shipCrew);
+            if (x == 200) {
+                shipCrewRepo.Create(mapper.Map<ShipCrewWriteDto, ShipCrew>(await shipCrewRepo.AttachUserIdToDto(shipCrew)));
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
             } else {
-                return GetErrorMessage(response);
+                throw new CustomException() {
+                    ResponseCode = x
+                };
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutAsync([FromBody] ShipCrewWriteDto record) {
-            var response = repo.IsValid(record);
-            if (response == 200) {
-                repo.Update(mapper.Map<ShipCrewWriteDto, ShipCrew>(await AttachUserIdToRecord(AttachOccupantIdToRecord(record))));
-                return ApiResponses.OK();
+        public async Task<Response> Put([FromBody] ShipCrewWriteDto shipCrew) {
+            var x = await shipCrewRepo.GetById(shipCrew.Id, false);
+            if (x != null) {
+                var z = shipCrewValidation.IsValid(shipCrew);
+                if (z == 200) {
+                    shipCrewRepo.Update(mapper.Map<ShipCrewWriteDto, ShipCrew>(await shipCrewRepo.AttachUserIdToDto(shipCrew)));
+                    return new Response {
+                        Code = 200,
+                        Icon = Icons.Success.ToString(),
+                        Message = ApiMessages.OK()
+                    };
+                } else {
+                    throw new CustomException() {
+                        ResponseCode = z
+                    };
+                }
             } else {
-                return GetErrorMessage(response);
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
             }
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> DeleteCrew([FromRoute] int id) {
-            repo.Delete(await repo.GetByIdToDelete(id));
-            return ApiResponses.OK();
-        }
-
-        private async Task<ShipCrewWriteDto> AttachUserIdToRecord(ShipCrewWriteDto record) {
-            var user = await Identity.GetConnectedUserId(httpContextAccessor);
-            record.UserId = user.UserId;
-            return record;
-        }
-
-        private static ShipCrewWriteDto AttachOccupantIdToRecord(ShipCrewWriteDto record) {
-            record.OccupantId = 1;
-            return record;
-        }
-
-        private Response GetErrorMessage(int errorCode) {
-            httpContextAccessor.HttpContext.Response.StatusCode = errorCode;
-            return errorCode switch {
-                450 => new Response { Code = 450, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Gender") },
-                451 => new Response { Code = 451, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Nationality") },
-                452 => new Response { Code = 452, Icon = Icons.Error.ToString(), Message = ApiMessages.FKNotFoundOrInactive("Ship") },
-                _ => new Response { Message = ApiMessages.RecordNotSaved() }
-            };
+        public async Task<Response> Delete([FromRoute] int id) {
+            var x = await shipCrewRepo.GetById(id, false);
+            if (x != null) {
+                shipCrewRepo.Delete(x);
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
     }
