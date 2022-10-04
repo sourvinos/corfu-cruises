@@ -14,7 +14,7 @@ namespace API.Features.Schedules {
             entity.Property(x => x.UserId).HasMaxLength(36).IsRequired(true);
             // Fields
             entity.Property(x => x.Date).HasColumnType("date").HasMaxLength(10).IsRequired(true);
-            entity.Property(x => x.MaxPassengers).HasDefaultValue(0);
+            entity.Property(x => x.MaxPax).HasDefaultValue(0);
             entity.Property(x => x.DepartureTime).HasMaxLength(5).IsRequired(true);
             entity.Property(x => x.IsActive);
             // FK Constraints

@@ -13,6 +13,7 @@ namespace API.Infrastructure.Interfaces {
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges);
         Task<T> GetById(int id);
         void Create(T entity);
+        void CreateList(List<T> entities);
         void Update(T entity);
         void Delete(T entity);
 

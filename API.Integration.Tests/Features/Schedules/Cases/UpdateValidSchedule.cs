@@ -15,11 +15,12 @@ namespace API.Integration.Tests.Schedules {
             return new object[] {
                 new UpdateTestSchedule {
                     StatusCode = 200,
-                    Id = 1,
+                    Id = 677,
                     DestinationId = 1,
                     PortId = 1,
-                    Date = "2022-03-01",
-                    MaxPassengers = 185
+                    Date = "2022-12-04",
+                    DepartureTime = "08:00",
+                    MaxPax = 185
                 }
             };
         }

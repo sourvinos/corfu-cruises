@@ -8,7 +8,7 @@ using Xunit;
 namespace API.Integration.Tests.Schedules {
 
     [Collection("Sequence")]
-    public class Schedules06Delete : IClassFixture<AppSettingsFixture> {
+    public class Schedules05Delete : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -18,11 +18,11 @@ namespace API.Integration.Tests.Schedules {
         private readonly string _actionVerb = "delete";
         private readonly string _baseUrl;
         private readonly string _notFoundUrl = "/schedules/9999";
-        private readonly string _url = "/schedules/1";
+        private readonly string _url = "/schedules/677";
 
         #endregion
 
-        public Schedules06Delete(AppSettingsFixture appsettings) {
+        public Schedules05Delete(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;

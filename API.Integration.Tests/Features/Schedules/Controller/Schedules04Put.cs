@@ -8,66 +8,66 @@ using Xunit;
 namespace API.Integration.Tests.Schedules {
 
     [Collection("Sequence")]
-    public class Schedules04Post : IClassFixture<AppSettingsFixture> {
+    public class Schedules04Put : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly string _actionVerb = "post";
+        private readonly string _actionVerb = "put";
         private readonly string _baseUrl;
         private readonly string _url = "/schedules";
 
         #endregion
 
-        public Schedules04Post(AppSettingsFixture appsettings) {
+        public Schedules04Put(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
         }
 
         [Theory]
-        [ClassData(typeof(CreateValidSchedule))]
-        public async Task Unauthorized_Not_Logged_In(NewTestSchedule record) {
+        [ClassData(typeof(UpdateValidSchedule))]
+        public async Task Unauthorized_Not_Logged_In(UpdateTestSchedule record) {
             await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "", "", record);
         }
 
         [Theory]
-        [ClassData(typeof(CreateValidSchedule))]
-        public async Task Unauthorized_Invalid_Credentials(NewTestSchedule record) {
+        [ClassData(typeof(UpdateValidSchedule))]
+        public async Task Unauthorized_Invalid_Credentials(UpdateTestSchedule record) {
             await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "user-does-not-exist", "not-a-valid-password", record);
         }
 
         [Theory]
-        [ClassData(typeof(CreateValidSchedule))]
-        public async Task Unauthorized_Inactive_Simple_Users(NewTestSchedule record) {
+        [ClassData(typeof(UpdateValidSchedule))]
+        public async Task Unauthorized_Inactive_Simple_Users(UpdateTestSchedule record) {
             await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "marios", "2b24a7368e19", record);
         }
 
         [Theory]
-        [ClassData(typeof(CreateValidSchedule))]
-        public async Task Unauthorized_Inactive_Admins(NewTestSchedule record) {
+        [ClassData(typeof(UpdateValidSchedule))]
+        public async Task Unauthorized_Inactive_Admins(UpdateTestSchedule record) {
             await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "nikoleta", "8dd193508e05", record);
         }
 
         [Theory]
-        [ClassData(typeof(CreateValidSchedule))]
-        public async Task Active_Simple_Users_Can_Not_Create(NewTestSchedule record) {
+        [ClassData(typeof(UpdateValidSchedule))]
+        public async Task Active_Simple_Users_Can_Not_Update(UpdateTestSchedule record) {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
         [Theory]
-        [ClassData(typeof(CreateInvalidSchedule))]
-        public async Task Active_Admins_Can_Not_Create_When_Invalid(NewTestSchedule record) {
-            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record.TestScheduleBody);
+        [ClassData(typeof(UpdateInvalidSchedule))]
+        public async Task Active_Admins_Can_Not_Update_When_Invalid(UpdateTestSchedule record) {
+            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]
-        [ClassData(typeof(CreateValidSchedule))]
-        public async Task Active_Admins_Can_Create_When_Valid(NewTestSchedule record) {
-            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record.TestScheduleBody);
+        [ClassData(typeof(UpdateValidSchedule))]
+        public async Task Active_Admins_Can_Update_When_Valid(UpdateTestSchedule record) {
+            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
         }
 
     }

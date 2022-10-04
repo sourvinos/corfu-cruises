@@ -14,7 +14,7 @@ namespace API.Features.Schedules {
         public int PortId { get; set; }
         // Fields
         public DateTime Date { get; set; }
-        public int MaxPassengers { get; set; }
+        public int MaxPax { get; set; }
         public string DepartureTime { get; set; }
         public bool IsActive { get; set; }
         // FKs

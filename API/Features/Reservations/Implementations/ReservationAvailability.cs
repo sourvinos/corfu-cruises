@@ -34,7 +34,7 @@ namespace API.Features.Reservations {
                     PortId = x.PortId,
                     PortAbbreviation = x.Port.Abbreviation,
                     PortStopOrder = x.Port.StopOrder,
-                    MaxPax = x.MaxPassengers
+                    MaxPax = x.MaxPax
                 });
             return response.ToList();
         }

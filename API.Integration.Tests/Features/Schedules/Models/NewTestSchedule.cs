@@ -18,7 +18,8 @@ namespace API.Integration.Tests.Schedules {
         public int DestinationId { get; set; }
         public int PortId { get; set; }
         public string Date { get; set; }
-        public int MaxPassengers { get; set; }
+        public string DepartureTime { get; set; }
+        public int MaxPax { get; set; }
 
     }
 

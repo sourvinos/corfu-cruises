@@ -47,6 +47,16 @@ namespace API.Infrastructure.Implementations {
             DisposeOrCommit(transaction);
         }
 
+        public void CreateList(List<T> entities) {
+            var strategy = context.Database.CreateExecutionStrategy();
+            strategy.Execute(() => {
+                using var transaction = context.Database.BeginTransaction();
+                context.AddRange(entities);
+                Save();
+                DisposeOrCommit(transaction);
+            });
+        }
+
         public void Update(T entity) {
             using var transaction = context.Database.BeginTransaction();
             context.Entry(entity).State = EntityState.Modified;

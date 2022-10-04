@@ -8,7 +8,7 @@ using Xunit;
 namespace API.Integration.Tests.Schedules {
 
     [Collection("Sequence")]
-    public class Schedules03GetById : IClassFixture<AppSettingsFixture> {
+    public class Schedules02GetById : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -17,12 +17,12 @@ namespace API.Integration.Tests.Schedules {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _notFoundUrl = "/schedules/999";
-        private readonly string _url = "/schedules/1";
+        private readonly string _notFoundUrl = "/schedules/9999";
+        private readonly string _url = "/schedules/677";
 
         #endregion
 
-        public Schedules03GetById(AppSettingsFixture appsettings) {
+        public Schedules02GetById(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;

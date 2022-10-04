@@ -8,7 +8,7 @@ namespace API.Features.Schedules {
         public ScheduleMappingProfile() {
             CreateMap<Schedule, ScheduleReadDto>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Date)));
-            CreateMap<Schedule, ScheduleListViewModel>()
+            CreateMap<Schedule, ScheduleListVM>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Date)));
             CreateMap<ScheduleWriteDto, Schedule>();
         }

@@ -47,6 +47,7 @@ namespace API.Infrastructure.Middleware {
                 408 => ApiMessages.InvalidCoachRoute(),
                 409 => ApiMessages.DuplicateRecord(),
                 410 => ApiMessages.InvalidDateDestinationOrPort(),
+                411 => ApiMessages.InvalidPort(),
                 431 => ApiMessages.SimpleUserCanNotAddReservationAfterDepartureTime(),
                 433 => ApiMessages.PortHasNoVacancy(),
                 449 => ApiMessages.InvalidShipOwner(),

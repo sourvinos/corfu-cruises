@@ -19,13 +19,15 @@ namespace API.Integration.Tests.Schedules {
                             DestinationId = 1,
                             PortId = 1,
                             Date = "2022-02-01",
-                            MaxPassengers = 0
+                            DepartureTime = "08:00",
+                            MaxPax = 0
                         },
                         new TestScheduleBody {
                             DestinationId = 1,
                             PortId = 1,
                             Date = "2021-10-02",
-                            MaxPassengers = 185
+                            DepartureTime = "08:00",
+                            MaxPax = 185
                         }
                     }
                 }

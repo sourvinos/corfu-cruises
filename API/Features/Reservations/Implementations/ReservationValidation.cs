@@ -54,6 +54,18 @@ namespace API.Features.Reservations {
             return pickupPoint != null ? pickupPoint.CoachRoute.PortId : 0;
         }
 
+        public bool IsOverbooked(string date, int destinationId) {
+            int maxPassengersForAllPorts = context.Schedules
+                .AsNoTracking()
+                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
+                .Sum(x => x.MaxPax);
+            int totalPersonsFromAllPorts = context.Reservations
+                .AsNoTracking()
+                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
+                .Sum(x => x.TotalPersons);
+            return totalPersonsFromAllPorts > maxPassengersForAllPorts;
+        }
+
         public int IsValid(ReservationWriteDto record, IScheduleRepository scheduleRepo) {
             return true switch {
                 var x when x == !IsKeyUnique(record) => 409,
@@ -66,7 +78,7 @@ namespace API.Features.Reservations {
                 var x when x == !IsValidGender(record) => 457,
                 var x when x == !IsValidOccupant(record) => 458,
                 var x when x == !IsCorrectPassengerCount(record) => 455,
-                var x when x == !PortHasDepartureForDateAndDestination(scheduleRepo, record) => 410,
+                var x when x == !PortHasDepartureForDateAndDestination(record) => 410,
                 var x when x == SimpleUserCausesOverbooking(record.Date, record.ReservationId, record.DestinationId, GetPortIdFromPickupPointId(record), record.Adults + record.Kids + record.Free) => 433,
                 var x when x == SimpleUserHasNightRestrictions(record) => 459,
                 var x when x == SimpleUserCanNotAddReservationAfterDeparture(record) => 431,
@@ -74,20 +86,11 @@ namespace API.Features.Reservations {
             };
         }
 
-        public bool IsOverbooked(string date, int destinationId) {
-            int maxPassengersForAllPorts = context.Schedules
-                .AsNoTracking()
-                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
-                .Sum(x => x.MaxPassengers);
-            int totalPersonsFromAllPorts = context.Reservations
-                .AsNoTracking()
-                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
-                .Sum(x => x.TotalPersons);
-            return totalPersonsFromAllPorts > maxPassengersForAllPorts;
-        }
-
-        private bool PortHasDepartureForDateAndDestination(IScheduleRepository scheduleRepo, ReservationWriteDto record) {
-            return scheduleRepo.PortHasDepartureForDateAndDestination(record.Date, record.DestinationId, GetPortIdFromPickupPointId(record));
+        private bool PortHasDepartureForDateAndDestination(ReservationWriteDto reservation) {
+            var schedule = context.Schedules
+                .Where(x => x.Date.ToString() == reservation.Date && x.DestinationId == reservation.DestinationId && x.PortId == GetPortIdFromPickupPointId(reservation) && x.IsActive)
+                .ToList();
+            return schedule.Count != 0;
         }
 
         private bool SimpleUserCausesOverbooking(string date, Guid? reservationId, int destinationId, int portId, int reservationPersons) {

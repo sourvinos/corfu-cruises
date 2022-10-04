@@ -48,6 +48,7 @@ namespace API.Infrastructure.Helpers {
         public static string InvalidOccupant() { return "The occupant doesn't exist or is inactive."; }
         public static string InvalidPickupPoint() { return "The pickup point doesn't exist or is inactive."; }
         public static string InvalidCoachRoute() { return "The coach route doesn't exist or is inactive."; }
+        public static string InvalidPort() { return "The port doesn't exist or is inactive."; }
         public static string InvalidPassengerCount() { return "Total persons must be equal or greater than the passenger count."; }
         public static string SimpleUserNightRestrictions() { return "New reservations for the next day with transfer after 22:00 are not allowed"; }
         public static string SimpleUserCanNotAddReservationAfterDepartureTime() { return "Reservations after departure are not allowed"; }
