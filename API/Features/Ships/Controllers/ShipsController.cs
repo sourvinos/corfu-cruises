@@ -78,7 +78,7 @@ namespace API.Features.Ships {
         [HttpPut]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutShip([FromBody] ShipWriteDto ship) {
+        public async Task<Response> Put([FromBody] ShipWriteDto ship) {
             var x = await shipRepo.GetById(ship.Id, false);
             if (x != null) {
                 var z = shipValidation.IsValid(ship);
@@ -103,7 +103,7 @@ namespace API.Features.Ships {
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> DeleteShip([FromRoute] int id) {
+        public async Task<Response> Delete([FromRoute] int id) {
             var x = await shipRepo.GetById(id, false);
             if (x != null) {
                 shipRepo.Delete(x);

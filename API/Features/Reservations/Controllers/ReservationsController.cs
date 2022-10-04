@@ -79,7 +79,7 @@ namespace API.Features.Reservations {
         [HttpPost]
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PostReservation([FromBody] ReservationWriteDto reservation) {
+        public async Task<Response> Post([FromBody] ReservationWriteDto reservation) {
             var x = validReservation.IsValid(reservation, scheduleRepo);
             if (x == 200) {
                 await AssignRefNoToNewReservation(reservation);
@@ -100,7 +100,7 @@ namespace API.Features.Reservations {
         [HttpPut]
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> PutReservation([FromRoute] string id, [FromBody] ReservationWriteDto reservation) {
+        public async Task<Response> Put([FromRoute] string id, [FromBody] ReservationWriteDto reservation) {
             var x = await reservationRepo.GetById(reservation.ReservationId.ToString(), false);
             if (x != null) {
                 if (await Identity.IsUserAdmin(httpContext) || await validReservation.IsUserOwner(x.CustomerId)) {
@@ -133,7 +133,7 @@ namespace API.Features.Reservations {
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> DeleteReservation([FromRoute] string id) {
+        public async Task<Response> Delete([FromRoute] string id) {
             var x = await reservationRepo.GetById(id, false);
             if (x != null) {
                 reservationRepo.Delete(x);
