@@ -54,6 +54,7 @@ namespace API.Infrastructure.Helpers {
         public static string SimpleUserCanNotAddReservationAfterDepartureTime() { return "Reservations after departure are not allowed"; }
         public static string EmbarkedPassengerWasNotFound() { return "OK, but at least one of the passengers was not found."; }
         public static string InvalidPortOrder() { return "The stop order already exists."; }
+        public static string ScheduleNotUnique() { return "A schedule for the selected date, destination and port already exists."; }
 
         #endregion
 

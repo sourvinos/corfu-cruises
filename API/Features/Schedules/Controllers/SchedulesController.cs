@@ -95,12 +95,12 @@ namespace API.Features.Schedules {
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         [Authorize(Roles = "admin")]
-        public async Task<Response> Delete([FromRoute] int id) {
-            var x = await scheduleRepo.GetById(id, false);
+        public async Task<Response> Delete([FromQuery(Name = "id")] IEnumerable<int> ids) {
+            var x = await scheduleRepo.GetRangeByIds(ids);
             if (x != null) {
-                scheduleRepo.Delete(x);
+                scheduleRepo.DeleteRange(x);
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),

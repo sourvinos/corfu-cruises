@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Schedules {
@@ -10,10 +11,10 @@ namespace API.Features.Schedules {
 
         public ScheduleValidation(AppDbContext context, IOptions<TestingEnvironment> settings) : base(context, settings) { }
 
-        public int IsValidOnNew(List<ScheduleWriteDto> records) {
+        public int IsValidOnNew(List<ScheduleWriteDto> schedules) {
             return true switch {
-                var x when x == !IsValidDestinationOnNew(records) => 451,
-                var x when x == !IsValidPortOnNew(records) => 411,
+                var x when x == !IsValidDestinationOnNew(schedules) => 451,
+                var x when x == !IsValidPortOnNew(schedules) => 411,
                 _ => 200,
             };
         }
@@ -28,11 +29,11 @@ namespace API.Features.Schedules {
 
         private bool IsValidDestinationOnNew(List<ScheduleWriteDto> schedules) {
             if (schedules != null) {
-                bool isValid = false;
                 foreach (var schedule in schedules) {
-                    isValid = context.Destinations.SingleOrDefault(x => x.Id == schedule.DestinationId && x.IsActive) != null;
+                    if (context.Destinations
+                        .AsNoTracking()
+                        .SingleOrDefault(x => x.Id == schedule.DestinationId && x.IsActive) == null) return false;
                 }
-                return schedules.Count == 0 || isValid;
             }
             return true;
         }
@@ -43,11 +44,11 @@ namespace API.Features.Schedules {
 
         private bool IsValidPortOnNew(List<ScheduleWriteDto> schedules) {
             if (schedules != null) {
-                bool isValid = false;
                 foreach (var schedule in schedules) {
-                    isValid = context.Ports.SingleOrDefault(x => x.Id == schedule.PortId && x.IsActive) != null;
+                    if (context.Ports
+                        .AsNoTracking()
+                        .SingleOrDefault(x => x.Id == schedule.PortId && x.IsActive) == null) return false;
                 }
-                return schedules.Count == 0 || isValid;
             }
             return true;
         }

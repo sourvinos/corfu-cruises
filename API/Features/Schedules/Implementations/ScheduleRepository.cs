@@ -43,11 +43,15 @@ namespace API.Features.Schedules {
                     .SingleOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<IEnumerable<Schedule>> GetRangeByIds(IEnumerable<int> ids) {
+            return await context.Schedules
+                .Where(x => ids.Contains(x.Id))
+                .ToListAsync();
+        }
+
         public async Task<List<ScheduleWriteDto>> AttachUserIdToNewDto(List<ScheduleWriteDto> schedules) {
-            foreach (var record in schedules) {
-                var userId = await Identity.GetConnectedUserId(httpContext);
-                record.UserId = userId.UserId;
-            }
+            var userId = await Identity.GetConnectedUserId(httpContext);
+            schedules.ForEach(c => c.UserId = userId.UserId);
             return schedules;
         }
 

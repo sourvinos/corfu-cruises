@@ -8,6 +8,7 @@ namespace API.Features.Schedules {
 
         Task<IEnumerable<ScheduleListVM>> Get();
         Task<Schedule> GetById(int id, bool includeTables);
+        Task<IEnumerable<Schedule>> GetRangeByIds(IEnumerable<int> ids);
         Task<List<ScheduleWriteDto>> AttachUserIdToNewDto(List<ScheduleWriteDto> schedules);
         Task<ScheduleWriteDto> AttachUserIdToUpdateDto(ScheduleWriteDto schedule);
 
