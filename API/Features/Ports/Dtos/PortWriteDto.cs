@@ -1,14 +1,15 @@
-﻿namespace API.Features.Ports {
+﻿using API.Infrastructure.Classes;
 
-    public class PortWriteDto {
+namespace API.Features.Ports {
+
+    public class PortWriteDto : IEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }
         public string Abbreviation { get; set; }
         public int StopOrder { get; set; }
         public bool IsActive { get; set; }
-        public string UserId { get; set; }
-
+ 
     }
 
 }

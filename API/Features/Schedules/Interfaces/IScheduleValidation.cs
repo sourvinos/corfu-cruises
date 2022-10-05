@@ -5,8 +5,8 @@ namespace API.Features.Schedules {
 
     public interface IScheduleValidation : IRepository<Schedule> {
 
-        int IsValidOnNew(List<ScheduleWriteDto> records);
-        int IsValidOnUpdate(ScheduleWriteDto record);
+        int IsValidOnNew(List<ScheduleWriteDto> schedules);
+        int IsValidOnUpdate(ScheduleWriteDto schedule);
 
     }
 

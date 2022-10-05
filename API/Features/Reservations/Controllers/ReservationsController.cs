@@ -84,7 +84,7 @@ namespace API.Features.Reservations {
             if (x == 200) {
                 await AssignRefNoToNewReservation(reservation);
                 AttachPortIdToRecord(reservation);
-                reservationRepo.Create(mapper.Map<ReservationWriteDto, Reservation>(await reservationRepo.AttachUserIdToDto(reservation)));
+                reservationRepo.Create(mapper.Map<ReservationWriteDto, Reservation>(reservationRepo.AttachUserIdToDto(reservation)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -108,7 +108,7 @@ namespace API.Features.Reservations {
                     if (z == 200) {
                         AttachPortIdToRecord(reservation);
                         UpdateForeignKeysWithNull(reservation);
-                        await reservationRepo.Update(id, mapper.Map<ReservationWriteDto, Reservation>(await reservationRepo.AttachUserIdToDto(reservation)));
+                        await reservationRepo.Update(id, mapper.Map<ReservationWriteDto, Reservation>(reservationRepo.AttachUserIdToDto(reservation)));
                         return new Response {
                             Code = 200,
                             Icon = Icons.Success.ToString(),

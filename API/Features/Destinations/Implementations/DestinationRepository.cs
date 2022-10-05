@@ -44,10 +44,8 @@ namespace API.Features.Destinations {
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<DestinationWriteDto> AttachUserIdToDto(DestinationWriteDto destination) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            destination.UserId = user.UserId;
-            return destination;
+         public DestinationWriteDto AttachUserIdToDto(DestinationWriteDto destination) {
+            return Identity.PatchEntityWithUserId(httpContext, destination);
         }
 
     }

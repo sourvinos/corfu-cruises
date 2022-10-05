@@ -13,8 +13,8 @@ namespace API.Features.Reservations {
         Task Update(string id, Reservation updatedRecord);
         void AssignToDriver(int driverId, string[] ids);
         void AssignToShip(int shipId, string[] ids);
-        Task<string> AssignRefNoToNewReservation(ReservationWriteDto record);
-        Task<ReservationWriteDto> AttachUserIdToDto(ReservationWriteDto reservation);
+        Task<string> AssignRefNoToNewReservation(ReservationWriteDto reservation);
+        ReservationWriteDto AttachUserIdToDto(ReservationWriteDto reservation);
 
     }
 

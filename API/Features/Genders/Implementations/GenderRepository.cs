@@ -44,10 +44,8 @@ namespace API.Features.Genders {
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<GenderWriteDto> AttachUserIdToDto(GenderWriteDto gender) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            gender.UserId = user.UserId;
-            return gender;
+        public GenderWriteDto AttachUserIdToDto(GenderWriteDto gender) {
+            return Identity.PatchEntityWithUserId(httpContext, gender);
         }
 
     }

@@ -95,7 +95,7 @@ namespace API.Infrastructure.Identity {
 
         [Authorize]
         [HttpGet("[action]")]
-        public Task<SimpleUser> GetConnectedUserId() {
+        public Task<string> GetConnectedUserId() {
             return Extensions.Identity.GetConnectedUserId(httpContextAccessor);
         }
 

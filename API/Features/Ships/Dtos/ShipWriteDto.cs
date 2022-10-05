@@ -1,6 +1,8 @@
+using API.Infrastructure.Classes;
+
 namespace API.Features.Ships {
 
-    public class ShipWriteDto {
+    public class ShipWriteDto : IEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }
@@ -12,8 +14,7 @@ namespace API.Features.Ships {
         public string ManagerInGreece { get; set; }
         public string Agent { get; set; }
         public bool IsActive { get; set; }
-        public string UserId { get; set; }
-
+ 
     }
 
 }

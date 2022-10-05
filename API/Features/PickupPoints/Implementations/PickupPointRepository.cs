@@ -51,10 +51,8 @@ namespace API.Features.PickupPoints {
                     .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<PickupPointWriteDto> AttachUserIdToDto(PickupPointWriteDto pickupPoint) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            pickupPoint.UserId = user.UserId;
-            return pickupPoint;
+        public PickupPointWriteDto AttachUserIdToDto(PickupPointWriteDto pickupPoint) {
+            return Identity.PatchEntityWithUserId(httpContext, pickupPoint);
         }
 
     }

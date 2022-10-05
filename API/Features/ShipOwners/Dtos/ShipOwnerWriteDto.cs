@@ -1,6 +1,8 @@
-﻿namespace API.Features.ShipOwners {
+﻿using API.Infrastructure.Classes;
 
-    public class ShipOwnerWriteDto {
+namespace API.Features.ShipOwners {
+
+    public class ShipOwnerWriteDto : IEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }
@@ -11,8 +13,7 @@
         public string Phones { get; set; }
         public string Email { get; set; }
         public bool IsActive { get; set; }
-        public string UserId { get; set; }
-
+ 
     }
 
 }

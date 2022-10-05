@@ -19,10 +19,10 @@ namespace API.Features.Schedules {
             };
         }
 
-        public int IsValidOnUpdate(ScheduleWriteDto record) {
+        public int IsValidOnUpdate(ScheduleWriteDto schedule) {
             return true switch {
-                var x when x == !IsValidDestinationOnUpdate(record) => 451,
-                var x when x == !IsValidPortOnUpdate(record) => 411,
+                var x when x == !IsValidDestinationOnUpdate(schedule) => 451,
+                var x when x == !IsValidPortOnUpdate(schedule) => 411,
                 _ => 200,
             };
         }
@@ -38,8 +38,8 @@ namespace API.Features.Schedules {
             return true;
         }
 
-        private bool IsValidDestinationOnUpdate(ScheduleWriteDto record) {
-            return context.Destinations.SingleOrDefault(x => x.Id == record.DestinationId) != null;
+        private bool IsValidDestinationOnUpdate(ScheduleWriteDto schedule) {
+            return context.Destinations.SingleOrDefault(x => x.Id == schedule.DestinationId) != null;
         }
 
         private bool IsValidPortOnNew(List<ScheduleWriteDto> schedules) {
@@ -53,8 +53,8 @@ namespace API.Features.Schedules {
             return true;
         }
 
-        private bool IsValidPortOnUpdate(ScheduleWriteDto record) {
-            return context.Ports.SingleOrDefault(x => x.Id == record.PortId) != null;
+        private bool IsValidPortOnUpdate(ScheduleWriteDto schedule) {
+            return context.Ports.SingleOrDefault(x => x.Id == schedule.PortId) != null;
         }
 
     }

@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using API.Infrastructure.Classes;
 
 namespace API.Features.Reservations {
 
-    public class ReservationWriteDto {
+    public class ReservationWriteDto : IEntity {
 
         public Guid ReservationId { get; set; }
         public int CustomerId { get; set; }
@@ -22,7 +23,6 @@ namespace API.Features.Reservations {
         public int Kids { get; set; }
         public int Free { get; set; }
         public string Remarks { get; set; }
-        public string UserId { get; set; }
 
         public List<PassengerWriteDto> Passengers { get; set; }
 

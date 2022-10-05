@@ -44,10 +44,8 @@ namespace API.Features.Drivers {
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<DriverWriteDto> AttachUserIdToDto(DriverWriteDto driver) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            driver.UserId = user.UserId;
-            return driver;
+        public DriverWriteDto AttachUserIdToDto(DriverWriteDto driver) {
+            return Identity.PatchEntityWithUserId(httpContext, driver);
         }
 
     }

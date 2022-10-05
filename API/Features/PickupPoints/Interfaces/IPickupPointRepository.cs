@@ -9,7 +9,7 @@ namespace API.Features.PickupPoints {
         Task<IEnumerable<PickupPointListVM>> Get();
         Task<IEnumerable<PickupPointActiveVM>> GetActive();
         Task<PickupPoint> GetById(int id, bool includeTables);
-        Task<PickupPointWriteDto> AttachUserIdToDto(PickupPointWriteDto pickupPoint);
+        PickupPointWriteDto AttachUserIdToDto(PickupPointWriteDto pickupPoint);
 
     }
 

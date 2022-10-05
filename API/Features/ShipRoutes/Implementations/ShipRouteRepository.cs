@@ -44,10 +44,8 @@ namespace API.Features.ShipRoutes {
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<ShipRouteWriteDto> AttachUserIdToDto(ShipRouteWriteDto pickupPoint) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            pickupPoint.UserId = user.UserId;
-            return pickupPoint;
+        public ShipRouteWriteDto AttachUserIdToDto(ShipRouteWriteDto shipRoute) {
+            return Identity.PatchEntityWithUserId(httpContext, shipRoute);
         }
 
     }

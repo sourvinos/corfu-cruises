@@ -1,6 +1,8 @@
+using API.Infrastructure.Classes;
+
 namespace API.Features.Schedules {
 
-    public class ScheduleWriteDto {
+    public class ScheduleWriteDto : IEntity {
 
         public int Id { get; set; }
         public int DestinationId { get; set; }
@@ -9,8 +11,7 @@ namespace API.Features.Schedules {
         public int MaxPax { get; set; }
         public string DepartureTime { get; set; }
         public bool IsActive { get; set; }
-        public string UserId { get; set; }
-
+ 
     }
 
 }

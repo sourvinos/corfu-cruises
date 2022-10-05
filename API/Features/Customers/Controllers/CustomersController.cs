@@ -57,8 +57,8 @@ namespace API.Features.Customers {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> Post([FromBody] CustomerWriteDto customer) {
-            customerRepo.Create(mapper.Map<CustomerWriteDto, Customer>(await customerRepo.AttachUserIdToDto(customer)));
+        public Response Post([FromBody] CustomerWriteDto customer) {
+            customerRepo.Create(mapper.Map<CustomerWriteDto, Customer>(customerRepo.AttachUserIdToDto(customer)));
             return new Response {
                 Code = 200,
                 Icon = Icons.Success.ToString(),
@@ -72,7 +72,7 @@ namespace API.Features.Customers {
         public async Task<Response> Put([FromBody] CustomerWriteDto customer) {
             var x = await customerRepo.GetById(customer.Id);
             if (x != null) {
-                customerRepo.Update(mapper.Map<CustomerWriteDto, Customer>(await customerRepo.AttachUserIdToDto(customer)));
+                customerRepo.Update(mapper.Map<CustomerWriteDto, Customer>(customerRepo.AttachUserIdToDto(customer)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),

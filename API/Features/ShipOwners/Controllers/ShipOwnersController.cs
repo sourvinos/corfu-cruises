@@ -57,8 +57,8 @@ namespace API.Features.ShipOwners {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> Post([FromBody] ShipOwnerWriteDto record) {
-            shipOwnerRepo.Create(mapper.Map<ShipOwnerWriteDto, ShipOwner>(await shipOwnerRepo.AttachUserIdToDto(record)));
+        public Response Post([FromBody] ShipOwnerWriteDto shipOwner) {
+            shipOwnerRepo.Create(mapper.Map<ShipOwnerWriteDto, ShipOwner>(shipOwnerRepo.AttachUserIdToDto(shipOwner)));
             return new Response {
                 Code = 200,
                 Icon = Icons.Success.ToString(),
@@ -72,7 +72,7 @@ namespace API.Features.ShipOwners {
         public async Task<Response> Put([FromBody] ShipOwnerWriteDto shipOwner) {
             var x = await shipOwnerRepo.GetById(shipOwner.Id);
             if (x != null) {
-                shipOwnerRepo.Update(mapper.Map<ShipOwnerWriteDto, ShipOwner>(await shipOwnerRepo.AttachUserIdToDto(shipOwner)));
+                shipOwnerRepo.Update(mapper.Map<ShipOwnerWriteDto, ShipOwner>(shipOwnerRepo.AttachUserIdToDto(shipOwner)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),

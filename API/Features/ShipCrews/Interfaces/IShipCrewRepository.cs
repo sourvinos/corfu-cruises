@@ -9,7 +9,7 @@ namespace API.Features.ShipCrews {
         Task<IEnumerable<ShipCrewListVM>> Get();
         Task<IEnumerable<ShipCrewActiveVM>> GetActive();
         Task<ShipCrew> GetById(int id, bool includeTables);
-        Task<ShipCrewWriteDto> AttachUserIdToDto(ShipCrewWriteDto shipCrew);
+        ShipCrewWriteDto AttachUserIdToDto(ShipCrewWriteDto shipCrew);
 
     }
 

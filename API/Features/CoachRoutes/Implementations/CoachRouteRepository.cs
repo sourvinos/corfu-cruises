@@ -49,10 +49,8 @@ namespace API.Features.CoachRoutes {
                     .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<CoachRouteWriteDto> AttachUserIdToDto(CoachRouteWriteDto coachRoute) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            coachRoute.UserId = user.UserId;
-            return coachRoute;
+        public CoachRouteWriteDto AttachUserIdToDto(CoachRouteWriteDto coachRoute) {
+            return Identity.PatchEntityWithUserId(httpContext, coachRoute);
         }
 
     }

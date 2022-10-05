@@ -1,6 +1,8 @@
-﻿namespace API.Features.Customers {
+﻿using API.Infrastructure.Classes;
 
-    public class CustomerWriteDto {
+namespace API.Features.Customers {
+
+    public class CustomerWriteDto : IEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }
@@ -10,7 +12,6 @@
         public string PersonInCharge { get; set; }
         public string Email { get; set; }
         public bool IsActive { get; set; }
-        public string UserId { get; set; }
 
     }
 

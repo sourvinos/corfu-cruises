@@ -44,12 +44,9 @@ namespace API.Features.Ports {
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<PortWriteDto> AttachUserIdToDto(PortWriteDto port) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            port.UserId = user.UserId;
-            return port;
+        public PortWriteDto AttachUserIdToDto(PortWriteDto port) {
+            return Identity.PatchEntityWithUserId(httpContext, port);
         }
-
     }
 
 }

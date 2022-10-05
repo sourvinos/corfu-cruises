@@ -44,10 +44,8 @@ namespace API.Features.Customers {
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<CustomerWriteDto> AttachUserIdToDto(CustomerWriteDto customer) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            customer.UserId = user.UserId;
-            return customer;
+        public CustomerWriteDto AttachUserIdToDto(CustomerWriteDto customer) {
+            return Identity.PatchEntityWithUserId(httpContext, customer);
         }
 
     }

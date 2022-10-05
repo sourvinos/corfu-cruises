@@ -29,8 +29,8 @@ namespace API.Infrastructure.Extensions {
                 .AddDefaultTokenProviders();
         }
 
-        public static Task<SimpleUser> GetConnectedUserId(IHttpContextAccessor httpContextAccessor) {
-            return Task.Run(() => new SimpleUser { UserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value });
+        public static Task<string> GetConnectedUserId(IHttpContextAccessor httpContextAccessor) {
+            return Task.Run(() => httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
 
         public static UserExtended GetConnectedUserDetails(UserManager<UserExtended> userManager, string userId) {
@@ -39,6 +39,11 @@ namespace API.Infrastructure.Extensions {
 
         public static Task<bool> IsUserAdmin(IHttpContextAccessor httpContextAccessor) {
             return Task.Run(() => httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role).Value == "admin");
+        }
+
+        public static T PatchEntityWithUserId<T>(IHttpContextAccessor httpContextAccessor, T entity) where T : IEntity {
+            entity.UserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return entity;
         }
 
     }

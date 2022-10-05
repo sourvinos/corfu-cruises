@@ -49,11 +49,11 @@ namespace API.Infrastructure.Identity {
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
         public async Task<Response> GetUser(string id) {
-            UserExtended record = await userManager.Users
+            UserExtended user = await userManager.Users
                 .Include(x => x.Customer)
                 .DefaultIfEmpty()
                 .SingleOrDefaultAsync(x => x.Id == id);
-            return record == null ? new Response {
+            return user == null ? new Response {
                 Code = 404,
                 Icon = Icons.Error.ToString(),
                 Message = ApiMessages.RecordNotFound()
@@ -61,17 +61,17 @@ namespace API.Infrastructure.Identity {
                 Code = 200,
                 Icon = Icons.Info.ToString(),
                 Message = ApiMessages.OK(),
-                Body = mapper.Map<UserExtended, UserReadDto>(record)
+                Body = mapper.Map<UserExtended, UserReadDto>(user)
             };
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<Response> PostUser([FromBody] UserNewDto record) {
-            var user = mapper.Map<UserNewDto, UserExtended>(record);
-            var result = await userManager.CreateAsync(user, record.Password);
+        public async Task<Response> PostUser([FromBody] UserNewDto user) {
+            var x = mapper.Map<UserNewDto, UserExtended>(user);
+            var result = await userManager.CreateAsync(x, user.Password);
             if (result.Succeeded) {
-                await userManager.AddToRoleAsync(user, user.IsAdmin ? "Admin" : "User");
+                await userManager.AddToRoleAsync(x, user.IsAdmin ? "Admin" : "User");
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -88,12 +88,12 @@ namespace API.Infrastructure.Identity {
 
         [HttpPut("{id}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<Response> PutUser([FromRoute] string id, [FromBody] UserUpdateDto record) {
+        public async Task<Response> PutUser([FromRoute] string id, [FromBody] UserUpdateDto user) {
             if (ModelState.IsValid) {
-                UserExtended user = await userManager.FindByIdAsync(id);
-                if (user != null) {
-                    if (await UpdateUserAsync(user, record)) {
-                        await UpdateRole(user);
+                UserExtended x = await userManager.FindByIdAsync(id);
+                if (x != null) {
+                    if (await UpdateUserAsync(x, user)) {
+                        await UpdateRole(x);
                         return new Response {
                             Code = 200,
                             Icon = Icons.Success.ToString(),
@@ -126,7 +126,7 @@ namespace API.Infrastructure.Identity {
         [Authorize(Roles = "admin")]
         public async Task<Response> DeleteUser(string id) {
             var user = await Extensions.Identity.GetConnectedUserId(httpContextAccessor);
-            if (id == user.UserId) {
+            if (id == user) {
                 return new Response {
                     Code = 499,
                     Icon = Icons.Error.ToString(),
@@ -171,16 +171,16 @@ namespace API.Infrastructure.Identity {
             }
         }
 
-        private async Task<bool> UpdateUserAsync(UserExtended user, UserUpdateDto record) {
-            user.UserName = record.UserName;
-            user.Displayname = record.Displayname;
+        private async Task<bool> UpdateUserAsync(UserExtended x, UserUpdateDto user) {
+            x.UserName = user.UserName;
+            x.Displayname = user.Displayname;
             if (await IsAdmin()) {
-                user.CustomerId = record.CustomerId == 0 ? null : record.CustomerId;
-                user.Email = record.Email;
-                user.IsAdmin = record.IsAdmin;
-                user.IsActive = record.IsActive;
+                user.CustomerId = user.CustomerId == 0 ? null : user.CustomerId;
+                user.Email = user.Email;
+                user.IsAdmin = user.IsAdmin;
+                user.IsActive = user.IsActive;
             }
-            var result = await userManager.UpdateAsync(user);
+            var result = await userManager.UpdateAsync(x);
             return result.Succeeded;
         }
 

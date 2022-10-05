@@ -76,7 +76,7 @@ namespace API.Features.Invoicing {
             var isUserAdmin = await Identity.IsUserAdmin(httpContextAccessor);
             if (!isUserAdmin) {
                 var simpleUser = await Identity.GetConnectedUserId(httpContextAccessor);
-                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
+                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);
                 return connectedUserDetails.CustomerId.ToString();
             }
             return customerId;

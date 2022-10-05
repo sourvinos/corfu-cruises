@@ -9,7 +9,7 @@ namespace API.Features.ShipRoutes {
         Task<IEnumerable<ShipRouteListVM>> Get();
         Task<IEnumerable<ShipRouteActiveVM>> GetActive();
         new Task<ShipRoute> GetById(int id);
-        Task<ShipRouteWriteDto> AttachUserIdToDto(ShipRouteWriteDto shipRoute);
+        ShipRouteWriteDto AttachUserIdToDto(ShipRouteWriteDto shipRoute);
 
     }
 

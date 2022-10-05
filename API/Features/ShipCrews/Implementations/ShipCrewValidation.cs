@@ -9,11 +9,11 @@ namespace API.Features.ShipCrews {
 
         public ShipCrewValidation(AppDbContext appDbContext, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) { }
 
-        public int IsValid(ShipCrewWriteDto record) {
+        public int IsValid(ShipCrewWriteDto shipCrew) {
             return true switch {
-                var x when x == !IsValidGender(record) => 457,
-                var x when x == !IsValidNationality(record) => 456,
-                var x when x == !IsValidShip(record) => 454,
+                var x when x == !IsValidGender(shipCrew) => 457,
+                var x when x == !IsValidNationality(shipCrew) => 456,
+                var x when x == !IsValidShip(shipCrew) => 454,
                 _ => 200,
             };
         }

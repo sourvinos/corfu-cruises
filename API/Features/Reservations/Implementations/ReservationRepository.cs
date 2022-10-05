@@ -35,7 +35,7 @@ namespace API.Features.Reservations {
                 reservations = GetReservationsFromAllUsersByDate(date);
             } else {
                 var simpleUser = await Identity.GetConnectedUserId(httpContext);
-                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
+                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);
                 reservations = GetReservationsForLinkedCustomer(date, (int)connectedUserDetails.CustomerId);
             }
             var mainResult = new ReservationInitialGroupVM<Reservation> {
@@ -52,7 +52,7 @@ namespace API.Features.Reservations {
                 reservations = GetReservationsFromAllUsersByRefNo(refNo);
             } else {
                 var simpleUser = await Identity.GetConnectedUserId(httpContext);
-                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser.UserId);
+                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);
                 reservations = GetReservationsFromLinkedCustomerbyRefNo(refNo, (int)connectedUserDetails.CustomerId);
             }
             var mainResult = new ReservationInitialGroupVM<Reservation> {
@@ -148,10 +148,8 @@ namespace API.Features.Reservations {
             return await GetDestinationAbbreviation(reservation) + await IncrementRefNoByOne();
         }
 
-        public async Task<ReservationWriteDto> AttachUserIdToDto(ReservationWriteDto reservation) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            reservation.UserId = user.UserId;
-            return reservation;
+        public ReservationWriteDto AttachUserIdToDto(ReservationWriteDto reservation) {
+            return Identity.PatchEntityWithUserId(httpContext, reservation);
         }
 
         private IEnumerable<Passenger> GetPassengersForReservation(string id) {
@@ -252,10 +250,10 @@ namespace API.Features.Reservations {
             return refNo.LastRefNo.ToString();
         }
 
-        private async Task<string> GetDestinationAbbreviation(ReservationWriteDto record) {
+        private async Task<string> GetDestinationAbbreviation(ReservationWriteDto reservation) {
             var destination = await context.Destinations
                 .AsNoTracking()
-                .SingleOrDefaultAsync(x => x.Id == record.DestinationId);
+                .SingleOrDefaultAsync(x => x.Id == reservation.DestinationId);
             return destination.Abbreviation;
         }
 

@@ -49,16 +49,14 @@ namespace API.Features.Schedules {
                 .ToListAsync();
         }
 
-        public async Task<List<ScheduleWriteDto>> AttachUserIdToNewDto(List<ScheduleWriteDto> schedules) {
+       public async Task<List<ScheduleWriteDto>> AttachUserIdToNewDto(List<ScheduleWriteDto> schedules) {
             var userId = await Identity.GetConnectedUserId(httpContext);
-            schedules.ForEach(c => c.UserId = userId.UserId);
+            schedules.ForEach(c => c.UserId = userId);
             return schedules;
         }
 
-        public async Task<ScheduleWriteDto> AttachUserIdToUpdateDto(ScheduleWriteDto schedule) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            schedule.UserId = user.UserId;
-            return schedule;
+       public ScheduleWriteDto AttachUserIdToUpdateDto(ScheduleWriteDto schedule) {
+            return Identity.PatchEntityWithUserId(httpContext, schedule);
         }
 
     }

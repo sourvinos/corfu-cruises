@@ -9,7 +9,7 @@ namespace API.Features.Genders {
         Task<IEnumerable<GenderListVM>> Get();
         Task<IEnumerable<GenderActiveVM>> GetActive();
         new Task<Gender> GetById(int id);
-        Task<GenderWriteDto> AttachUserIdToDto(GenderWriteDto gender);
+        GenderWriteDto AttachUserIdToDto(GenderWriteDto gender);
 
     }
 

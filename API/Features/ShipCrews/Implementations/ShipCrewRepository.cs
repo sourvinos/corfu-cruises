@@ -54,10 +54,8 @@ namespace API.Features.ShipCrews {
                     .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<ShipCrewWriteDto> AttachUserIdToDto(ShipCrewWriteDto shipCrew) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            shipCrew.UserId = user.UserId;
-            return shipCrew;
+        public ShipCrewWriteDto AttachUserIdToDto(ShipCrewWriteDto shipCrew) {
+            return Identity.PatchEntityWithUserId(httpContext, shipCrew);
         }
 
     }

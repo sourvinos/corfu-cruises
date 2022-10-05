@@ -44,10 +44,8 @@ namespace API.Features.Nationalities {
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<NationalityWriteDto> AttachUserIdToDto(NationalityWriteDto nationality) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            nationality.UserId = user.UserId;
-            return nationality;
+        public NationalityWriteDto AttachUserIdToDto(NationalityWriteDto nationality) {
+            return Identity.PatchEntityWithUserId(httpContext, nationality);
         }
 
     }

@@ -1,11 +1,12 @@
-﻿namespace API.Features.Genders {
+﻿using API.Infrastructure.Classes;
 
-    public class GenderWriteDto {
+namespace API.Features.Genders {
+
+    public class GenderWriteDto : IEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
-        public string UserId { get; set; }
 
     }
 

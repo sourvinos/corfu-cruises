@@ -44,10 +44,8 @@ namespace API.Features.ShipOwners {
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<ShipOwnerWriteDto> AttachUserIdToDto(ShipOwnerWriteDto shipOwner) {
-            var user = await Identity.GetConnectedUserId(httpContext);
-            shipOwner.UserId = user.UserId;
-            return shipOwner;
+        public ShipOwnerWriteDto AttachUserIdToDto(ShipOwnerWriteDto shipOwner) {
+            return Identity.PatchEntityWithUserId(httpContext, shipOwner);
         }
 
     }
