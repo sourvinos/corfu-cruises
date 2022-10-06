@@ -1,6 +1,6 @@
 namespace API.Features.Embarkation {
 
-    public class EmbarkationPassengerVM {
+    public class EmbarkationMappedPassengerVM {
 
         public int Id { get; set; }
         public string Lastname { get; set; }

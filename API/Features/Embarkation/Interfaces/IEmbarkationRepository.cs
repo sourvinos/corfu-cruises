@@ -1,16 +1,14 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Features.Reservations;
-using API.Infrastructure.Interfaces;
 
 namespace API.Features.Embarkation {
 
-    public interface IEmbarkationRepository : IRepository<Reservation> {
+    public interface IEmbarkationRepository {
 
-        Task<EmbarkationGroupVM<EmbarkationVM>> Get(string date, string destinationId, string portId, string shipId);
-        Task<Passenger> GetPassengerById(int id, bool trackChanges);
-        void EmbarkSinglePassenger(int id);
-        void EmbarkAllPassengers(int[] id);
+        Task<EmbarkationMappedGroupVM<EmbarkationMappedVM>> Get(string date, string destinationId, string portId, string shipId);
+        Task<Passenger> GetPassengerById(int id);
+        void EmbarkPassenger(int id);
+        void EmbarkPassengers(int[] ids);
     }
 
 }

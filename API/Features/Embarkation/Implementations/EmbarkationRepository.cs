@@ -22,8 +22,8 @@ namespace API.Features.Embarkation {
             this.testingSettings = testingSettings.Value;
         }
 
-        public async Task<EmbarkationGroupVM<EmbarkationVM>> Get(string date, string destinationId, string portId, string shipId) {
-            var reservations = await context.Set<Reservation>()
+        public async Task<EmbarkationMappedGroupVM<EmbarkationMappedVM>> Get(string date, string destinationId, string portId, string shipId) {
+            var reservations = await context.Reservations
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
@@ -39,23 +39,26 @@ namespace API.Features.Embarkation {
             int totalPersons = reservations.Sum(x => x.TotalPersons);
             int embarkedPassengers = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);
             int remainingPersons = totalPersons - embarkedPassengers;
-            var mainResult = new EmbarkationGroup<Reservation> {
+            var mainResult = new EmbarkationInitialGroupVM<Reservation> {
                 TotalPersons = totalPersons,
                 EmbarkedPassengers = embarkedPassengers,
                 PendingPersons = remainingPersons,
                 Reservations = reservations.ToList()
             };
-            return mapper.Map<EmbarkationGroup<Reservation>, EmbarkationGroupVM<EmbarkationVM>>(mainResult);
+            return mapper.Map<EmbarkationInitialGroupVM<Reservation>, EmbarkationMappedGroupVM<EmbarkationMappedVM>>(mainResult);
         }
 
-        public async Task<Passenger> GetPassengerById(int id, bool trackChanges) {
-            return trackChanges
-                ? await context.Passengers.Where(x => x.Id == id).FirstOrDefaultAsync()
-                : await context.Passengers.Where(x => x.Id == id).AsNoTracking().FirstOrDefaultAsync();
+        public async Task<Passenger> GetPassengerById(int id) {
+            return await context.Passengers
+                .Where(x => x.Id == id)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
         }
 
-        public void EmbarkSinglePassenger(int id) {
-            Passenger passenger = context.Passengers.Where(x => x.Id == id).FirstOrDefault();
+        public void EmbarkPassenger(int id) {
+            Passenger passenger = context.Passengers
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
             var strategy = context.Database.CreateExecutionStrategy();
             strategy.Execute(() => {
                 using var transaction = context.Database.BeginTransaction();
@@ -65,12 +68,12 @@ namespace API.Features.Embarkation {
             });
         }
 
-        public void EmbarkAllPassengers(int[] id) {
+        public void EmbarkPassengers(int[] ids) {
             var strategy = context.Database.CreateExecutionStrategy();
             strategy.Execute(() => {
                 using var transaction = context.Database.BeginTransaction();
                 var records = context.Passengers
-                    .Where(x => id.Contains(x.Id))
+                    .Where(x => ids.Contains(x.Id))
                     .ToList();
                 records.ForEach(x => x.IsCheckedIn = true);
                 context.SaveChanges();

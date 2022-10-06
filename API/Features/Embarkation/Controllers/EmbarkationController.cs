@@ -21,57 +21,37 @@ namespace API.Features.Embarkation {
 
         [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/shipId/{shipId}")]
         [Authorize(Roles = "admin")]
-        public async Task<EmbarkationGroupVM<EmbarkationVM>> Get(string date, string destinationId, string portId, string shipId) {
+        public async Task<EmbarkationMappedGroupVM<EmbarkationMappedVM>> Get(string date, string destinationId, string portId, string shipId) {
             return await repo.Get(date, destinationId, portId, shipId);
         }
 
-        [HttpPatch("embarkSinglePassenger")]
+        [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> EmbarkSinglePassenger(int id) {
-            var passenger = await repo.GetPassengerById(id, false);
-            if (passenger == null) {
-                return new Response {
-                    Code = 404,
-                    Icon = Icons.Error.ToString(),
-                    Message = ApiMessages.RecordNotFound()
-                };
-            } else {
-                repo.EmbarkSinglePassenger(id);
+        public async Task<Response> EmbarkPassenger([FromRoute] int id) {
+            var x = await repo.GetPassengerById(id);
+            if (x != null) {
+                repo.EmbarkPassenger(id);
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
                     Message = ApiMessages.OK()
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
                 };
             }
         }
 
-        [HttpPatch("embarkAllPassengers")]
+        [HttpPatch("embarkPassengers")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> EmbarkAllPassengers([FromQuery] int[] id) {
-            repo.EmbarkAllPassengers(id);
-            if (await CheckAllPassengersExist(id)) {
-                return new Response {
-                    Code = 200,
-                    Icon = Icons.Success.ToString(),
-                    Message = ApiMessages.OK()
-                };
-            } else {
-                return new Response {
-                    Code = 404,
-                    Icon = Icons.Success.ToString(),
-                    Message = ApiMessages.EmbarkedPassengerWasNotFound()
-                };
+        public Response EmbarkPassengers([FromQuery] int[] ids) {
+            repo.EmbarkPassengers(ids);
+            return new Response {
+                Code = 200,
+                Icon = Icons.Success.ToString(),
+                Message = ApiMessages.OK()
             };
-        }
-
-        private async Task<bool> CheckAllPassengersExist(int[] id) {
-            foreach (var passengerId in id) {
-                var passenger = await repo.GetPassengerById(passengerId, false);
-                if (passenger == null) {
-                    return false;
-                }
-            }
-            return true;
         }
 
     }
