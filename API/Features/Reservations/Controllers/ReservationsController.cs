@@ -34,10 +34,16 @@ namespace API.Features.Reservations {
             this.validReservation = validReservation;
         }
 
+        [HttpGet("fromDate/{fromDate}/toDate/{toDate}")]
+        [Authorize(Roles = "user, admin")]
+        public IEnumerable<ReservationCalendarGroupVM> GetForCalendar([FromRoute] string fromDate, string toDate) {
+            return reservationRepo.GetForCalendar(fromDate, toDate);
+        }
+
         [HttpGet("date/{date}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationMappedGroupVM<ReservationMappedListVM>> GetByDate([FromRoute] string date) {
-            return await reservationRepo.GetByDate(date);
+        public async Task<ReservationMappedGroupVM<ReservationMappedListVM>> GetForDailyList([FromRoute] string date) {
+            return await reservationRepo.GetForDailyList(date);
         }
 
         [HttpGet("date/{date}/driver/{driverId}")]

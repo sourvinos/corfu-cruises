@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Features.Destinations;
 using API.Features.Drivers;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
+using API.Infrastructure.Helpers;
 using API.Infrastructure.Identity;
 using API.Infrastructure.Implementations;
 using AutoMapper;
@@ -29,7 +31,24 @@ namespace API.Features.Reservations {
             this.userManager = userManager;
         }
 
-        public async Task<ReservationMappedGroupVM<ReservationMappedListVM>> GetByDate(string date) {
+        public IEnumerable<ReservationCalendarGroupVM> GetForCalendar(string fromDate, string toDate) {
+            return context.Schedules
+                .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
+                .GroupBy(z => z.Date)
+                .Select(x => new ReservationCalendarGroupVM {
+                    Date = DateHelpers.DateTimeToISOString(x.Key.Date),
+                    Destinations = x.GroupBy(x => new { x.Date, x.Destination.Id, x.Destination.Description, x.Destination.Abbreviation }).Select(x => new DestinationCalendarVM {
+                        Id = x.Key.Id,
+                        Description = x.Key.Description,
+                        Abbreviation = x.Key.Abbreviation,
+                        Pax = context.Reservations.Where(z => z.Date == x.Key.Date && z.Destination.Id == x.Key.Id).Sum(x => x.TotalPersons)
+                    }),
+                    Pax = context.Reservations.Where(z => z.Date == x.Key.Date).Sum(x => x.TotalPersons)
+                })
+                .ToList();
+        }
+
+        public async Task<ReservationMappedGroupVM<ReservationMappedListVM>> GetForDailyList(string date) {
             IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
             if (await Identity.IsUserAdmin(httpContext)) {
                 reservations = GetReservationsFromAllUsersByDate(date);
@@ -263,6 +282,10 @@ namespace API.Features.Reservations {
                 .SingleOrDefaultAsync(x => x.Id == driverId);
         }
 
+    }
+
+    public class Me {
+        public int MyProperty { get; set; }
     }
 
 }
