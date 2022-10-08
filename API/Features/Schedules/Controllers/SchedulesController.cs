@@ -32,6 +32,12 @@ namespace API.Features.Schedules {
             return await scheduleRepo.Get();
         }
 
+        [HttpGet("fromDate/{fromDate}/toDate/{toDate}")]
+        [Authorize(Roles = "user, admin")]
+        public IEnumerable<AvailabilityCalendarGroupVM> GetForCalendar([FromRoute] string fromDate, string toDate) {
+            return scheduleRepo.GetForCalendar(fromDate, toDate);
+        }
+
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> GetById(int id) {
