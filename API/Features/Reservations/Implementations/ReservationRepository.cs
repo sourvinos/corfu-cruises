@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Features.Destinations;
 using API.Features.Drivers;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
@@ -283,9 +282,5 @@ namespace API.Features.Reservations {
         }
 
     }
-
-    public class Me {
-        public int MyProperty { get; set; }
-    }
-
+ 
 }

@@ -17,8 +17,6 @@ using API.Features.ShipOwners;
 using API.Features.ShipRoutes;
 using API.Features.Ships;
 using API.Infrastructure.Auth;
-using API.Infrastructure.Implementations;
-using API.Infrastructure.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace API.Infrastructure.Extensions {
@@ -30,7 +28,6 @@ namespace API.Infrastructure.Extensions {
             // Database
             services.AddTransient<ICoachRouteRepository, CoachRouteRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddTransient<IDestinationRepository, DestinationRepository>();
             services.AddTransient<IDriverRepository, DriverRepository>();
             services.AddTransient<IEmbarkationRepository, EmbarkationRepository>();

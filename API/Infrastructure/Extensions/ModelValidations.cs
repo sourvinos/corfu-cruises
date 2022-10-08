@@ -4,7 +4,6 @@ using API.Features.Destinations;
 using API.Features.Drivers;
 using API.Features.Genders;
 using API.Features.Nationalities;
-using API.Features.Occupants;
 using API.Features.PickupPoints;
 using API.Features.Ports;
 using API.Features.Registrars;
