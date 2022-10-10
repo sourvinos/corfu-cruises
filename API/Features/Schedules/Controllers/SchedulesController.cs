@@ -15,13 +15,15 @@ namespace API.Features.Schedules {
         #region variables
 
         private readonly IMapper mapper;
+        private readonly IScheduleCalendar scheduleCalendar;
         private readonly IScheduleRepository scheduleRepo;
         private readonly IScheduleValidation scheduleValidation;
 
         #endregion
 
-        public SchedulesController(IMapper mapper, IScheduleRepository scheduleRepo, IScheduleValidation scheduleValidation) {
+        public SchedulesController(IMapper mapper, IScheduleCalendar scheduleCalendar, IScheduleRepository scheduleRepo, IScheduleValidation scheduleValidation) {
             this.mapper = mapper;
+            this.scheduleCalendar = scheduleCalendar;
             this.scheduleRepo = scheduleRepo;
             this.scheduleValidation = scheduleValidation;
         }
@@ -35,7 +37,7 @@ namespace API.Features.Schedules {
         [HttpGet("fromDate/{fromDate}/toDate/{toDate}")]
         [Authorize(Roles = "user, admin")]
         public IEnumerable<AvailabilityCalendarGroupVM> GetForCalendar([FromRoute] string fromDate, string toDate) {
-            return scheduleRepo.CalculateAccumulatedPaxPerPort(scheduleRepo.GetPaxPerPort(scheduleRepo.CalculateAccumulatedMaxPaxPerPort(scheduleRepo.GetForCalendar(fromDate, toDate))));
+            return scheduleCalendar.CalculateAccumulatedPaxPerPort(scheduleCalendar.GetPaxPerPort(scheduleCalendar.CalculateAccumulatedMaxPaxPerPort(scheduleCalendar.GetForCalendar(fromDate, toDate))));
         }
 
         [HttpGet("{id}")]
