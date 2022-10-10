@@ -23,7 +23,7 @@ namespace API.Features.Schedules {
         }
 
         public async Task<IEnumerable<ScheduleListVM>> Get() {
-            var schedules = await context.Set<Schedule>()
+            var schedules = await context.Schedules
                 .Include(x => x.Destination)
                 .Include(x => x.Port)
                 .OrderBy(x => x.Date).ThenBy(x => x.Destination.Description).ThenBy(x => x.Port.Description)
@@ -60,6 +60,6 @@ namespace API.Features.Schedules {
             return Identity.PatchEntityWithUserId(httpContext, schedule);
         }
 
-      }
+    }
 
 }

@@ -34,12 +34,6 @@ namespace API.Infrastructure.Implementations {
             return await context.Set<T>().FindAsync(id);
         }
 
-        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges) {
-            return !trackChanges
-                ? context.Set<T>().Where(expression).AsNoTracking()
-                : context.Set<T>().Where(expression);
-        }
-
         public void Create(T entity) {
             using var transaction = context.Database.BeginTransaction();
             context.Add(entity);
