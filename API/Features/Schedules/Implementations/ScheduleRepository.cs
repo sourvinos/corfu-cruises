@@ -46,11 +46,10 @@ namespace API.Features.Schedules {
                         Ports = x.GroupBy(x => new { x.PortId, x.Port.Description, x.Port.Abbreviation, x.MaxPax, x.Port.StopOrder }).OrderBy(x => x.Key.StopOrder).Select(x => new PortCalendarVM {
                             Id = x.Key.PortId,
                             Description = x.Key.Description,
-                            MaxPax = x.Key.MaxPax
+                            MaxPax = x.Key.MaxPax,
                         })
                     })
-                })
-                .ToList();
+                }).ToList();
         }
 
         public async Task<Schedule> GetById(int id, bool includeTables) {
@@ -81,6 +80,44 @@ namespace API.Features.Schedules {
             return Identity.PatchEntityWithUserId(httpContext, schedule);
         }
 
+        public IEnumerable<AvailabilityCalendarGroupVM> CalculateAccumulatedMaxPaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedules) {
+            var accumulatedMaxPax = 0;
+            foreach (var schedule in schedules) {
+                foreach (var destination in schedule.Destinations) {
+                    foreach (var port in destination.Ports) {
+                        accumulatedMaxPax += port.MaxPax;
+                        port.AccumulatedMaxPax = accumulatedMaxPax;
+                    }
+                    accumulatedMaxPax = 0;
+                }
+            }
+            return schedules;
+        }
+
+        public IEnumerable<AvailabilityCalendarGroupVM> GetPaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedules) {
+            foreach (var schedule in schedules) {
+                foreach (var destination in schedule.Destinations) {
+                    foreach (var port in destination.Ports) {
+                        port.Pax = context.Reservations.Where(x => x.Date == Convert.ToDateTime(schedule.Date) && x.DestinationId == destination.Id && x.PortId == port.Id).Sum(x => x.TotalPersons);
+                    }
+                }
+            }
+            return schedules;
+        }
+
+        public IEnumerable<AvailabilityCalendarGroupVM> CalculateAccumulatedPaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedules) {
+            var accumulatedPax = 0;
+            foreach (var schedule in schedules) {
+                foreach (var destination in schedule.Destinations) {
+                    foreach (var port in destination.Ports) {
+                        accumulatedPax += port.Pax;
+                        port.AccumulatedPax = accumulatedPax;
+                    }
+                    accumulatedPax = 0;
+                }
+            }
+            return schedules;
+        }
 
     }
 

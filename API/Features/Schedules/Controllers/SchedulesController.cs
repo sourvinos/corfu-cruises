@@ -35,7 +35,7 @@ namespace API.Features.Schedules {
         [HttpGet("fromDate/{fromDate}/toDate/{toDate}")]
         [Authorize(Roles = "user, admin")]
         public IEnumerable<AvailabilityCalendarGroupVM> GetForCalendar([FromRoute] string fromDate, string toDate) {
-            return scheduleRepo.GetForCalendar(fromDate, toDate);
+            return scheduleRepo.CalculateAccumulatedPaxPerPort(scheduleRepo.GetPaxPerPort(scheduleRepo.CalculateAccumulatedMaxPaxPerPort(scheduleRepo.GetForCalendar(fromDate, toDate))));
         }
 
         [HttpGet("{id}")]

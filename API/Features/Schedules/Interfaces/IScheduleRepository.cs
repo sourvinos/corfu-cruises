@@ -12,6 +12,9 @@ namespace API.Features.Schedules {
         Task<IEnumerable<Schedule>> GetRangeByIds(IEnumerable<int> ids);
         Task<List<ScheduleWriteDto>> AttachUserIdToNewDto(List<ScheduleWriteDto> schedules);
         ScheduleWriteDto AttachUserIdToUpdateDto(ScheduleWriteDto schedule);
+        IEnumerable<AvailabilityCalendarGroupVM> CalculateAccumulatedMaxPaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedules);
+        IEnumerable<AvailabilityCalendarGroupVM> GetPaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedule);
+        IEnumerable<AvailabilityCalendarGroupVM> CalculateAccumulatedPaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedules);
 
     }
 
