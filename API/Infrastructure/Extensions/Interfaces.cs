@@ -1,10 +1,10 @@
+using API.Features.Billing;
 using API.Features.CoachRoutes;
 using API.Features.Customers;
 using API.Features.Destinations;
 using API.Features.Drivers;
 using API.Features.Embarkation;
 using API.Features.Genders;
-using API.Features.Invoicing;
 using API.Features.Manifest;
 using API.Features.Nationalities;
 using API.Features.PickupPoints;
@@ -26,6 +26,7 @@ namespace API.Infrastructure.Extensions {
         public static void AddInterfaces(IServiceCollection services) {
             services.AddScoped<Token>();
             // Database
+            services.AddTransient<IBillingRepository, BillingRepository>();
             services.AddTransient<ICoachRouteRepository, CoachRouteRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IDestinationRepository, DestinationRepository>();
@@ -33,7 +34,6 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IEmbarkationRepository, EmbarkationRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
-            services.AddTransient<IInvoicingRepository, InvoicingRepository>();
             services.AddTransient<IManifestRepository, ManifestRepository>();
             services.AddTransient<INationalityRepository, NationalityRepository>();
             services.AddTransient<IPickupPointRepository, PickupPointRepository>();

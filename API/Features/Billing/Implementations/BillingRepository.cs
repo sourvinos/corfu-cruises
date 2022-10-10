@@ -13,21 +13,21 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace API.Features.Invoicing {
+namespace API.Features.Billing {
 
-    public class InvoicingRepository : Repository<InvoicingRepository>, IInvoicingRepository {
+    public class BillingRepository : Repository<BillingRepository>, IBillingRepository {
 
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IMapper mapper;
         private readonly UserManager<UserExtended> userManager;
 
-        public InvoicingRepository(AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor, IMapper mapper, IOptions<TestingEnvironment> settings, UserManager<UserExtended> userManager) : base(appDbContext, settings) {
+        public BillingRepository(AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor, IMapper mapper, IOptions<TestingEnvironment> settings, UserManager<UserExtended> userManager) : base(appDbContext, settings) {
             this.httpContextAccessor = httpContextAccessor;
             this.mapper = mapper;
             this.userManager = userManager;
         }
 
-        public async Task<IEnumerable<InvoicingReportVM>> Get(string fromDate, string toDate, string customerId, string destinationId, string shipId) {
+        public async Task<IEnumerable<BillingFinalVM>> Get(string fromDate, string toDate, string customerId, string destinationId, string shipId) {
             customerId = await GetConnectedCustomerIdForConnectedUser(customerId);
             var records = context.Set<Reservation>()
                 .Include(x => x.Customer)
@@ -42,11 +42,11 @@ namespace API.Features.Invoicing {
                     && ((shipId == "all") || (x.ShipId == int.Parse(shipId))))
                 .AsEnumerable()
                 .GroupBy(x => new { x.Customer }).OrderBy(x => x.Key.Customer.Description)
-                .Select(x => new InvoicingDTO {
+                .Select(x => new BillingIntermediateReportVM {
                     FromDate = fromDate,
                     ToDate = toDate,
                     Customer = new SimpleResource { Id = x.Key.Customer.Id, Description = x.Key.Customer.Description },
-                    Ports = x.GroupBy(x => x.Port).OrderBy(x => x.Key.StopOrder).Select(x => new InvoicingPortDTO {
+                    Ports = x.GroupBy(x => x.Port).OrderBy(x => x.Key.StopOrder).Select(x => new BillingIntermediatePortVM {
                         Port = x.Key.Description,
                         HasTransferGroup = x.GroupBy(x => x.PickupPoint.CoachRoute.HasTransfer).Select(x => new HasTransferGroupDTO {
                             HasTransfer = x.Key,
@@ -69,7 +69,7 @@ namespace API.Features.Invoicing {
                     Reservations = x.OrderBy(x => x.Date).ThenBy(x => !x.PickupPoint.CoachRoute.HasTransfer).ToList()
                 })
                 .ToList();
-            return mapper.Map<IEnumerable<InvoicingDTO>, IEnumerable<InvoicingReportVM>>(records);
+            return mapper.Map<IEnumerable<BillingIntermediateReportVM>, IEnumerable<BillingFinalVM>>(records);
         }
 
         private async Task<string> GetConnectedCustomerIdForConnectedUser(string customerId) {

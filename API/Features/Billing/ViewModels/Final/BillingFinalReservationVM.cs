@@ -1,8 +1,8 @@
 using System;
 
-namespace API.Features.Invoicing {
+namespace API.Features.Billing {
 
-    public class InvoicingReservationVM {
+    public class BillingFinalReservationVM {
 
         public string Date { get; set; }
         public string RefNo { get; set; }
