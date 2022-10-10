@@ -58,6 +58,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IShipValidation, ShipValidation>();
             // Misc
             services.AddTransient<IReservationAvailability, ReservationAvailability>();
+            services.AddTransient<IReservationCalendar, ReservationCalendar>();
             services.AddTransient<IScheduleCalendar, ScheduleCalendar>();
         }
 
