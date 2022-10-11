@@ -20,7 +20,6 @@ namespace API.Infrastructure.SeedData {
             SeedDatabaseNationalities.SeedNationalities(context);
             SeedDatabaseOccupants.SeedOccupants(context);
             SeedDatabasePorts.SeedPorts(context);
-            SeedDatabaseRefNos.SeedRefNos(context);
             SeedDatabaseShipOwners.SeedShipOwners(context);
             SeedDatabaseShipRoutes.SeedShipRoutes(context);
             // With dependencies on other tables

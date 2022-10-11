@@ -19,16 +19,18 @@ namespace API.Features.Reservations {
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
         private readonly IReservationAvailability reservationAvailability;
+        private readonly IReservationCalendar reservationCalendar;
         private readonly IReservationRepository reservationRepo;
         private readonly IReservationValidation validReservation;
         private readonly IScheduleRepository scheduleRepo;
 
         #endregion
 
-        public ReservationsController(IHttpContextAccessor httpContextAccessor, IMapper mapper, IReservationAvailability reservationAvailability, IReservationRepository reservationRepo, IReservationValidation validReservation, IScheduleRepository scheduleRepo) {
-            this.httpContext = httpContextAccessor;
+        public ReservationsController(IHttpContextAccessor httpContext, IMapper mapper, IReservationAvailability reservationAvailability, IReservationCalendar reservationCalendar, IReservationRepository reservationRepo, IReservationValidation validReservation, IScheduleRepository scheduleRepo) {
+            this.httpContext = httpContext;
             this.mapper = mapper;
             this.reservationAvailability = reservationAvailability;
+            this.reservationCalendar = reservationCalendar;
             this.reservationRepo = reservationRepo;
             this.scheduleRepo = scheduleRepo;
             this.validReservation = validReservation;
@@ -37,7 +39,7 @@ namespace API.Features.Reservations {
         [HttpGet("fromDate/{fromDate}/toDate/{toDate}")]
         [Authorize(Roles = "user, admin")]
         public IEnumerable<ReservationCalendarGroupVM> GetForCalendar([FromRoute] string fromDate, string toDate) {
-            return reservationRepo.GetForCalendar(fromDate, toDate);
+            return reservationCalendar.GetForCalendar(fromDate, toDate);
         }
 
         [HttpGet("date/{date}")]
@@ -113,7 +115,6 @@ namespace API.Features.Reservations {
                     var z = validReservation.IsValid(reservation, scheduleRepo);
                     if (z == 200) {
                         AttachPortIdToDto(reservation);
-                        UpdateForeignKeysWithNull(reservation);
                         await reservationRepo.Update(id, mapper.Map<ReservationWriteDto, Reservation>(reservationRepo.AttachUserIdToDto(reservation)));
                         return new Response {
                             Code = 200,
@@ -196,12 +197,6 @@ namespace API.Features.Reservations {
 
         private async Task<ReservationWriteDto> AttachNewRefNoToDto(ReservationWriteDto reservation) {
             reservation.RefNo = await reservationRepo.AssignRefNoToNewDto(reservation);
-            return reservation;
-        }
-
-        private static ReservationWriteDto UpdateForeignKeysWithNull(ReservationWriteDto reservation) {
-            if (reservation.DriverId == 0) reservation.DriverId = null;
-            if (reservation.ShipId == 0) reservation.ShipId = null;
             return reservation;
         }
 
