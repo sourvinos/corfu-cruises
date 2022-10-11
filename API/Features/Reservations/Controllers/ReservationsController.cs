@@ -90,14 +90,20 @@ namespace API.Features.Reservations {
         public async Task<Response> Post([FromBody] ReservationWriteDto reservation) {
             var x = validReservation.IsValid(reservation, scheduleRepo);
             if (x == 200) {
-                await AttachNewRefNoToDto(reservation);
-                AttachPortIdToDto(reservation);
-                reservationRepo.Create(mapper.Map<ReservationWriteDto, Reservation>(reservationRepo.AttachUserIdToDto(reservation)));
-                return new Response {
-                    Code = 200,
-                    Icon = Icons.Success.ToString(),
-                    Message = reservation.RefNo
-                };
+                if (await Identity.IsUserAdmin(httpContext) || await validReservation.IsUserOwner(reservation.CustomerId)) {
+                    await AttachNewRefNoToDto(reservation);
+                    AttachPortIdToDto(reservation);
+                    reservationRepo.Create(mapper.Map<ReservationWriteDto, Reservation>(reservationRepo.AttachUserIdToDto(reservation)));
+                    return new Response {
+                        Code = 200,
+                        Icon = Icons.Success.ToString(),
+                        Message = reservation.RefNo
+                    };
+                } else {
+                    throw new CustomException() {
+                        ResponseCode = 490
+                    };
+                }
             } else {
                 throw new CustomException() {
                     ResponseCode = x
