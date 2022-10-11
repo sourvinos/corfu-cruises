@@ -162,8 +162,8 @@ namespace API.Features.Reservations {
             });
         }
 
-        public async Task<string> AssignRefNoToNewReservation(ReservationWriteDto reservation) {
-            return await GetDestinationAbbreviation(reservation) + await IncrementRefNoByOne();
+        public async Task<string> AssignRefNoToNewDto(ReservationWriteDto reservation) {
+            return await GetDestinationAbbreviation(reservation) + DateHelpers.GetRandomizedUnixTime();
         }
 
         public ReservationWriteDto AttachUserIdToDto(ReservationWriteDto reservation) {
@@ -255,23 +255,11 @@ namespace API.Features.Reservations {
                 .ToListAsync();
         }
 
-        private async Task<string> IncrementRefNoByOne() {
-            var refNo = context.RefNos.First();
-            refNo.LastRefNo++;
-            context.Entry(refNo).State = EntityState.Modified;
-            var strategy = context.Database.CreateExecutionStrategy();
-            await strategy.Execute(async () => {
-                using var transaction = context.Database.BeginTransaction();
-                await context.SaveChangesAsync();
-                transaction.Commit();
-            });
-            return refNo.LastRefNo.ToString();
-        }
-
         private async Task<string> GetDestinationAbbreviation(ReservationWriteDto reservation) {
             var destination = await context.Destinations
                 .AsNoTracking()
-                .SingleOrDefaultAsync(x => x.Id == reservation.DestinationId);
+                .Where(x => x.Id == reservation.DestinationId)
+                .SingleAsync();
             return destination.Abbreviation;
         }
 
@@ -282,5 +270,5 @@ namespace API.Features.Reservations {
         }
 
     }
- 
+
 }

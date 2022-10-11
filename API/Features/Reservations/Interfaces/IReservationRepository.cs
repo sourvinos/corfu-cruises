@@ -14,7 +14,7 @@ namespace API.Features.Reservations {
         Task Update(string id, Reservation updatedRecord);
         void AssignToDriver(int driverId, string[] ids);
         void AssignToShip(int shipId, string[] ids);
-        Task<string> AssignRefNoToNewReservation(ReservationWriteDto reservation);
+        Task<string> AssignRefNoToNewDto(ReservationWriteDto reservation);
         ReservationWriteDto AttachUserIdToDto(ReservationWriteDto reservation);
 
     }

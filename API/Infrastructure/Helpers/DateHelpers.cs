@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Security.Cryptography;
 
 namespace API.Infrastructure.Helpers {
 
@@ -17,6 +18,10 @@ namespace API.Infrastructure.Helpers {
 
         public static DateTime GetLocalDateTime() {
             return TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "E. Europe Standard Time");
+        }
+
+        public static string GetRandomizedUnixTime() {
+            return decimal.ToInt32(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() / RandomNumberGenerator.GetInt32(1, 1000 * 1000 * 1000)).ToString();
         }
 
     }
