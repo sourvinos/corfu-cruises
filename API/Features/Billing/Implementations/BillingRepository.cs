@@ -73,7 +73,7 @@ namespace API.Features.Billing {
         }
 
         private async Task<string> GetConnectedCustomerIdForConnectedUser(string customerId) {
-            var isUserAdmin = await Identity.IsUserAdmin(httpContextAccessor);
+            var isUserAdmin = Identity.IsUserAdmin(httpContextAccessor);
             if (!isUserAdmin) {
                 var simpleUser = await Identity.GetConnectedUserId(httpContextAccessor);
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);

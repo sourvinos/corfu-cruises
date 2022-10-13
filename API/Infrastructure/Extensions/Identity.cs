@@ -37,8 +37,8 @@ namespace API.Infrastructure.Extensions {
             return userManager.Users.SingleOrDefault(x => x.Id == userId);
         }
 
-        public static Task<bool> IsUserAdmin(IHttpContextAccessor httpContextAccessor) {
-            return Task.Run(() => httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role).Value == "admin");
+        public static bool IsUserAdmin(IHttpContextAccessor httpContextAccessor) {
+            return httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role).Value == "admin";
         }
 
         public static T PatchEntityWithUserId<T>(IHttpContextAccessor httpContextAccessor, T entity) where T : IEntity {

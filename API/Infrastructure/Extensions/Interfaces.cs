@@ -40,7 +40,8 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IPortRepository, PortRepository>();
             services.AddTransient<IRegistrarRepository, RegistrarRepository>();
             services.AddTransient<IReservationAvailability, ReservationAvailability>();
-            services.AddTransient<IReservationRepository, ReservationRepository>();
+            services.AddTransient<IReservationReadRepository, ReservationReadRepository>();
+            services.AddTransient<IReservationUpdateRepository, ReservationUpdateRepository>();
             services.AddTransient<IScheduleRepository, ScheduleRepository>();
             services.AddTransient<IShipCrewRepository, ShipCrewRepository>();
             services.AddTransient<IShipOwnerRepository, ShipOwnerRepository>();

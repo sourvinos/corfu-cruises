@@ -94,7 +94,7 @@ namespace API.Features.Reservations {
         }
 
         private bool SimpleUserCausesOverbooking(string date, Guid? reservationId, int destinationId, int portId, int reservationPersons) {
-            if (Identity.IsUserAdmin(httpContext).Result || reservationId != Guid.Empty) {
+            if (Identity.IsUserAdmin(httpContext) || reservationId != Guid.Empty) {
                 return false;
             } else {
                 return reservationAvailability.CalculateAvailability(date, destinationId, portId).Last().FreeSeats < reservationPersons;
@@ -102,7 +102,7 @@ namespace API.Features.Reservations {
         }
 
         private bool SimpleUserCanNotAddReservationAfterDeparture(ReservationWriteDto reservation) {
-            return !Identity.IsUserAdmin(httpContext).Result && IsAfterDeparture(reservation);
+            return !Identity.IsUserAdmin(httpContext) && IsAfterDeparture(reservation);
         }
 
         private bool IsValidCustomer(ReservationWriteDto reservation) {
@@ -211,7 +211,7 @@ namespace API.Features.Reservations {
         }
 
         private bool SimpleUserHasNightRestrictions(ReservationWriteDto reservation) {
-            if (!Identity.IsUserAdmin(httpContext).Result && reservation.ReservationId == Guid.Empty) {
+            if (!Identity.IsUserAdmin(httpContext) && reservation.ReservationId == Guid.Empty) {
                 if (HasTransfer(reservation.PickupPointId)) {
                     if (IsForTomorrow(reservation)) {
                         if (IsBetweenClosingTimeAndMidnight(reservation)) {

@@ -89,7 +89,7 @@ namespace API.Infrastructure.Identity {
 
         [Authorize]
         [HttpGet("[action]")]
-        public Task<bool> IsConnectedUserAdmin() {
+        public bool IsConnectedUserAdmin() {
             return Extensions.Identity.IsUserAdmin(httpContextAccessor);
         }
 

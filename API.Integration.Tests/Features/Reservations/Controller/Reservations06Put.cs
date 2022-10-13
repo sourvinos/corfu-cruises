@@ -47,6 +47,12 @@ namespace API.Integration.Tests.Reservations {
         }
 
         [Theory]
+        [ClassData(typeof(ActiveSimpleUsersCanUpdateOwnedRecordsWhenValid))]
+        public async Task Active_Simple_Users_Can_Update_Owned(TestUpdateReservation record) {
+            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
+        }
+
+        [Theory]
         [ClassData(typeof(ActiveAdminsCanNotUpdateWhenInvalid))]
         public async Task Active_Admins_Can_Not_Update_When_Invalid(TestUpdateReservation record) {
             var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
