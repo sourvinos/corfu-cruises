@@ -36,14 +36,18 @@ namespace API.Infrastructure.Identity {
         [HttpGet]
         [Authorize(Roles = "admin")]
         public async Task<IEnumerable<UserListDto>> Get() {
-            return await userManager.Users.Select(u => new UserListDto {
-                Id = u.Id,
-                UserName = u.UserName,
-                Displayname = u.Displayname,
-                Email = u.Email,
-                IsAdmin = u.IsAdmin,
-                IsActive = u.IsActive
-            }).OrderBy(o => o.UserName).AsNoTracking().ToListAsync();
+            return await userManager.Users
+                .AsNoTracking()
+                .Select(u => new UserListDto {
+                    Id = u.Id,
+                    UserName = u.UserName,
+                    Displayname = u.Displayname,
+                    Email = u.Email,
+                    IsAdmin = u.IsAdmin,
+                    IsActive = u.IsActive
+                })
+                .OrderBy(o => o.UserName)
+                .ToListAsync();
         }
 
         [HttpGet("{id}")]

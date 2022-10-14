@@ -23,17 +23,17 @@ namespace API.Features.CoachRoutes {
 
         public async Task<IEnumerable<CoachRouteListVM>> Get() {
             var coachRoutes = await context.CoachRoutes
-                .OrderBy(x => x.Description)
                 .AsNoTracking()
+                .OrderBy(x => x.Description)
                 .ToListAsync();
             return mapper.Map<IEnumerable<CoachRoute>, IEnumerable<CoachRouteListVM>>(coachRoutes);
         }
 
         public async Task<IEnumerable<CoachRouteActiveVM>> GetActive() {
             var coachRoutes = await context.CoachRoutes
+                .AsNoTracking()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Abbreviation)
-                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<CoachRoute>, IEnumerable<CoachRouteActiveVM>>(coachRoutes);
         }
@@ -41,8 +41,8 @@ namespace API.Features.CoachRoutes {
         public async Task<CoachRoute> GetById(int id, bool includeTables) {
             return includeTables
                 ? await context.CoachRoutes
-                    .Include(x => x.Port)
                     .AsNoTracking()
+                    .Include(x => x.Port)
                     .SingleOrDefaultAsync(x => x.Id == id)
                 : await context.CoachRoutes
                     .AsNoTracking()

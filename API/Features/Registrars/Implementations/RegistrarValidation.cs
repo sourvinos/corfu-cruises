@@ -1,6 +1,7 @@
 using System.Linq;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Registrars {
@@ -18,8 +19,12 @@ namespace API.Features.Registrars {
 
         private bool IsValidShip(RegistrarWriteDto registrar) {
             return registrar.Id == 0
-                ? context.Ships.SingleOrDefault(x => x.Id == registrar.ShipId && x.IsActive) != null
-                : context.Ships.SingleOrDefault(x => x.Id == registrar.ShipId) != null;
+                ? context.Ships
+                    .AsNoTracking()
+                    .SingleOrDefault(x => x.Id == registrar.ShipId && x.IsActive) != null
+                : context.Ships
+                    .AsNoTracking()
+                    .SingleOrDefault(x => x.Id == registrar.ShipId) != null;
         }
 
     }

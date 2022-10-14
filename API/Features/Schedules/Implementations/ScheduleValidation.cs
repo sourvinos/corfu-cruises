@@ -39,7 +39,9 @@ namespace API.Features.Schedules {
         }
 
         private bool IsValidDestinationOnUpdate(ScheduleWriteDto schedule) {
-            return context.Destinations.SingleOrDefault(x => x.Id == schedule.DestinationId) != null;
+            return context.Destinations
+                .AsNoTracking()
+                .SingleOrDefault(x => x.Id == schedule.DestinationId) != null;
         }
 
         private bool IsValidPortOnNew(List<ScheduleWriteDto> schedules) {
@@ -54,7 +56,9 @@ namespace API.Features.Schedules {
         }
 
         private bool IsValidPortOnUpdate(ScheduleWriteDto schedule) {
-            return context.Ports.SingleOrDefault(x => x.Id == schedule.PortId) != null;
+            return context.Ports
+                .AsNoTracking()
+                .SingleOrDefault(x => x.Id == schedule.PortId) != null;
         }
 
     }

@@ -23,17 +23,17 @@ namespace API.Features.Ports {
 
         public async Task<IEnumerable<PortListVM>> Get() {
             var ports = await context.Ports
-                .OrderBy(x => x.StopOrder)
                 .AsNoTracking()
+                .OrderBy(x => x.StopOrder)
                 .ToListAsync();
             return mapper.Map<IEnumerable<Port>, IEnumerable<PortListVM>>(ports);
         }
 
         public async Task<IEnumerable<PortActiveVM>> GetActive() {
             var ports = await context.Ports
+                .AsNoTracking()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
-                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<Port>, IEnumerable<PortActiveVM>>(ports);
         }

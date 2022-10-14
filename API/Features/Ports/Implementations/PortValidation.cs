@@ -19,11 +19,17 @@ namespace API.Features.Ports {
         }
 
         private bool NewRecordAndPortStopOrderExists(PortWriteDto port) {
-            return port.Id == 0 && context.Ports.Where(x => x.StopOrder == port.StopOrder).FirstOrDefaultAsync().Result != null;
+            return port.Id == 0 && context.Ports
+                .AsNoTracking()
+                .Where(x => x.StopOrder == port.StopOrder)
+                .FirstOrDefaultAsync().Result != null;
         }
 
         private bool EditRecordAndPortStopOrderExists(PortWriteDto port) {
-            return port.Id != 0 && context.Ports.Where(x => x.StopOrder == port.StopOrder && x.Id != port.Id).FirstOrDefaultAsync().Result != null;
+            return port.Id != 0 && context.Ports
+                .AsNoTracking()
+                .Where(x => x.StopOrder == port.StopOrder && x.Id != port.Id)
+                .FirstOrDefaultAsync().Result != null;
         }
 
     }

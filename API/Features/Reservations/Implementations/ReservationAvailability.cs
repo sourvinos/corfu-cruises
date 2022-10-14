@@ -19,11 +19,15 @@ namespace API.Features.Reservations {
         }
 
         private int GetPortStopOrder(int portId) {
-            return context.Ports.Where(x => x.Id == portId).AsNoTracking().Single().StopOrder;
+            return context.Ports
+                .AsNoTracking()
+                .Where(x => x.Id == portId)
+                .Single().StopOrder;
         }
 
         private IList<ReservationAvailabilityVM> GetSchedule(string date, int destinationid, int portStopOrder) {
-            var response = context.Schedules
+            return context.Schedules
+                .AsNoTracking()
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationid && x.Port.StopOrder <= portStopOrder)
                 .OrderBy(x => x.Date).ThenBy(x => x.DestinationId).ThenBy(x => x.Port.StopOrder)
                 .Select(x => new ReservationAvailabilityVM {
@@ -35,13 +39,15 @@ namespace API.Features.Reservations {
                     PortAbbreviation = x.Port.Abbreviation,
                     PortStopOrder = x.Port.StopOrder,
                     MaxPax = x.MaxPax
-                });
-            return response.ToList();
+                }).ToList();
         }
 
         private IList<ReservationAvailabilityVM> GetReservations(IList<ReservationAvailabilityVM> schedules) {
             foreach (var schedule in schedules) {
-                var passengers = context.Reservations.Where(x => x.Date == Convert.ToDateTime(schedule.Date) && x.DestinationId == schedule.DestinationId && x.PortId == schedule.PortId).Sum(x => x.TotalPersons);
+                var passengers = context.Reservations
+                    .AsNoTracking()
+                    .Where(x => x.Date == Convert.ToDateTime(schedule.Date) && x.DestinationId == schedule.DestinationId && x.PortId == schedule.PortId)
+                    .Sum(x => x.TotalPersons);
                 schedule.Pax = passengers;
             }
             return schedules;

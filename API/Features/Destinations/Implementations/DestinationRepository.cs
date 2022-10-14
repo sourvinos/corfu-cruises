@@ -23,17 +23,17 @@ namespace API.Features.Destinations {
 
         public async Task<IEnumerable<DestinationListVM>> Get() {
             var destinations = await context.Destinations
-                .OrderBy(x => x.Description)
                 .AsNoTracking()
+                .OrderBy(x => x.Description)
                 .ToListAsync();
             return mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationListVM>>(destinations);
         }
 
         public async Task<IEnumerable<DestinationActiveVM>> GetActive() {
             var destinations = await context.Destinations
+                .AsNoTracking()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
-                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationActiveVM>>(destinations);
         }

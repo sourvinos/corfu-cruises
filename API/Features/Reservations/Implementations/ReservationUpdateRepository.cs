@@ -106,10 +106,18 @@ namespace API.Features.Reservations {
         }
 
         private void DeletePassengers(Guid reservationId, List<Passenger> passengers) {
-            var existingPassengers = context.Passengers.Where(x => x.ReservationId == reservationId).AsNoTracking().ToList();
-            var updatedPassengers = passengers.Where(x => x.Id != 0).ToList();
-            var passengersToDelete = existingPassengers.Except(updatedPassengers, new PassengerComparerById()).ToList();
-            context.Passengers.RemoveRange(passengersToDelete);
+            var existingPassengers = context.Passengers
+                .AsNoTracking()
+                .Where(x => x.ReservationId == reservationId)
+                .ToList();
+            var updatedPassengers = passengers
+                .Where(x => x.Id != 0)
+                .ToList();
+            var passengersToDelete = existingPassengers
+                .Except(updatedPassengers, new PassengerComparerById())
+                .ToList();
+            context.Passengers
+                .RemoveRange(passengersToDelete);
         }
 
         private class PassengerComparerById : IEqualityComparer<Passenger> {

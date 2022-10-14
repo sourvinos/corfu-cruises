@@ -24,10 +24,10 @@ namespace API.Features.Schedules {
 
         public async Task<IEnumerable<ScheduleListVM>> Get() {
             var schedules = await context.Schedules
+                .AsNoTracking()
                 .Include(x => x.Destination)
                 .Include(x => x.Port)
                 .OrderBy(x => x.Date).ThenBy(x => x.Destination.Description).ThenBy(x => x.Port.Description)
-                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<Schedule>, IEnumerable<ScheduleListVM>>(schedules);
         }
@@ -35,9 +35,9 @@ namespace API.Features.Schedules {
         public async Task<Schedule> GetById(int id, bool includeTables) {
             return includeTables
                 ? await context.Schedules
+                    .AsNoTracking()
                     .Include(x => x.Port)
                     .Include(p => p.Destination)
-                    .AsNoTracking()
                     .SingleOrDefaultAsync(x => x.Id == id)
                 : await context.Schedules
                     .AsNoTracking()
@@ -46,6 +46,7 @@ namespace API.Features.Schedules {
 
         public async Task<IEnumerable<Schedule>> GetRangeByIds(IEnumerable<int> ids) {
             return await context.Schedules
+                .AsNoTracking()
                 .Where(x => ids.Contains(x.Id))
                 .ToListAsync();
         }

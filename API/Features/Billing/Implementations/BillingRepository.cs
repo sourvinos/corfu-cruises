@@ -29,7 +29,8 @@ namespace API.Features.Billing {
 
         public async Task<IEnumerable<BillingFinalVM>> Get(string fromDate, string toDate, string customerId, string destinationId, string shipId) {
             customerId = await GetConnectedCustomerIdForConnectedUser(customerId);
-            var records = context.Set<Reservation>()
+            var records = context.Reservations
+                .AsNoTracking()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.PickupPoint).ThenInclude(x => x.CoachRoute)

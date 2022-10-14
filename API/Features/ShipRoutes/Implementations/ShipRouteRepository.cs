@@ -23,17 +23,17 @@ namespace API.Features.ShipRoutes {
 
         public async Task<IEnumerable<ShipRouteListVM>> Get() {
             var shipRoutes = await context.ShipRoutes
-                .OrderBy(x => x.FromTime).ThenBy(x => x.ViaTime).ThenBy(x => x.ToTime)
                 .AsNoTracking()
+                .OrderBy(x => x.FromTime).ThenBy(x => x.ViaTime).ThenBy(x => x.ToTime)
                 .ToListAsync();
             return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<ShipRouteListVM>>(shipRoutes);
         }
 
         public async Task<IEnumerable<ShipRouteActiveVM>> GetActive() {
             var shipRoutes = await context.ShipRoutes
+                .AsNoTracking()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
-                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<ShipRouteActiveVM>>(shipRoutes);
         }

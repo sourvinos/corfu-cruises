@@ -1,6 +1,7 @@
 using System.Linq;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Ships {
@@ -18,8 +19,12 @@ namespace API.Features.Ships {
 
         private bool IsValidShipOwner(ShipWriteDto ship) {
             return ship.Id == 0 
-                ? context.ShipOwners.SingleOrDefault(x => x.Id == ship.ShipOwnerId && x.IsActive) != null 
-                : context.ShipOwners.SingleOrDefault(x => x.Id == ship.ShipOwnerId) != null;
+                ? context.ShipOwners
+                    .AsNoTracking()
+                    .SingleOrDefault(x => x.Id == ship.ShipOwnerId && x.IsActive) != null 
+                : context.ShipOwners
+                    .AsNoTracking()
+                    .SingleOrDefault(x => x.Id == ship.ShipOwnerId) != null;
         }
 
     }

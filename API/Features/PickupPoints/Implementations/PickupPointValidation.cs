@@ -1,6 +1,7 @@
 using System.Linq;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.PickupPoints {
@@ -18,8 +19,12 @@ namespace API.Features.PickupPoints {
 
         private bool IsValidRoute(PickupPointWriteDto pickupPoint) {
             return pickupPoint.Id == 0
-                ? context.CoachRoutes.SingleOrDefault(x => x.Id == pickupPoint.CoachRouteId && x.IsActive) != null
-                : context.CoachRoutes.SingleOrDefault(x => x.Id == pickupPoint.CoachRouteId) != null;
+                ? context.CoachRoutes
+                    .AsNoTracking()
+                    .SingleOrDefault(x => x.Id == pickupPoint.CoachRouteId && x.IsActive) != null
+                : context.CoachRoutes
+                    .AsNoTracking()
+                    .SingleOrDefault(x => x.Id == pickupPoint.CoachRouteId) != null;
         }
 
     }

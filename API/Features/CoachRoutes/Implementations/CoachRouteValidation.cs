@@ -1,6 +1,7 @@
 using System.Linq;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.CoachRoutes {
@@ -18,8 +19,12 @@ namespace API.Features.CoachRoutes {
 
         private bool IsValidPort(CoachRouteWriteDto coachRoute) {
             return coachRoute.Id == 0
-                ? context.Ports.SingleOrDefault(x => x.Id == coachRoute.PortId && x.IsActive) != null
-                : context.Ports.SingleOrDefault(x => x.Id == coachRoute.PortId) != null;
+                ? context.Ports
+                    .AsNoTracking()
+                    .SingleOrDefault(x => x.Id == coachRoute.PortId && x.IsActive) != null
+                : context.Ports
+                    .AsNoTracking()
+                    .SingleOrDefault(x => x.Id == coachRoute.PortId) != null;
         }
 
     }

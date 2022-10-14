@@ -23,17 +23,17 @@ namespace API.Features.ShipOwners {
 
         public async Task<IEnumerable<ShipOwnerListVM>> Get() {
             var shipOwners = await context.ShipOwners
-                .OrderBy(x => x.Description)
                 .AsNoTracking()
+                .OrderBy(x => x.Description)
                 .ToListAsync();
             return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerListVM>>(shipOwners);
         }
 
         public async Task<IEnumerable<ShipOwnerActiveVM>> GetActive() {
             var shipOwners = await context.ShipOwners
+                .AsNoTracking()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
-                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerActiveVM>>(shipOwners);
         }

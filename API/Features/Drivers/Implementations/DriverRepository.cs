@@ -23,17 +23,17 @@ namespace API.Features.Drivers {
 
         public async Task<IEnumerable<DriverListVM>> Get() {
             List<Driver> drivers = await context.Drivers
-                .OrderBy(x => x.Description)
                 .AsNoTracking()
+                .OrderBy(x => x.Description)
                 .ToListAsync();
             return mapper.Map<IEnumerable<Driver>, IEnumerable<DriverListVM>>(drivers);
         }
 
         public async Task<IEnumerable<DriverActiveVM>> GetActive() {
             List<Driver> activeDrivers = await context.Drivers
+                .AsNoTracking()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
-                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<Driver>, IEnumerable<DriverActiveVM>>(activeDrivers);
         }

@@ -23,17 +23,17 @@ namespace API.Features.Nationalities {
 
         public async Task<IEnumerable<NationalityListVM>> Get() {
             var nationalities = await context.Nationalities
-                .OrderBy(x => x.Description)
                 .AsNoTracking()
+                .OrderBy(x => x.Description)
                 .ToListAsync();
             return mapper.Map<IEnumerable<Nationality>, IEnumerable<NationalityListVM>>(nationalities);
         }
 
         public async Task<IEnumerable<NationalityActiveVM>> GetActive() {
             var nationalities = await context.Nationalities
+                .AsNoTracking()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
-                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<Nationality>, IEnumerable<NationalityActiveVM>>(nationalities);
         }

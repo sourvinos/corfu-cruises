@@ -23,17 +23,17 @@ namespace API.Features.Ships {
 
         public async Task<IEnumerable<ShipListVM>> Get() {
             var ships = await context.Ships
-                .OrderBy(x => x.Description)
                 .AsNoTracking()
+                .OrderBy(x => x.Description)
                 .ToListAsync();
             return mapper.Map<IEnumerable<Ship>, IEnumerable<ShipListVM>>(ships);
         }
 
         public async Task<IEnumerable<ShipActiveVM>> GetActive() {
             var ships = await context.Ships
+                .AsNoTracking()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
-                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<Ship>, IEnumerable<ShipActiveVM>>(ships);
         }
@@ -41,8 +41,8 @@ namespace API.Features.Ships {
         public async Task<Ship> GetById(int id, bool includeTables) {
             return includeTables
                 ? await context.Ships
-                    .Include(x => x.ShipOwner)
                     .AsNoTracking()
+                    .Include(x => x.ShipOwner)
                     .SingleOrDefaultAsync(x => x.Id == id)
                 : await context.Ships
                     .AsNoTracking()

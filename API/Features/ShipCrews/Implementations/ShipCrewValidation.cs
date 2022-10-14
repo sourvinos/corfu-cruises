@@ -1,6 +1,7 @@
 using System.Linq;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.ShipCrews {
@@ -20,20 +21,32 @@ namespace API.Features.ShipCrews {
 
         private bool IsValidGender(ShipCrewWriteDto shipCrew) {
             return shipCrew.Id == 0
-                ? context.Genders.SingleOrDefault(x => x.Id == shipCrew.GenderId && x.IsActive) != null
-                : context.Genders.SingleOrDefault(x => x.Id == shipCrew.GenderId) != null;
+                ? context.Genders
+                    .AsNoTracking()
+                    .SingleOrDefault(x => x.Id == shipCrew.GenderId && x.IsActive) != null
+                : context.Genders
+                    .AsNoTracking()
+                    .SingleOrDefault(x => x.Id == shipCrew.GenderId) != null;
         }
 
         private bool IsValidNationality(ShipCrewWriteDto shipCrew) {
             return shipCrew.Id == 0
-                ? context.Nationalities.SingleOrDefault(x => x.Id == shipCrew.NationalityId && x.IsActive) != null
-                : context.Nationalities.SingleOrDefault(x => x.Id == shipCrew.NationalityId) != null;
+                ? context.Nationalities
+                    .AsNoTracking()
+                    .SingleOrDefault(x => x.Id == shipCrew.NationalityId && x.IsActive) != null
+                : context.Nationalities
+                    .AsNoTracking()
+                    .SingleOrDefault(x => x.Id == shipCrew.NationalityId) != null;
         }
 
         private bool IsValidShip(ShipCrewWriteDto shipCrew) {
             return shipCrew.Id == 0
-                ? context.Ships.SingleOrDefault(x => x.Id == shipCrew.ShipId && x.IsActive) != null
-                : context.Ships.SingleOrDefault(x => x.Id == shipCrew.ShipId) != null;
+                ? context.Ships
+                    .AsNoTracking()
+                    .SingleOrDefault(x => x.Id == shipCrew.ShipId && x.IsActive) != null
+                : context.Ships
+                    .AsNoTracking()
+                    .SingleOrDefault(x => x.Id == shipCrew.ShipId) != null;
         }
 
     }

@@ -75,6 +75,7 @@ namespace API.Features.Reservations {
         public async Task<Reservation> GetById(string reservationId, bool includeTables) {
             return includeTables
                 ? await context.Reservations
+                    .AsNoTracking()
                     .Include(x => x.Customer)
                     .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                     .Include(x => x.Destination)
@@ -84,11 +85,10 @@ namespace API.Features.Reservations {
                     .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                     .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
                     .Include(x => x.Passengers).ThenInclude(x => x.Gender)
-                    .AsNoTracking()
                     .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId)
                 : await context.Reservations
-                    .Include(x => x.Passengers)
                     .AsNoTracking()
+                    .Include(x => x.Passengers)
                     .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId);
         }
 

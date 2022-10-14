@@ -4,6 +4,7 @@ using System.Linq;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Schedules {
@@ -14,6 +15,7 @@ namespace API.Features.Schedules {
 
         public IEnumerable<AvailabilityCalendarGroupVM> GetForCalendar(string fromDate, string toDate) {
             return context.Schedules
+                .AsNoTracking()
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
                 .GroupBy(x => x.Date)
                 .Select(x => new AvailabilityCalendarGroupVM {
@@ -49,7 +51,10 @@ namespace API.Features.Schedules {
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
                     foreach (var port in destination.Ports) {
-                        port.Pax = context.Reservations.Where(x => x.Date == Convert.ToDateTime(schedule.Date) && x.DestinationId == destination.Id && x.PortId == port.Id).Sum(x => x.TotalPersons);
+                        port.Pax = context.Reservations
+                            .AsNoTracking()
+                            .Where(x => x.Date == Convert.ToDateTime(schedule.Date) && x.DestinationId == destination.Id && x.PortId == port.Id)
+                            .Sum(x => x.TotalPersons);
                     }
                 }
             }

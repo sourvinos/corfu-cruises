@@ -23,17 +23,17 @@ namespace API.Features.Customers {
 
         public async Task<IEnumerable<CustomerListVM>> Get() {
             var customers = await context.Customers
-                .OrderBy(x => x.Description)
                 .AsNoTracking()
+                .OrderBy(x => x.Description)
                 .ToListAsync();
             return mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerListVM>>(customers);
         }
 
         public async Task<IEnumerable<CustomerActiveVM>> GetActive() {
             var customers = await context.Customers
+                .AsNoTracking()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
-                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerActiveVM>>(customers);
         }

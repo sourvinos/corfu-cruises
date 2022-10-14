@@ -23,17 +23,17 @@ namespace API.Features.Genders {
 
         public async Task<IEnumerable<GenderListVM>> Get() {
             var genders = await context.Genders
-                .OrderBy(x => x.Description)
                 .AsNoTracking()
+                .OrderBy(x => x.Description)
                 .ToListAsync();
             return mapper.Map<IEnumerable<Gender>, IEnumerable<GenderListVM>>(genders);
         }
 
         public async Task<IEnumerable<GenderActiveVM>> GetActive() {
             var genders = await context.Genders
+                .AsNoTracking()
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Description)
-                .AsNoTracking()
                 .ToListAsync();
             return mapper.Map<IEnumerable<Gender>, IEnumerable<GenderActiveVM>>(genders);
         }

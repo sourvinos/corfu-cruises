@@ -24,6 +24,7 @@ namespace API.Features.Embarkation {
 
         public async Task<EmbarkationMappedGroupVM<EmbarkationMappedVM>> Get(string date, string destinationId, string portId, string shipId) {
             var reservations = await context.Reservations
+                .AsNoTracking()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
@@ -50,8 +51,8 @@ namespace API.Features.Embarkation {
 
         public async Task<Passenger> GetPassengerById(int id) {
             return await context.Passengers
-                .Where(x => x.Id == id)
                 .AsNoTracking()
+                .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
         }
 

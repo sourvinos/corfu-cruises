@@ -20,10 +20,12 @@ namespace API.Features.Manifest {
             var manifest = new ManifestViewModel {
                 Date = date,
                 Destination = context.Destinations
+                    .AsNoTracking()
                     .Select(x => new DestinationViewModel { Id = x.Id, Description = x.Description })
                     .FirstOrDefault(x => x.Id == destinationId),
                 Port = GetPortDescription(portId),
                 Ship = context.Ships
+                    .AsNoTracking()
                     .Include(x => x.ShipOwner)
                     .Include(x => x.Registrars.Where(x => x.IsActive))
                     .Include(x => x.ShipCrews.Where(x => x.IsActive))
@@ -32,8 +34,10 @@ namespace API.Features.Manifest {
                     .Include(x => x.ShipCrews.Where(x => x.IsActive)).ThenInclude(x => x.Occupant)
                     .FirstOrDefault(x => x.Id == shipId),
                 ShipRoute = context.ShipRoutes
+                    .AsNoTracking()
                     .FirstOrDefault(x => x.Id == shipRouteId),
                 Passengers = context.Passengers
+                    .AsNoTracking()
                     .Include(x => x.Nationality)
                     .Include(x => x.Occupant)
                     .Include(x => x.Gender)
@@ -49,7 +53,9 @@ namespace API.Features.Manifest {
 
         private string GetPortDescription(string portId) {
             if (portId != "all") {
-                var port = context.Ports.FirstOrDefault(x => x.Id == int.Parse(portId));
+                var port = context.Ports
+                    .AsNoTracking()
+                    .FirstOrDefault(x => x.Id == int.Parse(portId));
                 return port.Description;
             }
             return portId;
