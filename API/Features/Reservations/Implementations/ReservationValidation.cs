@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using API.Features.PickupPoints;
 using API.Features.Schedules;
 using API.Infrastructure.Classes;
@@ -29,8 +28,8 @@ namespace API.Features.Reservations {
             this.userManager = userManager;
         }
 
-        public async Task<bool> IsUserOwner(int customerId) {
-            var userId = await Identity.GetConnectedUserId(httpContext);
+        public bool IsUserOwner(int customerId) {
+            var userId = Identity.GetConnectedUserId(httpContext);
             var userDetails = Identity.GetConnectedUserDetails(userManager, userId);
             return userDetails.CustomerId == customerId;
         }
@@ -79,6 +78,7 @@ namespace API.Features.Reservations {
                 var x when x == !IsValidOccupant(reservation) => 458,
                 var x when x == !IsCorrectPassengerCount(reservation) => 455,
                 var x when x == !PortHasDepartureForDateAndDestination(reservation) => 410,
+                var x when x == !SimpleUserHasGivenCorrectCustomerId(reservation) => 413,
                 var x when x == SimpleUserCausesOverbooking(reservation.Date, reservation.ReservationId, reservation.DestinationId, GetPortIdFromPickupPointId(reservation), reservation.Adults + reservation.Kids + reservation.Free) => 433,
                 var x when x == SimpleUserHasNightRestrictions(reservation) => 459,
                 var x when x == SimpleUserCanNotAddReservationAfterDeparture(reservation) => 431,
@@ -241,6 +241,20 @@ namespace API.Features.Reservations {
                 return reservation.Passengers.Count == 0 || isValid;
             }
             return true;
+        }
+
+        private bool SimpleUserHasGivenCorrectCustomerId(ReservationWriteDto reservation) {
+            if (!Identity.IsUserAdmin(httpContext)) {
+                var simpleUser = Identity.GetConnectedUserId(httpContext);
+                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);
+                if (connectedUserDetails.CustomerId == reservation.CustomerId) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
         }
 
         private bool SimpleUserHasNightRestrictions(ReservationWriteDto reservation) {

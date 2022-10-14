@@ -51,8 +51,8 @@ namespace API.Features.Schedules {
                 .ToListAsync();
         }
 
-        public async Task<List<ScheduleWriteDto>> AttachUserIdToNewDto(List<ScheduleWriteDto> schedules) {
-            var userId = await Identity.GetConnectedUserId(httpContext);
+        public List<ScheduleWriteDto> AttachUserIdToNewDto(List<ScheduleWriteDto> schedules) {
+            var userId = Identity.GetConnectedUserId(httpContext);
             schedules.ForEach(c => c.UserId = userId);
             return schedules;
         }

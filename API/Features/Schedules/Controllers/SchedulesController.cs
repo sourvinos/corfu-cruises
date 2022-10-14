@@ -61,10 +61,10 @@ namespace API.Features.Schedules {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> Post([FromBody] List<ScheduleWriteDto> records) {
+        public Response Post([FromBody] List<ScheduleWriteDto> records) {
             var x = scheduleValidation.IsValidOnNew(records);
             if (x == 200) {
-                scheduleRepo.CreateList(mapper.Map<List<ScheduleWriteDto>, List<Schedule>>(await scheduleRepo.AttachUserIdToNewDto(records)));
+                scheduleRepo.CreateList(mapper.Map<List<ScheduleWriteDto>, List<Schedule>>(scheduleRepo.AttachUserIdToNewDto(records)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),

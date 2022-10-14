@@ -18,7 +18,9 @@ namespace API.Integration.Tests.Reservations {
                 new TestNewReservation {
                     CustomerId = 1,
                     DestinationId = 1,
+                    DriverId = 0,
                     PickupPointId = 642,
+                    ShipId = null,
                     Date = "2022-03-04",
                     TestDateNow = new DateTime(2022, 3, 5, 12, 00, 00),
                     TicketNo = "xxxx",
@@ -42,7 +44,9 @@ namespace API.Integration.Tests.Reservations {
                 new TestNewReservation {
                     CustomerId = 1,
                     DestinationId = 1,
+                    DriverId = null,
                     PickupPointId = 642,
+                    ShipId = 0,
                     Date = "2022-12-04",
                     TestDateNow = new DateTime(2022, 3, 5, 12, 00, 00),
                     TicketNo = "xxxx",

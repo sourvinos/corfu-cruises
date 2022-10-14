@@ -46,8 +46,8 @@ namespace API.Features.Reservations {
 
         [HttpGet("date/{date}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationMappedGroupVM<ReservationMappedListVM>> GetForDailyList([FromRoute] string date) {
-            return await reservationReadRepo.GetForDailyList(date);
+        public ReservationMappedGroupVM<ReservationMappedListVM> GetForDailyList([FromRoute] string date) {
+            return reservationReadRepo.GetForDailyList(date);
         }
 
         [HttpGet("date/{date}/driver/{driverId}")]
@@ -58,8 +58,8 @@ namespace API.Features.Reservations {
 
         [HttpGet("refNo/{refNo}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationMappedGroupVM<ReservationMappedListVM>> GetByRefNo([FromRoute] string refNo) {
-            return await reservationReadRepo.GetByRefNo(refNo);
+        public ReservationMappedGroupVM<ReservationMappedListVM> GetByRefNo([FromRoute] string refNo) {
+            return reservationReadRepo.GetByRefNo(refNo);
         }
 
         [HttpGet("{reservationId}")]
@@ -67,7 +67,7 @@ namespace API.Features.Reservations {
         public async Task<Response> GetById(string reservationId) {
             var x = await reservationReadRepo.GetById(reservationId, true);
             if (x != null) {
-                if (Identity.IsUserAdmin(httpContext) || await validReservation.IsUserOwner(x.CustomerId)) {
+                if (Identity.IsUserAdmin(httpContext) || validReservation.IsUserOwner(x.CustomerId)) {
                     return new Response {
                         Code = 200,
                         Icon = Icons.Info.ToString(),
@@ -94,6 +94,8 @@ namespace API.Features.Reservations {
             if (x == 200) {
                 AttachNewRefNoToDto(reservation);
                 AttachPortIdToDto(reservation);
+                UpdateDriverIdWithNull(reservation);
+                UpdateShipIdWithNull(reservation);
                 reservationUpdateRepo.Create(mapper.Map<ReservationWriteDto, Reservation>(reservationUpdateRepo.AttachUserIdToDto(reservation)));
                 return Task.FromResult(new Response {
                     Code = 200,
@@ -113,10 +115,12 @@ namespace API.Features.Reservations {
         public async Task<Response> Put([FromBody] ReservationWriteDto reservation) {
             var x = await reservationReadRepo.GetById(reservation.ReservationId.ToString(), false);
             if (x != null) {
-                if (Identity.IsUserAdmin(httpContext) || await validReservation.IsUserOwner(x.CustomerId)) {
+                if (Identity.IsUserAdmin(httpContext) || validReservation.IsUserOwner(x.CustomerId)) {
                     var z = validReservation.IsValid(reservation, scheduleRepo);
                     if (z == 200) {
                         AttachPortIdToDto(reservation);
+                        UpdateDriverIdWithNull(reservation);
+                        UpdateShipIdWithNull(reservation);
                         reservationUpdateRepo.Update(reservation.ReservationId, mapper.Map<ReservationWriteDto, Reservation>(reservationUpdateRepo.AttachUserIdToDto(reservation)));
                         return new Response {
                             Code = 200,
@@ -199,6 +203,16 @@ namespace API.Features.Reservations {
 
         private ReservationWriteDto AttachNewRefNoToDto(ReservationWriteDto reservation) {
             reservation.RefNo = reservationUpdateRepo.AssignRefNoToNewDto(reservation);
+            return reservation;
+        }
+
+        private static ReservationWriteDto UpdateDriverIdWithNull(ReservationWriteDto reservation) {
+            if (reservation.DriverId == 0) reservation.DriverId = null;
+            return reservation;
+        }
+
+        private static ReservationWriteDto UpdateShipIdWithNull(ReservationWriteDto reservation) {
+            if (reservation.ShipId == 0) reservation.ShipId = null;
             return reservation;
         }
 

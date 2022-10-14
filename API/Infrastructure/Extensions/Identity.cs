@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Identity;
 using Microsoft.AspNetCore.Http;
@@ -29,8 +28,8 @@ namespace API.Infrastructure.Extensions {
                 .AddDefaultTokenProviders();
         }
 
-        public static Task<string> GetConnectedUserId(IHttpContextAccessor httpContextAccessor) {
-            return Task.Run(() => httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+        public static string GetConnectedUserId(IHttpContextAccessor httpContextAccessor) {
+            return httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
 
         public static UserExtended GetConnectedUserDetails(UserManager<UserExtended> userManager, string userId) {

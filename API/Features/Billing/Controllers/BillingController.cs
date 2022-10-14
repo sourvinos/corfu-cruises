@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +19,7 @@ namespace API.Features.Billing {
 
         [Authorize(Roles = "user, admin")]
         [HttpGet("fromDate/{fromDate}/toDate/{toDate}/customerId/{customerId}/destinationId/{destinationId}/shipId/{shipId}")]
-        public Task<IEnumerable<BillingFinalVM>> Get(string fromDate, string toDate, string customerId, string destinationId, string shipId) {
+        public IEnumerable<BillingFinalVM> Get(string fromDate, string toDate, string customerId, string destinationId, string shipId) {
             return repo.Get(fromDate, toDate, customerId, destinationId, shipId);
         }
 

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using API.Features.Reservations;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Identity;
@@ -27,8 +25,8 @@ namespace API.Features.Billing {
             this.userManager = userManager;
         }
 
-        public async Task<IEnumerable<BillingFinalVM>> Get(string fromDate, string toDate, string customerId, string destinationId, string shipId) {
-            customerId = await GetConnectedCustomerIdForConnectedUser(customerId);
+        public IEnumerable<BillingFinalVM> Get(string fromDate, string toDate, string customerId, string destinationId, string shipId) {
+            customerId = GetConnectedCustomerIdForConnectedUser(customerId);
             var records = context.Reservations
                 .AsNoTracking()
                 .Include(x => x.Customer)
@@ -73,10 +71,10 @@ namespace API.Features.Billing {
             return mapper.Map<IEnumerable<BillingIntermediateReportVM>, IEnumerable<BillingFinalVM>>(records);
         }
 
-        private async Task<string> GetConnectedCustomerIdForConnectedUser(string customerId) {
+        private string GetConnectedCustomerIdForConnectedUser(string customerId) {
             var isUserAdmin = Identity.IsUserAdmin(httpContextAccessor);
             if (!isUserAdmin) {
-                var simpleUser = await Identity.GetConnectedUserId(httpContextAccessor);
+                var simpleUser = Identity.GetConnectedUserId(httpContextAccessor);
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);
                 return connectedUserDetails.CustomerId.ToString();
             }

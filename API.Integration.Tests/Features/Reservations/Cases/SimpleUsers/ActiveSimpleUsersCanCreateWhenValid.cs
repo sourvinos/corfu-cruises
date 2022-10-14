@@ -19,9 +19,11 @@ namespace API.Integration.Tests.Reservations {
                 new TestNewReservation {
                     Date = "2022-09-15",
                     TestDateNow = new DateTime(2022, 09, 14, 12, 0, 0),
-                    CustomerId = 1,
+                    CustomerId = 2,
                     DestinationId = 1,
+                    DriverId = 0,
                     PickupPointId = 12,
+                    ShipId = null,
                     TicketNo = "xxxx",
                     Adults = 3,
                     Passengers = new List<TestPassenger>()
@@ -34,9 +36,11 @@ namespace API.Integration.Tests.Reservations {
                 new TestNewReservation {
                     Date = "2022-09-15",
                     TestDateNow = new DateTime(2022, 09, 14, 23, 30, 0),
-                    CustomerId = 1,
+                    CustomerId = 2,
                     DestinationId = 1,
+                    DriverId = 0,
                     PickupPointId = 507,
+                    ShipId = null,
                     TicketNo = "xxxx",
                     Adults = 3,
                     Passengers = new List<TestPassenger>()
@@ -49,9 +53,11 @@ namespace API.Integration.Tests.Reservations {
                 new TestNewReservation {
                     Date = "2022-09-15",
                     TestDateNow = new DateTime(2022, 09, 14, 04, 45, 0),
-                    CustomerId = 1,
+                    CustomerId = 2,
                     DestinationId = 1,
+                    DriverId = 0,
                     PickupPointId = 507,
+                    ShipId = null,
                     TicketNo = "xxxx",
                     Adults = 3,
                     Passengers = new List<TestPassenger>()

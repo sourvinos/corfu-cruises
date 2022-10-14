@@ -27,12 +27,12 @@ namespace API.Features.Reservations {
             this.userManager = userManager;
         }
 
-        public async Task<ReservationMappedGroupVM<ReservationMappedListVM>> GetForDailyList(string date) {
+        public ReservationMappedGroupVM<ReservationMappedListVM> GetForDailyList(string date) {
             IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
             if (Identity.IsUserAdmin(httpContext)) {
                 reservations = GetReservationsFromAllUsersByDate(date);
             } else {
-                var simpleUser = await Identity.GetConnectedUserId(httpContext);
+                var simpleUser = Identity.GetConnectedUserId(httpContext);
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);
                 reservations = GetReservationsForLinkedCustomer(date, (int)connectedUserDetails.CustomerId);
             }
@@ -43,13 +43,13 @@ namespace API.Features.Reservations {
             return mapper.Map<ReservationInitialGroupVM<Reservation>, ReservationMappedGroupVM<ReservationMappedListVM>>(mainResult);
         }
 
-        public async Task<ReservationMappedGroupVM<ReservationMappedListVM>> GetByRefNo(string refNo) {
+        public ReservationMappedGroupVM<ReservationMappedListVM> GetByRefNo(string refNo) {
             IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
-            var connectedUser = await Identity.GetConnectedUserId(httpContext);
+            var connectedUser = Identity.GetConnectedUserId(httpContext);
             if (Identity.IsUserAdmin(httpContext)) {
                 reservations = GetReservationsFromAllUsersByRefNo(refNo);
             } else {
-                var simpleUser = await Identity.GetConnectedUserId(httpContext);
+                var simpleUser = Identity.GetConnectedUserId(httpContext);
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);
                 reservations = GetReservationsFromLinkedCustomerbyRefNo(refNo, (int)connectedUserDetails.CustomerId);
             }

@@ -49,6 +49,7 @@ namespace API.Infrastructure.Middleware {
                 410 => ApiMessages.InvalidDateDestinationOrPort(),
                 411 => ApiMessages.InvalidPort(),
                 412 => ApiMessages.ScheduleNotUnique(),
+                413 => ApiMessages.CustomerIdDoesNotMatchConnectedSimpleUserCustomerId(),
                 431 => ApiMessages.SimpleUserCanNotAddReservationAfterDepartureTime(),
                 433 => ApiMessages.PortHasNoVacancy(),
                 449 => ApiMessages.InvalidShipOwner(),

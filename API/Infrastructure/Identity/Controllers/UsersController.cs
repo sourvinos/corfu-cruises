@@ -129,7 +129,7 @@ namespace API.Infrastructure.Identity {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> DeleteUser(string id) {
-            var user = await Extensions.Identity.GetConnectedUserId(httpContextAccessor);
+            var user = Extensions.Identity.GetConnectedUserId(httpContextAccessor);
             if (id == user) {
                 return new Response {
                     Code = 499,

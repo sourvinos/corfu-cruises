@@ -20,7 +20,7 @@ namespace API.Integration.Tests.Reservations {
         private static object[] Simple_Users_Can_Not_Create_Reservation_When_CustomerId_Is_Not_Equal_To_Theirs() {
             return new object[] {
                 new TestNewReservation {
-                    StatusCode = 490,
+                    StatusCode = 413,
                     Date = "2022-09-15",
                     TestDateNow = new DateTime(2022, 09, 14, 12, 0, 0),
                     CustomerId = 1,
@@ -33,14 +33,13 @@ namespace API.Integration.Tests.Reservations {
             };
         }
 
-
         private static object[] Simple_Users_Can_Not_Create_Reservation_With_Transfer_For_Tomorrow_Between_Closing_Time_And_Midnight() {
             return new object[] {
                 new TestNewReservation {
                     StatusCode = 459,
                     Date = "2022-05-30",
                     TestDateNow = new DateTime(2022, 5, 29, 22, 30, 00),
-                    CustomerId = 1,
+                    CustomerId = 2,
                     DestinationId = 1,
                     PickupPointId = 12,
                     TicketNo = "xxxx",
@@ -56,7 +55,7 @@ namespace API.Integration.Tests.Reservations {
                     StatusCode = 459,
                     Date = "2022-05-29",
                     TestDateNow = new DateTime(2022, 5, 29, 06, 30, 00),
-                    CustomerId = 1,
+                    CustomerId = 2,
                     DestinationId = 1,
                     PickupPointId = 12,
                     TicketNo = "xxxx",
@@ -72,7 +71,7 @@ namespace API.Integration.Tests.Reservations {
                     StatusCode = 431,
                     Date = "2022-03-25",
                     TestDateNow = new DateTime(2022, 3, 25, 12, 45, 00),
-                    CustomerId = 1,
+                    CustomerId = 2,
                     DestinationId = 1,
                     PickupPointId = 12,
                     TicketNo = "xxxx",
@@ -93,7 +92,7 @@ namespace API.Integration.Tests.Reservations {
                     StatusCode = 433,
                     Date = "2022-05-06",
                     TestDateNow = new DateTime(2022, 05, 05, 12, 0, 0),
-                    CustomerId = 1,
+                    CustomerId = 2,
                     DestinationId = 1,
                     PickupPointId = 12,
                     TicketNo = "xxxx",
@@ -109,7 +108,7 @@ namespace API.Integration.Tests.Reservations {
                     StatusCode = 433,
                     Date = "2022-05-06",
                     TestDateNow = new DateTime(2022, 05, 05, 12, 0, 0),
-                    CustomerId = 1,
+                    CustomerId = 2,
                     DestinationId = 1,
                     PickupPointId = 687,
                     TicketNo = "xxxx",
