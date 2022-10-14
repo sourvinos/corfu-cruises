@@ -37,7 +37,7 @@ namespace API.Infrastructure.Implementations {
         public void Create(T entity) {
             using var transaction = context.Database.BeginTransaction();
             context.Add(entity);
-            Save();
+            context.SaveChanges();
             DisposeOrCommit(transaction);
         }
 
@@ -46,36 +46,27 @@ namespace API.Infrastructure.Implementations {
             strategy.Execute(() => {
                 using var transaction = context.Database.BeginTransaction();
                 context.AddRange(entities);
-                Save();
+                context.SaveChanges();
                 DisposeOrCommit(transaction);
             });
         }
 
         public void Update(T entity) {
             using var transaction = context.Database.BeginTransaction();
-            context.Entry(entity).State = EntityState.Modified;
             context.Set<T>().Update(entity);
-            Save();
+            context.SaveChanges();
             DisposeOrCommit(transaction);
         }
 
         public void Delete(T entity) {
             using var transaction = context.Database.BeginTransaction();
             try {
-                RemoveEntity(entity);
-                Save();
+                context.Remove(entity);
+                context.SaveChanges();
                 DisposeOrCommit(transaction);
             } catch (Exception) {
                 throw new CustomException { ResponseCode = 491 };
             }
-        }
-
-        private void Save() {
-            context.SaveChanges();
-        }
-
-        private void RemoveEntity(T entity) {
-            context.Remove(entity);
         }
 
         private void DisposeOrCommit(IDbContextTransaction transaction) {

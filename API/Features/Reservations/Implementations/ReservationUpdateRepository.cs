@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
@@ -26,11 +25,9 @@ namespace API.Features.Reservations {
             var strategy = context.Database.CreateExecutionStrategy();
             strategy.Execute(() => {
                 using var transaction = context.Database.BeginTransaction();
-                if (Identity.IsUserAdmin(httpContext)) {
-                    context.Entry(reservation).State = EntityState.Modified;
-                }
+                UpdateReservation(reservation);
                 AddPassengers(reservation.Passengers);
-                EditPassengers(reservation.Passengers);
+                UpdatePassengers(reservation.Passengers);
                 DeletePassengers(reservationId, reservation.Passengers);
                 context.Reservations.Update(reservation);
                 context.SaveChanges();
@@ -91,13 +88,18 @@ namespace API.Features.Reservations {
             return destination.Abbreviation;
         }
 
+        private void UpdateReservation(Reservation reservation) {
+            if (Identity.IsUserAdmin(httpContext)) {
+                context.Reservations.Update(reservation);
+            }
+        }
+
         private void AddPassengers(List<Passenger> passengers) {
             context.Passengers.AddRange(passengers.Where(x => x.Id == 0).ToList());
         }
 
-        private void EditPassengers(List<Passenger> passengers) {
+        private void UpdatePassengers(List<Passenger> passengers) {
             foreach (var passenger in passengers.Where(x => x.Id != 0).ToList()) {
-                context.Entry(passenger).State = EntityState.Modified;
                 context.Passengers.Update(passenger);
             }
         }
