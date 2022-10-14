@@ -89,23 +89,17 @@ namespace API.Features.Reservations {
         [HttpPost]
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public async Task<Response> Post([FromBody] ReservationWriteDto reservation) {
+        public Task<Response> Post([FromBody] ReservationWriteDto reservation) {
             var x = validReservation.IsValid(reservation, scheduleRepo);
             if (x == 200) {
-                if (Identity.IsUserAdmin(httpContext) || await validReservation.IsUserOwner(reservation.CustomerId)) {
-                    await AttachNewRefNoToDto(reservation);
-                    AttachPortIdToDto(reservation);
-                    reservationUpdateRepo.Create(mapper.Map<ReservationWriteDto, Reservation>(reservationUpdateRepo.AttachUserIdToDto(reservation)));
-                    return new Response {
-                        Code = 200,
-                        Icon = Icons.Success.ToString(),
-                        Message = reservation.RefNo
-                    };
-                } else {
-                    throw new CustomException() {
-                        ResponseCode = 490
-                    };
-                }
+                AttachNewRefNoToDto(reservation);
+                AttachPortIdToDto(reservation);
+                reservationUpdateRepo.Create(mapper.Map<ReservationWriteDto, Reservation>(reservationUpdateRepo.AttachUserIdToDto(reservation)));
+                return Task.FromResult(new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = reservation.RefNo
+                });
             } else {
                 throw new CustomException() {
                     ResponseCode = x
@@ -203,8 +197,8 @@ namespace API.Features.Reservations {
             return reservation;
         }
 
-        private async Task<ReservationWriteDto> AttachNewRefNoToDto(ReservationWriteDto reservation) {
-            reservation.RefNo = await reservationUpdateRepo.AssignRefNoToNewDto(reservation);
+        private ReservationWriteDto AttachNewRefNoToDto(ReservationWriteDto reservation) {
+            reservation.RefNo = reservationUpdateRepo.AssignRefNoToNewDto(reservation);
             return reservation;
         }
 

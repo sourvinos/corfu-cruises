@@ -76,30 +76,27 @@ namespace API.Features.Reservations {
             });
         }
 
-        public async Task<string> AssignRefNoToNewDto(ReservationWriteDto reservation) {
-            return await GetDestinationAbbreviation(reservation) + DateHelpers.GetRandomizedUnixTime();
+        public string AssignRefNoToNewDto(ReservationWriteDto reservation) {
+            return GetDestinationAbbreviation(reservation) + DateHelpers.GetRandomizedUnixTime();
         }
 
         public ReservationWriteDto AttachUserIdToDto(ReservationWriteDto reservation) {
             return Identity.PatchEntityWithUserId(httpContext, reservation);
         }
 
-        private async Task<string> GetDestinationAbbreviation(ReservationWriteDto reservation) {
-            var destination = await context.Destinations
+        private string GetDestinationAbbreviation(ReservationWriteDto reservation) {
+            var destination = context.Destinations
                 .AsNoTracking()
-                .Where(x => x.Id == reservation.DestinationId)
-                .SingleAsync();
+                .SingleOrDefault(x => x.Id == reservation.DestinationId);
             return destination.Abbreviation;
         }
 
         private void AddPassengers(List<Passenger> passengers) {
-            var passengersToAdd = passengers.Where(x => x.Id == 0).ToList();
-            context.Passengers.AddRange(passengersToAdd);
+            context.Passengers.AddRange(passengers.Where(x => x.Id == 0).ToList());
         }
 
         private void EditPassengers(List<Passenger> passengers) {
-            var updatedPassengers = passengers.Where(x => x.Id != 0).ToList();
-            foreach (var passenger in updatedPassengers) {
+            foreach (var passenger in passengers.Where(x => x.Id != 0).ToList()) {
                 context.Entry(passenger).State = EntityState.Modified;
                 context.Passengers.Update(passenger);
             }
