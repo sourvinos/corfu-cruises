@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Interfaces;
@@ -20,14 +18,6 @@ namespace API.Infrastructure.Implementations {
         public Repository(AppDbContext context, IOptions<TestingEnvironment> testingSettings) {
             this.context = context;
             this.testingSettings = testingSettings.Value;
-        }
-
-        public async Task<IEnumerable<T>> Get(Expression<Func<T, bool>> expression) {
-            return await context.Set<T>().Where(expression).ToListAsync();
-        }
-
-        public async Task<IEnumerable<T>> GetActive(Expression<Func<T, bool>> expression) {
-            return await context.Set<T>().Where(expression).ToListAsync();
         }
 
         public async Task<T> GetById(int id) {
@@ -69,16 +59,16 @@ namespace API.Infrastructure.Implementations {
             }
         }
 
+        public void DeleteRange(IEnumerable<T> entities) {
+            context.RemoveRange(entities);
+        }
+
         private void DisposeOrCommit(IDbContextTransaction transaction) {
             if (testingSettings.IsTesting) {
                 transaction.Dispose();
             } else {
                 transaction.Commit();
             }
-        }
-
-        public void DeleteRange(IEnumerable<T> entities) {
-            context.RemoveRange(entities);
         }
 
     }
