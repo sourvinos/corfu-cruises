@@ -1,3 +1,5 @@
+using System;
+using API.Infrastructure.Helpers;
 using AutoMapper;
 
 namespace API.Features.Customers {
@@ -5,7 +7,8 @@ namespace API.Features.Customers {
     public class CustomerMappingProfile : Profile {
 
         public CustomerMappingProfile() {
-            CreateMap<CustomerWriteDto, Customer>();
+            CreateMap<CustomerWriteDto, Customer>()
+                .ForMember(x => x.LastUpdated, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(DateTime.Now)));
         }
 
     }

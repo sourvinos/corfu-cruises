@@ -16,6 +16,7 @@ namespace API.Features.Customers {
         public string PersonInCharge { get; set; }
         public string Email { get; set; }
         public bool IsActive { get; set; }
+        public string LastUpdated { get; set; }
         // FKs
         public string UserId { get; set; }
         // Navigation
