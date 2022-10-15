@@ -41,7 +41,7 @@ namespace API.Features.Manifest {
                         .ConvertAll(crew => new ManifestCrewViewModel {
                             Lastname = crew.Lastname,
                             Firstname = crew.Firstname,
-                            Birthdate = DateHelpers.DateTimeToISOString(crew.Birthdate),
+                            Birthdate = DateHelpers.DateToISOString(crew.Birthdate),
                             GenderDescription = crew.Gender.Description,
                             NationalityDescription = crew.Nationality.Description,
                             OccupantDescription = crew.Occupant.Description,
@@ -61,7 +61,7 @@ namespace API.Features.Manifest {
                 .ForMember(x => x.Passengers, x => x.MapFrom(source => source.Passengers.Select(passenger => new ManifestPassengerViewModel {
                     Lastname = passenger.Lastname,
                     Firstname = passenger.Firstname,
-                    Birthdate = DateHelpers.DateTimeToISOString(passenger.Birthdate),
+                    Birthdate = DateHelpers.DateToISOString(passenger.Birthdate),
                     Remarks = passenger.Remarks,
                     SpecialCare = passenger.SpecialCare,
                     NationalityCode = passenger.Nationality.Code,

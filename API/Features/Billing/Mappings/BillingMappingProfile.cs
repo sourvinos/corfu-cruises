@@ -19,7 +19,7 @@ namespace API.Features.Billing {
                     TotalPassengers = x.TotalPassengers
                 })))
                 .ForMember(x => x.Reservations, x => x.MapFrom(x => x.Reservations.Select(x => new BillingFinalReservationVM {
-                    Date = DateHelpers.DateTimeToISOString(x.Date),
+                    Date = DateHelpers.DateToISOString(x.Date),
                     RefNo = x.RefNo,
                     ReservationId = x.ReservationId,
                     Adults = x.Adults,

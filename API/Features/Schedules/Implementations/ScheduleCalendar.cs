@@ -20,7 +20,7 @@ namespace API.Features.Schedules {
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
                 .GroupBy(x => x.Date)
                 .Select(x => new AvailabilityCalendarGroupVM {
-                    Date = DateHelpers.DateTimeToISOString(x.Key.Date),
+                    Date = DateHelpers.DateToISOString(x.Key.Date),
                     Destinations = x.GroupBy(x => new { x.Date, x.Destination.Id, x.Destination.Description, x.Destination.Abbreviation }).Select(x => new DestinationCalendarVM {
                         Id = x.Key.Id,
                         Description = x.Key.Description,

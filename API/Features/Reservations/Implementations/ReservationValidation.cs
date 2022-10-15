@@ -265,13 +265,13 @@ namespace API.Features.Reservations {
 
         private bool IsForTomorrow(ReservationWriteDto reservation) {
             var tomorrow = testingEnvironment.IsTesting ? reservation.TestDateNow.AddDays(1) : DateHelpers.GetLocalDateTime().AddDays(1);
-            var tomorrowDate = DateHelpers.DateTimeToISOString(tomorrow);
+            var tomorrowDate = DateHelpers.DateToISOString(tomorrow);
             return reservation.Date == tomorrowDate;
         }
 
         private bool IsForToday(ReservationWriteDto reservation) {
             var today = testingEnvironment.IsTesting ? reservation.TestDateNow : DateHelpers.GetLocalDateTime();
-            var todayDate = DateHelpers.DateTimeToISOString(today);
+            var todayDate = DateHelpers.DateToISOString(today);
             return reservation.Date == todayDate;
         }
 

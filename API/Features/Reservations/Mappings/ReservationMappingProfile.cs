@@ -13,7 +13,7 @@ namespace API.Features.Reservations {
         public ReservationMappingProfile() {
             // List
             CreateMap<Reservation, ReservationMappedListVM>()
-                .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Date)))
+                .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateToISOString(x.Date)))
                 .ForMember(x => x.CoachRouteAbbreviation, x => x.MapFrom(x => x.PickupPoint.CoachRoute.Abbreviation))
                 .ForMember(x => x.DriverDescription, x => x.NullSubstitute("(EMPTY)"))
                 .ForMember(x => x.PortDescription, x => x.MapFrom(x => x.PickupPoint.CoachRoute.Port.Description))
@@ -28,7 +28,7 @@ namespace API.Features.Reservations {
                 .ForMember(x => x.Fullname, x => x.MapFrom(x => x.Passengers.FirstOrDefault().Lastname + " " + x.Passengers.FirstOrDefault().Firstname));
             // Read reservation
             CreateMap<Reservation, ReservationReadDto>()
-                .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Date)))
+                .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateToISOString(x.Date)))
                 .ForMember(x => x.Driver, x => x.NullSubstitute(new Driver { Id = 0, Description = "(EMPTY)" }))
                 .ForMember(x => x.Ship, x => x.NullSubstitute(new Ship { Id = 0, Description = "(EMPTY)" }))
                 .ForMember(x => x.PickupPoint, x => x.MapFrom(r => new PickupPointActiveVM {
@@ -43,7 +43,7 @@ namespace API.Features.Reservations {
                 }));
             // Read passenger
             CreateMap<Passenger, PassengerReadDto>()
-                .ForMember(x => x.Birthdate, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(x.Birthdate)));
+                .ForMember(x => x.Birthdate, x => x.MapFrom(x => DateHelpers.DateToISOString(x.Birthdate)));
             // Write reservation
             CreateMap<ReservationWriteDto, Reservation>();
             // Write passenger
