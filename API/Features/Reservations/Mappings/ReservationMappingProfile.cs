@@ -47,7 +47,8 @@ namespace API.Features.Reservations {
             // Write reservation
             CreateMap<ReservationWriteDto, Reservation>();
             // Write passenger
-            CreateMap<PassengerWriteDto, Passenger>();
+            CreateMap<PassengerWriteDto, Passenger>()
+                .ForMember(x => x.OccupantId, x => x.MapFrom(x => 2));
         }
 
     }

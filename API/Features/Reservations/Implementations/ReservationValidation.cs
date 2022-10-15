@@ -75,7 +75,6 @@ namespace API.Features.Reservations {
                 var x when x == !IsValidShip(reservation) => 454,
                 var x when x == !IsValidNationality(reservation) => 456,
                 var x when x == !IsValidGender(reservation) => 457,
-                var x when x == !IsValidOccupant(reservation) => 458,
                 var x when x == !IsCorrectPassengerCount(reservation) => 455,
                 var x when x == !PortHasDepartureForDateAndDestination(reservation) => 410,
                 var x when x == !SimpleUserHasGivenCorrectCustomerId(reservation) => 413,
@@ -217,25 +216,6 @@ namespace API.Features.Reservations {
                         isValid = context.Genders
                             .AsNoTracking()
                             .SingleOrDefault(x => x.Id == passenger.GenderId) != null;
-                    }
-                }
-                return reservation.Passengers.Count == 0 || isValid;
-            }
-            return true;
-        }
-
-        private bool IsValidOccupant(ReservationWriteDto reservation) {
-            if (reservation.Passengers != null) {
-                bool isValid = false;
-                foreach (var passenger in reservation.Passengers) {
-                    if (reservation.ReservationId == Guid.Empty) {
-                        isValid = context.Occupants
-                            .AsNoTracking()
-                            .SingleOrDefault(x => x.Id == passenger.OccupantId && x.IsActive) != null;
-                    } else {
-                        isValid = context.Occupants
-                            .AsNoTracking()
-                            .SingleOrDefault(x => x.Id == passenger.OccupantId) != null;
                     }
                 }
                 return reservation.Passengers.Count == 0 || isValid;

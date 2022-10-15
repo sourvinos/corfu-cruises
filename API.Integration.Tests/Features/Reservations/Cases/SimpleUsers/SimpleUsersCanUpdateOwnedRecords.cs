@@ -27,9 +27,9 @@ namespace API.Integration.Tests.Reservations {
                     Kids = 0,
                     Free = 0,
                     Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Id = 3902, Lastname = "KOYRI!", Firstname = "MARILENA", Birthdate = "2022-05-05", NationalityId = 229, OccupantId = 2, GenderId = 2 },
-                        new TestPassenger { Id = 3903, Lastname = "KOYRI!", Firstname = "JANE", Birthdate = "2022-05-05", NationalityId = 163, OccupantId = 2, GenderId = 2 },
-                        new TestPassenger { Lastname = "NEW", Firstname = "JANE", Birthdate = "2022-05-05", NationalityId = 163, OccupantId = 2, GenderId = 2 }
+                        new TestPassenger { Id = 3902, Lastname = "KOYRI!", Firstname = "MARILENA", Birthdate = "2022-05-05", NationalityId = 229, GenderId = 2 },
+                        new TestPassenger { Id = 3903, Lastname = "KOYRI!", Firstname = "JANE", Birthdate = "2022-05-05", NationalityId = 163, GenderId = 2 },
+                        new TestPassenger { Lastname = "NEW", Firstname = "JANE", Birthdate = "2022-05-05", NationalityId = 163, GenderId = 2 }
                     }
                 }
             };

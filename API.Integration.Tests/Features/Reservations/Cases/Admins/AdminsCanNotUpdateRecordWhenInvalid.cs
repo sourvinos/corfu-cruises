@@ -19,7 +19,6 @@ namespace API.Integration.Tests.Reservations {
             yield return Driver_Must_Exist();
             yield return Gender_Must_Exist();
             yield return Nationality_Must_Exist();
-            yield return Occupant_Must_Exist();
             yield return PickupPoint_Must_Exist();
             yield return Ship_Must_Exist();
         }
@@ -39,8 +38,8 @@ namespace API.Integration.Tests.Reservations {
                     TicketNo = "D5",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Lastname = "TIMMINS", Firstname = "JOAN", Birthdate = "2065-08-21", NationalityId = 70, OccupantId = 2, GenderId = 2 },
-                        new TestPassenger { Lastname = "TIMMINS", Firstname = "ALAN", Birthdate = "2065-07-17", NationalityId = 70, OccupantId = 2, GenderId = 1 },
+                        new TestPassenger { Lastname = "TIMMINS", Firstname = "JOAN", Birthdate = "2065-08-21", NationalityId = 70, GenderId = 2 },
+                        new TestPassenger { Lastname = "TIMMINS", Firstname = "ALAN", Birthdate = "2065-07-17", NationalityId = 70, GenderId = 1 },
                     }
                 }
             };
@@ -61,8 +60,8 @@ namespace API.Integration.Tests.Reservations {
                     TicketNo = "D5",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Lastname = "TIMMINS", Firstname = "JOAN", Birthdate = "2065-08-21", NationalityId = 70, OccupantId = 2, GenderId = 2 },
-                        new TestPassenger { Lastname = "TIMMINS", Firstname = "ALAN", Birthdate = "2065-07-17", NationalityId = 70, OccupantId = 2, GenderId = 1 },
+                        new TestPassenger { Lastname = "TIMMINS", Firstname = "JOAN", Birthdate = "2065-08-21", NationalityId = 70, GenderId = 2 },
+                        new TestPassenger { Lastname = "TIMMINS", Firstname = "ALAN", Birthdate = "2065-07-17", NationalityId = 70, GenderId = 1 },
                     }
                 }
             };
@@ -83,11 +82,11 @@ namespace API.Integration.Tests.Reservations {
                     TicketNo = "Eagle Travel",
                     Adults = 5,
                     Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Lastname = "sacomono", Firstname = "MARIECLEO", Birthdate = "1981-08-14", NationalityId = 89, OccupantId = 2, GenderId = 2 },
-                        new TestPassenger { Lastname = "KAGREN", Firstname = "BIRCH", Birthdate = "1957-12-13", NationalityId = 89, OccupantId = 2, GenderId = 2 },
-                        new TestPassenger { Lastname = "ANDREW", Firstname = "SUZAN", Birthdate = "1975-08-21", NationalityId = 89, OccupantId = 2, GenderId = 2 },
-                        new TestPassenger { Lastname = "ADEONOJOBI", Firstname = "PETER", Birthdate = "1965-11-11", NationalityId = 89, OccupantId = 2, GenderId = 1 },
-                        new TestPassenger { Lastname = "DERBY ", Firstname = "ELAINE", Birthdate = "1964-12-12", NationalityId = 89, OccupantId = 2, GenderId = 2 }
+                        new TestPassenger { Lastname = "sacomono", Firstname = "MARIECLEO", Birthdate = "1981-08-14", NationalityId = 89, GenderId = 2 },
+                        new TestPassenger { Lastname = "KAGREN", Firstname = "BIRCH", Birthdate = "1957-12-13", NationalityId = 89, GenderId = 2 },
+                        new TestPassenger { Lastname = "ANDREW", Firstname = "SUZAN", Birthdate = "1975-08-21", NationalityId = 89, GenderId = 2 },
+                        new TestPassenger { Lastname = "ADEONOJOBI", Firstname = "PETER", Birthdate = "1965-11-11", NationalityId = 89, GenderId = 1 },
+                        new TestPassenger { Lastname = "DERBY ", Firstname = "ELAINE", Birthdate = "1964-12-12", NationalityId = 89, GenderId = 2 }
                     }
                 }
             };
@@ -119,9 +118,9 @@ namespace API.Integration.Tests.Reservations {
                     TicketNo = "21",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 123, OccupantId = 2, GenderId = 1 },
-                        new TestPassenger { Lastname = "ALONA", Firstname = "CUTLER", Birthdate = "1964-04-28", NationalityId = 127, OccupantId = 2, GenderId = 2 },
-                        new TestPassenger { Lastname = "LYA", Firstname = "TROWBRIDGE", Birthdate = "2015-01-21", NationalityId = 211, OccupantId = 2, GenderId = 1 },
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 123, GenderId = 1 },
+                        new TestPassenger { Lastname = "ALONA", Firstname = "CUTLER", Birthdate = "1964-04-28", NationalityId = 127, GenderId = 2 },
+                        new TestPassenger { Lastname = "LYA", Firstname = "TROWBRIDGE", Birthdate = "2015-01-21", NationalityId = 211, GenderId = 1 },
                     }
                 }
             };
@@ -142,9 +141,9 @@ namespace API.Integration.Tests.Reservations {
                     TicketNo = "21",
                     Adults = 3,
                     Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Lastname = "VOYER", Firstname = "ALESCANDRA", Birthdate = "1991-06-05", NationalityId = 233, OccupantId = 1, GenderId = 2 },
-                        new TestPassenger { Lastname = "VOYER", Firstname = "ANNIE", Birthdate = "1962-12-25", NationalityId = 233, OccupantId = 1, GenderId = 2 },
-                        new TestPassenger { Lastname = "VOYER", Firstname = "NATHAN", Birthdate = "2018-02-05", NationalityId = 233, OccupantId = 1, GenderId = 1 }
+                        new TestPassenger { Lastname = "VOYER", Firstname = "ALESCANDRA", Birthdate = "1991-06-05", NationalityId = 233, GenderId = 2 },
+                        new TestPassenger { Lastname = "VOYER", Firstname = "ANNIE", Birthdate = "1962-12-25", NationalityId = 233, GenderId = 2 },
+                        new TestPassenger { Lastname = "VOYER", Firstname = "NATHAN", Birthdate = "2018-02-05", NationalityId = 233, GenderId = 1 }
                     }
                 }
             };
@@ -200,9 +199,9 @@ namespace API.Integration.Tests.Reservations {
                     Adults = 2,
                     Free = 1,
                     Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Lastname = "VOYER", Firstname = "ALESCANDRA", Birthdate = "1991-06-05", NationalityId = 233, OccupantId = 1, GenderId = 99 },
-                        new TestPassenger { Lastname = "VOYER", Firstname = "ANNIE", Birthdate = "1962-12-25", NationalityId = 233, OccupantId = 1, GenderId = 99 },
-                        new TestPassenger { Lastname = "VOYER", Firstname = "NATHAN", Birthdate = "2018-02-05", NationalityId = 233, OccupantId = 1, GenderId = 99 }
+                        new TestPassenger { Lastname = "VOYER", Firstname = "ALESCANDRA", Birthdate = "1991-06-05", NationalityId = 233, GenderId = 99 },
+                        new TestPassenger { Lastname = "VOYER", Firstname = "ANNIE", Birthdate = "1962-12-25", NationalityId = 233, GenderId = 99 },
+                        new TestPassenger { Lastname = "VOYER", Firstname = "NATHAN", Birthdate = "2018-02-05", NationalityId = 233, GenderId = 99 }
                     }
                 }
             };
@@ -223,32 +222,9 @@ namespace API.Integration.Tests.Reservations {
                     Adults = 2,
                     Free = 1,
                     Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Lastname = "VOYER", Firstname = "ALESCANDRA", Birthdate = "1991-06-05", NationalityId = 999, OccupantId = 1, GenderId = 2 },
-                        new TestPassenger { Lastname = "VOYER", Firstname = "ANNIE", Birthdate = "1962-12-25", NationalityId = 999, OccupantId = 1, GenderId = 2 },
-                        new TestPassenger { Lastname = "VOYER", Firstname = "NATHAN", Birthdate = "2018-02-05", NationalityId = 999, OccupantId = 1, GenderId = 1 }
-                    }
-                }
-            };
-        }
-
-        private static object[] Occupant_Must_Exist() {
-            return new object[] {
-                new TestUpdateReservation {
-                    StatusCode = 458,
-                    ReservationId = Guid.Parse("08da2863-15d9-4338-81fa-637a52371163"),
-                    CustomerId = 2,
-                    DestinationId = 1,
-                    DriverId = 18,
-                    PickupPointId = 248,
-                    ShipId = 6,
-                    Date = "2022-05-01",
-                    TicketNo = "21",
-                    Adults = 2,
-                    Free = 1,
-                    Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Lastname = "VOYER", Firstname = "ALESCANDRA", Birthdate = "1991-06-05", NationalityId = 233, OccupantId = 4, GenderId = 2 },
-                        new TestPassenger { Lastname = "VOYER", Firstname = "ANNIE", Birthdate = "1962-12-25", NationalityId = 233, OccupantId = 4, GenderId = 2 },
-                        new TestPassenger { Lastname = "VOYER", Firstname = "NATHAN", Birthdate = "2018-02-05", NationalityId = 233, OccupantId = 4, GenderId = 1 }
+                        new TestPassenger { Lastname = "VOYER", Firstname = "ALESCANDRA", Birthdate = "1991-06-05", NationalityId = 999, GenderId = 2 },
+                        new TestPassenger { Lastname = "VOYER", Firstname = "ANNIE", Birthdate = "1962-12-25", NationalityId = 999, GenderId = 2 },
+                        new TestPassenger { Lastname = "VOYER", Firstname = "NATHAN", Birthdate = "2018-02-05", NationalityId = 999, GenderId = 1 }
                     }
                 }
             };
