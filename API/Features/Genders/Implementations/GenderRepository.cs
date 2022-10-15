@@ -38,7 +38,7 @@ namespace API.Features.Genders {
             return mapper.Map<IEnumerable<Gender>, IEnumerable<GenderActiveVM>>(genders);
         }
 
-        public new async Task<Gender> GetById(int id) {
+        public async Task<Gender> GetById(int id) {
             return await context.Genders
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);

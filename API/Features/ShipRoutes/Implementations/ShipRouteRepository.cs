@@ -38,7 +38,7 @@ namespace API.Features.ShipRoutes {
             return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<ShipRouteActiveVM>>(shipRoutes);
         }
 
-        public new async Task<ShipRoute> GetById(int id) {
+        public async Task<ShipRoute> GetById(int id) {
             return await context.ShipRoutes
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);

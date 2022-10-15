@@ -38,7 +38,7 @@ namespace API.Features.ShipOwners {
             return mapper.Map<IEnumerable<ShipOwner>, IEnumerable<ShipOwnerActiveVM>>(shipOwners);
         }
 
-        public new async Task<ShipOwner> GetById(int id) {
+        public async Task<ShipOwner> GetById(int id) {
             return await context.ShipOwners
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);

@@ -38,7 +38,7 @@ namespace API.Features.Destinations {
             return mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationActiveVM>>(destinations);
         }
 
-        public new async Task<Destination> GetById(int id) {
+        public async Task<Destination> GetById(int id) {
             return await context.Destinations
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);

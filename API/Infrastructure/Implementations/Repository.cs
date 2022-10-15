@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Interfaces;
 using API.Infrastructure.Responses;
@@ -18,10 +17,6 @@ namespace API.Infrastructure.Implementations {
         public Repository(AppDbContext context, IOptions<TestingEnvironment> testingSettings) {
             this.context = context;
             this.testingSettings = testingSettings.Value;
-        }
-
-        public async Task<T> GetById(int id) {
-            return await context.Set<T>().FindAsync(id);
         }
 
         public void Create(T entity) {

@@ -38,7 +38,7 @@ namespace API.Features.Ports {
             return mapper.Map<IEnumerable<Port>, IEnumerable<PortActiveVM>>(ports);
         }
 
-        public new async Task<Port> GetById(int id) {
+        public async Task<Port> GetById(int id) {
             return await context.Ports
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);

@@ -38,7 +38,7 @@ namespace API.Features.Customers {
             return mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerActiveVM>>(customers);
         }
 
-        public new async Task<Customer> GetById(int id) {
+        public async Task<Customer> GetById(int id) {
             return await context.Customers
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);

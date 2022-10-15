@@ -38,7 +38,7 @@ namespace API.Features.Nationalities {
             return mapper.Map<IEnumerable<Nationality>, IEnumerable<NationalityActiveVM>>(nationalities);
         }
 
-        public new async Task<Nationality> GetById(int id) {
+        public async Task<Nationality> GetById(int id) {
             return await context.Nationalities
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);

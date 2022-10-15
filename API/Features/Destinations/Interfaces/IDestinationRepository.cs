@@ -8,7 +8,7 @@ namespace API.Features.Destinations {
 
         Task<IEnumerable<DestinationListVM>> Get();
         Task<IEnumerable<DestinationActiveVM>> GetActive();
-        new Task<Destination> GetById(int id);
+        Task<Destination> GetById(int id);
         DestinationWriteDto AttachUserIdToDto(DestinationWriteDto destination);
 
     }

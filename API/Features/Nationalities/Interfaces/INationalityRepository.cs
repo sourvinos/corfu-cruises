@@ -8,7 +8,7 @@ namespace API.Features.Nationalities {
 
         Task<IEnumerable<NationalityListVM>> Get();
         Task<IEnumerable<NationalityActiveVM>> GetActive();
-        new Task<Nationality> GetById(int id);
+        Task<Nationality> GetById(int id);
         NationalityWriteDto AttachUserIdToDto(NationalityWriteDto nationality);
 
     }
