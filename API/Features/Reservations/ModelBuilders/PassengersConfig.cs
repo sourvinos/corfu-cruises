@@ -11,7 +11,7 @@ namespace API.Features.Reservations {
             // FKs
             entity.Property(x => x.GenderId).IsRequired(true);
             entity.Property(x => x.NationalityId).IsRequired(true);
-            entity.Property(x => x.OccupantId).IsRequired(true);
+            entity.Property(x => x.OccupantId).HasDefaultValue(2);
             // Fields
             entity.Property(x => x.Lastname).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.Firstname).HasMaxLength(128).IsRequired(true);
