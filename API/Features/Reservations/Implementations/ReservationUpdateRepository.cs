@@ -91,13 +91,11 @@ namespace API.Features.Reservations {
         }
 
         private void AddPassengers(List<Passenger> passengers) {
-            context.Passengers.AddRange(passengers.Where(x => x.Id == 0).ToList());
+            context.Passengers.AddRange(passengers.Where(x => x.Id == 0));
         }
 
         private void UpdatePassengers(List<Passenger> passengers) {
-            foreach (var passenger in passengers.Where(x => x.Id != 0).ToList()) {
-                context.Passengers.Update(passenger);
-            }
+            context.Passengers.UpdateRange(passengers.Where(x => x.Id != 0));
         }
 
         private void DeletePassengers(Guid reservationId, List<Passenger> passengers) {
