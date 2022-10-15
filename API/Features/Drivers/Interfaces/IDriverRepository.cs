@@ -9,7 +9,6 @@ namespace API.Features.Drivers {
         Task<IEnumerable<DriverListVM>> Get();
         Task<IEnumerable<DriverActiveVM>> GetActive();
         Task<Driver> GetById(int id);
-        DriverWriteDto AttachUserIdToDto(DriverWriteDto driver);
 
     }
 

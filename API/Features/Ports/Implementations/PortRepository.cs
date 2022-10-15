@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Extensions;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -13,11 +12,9 @@ namespace API.Features.Ports {
 
     public class PortRepository : Repository<Port>, IPortRepository {
 
-        private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
 
-        public PortRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
-            this.httpContext = httpContext;
+        public PortRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) {
             this.mapper = mapper;
         }
 
@@ -44,9 +41,6 @@ namespace API.Features.Ports {
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public PortWriteDto AttachUserIdToDto(PortWriteDto port) {
-            return Identity.PatchEntityWithUserId(httpContext, port);
-        }
     }
 
 }

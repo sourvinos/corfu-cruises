@@ -58,7 +58,7 @@ namespace API.Features.Nationalities {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public Response Post([FromBody] NationalityWriteDto nationality) {
-            nationalityRepo.Create(mapper.Map<NationalityWriteDto, Nationality>(nationalityRepo.AttachUserIdToDto(nationality)));
+            nationalityRepo.Create(mapper.Map<NationalityWriteDto, Nationality>((NationalityWriteDto)nationalityRepo.AttachUserIdToDto(nationality)));
             return new Response {
                 Code = 200,
                 Icon = Icons.Success.ToString(),
@@ -72,7 +72,7 @@ namespace API.Features.Nationalities {
         public async Task<Response> Put([FromBody] NationalityWriteDto nationality) {
             var x = await nationalityRepo.GetById(nationality.Id);
             if (x != null) {
-                nationalityRepo.Update(mapper.Map<NationalityWriteDto, Nationality>(nationalityRepo.AttachUserIdToDto(nationality)));
+                nationalityRepo.Update(mapper.Map<NationalityWriteDto, Nationality>((NationalityWriteDto)nationalityRepo.AttachUserIdToDto(nationality)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),

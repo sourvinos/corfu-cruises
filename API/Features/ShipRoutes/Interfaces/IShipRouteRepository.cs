@@ -9,7 +9,6 @@ namespace API.Features.ShipRoutes {
         Task<IEnumerable<ShipRouteListVM>> Get();
         Task<IEnumerable<ShipRouteActiveVM>> GetActive();
         Task<ShipRoute> GetById(int id);
-        ShipRouteWriteDto AttachUserIdToDto(ShipRouteWriteDto shipRoute);
 
     }
 

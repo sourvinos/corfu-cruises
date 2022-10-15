@@ -62,7 +62,7 @@ namespace API.Features.CoachRoutes {
         public Response Post([FromBody] CoachRouteWriteDto coachRoute) {
             var x = coachRouteValidation.IsValid(coachRoute);
             if (x == 200) {
-                coachRouteRepo.Create(mapper.Map<CoachRouteWriteDto, CoachRoute>(coachRouteRepo.AttachUserIdToDto(coachRoute)));
+                coachRouteRepo.Create(mapper.Map<CoachRouteWriteDto, CoachRoute>((CoachRouteWriteDto)coachRouteRepo.AttachUserIdToDto(coachRoute)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -83,7 +83,7 @@ namespace API.Features.CoachRoutes {
             if (x != null) {
                 var z = coachRouteValidation.IsValid(coachRoute);
                 if (z == 200) {
-                    coachRouteRepo.Update(mapper.Map<CoachRouteWriteDto, CoachRoute>(coachRouteRepo.AttachUserIdToDto(coachRoute)));
+                    coachRouteRepo.Update(mapper.Map<CoachRouteWriteDto, CoachRoute>((CoachRouteWriteDto)coachRouteRepo.AttachUserIdToDto(coachRoute)));
                     return new Response {
                         Code = 200,
                         Icon = Icons.Success.ToString(),

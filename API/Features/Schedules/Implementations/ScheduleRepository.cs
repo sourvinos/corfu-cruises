@@ -17,7 +17,7 @@ namespace API.Features.Schedules {
         private readonly IMapper mapper;
         private readonly IHttpContextAccessor httpContext;
 
-        public ScheduleRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, settings) {
+        public ScheduleRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, httpContext, settings) {
             this.httpContext = httpContext;
             this.mapper = mapper;
         }
@@ -51,14 +51,9 @@ namespace API.Features.Schedules {
                 .ToListAsync();
         }
 
-        public List<ScheduleWriteDto> AttachUserIdToNewDto(List<ScheduleWriteDto> schedules) {
-            var userId = Identity.GetConnectedUserId(httpContext);
-            schedules.ForEach(c => c.UserId = userId);
+        public List<ScheduleWriteDto> AttachUserIdToDtos(List<ScheduleWriteDto> schedules) {
+            schedules.ForEach(x => x = Identity.PatchEntityWithUserId(httpContext, x));
             return schedules;
-        }
-
-        public ScheduleWriteDto AttachUserIdToUpdateDto(ScheduleWriteDto schedule) {
-            return Identity.PatchEntityWithUserId(httpContext, schedule);
         }
 
     }

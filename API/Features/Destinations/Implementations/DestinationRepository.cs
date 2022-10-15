@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Extensions;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -13,11 +12,9 @@ namespace API.Features.Destinations {
 
     public class DestinationRepository : Repository<Destination>, IDestinationRepository {
 
-        private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
 
-        public DestinationRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
-            this.httpContext = httpContext;
+        public DestinationRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) {
             this.mapper = mapper;
         }
 
@@ -43,11 +40,7 @@ namespace API.Features.Destinations {
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
-
-         public DestinationWriteDto AttachUserIdToDto(DestinationWriteDto destination) {
-            return Identity.PatchEntityWithUserId(httpContext, destination);
-        }
-
+ 
     }
 
 }

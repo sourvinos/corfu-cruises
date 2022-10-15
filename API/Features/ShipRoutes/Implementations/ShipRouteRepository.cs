@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Extensions;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -13,11 +12,9 @@ namespace API.Features.ShipRoutes {
 
     public class ShipRouteRepository : Repository<ShipRoute>, IShipRouteRepository {
 
-        private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
 
-        public ShipRouteRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
-            this.httpContext = httpContext;
+        public ShipRouteRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) {
             this.mapper = mapper;
         }
 
@@ -42,10 +39,6 @@ namespace API.Features.ShipRoutes {
             return await context.ShipRoutes
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
-        }
-
-        public ShipRouteWriteDto AttachUserIdToDto(ShipRouteWriteDto shipRoute) {
-            return Identity.PatchEntityWithUserId(httpContext, shipRoute);
         }
 
     }

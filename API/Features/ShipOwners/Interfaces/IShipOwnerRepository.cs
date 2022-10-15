@@ -9,7 +9,6 @@ namespace API.Features.ShipOwners {
         Task<IEnumerable<ShipOwnerListVM>> Get();
         Task<IEnumerable<ShipOwnerActiveVM>> GetActive();
         Task<ShipOwner> GetById(int id);
-        ShipOwnerWriteDto AttachUserIdToDto(ShipOwnerWriteDto shipOwner);
 
     }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -11,7 +12,7 @@ namespace API.Features.Schedules {
 
     public class ScheduleCalendar : Repository<Schedule>, IScheduleCalendar {
 
-        public ScheduleCalendar(AppDbContext context, IOptions<TestingEnvironment> settings) : base(context, settings) { }
+        public ScheduleCalendar(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(context, httpContext, settings) { }
 
         public IEnumerable<AvailabilityCalendarGroupVM> GetForCalendar(string fromDate, string toDate) {
             return context.Schedules

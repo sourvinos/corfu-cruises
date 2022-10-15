@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Interfaces;
 using API.Infrastructure.Responses;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Options;
 
@@ -12,10 +12,12 @@ namespace API.Infrastructure.Implementations {
     public class Repository<T> : IRepository<T> where T : class {
 
         protected readonly AppDbContext context;
+        private readonly IHttpContextAccessor httpContext;
         private readonly TestingEnvironment testingSettings;
 
-        public Repository(AppDbContext context, IOptions<TestingEnvironment> testingSettings) {
+        public Repository(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingSettings) {
             this.context = context;
+            this.httpContext = httpContext;
             this.testingSettings = testingSettings.Value;
         }
 
@@ -27,13 +29,10 @@ namespace API.Infrastructure.Implementations {
         }
 
         public void CreateList(List<T> entities) {
-            var strategy = context.Database.CreateExecutionStrategy();
-            strategy.Execute(() => {
-                using var transaction = context.Database.BeginTransaction();
-                context.AddRange(entities);
-                context.SaveChanges();
-                DisposeOrCommit(transaction);
-            });
+            using var transaction = context.Database.BeginTransaction();
+            context.AddRange(entities);
+            context.SaveChanges();
+            DisposeOrCommit(transaction);
         }
 
         public void Update(T entity) {
@@ -56,6 +55,10 @@ namespace API.Infrastructure.Implementations {
 
         public void DeleteRange(IEnumerable<T> entities) {
             context.RemoveRange(entities);
+        }
+
+        public IEntity AttachUserIdToDto(IEntity entity) {
+            return Extensions.Identity.PatchEntityWithUserId(httpContext, entity);
         }
 
         private void DisposeOrCommit(IDbContextTransaction transaction) {

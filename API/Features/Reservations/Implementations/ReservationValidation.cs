@@ -21,7 +21,7 @@ namespace API.Features.Reservations {
         private readonly TestingEnvironment testingEnvironment;
         private readonly UserManager<UserExtended> userManager;
 
-        public ReservationValidation(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment, IReservationAvailability reservationAvailability, UserManager<UserExtended> userManager) : base(context, testingEnvironment) {
+        public ReservationValidation(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment, IReservationAvailability reservationAvailability, UserManager<UserExtended> userManager) : base(context, httpContext, testingEnvironment) {
             this.httpContext = httpContext;
             this.reservationAvailability = reservationAvailability;
             this.testingEnvironment = testingEnvironment.Value;

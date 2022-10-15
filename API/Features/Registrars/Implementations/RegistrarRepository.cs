@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Extensions;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -14,10 +13,8 @@ namespace API.Features.Registrars {
     public class RegistrarRepository : Repository<Registrar>, IRegistrarRepository {
 
         private readonly IMapper mapper;
-        private readonly IHttpContextAccessor httpContext;
 
-        public RegistrarRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
-            this.httpContext = httpContext;
+        public RegistrarRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) {
             this.mapper = mapper;
         }
 
@@ -48,10 +45,6 @@ namespace API.Features.Registrars {
                 : await context.Registrars
                     .AsNoTracking()
                     .SingleOrDefaultAsync(x => x.Id == id);
-        }
-
-        public RegistrarWriteDto AttachUserIdToDto(RegistrarWriteDto registrar) {
-            return Identity.PatchEntityWithUserId(httpContext, registrar);
         }
 
     }

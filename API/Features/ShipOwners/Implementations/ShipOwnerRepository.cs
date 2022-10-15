@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Extensions;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -13,11 +12,9 @@ namespace API.Features.ShipOwners {
 
     public class ShipOwnerRepository : Repository<ShipOwner>, IShipOwnerRepository {
 
-        private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
 
-        public ShipOwnerRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, settings) {
-            this.httpContext = httpContext;
+        public ShipOwnerRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, httpContext, settings) {
             this.mapper = mapper;
         }
 
@@ -42,10 +39,6 @@ namespace API.Features.ShipOwners {
             return await context.ShipOwners
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
-        }
-
-        public ShipOwnerWriteDto AttachUserIdToDto(ShipOwnerWriteDto shipOwner) {
-            return Identity.PatchEntityWithUserId(httpContext, shipOwner);
         }
 
     }

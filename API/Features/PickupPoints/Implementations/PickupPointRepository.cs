@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Extensions;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -14,10 +13,8 @@ namespace API.Features.PickupPoints {
     public class PickupPointRepository : Repository<PickupPoint>, IPickupPointRepository {
 
         private readonly IMapper mapper;
-        private readonly IHttpContextAccessor httpContext;
 
-        public PickupPointRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, settings) {
-            this.httpContext = httpContext;
+        public PickupPointRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) {
             this.mapper = mapper;
         }
 
@@ -49,10 +46,6 @@ namespace API.Features.PickupPoints {
                 : await context.PickupPoints
                     .AsNoTracking()
                     .SingleOrDefaultAsync(x => x.Id == id);
-        }
-
-        public PickupPointWriteDto AttachUserIdToDto(PickupPointWriteDto pickupPoint) {
-            return Identity.PatchEntityWithUserId(httpContext, pickupPoint);
         }
 
     }

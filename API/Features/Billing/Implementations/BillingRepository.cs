@@ -15,12 +15,12 @@ namespace API.Features.Billing {
 
     public class BillingRepository : Repository<BillingRepository>, IBillingRepository {
 
-        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
         private readonly UserManager<UserExtended> userManager;
 
-        public BillingRepository(AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor, IMapper mapper, IOptions<TestingEnvironment> settings, UserManager<UserExtended> userManager) : base(appDbContext, settings) {
-            this.httpContextAccessor = httpContextAccessor;
+        public BillingRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings, UserManager<UserExtended> userManager) : base(appDbContext, httpContext, settings) {
+            this.httpContext = httpContext;
             this.mapper = mapper;
             this.userManager = userManager;
         }
@@ -72,9 +72,9 @@ namespace API.Features.Billing {
         }
 
         private string GetConnectedCustomerIdForConnectedUser(string customerId) {
-            var isUserAdmin = Identity.IsUserAdmin(httpContextAccessor);
+            var isUserAdmin = Identity.IsUserAdmin(httpContext);
             if (!isUserAdmin) {
-                var simpleUser = Identity.GetConnectedUserId(httpContextAccessor);
+                var simpleUser = Identity.GetConnectedUserId(httpContext);
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);
                 return connectedUserDetails.CustomerId.ToString();
             }

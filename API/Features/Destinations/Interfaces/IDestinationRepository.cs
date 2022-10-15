@@ -9,7 +9,6 @@ namespace API.Features.Destinations {
         Task<IEnumerable<DestinationListVM>> Get();
         Task<IEnumerable<DestinationActiveVM>> GetActive();
         Task<Destination> GetById(int id);
-        DestinationWriteDto AttachUserIdToDto(DestinationWriteDto destination);
 
     }
 

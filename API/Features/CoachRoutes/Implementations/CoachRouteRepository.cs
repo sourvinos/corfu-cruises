@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Extensions;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -14,10 +13,8 @@ namespace API.Features.CoachRoutes {
     public class CoachRouteRepository : Repository<CoachRoute>, ICoachRouteRepository {
 
         private readonly IMapper mapper;
-        private readonly IHttpContextAccessor httpContext;
 
-        public CoachRouteRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, settings) {
-            this.httpContext = httpContext;
+        public CoachRouteRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, httpContext, settings) {
             this.mapper = mapper;
         }
 
@@ -47,10 +44,6 @@ namespace API.Features.CoachRoutes {
                 : await context.CoachRoutes
                     .AsNoTracking()
                     .SingleOrDefaultAsync(x => x.Id == id);
-        }
-
-        public CoachRouteWriteDto AttachUserIdToDto(CoachRouteWriteDto coachRoute) {
-            return Identity.PatchEntityWithUserId(httpContext, coachRoute);
         }
 
     }

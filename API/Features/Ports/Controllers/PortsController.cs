@@ -62,7 +62,7 @@ namespace API.Features.Ports {
         public Response Post([FromBody] PortWriteDto port) {
             var x = portValidation.IsValid(port);
             if (x == 200) {
-                portRepo.Create(mapper.Map<PortWriteDto, Port>(portRepo.AttachUserIdToDto(port)));
+                portRepo.Create(mapper.Map<PortWriteDto, Port>((PortWriteDto)portRepo.AttachUserIdToDto(port)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -83,7 +83,7 @@ namespace API.Features.Ports {
             if (x != null) {
                 var z = portValidation.IsValid(port);
                 if (z == 200) {
-                    portRepo.Update(mapper.Map<PortWriteDto, Port>(portRepo.AttachUserIdToDto(port)));
+                    portRepo.Update(mapper.Map<PortWriteDto, Port>((PortWriteDto)portRepo.AttachUserIdToDto(port)));
                     return new Response {
                         Code = 200,
                         Icon = Icons.Success.ToString(),

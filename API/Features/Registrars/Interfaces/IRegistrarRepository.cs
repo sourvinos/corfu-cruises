@@ -9,7 +9,6 @@ namespace API.Features.Registrars {
         Task<IEnumerable<RegistrarListVM>> Get();
         Task<IEnumerable<RegistrarActiveVM>> GetActive();
         Task<Registrar> GetById(int id, bool includeTables);
-        RegistrarWriteDto AttachUserIdToDto(RegistrarWriteDto registrar);
 
     }
 

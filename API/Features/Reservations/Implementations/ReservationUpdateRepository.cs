@@ -16,7 +16,7 @@ namespace API.Features.Reservations {
         private readonly IHttpContextAccessor httpContext;
         private readonly TestingEnvironment testingEnvironment;
 
-        public ReservationUpdateRepository(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment) : base(context, testingEnvironment) {
+        public ReservationUpdateRepository(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment) : base(context, httpContext, testingEnvironment) {
             this.httpContext = httpContext;
             this.testingEnvironment = testingEnvironment.Value;
         }
@@ -75,10 +75,6 @@ namespace API.Features.Reservations {
 
         public string AssignRefNoToNewDto(ReservationWriteDto reservation) {
             return GetDestinationAbbreviation(reservation) + DateHelpers.GetRandomizedUnixTime();
-        }
-
-        public ReservationWriteDto AttachUserIdToDto(ReservationWriteDto reservation) {
-            return Identity.PatchEntityWithUserId(httpContext, reservation);
         }
 
         private string GetDestinationAbbreviation(ReservationWriteDto reservation) {

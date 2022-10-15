@@ -61,10 +61,10 @@ namespace API.Features.Schedules {
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
-        public Response Post([FromBody] List<ScheduleWriteDto> records) {
-            var x = scheduleValidation.IsValidOnNew(records);
+        public Response Post([FromBody] List<ScheduleWriteDto> schedules) {
+            var x = scheduleValidation.IsValidOnNew(schedules);
             if (x == 200) {
-                scheduleRepo.CreateList(mapper.Map<List<ScheduleWriteDto>, List<Schedule>>(scheduleRepo.AttachUserIdToNewDto(records)));
+                scheduleRepo.CreateList(mapper.Map<List<ScheduleWriteDto>, List<Schedule>>(scheduleRepo.AttachUserIdToDtos(schedules)));
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -85,7 +85,7 @@ namespace API.Features.Schedules {
             if (x != null) {
                 var z = scheduleValidation.IsValidOnUpdate(schedule);
                 if (z == 200) {
-                    scheduleRepo.Update(mapper.Map<ScheduleWriteDto, Schedule>(scheduleRepo.AttachUserIdToUpdateDto(schedule)));
+                    scheduleRepo.Update(mapper.Map<ScheduleWriteDto, Schedule>((ScheduleWriteDto)scheduleRepo.AttachUserIdToDto(schedule)));
                     return new Response {
                         Code = 200,
                         Icon = Icons.Success.ToString(),

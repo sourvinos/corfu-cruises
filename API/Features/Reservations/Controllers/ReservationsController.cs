@@ -96,7 +96,7 @@ namespace API.Features.Reservations {
                 AttachPortIdToDto(reservation);
                 UpdateDriverIdWithNull(reservation);
                 UpdateShipIdWithNull(reservation);
-                reservationUpdateRepo.Create(mapper.Map<ReservationWriteDto, Reservation>(reservationUpdateRepo.AttachUserIdToDto(reservation)));
+                reservationUpdateRepo.Create(mapper.Map<ReservationWriteDto, Reservation>((ReservationWriteDto)reservationUpdateRepo.AttachUserIdToDto(reservation)));
                 return Task.FromResult(new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -121,7 +121,7 @@ namespace API.Features.Reservations {
                         AttachPortIdToDto(reservation);
                         UpdateDriverIdWithNull(reservation);
                         UpdateShipIdWithNull(reservation);
-                        reservationUpdateRepo.Update(reservation.ReservationId, mapper.Map<ReservationWriteDto, Reservation>(reservationUpdateRepo.AttachUserIdToDto(reservation)));
+                        reservationUpdateRepo.Update(reservation.ReservationId, mapper.Map<ReservationWriteDto, Reservation>((ReservationWriteDto)reservationUpdateRepo.AttachUserIdToDto(reservation)));
                         return new Response {
                             Code = 200,
                             Icon = Icons.Success.ToString(),

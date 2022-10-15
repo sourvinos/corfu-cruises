@@ -21,7 +21,7 @@ namespace API.Features.Reservations {
         private readonly IMapper mapper;
         private readonly UserManager<UserExtended> userManager;
 
-        public ReservationReadRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> testingEnvironment, UserManager<UserExtended> userManager) : base(context, testingEnvironment) {
+        public ReservationReadRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> testingEnvironment, UserManager<UserExtended> userManager) : base(context, httpContext, testingEnvironment) {
             this.httpContext = httpContext;
             this.mapper = mapper;
             this.userManager = userManager;
