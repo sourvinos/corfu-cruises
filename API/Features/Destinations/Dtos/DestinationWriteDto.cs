@@ -2,7 +2,7 @@
 
 namespace API.Features.Destinations {
 
-    public class DestinationWriteDto : IEntity {
+    public class DestinationWriteDto : BaseEntity {
 
         public int Id { get; set; }
         public string Abbreviation { get; set; }

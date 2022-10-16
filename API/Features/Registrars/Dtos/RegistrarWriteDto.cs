@@ -2,7 +2,7 @@ using API.Infrastructure.Classes;
 
 namespace API.Features.Registrars {
 
-    public class RegistrarWriteDto : IEntity {
+    public class RegistrarWriteDto : BaseEntity {
 
         public int Id { get; set; }
         public int ShipId { get; set; }

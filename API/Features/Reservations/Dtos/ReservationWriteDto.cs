@@ -4,7 +4,7 @@ using API.Infrastructure.Classes;
 
 namespace API.Features.Reservations {
 
-    public class ReservationWriteDto : IEntity {
+    public class ReservationWriteDto : BaseEntity {
 
         public Guid ReservationId { get; set; }
         public int CustomerId { get; set; }

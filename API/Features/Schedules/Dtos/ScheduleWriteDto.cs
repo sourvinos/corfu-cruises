@@ -2,7 +2,7 @@ using API.Infrastructure.Classes;
 
 namespace API.Features.Schedules {
 
-    public class ScheduleWriteDto : IEntity {
+    public class ScheduleWriteDto : BaseEntity {
 
         public int Id { get; set; }
         public int DestinationId { get; set; }

@@ -2,7 +2,7 @@ using API.Infrastructure.Classes;
 
 namespace API.Features.Ships {
 
-    public class ShipWriteDto : IEntity {
+    public class ShipWriteDto : BaseEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }

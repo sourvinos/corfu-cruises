@@ -2,7 +2,7 @@ using API.Infrastructure.Classes;
 
 namespace API.Features.CoachRoutes {
 
-    public class CoachRouteWriteDto : IEntity {
+    public class CoachRouteWriteDto : BaseEntity {
 
         public int Id { get; set; }
         public int PortId { get; set; }

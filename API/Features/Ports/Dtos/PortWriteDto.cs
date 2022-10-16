@@ -2,7 +2,7 @@
 
 namespace API.Features.Ports {
 
-    public class PortWriteDto : IEntity {
+    public class PortWriteDto : BaseEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }

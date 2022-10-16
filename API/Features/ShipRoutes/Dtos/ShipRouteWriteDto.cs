@@ -2,7 +2,7 @@ using API.Infrastructure.Classes;
 
 namespace API.Features.ShipRoutes {
 
-    public class ShipRouteWriteDto : IEntity {
+    public class ShipRouteWriteDto : BaseEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }

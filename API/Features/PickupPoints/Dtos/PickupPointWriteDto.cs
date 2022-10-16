@@ -2,7 +2,7 @@ using API.Infrastructure.Classes;
 
 namespace API.Features.PickupPoints {
 
-    public class PickupPointWriteDto : IEntity {
+    public class PickupPointWriteDto : BaseEntity {
 
         public int Id { get; set; }
         public int CoachRouteId { get; set; }

@@ -40,7 +40,7 @@ namespace API.Infrastructure.Extensions {
             return httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role).Value == "admin";
         }
 
-        public static T PatchEntityWithUserId<T>(IHttpContextAccessor httpContextAccessor, T entity) where T : IEntity {
+        public static T PatchEntityWithUserId<T>(IHttpContextAccessor httpContextAccessor, T entity) where T : BaseEntity {
             entity.UserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return entity;
         }

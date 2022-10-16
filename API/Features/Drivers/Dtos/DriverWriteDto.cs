@@ -2,7 +2,7 @@
 
 namespace API.Features.Drivers {
 
-    public class DriverWriteDto : IEntity {
+    public class DriverWriteDto : BaseEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }
