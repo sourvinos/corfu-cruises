@@ -15,6 +15,7 @@ namespace API.Features.Ports {
         public string Abbreviation { get; set; }
         public int StopOrder { get; set; }
         public bool IsActive { get; set; }
+        public string LastUpdate { get; set; }
         // FKs
         public string UserId { get; set; }
         // Navigation

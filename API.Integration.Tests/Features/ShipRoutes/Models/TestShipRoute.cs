@@ -10,6 +10,7 @@ namespace API.IntegrationTests.ShipRoutes {
         public string FromTime { get; set; }
         public string ToPort { get; set; }
         public string ToTime { get; set; }
+        public string LastUpdate { get; set; }
 
     }
 

@@ -13,6 +13,7 @@ namespace API.Features.Nationalities {
         public string Description { get; set; }
         public string Code { get; set; }
         public bool IsActive { get; set; }
+        public string LastUpdate { get; set; }
         // FKs
         public string UserId { get; set; }
         // Navigation

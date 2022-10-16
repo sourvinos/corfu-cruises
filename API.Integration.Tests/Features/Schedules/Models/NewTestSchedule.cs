@@ -9,7 +9,7 @@ namespace API.Integration.Tests.Schedules {
 
         public int Id { get; set; }
         public List<TestScheduleBody> TestScheduleBody { get; set; }
-
+        public string LastUpdate { get; set; }
     }
 
     public class TestScheduleBody {
@@ -20,7 +20,7 @@ namespace API.Integration.Tests.Schedules {
         public string Date { get; set; }
         public string DepartureTime { get; set; }
         public int MaxPax { get; set; }
-
+ 
     }
 
 }

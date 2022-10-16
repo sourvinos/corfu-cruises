@@ -19,6 +19,7 @@ namespace API.Features.ShipOwners {
             entity.Property(x => x.Phones).HasDefaultValue("").HasMaxLength(128);
             entity.Property(x => x.Email).HasDefaultValue("").HasMaxLength(128);
             entity.Property(x => x.IsActive).IsRequired(true);
+            entity.Property(x => x.LastUpdate).HasMaxLength(19);
             // FK Constraints
             entity.HasOne(x => x.User).WithMany(x => x.ShipOwners).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
         }

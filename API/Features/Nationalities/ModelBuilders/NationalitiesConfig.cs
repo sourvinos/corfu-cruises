@@ -14,6 +14,7 @@ namespace API.Features.Nationalities {
             entity.Property(x => x.Description).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.Code).HasMaxLength(10).IsRequired(true);
             entity.Property(x => x.IsActive).IsRequired(true);
+            entity.Property(x => x.LastUpdate).HasMaxLength(19);
             // FK Constraints
             entity.HasOne(x => x.User).WithMany(x => x.Nationalities).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
         }

@@ -32,6 +32,7 @@ namespace API.Features.Reservations {
         public string Email { get; set; }
         public string Phones { get; set; }
         public string Remarks { get; set; }
+        public string LastUpdate { get; set; }
         // FKs
         public string UserId { get; set; }
         // Navigation

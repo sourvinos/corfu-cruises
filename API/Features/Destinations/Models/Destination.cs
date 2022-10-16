@@ -13,6 +13,7 @@ namespace API.Features.Destinations {
         public string Description { get; set; }
         public string Abbreviation { get; set; }
         public bool IsActive { get; set; }
+        public string LastUpdate { get; set; }
         // FKs
         public string UserId { get; set; }
         // Navigation

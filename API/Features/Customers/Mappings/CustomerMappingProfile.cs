@@ -8,7 +8,7 @@ namespace API.Features.Customers {
 
         public CustomerMappingProfile() {
             CreateMap<CustomerWriteDto, Customer>()
-                .ForMember(x => x.LastUpdated, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(DateTime.Now)));
+                .ForMember(x => x.LastUpdate, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(DateTime.Now)));
         }
 
     }

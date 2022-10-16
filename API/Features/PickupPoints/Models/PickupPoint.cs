@@ -17,6 +17,7 @@ namespace API.Features.PickupPoints {
         public string Time { get; set; }
         public string Coordinates { get; set; }
         public bool IsActive { get; set; }
+        public string LastUpdate { get; set; }
         // FKs
         public string UserId { get; set; }
         // Navigation

@@ -1,4 +1,5 @@
-using API.Features.Reservations;
+using System;
+using API.Infrastructure.Helpers;
 using AutoMapper;
 
 namespace API.Features.PickupPoints {
@@ -20,7 +21,8 @@ namespace API.Features.PickupPoints {
             CreateMap<PickupPoint, PickupPointReadDto>()
                 .ForMember(x => x.CoachRoute, x => x.MapFrom(x => new { x.CoachRoute.Id, x.CoachRoute.Abbreviation }));
             // Write
-            CreateMap<PickupPointWriteDto, PickupPoint>();
+            CreateMap<PickupPointWriteDto, PickupPoint>()
+                .ForMember(x => x.LastUpdate, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(DateTime.Now)));
         }
 
     }

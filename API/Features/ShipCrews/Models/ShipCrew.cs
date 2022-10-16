@@ -21,6 +21,7 @@ namespace API.Features.ShipCrews {
         public string Firstname { get; set; }
         public DateTime Birthdate { get; set; }
         public bool IsActive { get; set; }
+        public string LastUpdate { get; set; }
         // FKs
         public string UserId { get; set; }
         // Navigation

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using API.Features.Drivers;
 using API.Features.PickupPoints;
@@ -45,7 +46,8 @@ namespace API.Features.Reservations {
             CreateMap<Passenger, PassengerReadDto>()
                 .ForMember(x => x.Birthdate, x => x.MapFrom(x => DateHelpers.DateToISOString(x.Birthdate)));
             // Write reservation
-            CreateMap<ReservationWriteDto, Reservation>();
+            CreateMap<ReservationWriteDto, Reservation>()
+                .ForMember(x => x.LastUpdate, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(DateTime.Now)));
             // Write passenger
             CreateMap<PassengerWriteDto, Passenger>()
                 .ForMember(x => x.OccupantId, x => x.MapFrom(x => 2));

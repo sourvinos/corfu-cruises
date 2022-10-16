@@ -27,6 +27,7 @@ namespace API.Integration.Tests.Reservations {
         public int Free { get; set; }
         public string Remarks { get; set; }
         public string UserId { get; set; }
+        public string LastUpdate { get; set; }
 
         public List<TestPassenger> Passengers { get; set; }
 

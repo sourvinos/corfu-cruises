@@ -12,6 +12,7 @@ namespace API.Integration.Tests.Schedules {
         public string Date { get; set; }
         public string DepartureTime { get; set; }
         public int MaxPax { get; set; }
+        public string LastUpdate { get; set; }
 
     }
 

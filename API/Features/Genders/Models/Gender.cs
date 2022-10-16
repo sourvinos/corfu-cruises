@@ -12,6 +12,7 @@ namespace API.Features.Genders {
         // Fields
         public string Description { get; set; }
         public bool IsActive { get; set; }
+        public string LastUpdate { get; set; }
         // FKs
         public string UserId { get; set; }
         // Navigation

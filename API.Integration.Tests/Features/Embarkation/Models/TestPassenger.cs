@@ -5,7 +5,8 @@ namespace API.Integration.Tests.Embarkations {
     public class TestPassenger : ITestEntity {
 
         public int Id { get; set; }
-
+        public string LastUpdate { get; set; }
+        
     }
 
 }

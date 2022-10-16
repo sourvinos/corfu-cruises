@@ -20,6 +20,7 @@ namespace API.Features.Ships {
             entity.Property(x => x.ManagerInGreece).HasDefaultValue("").HasMaxLength(128);
             entity.Property(x => x.Agent).HasDefaultValue("").HasMaxLength(128);
             entity.Property(x => x.IsActive);
+            entity.Property(x => x.LastUpdate).HasMaxLength(19);
             // FK Constraints
             entity.HasOne(x => x.ShipOwner).WithMany(x => x.Ships).HasForeignKey(x => x.ShipOwnerId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(x => x.User).WithMany(x => x.Ships).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);

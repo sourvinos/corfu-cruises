@@ -17,6 +17,7 @@ namespace API.Features.PickupPoints {
             entity.Property(x => x.Time).HasMaxLength(5).IsRequired(true);
             entity.Property(x => x.Coordinates).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.IsActive);
+            entity.Property(x => x.LastUpdate).HasMaxLength(19);
             // FK Constraints
             entity.HasOne(x => x.CoachRoute).WithMany(x => x.PickupPoints).HasForeignKey(x => x.CoachRouteId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(x => x.User).WithMany(x => x.PickupPoints).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);

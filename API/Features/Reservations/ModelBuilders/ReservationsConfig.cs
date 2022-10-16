@@ -24,6 +24,7 @@ namespace API.Features.Reservations {
             entity.Property(x => x.Email).HasDefaultValue("").HasMaxLength(128);
             entity.Property(x => x.Phones).HasDefaultValue("").HasMaxLength(128);
             entity.Property(x => x.Remarks).HasDefaultValue("").HasMaxLength(128);
+            entity.Property(x => x.LastUpdate).HasMaxLength(19);
             // FK Constraints
             entity.HasOne(x => x.Customer).WithMany(x => x.Reservations).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(x => x.Destination).WithMany(x => x.Reservations).HasForeignKey(x => x.DestinationId).OnDelete(DeleteBehavior.Restrict);

@@ -19,6 +19,7 @@ namespace API.Features.ShipCrews {
             entity.Property(x => x.Firstname).HasMaxLength(128).IsRequired(true);
             entity.Property(p => p.Birthdate).HasColumnType("date").IsRequired(true);
             entity.Property(x => x.IsActive);
+            entity.Property(x => x.LastUpdate).HasMaxLength(19);
             // FK Constraints
             entity.HasOne(x => x.Gender).WithMany(x => x.ShipCrews).HasForeignKey(x => x.GenderId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(x => x.Nationality).WithMany(x => x.ShipCrews).HasForeignKey(x => x.NationalityId).OnDelete(DeleteBehavior.Restrict);

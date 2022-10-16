@@ -16,6 +16,7 @@ namespace API.Features.CoachRoutes {
             entity.Property(x => x.Abbreviation).HasMaxLength(10).IsRequired(true);
             entity.Property(x => x.HasTransfer);
             entity.Property(x => x.IsActive);
+            entity.Property(x => x.LastUpdate).HasMaxLength(19);
             // FK Constraints
             entity.HasOne(x => x.Port).WithMany(x => x.CoachRoutes).HasForeignKey(x => x.PortId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(x => x.User).WithMany(x => x.CoachRoutes).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
