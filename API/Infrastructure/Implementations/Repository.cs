@@ -57,7 +57,7 @@ namespace API.Infrastructure.Implementations {
             context.RemoveRange(entities);
         }
 
-        public BaseEntity AttachUserIdToDto(BaseEntity entity) {
+        public IBaseEntity AttachUserIdToDto(IBaseEntity entity) {
             return Extensions.Identity.PatchEntityWithUserId(httpContext, entity);
         }
 

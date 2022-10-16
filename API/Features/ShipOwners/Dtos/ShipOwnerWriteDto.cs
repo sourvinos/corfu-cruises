@@ -1,8 +1,8 @@
-﻿using API.Infrastructure.Classes;
+﻿using API.Infrastructure.Interfaces;
 
 namespace API.Features.ShipOwners {
 
-    public class ShipOwnerWriteDto : BaseEntity {
+    public class ShipOwnerWriteDto : IBaseEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }
@@ -13,7 +13,8 @@ namespace API.Features.ShipOwners {
         public string Phones { get; set; }
         public string Email { get; set; }
         public bool IsActive { get; set; }
- 
+        public string UserId { get; set; }
+
     }
 
 }

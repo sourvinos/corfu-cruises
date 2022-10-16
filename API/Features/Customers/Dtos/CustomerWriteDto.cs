@@ -1,8 +1,8 @@
-﻿using API.Infrastructure.Classes;
+﻿using API.Infrastructure.Interfaces;
 
 namespace API.Features.Customers {
 
-    public class CustomerWriteDto : BaseEntity {
+    public class CustomerWriteDto : IBaseEntity {
 
         public int Id { get; set; }
         public string Description { get; set; }
@@ -12,7 +12,8 @@ namespace API.Features.Customers {
         public string PersonInCharge { get; set; }
         public string Email { get; set; }
         public bool IsActive { get; set; }
-
+        public string UserId { get; set; }
+        
     }
 
 }

@@ -1,8 +1,8 @@
-using API.Infrastructure.Classes;
+using API.Infrastructure.Interfaces;
 
 namespace API.Features.Registrars {
 
-    public class RegistrarWriteDto : BaseEntity {
+    public class RegistrarWriteDto : IBaseEntity {
 
         public int Id { get; set; }
         public int ShipId { get; set; }
@@ -13,6 +13,7 @@ namespace API.Features.Registrars {
         public string Address { get; set; }
         public bool IsPrimary { get; set; }
         public bool IsActive { get; set; }
+        public string UserId { get; set; }
 
     }
 

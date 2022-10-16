@@ -1,8 +1,8 @@
-using API.Infrastructure.Classes;
+using API.Infrastructure.Interfaces;
 
 namespace API.Features.PickupPoints {
 
-    public class PickupPointWriteDto : BaseEntity {
+    public class PickupPointWriteDto : IBaseEntity {
 
         public int Id { get; set; }
         public int CoachRouteId { get; set; }
@@ -11,6 +11,7 @@ namespace API.Features.PickupPoints {
         public string Time { get; set; }
         public string Coordinates { get; set; }
         public bool IsActive { get; set; }
+        public string UserId { get; set; }
 
     }
 

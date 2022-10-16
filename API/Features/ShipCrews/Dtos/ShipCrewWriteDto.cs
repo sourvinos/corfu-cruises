@@ -1,8 +1,8 @@
-using API.Infrastructure.Classes;
+using API.Infrastructure.Interfaces;
 
 namespace API.Features.ShipCrews {
 
-    public class ShipCrewWriteDto : BaseEntity {
+    public class ShipCrewWriteDto : IBaseEntity {
 
         public int Id { get; set; }
         public int GenderId { get; set; }
@@ -12,7 +12,8 @@ namespace API.Features.ShipCrews {
         public string Firstname { get; set; }
         public string Birthdate { get; set; }
         public bool IsActive { get; set; }
- 
+        public string UserId { get; set; }
+
     }
 
 }
