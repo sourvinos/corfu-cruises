@@ -52,21 +52,23 @@ namespace API.Infrastructure.Identity {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<Response> GetUser(string id) {
-            UserExtended user = await userManager.Users
+        public async Task<ResponseWithBody> GetUser(string id) {
+            var x = await userManager.Users
                 .Include(x => x.Customer)
                 .DefaultIfEmpty()
                 .SingleOrDefaultAsync(x => x.Id == id);
-            return user == null ? new Response {
-                Code = 404,
-                Icon = Icons.Error.ToString(),
-                Message = ApiMessages.RecordNotFound()
-            } : new Response {
-                Code = 200,
-                Icon = Icons.Info.ToString(),
-                Message = ApiMessages.OK(),
-                Body = mapper.Map<UserExtended, UserReadDto>(user)
-            };
+            if (x != null) {
+                return new ResponseWithBody {
+                    Code = 200,
+                    Icon = Icons.Info.ToString(),
+                    Message = ApiMessages.OK(),
+                    Body = mapper.Map<UserExtended, UserReadDto>(x)
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
         }
 
         [HttpPost]

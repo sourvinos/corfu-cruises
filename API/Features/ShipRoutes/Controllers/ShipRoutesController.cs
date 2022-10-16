@@ -38,10 +38,10 @@ namespace API.Features.ShipRoutes {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> GetById(int id) {
+        public async Task<ResponseWithBody> GetById(int id) {
             var x = await shipRouteRepo.GetById(id);
             if (x != null) {
-                return new Response {
+                return new ResponseWithBody {
                     Code = 200,
                     Icon = Icons.Info.ToString(),
                     Message = ApiMessages.OK(),

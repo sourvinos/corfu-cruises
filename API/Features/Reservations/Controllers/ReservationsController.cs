@@ -64,11 +64,11 @@ namespace API.Features.Reservations {
 
         [HttpGet("{reservationId}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<Response> GetById(string reservationId) {
+        public async Task<ResponseWithBody> GetById(string reservationId) {
             var x = await reservationReadRepo.GetById(reservationId, true);
             if (x != null) {
                 if (Identity.IsUserAdmin(httpContext) || validReservation.IsUserOwner(x.CustomerId)) {
-                    return new Response {
+                    return new ResponseWithBody {
                         Code = 200,
                         Icon = Icons.Info.ToString(),
                         Message = ApiMessages.OK(),
