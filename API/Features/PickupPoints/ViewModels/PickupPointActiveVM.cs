@@ -8,7 +8,7 @@ namespace API.Features.PickupPoints {
         public string Description { get; set; }
         public string ExactPoint { get; set; }
         public string Time { get; set; }
-        public SimpleResource Port { get; set; }
+        public SimpleEntity Port { get; set; }
 
     }
 

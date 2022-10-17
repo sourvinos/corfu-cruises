@@ -18,7 +18,7 @@ namespace API.Features.Manifest {
 
         [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/shipId/{shipId}/shipRouteId/{shipRouteId}")]
         [Authorize(Roles = "admin")]
-        public ManifestResource Get(string date, int destinationId, string portId, int shipId, int shipRouteId) {
+        public ManifestFinalVM Get(string date, int destinationId, string portId, int shipId, int shipRouteId) {
             return repo.Get(date, destinationId, portId, shipId, shipRouteId);
         }
 

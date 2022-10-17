@@ -4,6 +4,8 @@ namespace API.Features.Billing {
 
     public class BillingFinalReservationVM {
 
+        // Level 2b of 3
+
         public string Date { get; set; }
         public string RefNo { get; set; }
         public Guid ReservationId { get; set; }

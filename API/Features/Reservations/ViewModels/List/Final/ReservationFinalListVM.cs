@@ -2,7 +2,9 @@ using System;
 
 namespace API.Features.Reservations {
 
-    public class ReservationMappedListVM {
+    public class ReservationFinalListVM {
+
+        // Level 2 of 2
 
         public Guid ReservationId { get; set; }
 

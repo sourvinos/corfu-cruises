@@ -16,8 +16,8 @@ namespace API.Features.Reservations {
         public string SpecialCare { get; set; }
         public bool IsCheckedIn { get; set; }
 
-        public SimpleResource Nationality { get; set; }
-        public SimpleResource Gender { get; set; }
+        public SimpleEntity Nationality { get; set; }
+        public SimpleEntity Gender { get; set; }
 
     }
 

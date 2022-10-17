@@ -20,11 +20,11 @@ namespace API.Features.Reservations {
         public string Remarks { get; set; }
         public string UserId { get; set; }
 
-        public SimpleResource Customer { get; set; }
-        public SimpleResource Destination { get; set; }
+        public SimpleEntity Customer { get; set; }
+        public SimpleEntity Destination { get; set; }
         public PickupPointActiveVM PickupPoint { get; set; }
-        public SimpleResource Driver { get; set; }
-        public SimpleResource Ship { get; set; }
+        public SimpleEntity Driver { get; set; }
+        public SimpleEntity Ship { get; set; }
 
         public List<PassengerReadDto> Passengers { get; set; }
 

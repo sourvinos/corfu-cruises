@@ -27,7 +27,7 @@ namespace API.Features.Reservations {
             this.userManager = userManager;
         }
 
-        public ReservationMappedGroupVM<ReservationMappedListVM> GetForDailyList(string date) {
+        public ReservationFinalGroupVM GetForDailyList(string date) {
             IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
             if (Identity.IsUserAdmin(httpContext)) {
                 reservations = GetReservationsFromAllUsersByDate(date);
@@ -36,14 +36,14 @@ namespace API.Features.Reservations {
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);
                 reservations = GetReservationsForLinkedCustomer(date, (int)connectedUserDetails.CustomerId);
             }
-            var mainResult = new ReservationInitialGroupVM<Reservation> {
+            var mainResult = new ReservationInitialGroupVM {
                 Persons = reservations.Sum(x => x.TotalPersons),
                 Reservations = reservations.ToList(),
             };
-            return mapper.Map<ReservationInitialGroupVM<Reservation>, ReservationMappedGroupVM<ReservationMappedListVM>>(mainResult);
+            return mapper.Map<ReservationInitialGroupVM, ReservationFinalGroupVM>(mainResult);
         }
 
-        public ReservationMappedGroupVM<ReservationMappedListVM> GetByRefNo(string refNo) {
+        public ReservationFinalGroupVM GetByRefNo(string refNo) {
             IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
             var connectedUser = Identity.GetConnectedUserId(httpContext);
             if (Identity.IsUserAdmin(httpContext)) {
@@ -53,17 +53,17 @@ namespace API.Features.Reservations {
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);
                 reservations = GetReservationsFromLinkedCustomerbyRefNo(refNo, (int)connectedUserDetails.CustomerId);
             }
-            var mainResult = new ReservationInitialGroupVM<Reservation> {
+            var mainResult = new ReservationInitialGroupVM {
                 Persons = reservations.Sum(x => x.TotalPersons),
                 Reservations = reservations.ToList(),
             };
-            return mapper.Map<ReservationInitialGroupVM<Reservation>, ReservationMappedGroupVM<ReservationMappedListVM>>(mainResult);
+            return mapper.Map<ReservationInitialGroupVM, ReservationFinalGroupVM>(mainResult);
         }
 
-        public async Task<ReservationDriverGroupVM<Reservation>> GetByDateAndDriver(string date, int driverId) {
+        public async Task<ReservationDriverGroupVM> GetByDateAndDriver(string date, int driverId) {
             var driver = await GetDriver(driverId);
             var reservations = await GetReservationsByDateAndDriver(date, driverId);
-            return new ReservationDriverGroupVM<Reservation> {
+            return new ReservationDriverGroupVM {
                 Date = date,
                 DriverId = driver != null ? driverId : 0,
                 DriverDescription = driver != null ? driver.Description : "(EMPTY)",

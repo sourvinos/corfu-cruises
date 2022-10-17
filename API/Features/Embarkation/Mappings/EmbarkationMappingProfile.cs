@@ -7,7 +7,7 @@ namespace API.Features.Embarkation {
     public class EmbarkationMappingProfile : Profile {
 
         public EmbarkationMappingProfile() {
-            CreateMap<Reservation, EmbarkationMappedVM>()
+            CreateMap<Reservation, EmbarkationFinalVM>()
                 .ForMember(x => x.Customer, x => x.MapFrom(x => x.Customer.Description))
                 .ForMember(x => x.Driver, x => x.MapFrom(x => x.Driver.Description))
                 .ForMember(x => x.Ship, x => x.MapFrom(x => x.Ship.Description))
@@ -17,7 +17,7 @@ namespace API.Features.Embarkation {
                 .ForMember(x => x.EmbarkedPassengers, x => x.MapFrom(x => x.Passengers.Count(x => x.IsCheckedIn)))
                 .ForMember(x => x.EmbarkationStatus, x => x.MapFrom(x => x.TotalPersons - x.Passengers.Count(x => x.IsCheckedIn) == 0 ? "OK" : x.Passengers.All(x => !x.IsCheckedIn) ? "PENDING" : "OKPENDING"))
                 .ForMember(x => x.PassengerIds, x => x.MapFrom(x => x.Passengers.Select(x => x.Id)))
-                .ForMember(x => x.Passengers, x => x.MapFrom(x => x.Passengers.Select(passenger => new EmbarkationMappedPassengerVM {
+                .ForMember(x => x.Passengers, x => x.MapFrom(x => x.Passengers.Select(passenger => new EmbarkationFinalPassengerVM {
                     Id = passenger.Id,
                     Lastname = passenger.Lastname,
                     Firstname = passenger.Firstname,

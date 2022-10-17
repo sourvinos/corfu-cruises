@@ -2,7 +2,9 @@ using System.Collections.Generic;
 
 namespace API.Features.Embarkation {
 
-    public class EmbarkationMappedVM {
+    // Level 2 of 3
+
+    public class EmbarkationFinalVM {
 
         public string RefNo { get; set; }
         public string TicketNo { get; set; }
@@ -18,7 +20,7 @@ namespace API.Features.Embarkation {
 
         public int[] PassengerIds { get; set; }
 
-        public List<EmbarkationMappedPassengerVM> Passengers { get; set; }
+        public List<EmbarkationFinalPassengerVM> Passengers { get; set; } // Level 3 of 3
 
     }
 

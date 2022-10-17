@@ -2,7 +2,9 @@ using System.Collections.Generic;
 
 namespace API.Features.Manifest {
 
-    public class ManifestShipViewModel {
+    public class ManifestFinalShipVM {
+
+        // Level 2a of 3
 
         public string Description { get; set; }
         public string IMO { get; set; }
@@ -12,9 +14,9 @@ namespace API.Features.Manifest {
         public string ManagerInGreece { get; set; }
         public string Agent { get; set; }
 
-        public ManifestShipOwnerViewModel ShipOwner { get; set; }
-        public List<ManifestRegistrarViewModel> Registrars { get; set; }
-        public List<ManifestCrewViewModel> Crew { get; set; }
+        public ManifestFinalShipOwnerVM ShipOwner { get; set; } // Level 3a of 3
+        public List<ManifestFinalRegistrarVM> Registrars { get; set; } // Level 3b of 3
+        public List<ManifestFinalCrewVM> Crew { get; set; } // Level 3c of 3
 
     }
 

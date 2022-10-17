@@ -4,7 +4,7 @@ using API.Integration.Tests.Infrastructure;
 using API.Integration.Tests.Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Embarkations {
+namespace API.Integration.Tests.Embarkation {
 
     [Collection("Sequence")]
     public class Passengers02Put : IClassFixture<AppSettingsFixture> {

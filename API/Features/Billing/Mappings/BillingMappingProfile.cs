@@ -7,9 +7,9 @@ namespace API.Features.Billing {
     public class BillingMappingProfile : Profile {
 
         public BillingMappingProfile() {
-            CreateMap<BillingIntermediateReportVM, BillingFinalVM>()
+            CreateMap<BillingInitialVM, BillingFinalVM>()
                 .ForMember(x => x.Customer, x => x.MapFrom(x => x.Customer))
-                .ForMember(x => x.PortGroup, x => x.MapFrom(x => x.Ports.Select(x => new BillingIntermediatePortVM {
+                .ForMember(x => x.PortGroup, x => x.MapFrom(x => x.Ports.Select(x => new BillingInitialPortVM {
                     Port = x.Port,
                     HasTransferGroup = x.HasTransferGroup,
                     Adults = x.Adults,

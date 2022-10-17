@@ -46,19 +46,19 @@ namespace API.Features.Reservations {
 
         [HttpGet("date/{date}")]
         [Authorize(Roles = "user, admin")]
-        public ReservationMappedGroupVM<ReservationMappedListVM> GetForDailyList([FromRoute] string date) {
+        public ReservationFinalGroupVM GetForDailyList([FromRoute] string date) {
             return reservationReadRepo.GetForDailyList(date);
         }
 
         [HttpGet("date/{date}/driver/{driverId}")]
         [Authorize(Roles = "admin")]
-        public async Task<ReservationDriverGroupVM<Reservation>> GetByDateAndDriver([FromRoute] string date, int driverId) {
+        public async Task<ReservationDriverGroupVM> GetByDateAndDriver([FromRoute] string date, int driverId) {
             return await reservationReadRepo.GetByDateAndDriver(date, driverId);
         }
 
         [HttpGet("refNo/{refNo}")]
         [Authorize(Roles = "user, admin")]
-        public ReservationMappedGroupVM<ReservationMappedListVM> GetByRefNo([FromRoute] string refNo) {
+        public ReservationFinalGroupVM GetByRefNo([FromRoute] string refNo) {
             return reservationReadRepo.GetByRefNo(refNo);
         }
 

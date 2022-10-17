@@ -17,12 +17,15 @@ namespace API.Features.Manifest {
             this.mapper = mapper;
         }
 
-        public ManifestResource Get(string date, int destinationId, string portId, int shipId, int shipRouteId) {
-            var manifest = new ManifestViewModel {
+        public ManifestFinalVM Get(string date, int destinationId, string portId, int shipId, int shipRouteId) {
+            var manifest = new ManifestInitialVM {
                 Date = date,
                 Destination = context.Destinations
                     .AsNoTracking()
-                    .Select(x => new DestinationViewModel { Id = x.Id, Description = x.Description })
+                    .Select(x => new SimpleEntity {
+                        Id = x.Id, 
+                        Description = x.Description
+                    })
                     .FirstOrDefault(x => x.Id == destinationId),
                 Port = GetPortDescription(portId),
                 Ship = context.Ships
@@ -49,7 +52,7 @@ namespace API.Features.Manifest {
                         && x.IsCheckedIn)
                     .ToList()
             };
-            return mapper.Map<ManifestViewModel, ManifestResource>(manifest);
+            return mapper.Map<ManifestInitialVM, ManifestFinalVM>(manifest);
         }
 
         private string GetPortDescription(string portId) {

@@ -1,6 +1,6 @@
 using API.Integration.Tests.Infrastructure;
 
-namespace API.Integration.Tests.Embarkations {
+namespace API.Integration.Tests.Embarkation {
 
     public class TestPassenger : ITestEntity {
 

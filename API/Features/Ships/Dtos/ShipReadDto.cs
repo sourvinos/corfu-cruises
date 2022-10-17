@@ -14,7 +14,7 @@ namespace API.Features.Ships {
         public string Agent { get; set; }
         public bool IsActive { get; set; }
         public string UserId { get; set; }
-        public SimpleResource ShipOwner { get; set; }
+        public SimpleEntity ShipOwner { get; set; }
 
     }
 

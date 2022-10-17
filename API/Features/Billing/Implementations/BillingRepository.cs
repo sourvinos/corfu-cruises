@@ -41,13 +41,16 @@ namespace API.Features.Billing {
                     && ((shipId == "all") || (x.ShipId == int.Parse(shipId))))
                 .AsEnumerable()
                 .GroupBy(x => new { x.Customer }).OrderBy(x => x.Key.Customer.Description)
-                .Select(x => new BillingIntermediateReportVM {
+                .Select(x => new BillingInitialVM {
                     FromDate = fromDate,
                     ToDate = toDate,
-                    Customer = new SimpleResource { Id = x.Key.Customer.Id, Description = x.Key.Customer.Description },
-                    Ports = x.GroupBy(x => x.Port).OrderBy(x => x.Key.StopOrder).Select(x => new BillingIntermediatePortVM {
+                    Customer = new SimpleEntity {
+                        Id = x.Key.Customer.Id,
+                        Description = x.Key.Customer.Description
+                    },
+                    Ports = x.GroupBy(x => x.Port).OrderBy(x => x.Key.StopOrder).Select(x => new BillingInitialPortVM {
                         Port = x.Key.Description,
-                        HasTransferGroup = x.GroupBy(x => x.PickupPoint.CoachRoute.HasTransfer).Select(x => new HasTransferGroupDTO {
+                        HasTransferGroup = x.GroupBy(x => x.PickupPoint.CoachRoute.HasTransfer).Select(x => new BillingInitialPortGroupVM {
                             HasTransfer = x.Key,
                             Adults = x.Sum(x => x.Adults),
                             Kids = x.Sum(x => x.Kids),
@@ -68,7 +71,7 @@ namespace API.Features.Billing {
                     Reservations = x.OrderBy(x => x.Date).ThenBy(x => !x.PickupPoint.CoachRoute.HasTransfer).ToList()
                 })
                 .ToList();
-            return mapper.Map<IEnumerable<BillingIntermediateReportVM>, IEnumerable<BillingFinalVM>>(records);
+            return mapper.Map<IEnumerable<BillingInitialVM>, IEnumerable<BillingFinalVM>>(records);
         }
 
         private string GetConnectedCustomerIdForConnectedUser(string customerId) {

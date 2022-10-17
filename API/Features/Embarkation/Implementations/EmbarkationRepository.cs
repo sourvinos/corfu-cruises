@@ -23,7 +23,7 @@ namespace API.Features.Embarkation {
             this.testingSettings = testingSettings.Value;
         }
 
-        public async Task<EmbarkationMappedGroupVM<EmbarkationMappedVM>> Get(string date, string destinationId, string portId, string shipId) {
+        public async Task<EmbarkationFinalGroupVM> Get(string date, string destinationId, string portId, string shipId) {
             var reservations = await context.Reservations
                 .AsNoTracking()
                 .Include(x => x.Customer)
@@ -41,13 +41,13 @@ namespace API.Features.Embarkation {
             int totalPersons = reservations.Sum(x => x.TotalPersons);
             int embarkedPassengers = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);
             int remainingPersons = totalPersons - embarkedPassengers;
-            var mainResult = new EmbarkationInitialGroupVM<Reservation> {
+            var mainResult = new EmbarkationInitialGroupVM {
                 TotalPersons = totalPersons,
                 EmbarkedPassengers = embarkedPassengers,
                 PendingPersons = remainingPersons,
                 Reservations = reservations.ToList()
             };
-            return mapper.Map<EmbarkationInitialGroupVM<Reservation>, EmbarkationMappedGroupVM<EmbarkationMappedVM>>(mainResult);
+            return mapper.Map<EmbarkationInitialGroupVM, EmbarkationFinalGroupVM>(mainResult);
         }
 
         public async Task<Passenger> GetPassengerById(int id) {

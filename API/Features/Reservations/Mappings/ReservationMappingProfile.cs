@@ -13,7 +13,7 @@ namespace API.Features.Reservations {
 
         public ReservationMappingProfile() {
             // List
-            CreateMap<Reservation, ReservationMappedListVM>()
+            CreateMap<Reservation, ReservationFinalListVM>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateToISOString(x.Date)))
                 .ForMember(x => x.CoachRouteAbbreviation, x => x.MapFrom(x => x.PickupPoint.CoachRoute.Abbreviation))
                 .ForMember(x => x.DriverDescription, x => x.NullSubstitute("(EMPTY)"))
@@ -37,7 +37,7 @@ namespace API.Features.Reservations {
                     Description = r.PickupPoint.Description,
                     ExactPoint = r.PickupPoint.ExactPoint,
                     Time = r.PickupPoint.Time,
-                    Port = new SimpleResource {
+                    Port = new SimpleEntity {
                         Id = r.PickupPoint.CoachRoute.Port.Id,
                         Description = r.PickupPoint.CoachRoute.Port.Description
                     }

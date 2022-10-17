@@ -1,6 +1,8 @@
 namespace API.Features.Billing {
 
-    public class BillingIntermediateHasTransferGroupVM {
+    public class BillingInitialHasTransferGroupVM {
+
+        // Level 2b
 
         public bool HasTransfer { get; set; }
         public int Adults { get; set; }

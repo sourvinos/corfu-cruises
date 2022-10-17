@@ -1,6 +1,8 @@
 namespace API.Features.Manifest {
 
-    public class ManifestRegistrarViewModel {
+    public class ManifestFinalRegistrarVM {
+
+        // Level 3b of 3
 
         public string Fullname { get; set; }
         public string Phones { get; set; }

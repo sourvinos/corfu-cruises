@@ -7,10 +7,10 @@ namespace API.Features.Manifest {
     public class ManifestMappingProfile : Profile {
 
         public ManifestMappingProfile() {
-            CreateMap<ManifestViewModel, ManifestResource>()
+            CreateMap<ManifestInitialVM, ManifestFinalVM>()
                 .ForMember(x => x.Date, x => x.MapFrom(source => source.Date))
                 .ForMember(x => x.Destination, x => x.MapFrom(source => source.Destination.Description))
-                .ForMember(x => x.Ship, x => x.MapFrom(source => new ManifestShipViewModel {
+                .ForMember(x => x.Ship, x => x.MapFrom(source => new ManifestFinalShipVM {
                     Description = source.Ship.Description,
                     IMO = source.Ship.IMO,
                     Flag = source.Ship.Flag,
@@ -18,7 +18,7 @@ namespace API.Features.Manifest {
                     Manager = source.Ship.Manager,
                     ManagerInGreece = source.Ship.ManagerInGreece,
                     Agent = source.Ship.Agent,
-                    ShipOwner = new ManifestShipOwnerViewModel {
+                    ShipOwner = new ManifestFinalShipOwnerVM {
                         Description = source.Ship.ShipOwner.Description,
                         Profession = source.Ship.ShipOwner.Profession,
                         Address = source.Ship.ShipOwner.Address,
@@ -27,7 +27,7 @@ namespace API.Features.Manifest {
                         TaxNo = source.Ship.ShipOwner.TaxNo
                     },
                     Registrars = source.Ship.Registrars
-                        .ConvertAll(registrar => new ManifestRegistrarViewModel {
+                        .ConvertAll(registrar => new ManifestFinalRegistrarVM {
                             Fullname = registrar.Fullname,
                             Phones = registrar.Phones,
                             Email = registrar.Email,
@@ -38,7 +38,7 @@ namespace API.Features.Manifest {
                         .OrderBy(x => !x.IsPrimary)
                         .ToList(),
                     Crew = source.Ship.ShipCrews
-                        .ConvertAll(crew => new ManifestCrewViewModel {
+                        .ConvertAll(crew => new ManifestFinalCrewVM {
                             Lastname = crew.Lastname,
                             Firstname = crew.Firstname,
                             Birthdate = DateHelpers.DateToISOString(crew.Birthdate),
@@ -49,7 +49,7 @@ namespace API.Features.Manifest {
                         .OrderBy(x => x.Lastname).ThenBy(x => x.Firstname)
                         .ToList()
                 }))
-                .ForMember(x => x.ShipRoute, x => x.MapFrom(source => new ManifestShipRouteViewModel {
+                .ForMember(x => x.ShipRoute, x => x.MapFrom(source => new ManifestFinalShipRouteVM {
                     Description = source.ShipRoute.Description,
                     FromPort = source.ShipRoute.FromPort,
                     FromTime = source.ShipRoute.FromTime,
@@ -58,7 +58,7 @@ namespace API.Features.Manifest {
                     ToPort = source.ShipRoute.ToPort,
                     ToTime = source.ShipRoute.ToTime
                 }))
-                .ForMember(x => x.Passengers, x => x.MapFrom(source => source.Passengers.Select(passenger => new ManifestPassengerViewModel {
+                .ForMember(x => x.Passengers, x => x.MapFrom(source => source.Passengers.Select(passenger => new ManifestFinalPassengerVM {
                     Lastname = passenger.Lastname,
                     Firstname = passenger.Firstname,
                     Birthdate = DateHelpers.DateToISOString(passenger.Birthdate),

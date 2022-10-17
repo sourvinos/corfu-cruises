@@ -1,15 +1,18 @@
+using System.Collections.Generic;
+
 namespace API.Features.Billing {
 
-    public class BillingFinalHasTransferGroupVM {
+    public class BillingInitialPortVM {
 
-        // Level 3 of 3
+        // Level 2a
 
-        public bool HasTransfer { get; set; }
+        public string Port { get; set; }
         public int Adults { get; set; }
         public int Kids { get; set; }
         public int Free { get; set; }
         public int TotalPersons { get; set; }
         public int TotalPassengers { get; set; }
+        public IEnumerable<BillingInitialPortGroupVM> HasTransferGroup { get; set; } // Level 3
 
     }
 

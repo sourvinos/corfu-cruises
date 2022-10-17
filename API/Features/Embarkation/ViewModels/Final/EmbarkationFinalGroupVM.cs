@@ -1,15 +1,16 @@
 using System.Collections.Generic;
-using API.Features.Reservations;
 
 namespace API.Features.Embarkation {
 
-    public class EmbarkationInitialGroupVM<T> {
+    // Level 1 of 3
+
+    public class EmbarkationFinalGroupVM {
 
         public int TotalPersons { get; set; }
         public int EmbarkedPassengers { get; set; }
         public int PendingPersons { get; set; }
 
-        public List<Reservation> Reservations { get; set; }
+        public IEnumerable<EmbarkationFinalVM> Reservations { get; set; } // Level 2 of 3
 
     }
 

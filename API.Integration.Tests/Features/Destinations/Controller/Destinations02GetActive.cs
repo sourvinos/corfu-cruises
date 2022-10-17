@@ -51,7 +51,7 @@ namespace API.Integration.Tests.Destinations {
         [ClassData(typeof(ActiveUsersCanLogin))]
         public async Task Active_Users_Can_Get_Active(Login login) {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, login.Username, login.Password);
-            var records = JsonSerializer.Deserialize<List<SimpleResource>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var records = JsonSerializer.Deserialize<List<SimpleEntity>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(_expectedRecordCount, records.Count);
         }
 

@@ -1,6 +1,8 @@
 namespace API.Features.Manifest {
 
-    public class ManifestShipOwnerViewModel {
+    public class ManifestFinalShipOwnerVM {
+
+        // Level 3a of 3
 
         public string Description { get; set; }
         public string Profession { get; set; }

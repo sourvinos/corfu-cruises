@@ -21,7 +21,7 @@ namespace API.Features.Embarkation {
 
         [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/shipId/{shipId}")]
         [Authorize(Roles = "admin")]
-        public async Task<EmbarkationMappedGroupVM<EmbarkationMappedVM>> Get(string date, string destinationId, string portId, string shipId) {
+        public async Task<EmbarkationFinalGroupVM> Get(string date, string destinationId, string portId, string shipId) {
             return await repo.Get(date, destinationId, portId, shipId);
         }
 

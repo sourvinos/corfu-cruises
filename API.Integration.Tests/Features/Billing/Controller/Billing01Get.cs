@@ -45,14 +45,14 @@ namespace API.Integration.Tests.Billing {
         public async Task Active_Simple_Users_Can_List_Only_Owned() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _simpleUserUrl, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<IEnumerable<BillingFinalVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Single(records.Select(x => x.Customer));
+            Assert.Equal(3, records.Select(x => x.Customer).Count());
         }
 
         [Fact]
         public async Task Active_Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _adminUrl, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<IEnumerable<BillingFinalVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(18, records.Select(x => x.Customer).Count());
+            Assert.Equal(46, records.Select(x => x.Customer).Count());
         }
 
     }

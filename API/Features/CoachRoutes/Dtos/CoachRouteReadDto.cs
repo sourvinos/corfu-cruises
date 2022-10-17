@@ -9,7 +9,7 @@ namespace API.Features.CoachRoutes {
         public string Abbreviation { get; set; }
         public bool HasTransfer { get; set; }
         public bool IsActive { get; set; }
-        public SimpleResource Port { get; set; }
+        public SimpleEntity Port { get; set; }
 
     }
 

@@ -1,6 +1,8 @@
 namespace API.Features.Manifest {
 
-    public class ManifestShipRouteViewModel {
+    public class ManifestFinalShipRouteVM {
+
+        // Level 2b of 3
 
         public string Description { get; set; }
         public string FromPort { get; set; }

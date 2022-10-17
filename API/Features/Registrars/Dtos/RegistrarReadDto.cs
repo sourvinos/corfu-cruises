@@ -5,7 +5,7 @@ namespace API.Features.Registrars {
     public class RegistrarReadDto {
 
         public int Id { get; set; }
-        public SimpleResource Ship { get; set; }
+        public SimpleEntity Ship { get; set; }
         public string Fullname { get; set; }
         public string Phones { get; set; }
         public string Email { get; set; }

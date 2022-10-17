@@ -15,11 +15,9 @@ using API.Features.ShipOwners;
 using API.Features.ShipRoutes;
 using API.Features.Ships;
 using API.Infrastructure.Auth;
-using EntityFramework.Exceptions.MySQL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace API.Infrastructure.Classes {
 
@@ -55,10 +53,7 @@ namespace API.Infrastructure.Classes {
             ApplyConfigurations(modelBuilder);
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            optionsBuilder.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));
-            optionsBuilder.UseExceptionProcessor();
-        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
         private static void ApplyConfigurations(ModelBuilder modelBuilder) {
             modelBuilder.ApplyConfiguration(new CoachRoutesConfig());
