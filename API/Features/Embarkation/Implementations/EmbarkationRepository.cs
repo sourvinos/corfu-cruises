@@ -9,6 +9,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Embarkation {
@@ -18,7 +19,7 @@ namespace API.Features.Embarkation {
         private readonly IMapper mapper;
         private readonly TestingEnvironment testingSettings;
 
-        public EmbarkationRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> testingSettings) : base(appDbContext, httpContext, testingSettings) {
+        public EmbarkationRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, ILogger<Reservation> logger, IMapper mapper, IOptions<TestingEnvironment> testingSettings) : base(appDbContext, httpContext, logger, testingSettings) {
             this.mapper = mapper;
             this.testingSettings = testingSettings.Value;
         }

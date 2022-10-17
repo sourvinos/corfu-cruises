@@ -6,6 +6,7 @@ using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Destinations {
@@ -14,7 +15,7 @@ namespace API.Features.Destinations {
 
         private readonly IMapper mapper;
 
-        public DestinationRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) {
+        public DestinationRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, ILogger<Destination> logger, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, logger, settings) {
             this.mapper = mapper;
         }
 
@@ -40,7 +41,7 @@ namespace API.Features.Destinations {
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
- 
+
     }
 
 }

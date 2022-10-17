@@ -11,6 +11,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Reservations {
@@ -21,7 +22,7 @@ namespace API.Features.Reservations {
         private readonly IMapper mapper;
         private readonly UserManager<UserExtended> userManager;
 
-        public ReservationReadRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> testingEnvironment, UserManager<UserExtended> userManager) : base(context, httpContext, testingEnvironment) {
+        public ReservationReadRepository(AppDbContext context, IHttpContextAccessor httpContext, ILogger<Reservation> logger, IMapper mapper, IOptions<TestingEnvironment> testingEnvironment, UserManager<UserExtended> userManager) : base(context, httpContext, logger, testingEnvironment) {
             this.httpContext = httpContext;
             this.mapper = mapper;
             this.userManager = userManager;

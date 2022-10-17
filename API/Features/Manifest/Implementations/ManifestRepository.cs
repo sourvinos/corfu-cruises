@@ -5,6 +5,7 @@ using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Manifest {
@@ -13,7 +14,7 @@ namespace API.Features.Manifest {
 
         private readonly IMapper mapper;
 
-        public ManifestRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) {
+        public ManifestRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, ILogger<Reservation> logger, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, logger, settings) {
             this.mapper = mapper;
         }
 
@@ -23,7 +24,7 @@ namespace API.Features.Manifest {
                 Destination = context.Destinations
                     .AsNoTracking()
                     .Select(x => new SimpleEntity {
-                        Id = x.Id, 
+                        Id = x.Id,
                         Description = x.Description
                     })
                     .FirstOrDefault(x => x.Id == destinationId),

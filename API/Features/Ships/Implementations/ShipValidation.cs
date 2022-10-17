@@ -3,13 +3,14 @@ using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Ships {
 
     public class ShipValidation : Repository<Ship>, IShipValidation {
 
-        public ShipValidation(AppDbContext appDbContext, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) { }
+        public ShipValidation(AppDbContext appDbContext, IHttpContextAccessor httpContext, ILogger<Ship> logger, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, logger, settings) { }
 
         public int IsValid(ShipWriteDto ship) {
             return true switch {

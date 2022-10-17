@@ -3,13 +3,14 @@ using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.PickupPoints {
 
     public class PickupPointValidation : Repository<PickupPoint>, IPickupPointValidation {
 
-        public PickupPointValidation(AppDbContext appDbContext, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) { }
+        public PickupPointValidation(AppDbContext appDbContext, IHttpContextAccessor httpContext, ILogger<PickupPoint> logger, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, logger, settings) { }
 
         public int IsValid(PickupPointWriteDto pickupPoint) {
             return true switch {

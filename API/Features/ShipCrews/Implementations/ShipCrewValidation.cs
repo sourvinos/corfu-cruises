@@ -3,13 +3,14 @@ using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.ShipCrews {
 
     public class ShipCrewValidation : Repository<ShipCrew>, IShipCrewValidation {
 
-        public ShipCrewValidation(AppDbContext appDbContext, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) { }
+        public ShipCrewValidation(AppDbContext appDbContext, IHttpContextAccessor httpContext, ILogger<ShipCrew> logger, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, logger, settings) { }
 
         public int IsValid(ShipCrewWriteDto shipCrew) {
             return true switch {

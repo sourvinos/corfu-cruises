@@ -7,13 +7,14 @@ using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Reservations {
 
     public class ReservationCalendar : Repository<Reservation>, IReservationCalendar {
 
-        public ReservationCalendar(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment) : base(context, httpContext, testingEnvironment) { }
+        public ReservationCalendar(AppDbContext context, IHttpContextAccessor httpContext, ILogger<Reservation> logger, IOptions<TestingEnvironment> testingEnvironment) : base(context, httpContext, logger, testingEnvironment) { }
 
         public async Task<IEnumerable<ReservationCalendarGroupVM>> GetForCalendarAsync(string fromDate, string toDate) {
             return await context.Schedules

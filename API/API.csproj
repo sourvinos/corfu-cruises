@@ -28,6 +28,8 @@
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+        <PackageReference Include="NLog" Version="5.0.4" />
+        <PackageReference Include="NLog.Web.AspNetCore" Version="5.1.4" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
     </ItemGroup>
 

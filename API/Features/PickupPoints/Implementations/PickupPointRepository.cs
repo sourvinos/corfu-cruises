@@ -6,6 +6,7 @@ using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.PickupPoints {
@@ -14,7 +15,7 @@ namespace API.Features.PickupPoints {
 
         private readonly IMapper mapper;
 
-        public PickupPointRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) {
+        public PickupPointRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, ILogger<PickupPoint> logger, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, logger, settings) {
             this.mapper = mapper;
         }
 

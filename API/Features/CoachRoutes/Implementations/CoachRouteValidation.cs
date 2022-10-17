@@ -3,13 +3,14 @@ using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.CoachRoutes {
 
     public class CoachRouteValidation : Repository<CoachRoute>, ICoachRouteValidation {
 
-        public CoachRouteValidation(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(context, httpContext, settings) { }
+        public CoachRouteValidation(AppDbContext context, IHttpContextAccessor httpContext, ILogger<CoachRoute> logger, IOptions<TestingEnvironment> settings) : base(context, httpContext, logger, settings) { }
 
         public int IsValid(CoachRouteWriteDto coachRoute) {
             return true switch {

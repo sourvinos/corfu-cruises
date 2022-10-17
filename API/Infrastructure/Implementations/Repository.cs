@@ -5,40 +5,43 @@ using API.Infrastructure.Interfaces;
 using API.Infrastructure.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Infrastructure.Implementations {
 
     public class Repository<T> : IRepository<T> where T : class {
 
-        protected readonly AppDbContext context;
         private readonly IHttpContextAccessor httpContext;
+        private readonly ILogger<T> logger;
         private readonly TestingEnvironment testingSettings;
+        protected readonly AppDbContext context;
 
-        public Repository(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingSettings) {
+        public Repository(AppDbContext context, IHttpContextAccessor httpContext, ILogger<T> logger, IOptions<TestingEnvironment> testingSettings) {
             this.context = context;
             this.httpContext = httpContext;
+            this.logger = logger;
             this.testingSettings = testingSettings.Value;
         }
 
         public void Create(T entity) {
             using var transaction = context.Database.BeginTransaction();
             context.Add(entity);
-            context.SaveChangesAsync();
+            context.SaveChanges();
             DisposeOrCommit(transaction);
         }
 
         public void CreateList(List<T> entities) {
             using var transaction = context.Database.BeginTransaction();
             context.AddRange(entities);
-            context.SaveChangesAsync();
+            context.SaveChanges();
             DisposeOrCommit(transaction);
         }
 
         public void Update(T entity) {
             using var transaction = context.Database.BeginTransaction();
             context.Set<T>().Update(entity);
-            context.SaveChangesAsync();
+            context.SaveChanges();
             DisposeOrCommit(transaction);
         }
 
@@ -46,7 +49,7 @@ namespace API.Infrastructure.Implementations {
             using var transaction = context.Database.BeginTransaction();
             try {
                 context.Remove(entity);
-                context.SaveChangesAsync();
+                context.SaveChanges();
                 DisposeOrCommit(transaction);
             } catch (Exception) {
                 throw new CustomException { ResponseCode = 491 };
@@ -64,8 +67,10 @@ namespace API.Infrastructure.Implementations {
         private void DisposeOrCommit(IDbContextTransaction transaction) {
             if (testingSettings.IsTesting) {
                 transaction.Dispose();
+                logger.LogInformation("Disposing...");
             } else {
                 transaction.Commit();
+                logger.LogInformation("Commiting...");
             }
         }
 

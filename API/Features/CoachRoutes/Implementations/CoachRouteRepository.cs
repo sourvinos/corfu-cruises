@@ -6,6 +6,7 @@ using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.CoachRoutes {
@@ -14,7 +15,7 @@ namespace API.Features.CoachRoutes {
 
         private readonly IMapper mapper;
 
-        public CoachRouteRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, httpContext, settings) {
+        public CoachRouteRepository(AppDbContext context, IHttpContextAccessor httpContext, ILogger<CoachRoute> logger, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, httpContext, logger, settings) {
             this.mapper = mapper;
         }
 
