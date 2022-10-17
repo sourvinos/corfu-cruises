@@ -3,15 +3,12 @@ using API.Infrastructure.Auth;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Email;
 using API.Infrastructure.Extensions;
-using API.Infrastructure.Identity;
 using API.Infrastructure.Middleware;
-using API.Infrastructure.SeedData;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -94,11 +91,10 @@ namespace API {
             });
         }
 
-        public void ConfigureLocalTesting(IApplicationBuilder app, RoleManager<IdentityRole> roleManager, UserManager<UserExtended> userManager, AppDbContext context) {
+        public void ConfigureLocalTesting(IApplicationBuilder app) {
             app.UseDeveloperExceptionPage();
             Configure(app);
             app.UseEndpoints(endpoints => endpoints.MapControllers());
-            SeedDatabaseMaster.SeedDatabase(roleManager, userManager, context);
         }
 
         public void ConfigureProductionLive(IApplicationBuilder app) {
