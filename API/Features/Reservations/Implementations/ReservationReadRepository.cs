@@ -27,42 +27,42 @@ namespace API.Features.Reservations {
             this.userManager = userManager;
         }
 
-        public ReservationFinalGroupVM GetForDailyList(string date) {
+        public async Task<ReservationFinalGroupVM> GetForDailyListAsync(string date) {
             IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
             if (Identity.IsUserAdmin(httpContext)) {
-                reservations = GetReservationsFromAllUsersByDate(date);
+                reservations = await GetReservationsFromAllUsersByDateAsync(date);
             } else {
                 var simpleUser = Identity.GetConnectedUserId(httpContext);
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);
-                reservations = GetReservationsForLinkedCustomer(date, (int)connectedUserDetails.CustomerId);
+                reservations = await GetReservationsForLinkedCustomerAsync(date, (int)connectedUserDetails.CustomerId);
             }
-            var mainResult = new ReservationInitialGroupVM {
+            var x = new ReservationInitialGroupVM {
                 Persons = reservations.Sum(x => x.TotalPersons),
-                Reservations = reservations.ToList(),
+                Reservations = reservations
             };
-            return mapper.Map<ReservationInitialGroupVM, ReservationFinalGroupVM>(mainResult);
+            return mapper.Map<ReservationInitialGroupVM, ReservationFinalGroupVM>(x);
         }
 
-        public ReservationFinalGroupVM GetByRefNo(string refNo) {
+        public async Task<ReservationFinalGroupVM> GetByRefNoAsync(string refNo) {
             IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
             var connectedUser = Identity.GetConnectedUserId(httpContext);
             if (Identity.IsUserAdmin(httpContext)) {
-                reservations = GetReservationsFromAllUsersByRefNo(refNo);
+                reservations = await GetReservationsFromAllUsersByRefNoAsync(refNo);
             } else {
-                var simpleUser = Identity.GetConnectedUserId(httpContext);
-                var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);
-                reservations = GetReservationsFromLinkedCustomerbyRefNo(refNo, (int)connectedUserDetails.CustomerId);
+                var userId = Identity.GetConnectedUserId(httpContext);
+                var userDetails = Identity.GetConnectedUserDetails(userManager, userId);
+                reservations = await GetReservationsFromLinkedCustomerbyRefNoAsync(refNo, (int)userDetails.CustomerId);
             }
-            var mainResult = new ReservationInitialGroupVM {
+            var x = new ReservationInitialGroupVM {
                 Persons = reservations.Sum(x => x.TotalPersons),
-                Reservations = reservations.ToList(),
+                Reservations = reservations,
             };
-            return mapper.Map<ReservationInitialGroupVM, ReservationFinalGroupVM>(mainResult);
+            return mapper.Map<ReservationInitialGroupVM, ReservationFinalGroupVM>(x);
         }
 
-        public async Task<ReservationDriverGroupVM> GetByDateAndDriver(string date, int driverId) {
-            var driver = await GetDriver(driverId);
-            var reservations = await GetReservationsByDateAndDriver(date, driverId);
+        public async Task<ReservationDriverGroupVM> GetByDateAndDriverAsync(string date, int driverId) {
+            var driver = await GetDriverAsync(driverId);
+            var reservations = await GetReservationsByDateAndDriverAsync(date, driverId);
             return new ReservationDriverGroupVM {
                 Date = date,
                 DriverId = driver != null ? driverId : 0,
@@ -72,7 +72,7 @@ namespace API.Features.Reservations {
             };
         }
 
-        public async Task<Reservation> GetById(string reservationId, bool includeTables) {
+        public async Task<Reservation> GetByIdAsync(string reservationId, bool includeTables) {
             return includeTables
                 ? await context.Reservations
                     .AsNoTracking()
@@ -85,15 +85,17 @@ namespace API.Features.Reservations {
                     .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                     .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
                     .Include(x => x.Passengers).ThenInclude(x => x.Gender)
-                    .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId)
+                    .Where(x => x.ReservationId.ToString() == reservationId)
+                    .SingleOrDefaultAsync()
                 : await context.Reservations
                     .AsNoTracking()
                     .Include(x => x.Passengers)
-                    .SingleOrDefaultAsync(x => x.ReservationId.ToString() == reservationId);
+                    .Where(x => x.ReservationId.ToString() == reservationId)
+                    .SingleOrDefaultAsync();
         }
 
-        private IEnumerable<Reservation> GetReservationsFromAllUsersByDate(string date) {
-            return context.Reservations
+        private async Task<IEnumerable<Reservation>> GetReservationsFromAllUsersByDateAsync(string date) {
+            return await context.Reservations
                 .AsNoTracking()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
@@ -101,11 +103,12 @@ namespace API.Features.Reservations {
                 .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
                 .Include(x => x.Passengers)
-                .Where(x => x.Date == Convert.ToDateTime(date));
+                .Where(x => x.Date == Convert.ToDateTime(date))
+                .ToListAsync();
         }
 
-        private IEnumerable<Reservation> GetReservationsForLinkedCustomer(string date, int customerId) {
-            var reservations = context.Reservations
+        private async Task<IEnumerable<Reservation>> GetReservationsForLinkedCustomerAsync(string date, int customerId) {
+            return await context.Reservations
                 .AsNoTracking()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
@@ -113,12 +116,12 @@ namespace API.Features.Reservations {
                 .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
                 .Include(x => x.Passengers)
-                .Where(x => x.Date == Convert.ToDateTime(date) && x.CustomerId == customerId);
-            return reservations;
+                .Where(x => x.Date == Convert.ToDateTime(date) && x.CustomerId == customerId)
+                .ToListAsync();
         }
 
-        private IEnumerable<Reservation> GetReservationsFromAllUsersByRefNo(string refNo) {
-            return context.Reservations
+        private async Task<IEnumerable<Reservation>> GetReservationsFromAllUsersByRefNoAsync(string refNo) {
+            return await context.Reservations
                 .AsNoTracking()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
@@ -126,21 +129,23 @@ namespace API.Features.Reservations {
                 .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
                 .Include(x => x.Passengers)
-                .Where(x => x.RefNo == refNo);
+                .Where(x => x.RefNo == refNo)
+                .ToListAsync();
         }
 
-        private IEnumerable<Reservation> GetReservationsFromLinkedCustomerbyRefNo(string refNo, int customerId) {
-            return context.Reservations
+        private async Task<IEnumerable<Reservation>> GetReservationsFromLinkedCustomerbyRefNoAsync(string refNo, int customerId) {
+            return await context.Reservations
                 .AsNoTracking()
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
                 .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                 .Include(x => x.Ship)
-                .Where(x => x.RefNo == refNo && x.CustomerId == customerId);
+                .Where(x => x.RefNo == refNo && x.CustomerId == customerId)
+                .ToListAsync();
         }
 
-        private async Task<IEnumerable<Reservation>> GetReservationsByDateAndDriver(string date, int driverId) {
+        private async Task<IEnumerable<Reservation>> GetReservationsByDateAndDriverAsync(string date, int driverId) {
             return await context.Reservations
                 .AsNoTracking()
                 .Include(x => x.Customer)
@@ -153,10 +158,11 @@ namespace API.Features.Reservations {
                 .ToListAsync();
         }
 
-        private async Task<Driver> GetDriver(int driverId) {
+        private async Task<Driver> GetDriverAsync(int driverId) {
             return await context.Drivers
                 .AsNoTracking()
-                .SingleOrDefaultAsync(x => x.Id == driverId);
+                .Where(x => x.Id == driverId)
+                .SingleOrDefaultAsync();
         }
 
     }

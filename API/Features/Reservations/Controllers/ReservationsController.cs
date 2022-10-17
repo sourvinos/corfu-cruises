@@ -40,32 +40,32 @@ namespace API.Features.Reservations {
 
         [HttpGet("fromDate/{fromDate}/toDate/{toDate}")]
         [Authorize(Roles = "user, admin")]
-        public IEnumerable<ReservationCalendarGroupVM> GetForCalendar([FromRoute] string fromDate, string toDate) {
-            return reservationCalendar.GetForCalendar(fromDate, toDate);
+        public async Task<IEnumerable<ReservationCalendarGroupVM>> GetForCalendarAsync([FromRoute] string fromDate, string toDate) {
+            return await reservationCalendar.GetForCalendarAsync(fromDate, toDate);
         }
 
         [HttpGet("date/{date}")]
         [Authorize(Roles = "user, admin")]
-        public ReservationFinalGroupVM GetForDailyList([FromRoute] string date) {
-            return reservationReadRepo.GetForDailyList(date);
+        public async Task<ReservationFinalGroupVM> GetForDailyListAsync([FromRoute] string date) {
+            return await reservationReadRepo.GetForDailyListAsync(date);
         }
 
         [HttpGet("date/{date}/driver/{driverId}")]
         [Authorize(Roles = "admin")]
-        public async Task<ReservationDriverGroupVM> GetByDateAndDriver([FromRoute] string date, int driverId) {
-            return await reservationReadRepo.GetByDateAndDriver(date, driverId);
+        public async Task<ReservationDriverGroupVM> GetByDateAndDriverAsync([FromRoute] string date, int driverId) {
+            return await reservationReadRepo.GetByDateAndDriverAsync(date, driverId);
         }
 
         [HttpGet("refNo/{refNo}")]
         [Authorize(Roles = "user, admin")]
-        public ReservationFinalGroupVM GetByRefNo([FromRoute] string refNo) {
-            return reservationReadRepo.GetByRefNo(refNo);
+        public async Task<ReservationFinalGroupVM> GetByRefNo([FromRoute] string refNo) {
+            return await reservationReadRepo.GetByRefNoAsync(refNo);
         }
 
         [HttpGet("{reservationId}")]
         [Authorize(Roles = "user, admin")]
         public async Task<ResponseWithBody> GetById(string reservationId) {
-            var x = await reservationReadRepo.GetById(reservationId, true);
+            var x = await reservationReadRepo.GetByIdAsync(reservationId, true);
             if (x != null) {
                 if (Identity.IsUserAdmin(httpContext) || validReservation.IsUserOwner(x.CustomerId)) {
                     return new ResponseWithBody {
@@ -113,7 +113,7 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] ReservationWriteDto reservation) {
-            var x = await reservationReadRepo.GetById(reservation.ReservationId.ToString(), false);
+            var x = await reservationReadRepo.GetByIdAsync(reservation.ReservationId.ToString(), false);
             if (x != null) {
                 if (Identity.IsUserAdmin(httpContext) || validReservation.IsUserOwner(x.CustomerId)) {
                     var z = validReservation.IsValid(reservation, scheduleRepo);
@@ -147,7 +147,7 @@ namespace API.Features.Reservations {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] string id) {
-            var x = await reservationReadRepo.GetById(id, false);
+            var x = await reservationReadRepo.GetByIdAsync(id, false);
             if (x != null) {
                 reservationUpdateRepo.Delete(x);
                 return new Response {

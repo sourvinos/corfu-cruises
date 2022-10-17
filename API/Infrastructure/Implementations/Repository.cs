@@ -24,21 +24,21 @@ namespace API.Infrastructure.Implementations {
         public void Create(T entity) {
             using var transaction = context.Database.BeginTransaction();
             context.Add(entity);
-            context.SaveChanges();
+            context.SaveChangesAsync();
             DisposeOrCommit(transaction);
         }
 
         public void CreateList(List<T> entities) {
             using var transaction = context.Database.BeginTransaction();
             context.AddRange(entities);
-            context.SaveChanges();
+            context.SaveChangesAsync();
             DisposeOrCommit(transaction);
         }
 
         public void Update(T entity) {
             using var transaction = context.Database.BeginTransaction();
             context.Set<T>().Update(entity);
-            context.SaveChanges();
+            context.SaveChangesAsync();
             DisposeOrCommit(transaction);
         }
 
@@ -46,7 +46,7 @@ namespace API.Infrastructure.Implementations {
             using var transaction = context.Database.BeginTransaction();
             try {
                 context.Remove(entity);
-                context.SaveChanges();
+                context.SaveChangesAsync();
                 DisposeOrCommit(transaction);
             } catch (Exception) {
                 throw new CustomException { ResponseCode = 491 };

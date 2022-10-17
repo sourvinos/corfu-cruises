@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
@@ -14,8 +15,8 @@ namespace API.Features.Reservations {
 
         public ReservationCalendar(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment) : base(context, httpContext, testingEnvironment) { }
 
-        public IEnumerable<ReservationCalendarGroupVM> GetForCalendar(string fromDate, string toDate) {
-            return context.Schedules
+        public async Task<IEnumerable<ReservationCalendarGroupVM>> GetForCalendarAsync(string fromDate, string toDate) {
+            return await context.Schedules
                 .AsNoTracking()
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
                 .GroupBy(z => z.Date)
@@ -28,7 +29,7 @@ namespace API.Features.Reservations {
                         Pax = context.Reservations.AsNoTracking().Where(z => z.Date == x.Key.Date && z.Destination.Id == x.Key.Id).Sum(x => x.TotalPersons)
                     }),
                     Pax = context.Reservations.AsNoTracking().Where(z => z.Date == x.Key.Date).Sum(x => x.TotalPersons)
-                }).ToList();
+                }).ToListAsync();
         }
 
     }

@@ -30,7 +30,7 @@ namespace API.Features.Reservations {
                 UpdatePassengers(reservation.Passengers);
                 DeletePassengers(reservationId, reservation.Passengers);
                 context.Reservations.Update(reservation);
-                context.SaveChanges();
+                context.SaveChangesAsync();
                 if (testingEnvironment.IsTesting) {
                     transaction.Dispose();
                 } else {
@@ -47,7 +47,7 @@ namespace API.Features.Reservations {
                     .Where(x => ids.Contains(x.ReservationId.ToString()))
                     .ToList();
                 reservations.ForEach(a => a.DriverId = driverId);
-                context.SaveChanges();
+                context.SaveChangesAsync();
                 if (testingEnvironment.IsTesting) {
                     transaction.Dispose();
                 } else {
@@ -64,7 +64,7 @@ namespace API.Features.Reservations {
                     .Where(x => ids.Contains(x.ReservationId.ToString()))
                     .ToList();
                 reservations.ForEach(a => a.ShipId = shipId);
-                context.SaveChanges();
+                context.SaveChangesAsync();
                 if (testingEnvironment.IsTesting) {
                     transaction.Dispose();
                 } else {
@@ -80,7 +80,8 @@ namespace API.Features.Reservations {
         private string GetDestinationAbbreviation(ReservationWriteDto reservation) {
             var destination = context.Destinations
                 .AsNoTracking()
-                .SingleOrDefault(x => x.Id == reservation.DestinationId);
+                .Where(x => x.Id == reservation.DestinationId)
+                .SingleOrDefault();
             return destination.Abbreviation;
         }
 
