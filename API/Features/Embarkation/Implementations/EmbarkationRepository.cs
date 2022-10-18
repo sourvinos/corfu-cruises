@@ -59,29 +59,23 @@ namespace API.Features.Embarkation {
         }
 
         public void EmbarkPassenger(int id) {
-            Passenger passenger = context.Passengers
+            using var transaction = context.Database.BeginTransaction();
+            var passenger = context.Passengers
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
-            var strategy = context.Database.CreateExecutionStrategy();
-            strategy.Execute(() => {
-                using var transaction = context.Database.BeginTransaction();
-                passenger.IsCheckedIn = !passenger.IsCheckedIn;
-                context.SaveChanges();
-                DisposeOrCommit(transaction);
-            });
+            passenger.IsCheckedIn = !passenger.IsCheckedIn;
+            context.SaveChanges();
+            DisposeOrCommit(transaction);
         }
 
         public void EmbarkPassengers(int[] ids) {
-            var strategy = context.Database.CreateExecutionStrategy();
-            strategy.Execute(() => {
-                using var transaction = context.Database.BeginTransaction();
-                var records = context.Passengers
-                    .Where(x => ids.Contains(x.Id))
-                    .ToList();
-                records.ForEach(x => x.IsCheckedIn = true);
-                context.SaveChanges();
-                DisposeOrCommit(transaction);
-            });
+            using var transaction = context.Database.BeginTransaction();
+            var records = context.Passengers
+                .Where(x => ids.Contains(x.Id))
+                .ToList();
+            records.ForEach(x => x.IsCheckedIn = true);
+            context.SaveChanges();
+            DisposeOrCommit(transaction);
         }
 
         private void DisposeOrCommit(IDbContextTransaction transaction) {
