@@ -12,9 +12,6 @@ namespace API.Infrastructure.Helpers {
         #region Generic Messages
 
         public static string OK() { return "OK"; }
-        public static string RecordCreated() { return "Record created"; }
-        public static string RecordUpdated() { return "Record updated"; }
-        public static string RecordDeleted() { return "Record deleted"; }
         public static string RecordInUse() { return "Record is used and can't be deleted"; }
         public static string AuthenticationFailed() { return "Authentication failed."; }
         public static string RecordNotFound() { return "Record not found"; }
@@ -23,10 +20,7 @@ namespace API.Infrastructure.Helpers {
         public static string EmailNotSent() { return "Email not sent."; }
         public static string RecordNotSaved() { return "Record not saved."; }
         public static string UnableToDeleteConnectedUser() { return "The connected user can't be deleted."; }
-        public static string DateHasWrongFormat() { return "Date must be in 'YYYY-MM-DD' format"; }
-        public static string EmailHasWrongFormat() { return "Email is not in the correct format"; }
         public static string LogoutError() { return "The user is not logged in."; }
-        public static string FKNotFoundOrInactive(string fk) { return $"{fk} does not exist or is inactive"; }
         public static string NotUniqueUser() { return "The username and the email must be unique"; }
 
         #endregion
@@ -34,9 +28,8 @@ namespace API.Infrastructure.Helpers {
         #region  App Specific Messages
 
         public static string DuplicateRecord() { return "Duplicate records are not allowed."; }
-        public static string DayHasNoSchedule() { return "For this day nothing is scheduled."; }
-        public static string InvalidDateDestinationOrPort() { return "The reservation for 05/05/2020 is invalid for one of the following reasons: a) Nothing is scheduled for this day (we have a day-off!) b) We don't go to PAXOS-ANTIPAXOS (even though we go somewhere else) c) There are no departures from LEFKIMMI PORT to PAXOS-ANTIPAXOS (even though we depart from another port to PAXOS-ANTIPAXOS)"; }
-        public static string PortHasNoVacancy() { return "Overbooking in not allowed."; }
+        public static string InvalidDateDestinationOrPort() { return "The reservation is invalid for one of the following reasons: a) Nothing is scheduled for the selected day b) We don't go to the selected destination c) There are no departures from the selected port."; }
+        public static string PortHasNoFreeSeats() { return "Overbooking in not allowed."; }
         public static string NotOwnRecord() { return "The customer is invalid or you are not the owner of this record."; }
         public static string InvalidCustomer() { return "The customer doesn't exist or is inactive."; }
         public static string InvalidDestination() { return "The destination doesn't exist or is inactive."; }
