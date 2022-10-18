@@ -67,10 +67,10 @@ namespace API.Infrastructure.Implementations {
         private void DisposeOrCommit(IDbContextTransaction transaction) {
             if (testingSettings.IsTesting) {
                 transaction.Dispose();
-                logger.LogInformation("Disposing...");
+                logger.LogInformation("Transaction disposed");
             } else {
                 transaction.Commit();
-                logger.LogInformation("Commiting...");
+                logger.LogInformation("Transaction committed");
             }
         }
 

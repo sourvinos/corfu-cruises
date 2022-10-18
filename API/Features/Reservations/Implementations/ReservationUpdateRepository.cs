@@ -23,55 +23,49 @@ namespace API.Features.Reservations {
         }
 
         public void Update(Guid reservationId, Reservation reservation) {
-            var strategy = context.Database.CreateExecutionStrategy();
-            strategy.Execute(() => {
-                using var transaction = context.Database.BeginTransaction();
+            using var transaction = context.Database.BeginTransaction();
+            if (Identity.IsUserAdmin(httpContext)) {
                 UpdateReservation(reservation);
+                DeletePassengers(reservationId, reservation.Passengers);
+            } else {
                 AddPassengers(reservation.Passengers);
                 UpdatePassengers(reservation.Passengers);
                 DeletePassengers(reservationId, reservation.Passengers);
-                context.Reservations.Update(reservation);
-                context.SaveChangesAsync();
-                if (testingEnvironment.IsTesting) {
-                    transaction.Dispose();
-                } else {
-                    transaction.Commit();
-                }
-            });
+            }
+            context.SaveChanges();
+            if (testingEnvironment.IsTesting) {
+                transaction.Dispose();
+            } else {
+                transaction.Commit();
+            }
         }
 
         public void AssignToDriver(int driverId, string[] ids) {
-            var strategy = context.Database.CreateExecutionStrategy();
-            strategy.Execute(() => {
-                using var transaction = context.Database.BeginTransaction();
-                var reservations = context.Reservations
-                    .Where(x => ids.Contains(x.ReservationId.ToString()))
-                    .ToList();
-                reservations.ForEach(a => a.DriverId = driverId);
-                context.SaveChangesAsync();
-                if (testingEnvironment.IsTesting) {
-                    transaction.Dispose();
-                } else {
-                    transaction.Commit();
-                }
-            });
+            using var transaction = context.Database.BeginTransaction();
+            var reservations = context.Reservations
+                .Where(x => ids.Contains(x.ReservationId.ToString()))
+                .ToList();
+            reservations.ForEach(a => a.DriverId = driverId);
+            context.SaveChanges();
+            if (testingEnvironment.IsTesting) {
+                transaction.Dispose();
+            } else {
+                transaction.Commit();
+            }
         }
 
         public void AssignToShip(int shipId, string[] ids) {
-            var strategy = context.Database.CreateExecutionStrategy();
-            strategy.Execute(() => {
-                using var transaction = context.Database.BeginTransaction();
-                var reservations = context.Reservations
-                    .Where(x => ids.Contains(x.ReservationId.ToString()))
-                    .ToList();
-                reservations.ForEach(a => a.ShipId = shipId);
-                context.SaveChangesAsync();
-                if (testingEnvironment.IsTesting) {
-                    transaction.Dispose();
-                } else {
-                    transaction.Commit();
-                }
-            });
+            using var transaction = context.Database.BeginTransaction();
+            var reservations = context.Reservations
+                .Where(x => ids.Contains(x.ReservationId.ToString()))
+                .ToList();
+            reservations.ForEach(a => a.ShipId = shipId);
+            context.SaveChanges();
+            if (testingEnvironment.IsTesting) {
+                transaction.Dispose();
+            } else {
+                transaction.Commit();
+            }
         }
 
         public string AssignRefNoToNewDto(ReservationWriteDto reservation) {
@@ -87,13 +81,13 @@ namespace API.Features.Reservations {
         }
 
         private void UpdateReservation(Reservation reservation) {
-            if (Identity.IsUserAdmin(httpContext)) {
-                context.Reservations.Update(reservation);
-            }
+            context.Reservations.Update(reservation);
         }
 
         private void AddPassengers(List<Passenger> passengers) {
-            context.Passengers.AddRange(passengers.Where(x => x.Id == 0));
+            if (passengers.Any(x => x.Id == 0)) {
+                context.Passengers.AddRange(passengers.Where(x => x.Id == 0));
+            }
         }
 
         private void UpdatePassengers(List<Passenger> passengers) {
@@ -105,14 +99,13 @@ namespace API.Features.Reservations {
                 .AsNoTracking()
                 .Where(x => x.ReservationId == reservationId)
                 .ToList();
-            var updatedPassengers = passengers
+            var passengersToUpdate = passengers
                 .Where(x => x.Id != 0)
                 .ToList();
             var passengersToDelete = existingPassengers
-                .Except(updatedPassengers, new PassengerComparerById())
+                .Except(passengersToUpdate, new PassengerComparerById())
                 .ToList();
-            context.Passengers
-                .RemoveRange(passengersToDelete);
+            context.Passengers.RemoveRange(passengersToDelete);
         }
 
         private class PassengerComparerById : IEqualityComparer<Passenger> {
