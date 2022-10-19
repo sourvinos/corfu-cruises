@@ -1,10 +1,13 @@
-namespace API.Infrastructure.Identity {
+using API.Infrastructure.Classes;
 
-    public class UserUpdateDto {
+namespace API.Features.Users {
 
+    public class UserReadDto {
+
+        public string Id { get; set; }
         public string UserName { get; set; }
         public string Displayname { get; set; }
-        public int? CustomerId { get; set; }
+        public SimpleEntity Customer { get; set; }
         public string Email { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }

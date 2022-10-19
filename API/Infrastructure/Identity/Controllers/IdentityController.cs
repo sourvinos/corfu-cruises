@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using API.Infrastructure.Email;
+using API.Features.Users;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using Microsoft.AspNetCore.Authorization;
@@ -13,14 +13,14 @@ using Microsoft.AspNetCore.WebUtilities;
 namespace API.Infrastructure.Identity {
 
     [Route("api/[controller]")]
-    public class AccountController : Controller {
+    public class IdentityController : Controller {
 
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IEmailSender emailSender;
         private readonly SignInManager<UserExtended> signInManager;
         private readonly UserManager<UserExtended> userManager;
 
-        public AccountController(IHttpContextAccessor httpContextAccessor, UserManager<UserExtended> userManager, SignInManager<UserExtended> signInManager, IEmailSender emailSender) {
+        public IdentityController(IHttpContextAccessor httpContextAccessor, UserManager<UserExtended> userManager, SignInManager<UserExtended> signInManager, IEmailSender emailSender) {
             this.httpContextAccessor = httpContextAccessor;
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -124,6 +124,28 @@ namespace API.Infrastructure.Identity {
                 };
             }
         }
+
+        [HttpPost("[action]")]
+        [Authorize(Roles = "admin")]
+        public Response SendLoginCredentials([FromBody] LoginCredentialsViewModel model) {
+            string baseUrl = $"{Request.Scheme}://{Request.Host.Value}{Request.PathBase.Value}";
+            string loginLink = Url.Content($"{baseUrl}/login");
+            var result = emailSender.SendLoginCredentials(model, loginLink);
+            if (result.Successful) {
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = ApiMessages.OK()
+                };
+            } else {
+                return new Response {
+                    Code = 496,
+                    Icon = Icons.Error.ToString(),
+                    Message = ApiMessages.EmailNotSent()
+                };
+            }
+        }
+
 
     }
 

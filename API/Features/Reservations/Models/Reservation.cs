@@ -6,7 +6,7 @@ using API.Features.Drivers;
 using API.Features.PickupPoints;
 using API.Features.Ports;
 using API.Features.Ships;
-using API.Infrastructure.Identity;
+using API.Features.Users;
 
 namespace API.Features.Reservations {
 

@@ -1,6 +1,4 @@
-using API.Infrastructure.Identity;
-
-namespace API.Infrastructure.Email {
+namespace API.Infrastructure.Identity {
 
     public interface IEmailSender {
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using API.Features.CoachRoutes;
 using API.Features.Reservations;
-using API.Infrastructure.Identity;
+using API.Features.Users;
 
 namespace API.Features.PickupPoints {
 

@@ -1,7 +1,7 @@
 using API.Infrastructure.Helpers;
 using FluentValidation;
 
-namespace API.Infrastructure.Identity {
+namespace API.Features.Users {
 
     public class UserValidator : AbstractValidator<UserUpdateDto> {
 

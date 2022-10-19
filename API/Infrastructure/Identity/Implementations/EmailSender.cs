@@ -3,7 +3,7 @@ using API.Infrastructure.Identity;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
-namespace API.Infrastructure.Email {
+namespace API.Infrastructure.Identity {
 
     public class EmailSender : IEmailSender {
 

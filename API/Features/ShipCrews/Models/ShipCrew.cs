@@ -3,7 +3,7 @@ using API.Features.Genders;
 using API.Features.Nationalities;
 using API.Features.Occupants;
 using API.Features.Ships;
-using API.Infrastructure.Identity;
+using API.Features.Users;
 
 namespace API.Features.ShipCrews {
 

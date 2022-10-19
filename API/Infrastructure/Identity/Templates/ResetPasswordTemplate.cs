@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace API.Infrastructure.Email {
+namespace API.Infrastructure.Identity {
 
     public static class ResetPasswordTemplate {
 

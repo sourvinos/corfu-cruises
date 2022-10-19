@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace API.Infrastructure.Email {
+namespace API.Infrastructure.Identity {
 
     public static class AddEmailExtensions {
 

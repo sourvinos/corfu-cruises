@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using API.Features.Users;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
-using API.Infrastructure.Identity;
 using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;

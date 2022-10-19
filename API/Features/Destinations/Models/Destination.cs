@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using API.Features.Reservations;
 using API.Features.Schedules;
-using API.Infrastructure.Identity;
+using API.Features.Users;
 
 namespace API.Features.Destinations {
 

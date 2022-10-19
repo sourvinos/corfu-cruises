@@ -3,7 +3,7 @@ using API.Features.Registrars;
 using API.Features.Reservations;
 using API.Features.ShipCrews;
 using API.Features.ShipOwners;
-using API.Infrastructure.Identity;
+using API.Features.Users;
 
 namespace API.Features.Ships {
 

@@ -1,7 +1,8 @@
 using System;
+using API.Features.Users;
 using AutoMapper;
 
-namespace API.Infrastructure.Identity {
+namespace API.Features.Users {
 
     public class UserMappingProfile : Profile {
 

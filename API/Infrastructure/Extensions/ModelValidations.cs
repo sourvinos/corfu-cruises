@@ -12,7 +12,7 @@ using API.Features.Schedules;
 using API.Features.ShipCrews;
 using API.Features.ShipRoutes;
 using API.Features.Ships;
-using API.Infrastructure.Identity;
+using API.Features.Users;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
