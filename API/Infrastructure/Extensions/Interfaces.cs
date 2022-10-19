@@ -16,6 +16,7 @@ using API.Features.ShipCrews;
 using API.Features.ShipOwners;
 using API.Features.ShipRoutes;
 using API.Features.Ships;
+using API.Features.Users;
 using API.Infrastructure.Auth;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -47,6 +48,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IShipOwnerRepository, ShipOwnerRepository>();
             services.AddTransient<IShipRepository, ShipRepository>();
             services.AddTransient<IShipRouteRepository, ShipRouteRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             // Validations
             services.AddTransient<ICoachRouteValidation, CoachRouteValidation>();
             services.AddTransient<IPickupPointValidation, PickupPointValidation>();
@@ -57,6 +59,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IScheduleValidation, ScheduleValidation>();
             services.AddTransient<IShipCrewValidation, ShipCrewValidation>();
             services.AddTransient<IShipValidation, ShipValidation>();
+            services.AddTransient<IUserValidation, UserValidation>();
             // Misc
             services.AddTransient<IReservationAvailability, ReservationAvailability>();
             services.AddTransient<IReservationCalendar, ReservationCalendar>();

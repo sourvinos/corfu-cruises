@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Features.Users;
+using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using AutoMapper;
@@ -16,12 +16,14 @@ namespace API.Features.Users {
 
         private readonly IMapper mapper;
         private readonly IUserRepository userRepo;
+        private readonly IUserValidation userValidation;
 
         #endregion
 
-        public UsersController(IMapper mapper, IUserRepository userRepo) {
+        public UsersController(IMapper mapper, IUserRepository userRepo, IUserValidation userValidation) {
             this.mapper = mapper;
             this.userRepo = userRepo;
+            this.userValidation = userValidation;
         }
 
         [HttpGet]
@@ -50,13 +52,30 @@ namespace API.Features.Users {
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public Response Post([FromBody] UserNewDto user) {
-            userRepo.Create(user);
-            return new Response {
-                Code = 200,
-                Icon = Icons.Success.ToString(),
-                Message = ApiMessages.OK()
-            };
+        [ServiceFilter(typeof(ModelValidationAttribute))]
+        public async Task<Response> Post([FromBody] UserNewDto user) {
+            var x = userValidation.IsValid(user);
+            if (x == 200) {
+                var z = userRepo.Create(mapper.Map<UserNewDto, UserExtended>(user), user.Password);
+                if (z.Result.Succeeded) {
+                    await userRepo.AddUserToRole(mapper.Map<UserNewDto, UserExtended>(user));
+                    return new Response {
+                        Code = 200,
+                        Icon = Icons.Success.ToString(),
+                        Message = ApiMessages.OK()
+                    };
+                } else {
+                    return new Response {
+                        Code = 492,
+                        Icon = Icons.Error.ToString(),
+                        Message = ApiMessages.NotUniqueUser()
+                    };
+                }
+            } else {
+                throw new CustomException() {
+                    ResponseCode = x
+                };
+            }
         }
 
         [HttpPut("{id}")]

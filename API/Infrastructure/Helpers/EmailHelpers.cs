@@ -6,6 +6,10 @@ namespace API.Infrastructure.Helpers {
 
     public static class EmailHelpers {
 
+        public static bool BeValidEmailAddress(string email) {
+            return IsValidEmail(email);
+        }
+
         public static bool BeEmptyOrValidEmailAddress(string email) {
             return string.IsNullOrWhiteSpace(email) || IsValidEmail(email);
         }

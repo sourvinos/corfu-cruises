@@ -17,7 +17,7 @@ namespace API.Features.Users {
         private readonly IMapper mapper;
         private readonly UserManager<UserExtended> userManager;
 
-        public UserRepository(IHttpContextAccessor httpContext,IMapper mapper, UserManager<UserExtended> userManager) {
+        public UserRepository(IHttpContextAccessor httpContext, IMapper mapper, UserManager<UserExtended> userManager) {
             this.httpContext = httpContext;
             this.mapper = mapper;
             this.userManager = userManager;
@@ -37,23 +37,8 @@ namespace API.Features.Users {
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Response> Create(UserNewDto user) {
-            var x = mapper.Map<UserNewDto, UserExtended>(user);
-            var result = await userManager.CreateAsync(x, user.Password);
-            if (result.Succeeded) {
-                await userManager.AddToRoleAsync(x, user.IsAdmin ? "Admin" : "User");
-                return new Response {
-                    Code = 200,
-                    Icon = Icons.Success.ToString(),
-                    Message = ApiMessages.OK()
-                };
-            } else {
-                return new Response {
-                    Code = 492,
-                    Icon = Icons.Error.ToString(),
-                    Message = ApiMessages.NotUniqueUser()
-                };
-            }
+        public async Task<IdentityResult> Create(UserExtended user, string password) {
+            return await userManager.CreateAsync(user, password);
         }
 
         public async Task<bool> Update(UserExtended x, UserUpdateDto user) {
@@ -67,6 +52,10 @@ namespace API.Features.Users {
             }
             var result = await userManager.UpdateAsync(x);
             return result.Succeeded;
+        }
+
+        public async Task AddUserToRole(UserExtended user) {
+            await userManager.AddToRoleAsync(user, user.IsAdmin ? "Admin" : "User");
         }
 
         public async Task UpdateRole(UserExtended user) {
