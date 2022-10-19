@@ -19,14 +19,14 @@ namespace API.Infrastructure.Auth {
 
         #region variables
 
-        private readonly AppDbContext db;
+        private readonly AppDbContext context;
         private readonly TokenSettings settings;
         private readonly UserManager<UserExtended> userManager;
 
         #endregion
 
-        public AuthController(AppDbContext db, IOptions<TokenSettings> settings, UserManager<UserExtended> userManager) {
-            this.db = db;
+        public AuthController(AppDbContext context, IOptions<TokenSettings> settings, UserManager<UserExtended> userManager) {
+            this.context = context;
             this.settings = settings.Value;
             this.userManager = userManager;
         }
@@ -36,24 +36,17 @@ namespace API.Infrastructure.Auth {
             return model.GrantType switch {
                 "password" => await GenerateNewToken(model),
                 "refresh_token" => await RefreshToken(model),
-                _ => StatusCode(401, new {
-                    response = ApiMessages.AuthenticationFailed()
-                }),
+                _ => AuthenticationFailed(),
             };
         }
 
         [HttpPost("[action]")]
         public IActionResult Logout([FromBody] string userId) {
-            var tokens = db.Tokens.Where(x => x.UserId == userId).ToList();
-            if (tokens != null) {
-                db.Tokens.RemoveRange(tokens);
-                db.SaveChanges();
-                return StatusCode(200, new {
-                    response = ApiMessages.OK()
-                });
-            }
-            return StatusCode(404, new {
-                response = ApiMessages.LogoutError()
+            var tokens = context.Tokens.Where(x => x.UserId == userId).ToList();
+            context.Tokens.RemoveRange(tokens);
+            context.SaveChanges();
+            return StatusCode(200, new {
+                response = ApiMessages.OK()
             });
         }
 
@@ -61,26 +54,24 @@ namespace API.Infrastructure.Auth {
             var user = await userManager.FindByNameAsync(model.Username);
             if (user?.IsActive == true && await userManager.IsEmailConfirmedAsync(user) && await userManager.CheckPasswordAsync(user, model.Password)) {
                 var newRefreshToken = CreateRefreshToken(settings.ClientId, user.Id);
-                var oldRefreshTokens = db.Tokens.Where(rt => rt.UserId == user.Id);
+                var oldRefreshTokens = context.Tokens.Where(rt => rt.UserId == user.Id);
                 if (oldRefreshTokens != null) {
                     foreach (var token in oldRefreshTokens) {
-                        db.Tokens.Remove(token);
+                        context.Tokens.Remove(token);
                     }
                 }
-                db.Tokens.Add(newRefreshToken);
-                await db.SaveChangesAsync();
+                context.Tokens.Add(newRefreshToken);
+                await context.SaveChangesAsync();
                 var response = await CreateAccessToken(user, newRefreshToken.Value);
                 return StatusCode(200, new TokenResponse {
-                    UserId = response.UserId,
                     Displayname = response.Displayname,
                     Token = response.Token,
                     RefreshToken = response.RefreshToken,
                     Expiration = response.Expiration,
                 });
+            } else {
+                return AuthenticationFailed();
             }
-            return StatusCode(401, new {
-                response = ApiMessages.AuthenticationFailed()
-            });
         }
 
         private static Token CreateRefreshToken(string clientId, string userId) {
@@ -114,7 +105,6 @@ namespace API.Infrastructure.Auth {
             var newtoken = tokenHandler.CreateToken(tokenDescriptor);
             var encodedToken = tokenHandler.WriteToken(newtoken);
             var response = new TokenResponse() {
-                UserId = user.Id,
                 Displayname = user.Displayname,
                 Token = encodedToken,
                 RefreshToken = refreshToken,
@@ -125,20 +115,28 @@ namespace API.Infrastructure.Auth {
 
         private async Task<IActionResult> RefreshToken(TokenRequest model) {
             try {
-                var refreshToken = db.Tokens.FirstOrDefault(t => t.ClientId == settings.ClientId && t.Value == model.RefreshToken);
-                if (refreshToken == null) return StatusCode(401, new { response = ApiMessages.AuthenticationFailed() });
-                if (refreshToken.ExpiryTime < DateTime.UtcNow) return StatusCode(401, new { response = ApiMessages.AuthenticationFailed() });
+                var refreshToken = context.Tokens.FirstOrDefault(t => t.ClientId == settings.ClientId && t.Value == model.RefreshToken);
+                if (refreshToken == null) return AuthenticationFailed();
+                if (refreshToken.ExpiryTime < DateTime.UtcNow) return AuthenticationFailed();
                 var user = await userManager.FindByIdAsync(refreshToken.UserId);
-                if (user == null) return StatusCode(401, new { response = ApiMessages.AuthenticationFailed() });
+                if (user == null) return AuthenticationFailed();
                 var rtNew = CreateRefreshToken(refreshToken.ClientId, refreshToken.UserId);
-                db.Tokens.Remove(refreshToken);
-                db.Tokens.Add(rtNew);
-                db.SaveChanges();
+                context.Tokens.Remove(refreshToken);
+                context.Tokens.Add(rtNew);
+                context.SaveChanges();
                 var token = await CreateAccessToken(user, rtNew.Value);
-                return StatusCode(200, new { response = token });
+                return StatusCode(200, new {
+                    response = token
+                });
             } catch {
-                return StatusCode(401, new { response = ApiMessages.AuthenticationFailed() });
+                return AuthenticationFailed();
             }
+        }
+
+        private IActionResult AuthenticationFailed() {
+            return StatusCode(404, new {
+                response = ApiMessages.AuthenticationFailed()
+            });
         }
 
     }
