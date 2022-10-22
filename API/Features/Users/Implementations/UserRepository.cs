@@ -33,7 +33,6 @@ namespace API.Features.Users {
 
         public async Task<UserExtended> GetById(string id) {
             return await userManager.Users
-                .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
@@ -42,13 +41,13 @@ namespace API.Features.Users {
         }
 
         public async Task<bool> Update(UserExtended x, UserUpdateDto user) {
-            x.UserName = user.UserName;
             x.Displayname = user.Displayname;
             if (await IsAdmin()) {
-                user.CustomerId = user.CustomerId == 0 ? null : user.CustomerId;
-                user.Email = user.Email;
-                user.IsAdmin = user.IsAdmin;
-                user.IsActive = user.IsActive;
+                x.CustomerId = user.CustomerId == 0 ? null : user.CustomerId;
+                x.UserName = user.Username;
+                x.Email = user.Email;
+                x.IsAdmin = user.IsAdmin;
+                x.IsActive = user.IsActive;
             }
             var result = await userManager.UpdateAsync(x);
             return result.Succeeded;

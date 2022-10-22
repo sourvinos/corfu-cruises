@@ -12,7 +12,7 @@ namespace API.Integration.Tests.Responses {
 
     public static class Forbidden {
 
-        public static async Task Action(HttpClient httpClient, string baseUrl, string url, string actionVerb, string username, string password, ITestEntity record) {
+        public static async Task Action(HttpClient httpClient, string baseUrl, string url, string actionVerb, string username, string password, object record) {
             // arrange
             var loginResponse = await Helpers.Login(httpClient, Helpers.CreateLoginCredentials(username, password));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);

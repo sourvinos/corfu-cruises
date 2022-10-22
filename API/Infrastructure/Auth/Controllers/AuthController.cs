@@ -64,6 +64,7 @@ namespace API.Infrastructure.Auth {
                 await context.SaveChangesAsync();
                 var response = await CreateAccessToken(user, newRefreshToken.Value);
                 return StatusCode(200, new TokenResponse {
+                    UserId = response.UserId,
                     Displayname = response.Displayname,
                     Token = response.Token,
                     RefreshToken = response.RefreshToken,
@@ -105,6 +106,7 @@ namespace API.Infrastructure.Auth {
             var newtoken = tokenHandler.CreateToken(tokenDescriptor);
             var encodedToken = tokenHandler.WriteToken(newtoken);
             var response = new TokenResponse() {
+                UserId = user.Id,
                 Displayname = user.Displayname,
                 Token = encodedToken,
                 RefreshToken = refreshToken,

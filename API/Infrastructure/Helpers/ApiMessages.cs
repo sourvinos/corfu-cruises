@@ -21,7 +21,8 @@ namespace API.Infrastructure.Helpers {
         public static string RecordNotSaved() { return "Record not saved."; }
         public static string UnableToDeleteConnectedUser() { return "The connected user can't be deleted."; }
         public static string LogoutError() { return "The user is not logged in."; }
-        public static string NotUniqueUser() { return "The username and the email must be unique"; }
+        public static string NotUniqueUsername() { return "The username must be unique"; }
+        public static string NotUniqueEmail() { return "The email must be unique"; }
 
         #endregion
 
@@ -30,7 +31,7 @@ namespace API.Infrastructure.Helpers {
         public static string DuplicateRecord() { return "Duplicate records are not allowed."; }
         public static string InvalidDateDestinationOrPort() { return "The reservation is invalid for one of the following reasons: a) Nothing is scheduled for the selected day b) We don't go to the selected destination c) There are no departures from the selected port."; }
         public static string PortHasNoFreeSeats() { return "Overbooking in not allowed."; }
-        public static string NotOwnRecord() { return "The customer is invalid or you are not the owner of this record."; }
+        public static string NotOwnRecord() { return "You are not the owner of this record."; }
         public static string InvalidCustomer() { return "The customer doesn't exist or is inactive."; }
         public static string InvalidDestination() { return "The destination doesn't exist or is inactive."; }
         public static string InvalidDriver() { return "The driver doesn't exist or is inactive."; }

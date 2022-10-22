@@ -1,8 +1,9 @@
 namespace API.Features.Users {
 
-    public class UserNewDto {
+    public class UserNewDto : IUser {
 
-        public string UserName { get; set; }
+        public string Id { get; set; }
+        public string Username { get; set; }
         public string Displayname { get; set; }
         public int? CustomerId { get; set; }
         public string Email { get; set; }
@@ -10,7 +11,6 @@ namespace API.Features.Users {
         public string ConfirmPassword { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }
-
     }
 
 }
