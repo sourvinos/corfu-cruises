@@ -1,6 +1,6 @@
 namespace API.Features.Users {
 
-    public class UserNewDto  {
+    public class UserNewDto : IUser {
 
         public string Username { get; set; }
         public string Displayname { get; set; }
