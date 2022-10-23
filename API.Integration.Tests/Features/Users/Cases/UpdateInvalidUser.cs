@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace API.Integration.Tests.Users {
+namespace IntegrationTests.Users {
 
     public class UpdateInvalidUser : IEnumerable<object[]> {
 
@@ -14,7 +14,7 @@ namespace API.Integration.Tests.Users {
 
         private static object[] UsernameAlreadyExists() {
             return new object[] {
-                new TestUser {
+                new TestUpdateUser {
                     StatusCode = 498,
                     Id = "eae03de1-6742-4015-9d52-102dba5d7365",
                     UserName = "foteini",
@@ -29,8 +29,8 @@ namespace API.Integration.Tests.Users {
 
         private static object[] EmailAlreadyExists() {
             return new object[] {
-                new TestUser {
-                    StatusCode = 498,
+                new TestUpdateUser {
+                    StatusCode = 499,
                     Id = "eae03de1-6742-4015-9d52-102dba5d7365",
                     UserName = "simpleuser",
                     Displayname = "Simple User",

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace API.Integration.Tests.Users {
+namespace IntegrationTests.Users {
 
     public class UpdateValidUser : IEnumerable<object[]> {
 
@@ -13,12 +13,12 @@ namespace API.Integration.Tests.Users {
 
         private static object[] ValidModel() {
             return new object[] {
-                new TestUser {
+                new TestUpdateUser {
                     Id = "eae03de1-6742-4015-9d52-102dba5d7365",
                     CustomerId = 2,
                     UserName = "simpleuser",
                     Displayname = "Simple User",
-                    Email = "martav869@gmail.com",
+                    Email = "email@server.com",
                     IsAdmin = false,
                     IsActive = true
                 }

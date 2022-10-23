@@ -9,7 +9,7 @@ using API.Integration.Tests.Infrastructure;
 using API.Integration.Tests.Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Users {
+namespace IntegrationTests.Users {
 
     [Collection("Sequence")]
     public class Users01Get : IClassFixture<AppSettingsFixture> {

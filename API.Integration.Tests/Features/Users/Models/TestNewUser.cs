@@ -1,10 +1,9 @@
-namespace API.Integration.Tests.Users {
+namespace IntegrationTests.Users {
 
-    public class TestUser {
+    public class TestNewUser {
 
         public int StatusCode { get; set; }
         
-        public string Id { get; set; }
         public int? CustomerId { get; set; }
         public string UserName { get; set; }
         public string Displayname { get; set; }

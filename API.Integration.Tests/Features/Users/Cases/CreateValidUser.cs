@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using API.Integration.Tests.Infrastructure;
 
-namespace API.Integration.Tests.Users {
+namespace IntegrationTests.Users {
 
     public class CreateValidUser : IEnumerable<object[]> {
 
@@ -14,11 +14,11 @@ namespace API.Integration.Tests.Users {
 
         private static object[] ValidRecord() {
             return new object[] {
-                new TestUser {
-                    UserName = Helpers.CreateRandomString(128),
-                    Displayname = Helpers.CreateRandomString(128),
+                new TestNewUser {
+                    UserName = "username",
+                    Displayname = "Display Name",
                     CustomerId = 1,
-                    Email = "email@server.com",
+                    Email = "new-email@server.com",
                     Password = "abcd1234",
                     ConfirmPassword = "abcd1234"
                 }

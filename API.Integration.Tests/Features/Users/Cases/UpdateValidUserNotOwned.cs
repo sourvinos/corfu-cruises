@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace API.Integration.Tests.Users {
+namespace IntegrationTests.Users {
 
     public class UpdateValidUserNotOwnRecord : IEnumerable<object[]> {
 
@@ -13,7 +13,7 @@ namespace API.Integration.Tests.Users {
 
         private static object[] AccountIsOwnedByAnotherUser() {
             return new object[] {
-                new TestUser {
+                new TestUpdateUser {
                     StatusCode = 490,
                     Id = "ce637d02-3076-4a96-b6f6-1e3a0841b81e",
                     CustomerId = 2,

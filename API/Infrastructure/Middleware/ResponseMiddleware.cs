@@ -66,8 +66,7 @@ namespace API.Infrastructure.Middleware {
                 490 => ApiMessages.NotOwnRecord(),
                 491 => ApiMessages.RecordInUse(),
                 493 => ApiMessages.InvalidPortOrder(),
-                498 => ApiMessages.NotUniqueUsername(),
-                499 => ApiMessages.NotUniqueEmail(),
+                498 => ApiMessages.NotUniqueUsernameOrEmail(),
                 _ => ApiMessages.UnknownError(),
             };
         }

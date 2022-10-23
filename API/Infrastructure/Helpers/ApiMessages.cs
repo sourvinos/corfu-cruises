@@ -21,8 +21,7 @@ namespace API.Infrastructure.Helpers {
         public static string RecordNotSaved() { return "Record not saved."; }
         public static string UnableToDeleteConnectedUser() { return "The connected user can't be deleted."; }
         public static string LogoutError() { return "The user is not logged in."; }
-        public static string NotUniqueUsername() { return "The username must be unique"; }
-        public static string NotUniqueEmail() { return "The email must be unique"; }
+        public static string NotUniqueUsernameOrEmail() { return "The username or the email are not unique"; }
 
         #endregion
 
