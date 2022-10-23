@@ -67,6 +67,7 @@ namespace API.Infrastructure.Middleware {
                 491 => ApiMessages.RecordInUse(),
                 493 => ApiMessages.InvalidPortOrder(),
                 498 => ApiMessages.NotUniqueUsernameOrEmail(),
+                499 => ApiMessages.UnableToDeleteConnectedUser(),
                 _ => ApiMessages.UnknownError(),
             };
         }

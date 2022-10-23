@@ -9,7 +9,7 @@ namespace API.Features.Users {
         Task<IEnumerable<UserListVM>> Get();
         Task<UserExtended> GetById(string id);
         Task Create(UserExtended entity, string password);
-        Task Update(UserExtended x, UserUpdateDto user);
+        Task<bool> Update(UserExtended x, UserUpdateDto user);
         Task<Response> Delete(UserExtended user);
 
     }

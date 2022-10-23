@@ -60,34 +60,39 @@ namespace API.Features.Users {
             }
         }
 
-        public async Task Update(UserExtended x, UserUpdateDto user) {
-            await UpdateUser(x, user);
-            await UpdateUserRole(x);
-
+        public async Task<bool> Update(UserExtended x, UserUpdateDto user) {
+            if (await UpdateUser(x, user)) {
+                await UpdateUserRole(x);
+                return true;
+            } else {
+                return false;
+            }
         }
 
         public async Task<Response> Delete(UserExtended user) {
             var x = Infrastructure.Extensions.Identity.GetConnectedUserId(httpContext);
             if (x == user.Id) {
-                return new Response {
-                    Code = 499,
-                    Icon = Icons.Error.ToString(),
-                    Message = ApiMessages.UnableToDeleteConnectedUser()
+                throw new CustomException() {
+                    ResponseCode = 499
                 };
             } else {
+                using var transaction = context.Database.BeginTransaction();
                 try {
-                    IdentityResult result = await userManager.DeleteAsync(await userManager.FindByIdAsync(user.Id));
-                    return new Response {
-                        Code = 200,
-                        Icon = Icons.Success.ToString(),
-                        Message = ApiMessages.OK()
-                    };
+                    var result = await userManager.DeleteAsync(await userManager.FindByIdAsync(user.Id));
+                    if (result.Succeeded) {
+                        DisposeOrCommit(transaction);
+                        return new Response {
+                            Code = 200,
+                            Icon = Icons.Success.ToString(),
+                            Message = ApiMessages.OK()
+                        };
+                    } else {
+                        throw new CustomException() {
+                            ResponseCode = 491
+                        };
+                    }
                 } catch (Exception) {
-                    return new Response {
-                        Code = 491,
-                        Icon = Icons.Error.ToString(),
-                        Message = ApiMessages.RecordInUse()
-                    };
+                    throw new CustomException { ResponseCode = 491 };
                 }
             }
         }

@@ -17,10 +17,10 @@ namespace IntegrationTests.Users {
                 new TestUpdateUser {
                     StatusCode = 498,
                     Id = "eae03de1-6742-4015-9d52-102dba5d7365",
+                    CustomerId = 2,
                     UserName = "foteini",
                     Displayname = "FOTEINI",
-                    CustomerId = 2,
-                    Email = "martav869@gmail.com",
+                    Email = "email@server.com",
                     IsAdmin = false,
                     IsActive = true
                 }
@@ -30,7 +30,7 @@ namespace IntegrationTests.Users {
         private static object[] EmailAlreadyExists() {
             return new object[] {
                 new TestUpdateUser {
-                    StatusCode = 499,
+                    StatusCode = 498,
                     Id = "eae03de1-6742-4015-9d52-102dba5d7365",
                     UserName = "simpleuser",
                     Displayname = "Simple User",

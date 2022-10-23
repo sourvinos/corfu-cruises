@@ -9,10 +9,10 @@ namespace IntegrationTests.Users {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            // yield return Customer_Must_Exist();
-            // yield return Customer_Must_Be_Active();
+            yield return Customer_Must_Exist();
+            yield return Customer_Must_Be_Active();
             yield return UsernameAlreadyExists();
-            // yield return EmailAlreadyExists();
+            yield return EmailAlreadyExists();
         }
 
         private static object[] UsernameAlreadyExists() {
@@ -22,7 +22,9 @@ namespace IntegrationTests.Users {
                     UserName = "foteini",
                     Displayname = "FOTEINI",
                     CustomerId = 2,
-                    Email = "martav869@gmail.com",
+                    Email = "newemail@server.com",
+                    Password = "1234567890",
+                    ConfirmPassword = "1234567890",
                     IsAdmin = false,
                     IsActive = true
                 }
@@ -33,10 +35,12 @@ namespace IntegrationTests.Users {
             return new object[] {
                 new TestNewUser {
                     StatusCode = 498,
-                    UserName = "simpleuser",
-                    Displayname = "Simple User",
+                    UserName = "newuser",
+                    Displayname = "New User",
                     CustomerId = 2,
                     Email = "operations.corfucruises@gmail.com",
+                    Password = "1234567890",
+                    ConfirmPassword = "1234567890",
                     IsAdmin = false,
                     IsActive = true
                 }

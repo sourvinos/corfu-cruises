@@ -17,9 +17,9 @@ namespace IntegrationTests.Users {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "delete";
         private readonly string _baseUrl;
-        private readonly string _inUseUrl = "/users/2";
+        private readonly string _inUseUrl = "/users/eae03de1-6742-4015-9d52-102dba5d7365";
         private readonly string _notFoundUrl = "/users/999";
-        private readonly string _url = "/users/8";
+        private readonly string _url = "/users/963c738d-4341-47bd-92db-0804617aee7d";
 
         #endregion
 

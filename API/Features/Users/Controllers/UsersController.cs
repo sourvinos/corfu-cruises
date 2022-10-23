@@ -91,20 +91,25 @@ namespace API.Features.Users {
                 var z = userUpdateValidation.IsValid(user);
                 if (z == 200) {
                     if (Identity.IsUserAdmin(httpContext) || userValidation.IsUserOwner(x.Id)) {
-                        await userRepo.Update(x, user);
-                        return new Response {
-                            Code = 200,
-                            Icon = Icons.Success.ToString(),
-                            Message = ApiMessages.OK()
+                        if (await userRepo.Update(x, user)) {
+                            return new Response {
+                                Code = 200,
+                                Icon = Icons.Success.ToString(),
+                                Message = ApiMessages.OK()
+                            };
+                        } else {
+                            throw new CustomException() {
+                                ResponseCode = 498
+                            };
                         };
                     } else {
                         throw new CustomException() {
-                            ResponseCode = 498
+                            ResponseCode = 490
                         };
-                    };
+                    }
                 } else {
                     throw new CustomException() {
-                        ResponseCode = 490
+                        ResponseCode = z
                     };
                 }
             } else {
