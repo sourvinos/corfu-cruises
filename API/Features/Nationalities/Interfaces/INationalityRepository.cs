@@ -6,9 +6,9 @@ namespace API.Features.Nationalities {
 
     public interface INationalityRepository : IRepository<Nationality> {
 
-        Task<IEnumerable<NationalityListVM>> Get();
-        Task<IEnumerable<NationalityActiveVM>> GetActive();
-        Task<Nationality> GetById(int id);
+        Task<IEnumerable<NationalityListVM>> GetAsync();
+        Task<IEnumerable<NationalityActiveVM>> GetActiveAsync();
+        Task<Nationality> GetByIdAsync(int id);
 
     }
 

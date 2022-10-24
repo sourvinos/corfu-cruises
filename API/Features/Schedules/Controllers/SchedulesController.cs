@@ -30,8 +30,8 @@ namespace API.Features.Schedules {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<ScheduleListVM>> Get() {
-            return await scheduleRepo.Get();
+        public async Task<IEnumerable<ScheduleListVM>> GetAsync() {
+            return await scheduleRepo.GetAsync();
         }
 
         [HttpGet("fromDate/{fromDate}/toDate/{toDate}")]
@@ -42,8 +42,8 @@ namespace API.Features.Schedules {
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ResponseWithBody> GetById(int id) {
-            var x = await scheduleRepo.GetById(id, true);
+        public async Task<ResponseWithBody> GetByIdAsync(int id) {
+            var x = await scheduleRepo.GetByIdAsync(id, true);
             if (x != null) {
                 return new ResponseWithBody {
                     Code = 200,
@@ -81,7 +81,7 @@ namespace API.Features.Schedules {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] ScheduleWriteDto schedule) {
-            var x = await scheduleRepo.GetById(schedule.Id, false);
+            var x = await scheduleRepo.GetByIdAsync(schedule.Id, false);
             if (x != null) {
                 var z = scheduleValidation.IsValidOnUpdate(schedule);
                 if (z == 200) {
@@ -106,7 +106,7 @@ namespace API.Features.Schedules {
         [HttpDelete]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromQuery(Name = "id")] IEnumerable<int> ids) {
-            var x = await scheduleRepo.GetRangeByIds(ids);
+            var x = await scheduleRepo.GetRangeByIdsAsync(ids);
             if (x != null) {
                 scheduleRepo.DeleteRange(x);
                 return new Response {

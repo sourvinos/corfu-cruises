@@ -58,13 +58,13 @@ namespace API.Features.Reservations {
 
         [HttpGet("refNo/{refNo}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationFinalGroupVM> GetByRefNo([FromRoute] string refNo) {
+        public async Task<ReservationFinalGroupVM> GetByRefNoAsync([FromRoute] string refNo) {
             return await reservationReadRepo.GetByRefNoAsync(refNo);
         }
 
         [HttpGet("{reservationId}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ResponseWithBody> GetById(string reservationId) {
+        public async Task<ResponseWithBody> GetByIdAsync(string reservationId) {
             var x = await reservationReadRepo.GetByIdAsync(reservationId, true);
             if (x != null) {
                 if (Identity.IsUserAdmin(httpContext) || validReservation.IsUserOwner(x.CustomerId)) {

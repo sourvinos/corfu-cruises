@@ -6,9 +6,9 @@ namespace API.Features.ShipOwners {
 
     public interface IShipOwnerRepository : IRepository<ShipOwner> {
 
-        Task<IEnumerable<ShipOwnerListVM>> Get();
-        Task<IEnumerable<ShipOwnerActiveVM>> GetActive();
-        Task<ShipOwner> GetById(int id);
+        Task<IEnumerable<ShipOwnerListVM>> GetAsync();
+        Task<IEnumerable<ShipOwnerActiveVM>> GetActiveAsync();
+        Task<ShipOwner> GetByIdAsync(int id);
 
     }
 

@@ -6,9 +6,9 @@ namespace API.Features.Registrars {
 
     public interface IRegistrarRepository : IRepository<Registrar> {
 
-        Task<IEnumerable<RegistrarListVM>> Get();
-        Task<IEnumerable<RegistrarActiveVM>> GetActive();
-        Task<Registrar> GetById(int id, bool includeTables);
+        Task<IEnumerable<RegistrarListVM>> GetAsync();
+        Task<IEnumerable<RegistrarActiveVM>> GetActiveAsync();
+        Task<Registrar> GetByIdAsync(int id, bool includeTables);
 
     }
 

@@ -52,7 +52,9 @@ namespace API.Infrastructure.Implementations {
                 context.SaveChanges();
                 DisposeOrCommit(transaction);
             } catch (Exception) {
-                throw new CustomException { ResponseCode = 491 };
+                throw new CustomException {
+                    ResponseCode = 491
+                };
             }
         }
 

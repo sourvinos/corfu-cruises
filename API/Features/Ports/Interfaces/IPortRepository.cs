@@ -6,9 +6,9 @@ namespace API.Features.Ports {
 
     public interface IPortRepository : IRepository<Port> {
 
-        Task<IEnumerable<PortListVM>> Get();
-        Task<IEnumerable<PortActiveVM>> GetActive();
-        Task<Port> GetById(int id);
+        Task<IEnumerable<PortListVM>> GetAsync();
+        Task<IEnumerable<PortActiveVM>> GetActiveAsync();
+        Task<Port> GetByIdAsync(int id);
 
     }
 

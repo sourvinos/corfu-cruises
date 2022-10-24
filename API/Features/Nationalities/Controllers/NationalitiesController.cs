@@ -26,20 +26,20 @@ namespace API.Features.Nationalities {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<NationalityListVM>> Get() {
-            return await nationalityRepo.Get();
+        public async Task<IEnumerable<NationalityListVM>> GetAsync() {
+            return await nationalityRepo.GetAsync();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<NationalityActiveVM>> GetActive() {
-            return await nationalityRepo.GetActive();
+        public async Task<IEnumerable<NationalityActiveVM>> GetActiveAsync() {
+            return await nationalityRepo.GetActiveAsync();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ResponseWithBody> GetById(int id) {
-            var x = await nationalityRepo.GetById(id);
+        public async Task<ResponseWithBody> GetByIdAsync(int id) {
+            var x = await nationalityRepo.GetByIdAsync(id);
             if (x != null) {
                 return new ResponseWithBody {
                     Code = 200,
@@ -70,7 +70,7 @@ namespace API.Features.Nationalities {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] NationalityWriteDto nationality) {
-            var x = await nationalityRepo.GetById(nationality.Id);
+            var x = await nationalityRepo.GetByIdAsync(nationality.Id);
             if (x != null) {
                 nationalityRepo.Update(mapper.Map<NationalityWriteDto, Nationality>((NationalityWriteDto)nationalityRepo.AttachUserIdToDto(nationality)));
                 return new Response {
@@ -88,7 +88,7 @@ namespace API.Features.Nationalities {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var x = await nationalityRepo.GetById(id);
+            var x = await nationalityRepo.GetByIdAsync(id);
             if (x != null) {
                 nationalityRepo.Delete(x);
                 return new Response {

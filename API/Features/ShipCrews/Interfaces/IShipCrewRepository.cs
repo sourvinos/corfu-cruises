@@ -6,9 +6,9 @@ namespace API.Features.ShipCrews {
 
     public interface IShipCrewRepository : IRepository<ShipCrew> {
 
-        Task<IEnumerable<ShipCrewListVM>> Get();
-        Task<IEnumerable<ShipCrewActiveVM>> GetActive();
-        Task<ShipCrew> GetById(int id, bool includeTables);
+        Task<IEnumerable<ShipCrewListVM>> GetAsync();
+        Task<IEnumerable<ShipCrewActiveVM>> GetActiveAsync();
+        Task<ShipCrew> GetByIdAsync(int id, bool includeTables);
 
     }
 

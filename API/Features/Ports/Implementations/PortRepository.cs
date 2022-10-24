@@ -19,7 +19,7 @@ namespace API.Features.Ports {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<PortListVM>> Get() {
+        public async Task<IEnumerable<PortListVM>> GetAsync() {
             var ports = await context.Ports
                 .AsNoTracking()
                 .OrderBy(x => x.StopOrder)
@@ -27,7 +27,7 @@ namespace API.Features.Ports {
             return mapper.Map<IEnumerable<Port>, IEnumerable<PortListVM>>(ports);
         }
 
-        public async Task<IEnumerable<PortActiveVM>> GetActive() {
+        public async Task<IEnumerable<PortActiveVM>> GetActiveAsync() {
             var ports = await context.Ports
                 .AsNoTracking()
                 .Where(x => x.IsActive)
@@ -36,7 +36,7 @@ namespace API.Features.Ports {
             return mapper.Map<IEnumerable<Port>, IEnumerable<PortActiveVM>>(ports);
         }
 
-        public async Task<Port> GetById(int id) {
+        public async Task<Port> GetByIdAsync(int id) {
             return await context.Ports
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);

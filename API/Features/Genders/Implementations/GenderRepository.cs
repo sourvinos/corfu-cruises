@@ -19,7 +19,7 @@ namespace API.Features.Genders {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<GenderListVM>> Get() {
+        public async Task<IEnumerable<GenderListVM>> GetAsync() {
             var genders = await context.Genders
                 .AsNoTracking()
                 .OrderBy(x => x.Description)
@@ -27,7 +27,7 @@ namespace API.Features.Genders {
             return mapper.Map<IEnumerable<Gender>, IEnumerable<GenderListVM>>(genders);
         }
 
-        public async Task<IEnumerable<GenderActiveVM>> GetActive() {
+        public async Task<IEnumerable<GenderActiveVM>> GetActiveAsync() {
             var genders = await context.Genders
                 .AsNoTracking()
                 .Where(x => x.IsActive)
@@ -36,7 +36,7 @@ namespace API.Features.Genders {
             return mapper.Map<IEnumerable<Gender>, IEnumerable<GenderActiveVM>>(genders);
         }
 
-        public async Task<Gender> GetById(int id) {
+        public async Task<Gender> GetByIdAsync(int id) {
             return await context.Genders
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);

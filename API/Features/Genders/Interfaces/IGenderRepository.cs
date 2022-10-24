@@ -6,9 +6,9 @@ namespace API.Features.Genders {
 
     public interface IGenderRepository : IRepository<Gender> {
 
-        Task<IEnumerable<GenderListVM>> Get();
-        Task<IEnumerable<GenderActiveVM>> GetActive();
-        Task<Gender> GetById(int id);
+        Task<IEnumerable<GenderListVM>> GetAsync();
+        Task<IEnumerable<GenderActiveVM>> GetActiveAsync();
+        Task<Gender> GetByIdAsync(int id);
 
     }
 

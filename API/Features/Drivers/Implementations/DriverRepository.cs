@@ -19,7 +19,7 @@ namespace API.Features.Drivers {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<DriverListVM>> Get() {
+        public async Task<IEnumerable<DriverListVM>> GetAsync() {
             List<Driver> drivers = await context.Drivers
                 .AsNoTracking()
                 .OrderBy(x => x.Description)
@@ -27,7 +27,7 @@ namespace API.Features.Drivers {
             return mapper.Map<IEnumerable<Driver>, IEnumerable<DriverListVM>>(drivers);
         }
 
-        public async Task<IEnumerable<DriverActiveVM>> GetActive() {
+        public async Task<IEnumerable<DriverActiveVM>> GetActiveAsync() {
             List<Driver> activeDrivers = await context.Drivers
                 .AsNoTracking()
                 .Where(x => x.IsActive)
@@ -36,7 +36,7 @@ namespace API.Features.Drivers {
             return mapper.Map<IEnumerable<Driver>, IEnumerable<DriverActiveVM>>(activeDrivers);
         }
 
-        public async Task<Driver> GetById(int id) {
+        public async Task<Driver> GetByIdAsync(int id) {
             return await context.Drivers
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);

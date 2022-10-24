@@ -6,9 +6,9 @@ namespace API.Features.Customers {
 
     public interface ICustomerRepository : IRepository<Customer> {
 
-        Task<IEnumerable<CustomerListVM>> Get();
-        Task<IEnumerable<CustomerActiveVM>> GetActive();
-        Task<Customer> GetById(int id);
+        Task<IEnumerable<CustomerListVM>> GetAsync();
+        Task<IEnumerable<CustomerActiveVM>> GetActiveAsync();
+        Task<Customer> GetByIdAsync(int id);
 
     }
 

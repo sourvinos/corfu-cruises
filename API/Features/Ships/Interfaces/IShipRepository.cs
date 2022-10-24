@@ -6,9 +6,9 @@ namespace API.Features.Ships {
 
     public interface IShipRepository : IRepository<Ship> {
 
-        Task<IEnumerable<ShipListVM>> Get();
-        Task<IEnumerable<ShipActiveVM>> GetActive();
-        Task<Ship> GetById(int id, bool includeTables);
+        Task<IEnumerable<ShipListVM>> GetAsync();
+        Task<IEnumerable<ShipActiveVM>> GetActiveAsync();
+        Task<Ship> GetByIdAsync(int id, bool includeTables);
 
     }
 

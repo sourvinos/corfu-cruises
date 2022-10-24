@@ -28,20 +28,20 @@ namespace API.Features.PickupPoints {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<PickupPointListVM>> Get() {
-            return await pickupPointRepo.Get();
+        public async Task<IEnumerable<PickupPointListVM>> GetAsync() {
+            return await pickupPointRepo.GetAsync();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<PickupPointActiveVM>> GetActive() {
-            return await pickupPointRepo.GetActive();
+        public async Task<IEnumerable<PickupPointActiveVM>> GetActiveAsync() {
+            return await pickupPointRepo.GetActiveAsync();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ResponseWithBody> GetById(int id) {
-            var x = await pickupPointRepo.GetById(id, true);
+        public async Task<ResponseWithBody> GetByIdAsync(int id) {
+            var x = await pickupPointRepo.GetByIdAsync(id, true);
             if (x != null) {
                 return new ResponseWithBody {
                     Code = 200,
@@ -79,7 +79,7 @@ namespace API.Features.PickupPoints {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] PickupPointWriteDto pickupPoint) {
-            var x = await pickupPointRepo.GetById(pickupPoint.Id, false);
+            var x = await pickupPointRepo.GetByIdAsync(pickupPoint.Id, false);
             if (x != null) {
                 var z = pickupPointValidation.IsValid(pickupPoint);
                 if (z == 200) {
@@ -104,7 +104,7 @@ namespace API.Features.PickupPoints {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var x = await pickupPointRepo.GetById(id, false);
+            var x = await pickupPointRepo.GetByIdAsync(id, false);
             if (x != null) {
                 pickupPointRepo.Delete(x);
                 return new Response {

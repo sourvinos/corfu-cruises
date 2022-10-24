@@ -19,7 +19,7 @@ namespace API.Features.Destinations {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<DestinationListVM>> Get() {
+        public async Task<IEnumerable<DestinationListVM>> GetAsync() {
             var destinations = await context.Destinations
                 .AsNoTracking()
                 .OrderBy(x => x.Description)
@@ -27,7 +27,7 @@ namespace API.Features.Destinations {
             return mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationListVM>>(destinations);
         }
 
-        public async Task<IEnumerable<DestinationActiveVM>> GetActive() {
+        public async Task<IEnumerable<DestinationActiveVM>> GetActiveAsync() {
             var destinations = await context.Destinations
                 .AsNoTracking()
                 .Where(x => x.IsActive)
@@ -36,7 +36,7 @@ namespace API.Features.Destinations {
             return mapper.Map<IEnumerable<Destination>, IEnumerable<DestinationActiveVM>>(destinations);
         }
 
-        public async Task<Destination> GetById(int id) {
+        public async Task<Destination> GetByIdAsync(int id) {
             return await context.Destinations
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);

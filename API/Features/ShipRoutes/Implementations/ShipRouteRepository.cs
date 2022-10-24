@@ -19,7 +19,7 @@ namespace API.Features.ShipRoutes {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<ShipRouteListVM>> Get() {
+        public async Task<IEnumerable<ShipRouteListVM>> GetAsync() {
             var shipRoutes = await context.ShipRoutes
                 .AsNoTracking()
                 .OrderBy(x => x.FromTime).ThenBy(x => x.ViaTime).ThenBy(x => x.ToTime)
@@ -27,7 +27,7 @@ namespace API.Features.ShipRoutes {
             return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<ShipRouteListVM>>(shipRoutes);
         }
 
-        public async Task<IEnumerable<ShipRouteActiveVM>> GetActive() {
+        public async Task<IEnumerable<ShipRouteActiveVM>> GetActiveAsync() {
             var shipRoutes = await context.ShipRoutes
                 .AsNoTracking()
                 .Where(x => x.IsActive)
@@ -36,7 +36,7 @@ namespace API.Features.ShipRoutes {
             return mapper.Map<IEnumerable<ShipRoute>, IEnumerable<ShipRouteActiveVM>>(shipRoutes);
         }
 
-        public async Task<ShipRoute> GetById(int id) {
+        public async Task<ShipRoute> GetByIdAsync(int id) {
             return await context.ShipRoutes
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);

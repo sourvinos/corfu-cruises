@@ -26,20 +26,20 @@ namespace API.Features.Genders {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<GenderListVM>> Get() {
-            return await genderRepo.Get();
+        public async Task<IEnumerable<GenderListVM>> GetAsync() {
+            return await genderRepo.GetAsync();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<GenderActiveVM>> GetActive() {
-            return await genderRepo.GetActive();
+        public async Task<IEnumerable<GenderActiveVM>> GetActiveAsync() {
+            return await genderRepo.GetActiveAsync();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ResponseWithBody> GetById(int id) {
-            var x = await genderRepo.GetById(id);
+        public async Task<ResponseWithBody> GetByIdAsync(int id) {
+            var x = await genderRepo.GetByIdAsync(id);
             if (x != null) {
                 return new ResponseWithBody {
                     Code = 200,
@@ -70,7 +70,7 @@ namespace API.Features.Genders {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] GenderWriteDto gender) {
-            var x = await genderRepo.GetById(gender.Id);
+            var x = await genderRepo.GetByIdAsync(gender.Id);
             if (x != null) {
                 genderRepo.Update(mapper.Map<GenderWriteDto, Gender>((GenderWriteDto)genderRepo.AttachUserIdToDto(gender)));
                 return new Response {
@@ -88,7 +88,7 @@ namespace API.Features.Genders {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var x = await genderRepo.GetById(id);
+            var x = await genderRepo.GetByIdAsync(id);
             if (x != null) {
                 genderRepo.Delete(x);
                 return new Response {

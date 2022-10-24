@@ -24,7 +24,7 @@ namespace API.Features.Embarkation {
             this.testingSettings = testingSettings.Value;
         }
 
-        public async Task<EmbarkationFinalGroupVM> Get(string date, string destinationId, string portId, string shipId) {
+        public async Task<EmbarkationFinalGroupVM> GetAsync(string date, string destinationId, string portId, string shipId) {
             var reservations = await context.Reservations
                 .AsNoTracking()
                 .Include(x => x.Customer)
@@ -51,7 +51,7 @@ namespace API.Features.Embarkation {
             return mapper.Map<EmbarkationInitialGroupVM, EmbarkationFinalGroupVM>(mainResult);
         }
 
-        public async Task<Passenger> GetPassengerById(int id) {
+        public async Task<Passenger> GetPassengerByIdAsync(int id) {
             return await context.Passengers
                 .AsNoTracking()
                 .Where(x => x.Id == id)

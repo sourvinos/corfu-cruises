@@ -19,7 +19,7 @@ namespace API.Features.ShipCrews {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<ShipCrewListVM>> Get() {
+        public async Task<IEnumerable<ShipCrewListVM>> GetAsync() {
             var shipCrews = await context.ShipCrews
                 .AsNoTracking()
                 .Include(x => x.Ship)
@@ -30,7 +30,7 @@ namespace API.Features.ShipCrews {
             return mapper.Map<IEnumerable<ShipCrew>, IEnumerable<ShipCrewListVM>>(shipCrews);
         }
 
-        public async Task<IEnumerable<ShipCrewActiveVM>> GetActive() {
+        public async Task<IEnumerable<ShipCrewActiveVM>> GetActiveAsync() {
             var shipCrews = await context.ShipCrews
                 .AsNoTracking()
                 .Where(x => x.IsActive)
@@ -39,7 +39,7 @@ namespace API.Features.ShipCrews {
             return mapper.Map<IEnumerable<ShipCrew>, IEnumerable<ShipCrewActiveVM>>(shipCrews);
         }
 
-        public async Task<ShipCrew> GetById(int id, bool includeTables) {
+        public async Task<ShipCrew> GetByIdAsync(int id, bool includeTables) {
             return includeTables
                 ? await context.ShipCrews
                     .AsNoTracking()

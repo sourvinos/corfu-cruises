@@ -19,7 +19,7 @@ namespace API.Features.Nationalities {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<NationalityListVM>> Get() {
+        public async Task<IEnumerable<NationalityListVM>> GetAsync() {
             var nationalities = await context.Nationalities
                 .AsNoTracking()
                 .OrderBy(x => x.Description)
@@ -27,7 +27,7 @@ namespace API.Features.Nationalities {
             return mapper.Map<IEnumerable<Nationality>, IEnumerable<NationalityListVM>>(nationalities);
         }
 
-        public async Task<IEnumerable<NationalityActiveVM>> GetActive() {
+        public async Task<IEnumerable<NationalityActiveVM>> GetActiveAsync() {
             var nationalities = await context.Nationalities
                 .AsNoTracking()
                 .Where(x => x.IsActive)
@@ -36,7 +36,7 @@ namespace API.Features.Nationalities {
             return mapper.Map<IEnumerable<Nationality>, IEnumerable<NationalityActiveVM>>(nationalities);
         }
 
-        public async Task<Nationality> GetById(int id) {
+        public async Task<Nationality> GetByIdAsync(int id) {
             return await context.Nationalities
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);

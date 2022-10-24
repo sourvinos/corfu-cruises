@@ -26,20 +26,20 @@ namespace API.Features.Customers {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<CustomerListVM>> Get() {
-            return await customerRepo.Get();
+        public async Task<IEnumerable<CustomerListVM>> GetAsync() {
+            return await customerRepo.GetAsync();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<CustomerActiveVM>> GetActive() {
-            return await customerRepo.GetActive();
+        public async Task<IEnumerable<CustomerActiveVM>> GetActiveAsync() {
+            return await customerRepo.GetActiveAsync();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ResponseWithBody> GetById(int id) {
-            var x = await customerRepo.GetById(id);
+        public async Task<ResponseWithBody> GetByIdAsync(int id) {
+            var x = await customerRepo.GetByIdAsync(id);
             if (x != null) {
                 return new ResponseWithBody {
                     Code = 200,
@@ -70,7 +70,7 @@ namespace API.Features.Customers {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] CustomerWriteDto customer) {
-            var x = await customerRepo.GetById(customer.Id);
+            var x = await customerRepo.GetByIdAsync(customer.Id);
             if (x != null) {
                 customerRepo.Update(mapper.Map<CustomerWriteDto, Customer>((CustomerWriteDto)customerRepo.AttachUserIdToDto(customer)));
                 return new Response {
@@ -88,7 +88,7 @@ namespace API.Features.Customers {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var x = await customerRepo.GetById(id);
+            var x = await customerRepo.GetByIdAsync(id);
             if (x != null) {
                 customerRepo.Delete(x);
                 return new Response {

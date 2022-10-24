@@ -26,20 +26,20 @@ namespace API.Features.ShipOwners {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<ShipOwnerListVM>> Get() {
-            return await shipOwnerRepo.Get();
+        public async Task<IEnumerable<ShipOwnerListVM>> GetAsync() {
+            return await shipOwnerRepo.GetAsync();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<ShipOwnerActiveVM>> GetActive() {
-            return await shipOwnerRepo.GetActive();
+        public async Task<IEnumerable<ShipOwnerActiveVM>> GetActiveAsync() {
+            return await shipOwnerRepo.GetActiveAsync();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ResponseWithBody> GetById(int id) {
-            var x = await shipOwnerRepo.GetById(id);
+        public async Task<ResponseWithBody> GetByIdAsync(int id) {
+            var x = await shipOwnerRepo.GetByIdAsync(id);
             if (x != null) {
                 return new ResponseWithBody {
                     Code = 200,
@@ -70,7 +70,7 @@ namespace API.Features.ShipOwners {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] ShipOwnerWriteDto shipOwner) {
-            var x = await shipOwnerRepo.GetById(shipOwner.Id);
+            var x = await shipOwnerRepo.GetByIdAsync(shipOwner.Id);
             if (x != null) {
                 shipOwnerRepo.Update(mapper.Map<ShipOwnerWriteDto, ShipOwner>((ShipOwnerWriteDto)shipOwnerRepo.AttachUserIdToDto(shipOwner)));
                 return new Response {
@@ -88,7 +88,7 @@ namespace API.Features.ShipOwners {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var x = await shipOwnerRepo.GetById(id);
+            var x = await shipOwnerRepo.GetByIdAsync(id);
             if (x != null) {
                 shipOwnerRepo.Delete(x);
                 return new Response {

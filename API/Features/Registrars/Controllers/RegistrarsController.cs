@@ -28,20 +28,20 @@ namespace API.Features.Registrars {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<RegistrarListVM>> Get() {
-            return await registrarRepo.Get();
+        public async Task<IEnumerable<RegistrarListVM>> GetAsync() {
+            return await registrarRepo.GetAsync();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<RegistrarActiveVM>> GetActive() {
-            return await registrarRepo.GetActive();
+        public async Task<IEnumerable<RegistrarActiveVM>> GetActiveAsync() {
+            return await registrarRepo.GetActiveAsync();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ResponseWithBody> GetById(int id) {
-            var x = await registrarRepo.GetById(id, true);
+        public async Task<ResponseWithBody> GetByIdAsync(int id) {
+            var x = await registrarRepo.GetByIdAsync(id, true);
             if (x != null) {
                 return new ResponseWithBody {
                     Code = 200,
@@ -79,7 +79,7 @@ namespace API.Features.Registrars {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] RegistrarWriteDto registrar) {
-            var x = await registrarRepo.GetById(registrar.Id, false);
+            var x = await registrarRepo.GetByIdAsync(registrar.Id, false);
             if (x != null) {
                 var z = registrarValidation.IsValid(registrar);
                 if (z == 200) {
@@ -104,7 +104,7 @@ namespace API.Features.Registrars {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var x = await registrarRepo.GetById(id, false);
+            var x = await registrarRepo.GetByIdAsync(id, false);
             if (x != null) {
                 registrarRepo.Delete(x);
                 return new Response {

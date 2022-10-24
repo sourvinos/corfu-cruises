@@ -28,20 +28,20 @@ namespace API.Features.Ships {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<ShipListVM>> Get() {
-            return await shipRepo.Get();
+        public async Task<IEnumerable<ShipListVM>> GetAsync() {
+            return await shipRepo.GetAsync();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<ShipActiveVM>> GetActive() {
-            return await shipRepo.GetActive();
+        public async Task<IEnumerable<ShipActiveVM>> GetActiveAsync() {
+            return await shipRepo.GetActiveAsync();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ResponseWithBody> GetById(int id) {
-            var x = await shipRepo.GetById(id, true);
+        public async Task<ResponseWithBody> GetByIdAsync(int id) {
+            var x = await shipRepo.GetByIdAsync(id, true);
             if (x != null) {
                 return new ResponseWithBody {
                     Code = 200,
@@ -79,7 +79,7 @@ namespace API.Features.Ships {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] ShipWriteDto ship) {
-            var x = await shipRepo.GetById(ship.Id, false);
+            var x = await shipRepo.GetByIdAsync(ship.Id, false);
             if (x != null) {
                 var z = shipValidation.IsValid(ship);
                 if (z == 200) {
@@ -104,7 +104,7 @@ namespace API.Features.Ships {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var x = await shipRepo.GetById(id, false);
+            var x = await shipRepo.GetByIdAsync(id, false);
             if (x != null) {
                 shipRepo.Delete(x);
                 return new Response {

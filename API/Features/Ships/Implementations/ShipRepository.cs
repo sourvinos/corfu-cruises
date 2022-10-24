@@ -19,7 +19,7 @@ namespace API.Features.Ships {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<ShipListVM>> Get() {
+        public async Task<IEnumerable<ShipListVM>> GetAsync() {
             var ships = await context.Ships
                 .AsNoTracking()
                 .OrderBy(x => x.Description)
@@ -27,7 +27,7 @@ namespace API.Features.Ships {
             return mapper.Map<IEnumerable<Ship>, IEnumerable<ShipListVM>>(ships);
         }
 
-        public async Task<IEnumerable<ShipActiveVM>> GetActive() {
+        public async Task<IEnumerable<ShipActiveVM>> GetActiveAsync() {
             var ships = await context.Ships
                 .AsNoTracking()
                 .Where(x => x.IsActive)
@@ -36,7 +36,7 @@ namespace API.Features.Ships {
             return mapper.Map<IEnumerable<Ship>, IEnumerable<ShipActiveVM>>(ships);
         }
 
-        public async Task<Ship> GetById(int id, bool includeTables) {
+        public async Task<Ship> GetByIdAsync(int id, bool includeTables) {
             return includeTables
                 ? await context.Ships
                     .AsNoTracking()

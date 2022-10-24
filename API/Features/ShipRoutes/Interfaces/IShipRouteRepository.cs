@@ -6,9 +6,9 @@ namespace API.Features.ShipRoutes {
 
     public interface IShipRouteRepository : IRepository<ShipRoute> {
 
-        Task<IEnumerable<ShipRouteListVM>> Get();
-        Task<IEnumerable<ShipRouteActiveVM>> GetActive();
-        Task<ShipRoute> GetById(int id);
+        Task<IEnumerable<ShipRouteListVM>> GetAsync();
+        Task<IEnumerable<ShipRouteActiveVM>> GetActiveAsync();
+        Task<ShipRoute> GetByIdAsync(int id);
 
     }
 

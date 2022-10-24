@@ -6,9 +6,9 @@ namespace API.Features.Drivers {
 
     public interface IDriverRepository : IRepository<Driver> {
 
-        Task<IEnumerable<DriverListVM>> Get();
-        Task<IEnumerable<DriverActiveVM>> GetActive();
-        Task<Driver> GetById(int id);
+        Task<IEnumerable<DriverListVM>> GetAsync();
+        Task<IEnumerable<DriverActiveVM>> GetActiveAsync();
+        Task<Driver> GetByIdAsync(int id);
 
     }
 

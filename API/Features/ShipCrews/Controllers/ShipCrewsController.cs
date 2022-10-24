@@ -28,20 +28,20 @@ namespace API.Features.ShipCrews {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<ShipCrewListVM>> Get() {
-            return await shipCrewRepo.Get();
+        public async Task<IEnumerable<ShipCrewListVM>> GetAsync() {
+            return await shipCrewRepo.GetAsync();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<ShipCrewActiveVM>> GetActive() {
-            return await shipCrewRepo.GetActive();
+        public async Task<IEnumerable<ShipCrewActiveVM>> GetActiveAsync() {
+            return await shipCrewRepo.GetActiveAsync();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ResponseWithBody> GetById(int id) {
-            var x = await shipCrewRepo.GetById(id, true);
+        public async Task<ResponseWithBody> GetByIdAsync(int id) {
+            var x = await shipCrewRepo.GetByIdAsync(id, true);
             if (x != null) {
                 return new ResponseWithBody {
                     Code = 200,
@@ -79,7 +79,7 @@ namespace API.Features.ShipCrews {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] ShipCrewWriteDto shipCrew) {
-            var x = await shipCrewRepo.GetById(shipCrew.Id, false);
+            var x = await shipCrewRepo.GetByIdAsync(shipCrew.Id, false);
             if (x != null) {
                 var z = shipCrewValidation.IsValid(shipCrew);
                 if (z == 200) {
@@ -104,7 +104,7 @@ namespace API.Features.ShipCrews {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var x = await shipCrewRepo.GetById(id, false);
+            var x = await shipCrewRepo.GetByIdAsync(id, false);
             if (x != null) {
                 shipCrewRepo.Delete(x);
                 return new Response {

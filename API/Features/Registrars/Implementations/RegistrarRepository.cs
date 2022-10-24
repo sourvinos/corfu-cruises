@@ -19,7 +19,7 @@ namespace API.Features.Registrars {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<RegistrarListVM>> Get() {
+        public async Task<IEnumerable<RegistrarListVM>> GetAsync() {
             var registrars = await context.Registrars
                 .AsNoTracking()
                 .Include(x => x.Ship)
@@ -28,7 +28,7 @@ namespace API.Features.Registrars {
             return mapper.Map<IEnumerable<Registrar>, IEnumerable<RegistrarListVM>>(registrars);
         }
 
-        public async Task<IEnumerable<RegistrarActiveVM>> GetActive() {
+        public async Task<IEnumerable<RegistrarActiveVM>> GetActiveAsync() {
             var registrars = await context.Registrars
                 .AsNoTracking()
                 .Where(x => x.IsActive)
@@ -37,7 +37,7 @@ namespace API.Features.Registrars {
             return mapper.Map<IEnumerable<Registrar>, IEnumerable<RegistrarActiveVM>>(registrars);
         }
 
-        public async Task<Registrar> GetById(int id, bool includeTables) {
+        public async Task<Registrar> GetByIdAsync(int id, bool includeTables) {
             return includeTables
                 ? await context.Registrars
                     .AsNoTracking()

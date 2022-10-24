@@ -19,7 +19,7 @@ namespace API.Features.Customers {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<CustomerListVM>> Get() {
+        public async Task<IEnumerable<CustomerListVM>> GetAsync() {
             var customers = await context.Customers
                 .AsNoTracking()
                 .OrderBy(x => x.Description)
@@ -27,7 +27,7 @@ namespace API.Features.Customers {
             return mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerListVM>>(customers);
         }
 
-        public async Task<IEnumerable<CustomerActiveVM>> GetActive() {
+        public async Task<IEnumerable<CustomerActiveVM>> GetActiveAsync() {
             var customers = await context.Customers
                 .AsNoTracking()
                 .Where(x => x.IsActive)
@@ -36,7 +36,7 @@ namespace API.Features.Customers {
             return mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerActiveVM>>(customers);
         }
 
-        public async Task<Customer> GetById(int id) {
+        public async Task<Customer> GetByIdAsync(int id) {
             return await context.Customers
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);

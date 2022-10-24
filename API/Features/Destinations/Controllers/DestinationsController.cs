@@ -26,20 +26,20 @@ namespace API.Features.Destinations {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<DestinationListVM>> Get() {
-            return await destinationRepo.Get();
+        public async Task<IEnumerable<DestinationListVM>> GetAsync() {
+            return await destinationRepo.GetAsync();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<DestinationActiveVM>> GetActive() {
-            return await destinationRepo.GetActive();
+        public async Task<IEnumerable<DestinationActiveVM>> GetActiveAsync() {
+            return await destinationRepo.GetActiveAsync();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ResponseWithBody> GetById(int id) {
-            var x = await destinationRepo.GetById(id);
+        public async Task<ResponseWithBody> GetByIdAsync(int id) {
+            var x = await destinationRepo.GetByIdAsync(id);
             if (x != null) {
                 return new ResponseWithBody {
                     Code = 200,
@@ -70,7 +70,7 @@ namespace API.Features.Destinations {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] DestinationWriteDto destination) {
-            var x = await destinationRepo.GetById(destination.Id);
+            var x = await destinationRepo.GetByIdAsync(destination.Id);
             if (x != null) {
                 destinationRepo.Update(mapper.Map<DestinationWriteDto, Destination>((DestinationWriteDto)destinationRepo.AttachUserIdToDto(destination)));
                 return new Response {
@@ -88,7 +88,7 @@ namespace API.Features.Destinations {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var x = await destinationRepo.GetById(id);
+            var x = await destinationRepo.GetByIdAsync(id);
             if (x != null) {
                 destinationRepo.Delete(x);
                 return new Response {

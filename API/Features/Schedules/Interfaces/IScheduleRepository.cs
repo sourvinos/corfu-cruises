@@ -6,9 +6,9 @@ namespace API.Features.Schedules {
 
     public interface IScheduleRepository : IRepository<Schedule> {
 
-        Task<IEnumerable<ScheduleListVM>> Get();
-        Task<Schedule> GetById(int id, bool includeTables);
-        Task<IEnumerable<Schedule>> GetRangeByIds(IEnumerable<int> ids);
+        Task<IEnumerable<ScheduleListVM>> GetAsync();
+        Task<Schedule> GetByIdAsync(int id, bool includeTables);
+        Task<IEnumerable<Schedule>> GetRangeByIdsAsync(IEnumerable<int> ids);
         List<ScheduleWriteDto> AttachUserIdToDtos(List<ScheduleWriteDto> schedules);
 
     }

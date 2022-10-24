@@ -26,20 +26,20 @@ namespace API.Features.Drivers {
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IEnumerable<DriverListVM>> Get() {
-            return await driverRepo.Get();
+        public async Task<IEnumerable<DriverListVM>> GetAsync() {
+            return await driverRepo.GetAsync();
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<DriverActiveVM>> GetActive() {
-            return await driverRepo.GetActive();
+        public async Task<IEnumerable<DriverActiveVM>> GetActiveAsync() {
+            return await driverRepo.GetActiveAsync();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ResponseWithBody> GetById(int id) {
-            var x = await driverRepo.GetById(id);
+        public async Task<ResponseWithBody> GetByIdAsync(int id) {
+            var x = await driverRepo.GetByIdAsync(id);
             if (x != null) {
                 return new ResponseWithBody {
                     Code = 200,
@@ -70,7 +70,7 @@ namespace API.Features.Drivers {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] DriverWriteDto driver) {
-            var x = await driverRepo.GetById(driver.Id);
+            var x = await driverRepo.GetByIdAsync(driver.Id);
             if (x != null) {
                 driverRepo.Update(mapper.Map<DriverWriteDto, Driver>((DriverWriteDto)driverRepo.AttachUserIdToDto(driver)));
                 return new Response {
@@ -88,7 +88,7 @@ namespace API.Features.Drivers {
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> Delete([FromRoute] int id) {
-            var driver = await driverRepo.GetById(id);
+            var driver = await driverRepo.GetByIdAsync(id);
             if (driver != null) {
                 driverRepo.Delete(driver);
                 return new Response {

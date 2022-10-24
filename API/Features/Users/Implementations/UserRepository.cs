@@ -34,7 +34,7 @@ namespace API.Features.Users {
             this.testingSettings = testingSettings.Value;
         }
 
-        public async Task<IEnumerable<UserListVM>> Get() {
+        public async Task<IEnumerable<UserListVM>> GetAsync() {
             var users = await userManager.Users
                 .AsNoTracking()
                 .OrderBy(o => o.UserName)
@@ -42,12 +42,12 @@ namespace API.Features.Users {
             return mapper.Map<IEnumerable<UserExtended>, IEnumerable<UserListVM>>(users);
         }
 
-        public async Task<UserExtended> GetById(string id) {
+        public async Task<UserExtended> GetByIdAsync(string id) {
             return await userManager.Users
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task Create(UserExtended user, string password) {
+        public async Task CreateAsync(UserExtended user, string password) {
             using var transaction = context.Database.BeginTransaction();
             var result = await userManager.CreateAsync(user, password);
             if (result.Succeeded) {
@@ -60,7 +60,7 @@ namespace API.Features.Users {
             }
         }
 
-        public async Task<bool> Update(UserExtended x, UserUpdateDto user) {
+        public async Task<bool> UpdateAsync(UserExtended x, UserUpdateDto user) {
             if (await UpdateUser(x, user)) {
                 await UpdateUserRole(x);
                 return true;
@@ -69,7 +69,7 @@ namespace API.Features.Users {
             }
         }
 
-        public async Task<Response> Delete(UserExtended user) {
+        public async Task<Response> DeleteAsync(UserExtended user) {
             var x = Infrastructure.Extensions.Identity.GetConnectedUserId(httpContext);
             if (x == user.Id) {
                 throw new CustomException() {

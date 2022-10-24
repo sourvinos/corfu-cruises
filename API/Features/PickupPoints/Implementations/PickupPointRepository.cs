@@ -19,7 +19,7 @@ namespace API.Features.PickupPoints {
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<PickupPointListVM>> Get() {
+        public async Task<IEnumerable<PickupPointListVM>> GetAsync() {
             var pickupPoints = await context.PickupPoints
                 .AsNoTracking()
                 .Include(x => x.CoachRoute)
@@ -28,7 +28,7 @@ namespace API.Features.PickupPoints {
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointListVM>>(pickupPoints);
         }
 
-        public async Task<IEnumerable<PickupPointActiveVM>> GetActive() {
+        public async Task<IEnumerable<PickupPointActiveVM>> GetActiveAsync() {
             var pickupPoints = await context.PickupPoints
                 .AsNoTracking()
                 .Include(x => x.CoachRoute).ThenInclude(x => x.Port)
@@ -38,7 +38,7 @@ namespace API.Features.PickupPoints {
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointActiveVM>>(pickupPoints);
         }
 
-        public async Task<PickupPoint> GetById(int id, bool includeTables) {
+        public async Task<PickupPoint> GetByIdAsync(int id, bool includeTables) {
             return includeTables
                 ? await context.PickupPoints
                     .AsNoTracking()

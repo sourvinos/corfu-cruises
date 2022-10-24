@@ -21,14 +21,14 @@ namespace API.Features.Embarkation {
 
         [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/shipId/{shipId}")]
         [Authorize(Roles = "admin")]
-        public async Task<EmbarkationFinalGroupVM> Get(string date, string destinationId, string portId, string shipId) {
-            return await repo.Get(date, destinationId, portId, shipId);
+        public async Task<EmbarkationFinalGroupVM> GetAsync(string date, string destinationId, string portId, string shipId) {
+            return await repo.GetAsync(date, destinationId, portId, shipId);
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<Response> EmbarkPassenger([FromRoute] int id) {
-            var x = await repo.GetPassengerById(id);
+            var x = await repo.GetPassengerByIdAsync(id);
             if (x != null) {
                 repo.EmbarkPassenger(id);
                 return new Response {
