@@ -1,9 +1,8 @@
 using System;
-using API.Infrastructure.Identity;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
-namespace API.Infrastructure.Identity {
+namespace API.Infrastructure.Account {
 
     public class EmailSender : IEmailSender {
 
@@ -13,7 +12,7 @@ namespace API.Infrastructure.Identity {
             this.settings = settings.Value;
         }
 
-        public SendEmailResponse SendLoginCredentials(LoginCredentialsViewModel model, string loginLink) {
+        public SendEmailResponse SendLoginCredentials(LoginCredentialsVM model, string loginLink) {
 
             var message = new MimeMessage();
 

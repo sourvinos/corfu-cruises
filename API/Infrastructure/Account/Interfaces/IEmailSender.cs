@@ -1,8 +1,8 @@
-namespace API.Infrastructure.Identity {
+namespace API.Infrastructure.Account {
 
     public interface IEmailSender {
 
-        SendEmailResponse SendLoginCredentials(LoginCredentialsViewModel model, string loginLink);
+        SendEmailResponse SendLoginCredentials(LoginCredentialsVM model, string loginLink);
 
         SendEmailResponse SendResetPasswordEmail(string displayName, string userEmail, string callbackUrl, string language);
 

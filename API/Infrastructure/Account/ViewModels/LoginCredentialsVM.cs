@@ -1,6 +1,6 @@
-namespace API.Infrastructure.Identity {
+namespace API.Infrastructure.Account {
 
-    public class LoginCredentialsViewModel {
+    public class LoginCredentialsVM {
 
         public string Displayname { get; set; }
         public string Email { get; set; }

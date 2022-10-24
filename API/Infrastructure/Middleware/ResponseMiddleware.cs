@@ -48,7 +48,7 @@ namespace API.Infrastructure.Middleware {
                 409 => ApiMessages.DuplicateRecord(),
                 410 => ApiMessages.InvalidDateDestinationOrPort(),
                 411 => ApiMessages.InvalidPort(),
-                412 => ApiMessages.ScheduleNotUnique(),
+                412 => ApiMessages.InvalidAccountFields(),
                 413 => ApiMessages.CustomerIdDoesNotMatchConnectedSimpleUserCustomerId(),
                 431 => ApiMessages.SimpleUserCanNotAddReservationAfterDepartureTime(),
                 433 => ApiMessages.PortHasNoFreeSeats(),

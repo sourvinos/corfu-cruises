@@ -13,6 +13,7 @@ using API.Features.ShipCrews;
 using API.Features.ShipRoutes;
 using API.Features.Ships;
 using API.Features.Users;
+using API.Infrastructure.Account;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +22,11 @@ namespace API.Infrastructure.Extensions {
     public static class ModelValidations {
 
         public static void AddModelValidation(IServiceCollection services) {
+            // Account
+            services.AddTransient<IValidator<ChangePasswordVM>, ChangePasswordValidator>();
+            services.AddTransient<IValidator<ForgotPasswordVM>, ForgotPasswordValidator>();
+            services.AddTransient<IValidator<ResetPasswordVM>, ResetPasswordValidator>();
+            // Tables
             services.AddTransient<IValidator<CoachRouteWriteDto>, CoachRouteValidator>();
             services.AddTransient<IValidator<CustomerWriteDto>, CustomerValidator>();
             services.AddTransient<IValidator<DestinationWriteDto>, DestinationValidator>();
@@ -35,6 +41,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IValidator<ShipCrewWriteDto>, ShipCrewValidator>();
             services.AddTransient<IValidator<ShipRouteWriteDto>, ShipRouteValidator>();
             services.AddTransient<IValidator<ShipWriteDto>, ShipValidator>();
+            // Users
             services.AddTransient<IValidator<UserNewDto>, UserNewValidator>();
             services.AddTransient<IValidator<UserUpdateDto>, UserUpdateValidator>();
         }

@@ -1,4 +1,4 @@
-namespace API.Infrastructure.Identity {
+namespace API.Infrastructure.Account {
 
     public class SendEmailResponse {
 
