@@ -3,12 +3,12 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.CoachRoutes;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.CoachRoutes {
+namespace CoachRoutes {
 
     [Collection("Sequence")]
     public class CoachRoutes02GetActive : IClassFixture<AppSettingsFixture> {

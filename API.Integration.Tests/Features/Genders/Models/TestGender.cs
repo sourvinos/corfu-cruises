@@ -1,6 +1,6 @@
-using API.Integration.Tests.Infrastructure;
+using Infrastructure;
 
-namespace API.Integration.Tests.Genders {
+namespace Genders {
 
     public class TestGender : ITestEntity {
 

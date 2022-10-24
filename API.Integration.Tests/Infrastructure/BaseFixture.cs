@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace API.Integration.Tests.Infrastructure {
+namespace Infrastructure {
 
     public class BaseFixture : IClassFixture<AppSettingsFixture> {
 

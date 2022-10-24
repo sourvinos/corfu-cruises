@@ -1,9 +1,9 @@
+using Cases;
+using Infrastructure;
+using Responses;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
 using Xunit;
 
 namespace Users {

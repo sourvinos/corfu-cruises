@@ -1,11 +1,11 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.CoachRoutes {
+namespace CoachRoutes {
 
     [Collection("Sequence")]
     public class CoachRoutes03GetById : IClassFixture<AppSettingsFixture> {
@@ -45,17 +45,17 @@ namespace API.Integration.Tests.CoachRoutes {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_Get_By_Id() {
+        public async Task Simple_Users_Can_Not_Get_By_Id() {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", null);
         }
 
         [Fact]
-        public async Task Active_Admins_Not_Found_When_Not_Exists() {
+        public async Task Admins_Not_Found_When_Not_Exists() {
             await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
         }
 
         [Fact]
-        public async Task Active_Admins_Can_Get_By_Id() {
+        public async Task Admins_Can_Get_By_Id() {
             await RecordFound.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
         }
 

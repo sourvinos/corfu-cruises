@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using Cases;
+using Infrastructure;
+using Responses;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Ships {
+namespace Ships {
 
     [Collection("Sequence")]
     public class Ships02GetActive : IClassFixture<AppSettingsFixture> {

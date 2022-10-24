@@ -1,11 +1,12 @@
 using System;
 using System.Net.Http;
+using API;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
-namespace API.Integration.Tests.Infrastructure {
+namespace Infrastructure {
 
     public class TestHostFixture : IDisposable {
 

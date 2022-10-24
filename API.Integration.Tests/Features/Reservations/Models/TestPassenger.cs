@@ -1,6 +1,6 @@
 using System;
 
-namespace API.Integration.Tests.Reservations {
+namespace Reservations {
 
     public class TestPassenger {
 

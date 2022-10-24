@@ -3,12 +3,12 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.Nationalities;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Nationalities {
+namespace Nationalities {
 
     [Collection("Sequence")]
     public class Nationalities02GetActive : IClassFixture<AppSettingsFixture> {
@@ -18,7 +18,6 @@ namespace API.Integration.Tests.Nationalities {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly int _expectedRecordCount = 250;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
         private readonly string _url = "/nationalities/getActive";
@@ -52,7 +51,7 @@ namespace API.Integration.Tests.Nationalities {
         public async Task Active_Users_Can_Get_Active(Login login) {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, login.Username, login.Password);
             var records = JsonSerializer.Deserialize<List<NationalityActiveVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(_expectedRecordCount, records.Count);
+            Assert.Equal(250, records.Count);
         }
 
     }

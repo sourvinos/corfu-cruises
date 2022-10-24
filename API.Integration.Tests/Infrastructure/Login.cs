@@ -1,4 +1,4 @@
-namespace API.Integration.Tests.Infrastructure {
+namespace Infrastructure {
 
     public class Login {
 

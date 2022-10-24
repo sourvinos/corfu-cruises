@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace API.Integration.Tests.Reservations {
+namespace Reservations {
 
     public class ActiveSimpleUsersCanNotUpdate : IEnumerable<object[]> {
 

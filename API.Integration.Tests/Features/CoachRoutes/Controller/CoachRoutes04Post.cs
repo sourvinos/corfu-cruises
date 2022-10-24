@@ -1,11 +1,12 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.CoachRoutes {
+namespace CoachRoutes {
 
     [Collection("Sequence")]
     public class CoachRoutes04Post : IClassFixture<AppSettingsFixture> {
@@ -40,33 +41,27 @@ namespace API.Integration.Tests.CoachRoutes {
         }
 
         [Theory]
-        [ClassData(typeof(CreateValidCoachRoute))]
-        public async Task Unauthorized_Inactive_Simple_Users(TestCoachRoute record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "marios", "2b24a7368e19", record);
+        [ClassData(typeof(InactiveUsersCanNotLogin))]
+        public async Task Unauthorized_Inactive_Users(Login login) {
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, login.Username, login.Password, null);
         }
 
         [Theory]
         [ClassData(typeof(CreateValidCoachRoute))]
-        public async Task Unauthorized_Inactive_Admins(TestCoachRoute record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "nikoleta", "8dd193508e05", record);
-        }
-
-        [Theory]
-        [ClassData(typeof(CreateValidCoachRoute))]
-        public async Task Active_Simple_Users_Can_Not_Create(TestCoachRoute record) {
+        public async Task Simple_Users_Can_Not_Create(TestCoachRoute record) {
             await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
         [Theory]
         [ClassData(typeof(CreateInvalidRoute))]
-        public async Task Active_Admins_Can_Not_Create_When_Invalid(TestCoachRoute record) {
+        public async Task Admins_Can_Not_Create_When_Invalid(TestCoachRoute record) {
             var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]
         [ClassData(typeof(CreateValidCoachRoute))]
-        public async Task Active_Admins_Can_Create_When_Valid(TestCoachRoute record) {
+        public async Task Admins_Can_Create_When_Valid(TestCoachRoute record) {
             await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
         }
 

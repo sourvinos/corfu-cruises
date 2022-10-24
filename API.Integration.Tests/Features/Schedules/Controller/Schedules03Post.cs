@@ -1,11 +1,12 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Schedules {
+namespace Schedules {
 
     [Collection("Sequence")]
     public class Schedules03Post : IClassFixture<AppSettingsFixture> {
@@ -40,33 +41,27 @@ namespace API.Integration.Tests.Schedules {
         }
 
         [Theory]
-        [ClassData(typeof(CreateValidSchedule))]
-        public async Task Unauthorized_Inactive_Simple_Users(NewTestSchedule record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "marios", "2b24a7368e19", record);
+        [ClassData(typeof(InactiveUsersCanNotLogin))]
+        public async Task Unauthorized_Inactive_Users(Login login) {
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, login.Username, login.Password, null);
         }
 
         [Theory]
         [ClassData(typeof(CreateValidSchedule))]
-        public async Task Unauthorized_Inactive_Admins(NewTestSchedule record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "nikoleta", "8dd193508e05", record);
-        }
-
-        [Theory]
-        [ClassData(typeof(CreateValidSchedule))]
-        public async Task Active_Simple_Users_Can_Not_Create(NewTestSchedule record) {
+        public async Task Simple_Users_Can_Not_Create(NewTestSchedule record) {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
         [Theory]
         [ClassData(typeof(CreateInvalidSchedule))]
-        public async Task Active_Admins_Can_Not_Create_When_Invalid(NewTestSchedule record) {
+        public async Task Admins_Can_Not_Create_When_Invalid(NewTestSchedule record) {
             var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record.TestScheduleBody);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]
         [ClassData(typeof(CreateValidSchedule))]
-        public async Task Active_Admins_Can_Create_When_Valid(NewTestSchedule record) {
+        public async Task Admins_Can_Create_When_Valid(NewTestSchedule record) {
             await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record.TestScheduleBody);
         }
 

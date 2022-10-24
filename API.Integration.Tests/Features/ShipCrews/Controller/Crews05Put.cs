@@ -1,12 +1,13 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
 using API.IntegrationTests.ShipCrews;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.ShipCrews {
+namespace ShipCrews {
 
     [Collection("Sequence")]
     public class Crews05Put : IClassFixture<AppSettingsFixture> {
@@ -41,33 +42,27 @@ namespace API.Integration.Tests.ShipCrews {
         }
 
         [Theory]
-        [ClassData(typeof(UpdateValidCrew))]
-        public async Task Unauthorized_Inactive_Simple_Users(TestCrew record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "marios", "2b24a7368e19", record);
+        [ClassData(typeof(InactiveUsersCanNotLogin))]
+        public async Task Unauthorized_Inactive_Users(Login login) {
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, login.Username, login.Password, null);
         }
 
         [Theory]
         [ClassData(typeof(UpdateValidCrew))]
-        public async Task Unauthorized_Inactive_Admins(TestCrew record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "nikoleta", "8dd193508e05", record);
-        }
-
-        [Theory]
-        [ClassData(typeof(UpdateValidCrew))]
-        public async Task Active_Simple_Users_Can_Not_Update(TestCrew record) {
+        public async Task Simple_Users_Can_Not_Update(TestCrew record) {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
         [Theory]
         [ClassData(typeof(UpdateInvalidCrew))]
-        public async Task Active_Admins_Can_Not_Update_When_Invalid(TestCrew record) {
+        public async Task Admins_Can_Not_Update_When_Invalid(TestCrew record) {
             var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]
         [ClassData(typeof(UpdateValidCrew))]
-        public async Task Active_Admins_Can_Update_When_Valid(TestCrew record) {
+        public async Task Admins_Can_Update_When_Valid(TestCrew record) {
             await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
         }
 

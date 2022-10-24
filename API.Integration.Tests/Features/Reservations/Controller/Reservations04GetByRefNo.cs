@@ -1,11 +1,11 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Reservations {
+namespace Reservations {
 
     [Collection("Sequence")]
     public class Reservations04GetByRefNo : IClassFixture<AppSettingsFixture> {
@@ -52,17 +52,17 @@ namespace API.Integration.Tests.Reservations {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Get_Empty_List_If_Not_Owned() {
+        public async Task Simple_Users_Get_Empty_List_If_Not_Owned() {
             await RecordFound.Action(_httpClient, _baseUrl, _simpleUserUrl_not_owned, "simpleuser", "1234567890");
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Get_By_RefNo_If_Owned() {
+        public async Task Simple_Users_Can_Get_By_RefNo_If_Owned() {
             await RecordFound.Action(_httpClient, _baseUrl, _simpleUserUrl_owned, "simpleuser", "1234567890");
         }
 
         [Fact]
-        public async Task Active_Admins_Can_Get_By_RefNo() {
+        public async Task Admins_Can_Get_By_RefNo() {
             await RecordFound.Action(_httpClient, _baseUrl, _adminUrl, "john", "ec11fc8c16da");
         }
 

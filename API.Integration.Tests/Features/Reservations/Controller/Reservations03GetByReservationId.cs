@@ -1,11 +1,11 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Reservations {
+namespace Reservations {
 
     [Collection("Sequence")]
     public class Reservations03GetByReservationId : IClassFixture<AppSettingsFixture> {
@@ -52,17 +52,17 @@ namespace API.Integration.Tests.Reservations {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_Get_By_Reservation_Id_Not_Owned() {
+        public async Task Simple_Users_Can_Not_Get_By_Reservation_Id_Not_Owned() {
             await RecordNotOwned.Action(_httpClient, _baseUrl, _simpleUserUrl_not_owned, "simpleuser", "1234567890");
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Get_By_Reservation_Id_If_Owned() {
+        public async Task Simple_Users_Can_Get_By_Reservation_Id_If_Owned() {
             await RecordFound.Action(_httpClient, _baseUrl, _simpleUserUrl_owned, "simpleuser", "1234567890");
         }
 
         [Fact]
-        public async Task Active_Admins_Can_Get_By_Reservation_Id() {
+        public async Task Admins_Can_Get_By_Reservation_Id() {
             await RecordFound.Action(_httpClient, _baseUrl, _adminUrl, "john", "ec11fc8c16da");
         }
 

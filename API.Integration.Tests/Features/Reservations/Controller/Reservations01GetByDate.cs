@@ -3,12 +3,12 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.Reservations;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Reservations {
+namespace Reservations {
 
     [Collection("Sequence")]
     public class Reservations01GetByDate : IClassFixture<AppSettingsFixture> {
@@ -47,7 +47,7 @@ namespace API.Integration.Tests.Reservations {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_List_Only_Owned() {
+        public async Task Simple_Users_Can_List_Only_Owned() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "simpleuser", "1234567890");
             var records = JsonSerializer.Deserialize<ReservationFinalGroupVM>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(6, records.Reservations.Count());
@@ -55,7 +55,7 @@ namespace API.Integration.Tests.Reservations {
         }
 
         [Fact]
-        public async Task Active_Admins_Can_List() {
+        public async Task Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<ReservationFinalGroupVM>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(61, records.Reservations.Count());

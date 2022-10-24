@@ -2,11 +2,11 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using API.Integration.Tests.Infrastructure;
+using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
-namespace API.Integration.Tests.Responses {
+namespace Responses {
 
     public static class RecordNotFound {
 

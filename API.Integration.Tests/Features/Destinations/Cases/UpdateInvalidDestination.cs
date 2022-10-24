@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.Integration.Tests.Infrastructure;
+using Infrastructure;
 
-namespace API.Integration.Tests.Destinations {
+namespace Destinations {
 
     public class UpdateInvalidDestination : IEnumerable<object[]> {
 

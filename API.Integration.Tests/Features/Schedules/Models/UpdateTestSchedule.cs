@@ -1,6 +1,6 @@
-using API.Integration.Tests.Infrastructure;
+using Infrastructure;
 
-namespace API.Integration.Tests.Schedules {
+namespace Schedules {
 
     public class UpdateTestSchedule : ITestEntity {
 

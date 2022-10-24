@@ -1,4 +1,4 @@
-using API.Integration.Tests.Infrastructure;
+using Infrastructure;
 
 namespace API.IntegrationTests.ShipRoutes {
 

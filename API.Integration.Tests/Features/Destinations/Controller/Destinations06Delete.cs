@@ -1,11 +1,11 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Destinations {
+namespace Destinations {
 
     [Collection("Sequence")]
     public class Destinations06Delete : IClassFixture<AppSettingsFixture> {
@@ -19,7 +19,7 @@ namespace API.Integration.Tests.Destinations {
         private readonly string _baseUrl;
         private readonly string _inUseUrl = "/destinations/1";
         private readonly string _notFoundUrl = "/destinations/999";
-        private readonly string _url = "/destinations/7";
+        private readonly string _url = "/destinations/19";
 
         #endregion
 
@@ -46,22 +46,22 @@ namespace API.Integration.Tests.Destinations {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_Delete() {
+        public async Task Simple_Users_Can_Not_Delete() {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", null);
         }
 
         [Fact]
-        public async Task Active_Admins_Not_Found_When_Not_Exists() {
+        public async Task Admins_Not_Found_When_Not_Exists() {
             await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
         }
 
         [Fact]
-        public async Task Active_Admins_Can_Not_Delete_In_Use() {
+        public async Task Admins_Can_Not_Delete_In_Use() {
             await RecordInUse.Action(_httpClient, _baseUrl, _inUseUrl, "john", "ec11fc8c16da");
         }
 
         [Fact]
-        public async Task Active_Admins_Can_Delete_Not_In_Use() {
+        public async Task Admins_Can_Delete_Not_In_Use() {
             await RecordDeleted.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
         }
 

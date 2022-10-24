@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using API.Infrastructure.Auth;
 using Newtonsoft.Json;
 
-namespace API.Integration.Tests.Infrastructure {
+namespace Infrastructure {
 
     public static class Helpers {
 

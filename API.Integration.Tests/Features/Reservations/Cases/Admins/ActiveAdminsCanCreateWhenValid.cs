@@ -2,18 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace API.Integration.Tests.Reservations {
+namespace Reservations {
 
     public class ActiveAdminsCanCreateWhenValid : IEnumerable<object[]> {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public IEnumerator<object[]> GetEnumerator() {
-            yield return Active_Admins_Can_Create_Reservations_For_Past_Date();
-            yield return Active_Admins_Can_Create_Reservations_For_Future_Date();
+            yield return Admins_Can_Create_Reservations_For_Past_Date();
+            yield return Admins_Can_Create_Reservations_For_Future_Date();
         }
 
-        private static object[] Active_Admins_Can_Create_Reservations_For_Past_Date() {
+        private static object[] Admins_Can_Create_Reservations_For_Past_Date() {
             return new object[] {
                 new TestNewReservation {
                     CustomerId = 1,
@@ -38,7 +38,7 @@ namespace API.Integration.Tests.Reservations {
             };
         }
 
-        private static object[] Active_Admins_Can_Create_Reservations_For_Future_Date() {
+        private static object[] Admins_Can_Create_Reservations_For_Future_Date() {
             return new object[] {
                 new TestNewReservation {
                     CustomerId = 1,

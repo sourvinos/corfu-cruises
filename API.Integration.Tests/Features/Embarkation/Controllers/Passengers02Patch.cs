@@ -1,10 +1,10 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Embarkation {
+namespace Embarkation {
 
     [Collection("Sequence")]
     public class Passengers02Put : IClassFixture<AppSettingsFixture> {
@@ -38,13 +38,13 @@ namespace API.Integration.Tests.Embarkation {
 
         [Theory]
         [ClassData(typeof(FoundSinglePassenger))]
-        public async Task Active_Simple_Users_Can_Not_Update(TestPassenger record) {
+        public async Task Simple_Users_Can_Not_Update(TestPassenger record) {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
         [Theory]
         [ClassData(typeof(FoundSinglePassenger))]
-        public async Task Active_Admins_Can_Update(TestPassenger record) {
+        public async Task Admins_Can_Update(TestPassenger record) {
             await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
         }
 

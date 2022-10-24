@@ -1,6 +1,6 @@
-using API.Integration.Tests.Infrastructure;
+using Infrastructure;
 
-namespace API.Integration.Tests.Customers {
+namespace Customers {
 
     public class TestCustomer : ITestEntity {
 

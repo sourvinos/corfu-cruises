@@ -4,11 +4,11 @@ using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
-using API.Integration.Tests.Infrastructure;
+using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
-namespace API.Integration.Tests.Responses {
+namespace Responses {
 
     public static class RecordSaved {
 

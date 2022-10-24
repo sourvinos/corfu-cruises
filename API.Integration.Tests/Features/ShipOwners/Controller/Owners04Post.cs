@@ -1,11 +1,12 @@
+using Infrastructure;
+using Responses;
 using System.Net.Http;
 using System.Threading.Tasks;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
 using API.IntegrationTests.ShipOwners;
 using Xunit;
+using Cases;
 
-namespace API.Integration.Tests.ShipOwners {
+namespace ShipOwners {
 
     [Collection("Sequence")]
     public class ShipOwners04Post : IClassFixture<AppSettingsFixture> {
@@ -40,26 +41,20 @@ namespace API.Integration.Tests.ShipOwners {
         }
 
         [Theory]
-        [ClassData(typeof(CreateValidShipOwner))]
-        public async Task Unauthorized_Inactive_Simple_Users(TestShipOwner record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "marios", "2b24a7368e19", record);
+        [ClassData(typeof(InactiveUsersCanNotLogin))]
+        public async Task Unauthorized_Inactive_Users(Login login) {
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, login.Username, login.Password, null);
         }
 
         [Theory]
         [ClassData(typeof(CreateValidShipOwner))]
-        public async Task Unauthorized_Inactive_Admins(TestShipOwner record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "nikoleta", "8dd193508e05", record);
-        }
-
-        [Theory]
-        [ClassData(typeof(CreateValidShipOwner))]
-        public async Task Active_Simple_Users_Can_Not_Create(TestShipOwner record) {
+        public async Task Simple_Users_Can_Not_Create(TestShipOwner record) {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
         [Theory]
         [ClassData(typeof(CreateValidShipOwner))]
-        public async Task Active_Admins_Can_Create_When_Valid(TestShipOwner record) {
+        public async Task Admins_Can_Create_When_Valid(TestShipOwner record) {
             await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
         }
 

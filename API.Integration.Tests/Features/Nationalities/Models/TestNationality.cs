@@ -1,6 +1,6 @@
-using API.Integration.Tests.Infrastructure;
+using Infrastructure;
 
-namespace API.Integration.Tests.Nationalities {
+namespace Nationalities {
 
     public class TestNationality:ITestEntity {
 

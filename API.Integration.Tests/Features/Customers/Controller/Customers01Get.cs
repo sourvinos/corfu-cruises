@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using Responses;
+using Cases;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Infrastructure.Classes;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Infrastructure;
 using Xunit;
 
-namespace API.Integration.Tests.Customers {
+namespace Customers {
 
     [Collection("Sequence")]
     public class Customers01Get : IClassFixture<AppSettingsFixture> {
@@ -47,12 +47,12 @@ namespace API.Integration.Tests.Customers {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_List() {
+        public async Task Simple_Users_Can_Not_List() {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", null);
         }
 
         [Fact]
-        public async Task Active_Admins_Can_List() {
+        public async Task Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<List<SimpleEntity>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(123, records.Count);

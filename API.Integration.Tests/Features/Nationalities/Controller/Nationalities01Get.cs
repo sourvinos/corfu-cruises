@@ -3,12 +3,12 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.Nationalities;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Nationalities {
+namespace Nationalities {
 
     [Collection("Sequence")]
     public class Nationalities01Get : IClassFixture<AppSettingsFixture> {
@@ -18,7 +18,6 @@ namespace API.Integration.Tests.Nationalities {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly int _expectedRecordCount = 254;
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
         private readonly string _url = "/nationalities";
@@ -48,15 +47,15 @@ namespace API.Integration.Tests.Nationalities {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_List() {
+        public async Task Simple_Users_Can_Not_List() {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", null);
         }
 
         [Fact]
-        public async Task Active_Admins_Can_List() {
+        public async Task Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<List<NationalityListVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(_expectedRecordCount, records.Count);
+            Assert.Equal(254, records.Count);
         }
 
     }

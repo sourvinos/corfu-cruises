@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using API.Integration.Tests.Infrastructure;
+using Infrastructure;
 
-namespace API.Integration.Tests.Drivers {
+namespace Drivers {
 
     public class UpdateValidDriver : IEnumerable<object[]> {
 

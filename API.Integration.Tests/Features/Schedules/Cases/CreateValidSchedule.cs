@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace API.Integration.Tests.Schedules {
+namespace Schedules {
 
     public class CreateValidSchedule : IEnumerable<object[]> {
 

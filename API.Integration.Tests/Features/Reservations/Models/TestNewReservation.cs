@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using API.Integration.Tests.Infrastructure;
+using Infrastructure;
 
-namespace API.Integration.Tests.Reservations {
+namespace Reservations {
 
     public class TestNewReservation : ITestEntity {
 

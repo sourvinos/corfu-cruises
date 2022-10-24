@@ -1,11 +1,11 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Registrars {
+namespace Registrars {
 
     [Collection("Sequence")]
     public class Registrars06Delete : IClassFixture<AppSettingsFixture> {
@@ -45,17 +45,17 @@ namespace API.Integration.Tests.Registrars {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_Delete() {
+        public async Task Simple_Users_Can_Not_Delete() {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", null);
         }
 
         [Fact]
-        public async Task Active_Admins_Not_Found_When_Not_Exists() {
+        public async Task Admins_Not_Found_When_Not_Exists() {
             await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
         }
 
         [Fact]
-        public async Task Active_Admins_Can_Delete() {
+        public async Task Admins_Can_Delete() {
             await RecordDeleted.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
         }
 

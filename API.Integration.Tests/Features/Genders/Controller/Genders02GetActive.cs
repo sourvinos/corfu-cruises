@@ -3,12 +3,12 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.Genders;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Genders {
+namespace Genders {
 
     [Collection("Sequence")]
     public class Genders02GetActive : IClassFixture<AppSettingsFixture> {

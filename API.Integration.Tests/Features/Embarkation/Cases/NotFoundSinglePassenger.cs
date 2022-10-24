@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace API.Integration.Tests.Embarkation {
+namespace Embarkation {
 
     public class NotFoundSinglePassenger : IEnumerable<object[]> {
 

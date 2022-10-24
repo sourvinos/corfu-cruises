@@ -4,11 +4,11 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.Billing;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Infrastructure;
 using Xunit;
+using Responses;
 
-namespace API.Integration.Tests.Billing {
+namespace Billing {
 
     [Collection("Sequence")]
     public class Billing : IClassFixture<AppSettingsFixture> {
@@ -42,14 +42,14 @@ namespace API.Integration.Tests.Billing {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_List_Only_Owned() {
+        public async Task Simple_Users_Can_List_Only_Owned() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _simpleUserUrl, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<IEnumerable<BillingFinalVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(3, records.Select(x => x.Customer).Count());
         }
 
         [Fact]
-        public async Task Active_Admins_Can_List() {
+        public async Task Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _adminUrl, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<IEnumerable<BillingFinalVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(46, records.Select(x => x.Customer).Count());

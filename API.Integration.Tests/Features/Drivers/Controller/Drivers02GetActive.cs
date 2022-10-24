@@ -3,13 +3,12 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.Drivers;
-using API.Infrastructure.Classes;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Drivers {
+namespace Drivers {
 
     [Collection("Sequence")]
     public class Drivers02GetActive : IClassFixture<AppSettingsFixture> {

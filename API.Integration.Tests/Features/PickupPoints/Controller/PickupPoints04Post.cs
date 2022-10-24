@@ -1,12 +1,13 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
 using API.IntegrationTests.PickupPoints;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.PickupPoints {
+namespace PickupPoints {
 
     [Collection("Sequence")]
     public class PickupPoints04Post : IClassFixture<AppSettingsFixture> {
@@ -41,33 +42,27 @@ namespace API.Integration.Tests.PickupPoints {
         }
 
         [Theory]
-        [ClassData(typeof(CreateValidPickupPoint))]
-        public async Task Unauthorized_Inactive_Simple_Users(TestPickupPoint record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "marios", "2b24a7368e19", record);
+        [ClassData(typeof(InactiveUsersCanNotLogin))]
+        public async Task Unauthorized_Inactive_Users(Login login) {
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, login.Username, login.Password, null);
         }
 
         [Theory]
         [ClassData(typeof(CreateValidPickupPoint))]
-        public async Task Unauthorized_Inactive_Admins(TestPickupPoint record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "nikoleta", "8dd193508e05", record);
-        }
-
-        [Theory]
-        [ClassData(typeof(CreateValidPickupPoint))]
-        public async Task Active_Simple_Users_Can_Not_Create(TestPickupPoint record) {
+        public async Task Simple_Users_Can_Not_Create(TestPickupPoint record) {
             await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", record);
         }
 
         [Theory]
         [ClassData(typeof(CreateInvalidPickupPoint))]
-        public async Task Active_Admins_Can_Not_Create_When_Invalid(TestPickupPoint record) {
+        public async Task Admins_Can_Not_Create_When_Invalid(TestPickupPoint record) {
             var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]
         [ClassData(typeof(CreateValidPickupPoint))]
-        public async Task Active_Admins_Can_Create_When_Valid(TestPickupPoint record) {
+        public async Task Admins_Can_Create_When_Valid(TestPickupPoint record) {
             await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
         }
 

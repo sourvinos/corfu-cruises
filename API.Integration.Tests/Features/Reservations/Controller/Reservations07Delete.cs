@@ -1,11 +1,11 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Reservations {
+namespace Reservations {
 
     [Collection("Sequence")]
     public class Reservations07Delete : IClassFixture<AppSettingsFixture> {
@@ -46,18 +46,18 @@ namespace API.Integration.Tests.Reservations {
         }
 
         [Fact]
-        public async Task Active_Admins_Not_Found_When_Not_Exists() {
+        public async Task Admins_Not_Found_When_Not_Exists() {
             await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_Delete() {
+        public async Task Simple_Users_Can_Not_Delete() {
             await Forbidden.Action(_httpClient, _baseUrl, _deleteUrl, _actionVerb, "simpleuser", "1234567890", null);
         }
 
         [Theory]
         [ClassData(typeof(ActiveAdminsCanDeleteOwnedByAnyone))]
-        public async Task Active_Admins_Can_Delete(TestNewReservation record) {
+        public async Task Admins_Can_Delete(TestNewReservation record) {
             await RecordDeleted.Action(_httpClient, _baseUrl, _url + "/" + record.ReservationId.ToString(), "john", "ec11fc8c16da");
         }
 

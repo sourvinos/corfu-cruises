@@ -2,12 +2,12 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.Embarkation;
-using API.Integration.Tests.Cases;
-using API.Integration.Tests.Infrastructure;
-using API.Integration.Tests.Responses;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
-namespace API.Integration.Tests.Embarkation {
+namespace Embarkation {
 
     [Collection("Sequence")]
     public class Passengers01Get : IClassFixture<AppSettingsFixture> {
@@ -49,12 +49,12 @@ namespace API.Integration.Tests.Embarkation {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_List() {
+        public async Task Simple_Users_Can_Not_List() {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", null);
         }
 
         [Fact]
-        public async Task Active_Admins_Can_List() {
+        public async Task Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<EmbarkationFinalGroupVM>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(178, records.TotalPersons);
@@ -63,16 +63,16 @@ namespace API.Integration.Tests.Embarkation {
         }
 
         [Fact]
-        public async Task Active_Admins_Can_List_For_Destination() {
+        public async Task Admins_Can_List_For_Destination() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _urlForDestination, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<EmbarkationFinalGroupVM>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(82, records.TotalPersons);
             Assert.Equal(72, records.EmbarkedPassengers);
             Assert.Equal(10, records.PendingPersons);
         }
- 
+
         [Fact]
-        public async Task Active_Admins_Can_List_For_Port() {
+        public async Task Admins_Can_List_For_Port() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _urlForPort, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<EmbarkationFinalGroupVM>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(101, records.TotalPersons);
@@ -81,7 +81,7 @@ namespace API.Integration.Tests.Embarkation {
         }
 
         [Fact]
-        public async Task Active_Admins_Can_List_For_Ship() {
+        public async Task Admins_Can_List_For_Ship() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _urlForShip, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<EmbarkationFinalGroupVM>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(164, records.TotalPersons);
