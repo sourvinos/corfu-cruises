@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using API.Integration.Tests.Infrastructure;
 
-namespace IntegrationTests.Users {
+namespace Users {
 
     public class CreateValidUser : IEnumerable<object[]> {
 

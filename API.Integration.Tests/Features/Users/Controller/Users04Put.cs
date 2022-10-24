@@ -1,14 +1,15 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using API.Integration.Tests.Cases;
 using API.Integration.Tests.Infrastructure;
 using API.Integration.Tests.Responses;
 using Xunit;
 
-namespace IntegrationTests.Users {
+namespace Users {
 
     [Collection("Sequence")]
-    public class Users05Put : IClassFixture<AppSettingsFixture> {
+    public class Users04Put : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -22,7 +23,7 @@ namespace IntegrationTests.Users {
 
         #endregion
 
-        public Users05Put(AppSettingsFixture appsettings) {
+        public Users04Put(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
@@ -41,15 +42,9 @@ namespace IntegrationTests.Users {
         }
 
         [Theory]
-        [ClassData(typeof(UpdateValidUser))]
-        public async Task Unauthorized_Inactive_Simple_Users(TestUpdateUser record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "marios", "2b24a7368e19", record);
-        }
-
-        [Theory]
-        [ClassData(typeof(UpdateValidUser))]
-        public async Task Unauthorized_Inactive_Admins(TestUpdateUser record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "nikoleta", "8dd193508e05", record);
+        [ClassData(typeof(InactiveUsersCanNotLogin))]
+        public async Task Unauthorized_Inactive_Users(Login login) {
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, login.Username, login.Password, null);
         }
 
         [Fact]

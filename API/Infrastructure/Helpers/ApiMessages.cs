@@ -15,7 +15,7 @@ namespace API.Infrastructure.Helpers {
         public static string RecordInUse() { return "Record is used and can't be deleted"; }
         public static string AuthenticationFailed() { return "Authentication failed."; }
         public static string RecordNotFound() { return "Record not found"; }
-        public static string UnknownError() { return "Something exceptional has happened."; }
+        public static string UnknownError() { return "Something bad has happened."; }
         public static string InvalidModel() { return "The model is invalid."; }
         public static string EmailNotSent() { return "Email not sent."; }
         public static string RecordNotSaved() { return "Record not saved."; }

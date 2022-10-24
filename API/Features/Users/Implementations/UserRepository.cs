@@ -16,17 +16,17 @@ namespace API.Features.Users {
 
     public class UserRepository : IUserRepository {
 
-        #region Variables
+        #region variables
 
+        private readonly AppDbContext context;
         private readonly IHttpContextAccessor httpContext;
-        protected readonly AppDbContext context;
         private readonly IMapper mapper;
-        private readonly UserManager<UserExtended> userManager;
         private readonly TestingEnvironment testingSettings;
+        private readonly UserManager<UserExtended> userManager;
 
         #endregion
 
-        public UserRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, UserManager<UserExtended> userManager, IOptions<TestingEnvironment> testingSettings) {
+        public UserRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> testingSettings, UserManager<UserExtended> userManager) {
             this.context = context;
             this.httpContext = httpContext;
             this.mapper = mapper;

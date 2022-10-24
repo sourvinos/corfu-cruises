@@ -5,10 +5,10 @@ using API.Integration.Tests.Infrastructure;
 using API.Integration.Tests.Responses;
 using Xunit;
 
-namespace IntegrationTests.Users {
+namespace Users {
 
     [Collection("Sequence")]
-    public class Users03GetById : IClassFixture<AppSettingsFixture> {
+    public class Users02GetById : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -23,7 +23,7 @@ namespace IntegrationTests.Users {
 
         #endregion
 
-        public Users03GetById(AppSettingsFixture appsettings) {
+        public Users02GetById(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
@@ -46,22 +46,22 @@ namespace IntegrationTests.Users {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_Get_By_Id_If_Not_Owned() {
+        public async Task Simple_Users_Can_Not_Get_By_Id_If_Not_Owned() {
             await RecordNotOwned.Action(_httpClient, _baseUrl, _simpleUserUrl_not_owned, "simpleuser", "1234567890");
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Get_By_Id_If_Owned() {
+        public async Task Simple_Users_Can_Get_By_Id_If_Owned() {
             await RecordFound.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
         }
 
         [Fact]
-        public async Task Active_Admins_Not_Found_When_Not_Exists() {
+        public async Task Admins_Not_Found_When_Not_Exists() {
             await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
         }
 
         [Fact]
-        public async Task Active_Admins_Can_Get_By_Id() {
+        public async Task Admins_Can_Get_By_Id() {
             await RecordFound.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
         }
 

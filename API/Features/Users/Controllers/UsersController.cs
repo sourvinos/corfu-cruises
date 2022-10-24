@@ -19,8 +19,6 @@ namespace API.Features.Users {
         private readonly IMapper mapper;
         private readonly IUserRepository userRepo;
         private readonly IUserValidation<IUser> userValidation;
-        // private readonly IUserNewValidation userNewValidation;
-        // private readonly IUserUpdateValidation userUpdateValidation;
 
         #endregion
 
@@ -29,8 +27,6 @@ namespace API.Features.Users {
             this.mapper = mapper;
             this.userRepo = userRepo;
             this.userValidation = userValidation;
-            // this.userNewValidation = userNewValidation;
-            // this.userUpdateValidation = userUpdateValidation;
         }
 
         [HttpGet]
@@ -67,7 +63,6 @@ namespace API.Features.Users {
         [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Post([FromBody] UserNewDto user) {
-            // var x = userNewValidation.IsValid(user);
             var x = userValidation.IsValid(user);
             if (x == 200) {
                 await userRepo.Create(mapper.Map<UserNewDto, UserExtended>(user), user.Password);
@@ -89,7 +84,6 @@ namespace API.Features.Users {
         public async Task<Response> Put([FromBody] UserUpdateDto user) {
             var x = await userRepo.GetById(user.Id);
             if (x != null) {
-                // var z = userUpdateValidation.IsValid(user);
                 var z = userValidation.IsValid(user);
                 if (z == 200) {
                     if (Identity.IsUserAdmin(httpContext) || userValidation.IsUserOwner(x.Id)) {

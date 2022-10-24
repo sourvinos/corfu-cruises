@@ -5,10 +5,10 @@ using API.Integration.Tests.Infrastructure;
 using API.Integration.Tests.Responses;
 using Xunit;
 
-namespace IntegrationTests.Users {
+namespace Users {
 
     [Collection("Sequence")]
-    public class Users06Delete : IClassFixture<AppSettingsFixture> {
+    public class Users05Delete : IClassFixture<AppSettingsFixture> {
 
         #region variables
 
@@ -23,7 +23,7 @@ namespace IntegrationTests.Users {
 
         #endregion
 
-        public Users06Delete(AppSettingsFixture appsettings) {
+        public Users05Delete(AppSettingsFixture appsettings) {
             _appSettingsFixture = appsettings;
             _baseUrl = _appSettingsFixture.Configuration.GetSection("TestingEnvironment").GetSection("BaseUrl").Value;
             _httpClient = _testHostFixture.Client;
@@ -46,22 +46,22 @@ namespace IntegrationTests.Users {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_Delete() {
+        public async Task Simple_Users_Can_Not_Delete() {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", null);
         }
 
         [Fact]
-        public async Task Active_Admins_Not_Found_When_Not_Exists() {
+        public async Task Admins_Not_Found_When_Not_Exists() {
             await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
         }
 
         [Fact]
-        public async Task Active_Admins_Can_Not_Delete_In_Use() {
+        public async Task Admins_Can_Not_Delete_In_Use() {
             await RecordInUse.Action(_httpClient, _baseUrl, _inUseUrl, "john", "ec11fc8c16da");
         }
 
         [Fact]
-        public async Task Active_Admins_Can_Delete_Not_In_Use() {
+        public async Task Admins_Can_Delete_Not_In_Use() {
             await RecordDeleted.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
         }
 

@@ -8,7 +8,7 @@ using API.Integration.Tests.Infrastructure;
 using API.Integration.Tests.Responses;
 using Xunit;
 
-namespace IntegrationTests.Users {
+namespace Users {
 
     [Collection("Sequence")]
     public class Users01Get : IClassFixture<AppSettingsFixture> {
@@ -47,12 +47,12 @@ namespace IntegrationTests.Users {
         }
 
         [Fact]
-        public async Task Active_Simple_Users_Can_Not_List() {
+        public async Task Simple_Users_Can_Not_List() {
             await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", null);
         }
 
         [Fact]
-        public async Task Active_Admins_Can_List() {
+        public async Task Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<List<UserReadDto>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.Equal(14, records.Count);

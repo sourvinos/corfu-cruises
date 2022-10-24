@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace IntegrationTests.Users {
+namespace Users {
 
     public class UpdateValidUser : IEnumerable<object[]> {
 

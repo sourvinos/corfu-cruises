@@ -1,4 +1,4 @@
-namespace IntegrationTests.Users {
+namespace Users {
 
     public class TestUpdateUser {
 
