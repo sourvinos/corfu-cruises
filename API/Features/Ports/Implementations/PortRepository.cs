@@ -6,7 +6,6 @@ using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Ports {
@@ -15,7 +14,7 @@ namespace API.Features.Ports {
 
         private readonly IMapper mapper;
 
-        public PortRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, ILogger<Port> logger, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, logger, settings) {
+        public PortRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) {
             this.mapper = mapper;
         }
 

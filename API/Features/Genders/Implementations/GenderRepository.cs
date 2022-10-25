@@ -6,7 +6,6 @@ using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Genders {
@@ -15,7 +14,7 @@ namespace API.Features.Genders {
 
         private readonly IMapper mapper;
 
-        public GenderRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, ILogger<Gender> logger, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, logger, settings) {
+        public GenderRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) {
             this.mapper = mapper;
         }
 

@@ -6,7 +6,6 @@ using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Registrars {
@@ -15,7 +14,7 @@ namespace API.Features.Registrars {
 
         private readonly IMapper mapper;
 
-        public RegistrarRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, ILogger<Registrar> logger, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, logger, settings) {
+        public RegistrarRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) {
             this.mapper = mapper;
         }
 

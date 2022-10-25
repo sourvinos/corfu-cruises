@@ -10,7 +10,6 @@ using API.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Reservations {
@@ -22,7 +21,7 @@ namespace API.Features.Reservations {
         private readonly TestingEnvironment testingEnvironment;
         private readonly UserManager<UserExtended> userManager;
 
-        public ReservationValidation(AppDbContext context, IHttpContextAccessor httpContext, ILogger<Reservation> logger, IOptions<TestingEnvironment> testingEnvironment, IReservationAvailability reservationAvailability, UserManager<UserExtended> userManager) : base(context, httpContext, logger, testingEnvironment) {
+        public ReservationValidation(AppDbContext context, IHttpContextAccessor httpContext,  IOptions<TestingEnvironment> testingEnvironment, IReservationAvailability reservationAvailability, UserManager<UserExtended> userManager) : base(context, httpContext, testingEnvironment) {
             this.httpContext = httpContext;
             this.reservationAvailability = reservationAvailability;
             this.testingEnvironment = testingEnvironment.Value;

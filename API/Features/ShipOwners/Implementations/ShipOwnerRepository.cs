@@ -6,7 +6,6 @@ using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.ShipOwners {
@@ -15,7 +14,7 @@ namespace API.Features.ShipOwners {
 
         private readonly IMapper mapper;
 
-        public ShipOwnerRepository(AppDbContext context, IHttpContextAccessor httpContext, ILogger<ShipOwner> logger, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, httpContext, logger, settings) {
+        public ShipOwnerRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, httpContext, settings) {
             this.mapper = mapper;
         }
 

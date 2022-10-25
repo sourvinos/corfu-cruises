@@ -8,7 +8,6 @@ using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Schedules {
@@ -18,7 +17,7 @@ namespace API.Features.Schedules {
         private readonly IMapper mapper;
         private readonly IHttpContextAccessor httpContext;
 
-        public ScheduleRepository(AppDbContext context, IHttpContextAccessor httpContext, ILogger<Schedule> logger, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, httpContext, logger, settings) {
+        public ScheduleRepository(AppDbContext context, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(context, httpContext, settings) {
             this.httpContext = httpContext;
             this.mapper = mapper;
         }

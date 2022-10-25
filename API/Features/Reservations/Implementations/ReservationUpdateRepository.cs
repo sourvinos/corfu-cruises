@@ -7,7 +7,6 @@ using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Reservations {
@@ -17,7 +16,7 @@ namespace API.Features.Reservations {
         private readonly IHttpContextAccessor httpContext;
         private readonly TestingEnvironment testingEnvironment;
 
-        public ReservationUpdateRepository(AppDbContext context, IHttpContextAccessor httpContext, ILogger<Reservation> logger, IOptions<TestingEnvironment> testingEnvironment) : base(context, httpContext, logger, testingEnvironment) {
+        public ReservationUpdateRepository(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment) : base(context, httpContext, testingEnvironment) {
             this.httpContext = httpContext;
             this.testingEnvironment = testingEnvironment.Value;
         }

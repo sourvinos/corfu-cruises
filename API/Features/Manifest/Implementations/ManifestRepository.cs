@@ -5,7 +5,6 @@ using API.Infrastructure.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Manifest {
@@ -14,7 +13,7 @@ namespace API.Features.Manifest {
 
         private readonly IMapper mapper;
 
-        public ManifestRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, ILogger<Reservation> logger, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, logger, settings) {
+        public ManifestRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) {
             this.mapper = mapper;
         }
 

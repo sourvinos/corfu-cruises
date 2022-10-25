@@ -6,14 +6,13 @@ using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Schedules {
 
     public class ScheduleCalendar : Repository<Schedule>, IScheduleCalendar {
 
-        public ScheduleCalendar(AppDbContext context, IHttpContextAccessor httpContext, ILogger<Schedule> logger, IOptions<TestingEnvironment> settings) : base(context, httpContext, logger, settings) { }
+        public ScheduleCalendar(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(context, httpContext, settings) { }
 
         public IEnumerable<AvailabilityCalendarGroupVM> GetForCalendar(string fromDate, string toDate) {
             return context.Schedules

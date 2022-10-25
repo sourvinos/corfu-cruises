@@ -1,23 +1,13 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NLog;
-using NLog.Web;
 
 namespace API {
 
     public static class Program {
 
         public static void Main(string[] args) {
-            var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-            try {
-                CreateHostBuilder(args).Build().Run();
-            } catch (System.Exception exception) {
-                logger.Error(exception, "Stopped program because of exception");
-                throw;
-            } finally {
-                NLog.LogManager.Shutdown();
-            }
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) {
@@ -28,8 +18,9 @@ namespace API {
                 .ConfigureLogging(logging => {
                     logging.ClearProviders();
                     logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-                }).UseNLog();
+                });
         }
+
     }
 
 }

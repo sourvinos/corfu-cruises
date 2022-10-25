@@ -3,14 +3,13 @@ using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Ports {
 
     public class PortValidation : Repository<Port>, IPortValidation {
 
-        public PortValidation(AppDbContext appDbContext, IHttpContextAccessor httpContext, ILogger<Port> logger, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, logger, settings) { }
+        public PortValidation(AppDbContext appDbContext, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) { }
 
         public int IsValid(PortWriteDto port) {
             return true switch {

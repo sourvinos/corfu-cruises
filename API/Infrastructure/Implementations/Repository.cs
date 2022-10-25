@@ -5,7 +5,6 @@ using API.Infrastructure.Interfaces;
 using API.Infrastructure.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Infrastructure.Implementations {
@@ -13,14 +12,12 @@ namespace API.Infrastructure.Implementations {
     public class Repository<T> : IRepository<T> where T : class {
 
         private readonly IHttpContextAccessor httpContext;
-        private readonly ILogger<T> logger;
         private readonly TestingEnvironment testingSettings;
         protected readonly AppDbContext context;
 
-        public Repository(AppDbContext context, IHttpContextAccessor httpContext, ILogger<T> logger, IOptions<TestingEnvironment> testingSettings) {
+        public Repository(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingSettings) {
             this.context = context;
             this.httpContext = httpContext;
-            this.logger = logger;
             this.testingSettings = testingSettings.Value;
         }
 
@@ -69,10 +66,8 @@ namespace API.Infrastructure.Implementations {
         private void DisposeOrCommit(IDbContextTransaction transaction) {
             if (testingSettings.IsTesting) {
                 transaction.Dispose();
-                logger.LogInformation("Transaction disposed");
             } else {
                 transaction.Commit();
-                logger.LogInformation("Transaction committed");
             }
         }
 

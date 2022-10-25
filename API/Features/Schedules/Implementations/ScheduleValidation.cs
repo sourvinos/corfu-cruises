@@ -4,14 +4,13 @@ using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Schedules {
 
     public class ScheduleValidation : Repository<Schedule>, IScheduleValidation {
 
-        public ScheduleValidation(AppDbContext context, IHttpContextAccessor httpContext, ILogger<Schedule> logger, IOptions<TestingEnvironment> settings) : base(context, httpContext, logger, settings) { }
+        public ScheduleValidation(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(context, httpContext, settings) { }
 
         public int IsValidOnNew(List<ScheduleWriteDto> schedules) {
             return true switch {

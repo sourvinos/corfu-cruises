@@ -9,7 +9,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Billing {
@@ -20,7 +19,7 @@ namespace API.Features.Billing {
         private readonly IMapper mapper;
         private readonly UserManager<UserExtended> userManager;
 
-        public BillingRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, ILogger<BillingRepository> logger, IMapper mapper, IOptions<TestingEnvironment> settings, UserManager<UserExtended> userManager) : base(appDbContext, httpContext, logger, settings) {
+        public BillingRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings, UserManager<UserExtended> userManager) : base(appDbContext, httpContext, settings) {
             this.httpContext = httpContext;
             this.mapper = mapper;
             this.userManager = userManager;

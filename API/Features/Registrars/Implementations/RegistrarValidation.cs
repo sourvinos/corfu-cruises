@@ -3,14 +3,13 @@ using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace API.Features.Registrars {
 
     public class RegistrarValidation : Repository<Registrar>, IRegistrarValidation {
 
-        public RegistrarValidation(AppDbContext appDbContext, IHttpContextAccessor httpContext, ILogger<Registrar> logger, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, logger, settings) { }
+        public RegistrarValidation(AppDbContext appDbContext, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) { }
 
         public int IsValid(RegistrarWriteDto registrar) {
             return true switch {
