@@ -1,13 +1,25 @@
 using System;
 using System.Threading.Tasks;
+using API.Features.Users;
+using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
+using Serilog;
 
 namespace API.Infrastructure.Middleware {
 
     public class ResponseMiddleware : IMiddleware {
+
+        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly UserManager<UserExtended> userManager;
+
+        public ResponseMiddleware(IHttpContextAccessor httpContextAccessor, UserManager<UserExtended> userManager) {
+            this.httpContextAccessor = httpContextAccessor;
+            this.userManager = userManager;
+        }
 
         public async Task InvokeAsync(HttpContext httpContext, RequestDelegate next) {
             try {
@@ -15,6 +27,7 @@ namespace API.Infrastructure.Middleware {
             } catch (CustomException exception) {
                 await CreateCustomErrorResponse(httpContext, exception);
             } catch (Exception exception) {
+                LogError(exception, httpContextAccessor, userManager);
                 await CreateServerErrorResponse(httpContext, exception);
             }
         }
@@ -70,6 +83,10 @@ namespace API.Infrastructure.Middleware {
                 499 => ApiMessages.UnableToDeleteConnectedUser(),
                 _ => ApiMessages.UnknownError(),
             };
+        }
+
+        private static void LogError(Exception exception, IHttpContextAccessor httpContextAccessor, UserManager<UserExtended> userManager) {
+            Log.Error("USER {userId} | MESSAGE {message}", Identity.GetConnectedUserDetails(userManager, Identity.GetConnectedUserId(httpContextAccessor)).UserName, exception.Message);
         }
 
     }
