@@ -11,6 +11,8 @@
 
 .p-datatable-tbody {
     height: 100% !important;
+    padding-top: 69px !important;
+    top: 0 !important;
 }
 
 .p-datatable-flex-scrollable .p-datatable-scrollable-body, .p-datatable-flex-scrollable .p-datatable-virtual-scrollable-body {
