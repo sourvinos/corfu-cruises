@@ -16,8 +16,8 @@ export class DestinationService extends HttpDataService {
 
     //#region public methods
 
-    public getActiveForDropdown(): Observable<DestinationDropdownVM[]> {
-        return this.http.get<DestinationDropdownVM[]>(environment.apiUrl + '/destinations/getActiveForDropdown')
+    public getActive(): Observable<DestinationDropdownVM[]> {
+        return this.http.get<DestinationDropdownVM[]>(environment.apiUrl + '/destinations/getActive')
     }
 
     //#endregion

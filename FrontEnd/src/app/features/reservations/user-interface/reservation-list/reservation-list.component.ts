@@ -103,7 +103,7 @@ export class ReservationListComponent {
                 height: '550px',
                 width: '500px',
                 data: {
-                    drivers: this.driverService.getActiveForDropdown(),
+                    drivers: this.driverService.getActive(),
                     actions: ['abort', 'ok']
                 },
                 panelClass: 'dialog'
@@ -129,7 +129,7 @@ export class ReservationListComponent {
                 height: '550px',
                 width: '500px',
                 data: {
-                    ships: this.shipService.getActiveForDropdown(),
+                    ships: this.shipService.getActive(),
                     actions: ['abort', 'ok']
                 },
                 panelClass: 'dialog'
@@ -286,7 +286,7 @@ export class ReservationListComponent {
             let activeDestinations = []
             let inter = []
             const elements = [... new Set(reservations.map(x => x[field]))]
-            this.destinationService.getActiveForDropdown().subscribe(response => {
+            this.destinationService.getActive().subscribe(response => {
                 activeDestinations = response
                 inter = activeDestinations.filter(element => elements.includes(element.description))
                 resolve(inter)

@@ -16,8 +16,8 @@ export class CoachRouteService extends HttpDataService {
 
     //#region public methods
 
-    public getActiveForDropdown(): Observable<CoachRouteDropdownVM[]> {
-        return this.http.get<CoachRouteDropdownVM[]>(environment.apiUrl + '/coachRoutes/getActiveForDropdown')
+    public getActive(): Observable<CoachRouteDropdownVM[]> {
+        return this.http.get<CoachRouteDropdownVM[]>(environment.apiUrl + '/coachRoutes/getActive')
     }
 
     //#endregion

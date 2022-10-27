@@ -14,8 +14,8 @@ export class ShipOwnerService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/shipOwners')
     }
 
-    public getActiveForDropdown(): Observable<ShipOwnerDropdownVM[]> {
-        return this.http.get<ShipOwnerDropdownVM[]>(environment.apiUrl + '/shipOwners/getActiveForDropdown')
+    public getActive(): Observable<ShipOwnerDropdownVM[]> {
+        return this.http.get<ShipOwnerDropdownVM[]>(environment.apiUrl + '/shipOwners/getActive')
     }
 
 }

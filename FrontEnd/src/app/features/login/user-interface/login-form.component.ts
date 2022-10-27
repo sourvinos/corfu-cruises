@@ -163,16 +163,16 @@ export class LoginFormComponent {
     }
 
     private populateStorageFromAPI(): void {
-        this.coachRouteService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('coachRoutes', JSON.stringify(response)) })
-        this.customerService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('customers', JSON.stringify(response)) })
-        this.destinationService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('destinations', JSON.stringify(response)) })
-        this.driverService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('drivers', JSON.stringify(response)) })
-        this.genderService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('genders', JSON.stringify(response)) })
-        this.nationalityService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('nationalities', JSON.stringify(response)) })
-        this.pickupPointService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('pickupPoints', JSON.stringify(response)) })
-        this.portService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('ports', JSON.stringify(response)) })
-        this.shipService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('ships', JSON.stringify(response)) })
-        this.shipOwnerService.getActiveForDropdown().subscribe(response => { this.localStorageService.saveItem('shipOwners', JSON.stringify(response)) })
+        this.coachRouteService.getActive().subscribe(response => { this.localStorageService.saveItem('coachRoutes', JSON.stringify(response)) })
+        this.customerService.getActive().subscribe(response => { this.localStorageService.saveItem('customers', JSON.stringify(response)) })
+        this.destinationService.getActive().subscribe(response => { this.localStorageService.saveItem('destinations', JSON.stringify(response)) })
+        this.driverService.getActive().subscribe(response => { this.localStorageService.saveItem('drivers', JSON.stringify(response)) })
+        this.genderService.getActive().subscribe(response => { this.localStorageService.saveItem('genders', JSON.stringify(response)) })
+        this.nationalityService.getActive().subscribe(response => { this.localStorageService.saveItem('nationalities', JSON.stringify(response)) })
+        this.pickupPointService.getActive().subscribe(response => { this.localStorageService.saveItem('pickupPoints', JSON.stringify(response)) })
+        this.portService.getActive().subscribe(response => { this.localStorageService.saveItem('ports', JSON.stringify(response)) })
+        this.shipService.getActive().subscribe(response => { this.localStorageService.saveItem('ships', JSON.stringify(response)) })
+        this.shipOwnerService.getActive().subscribe(response => { this.localStorageService.saveItem('shipOwners', JSON.stringify(response)) })
     }
 
     private showError(error: any): void {

@@ -16,8 +16,8 @@ export class NationalityService extends HttpDataService {
 
     //#region public methods
 
-    getActiveForDropdown(): Observable<NationalityDropdownVM[]> {
-        return this.http.get<NationalityDropdownVM[]>(environment.apiUrl + '/nationalities/getActiveForDropdown')
+    getActive(): Observable<NationalityDropdownVM[]> {
+        return this.http.get<NationalityDropdownVM[]>(environment.apiUrl + '/nationalities/getActive')
     }
 
     //#endregion

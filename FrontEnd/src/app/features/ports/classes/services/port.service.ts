@@ -16,8 +16,8 @@ export class PortService extends HttpDataService {
 
     //#region public methods
 
-    public getActiveForDropdown(): Observable<PortDropdownVM[]> {
-        return this.http.get<PortDropdownVM[]>(environment.apiUrl + '/ports/getActiveForDropdown')
+    public getActive(): Observable<PortDropdownVM[]> {
+        return this.http.get<PortDropdownVM[]>(environment.apiUrl + '/ports/getActive')
     }
 
     public createPDF(): Observable<HttpResponse<Blob>> {

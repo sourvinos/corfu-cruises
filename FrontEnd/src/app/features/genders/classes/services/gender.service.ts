@@ -16,8 +16,8 @@ export class GenderService extends HttpDataService {
 
     //#region public methods
 
-    getActiveForDropdown(): Observable<Gender[]> {
-        return this.http.get<Gender[]>(environment.apiUrl + '/genders/getActiveForDropdown')
+    getActive(): Observable<Gender[]> {
+        return this.http.get<Gender[]>(environment.apiUrl + '/genders/getActive')
     }
 
     //#endregion

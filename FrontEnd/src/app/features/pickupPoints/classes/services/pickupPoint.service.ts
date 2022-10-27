@@ -14,8 +14,8 @@ export class PickupPointService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/pickupPoints')
     }
 
-    getActiveForDropdown(): Observable<PickupPointVM[]> {
-        return this.http.get<PickupPointVM[]>(environment.apiUrl + '/pickupPoints/getActiveForDropdown')
+    getActive(): Observable<PickupPointVM[]> {
+        return this.http.get<PickupPointVM[]>(environment.apiUrl + '/pickupPoints/getActive')
     }
 
     getAllForRoute(routeId: string): Observable<PickupPointVM[]> {

@@ -175,7 +175,7 @@ export class EmbarkationCriteriaComponent {
 
     private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string, includeWildcard?: boolean): Promise<any> {
         const promise = new Promise((resolve) => {
-            service.getActiveForDropdown().toPromise().then(
+            service.getActive().toPromise().then(
                 (response: any) => {
                     this[table] = response
                     if (includeWildcard)

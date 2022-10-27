@@ -16,8 +16,8 @@ export class ShipService extends HttpDataService {
 
     //#region public methods
 
-    getActiveForDropdown(): Observable<ShipDropdownVM[]> {
-        return this.http.get<ShipDropdownVM[]>(environment.apiUrl + '/ships/getActiveForDropdown')
+    getActive(): Observable<ShipDropdownVM[]> {
+        return this.http.get<ShipDropdownVM[]>(environment.apiUrl + '/ships/getActive')
     }
 
     //#endregion

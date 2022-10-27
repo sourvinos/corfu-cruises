@@ -16,8 +16,8 @@ export class CustomerService extends HttpDataService {
 
     //#region public methods
 
-    public getActiveForDropdown(): Observable<CustomerDropdownVM[]> {
-        return this.http.get<CustomerDropdownVM[]>(environment.apiUrl + '/customers/getActiveForDropdown')
+    public getActive(): Observable<CustomerDropdownVM[]> {
+        return this.http.get<CustomerDropdownVM[]>(environment.apiUrl + '/customers/getActive')
     }
 
     //#endregion
