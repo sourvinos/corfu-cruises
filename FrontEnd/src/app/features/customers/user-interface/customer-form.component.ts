@@ -155,7 +155,7 @@ export class CustomerFormComponent {
         const promise = new Promise((resolve) => {
             const formResolved: FormResolved = this.activatedRoute.snapshot.data['customerForm']
             if (formResolved.error == null) {
-                this.customer = formResolved.record
+                this.customer = formResolved.record.body
                 resolve(this.customer)
             } else {
                 this.goBack()
