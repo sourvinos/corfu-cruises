@@ -136,7 +136,7 @@ namespace API.Infrastructure.Auth {
         }
 
         private IActionResult AuthenticationFailed() {
-            return StatusCode(404, new {
+            return StatusCode(401, new {
                 response = ApiMessages.AuthenticationFailed()
             });
         }
