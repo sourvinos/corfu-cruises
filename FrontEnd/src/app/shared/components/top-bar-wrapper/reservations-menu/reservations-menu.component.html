@@ -9,7 +9,7 @@
                 <ul class="sub-menu" (click)="hideMenu()">
                     <button class="hoverable" (click)="doNavigationTasks('reservations')"><img width="20px" [src]="getIcon('my-reservations')"><span>{{ getLabel('reservations-calendar') }}</span></button>
                     <button class="hoverable" (click)="doNavigationTasks('availability')"><img width="20px" [src]="getIcon('availability')"><span>{{ getLabel('reservations-availability') }}</span></button>
-                    <button class="hoverable" (click)="doNavigationTasks('billings')"><img width="20px" [src]="getIcon('billing')"><span>{{ getLabel('reservations-billing') }}</span></button>
+                    <button *ngIf=!isAdmin class="hoverable" (click)="doNavigationTasks('billings')"><img width="20px" [src]="getIcon('billing')"><span>{{ getLabel('reservations-billing') }}</span></button>
                 </ul>
             </li>
         </ul>

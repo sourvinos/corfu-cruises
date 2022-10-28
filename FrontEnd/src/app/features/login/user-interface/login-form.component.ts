@@ -92,8 +92,6 @@ export class LoginFormComponent {
         this.accountService.login(this.form.value.username, this.form.value.password).pipe(indicate(this.isLoading)).subscribe({
             complete: () => {
                 this.goHome()
-                this.startIdleTimer()
-                this.populateStorageFromAPI()
             },
             error: (errorFromInterceptor) => {
                 this.showError(errorFromInterceptor)

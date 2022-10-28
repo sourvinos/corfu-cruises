@@ -20,7 +20,7 @@ export class TasksMenuComponent {
 
     private ngunsubscribe = new Subject<void>()
     public loginStatus: Observable<boolean>
-    public isAdmin = true
+    public isAdmin: boolean
     public menuItems: [] = []
 
     //#endregion
@@ -44,6 +44,12 @@ export class TasksMenuComponent {
             this.createMenu(response)
             this.subscribeToInteractionService()
 
+        })
+    }
+
+    ngAfterViewInit(): void {
+        this.interactionService.isAdmin.subscribe(response => {
+            this.isAdmin = response
         })
     }
 

@@ -26,6 +26,7 @@ export class TopMenuComponent {
 
     private ngunsubscribe = new Subject<void>()
     public loginStatus: Observable<boolean>
+    public isAdmin: boolean
     public menuItems: [] = []
     public menu: MenuItem[]
 
@@ -42,6 +43,12 @@ export class TopMenuComponent {
             this.subscribeToInteractionService()
         })
     }
+
+    // ngAfterViewInit(): void {
+    //     this.interactionService.isAdmin.subscribe(response => {
+    //         this.isAdmin = response
+    //     })
+    // }
 
     //#endregion
 

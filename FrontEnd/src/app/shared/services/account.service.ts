@@ -4,12 +4,22 @@ import { Injectable, NgZone } from '@angular/core'
 import { Router } from '@angular/router'
 import { map } from 'rxjs/operators'
 // Custom
+import { ChangePasswordViewModel } from 'src/app/features/users/classes/view-models/change-password-view-model'
+import { CoachRouteService } from 'src/app/features/coachRoutes/classes/services/coachRoute.service'
+import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
+import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
+import { DriverService } from 'src/app/features/drivers/classes/services/driver.service'
+import { GenderService } from 'src/app/features/genders/classes/services/gender.service'
 import { HttpDataService } from './http-data.service'
 import { InteractionService } from './interaction.service'
 import { LocalStorageService } from './local-storage.service'
+import { NationalityService } from 'src/app/features/nationalities/classes/services/nationality.service'
+import { PickupPointService } from 'src/app/features/pickupPoints/classes/services/pickupPoint.service'
+import { PortService } from 'src/app/features/ports/classes/services/port.service'
 import { ResetPasswordViewModel } from 'src/app/features/users/classes/view-models/reset-password-view-model'
+import { ShipOwnerService } from 'src/app/features/shipOwners/classes/services/shipOwner.service'
+import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { environment } from 'src/environments/environment'
-import { ChangePasswordViewModel } from 'src/app/features/users/classes/view-models/change-password-view-model'
 
 @Injectable({ providedIn: 'root' })
 
@@ -19,6 +29,7 @@ export class AccountService extends HttpDataService {
 
     private displayname = new BehaviorSubject<string>(localStorage.getItem('displayname'))
     private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus())
+    private userRole = new BehaviorSubject<string>('')
     private apiUrl = environment.apiUrl
     private urlForgotPassword = this.apiUrl + '/account/forgotPassword'
     private urlGetConnectedUserId = this.apiUrl + '/account/getConnectedUserId'
@@ -29,7 +40,7 @@ export class AccountService extends HttpDataService {
 
     //#endregion
 
-    constructor(httpClient: HttpClient, private interactionService: InteractionService, private localStorageService: LocalStorageService, private ngZone: NgZone, private router: Router) {
+    constructor(httpClient: HttpClient, private coachRouteService: CoachRouteService, private customerService: CustomerService, private destinationService: DestinationService, private driverService: DriverService, private genderService: GenderService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private nationalityService: NationalityService, private ngZone: NgZone, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipOwnerService: ShipOwnerService, private shipService: ShipService,) {
         super(httpClient, environment.apiUrl)
     }
 
@@ -59,7 +70,7 @@ export class AccountService extends HttpDataService {
             map(response => {
                 if (response.response.token) {
                     this.setLoginStatus(true)
-                    this.setLocalStorage(response.response)
+                    this.populateLocalStorage(response.response)
                 }
                 return <any>response
             })
@@ -79,7 +90,9 @@ export class AccountService extends HttpDataService {
         const language = localStorage.getItem('language') || 'en-GB'
         return this.http.post<any>(this.urlToken, { language, userName, password, grantType }).pipe(map(response => {
             this.setLoginStatus(true)
-            this.setLocalStorage(response)
+            this.setIsAdmin(response.isAdmin)
+            this.populateLocalStorage(response)
+            this.populateStorageFromAPI()
             this.setUserData()
             this.refreshMenus()
         }))
@@ -139,12 +152,25 @@ export class AccountService extends HttpDataService {
         this.interactionService.mustRefreshMenus()
     }
 
-    private setLocalStorage(response: any): void {
+    private populateLocalStorage(response: any): void {
         localStorage.setItem('displayname', response.displayname)
         localStorage.setItem('expiration', response.expiration)
         localStorage.setItem('jwt', response.token)
         localStorage.setItem('loginStatus', '1')
         localStorage.setItem('refreshToken', response.refreshToken)
+    }
+
+    private populateStorageFromAPI(): void {
+        this.coachRouteService.getActive().subscribe(response => { this.localStorageService.saveItem('coachRoutes', JSON.stringify(response)) })
+        this.customerService.getActive().subscribe(response => { this.localStorageService.saveItem('customers', JSON.stringify(response)) })
+        this.destinationService.getActive().subscribe(response => { this.localStorageService.saveItem('destinations', JSON.stringify(response)) })
+        this.driverService.getActive().subscribe(response => { this.localStorageService.saveItem('drivers', JSON.stringify(response)) })
+        this.genderService.getActive().subscribe(response => { this.localStorageService.saveItem('genders', JSON.stringify(response)) })
+        this.nationalityService.getActive().subscribe(response => { this.localStorageService.saveItem('nationalities', JSON.stringify(response)) })
+        this.pickupPointService.getActive().subscribe(response => { this.localStorageService.saveItem('pickupPoints', JSON.stringify(response)) })
+        this.portService.getActive().subscribe(response => { this.localStorageService.saveItem('ports', JSON.stringify(response)) })
+        this.shipService.getActive().subscribe(response => { this.localStorageService.saveItem('ships', JSON.stringify(response)) })
+        this.shipOwnerService.getActive().subscribe(response => { this.localStorageService.saveItem('shipOwners', JSON.stringify(response)) })
     }
 
     private setLoginStatus(status: boolean): void {
@@ -153,6 +179,10 @@ export class AccountService extends HttpDataService {
 
     private setUserData(): void {
         this.displayname.next(localStorage.getItem('displayname'))
+    }
+
+    private setIsAdmin(isAdmin: boolean): void {
+        this.interactionService.mustRefreshUserRole(isAdmin)
     }
 
     //#endregion

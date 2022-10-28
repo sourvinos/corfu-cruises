@@ -46,6 +46,12 @@ export class ReservationsMenuComponent {
         })
     }
 
+    ngAfterViewInit(): void {
+        this.interactionService.isAdmin.subscribe(response => {
+            this.isAdmin = response
+        })
+    }
+
     ngDoCheck(): void {
         this.updateVariables()
     }

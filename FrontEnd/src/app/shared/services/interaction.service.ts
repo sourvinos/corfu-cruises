@@ -27,7 +27,9 @@ export class InteractionService {
     }
 
     public mustRefreshUserRole(isAdmin: boolean): void {
-        this._isAdmin.next(isAdmin)
+        setTimeout(() => {
+            this._isAdmin.next(isAdmin)
+        }, 10)
     }
 
     //#endregion
