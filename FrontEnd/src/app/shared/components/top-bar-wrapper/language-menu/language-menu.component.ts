@@ -1,8 +1,8 @@
 import { Component, HostListener } from '@angular/core'
 // Custom
-import { InteractionService } from '../../services/interaction.service'
-import { LocalStorageService } from './../../services/local-storage.service'
-import { MessageCalendarService } from '../../services/messages-calendar.service'
+import { InteractionService } from '../../../services/interaction.service'
+import { LocalStorageService } from '../../../services/local-storage.service'
+import { MessageCalendarService } from '../../../services/messages-calendar.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'

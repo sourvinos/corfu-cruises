@@ -6,9 +6,9 @@ import { AccountService } from 'src/app/shared/services/account.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
-import { MessageMenuService } from '../../services/messages-menu.service'
-import { MessageSnackbarService } from '../../services/messages-snackbar.service'
-import { ModalActionResultService } from '../../services/modal-action-result.service'
+import { MessageMenuService } from '../../../services/messages-menu.service'
+import { MessageSnackbarService } from '../../../services/messages-snackbar.service'
+import { ModalActionResultService } from '../../../services/modal-action-result.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
