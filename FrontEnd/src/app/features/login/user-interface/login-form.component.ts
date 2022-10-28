@@ -94,7 +94,6 @@ export class LoginFormComponent {
                 this.goHome()
                 this.startIdleTimer()
                 this.populateStorageFromAPI()
-                this.doSideMenuTogglerTasks()
             },
             error: (errorFromInterceptor) => {
                 this.showError(errorFromInterceptor)
@@ -138,12 +137,6 @@ export class LoginFormComponent {
             { 'item': 'refreshToken', 'when': 'always' },
             { 'item': 'returnUrl', 'when': 'always' },
         ])
-    }
-
-    private doSideMenuTogglerTasks(): void {
-        this.accountService.isConnectedUserAdmin().subscribe(response => {
-            this.interactionService.UpdateSideMenuTogglerState(response)
-        })
     }
 
     private focusOnField(field: string): void {

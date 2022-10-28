@@ -1,18 +1,14 @@
 [
-    { "id": "availability", "description": "Dostupnost" },
-    { "id": "dashboard", "description": "Hlavní panel" },
-    { "id": "logout", "description": "Odhlásit set" },
-    { "id": "my-account", "description": "Můj účet" },
-    { "id": "my-billings", "description": "Moje vyúčtování" },
-    { "id": "my-reservations", "description": "Moje výhrady" },
-    { "id": "reservations", "description": "Rezervace" },
-    { "id": "ships", "description": "Lodě" },
-    { "id": "ships-crews", "description": "Posádky" },
-    { "id": "ships-registrars", "description": "Registrátoři" },
-    { "id": "ships-shipOwners", "description": "Vlastníci" },
-    { "id": "ships-shipRoutes", "description": "Trasy" },
-    { "id": "tables", "description": "Tabulky" },
-    { "id": "tables-coachRoutes", "description": "Trasy" },
+
+    { "id": "reservations-calendar", "description": "Rezervace" },
+    { "id": "reservations-availability", "description": "Dostupnost" }, 
+    { "id": "reservations-billing", "description": "Moje vyúčtování" },
+
+    { "id": "tasks-embarkation", "description": "Nalodění" },
+    { "id": "tasks-billing", "description": "Vyúčtování zákazníkům" },
+    { "id": "tasks-manifest", "description": "Zpráva o plavidle" },
+
+    { "id": "tables-coachRoutes", "description": "Trasy autobusů" },
     { "id": "tables-customers", "description": "Zákazníci" },
     { "id": "tables-destinations", "description": "Destinace" },
     { "id": "tables-drivers", "description": "Řidiči" },
@@ -20,9 +16,14 @@
     { "id": "tables-pickupPoints", "description": "Nástupní místa" },
     { "id": "tables-ports", "description": "Přístavy" },
     { "id": "tables-schedules", "description": "Rozvrhy" },
+    { "id": "tables-ships", "description": "Lodě" },
+    { "id": "tables-ships-crews", "description": "Posádky" },
+    { "id": "tables-ships-registrars", "description": "Registrátoři" },
+    { "id": "tables-ships-shipOwners", "description": "Vlastníci" },
+    { "id": "tables-ships-shipRoutes", "description": "Trasy lodí" },
     { "id": "tables-users", "description": "Uživatelé" },
-    { "id": "tasks", "description": "Úkoly" },
-    { "id": "tasks-embarkation", "description": "Nalodění" },
-    { "id": "tasks-invoicing", "description": "Vyúčtování zákazníkům" },
-    { "id": "tasks-manifest", "description": "Zpráva o plavidle" }
+
+    { "id": "my-account", "description": "Můj účet" },
+    { "id": "logout", "description": "Odhlásit set" }
+    
 ]

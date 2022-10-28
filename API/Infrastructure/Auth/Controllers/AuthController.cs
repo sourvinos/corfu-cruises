@@ -65,6 +65,7 @@ namespace API.Infrastructure.Auth {
                 var response = await CreateAccessToken(user, newRefreshToken.Value);
                 return StatusCode(200, new TokenResponse {
                     UserId = response.UserId,
+                    IsAdmin = user.IsAdmin,
                     Displayname = response.Displayname,
                     Token = response.Token,
                     RefreshToken = response.RefreshToken,

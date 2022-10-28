@@ -1,0 +1,28 @@
+<div *ngIf="loginStatus | async">
+    <div id="tables-menu">
+        <ul>
+            <li>
+                <button>
+                    <img [src]="getIcon('tables')" height="25px">
+                    <span class="material-icons-outlined">expand_more</span>
+                </button>
+                <ul class="sub-menu" (click)="hideMenu()">
+                    <button class="hoverable" (click)="doNavigationTasks('customers')"><img width="20px" [src]="getIcon('person')"><span>{{ getLabel('tables-customers') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('destinations')"><img width="20px" [src]="getIcon('flag')"><span>{{ getLabel('tables-destinations') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('pickupPoints')"><img width="20px" [src]="getIcon('pickupPoint')"><span>{{ getLabel('tables-pickupPoints') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('drivers')"><img width="20px" [src]="getIcon('driver')"><span>{{ getLabel('tables-drivers') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('coachRoutes')"><img width="20px" [src]="getIcon('coachRoute')"><span>{{ getLabel('tables-coachRoutes') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('schedules')"><img width="20px" [src]="getIcon('calendar')"><span>{{ getLabel('tables-schedules') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('genders')"><img width="20px" [src]="getIcon('gender')"><span>{{ getLabel('tables-genders') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('ports')"><img width="20px" [src]="getIcon('anchor')"><span>{{ getLabel('tables-ports') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('users')"><img width="20px" [src]="getIcon('user')"><span>{{ getLabel('tables-users') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('ships')"><img width="20px" [src]="getIcon('ship')"><span>{{ getLabel('tables-ships') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('shipCrews')"><img width="20px" [src]="getIcon('crew')"><span>{{ getLabel('tables-ships-crews') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('shipOwners')"><img width="20px" [src]="getIcon('shipOwner')"><span>{{ getLabel('tables-ships-shipOwners') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('registrars')"><img width="20px" [src]="getIcon('registrar')"><span>{{ getLabel('tables-ships-registrars') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('shipRoutes')"><img width="20px" [src]="getIcon('shipRoute')"><span>{{ getLabel('tables-ships-shipRoutes') }}</span></button>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

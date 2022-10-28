@@ -78,8 +78,6 @@ export class TopMenuComponent {
                         label: this.getLabel('logout'),
                         icon: 'fas fa-power-off',
                         command: (): void => {
-                            this.helperService.hideSideMenuAndRestoreScale()
-                            this.interactionService.SideMenuIsClosed()
                             this.accountService.logout()
                         }
                     }]

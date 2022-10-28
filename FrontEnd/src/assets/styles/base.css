@@ -87,10 +87,6 @@ p.instructions {
     overflow: hidden;
 }
 
-.active {
-    background-color: var(--color-sidemenu-active-item);
-}
-
 .no-border {
     border-left: 0.0625rem solid transparent !important;
     border-right: 0.0625rem solid transparent !important;

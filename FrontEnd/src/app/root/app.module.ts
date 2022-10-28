@@ -16,8 +16,8 @@ import { AppComponent } from './app.component'
 import { LogoComponent } from '../shared/components/top-bar-wrapper/logo/logo.component'
 import { ReservationsMenuComponent } from '../shared/components/top-bar-wrapper/reservations-menu/reservations-menu.component'
 import { SearchByRefBoxComponent } from '../shared/components/top-bar-wrapper/search-byRef-box/search-byRef-box.component'
-import { SideMenuComponent } from './../shared/components/side-menu/side-menu/side-menu.component'
-import { SideMenuTogglerComponent } from '../shared/components/side-menu/side-menu-toggler/side-menu-toggler.component'
+import { TablesMenuComponent } from '../shared/components/top-bar-wrapper/tables-menu/tables-menu.component'
+import { TasksMenuComponent } from '../shared/components/top-bar-wrapper/tasks-menu/tasks-menu.component'
 import { TopBarComponent } from '../shared/components/top-bar-wrapper/top-bar/top-bar.component'
 import { TopMenuComponent } from '../shared/components/top-bar-wrapper/top-menu/top-menu.component'
 import { UserMenuComponent } from '../shared/components/top-bar-wrapper/user-menu/user-menu.component'
@@ -30,11 +30,11 @@ import { MonitorInterceptor } from '../shared/services/jwt.interceptor'
         LogoComponent,
         ReservationsMenuComponent,
         SearchByRefBoxComponent,
-        SideMenuComponent,
-        SideMenuTogglerComponent,
+        TablesMenuComponent,
+        TasksMenuComponent,
         TopBarComponent,
         TopMenuComponent,
-        UserMenuComponent
+        UserMenuComponent,
     ],
     imports: [
         AppRoutingModule,

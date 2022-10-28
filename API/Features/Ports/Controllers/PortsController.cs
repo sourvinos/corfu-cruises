@@ -33,7 +33,7 @@ namespace API.Features.Ports {
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<PortActiveVM>> GetActiveAsync() {
             return await portRepo.GetActiveAsync();
         }

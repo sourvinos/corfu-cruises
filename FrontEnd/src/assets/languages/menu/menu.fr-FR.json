@@ -1,17 +1,13 @@
 [
-    { "id": "availability", "description": "Disponibilité" },
-    { "id": "dashboard", "description": "Panneau principal" },
-    { "id": "logout", "description": "Quitter" },
-    { "id": "my-account", "description": "Mon compte" },
-    { "id": "my-billings", "description": "Mes facturations" },
-    { "id": "my-reservations", "description": "Mes réserves" },
-    { "id": "reservations", "description": "Reservations" },
-    { "id": "ships", "description": "Navires" },
-    { "id": "ships-crews", "description": "Équipes" },
-    { "id": "ships-registrars", "description": "Enregistreurs de passagers" },
-    { "id": "ships-shipOwners", "description": "Armateurs" },
-    { "id": "ships-shipRoutes", "description": "Routes maritimes" },
-    { "id": "tables", "description": "Tables" },
+
+    { "id": "reservations-calendar", "description": "Réservations" },
+    { "id": "reservations-availability", "description": "Disponibilité" }, 
+    { "id": "reservations-billing", "description": "Mes facturations" },
+
+    { "id": "tasks-embarkation", "description": "Embarquement" },
+    { "id": "tasks-billing", "description": "Facturation au client" },
+    { "id": "tasks-manifest", "description": "Manifeste du navire" },
+
     { "id": "tables-coachRoutes", "description": "Routes de bus" },
     { "id": "tables-customers", "description": "Clients" },
     { "id": "tables-destinations", "description": "Destinations" },
@@ -20,9 +16,14 @@
     { "id": "tables-pickupPoints", "description": "Points de collecte" },
     { "id": "tables-ports", "description": "Ports" },
     { "id": "tables-schedules", "description": "Horaires" },
+    { "id": "tables-ships", "description": "Navires" },
+    { "id": "tables-ships-crews", "description": "Équipes" },
+    { "id": "tables-ships-registrars", "description": "Enregistreurs de passagers" },
+    { "id": "tables-ships-shipOwners", "description": "Armateurs" },
+    { "id": "tables-ships-shipRoutes", "description": "Routes maritimes" },
     { "id": "tables-users", "description": "Utilisateurs" },
-    { "id": "tasks", "description": "Tâches" },
-    { "id": "tasks-embarkation", "description": "Embarquement" },
-    { "id": "tasks-invoicing", "description": "Facturation au client" },
-    { "id": "tasks-manifest", "description": "Manifeste du navire" }
+
+    { "id": "my-account", "description": "Mon compte" },
+    { "id": "logout", "description": "Quitter" }
+
 ]

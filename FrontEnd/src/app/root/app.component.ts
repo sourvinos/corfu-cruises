@@ -63,8 +63,6 @@ export class AppComponent {
             this.cd.detectChanges()
         })
         this.idle.onTimeout.subscribe(() => {
-            this.helperService.hideSideMenuAndRestoreScale()
-            this.interactionService.SideMenuIsClosed()
             this.accountService.logout()
             this.modalActionResultService.open(this.messageSnackbarService.userDisconnected(), 'info', ['ok'])
         })

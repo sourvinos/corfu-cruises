@@ -1,14 +1,11 @@
 import { Component, HostListener } from '@angular/core'
-import { firstValueFrom, Observable, Subject, takeUntil } from 'rxjs'
 import { Router } from '@angular/router'
+import { firstValueFrom, Observable, Subject, takeUntil } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageMenuService } from '../../../services/messages-menu.service'
-import { MessageSnackbarService } from '../../../services/messages-snackbar.service'
-import { ModalActionResultService } from '../../../services/modal-action-result.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -27,7 +24,7 @@ export class UserMenuComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageMenuService: MessageMenuService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private accountService: AccountService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageMenuService: MessageMenuService, private router: Router) { }
 
     //#region listeners
 
@@ -69,6 +66,14 @@ export class UserMenuComponent {
         return environment.menuIconDirectory + filename + '-' + this.localStorageService.getItem('my-theme') + '.svg'
     }
 
+    public getUserDisplayname(): string {
+        let userDisplayName = ''
+        this.accountService.getUserDisplayname.subscribe(result => {
+            userDisplayName = result
+        })
+        return userDisplayName
+    }
+
     public hideMenu(): void {
         document.querySelectorAll('.sub-menu').forEach((item) => {
             item.classList.add('hidden')
@@ -76,8 +81,6 @@ export class UserMenuComponent {
     }
 
     public logout(): void {
-        this.helperService.hideSideMenuAndRestoreScale()
-        this.interactionService.SideMenuIsClosed()
         this.accountService.logout()
     }
 
@@ -96,7 +99,6 @@ export class UserMenuComponent {
         this.menuItems = response
     }
 
-
     private getConnectedUserId(): Promise<any> {
         const promise = new Promise((resolve) => {
             firstValueFrom(this.accountService.getConnectedUserId()).then((response) => {
@@ -104,13 +106,6 @@ export class UserMenuComponent {
             })
         })
         return promise
-    }
-    public getUserDisplayname(): string {
-        let userDisplayName = ''
-        this.accountService.getUserDisplayname.subscribe(result => {
-            userDisplayName = result
-        })
-        return userDisplayName
     }
 
     private subscribeToInteractionService(): void {

@@ -1,0 +1,17 @@
+<div *ngIf="isAdmin">
+    <div id="tasks-menu">
+        <ul>
+            <li>
+                <button>
+                    <img [src]="getIcon('tasks')" height="25px">
+                    <span class="material-icons-outlined">expand_more</span>
+                </button>
+                <ul class="sub-menu" (click)="hideMenu()">
+                    <button class="hoverable" (click)="doNavigationTasks('embarkation')"><img width="20px" [src]="getIcon('boarding')"><span>{{ getLabel('tasks-embarkation') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('billing')"><img width="20px" [src]="getIcon('billing')"><span>{{ getLabel('tasks-billing') }}</span></button>
+                    <button class="hoverable" (click)="doNavigationTasks('manifest')"><img width="20px" [src]="getIcon('manifest')"><span>{{ getLabel('tasks-manifest') }}</span></button>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

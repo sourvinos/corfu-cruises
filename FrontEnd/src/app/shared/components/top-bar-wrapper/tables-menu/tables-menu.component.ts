@@ -9,18 +9,17 @@ import { MessageMenuService } from 'src/app/shared/services/messages-menu.servic
 import { environment } from 'src/environments/environment'
 
 @Component({
-    selector: 'reservations-menu',
-    templateUrl: './reservations-menu.component.html',
-    styleUrls: ['./reservations-menu.component.css']
+    selector: 'tables-menu',
+    templateUrl: './tables-menu.component.html',
+    styleUrls: ['./tables-menu.component.css']
 })
 
-export class ReservationsMenuComponent {
+export class TablesMenuComponent {
 
     //#region variables
 
     private ngunsubscribe = new Subject<void>()
     public loginStatus: Observable<boolean>
-    public isAdmin = true
     public menuItems: [] = []
 
     //#endregion
@@ -43,6 +42,7 @@ export class ReservationsMenuComponent {
         this.messageMenuService.getMessages().then((response) => {
             this.createMenu(response)
             this.subscribeToInteractionService()
+
         })
     }
 
@@ -65,18 +65,10 @@ export class ReservationsMenuComponent {
                 this.createMenu(response)
             })
         })
-        // this.interactionService.isAdmin.subscribe(response => {
-        //     this.isAdmin = response
-        //     console.log(response)
-        // })
     }
 
     private updateVariables(): void {
         this.loginStatus = this.accountService.isLoggedIn
-        // this.interactionService.isAdmin.subscribe(response => {
-        //     this.isAdmin = response
-        //     console.log(response)
-        // })
     }
 
     //#endregion

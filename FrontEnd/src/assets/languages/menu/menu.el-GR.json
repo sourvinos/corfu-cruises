@@ -1,17 +1,13 @@
 [
-    { "id": "availability", "description": "Διαθεσιμότητα" },
-    { "id": "dashboard", "description": "Κεντρικός πίνακας" },
-    { "id": "logout", "description": "Αποσύνδεση" },
-    { "id": "my-account", "description": "Ο λογαριασμός μου" },
-    { "id": "my-billings", "description": "Τιμολογήσεις" },
-    { "id": "my-reservations", "description": "Οι κρατήσεις μου" },
-    { "id": "reservations", "description": "Κρατήσεις" },
-    { "id": "ships", "description": "Πλοία" },
-    { "id": "ships-crews", "description": "Πληρώματα" },
-    { "id": "ships-registrars", "description": "Καταγραφείς επιβατών" },
-    { "id": "ships-shipOwners", "description": "Πλοιοκτήτες" },
-    { "id": "ships-shipRoutes", "description": "Διαδρομές πλοίων" },
-    { "id": "tables", "description": "Πίνακες" },
+
+    { "id": "reservations-calendar", "description": "Κρατήσεις" },
+    { "id": "reservations-availability", "description": "Διαθεσιμότητα" },
+    { "id": "reservations-billing", "description": "Τιμολογήσεις" },
+    
+    { "id": "tasks-embarkation", "description": "Επιβίβαση" },
+    { "id": "tasks-billing", "description": "Τιμολόγηση πελατών" },
+    { "id": "tasks-manifest", "description": "Κατάσταση πλοίου" },
+
     { "id": "tables-coachRoutes", "description": "Διαδρομές λεωφορείων" },
     { "id": "tables-customers", "description": "Πελάτες" },
     { "id": "tables-destinations", "description": "Προορισμοί" },
@@ -20,9 +16,13 @@
     { "id": "tables-pickupPoints", "description": "Σημεία παραλαβής" },
     { "id": "tables-ports", "description": "Λιμάνια" },
     { "id": "tables-schedules", "description": "Πρόγραμμα" },
+    { "id": "tables-ships", "description": "Πλοία" },
+    { "id": "tables-ships-crews", "description": "Πληρώματα" },
+    { "id": "tables-ships-registrars", "description": "Καταγραφείς επιβατών" },
+    { "id": "tables-ships-shipOwners", "description": "Πλοιοκτήτες" },
+    { "id": "tables-ships-shipRoutes", "description": "Διαδρομές πλοίων" },
     { "id": "tables-users", "description": "Χρήστες" },
-    { "id": "tasks", "description": "Εργασίες" },
-    { "id": "tasks-embarkation", "description": "Επιβίβαση" },
-    { "id": "tasks-invoicing", "description": "Τιμολόγηση πελατών" },
-    { "id": "tasks-manifest", "description": "Κατάσταση πλοίου" }
+
+    { "id": "my-account", "description": "Ο λογαριασμός μου" },
+    { "id": "logout", "description": "Αποσύνδεση" }
 ]
