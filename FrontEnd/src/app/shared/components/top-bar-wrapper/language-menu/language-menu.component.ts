@@ -54,8 +54,8 @@ export class LanguageMenuComponent {
         this.messageHintService.getMessages()
         this.messageLabelService.getMessages()
         this.messageSnackbarService.getMessages()
-        this.interactionService.mustRefreshDateAdapters()
-        this.interactionService.mustRefreshMenus()
+        this.interactionService.updateDateAdapters()
+        this.interactionService.updateMenus()
     }
 
     private saveLanguage(language: string): void {

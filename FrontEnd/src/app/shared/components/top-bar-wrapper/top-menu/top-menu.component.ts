@@ -169,8 +169,8 @@ export class TopMenuComponent {
         this.messageLabelService.getMessages()
         this.messageMenuService.getMessages()
         this.messageSnackbarService.getMessages()
-        this.interactionService.mustRefreshDateAdapters()
-        this.interactionService.mustRefreshMenus()
+        this.interactionService.updateDateAdapters()
+        this.interactionService.updateMenus()
     }
 
     private saveLanguage(language: string): void {

@@ -18,15 +18,15 @@ export class InteractionService {
 
     //#region public methods
 
-    public mustRefreshDateAdapters(): void {
+    public updateDateAdapters(): void {
         this._refreshDateAdapter.next(null)
     }
 
-    public mustRefreshMenus(): void {
+    public updateMenus(): void {
         this._refreshMenus.next(null)
     }
 
-    public mustRefreshUserRole(isAdmin: boolean): void {
+    public updateIsAdmin(isAdmin: boolean): void {
         setTimeout(() => {
             this._isAdmin.next(isAdmin)
         }, 10)

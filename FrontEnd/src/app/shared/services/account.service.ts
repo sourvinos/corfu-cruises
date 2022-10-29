@@ -29,7 +29,6 @@ export class AccountService extends HttpDataService {
 
     private displayname = new BehaviorSubject<string>(localStorage.getItem('displayname'))
     private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus())
-    private userRole = new BehaviorSubject<string>('')
     private apiUrl = environment.apiUrl
     private urlForgotPassword = this.apiUrl + '/account/forgotPassword'
     private urlGetConnectedUserId = this.apiUrl + '/account/getConnectedUserId'
@@ -149,7 +148,7 @@ export class AccountService extends HttpDataService {
     }
 
     private refreshMenus(): void {
-        this.interactionService.mustRefreshMenus()
+        this.interactionService.updateMenus()
     }
 
     private populateLocalStorage(response: any): void {
@@ -182,7 +181,7 @@ export class AccountService extends HttpDataService {
     }
 
     private setIsAdmin(isAdmin: boolean): void {
-        this.interactionService.mustRefreshUserRole(isAdmin)
+        this.interactionService.updateIsAdmin(isAdmin)
     }
 
     //#endregion
