@@ -29,6 +29,7 @@ export class AccountService extends HttpDataService {
 
     private displayname = new BehaviorSubject<string>(localStorage.getItem('displayname'))
     private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus())
+    private userId = new BehaviorSubject<string>(null)
     private apiUrl = environment.apiUrl
     private urlForgotPassword = this.apiUrl + '/account/forgotPassword'
     private urlGetConnectedUserId = this.apiUrl + '/account/getConnectedUserId'
@@ -53,12 +54,10 @@ export class AccountService extends HttpDataService {
         return this.http.post<any>(this.urlForgotPassword, formData)
     }
 
-    public getConnectedUserId(): Observable<any> {
-        return this.http.get<any>(this.urlGetConnectedUserId).pipe(
-            map(response => {
-                return <any>response
-            })
-        )
+    public getConnectedUserId(): void {
+        this.interactionService.userId.subscribe(response => {
+            return response
+        })
     }
 
     public getNewRefreshToken(): Observable<any> {
@@ -90,9 +89,9 @@ export class AccountService extends HttpDataService {
         return this.http.post<any>(this.urlToken, { language, userName, password, grantType }).pipe(map(response => {
             this.setLoginStatus(true)
             this.setIsAdmin(response.isAdmin)
+            this.setUserData(response.userId, response.displayname)
             this.populateLocalStorage(response)
             this.populateStorageFromAPI()
-            this.setUserData()
             this.refreshMenus()
         }))
     }
@@ -176,9 +175,13 @@ export class AccountService extends HttpDataService {
         this.loginStatus.next(status)
     }
 
-    private setUserData(): void {
-        this.displayname.next(localStorage.getItem('displayname'))
+    private setUserData(userId: string, displayname: string): void {
+        this.interactionService.updateUserDetails(userId, displayname)
     }
+
+    // private setUserData(): void {
+    //     this.displayname.next(localStorage.getItem('displayname'))
+    // }
 
     private setIsAdmin(isAdmin: boolean): void {
         this.interactionService.updateIsAdmin(isAdmin)

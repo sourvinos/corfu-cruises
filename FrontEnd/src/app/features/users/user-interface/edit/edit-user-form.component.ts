@@ -105,24 +105,24 @@ export class EditUserFormComponent {
     }
 
     public changePassword(): void {
-        this.accountService.getConnectedUserId().subscribe(response => {
-            if (response.userId != this.form.value.id) {
-                this.dialogService.open(this.messageSnackbarService.passwordCanBeChangedOnlyByAccountOwner(), 'error', ['ok'])
-            } else {
-                if (this.form.dirty) {
-                    this.dialogService.open(this.messageSnackbarService.formIsDirty(), 'warning', ['abort', 'ok']).subscribe(response => {
-                        if (response) {
-                            this.onSave(false).then(() => {
-                                this.resetForm()
-                                this.router.navigate(['/users/' + this.user.id + '/changePassword'])
-                            })
-                        }
-                    })
-                } else {
-                    this.router.navigate(['/users/' + this.user.id + '/changePassword'])
-                }
-            }
-        })
+        // this.accountService.getConnectedUserId().subscribe(response => {
+        //     if (response.userId != this.form.value.id) {
+        //         this.dialogService.open(this.messageSnackbarService.passwordCanBeChangedOnlyByAccountOwner(), 'error', ['ok'])
+        //     } else {
+        //         if (this.form.dirty) {
+        //             this.dialogService.open(this.messageSnackbarService.formIsDirty(), 'warning', ['abort', 'ok']).subscribe(response => {
+        //                 if (response) {
+        //                     this.onSave(false).then(() => {
+        //                         this.resetForm()
+        //                         this.router.navigate(['/users/' + this.user.id + '/changePassword'])
+        //                     })
+        //                 }
+        //             })
+        //         } else {
+        //             this.router.navigate(['/users/' + this.user.id + '/changePassword'])
+        //         }
+        //     }
+        // })
     }
 
     public getHint(id: string, minmax = 0): string {
@@ -197,9 +197,9 @@ export class EditUserFormComponent {
         this.icon = 'home'
         this.header = 'my-header'
         this.getConnectedUserRole().then(() => new Promise(() => {
-            this.getConnectedUserId().then(() => {
-                this.populateDropDowns()
-            })
+            // this.getConnectedUserId().then(() => {
+            //     this.populateDropDowns()
+            // })
         }))
     }
 
@@ -242,15 +242,15 @@ export class EditUserFormComponent {
         return promise
     }
 
-    private getConnectedUserId(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            firstValueFrom(this.accountService.getConnectedUserId()).then(
-                (response) => {
-                    resolve(response.userId)
-                })
-        })
-        return promise
-    }
+    // private getConnectedUserId(): Promise<any> {
+    //     const promise = new Promise((resolve) => {
+    //         firstValueFrom(this.accountService.getConnectedUserId()).then(
+    //             (response) => {
+    //                 resolve(response.userId)
+    //             })
+    //     })
+    //     return promise
+    // }
 
     private getConnectedUserRole(): Promise<any> {
         const promise = new Promise((resolve) => {

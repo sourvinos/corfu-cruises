@@ -1,6 +1,5 @@
 import { Component, HostListener } from '@angular/core'
 import { Router } from '@angular/router'
-import { firstValueFrom, Observable, Subject, takeUntil } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
@@ -18,9 +17,9 @@ export class UserMenuComponent {
 
     //#region variables
 
-    private unsubscribe = new Subject<void>()
-    public loginStatus: Observable<boolean>
-    public menuItems: [] = []
+    private userId: string
+    public displayedUsername: string
+    public menuItems = []
 
     //#endregion
 
@@ -34,44 +33,30 @@ export class UserMenuComponent {
         })
     }
 
+    //#endregion
+
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.messageMenuService.getMessages().then((response) => {
-            this.createMenu(response)
-            this.subscribeToInteractionService()
-        })
-    }
-
-    ngDoCheck(): void {
-        this.updateVariables()
+        this.getMenuItemsFromSubscription()
+        this.getUserDetailsFromSubscription()
     }
 
     //#endregion
 
     //#region public methods
 
-    public editAccount(): void {
-        this.accountService.getConnectedUserId().subscribe(response => {
-            this.localStorageService.saveItem('returnUrl', '/')
-            this.router.navigate(['/users/' + response.userId])
-        })
-    }
-
-    public getLabel(id: string): string {
-        return this.messageMenuService.getDescription(this.menuItems, id)
+    public editRecord(): void {
+        this.localStorageService.saveItem('returnUrl', '/')
+        this.router.navigate(['/users/' + this.userId])
     }
 
     public getIcon(filename: string): string {
         return environment.menuIconDirectory + filename + '-' + this.localStorageService.getItem('my-theme') + '.svg'
     }
 
-    public getUserDisplayname(): string {
-        let userDisplayName = ''
-        this.accountService.getUserDisplayname.subscribe(result => {
-            userDisplayName = result
-        })
-        return userDisplayName
+    public getLabel(id: string): string {
+        return this.messageMenuService.getDescription(this.menuItems, id)
     }
 
     public hideMenu(): void {
@@ -84,41 +69,25 @@ export class UserMenuComponent {
         this.accountService.logout()
     }
 
-    public editRecord(): void {
-        this.getConnectedUserId().then((response) => {
-            this.localStorageService.saveItem('returnUrl', '/')
-            this.router.navigate(['/users/' + response])
-        })
-    }
-
     //#endregion
 
     //#region private methods
 
-    private createMenu(response: any): void {
-        this.menuItems = response
-    }
-
-    private getConnectedUserId(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            firstValueFrom(this.accountService.getConnectedUserId()).then((response) => {
-                resolve(response.userId)
-            })
-        })
-        return promise
-    }
-
-    private subscribeToInteractionService(): void {
-        this.interactionService.refreshMenus.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+    private getMenuItemsFromSubscription(): void {
+        this.interactionService.refreshMenus.subscribe(() => {
             this.messageMenuService.getMessages().then((response) => {
                 this.menuItems = response
-                this.createMenu(response)
             })
         })
     }
 
-    private updateVariables(): void {
-        this.loginStatus = this.accountService.isLoggedIn
+    private getUserDetailsFromSubscription(): void {
+        this.interactionService.userId.subscribe(response => {
+            this.userId = response
+        })
+        this.interactionService.displayedUsername.subscribe(response => {
+            this.displayedUsername = response
+        })
     }
 
     //#endregion

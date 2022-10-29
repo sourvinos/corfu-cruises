@@ -64,7 +64,7 @@ export class InvoicingCriteriaComponent {
         this.initForm()
         this.populateDropdowns()
         this.populateFieldsFromStoredVariables()
-        this.showConnectedCustomerInDropdown()
+        // this.showConnectedCustomerInDropdown()
         this.setLocale()
         this.subscribeToInteractionService()
         this.focusOnField()
@@ -144,15 +144,15 @@ export class InvoicingCriteriaComponent {
         this.helperService.focusOnField('fromDate')
     }
 
-    private getConnectedUserId(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            firstValueFrom(this.accountService.getConnectedUserId()).then((response) => {
-                this.userId = response.userId
-                resolve(this.userId)
-            })
-        })
-        return promise
-    }
+    // private getConnectedUserId(): Promise<any> {
+    //     const promise = new Promise((resolve) => {
+    //         firstValueFrom(this.accountService.getConnectedUserId()).then((response) => {
+    //             this.userId = response.userId
+    //             resolve(this.userId)
+    //         })
+    //     })
+    //     return promise
+    // }
 
     private getConnectedUserRole(): Promise<any> {
         const promise = new Promise((resolve) => {
@@ -241,13 +241,13 @@ export class InvoicingCriteriaComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
-    private showConnectedCustomerInDropdown() {
-        this.getConnectedUserId().then(() => {
-            this.getConnectedUserRole().then(() => {
-                this.getLinkedCustomer()
-            })
-        })
-    }
+    // private showConnectedCustomerInDropdown() {
+    //     this.getConnectedUserId().then(() => {
+    //         this.getConnectedUserRole().then(() => {
+    //             this.getLinkedCustomer()
+    //         })
+    //     })
+    // }
 
     private storeCriteria(): void {
         this.localStorageService.saveItem('invoicing-criteria', JSON.stringify(this.form.value))

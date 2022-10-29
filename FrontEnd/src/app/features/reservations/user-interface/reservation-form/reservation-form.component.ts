@@ -283,14 +283,14 @@ export class ReservationFormComponent {
     }
 
     private doPostInitJobs() {
-        this.getConnectedUserId().then(() => {
-            this.getConnectedUserRole().then(() => {
-                this.getLinkedCustomer().then(() => {
-                    this.populateDropDowns()
-                    this.updateReturnUrl()
-                })
-            })
-        })
+        // this.getConnectedUserId().then(() => {
+        //     this.getConnectedUserRole().then(() => {
+        //         this.getLinkedCustomer().then(() => {
+        //             this.populateDropDowns()
+        //             this.updateReturnUrl()
+        //         })
+        //     })
+        // })
     }
 
     private filterAutocomplete(array: string, field: string, value: any): any[] {
@@ -329,15 +329,15 @@ export class ReservationFormComponent {
         this.helperService.focusOnField(field)
     }
 
-    private getConnectedUserId(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            firstValueFrom(this.accountService.getConnectedUserId()).then((response) => {
-                this.userId = response.userId
-                resolve(this.userId)
-            })
-        })
-        return promise
-    }
+    // private getConnectedUserId(): Promise<any> {
+    //     const promise = new Promise((resolve) => {
+    //         firstValueFrom(this.accountService.getConnectedUserId()).then((response) => {
+    //             this.userId = response.userId
+    //             resolve(this.userId)
+    //         })
+    //     })
+    //     return promise
+    // }
 
     private getConnectedUserRole(): Promise<any> {
         const promise = new Promise((resolve) => {
