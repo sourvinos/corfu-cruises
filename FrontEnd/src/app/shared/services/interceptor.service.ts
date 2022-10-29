@@ -7,7 +7,7 @@ import { AccountService } from './account.service'
 
 @Injectable({ providedIn: 'root' })
 
-export class MonitorInterceptor {
+export class InterceptorService {
 
     //#region variables
 
