@@ -3,7 +3,7 @@ import { Component, Inject, NgZone } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { firstValueFrom, Observable, Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
@@ -67,7 +67,6 @@ export class PassengerFormComponent {
         this.populateDropdowns()
         this.populateFields(this.data)
         this.setLocale()
-        this.getConnectedUserRole()
     }
 
     ngOnDestroy(): void {
@@ -157,16 +156,6 @@ export class PassengerFormComponent {
             'isCheckedIn': form.value.isCheckedIn
         }
         return passenger
-    }
-
-    private getConnectedUserRole(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            firstValueFrom(this.accountService.isConnectedUserAdmin()).then((response) => {
-                this.isAdmin = response
-                resolve(this.isAdmin)
-            })
-        })
-        return promise
     }
 
     private initForm(): void {

@@ -67,6 +67,7 @@ namespace API.Infrastructure.Auth {
                     UserId = response.UserId,
                     IsAdmin = user.IsAdmin,
                     Displayname = response.Displayname,
+                    CustomerId = user.CustomerId,
                     Token = response.Token,
                     RefreshToken = response.RefreshToken,
                     Expiration = response.Expiration,
@@ -109,6 +110,7 @@ namespace API.Infrastructure.Auth {
             var response = new TokenResponse() {
                 UserId = user.Id,
                 Displayname = user.Displayname,
+                CustomerId = user.CustomerId,
                 Token = encodedToken,
                 RefreshToken = refreshToken,
                 Expiration = newtoken.ValidTo,

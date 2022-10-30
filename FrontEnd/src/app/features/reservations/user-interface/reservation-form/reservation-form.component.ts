@@ -3,10 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { firstValueFrom, Observable, Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
-import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerDropdownVM } from '../../../customers/classes/view-models/customer-dropdown-vm'
 import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
@@ -77,7 +76,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
+    constructor( private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
         this.activatedRoute.params.subscribe(x => {
             this.initForm()
             if (x.id) {
@@ -327,26 +326,6 @@ export class ReservationFormComponent {
 
     private focusOnField(field: string): void {
         this.helperService.focusOnField(field)
-    }
-
-    // private getConnectedUserId(): Promise<any> {
-    //     const promise = new Promise((resolve) => {
-    //         firstValueFrom(this.accountService.getConnectedUserId()).then((response) => {
-    //             this.userId = response.userId
-    //             resolve(this.userId)
-    //         })
-    //     })
-    //     return promise
-    // }
-
-    private getConnectedUserRole(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            firstValueFrom(this.accountService.isConnectedUserAdmin()).then((response) => {
-                this.isAdmin = response
-                resolve(this.isAdmin)
-            })
-        })
-        return promise
     }
 
     private getLinkedCustomer(): Promise<any> {

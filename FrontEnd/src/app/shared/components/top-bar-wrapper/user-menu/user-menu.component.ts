@@ -6,6 +6,7 @@ import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageMenuService } from '../../../services/messages-menu.service'
 import { environment } from 'src/environments/environment'
+import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 
 @Component({
     selector: 'user-menu',
@@ -82,12 +83,7 @@ export class UserMenuComponent {
     }
 
     private getUserDetailsFromSubscription(): void {
-        this.interactionService.userId.subscribe(response => {
-            this.userId = response
-        })
-        this.interactionService.displayedUsername.subscribe(response => {
-            this.displayedUsername = response
-        })
+        this.displayedUsername = ConnectedUser.displayname
     }
 
     //#endregion

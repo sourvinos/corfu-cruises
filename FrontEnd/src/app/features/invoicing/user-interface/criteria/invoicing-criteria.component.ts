@@ -3,11 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
-import { firstValueFrom, Observable, Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
+import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { CustomerDropdownVM } from 'src/app/features/customers/classes/view-models/customer-dropdown-vm'
 import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
@@ -22,6 +23,7 @@ import { ShipDropdownVM } from 'src/app/features/ships/classes/view-models/ship-
 import { UserService } from 'src/app/features/users/classes/services/user.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
+import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
 
 @Component({
     selector: 'invoicing-criteria',
@@ -42,9 +44,6 @@ export class InvoicingCriteriaComponent {
     public input: InputTabStopDirective
     public parentUrl = '/'
 
-    private userId: string
-    public isAdmin: false
-
     public isAutoCompleteDisabled = true
     public customers: CustomerDropdownVM[] = []
     public filteredCustomers: Observable<CustomerDropdownVM[]>
@@ -55,7 +54,7 @@ export class InvoicingCriteriaComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router, private userService: UserService) { }
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router, private userService: UserService) { }
 
     //#region lifecycle hooks
 
@@ -64,7 +63,7 @@ export class InvoicingCriteriaComponent {
         this.initForm()
         this.populateDropdowns()
         this.populateFieldsFromStoredVariables()
-        // this.showConnectedCustomerInDropdown()
+        this.getCustomer()
         this.setLocale()
         this.subscribeToInteractionService()
         this.focusOnField()
@@ -105,8 +104,8 @@ export class InvoicingCriteriaComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public userMustBeAdmin(): boolean {
-        return this.isAdmin
+    public isAdmin(): boolean {
+        return ConnectedUser.isAdmin
     }
 
     //#endregion
@@ -144,41 +143,17 @@ export class InvoicingCriteriaComponent {
         this.helperService.focusOnField('fromDate')
     }
 
-    // private getConnectedUserId(): Promise<any> {
-    //     const promise = new Promise((resolve) => {
-    //         firstValueFrom(this.accountService.getConnectedUserId()).then((response) => {
-    //             this.userId = response.userId
-    //             resolve(this.userId)
-    //         })
-    //     })
-    //     return promise
-    // }
-
-    private getConnectedUserRole(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            firstValueFrom(this.accountService.isConnectedUserAdmin()).then((response) => {
-                this.isAdmin = response
-                resolve(this.isAdmin)
+    private getCustomer(): void {
+        if (ConnectedUser.customerId != undefined) {
+            this.customerService.getSingle(ConnectedUser.customerId).subscribe(response => {
+                this.form.patchValue({
+                    customer: {
+                        'id': response.body.Id,
+                        'description': response.body.description
+                    }
+                })
             })
-        })
-        return promise
-    }
-
-    private getLinkedCustomer(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            this.userService.getSingle(this.userId).subscribe(user => {
-                if (user.customer.id != 0) {
-                    this.form.patchValue({
-                        customer: {
-                            'id': user.customer.id,
-                            'description': user.customer.description
-                        }
-                    })
-                }
-                resolve(user)
-            })
-        })
-        return promise
+        }
     }
 
     private goBack(): void {
@@ -240,14 +215,6 @@ export class InvoicingCriteriaComponent {
     private setLocale(): void {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
-
-    // private showConnectedCustomerInDropdown() {
-    //     this.getConnectedUserId().then(() => {
-    //         this.getConnectedUserRole().then(() => {
-    //             this.getLinkedCustomer()
-    //         })
-    //     })
-    // }
 
     private storeCriteria(): void {
         this.localStorageService.saveItem('invoicing-criteria', JSON.stringify(this.form.value))

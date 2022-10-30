@@ -4,6 +4,7 @@ import { Observable, Subject, takeUntil } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageMenuService } from 'src/app/shared/services/messages-menu.service'
 import { environment } from 'src/environments/environment'
@@ -20,7 +21,6 @@ export class TasksMenuComponent {
 
     private ngunsubscribe = new Subject<void>()
     public loginStatus: Observable<boolean>
-    public isAdmin: boolean
     public menuItems: [] = []
 
     //#endregion
@@ -44,12 +44,6 @@ export class TasksMenuComponent {
             this.createMenu(response)
             this.subscribeToInteractionService()
 
-        })
-    }
-
-    ngAfterViewInit(): void {
-        this.interactionService.isAdmin.subscribe(response => {
-            this.isAdmin = response
         })
     }
 
@@ -98,6 +92,10 @@ export class TasksMenuComponent {
         document.querySelectorAll('.sub-menu').forEach((item) => {
             item.classList.add('hidden')
         })
+    }
+
+    public isAdmin(): boolean {
+        return ConnectedUser.isAdmin
     }
 
     //#endregion

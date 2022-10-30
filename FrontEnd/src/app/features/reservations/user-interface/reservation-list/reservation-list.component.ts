@@ -2,7 +2,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { Table } from 'primeng/table'
-import { firstValueFrom, Subject } from 'rxjs'
+import { Subject } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { CoachRouteDropdownVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-dropdown-vm'
@@ -83,7 +83,6 @@ export class ReservationListComponent {
     ngOnInit(): void {
         this.initPersonTotals()
         this.updateTotals()
-        this.getConnectedUserRole()
         this.doDestinationForOverbookingTasks()
     }
 
@@ -267,16 +266,6 @@ export class ReservationListComponent {
                 this.router.navigate([this.parentUrl])
                 this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
-        })
-        return promise
-    }
-
-    private getConnectedUserRole(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            firstValueFrom(this.accountService.isConnectedUserAdmin()).then((response) => {
-                this.isAdmin = response
-                resolve(this.isAdmin)
-            })
         })
         return promise
     }

@@ -37,7 +37,7 @@ namespace API.Features.Customers {
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "user, admin")]
         public async Task<ResponseWithBody> GetByIdAsync(int id) {
             var x = await customerRepo.GetByIdAsync(id);
             if (x != null) {

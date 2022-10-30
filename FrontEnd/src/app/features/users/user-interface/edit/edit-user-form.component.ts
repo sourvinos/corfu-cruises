@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { firstValueFrom, Observable, Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
@@ -187,20 +187,14 @@ export class EditUserFormComponent {
         this.parentUrl = '/users'
         this.icon = 'arrow_back'
         this.header = 'header'
-        this.getConnectedUserRole().then(() => {
-            this.populateDropDowns()
-        })
+        this.populateDropDowns()
     }
 
     private editUserFromTopMenu() {
         this.parentUrl = '/'
         this.icon = 'home'
         this.header = 'my-header'
-        this.getConnectedUserRole().then(() => new Promise(() => {
-            // this.getConnectedUserId().then(() => {
-            //     this.populateDropDowns()
-            // })
-        }))
+        this.populateDropDowns()
     }
 
     private filterAutocomplete(array: string, field: string, value: any): any[] {
@@ -251,17 +245,6 @@ export class EditUserFormComponent {
     //     })
     //     return promise
     // }
-
-    private getConnectedUserRole(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            firstValueFrom(this.accountService.isConnectedUserAdmin()).then(
-                (response) => {
-                    this.isAdmin = response
-                    resolve(this.isAdmin)
-                })
-        })
-        return promise
-    }
 
     private goBack(): void {
         this.router.navigate([this.parentUrl])

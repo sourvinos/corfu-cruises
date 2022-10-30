@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { Observable, Subject, takeUntil } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
+import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageMenuService } from 'src/app/shared/services/messages-menu.service'
@@ -21,7 +22,6 @@ export class TablesMenuComponent {
     private ngunsubscribe = new Subject<void>()
     public loginStatus: Observable<boolean>
     public menuItems: [] = []
-    public isAdmin: boolean
 
     //#endregion
 
@@ -44,12 +44,6 @@ export class TablesMenuComponent {
             this.createMenu(response)
             this.subscribeToInteractionService()
 
-        })
-    }
-
-    ngAfterViewInit(): void {
-        this.interactionService.isAdmin.subscribe(response => {
-            this.isAdmin = response
         })
     }
 
@@ -98,6 +92,10 @@ export class TablesMenuComponent {
         document.querySelectorAll('.sub-menu').forEach((item) => {
             item.classList.add('hidden')
         })
+    }
+
+    public isAdmin(): boolean {
+        return ConnectedUser.isAdmin
     }
 
     //#endregion
