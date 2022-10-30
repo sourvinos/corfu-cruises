@@ -20,7 +20,7 @@ import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animati
 @Component({
     selector: 'forgot-password-form',
     templateUrl: './forgot-password-form.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './forgot-password-form.component.css'],
+    styleUrls: ['../../../../../assets/styles/forms.css', '../../../../shared/styles/login-forgot-password-form.css'],
     animations: [slideFromLeft, slideFromRight]
 })
 
