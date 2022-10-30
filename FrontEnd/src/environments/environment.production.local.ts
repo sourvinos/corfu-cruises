@@ -32,7 +32,7 @@ export const environment = {
         username: 'john',
         email: 'johnsourvinos@hotmail.com',
         password: 'ec11fc8c16db',
-        isHuman: true
+        noRobot: true
     },
     newUser: {
         userName: '',

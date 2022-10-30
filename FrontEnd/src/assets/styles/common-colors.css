@@ -15,7 +15,7 @@
     --color-button-background-primary: #13678a;
     --color-button-background-primary-hover: #799f9a;
     /*  Checkboxes */
-    --color-checkbox-background: #9bccc8;
+    --color-checkbox-background: #3baca3;
     /* Reservation Form Tabs */
     --color-tab-overview: #5f80a7;
     --color-tab-passengers: #829ebe;
@@ -29,7 +29,7 @@
     --color-loader: #d94040;
     /* Timeout snackbar */
     --color-timeout-snackbar: #d94040;
-    /* Criteria (Top Right) & Totals (Bottom Left) */
+    /* Criteria & Totals */
     --color-criteria-a: #1786cb;
     --color-criteria-a-border: #1786cb;
     --color-criteria-b: #709524;

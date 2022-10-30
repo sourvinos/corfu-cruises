@@ -1,0 +1,53 @@
+.styled-input-single {
+    font-family: var(--font-family-handbook);
+    padding: 1.25rem 0 1.25rem 2.5rem;
+    position: relative;
+    text-align: left;
+}
+
+.styled-input-single label {
+    color: var(--color-c) !important;
+    cursor: pointer;
+}
+
+.styled-input-single label:before, .styled-input-single label:after {
+    content: "";
+    position: absolute;
+    top: 56%;
+}
+
+.styled-input-single label:before {
+    background: #f7f7f7;
+    box-shadow: 0 0 0.0625rem grey;
+    height: 1.3125rem;
+    left: 0;
+    margin: -0.9375rem 0;
+    width: 1.3125rem;
+}
+
+.styled-input-single label:after {
+    background: var(--color-checkbox-background);
+    height: 0.9375rem;
+    left: 0.3125rem;
+    margin: -0.75rem -0.125rem;
+    opacity: 0;
+    transform: translate3d(-2.5rem, 0, 0) scale(0.5);
+    transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+    width: 0.9375rem;
+}
+
+.styled-input-single input[type="checkbox"] {
+    left: -600rem;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+}
+
+.styled-input-single input[type="checkbox"]:checked+label:after {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.styled-input--square label:before, .styled-input--square label:after {
+    border-radius: 0;
+}
