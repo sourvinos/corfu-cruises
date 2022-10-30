@@ -3,8 +3,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp");
 
-@import "~leaflet/dist/leaflet.css";
-
 @import "autocomplete.css";
 @import "buttons.css";
 @import "calendar.css";
@@ -17,7 +15,6 @@
 @import "input-focused-not-error.css";
 @import "input-not-focused-not-error.css";
 @import "input.css";
-@import "leaflet.css";
 @import "loader.css";
 @import "menu.css";
 @import "prime-checkbox.css";

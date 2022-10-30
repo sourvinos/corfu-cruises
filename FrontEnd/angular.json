@@ -54,8 +54,6 @@
                         ],
                         "styles": [
                             "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-                            "node_modules/leaflet.markercluster/dist/markercluster.css",
-                            "node_modules/leaflet.markercluster/dist/markercluster.default.css",
                             "node_modules/primeicons/primeicons.css",
                             "node_modules/primeng/resources/primeng.min.css",
                             "node_modules/primeng/resources/themes/md-light-indigo/theme.css",

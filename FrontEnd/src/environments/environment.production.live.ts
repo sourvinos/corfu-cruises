@@ -25,9 +25,6 @@ export const environment = {
     menuIconDirectory: 'assets/images/menu/',
     criteriaIconDirectory: 'assets/images/criteria/',
     isWideScreen: 1920,
-    leaflet: {
-        token: 'pk.eyJ1Ijoic291cnZpbm9zIiwiYSI6ImNrajEwa3plbDRzY2gzMnFqcXppZzNhaDkifQ.JMR_dEvdaFTpQ2jiapPrhg'
-    },
     login: {
         username: '',
         email: '',
