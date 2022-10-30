@@ -7,8 +7,6 @@ namespace API.Infrastructure.Auth {
         public string ExpireTime { get; set; }
         public string Audience { get; set; }
         public string ClientId { get; set; }
-        public string GrantType { get; set; }
-        public string RefreshToken { get; set; }
 
     }
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using API.Features.Users;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Helpers;
+using API.Infrastructure.Responses;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -32,12 +33,10 @@ namespace API.Infrastructure.Auth {
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> Auth([FromBody] TokenRequest model) {
-            return model.GrantType switch {
-                "password" => await GenerateNewToken(model),
-                "refresh_token" => await RefreshToken(model),
-                _ => AuthenticationFailed(),
-            };
+        public async Task<Login> Auth([FromBody] TokenRequest model) {
+            return model.GrantType == "password"
+                ? await Login(model)
+                : await RefreshToken(model);
         }
 
         [HttpPost("[action]")]
@@ -50,7 +49,7 @@ namespace API.Infrastructure.Auth {
             });
         }
 
-        private async Task<IActionResult> GenerateNewToken(TokenRequest model) {
+        private async Task<Login> Login(TokenRequest model) {
             var user = await userManager.FindByNameAsync(model.Username);
             if (user?.IsActive == true && await userManager.IsEmailConfirmedAsync(user) && await userManager.CheckPasswordAsync(user, model.Password)) {
                 var newRefreshToken = CreateRefreshToken(settings.ClientId, user.Id);
@@ -63,17 +62,19 @@ namespace API.Infrastructure.Auth {
                 context.Tokens.Add(newRefreshToken);
                 await context.SaveChangesAsync();
                 var response = await CreateAccessToken(user, newRefreshToken.Value);
-                return StatusCode(200, new TokenResponse {
-                    UserId = response.UserId,
+                return new Login {
+                    UserId = user.Id,
                     IsAdmin = user.IsAdmin,
-                    Displayname = response.Displayname,
+                    Displayname = user.Displayname,
                     CustomerId = user.CustomerId,
                     Token = response.Token,
                     RefreshToken = response.RefreshToken,
                     Expiration = response.Expiration,
-                });
+                };
             } else {
-                return AuthenticationFailed();
+                throw new CustomException() {
+                    ResponseCode = 401
+                };
             }
         }
 
@@ -108,9 +109,6 @@ namespace API.Infrastructure.Auth {
             var newtoken = tokenHandler.CreateToken(tokenDescriptor);
             var encodedToken = tokenHandler.WriteToken(newtoken);
             var response = new TokenResponse() {
-                UserId = user.Id,
-                Displayname = user.Displayname,
-                CustomerId = user.CustomerId,
                 Token = encodedToken,
                 RefreshToken = refreshToken,
                 Expiration = newtoken.ValidTo,
@@ -118,30 +116,32 @@ namespace API.Infrastructure.Auth {
             return response;
         }
 
-        private async Task<IActionResult> RefreshToken(TokenRequest model) {
-            try {
-                var refreshToken = context.Tokens.FirstOrDefault(t => t.ClientId == settings.ClientId && t.Value == model.RefreshToken);
-                if (refreshToken == null) return AuthenticationFailed();
-                if (refreshToken.ExpiryTime < DateTime.UtcNow) return AuthenticationFailed();
-                var user = await userManager.FindByIdAsync(refreshToken.UserId);
-                if (user == null) return AuthenticationFailed();
-                var rtNew = CreateRefreshToken(refreshToken.ClientId, refreshToken.UserId);
-                context.Tokens.Remove(refreshToken);
-                context.Tokens.Add(rtNew);
-                context.SaveChanges();
-                var token = await CreateAccessToken(user, rtNew.Value);
-                return StatusCode(200, new {
-                    response = token
-                });
-            } catch {
-                return AuthenticationFailed();
-            }
+        private async Task<Login> RefreshToken(TokenRequest model) {
+            var refreshToken = context.Tokens.FirstOrDefault(t => t.ClientId == settings.ClientId && t.Value == model.RefreshToken);
+            if (refreshToken == null) AuthenticationFailed();
+            if (refreshToken.ExpiryTime < DateTime.UtcNow) AuthenticationFailed();
+            var user = await userManager.FindByIdAsync(refreshToken.UserId);
+            if (user == null) AuthenticationFailed();
+            var rtNew = CreateRefreshToken(refreshToken.ClientId, refreshToken.UserId);
+            context.Tokens.Remove(refreshToken);
+            context.Tokens.Add(rtNew);
+            context.SaveChanges();
+            var token = await CreateAccessToken(user, rtNew.Value);
+            return new Login {
+                UserId = user.Id,
+                IsAdmin = user.IsAdmin,
+                Displayname = user.Displayname,
+                CustomerId = user.CustomerId,
+                Token = token.Token,
+                RefreshToken = token.RefreshToken,
+                Expiration = token.Expiration
+            };
         }
 
-        private IActionResult AuthenticationFailed() {
-            return StatusCode(401, new {
-                response = ApiMessages.AuthenticationFailed()
-            });
+        private static void AuthenticationFailed() {
+            throw new CustomException() {
+                ResponseCode = 401
+            };
         }
 
     }
