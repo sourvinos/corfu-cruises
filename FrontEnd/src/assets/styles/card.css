@@ -1,0 +1,11 @@
+.mat-card {
+    background-color: transparent;
+    border: 1px solid var(--color-b);
+    height: 100%;
+    padding: 2rem !important;
+    transition: all var(--delay) ease-in !important;
+}
+
+.mat-card-header-text {
+    margin: 0 !important;
+}

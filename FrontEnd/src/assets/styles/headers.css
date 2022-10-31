@@ -1,5 +1,5 @@
 h1 {
-    color: var(--color-c) !important;
+    color: var(--color-f) !important;
     font-family: var(--font-family-handbook) !important;
     font-size: var(--font-size-h1) !important;
     font-weight: var(--font-weight-header) !important;
@@ -8,7 +8,7 @@ h1 {
 }
 
 h6 {
-    color: var(--color-c) !important;
+    color: var(--color-f) !important;
     font-family: var(--font-family-handbook) !important;
     font-weight: var(--font-weight-header) !important;
     margin: 0 !important;

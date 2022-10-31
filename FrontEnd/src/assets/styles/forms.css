@@ -26,6 +26,7 @@
 #content {
     display: flex;
     flex-direction: column;
+    height: 100%;
     justify-content: center;
     margin: 0 auto;
     width: 80%;
@@ -48,7 +49,7 @@
     flex-direction: row;
     justify-content: right;
     margin-top: auto;
-    padding: var(--gap) 2rem;
+    padding: var(--gap) 4rem;
 }
 
 #footer .button-group {
