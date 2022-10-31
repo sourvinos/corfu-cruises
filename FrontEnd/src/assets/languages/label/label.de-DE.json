@@ -1021,19 +1021,6 @@
         ]
     },
     {
-        "feature": "credits",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Ressourcen"
-            },
-            {
-                "id": "closeButton",
-                "description": "Schließen"
-            }
-        ]
-    },
-    {
         "feature": "shipList",
         "labels": [
             {

@@ -1021,19 +1021,6 @@
         ]
     },
     {
-        "feature": "credits",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Sources"
-            },
-            {
-                "id": "closeButton",
-                "description": "Cloture"
-            }
-        ]
-    },
-    {
         "feature": "shipList",
         "labels": [
             {

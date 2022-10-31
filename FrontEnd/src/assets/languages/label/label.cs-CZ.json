@@ -1021,19 +1021,6 @@
         ]
     },
     {
-        "feature": "credits",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Zdroje"
-            },
-            {
-                "id": "closeButton",
-                "description": "Zavřít"
-            }
-        ]
-    },
-    {
         "feature": "shipList",
         "labels": [
             {

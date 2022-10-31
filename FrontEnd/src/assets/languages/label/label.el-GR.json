@@ -1021,19 +1021,6 @@
         ]
     },
     {
-        "feature": "credits",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Πηγές"
-            },
-            {
-                "id": "closeButton",
-                "description": "ΚΛΕΙΣΙΜΟ"
-            }
-        ]
-    },
-    {
         "feature": "shipList",
         "labels": [
             {

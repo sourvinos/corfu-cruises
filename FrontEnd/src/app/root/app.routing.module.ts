@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core'
 import { NoPreloading, RouterModule, Routes } from '@angular/router'
 // Components
 import { AvailabilityComponent } from '../features/availability/user-interface/availability.component'
-import { CreditsComponent } from '../features/credits/user-interface/credits.component'
 import { EmptyPageComponent } from '../shared/components/empty-page/empty-page.component'
 import { ForgotPasswordFormComponent } from '../features/users/user-interface/forgot-password/forgot-password-form.component'
 import { HomeComponent } from '../features/home/home.component'
@@ -16,7 +15,6 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuardService], pathMatch: 'full' },
     { path: 'availability', component: AvailabilityComponent, canActivate: [AuthGuardService] },
     { path: 'coachRoutes', loadChildren: () => import('../features/coachRoutes/classes/modules/coachRoute.module').then(m => m.CoachRouteModule) },
-    { path: 'credits', component: CreditsComponent },
     { path: 'customers', loadChildren: () => import('../features/customers/classes/modules/customer.module').then(m => m.CustomerModule) },
     { path: 'destinations', loadChildren: () => import('../features/destinations/classes/modules/destination.module').then(m => m.DestinationModule) },
     { path: 'drivers', loadChildren: () => import('../features/drivers/classes/modules/driver.module').then(m => m.DriverModule) },
