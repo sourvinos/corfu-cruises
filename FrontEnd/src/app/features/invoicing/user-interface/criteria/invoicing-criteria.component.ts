@@ -22,14 +22,12 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { ShipDropdownVM } from 'src/app/features/ships/classes/view-models/ship-dropdown-vm'
 import { UserService } from 'src/app/features/users/classes/services/user.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
 
 @Component({
     selector: 'invoicing-criteria',
     templateUrl: './invoicing-criteria.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './invoicing-criteria.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/forms.css', './invoicing-criteria.component.css']
 })
 
 export class InvoicingCriteriaComponent {

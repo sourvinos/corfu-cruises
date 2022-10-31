@@ -22,13 +22,11 @@ import { ModalActionResultService } from 'src/app/shared/services/modal-action-r
 import { UpdateUserDto } from '../../classes/dtos/update-user-dto'
 import { UserService } from '../../classes/services/user.service'
 import { ValidationService } from '../../../../shared/services/validation.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'edit-user-form',
     templateUrl: './edit-user-form.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/forms.css']
 })
 
 export class EditUserFormComponent {

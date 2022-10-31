@@ -14,13 +14,11 @@ import { KeyboardShortcuts, Unlisten } from '../../../../shared/services/keyboar
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'change-password-form',
     templateUrl: './change-password-form.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './change-password-form.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/forms.css', './change-password-form.component.css']
 })
 
 export class ChangePasswordFormComponent {

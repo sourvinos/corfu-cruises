@@ -9,13 +9,11 @@ import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'ship-list',
     templateUrl: './ship-list.component.html',
-    styleUrls: ['../../../../assets/styles/lists.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../assets/styles/lists.css']
 })
 
 export class ShipListComponent {

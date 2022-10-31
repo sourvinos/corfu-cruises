@@ -9,13 +9,11 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from './../../../shared/services/messages-label.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'availability',
     templateUrl: './availability.component.html',
-    styleUrls: ['../../../../assets/styles/lists.css', './availability.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../assets/styles/lists.css', './availability.component.css']
 })
 
 export class AvailabilityComponent {

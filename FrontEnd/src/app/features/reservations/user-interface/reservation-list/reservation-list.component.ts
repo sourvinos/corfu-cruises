@@ -28,13 +28,11 @@ import { ReservationToShipComponent } from '../reservation-to-ship/reservation-t
 import { ShipRouteDropdownVM } from './../../../shipRoutes/classes/view-models/shipRoute-dropdown-vm'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { environment } from 'src/environments/environment'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'reservation-list',
     templateUrl: './reservation-list.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './reservation-list.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/lists.css', './reservation-list.component.css']
 })
 
 export class ReservationListComponent {

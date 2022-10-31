@@ -4,13 +4,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Driver } from 'src/app/features/drivers/classes/models/driver'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'reservation-to-driver-form',
     templateUrl: './reservation-to-driver-form.component.html',
-    styleUrls: ['../../../../../assets/styles/dialogs.css', './reservation-to-driver-form.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/dialogs.css', './reservation-to-driver-form.component.css']
 })
 
 export class ReservationToDriverComponent {

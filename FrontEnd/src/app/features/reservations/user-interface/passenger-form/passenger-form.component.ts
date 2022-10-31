@@ -21,14 +21,12 @@ import { NationalityService } from 'src/app/features/nationalities/classes/servi
 import { PassengerReadDto } from '../../classes/dtos/form/passenger-read-dto'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 import { GenderDropdownVM } from 'src/app/features/genders/classes/view-models/gender-dropdown-vm'
 
 @Component({
     selector: 'passenger-form',
     templateUrl: './passenger-form.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './passenger-form.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/forms.css', './passenger-form.component.css']
 })
 
 export class PassengerFormComponent {

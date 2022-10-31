@@ -33,13 +33,11 @@ import { UserService } from 'src/app/features/users/classes/services/user.servic
 import { ValidationService } from './../../../../shared/services/validation.service'
 import { VoucherService } from '../../classes/voucher/services/voucher.service'
 import { WarningIconService } from '../../classes/services/warning-icon.service'
-import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'reservation-form',
     templateUrl: './reservation-form.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './reservation-form.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/forms.css', './reservation-form.component.css']
 })
 
 export class ReservationFormComponent {

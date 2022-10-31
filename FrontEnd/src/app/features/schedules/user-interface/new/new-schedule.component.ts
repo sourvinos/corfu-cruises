@@ -27,13 +27,11 @@ import { ScheduleService } from '../../classes/services/schedule.service'
 import { ScheduleWriteVM } from '../../classes/form/schedule-write-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'new-schedule',
     templateUrl: './new-schedule.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './new-schedule.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/forms.css', './new-schedule.component.css']
 })
 
 export class NewScheduleComponent {

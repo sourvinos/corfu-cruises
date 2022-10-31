@@ -4,7 +4,6 @@ import { firstValueFrom } from 'rxjs'
 // Custom
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 
-
 @Injectable({ providedIn: 'root' })
 
 export class MessageMenuService {

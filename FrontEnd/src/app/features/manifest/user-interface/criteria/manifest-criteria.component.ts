@@ -26,13 +26,11 @@ import { ShipRouteService } from 'src/app/features/shipRoutes/classes/services/s
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'manifest-criteria',
     templateUrl: './manifest-criteria.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './manifest-criteria.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/forms.css', './manifest-criteria.component.css']
 })
 
 export class ManifestCriteriaComponent {

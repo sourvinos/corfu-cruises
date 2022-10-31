@@ -10,13 +10,11 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { ShipRouteService } from '../classes/services/shipRoute.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'ship-route-list',
     templateUrl: './shipRoute-list.component.html',
-    styleUrls: ['../../../../assets/styles/lists.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../assets/styles/lists.css']
 })
 
 export class ShipRouteListComponent {

@@ -10,13 +10,11 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { ScheduleService } from 'src/app/features/schedules/classes/services/schedule.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'calendar',
     templateUrl: './calendar.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './calendar.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/lists.css', './calendar.component.css']
 })
 
 export class CalendarComponent {

@@ -54,7 +54,7 @@
     <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
 
     <div id="footer">
-        <div @slideFromRight class="button-group">
+        <div class="button-group">
             <button data-cy="save" mat-flat-button class="primary" [disabled]="!form.valid" id="save" (click)="onSave()">{{ getLabel('saveButton') }}</button>
         </div>
     </div>

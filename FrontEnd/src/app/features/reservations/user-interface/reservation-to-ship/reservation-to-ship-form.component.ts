@@ -4,13 +4,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { ShipDropdownVM } from '../../../ships/classes/view-models/ship-dropdown-vm'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'reservation-to-ship-form',
     templateUrl: './reservation-to-ship-form.component.html',
-    styleUrls: ['../../../../../assets/styles/dialogs.css', './reservation-to-ship-form.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/dialogs.css', './reservation-to-ship-form.component.css']
 })
 
 export class ReservationToShipComponent {

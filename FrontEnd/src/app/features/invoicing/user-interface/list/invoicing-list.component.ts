@@ -14,13 +14,11 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { environment } from 'src/environments/environment'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'invoicing-list',
     templateUrl: './invoicing-list.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './invoicing-list.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/lists.css', './invoicing-list.component.css']
 })
 
 export class InvoicingListComponent {

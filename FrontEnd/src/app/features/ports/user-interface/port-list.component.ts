@@ -10,13 +10,11 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
-import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'port-list',
     templateUrl: './port-list.component.html',
-    styleUrls: ['../../../../assets/styles/lists.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../assets/styles/lists.css']
 })
 
 export class PortListComponent {

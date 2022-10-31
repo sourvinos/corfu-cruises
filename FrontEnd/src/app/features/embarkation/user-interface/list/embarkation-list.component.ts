@@ -22,13 +22,11 @@ import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-
 import { ShipDropdownVM } from 'src/app/features/ships/classes/view-models/ship-dropdown-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'embarkation-list',
     templateUrl: './embarkation-list.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './embarkation-list.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/lists.css', './embarkation-list.component.css']
 })
 
 export class EmbarkationListComponent {

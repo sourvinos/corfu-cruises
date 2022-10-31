@@ -24,13 +24,11 @@ import { ShipCrewService } from '../classes/services/shipCrew.service'
 import { ShipCrewWriteDto } from '../classes/dtos/shipCrew-write-dto'
 import { ShipDropdownVM } from '../../ships/classes/view-models/ship-dropdown-vm'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'ship-crew-form',
     templateUrl: './shipCrew-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../assets/styles/forms.css']
 })
 
 export class ShipCrewFormComponent {

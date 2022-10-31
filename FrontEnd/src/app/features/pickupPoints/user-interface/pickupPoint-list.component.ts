@@ -9,14 +9,12 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PickupPointPdfService } from '../classes/services/pickupPoint-pdf.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { PickupPointListVM } from '../classes/view-models/pickupPoint-list-vm'
 
 @Component({
     selector: 'pickupPoint-list',
     templateUrl: './pickupPoint-list.component.html',
-    styleUrls: ['../../../../assets/styles/lists.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../assets/styles/lists.css']
 })
 
 export class PickupPointListComponent {

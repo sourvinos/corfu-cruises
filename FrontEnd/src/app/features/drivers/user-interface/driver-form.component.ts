@@ -15,14 +15,12 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
 
 @Component({
     selector: 'driver-form',
     templateUrl: './driver-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../assets/styles/forms.css']
 })
 
 export class DriverFormComponent {

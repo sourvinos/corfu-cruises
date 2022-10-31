@@ -24,13 +24,11 @@ import { ShipDropdownVM } from '../../../ships/classes/view-models/ship-dropdown
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'embarkation-criteria',
     templateUrl: './embarkation-criteria.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './embarkation-criteria.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/forms.css', './embarkation-criteria.component.css']
 })
 
 export class EmbarkationCriteriaComponent {

@@ -12,13 +12,11 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ScheduleListVM } from './../../classes/view-models/schedule-list-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'pickuppoint-list',
     templateUrl: './schedule-list.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/lists.css']
 })
 
 export class ScheduleListComponent {

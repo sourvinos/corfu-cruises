@@ -84,7 +84,7 @@
     </ng-container>
 
     <div *ngIf="records.passengers.length != 0" id="footer">
-        <div @slideFromLeft id="filters">
+        <div  id="filters">
             <div class="pill">
                 <img [src]="getIcon('total')">
                 <div class="number description">{{ passengerCount + crewCount }}</div>
@@ -98,7 +98,7 @@
                 <div class="number description">{{ crewCount }}</div>
             </div>
         </div>
-        <div @slideFromRight class="button-group">
+        <div class="button-group">
             <button mat-flat-button class="primary" id="exportToPDF" (click)="onCreatePdf()">{{ getLabel("exportToPdfButton") }}</button>
         </div>
     </div>

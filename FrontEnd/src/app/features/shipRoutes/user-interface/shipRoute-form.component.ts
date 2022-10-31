@@ -16,13 +16,11 @@ import { ShipRouteReadDto } from '../classes/dtos/shipRoute-read-dto'
 import { ShipRouteService } from '../classes/services/shipRoute.service'
 import { ShipRouteWriteDto } from '../classes/dtos/shipRoute-write-dto'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'ship-route-form',
     templateUrl: './shipRoute-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../assets/styles/forms.css']
 })
 
 export class ShipRouteFormComponent {

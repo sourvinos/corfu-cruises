@@ -14,14 +14,12 @@ import { ManifestVM } from '../../classes/view-models/manifest-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'manifest-list',
     templateUrl: './manifest-list.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './manifest-list.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/lists.css', './manifest-list.component.css']
 })
 
 export class ManifestListComponent {

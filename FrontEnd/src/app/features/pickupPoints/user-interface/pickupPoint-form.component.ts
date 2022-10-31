@@ -20,13 +20,11 @@ import { PickupPointService } from '../classes/services/pickupPoint.service'
 import { PickupPointVM } from '../classes/view-models/pickupPoint-vm'
 import { PickupPointWriteDto } from '../classes/dtos/pickupPoint-write-dto'
 import { ValidationService } from '../../../shared/services/validation.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'pickuppoint-form',
     templateUrl: './pickupPoint-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css', './pickupPoint-form.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../assets/styles/forms.css', './pickupPoint-form.component.css']
 })
 
 export class PickupPointFormComponent {

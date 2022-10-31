@@ -2,13 +2,13 @@ import { Component, HostListener } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router'
 // Custom
 import { AccountService } from '../shared/services/account.service'
-import { slideFromLeft } from '../shared/animations/animations'
+import { routeAnimation } from '../shared/animations/animations'
 
 @Component({
     selector: 'root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
-    animations: [slideFromLeft]
+    animations: [routeAnimation]
 })
 
 export class AppComponent {

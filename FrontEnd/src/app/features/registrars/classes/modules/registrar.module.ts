@@ -5,7 +5,6 @@ import { SharedModule } from '../../../../shared/modules/shared.module'
 import { RegistrarFormComponent } from '../../user-interface/registrar-form.component'
 import { RegistrarListComponent } from '../../user-interface/registrar-list.component'
 
-
 @NgModule({
     declarations: [
         RegistrarListComponent,

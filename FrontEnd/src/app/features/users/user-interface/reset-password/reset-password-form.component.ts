@@ -15,13 +15,11 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { ResetPasswordViewModel } from '../../classes/view-models/reset-password-view-model'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'reset-password-form',
     templateUrl: './reset-password-form.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './reset-password-form.component.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/forms.css', './reset-password-form.component.css']
 })
 
 export class ResetPasswordFormComponent {

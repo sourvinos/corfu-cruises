@@ -15,13 +15,11 @@ import { ModalActionResultService } from 'src/app/shared/services/modal-action-r
 import { PortReadDto } from '../classes/dtos/port-read-dto'
 import { PortService } from '../classes/services/port.service'
 import { PortWriteDto } from '../classes/dtos/port-write-vm'
-import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'port-form',
     templateUrl: './port-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../assets/styles/forms.css']
 })
 
 export class PortFormComponent {

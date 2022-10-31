@@ -4,8 +4,8 @@
 
         <top-bar></top-bar>
 
-        <div id="content">
-            <router-outlet></router-outlet>
+        <div id="content" [@routeAnimation]="o.isActivated?o.activatedRoute:''">
+            <router-outlet #o="outlet"></router-outlet>
         </div>
 
     </div>

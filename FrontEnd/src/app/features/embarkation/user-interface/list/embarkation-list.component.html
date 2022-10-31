@@ -199,7 +199,7 @@
     </ng-container>
 
     <div *ngIf="records.totalPersons > 0" id="footer">
-        <div @slideFromLeft id="filters">
+        <div  id="filters">
             <div class="pill" id="total">
                 <img [src]="getIcon('total')">
                 <div class="number description">{{ records.totalPersons }}</div>
@@ -214,7 +214,7 @@
             </div>
         </div>
         <div>
-            <div @slideFromRight class="button-group">
+            <div class="button-group">
                 <button mat-flat-button class="primary" id="createPdf" (click)="doReportTasks()">{{ getLabel("createPDF") }}</button>
                 <button mat-flat-button class="primary" id="showScanner" (click)="onShowScanner()">{{ getLabel('scanOpenButton') }}</button>
             </div>

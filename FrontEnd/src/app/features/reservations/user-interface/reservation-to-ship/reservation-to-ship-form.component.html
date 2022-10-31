@@ -1,6 +1,6 @@
 <div id="dialog">
 
-    <div @slideFromLeft id="dialog-header">
+    <div  id="dialog-header">
         <h1 mat-dialog-title>{{ getLabel('header') }}</h1>
         <h6 mat-dialog-title>{{ getLabel('sub-header') }}</h6>
     </div>
@@ -9,7 +9,7 @@
         <p-listbox [options]="ships" [(ngModel)]="selectedShipId" optionLabel="description" optionValue="id"></p-listbox>
     </div>
 
-    <div @slideFromRight id="dialog-footer">
+    <div id="dialog-footer">
         <mat-dialog-actions>
             <button mat-flat-button class="transparent" tabindex="-1" (click)="onClose()">{{ getLabel('noButton') }}</button>
             <button mat-flat-button class="primary" [disabled]="isShipSelected()" (click)="onSave()">{{ getLabel('okButton') }}</button>

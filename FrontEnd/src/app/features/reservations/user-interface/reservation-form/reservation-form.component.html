@@ -139,7 +139,7 @@
     </div>
 
     <div id="footer">
-        <div @slideFromLeft id="utility-buttons">
+        <div  id="utility-buttons">
             <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
             </button>
@@ -148,7 +148,7 @@
             </mat-menu>
         </div>
         <div>
-            <div @slideFromRight class="button-group">
+            <div class="button-group">
                 <button *ngIf="form.value.reservationId != ''" (click)="onDelete()" class="delete" data-cy="delete" id="delete" mat-flat-button>{{ getLabel('deleteButton') }}</button>
                 <button (click)="onSave()" [disabled]="!form.valid || !checkTotalPersonsAgainstPassengerCount()" class="primary" data-cy="save" id="save" mat-flat-button>{{ getLabel('saveButton') }}</button>
             </div>

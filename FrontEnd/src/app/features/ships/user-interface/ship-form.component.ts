@@ -19,13 +19,11 @@ import { ShipReadDto } from '../classes/dtos/ship-read-dto'
 import { ShipService } from '../classes/services/ship.service'
 import { ShipWriteDto } from '../classes/dtos/ship-write-dto'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'ship-form',
     templateUrl: './ship-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../assets/styles/forms.css']
 })
 
 export class ShipFormComponent {

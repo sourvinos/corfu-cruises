@@ -19,13 +19,11 @@ import { RegistrarWriteDto } from '../classes/dtos/registrar-write-dto'
 import { ShipDropdownVM } from '../../ships/classes/view-models/ship-dropdown-vm'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { map, startWith } from 'rxjs/operators'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'registrar-form',
     templateUrl: './registrar-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../assets/styles/forms.css']
 })
 
 export class RegistrarFormComponent {

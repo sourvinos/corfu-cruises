@@ -19,13 +19,11 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'coach-route-form',
     templateUrl: './coachRoute-form.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/forms.css']
 })
 
 export class CoachRouteFormComponent {

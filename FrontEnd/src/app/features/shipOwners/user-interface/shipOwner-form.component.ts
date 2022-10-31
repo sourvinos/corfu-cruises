@@ -15,13 +15,11 @@ import { ModalActionResultService } from 'src/app/shared/services/modal-action-r
 import { ShipOwnerReadDto } from '../classes/dtos/shipOwner-read-dto'
 import { ShipOwnerService } from '../classes/services/shipOwner.service'
 import { ShipOwnerWriteDto } from '../classes/dtos/shipOwner-write-dto'
-import { slideFromRight, slideFromLeft } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'ship-owner-form',
     templateUrl: './shipOwner-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../assets/styles/forms.css']
 })
 
 export class ShipOwnerFormComponent {

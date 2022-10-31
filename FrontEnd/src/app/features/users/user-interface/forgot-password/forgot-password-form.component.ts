@@ -15,13 +15,11 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { environment } from 'src/environments/environment'
-import { slideFromLeft, slideFromRight } from 'src/app/shared/animations/animations'
 
 @Component({
     selector: 'forgot-password-form',
     templateUrl: './forgot-password-form.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', '../../../../shared/styles/login-forgot-password-form.css'],
-    animations: [slideFromLeft, slideFromRight]
+    styleUrls: ['../../../../../assets/styles/forms.css', '../../../../shared/styles/login-forgot-password-form.css']
 })
 
 export class ForgotPasswordFormComponent {
