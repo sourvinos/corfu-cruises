@@ -3,7 +3,6 @@ import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Subject } from 'rxjs'
 // Custom
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DestinationReadDto } from '../classes/dtos/destination-read-dto'
 import { DestinationService } from '../classes/services/destination.service'
 import { DestinationWriteDto } from '../classes/dtos/destination-write-dto'
@@ -11,7 +10,6 @@ import { DialogService } from 'src/app/shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -20,15 +18,15 @@ import { ModalActionResultService } from 'src/app/shared/services/modal-action-r
 @Component({
     selector: 'destination-form',
     templateUrl: './destination-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css']
+    styleUrls: ['../../../../assets/styles/forms.css', './destination-form.component.css']
 })
 
 export class DestinationFormComponent {
 
     //#region variables
 
-    private destination: DestinationReadDto
-    private unlisten: Unlisten
+    private unsubscribe = new Subject<void>()
+    private record: DestinationReadDto
     public feature = 'destinationForm'
     public form: FormGroup
     public icon = 'arrow_back'
@@ -38,12 +36,12 @@ export class DestinationFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private destinationService: DestinationService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
+    constructor(private activatedRoute: ActivatedRoute, private destinationService: DestinationService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.initForm()
                 this.getRecord()
-                this.populateFields(this.destination)
+                this.populateFields(this.record)
             } else {
                 this.initForm()
             }
@@ -53,12 +51,11 @@ export class DestinationFormComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.addShortcuts()
         this.focusOnField('abbreviation')
     }
 
     ngOnDestroy(): void {
-        this.unlisten()
+        this.cleanup()
     }
 
     canDeactivate(): boolean {
@@ -70,6 +67,7 @@ export class DestinationFormComponent {
                     return true
                 }
             })
+            return false
         } else {
             return true
         }
@@ -110,25 +108,9 @@ export class DestinationFormComponent {
 
     //#region private methods
 
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.buttonClickService.clickOnButton(event, 'goBack')
-                }
-            },
-            'Alt.D': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'delete')
-            },
-            'Alt.S': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.buttonClickService.clickOnButton(event, 'save')
-                }
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
     private flattenForm(): DestinationWriteDto {
@@ -149,8 +131,8 @@ export class DestinationFormComponent {
         const promise = new Promise((resolve) => {
             const formResolved: FormResolved = this.activatedRoute.snapshot.data['destinationForm']
             if (formResolved.error == null) {
-                this.destination = formResolved.record.body
-                resolve(this.destination)
+                this.record = formResolved.record.body
+                resolve(this.record)
             } else {
                 this.goBack()
                 this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])

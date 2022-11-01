@@ -52,7 +52,6 @@ export class CustomerListComponent {
 
     public filterRecords(event: { filteredValue: any[] }) {
         this.recordsFiltered = event.filteredValue
-        console.log(this.recordsFiltered)
     }
 
     public getIcon(filename: string): string {

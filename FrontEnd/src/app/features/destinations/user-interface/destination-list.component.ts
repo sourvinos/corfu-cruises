@@ -2,13 +2,12 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'destination-list',
@@ -20,32 +19,27 @@ export class DestinationListComponent {
 
     //#region variables
 
-    private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     private url = 'destinations'
     public feature = 'destinationList'
     public icon = 'home'
     public parentUrl = '/'
     public records = []
+    public recordsFiltered = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.loadRecords()
-        this.addShortcuts()
-    }
-
-    ngAfterViewInit(): void {
-        this.changeScrollWheelSpeed()
+        this.calculateTableHeight()
     }
 
     ngOnDestroy(): void {
         this.cleanup()
-        this.unlisten()
     }
 
     //#endregion
@@ -56,34 +50,30 @@ export class DestinationListComponent {
         this.router.navigate([this.url, id])
     }
 
+    public filterRecords(event: { filteredValue: any[] }) {
+        this.recordsFiltered = event.filteredValue
+    }
+
+    public getIcon(filename: string): string {
+        return environment.criteriaIconDirectory + filename + '.svg'
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
     public newRecord(): void {
-        this.router.navigate([this.url + '/new'], { queryParams: { returnUrl: this.url } })
+        this.router.navigate([this.url + '/new'])
     }
 
     //#endregion
 
     //#region private methods
 
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': () => {
-                this.goBack()
-            },
-            'Alt.N': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'new')
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
-    }
-
-    private changeScrollWheelSpeed(): void {
-        this.helperService.changeScrollWheelSpeed(document.querySelector<HTMLElement>('.cdk-virtual-scroll-viewport'))
+    private calculateTableHeight(): void {
+        setTimeout(() => {
+            document.getElementById('table-wrapper').style.height = this.helperService.calculateTableWrapperHeight('top-bar', 'header', 'footer')
+        }, 500)
     }
 
     private cleanup(): void {
@@ -98,7 +88,7 @@ export class DestinationListComponent {
     private loadRecords(): Promise<any> {
         const promise = new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
-            if (listResolved.error === null) {
+            if (listResolved.error == null) {
                 this.records = listResolved.list
                 resolve(this.records)
             } else {

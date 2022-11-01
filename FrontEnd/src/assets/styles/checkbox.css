@@ -12,6 +12,7 @@
 .styled-input-single label {
     color: var(--color-c) !important;
     cursor: pointer;
+    font-size: var(--font-size-checkbox);
 }
 
 .styled-input-single label:before, .styled-input-single label:after {
