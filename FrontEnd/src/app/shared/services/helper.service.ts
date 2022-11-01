@@ -87,6 +87,13 @@ export class HelperService {
         return promise
     }
 
+    public calculateTableWrapperHeight(topBar: string, header: string, footer: string): string {
+        return window.innerHeight
+            - document.getElementById(topBar).getBoundingClientRect().height
+            - document.getElementById(header).getBoundingClientRect().height
+            - document.getElementById(footer).getBoundingClientRect().height + 'px'
+    }
+
     public confirmationToDelete(message: string, iconType: string, buttons: any[]): void {
         this.dialogService.open(message, iconType, buttons).subscribe(response => {
             return response

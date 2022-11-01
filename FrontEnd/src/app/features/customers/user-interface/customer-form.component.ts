@@ -70,6 +70,7 @@ export class CustomerFormComponent {
                     return true
                 }
             })
+            return false
         } else {
             return true
         }

@@ -9,6 +9,7 @@ import { ListResolved } from '../../../shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'customer-list',
@@ -36,11 +37,8 @@ export class CustomerListComponent {
 
     ngOnInit(): void {
         this.loadRecords()
+        this.calculateTableHeight()
         this.addShortcuts()
-    }
-
-    ngAfterViewInit(): void {
-        this.changeScrollWheelSpeed()
     }
 
     ngOnDestroy(): void {
@@ -54,6 +52,10 @@ export class CustomerListComponent {
 
     public editRecord(id: number): void {
         this.router.navigate([this.url, id])
+    }
+
+    public getIcon(filename: string): string {
+        return environment.criteriaIconDirectory + filename + '.svg'
     }
 
     public getLabel(id: string): string {
@@ -82,8 +84,10 @@ export class CustomerListComponent {
         })
     }
 
-    private changeScrollWheelSpeed(): void {
-        this.helperService.changeScrollWheelSpeed(document.querySelector<HTMLElement>('.cdk-virtual-scroll-viewport'))
+    private calculateTableHeight(): void {
+        setTimeout(() => {
+            document.getElementById('table-wrapper').style.height = this.helperService.calculateTableWrapperHeight('top-bar', 'header', 'footer')
+        }, 500)
     }
 
     private cleanup(): void {
