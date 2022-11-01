@@ -7,7 +7,6 @@ import { ListResolved } from '../../../shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -20,7 +19,6 @@ export class CustomerListComponent {
 
     //#region variables
 
-    private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     private url = 'customers'
     public feature = 'customerList'
@@ -42,7 +40,6 @@ export class CustomerListComponent {
 
     ngOnDestroy(): void {
         this.cleanup()
-        this.unlisten()
     }
 
     //#endregion

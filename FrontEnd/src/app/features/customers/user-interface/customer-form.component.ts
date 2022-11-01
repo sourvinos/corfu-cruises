@@ -10,7 +10,6 @@ import { DialogService } from 'src/app/shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
-import { Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -26,8 +25,8 @@ export class CustomerFormComponent {
 
     //#region variables
 
+    private unsubscribe = new Subject<void>()
     private record: CustomerReadDto
-    private unlisten: Unlisten
     public feature = 'customerForm'
     public form: FormGroup
     public icon = 'arrow_back'
@@ -56,7 +55,7 @@ export class CustomerFormComponent {
     }
 
     ngOnDestroy(): void {
-        this.unlisten()
+        this.cleanup()
     }
 
     canDeactivate(): boolean {
@@ -108,6 +107,11 @@ export class CustomerFormComponent {
     //#endregion
 
     //#region private methods
+
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
+    }
 
     private flattenForm(): CustomerWriteDto {
         const customer = {
