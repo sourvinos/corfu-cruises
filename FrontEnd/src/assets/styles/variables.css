@@ -1,9 +1,10 @@
 * {
     /* Font names */
-    --font-family-logo: "Aka-Acid-CanterBold";
     --font-family-handbook: "PF-Handbook-Pro";
-    --font-family-ubuntu: "Ubuntu Condensed";
+    --font-family-logo: "Aka-Acid-CanterBold";
+    --font-family-manrope: "Manrope";
     --font-family-montserrat: "Montserrat";
+    --font-family-ubuntu: "Ubuntu Condensed";
     /* Font weights */
     --font-weight-dialog-content: 300 !important;
     --font-weight-header: 300 !important;
@@ -15,7 +16,7 @@
     /* Theme change delays */
     --delay: 0.5s;
     /* Common sizes in all screen resolutions */
-    --font-size-button: 100%;
+    --font-size-button: 0.8rem;
     --font-size-calendar-day: 1rem;
     --font-size-datepicker-header-month: 1.8rem;
     --font-size-dialog: 1.5rem;

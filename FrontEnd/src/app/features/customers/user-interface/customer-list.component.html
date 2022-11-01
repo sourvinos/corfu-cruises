@@ -5,7 +5,7 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="customer-list" stateStorage="session">
+        <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="customer-list" stateStorage="session">
             <ng-template pTemplate="header">
                 <tr>
                     <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
@@ -35,16 +35,16 @@
     </div>
 
     <div id="footer">
-        <!-- <div id="filters">
+        <div id="filters">
             <div class="pill">
                 <img [src]="getIcon('total')">
-                <div class="description">{{ formatDate() }}</div>
+                <div class="number description">{{ records.length }}</div>
             </div>
             <div class="pill">
                 <img [src]="getIcon('filter')">
-                <div class="number description">{{ totals[0].sum }}</div>
+                <div class="number description">{{ filteredRecords.length }}</div>
             </div>
-        </div> -->
+        </div>
         <div class="button-group">
             <button data-cy="new" mat-flat-button class="primary" id="new" (click)="newRecord()">{{ getLabel("newButton") }}</button>
         </div>

@@ -28,6 +28,7 @@ export class CustomerListComponent {
     public icon = 'home'
     public parentUrl = '/'
     public records = []
+    public filteredRecords = []
 
     //#endregion
 
@@ -52,6 +53,11 @@ export class CustomerListComponent {
 
     public editRecord(id: number): void {
         this.router.navigate([this.url, id])
+    }
+
+    public filterRecords(event: { filteredValue: any[] }) {
+        this.filteredRecords = event.filteredValue
+        console.log(this.filteredRecords)
     }
 
     public getIcon(filename: string): string {

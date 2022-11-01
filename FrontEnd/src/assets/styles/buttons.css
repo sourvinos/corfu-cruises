@@ -2,7 +2,7 @@ button {
     align-items: center;
     border: none;
     cursor: default !important;
-    font-family: var(--font-family-handbook) !important;
+    font-family: var(--font-family-manrope) !important;
     font-size: var(--font-size-button) !important;
     justify-content: center;
     min-width: 0 !important;
