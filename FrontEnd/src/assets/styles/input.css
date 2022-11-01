@@ -37,9 +37,13 @@ input:-internal-autofill-previewed, input:-internal-autofill-selected {
 }
 
 .mat-form-field {
+    background-color: #cddc3905;
+    border-radius: 10px;
+    border: 1px solid var(--color-b);
     line-height: 132%;
-    width: 100% !important;
     margin-top: var(--form-field-margin) !important;
+    padding: 1rem;
+    width: 100% !important;
 }
 
 .mat-form-field-infix {

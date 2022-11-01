@@ -2,13 +2,12 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from '../../../shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -28,18 +27,17 @@ export class CustomerListComponent {
     public icon = 'home'
     public parentUrl = '/'
     public records = []
-    public filteredRecords = []
+    public recordsFiltered = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.loadRecords()
         this.calculateTableHeight()
-        this.addShortcuts()
     }
 
     ngOnDestroy(): void {
@@ -56,8 +54,8 @@ export class CustomerListComponent {
     }
 
     public filterRecords(event: { filteredValue: any[] }) {
-        this.filteredRecords = event.filteredValue
-        console.log(this.filteredRecords)
+        this.recordsFiltered = event.filteredValue
+        console.log(this.recordsFiltered)
     }
 
     public getIcon(filename: string): string {
@@ -75,20 +73,6 @@ export class CustomerListComponent {
     //#endregion
 
     //#region private methods
-
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': () => {
-                this.goBack()
-            },
-            'Alt.N': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'new')
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
-    }
 
     private calculateTableHeight(): void {
         setTimeout(() => {

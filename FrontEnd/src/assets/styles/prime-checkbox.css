@@ -3,14 +3,13 @@
 }
 
 .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
-    background-color: var(--color-a) !important;
+    background-color: var(--color-checkbox-background) !important;
     box-shadow: none !important;
 }
 
 .p-checkbox .p-checkbox-box {
-    background-color: var(--color-a) !important;
-    border: 0.1875rem solid var(--color-b) !important;
-
+    background-color: var(--color-checkbox-background) !important;
+    border: 0.1875rem solid var(--color-checkbox-background) !important;
 }
 
 .p-checkbox .p-checkbox-box.p-highlight {

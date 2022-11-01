@@ -1,3 +1,7 @@
+.styled-input-square {
+    margin-top: auto;
+}
+
 .styled-input-single {
     font-family: var(--font-family-handbook);
     padding: 1.25rem 0 1.25rem 2.5rem;
@@ -43,7 +47,7 @@
     visibility: hidden;
 }
 
-.styled-input-single input[type="checkbox"]:checked+label:after {
+.styled-input-single input[type="checkbox"]:checked + label:after {
     opacity: 1;
     transform: translate3d(0, 0, 0);
 }
