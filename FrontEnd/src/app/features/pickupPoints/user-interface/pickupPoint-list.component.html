@@ -5,7 +5,7 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="pickupPoint-list" stateStorage="session">
+        <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="pickupPoint-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
                     <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
