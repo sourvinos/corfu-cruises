@@ -91,6 +91,7 @@ export class DestinationListComponent {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error == null) {
                 this.records = listResolved.list
+                this.recordsFiltered = listResolved.list
                 resolve(this.records)
             } else {
                 this.goBack()
