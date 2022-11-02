@@ -156,7 +156,7 @@ export class AccountService extends HttpDataService {
     }
 
     private setUserData(response: any): void {
-        ConnectedUser.id = response.id
+        ConnectedUser.id = response.userId
         ConnectedUser.displayname = response.displayname
         ConnectedUser.isAdmin = response.isAdmin
         ConnectedUser.customerId = response.customerId

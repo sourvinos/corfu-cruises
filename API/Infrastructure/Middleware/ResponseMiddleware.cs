@@ -25,6 +25,7 @@ namespace API.Infrastructure.Middleware {
             try {
                 await next(httpContext);
             } catch (CustomException exception) {
+                LogError(exception, httpContextAccessor, userManager);
                 await CreateCustomErrorResponse(httpContext, exception);
             } catch (Exception exception) {
                 LogError(exception, httpContextAccessor, userManager);

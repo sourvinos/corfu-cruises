@@ -2,11 +2,11 @@ import { Component, HostListener } from '@angular/core'
 import { Router } from '@angular/router'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
+import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageMenuService } from '../../../services/messages-menu.service'
 import { environment } from 'src/environments/environment'
-import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 
 @Component({
     selector: 'user-menu',
@@ -40,7 +40,8 @@ export class UserMenuComponent {
 
     ngOnInit(): void {
         this.getMenuItemsFromSubscription()
-        this.getUserDetailsFromSubscription()
+        this.getDisplayedUsername()
+        this.getUserId()
     }
 
     //#endregion
@@ -74,6 +75,10 @@ export class UserMenuComponent {
 
     //#region private methods
 
+    private getDisplayedUsername(): void {
+        this.displayedUsername = ConnectedUser.displayname
+    }
+
     private getMenuItemsFromSubscription(): void {
         this.interactionService.refreshMenus.subscribe(() => {
             this.messageMenuService.getMessages().then((response) => {
@@ -82,8 +87,9 @@ export class UserMenuComponent {
         })
     }
 
-    private getUserDetailsFromSubscription(): void {
-        this.displayedUsername = ConnectedUser.displayname
+    private getUserId(): void {
+        this.userId = ConnectedUser.id
+        console.log(this.userId)
     }
 
     //#endregion

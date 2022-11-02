@@ -44,6 +44,7 @@ namespace API.Features.Users {
 
         public async Task<UserExtended> GetByIdAsync(string id) {
             return await userManager.Users
+                .Include(x => x.Customer)
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 

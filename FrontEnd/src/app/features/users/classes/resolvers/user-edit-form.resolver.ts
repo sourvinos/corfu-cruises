@@ -7,14 +7,15 @@ import { UserService } from '../services/user.service'
 
 @Injectable({ providedIn: 'root' })
 
-export class UserResolver {
+export class UserEditFormResolver {
 
     constructor(private userService: UserService) { }
 
     resolve(route: ActivatedRouteSnapshot): any {
         return this.userService.getSingle(route.params.id).pipe(
-            map((user) => new FormResolved(user)),
-            catchError((err) => of(new FormResolved(null, err))))
+            map((userEditForm) => new FormResolved(userEditForm)),
+            catchError((err: any) => of(new FormResolved(null, err)))
+        )
     }
 
 }
