@@ -62,9 +62,5 @@
     --color-input-error: #e57b7b;
     --color-input-selected-background: #65b3ef4d;
     /* Links */
-    --color-link: #d94040;
-    /* User count */
-    --color-user-count: #d94040;
-    /* Invoicing customer */
-    --color-customer: #e57b7b;
+    --color-link: #e57b7b;
 }

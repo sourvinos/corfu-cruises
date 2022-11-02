@@ -32,7 +32,7 @@
             },
             {
                 "id": "forgotPasswordButton",
-                "description": "PASSWORT VERGESSEN"
+                "description": "Ich habe mein Passwort vergessen"
             },
             {
                 "id": "loginButton",

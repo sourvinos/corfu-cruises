@@ -31,7 +31,7 @@
                         <label data-cy="no-robot-label" for="no-robot">{{ getLabel("noRobotCheckbox") }}</label>
                     </div>
                 </div>
-                <button (click)="onForgotPassword()" class="transparent" data-cy="forgotPassword" id="forgotPassword" mat-flat-button>{{ getLabel("forgotPasswordButton") }}</button>
+                <span id="forgot-password" (click)="onForgotPassword()">{{ getLabel("forgotPasswordButton") }}</span>
             </div>
         </form>
         <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
