@@ -1,51 +1,50 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
+import { Subject } from 'rxjs'
 // Custom
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { PickupPointPdfService } from '../classes/services/pickupPoint-pdf.service'
 import { PickupPointListVM } from '../classes/view-models/pickupPoint-list-vm'
+import { PickupPointPdfService } from '../classes/services/pickupPoint-pdf.service'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'pickupPoint-list',
     templateUrl: './pickupPoint-list.component.html',
-    styleUrls: ['../../../../assets/styles/lists.css']
+    styleUrls: ['../../../../assets/styles/lists.css', './pickupPoint-list.component.css']
 })
 
 export class PickupPointListComponent {
 
-
     //#region variables
 
-    private unlisten: Unlisten
+    private unsubscribe = new Subject<void>()
     private url = 'pickupPoints'
     public feature = 'pickupPointList'
     public icon = 'home'
     public parentUrl = '/'
-    public records: PickupPointListVM[]
-    public selectedRecords: PickupPointListVM[]
+    public records: PickupPointListVM[] = []
+    public recordsFiltered: PickupPointListVM[] = []
 
     public dropdownRoutes = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private pickupPointPdfService: PickupPointPdfService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private pickupPointPdfService: PickupPointPdfService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.loadRecords()
+        this.calculateTableHeight()
         this.populateDropdownFilters()
-        this.addShortcuts()
     }
 
     ngOnDestroy(): void {
-        this.unlisten()
+        this.cleanup()
     }
 
     //#endregion
@@ -56,12 +55,16 @@ export class PickupPointListComponent {
         this.router.navigate([this.url, id])
     }
 
-    public export(): void {
-        this.pickupPointPdfService.createReport(this.selectedRecords)
+    public exportRecords(): void {
+        this.pickupPointPdfService.createReport(this.recordsFiltered)
     }
 
     public filterRecords(event: { filteredValue: any[] }) {
-        this.selectedRecords = event.filteredValue
+        this.recordsFiltered = event.filteredValue
+    }
+
+    public getIcon(filename: string): string {
+        return environment.criteriaIconDirectory + filename + '.svg'
     }
 
     public getLabel(id: string): string {
@@ -76,18 +79,15 @@ export class PickupPointListComponent {
 
     //#region private methods
 
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': () => {
-                this.goBack()
-            },
-            'Alt.N': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'new')
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
+    private calculateTableHeight(): void {
+        setTimeout(() => {
+            document.getElementById('table-wrapper').style.height = this.helperService.calculateTableWrapperHeight('top-bar', 'header', 'footer')
+        }, 500)
+    }
+
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
     private goBack(): void {
@@ -99,7 +99,7 @@ export class PickupPointListComponent {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
                 this.records = listResolved.list
-                this.selectedRecords = listResolved.list
+                this.recordsFiltered = listResolved.list
                 resolve(this.records)
             } else {
                 this.goBack()

@@ -25,8 +25,8 @@ export class DestinationFormComponent {
 
     //#region variables
 
-    private unsubscribe = new Subject<void>()
     private record: DestinationReadDto
+    private unsubscribe = new Subject<void>()
     public feature = 'destinationForm'
     public form: FormGroup
     public icon = 'arrow_back'

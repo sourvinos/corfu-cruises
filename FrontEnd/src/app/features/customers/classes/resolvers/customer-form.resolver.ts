@@ -17,5 +17,5 @@ export class CustomerFormResolver {
             catchError((err: any) => of(new FormResolved(null, err)))
         )
     }
-    
+
 }
