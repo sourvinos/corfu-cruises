@@ -6,7 +6,7 @@ import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { ConfirmValidParentMatcher, ValidationService } from '../../../../shared/services/validation.service'
-import { CustomerDropdownVM } from '../../../customers/classes/view-models/customer-dropdown-vm'
+import { CustomerActiveVM } from '../../../customers/classes/view-models/customer-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -38,8 +38,8 @@ export class NewUserFormComponent {
     public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
-    public customers: CustomerDropdownVM[] = []
-    public filteredCustomers: Observable<CustomerDropdownVM[]>
+    public customers: CustomerActiveVM[] = []
+    public filteredCustomers: Observable<CustomerActiveVM[]>
 
     public confirmValidParentMatcher = new ConfirmValidParentMatcher()
     public hidePassword = true

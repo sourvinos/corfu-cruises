@@ -7,8 +7,8 @@ import { Observable, Subject } from 'rxjs'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { CustomerDropdownVM } from '../../../customers/classes/view-models/customer-dropdown-vm'
-import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
+import { CustomerActiveVM } from '../../../customers/classes/view-models/customer-active-vm'
+import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverDropdownVM } from '../../../drivers/classes/view-models/driver-dropdown-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
@@ -24,7 +24,7 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { OkIconService } from '../../classes/services/ok-icon.service'
 import { PassengerWriteDto } from '../../classes/dtos/form/passenger-write-dto'
-import { PickupPointDropdownVM } from '../../../pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
+import { PickupPointActiveVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-active-vm'
 import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { ReservationReadDto } from '../../classes/dtos/form/reservation-read-dto'
 import { ReservationService } from '../../classes/services/reservation.service'
@@ -60,12 +60,12 @@ export class ReservationFormComponent {
 
     public isAutoCompleteDisabled = true
 
-    public destinations: DestinationDropdownVM[] = []
-    public filteredDestinations: Observable<DestinationDropdownVM[]>
-    public customers: CustomerDropdownVM[] = []
-    public filteredCustomers: Observable<CustomerDropdownVM[]>
-    public pickupPoints: PickupPointDropdownVM[] = []
-    public filteredPickupPoints: Observable<PickupPointDropdownVM[]>
+    public destinations: DestinationActiveVM[] = []
+    public filteredDestinations: Observable<DestinationActiveVM[]>
+    public customers: CustomerActiveVM[] = []
+    public filteredCustomers: Observable<CustomerActiveVM[]>
+    public pickupPoints: PickupPointActiveVM[] = []
+    public filteredPickupPoints: Observable<PickupPointActiveVM[]>
     public filteredDrivers: Observable<DriverDropdownVM[]>
     public filteredShips: Observable<DriverDropdownVM[]>
     public filteredPorts: Observable<PortDropdownVM[]>
@@ -206,7 +206,7 @@ export class ReservationFormComponent {
         this.form.patchValue({ passengers: passengers })
     }
 
-    public updateFieldsAfterPickupPointSelection(value: PickupPointDropdownVM): void {
+    public updateFieldsAfterPickupPointSelection(value: PickupPointActiveVM): void {
         this.form.patchValue({
             exactPoint: value.exactPoint,
             time: value.time,

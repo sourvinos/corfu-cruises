@@ -8,6 +8,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { environment } from 'src/environments/environment'
+import { DestinationListVM } from '../classes/view-models/destination-list-vm'
 
 @Component({
     selector: 'destination-list',
@@ -24,8 +25,8 @@ export class DestinationListComponent {
     public feature = 'destinationList'
     public icon = 'home'
     public parentUrl = '/'
-    public records = []
-    public recordsFiltered = []
+    public records: DestinationListVM[] = []
+    public recordsFiltered: DestinationListVM[] = []
 
     //#endregion
 

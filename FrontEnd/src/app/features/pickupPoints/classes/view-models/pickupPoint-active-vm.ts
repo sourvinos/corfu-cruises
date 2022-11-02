@@ -1,6 +1,6 @@
 import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 
-export interface PickupPointDropdownVM {
+export interface PickupPointActiveVM {
 
     id: number
     description: string

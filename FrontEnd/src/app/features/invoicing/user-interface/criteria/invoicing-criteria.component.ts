@@ -9,8 +9,8 @@ import { map, startWith, takeUntil } from 'rxjs/operators'
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
-import { CustomerDropdownVM } from 'src/app/features/customers/classes/view-models/customer-dropdown-vm'
-import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
+import { CustomerActiveVM } from 'src/app/features/customers/classes/view-models/customer-active-vm'
+import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -43,10 +43,10 @@ export class InvoicingCriteriaComponent {
     public parentUrl = '/'
 
     public isAutoCompleteDisabled = true
-    public customers: CustomerDropdownVM[] = []
-    public filteredCustomers: Observable<CustomerDropdownVM[]>
-    public destinations: DestinationDropdownVM[] = []
-    public filteredDestinations: Observable<DestinationDropdownVM[]>
+    public customers: CustomerActiveVM[] = []
+    public filteredCustomers: Observable<CustomerActiveVM[]>
+    public destinations: DestinationActiveVM[] = []
+    public filteredDestinations: Observable<DestinationActiveVM[]>
     public ships: ShipDropdownVM[] = []
     public filteredShips: Observable<ShipDropdownVM[]>
 

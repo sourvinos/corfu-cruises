@@ -8,7 +8,7 @@ import { Title } from '@angular/platform-browser'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
+import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
@@ -47,8 +47,8 @@ export class EditScheduleComponent {
     public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
-    public destinations: DestinationDropdownVM[] = []
-    public filteredDestinations: Observable<DestinationDropdownVM[]>
+    public destinations: DestinationActiveVM[] = []
+    public filteredDestinations: Observable<DestinationActiveVM[]>
     public ports: PortDropdownVM[] = []
     public filteredPorts: Observable<PortDropdownVM[]>
 

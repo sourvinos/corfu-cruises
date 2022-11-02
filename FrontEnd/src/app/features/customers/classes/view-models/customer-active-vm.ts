@@ -1,4 +1,4 @@
-export interface DestinationDropdownVM {
+export interface CustomerActiveVM {
 
     id: number
     description: string

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
-import { CustomerDropdownVM } from 'src/app/features/customers/classes/view-models/customer-dropdown-vm'
+import { CustomerActiveVM } from 'src/app/features/customers/classes/view-models/customer-active-vm'
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { environment } from 'src/environments/environment'
 
@@ -16,8 +16,8 @@ export class CustomerService extends HttpDataService {
 
     //#region public methods
 
-    public getActive(): Observable<CustomerDropdownVM[]> {
-        return this.http.get<CustomerDropdownVM[]>(environment.apiUrl + '/customers/getActive')
+    public getActive(): Observable<CustomerActiveVM[]> {
+        return this.http.get<CustomerActiveVM[]>(environment.apiUrl + '/customers/getActive')
     }
 
     //#endregion

@@ -2,6 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
+import { CustomerListVM } from '../classes/view-models/customer-list-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from '../../../shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -24,8 +25,8 @@ export class CustomerListComponent {
     public feature = 'customerList'
     public icon = 'home'
     public parentUrl = '/'
-    public records = []
-    public recordsFiltered = []
+    public records: CustomerListVM[] = []
+    public recordsFiltered: CustomerListVM[] = []
 
     //#endregion
 

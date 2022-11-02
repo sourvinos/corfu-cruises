@@ -1,20 +1,20 @@
 import { Guid } from 'guid-typescript'
 // Custom
-import { CustomerDropdownVM } from '../../../../customers/classes/view-models/customer-dropdown-vm'
-import { DestinationDropdownVM } from '../../../../destinations/classes/view-models/destination-dropdown-vm'
+import { CustomerActiveVM } from '../../../../customers/classes/view-models/customer-active-vm'
+import { DestinationActiveVM } from '../../../../destinations/classes/view-models/destination-active-vm'
 import { DriverDropdownVM } from '../../../../drivers/classes/view-models/driver-dropdown-vm'
 import { PassengerReadDto } from './passenger-read-dto'
-import { PickupPointDropdownVM } from '../../../../pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
+import { PickupPointActiveVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-active-vm'
 import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { ShipDropdownVM } from 'src/app/features/ships/classes/view-models/ship-dropdown-vm'
 
 export interface ReservationReadDto {
 
     reservationId: Guid
-    customer: CustomerDropdownVM
-    destination: DestinationDropdownVM
+    customer: CustomerActiveVM
+    destination: DestinationActiveVM
     driver: DriverDropdownVM
-    pickupPoint: PickupPointDropdownVM
+    pickupPoint: PickupPointActiveVM
     port: PortDropdownVM
     ship: ShipDropdownVM
     date: string

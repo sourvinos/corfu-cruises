@@ -4,8 +4,8 @@ import { DateAdapter } from '@angular/material/core'
 import { Subject } from 'rxjs'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { CustomerDropdownVM } from 'src/app/features/customers/classes/view-models/customer-dropdown-vm'
-import { DestinationDropdownVM } from 'src/app/features/destinations/classes/view-models/destination-dropdown-vm'
+import { CustomerActiveVM } from 'src/app/features/customers/classes/view-models/customer-active-vm'
+import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverDropdownVM } from 'src/app/features/drivers/classes/view-models/driver-dropdown-vm'
 import { EmbarkationCriteriaVM } from '../../classes/view-models/embarkation-criteria-vm'
@@ -45,8 +45,8 @@ export class EmbarkationListComponent {
     public isLoading = new Subject<boolean>()
     public records: EmbarkationGroupVM
 
-    public dropdownCustomers: CustomerDropdownVM[] = []
-    public dropdownDestinations: DestinationDropdownVM[] = []
+    public dropdownCustomers: CustomerActiveVM[] = []
+    public dropdownDestinations: DestinationActiveVM[] = []
     public dropdownDrivers: DriverDropdownVM[] = []
     public dropdownPorts: PortDropdownVM[] = []
     public dropdownShips: ShipDropdownVM[] = []

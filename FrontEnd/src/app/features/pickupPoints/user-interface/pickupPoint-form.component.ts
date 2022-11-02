@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Observable, Subject } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
-import { CoachRouteDropdownVM } from '../../coachRoutes/classes/view-models/coachRoute-dropdown-vm'
+import { CoachRouteActiveVM } from '../../coachRoutes/classes/view-models/coachRoute-active-vm'
 import { DialogService } from '../../../shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
@@ -16,7 +16,6 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PickupPointReadDto } from '../classes/dtos/pickupPoint-read-dto'
 import { PickupPointService } from '../classes/services/pickupPoint.service'
-import { PickupPointVM } from '../classes/view-models/pickupPoint-vm'
 import { PickupPointWriteDto } from '../classes/dtos/pickupPoint-write-dto'
 import { ValidationService } from '../../../shared/services/validation.service'
 
@@ -40,8 +39,7 @@ export class PickupPointFormComponent {
     public parentUrl = '/pickupPoints'
 
     public isAutoCompleteDisabled = true
-    public filteredRoutes: Observable<CoachRouteDropdownVM[]>
-    public pickupPoints: PickupPointVM[] = []
+    public filteredRoutes: Observable<CoachRouteActiveVM[]>
 
     //#endregion
 

@@ -6,7 +6,7 @@ import { map, startWith } from 'rxjs/operators'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { CustomerDropdownVM } from '../../../customers/classes/view-models/customer-dropdown-vm'
+import { CustomerActiveVM } from '../../../customers/classes/view-models/customer-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { EditUserViewModel } from './../../classes/view-models/edit-user-view-model'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
@@ -43,8 +43,8 @@ export class EditUserFormComponent {
     public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
-    public customers: CustomerDropdownVM[] = []
-    public filteredCustomers: Observable<CustomerDropdownVM[]>
+    public customers: CustomerActiveVM[] = []
+    public filteredCustomers: Observable<CustomerActiveVM[]>
 
     private user: EditUserViewModel
     public header = ''

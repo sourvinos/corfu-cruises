@@ -1,8 +1,7 @@
-export interface Destination {
+export interface DestinationListVM {
 
     id: number
     description: string
-    abbreviation: string
     isActive: boolean
 
 }

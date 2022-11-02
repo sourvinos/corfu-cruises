@@ -1,4 +1,4 @@
-import { DestinationDropdownVM } from '../../../destinations/classes/view-models/destination-dropdown-vm'
+import { DestinationActiveVM } from '../../../destinations/classes/view-models/destination-active-vm'
 import { PortDropdownVM } from '../../../ports/classes/view-models/port-dropdown-vm'
 
 export class ScheduleReadVM {
@@ -6,7 +6,7 @@ export class ScheduleReadVM {
     constructor(
 
         public id: number,
-        public destination: DestinationDropdownVM,
+        public destination: DestinationActiveVM,
         public port: PortDropdownVM,
         public date: string,
         public maxPassengers: number,

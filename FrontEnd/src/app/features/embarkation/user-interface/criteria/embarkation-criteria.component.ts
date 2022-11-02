@@ -8,7 +8,7 @@ import { Title } from '@angular/platform-browser'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DestinationDropdownVM } from './../../../destinations/classes/view-models/destination-dropdown-vm'
+import { DestinationActiveVM } from '../../../destinations/classes/view-models/destination-active-vm'
 import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -44,8 +44,8 @@ export class EmbarkationCriteriaComponent {
     public parentUrl = '/'
 
     public isAutoCompleteDisabled = true
-    public destinations: DestinationDropdownVM[] = []
-    public filteredDestinations: Observable<DestinationDropdownVM[]>
+    public destinations: DestinationActiveVM[] = []
+    public filteredDestinations: Observable<DestinationActiveVM[]>
     public ports: PortDropdownVM[] = []
     public filteredPorts: Observable<PortDropdownVM[]>
     public ships: ShipDropdownVM[] = []

@@ -5,9 +5,9 @@ import { Table } from 'primeng/table'
 import { Subject } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
-import { CoachRouteDropdownVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-dropdown-vm'
-import { CustomerDropdownVM } from './../../../customers/classes/view-models/customer-dropdown-vm'
-import { DestinationDropdownVM } from './../../../destinations/classes/view-models/destination-dropdown-vm'
+import { CoachRouteActiveVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-active-vm'
+import { CustomerActiveVM } from '../../../customers/classes/view-models/customer-active-vm'
+import { DestinationActiveVM } from '../../../destinations/classes/view-models/destination-active-vm'
 import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { DriverDropdownVM } from './../../../drivers/classes/view-models/driver-dropdown-vm'
 import { DriverReportService } from '../../classes/driver-report/services/driver-report.service'
@@ -19,7 +19,7 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { PickupPointDropdownVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
+import { PickupPointActiveVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-active-vm'
 import { PortDropdownVM } from './../../../ports/classes/view-models/port-dropdown-vm'
 import { ReservationGroupDto } from '../../classes/dtos/list/reservation-group-dto'
 import { ReservationService } from './../../classes/services/reservation.service'
@@ -55,12 +55,12 @@ export class ReservationListComponent {
     public totals: any[] = []
     public areDestinationsOverbooked = []
 
-    public dropdownCustomers: CustomerDropdownVM[] = []
-    public dropdownDestinations: DestinationDropdownVM[] = []
+    public dropdownCustomers: CustomerActiveVM[] = []
+    public dropdownDestinations: DestinationActiveVM[] = []
     public dropdownDrivers: DriverDropdownVM[] = []
-    public dropdownPickupPoints: PickupPointDropdownVM[] = []
+    public dropdownPickupPoints: PickupPointActiveVM[] = []
     public dropdownPorts: PortDropdownVM[] = []
-    public dropdownCoachRoutes: CoachRouteDropdownVM[] = []
+    public dropdownCoachRoutes: CoachRouteActiveVM[] = []
     public dropdownShips: ShipRouteDropdownVM[] = []
 
     //#endregion
