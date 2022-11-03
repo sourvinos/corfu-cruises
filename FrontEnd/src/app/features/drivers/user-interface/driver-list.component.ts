@@ -1,13 +1,13 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 // Custom
+import { DriverListVM } from '../classes/view-models/driver-list-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { Subject } from 'rxjs'
-import { DriverListVM } from '../classes/view-models/driver-list-vm'
 import { environment } from 'src/environments/environment'
 
 @Component({

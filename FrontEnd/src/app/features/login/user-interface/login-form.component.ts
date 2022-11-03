@@ -1,6 +1,5 @@
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Idle } from '@ng-idle/core'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 // Custom
@@ -46,12 +45,11 @@ export class LoginFormComponent {
     public parentUrl = null
 
     public hidePassword = true
-    public idleState = 'NOT_STARTED'
     public isLoading = new Subject<boolean>()
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private coachRouteService: CoachRouteService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private idle: Idle, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private shipOwnerService: ShipOwnerService) { }
+    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private coachRouteService: CoachRouteService, private customerService: CustomerService, private destinationService: DestinationService, private dialogService: DialogService, private driverService: DriverService, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipService: ShipService, private shipOwnerService: ShipOwnerService) { }
 
     //#region lifecycle hooks
 
@@ -175,11 +173,6 @@ export class LoginFormComponent {
                 this.dialogService.open(this.messageSnackbarService.authenticationFailed(), 'error', ['ok'])
                 break
         }
-    }
-
-    private startIdleTimer(): void {
-        this.idle.watch()
-        this.idleState = 'NOT_IDLE'
     }
 
     //#endregion

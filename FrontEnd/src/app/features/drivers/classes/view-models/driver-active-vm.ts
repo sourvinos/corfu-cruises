@@ -1,4 +1,4 @@
-export interface DriverDropdownVM {
+export interface DriverActiveVM {
 
     id: number
     description: string

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
-import { Driver } from '../models/driver'
+import { DriverActiveVM } from './../view-models/driver-active-vm'
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { environment } from 'src/environments/environment'
 
@@ -16,12 +16,8 @@ export class DriverService extends HttpDataService {
 
     //#region public methods
 
-    getActive(): Observable<Driver[]> {
-        return this.http.get<Driver[]>(environment.apiUrl + '/drivers/getActive')
-    }
-
-    getDetails(name: string): Observable<Driver> {
-        return this.http.get<Driver>(environment.apiUrl + '/drivers/' + name)
+    getActive(): Observable<DriverActiveVM[]> {
+        return this.http.get<DriverActiveVM[]>(environment.apiUrl + '/drivers/getActive')
     }
 
     //#endregion

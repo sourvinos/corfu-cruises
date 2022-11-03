@@ -12,16 +12,6 @@ export const environment = {
         lineB: 'or email at info@corfucruises.com',
         lineC: '© Corfu Cruises 2021, Corfu - Greece'
     },
-    idleSettings: {
-        admins: {
-            idle: 840,
-            timeout: 60
-        },
-        simpleUsers: {
-            idle: 60,
-            timeout: 60
-        }
-    },
     menuIconDirectory: 'assets/images/menu/',
     criteriaIconDirectory: 'assets/images/criteria/',
     isWideScreen: 1920,

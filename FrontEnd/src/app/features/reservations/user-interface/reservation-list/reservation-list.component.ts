@@ -9,7 +9,7 @@ import { CoachRouteActiveVM } from 'src/app/features/coachRoutes/classes/view-mo
 import { CustomerActiveVM } from '../../../customers/classes/view-models/customer-active-vm'
 import { DestinationActiveVM } from '../../../destinations/classes/view-models/destination-active-vm'
 import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
-import { DriverDropdownVM } from './../../../drivers/classes/view-models/driver-dropdown-vm'
+import { DriverActiveVM } from '../../../drivers/classes/view-models/driver-active-vm'
 import { DriverReportService } from '../../classes/driver-report/services/driver-report.service'
 import { DriverService } from 'src/app/features/drivers/classes/services/driver.service'
 import { EmojiService } from './../../../../shared/services/emoji.service'
@@ -57,7 +57,7 @@ export class ReservationListComponent {
 
     public dropdownCustomers: CustomerActiveVM[] = []
     public dropdownDestinations: DestinationActiveVM[] = []
-    public dropdownDrivers: DriverDropdownVM[] = []
+    public dropdownDrivers: DriverActiveVM[] = []
     public dropdownPickupPoints: PickupPointActiveVM[] = []
     public dropdownPorts: PortDropdownVM[] = []
     public dropdownCoachRoutes: CoachRouteActiveVM[] = []

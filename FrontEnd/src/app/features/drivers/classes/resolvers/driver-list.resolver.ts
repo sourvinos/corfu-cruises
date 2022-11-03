@@ -12,11 +12,10 @@ export class DriverListResolver {
     constructor(private driverService: DriverService) { }
 
     resolve(): Observable<ListResolved> {
-        return this.driverService.getAll()
-            .pipe(
-                map((driverList) => new ListResolved(driverList)),
-                catchError((err: any) => of(new ListResolved(null, err)))
-            )
+        return this.driverService.getAll().pipe(
+            map((driverList) => new ListResolved(driverList)),
+            catchError((err: any) => of(new ListResolved(null, err)))
+        )
     }
 
 }

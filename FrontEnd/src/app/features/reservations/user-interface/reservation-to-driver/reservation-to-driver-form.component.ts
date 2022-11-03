@@ -1,7 +1,7 @@
 import { Component, Inject, NgZone } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 // Custom
-import { Driver } from 'src/app/features/drivers/classes/models/driver'
+import { DriverActiveVM } from './../../../drivers/classes/view-models/driver-active-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 
@@ -16,7 +16,7 @@ export class ReservationToDriverComponent {
     //#region variables
 
     private feature = 'assignToDriver'
-    public drivers: Driver[] = []
+    public drivers: DriverActiveVM[] = []
     public selectedDriverId = ''
 
     //#endregion

@@ -10,7 +10,7 @@ import { ButtonClickService } from 'src/app/shared/services/button-click.service
 import { CustomerActiveVM } from '../../../customers/classes/view-models/customer-active-vm'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { DriverDropdownVM } from '../../../drivers/classes/view-models/driver-dropdown-vm'
+import { DriverActiveVM } from '../../../drivers/classes/view-models/driver-active-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
@@ -66,8 +66,8 @@ export class ReservationFormComponent {
     public filteredCustomers: Observable<CustomerActiveVM[]>
     public pickupPoints: PickupPointActiveVM[] = []
     public filteredPickupPoints: Observable<PickupPointActiveVM[]>
-    public filteredDrivers: Observable<DriverDropdownVM[]>
-    public filteredShips: Observable<DriverDropdownVM[]>
+    public filteredDrivers: Observable<DriverActiveVM[]>
+    public filteredShips: Observable<DriverActiveVM[]>
     public filteredPorts: Observable<PortDropdownVM[]>
 
     public passengerDifferenceIcon: string

@@ -7,7 +7,7 @@ import { ButtonClickService } from 'src/app/shared/services/button-click.service
 import { CustomerActiveVM } from 'src/app/features/customers/classes/view-models/customer-active-vm'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { DriverDropdownVM } from 'src/app/features/drivers/classes/view-models/driver-dropdown-vm'
+import { DriverActiveVM } from 'src/app/features/drivers/classes/view-models/driver-active-vm'
 import { EmbarkationCriteriaVM } from '../../classes/view-models/embarkation-criteria-vm'
 import { EmbarkationGroupVM } from '../../classes/view-models/embarkation-group-vm'
 import { EmbarkationPDFService } from '../../classes/services/embarkation-pdf.service'
@@ -47,7 +47,7 @@ export class EmbarkationListComponent {
 
     public dropdownCustomers: CustomerActiveVM[] = []
     public dropdownDestinations: DestinationActiveVM[] = []
-    public dropdownDrivers: DriverDropdownVM[] = []
+    public dropdownDrivers: DriverActiveVM[] = []
     public dropdownPorts: PortDropdownVM[] = []
     public dropdownShips: ShipDropdownVM[] = []
     public dropdownEmbarkationStatuses = []
