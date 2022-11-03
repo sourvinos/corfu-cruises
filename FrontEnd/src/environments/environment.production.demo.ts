@@ -13,6 +13,7 @@ export const environment = {
         lineC: '© Corfu Cruises 2022, Corfu - Greece'
     },
     menuIconDirectory: 'assets/images/menu/',
+    featuresIconDirectory: 'assets/images/features/',
     criteriaIconDirectory: 'assets/images/criteria/',
     isWideScreen: 1920,
     login: {

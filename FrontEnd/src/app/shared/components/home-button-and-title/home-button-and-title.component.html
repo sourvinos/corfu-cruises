@@ -3,6 +3,7 @@
         <span class="material-icons" id="goBack">{{ getIcon() }}</span>
     </button>
     <div id="title">
+        <img *ngIf="featureIcon" id="feature-icon" [src]="getFeatureIcon()">
         <h1>{{ getLabel() }}</h1>
     </div>
 </div>

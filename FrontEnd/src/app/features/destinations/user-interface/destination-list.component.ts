@@ -23,6 +23,7 @@ export class DestinationListComponent {
     private unsubscribe = new Subject<void>()
     private url = 'destinations'
     public feature = 'destinationList'
+    public featureIcon = 'destinations'
     public icon = 'home'
     public parentUrl = '/'
     public records: DestinationListVM[] = []

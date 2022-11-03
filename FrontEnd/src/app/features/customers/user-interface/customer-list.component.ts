@@ -23,6 +23,7 @@ export class CustomerListComponent {
     private unsubscribe = new Subject<void>()
     private url = 'customers'
     public feature = 'customerList'
+    public featureIcon = 'customers'
     public icon = 'home'
     public parentUrl = '/'
     public records: CustomerListVM[] = []

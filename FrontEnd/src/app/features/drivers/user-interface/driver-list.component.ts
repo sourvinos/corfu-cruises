@@ -23,6 +23,7 @@ export class DriverListComponent {
     private unsubscribe = new Subject<void>()
     private url = 'drivers'
     public feature = 'driverList'
+    public featureIcon = 'drivers'
     public icon = 'home'
     public parentUrl = '/'
     public records: DriverListVM[] = []

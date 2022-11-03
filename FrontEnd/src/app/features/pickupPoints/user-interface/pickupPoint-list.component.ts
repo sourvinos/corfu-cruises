@@ -24,6 +24,7 @@ export class PickupPointListComponent {
     private unsubscribe = new Subject<void>()
     private url = 'pickupPoints'
     public feature = 'pickupPointList'
+    public featureIcon = 'pickupPoints'
     public icon = 'home'
     public parentUrl = '/'
     public records: PickupPointListVM[] = []

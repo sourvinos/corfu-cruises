@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core'
+import { environment } from 'src/environments/environment'
 // Custom
 import { MessageLabelService } from '../../services/messages-label.service'
 
@@ -13,6 +14,7 @@ export class HomeButtonAndTitleComponent {
     @Input() feature: string
     @Input() parentUrl: any
     @Input() icon: string
+    @Input() featureIcon: string
     @Input() header: string
 
     constructor(private messageLabelService: MessageLabelService) { }
@@ -23,6 +25,10 @@ export class HomeButtonAndTitleComponent {
 
     public getLabel(): string {
         return this.messageLabelService.getDescription(this.feature, this.header ? this.header : 'header')
+    }
+
+    public getFeatureIcon(): any {
+        return environment.featuresIconDirectory + this.featureIcon + '.svg'
     }
 
 }
