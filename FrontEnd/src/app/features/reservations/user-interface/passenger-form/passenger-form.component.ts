@@ -21,7 +21,7 @@ import { NationalityService } from 'src/app/features/nationalities/classes/servi
 import { PassengerReadDto } from '../../classes/dtos/form/passenger-read-dto'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { GenderDropdownVM } from 'src/app/features/genders/classes/view-models/gender-dropdown-vm'
+import { GenderActiveVM } from 'src/app/features/genders/classes/view-models/gender-active-vm'
 
 @Component({
     selector: 'passenger-form',
@@ -46,8 +46,8 @@ export class PassengerFormComponent {
 
     public isAutoCompleteDisabled = true
 
-    public genders: GenderDropdownVM[] = []
-    public filteredGenders: Observable<GenderDropdownVM[]>
+    public genders: GenderActiveVM[] = []
+    public filteredGenders: Observable<GenderActiveVM[]>
     public nationalities: NationalityDropdownVM[] = []
     public filteredNationalities: Observable<NationalityDropdownVM[]>
 

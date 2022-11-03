@@ -1,13 +1,13 @@
 import { Guid } from 'guid-typescript'
 // Custom
-import { GenderDropdownVM } from 'src/app/features/genders/classes/view-models/gender-dropdown-vm'
+import { GenderActiveVM } from 'src/app/features/genders/classes/view-models/gender-active-vm'
 import { NationalityDropdownVM } from 'src/app/features/nationalities/classes/view-models/nationality-dropdown-vm'
 
 export interface PassengerReadDto {
 
     id: number
     reservationId: Guid
-    gender: GenderDropdownVM
+    gender: GenderActiveVM
     nationality: NationalityDropdownVM
     occupantId: number
     lastname: string

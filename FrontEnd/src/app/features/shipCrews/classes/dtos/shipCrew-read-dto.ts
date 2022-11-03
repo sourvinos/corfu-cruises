@@ -1,11 +1,11 @@
-import { GenderDropdownVM } from 'src/app/features/genders/classes/view-models/gender-dropdown-vm'
+import { GenderActiveVM } from 'src/app/features/genders/classes/view-models/gender-active-vm'
 import { NationalityDropdownVM } from 'src/app/features/nationalities/classes/view-models/nationality-dropdown-vm'
 import { ShipDropdownVM } from 'src/app/features/ships/classes/view-models/ship-dropdown-vm'
 
 export interface ShipCrewReadDto {
 
     id: number
-    gender: GenderDropdownVM
+    gender: GenderActiveVM
     nationality: NationalityDropdownVM
     ship: ShipDropdownVM
     lastname: string

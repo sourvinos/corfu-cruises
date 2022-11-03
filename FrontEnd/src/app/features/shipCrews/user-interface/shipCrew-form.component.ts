@@ -8,7 +8,7 @@ import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { GenderDropdownVM } from '../../genders/classes/view-models/gender-dropdown-vm'
+import { GenderActiveVM } from '../../genders/classes/view-models/gender-active-vm'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
@@ -49,8 +49,8 @@ export class ShipCrewFormComponent {
 
     public isAutoCompleteDisabled = true
 
-    public genders: GenderDropdownVM[] = []
-    public filteredGenders: Observable<GenderDropdownVM[]>
+    public genders: GenderActiveVM[] = []
+    public filteredGenders: Observable<GenderActiveVM[]>
     public nationalities: NationalityDropdownVM[] = []
     public filteredNationalities: Observable<NationalityDropdownVM[]>
     public ships: ShipDropdownVM[] = []

@@ -1,4 +1,4 @@
-export interface GenderDropdownVM {
+export interface GenderActiveVM {
     
     id: number
     description: string

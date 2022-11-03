@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
-import { Gender } from '../models/gender'
+import { GenderActiveVM } from './../view-models/gender-active-vm'
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { environment } from 'src/environments/environment'
 
@@ -16,8 +16,8 @@ export class GenderService extends HttpDataService {
 
     //#region public methods
 
-    getActive(): Observable<Gender[]> {
-        return this.http.get<Gender[]>(environment.apiUrl + '/genders/getActive')
+    public getActive(): Observable<GenderActiveVM[]> {
+        return this.http.get<GenderActiveVM[]>(environment.apiUrl + '/genders/getActive')
     }
 
     //#endregion
