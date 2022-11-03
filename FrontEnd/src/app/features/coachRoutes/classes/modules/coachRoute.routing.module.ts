@@ -11,7 +11,7 @@ import { RouteFormResolver } from '../resolvers/coachRoute-form.resolver'
 const routes: Routes = [
     { path: '', component: CoachRouteListComponent, canActivate: [AuthGuardService], resolve: { coachRouteList: CoachRouteListResolver } },
     { path: 'new', component: CoachRouteFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard] },
-    { path: ':id', component: CoachRouteFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard], resolve: { routeForm: RouteFormResolver } }
+    { path: ':id', component: CoachRouteFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard], resolve: { coachRouteForm: RouteFormResolver } }
 ]
 
 @NgModule({

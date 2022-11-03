@@ -8,12 +8,17 @@
         <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="driver-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="min-width: 10%; width: 10%;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 50%; width: 50%;" pSortableColumn="description">{{ getLabel('headerFullname') }}<p-sortIcon field="description"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 40%; width: 40%;" pSortableColumn="phones">{{ getLabel('headerPhones') }}<p-sortIcon field="phones"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 10%; width: 10%;" pSortableColumn="isActive">{{ getLabel('headerIsActive') }}<p-sortIcon field="isActive"></p-sortIcon>
+                    </th>
+                    <th data-cy="column" style="min-width: 50%; width: 50%;" pSortableColumn="description">{{ getLabel('headerFullname') }}<p-sortIcon field="description"></p-sortIcon>
+                    </th>
+                    <th data-cy="column" style="min-width: 40%; width: 40%;" pSortableColumn="phones">{{ getLabel('headerPhones') }}<p-sortIcon field="phones"></p-sortIcon>
+                    </th>
                 </tr>
                 <tr>
-                    <th style="min-width: 10%; width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
+                    <th style="min-width: 10%; width: 10%;">
+                        <p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter>
+                    </th>
                     <th style="min-width: 50%; width: 50%;"><input data-cy="filter-description" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
                     <th style="min-width: 40%; width: 40%;"><input data-cy="filter-phones" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'phones', 'contains')" [value]="$any(table).filters['phones']?.value"></th>
                 </tr>
@@ -41,10 +46,10 @@
                 <img [src]="getIcon('filter')">
                 <div class="number description">{{ recordsFiltered.length }}</div>
             </div>
-        </div>
-        <div class="button-group">
-            <button data-cy="new" mat-flat-button class="primary" id="new" (click)="newRecord()">{{ getLabel("newButton") }}</button>
+            <div class="button-group">
+                <button data-cy="new" mat-flat-button class="primary" id="new" (click)="newRecord()">{{ getLabel("newButton") }}</button>
+            </div>
         </div>
     </div>
-
+    
 </div>

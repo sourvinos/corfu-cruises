@@ -1,9 +1,9 @@
-import { PortDropdownVM } from '../../../ports/classes/view-models/port-dropdown-vm'
+import { PortActiveVM } from '../../../ports/classes/view-models/port-dropdown-vm'
 
-export interface CoachRouteReadDTO {
+export interface CoachRouteReadDto {
 
     id: number
-    port: PortDropdownVM
+    port: PortActiveVM
     abbreviation: string
     description: string
     hasTransfer: boolean

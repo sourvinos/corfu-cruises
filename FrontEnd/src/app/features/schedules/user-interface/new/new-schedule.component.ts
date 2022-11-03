@@ -20,7 +20,7 @@ import { MessageCalendarService } from 'src/app/shared/services/messages-calenda
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
+import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
 import { ScheduleDeleteVM } from './../../classes/form/schedule-delete-vm'
 import { ScheduleService } from '../../classes/services/schedule.service'
@@ -50,8 +50,8 @@ export class NewScheduleComponent {
     public isAutoCompleteDisabled = true
     public destinations: DestinationActiveVM[]
     public filteredDestinations: Observable<DestinationActiveVM[]>
-    public ports: PortDropdownVM[]
-    public filteredPorts: Observable<PortDropdownVM[]>
+    public ports: PortActiveVM[]
+    public filteredPorts: Observable<PortActiveVM[]>
 
     private periodToDelete = []
     private daysToInsert = []

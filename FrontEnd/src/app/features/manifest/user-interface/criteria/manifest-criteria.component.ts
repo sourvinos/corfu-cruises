@@ -18,7 +18,7 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
+import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
 import { ShipDropdownVM } from '../../../ships/classes/view-models/ship-dropdown-vm'
 import { ShipRoute } from 'src/app/features/shipRoutes/classes/models/shipRoute'
@@ -48,8 +48,8 @@ export class ManifestCriteriaComponent {
     public isAutoCompleteDisabled = true
     public destinations: DestinationActiveVM[] = []
     public filteredDestinations: Observable<DestinationActiveVM[]>
-    public ports: PortDropdownVM[] = []
-    public filteredPorts: Observable<PortDropdownVM[]>
+    public ports: PortActiveVM[] = []
+    public filteredPorts: Observable<PortActiveVM[]>
     public ships: ShipDropdownVM[] = []
     public filteredShips: Observable<ShipDropdownVM[]>
     public shipRoutes: ShipRoute[]

@@ -25,7 +25,7 @@ import { ModalActionResultService } from 'src/app/shared/services/modal-action-r
 import { OkIconService } from '../../classes/services/ok-icon.service'
 import { PassengerWriteDto } from '../../classes/dtos/form/passenger-write-dto'
 import { PickupPointActiveVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-active-vm'
-import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
+import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { ReservationReadDto } from '../../classes/dtos/form/reservation-read-dto'
 import { ReservationService } from '../../classes/services/reservation.service'
 import { ReservationWriteDto } from '../../classes/dtos/form/reservation-write-dto'
@@ -68,7 +68,7 @@ export class ReservationFormComponent {
     public filteredPickupPoints: Observable<PickupPointActiveVM[]>
     public filteredDrivers: Observable<DriverActiveVM[]>
     public filteredShips: Observable<DriverActiveVM[]>
-    public filteredPorts: Observable<PortDropdownVM[]>
+    public filteredPorts: Observable<PortActiveVM[]>
 
     public passengerDifferenceIcon: string
 

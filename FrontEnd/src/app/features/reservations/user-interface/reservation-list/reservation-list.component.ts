@@ -20,7 +20,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PickupPointActiveVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-active-vm'
-import { PortDropdownVM } from './../../../ports/classes/view-models/port-dropdown-vm'
+import { PortActiveVM } from './../../../ports/classes/view-models/port-dropdown-vm'
 import { ReservationGroupDto } from '../../classes/dtos/list/reservation-group-dto'
 import { ReservationService } from './../../classes/services/reservation.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
@@ -59,7 +59,7 @@ export class ReservationListComponent {
     public dropdownDestinations: DestinationActiveVM[] = []
     public dropdownDrivers: DriverActiveVM[] = []
     public dropdownPickupPoints: PickupPointActiveVM[] = []
-    public dropdownPorts: PortDropdownVM[] = []
+    public dropdownPorts: PortActiveVM[] = []
     public dropdownCoachRoutes: CoachRouteActiveVM[] = []
     public dropdownShips: ShipRouteDropdownVM[] = []
 

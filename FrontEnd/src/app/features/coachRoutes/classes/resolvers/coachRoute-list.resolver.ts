@@ -12,11 +12,10 @@ export class CoachRouteListResolver {
     constructor(private coachRouteService: CoachRouteService) { }
 
     resolve(): Observable<ListResolved> {
-        return this.coachRouteService.getAll()
-            .pipe(
-                map((coachRouteList) => new ListResolved(coachRouteList)),
-                catchError((err: any) => of(new ListResolved(null, err)))
-            )
+        return this.coachRouteService.getAll().pipe(
+            map((coachRouteList) => new ListResolved(coachRouteList)),
+            catchError((err: any) => of(new ListResolved(null, err)))
+        )
     }
 
 }

@@ -5,7 +5,7 @@ import { DestinationActiveVM } from '../../../../destinations/classes/view-model
 import { DriverActiveVM } from '../../../../drivers/classes/view-models/driver-active-vm'
 import { PassengerReadDto } from './passenger-read-dto'
 import { PickupPointActiveVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-active-vm'
-import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
+import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { ShipDropdownVM } from 'src/app/features/ships/classes/view-models/ship-dropdown-vm'
 
 export interface ReservationReadDto {
@@ -15,7 +15,7 @@ export interface ReservationReadDto {
     destination: DestinationActiveVM
     driver: DriverActiveVM
     pickupPoint: PickupPointActiveVM
-    port: PortDropdownVM
+    port: PortActiveVM
     ship: ShipDropdownVM
     date: string
     refNo: string

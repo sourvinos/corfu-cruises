@@ -18,7 +18,7 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
-import { PortDropdownVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
+import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { ShipDropdownVM } from 'src/app/features/ships/classes/view-models/ship-dropdown-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
@@ -48,7 +48,7 @@ export class EmbarkationListComponent {
     public dropdownCustomers: CustomerActiveVM[] = []
     public dropdownDestinations: DestinationActiveVM[] = []
     public dropdownDrivers: DriverActiveVM[] = []
-    public dropdownPorts: PortDropdownVM[] = []
+    public dropdownPorts: PortActiveVM[] = []
     public dropdownShips: ShipDropdownVM[] = []
     public dropdownEmbarkationStatuses = []
 

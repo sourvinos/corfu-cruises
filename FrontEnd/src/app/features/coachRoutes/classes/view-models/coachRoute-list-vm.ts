@@ -1,9 +1,8 @@
-export interface CoachRouteWriteDto {
+export interface CoachRouteListVM {
 
     id: number
-    portId: number
-    abbreviation: string
     description: string
+    abbreviation: string
     hasTransfer: boolean
     isActive: boolean
 

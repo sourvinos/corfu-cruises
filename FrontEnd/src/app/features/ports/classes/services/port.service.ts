@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
-import { PortDropdownVM } from '../view-models/port-dropdown-vm'
+import { PortActiveVM } from '../view-models/port-dropdown-vm'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
@@ -16,8 +16,8 @@ export class PortService extends HttpDataService {
 
     //#region public methods
 
-    public getActive(): Observable<PortDropdownVM[]> {
-        return this.http.get<PortDropdownVM[]>(environment.apiUrl + '/ports/getActive')
+    public getActive(): Observable<PortActiveVM[]> {
+        return this.http.get<PortActiveVM[]>(environment.apiUrl + '/ports/getActive')
     }
 
     public createPDF(): Observable<HttpResponse<Blob>> {
