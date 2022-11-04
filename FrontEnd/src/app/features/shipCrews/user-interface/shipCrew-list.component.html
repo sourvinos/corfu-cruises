@@ -1,11 +1,11 @@
 <div id="list">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <home-button-and-title [feature]="feature"[featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
+        <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="shipCrewPoint-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
                     <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
@@ -19,7 +19,7 @@
                     <th style="min-width: 25%; max-width: 25%;">
                         <p-columnFilter style="width: 100%;" field="shipDescription" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown data-cy="filter-ship" [ngModel]="value" [options]="dropdownShips" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                <p-dropdown data-cy="filter-ship" [ngModel]="value" [options]="activeShips" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                     <ng-template let-option pTemplate="item">
                                         <span>{{ option.label }}</span>
                                     </ng-template>
@@ -48,6 +48,16 @@
     </div>
 
     <div id="footer">
+        <div id="filters">
+            <div class="pill">
+                <img [src]="getIcon('total')">
+                <div class="number description">{{ records.length }}</div>
+            </div>
+            <div class="pill">
+                <img [src]="getIcon('filter')">
+                <div class="number description">{{ recordsFiltered.length }}</div>
+            </div>
+        </div>
         <div class="button-group">
             <button data-cy="new" mat-flat-button class="primary" id="new" (click)="newRecord()">{{ getLabel("newButton") }}</button>
         </div>

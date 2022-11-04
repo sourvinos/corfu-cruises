@@ -7,16 +7,15 @@ import { ShipCrewService } from '../services/shipCrew.service'
 
 @Injectable({ providedIn: 'root' })
 
-export class ShipCrewListResolver  {
+export class ShipCrewListResolver {
 
-    constructor(private crewService: ShipCrewService) { }
+    constructor(private shipCrewService: ShipCrewService) { }
 
     resolve(): Observable<ListResolved> {
-        return this.crewService.getAll()
-            .pipe(
-                map((shipCrewList) => new ListResolved(shipCrewList)),
-                catchError((err: any) => of(new ListResolved(null, err)))
-            )
+        return this.shipCrewService.getAll().pipe(
+            map((shipCrewList) => new ListResolved(shipCrewList)),
+            catchError((err: any) => of(new ListResolved(null, err)))
+        )
     }
 
 }

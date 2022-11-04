@@ -11,7 +11,7 @@ import { ShipCrewListResolver } from '../resolvers/shipCrew-list.resolver'
 const routes: Routes = [
     { path: '', component: ShipCrewListComponent, canActivate: [AuthGuardService], resolve: { shipCrewList: ShipCrewListResolver } },
     { path: 'new', component: ShipCrewFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard] },
-    { path: ':id', component: ShipCrewFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard], resolve: { crewForm: ShipCrewFormResolver } }
+    { path: ':id', component: ShipCrewFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard], resolve: { shipCrewForm: ShipCrewFormResolver } }
 ]
 
 @NgModule({
