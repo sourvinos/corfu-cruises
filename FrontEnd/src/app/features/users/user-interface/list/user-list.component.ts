@@ -24,6 +24,7 @@ export class UserListComponent {
     private unsubscribe = new Subject<void>()
     private url = '/users'
     public feature = 'userList'
+    public featureIcon = 'users'
     public icon = 'home'
     public parentUrl = '/'
     public records: UserListVM[] = []

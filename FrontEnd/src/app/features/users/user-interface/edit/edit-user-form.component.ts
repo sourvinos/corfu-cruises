@@ -24,7 +24,7 @@ import { ValidationService } from '../../../../shared/services/validation.servic
 @Component({
     selector: 'edit-user-form',
     templateUrl: './edit-user-form.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css']
+    styleUrls: ['../../../../../assets/styles/forms.css', './edit-user-form.component.css']
 })
 
 export class EditUserFormComponent {
